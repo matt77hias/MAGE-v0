@@ -52,21 +52,11 @@
 3. Reposition the [assets directory](https://github.com/matt77hias/MAGE-Assets) and all of its contents to the `MAGE\MAGE\FPS\bin\<Platform>\<Configuration>\assets` directory. This is required for running the .exe from inside and outside Visual Studio.
 4. Run `MAGE\MAGE\FPS\bin\<Platform>\<Configuration>\FPS.exe` from inside or outside Visual Studio.
 5. Have fun!
- * Sponza scene - buttons:
+ * Sample scene - buttons:
    * mouse: camera
    * arrows (or WASD): movement
    * left shift: vertical down movement
    * right shift: vertical up movement
-   * enter: switch render mode
-   * b: toggle AABB layer
-   * n: toggle wireframe layer
-   * c: switch scene
-   * F1: terminate
- * BRDF scene - buttons: 
-   * up arrow: next model
-   * down arrow: previous model
-   * left arrow: previous BRDF
-   * right arrow: next BRDF
    * c: switch scene
    * F1: terminate
 

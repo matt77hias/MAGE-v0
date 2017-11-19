@@ -220,6 +220,8 @@ namespace mage {
 
 		public:
 
+			static_assert(std::is_base_of< ResourceT, DerivedResourceT >::value);
+
 			//-----------------------------------------------------------------
 			// Constructors and Destructors
 			//-----------------------------------------------------------------

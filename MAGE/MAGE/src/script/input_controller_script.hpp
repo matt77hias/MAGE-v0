@@ -25,25 +25,28 @@ namespace mage::script {
 
 	public:
 
+		static_assert(
+			std::is_base_of< BehaviorScript, OrientationScriptT >::value);
+		static_assert(
+			std::is_base_of< BehaviorScript, MovementScriptT >::value);
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		explicit InputControllerScript(TransformNode *transform);
-		InputControllerScript(
-			const InputControllerScript< OrientationScriptT, MovementScriptT > &script) = delete;
-		InputControllerScript(
-			InputControllerScript< OrientationScriptT, MovementScriptT > &&script);
+		InputControllerScript(const InputControllerScript &script) = delete;
+		InputControllerScript(InputControllerScript &&script);
 		virtual ~InputControllerScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		InputControllerScript< OrientationScriptT, MovementScriptT > &operator=(
-			const InputControllerScript< OrientationScriptT, MovementScriptT > &script) = delete;
-		InputControllerScript< OrientationScriptT, MovementScriptT > &operator=(
-			InputControllerScript< OrientationScriptT, MovementScriptT > &&script) = delete;
+		InputControllerScript &operator=(
+			const InputControllerScript &script) = delete;
+		InputControllerScript &operator=(
+			InputControllerScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

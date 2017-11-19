@@ -20,7 +20,7 @@ namespace mage::script {
 	
 	template< typename SceneT >
 	SwitchSceneScript< SceneT >::SwitchSceneScript(
-		SwitchSceneScript< SceneT > &&script) = default;
+		SwitchSceneScript &&script) = default;
 	
 	template< typename SceneT >
 	SwitchSceneScript< SceneT >::~SwitchSceneScript() = default;

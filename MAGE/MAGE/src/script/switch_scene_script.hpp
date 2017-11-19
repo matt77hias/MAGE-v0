@@ -19,23 +19,23 @@ namespace mage::script {
 
 	public:
 
+		static_assert(std::is_base_of< Scene, SceneT >::value);
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SwitchSceneScript< SceneT >();
-		SwitchSceneScript(const SwitchSceneScript< SceneT > &script) = delete;
-		SwitchSceneScript(SwitchSceneScript< SceneT > &&script);
+		explicit SwitchSceneScript();
+		SwitchSceneScript(const SwitchSceneScript &script) = delete;
+		SwitchSceneScript(SwitchSceneScript &&script);
 		virtual ~SwitchSceneScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SwitchSceneScript< SceneT > &operator=(
-			const SwitchSceneScript< SceneT > &script) = delete;
-		SwitchSceneScript< SceneT > &operator=(
-			SwitchSceneScript< SceneT > &&script) = delete;
+		SwitchSceneScript &operator=(const SwitchSceneScript &script) = delete;
+		SwitchSceneScript &operator=(SwitchSceneScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

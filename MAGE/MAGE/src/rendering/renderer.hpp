@@ -418,7 +418,10 @@ namespace mage {
 
 		/**
 		 Binds the camera buffer of this renderer.
-
+		 
+		 @pre			@a camera is not equal to @c nullptr.
+		 @param[in]		camera
+						A pointer to the camera.
 		 @param[in]		viewport
 						A reference to the viewport.
 		 @param[in]		ss_viewport

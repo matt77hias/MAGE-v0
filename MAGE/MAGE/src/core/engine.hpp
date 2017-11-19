@@ -13,6 +13,7 @@
 #include "scene\scene_manager.hpp"
 #include "utils\timer\timer.hpp"
 #include "ui\main_window.hpp"
+#include "imgui\imgui.hpp"
 
 #include "resource\resource_factory.hpp"
 

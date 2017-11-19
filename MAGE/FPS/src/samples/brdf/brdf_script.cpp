@@ -14,101 +14,116 @@
 namespace mage::script {
 
 	BRDFScript::BRDFScript(CameraSettings *settings,
-		SpriteText *text, const vector< ModelNode * > &models)
-		: m_settings(settings), m_text(text), 
-		m_models(models), m_model_index(0),
-		m_modes(), m_mode_index(0) {
+		const vector< ModelNode * > &models)
+		: m_settings(settings),
+		m_models(models), 
+		m_model_index(0),
+		m_wireframe(false),
+		m_aabb(false),
+		m_material(), 
+		m_tsnm(false), 
+		m_tsnm_texture(ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/tsnm/rock 4.dds")),
+		m_brdf_index(0) {
 
 		Assert(m_settings);
 		Assert(m_text);
 
-		InitModels();
-		InitModes();
+		m_model_names.reserve(models.size());
+		for (const auto &node : m_models) {
+			m_model_names.push_back(node->GetName().c_str());
+			node->Deactivate();
+		}
+		m_models[m_model_index]->Activate();
 	}
 
 	BRDFScript::BRDFScript(BRDFScript &&script) = default;
 
 	BRDFScript::~BRDFScript() = default;
 
-	void BRDFScript::InitModels() noexcept {
-		for (const auto &node : m_models) {
-			node->Deactivate();
-		}
-
-		m_models[0]->Activate();
-	}
-
-	void BRDFScript::InitModes() {
-		const SharedPtr< const Texture > white 
-			= CreateWhiteTexture();
-		const SharedPtr< const Texture > tsnm 
-			= ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/tsnm/rock 4.dds");
-
-		Material mat_emissive;
-		mat_emissive.DissableLightInteraction();
-		mat_emissive.GetBaseColor() = SRGB(1.0f, 0.0f, 0.0f);
-
-		Material mat;
-		mat.GetBaseColor() = SRGB(1.0f, 0.0f, 0.0f);
-		mat.SetRoughness(0.25f);
-		mat.SetMetalness(1.0f);
-		Material mat_tsnm = mat;
-		mat_tsnm.SetNormalTexture(tsnm);
-
-		m_modes.reserve(11);
-		m_modes.emplace_back(L"\n\n\n\n\nEmissive", mat_emissive, BRDFType::Unknown);
-		m_modes.emplace_back(L"\n\n\n\n\nLambertian", mat, BRDFType::Lambertian);
-		m_modes.emplace_back(L"\n\n\n\n\nFrostbite", mat, BRDFType::Frostbite);
-		m_modes.emplace_back(L"\n\n\n\n\nCook-Torrance", mat, BRDFType::CookTorrance);
-		m_modes.emplace_back(L"\n\n\n\n\nBlinn-Phong", mat, BRDFType::BlinnPhong);
-		m_modes.emplace_back(L"\n\n\n\n\nWard-Duer", mat, BRDFType::WardDuer);
-		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Lambertian", mat_tsnm, BRDFType::Lambertian);
-		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Frostbite", mat_tsnm, BRDFType::Frostbite);
-		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Cook-Torrance", mat_tsnm, BRDFType::CookTorrance);
-		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Blinn-Phong", mat_tsnm, BRDFType::BlinnPhong);
-		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Ward-Duer", mat_tsnm, BRDFType::WardDuer);
-		
-		SetMode();
-	}
-
-	void BRDFScript::SetMode() noexcept {
-		const Mode &mode = m_modes[m_mode_index];
-		
-		// Set the material.
-		for (const auto &node : m_models) {
-			*(node->GetModel()->GetMaterial()) = mode.m_material;
-		}
-		
-		// Set the BRDF.
-		m_settings->SetBRDF(mode.m_brdf);
-	}
-
 	void BRDFScript::Update([[maybe_unused]] F64 time) {
-		const Keyboard * const keyboard = Keyboard::Get();
-
-		// Switch model.
-		if (keyboard->GetKeyPress(DIK_UP, false)) {
+		ImGui::Begin("Configuration");
+			
+		if (ImGui::TreeNode("Model")) {
+			// Model
 			m_models[m_model_index]->Deactivate();
-			m_model_index = (m_model_index + 1) % m_models.size();
+			ImGui::ListBox("Model", &m_model_index, 
+				m_model_names.data(), static_cast< int >(m_model_names.size()));
 			m_models[m_model_index]->Activate();
-		} 
-		else if (keyboard->GetKeyPress(DIK_DOWN, false)) {
-			m_models[m_model_index]->Deactivate();
-			m_model_index = std::min(m_model_index - 1, m_models.size() - 1);
-			m_models[m_model_index]->Activate();
+
+			ImGui::Checkbox("Wireframe", &m_wireframe);
+			if (m_wireframe) {
+				m_settings->AddRenderLayer(RenderLayer::Wireframe);
+			}
+			else {
+				m_settings->RemoveRenderLayer(RenderLayer::Wireframe);
+			}
+
+			ImGui::Checkbox("AABB", &m_aabb);
+			if (m_aabb) {
+				m_settings->AddRenderLayer(RenderLayer::AABB);
+			}
+			else {
+				m_settings->RemoveRenderLayer(RenderLayer::AABB);
+			}
+			
+			ImGui::TreePop();
 		}
 
-		// Switch shader.
-		if (keyboard->GetKeyPress(DIK_RIGHT, false)) {
-			m_mode_index = (m_mode_index + 1) % m_modes.size();
-			SetMode();
-		}
-		else if (keyboard->GetKeyPress(DIK_LEFT, false)) {
-			m_mode_index = std::min(m_mode_index - 1, m_modes.size() - 1);
-			SetMode();
-		}
+		if (ImGui::TreeNode("Material")) {
+			// Material: Base Color
+			ImGui::ColorEdit4("Base Color", &(m_material.GetBaseColor().x));
+			
+			// Material: Roughness
+			F32 roughness = m_material.GetRoughness();
+			ImGui::SliderFloat("Roughness", &roughness, 0.0f, 1.0f);
+			m_material.SetRoughness(roughness);
+			
+			// Material: Metalness
+			F32 metalness = m_material.GetMetalness();
+			ImGui::SliderFloat("Metalness", &metalness, 0.0f, 1.0f);
+			m_material.SetMetalness(metalness);
 
-		const Mode &mode = m_modes[m_mode_index];
-		m_text->SetText(mode.m_name.c_str());
+			// Material: Normal Mapping
+			ImGui::Checkbox("Normal mapping", &m_tsnm);
+			if (m_tsnm) {
+				m_material.SetNormalTexture(m_tsnm_texture);
+			}
+			else {
+				m_material.SetNormalTexture(nullptr);
+			}
+
+			// Material: Light Interaction
+			bool light_interaction = m_material.InteractsWithLight();
+			ImGui::Checkbox("Light interaction", &light_interaction);
+			m_material.SetLightInteraction(light_interaction);
+
+			// Material: BRDF
+			if (light_interaction) {
+				static const char *brdf_names[] = {
+					"Lambertian",
+					"Frostbite",
+					"Cook-Torrance",
+					"Blinn-Phong",
+					"Ward-Duer"
+				};
+				static const BRDFType brdfs[] = {
+					BRDFType::Lambertian,
+					BRDFType::Frostbite,
+					BRDFType::CookTorrance,
+					BRDFType::BlinnPhong,
+					BRDFType::WardDuer
+				};
+				ImGui::ListBox("BRDF", &m_brdf_index, 
+					brdf_names, _countof(brdf_names));
+				m_settings->SetBRDF(brdfs[m_brdf_index]);
+			}
+
+			// Set the material.
+			*(m_models[m_model_index]->GetModel()->GetMaterial()) = m_material;
+
+			ImGui::TreePop();
+		}
+	
+		ImGui::End();
 	}
 }

@@ -190,9 +190,10 @@ namespace mage {
 				continue;
 			}
 
+			m_rendering_manager->BeginFrame();
+
 			// Calculate the elapsed time.
 			const F64 delta_time = m_timer->GetDeltaTime();
-
 			// Perform the fixed delta time updates of the current scene.
 			if (m_fixed_delta_time) {
 				fixed_time_budget += delta_time;
@@ -204,7 +205,6 @@ namespace mage {
 			else {
 				m_scene_manager->FixedUpdate();
 			}
-
 			// Perform the non-fixed delta time updates of the current scene.
 			m_scene_manager->Update(delta_time);
 			if (m_scene_manager->IsFinished()) {
@@ -214,9 +214,9 @@ namespace mage {
 				
 			// Render the current scene.
 			m_engine_stats->PrepareRendering();
-			swap_chain->Clear();
 			m_scene_manager->Render();
-			swap_chain->Present();
+
+			m_rendering_manager->EndFrame();
 		}
 
 		return static_cast< int >(msg.wParam);

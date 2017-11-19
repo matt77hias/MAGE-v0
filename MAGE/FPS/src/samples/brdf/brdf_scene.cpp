@@ -80,6 +80,15 @@ namespace mage {
 		model_plane->GetTransform()->SetScale(20.0f);
 		model_sphere->GetTransform()->SetScale(10.0f);
 		model_torus->GetTransform()->SetScale(10.0f);
+
+		model_teapot->SetName("Teapot");
+		model_skull->SetName("Skull");
+		model_cone->SetName("Cone");
+		model_cube->SetName("Cube");
+		model_cylinder->SetName("Cylinder");
+		model_plane->SetName("Plane");
+		model_sphere->SetName("Sphere");
+		model_torus->SetName("Torus");
 		
 		//---------------------------------------------------------------------
 		// Lights
@@ -101,7 +110,6 @@ namespace mage {
 		// Text
 		//---------------------------------------------------------------------
 		auto stats = Create< NormalSpriteTextNode >("stats");
-		auto brdf  = Create< NormalSpriteTextNode >("brdf");
 
 		//---------------------------------------------------------------------
 		// Scripts
@@ -118,6 +126,6 @@ namespace mage {
 		models.push_back(model_plane);
 		models.push_back(model_sphere);
 		models.push_back(model_torus);
-		Create< script::BRDFScript >(camera->GetSettings(), brdf->GetSprite(), models);
+		Create< script::BRDFScript >(camera->GetSettings(), models);
 	}
 }

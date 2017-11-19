@@ -32,6 +32,13 @@
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\imgui\imconfig.hpp" />
+    <ClInclude Include="MAGE\src\imgui\imgui.hpp" />
+    <ClInclude Include="MAGE\src\imgui\imgui_impl_dx11.hpp" />
+    <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp" />
+    <ClInclude Include="MAGE\src\imgui\stb_rect_pack.hpp" />
+    <ClInclude Include="MAGE\src\imgui\stb_textedit.hpp" />
+    <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
@@ -287,6 +294,10 @@
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
     <ClCompile Include="MAGE\src\core\loadable.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
+    <ClCompile Include="MAGE\src\imgui\imgui.cpp" />
+    <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="MAGE\src\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />

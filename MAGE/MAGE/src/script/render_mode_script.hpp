@@ -50,6 +50,9 @@ namespace mage::script {
 
 		CameraSettings * const m_settings;
 		vector< RenderMode > m_render_modes;
-		size_t m_index;
+		vector< const char * > m_render_mode_names;
+		int m_index;
+		bool m_wireframe;
+		bool m_aabb;
 	};
 }

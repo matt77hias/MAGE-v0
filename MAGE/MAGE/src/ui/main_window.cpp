@@ -5,6 +5,7 @@
 
 #include "core\engine.hpp"
 #include "ui\main_window_settings.hpp"
+#include "imgui\imgui_impl_dx11.hpp"
 #include "utils\logging\error.hpp"
 #include "utils\exception\exception.hpp"
 
@@ -33,6 +34,8 @@ namespace mage {
 	[[nodiscard]] LRESULT CALLBACK MainWindow::MainWindowProc(
 		HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 		
+		ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+
 		switch (msg) {
 		
 		case WM_ACTIVATEAPP: {

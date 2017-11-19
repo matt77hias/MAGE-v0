@@ -334,6 +334,12 @@
     <Filter Include="Header Files\loaders\font">
       <UniqueIdentifier>{44afcfd8-0d23-48d9-9fc7-e08846cbb1ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{f7674e16-9496-4272-b5f9-97de57a51a8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\imgui">
+      <UniqueIdentifier>{996cd547-40a5-4a11-a96a-6dae30f2a143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
@@ -1104,6 +1110,27 @@
     <ClInclude Include="MAGE\src\loaders\font\font_tokens.hpp">
       <Filter>Header Files\loaders\font</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\imgui_impl_dx11.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\imgui.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\imconfig.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\stb_rect_pack.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\stb_textedit.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1474,6 +1501,18 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\loaders\font\font_reader.cpp">
       <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\imgui\imgui_impl_dx11.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\imgui\imgui.cpp">
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

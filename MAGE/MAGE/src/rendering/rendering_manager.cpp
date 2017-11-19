@@ -4,6 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
+#include "imgui\imgui_impl_dx11.hpp"
 #include "utils\logging\error.hpp"
 #include "utils\exception\exception.hpp"
 
@@ -71,9 +72,15 @@ namespace mage {
 			         m_device_context.Get(), 
 			         m_display_configuration->GetDisplayWidth(),
 			         m_display_configuration->GetDisplayHeight());
+
+		// Setup ImGui.
+		ImGui_ImplDX11_Init(m_hwindow, m_device.Get(), m_device_context.Get());
 	}
 
 	void RenderingManager::UninitializeSystems() noexcept {
+		// Uninitialize ImGui.
+		ImGui_ImplDX11_Shutdown();
+
 		// Uninitialize the swap chain.
 		m_swap_chain.reset();
 
@@ -130,6 +137,18 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// RenderingManager: Rendering
 	//-------------------------------------------------------------------------
+
+	void RenderingManager::BeginFrame() const {
+		m_swap_chain->Clear();
+		
+		ImGui_ImplDX11_NewFrame();
+	}
+
+	void RenderingManager::EndFrame() const {
+		ImGui::Render();
+		
+		m_swap_chain->Present();
+	}
 
 	void RenderingManager::BindPersistentState() {
 		m_rendering_state_manager->BindPersistentState();

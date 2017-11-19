@@ -18,8 +18,8 @@ namespace mage::script {
 
 	public:
 
-		BRDFScript(CameraSettings *settings,
-			SpriteText *text, const vector< ModelNode * > &models);
+		BRDFScript(CameraSettings *settings, 
+			const vector< ModelNode * > &models);
 
 		BRDFScript(const BRDFScript &script) = delete;
 
@@ -33,40 +33,19 @@ namespace mage::script {
 
 	private:
 
-		struct Mode final {
-
-		public:
-
-			explicit Mode(const wstring &name, 
-				const Material &material, BRDFType brdf)
-				: m_name(name), m_material(material), m_brdf(brdf) {}
-			explicit Mode(wstring &&name, 
-				const Material &material, BRDFType brdf)
-				: m_name(std::move(name)), m_material(material), m_brdf(brdf) {}
-			Mode(const Mode &mode) = default;
-			Mode(Mode &&mode) = default;
-			~Mode() = default;
-
-			Mode &operator=(const Mode &mode) = default;
-			Mode &operator=(Mode &&mode) = default;
-
-			wstring m_name;
-			Material m_material;
-			BRDFType m_brdf;
-		};
-
-		void InitModels() noexcept;
-		void InitModes();
-		void SetMode() noexcept;
-
 		virtual void Update([[maybe_unused]] F64 time) override;
 
 		CameraSettings * const m_settings;
-		SpriteText * const m_text;
 		
 		vector< ModelNode * > m_models;
-		size_t m_model_index;
-		vector< Mode > m_modes;
-		size_t m_mode_index;
+		vector< const char * > m_model_names;
+		int m_model_index;
+		bool m_wireframe;
+		bool m_aabb;
+
+		Material m_material;
+		bool m_tsnm;
+		SharedPtr< const Texture > m_tsnm_texture;
+		int m_brdf_index;
 	};
 }

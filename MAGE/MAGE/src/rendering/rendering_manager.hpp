@@ -178,6 +178,16 @@ namespace mage {
 		}
 
 		/**
+		 Begins a frame.
+		 */
+		void BeginFrame() const;
+		
+		/**
+		 Ends a frame.
+		 */
+		void EndFrame() const;
+
+		/**
 		 Binds the persistent state of this rendering manager.
 
 		 @throws		FormattedException

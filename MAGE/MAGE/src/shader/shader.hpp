@@ -245,7 +245,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to copy.
 		 */
-		Shader(const Shader< ShaderT, PipelineStageT > &shader) = delete;
+		Shader(const Shader &shader) = delete;
 
 		/**
 		 Constructs a shader by moving the given shader.
@@ -253,7 +253,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to move.
 		 */
-		Shader(Shader< ShaderT, PipelineStageT > &&shader);
+		Shader(Shader &&shader);
 
 		/**
 		 Destructs this shader.
@@ -272,8 +272,7 @@ namespace mage {
 		 @return		A reference to the copy of the given shader (i.e. this 
 						shader).
 		 */
-		Shader< ShaderT, PipelineStageT > &operator=(
-			const Shader< ShaderT, PipelineStageT > &shader) = delete;
+		Shader &operator=(const Shader &shader) = delete;
 
 		/**
 		 Moves the given shader to this shader.
@@ -282,8 +281,7 @@ namespace mage {
 						A reference to the shader to move.
 		 @return		A reference to the moved shader (i.e. this shader).
 		 */
-		Shader< ShaderT, PipelineStageT > &operator=(
-			Shader< ShaderT, PipelineStageT > &&shader) = delete;
+		Shader &operator=(Shader &&shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

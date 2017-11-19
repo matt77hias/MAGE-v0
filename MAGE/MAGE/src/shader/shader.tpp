@@ -41,9 +41,8 @@ namespace mage {
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
 	
 	template<>
-	inline void Shader< ID3D11HullShader, Pipeline::HS >
-		::SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader) {
+	inline void HullShader::SetupShader(ID3D11Device5 *device, 
+		const CompiledShader &compiled_shader) {
 		
 		Assert(device);
 
@@ -57,9 +56,8 @@ namespace mage {
 	}
 
 	template<>
-	inline void Shader< ID3D11DomainShader, Pipeline::DS >
-		::SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader) {
+	inline void DomainShader::SetupShader(ID3D11Device5 *device, 
+		const CompiledShader &compiled_shader) {
 
 		Assert(device);
 
@@ -73,9 +71,8 @@ namespace mage {
 	}
 
 	template<>
-	inline void Shader< ID3D11GeometryShader, Pipeline::GS >
-		::SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader) {
+	inline void GeometryShader::SetupShader(ID3D11Device5 *device, 
+		const CompiledShader &compiled_shader) {
 
 		Assert(device);
 
@@ -89,9 +86,8 @@ namespace mage {
 	}
 
 	template<>
-	inline void Shader< ID3D11PixelShader, Pipeline::PS >
-		::SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader) {
+	inline void PixelShader::SetupShader(ID3D11Device5 *device, 
+		const CompiledShader &compiled_shader) {
 
 		Assert(device);
 
@@ -105,9 +101,8 @@ namespace mage {
 	}
 
 	template<>
-	inline void Shader< ID3D11ComputeShader, Pipeline::CS >
-		::SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader) {
+	inline void ComputeShader::SetupShader(ID3D11Device5 *device, 
+		const CompiledShader &compiled_shader) {
 
 		Assert(device);
 

@@ -244,7 +244,7 @@ namespace mage {
 				 @return		A reference to the copy of the given aligned 
 								allocator (i.e. this allocator).
 				 */
-				rebind< DataU > &operator=(const rebind< DataU > &r) = delete;
+				rebind &operator=(const rebind &r) = delete;
 
 				/**
 				 Moves the given allocator to this allocator.
@@ -254,7 +254,7 @@ namespace mage {
 				 @return		A reference to the moved allocator (i.e. 
 								this allocator).
 				 */
-				rebind< DataU > &operator=(rebind< DataU > &&r) = delete;
+				rebind &operator=(rebind &&r) = delete;
 
 			private:
 
@@ -269,7 +269,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the allocator to copy.
 				 */
-				rebind(const rebind< DataU > &r) = delete;
+				rebind(const rebind &r) = delete;
 
 				/**
 				 Constructs an allocator by moving the given aligned 
@@ -278,7 +278,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the allocator to move.
 				 */
-				rebind(rebind< DataU > &&r) = delete;
+				rebind(rebind &&r) = delete;
 
 				/**
 				 Destructs this allocator.
@@ -296,7 +296,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			Allocator(const Allocator< DataT > &allocator) noexcept = default;
+			Allocator(const Allocator &allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator by moving the given allocator.
@@ -304,7 +304,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to move.
 			 */
-			Allocator(Allocator< DataT > &&allocator) noexcept = default;
+			Allocator(Allocator &&allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator from the given allocator.
@@ -335,8 +335,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator< DataT > &operator=(
-				const Allocator< DataT > &allocator) noexcept = delete;
+			Allocator &operator=(const Allocator &allocator) noexcept = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -346,8 +345,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator< DataT > &operator=(
-				Allocator< DataT > &&allocator) noexcept = delete;
+			Allocator &operator=(Allocator &&allocator) noexcept = delete;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -502,7 +500,7 @@ namespace mage {
 							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const Allocator< DataT > &rhs) const noexcept {
+			bool operator==(const Allocator &rhs) const noexcept {
 				return m_memory_arena = rhs.m_memory_arena;
 			}
 
@@ -515,7 +513,7 @@ namespace mage {
 							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const Allocator< DataT > &rhs) const noexcept {
+			bool operator!=(const Allocator &rhs) const noexcept {
 				return m_memory_arena != rhs.m_memory_arena;
 			}
 

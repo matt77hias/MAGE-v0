@@ -16,32 +16,6 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions
-	//-------------------------------------------------------------------------
-
-	/**
-	 A resource map used by a resource pool.
-
-	 @tparam		KeyT
-					The key type.
-	 @tparam		ResourceT
-					The resource type.
-	 */
-	template< typename KeyT, typename ResourceT >
-	using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
-
-	/**
-	 A persistent resource map used by a persistent resource pool.
-
-	 @tparam		KeyT
-					The key type.
-	 @tparam		ResourceT
-					The resource type.
-	 */
-	template< typename KeyT, typename ResourceT >
-	using PersistentResourceMap = map< KeyT, SharedPtr< ResourceT > >;
-
-	//-------------------------------------------------------------------------
 	// ResourcePool
 	//-------------------------------------------------------------------------
 
@@ -73,8 +47,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to copy.
 		 */
-		ResourcePool(
-			const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+		ResourcePool(const ResourcePool &resource_pool) = delete;
 
 		/**
 		 Constructs a resource pool by moving the given resource pool.
@@ -82,7 +55,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool< KeyT, ResourceT > &&resource_pool);
+		ResourcePool(ResourcePool &&resource_pool);
 
 		/**
 		 Destructs this resource pool.
@@ -101,8 +74,7 @@ namespace mage {
 		 @return		A reference to the copy of the given resource pool 
 						(i.e. this resource pool).
 		 */
-		ResourcePool< KeyT, ResourceT > &operator=(
-			const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
 
 		/**
 		 Moves the given resource pool to this resource pool.
@@ -112,8 +84,7 @@ namespace mage {
 		 @return		A reference to the moved resource pool (i.e. this 
 						resource pool).
 		 */
-		ResourcePool< KeyT, ResourceT > &operator=(
-			ResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
+		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -215,13 +186,22 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Type Declarations and Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 A resource map used by a resource pool.
+		 */
+		using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
 		 The resource map of this resource pool.
 		 */
-		ResourceMap< KeyT, ResourceT > m_resource_map;
+		ResourceMap m_resource_map;
 
 		/**
 		 The mutex for accessing the resource map of this resource pool.
@@ -260,7 +240,7 @@ namespace mage {
 							@c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
-			Resource(ResourcePool< KeyT, ResourceT > &resource_pool,
+			Resource(ResourcePool &resource_pool,
 				const KeyT &resource_key, ConstructorArgsT&&... args);
 			
 			/**
@@ -269,7 +249,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to copy.
 			 */
-			Resource(const Resource< DerivedResourceT > &resource) = delete;
+			Resource(const Resource &resource) = delete;
 
 			/**
 			 Constructs a resource by moving the given resource poolentry .
@@ -277,7 +257,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to move.
 			 */
-			Resource(Resource< DerivedResourceT > &&resource);
+			Resource(Resource &&resource);
 
 			/**
 			 Destructs this resource.
@@ -296,8 +276,7 @@ namespace mage {
 			 @return		A reference to the copy of the given resource (i.e. 
 							this resource).
 			 */
-			Resource< DerivedResourceT > &operator=(
-				const Resource< DerivedResourceT > &resource) = delete;
+			Resource &operator=(const Resource &resource) = delete;
 			
 			/**
 			 Moves the given resource to this resource.
@@ -307,8 +286,7 @@ namespace mage {
 			 @return		A reference to the moved resource (i.e. this 
 							resource).
 			 */
-			Resource< DerivedResourceT > &operator=(
-				Resource< DerivedResourceT > &&resource) = delete;
+			Resource &operator=(Resource &&resource) = delete;
 
 		private:
 
@@ -319,7 +297,7 @@ namespace mage {
 			/**
 			 A reference to the resource pool map containing this resource.
 			 */
-			ResourcePool< KeyT, ResourceT > &m_resource_pool;
+			ResourcePool &m_resource_pool;
 
 			/**
 			 The key of this resource in the resource pool map containing
@@ -363,7 +341,7 @@ namespace mage {
 						A reference to the persistent resource pool to copy.
 		 */
 		PersistentResourcePool(
-			const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+			const PersistentResourcePool &resource_pool) = delete;
 
 		/**
 		 Constructs a persistent resource pool by moving the given persistent 
@@ -372,8 +350,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(
-			PersistentResourcePool< KeyT, ResourceT > &&resource_pool);
+		PersistentResourcePool(PersistentResourcePool &&resource_pool);
 
 		/**
 		 Destructs this persistent resource pool.
@@ -393,8 +370,8 @@ namespace mage {
 		 @return		A reference to the copy of the given persistent resource 
 						pool (i.e. this persistent resource pool).
 		 */
-		PersistentResourcePool< KeyT, ResourceT > &operator=(
-			const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+		PersistentResourcePool &operator=(
+			const PersistentResourcePool &resource_pool) = delete;
 
 		/**
 		 Moves the given persistent resource pool to this persistent resource 
@@ -405,8 +382,8 @@ namespace mage {
 		 @return		A reference to the moved persistent resource pool (i.e. 
 						this persistent resource pool).
 		 */
-		PersistentResourcePool< KeyT, ResourceT > &operator=(
-			PersistentResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
+		PersistentResourcePool &operator=(
+			PersistentResourcePool &&resource_pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -510,13 +487,22 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Type Declarations and Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 A resource map used by a persistent resource pool.
+		 */
+		using ResourceMap = map< KeyT, SharedPtr< ResourceT > >;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
 		 The persistent resource map of this persistent resource pool.
 		 */
-		PersistentResourceMap< KeyT, ResourceT > m_resource_map;
+		ResourceMap m_resource_map;
 
 		/**
 		 The mutex for accessing the persistent resource map of this persistent 

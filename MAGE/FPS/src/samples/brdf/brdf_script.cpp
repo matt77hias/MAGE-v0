@@ -26,7 +26,6 @@ namespace mage::script {
 		m_brdf_index(0) {
 
 		Assert(m_settings);
-		Assert(m_text);
 
 		m_model_names.reserve(models.size());
 		for (const auto &node : m_models) {

@@ -34,8 +34,7 @@ namespace mage {
 	}
 
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >::Shader(
-		Shader< ShaderT, PipelineStageT > &&shader) = default;
+	Shader< ShaderT, PipelineStageT >::Shader(Shader &&shader) = default;
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;

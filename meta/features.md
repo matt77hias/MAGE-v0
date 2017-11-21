@@ -127,3 +127,6 @@
 * Normal transformations
 * Sprite transformations
 * Texture transformations
+
+### GUI
+* ImGui integration

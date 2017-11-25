@@ -6,16 +6,8 @@
 namespace mage {
 
 	template< typename SpriteT >
-	template< typename... ConstructorArgsT >
-	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(
-		string name, ConstructorArgsT&&... args)
-		: SpriteNode(std::move(name),
-			MakeUnique< SpriteT >(std::forward< ConstructorArgsT >(args)...)) {}
-
-	template< typename SpriteT >
-	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(
-		string name, UniquePtr< SpriteT > &&sprite)
-		: SpriteNode(std::move(name), std::move(sprite)) {}
+	DerivedSpriteNode< SpriteT >::DerivedSpriteNode()
+		: SpriteNode(MakeUnique< SpriteT >()) {}
 
 	template< typename SpriteT >
 	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(

@@ -95,29 +95,29 @@ namespace mage {
 		typename std::enable_if_t< std::is_base_of< BehaviorScript, T >::value, T * >
 			Create(ConstructorArgsT&&... args);
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< CameraNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< AmbientLightNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< DirectionalLightNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< OmniLightNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< SpotLightNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
-		template< typename T, typename... ConstructorArgsT >
+		template< typename T >
 		typename std::enable_if_t< std::is_base_of< SpriteNode, T >::value, T * >
-			Create(ConstructorArgsT&&... args);
+			Create();
 
 		ModelNode *CreateModel(const ModelDescriptor &desc);
 		

@@ -51,7 +51,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCameraNode >("camera");
+		auto camera = Create< PerspectiveCameraNode >();
 		camera->GetTransform()->SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
@@ -118,7 +118,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto spot_light = Create< SpotLightNode >("light");
+		auto spot_light = Create< SpotLightNode >();
 		spot_light->GetTransform()->SetTranslationY(15.0f);
 		spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
 		spot_light->GetLight()->SetRange(20.0f);
@@ -126,12 +126,12 @@ namespace mage {
 		spot_light->GetLight()->SetIntensity(40.0f);
 		spot_light->GetLight()->EnableShadows();
 
-		auto light = Create< SpotLightNode >("light");
+		auto light = Create< SpotLightNode >();
 		light->GetLight()->SetRange(5.0f);
 		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(light);
 
-		auto directional_light = Create< DirectionalLightNode >("light");
+		auto directional_light = Create< DirectionalLightNode >();
 		directional_light->GetTransform()->SetTranslation(20.0f, 20.0f, 0.0f);
 		directional_light->GetTransform()->SetRotationZ(XM_PIDIV4);
 		directional_light->GetLight()->SetRadiance(4.0f);
@@ -139,7 +139,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImageNode >("logo");
+		auto logo = Create< SpriteImageNode >();
 		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
@@ -147,7 +147,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		auto text = Create< NormalSpriteTextNode >("stats");
+		auto text = Create< NormalSpriteTextNode >();
 
 		//---------------------------------------------------------------------
 		// Scripts

@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	CameraNode::CameraNode(string name, UniquePtr< Camera > &&camera)
-		: Node(std::move(name)), 
+	CameraNode::CameraNode(UniquePtr< Camera > &&camera)
+		: Node("Camera"), 
 		m_camera(std::move(camera)),
 		m_settings(MakeUnique< CameraSettings >()), 
 		m_viewport() {

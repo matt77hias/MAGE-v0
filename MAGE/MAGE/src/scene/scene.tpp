@@ -20,65 +20,59 @@ namespace mage {
 		return ptr;
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< CameraNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		UniquePtr< T > uptr
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		UniquePtr< T > uptr = MakeUnique< T >();
 		T * const ptr = uptr.get();
 		m_cameras.push_back(std::move(uptr));
 		return ptr;
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< AmbientLightNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		m_ambient_light
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		m_ambient_light = MakeUnique< T >();
 		return m_ambient_light.get();
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< DirectionalLightNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		UniquePtr< T > uptr
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		UniquePtr< T > uptr = MakeUnique< T >();
 		T * const ptr = uptr.get();
 		m_directional_lights.push_back(std::move(uptr));
 		return ptr;
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< OmniLightNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		UniquePtr< T > uptr
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		UniquePtr< T > uptr = MakeUnique< T >();
 		T * const ptr = uptr.get();
 		m_omni_lights.push_back(std::move(uptr));
 		return ptr;
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< SpotLightNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		UniquePtr< T > uptr
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		UniquePtr< T > uptr = MakeUnique< T >();
 		T * const ptr = uptr.get();
 		m_spot_lights.push_back(std::move(uptr));
 		return ptr;
 	}
 
-	template< typename T, typename... ConstructorArgsT >
+	template< typename T >
 	inline typename std::enable_if_t< std::is_base_of< SpriteNode, T >::value, T * >
-		Scene::Create(ConstructorArgsT&&... args) {
+		Scene::Create() {
 
-		UniquePtr< T > uptr
-			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		UniquePtr< T > uptr = MakeUnique< T >();
 		T * const ptr = uptr.get();
 		m_sprites.push_back(std::move(uptr));
 		return ptr;

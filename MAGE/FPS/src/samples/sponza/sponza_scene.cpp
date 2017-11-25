@@ -51,14 +51,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCameraNode >("camera");
+		auto camera = Create< PerspectiveCameraNode >();
 		camera->GetTransform()->SetTranslationY(2.0f);
 		//camera->GetCamera()->SetLensRadius(0.01f);
 		//camera->GetCamera()->SetFocalLength(3.0f);
 		//camera->GetCamera()->SetMaximumCoCRadius(2.0f);
 		//camera->GetViewport().SetNormalizedWidth(0.5f);
 
-		//auto camera2 = Create< PerspectiveCameraNode >("camera");
+		//auto camera2 = Create< PerspectiveCameraNode >();
 		//camera2->GetTransform()->SetTranslationY(2.0f);
 		//camera2->GetViewport().SetNormalizedTopLeft(0.5f, 0.0f);
 		//camera2->GetViewport().SetNormalizedWidth(0.5f);
@@ -83,7 +83,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLightNode >("light");
+		auto omni_light = Create< OmniLightNode >();
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetRange(5.0f);
 		omni_light->GetLight()->SetIntensity(4.0f);
@@ -97,7 +97,7 @@ namespace mage {
 		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
 		//spot_light->GetLight()->EnableShadows();
 
-		auto light = Create< SpotLightNode >("light");
+		auto light = Create< SpotLightNode >();
 		light->GetLight()->SetRange(5.0f);
 		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(light);
@@ -105,7 +105,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImageNode >("logo");
+		auto logo = Create< SpriteImageNode >();
 		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
@@ -113,7 +113,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		auto text = Create< NormalSpriteTextNode >("stats");
+		auto text = Create< NormalSpriteTextNode >();
 
 		//---------------------------------------------------------------------
 		// Scripts

@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteNode::SpriteNode(string name, UniquePtr< Sprite > &&sprite)
-		: Node(std::move(name)), 
+	SpriteNode::SpriteNode(UniquePtr< Sprite > &&sprite)
+		: Node("Sprite"), 
 		m_sprite(std::move(sprite)) {
 		
 		Assert(m_sprite);

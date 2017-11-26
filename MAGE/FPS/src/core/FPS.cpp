@@ -34,11 +34,8 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
 	
 	if (engine->IsLoaded()) {
-		// Create the scene.
-		UniquePtr< Scene > scene = MakeUnique< ForrestScene >();
-
 		// Run the engine.
-		return engine->Run(std::move(scene), nCmdShow);
+		return engine->Run(MakeUnique< ForrestScene >(), nCmdShow);
 	}
 
 	return 0;

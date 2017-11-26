@@ -92,18 +92,9 @@ namespace mage {
 		 Constructs a RGB spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit RGB(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a RGB spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit RGB(XMFLOAT3 &&v) noexcept
+		explicit RGB(XMFLOAT3 v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -206,18 +197,9 @@ namespace mage {
 		 Constructs a sRGB spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit SRGB(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a sRGB spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit SRGB(XMFLOAT3 &&v) noexcept
+		explicit SRGB(XMFLOAT3 v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -320,18 +302,9 @@ namespace mage {
 		 Constructs a XYZ spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit XYZ(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a XYZ spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit XYZ(XMFLOAT3 &&v) noexcept
+		explicit XYZ(XMFLOAT3 v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -459,18 +432,9 @@ namespace mage {
 		 Constructs a RGBA spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit RGBA(const XMFLOAT4 &v) noexcept
-			: XMFLOAT4(v) {}
-
-		/**
-		 Constructs a RGBA spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit RGBA(XMFLOAT4 &&v) noexcept
+		explicit RGBA(XMFLOAT4 v) noexcept
 			: XMFLOAT4(std::move(v)) {}
 
 		/**
@@ -586,18 +550,9 @@ namespace mage {
 		 Constructs a sRGBA spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit SRGBA(const XMFLOAT4 &v) noexcept
-			: XMFLOAT4(v) {}
-
-		/**
-		 Constructs a sRGBA spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit SRGBA(XMFLOAT4 &&v) noexcept
+		explicit SRGBA(XMFLOAT4 v) noexcept
 			: XMFLOAT4(std::move(v)) {}
 
 		/**
@@ -713,18 +668,9 @@ namespace mage {
 		 Constructs a XYZA spectrum from the given components.
 
 		 @param[in]		v
-						A reference to the components to copy.
+						The components.
 		 */
-		explicit XYZA(const XMFLOAT4 &v) noexcept
-			: XMFLOAT4(v) {}
-
-		/**
-		 Constructs a XYZA spectrum by moving the given components.
-
-		 @param[in]		v
-						A reference to the components to move.
-		 */
-		explicit XYZA(XMFLOAT4 &&v) noexcept
+		explicit XYZA(XMFLOAT4 v) noexcept
 			: XMFLOAT4(std::move(v)) {}
 
 		/**

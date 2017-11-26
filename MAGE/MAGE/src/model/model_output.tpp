@@ -15,8 +15,8 @@
 namespace mage {
 
 	template < typename VertexT >
-	inline void ModelOutput< VertexT >::AddModelPart(
-		ModelPart model_part, bool create_bounding_volumes) {
+	inline void ModelOutput< VertexT >::AddModelPart(ModelPart model_part, 
+		bool create_bounding_volumes) {
 		
 		m_model_parts.push_back(std::move(model_part));
 		
@@ -36,18 +36,9 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	inline void ModelOutput< VertexT >::StartModelPart(
-		string child, string parent,
-		XMFLOAT3 translation, XMFLOAT3 rotation, XMFLOAT3 scale) {
-		
-		ModelPart model_part;
-		model_part.m_child       = std::move(child);
-		model_part.m_parent      = std::move(parent);
-		model_part.m_translation = std::move(translation);
-		model_part.m_rotation    = std::move(rotation);
-		model_part.m_scale       = std::move(scale);
+	inline void ModelOutput< VertexT >::StartModelPart(ModelPart model_part) {
 		model_part.m_start_index = static_cast< U32 >(m_index_buffer.size());
-
+		
 		m_model_parts.push_back(std::move(model_part));
 	}
 

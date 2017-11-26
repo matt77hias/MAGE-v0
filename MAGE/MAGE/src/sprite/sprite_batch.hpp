@@ -62,9 +62,12 @@ namespace mage {
 		 Constructs a sprite info.
 		 */
 		SpriteInfo()
-			: m_source{}, m_destination{},
-			m_color{}, m_origin_rotation_depth{},
-			m_texture(nullptr), m_flags(0) {}
+			: m_source{}, 
+			m_destination{},
+			m_color{}, 
+			m_origin_rotation_depth{},
+			m_texture(nullptr), 
+			m_flags(0) {}
 
 		/**
 		 Constructs a sprite info from the given sprite info.
@@ -321,22 +324,11 @@ namespace mage {
 		 Sets the viewport of this sprite batch to the given viewport.
 
 		 @param[in]		viewport
-						A reference to the viewport.
+						The viewport.
 		 */
-		void SetViewport(const D3D11_VIEWPORT &viewport) noexcept {
+		void SetViewport(D3D11_VIEWPORT viewport) noexcept {
 			m_viewport_set = true;
-			m_viewport = viewport;
-		}
-
-		/**
-		 Sets the viewport of this sprite batch to the given viewport.
-
-		 @param[in]		viewport
-						A reference to the viewport.
-		 */
-		void SetViewport(D3D11_VIEWPORT &&viewport) noexcept {
-			m_viewport_set = true;
-			m_viewport = std::move(viewport);
+			m_viewport     = std::move(viewport);
 		}
 
 	private:

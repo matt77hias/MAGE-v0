@@ -103,9 +103,12 @@ namespace mage {
 			transform->SetScale(model_part->m_scale);
 
 			// Create a material.
-			Material material = (model_part->HasDefaultMaterial()) ? 
-				default_material : *desc.GetMaterial(model_part->m_material);
-			*(node->GetModel()->GetMaterial()) = std::move(material);
+			if (model_part->HasDefaultMaterial()) {
+				*(node->GetModel()->GetMaterial()) = default_material;
+			}
+			else {
+				*(node->GetModel()->GetMaterial()) = *(desc.GetMaterial(model_part->m_material));
+			}
 
 			// Add the submodel node to this scene.
 			ModelNode * const ptr = node.get();

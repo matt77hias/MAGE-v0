@@ -82,18 +82,9 @@ namespace mage {
 		 Constructs a set of UV texture coordinates from the given vector.
 
 		 @param[in]		v
-						A reference to the vector to copy.
+						The vector.
 		 */
-		explicit UV(const XMFLOAT2 &v) noexcept
-			: XMFLOAT2(v) {}
-
-		/**
-		 Constructs a set of UV texture coordinates by moving the given vector.
-		 
-		 @param[in]		v
-						A reference to the vector to move.
-		 */
-		explicit UV(XMFLOAT2 &&v) noexcept
+		explicit UV(XMFLOAT2 v) noexcept
 			: XMFLOAT2(std::move(v)) {}
 
 		/**
@@ -136,10 +127,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Point3
 	//-------------------------------------------------------------------------
-
-	// Forward declarations
-	struct Direction3;
-	struct Normal3;
 
 	/**
 	 A struct of points in 3D space.
@@ -191,18 +178,9 @@ namespace mage {
 		 Constructs a point from the given vector.
 
 		 @param[in]		v
-						A reference to the vector to copy.
+						The vector.
 		 */
-		explicit Point3(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a point by moving the given vector.
-
-		 @param[in]		v
-						A reference to the vector to move.
-		 */
-		explicit Point3(XMFLOAT3 &&v) noexcept
+		explicit Point3(XMFLOAT3 v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -236,122 +214,6 @@ namespace mage {
 
 	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), 
 		"Point3/XMFLOAT3 mismatch");
-
-	//-------------------------------------------------------------------------
-	// Direction3
-	//-------------------------------------------------------------------------
-
-	/**
-	 A struct of directions in 3D space.
-	 */
-	struct Direction3 final : public XMFLOAT3 {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a direction.
-		 */
-		Direction3() noexcept
-			: Direction3(0.0f, 0.0f, 0.0f) {}
-		
-		/**
-		 Constructs a direction from the given coordinates.
-
-		 @param[in]		x
-						The x-coordinate.
-		 @param[in]		y
-						The y-coordinate.
-		 @param[in]		z
-						The z-coordinate.
-		 */
-		Direction3(F32 x, F32 y, F32 z) noexcept
-			: XMFLOAT3(x, y, z) {}
-		
-		/**
-		 Constructs a direction from the given direction.
-
-		 @param[in]		direction
-						A reference to the direction to copy.
-		 */
-		Direction3(const Direction3 &direction) noexcept = default;
-		
-		/**
-		 Constructs a direction by moving the given direction.
-
-		 @param[in]		direction
-						A reference to the direction to move.
-		 */
-		Direction3(Direction3 &&direction) noexcept = default;
-		
-		/**
-		 Constructs a direction from the given normal.
-
-		 @param[in]		normal
-						A reference to the normal to copy.
-		 */
-		Direction3(const Normal3 &normal) noexcept;
-
-		/**
-		 Constructs a direction by moving the given normal.
-
-		 @param[in]		normal
-						A reference to the normal to move.
-		 */
-		Direction3(Normal3 &&normal) noexcept;
-
-		/**
-		 Constructs a direction from the given vector.
-
-		 @param[in]		v
-						A reference to the vector to copy.
-		 */
-		explicit Direction3(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a direction by moving the given vector.
-
-		 @param[in]		v
-						A reference to the vector to move.
-		 */
-		explicit Direction3(XMFLOAT3 &&v) noexcept
-			: XMFLOAT3(std::move(v)) {}
-
-		/**
-		 Constructs a direction.
-		 */
-		~Direction3() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given direction to this direction.
-
-		 @param[in]		direction
-						A reference to the direction to copy.
-		 @return		A reference to the copy of the given direction (i.e. 
-						this direction).
-		 */
-		Direction3 &operator=(const Direction3 &direction) = default;
-		
-		/**
-		 Moves the given direction to this direction.
-
-		 @param[in]		direction
-						A reference to the direction to move.
-		 @return		A reference to the moved direction (i.e. this direction).
-		 */
-		Direction3 &operator=(Direction3 &&direction) = default;
-	};
-
-	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), 
-		"Direction3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Normal3
@@ -408,39 +270,12 @@ namespace mage {
 		Normal3(Normal3 &&normal) noexcept = default;
 		
 		/**
-		 Constructs a normal from the given direction.
-
-		 @param[in]		direction
-						A reference to the direction to copy.
-		 */
-		explicit Normal3(const Direction3 &direction) noexcept
-			: XMFLOAT3(direction) {}
-
-		/**
-		 Constructs a normal by moving the given direction.
-
-		 @param[in]		direction
-						A reference to the direction to move.
-		 */
-		explicit Normal3(Direction3 &&direction) noexcept
-			: XMFLOAT3(std::move(direction)) {}
-		
-		/**
 		 Constructs a normal from the given vector.
 
 		 @param[in]		v
-						A reference to the vector to copy.
+						The vector.
 		 */
-		explicit Normal3(const XMFLOAT3 &v) noexcept
-			: XMFLOAT3(v) {}
-
-		/**
-		 Constructs a normal by moving the given vector.
-
-		 @param[in]		v
-						A reference to the vector to move.
-		 */
-		explicit Normal3(XMFLOAT3 &&v) noexcept
+		explicit Normal3(XMFLOAT3 v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -475,11 +310,105 @@ namespace mage {
 	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), 
 		"Normal3/XMFLOAT3 mismatch");
 
-	inline Direction3::Direction3(const Normal3 &normal) noexcept
-		: XMFLOAT3(normal) {}
-	
-	inline Direction3::Direction3(Normal3 &&normal) noexcept
-		: XMFLOAT3(std::move(normal)) {}
+	//-------------------------------------------------------------------------
+	// Direction3
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of directions in 3D space.
+	 */
+	struct Direction3 final : public XMFLOAT3 {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a direction.
+		 */
+		Direction3() noexcept
+			: Direction3(0.0f, 0.0f, 0.0f) {}
+		
+		/**
+		 Constructs a direction from the given coordinates.
+
+		 @param[in]		x
+						The x-coordinate.
+		 @param[in]		y
+						The y-coordinate.
+		 @param[in]		z
+						The z-coordinate.
+		 */
+		Direction3(F32 x, F32 y, F32 z) noexcept
+			: XMFLOAT3(x, y, z) {}
+		
+		/**
+		 Constructs a direction from the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to copy.
+		 */
+		Direction3(const Direction3 &direction) noexcept = default;
+		
+		/**
+		 Constructs a direction by moving the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to move.
+		 */
+		Direction3(Direction3 &&direction) noexcept = default;
+		
+		/**
+		 Constructs a direction from the given normal.
+
+		 @param[in]		normal
+						The normal.
+		 */
+		Direction3(Normal3 normal) noexcept
+			: XMFLOAT3(std::move(normal)) {}
+
+		/**
+		 Constructs a direction from the given vector.
+
+		 @param[in]		v
+						The vector.
+		 */
+		explicit Direction3(XMFLOAT3 v) noexcept
+			: XMFLOAT3(std::move(v)) {}
+
+		/**
+		 Constructs a direction.
+		 */
+		~Direction3() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given direction to this direction.
+
+		 @param[in]		direction
+						A reference to the direction to copy.
+		 @return		A reference to the copy of the given direction (i.e. 
+						this direction).
+		 */
+		Direction3 &operator=(const Direction3 &direction) = default;
+		
+		/**
+		 Moves the given direction to this direction.
+
+		 @param[in]		direction
+						A reference to the direction to move.
+		 @return		A reference to the moved direction (i.e. this direction).
+		 */
+		Direction3 &operator=(Direction3 &&direction) = default;
+	};
+
+	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), 
+		"Direction3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Utilities
@@ -508,17 +437,6 @@ namespace mage {
 	}
 	
 	/**
-	 Inverts the handness of the given direction.
-
-	 @param[in]		direction
-					A reference to the direction.
-	 @return		The direction with inverted handness.
-	 */
-	inline const Direction3 InvertHandness(const Direction3 &direction) noexcept {
-		return Direction3(direction.x, direction.y, -direction.z);
-	}
-	
-	/**
 	 Inverts the handness of the given normal.
 
 	 @param[in]		normal
@@ -527,5 +445,16 @@ namespace mage {
 	 */
 	inline const Normal3 InvertHandness(const Normal3 &normal) noexcept {
 		return Normal3(normal.x, normal.y, -normal.z);
+	}
+
+	/**
+	 Inverts the handness of the given direction.
+
+	 @param[in]		direction
+					A reference to the direction.
+	 @return		The direction with inverted handness.
+	 */
+	inline const Direction3 InvertHandness(const Direction3 &direction) noexcept {
+		return Direction3(direction.x, direction.y, -direction.z);
 	}
 }

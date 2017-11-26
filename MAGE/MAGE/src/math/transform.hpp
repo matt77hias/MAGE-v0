@@ -31,43 +31,23 @@ namespace mage {
 		 component.
 
 		 @param[in]		translation
-						A reference to the translation component.
+						The translation component.
 		 @param[in]		rotation
-						A reference to the rotation component.
+						The rotation component.
 		 @param[in]		scale
-						A reference to the scale component.
+						The scale component.
 		 */
 		explicit Transform(
-			const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, 
-			const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, 
-			const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
-			: m_translation(translation), 
-			m_rotation(rotation), 
-			m_scale(scale) {
-			
-			SetDirty();
-		}
-		
-		/**
-		 Constructs a transform from the given translation, rotation and scale 
-		 component.
-
-		 @param[in]		translation
-						A reference to the translation component.
-		 @param[in]		rotation
-						A reference to the rotation component.
-		 @param[in]		scale
-						A reference to the scale component.
-		 */
-		explicit Transform(
-			XMFLOAT3 &&translation, XMFLOAT3 &&rotation, XMFLOAT3 &&scale)
+			XMFLOAT3 translation = { 0.0f, 0.0f, 0.0f }, 
+			XMFLOAT3 rotation    = { 0.0f, 0.0f, 0.0f }, 
+			XMFLOAT3 scale       = { 1.0f, 1.0f, 1.0f })
 			: m_translation(std::move(translation)), 
 			m_rotation(std::move(rotation)), 
 			m_scale(std::move(scale)) {
 			
 			SetDirty();
 		}
-
+		
 		/**
 		 Constructs a transform from the given translation, rotation and scale 
 		 component.
@@ -80,7 +60,9 @@ namespace mage {
 						The scale component.
 		 */
 		explicit Transform(
-			FXMVECTOR translation, FXMVECTOR rotation, FXMVECTOR scale)
+			FXMVECTOR translation, 
+			FXMVECTOR rotation, 
+			FXMVECTOR scale)
 			: m_translation(), 
 			m_rotation(), 
 			m_scale() {
@@ -198,25 +180,13 @@ namespace mage {
 		 translation component.
 
 		 @param[in]		translation
-						A reference to the translation component.
+						The translation component.
 		 */
-		void SetTranslation(const XMFLOAT3 &translation) noexcept {
-			m_translation = translation;
-			SetDirty();
-		}
-		
-		/**
-		 Sets the translation component of this transform to the given 
-		 translation component.
-
-		 @param[in]		translation
-						A reference to the translation component.
-		 */
-		void SetTranslation(XMFLOAT3 &&translation) noexcept {
+		void SetTranslation(XMFLOAT3 translation) noexcept {
 			m_translation = std::move(translation);
 			SetDirty();
 		}
-
+		
 		/**
 		 Sets the translation component of this transform to the given 
 		 translation component.
@@ -299,10 +269,9 @@ namespace mage {
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslation(
-				XMVectorGetX(translation), 
-				XMVectorGetY(translation), 
-				XMVectorGetZ(translation));
+			AddTranslation(XMVectorGetX(translation), 
+				           XMVectorGetY(translation), 
+				           XMVectorGetZ(translation));
 		}
 
 		/**
@@ -427,10 +396,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						A reference to the rotation component.
+						The rotation component.
 		 */
-		void SetRotation(const XMFLOAT3 &rotation) noexcept {
-			m_rotation = rotation;
+		void SetRotation(XMFLOAT3 rotation) noexcept {
+			m_rotation = std::move(rotation);
 			SetDirty();
 		}
 
@@ -457,6 +426,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetRotationAroundDirection(
 			FXMVECTOR normal, F32 angle) noexcept {
+
 			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
 			
 			XMFLOAT4X4 rotation;
@@ -543,10 +513,9 @@ namespace mage {
 						The rotation component to add.
 		 */
 		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
-			AddRotation(
-				XMVectorGetX(rotation), 
-				XMVectorGetY(rotation), 
-				XMVectorGetZ(rotation));
+			AddRotation(XMVectorGetX(rotation), 
+				        XMVectorGetY(rotation), 
+				        XMVectorGetZ(rotation));
 		}
 
 		/**
@@ -682,11 +651,10 @@ namespace mage {
 		void XM_CALLCONV AddAndClampRotation(
 			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			AddAndClampRotation(
-				XMVectorGetX(rotation), 
-				XMVectorGetY(rotation), 
-				XMVectorGetZ(rotation), 
-				min_angle, max_angle);
+			AddAndClampRotation(XMVectorGetX(rotation), 
+				                XMVectorGetY(rotation), 
+				                XMVectorGetZ(rotation), 
+				                min_angle, max_angle);
 		}
 
 		/**
@@ -824,25 +792,13 @@ namespace mage {
 		 component.
 
 		 @param[in]		scale
-						A reference to the scale component.
+						The scale component.
 		 */
-		void SetScale(const XMFLOAT3 &scale) noexcept {
-			m_scale = scale;
-			SetDirty();
-		}
-
-		/**
-		 Sets the scale component of this transform to the given scale 
-		 component.
-
-		 @param[in]		scale
-						A reference to the scale component.
-		 */
-		void SetScale(XMFLOAT3 &&scale) noexcept {
+		void SetScale(XMFLOAT3 scale) noexcept {
 			m_scale = std::move(scale);
 			SetDirty();
 		}
-		
+
 		/**
 		 Sets the scale component of this transform to the given scale 
 		 component.
@@ -1120,8 +1076,9 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const CartesianAxesSystem GetParentAxes() const noexcept {
-			return CartesianAxesSystem(
-				GetParentAxisX(), GetParentAxisY(), GetParentAxisZ());
+			return CartesianAxesSystem(GetParentAxisX(), 
+				                       GetParentAxisY(), 
+				                       GetParentAxisZ());
 		}
 		
 		/**

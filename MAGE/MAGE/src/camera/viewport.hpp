@@ -88,27 +88,14 @@ namespace mage {
 		explicit Viewport(F32 width, F32 height, AADescriptor desc)
 			: Viewport(GetMaxViewport(width, height, desc)) {}
 
-		explicit Viewport(const D3D11_VIEWPORT &viewport)
-			: m_viewport(viewport) {}
-		
-		explicit Viewport(D3D11_VIEWPORT &&viewport)
+		explicit Viewport(D3D11_VIEWPORT viewport)
 			: m_viewport(std::move(viewport)) {}
 		
 		Viewport(const Viewport &viewport) = default;
 		
 		Viewport(Viewport &&viewport) = default;
 
-		explicit Viewport(const Viewport &viewport, AADescriptor desc)
-			: Viewport(viewport) {
-
-			const U32 multiplier = GetResolutionMultiplier(desc);
-			m_viewport.TopLeftX *= multiplier;
-			m_viewport.TopLeftY *= multiplier;
-			m_viewport.Width    *= multiplier;
-			m_viewport.Height   *= multiplier;
-		}
-
-		explicit Viewport(Viewport &&viewport, AADescriptor desc)
+		explicit Viewport(Viewport viewport, AADescriptor desc)
 			: Viewport(std::move(viewport)) {
 
 			const U32 multiplier = GetResolutionMultiplier(desc);
@@ -117,7 +104,7 @@ namespace mage {
 			m_viewport.Width    *= multiplier;
 			m_viewport.Height   *= multiplier;
 		}
-		
+
 		~Viewport() = default;
 
 		//---------------------------------------------------------------------
@@ -156,19 +143,9 @@ namespace mage {
 		Sets the viewport of this viewport to the given viewport.
 
 		@param[in]		viewport
-						A reference to the viewport.
+						The viewport.
 		*/
-		void SetViewport(const D3D11_VIEWPORT &viewport) noexcept {
-			m_viewport = viewport;
-		}
-
-		/**
-		 Sets the viewport of this viewport to the given viewport.
-
-		 @param[in]		viewport
-						A reference to the viewport.
-		 */
-		void SetViewport(D3D11_VIEWPORT &&viewport) noexcept {
+		void SetViewport(D3D11_VIEWPORT viewport) noexcept {
 			m_viewport = std::move(viewport);
 		}
 

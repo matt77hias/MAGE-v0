@@ -44,12 +44,7 @@ namespace mage {
 			"%ls: index buffer must be empty.", GetFilename().c_str());
 
 		// Begin current group.
-		m_model_output.StartModelPart(
-			MAGE_MDL_PART_DEFAULT_CHILD, 
-			MAGE_MDL_PART_DEFAULT_PARENT, 
-			XMFLOAT3(0.0f, 0.0f, 0.0f), 
-			XMFLOAT3(0.0f, 0.0f, 0.0f), 
-			XMFLOAT3(1.0f, 1.0f, 1.0f));
+		m_model_output.StartModelPart(ModelPart());
 	}
 
 	template < typename VertexT >
@@ -121,15 +116,20 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJGroup() {
-		string child         = ReadString();
-		string parent        = !HasF32() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
-		XMFLOAT3 translation = ReadFloat3();
-		XMFLOAT3 rotation    = ReadFloat3();
-		XMFLOAT3 scale       = ReadFloat3();
-
+		// End current group.
 		m_model_output.EndModelPart();
-		m_model_output.StartModelPart(std::move(child), std::move(parent),
-			std::move(translation), std::move(rotation), std::move(scale));
+
+		ModelPart model_part;
+		model_part.m_child       = ReadString();
+		if (!HasF32()) {
+			model_part.m_parent  = ReadString();
+		}
+		model_part.m_translation = ReadFloat3();
+		model_part.m_rotation    = ReadFloat3();
+		model_part.m_scale       = ReadFloat3();
+
+		// Begin current group.
+		m_model_output.StartModelPart(std::move(model_part));
 	}
 
 	template < typename VertexT >

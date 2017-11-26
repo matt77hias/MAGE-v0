@@ -295,19 +295,10 @@ namespace mage {
 		/**
 		 Starts the creation of a new model part.
 
-		 @param[in]		child
-						The name.
-		 @param[in]		parent
-						The name of the parent model part.
-		 @param[in]		translation
-						The local translation component.
-		 @param[in]		rotation
-						The local rotation component.
-		 @param[in]		scale
-						The local scale component.
+		 @param[in]		model_part
+						The model part to add.
 		 */
-		void StartModelPart(string child, string parent,
-			XMFLOAT3 translation, XMFLOAT3 rotation, XMFLOAT3 scale);
+		void StartModelPart(ModelPart model_part);
 		
 		/**
 		 Sets the name of the material of the last model part to the given 

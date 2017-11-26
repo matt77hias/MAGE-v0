@@ -44,7 +44,12 @@ namespace mage {
 			"%ls: index buffer must be empty.", GetFilename().c_str());
 
 		// Begin current group.
-		m_model_output.StartModelPart(MAGE_MDL_PART_DEFAULT_CHILD);
+		m_model_output.StartModelPart(
+			MAGE_MDL_PART_DEFAULT_CHILD, 
+			MAGE_MDL_PART_DEFAULT_PARENT, 
+			XMFLOAT3(0.0f, 0.0f, 0.0f), 
+			XMFLOAT3(0.0f, 0.0f, 0.0f), 
+			XMFLOAT3(1.0f, 1.0f, 1.0f));
 	}
 
 	template < typename VertexT >
@@ -116,26 +121,15 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJGroup() {
-		const string child = ReadString();
-		
-		if (MAGE_MDL_PART_DEFAULT_CHILD == child) {
-			
-			ThrowIfFailed(m_model_output.m_index_buffer.empty(),
-				"%ls: line %u: default child name can only be explicitly "
-				"defined before all face definitions.",
-				GetFilename().c_str(), GetCurrentLineNumber());
+		string child         = ReadString();
+		string parent        = !HasF32() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
+		XMFLOAT3 translation = ReadFloat3();
+		XMFLOAT3 rotation    = ReadFloat3();
+		XMFLOAT3 scale       = ReadFloat3();
 
-			return;
-		}
-
-		ThrowIfFailed(!m_model_output.HasModelPart(child),
-			"%ls: line %u: child name redefinition: %s.",
-			GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
-
-		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
-		
 		m_model_output.EndModelPart();
-		m_model_output.StartModelPart(std::move(child), std::move(parent));
+		m_model_output.StartModelPart(std::move(child), std::move(parent),
+			std::move(translation), std::move(rotation), std::move(scale));
 	}
 
 	template < typename VertexT >

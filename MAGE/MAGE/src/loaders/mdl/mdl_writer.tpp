@@ -81,10 +81,23 @@ namespace mage {
 		
 		for (const auto &model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, output_count, "%s %s %s %s %u %u",
-				MAGE_MDL_TOKEN_SUBMODEL, model_part.m_child.c_str(), 
-				model_part.m_parent.c_str(), model_part.m_material.c_str(),
-				model_part.m_start_index, model_part.m_nb_indices);
+			sprintf_s(output, output_count, 
+				"%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
+				MAGE_MDL_TOKEN_SUBMODEL, 
+				model_part.m_child.c_str(), 
+				model_part.m_parent.c_str(),
+				model_part.m_translation.x,
+				model_part.m_translation.y,
+				model_part.m_translation.z,
+				model_part.m_rotation.x,
+				model_part.m_rotation.y,
+				model_part.m_rotation.z,
+				model_part.m_scale.x,
+				model_part.m_scale.y,
+				model_part.m_scale.z,
+				model_part.m_material.c_str(),
+				model_part.m_start_index, 
+				model_part.m_nb_indices);
 			
 			WriteStringLine(output);
 		}

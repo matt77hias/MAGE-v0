@@ -120,7 +120,8 @@ namespace mage {
 			Create();
 
 		ModelNode *CreateModel(const ModelDescriptor &desc);
-		
+		ModelNode *CreateModel(const ModelDescriptor &desc, vector< ModelNode * > &models);
+
 		//-------------------------------------------------------------------------
 		// Member Methods
 		//-------------------------------------------------------------------------

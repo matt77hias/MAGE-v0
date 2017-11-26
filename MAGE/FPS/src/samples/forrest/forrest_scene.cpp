@@ -59,7 +59,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_plane =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl", mesh_desc);
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.obj", mesh_desc);
+		/*
 		auto model_desc_tree1 =
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
 		auto model_desc_tree2 =
@@ -76,16 +77,16 @@ namespace mage {
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4a_lod0.mdl", mesh_desc);
 		auto model_desc_tree8 =
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4b_lod0.mdl", mesh_desc);
-
+		*/
 		auto model_desc_windmill =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/windmill/windmill.mdl", mesh_desc);
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/windmill/w.obj", mesh_desc);
 
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
 		auto model_plane = CreateModel(*model_desc_plane);
 		model_plane->GetTransform()->SetScale(30.0f);
-
+		/*
 		auto model_tree1 = CreateModel(*model_desc_tree1);
 		model_tree1->GetTransform()->SetScale(5.0f);
 		model_tree1->GetTransform()->SetTranslation(-5.0f, 0.0f, -10.0f);
@@ -110,10 +111,11 @@ namespace mage {
 		auto model_tree8 = CreateModel(*model_desc_tree8);
 		model_tree8->GetTransform()->SetScale(5.0f);
 		model_tree8->GetTransform()->SetTranslation(-10.0f, 0.0f, 10.0f);
-
-		auto model_windmill = CreateModel(*model_desc_windmill);
-		model_windmill->GetTransform()->SetScale(10.0f);
-		model_windmill->GetTransform()->SetTranslation(0.0f, -0.75f, 0.0f);
+		*/
+		vector< ModelNode * > models_windmill;
+		auto model_windmill = CreateModel(*model_desc_windmill, models_windmill);
+		//model_windmill->GetTransform()->SetScale(10.0f);
+		//model_windmill->GetTransform()->SetTranslation(0.0f, -0.75f, 0.0f);
 
 		//---------------------------------------------------------------------
 		// Lights
@@ -154,6 +156,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< BRDFScene > >();
 		Create< script::FPSInputControllerScript >(camera->GetTransform());
+		//Create< script::RotationScript >(models_windmill[0]->GetTransform(), 
+		//	script::RotationScript::RotationAxis::X);
 		Create< script::StatsScript >(text->GetSprite());
 		Create< script::RenderModeScript >(camera->GetSettings());
 	}

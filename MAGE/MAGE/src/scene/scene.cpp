@@ -65,6 +65,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ModelNode *Scene::CreateModel(const ModelDescriptor &desc) {
+		vector< ModelNode * > models;
+		return CreateModel(desc, models);
+	}
+
+	ModelNode *Scene::CreateModel(const ModelDescriptor &desc, 
+		vector< ModelNode * > &models) {
 
 		// Create a default material.
 		const Material default_material("material");
@@ -90,13 +96,20 @@ namespace mage {
 										      model_part->m_nb_indices,
 										      model_part->m_aabb, 
 					                          model_part->m_bs);
+			
+			TransformNode * const transform = node->GetTransform();
+			transform->SetTranslation(model_part->m_translation);
+			transform->SetRotation(model_part->m_rotation);
+			transform->SetScale(model_part->m_scale);
+
 			// Create a material.
-			const Material material = (model_part->HasDefaultMaterial()) ? 
+			Material material = (model_part->HasDefaultMaterial()) ? 
 				default_material : *desc.GetMaterial(model_part->m_material);
 			*(node->GetModel()->GetMaterial()) = std::move(material);
 
 			// Add the submodel node to this scene.
 			ModelNode * const ptr = node.get();
+			models.push_back(ptr);
 			m_models.push_back(std::move(node));
 
 			if (model_part->HasDefaultParent()) {
@@ -119,6 +132,7 @@ namespace mage {
 			
 			// Add the root model node to this scene.
 			root = node.get();
+			models.push_back(root);
 			m_models.push_back(std::move(node));
 		}
 

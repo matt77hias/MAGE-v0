@@ -44,21 +44,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_teapot
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.obj",     mesh_desc);
 		auto model_desc_skull
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.mdl",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.obj",       mesh_desc);
 		auto model_desc_cone
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.obj",         mesh_desc);
 		auto model_desc_cube
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.obj",         mesh_desc);
 		auto model_desc_cylinder
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.obj", mesh_desc);
 		auto model_desc_plane
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.obj",       mesh_desc);
 		auto model_desc_sphere
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.obj",     mesh_desc);
 		auto model_desc_torus
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.obj",       mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------

@@ -40,29 +40,16 @@ namespace mage {
 
 		/**
 		 Constructs a model part.
-
-		 @param[in]		child
-						The name.
-		 @param[in]		parent
-						The name of the parent.
-		 @param[in]		start_index
-						The start index.
-		 @param[in]		nb_indices
-						The number of indices.
-		 @param[in]		material
-						The name of the material.
 		 */
-		explicit ModelPart(
-			string child    = MAGE_MDL_PART_DEFAULT_CHILD, 
-			string parent   = MAGE_MDL_PART_DEFAULT_PARENT,
-			U32 start_index = 0, 
-			U32 nb_indices  = 0, 
-			string material = MAGE_MDL_PART_DEFAULT_MATERIAL)
-			: m_child(std::move(child)), 
-			m_parent(std::move(parent)), 
-			m_material(std::move(material)),
-			m_start_index(start_index), 
-			m_nb_indices(nb_indices),
+		ModelPart()
+			: m_child(MAGE_MDL_PART_DEFAULT_CHILD),
+			m_parent(MAGE_MDL_PART_DEFAULT_PARENT),
+			m_translation(0.0f, 0.0f, 0.0f),
+			m_rotation(0.0f, 0.0f, 0.0f),
+			m_scale(1.0f, 1.0f, 1.0f),
+			m_material(MAGE_MDL_PART_DEFAULT_MATERIAL),
+			m_start_index(0), 
+			m_nb_indices(0),
 			m_aabb(), 
 			m_bs() {}
 		
@@ -147,23 +134,46 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Scene Graph
 		//---------------------------------------------------------------------
 
 		/**
 		 The name of this model part.
 		 */
-		const string m_child;
+		string m_child;
 
 		/**
 		 The name of the parent model part of this model part.
 		 */
-		const string m_parent;
+		string m_parent;
+
+		/**
+		 The local translation component of this model part.
+		 */
+		XMFLOAT3 m_translation;
+
+		/**
+		 The local rotation component of this model part.
+		 */
+		XMFLOAT3 m_rotation;
+
+		/**
+		 The local scale component of this model part.
+		 */
+		XMFLOAT3 m_scale;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Material
+		//---------------------------------------------------------------------
 
 		/**
 		 The name of the material of this model part.
 		 */
 		string m_material;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Mesh
+		//---------------------------------------------------------------------
 
 		/**
 		 The start index of this model part in the mesh of the corresponding 
@@ -176,6 +186,10 @@ namespace mage {
 		 corresponding model.
 		 */
 		U32 m_nb_indices;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Bounding Volumes
+		//---------------------------------------------------------------------
 
 		/**
 		 The AABB of this model part.
@@ -261,12 +275,12 @@ namespace mage {
 		 Adds a model part.
 
 		 @param[in]		model_part
-						A reference to the model part to add.
+						The model part to add.
 		 @param[in]		create_bounding_volumes
 						A flag indicating whether bounding volumes must be 
 						created for the given model part.
 		 */
-		void AddModelPart(ModelPart &&model_part, 
+		void AddModelPart(ModelPart model_part, 
 			bool create_bounding_volumes = true);
 
 		/**
@@ -285,9 +299,15 @@ namespace mage {
 						The name.
 		 @param[in]		parent
 						The name of the parent model part.
+		 @param[in]		translation
+						The local translation component.
+		 @param[in]		rotation
+						The local rotation component.
+		 @param[in]		scale
+						The local scale component.
 		 */
-		void StartModelPart(string child, 
-			string parent = MAGE_MDL_PART_DEFAULT_PARENT);
+		void StartModelPart(string child, string parent,
+			XMFLOAT3 translation, XMFLOAT3 rotation, XMFLOAT3 scale);
 		
 		/**
 		 Sets the name of the material of the last model part to the given 

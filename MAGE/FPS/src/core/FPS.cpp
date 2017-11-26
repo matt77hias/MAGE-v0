@@ -1,5 +1,4 @@
-#include "samples\brdf\brdf_scene.hpp"
-#include "samples\sponza\sponza_scene.hpp"
+#include "samples\forrest\forrest_scene.hpp"
 
 using namespace mage;
 
@@ -36,8 +35,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	
 	if (engine->IsLoaded()) {
 		// Create the scene.
-		//UniquePtr< Scene > scene = MakeUnique< BRDFScene >();
-		UniquePtr< Scene > scene = MakeUnique< SponzaScene >();
+		UniquePtr< Scene > scene = MakeUnique< ForrestScene >();
 
 		// Run the engine.
 		return engine->Run(std::move(scene), nCmdShow);

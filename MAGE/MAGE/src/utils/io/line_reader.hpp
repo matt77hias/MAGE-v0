@@ -314,7 +314,7 @@ namespace mage {
 						There is no next token or the next token does not 
 						represent a @c XMFLOAT2.
 		 */
-		const XMFLOAT2 ReadFloat2();
+		const XMFLOAT2 ReadF32x2();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT3.
@@ -325,7 +325,7 @@ namespace mage {
 						There is no next token or the next token does not 
 						represent a @c XMFLOAT3.
 		 */
-		const XMFLOAT3 ReadFloat3();
+		const XMFLOAT3 ReadF32x3();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT4.
@@ -336,7 +336,7 @@ namespace mage {
 						There is no next token or the next token does not 
 						represent a @c XMFLOAT4.
 		*/
-		const XMFLOAT4 ReadFloat4();
+		const XMFLOAT4 ReadF32x4();
 		
 		/**
 		 Checks whether this line reader has a next token.

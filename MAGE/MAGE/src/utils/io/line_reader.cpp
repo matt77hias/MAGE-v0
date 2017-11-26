@@ -378,7 +378,7 @@ namespace mage {
 	F32 LineReader::ReadF32() {
 		F32 result;
 		const TokenResult token_result 
-			= mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadF32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -401,7 +401,7 @@ namespace mage {
 	F64 LineReader::ReadF64() {
 		F64 result;
 		const TokenResult token_result 
-			= mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadF64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -423,10 +423,10 @@ namespace mage {
 		}
 	}
 	
-	const XMFLOAT2 LineReader::ReadFloat2() {
+	const XMFLOAT2 LineReader::ReadF32x2() {
 		XMFLOAT2 result;
 		const TokenResult token_result 
-			= mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadF32x2(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -448,10 +448,10 @@ namespace mage {
 		}
 	}
 	
-	const XMFLOAT3 LineReader::ReadFloat3() {
+	const XMFLOAT3 LineReader::ReadF32x3() {
 		XMFLOAT3 result;
 		const TokenResult token_result 
-			= mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadF32x3(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -473,10 +473,10 @@ namespace mage {
 		}
 	}
 	
-	const XMFLOAT4 LineReader::ReadFloat4() {
+	const XMFLOAT4 LineReader::ReadF32x4() {
 		XMFLOAT4 result;
 		const TokenResult token_result 
-			= mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadF32x4(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		

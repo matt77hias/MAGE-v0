@@ -77,9 +77,9 @@ namespace mage {
 		ModelPart model_part;
 		model_part.m_child       = ReadString();
 		model_part.m_parent      = ReadString();
-		model_part.m_translation = ReadFloat3();
-		model_part.m_rotation    = ReadFloat3();
-		model_part.m_scale       = ReadFloat3();
+		model_part.m_translation = ReadF32x3();
+		model_part.m_rotation    = ReadF32x3();
+		model_part.m_scale       = ReadF32x3();
 		model_part.m_material    = ReadString();
 		model_part.m_start_index = ReadU32();
 		model_part.m_nb_indices  = ReadU32();

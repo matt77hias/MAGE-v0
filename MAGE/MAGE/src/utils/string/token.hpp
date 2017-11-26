@@ -886,7 +886,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to a @c F32 succeeded or not.
 	 */
-	TokenResult ReadFloat(char *str, char **context, F32 &result, 
+	TokenResult ReadF32(char *str, char **context, F32 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
@@ -911,7 +911,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to a @c F64 succeeded or not.
 	 */
-	TokenResult ReadDouble(char *str, char **context, F64 &result, 
+	TokenResult ReadF64(char *str, char **context, F64 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
@@ -937,7 +937,7 @@ namespace mage {
 					next token in the given string to a @c XMFLOAT2 succeeded 
 					or not.
 	 */
-	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, 
+	TokenResult ReadF32x2(char *str, char **context, XMFLOAT2 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
@@ -963,7 +963,7 @@ namespace mage {
 					next token in the given string to a @c XMFLOAT3 succeeded 
 					or not.
 	 */
-	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, 
+	TokenResult ReadF32x3(char *str, char **context, XMFLOAT3 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
@@ -989,7 +989,7 @@ namespace mage {
 					next token in the given string to a @c XMFLOAT4 succeeded 
 					or not.
 	*/
-	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, 
+	TokenResult ReadF32x4(char *str, char **context, XMFLOAT4 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 #pragma endregion

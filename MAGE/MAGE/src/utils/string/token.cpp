@@ -608,7 +608,7 @@ namespace mage {
 		return StringToU64(token, result);
 	}
 	
-	TokenResult ReadFloat(char *str, char **context, 
+	TokenResult ReadF32(char *str, char **context, 
 		F32 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
@@ -618,7 +618,7 @@ namespace mage {
 		return StringToF32(token, result);
 	}
 	
-	TokenResult ReadDouble(char *str, char **context, 
+	TokenResult ReadF64(char *str, char **context, 
 		F64 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
@@ -628,20 +628,20 @@ namespace mage {
 		return StringToF64(token, result);
 	}
 	
-	TokenResult ReadFloat2(char *str, char **context, 
+	TokenResult ReadF32x2(char *str, char **context, 
 		XMFLOAT2 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadFloat(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadFloat(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
@@ -649,26 +649,26 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadFloat3(char *str, char **context, 
+	TokenResult ReadF32x3(char *str, char **context, 
 		XMFLOAT3 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadFloat(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadFloat(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z
-			= ReadFloat(str, context, result.z, delimiters);
+			= ReadF32(str, context, result.z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
@@ -676,32 +676,32 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadFloat4(char *str, char **context, 
+	TokenResult ReadF32x4(char *str, char **context, 
 		XMFLOAT4 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadFloat(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadFloat(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z 
-			= ReadFloat(str, context, result.z, delimiters);
+			= ReadF32(str, context, result.z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
 
 		const TokenResult token_result_w 
-			= ReadFloat(str, context, result.w, delimiters);
+			= ReadF32(str, context, result.w, delimiters);
 		if (token_result_w != TokenResult::Valid) {
 			return token_result_w;
 		}

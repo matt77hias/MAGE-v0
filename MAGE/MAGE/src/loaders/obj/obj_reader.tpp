@@ -124,7 +124,7 @@ namespace mage {
 		if (!HasF32()) {
 			model_part.m_parent  = ReadString();
 		}
-		model_part.m_translation = ReadF32x3();
+		model_part.m_translation = InvertHandness(Point3(ReadF32x3()));
 		model_part.m_rotation    = ReadF32x3();
 		model_part.m_scale       = ReadF32x3();
 
@@ -212,17 +212,17 @@ namespace mage {
 
 	template < typename VertexT >
 	inline const Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
-		return static_cast< Point3 >(ReadF32x3());
+		return Point3(ReadF32x3());
 	}
 
 	template < typename VertexT >
 	inline const Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
-		return static_cast< Normal3 >(ReadF32x3());
+		return Normal3(ReadF32x3());
 	}
 
 	template < typename VertexT >
 	inline const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
-		const UV result = static_cast< UV >(ReadF32x2());
+		const UV result(ReadF32x2());
 		
 		if (HasF32()) {
 			// Silently ignore 3D vertex texture coordinates.

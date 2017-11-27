@@ -68,29 +68,23 @@ namespace mage {
 		// Models
 		//---------------------------------------------------------------------
 		auto model_sibenik = CreateModel(*model_desc_sibenik);
-		model_sibenik->GetTransform()->SetScale(10.0f);
+		model_sibenik->GetTransform()->SetScale(30.0f);
+		model_sibenik->GetTransform()->SetTranslationY(12.0f);
 		auto model_tree = CreateModel(*model_desc_tree);
-		model_tree->GetTransform()->AddTranslationY(0.5f);
+		model_tree->GetTransform()->SetScale(5.0f);
+		model_tree->GetTransform()->AddTranslationY(2.5f);
 		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
 		auto omni_light = Create< OmniLightNode >();
-		omni_light->GetTransform()->SetTranslationY(2.0f);
-		omni_light->GetLight()->SetRange(5.0f);
-		omni_light->GetLight()->SetIntensity(4.0f);
+		omni_light->GetTransform()->SetTranslationY(7.0f);
+		omni_light->GetLight()->SetRange(20.0f);
+		omni_light->GetLight()->SetIntensity(20.0f);
 		omni_light->GetLight()->EnableShadows();
 
-		//auto spot_light = Create< SpotLightNode >();
-		//spot_light->GetTransform()->SetTranslationY(2.0f);
-		//spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		//spot_light->GetLight()->SetRange(5.0f);
-		//spot_light->GetLight()->SetIntensity(4.0f);
-		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
-		//spot_light->GetLight()->EnableShadows();
-
 		auto light = Create< SpotLightNode >();
-		light->GetLight()->SetRange(5.0f);
+		light->GetLight()->SetRange(15.0f);
 		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(light);
 
@@ -110,7 +104,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		Create< script::SwitchSceneScript< SibenikScene > >();
+		Create< script::SwitchSceneScript< ForrestScene > >();
 		Create< script::RotationScript >(model_tree->GetTransform());
 		Create< script::FPSInputControllerScript >(camera->GetTransform());
 		Create< script::RenderModeScript >(camera->GetSettings());

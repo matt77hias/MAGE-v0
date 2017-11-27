@@ -436,7 +436,7 @@ namespace mage {
 		
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no F322 value found.", 
+				"%ls: line %u: no F32x2 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
@@ -461,7 +461,7 @@ namespace mage {
 		
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no F323 value found.", 
+				"%ls: line %u: no F32x3 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
@@ -486,7 +486,7 @@ namespace mage {
 		
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no F324 value found.", 
+				"%ls: line %u: no F32x4 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		

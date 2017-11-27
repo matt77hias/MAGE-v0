@@ -81,21 +81,21 @@ namespace mage {
 		auto model_torus    = CreateModel(*model_desc_torus);
 
 		model_teapot->GetTransform()->SetScale(30.0f);
-		model_teapot->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_teapot->GetTransform()->SetTranslationY(10.0f);
 		model_skull->GetTransform()->SetScale(20.0f);
-		model_skull->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_skull->GetTransform()->SetTranslationY(10.0f);
 		model_cone->GetTransform()->SetScale(10.0f);
-		model_cone->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_cone->GetTransform()->SetTranslationY(10.0f);
 		model_cube->GetTransform()->SetScale(10.0f);
-		model_cube->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_cube->GetTransform()->SetTranslationY(10.0f);
 		model_cylinder->GetTransform()->SetScale(10.0f);
-		model_cylinder->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_cylinder->GetTransform()->SetTranslationY(10.0f);
 		model_plane->GetTransform()->SetScale(20.0f);
-		model_plane->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_plane->GetTransform()->SetTranslationY(10.0f);
 		model_sphere->GetTransform()->SetScale(10.0f);
-		model_sphere->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_sphere->GetTransform()->SetTranslationY(10.0f);
 		model_torus->GetTransform()->SetScale(10.0f);
-		model_torus->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
+		model_torus->GetTransform()->SetTranslationY(10.0f);
 
 		//---------------------------------------------------------------------
 		// Lights

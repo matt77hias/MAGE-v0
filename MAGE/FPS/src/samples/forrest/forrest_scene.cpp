@@ -114,7 +114,7 @@ namespace mage {
 		vector< ModelNode * > models_windmill;
 		auto model_windmill = CreateModel(*model_desc_windmill, models_windmill);
 		model_windmill->GetTransform()->SetScale(10.0f);
-		model_windmill->GetTransform()->SetTranslation(0.0f, 4.25f, 0.0f);
+		model_windmill->GetTransform()->SetTranslationY(4.25f);
 
 		//---------------------------------------------------------------------
 		// Lights

@@ -76,9 +76,12 @@ namespace mage {
 		// Models
 		//---------------------------------------------------------------------
 		auto model_sponza = CreateModel(*model_desc_sponza);
+
 		model_sponza->GetTransform()->SetScale(10.0f);
+		model_sponza->GetTransform()->SetTranslationY(10.0f);
 		auto model_tree = CreateModel(*model_desc_tree);
-		model_tree->GetTransform()->AddTranslationY(0.5f);
+		model_tree->GetTransform()->SetScale(5.0f);
+		model_tree->GetTransform()->AddTranslationY(2.5f);
 		
 		//---------------------------------------------------------------------
 		// Lights

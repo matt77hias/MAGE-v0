@@ -4,7 +4,6 @@
 #pragma region
 
 #include "samples\brdf\brdf_script.hpp"
-#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -13,10 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	BRDFScript::BRDFScript(CameraSettings *settings,
-		const vector< ModelNode * > &models)
+	BRDFScript::BRDFScript(CameraSettings *settings, 
+		vector< ModelNode * > models)
 		: m_settings(settings),
-		m_models(models), 
+		m_models(std::move(models)), 
 		m_model_index(0),
 		m_wireframe(false),
 		m_aabb(false),

@@ -120,14 +120,16 @@ namespace mage {
 		m_model_output.EndModelPart();
 
 		ModelPart model_part;
-		model_part.m_child       = ReadString();
-		if (!HasF32()) {
-			model_part.m_parent  = ReadString();
+		model_part.m_child = ReadString();
+		if (HasChars()) {
+			if (!HasF32()) {
+				model_part.m_parent  = ReadString();
+			}
+			model_part.m_translation = InvertHandness(Point3(ReadF32x3()));
+			model_part.m_rotation    = ReadF32x3();
+			model_part.m_scale       = ReadF32x3();
 		}
-		model_part.m_translation = InvertHandness(Point3(ReadF32x3()));
-		model_part.m_rotation    = ReadF32x3();
-		model_part.m_scale       = ReadF32x3();
-
+		
 		// Begin current group.
 		m_model_output.StartModelPart(std::move(model_part));
 	}

@@ -18,8 +18,7 @@ namespace mage::script {
 
 	public:
 
-		BRDFScript(CameraSettings *settings, 
-			const vector< ModelNode * > &models);
+		BRDFScript(CameraSettings *settings, vector< ModelNode * > models);
 
 		BRDFScript(const BRDFScript &script) = delete;
 

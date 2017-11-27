@@ -33,6 +33,14 @@ namespace mage {
 
 	void BRDFScene::Load() {
 		//---------------------------------------------------------------------
+		// Sky
+		//---------------------------------------------------------------------
+		auto sky = GetSky();
+		auto sky_texture =
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
+		sky->SetTexture(sky_texture);
+
+		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
 		auto camera = Create< PerspectiveCameraNode >();
@@ -43,22 +51,23 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
+		
 		auto model_desc_teapot
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.obj",     mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
 		auto model_desc_skull
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.obj",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.mdl",       mesh_desc);
 		auto model_desc_cone
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.obj",         mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
 		auto model_desc_cube
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.obj",         mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
 		auto model_desc_cylinder
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.obj", mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
 		auto model_desc_plane
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.obj",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
 		auto model_desc_sphere
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.obj",     mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
 		auto model_desc_torus
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.obj",       mesh_desc);
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
@@ -72,24 +81,22 @@ namespace mage {
 		auto model_torus    = CreateModel(*model_desc_torus);
 
 		model_teapot->GetTransform()->SetScale(30.0f);
+		model_teapot->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_skull->GetTransform()->SetScale(20.0f);
-		model_skull->GetTransform()->SetRotationY(XM_PI);
+		model_skull->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_cone->GetTransform()->SetScale(10.0f);
+		model_cone->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_cube->GetTransform()->SetScale(10.0f);
+		model_cube->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_cylinder->GetTransform()->SetScale(10.0f);
+		model_cylinder->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_plane->GetTransform()->SetScale(20.0f);
+		model_plane->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_sphere->GetTransform()->SetScale(10.0f);
+		model_sphere->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 		model_torus->GetTransform()->SetScale(10.0f);
+		model_torus->GetTransform()->SetTranslation(0.0f, 10.0f, 0.0f);
 
-		model_teapot->SetName("Teapot");
-		model_skull->SetName("Skull");
-		model_cone->SetName("Cone");
-		model_cube->SetName("Cube");
-		model_cylinder->SetName("Cylinder");
-		model_plane->SetName("Plane");
-		model_sphere->SetName("Sphere");
-		model_torus->SetName("Torus");
-		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
@@ -126,6 +133,6 @@ namespace mage {
 		models.push_back(model_plane);
 		models.push_back(model_sphere);
 		models.push_back(model_torus);
-		Create< script::BRDFScript >(camera->GetSettings(), models);
+		Create< script::BRDFScript >(camera->GetSettings(), std::move(models));
 	}
 }

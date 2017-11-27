@@ -1,4 +1,4 @@
-#include "samples\forrest\forrest_scene.hpp"
+#include "samples\sponza\sponza_scene.hpp"
 
 using namespace mage;
 
@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	
 	if (engine->IsLoaded()) {
 		// Run the engine.
-		return engine->Run(MakeUnique< ForrestScene >(), nCmdShow);
+		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);
 	}
 
 	return 0;

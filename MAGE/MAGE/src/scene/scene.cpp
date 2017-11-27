@@ -72,9 +72,6 @@ namespace mage {
 	ModelNode *Scene::CreateModel(const ModelDescriptor &desc, 
 		vector< ModelNode * > &models) {
 
-		// Create a default material.
-		const Material default_material("material");
-
 		ModelNode *root = nullptr;
 		size_t nb_root_childs = 0;
 
@@ -83,10 +80,6 @@ namespace mage {
 
 		// Create model nodes.
 		desc.ForEachModelPart([&](const ModelPart *model_part) {
-
-			if (model_part->HasDefaultChild() && (0 == model_part->m_nb_indices)) {
-				return;
-			}
 
 			// Create a submodel node.
 			UniquePtr< ModelNode > node = MakeUnique< ModelNode >(
@@ -103,11 +96,12 @@ namespace mage {
 			transform->SetScale(model_part->m_scale);
 
 			// Create a material.
-			if (model_part->HasDefaultMaterial()) {
-				*(node->GetModel()->GetMaterial()) = default_material;
-			}
-			else {
-				*(node->GetModel()->GetMaterial()) = *(desc.GetMaterial(model_part->m_material));
+			if (!model_part->HasDefaultMaterial()) {
+				const Material * const material = desc.GetMaterial(model_part->m_material);
+				ThrowIfFailed((nullptr != material), 
+					"%ls: material '%s' not found.", 
+					desc.GetGuid().c_str(), model_part->m_material.c_str());
+				*(node->GetModel()->GetMaterial()) = *material;
 			}
 
 			// Add the submodel node to this scene.

@@ -13,10 +13,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\stats_script.hpp"
 #include "script\input_controller_script.hpp"
 #include "script\render_mode_script.hpp"
 #include "script\rotation_script.hpp"
+#include "script\stats_script.hpp"
 #include "script\switch_scene_script.hpp"
 
 #pragma endregion
@@ -43,9 +43,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Sky
 		//---------------------------------------------------------------------
-		auto sky_texture = 
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
 		auto sky = GetSky();
+		auto sky_texture =
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
 		sky->SetTexture(sky_texture);
 
 		//---------------------------------------------------------------------
@@ -68,7 +68,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_sponza = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.obj", mesh_desc);
 		auto model_desc_tree = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
 		
@@ -89,7 +89,7 @@ namespace mage {
 		omni_light->GetLight()->SetIntensity(4.0f);
 		omni_light->GetLight()->EnableShadows();
 
-		//auto spot_light = Create< SpotLightNode >("light");
+		//auto spot_light = Create< SpotLightNode >();
 		//spot_light->GetTransform()->SetTranslationY(2.0f);
 		//spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
 		//spot_light->GetLight()->SetRange(5.0f);
@@ -121,7 +121,7 @@ namespace mage {
 		Create< script::SwitchSceneScript< SibenikScene > >();
 		Create< script::RotationScript >(model_tree->GetTransform());
 		Create< script::FPSInputControllerScript >(camera->GetTransform());
-		Create< script::StatsScript >(text->GetSprite());
 		Create< script::RenderModeScript >(camera->GetSettings());
+		Create< script::StatsScript >(text->GetSprite());
 	}
 }

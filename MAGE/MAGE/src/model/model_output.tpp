@@ -61,6 +61,11 @@ namespace mage {
 		const U32 end   = static_cast< U32 >(m_index_buffer.size());
 		current.m_nb_indices = end - start;
 
+		if (current.HasDefaultChild() && (0 == current.m_nb_indices)) {
+			m_model_parts.clear();
+			return;
+		}
+
 		if (create_bounding_volumes) {
 			SetupBoundingVolumes(current);
 		}

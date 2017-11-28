@@ -11,6 +11,8 @@
 // BRDF_F_COMPONENT                       | F_Schlick
 // BRDF_D_COMPONENT                       | D_GGX
 // BRDF_G_COMPONENT                       | G_GXX
+// BRDF_MINIMUM_ALPHA                     | 0.1f
+// BRDF_DOT_EPSILON                       | 0.00001f
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants
@@ -1430,8 +1432,13 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 #define BRDF_V_COMPONENT V_GGX
 #endif // BRDF_V_COMPONENT
 
+#ifndef BRDF_MINIMUM_ALPHA
 #define BRDF_MINIMUM_ALPHA 0.1f
-#define BRDF_DOT_EPSILON   0.00001f
+#endif // BRDF_MINIMUM_ALPHA
+
+#ifndef BRDF_DOT_EPSILON
+#define BRDF_DOT_EPSILON 0.00001f
+#endif // BRDF_DOT_EPSILON
 
 float RoughnessToAlpha(float roughness) {
 	return max(BRDF_MINIMUM_ALPHA, sqr(roughness));

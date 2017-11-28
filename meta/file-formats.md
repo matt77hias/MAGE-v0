@@ -73,6 +73,17 @@
   * `g` has different usage
   * UVW vertex texture coordinates will be converted to UV vertex texture coordinates
   
+| Definitions       | Syntax                                                          |
+|-------------------|-----------------------------------------------------------------|
+| local transform   | `g <child-name>`                                                |
+| local transform   | `g <child-name> <translation> <rotation> <scale>`               |
+| local transform   | `g <child-name> <parent-name> <translation> <rotation> <scale>` |
+| `<child-name>`    | `<string>`                                                      |
+| `<parent-name>`   | `<string>`                                                      |
+| `<translation>`   | `<F32> <F32> <F32>`                                             |
+| `<rotation>`      | `<F32> <F32> <F32>`                                             |
+| `<scale>`         | `<F32> <F32> <F32>`                                             |
+  
 ## Models
   
 ### .mdl
@@ -88,16 +99,19 @@
   * `\r`(CR: carriage return character)
 * Syntax:
      
-| Definitions       | Syntax                                                                    |
-|-------------------|---------------------------------------------------------------------------|
-| material library  | `mtllib <string>.mtl`                                                     |
-| model part        | `s <child-name> <parent-name> <material-name> <start-index> <nb-indices>` |
-| `<child-name>`    | `<string>`                                                                |
-| `<parent-name>`   | `<string>`                                                                |
-| `<material-name>` | `<string>`                                                                |
-| `<start-index>`   | `<U32>`                                                                   |
-| `<nb-indices>`    | `<U32>`                                                                   |
-| `<string>`        | `<ANSI string without delimiters and EOFs>`                               |
+| Definitions       | Syntax                                                                                                     |
+|-------------------|------------------------------------------------------------------------------------------------------------|
+| material library  | `mtllib <string>.mtl`                                                                                      |
+| model part        | `s <child-name> <parent-name> <translation> <rotation> <scale> <material-name> <start-index> <nb-indices>` |
+| `<child-name>`    | `<string>`                                                                                                 |
+| `<parent-name>`   | `<string>`                                                                                                 |
+| `<translation>`   | `<F32> <F32> <F32>`                                                                                        |
+| `<rotation>`      | `<F32> <F32> <F32>`                                                                                        |
+| `<scale>`         | `<F32> <F32> <F32>`                                                                                        |
+| `<material-name>` | `<string>`                                                                                                 |
+| `<start-index>`   | `<U32>`                                                                                                    |
+| `<nb-indices>`    | `<U32>`                                                                                                    |
+| `<string>`        | `<ANSI string without delimiters and EOFs>`                                                                |
  
 ## Textures
      

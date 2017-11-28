@@ -26,6 +26,8 @@ AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
+BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.com/blog/2007/06/scenegraphs-past-present-and-future/), 2007.
+
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.
 
 BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SIGGRAPH Comput. Graph.* 11, 2, 1977.

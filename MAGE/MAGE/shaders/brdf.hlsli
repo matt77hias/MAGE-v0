@@ -1430,8 +1430,11 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 #define BRDF_V_COMPONENT V_GGX
 #endif // BRDF_V_COMPONENT
 
+#define BRDF_MINIMUM_ALPHA 0.1f
+#define BRDF_DOT_EPSILON   0.00001f
+
 float RoughnessToAlpha(float roughness) {
-	return max(0.1f, sqr(roughness));
+	return max(BRDF_MINIMUM_ALPHA, sqr(roughness));
 }
 
 float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
@@ -1471,11 +1474,11 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
 	float3 base_color, float roughness, float metalness) {
 	
 	const float  alpha   = RoughnessToAlpha(roughness);
-	const float  n_dot_l = sat_dot(n, l);
-	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
+	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
+	const float  n_dot_v = sat_dot(n, v) + BRDF_DOT_EPSILON;
 	const float3 h       = HalfDirection(l, v);
-	const float  n_dot_h = sat_dot(n, h);
-	const float  v_dot_h = sat_dot(v, h);
+	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
+	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
 #ifdef DISSABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
@@ -1522,11 +1525,11 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	float3 base_color, float roughness, float metalness) {
 	
 	const float  alpha   = RoughnessToAlpha(roughness);
-	const float  n_dot_l = sat_dot(n, l);
-	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
+	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
+	const float  n_dot_v = sat_dot(n, v) + BRDF_DOT_EPSILON;
 	const float3 h       = HalfDirection(l, v);
-	const float  n_dot_h = sat_dot(n, h);
-	const float  v_dot_h = sat_dot(v, h);
+	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
+	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
 #ifdef DISSABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;

@@ -28,8 +28,6 @@
 
 <p align="center"><img src="meta/Pipeline.png"></p>
 
-**Important**: The latest release (<> latest commit) works with the current [assets](https://github.com/matt77hias/MAGE-Assets).
-
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Development

@@ -76,12 +76,10 @@ namespace mage {
 		// Models
 		//---------------------------------------------------------------------
 		auto model_sponza = CreateModel(*model_desc_sponza);
-
 		model_sponza->GetTransform()->SetScale(10.0f);
-		model_sponza->GetTransform()->SetTranslationY(10.0f);
+		model_sponza->GetTransform()->SetTranslationY(2.1f);
 		auto model_tree = CreateModel(*model_desc_tree);
-		model_tree->GetTransform()->SetScale(5.0f);
-		model_tree->GetTransform()->AddTranslationY(2.5f);
+		model_tree->GetTransform()->AddTranslationY(1.0f);
 		
 		//---------------------------------------------------------------------
 		// Lights
@@ -91,14 +89,6 @@ namespace mage {
 		omni_light->GetLight()->SetRange(5.0f);
 		omni_light->GetLight()->SetIntensity(4.0f);
 		omni_light->GetLight()->EnableShadows();
-
-		//auto spot_light = Create< SpotLightNode >();
-		//spot_light->GetTransform()->SetTranslationY(2.0f);
-		//spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		//spot_light->GetLight()->SetRange(5.0f);
-		//spot_light->GetLight()->SetIntensity(4.0f);
-		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
-		//spot_light->GetLight()->EnableShadows();
 
 		auto light = Create< SpotLightNode >();
 		light->GetLight()->SetRange(5.0f);

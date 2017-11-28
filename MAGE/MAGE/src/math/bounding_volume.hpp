@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <limits>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -55,8 +64,12 @@ namespace mage {
 		 Constructs an (identity) AABB.
 		 */
 		AABB() 
-			: m_p_min(Point3( INFINITY,  INFINITY,  INFINITY)), 
-			  m_p_max(Point3(-INFINITY, -INFINITY, -INFINITY)) {}
+			: m_p_min( std::numeric_limits< float >::infinity(),
+				       std::numeric_limits< float >::infinity(),
+				       std::numeric_limits< float >::infinity()),
+			  m_p_max(-std::numeric_limits< float >::infinity(),
+				      -std::numeric_limits< float >::infinity(),
+				      -std::numeric_limits< float >::infinity()) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -508,9 +521,12 @@ namespace mage {
 	 @return		The maximum AABB.
 	 */
 	inline const AABB MaximumAABB() noexcept {
-		return AABB(
-			Point3(-INFINITY, -INFINITY, -INFINITY),
-			Point3( INFINITY,  INFINITY,  INFINITY));
+		return AABB(Point3(-std::numeric_limits< float >::infinity(), 
+			               -std::numeric_limits< float >::infinity(), 
+			               -std::numeric_limits< float >::infinity()),
+					Point3( std::numeric_limits< float >::infinity(), 
+						    std::numeric_limits< float >::infinity(), 
+						    std::numeric_limits< float >::infinity()));
 	}
 
 	//-------------------------------------------------------------------------
@@ -770,6 +786,6 @@ namespace mage {
 	 @return		The maximum BS.
 	 */
 	inline const BS MaximumBS() noexcept {
-		return BS(Point3(), INFINITY);
+		return BS(Point3(), std::numeric_limits< float >::infinity());
 	}
 }

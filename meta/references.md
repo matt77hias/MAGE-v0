@@ -76,6 +76,10 @@ FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Nor
 
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
 
+GAUL R.: [*Component Based Engine Design*](http://www.randygaul.net/2013/05/20/component-based-engine-design/), 2013.
+
+GAUL R.: [*Sane Usage of Components and Entity Systems*](http://www.randygaul.net/2014/06/10/sane-usage-of-components-and-entity-systems/), 2014.
+
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.

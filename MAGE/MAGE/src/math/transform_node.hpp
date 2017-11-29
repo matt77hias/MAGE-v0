@@ -93,7 +93,7 @@ namespace mage {
 						The x-value of the translation component.
 		 */
 		void SetTranslationX(F32 x) noexcept {
-			m_transform->SetTranslationX(x);
+			m_transform.SetTranslationX(x);
 			SetDirty();
 		}
 		
@@ -105,7 +105,7 @@ namespace mage {
 						The y-value of the translation component.
 		 */
 		void SetTranslationY(F32 y) noexcept {
-			m_transform->SetTranslationY(y);
+			m_transform.SetTranslationY(y);
 			SetDirty();
 		}
 		
@@ -117,7 +117,7 @@ namespace mage {
 						The z-value of the translation component.
 		 */
 		void SetTranslationZ(F32 z) noexcept {
-			m_transform->SetTranslationZ(z);
+			m_transform.SetTranslationZ(z);
 			SetDirty();
 		}
 		
@@ -133,7 +133,7 @@ namespace mage {
 						The z-value of the translation component.
 		 */
 		void SetTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_transform->SetTranslation(x, y, z);
+			m_transform.SetTranslation(x, y, z);
 			SetDirty();
 		}
 		
@@ -145,7 +145,7 @@ namespace mage {
 						The translation component.
 		 */
 		void SetTranslation(XMFLOAT3 translation) noexcept {
-			m_transform->SetTranslation(std::move(translation));
+			m_transform.SetTranslation(std::move(translation));
 			SetDirty();
 		}
 		
@@ -157,7 +157,7 @@ namespace mage {
 						The translation component.
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
-			m_transform->SetTranslation(translation);
+			m_transform.SetTranslation(translation);
 			SetDirty();
 		}
 
@@ -169,7 +169,7 @@ namespace mage {
 						The x-value of the translation component to add.
 		 */
 		void AddTranslationX(F32 x) noexcept {
-			m_transform->AddTranslationX(x);
+			m_transform.AddTranslationX(x);
 			SetDirty();
 		}
 		
@@ -181,7 +181,7 @@ namespace mage {
 						The y-value of the translation component to add.
 		 */
 		void AddTranslationY(F32 y) noexcept {
-			m_transform->AddTranslationY(y);
+			m_transform.AddTranslationY(y);
 			SetDirty();
 		}
 		
@@ -193,7 +193,7 @@ namespace mage {
 						The z-value of the translation component to add.
 		 */
 		void AddTranslationZ(F32 z) noexcept {
-			m_transform->AddTranslationZ(z);
+			m_transform.AddTranslationZ(z);
 			SetDirty();
 		}
 		
@@ -209,7 +209,7 @@ namespace mage {
 						The z-value of the translation component to add.
 		 */
 		void AddTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_transform->AddTranslation(x, y, z);
+			m_transform.AddTranslation(x, y, z);
 			SetDirty();
 		}
 		
@@ -221,7 +221,7 @@ namespace mage {
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const XMFLOAT3 &translation) noexcept {
-			m_transform->AddTranslation(translation);
+			m_transform.AddTranslation(translation);
 			SetDirty();
 		}
 		
@@ -233,7 +233,7 @@ namespace mage {
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			m_transform->AddTranslation(translation);
+			m_transform.AddTranslation(translation);
 			SetDirty();
 		}
 
@@ -245,7 +245,7 @@ namespace mage {
 						transform node.
 		 */
 		F32 GetTranslationX() const noexcept {
-			return m_transform->GetTranslationX();
+			return m_transform.GetTranslationX();
 		}
 		
 		/**
@@ -256,7 +256,7 @@ namespace mage {
 						transform node.
 		 */
 		F32 GetTranslationY() const noexcept {
-			return m_transform->GetTranslationY();
+			return m_transform.GetTranslationY();
 		}
 		
 		/**
@@ -267,7 +267,7 @@ namespace mage {
 						transform node.
 		 */
 		F32 GetTranslationZ() const noexcept {
-			return m_transform->GetTranslationZ();
+			return m_transform.GetTranslationZ();
 		}
 		
 		/**
@@ -276,7 +276,7 @@ namespace mage {
 		 @return		The translation component of this transform node.
 		 */
 		const XMFLOAT3 GetTranslation() const noexcept {
-			return m_transform->GetTranslation();
+			return m_transform.GetTranslation();
 		}
 		
 		/**
@@ -287,7 +287,7 @@ namespace mage {
 						transform node.
 		 */
 		const XMMATRIX GetObjectToParentTranslationMatrix() const noexcept {
-			return m_transform->GetObjectToParentTranslationMatrix();
+			return m_transform.GetObjectToParentTranslationMatrix();
 		}
 
 		/**
@@ -298,7 +298,7 @@ namespace mage {
 						transform node.
 		 */
 		const XMMATRIX GetParentToObjectTranslationMatrix() const noexcept {
-			return m_transform->GetParentToObjectTranslationMatrix();
+			return m_transform.GetParentToObjectTranslationMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -313,7 +313,7 @@ namespace mage {
 						The x-value of the rotation component.
 		 */
 		void SetRotationX(F32 x) noexcept {
-			m_transform->SetRotationX(x);
+			m_transform.SetRotationX(x);
 			SetDirty();
 		}
 		
@@ -325,7 +325,7 @@ namespace mage {
 						The y-value of the rotation component.
 		 */
 		void SetRotationY(F32 y) noexcept {
-			m_transform->SetRotationY(y);
+			m_transform.SetRotationY(y);
 			SetDirty();
 		}
 		
@@ -337,7 +337,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotationZ(F32 z) noexcept {
-			m_transform->SetRotationZ(z);
+			m_transform.SetRotationZ(z);
 			SetDirty();
 		}
 		
@@ -353,7 +353,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotation(F32 x, F32 y, F32 z) noexcept {
-			m_transform->SetRotation(x, y, z);
+			m_transform.SetRotation(x, y, z);
 			SetDirty();
 		}
 		
@@ -365,7 +365,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void SetRotation(XMFLOAT3 rotation) noexcept {
-			m_transform->SetRotation(std::move(rotation));
+			m_transform.SetRotation(std::move(rotation));
 			SetDirty();
 		}
 
@@ -377,7 +377,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			m_transform->SetRotation(rotation);
+			m_transform.SetRotation(rotation);
 			SetDirty();
 		}
 		
@@ -393,7 +393,7 @@ namespace mage {
 		void XM_CALLCONV SetRotationAroundDirection(
 			FXMVECTOR normal, F32 angle) noexcept {
 			
-			m_transform->SetRotationAroundDirection(normal, angle);
+			m_transform.SetRotationAroundDirection(normal, angle);
 			SetDirty();
 		}
 		
@@ -405,7 +405,7 @@ namespace mage {
 						The x-value of the rotation component to add.
 		 */
 		void AddRotationX(F32 x) noexcept {
-			m_transform->AddRotationX(x);
+			m_transform.AddRotationX(x);
 			SetDirty();
 		}
 		
@@ -417,7 +417,7 @@ namespace mage {
 						The y-value of the rotation component to add.
 		 */
 		void AddRotationY(F32 y) noexcept {
-			m_transform->AddRotationY(y);
+			m_transform.AddRotationY(y);
 			SetDirty();
 		}
 		
@@ -429,7 +429,7 @@ namespace mage {
 						The z-value of the rotation component to add.
 		 */
 		void AddRotationZ(F32 z) noexcept {
-			m_transform->AddRotationZ(z);
+			m_transform.AddRotationZ(z);
 			SetDirty();
 		}
 		
@@ -445,7 +445,7 @@ namespace mage {
 						The z-value of the rotation component to add.
 		 */
 		void AddRotation(F32 x, F32 y, F32 z) noexcept {
-			m_transform->AddRotation(x, y, z);
+			m_transform.AddRotation(x, y, z);
 			SetDirty();
 		}
 		
@@ -457,7 +457,7 @@ namespace mage {
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const XMFLOAT3 &rotation) noexcept {
-			m_transform->AddRotation(rotation);
+			m_transform.AddRotation(rotation);
 			SetDirty();
 		}
 		
@@ -469,7 +469,7 @@ namespace mage {
 						The rotation component to add.
 		 */
 		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
-			m_transform->AddRotation(rotation);
+			m_transform.AddRotation(rotation);
 			SetDirty();
 		}
 
@@ -491,7 +491,7 @@ namespace mage {
 		void AddAndClampRotationX(
 			F32 x, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_transform->AddAndClampRotationX(x, min_angle, max_angle);
+			m_transform.AddAndClampRotationX(x, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -513,7 +513,7 @@ namespace mage {
 		void AddAndClampRotationY(
 			F32 y, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_transform->AddAndClampRotationY(y, min_angle, max_angle);
+			m_transform.AddAndClampRotationY(y, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -535,7 +535,7 @@ namespace mage {
 		void AddAndClampRotationZ(
 			F32 z, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_transform->AddAndClampRotationZ(z, min_angle, max_angle);
+			m_transform.AddAndClampRotationZ(z, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -561,7 +561,7 @@ namespace mage {
 		void AddAndClampRotation(
 			F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
 
-			m_transform->AddAndClampRotation(x, y, z, min_angle, max_angle);
+			m_transform.AddAndClampRotation(x, y, z, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -583,7 +583,7 @@ namespace mage {
 		void AddAndClampRotation(
 			const XMFLOAT3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
+			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -605,7 +605,7 @@ namespace mage {
 		void XM_CALLCONV AddAndClampRotation(
 			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
+			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -616,7 +616,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetRotationX() const noexcept {
-			return m_transform->GetRotationX();
+			return m_transform.GetRotationX();
 		}
 		
 		/**
@@ -626,7 +626,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetRotationY() const noexcept {
-			return m_transform->GetRotationY();
+			return m_transform.GetRotationY();
 		}
 		
 		/**
@@ -636,7 +636,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetRotationZ() const noexcept {
-			return m_transform->GetRotationZ();
+			return m_transform.GetRotationZ();
 		}
 		
 		/**
@@ -645,7 +645,7 @@ namespace mage {
 		 @return		The rotation component of this transform node.
 		 */
 		const XMFLOAT3 GetRotation() const noexcept {
-			return m_transform->GetRotation();
+			return m_transform.GetRotation();
 		}
 		
 		/**
@@ -655,7 +655,7 @@ namespace mage {
 						node.
 		 */
 		const XMMATRIX GetObjectToParentRotationMatrix() const noexcept {
-			return m_transform->GetObjectToParentRotationMatrix();
+			return m_transform.GetObjectToParentRotationMatrix();
 		}
 
 		/**
@@ -665,7 +665,7 @@ namespace mage {
 						node.
 		 */
 		const XMMATRIX GetParentToObjectRotationMatrix() const noexcept {
-			return m_transform->GetParentToObjectRotationMatrix();
+			return m_transform.GetParentToObjectRotationMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -680,7 +680,7 @@ namespace mage {
 						The x-value of the scale component.
 		 */
 		void SetScaleX(F32 x) noexcept {
-			m_transform->SetScaleX(x);
+			m_transform.SetScaleX(x);
 			SetDirty();
 		}
 		
@@ -692,7 +692,7 @@ namespace mage {
 						The y-value of the scale component.
 		 */
 		void SetScaleY(F32 y) noexcept {
-			m_transform->SetScaleY(y);
+			m_transform.SetScaleY(y);
 			SetDirty();
 		}
 		
@@ -704,7 +704,7 @@ namespace mage {
 						The z-value of the scale component.
 		 */
 		void SetScaleZ(F32 z) noexcept {
-			m_transform->SetScaleZ(z);
+			m_transform.SetScaleZ(z);
 			SetDirty();
 		}
 
@@ -716,7 +716,7 @@ namespace mage {
 						The scale component.
 		 */
 		void SetScale(F32 s) noexcept {
-			m_transform->SetScale(s);
+			m_transform.SetScale(s);
 			SetDirty();
 		}
 		
@@ -732,7 +732,7 @@ namespace mage {
 						The z-value of the scale component.
 		 */
 		void SetScale(F32 x, F32 y, F32 z) noexcept {
-			m_transform->SetScale(x, y, z);
+			m_transform.SetScale(x, y, z);
 			SetDirty();
 		}
 		
@@ -744,7 +744,7 @@ namespace mage {
 						The scale component.
 		 */
 		void SetScale(XMFLOAT3 scale) noexcept {
-			m_transform->SetScale(std::move(scale));
+			m_transform.SetScale(std::move(scale));
 			SetDirty();
 		}
 		
@@ -756,7 +756,7 @@ namespace mage {
 						The scale component.
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
-			m_transform->SetScale(scale);
+			m_transform.SetScale(scale);
 			SetDirty();
 		}
 
@@ -767,7 +767,7 @@ namespace mage {
 						The x-value of the scale component to add.
 		 */
 		void AddScaleX(F32 x) noexcept {
-			m_transform->AddScaleX(x);
+			m_transform.AddScaleX(x);
 			SetDirty();
 		}
 		
@@ -778,7 +778,7 @@ namespace mage {
 						The y-value of the scale component to add.
 		 */
 		void AddScaleY(F32 y) noexcept {
-			m_transform->AddScaleY(y);
+			m_transform.AddScaleY(y);
 			SetDirty();
 		}
 		
@@ -789,7 +789,7 @@ namespace mage {
 						The z-value of the scale component to add.
 		 */
 		void AddScaleZ(F32 z) noexcept {
-			m_transform->AddScaleZ(z);
+			m_transform.AddScaleZ(z);
 			SetDirty();
 		}
 
@@ -801,7 +801,7 @@ namespace mage {
 						The scale component to add.
 		 */
 		void AddScale(F32 s) noexcept {
-			m_transform->AddScale(s);
+			m_transform.AddScale(s);
 			SetDirty();
 		}
 		
@@ -817,7 +817,7 @@ namespace mage {
 						The z-value of the scale component to add.
 		 */
 		void AddScale(F32 x, F32 y, F32 z) noexcept {
-			m_transform->AddScale(x, y, z);
+			m_transform.AddScale(x, y, z);
 			SetDirty();
 		}
 		
@@ -829,7 +829,7 @@ namespace mage {
 						A reference to the scale component to add.
 		 */
 		void AddScale(const XMFLOAT3 &scale) noexcept {
-			m_transform->AddScale(scale);
+			m_transform.AddScale(scale);
 			SetDirty();
 		}
 
@@ -841,7 +841,7 @@ namespace mage {
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			m_transform->AddScale(scale);
+			m_transform.AddScale(scale);
 			SetDirty();
 		}
 		
@@ -852,7 +852,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetScaleX() const noexcept {
-			return m_transform->GetScaleX();
+			return m_transform.GetScaleX();
 		}
 		
 		/**
@@ -862,7 +862,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetScaleY() const noexcept {
-			return m_transform->GetScaleY();
+			return m_transform.GetScaleY();
 		}
 		
 		/**
@@ -872,7 +872,7 @@ namespace mage {
 						node.
 		 */
 		F32 GetScaleZ() const noexcept {
-			return m_transform->GetScaleZ();
+			return m_transform.GetScaleZ();
 		}
 		
 		/**
@@ -881,7 +881,7 @@ namespace mage {
 		 @return		The scale component of this transform node.
 		 */
 		const XMFLOAT3 GetScale() const noexcept {
-			return m_transform->GetScale();
+			return m_transform.GetScale();
 		}
 		
 		/**
@@ -891,7 +891,7 @@ namespace mage {
 						node.
 		 */
 		const XMMATRIX GetObjectToParentScaleMatrix() const noexcept {
-			return m_transform->GetObjectToParentScaleMatrix();
+			return m_transform.GetObjectToParentScaleMatrix();
 		}
 
 		/**
@@ -901,7 +901,7 @@ namespace mage {
 						node.
 		 */
 		const XMMATRIX GetParentToObjectScaleMatrix() const noexcept {
-			return m_transform->GetParentToObjectScaleMatrix();
+			return m_transform.GetParentToObjectScaleMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -916,7 +916,7 @@ namespace mage {
 						expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectOrigin() const noexcept {
-			return m_transform->GetObjectOrigin();
+			return m_transform.GetObjectOrigin();
 		}
 
 		/**
@@ -927,7 +927,7 @@ namespace mage {
 						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisX() const noexcept {
-			return m_transform->GetObjectAxisX();
+			return m_transform.GetObjectAxisX();
 		}
 		
 		/**
@@ -938,7 +938,7 @@ namespace mage {
 						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisY() const noexcept {
-			return m_transform->GetObjectAxisY();
+			return m_transform.GetObjectAxisY();
 		}
 		
 		/**
@@ -949,7 +949,7 @@ namespace mage {
 						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisZ() const noexcept {
-			return m_transform->GetObjectAxisZ();
+			return m_transform.GetObjectAxisZ();
 		}
 		
 		/**
@@ -960,7 +960,7 @@ namespace mage {
 						node expressed in object space coordinates.
 		 */
 		const CartesianAxesSystem GetObjectAxes() const noexcept {
-			return m_transform->GetObjectAxes();
+			return m_transform.GetObjectAxes();
 		}
 		
 		/**
@@ -971,7 +971,7 @@ namespace mage {
 						node expressed in object space coordinates.
 		 */
 		const CartesianCoordinateSystem GetObjectCoordinateSystem() const noexcept {
-			return m_transform->GetObjectCoordinateSystem();
+			return m_transform.GetObjectCoordinateSystem();
 		}
 		
 		//---------------------------------------------------------------------
@@ -986,7 +986,7 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentOrigin() const noexcept {
-			return m_transform->GetParentOrigin();
+			return m_transform.GetParentOrigin();
 		}
 
 		/**
@@ -997,7 +997,7 @@ namespace mage {
 						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisX() const noexcept {
-			return m_transform->GetParentAxisX();
+			return m_transform.GetParentAxisX();
 		}
 		
 		/**
@@ -1008,7 +1008,7 @@ namespace mage {
 						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisY() const noexcept {
-			return m_transform->GetParentAxisY();
+			return m_transform.GetParentAxisY();
 		}
 		
 		/**
@@ -1019,7 +1019,7 @@ namespace mage {
 						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisZ() const noexcept {
-			return m_transform->GetParentAxisZ();
+			return m_transform.GetParentAxisZ();
 		}
 		
 		/**
@@ -1030,7 +1030,7 @@ namespace mage {
 						node expressed in parent space coordinates.
 		 */
 		const CartesianAxesSystem GetParentAxes() const noexcept {
-			return m_transform->GetParentAxes();
+			return m_transform.GetParentAxes();
 		}
 		
 		/**
@@ -1041,7 +1041,7 @@ namespace mage {
 						node expressed in parent space coordinates.
 		 */
 		const CartesianCoordinateSystem GetParentCoordinateSystem() const noexcept {
-			return m_transform->GetParentCoordinateSystem();
+			return m_transform.GetParentCoordinateSystem();
 		}
 
 		//---------------------------------------------------------------------
@@ -1222,7 +1222,7 @@ namespace mage {
 		 @return		The object-to-parent matrix of this transform node.
 		 */
 		const XMMATRIX GetObjectToParentMatrix() const noexcept {
-			return m_transform->GetObjectToParentMatrix();
+			return m_transform.GetObjectToParentMatrix();
 		}
 
 		/**
@@ -1231,7 +1231,7 @@ namespace mage {
 		 @return		The parent-to-object matrix of this transform node.
 		 */
 		const XMMATRIX GetParentToObjectMatrix() const noexcept {
-			return m_transform->GetParentToObjectMatrix();
+			return m_transform.GetParentToObjectMatrix();
 		}
 
 		/**
@@ -1288,7 +1288,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParent(
 			FXMVECTOR vector) const noexcept {
 			
-			return m_transform->TransformObjectToParent(vector);
+			return m_transform.TransformObjectToParent(vector);
 		}
 
 		/**
@@ -1303,7 +1303,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(
 			FXMVECTOR point) const noexcept {
 			
-			return m_transform->TransformObjectToParentPoint(point);
+			return m_transform.TransformObjectToParentPoint(point);
 		}
 
 		/**
@@ -1318,7 +1318,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(
 			FXMVECTOR direction) const noexcept {
 			
-			return m_transform->TransformObjectToParentDirection(direction);
+			return m_transform.TransformObjectToParentDirection(direction);
 		}
 
 		/**
@@ -1333,7 +1333,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObject(
 			FXMVECTOR vector) const noexcept {
 			
-			return m_transform->TransformParentToObject(vector);
+			return m_transform.TransformParentToObject(vector);
 		}
 
 		/**
@@ -1348,7 +1348,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(
 			FXMVECTOR point) const noexcept {
 			
-			return m_transform->TransformParentToObjectPoint(point);
+			return m_transform.TransformParentToObjectPoint(point);
 		}
 
 		/**
@@ -1363,7 +1363,7 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(
 			FXMVECTOR direction) const noexcept {
 			
-			return m_transform->TransformParentToObjectDirection(direction);
+			return m_transform.TransformParentToObjectDirection(direction);
 		}
 
 		/**
@@ -1597,15 +1597,16 @@ namespace mage {
 		/**
 		 The transform of this transform node.
 		 */
-		UniquePtr< Transform > m_transform;
+		Transform m_transform;
 
 		/**
-		 The parent transform node of this transform node.
+		 A pointer to the parent transform node of this transform node.
 		 */
 		Node *m_parent;
 
 		/**
-		 The child transform nodes of this transform node.
+		 A vector containing the pointers to the child transform nodes of this 
+		 transform node.
 		 */
 		vector< Node * > m_childs;
 

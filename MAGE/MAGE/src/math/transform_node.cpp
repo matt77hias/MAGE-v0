@@ -18,7 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	TransformNode::TransformNode()
-		: m_transform(MakeUnique< Transform >()),
+		: m_transform(),
 		m_parent(nullptr), 
 		m_childs() {
 		
@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
-		: m_transform(MakeUnique< Transform >(*transform_node.m_transform)),
+		: m_transform(transform_node.m_transform),
 		m_parent(nullptr), 
 		m_childs() {
 		

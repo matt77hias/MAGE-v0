@@ -6,7 +6,6 @@
 #pragma region
 
 #include "mesh\mesh.hpp"
-#include "math\bounding_volume.hpp"
 #include "utils\collection\collection.hpp"
 
 #pragma endregion
@@ -216,50 +215,11 @@ namespace mage {
 		 */
 		StaticMesh &operator=(StaticMesh &&static_mesh) = delete;
 
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the AABB of this static mesh.
-
-		 @return		A reference to the AABB of this static mesh.
-		 */
-		const AABB &GetAABB() const noexcept {
-			return m_aabb;
-		}
-
-		/**
-		 Returns the BS of this static mesh.
-
-		 @return		A reference to the BS of this static mesh.
-		 */
-		const BS &GetBS() const noexcept {
-			return m_bs;
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Sets up the bounding volumes of this static mesh.
-
-		 @pre			@a vertices points to an array of at least 
-						@a nb_vertices vertices.
-		 @pre			@a nb_vertices must be greater than zero.
-		 @tparam		VertexT
-						The vertex type.
-		 @param[in]		vertices
-						A pointer to an array of vertices.
-		 @param[in]		nb_vertices
-						The number of vertices.
-		 */
-		template < typename VertexT >
-		void SetupBoundingVolumes(
-			const VertexT *vertices, size_t nb_vertices) noexcept;
 
 		/**
 		 Sets up the vertex buffer of this static mesh.
@@ -304,20 +264,6 @@ namespace mage {
 		template < typename IndexT >
 		void SetupIndexBuffer(ID3D11Device5 *device, 
 			const IndexT *indices, size_t nb_indices);
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The AABB of this static mesh.
-		 */
-		AABB m_aabb;
-
-		/**
-		 The BS of this static mesh.
-		 */
-		BS m_bs;
 	};
 }
 

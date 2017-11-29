@@ -12,11 +12,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Model::Model(SharedPtr< const StaticMesh > mesh)
-		: Model(static_pointer_cast< const Mesh >(mesh), 
-			0, mesh->GetNumberOfIndices(),
-			mesh->GetAABB(), mesh->GetBS()) {}
-
 	Model::Model(SharedPtr< const Mesh > mesh, 
 		size_t start_index, size_t nb_indices,
 		AABB aabb, BS bs)

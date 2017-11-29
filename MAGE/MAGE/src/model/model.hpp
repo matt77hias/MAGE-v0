@@ -6,6 +6,7 @@
 #pragma region
 
 #include "mesh\static_mesh.hpp"
+#include "math\bounding_volume.hpp"
 #include "material\material.hpp"
 
 #pragma endregion
@@ -25,15 +26,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a model.
-
-		 @pre			@a mesh is not equal to @c nullptr.
-		 @param[in]		mesh
-						A pointer to the mesh.
-		 */
-		explicit Model(SharedPtr< const StaticMesh > mesh);
 
 		/**
 		 Constructs a model.

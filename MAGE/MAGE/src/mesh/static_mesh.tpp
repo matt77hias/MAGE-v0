@@ -31,10 +31,8 @@ namespace mage {
 		const VertexT *vertices, size_t nb_vertices, 
 		const IndexT *indices, size_t nb_indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: Mesh(sizeof(VertexT), index_format, primitive_topology), 
-		m_aabb(), m_bs() {
+		: Mesh(sizeof(VertexT), index_format, primitive_topology) {
 
-		SetupBoundingVolumes(vertices, nb_vertices);
 		SetupVertexBuffer(device, vertices, nb_vertices);
 		SetupIndexBuffer(device, indices, nb_indices);
 	}
@@ -57,23 +55,6 @@ namespace mage {
 			vertices.data(), vertices.size(), 
 			indices.data(), indices.size(), 
 			index_format, primitive_topology) {}
-
-	template < typename VertexT >
-	void StaticMesh::SetupBoundingVolumes(
-		const VertexT *vertices, size_t nb_vertices) noexcept {
-		
-		Assert(vertices);
-
-		for (const VertexT *v = vertices; v < vertices + nb_vertices; ++v) {
-			m_aabb = Union(m_aabb, *v);
-		}
-		
-		m_bs.m_p = m_aabb.Centroid();
-		
-		for (const VertexT *v = vertices; v < vertices + nb_vertices; ++v) {
-			m_bs = Union(m_bs, *v);
-		}
-	}
 
 	template < typename VertexT >
 	void StaticMesh::SetupVertexBuffer(ID3D11Device5 *device, 

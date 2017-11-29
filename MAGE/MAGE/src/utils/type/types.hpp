@@ -29,6 +29,9 @@ namespace mage {
 	 */
 	using F64 = double;
 
+	static_assert(4 == sizeof(F32));
+	static_assert(8 == sizeof(F64));
+
 	static_assert(std::is_same< F32, FLOAT >::value, 
 		"MAGE/Windows primitive type mismatch");
 
@@ -55,6 +58,11 @@ namespace mage {
 	 A signed 64-bit integer value.
 	 */
 	using S64 = signed __int64;
+
+	static_assert(1 == sizeof(S8));
+	static_assert(2 == sizeof(S16));
+	static_assert(4 == sizeof(S32));
+	static_assert(8 == sizeof(S64));
 
 	static_assert(std::is_same< S32, INT >::value,
 		"MAGE/Windows primitive type mismatch");
@@ -94,6 +102,11 @@ namespace mage {
 	 An unsigned 64-bit integer value.
 	 */
 	using U64 = unsigned __int64;
+
+	static_assert(1 == sizeof(U8));
+	static_assert(2 == sizeof(U16));
+	static_assert(4 == sizeof(U32));
+	static_assert(8 == sizeof(U64));
 
 	static_assert(std::is_same< U32, UINT >::value,
 		"MAGE/Windows primitive type mismatch");

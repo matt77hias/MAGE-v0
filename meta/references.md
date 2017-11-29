@@ -26,6 +26,8 @@ AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
+BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.com/blog/2007/06/scenegraphs-past-present-and-future/), 2007.
+
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.
 
 BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SIGGRAPH Comput. Graph.* 11, 2, 1977.
@@ -73,6 +75,10 @@ FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/
 FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.
 
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
+
+GAUL R.: [*Component Based Engine Design*](http://www.randygaul.net/2013/05/20/component-based-engine-design/), 2013.
+
+GAUL R.: [*Sane Usage of Components and Entity Systems*](http://www.randygaul.net/2014/06/10/sane-usage-of-components-and-entity-systems/), 2014.
 
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 

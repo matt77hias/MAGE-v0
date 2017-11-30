@@ -400,7 +400,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of the light camera of 
 						this spot light.
 		 */
-		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+		const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
 #ifdef DISSABLE_INVERTED_Z_BUFFER
 			return XMMatrixPerspectiveFovLH(
 				GetFOV(),

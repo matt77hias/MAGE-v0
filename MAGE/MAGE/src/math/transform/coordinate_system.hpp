@@ -26,7 +26,7 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_HughesMoller(
+	inline void XM_CALLCONV OrthonormalBasis_HughesMoller(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
 		const XMVECTOR u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
@@ -48,7 +48,7 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_Frisvad(
+	inline void XM_CALLCONV OrthonormalBasis_Frisvad(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
 		F32x3 nf;
@@ -82,7 +82,7 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_Duff(
+	inline void XM_CALLCONV OrthonormalBasis_Duff(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
 		F32x3 nf;
@@ -110,7 +110,7 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis(
+	inline void XM_CALLCONV OrthonormalBasis(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
 		OrthonormalBasis_Duff(n, b1, b2);
@@ -236,7 +236,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisX() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisX() const noexcept {
 			return m_x;
 		}
 
@@ -245,7 +245,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisY() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisY() const noexcept {
 			return m_y;
 		}
 
@@ -254,7 +254,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisZ() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisZ() const noexcept {
 			return m_z;
 		}
 
@@ -381,7 +381,7 @@ namespace mage {
 
 		 @return		The origin of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetOrigin() const noexcept {
+		const XMVECTOR XM_CALLCONV GetOrigin() const noexcept {
 			return m_o;
 		}
 
@@ -390,7 +390,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisX() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisX() const noexcept {
 			return m_axes.GetAxisX();
 		}
 
@@ -399,7 +399,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisY() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisY() const noexcept {
 			return m_axes.GetAxisY();
 		}
 
@@ -408,7 +408,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisZ() const noexcept {
+		const XMVECTOR XM_CALLCONV GetAxisZ() const noexcept {
 			return m_axes.GetAxisZ();
 		}
 		

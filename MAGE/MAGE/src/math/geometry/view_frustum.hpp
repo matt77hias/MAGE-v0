@@ -33,7 +33,8 @@ namespace mage {
 						constructed from the given object-to-projection 
 						transformation matrix. @c false otherwise.
 		 */
-		static bool Cull(FXMMATRIX object_to_projection, const AABB &aabb) noexcept {
+		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection, 
+			const AABB &aabb) noexcept {
 			const ViewFrustum view_frustum(object_to_projection);
 			return !view_frustum.Overlaps(aabb);
 		}
@@ -50,7 +51,8 @@ namespace mage {
 						constructed from the given object-to-projection 
 						transformation matrix. @c false otherwise.
 		 */
-		static bool Cull(FXMMATRIX object_to_projection, const BS &bs) noexcept {
+		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection, 
+			const BS &bs) noexcept {
 			const ViewFrustum view_frustum(object_to_projection);
 			return !view_frustum.Overlaps(bs);
 		}
@@ -159,7 +161,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a view frustum.
 		 */
-		bool Encloses(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this view frustum completely, strictly encloses the 
@@ -172,7 +174,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a view frustum.
 		 */
-		bool EnclosesStrict(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this view frustum completely encloses the given AABB.
@@ -306,7 +308,7 @@ namespace mage {
 		 @note			This is a partial coverage test of a point with regard 
 						to a view frustum.
 		 */
-		bool Intersects(FXMVECTOR point, 
+		bool XM_CALLCONV Intersects(FXMVECTOR point,
 			F32 epsilon = 0.0f) const noexcept;
 
 		/**
@@ -362,7 +364,7 @@ namespace mage {
 		 @return		The coverage of @a point with regard to this view 
 						frustum.
 		 */
-		Coverage Classify(FXMVECTOR point, 
+		Coverage XM_CALLCONV Classify(FXMVECTOR point,
 			F32 epsilon = 0.0f) const noexcept;
 
 		/**

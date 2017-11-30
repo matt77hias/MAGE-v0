@@ -14,7 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const XMVECTOR GetTexture2DSize(ID3D11ShaderResourceView *texture_srv) {
+	const XMVECTOR XM_CALLCONV GetTexture2DSize(
+		ID3D11ShaderResourceView *texture_srv) {
 		
 		Assert(texture_srv);
 
@@ -30,7 +31,8 @@ namespace mage {
 		return GetTexture2DSize(texture.Get());
 	}
 
-	const XMVECTOR GetTexture2DSize(ID3D11Texture2D *texture) noexcept {
+	const XMVECTOR XM_CALLCONV GetTexture2DSize(
+		ID3D11Texture2D *texture) noexcept {
 		
 		Assert(texture);
 		

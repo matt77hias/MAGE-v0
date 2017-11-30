@@ -205,7 +205,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of this orthographic 
 						camera.
 		 */
-		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept override {
+		virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept override {
 #ifdef DISSABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
 				GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
@@ -221,7 +221,7 @@ namespace mage {
 		 @return		The projection-to-view matrix of this orthographic 
 						camera.
 		 */
-		virtual const XMMATRIX GetProjectionToViewMatrix() const noexcept override {
+		virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept override {
 			const XMMATRIX view_to_projection = GetViewToProjectionMatrix();
 
 			const F32 m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);

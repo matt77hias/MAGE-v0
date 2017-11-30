@@ -207,7 +207,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool Encloses(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given point.
@@ -219,7 +219,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool EnclosesStrict(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this AABB completely encloses the given AABB.
@@ -352,7 +352,7 @@ namespace mage {
 		 @note			This is a partial coverage test of a point with regard 
 						to an AABB.
 		 */
-		bool Intersects(FXMVECTOR point, 
+		bool XM_CALLCONV Intersects(FXMVECTOR point,
 			F32 epsilon = 0.0f) const noexcept;
 
 		/**
@@ -404,7 +404,7 @@ namespace mage {
 						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
-		Coverage Classify(FXMVECTOR point, 
+		Coverage XM_CALLCONV Classify(FXMVECTOR point,
 			F32 epsilon = 0.0f) const noexcept;
 
 		/**
@@ -672,7 +672,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool Encloses(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given point.
@@ -684,7 +684,7 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool EnclosesStrict(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this BS completely encloses the given AABB.

@@ -72,8 +72,8 @@ namespace mage {
 	 @param[out]	pmax
 					A reference to the maximum point of @a aabb along @a n.
 	 */
-	inline void MinAndMaxPointAlongNormal(FXMVECTOR n, const AABB &aabb, 
-		XMVECTOR &pmin, XMVECTOR &pmax) noexcept {
+	inline void XM_CALLCONV MinAndMaxPointAlongNormal(FXMVECTOR n, 
+		const AABB &aabb, XMVECTOR &pmin, XMVECTOR &pmax) noexcept {
 		
 		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
 		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
@@ -92,7 +92,8 @@ namespace mage {
 					A reference to the AABB.
 	 @return		The minimum point of @a aabb along @a n.
 	 */
-	inline XMVECTOR MinPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
+	inline XMVECTOR XM_CALLCONV MinPointAlongNormal(FXMVECTOR n, 
+		const AABB &aabb) noexcept {
 		
 		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
 		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
@@ -110,7 +111,8 @@ namespace mage {
 					A reference to the AABB.
 	 @return		The minimum point of @a aabb along @a n.
 	 */
-	inline XMVECTOR MaxPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
+	inline XMVECTOR XM_CALLCONV MaxPointAlongNormal(FXMVECTOR n, 
+		const AABB &aabb) noexcept {
 		
 		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
 		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
@@ -131,7 +133,7 @@ namespace mage {
 		return EnclosesStrict(XMLoadFloat3(&point));
 	}
 
-	bool ViewFrustum::Encloses(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV ViewFrustum::Encloses(FXMVECTOR point) const noexcept {
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) < 0.0f) {
@@ -142,7 +144,7 @@ namespace mage {
 		return true;
 	}
 
-	bool ViewFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV ViewFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) <= 0.0f) {
@@ -267,7 +269,7 @@ namespace mage {
 		return Intersects(XMLoadFloat3(&point), epsilon);
 	}
 
-	bool ViewFrustum::Intersects(FXMVECTOR point, 
+	bool XM_CALLCONV ViewFrustum::Intersects(FXMVECTOR point,
 		F32 epsilon) const noexcept {
 		
 		bool intersection = false;
@@ -338,7 +340,7 @@ namespace mage {
 		return Classify(XMLoadFloat3(&point), epsilon);
 	}
 
-	Coverage ViewFrustum::Classify(FXMVECTOR point, 
+	Coverage XM_CALLCONV ViewFrustum::Classify(FXMVECTOR point,
 		F32 epsilon) const noexcept {
 		
 		bool intersection = false;

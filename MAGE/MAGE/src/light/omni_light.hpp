@@ -262,7 +262,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of the (forward) light 
 						camera of this omni light.
 		 */
-		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+		const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
 #ifdef DISSABLE_INVERTED_Z_BUFFER
 			const F32 m22 = GetRange()
 				/ (GetRange() - MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);

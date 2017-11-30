@@ -1220,7 +1220,7 @@ namespace mage {
 
 		 @return		The (object-to-parent) matrix of this sprite transform.
 		 */
-		const XMMATRIX GetTransformMatrix() const noexcept {
+		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
 			UpdateObjectToParentMatrix();
 			return m_transform;
 		}

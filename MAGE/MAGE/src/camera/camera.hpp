@@ -144,14 +144,14 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this camera.
 		 */
-		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept = 0;
+		virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept = 0;
 
 		/**
 		 Returns the projection-to-view matrix of this camera.
 
 		 @return		The projection-to-view matrix of this camera.
 		 */
-		virtual const XMMATRIX GetProjectionToViewMatrix() const noexcept = 0;
+		virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Depth-of-Field

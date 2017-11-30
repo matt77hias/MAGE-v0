@@ -174,13 +174,13 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::Encloses(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV AABB::Encloses(FXMVECTOR point) const noexcept {
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Encloses(p);
 	}
 
-	bool AABB::EnclosesStrict(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV AABB::EnclosesStrict(FXMVECTOR point) const noexcept {
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return EnclosesStrict(p);
@@ -397,7 +397,7 @@ namespace mage {
 		return intersection;
 	}
 
-	bool AABB::Intersects(FXMVECTOR point, F32 epsilon) const noexcept {
+	bool XM_CALLCONV AABB::Intersects(FXMVECTOR point, F32 epsilon) const noexcept {
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Intersects(p, epsilon);
@@ -515,7 +515,7 @@ namespace mage {
 		return intersection ? Coverage::PartialCoverage : Coverage::FullCoverage;
 	}
 
-	Coverage AABB::Classify(FXMVECTOR point, F32 epsilon) const noexcept {
+	Coverage XM_CALLCONV AABB::Classify(FXMVECTOR point, F32 epsilon) const noexcept {
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Classify(p, epsilon);
@@ -630,13 +630,13 @@ namespace mage {
 		return EnclosesStrict(XMLoadFloat3(&point));
 	}
 
-	bool BS::Encloses(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV BS::Encloses(FXMVECTOR point) const noexcept {
 		const XMVECTOR p = XMLoadFloat3(&m_p);
 		const XMVECTOR length = XMVector3Length(point - p);
 		return XMVectorGetX(length) <= m_r;
 	}
 
-	bool BS::EnclosesStrict(FXMVECTOR point) const noexcept {
+	bool XM_CALLCONV BS::EnclosesStrict(FXMVECTOR point) const noexcept {
 		const XMVECTOR p = XMLoadFloat3(&m_p);
 		const XMVECTOR length = XMVector3Length(point - p);
 		return XMVectorGetX(length) < m_r;

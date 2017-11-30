@@ -24,8 +24,10 @@ namespace mage {
 	 @return		A @c XMVECTOR  (left, top, right, bottom) representing the 
 					given @c RECT (left, top, right, bottom).
 	 */
-	inline const XMVECTOR XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
-		const XMVECTOR v = XMLoadInt4(reinterpret_cast<const U32 *>(&rect));
+	inline const XMVECTOR XM_CALLCONV XMVectorLeftTopRightBottom(
+		const RECT &rect) noexcept {
+		
+		const XMVECTOR v = XMLoadInt4(reinterpret_cast< const U32 * >(&rect));
 		return XMConvertVectorIntToFloat(v, 0);
 	}
 
@@ -38,7 +40,9 @@ namespace mage {
 	 @return		A @c XMVECTOR  (left, top, width, height) representing the 
 					given @c RECT (left, top, right, bottom).
 	 */
-	inline const XMVECTOR XMVectorLeftTopWidthHeight(const RECT &rect) noexcept {
+	inline const XMVECTOR XM_CALLCONV XMVectorLeftTopWidthHeight(
+		const RECT &rect) noexcept {
+
 		const XMVECTOR v = XMVectorLeftTopRightBottom(rect);
 		return v - XMVectorPermute< 0, 1, 4, 5 >(XMVectorZero(), v);
 
@@ -58,7 +62,8 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
+	const XMMATRIX XM_CALLCONV GetViewportTransform(
+		ID3D11DeviceContext4 *device_context,
 		DXGI_MODE_ROTATION rotation_mode);
 
 	/**
@@ -78,8 +83,10 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
-		DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport);
+	const XMMATRIX XM_CALLCONV GetViewportTransform(
+		ID3D11DeviceContext4 *device_context,
+		DXGI_MODE_ROTATION rotation_mode, 
+		D3D11_VIEWPORT *viewport);
 	
 	/**
 	 Returns the viewport transform for the viewport and rotation mode.
@@ -91,6 +98,7 @@ namespace mage {
 	 @return		The viewport transform for
 					the given viewport and rotation mode.
 	 */
-	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, 
+	const XMMATRIX GetViewportTransform(
+		const D3D11_VIEWPORT &viewport, 
 		DXGI_MODE_ROTATION rotation_mode) noexcept;
 }

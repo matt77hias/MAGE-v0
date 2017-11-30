@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		explicit OrthographicCamera(
+		constexpr explicit OrthographicCamera(
 			F32 width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			F32 height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera);
+		constexpr OrthographicCamera(const OrthographicCamera &camera);
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic 
@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to move.
 		 */
-		OrthographicCamera(OrthographicCamera &&camera);
+		constexpr OrthographicCamera(OrthographicCamera &&camera);
 
 		/**
 		 Destructs this orthographic camera.
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic 
 						camera (i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera);
+		constexpr OrthographicCamera &operator=(const OrthographicCamera &camera);
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the moved orthographic camera (i.e. this 
 						orthographic camera).
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&camera);
+		constexpr OrthographicCamera &operator=(OrthographicCamera &&camera);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -122,7 +122,7 @@ namespace mage {
 		 @return		The width of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		F32 GetWidth() const noexcept {
+		constexpr F32 GetWidth() const noexcept {
 			return m_width;
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 						The width of the camera projection plane in camera 
 						space.
 		 */
-		void SetWidth(F32 width) noexcept {
+		constexpr void SetWidth(F32 width) noexcept {
 			m_width = width;
 		}
 
@@ -145,7 +145,7 @@ namespace mage {
 		 @return		The height of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		F32 GetHeight() const noexcept {
+		constexpr F32 GetHeight() const noexcept {
 			return m_height;
 		}
 		
@@ -157,7 +157,7 @@ namespace mage {
 						The height of the camera projection plane in camera 
 						space.
 		 */
-		void SetHeight(F32 height) noexcept {
+		constexpr void SetHeight(F32 height) noexcept {
 			m_height = height;
 		}
 		
@@ -172,7 +172,7 @@ namespace mage {
 						The height of the camera projection plane in camera 
 						space.
 		 */
-		void SetWidthAndHeight(F32 width, F32 height) noexcept {
+		constexpr void SetWidthAndHeight(F32 width, F32 height) noexcept {
 			m_width  = width;
 			m_height = height;
 		}
@@ -191,7 +191,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		*/
-		void SetViewToProjectionMatrix(
+		constexpr void SetViewToProjectionMatrix(
 			F32 width,  F32 height,
 			F32 near_z, F32 far_z) noexcept {
 			

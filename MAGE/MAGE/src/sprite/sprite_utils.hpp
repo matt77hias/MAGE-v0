@@ -98,7 +98,7 @@ namespace mage {
 	 @return		The viewport transform for
 					the given viewport and rotation mode.
 	 */
-	const XMMATRIX GetViewportTransform(
+	const XMMATRIX XM_CALLCONV GetViewportTransform(
 		const D3D11_VIEWPORT &viewport, 
 		DXGI_MODE_ROTATION rotation_mode) noexcept;
 }

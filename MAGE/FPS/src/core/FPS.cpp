@@ -33,9 +33,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	// Create the engine.
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
 	
-	VariableScript s(L"assets/scripts/script_test.var");
-	s.ExportScript(L"assets/scripts/output.var");
-
 	if (engine->IsLoaded()) {
 		// Run the engine.
 		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);
@@ -43,3 +40,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	return 0;
 }
+
+//VariableScript s(L"assets/scripts/script_test.var");
+//s.ExportScript(L"assets/scripts/output.var");

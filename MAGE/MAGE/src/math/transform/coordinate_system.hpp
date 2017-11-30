@@ -54,16 +54,20 @@ namespace mage {
 		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
-		if (nf.z < -0.9999999f) {
+		if (nf.m_z < -0.9999999f) {
 			b1 = XMVectorSet( 0.0f, -1.0f, 0.0f, 0.0f);
 			b2 = XMVectorSet(-1.0f,  0.0f, 0.0f, 0.0f);
 			return;
 		}
 
-		const F32 a = 1.0f / (1.0f + nf.z);
-		const F32 b = -nf.x * nf.y * a;
-		b1 = XMVectorSet(1.0f - nf.x * nf.x * a, b, -nf.x, 0.0f);
-		b2 = XMVectorSet(b, 1.0f - nf.y * nf.y * a, -nf.y, 0.0f);
+		const F32 a = 1.0f / (1.0f + nf.m_z);
+		const F32 b = -nf.m_x * nf.m_y * a;
+		b1 = XMVectorSet(1.0f - nf.m_x * nf.m_x * a, 
+			             b, 
+			             -nf.m_x, 0.0f);
+		b2 = XMVectorSet(b, 
+			             1.0f - nf.m_y * nf.m_y * a, 
+			             -nf.m_y, 0.0f);
 	}
 
 	/**
@@ -84,11 +88,15 @@ namespace mage {
 		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
-		const F32 sign = copysignf(1.0f, nf.z);
-		const F32 a = -1.0f / (sign + nf.z);
-		const F32 b = nf.x * nf.y * a;
-		b1 = XMVectorSet(1.0f + sign * nf.x * nf.x * a, sign * b, -sign * nf.x, 0.0f);
-		b2 = XMVectorSet(b, sign + nf.y * nf.y * a, -nf.y, 0.0f);
+		const F32 sign = copysignf(1.0f, nf.m_z);
+		const F32 a = -1.0f / (sign + nf.m_z);
+		const F32 b = nf.m_x * nf.m_y * a;
+		b1 = XMVectorSet(1.0f + sign * nf.m_x * nf.m_x * a, 
+			             sign * b, 
+			             -sign * nf.m_x, 0.0f);
+		b2 = XMVectorSet(b, sign + nf.m_y * nf.m_y * a, 
+			             -nf.m_y, 
+			             0.0f);
 	}
 
 	/**

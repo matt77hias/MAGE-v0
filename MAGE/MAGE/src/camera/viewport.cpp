@@ -5,7 +5,15 @@
 
 #include "camera\viewport.hpp"
 #include "rendering\display_configuration.hpp"
-#include "math\math_utils.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
 
 #pragma endregion
 

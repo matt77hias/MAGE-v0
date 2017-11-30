@@ -74,14 +74,14 @@ namespace mage {
 		U32 flags = static_cast< U32 >(effects);
 		// destination: Tx Ty Sx Sy
 		const XMVECTOR destination = XMVectorSet(
-										transform.GetTranslation().x,
-										transform.GetTranslation().y,
-										transform.GetScale().x,
-										transform.GetScale().y);
+										transform.GetTranslation().m_x,
+										transform.GetTranslation().m_y,
+										transform.GetScale().m_x,
+										transform.GetScale().m_y);
 		// origin_rotation_depth: ROx ROy R D
 		const XMVECTOR origin_rotation_depth = XMVectorSet(
-										transform.GetRotationOrigin().x, 
-										transform.GetRotationOrigin().y, 
+										transform.GetRotationOrigin().m_x, 
+										transform.GetRotationOrigin().m_y, 
 										transform.GetRotation(), 
 										transform.GetDepth());
 
@@ -250,7 +250,7 @@ namespace mage {
 			std::sort(m_sorted_sprites.begin(), 
 				m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->m_origin_rotation_depth.w > rhs->m_origin_rotation_depth.w;
+				return lhs->m_origin_rotation_depth.m_w > rhs->m_origin_rotation_depth.m_w;
 			});
 			
 			break;
@@ -261,7 +261,7 @@ namespace mage {
 			std::sort(m_sorted_sprites.begin(), 
 				m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->m_origin_rotation_depth.w < rhs->m_origin_rotation_depth.w;
+				return lhs->m_origin_rotation_depth.m_w < rhs->m_origin_rotation_depth.m_w;
 			});
 			
 			break;
@@ -354,7 +354,7 @@ namespace mage {
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);
 		const XMVECTOR color                 = XMLoadFloat4A(&sprite->m_color);
 		const XMVECTOR origin_rotation_depth = XMLoadFloat4A(&sprite->m_origin_rotation_depth);
-		const F32 rotation                   = sprite->m_origin_rotation_depth.z;
+		const F32 rotation                   = sprite->m_origin_rotation_depth.m_z;
 		const U32 flags                      = sprite->m_flags;
 		XMVECTOR source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		XMVECTOR destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);

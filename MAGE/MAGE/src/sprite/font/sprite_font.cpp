@@ -532,8 +532,8 @@ namespace mage {
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 
-					const F32 min_x = position.x + x;
-					const F32 min_y = position.y + y + glyph->m_offset_y;
+					const F32 min_x = position.m_x + x;
+					const F32 min_y = position.m_y + y + glyph->m_offset_y;
 					const F32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
 					const F32 max_y = min_y + height;
 
@@ -596,8 +596,8 @@ namespace mage {
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 
-						const F32 min_x = position.x + x;
-						const F32 min_y = position.y + y + glyph->m_offset_y;
+						const F32 min_x = position.m_x + x;
+						const F32 min_y = position.m_y + y + glyph->m_offset_y;
 						const F32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
 						const F32 max_y = min_y + height;
 

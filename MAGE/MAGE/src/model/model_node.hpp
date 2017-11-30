@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform_node.hpp"
+#include "math\transform\transform_node.hpp"
 #include "model\model.hpp"
-#include "math\texture_transform.hpp"
+#include "math\transform\texture_transform.hpp"
 
 #pragma endregion
 

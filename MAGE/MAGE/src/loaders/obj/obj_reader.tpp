@@ -300,20 +300,20 @@ namespace mage {
 		VertexT vertex;
 
 		if constexpr(VertexT::HasPosition()) {
-			if (vertex_indices.x) {
-				vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
+			if (vertex_indices.m_x) {
+				vertex.p = m_vertex_coordinates[vertex_indices.m_x - 1];
 			}
 		}
 
 		if constexpr(VertexT::HasTexture()) {
-			if (vertex_indices.y) {
-				vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
+			if (vertex_indices.m_y) {
+				vertex.tex = m_vertex_texture_coordinates[vertex_indices.m_y - 1];
 			}
 		}
 
 		if constexpr(VertexT::HasNormal()) {
-			if (vertex_indices.z) {
-				vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
+			if (vertex_indices.m_z) {
+				vertex.n = m_vertex_normal_coordinates[vertex_indices.m_z - 1];
 			}
 		}
 

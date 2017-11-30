@@ -83,7 +83,7 @@ namespace mage {
 	 @tparam		T
 					The type.
 	 @tparam		ConstructorArgsT
-					The constructor argument types of the camera.
+					The constructor argument types.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -97,7 +97,7 @@ namespace mage {
 	 @tparam		T
 					The type.
 	 @tparam		ConstructorArgsT
-					The constructor argument types of the camera.
+					The constructor argument types.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -138,46 +138,16 @@ namespace mage {
 	using UniquePtr = std::unique_ptr< T, DeleterT >;
 
 	/**
-	 Constructs a non-array type T. This overload only participates in overload 
-	 resolution if T is not an array type.
+	 Constructs an object of type T.
 
 	 @tparam		T
 					The type.
 	 @tparam		ConstructorArgsT
-					The constructor argument types of the camera.
-	 @return		A unique pointer to the constructed non-array type T.
+					The constructor argument types.
+	 @return		A unique pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	typename std::enable_if_t< !std::is_array_v< T >, 
-		UniquePtr< T > > MakeUnique(ConstructorArgsT&&... args);
-	
-	/**
-	 Constructs an array of unknown bound T. This overload only participates 
-	 in overload resolution if T is an array of unknown bound.
-
-	 @tparam		T
-					The type.
-	 @param[in]		count
-					The number of elements of the array to construct.
-	 @return		A unique pointer to the constructed array of unknown bound T.
-	 */
-	template< typename T >
-	typename std::enable_if_t< std::is_array_v< T > && std::extent_v< T > == 0,
-		UniquePtr< T > > MakeUnique(size_t count);
-
-	/**
-	 Constructs an array of known bound T. This overload only participates
-	 in overload resolution if T is an array of known bound.
-
-	 @tparam		T
-					The type.
-	 @param[in]		count
-					The number of elements of the array to construct.
-	 @return		A unique pointer to the constructed array of known bound T.
-	 */
-	template< typename T >
-	typename std::enable_if_t< std::extent_v< T > != 0,
-		UniquePtr< T > > MakeUnique(size_t count) = delete;
+	typename UniquePtr< T > MakeUnique(ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by statically 

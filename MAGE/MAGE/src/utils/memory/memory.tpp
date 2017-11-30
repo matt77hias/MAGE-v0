@@ -24,15 +24,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template< typename T, typename... ConstructorArgsT >
-	inline typename std::enable_if_t< !std::is_array_v< T >,
-		UniquePtr< T > > MakeUnique(ConstructorArgsT&&... args) {
+	inline UniquePtr< T > MakeUnique(ConstructorArgsT&&... args) {
 		return std::make_unique< T >(std::forward< ConstructorArgsT >(args)...);
-	}
-
-	template< typename T >
-	inline typename std::enable_if_t< std::is_array_v< T > && std::extent_v< T > == 0,
-		UniquePtr< T > > MakeUnique(size_t count) {
-		return std::make_unique< T >(count);
 	}
 
 	template< typename T, typename U >

@@ -50,7 +50,7 @@ namespace mage {
 	 */
 	inline const F32x2 ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
 		return F32x2(ConvertNormalizedToAbsoluteScreenX(x), 
-			            ConvertNormalizedToAbsoluteScreenY(y));
+			         ConvertNormalizedToAbsoluteScreenY(y));
 	}
 	
 	/**
@@ -64,7 +64,7 @@ namespace mage {
 	inline const F32x2 ConvertNormalizedToAbsoluteScreen(
 		const F32x2 &position) {
 		
-		return ConvertNormalizedToAbsoluteScreen(position.x, position.y);
+		return ConvertNormalizedToAbsoluteScreen(position.m_x, position.m_y);
 	}
 	
 	/**
@@ -110,7 +110,7 @@ namespace mage {
 	 */
 	inline const F32x2 ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
 		return F32x2(ConvertAbsoluteToNormalizedScreenX(x), 
-			            ConvertAbsoluteToNormalizedScreenY(y));
+			         ConvertAbsoluteToNormalizedScreenY(y));
 	}
 	
 	/**
@@ -124,7 +124,7 @@ namespace mage {
 	inline const F32x2 ConvertAbsoluteToNormalizedScreen(
 		const F32x2 &position) {
 		
-		return ConvertAbsoluteToNormalizedScreen(position.x, position.y);
+		return ConvertAbsoluteToNormalizedScreen(position.m_x, position.m_y);
 	}
 	
 	/**
@@ -170,8 +170,8 @@ namespace mage {
 		 */
 		explicit SpriteTransform(
 			F32x2 translation     = { 0.0f, 0.0f }, 
-			F32 depth                = 0.0f,
-			F32 rotation             = 0.0f, 
+			F32 depth             = 0.0f,
+			F32 rotation          = 0.0f, 
 			F32x2 rotation_origin = { 0.0f, 0.0f }, 
 			F32x2 scale           = { 1.0f, 1.0f })
 			: m_translation(std::move(translation)), 
@@ -272,7 +272,7 @@ namespace mage {
 						The x-value of the translation component.
 		 */
 		void SetTranslationX(F32 x) noexcept {
-			m_translation.x = x;
+			m_translation.m_x = x;
 			SetDirty();
 		}
 
@@ -284,7 +284,7 @@ namespace mage {
 						The y-value of the translation component.
 		 */
 		void SetTranslationY(F32 y) noexcept {
-			m_translation.y = y;
+			m_translation.m_y = y;
 			SetDirty();
 		}
 
@@ -298,8 +298,8 @@ namespace mage {
 						The y-value of the translation component.
 		 */
 		void SetTranslation(F32 x, F32 y) noexcept {
-			m_translation.x = x;
-			m_translation.y = y;
+			m_translation.m_x = x;
+			m_translation.m_y = y;
 			SetDirty();
 		}
 
@@ -335,7 +335,7 @@ namespace mage {
 						The x-value of the translation component to add.
 		 */
 		void AddTranslationX(F32 x) noexcept {
-			m_translation.x += x;
+			m_translation.m_x += x;
 			SetDirty();
 		}
 
@@ -347,7 +347,7 @@ namespace mage {
 						The y-value of the translation component to add.
 		 */
 		void AddTranslationY(F32 y) noexcept {
-			m_translation.y += y;
+			m_translation.m_y += y;
 			SetDirty();
 		}
 
@@ -361,8 +361,8 @@ namespace mage {
 						The y-value of the translation component to add.
 		 */
 		void AddTranslation(F32 x, F32 y) noexcept {
-			m_translation.x += x;
-			m_translation.y += y;
+			m_translation.m_x += x;
+			m_translation.m_y += y;
 			SetDirty();
 		}
 
@@ -374,7 +374,7 @@ namespace mage {
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const F32x2 &translation) noexcept {
-			AddTranslation(translation.x, translation.y);
+			AddTranslation(translation.m_x, translation.m_y);
 		}
 
 		/**
@@ -385,7 +385,8 @@ namespace mage {
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
+			AddTranslation(XMVectorGetX(translation), 
+				           XMVectorGetY(translation));
 		}
 
 		/**
@@ -396,7 +397,7 @@ namespace mage {
 						sprite transform.
 		 */
 		F32 GetTranslationX() const noexcept {
-			return m_translation.x;
+			return m_translation.m_x;
 		}
 
 		/**
@@ -407,7 +408,7 @@ namespace mage {
 						sprite transform.
 		 */
 		F32 GetTranslationY() const noexcept {
-			return m_translation.y;
+			return m_translation.m_y;
 		}
 
 		/**
@@ -708,7 +709,7 @@ namespace mage {
 						The x-value of the rotation origin.
 		 */
 		void SetRotationOriginX(F32 x) noexcept {
-			m_rotation_origin.x = x;
+			m_rotation_origin.m_x = x;
 			SetDirty();
 		}
 
@@ -720,7 +721,7 @@ namespace mage {
 						The y-value of the rotation origin.
 		 */
 		void SetRotationOriginY(F32 y) noexcept {
-			m_rotation_origin.y = y;
+			m_rotation_origin.m_y = y;
 			SetDirty();
 		}
 
@@ -734,8 +735,8 @@ namespace mage {
 						The y-value of the rotation origin.
 		 */
 		void SetRotationOrigin(F32 x, F32 y) noexcept {
-			m_rotation_origin.x = x;
-			m_rotation_origin.y = y;
+			m_rotation_origin.m_x = x;
+			m_rotation_origin.m_y = y;
 			SetDirty();
 		}
 
@@ -771,7 +772,7 @@ namespace mage {
 						The x-value of the rotation origin to add.
 		 */
 		void AddRotationOriginX(F32 x) noexcept {
-			m_rotation_origin.x += x;
+			m_rotation_origin.m_x += x;
 			SetDirty();
 		}
 
@@ -783,7 +784,7 @@ namespace mage {
 						The y-value of the rotation origin to add.
 		 */
 		void AddRotationOriginY(F32 y) noexcept {
-			m_rotation_origin.y += y;
+			m_rotation_origin.m_y += y;
 			SetDirty();
 		}
 
@@ -797,8 +798,8 @@ namespace mage {
 						The y-value of the rotation origin to add.
 		 */
 		void AddRotationOrigin(F32 x, F32 y) noexcept {
-			m_rotation_origin.x += x;
-			m_rotation_origin.y += y;
+			m_rotation_origin.m_x += x;
+			m_rotation_origin.m_y += y;
 			SetDirty();
 		}
 
@@ -810,7 +811,7 @@ namespace mage {
 						A reference to the rotation origin to add.
 		 */
 		void AddRotationOrigin(const F32x2 &rotation_origin) noexcept {
-			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
+			AddRotationOrigin(rotation_origin.m_x, rotation_origin.m_y);
 		}
 
 		/**
@@ -832,7 +833,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetRotationOriginX() const noexcept {
-			return m_rotation_origin.x;
+			return m_rotation_origin.m_x;
 		}
 
 		/**
@@ -842,7 +843,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetRotationOriginY() const noexcept {
-			return m_rotation_origin.y;
+			return m_rotation_origin.m_y;
 		}
 
 		/**
@@ -1042,7 +1043,7 @@ namespace mage {
 						The x-value of the scale component.
 		 */
 		void SetScaleX(F32 x) noexcept {
-			m_scale.x = x;
+			m_scale.m_x = x;
 			SetDirty();
 		}
 
@@ -1054,7 +1055,7 @@ namespace mage {
 						The y-value of the scale component.
 		 */
 		void SetScaleY(F32 y) noexcept {
-			m_scale.y = y;
+			m_scale.m_y = y;
 			SetDirty();
 		}
 
@@ -1079,8 +1080,8 @@ namespace mage {
 						The y-value of the scale component.
 		 */
 		void SetScale(F32 x, F32 y) noexcept {
-			m_scale.x = x;
-			m_scale.y = y;
+			m_scale.m_x = x;
+			m_scale.m_y = y;
 			SetDirty();
 		}
 
@@ -1116,7 +1117,7 @@ namespace mage {
 						The x-value of the scale component to add.
 		 */
 		void AddScaleX(F32 x) noexcept {
-			m_scale.x += x;
+			m_scale.m_x += x;
 			SetDirty();
 		}
 
@@ -1128,7 +1129,7 @@ namespace mage {
 						The y-value of the scale component to add.
 		 */
 		void AddScaleY(F32 y) noexcept {
-			m_scale.y += y;
+			m_scale.m_y += y;
 			SetDirty();
 		}
 
@@ -1153,8 +1154,8 @@ namespace mage {
 						The y-value of the scale component to add.
 		 */
 		void AddScale(F32 x, F32 y) noexcept {
-			m_scale.x += x;
-			m_scale.y += y;
+			m_scale.m_x += x;
+			m_scale.m_y += y;
 			SetDirty();
 		}
 
@@ -1166,7 +1167,7 @@ namespace mage {
 						A reference to the scale component to add.
 		 */
 		void AddScale(const F32x2 &scale) noexcept {
-			AddScale(scale.x, scale.y);
+			AddScale(scale.m_x, scale.m_y);
 		}
 
 		/**
@@ -1177,7 +1178,8 @@ namespace mage {
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
+			AddScale(XMVectorGetX(scale), 
+				     XMVectorGetY(scale));
 		}
 
 		/**
@@ -1187,7 +1189,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetScaleX() const noexcept {
-			return m_scale.x;
+			return m_scale.m_x;
 		}
 
 		/**
@@ -1197,7 +1199,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetScaleY() const noexcept {
-			return m_scale.y;
+			return m_scale.m_y;
 		}
 
 		/**
@@ -1245,13 +1247,13 @@ namespace mage {
 				
 				const F32 s = sin(m_rotation);
 				const F32 c = cos(m_rotation);
-				const F32 sSx = s * m_scale.x;
-				const F32 sSy = s * m_scale.y;
-				const F32 cSx = c * m_scale.x;
-				const F32 cSy = c * m_scale.y;
+				const F32 sSx = s * m_scale.m_x;
+				const F32 sSy = s * m_scale.m_y;
+				const F32 cSx = c * m_scale.m_x;
+				const F32 cSy = c * m_scale.m_y;
 
-				const F32 tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
-				const F32 ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+				const F32 tx = (1.0f - cSx) * m_rotation_origin.m_x + sSy * m_rotation_origin.m_y + m_translation.m_x;
+				const F32 ty = (1.0f - cSy) * m_rotation_origin.m_y - sSx * m_rotation_origin.m_x + m_translation.m_y;
 
 				m_transform = XMMATRIX {
 					 cSx,  sSx, 0.0f, 0.0f,

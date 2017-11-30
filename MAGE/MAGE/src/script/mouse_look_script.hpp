@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform_node.hpp"
+#include "math\transform\transform_node.hpp"
 
 #pragma endregion
 
@@ -60,23 +60,23 @@ namespace mage::script {
 		}
 
 		F32 GetSensitivityX() const noexcept {
-			return m_sensitivity.x;
+			return m_sensitivity.m_x;
 		}
 		F32 GetSensitivityY() const noexcept {
-			return m_sensitivity.y;
+			return m_sensitivity.m_y;
 		}
 		const F32x2 GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
 		void SetSensitivityX(F32 x) noexcept {
-			m_sensitivity.x = x;
+			m_sensitivity.m_x = x;
 		}
 		void SetSensitivityY(F32 y) noexcept {
-			m_sensitivity.y = y;
+			m_sensitivity.m_y = y;
 		}
 		void SetSensitivity(F32 x, F32 y) {
-			m_sensitivity.x = x;
-			m_sensitivity.y = y;
+			m_sensitivity.m_x = x;
+			m_sensitivity.m_y = y;
 		}
 		void SetSensitivity(F32x2 sensitivity) noexcept {
 			m_sensitivity = std::move(sensitivity);
@@ -86,23 +86,23 @@ namespace mage::script {
 		}
 
 		F32 GetMinimumRotationX() const noexcept {
-			return m_minimum_rotation.x;
+			return m_minimum_rotation.m_x;
 		}
 		F32 GetMinimumRotationY() const noexcept {
-			return m_minimum_rotation.y;
+			return m_minimum_rotation.m_y;
 		}
 		const F32x2 GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
 		void SetMinimumRotationX(F32 x) noexcept {
-			m_minimum_rotation.x = x;
+			m_minimum_rotation.m_x = x;
 		}
 		void SetMinimumRotationY(F32 y) noexcept {
-			m_minimum_rotation.y = y;
+			m_minimum_rotation.m_y = y;
 		}
 		void SetMinimumRotation(F32 x, F32 y) noexcept {
-			m_minimum_rotation.x = x;
-			m_minimum_rotation.y = y;
+			m_minimum_rotation.m_x = x;
+			m_minimum_rotation.m_y = y;
 		}
 		void SetMinimumRotation(F32x2 minimum_rotation) noexcept {
 			m_minimum_rotation = std::move(minimum_rotation);
@@ -112,23 +112,23 @@ namespace mage::script {
 		}
 
 		F32 GetMaximumRotationX() const noexcept {
-			return m_maximum_rotation.x;
+			return m_maximum_rotation.m_x;
 		}
 		F32 GetMaximumRotationY() const noexcept {
-			return m_maximum_rotation.y;
+			return m_maximum_rotation.m_y;
 		}
 		const F32x2 GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
 		void SetMaximumRotationX(F32 x) noexcept {
-			m_maximum_rotation.x = x;
+			m_maximum_rotation.m_x = x;
 		}
 		void SetMaximumRotationY(F32 y) noexcept {
-			m_maximum_rotation.y = y;
+			m_maximum_rotation.m_y = y;
 		}
 		void SetMaximumRotation(F32 x, F32 y) noexcept {
-			m_maximum_rotation.x = x;
-			m_maximum_rotation.y = y;
+			m_maximum_rotation.m_x = x;
+			m_maximum_rotation.m_y = y;
 		}
 		void SetMaximumRotation(F32x2 maximum_rotation) noexcept {
 			m_maximum_rotation = std::move(maximum_rotation);
@@ -138,10 +138,10 @@ namespace mage::script {
 		}
 
 		void InvertDirectionX() noexcept {
-			m_direction.x *= -1.0f;
+			m_direction.m_x *= -1.0f;
 		}
 		void InvertDirectionY() noexcept {
-			m_direction.y *= -1.0f;
+			m_direction.m_y *= -1.0f;
 		}
 
 	private:

@@ -5,7 +5,7 @@
 
 #include "rendering\rendering_manager.hpp"
 #include "resource\resource_factory.hpp"
-#include "math\view_frustum.hpp"
+#include "math\geometry\view_frustum.hpp"
 #include "utils\logging\error.hpp"
 
 // Include HLSL bindings.
@@ -92,7 +92,7 @@ namespace mage {
 
 		// Update the dissolve buffer.
 		m_dissolve_buffer.UpdateData(m_device_context,
-			XMVectorSet(material->GetBaseColor().w, 0.0f, 0.0f, 0.0f));
+			XMVectorSet(material->GetBaseColor().m_w, 0.0f, 0.0f, 0.0f));
 		// Bind the dissolve buffer.
 		m_dissolve_buffer.Bind< Pipeline::PS >(
 			m_device_context, SLOT_CBUFFER_MODEL);
@@ -250,7 +250,7 @@ namespace mage {
 
 			// Skip non-occluder models and "too" transparent models.
 			if (!model->OccludesLight() 
-				|| material->GetBaseColor().w < TRANSPARENCY_SHADOW_THRESHOLD) {
+				|| material->GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				continue;
 			}
 

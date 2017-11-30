@@ -25,7 +25,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector2
+	// Vector2
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -46,6 +46,8 @@ namespace mage {
 			: Vector2(xy, xy) {}
 		constexpr Vector2(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
+		Vector2(const T *v) noexcept
+			: Vector2(v[0], v[1]) {}
 		constexpr Vector2(const Vector2 &v) noexcept = default;
 		constexpr Vector2(Vector2 &&v) noexcept = default;
 		template< typename U >
@@ -66,10 +68,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -83,7 +92,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector3
+	// Vector3
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -104,6 +113,8 @@ namespace mage {
 			: Vector3(xyz, xyz, xyz) {}
 		constexpr Vector3(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
+		Vector3(const T *v) noexcept
+			: Vector3(v[0], v[1], v[2]) {}
 		constexpr explicit Vector3(const Vector2< T > &v, T z = 0) noexcept
 			: Vector3(v.m_x, v.m_y, z) {}
 		constexpr Vector3(const Vector3 &v) noexcept = default;
@@ -127,10 +138,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -145,7 +163,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector4
+	// Vector4
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -166,10 +184,12 @@ namespace mage {
 			: Vector4(xyzw, xyzw, xyzw, xyzw) {}
 		constexpr Vector4(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
+		Vector4(const T *v) noexcept
+			: Vector4(v[0], v[1], v[2], v[3]) {}
 		constexpr explicit Vector4(const Vector2< T > &v, T z = 0, T w = 0) noexcept
-			: Vector3(v.m_x, v.m_y, z, w) {}
+			: Vector4(v.m_x, v.m_y, z, w) {}
 		constexpr explicit Vector4(const Vector3< T > &v, T w = 0) noexcept
-			: Vector3(v.m_x, v.m_y, v.m_z, w) {}
+			: Vector4(v.m_x, v.m_y, v.m_z, w) {}
 		constexpr Vector4(const Vector4 &v) noexcept = default;
 		constexpr Vector4(Vector4 &&v) noexcept = default;
 		template< typename U >
@@ -192,10 +212,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -211,7 +238,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector2A
+	// Vector2A
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -235,6 +262,8 @@ namespace mage {
 			: Vector2A(xy, xy) {}
 		constexpr Vector2A(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
+		Vector2A(const T *v) noexcept
+			: Vector2A(v[0], v[1]) {}
 		constexpr Vector2A(const Vector2A &v) noexcept = default;
 		constexpr Vector2A(Vector2A &&v) noexcept = default;
 		template< typename U >
@@ -259,10 +288,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -278,7 +314,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector3A
+	// Vector3A
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -302,6 +338,8 @@ namespace mage {
 			: Vector3A(xyz, xyz, xyz) {}
 		constexpr Vector3A(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
+		Vector3A(const T *v) noexcept
+			: Vector3A(v[0], v[1], v[2]) {}
 		constexpr explicit Vector3A(const Vector2A< T > &v, T z = 0) noexcept
 			: Vector3A(v.m_x, v.m_y, z) {}
 		constexpr Vector3A(const Vector3A &v) noexcept = default;
@@ -330,10 +368,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -350,7 +395,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Declarations and Definitions: Vector4A
+	// Vector4A
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -374,6 +419,8 @@ namespace mage {
 			: Vector4A(xyzw, xyzw, xyzw, xyzw) {}
 		constexpr Vector4A(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
+		Vector4A(const T *v) noexcept
+			: Vector4A(v[0], v[1], v[2], v[3]) {}
 		constexpr explicit Vector4A(const Vector2A< T > &v, T z = 0, T w = 0) noexcept
 			: Vector4A(v.m_x, v.m_y, z, w) {}
 		constexpr explicit Vector4A(const Vector3A< T > &v, T w = 0) noexcept
@@ -406,10 +453,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		constexpr T operator[](size_t i) const noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
 		}
 		constexpr T &operator[](size_t i) noexcept {
-			return (&m_x)[i];
+			return GetData()[i];
+		}
+
+		constexpr T *GetData() noexcept {
+			return &m_x;
+		}
+		constexpr const T *GetData() const noexcept {
+			return &m_x;
 		}
 
 		//---------------------------------------------------------------------
@@ -427,90 +481,99 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions: Floating Point Vectors
+	// Floating Point Vectors
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 A 2x1 32-bit floating point vector.
 	 */
-	using _F32x2 = Vector2< F32 >;
+	using F32x2 = Vector2< F32 >;
 
 	/**
 	 A 3x1 32-bit floating point vector.
 	 */
-	using _F32x3 = Vector3< F32 >;
+	using F32x3 = Vector3< F32 >;
 
 	/**
 	 A 4x1 32-bit floating point vector.
 	 */
-	using _F32x4 = Vector4< F32 >;
+	using F32x4 = Vector4< F32 >;
 
 	/**
 	 A 2x1 32-bit floating point aligned vector.
 	 */
-	using _F32x2A = Vector2A< F32 >;
+	using F32x2A = Vector2A< F32 >;
 
 	/**
 	 A 3x1 32-bit floating point aligned vector.
 	 */
-	using _F32x3A = Vector3A< F32 >;
+	using F32x3A = Vector3A< F32 >;
 
 	/**
 	 A 4x1 32-bit floating point aligned vector.
 	 */
-	using _F32x4A = Vector4A< F32 >;
+	using F32x4A = Vector4A< F32 >;
 
-	static_assert(8  == sizeof(_F32x2));
-	static_assert(12 == sizeof(_F32x3));
-	static_assert(16 == sizeof(_F32x4));
+	static_assert(8  == sizeof(F32x2));
+	static_assert(12 == sizeof(F32x3));
+	static_assert(16 == sizeof(F32x4));
 
-	static_assert(16 == sizeof(_F32x2A));
-	static_assert(16 == sizeof(_F32x3A));
-	static_assert(16 == sizeof(_F32x4A));
+	static_assert(16 == sizeof(F32x2A));
+	static_assert(16 == sizeof(F32x3A));
+	static_assert(16 == sizeof(F32x4A));
+
+#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions: Signed Integer Vectors
+	// Signed Integer Vectors
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 A 2x1 signed 32-bit integer vector.
 	 */
-	using _S32x2 = Vector2< S32 >;
+	using S32x2 = Vector2< S32 >;
 
 	/**
 	 A 3x1 signed 32-bit integer vector.
 	 */
-	using _S32x3 = Vector3< S32 >;
+	using S32x3 = Vector3< S32 >;
 
 	/**
 	 A 4x1 signed 32-bit integer vector.
 	 */
-	using _S32x4 = Vector4< S32 >;
+	using S32x4 = Vector4< S32 >;
 
-	static_assert(8  == sizeof(_S32x2));
-	static_assert(12 == sizeof(_S32x3));
-	static_assert(16 == sizeof(_S32x4));
+	static_assert(8  == sizeof(S32x2));
+	static_assert(12 == sizeof(S32x3));
+	static_assert(16 == sizeof(S32x4));
+
+#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions: Unsigned Integer Vectors
+	// Unsigned Integer Vectors
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 An 2x1 unsigned 32-bit integer vector.
 	 */
-	using _U32x2 = Vector2< U32 >;
+	using U32x2 = Vector2< U32 >;
 
 	/**
 	 An 3x1 unsigned 32-bit integer vector.
 	 */
-	using _U32x3 = Vector3< U32 >;
+	using U32x3 = Vector3< U32 >;
 
 	/**
 	 An 4x1 unsigned 32-bit integer vector.
 	 */
-	using _U32x4 = Vector4< U32 >;
+	using U32x4 = Vector4< U32 >;
 
-	static_assert(8  == sizeof(_U32x2));
-	static_assert(12 == sizeof(_U32x3));
-	static_assert(16 == sizeof(_U32x4));
+	static_assert(8  == sizeof(U32x2));
+	static_assert(12 == sizeof(U32x3));
+	static_assert(16 == sizeof(U32x4));
+
+#pragma endregion
 }

@@ -10,7 +10,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template< typename T, typename... ConstructorArgsT >
-	inline typename std::enable_if_t< std::is_base_of< BehaviorScript, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< BehaviorScript, T >, T * >
 		Scene::Create(ConstructorArgsT&&... args) {
 		
 		UniquePtr< T > uptr
@@ -21,7 +21,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< CameraNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< CameraNode, T >, T * >
 		Scene::Create() {
 
 		UniquePtr< T > uptr = MakeUnique< T >();
@@ -31,7 +31,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< AmbientLightNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< AmbientLightNode, T >, T * >
 		Scene::Create() {
 
 		m_ambient_light = MakeUnique< T >();
@@ -39,7 +39,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< DirectionalLightNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< DirectionalLightNode, T >, T * >
 		Scene::Create() {
 
 		UniquePtr< T > uptr = MakeUnique< T >();
@@ -49,7 +49,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< OmniLightNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< OmniLightNode, T >, T * >
 		Scene::Create() {
 
 		UniquePtr< T > uptr = MakeUnique< T >();
@@ -59,7 +59,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< SpotLightNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< SpotLightNode, T >, T * >
 		Scene::Create() {
 
 		UniquePtr< T > uptr = MakeUnique< T >();
@@ -69,7 +69,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if_t< std::is_base_of< SpriteNode, T >::value, T * >
+	inline typename std::enable_if_t< std::is_base_of_v< SpriteNode, T >, T * >
 		Scene::Create() {
 
 		UniquePtr< T > uptr = MakeUnique< T >();

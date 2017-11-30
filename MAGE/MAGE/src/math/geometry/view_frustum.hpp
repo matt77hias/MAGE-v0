@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\bounding_volume.hpp"
+#include "math\geometry\bounding_volume.hpp"
 
 #pragma endregion
 

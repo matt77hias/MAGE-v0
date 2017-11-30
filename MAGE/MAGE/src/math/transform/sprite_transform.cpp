@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\sprite_transform.hpp"
+#include "math\transform\sprite_transform.hpp"
 #include "rendering\display_configuration.hpp"
 #include "utils\logging\error.hpp"
 

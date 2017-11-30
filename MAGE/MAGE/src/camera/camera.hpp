@@ -241,9 +241,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		explicit Camera(
-			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+		explicit Camera(F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			            F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a camera from the given camera.

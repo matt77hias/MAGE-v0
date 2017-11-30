@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform.hpp"
+#include "math\transform\transform.hpp"
 #include "utils\collection\collection.hpp"
 #include "utils\parallel\id_generator.hpp"
 
@@ -2026,6 +2026,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform_node.tpp"
+#include "math\transform\transform_node.tpp"
 
 #pragma endregion

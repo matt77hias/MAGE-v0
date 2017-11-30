@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\view_frustum.hpp"
+#include "math\geometry\view_frustum.hpp"
 
 #pragma endregion
 
@@ -132,7 +132,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Encloses(FXMVECTOR point) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) < 0.0f) {
@@ -144,7 +143,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) <= 0.0f) {
@@ -156,7 +154,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Encloses(const AABB &aabb) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = MinPointAlongNormal(m_planes[i], aabb);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
@@ -169,7 +166,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::EnclosesStrict(const AABB &aabb) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = MinPointAlongNormal(m_planes[i], aabb);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
@@ -182,7 +178,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Encloses(const BS &bs) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
@@ -195,7 +190,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::EnclosesStrict(const BS &bs) const noexcept {
-		
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
@@ -212,7 +206,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool ViewFrustum::Overlaps(const AABB &aabb) const noexcept {
-		
 		// Test for no coverage.
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = MaxPointAlongNormal(m_planes[i], aabb);
@@ -226,7 +219,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::OverlapsStrict(const AABB &aabb) const noexcept {
-		
 		// Test for no coverage.
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = MaxPointAlongNormal(m_planes[i], aabb);
@@ -240,7 +232,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Overlaps(const BS &bs) const noexcept {
-		
 		// Test for no coverage.
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
@@ -254,7 +245,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::OverlapsStrict(const BS &bs) const noexcept {
-		
 		// Test for no coverage.
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
@@ -298,7 +288,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Intersects(const AABB &aabb) const noexcept {
-		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			XMVECTOR pmin, pmax;
@@ -321,7 +310,6 @@ namespace mage {
 	}
 
 	bool ViewFrustum::Intersects(const BS &bs) const noexcept {
-		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
@@ -371,7 +359,6 @@ namespace mage {
 	}
 
 	Coverage ViewFrustum::Classify(const AABB &aabb) const noexcept {
-		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			XMVECTOR pmin, pmax;
@@ -394,7 +381,6 @@ namespace mage {
 	}
 
 	Coverage ViewFrustum::Classify(const BS &bs) const noexcept {
-		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);

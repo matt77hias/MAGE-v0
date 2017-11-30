@@ -42,36 +42,36 @@ namespace mage::script {
 
 		case RotationAxes::MouseXAndY: {
 			
-			const F64 rotation_x 
-				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
-			const F64 rotation_y 
-				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
+			const F64 rotation_x = m_direction.m_x * mouse->GetDeltaY() * delta_time 
+				                 * m_sensitivity.m_x;
+			const F64 rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time 
+				                 * m_sensitivity.m_y;
 			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x),
-				                              m_minimum_rotation.x, 
-				                              m_maximum_rotation.x);
+				                              m_minimum_rotation.m_x,
+				                              m_maximum_rotation.m_x);
 			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
-				                              m_minimum_rotation.y, 
-				                              m_maximum_rotation.y);
+				                              m_minimum_rotation.m_y,
+				                              m_maximum_rotation.m_y);
 			break;
 		}
 		
 		case RotationAxes::MouseX: {
 			
-			const F64 rotation_y 
-				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
+			const F64 rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time 
+				                 * m_sensitivity.m_y;
 			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
-				                              m_minimum_rotation.y, 
-				                              m_maximum_rotation.y);
+				                              m_minimum_rotation.m_y,
+				                              m_maximum_rotation.m_y);
 			break;
 		}
 		
 		case RotationAxes::MouseY: {
 			
-			const F64 rotation_x 
-				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
+			const F64 rotation_x = m_direction.m_x * mouse->GetDeltaY() * delta_time 
+				                 * m_sensitivity.m_x;
 			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x), 
-				                              m_minimum_rotation.x, 
-				                              m_maximum_rotation.x);
+				                              m_minimum_rotation.m_x,
+				                              m_maximum_rotation.m_x);
 			break;
 		}
 		}

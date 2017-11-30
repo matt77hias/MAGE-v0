@@ -40,7 +40,7 @@ namespace mage {
 		 @param[in]		rgb
 						The red, green and blue component.
 		 */
-		explicit RGB(F32 rgb = 0.0f) noexcept
+		constexpr explicit RGB(F32 rgb = 0.0f) noexcept
 			: RGB(rgb, rgb, rgb) {}
 		
 		/**
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		b
 						The blue component.
 		 */
-		RGB(F32 r, F32 g, F32 b) noexcept
+		constexpr RGB(F32 r, F32 g, F32 b) noexcept
 			: F32x3(r, g, b) {}
 
 		/**
@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		rgb
 						A reference to the RGB spectrum to copy.
 		 */
-		RGB(const RGB &rgb) noexcept = default;
+		constexpr RGB(const RGB &rgb) noexcept = default;
 		
 		/**
 		 Constructs a RGB spectrum by moving the given RGB spectrum.
@@ -70,7 +70,7 @@ namespace mage {
 		 @param[in]		rgb
 						A reference to the RGB spectrum to move.
 		 */
-		RGB(RGB &&rgb) noexcept = default;
+		constexpr RGB(RGB &&rgb) noexcept = default;
 
 		/**
 		 Constructs a RGB spectrum from the given sRGB spectrum.
@@ -94,7 +94,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit RGB(F32x3 v) noexcept
+		constexpr explicit RGB(F32x3 v) noexcept
 			: F32x3(std::move(v)) {}
 
 		/**
@@ -114,7 +114,7 @@ namespace mage {
 		 @return		A reference to the copy of the given RGB spectrum (i.e. 
 						this RGB spectrum).
 		 */
-		RGB &operator=(const RGB &rgb) = default;
+		constexpr RGB &operator=(const RGB &rgb) = default;
 
 		/**
 		 Moves the given RGB spectrum to this RGB spectrum.
@@ -124,7 +124,7 @@ namespace mage {
 		 @return		A reference to the moved RGB spectrum (i.e. this RGB 
 						spectrum).
 		 */
-		RGB &operator=(RGB &&rgb) = default;
+		constexpr RGB &operator=(RGB &&rgb) = default;
 	};
 
 	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
@@ -153,7 +153,7 @@ namespace mage {
 		 @param[in]		srgb
 						The red, green and blue component.
 		 */
-		explicit SRGB(F32 srgb = 0.0f) noexcept
+		constexpr explicit SRGB(F32 srgb = 0.0f) noexcept
 			: SRGB(srgb, srgb, srgb) {}
 		
 		/**
@@ -166,7 +166,7 @@ namespace mage {
 		 @param[in]		b
 						The blue component.
 		 */
-		SRGB(F32 r, F32 g, F32 b) noexcept
+		constexpr SRGB(F32 r, F32 g, F32 b) noexcept
 			: F32x3(r, g, b) {}
 
 		/**
@@ -175,7 +175,7 @@ namespace mage {
 		 @param[in]		srgb
 						A reference to the sRGB spectrum to copy.
 		 */
-		SRGB(const SRGB &srgb) noexcept = default;
+		constexpr SRGB(const SRGB &srgb) noexcept = default;
 		
 		/**
 		 Constructs a sRGB spectrum by moving the given sRGB spectrum.
@@ -183,7 +183,7 @@ namespace mage {
 		 @param[in]		srgb
 						A reference to the sRGB spectrum to move.
 		 */
-		SRGB(SRGB &&srgb) noexcept = default;
+		constexpr SRGB(SRGB &&srgb) noexcept = default;
 		
 		/**
 		 Constructs a sRGB spectrum from the given RGB spectrum.
@@ -199,7 +199,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit SRGB(F32x3 v) noexcept
+		constexpr explicit SRGB(F32x3 v) noexcept
 			: F32x3(std::move(v)) {}
 
 		/**
@@ -219,7 +219,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sRGB spectrum (i.e. 
 						this sRGB spectrum).
 		 */
-		SRGB &operator=(const SRGB &srgb) = default;
+		constexpr SRGB &operator=(const SRGB &srgb) = default;
 
 		/**
 		 Moves the given sRGB spectrum to this sRGB spectrum.
@@ -229,7 +229,7 @@ namespace mage {
 		 @return		A reference to the moved sRGB spectrum (i.e. this sRGB 
 						spectrum).
 		 */
-		SRGB &operator=(SRGB &&srgb) = default;
+		constexpr SRGB &operator=(SRGB &&srgb) = default;
 	};
 
 	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
@@ -258,7 +258,7 @@ namespace mage {
 		 @param[in]		xyz
 						The x, y and z component.
 		 */
-		explicit XYZ(F32 xyz = 0.0f) noexcept
+		constexpr explicit XYZ(F32 xyz = 0.0f) noexcept
 			: XYZ(xyz, xyz, xyz) {}
 		
 		/**
@@ -271,7 +271,7 @@ namespace mage {
 		 @param[in]		z
 						The z component.
 		 */
-		XYZ(F32 x, F32 y, F32 z) noexcept
+		constexpr XYZ(F32 x, F32 y, F32 z) noexcept
 			: F32x3(x, y, z) {}
 
 		/**
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		xyz
 						A reference to the XYZ spectrum to copy.
 		 */
-		XYZ(const XYZ &xyz) noexcept = default;
+		constexpr XYZ(const XYZ &xyz) noexcept = default;
 		
 		/**
 		 Constructs a XYZ spectrum by moving the given XYZ spectrum.
@@ -288,7 +288,7 @@ namespace mage {
 		 @param[in]		xyz
 						A reference to the XYZ spectrum to move.
 		 */
-		XYZ(XYZ &&xyz) noexcept = default;
+		constexpr XYZ(XYZ &&xyz) noexcept = default;
 		
 		/**
 		 Constructs a XYZ spectrum from the given RGB spectrum.
@@ -304,7 +304,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit XYZ(F32x3 v) noexcept
+		constexpr explicit XYZ(F32x3 v) noexcept
 			: F32x3(std::move(v)) {}
 
 		/**
@@ -324,7 +324,7 @@ namespace mage {
 		 @return		A reference to the copy of the given XYZ spectrum (i.e. 
 						this XYZ spectrum).
 		 */
-		XYZ &operator=(const XYZ &xyz) = default;
+		constexpr XYZ &operator=(const XYZ &xyz) = default;
 
 		/**
 		 Moves the given XYZ spectrum to this XYZ spectrum.
@@ -334,7 +334,7 @@ namespace mage {
 		 @return		A reference to the moved XYZ spectrum (i.e. this XYZ 
 						spectrum).
 		 */
-		XYZ &operator=(XYZ &&xyz) = default;
+		constexpr XYZ &operator=(XYZ &&xyz) = default;
 	};
 
 	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
@@ -367,7 +367,7 @@ namespace mage {
 		 @param[in]		rgba
 						The red, green and blue and alpha component.
 		 */
-		explicit RGBA(F32 rgba = 0.0f) noexcept
+		constexpr explicit RGBA(F32 rgba = 0.0f) noexcept
 			: RGBA(rgba, rgba, rgba, rgba) {}
 		
 		/**
@@ -382,7 +382,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		RGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
+		constexpr RGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
 			: F32x4(r, g, b, a) {}
 
 		/**
@@ -391,7 +391,7 @@ namespace mage {
 		 @param[in]		rgba
 						A reference to the RGBA spectrum to copy.
 		 */
-		RGBA(const RGBA &rgba) noexcept = default;
+		constexpr RGBA(const RGBA &rgba) noexcept = default;
 		
 		/**
 		 Constructs a RGBA spectrum by moving the given RGBA spectrum.
@@ -399,7 +399,7 @@ namespace mage {
 		 @param[in]		rgba
 						A reference to the RGBA spectrum to move.
 		 */
-		RGBA(RGBA &&rgba) noexcept = default;
+		constexpr RGBA(RGBA &&rgba) noexcept = default;
 		
 		/**
 		 Constructs a RGBA spectrum from the given RGB spectrum.
@@ -409,8 +409,8 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		RGBA(const RGB &rgb, F32 a = 1.0f) noexcept
-			: RGBA(rgb.x, rgb.y, rgb.z, a) {}
+		constexpr RGBA(const RGB &rgb, F32 a = 1.0f) noexcept
+			: F32x4(rgb, a) {}
 
 		/**
 		 Constructs a RGBA spectrum from the given SRGBA spectrum.
@@ -434,7 +434,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit RGBA(F32x4 v) noexcept
+		constexpr explicit RGBA(F32x4 v) noexcept
 			: F32x4(std::move(v)) {}
 
 		/**
@@ -454,7 +454,7 @@ namespace mage {
 		 @return		A reference to the copy of the given RGBA spectrum 
 						(i.e. this RGBA spectrum).
 		 */
-		RGBA &operator=(const RGBA &rgba) = default;
+		constexpr RGBA &operator=(const RGBA &rgba) = default;
 
 		/**
 		 Moves the given RGBA spectrum to this RGBA spectrum.
@@ -464,7 +464,7 @@ namespace mage {
 		 @return		A reference to the moved RGBA spectrum (i.e. this RGBA 
 						spectrum).
 		 */
-		RGBA &operator=(RGBA &&rgba) = default;
+		constexpr RGBA &operator=(RGBA &&rgba) = default;
 	};
 
 	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
@@ -493,7 +493,7 @@ namespace mage {
 		 @param[in]		rgba
 						The red, green and blue and alpha component.
 		 */
-		explicit SRGBA(F32 rgba = 0.0f) noexcept
+		constexpr explicit SRGBA(F32 rgba = 0.0f) noexcept
 			: SRGBA(rgba, rgba, rgba, rgba) {}
 		
 		/**
@@ -508,7 +508,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		SRGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
+		constexpr SRGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
 			: F32x4(r, g, b, a) {}
 
 		/**
@@ -517,7 +517,7 @@ namespace mage {
 		 @param[in]		rgba
 						A reference to the sRGBA spectrum to copy.
 		 */
-		SRGBA(const SRGBA &rgba) noexcept = default;
+		constexpr SRGBA(const SRGBA &rgba) noexcept = default;
 		
 		/**
 		 Constructs a sRGBA spectrum by moving the given sRGBA spectrum.
@@ -525,7 +525,7 @@ namespace mage {
 		 @param[in]		rgba
 						A reference to the sRGBA spectrum to move.
 		 */
-		SRGBA(SRGBA &&rgba) noexcept = default;
+		constexpr SRGBA(SRGBA &&rgba) noexcept = default;
 		
 		/**
 		 Constructs a sRGBA spectrum from the given sRGB spectrum.
@@ -535,8 +535,8 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		SRGBA(const SRGB &srgb, F32 a = 1.0f) noexcept
-			: SRGBA(srgb.x, srgb.y, srgb.z, a) {}
+		constexpr SRGBA(const SRGB &srgb, F32 a = 1.0f) noexcept
+			: F32x4(srgb, a) {}
 
 		/**
 		 Constructs a sRGBA spectrum from the given RGBA spectrum.
@@ -552,7 +552,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit SRGBA(F32x4 v) noexcept
+		constexpr explicit SRGBA(F32x4 v) noexcept
 			: F32x4(std::move(v)) {}
 
 		/**
@@ -572,7 +572,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sRGBA spectrum 
 						(i.e. this sRGBA spectrum).
 		 */
-		SRGBA &operator=(const SRGBA &rgba) = default;
+		constexpr SRGBA &operator=(const SRGBA &rgba) = default;
 
 		/**
 		 Moves the given sRGBA spectrum to this sRGBA spectrum.
@@ -582,7 +582,7 @@ namespace mage {
 		 @return		A reference to the moved sRGBA spectrum (i.e. this sRGBA 
 						spectrum).
 		 */
-		SRGBA &operator=(SRGBA &&rgba) = default;
+		constexpr SRGBA &operator=(SRGBA &&rgba) = default;
 	};
 
 	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
@@ -611,7 +611,7 @@ namespace mage {
 		 @param[in]		xyza
 						The x, y and z and alpha component.
 		 */
-		explicit XYZA(F32 xyza = 0.0f) noexcept
+		constexpr explicit XYZA(F32 xyza = 0.0f) noexcept
 			: XYZA(xyza, xyza, xyza, xyza) {}
 		
 		/**
@@ -626,7 +626,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		XYZA(F32 x, F32 y, F32 z, F32 a = 1.0f) noexcept
+		constexpr XYZA(F32 x, F32 y, F32 z, F32 a = 1.0f) noexcept
 			: F32x4(x, y, z, a) {}
 
 		/**
@@ -635,7 +635,7 @@ namespace mage {
 		 @param[in]		xyza
 						A reference to the XYZA spectrum to copy.
 		 */
-		XYZA(const XYZA &xyza) noexcept = default;
+		constexpr XYZA(const XYZA &xyza) noexcept = default;
 		
 		/**
 		 Constructs a XYZA spectrum by moving the given XYZA spectrum.
@@ -643,7 +643,7 @@ namespace mage {
 		 @param[in]		xyza
 						A reference to the XYZA spectrum to move.
 		 */
-		XYZA(XYZA &&xyza) noexcept = default;
+		constexpr XYZA(XYZA &&xyza) noexcept = default;
 		
 		/**
 		 Constructs a XYZA spectrum from the given XYZ spectrum.
@@ -653,8 +653,8 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit XYZA(const XYZ &xyz, F32 a = 1.0f) noexcept
-			: XYZA(xyz.x, xyz.y, xyz.z, a) {}
+		constexpr explicit XYZA(const XYZ &xyz, F32 a = 1.0f) noexcept
+			: F32x4(xyz, a) {}
 
 		/**
 		 Constructs a XYZA spectrum from the given RGBA spectrum.
@@ -670,7 +670,7 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit XYZA(F32x4 v) noexcept
+		constexpr explicit XYZA(F32x4 v) noexcept
 			: F32x4(std::move(v)) {}
 
 		/**
@@ -690,7 +690,7 @@ namespace mage {
 		 @return		A reference to the copy of the given XYZA spectrum 
 						(i.e. this XYZA spectrum).
 		 */
-		XYZA &operator=(const XYZA &xyza) = default;
+		constexpr XYZA &operator=(const XYZA &xyza) = default;
 
 		/**
 		 Moves the given XYZA spectrum to this XYZA spectrum.
@@ -700,7 +700,7 @@ namespace mage {
 		 @return		A reference to the moved XYZA spectrum (i.e. this 
 						XYZA spectrum).
 		 */
-		XYZA &operator=(XYZA &&xyza) = default;
+		constexpr XYZA &operator=(XYZA &&xyza) = default;
 	};
 
 	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");
@@ -710,6 +710,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Conversions: (linear) RGB <-> sRGB
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Converts the given spectrum from (linear) RGB to sRGB space.
@@ -769,10 +770,21 @@ namespace mage {
 		XMStoreFloat4(this, RGBtoSRGB(XMLoadFloat4(&rgba)));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Conversions: (linear) RGB <-> XYZ
 	//-------------------------------------------------------------------------
+#pragma region
 
+	/**
+	 Converts the given spectrum from (linear) RGB to XYZ space.
+
+	 @param[in]		linear
+					The spectrum in (linear) RGB space.
+	 @return		The spectrum in XYZ space.
+	 @note			The alpha channel of the given spectrum is preserved.
+	 */
 	inline const XMVECTOR XM_CALLCONV RGBtoXYZ(FXMVECTOR rgb) noexcept {
 		
 		const XMMATRIX transform = {
@@ -785,6 +797,14 @@ namespace mage {
 		return XMVector4Transform(rgb, transform);
 	}
 
+	/**
+	 Converts the given spectrum from XYZ to (linear) RGB space.
+
+	 @param[in]		xyz
+					The spectrum in XYZ space.
+	 @return		The spectrum in (linear) RGB space.
+	 @note			The alpha channel of the given spectrum is preserved.
+	 */
 	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
 
 		const XMMATRIX transform = {
@@ -812,4 +832,6 @@ namespace mage {
 	inline XYZA::XYZA(const RGBA &rgba) noexcept {
 		XMStoreFloat4(this, RGBtoXYZ(XMLoadFloat4(&rgba)));
 	}
+
+#pragma endregion
 }

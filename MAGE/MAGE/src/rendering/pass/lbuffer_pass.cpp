@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "math\view_frustum.hpp"
+#include "math\geometry\view_frustum.hpp"
 #include "utils\logging\error.hpp"
 
 // Include HLSL bindings.

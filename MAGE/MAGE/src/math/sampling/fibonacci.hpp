@@ -35,18 +35,14 @@ namespace mage {
 			const F32 r   = sqrt((i + 0.5f) / (nb_samples - 0.5f * np_boundary));
 			const F32 phi = XM_GA * (i + shift);
 			
-			*samples = F32x2(
-						r * cos(phi), 
-						r * sin(phi));
+			*samples = F32x2(r * cos(phi), r * sin(phi));
 		}
 		for (size_t i = j + 1; i < nb_samples; ++i, ++samples) {
 			
 			const F32 r   = 1.0f;
 			const F32 phi = XM_GA * (i + shift);
 			
-			*samples = F32x2(
-						r * cos(phi), 
-						r * sin(phi));
+			*samples = F32x2(r * cos(phi), r * sin(phi));
 		}
 	}
 
@@ -61,10 +57,9 @@ namespace mage {
 			const F32 cos_theta = ((i + 0.5f) * offset) - 1.0f;
 			const F32 sin_theta = sqrt(1.0f - cos_theta * cos_theta);
 			
-			*samples = F32x3(
-						cos(phi) * sin_theta, 
-						cos_theta, 
-						sin(phi) * sin_theta);
+			*samples = F32x3(cos(phi) * sin_theta, 
+						     cos_theta, 
+						     sin(phi) * sin_theta);
 		}
 	}
 
@@ -82,10 +77,9 @@ namespace mage {
 			const F32 cos_theta = ((i + 0.5f) * offset) - 1.0f;
 			const F32 sin_theta = sqrt(1.0f - cos_theta * cos_theta);
 			
-			*samples = F32x3(
-						cos(phi) * sin_theta, 
-						cos_theta, 
-						sin(phi) * sin_theta);
+			*samples = F32x3(cos(phi) * sin_theta, 
+						     cos_theta, 
+						     sin(phi) * sin_theta);
 		}
 	}
 
@@ -98,10 +92,9 @@ namespace mage {
 			const F32 sin_theta = sqrt((i + 0.5f) / (nb_samples - 0.5f));
 			const F32 cos_theta = sqrt(1.0f - sin_theta * sin_theta);
 			
-			*samples = F32x3(
-						cos(phi) * sin_theta, 
-						cos_theta, 
-						sin(phi) * sin_theta);
+			*samples = F32x3(cos(phi) * sin_theta, 
+						     cos_theta, 
+						     sin(phi) * sin_theta);
 		}
 	}
 }

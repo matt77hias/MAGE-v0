@@ -7,7 +7,6 @@
 
 #include "rendering\pipeline.hpp"
 #include "rendering\aa_descriptor.hpp"
-#include "math\math.hpp"
 
 #pragma endregion
 
@@ -29,9 +28,8 @@ namespace mage {
 		static const D3D11_VIEWPORT GetMaxViewport(
 			U32 width, U32 height) noexcept {
 			
-			return GetMaxViewport(
-				static_cast< F32 >(width), 
-				static_cast< F32 >(height));
+			return GetMaxViewport(static_cast< F32 >(width), 
+				                  static_cast< F32 >(height));
 		}
 
 		static const D3D11_VIEWPORT GetMaxViewport(
@@ -47,10 +45,9 @@ namespace mage {
 		static const D3D11_VIEWPORT GetMaxViewport(
 			U32 width, U32 height, AADescriptor desc) noexcept {
 			
-			return GetMaxViewport(
-				static_cast< F32 >(width),
-				static_cast< F32 >(height), 
-				desc);
+			return GetMaxViewport(static_cast< F32 >(width),
+				                  static_cast< F32 >(height), 
+				                  desc);
 		}
 
 		static const D3D11_VIEWPORT GetMaxViewport(

@@ -62,7 +62,7 @@ namespace mage {
 				
 				const S32x2 *value = static_cast< const S32x2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d", 
-					MAGE_VAR_TOKEN_INT2, name, value->x, value->y);
+					MAGE_VAR_TOKEN_INT2, name, value->m_x, value->m_y);
 				
 				break;
 			}
@@ -71,7 +71,7 @@ namespace mage {
 				
 				const S32x3 *value = static_cast< const S32x3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d %d", 
-					MAGE_VAR_TOKEN_INT3, name, value->x, value->y, value->z);
+					MAGE_VAR_TOKEN_INT3, name, value->m_x, value->m_y, value->m_z);
 				
 				break;
 			}
@@ -89,7 +89,7 @@ namespace mage {
 				
 				const F32x2 *value = static_cast< const F32x2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f", 
-					MAGE_VAR_TOKEN_FLOAT2, name, value->x, value->y);
+					MAGE_VAR_TOKEN_FLOAT2, name, value->m_x, value->m_y);
 				
 				break;
 			}
@@ -98,7 +98,7 @@ namespace mage {
 				
 				const F32x3 *value = static_cast< const F32x3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f", 
-					MAGE_VAR_TOKEN_FLOAT3, name, value->x, value->y, value->z);
+					MAGE_VAR_TOKEN_FLOAT3, name, value->m_x, value->m_y, value->m_z);
 				
 				break;
 			}
@@ -107,7 +107,7 @@ namespace mage {
 				
 				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VAR_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
+					MAGE_VAR_TOKEN_FLOAT4, name, value->m_x, value->m_y, value->m_z, value->m_w);
 				
 				break;
 			}
@@ -116,7 +116,7 @@ namespace mage {
 				
 				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VAR_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
+					MAGE_VAR_TOKEN_COLOR, name, value->m_x, value->m_y, value->m_z, value->m_w);
 				
 				break;
 			}

@@ -69,7 +69,7 @@ namespace mage::script {
 
 		if (ImGui::TreeNode("Material")) {
 			// Material: Base Color
-			ImGui::ColorEdit4("Base Color", &(m_material.GetBaseColor().x));
+			ImGui::ColorEdit4("Base Color", m_material.GetBaseColor().GetData());
 			
 			// Material: Roughness
 			F32 roughness = m_material.GetRoughness();

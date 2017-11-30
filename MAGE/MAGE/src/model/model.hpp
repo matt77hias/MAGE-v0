@@ -6,7 +6,7 @@
 #pragma region
 
 #include "mesh\static_mesh.hpp"
-#include "math\bounding_volume.hpp"
+#include "math\geometry\bounding_volume.hpp"
 #include "material\material.hpp"
 
 #pragma endregion

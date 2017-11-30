@@ -31,8 +31,8 @@ namespace mage::script {
 		wchar_t buffer[128];
 		_snwprintf_s(buffer, _countof(buffer), 
 			L"T: %.2f %.2f %.2f\nR: %.2f %.2f %.2f",
-			translation.x, translation.y, translation.z,
-			rotation.x, rotation.y, rotation.z);
+			translation.m_x, translation.m_y, translation.m_z,
+			rotation.m_x, rotation.m_y, rotation.m_z);
 		
 		m_text->SetText(buffer);
 	}

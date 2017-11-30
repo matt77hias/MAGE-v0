@@ -635,13 +635,13 @@ namespace mage {
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadF32(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.m_x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadF32(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.m_y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
@@ -656,19 +656,19 @@ namespace mage {
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadF32(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.m_x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadF32(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.m_y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z
-			= ReadF32(str, context, result.z, delimiters);
+			= ReadF32(str, context, result.m_z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
@@ -683,25 +683,25 @@ namespace mage {
 		Assert(delimiters);
 		
 		const TokenResult token_result_x 
-			= ReadF32(str, context, result.x, delimiters);
+			= ReadF32(str, context, result.m_x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y 
-			= ReadF32(str, context, result.y, delimiters);
+			= ReadF32(str, context, result.m_y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z 
-			= ReadF32(str, context, result.z, delimiters);
+			= ReadF32(str, context, result.m_z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
 
 		const TokenResult token_result_w 
-			= ReadF32(str, context, result.w, delimiters);
+			= ReadF32(str, context, result.m_w, delimiters);
 		if (token_result_w != TokenResult::Valid) {
 			return token_result_w;
 		}

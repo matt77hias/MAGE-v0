@@ -277,8 +277,8 @@ namespace mage {
 							otherwise.
 			 */
 			bool operator()(const U32x3& a, const U32x3& b) const {
-				return (a.x == b.x) ? 
-					((a.y == b.y) ? (a.z < b.z) : (a.y < b.y)) : (a.x < b.x);
+				return (a.m_x == b.m_x) ? ((a.m_y == b.m_y) ? 
+					(a.m_z < b.m_z) : (a.m_y < b.m_y)) : (a.m_x < b.m_x);
 			}
 		};
 

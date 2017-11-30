@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\collection\collection.hpp" 
 #include "scripting\variable.hpp"
+#include "utils\collection\collection.hpp" 
 
 #pragma endregion
 
@@ -21,12 +21,12 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename.
 	 @param[in,out]	variable_buffer
-					A reference to a vector containing the variables.
+					A reference to a map containing the variables.
 	 @throws		FormattedException
 					Failed to import the variable script from file.
 	 */
 	void ImportVariableScriptFromFile(const wstring &fname, 
-		vector< Variable > &variable_buffer);
+		map< string, Value > &variable_buffer);
 
 	/**
 	 Exports the given variables to the given file.
@@ -34,10 +34,10 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename.
 	 @param[in]		variable_buffer
-					A reference to a vector containing the variables.
+					A reference to a map containing the variables.
 	 @throws		FormattedException
 					Failed to export the variable script to file.
 	 */
 	void ExportVariableScriptToFile(const wstring &fname, 
-		const vector< Variable > &variable_buffer);
+		const map< string, Value > &variable_buffer);
 }

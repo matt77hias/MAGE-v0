@@ -6,8 +6,8 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "utils\collection\collection.hpp"
 #include "scripting\variable.hpp"
+#include "utils\collection\collection.hpp"
 
 #pragma endregion
 
@@ -150,24 +150,42 @@ namespace mage {
 		}
 
 		/**
+		 Checks whether this variable script has a variable with the given 
+		 name.
+
+		 @param[in]		name
+						A reference to the name of the variable.
+		 @return		@c true if this variable script has a variable with the
+						given name. @c false otherwise.
+		 */
+		bool HasVariable(const string &name) const noexcept;
+
+		/**
+		 Checks whether this variable script has a variable with the given 
+		 name and type.
+
+		 @tparam		T
+						The type of the variable.
+		 @param[in]		name
+						A reference to the name of the variable.
+		 @return		@c true if this variable script has a variable with the
+						given name. @c false otherwise.
+		 */
+		template< typename T >
+		bool HasVariableOfType(const string &name) const noexcept;
+
+		/**
 		 Adds the given variable to this variable script.
 
-		 @pre			No variable with the name @a name
-						exist in this variable script.
 		 @tparam		T
-						The (storage) type of the value.
-		 @param[in]		type
-						The (scripting) type of the variable.
-		 @param[in]		type
 						The type of the variable.
 		 @param[in]		name
 						The name of the variable.
 		 @param[in]		value
-						A reference to the value of the variable.
+						The value of the variable.
 		 */
 		template< typename T >
-		void AddVariable(
-			VariableType type, const string &name, const T &value);
+		void AddVariable(string name, T value);
 
 		/**
 		 Removes the given variable from this variable script.
@@ -186,13 +204,16 @@ namespace mage {
 		 Returns the value of the given variable in this variable script.
 
 		 @tparam		T
-						The (storage) type of the value.
+						The type of the variable.
 		 @param[in]		name
-						The name of the variable.
+						A reference to the name of the variable.
 		 @return		@c nullptr if no variable with the name @a name exists 
 						in this variable script.
 		 @return		A pointer to the value of the variable.
-		*/
+		 @throws		@c std::bad_variant_access
+						The variable corresponding to the given name has a 
+						different type.
+		 */
 		template< typename T >
 		const T *GetValueOfVariable(const string &name) const;
 
@@ -200,16 +221,16 @@ namespace mage {
 		 Sets the value of the given variable in this variable script.
 
 		 @tparam		T
-						The (storage) type of the value.
+						The type of the variable.
 		 @param[in]		name
-						The name of the variable.
+						A reference to the name of the variable.
 		 @param[in]		value
-						A reference to the value of the variable.
+						The value of the variable.
 		 @note			Nothing happens if no variable with the name @a name 
 						exists in this variable script.
 		 */
 		template< typename T >
-		void SetValueOfVariable(const string &name, const T &value);
+		void SetValueOfVariable(const string &name, T value);
 
 	private:
 
@@ -218,12 +239,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A map containing the variables in this variable script
-		 
-		 The keys match the variables' name and  the values match the 
-		 variables.
+		 A map containing the variables in this variable script.
 		 */
-		map< string, Variable > m_variables;
+		map< string, Value > m_variables;
 	};
 }
 

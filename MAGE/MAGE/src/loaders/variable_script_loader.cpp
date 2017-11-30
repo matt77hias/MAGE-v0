@@ -16,7 +16,7 @@
 namespace mage {
 
 	void ImportVariableScriptFromFile(const wstring &fname, 
-		vector< Variable > &variable_buffer) {
+		map< string, Value > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -30,7 +30,7 @@ namespace mage {
 	}
 
 	void ExportVariableScriptToFile(const wstring &fname, 
-		const vector< Variable > &variable_buffer) {
+		const map< string, Value > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 

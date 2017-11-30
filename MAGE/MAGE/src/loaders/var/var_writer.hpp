@@ -6,8 +6,8 @@
 #pragma region
 
 #include "utils\io\writer.hpp"
-#include "utils\collection\collection.hpp"
 #include "scripting\variable.hpp"
+#include "utils\collection\collection.hpp"
 
 #pragma endregion
 
@@ -31,10 +31,10 @@ namespace mage {
 		 Constructs a writer.
 
 		 @param[in]		variable_buffer
-						A reference to a vector containing the variables to 
-						write to file.
+						A reference to a map containing the variables to write 
+						to file.
 		 */
-		explicit VARWriter(const vector< Variable > &variable_buffer);
+		explicit VARWriter(const map< string, Value > &variable_buffer);
 		
 		/**
 		 Constructs a VAR writer from the given VAR writer.
@@ -100,9 +100,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the variables to write by this VAR 
+		 A reference to a map containing the variables to write by this VAR 
 		 writer.
 		 */
-		const vector< Variable > &m_variable_buffer;
+		const map< string, Value > &m_variable_buffer;
 	};
 }

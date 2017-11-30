@@ -381,9 +381,6 @@
     <ClInclude Include="MAGE\src\resource\resource.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
@@ -1151,6 +1148,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\math\transform\coordinate_system.hpp">
       <Filter>Header Files\math\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable.hpp">
+      <Filter>Header Files\scripting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VARWriter::VARWriter(const vector< Variable > &variable_buffer)
+	VARWriter::VARWriter(const map< string, Value > &variable_buffer)
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 
@@ -25,120 +25,134 @@ namespace mage {
 	void VARWriter::Write() {
 		
 		char output[MAX_PATH];
-		const size_t output_count = static_cast< size_t >(_countof(output));
+		_countof(output);
 
-		for (const auto &variable : m_variable_buffer) {
-			
-			const char *name      = variable.GetName().c_str();
-			const void *raw_value = variable.GetValue();
-
-			switch (variable.GetType()) {
-			
-			case VariableType::Bool: {
+		for (const auto &[key, value] : m_variable_buffer) {
 				
-				const bool *value = static_cast< const bool * >(raw_value);
-				if (*value) {
-					sprintf_s(output, output_count, "%s %s true", 
-						MAGE_VAR_TOKEN_BOOL, name);
+			// MAGE_VAR_TOKEN_BOOL
+			{
+				const bool *v = std::get_if< bool >(&value);
+				if (nullptr != v) {
+					if (*v) {
+						sprintf_s(output, _countof(output), 
+							"%s %s true",
+							MAGE_VAR_TOKEN_BOOL, key.c_str());
+					}
+					else {
+						sprintf_s(output, _countof(output), 
+							"%s %s false",
+							MAGE_VAR_TOKEN_BOOL, key.c_str());
+					}
+					WriteStringLine(output);
+					continue;
 				}
-				else {
-					sprintf_s(output, output_count, "%s %s false", 
-						MAGE_VAR_TOKEN_BOOL, name);
-				}
-				
-				break;
-			}
-			
-			case VariableType::Int: {
-				
-				const S32 *value = static_cast< const S32 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %d", 
-					MAGE_VAR_TOKEN_INT, name, *value);
-				
-				break;
-			}
-			
-			case VariableType::Int2: {
-				
-				const S32x2 *value = static_cast< const S32x2 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %d %d", 
-					MAGE_VAR_TOKEN_INT2, name, value->m_x, value->m_y);
-				
-				break;
-			}
-			
-			case VariableType::Int3: {
-				
-				const S32x3 *value = static_cast< const S32x3 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %d %d %d", 
-					MAGE_VAR_TOKEN_INT3, name, value->m_x, value->m_y, value->m_z);
-				
-				break;
-			}
-			
-			case VariableType::Float: {
-				
-				const F32 *value = static_cast< const F32 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %f", 
-					MAGE_VAR_TOKEN_FLOAT, name, *value);
-				
-				break;
-			}
-			
-			case VariableType::Float2: {
-				
-				const F32x2 *value = static_cast< const F32x2 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %f %f", 
-					MAGE_VAR_TOKEN_FLOAT2, name, value->m_x, value->m_y);
-				
-				break;
-			}
-			
-			case VariableType::Float3: {
-				
-				const F32x3 *value = static_cast< const F32x3 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %f %f %f", 
-					MAGE_VAR_TOKEN_FLOAT3, name, value->m_x, value->m_y, value->m_z);
-				
-				break;
-			}
-			
-			case VariableType::Float4: {
-				
-				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VAR_TOKEN_FLOAT4, name, value->m_x, value->m_y, value->m_z, value->m_w);
-				
-				break;
-			}
-			
-			case VariableType::Color: {
-				
-				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
-				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VAR_TOKEN_COLOR, name, value->m_x, value->m_y, value->m_z, value->m_w);
-				
-				break;
-			}
-			
-			case VariableType::String: {
-				
-				const string *value = static_cast< const string * >(raw_value);
-				sprintf_s(output, output_count, "%s %s \"%s\"", 
-					MAGE_VAR_TOKEN_STRING, name, value->c_str());
-				
-				break;
-			}
-			
-			default: {
-				
-				Warning("%ls: could not export variable: %s", GetFilename().c_str(), name);
-				
-				return;
-			}
 			}
 
-			WriteStringLine(output);
+			// MAGE_VAR_TOKEN_INT
+			{
+				const S32 *v = std::get_if< S32 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output), 
+						"%s %s %d",
+						MAGE_VAR_TOKEN_INT, key.c_str(), 
+						*v);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_INT2
+			{
+				const S32x2 *v = std::get_if< S32x2 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %d %d",
+						MAGE_VAR_TOKEN_INT2, key.c_str(), 
+						v->m_x, v->m_y);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_INT3
+			{
+				const S32x3 *v = std::get_if< S32x3 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %d %d %d",
+						MAGE_VAR_TOKEN_INT3, key.c_str(), 
+						v->m_x, v->m_y, v->m_z);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_FLOAT
+			{
+				const F32 *v = std::get_if< F32 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %f",
+						MAGE_VAR_TOKEN_FLOAT, key.c_str(),
+						*v);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_FLOAT2
+			{
+				const F32x2 *v = std::get_if< F32x2 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %f %f", 
+						MAGE_VAR_TOKEN_FLOAT2, key.c_str(),
+						v->m_x, v->m_y);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_FLOAT3
+			{
+				const F32x3 *v = std::get_if< F32x3 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %f %f %f", 
+						MAGE_VAR_TOKEN_FLOAT3, key.c_str(),
+						v->m_x, v->m_y, v->m_z);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_FLOAT4
+			{
+				const F32x4 *v = std::get_if< F32x4 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output),
+						"%s %s %f %f %f %f", 
+						MAGE_VAR_TOKEN_FLOAT4, key.c_str(), 
+						v->m_x, v->m_y, v->m_z, v->m_w);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// MAGE_VAR_TOKEN_STRING
+			{
+				const string *v = std::get_if< string >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, _countof(output), "%s %s \"%s\"",
+						MAGE_VAR_TOKEN_STRING, key.c_str(),
+						v->c_str());
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			Warning("%ls: could not export variable: %s", 
+				GetFilename().c_str(), key.c_str());
 		}
 	}
 }

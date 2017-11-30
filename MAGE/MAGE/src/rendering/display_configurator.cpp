@@ -295,15 +295,15 @@ namespace mage {
 
 			if (m_display_configuration_script->IsEmpty()) {
 				m_display_configuration_script->AddVariable(
-					VariableType::Int,  MAGE_DISPLAY_VARIABLE_AA,           0);
+					MAGE_DISPLAY_VARIABLE_AA,           0);
 				m_display_configuration_script->AddVariable(
-					VariableType::Int,  MAGE_DISPLAY_VARIABLE_REFRESH_RATE, 0);
+					MAGE_DISPLAY_VARIABLE_REFRESH_RATE, 0);
 				m_display_configuration_script->AddVariable(
-					VariableType::Int,  MAGE_DISPLAY_VARIABLE_RESOLUTION,   0);
+					MAGE_DISPLAY_VARIABLE_RESOLUTION,   0);
 				m_display_configuration_script->AddVariable(
-					VariableType::Bool, MAGE_DISPLAY_VARIABLE_VSYNC,    false);
+					MAGE_DISPLAY_VARIABLE_VSYNC,    false);
 				m_display_configuration_script->AddVariable(
-					VariableType::Bool, MAGE_DISPLAY_VARIABLE_WINDOWED, true);
+					MAGE_DISPLAY_VARIABLE_WINDOWED,  true);
 			}
 			
 			// Windowed state

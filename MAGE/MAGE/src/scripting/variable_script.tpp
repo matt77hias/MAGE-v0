@@ -15,18 +15,27 @@
 namespace mage {
 	
 	template< typename T >
-	inline void VariableScript::AddVariable(
-		VariableType type, const string &name, const T &value) {
-		
-		m_variables.emplace(name, Variable(type, name, value));
+	bool VariableScript::HasVariableOfType(const string &name) const noexcept {
+		if (const auto it = m_variables.find(name);
+			it != m_variables.end()) {
+
+			return nullptr != std::get_if< T >(&it->second);
+		}
+
+		return false;
+	}
+
+	template< typename T >
+	inline void VariableScript::AddVariable(string name, T value) {
+		m_variables.insert_or_assign(std::move(name), Value(std::move(value)));
 	}
 
 	template< typename T >
 	const T *VariableScript::GetValueOfVariable(const string &name) const {
-		if (const auto it = m_variables.find(name); 
+		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
-			return static_cast< const T * >(it->second.GetValue());
+			return &std::get< T >(it->second);
 		}
 
 		// Return nullptr if the variable was not found.
@@ -34,14 +43,14 @@ namespace mage {
 	}
 
 	template< typename T >
-	void VariableScript::SetValueOfVariable(const string &name, const T &value) {
+	void VariableScript::SetValueOfVariable(const string &name, T value) {
 		if (const auto it = m_variables.find(name); 
 			it != m_variables.end()) {
 
-			it->second.SetValue(value);
-			return;
+			it->second = std::move(value);
 		}
-
-		Warning("Variable %s not found.", name.c_str());
+		else {
+			Warning("Variable %s not found.", name.c_str());
+		}
 	}
 }

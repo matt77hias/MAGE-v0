@@ -63,25 +63,21 @@ namespace mage {
 			= mage::GetFilenameWithoutFileExtension(file_name);
 
 		char output[MAX_PATH];
-		const size_t output_count = static_cast< size_t >(_countof(output));
-
-		const string temp = str_convert(file_name_we);
-
-		sprintf_s(output, output_count, "%s %s.mtl",
-			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we).c_str());
+		sprintf_s(output, _countof(output), 
+			"%s %s.mtl",
+			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, 
+			str_convert(file_name_we).c_str());
 
 		WriteStringLine(output);
 	}
 
 	template < typename VertexT >
 	void MDLWriter< VertexT >::WriteModelParts() {
-		
 		char output[MAX_PATH];
-		const size_t output_count = static_cast< size_t >(_countof(output));
-		
+
 		for (const auto &model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, output_count, 
+			sprintf_s(output, _countof(output),
 				"%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
 				MAGE_MDL_TOKEN_SUBMODEL, 
 				model_part.m_child.c_str(), 

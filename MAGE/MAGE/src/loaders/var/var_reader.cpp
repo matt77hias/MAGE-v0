@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VARReader::VARReader(vector< Variable > &variable_buffer)
+	VARReader::VARReader(map< string, Value > &variable_buffer)
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 
@@ -55,9 +55,6 @@ namespace mage {
 		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT4)) {
 			ReadVARFloat4();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_COLOR)) {
-			ReadVARColor();
-		}
 		else if (str_equals(token, MAGE_VAR_TOKEN_STRING)) {
 			ReadVARString();
 		}
@@ -74,14 +71,16 @@ namespace mage {
 		const string name = ReadString();
 		const bool value  = ReadBool();
 		
-		m_variable_buffer.emplace_back(VariableType::Bool, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name), 
+			                               Value(value));
 	}
 
 	void VARReader::ReadVARInt() {
 		const string name = ReadString();
 		const S32 value   = ReadS32();
 		
-		m_variable_buffer.emplace_back(VariableType::Int, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name), 
+			                               Value(value));
 	}
 
 	void VARReader::ReadVARInt2() {
@@ -90,7 +89,8 @@ namespace mage {
 		const S32 y       = ReadS32();
 		const S32x2 value(x, y);
 		
-		m_variable_buffer.emplace_back(VariableType::Int2, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARInt3() {
@@ -100,14 +100,16 @@ namespace mage {
 		const S32 z  = ReadS32();
 		const S32x3 value(x, y, z);
 		
-		m_variable_buffer.emplace_back(VariableType::Int3, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARFloat() {
 		const string name = ReadString();
 		const F32 value = ReadF32();
 	
-		m_variable_buffer.emplace_back(VariableType::Float, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name), 
+			                               Value(value));
 	}
 
 	void VARReader::ReadVARFloat2() {
@@ -116,7 +118,8 @@ namespace mage {
 		const F32 y = ReadF32();
 		const F32x2 value(x, y);
 		
-		m_variable_buffer.emplace_back(VariableType::Float2, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 	
 	void VARReader::ReadVARFloat3() {
@@ -126,7 +129,8 @@ namespace mage {
 		const F32 z = ReadF32();
 		const F32x3 value(x, y, z);
 		
-		m_variable_buffer.emplace_back(VariableType::Float3, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARFloat4() {
@@ -137,24 +141,15 @@ namespace mage {
 		const F32 w = ReadF32();
 		const F32x4 value(x, y, z, w);
 		
-		m_variable_buffer.emplace_back(VariableType::Float4, name, value);
-	}
-
-	void VARReader::ReadVARColor() {
-		const string name = ReadString();
-		const F32 x = ReadF32();
-		const F32 y = ReadF32();
-		const F32 z = ReadF32();
-		const F32 w = ReadF32();
-		const F32x4 value(x, y, z, w);
-		
-		m_variable_buffer.emplace_back(VariableType::Color, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARString() {
 		const string name  = ReadString();
 		const string value = ReadQuotedString();
 		
-		m_variable_buffer.emplace_back(VariableType::String, name, value);
+		m_variable_buffer.insert_or_assign(std::move(name),
+			                               Value(std::move(value)));
 	}
 }

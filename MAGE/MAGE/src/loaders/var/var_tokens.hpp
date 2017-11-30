@@ -14,7 +14,6 @@
 #define MAGE_VAR_TOKEN_FLOAT2  "float2"
 #define MAGE_VAR_TOKEN_FLOAT3  "float3"
 #define MAGE_VAR_TOKEN_FLOAT4  "float4"
-#define MAGE_VAR_TOKEN_COLOR   "color"
 #define MAGE_VAR_TOKEN_STRING  "string"
 
 #pragma endregion

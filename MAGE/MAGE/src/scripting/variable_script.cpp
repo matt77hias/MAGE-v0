@@ -27,20 +27,15 @@ namespace mage {
 	VariableScript::~VariableScript() = default;
 
 	void VariableScript::ImportScript(const wstring &fname) {
-		vector< Variable > variable_buffer;
-		ImportVariableScriptFromFile(fname, variable_buffer);
-		for (const auto &variable : variable_buffer) {
-			m_variables.emplace(variable.GetName(), variable);
-		}
+		ImportVariableScriptFromFile(fname, m_variables);
 	}
 
 	void VariableScript::ExportScript(const wstring &fname) const {
-		vector< Variable > variable_buffer;
-		for (const auto &variable : m_variables) {
-			variable_buffer.push_back(variable.second);
-		}
+		ExportVariableScriptToFile(fname, m_variables);
+	}
 
-		ExportVariableScriptToFile(fname, variable_buffer);
+	bool VariableScript::HasVariable(const string &name) const noexcept {
+		return m_variables.cend() != m_variables.find(name);
 	}
 
 	void VariableScript::RemoveVariable(const string &name) {

@@ -6,8 +6,8 @@
 #pragma region
 
 #include "utils\io\line_reader.hpp"
-#include "utils\collection\collection.hpp"
 #include "scripting\variable.hpp"
+#include "utils\collection\collection.hpp"
 
 #pragma endregion
 
@@ -31,10 +31,10 @@ namespace mage {
 		 Constructs a VAR reader.
 
 		 @param[in]		variable_buffer
-						A reference to a vector for storing the read variables
+						A reference to a map for storing the read variables 
 						from file.
 		 */
-		explicit VARReader(vector< Variable > &variable_buffer);
+		explicit VARReader(map< string, Value > &variable_buffer);
 		
 		/**
 		 Constructs a VAR reader from the given VAR reader.
@@ -163,14 +163,6 @@ namespace mage {
 		void ReadVARFloat4();
 
 		/**
-		 Reads a Color variable definition.
-
-		 @throws		FormattedException
-						Failed to read a Color variable definition.
-		 */
-		void ReadVARColor();
-
-		/**
 		 Reads a String variable definition.
 
 		 @throws		FormattedException
@@ -183,9 +175,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the read variables of this VAR 
+		 A reference to a map containing the read variables of this VAR 
 		 reader.
 		 */
-		vector< Variable > &m_variable_buffer;
+		map< string, Value > &m_variable_buffer;
 	};
 }

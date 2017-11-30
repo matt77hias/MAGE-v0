@@ -42,8 +42,268 @@ namespace mage {
 		FullCoverage	 // Full coverage (i.e. enclosing, overlap)
 	};
 
-	// Forward declaration
-	struct BS;
+	//-------------------------------------------------------------------------
+	// Bounding Sphere
+	//-------------------------------------------------------------------------
+
+	// Forward declaration.
+	struct AABB;
+
+	/**
+	 A struct of Bounding Spheres (BS).
+	 */
+	struct BS final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a BS.
+		 */
+		constexpr BS() noexcept
+			: m_p(), m_r(0.0f) {}
+
+		/**
+		 Constructs a BS of the given point.
+
+		 @param[in]		p
+						A reference to the point.
+		 */
+		constexpr explicit BS(const Point3 &p) noexcept
+			: m_p(p), m_r(0.0f) {}
+
+		/**
+		 Constructs a BS.
+
+		 @param[in]		p
+						A reference to the position.
+		 @param[in]		r
+						The radius.
+		 */
+		constexpr explicit BS(const Point3 &p, F32 r) noexcept
+			: m_p(p), m_r(r) {}
+
+		/**
+		 Constructs a BS from the given AABB.
+
+		 @param[in]		aabb
+						A reference to the aabb.
+		 */
+		explicit BS(const AABB &aabb) noexcept;
+
+		/**
+		 Constructs a BS from the given BS.
+
+		 @param[in]		bs
+						A reference to the bs.
+		 */
+		constexpr BS(const BS &bs) noexcept = default;
+
+		/**
+		 Constructs a BS from the given BS.
+
+		 @param[in]		bs
+						A reference to the bs.
+		 */
+		constexpr BS(BS &&bs) noexcept = default;
+
+		/**
+		 Destructs this BS.
+		 */
+		~BS() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given BS to this BS.
+
+		 @param[in]		bs
+						A reference to the BS to copy from.
+		 @return		A reference to the copy of the given BS (i.e. this BS).
+		 */
+		constexpr BS &operator=(const BS &bs) noexcept = default;
+
+		/**
+		 Copies the given BS to this BS.
+
+		 @param[in]		bs
+						A reference to the BS to copy from.
+		 @return		A reference to the copy of the given BS (i.e. this BS).
+		 */
+		constexpr BS &operator=(BS &&bs) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the centroid of this AABB.
+
+		 @return		The centroid of this AABB.
+		 */
+		constexpr const Point3 Centroid() const noexcept {
+			return m_p;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Enclosing = Full Coverage
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this BS completely encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this BS completely encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
+		 */
+		bool Encloses(const Point3 &point) const noexcept;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
+		 */
+		bool EnclosesStrict(const Point3 &point) const noexcept;
+
+		/**
+		 Checks whether this BS completely encloses the given point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this BS completely encloses
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
+		 */
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
+		 */
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this BS completely encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this BS completely encloses @a aabb. 
+						@c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a BS.
+		 */
+		bool Encloses(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a aabb. @c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a BS.
+		 */
+		bool EnclosesStrict(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this BS completely encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this BS completely encloses @a bs.
+						@c false otherwise.
+		 @note			This is a full coverage test of a BS with regard to a 
+						BS.
+		 */
+		bool Encloses(const BS &bs) const noexcept;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this BS completely, strictly encloses @a bs.
+						@c false otherwise.
+		 @note			This is a full coverage test of a BS with regard to a 
+						BS.
+		 */
+		bool EnclosesStrict(const BS &bs) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The position of this BS.
+		 */
+		Point3 m_p;
+
+		/**
+		 The radius of this BS.
+		 */
+		F32 m_r;
+	};
+
+	//-------------------------------------------------------------------------
+	// Bounding Sphere: Non-Members
+	//-------------------------------------------------------------------------
+
+	/**
+	 Returns the union BS of the given BS and the given point.
+
+	 @param[in]		bs
+					A reference to the BS.
+	 @param[in]		point
+					A reference to the point.
+	 @return		The union BS of @a bs and @a point.
+	 */
+	const BS Union(const BS &bs, const Point3 &point) noexcept;
+
+	/**
+	 Returns the union BS of the given BS and the given vertex.
+
+	 @tparam		VertexT
+					The vertex type.
+	 @param[in]		bs
+					A reference to the BS.
+	 @param[in]		vertex
+					A reference to the VertexT.
+	 @return		The union BS of @a bs and @a vertex.
+	 */
+	template< typename VertexT >
+	inline const BS Union(const BS &bs, const VertexT &vertex) noexcept {
+		return Union(bs, vertex.p);
+	}
+
+	/**
+	 Returns the maximum BS (i.e. invariant for union operations).
+
+	 @return		The maximum BS.
+	 */
+	inline const BS MaximumBS() noexcept {
+		return BS(Point3(), std::numeric_limits< float >::infinity());
+	}
 
 	//-------------------------------------------------------------------------
 	// Axis-Aligned Bounding Box
@@ -63,7 +323,7 @@ namespace mage {
 		/**
 		 Constructs an (identity) AABB.
 		 */
-		AABB() 
+		constexpr AABB() noexcept
 			: m_p_min( std::numeric_limits< float >::infinity(),
 				       std::numeric_limits< float >::infinity(),
 				       std::numeric_limits< float >::infinity()),
@@ -77,7 +337,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		explicit AABB(const Point3 &p)
+		constexpr explicit AABB(const Point3 &p) noexcept
 			: m_p_min(p), m_p_max(p) {}
 
 		/**
@@ -89,7 +349,7 @@ namespace mage {
 		 @param[in]		p_max
 						A reference to the maximum extents.
 		 */
-		explicit AABB(const Point3 &p_min, const Point3 &p_max)
+		constexpr explicit AABB(const Point3 &p_min, const Point3 &p_max) noexcept
 			: m_p_min(p_min), m_p_max(p_max) {}
 
 		/**
@@ -98,7 +358,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to copy.
 		 */
-		AABB(const AABB &aabb) = default;
+		constexpr AABB(const AABB &aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB by moving the given AABB.
@@ -106,7 +366,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to move.
 		 */
-		AABB(AABB &&aabb) = default;
+		constexpr AABB(AABB &&aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB of the given BS.
@@ -114,7 +374,13 @@ namespace mage {
 		 @param[in]		bs
 						A reference to the BS.
 		 */
-		explicit AABB(const BS &bs);
+		constexpr explicit AABB(const BS &bs) noexcept
+			: m_p_min(Point3(bs.m_p.m_x - bs.m_r,
+			                 bs.m_p.m_y - bs.m_r,
+			                 bs.m_p.m_z - bs.m_r)),
+			  m_p_max(Point3(bs.m_p.m_x + bs.m_r,
+				             bs.m_p.m_y + bs.m_r,
+				             bs.m_p.m_z + bs.m_r)) {}
 
 		/**
 		 Destructs this AABB.
@@ -133,7 +399,7 @@ namespace mage {
 		 @return		A reference to the copy of the given AABB (i.e. this 
 						AABB).
 		 */
-		AABB &operator=(const AABB &aabb) = default;
+		constexpr AABB &operator=(const AABB &aabb) noexcept = default;
 
 		/**
 		 Moves the given AABB to this AABB.
@@ -142,7 +408,7 @@ namespace mage {
 						A reference to the AABB to move.
 		 @return		A reference to the moved AABB (i.e. this AABB).
 		 */
-		AABB &operator=(AABB &&aabb) = default;
+		constexpr AABB &operator=(AABB &&aabb) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -511,7 +777,7 @@ namespace mage {
 
 	 @return		The minimum AABB.
 	 */
-	inline const AABB MinimumAABB() noexcept {
+	constexpr const AABB MinimumAABB() noexcept {
 		return AABB();
 	}
 
@@ -520,272 +786,12 @@ namespace mage {
 
 	 @return		The maximum AABB.
 	 */
-	inline const AABB MaximumAABB() noexcept {
+	constexpr const AABB MaximumAABB() noexcept {
 		return AABB(Point3(-std::numeric_limits< float >::infinity(), 
 			               -std::numeric_limits< float >::infinity(), 
 			               -std::numeric_limits< float >::infinity()),
 					Point3( std::numeric_limits< float >::infinity(), 
 						    std::numeric_limits< float >::infinity(), 
 						    std::numeric_limits< float >::infinity()));
-	}
-
-	//-------------------------------------------------------------------------
-	// Bounding Sphere
-	//-------------------------------------------------------------------------
-
-	/**
-	 A struct of Bounding Spheres (BS).
-	 */
-	struct BS final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a BS.
-		 */
-		BS() 
-			: m_p(), m_r(0.0f) {}
-
-		/**
-		 Constructs a BS of the given point.
-
-		 @param[in]		p
-						A reference to the point.
-		 */
-		explicit BS(const Point3 &p)
-			: m_p(p), m_r(0.0f) {}
-
-		/**
-		 Constructs a BS.
-
-		 @param[in]		p
-						A reference to the position.
-		 @param[in]		r
-						The radius.
-		 */
-		explicit BS(const Point3 &p, F32 r)
-			: m_p(p), m_r(r) {}
-
-		/**
-		 Constructs a BS from the given AABB.
-
-		 @param[in]		aabb
-						A reference to the aabb.
-		 */
-		explicit BS(const AABB &aabb);
-
-		/**
-		 Constructs a BS from the given BS.
-
-		 @param[in]		bs
-						A reference to the bs.
-		 */
-		BS(const BS &bs) = default;
-
-		/**
-		 Constructs a BS from the given BS.
-
-		 @param[in]		bs
-						A reference to the bs.
-		 */
-		BS(BS &&bs) = default;
-
-		/**
-		 Destructs this BS.
-		 */
-		~BS() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given BS to this BS.
-
-		 @param[in]		bs
-						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS (i.e. this BS).
-		 */
-		BS &operator=(const BS &bs) = default;
-
-		/**
-		 Copies the given BS to this BS.
-
-		 @param[in]		bs
-						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS (i.e. this BS).
-		 */
-		BS &operator=(BS &&bs) = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the centroid of this AABB.
-
-		 @return		The centroid of this AABB.
-		 */
-		const Point3 Centroid() const noexcept {
-			return m_p;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Enclosing = Full Coverage
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this BS completely encloses the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this BS completely encloses 
-						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
-						a BS.
-		 */
-		bool Encloses(const Point3 &point) const noexcept;
-
-		/**
-		 Checks whether this BS completely, strictly encloses the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
-						a BS.
-		 */
-		bool EnclosesStrict(const Point3 &point) const noexcept;
-
-		/**
-		 Checks whether this BS completely encloses the given point.
-
-		 @param[in]		point
-						The point.
-		 @return		@c true if this BS completely encloses
-						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
-						a BS.
-		 */
-		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
-
-		/**
-		 Checks whether this BS completely, strictly encloses the given point.
-
-		 @param[in]		point
-						The point.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
-						a BS.
-		 */
-		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
-
-		/**
-		 Checks whether this BS completely encloses the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this BS completely encloses @a aabb. 
-						@c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
-						a BS.
-		 */
-		bool Encloses(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this BS completely, strictly encloses the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
-						a BS.
-		 */
-		bool EnclosesStrict(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this BS completely encloses the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this BS completely encloses @a bs.
-						@c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to a 
-						BS.
-		 */
-		bool Encloses(const BS &bs) const noexcept;
-
-		/**
-		 Checks whether this BS completely, strictly encloses the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this BS completely, strictly encloses @a bs.
-						@c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to a 
-						BS.
-		 */
-		bool EnclosesStrict(const BS &bs) const noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The position of this BS.
-		 */
-		Point3 m_p;
-
-		/**
-		 The radius of this BS.
-		 */
-		F32 m_r;
-	};
-
-	//-------------------------------------------------------------------------
-	// Bounding Sphere: Non-Members
-	//-------------------------------------------------------------------------
-
-	/**
-	 Returns the union BS of the given BS and the given point.
-
-	 @param[in]		bs
-					A reference to the BS.
-	 @param[in]		point
-					A reference to the point.
-	 @return		The union BS of @a bs and @a point.
-	 */
-	const BS Union(const BS &bs, const Point3 &point) noexcept;
-
-	/**
-	 Returns the union BS of the given BS and the given vertex.
-
-	 @tparam		VertexT
-					The vertex type.
-	 @param[in]		bs
-					A reference to the BS.
-	 @param[in]		vertex
-					A reference to the VertexT.
-	 @return		The union BS of @a bs and @a vertex.
-	 */
-	template< typename VertexT >
-	inline const BS Union(const BS &bs, const VertexT &vertex) noexcept {
-		return Union(bs, vertex.p);
-	}
-
-	/**
-	 Returns the maximum BS (i.e. invariant for union operations).
-
-	 @return		The maximum BS.
-	 */
-	inline const BS MaximumBS() noexcept {
-		return BS(Point3(), std::numeric_limits< float >::infinity());
 	}
 }

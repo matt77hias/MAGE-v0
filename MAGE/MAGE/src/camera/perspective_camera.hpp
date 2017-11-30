@@ -143,7 +143,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		constexpr explicit PerspectiveCamera(F32 aspect_ratio,
+		explicit PerspectiveCamera(F32 aspect_ratio,
 			F32 fov_y, F32 near_z, F32 far_z);
 
 		/**
@@ -160,7 +160,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		constexpr explicit PerspectiveCamera(F32 width, F32 height,
+		explicit PerspectiveCamera(F32 width, F32 height,
 			F32 fov_y, F32 near_z, F32 far_z);
 
 		/**
@@ -169,7 +169,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to copy.
 		 */
-		constexpr PerspectiveCamera(const PerspectiveCamera &camera);
+		PerspectiveCamera(const PerspectiveCamera &camera);
 		
 		/**
 		 Constructs a perspective camera by moving the given perspective camera.
@@ -177,7 +177,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to move.
 		 */
-		constexpr PerspectiveCamera(PerspectiveCamera &&camera);
+		PerspectiveCamera(PerspectiveCamera &&camera);
 
 		/**
 		 Destructs this perspective camera.
@@ -196,7 +196,7 @@ namespace mage {
 		 @return		A reference to the copy of the given perspective 
 						camera (i.e. this perspective camera).
 		 */
-		constexpr PerspectiveCamera &operator=(const PerspectiveCamera &camera);
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera);
 
 		/**
 		 Moves the given perspective camera to this perspective camera.
@@ -206,7 +206,7 @@ namespace mage {
 		 @return		A reference to the moved perspective camera (i.e. this 
 						perspective camera).
 		 */
-		constexpr PerspectiveCamera &operator=(PerspectiveCamera &&camera);
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -237,7 +237,7 @@ namespace mage {
 		 @return		The vertical field-of-view of this perspective 
 						camera.
 		 */
-		constexpr F32 GetFOVY() const noexcept {
+		F32 GetFOVY() const noexcept {
 			return m_fov_y;
 		}
 
@@ -248,7 +248,7 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 */
-		constexpr void SetFOVY(F32 fov_y) noexcept {
+		void SetFOVY(F32 fov_y) noexcept {
 			m_fov_y = fov_y;
 		}
 
@@ -257,7 +257,7 @@ namespace mage {
 
 		 @return		The aspect ratio of this perspective camera.
 		 */
-		constexpr F32 GetAspectRatio() const noexcept {
+		F32 GetAspectRatio() const noexcept {
 			return m_aspect_ratio;
 		}
 
@@ -268,7 +268,7 @@ namespace mage {
 		 @param[in]		aspect_ratio
 						The aspect ratio.
 		 */
-		constexpr void SetAspectRatio(F32 aspect_ratio) noexcept {
+		void SetAspectRatio(F32 aspect_ratio) noexcept {
 			m_aspect_ratio = aspect_ratio;
 		}
 
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		height
 						The height.
 		 */
-		constexpr void SetAspectRatio(F32 width, F32 height) noexcept {
+		void SetAspectRatio(F32 width, F32 height) noexcept {
 			SetAspectRatio(AspectRatioFromWidthAndHeight(width, height));
 		}
 		
@@ -296,7 +296,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		constexpr void SetViewToProjectionMatrix(F32 aspect_ratio,
+		void SetViewToProjectionMatrix(F32 aspect_ratio,
 			F32 fov_y, F32 near_z, F32 far_z) noexcept {
 
 			SetAspectRatio(aspect_ratio);
@@ -318,7 +318,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		constexpr void SetViewToProjectionMatrix(F32 width, F32 height,
+		void SetViewToProjectionMatrix(F32 width, F32 height,
 			F32 fov_y, F32 near_z, F32 far_z) noexcept {
 			
 			SetAspectRatio(width, height);

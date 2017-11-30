@@ -26,30 +26,30 @@ namespace mage {
 			static_cast< F32 >(DisplayConfiguration::Get()->GetDisplayHeight()),
 			fov_y, near_z, far_z) {}
 
-	constexpr PerspectiveCamera::PerspectiveCamera(F32 aspect_ratio,
+	PerspectiveCamera::PerspectiveCamera(F32 aspect_ratio,
 		F32 fov_y, F32 near_z, F32 far_z)
 		: Camera(near_z, far_z),
 		m_aspect_ratio(aspect_ratio), 
 		m_fov_y(fov_y) {}
 
-	constexpr PerspectiveCamera::PerspectiveCamera(F32 width, F32 height,
+	PerspectiveCamera::PerspectiveCamera(F32 width, F32 height,
 		F32 fov_y, F32 near_z, F32 far_z)
 		: Camera(near_z, far_z),
 		m_aspect_ratio(AspectRatioFromWidthAndHeight(width, height)), 
 		m_fov_y(fov_y) {}
 
-	constexpr PerspectiveCamera::PerspectiveCamera(
+	PerspectiveCamera::PerspectiveCamera(
 		const PerspectiveCamera &camera) = default;
 
-	constexpr PerspectiveCamera::PerspectiveCamera(
+	PerspectiveCamera::PerspectiveCamera(
 		PerspectiveCamera &&camera) = default;
 
 	PerspectiveCamera::~PerspectiveCamera() = default;
 
-	constexpr PerspectiveCamera &PerspectiveCamera::operator=(
+	PerspectiveCamera &PerspectiveCamera::operator=(
 		const PerspectiveCamera &camera) = default;
 
-	constexpr PerspectiveCamera &PerspectiveCamera::operator=(
+	PerspectiveCamera &PerspectiveCamera::operator=(
 		PerspectiveCamera &&camera) = default;
 
 	UniquePtr< Camera > PerspectiveCamera::CloneImplementation() const {

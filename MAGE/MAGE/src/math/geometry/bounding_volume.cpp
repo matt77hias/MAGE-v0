@@ -89,14 +89,6 @@ namespace mage {
 	// Axis-Aligned Bounding Box
 	//-------------------------------------------------------------------------
 
-	AABB::AABB(const BS &bs)
-		: m_p_min(Point3(bs.m_p.m_x - bs.m_r, 
-			             bs.m_p.m_y - bs.m_r, 
-			             bs.m_p.m_z - bs.m_r)),
-		  m_p_max(Point3(bs.m_p.m_x + bs.m_r, 
-			             bs.m_p.m_y + bs.m_r, 
-			             bs.m_p.m_z + bs.m_r)) {}
-
 	const Point3 AABB::Centroid() const noexcept {
 		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
@@ -608,7 +600,7 @@ namespace mage {
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
 
-	BS::BS(const AABB &aabb) {
+	BS::BS(const AABB &aabb) noexcept {
 		const XMVECTOR p_min = XMLoadFloat3(&aabb.m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&aabb.m_p_max);
 		const XMVECTOR centroid = 0.5f * (p_min + p_max);

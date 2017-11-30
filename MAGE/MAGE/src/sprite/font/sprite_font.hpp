@@ -192,7 +192,7 @@ namespace mage {
 						font.
 		 */
 		const RECT MeasureDrawBounds(
-			const wchar_t *str, const XMFLOAT2 &position) const;
+			const wchar_t *str, const F32x2 &position) const;
 
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
@@ -205,7 +205,7 @@ namespace mage {
 						font.
 		 */
 		const RECT MeasureDrawBounds(
-			const vector< ColorString > &text, const XMFLOAT2 &position) const;
+			const vector< ColorString > &text, const F32x2 &position) const;
 		
 		/**
 		 Returns the line spacing of this sprite font.

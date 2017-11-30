@@ -35,7 +35,7 @@ namespace mage {
 		const SpriteEffect effects  = GetSpriteEffects();
 		
 		// +1, +1
-		transform.AddTranslation(XMFLOAT2(1.0f, 1.0f));
+		transform.AddTranslation(F32x2(1.0f, 1.0f));
 		GetRawFont()->DrawString(sprite_batch, 
 			text, transform, border_color, effects);
 		// -1, +1

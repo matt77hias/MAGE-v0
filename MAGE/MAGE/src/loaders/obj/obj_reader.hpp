@@ -246,7 +246,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Bool variable.
 		 */
-		const XMUINT3 ReadOBJVertexIndices();
+		const U32x3 ReadOBJVertexIndices();
 		
 		/**
 		 Constructs or retrieves (if already existing) the vertex matching the 
@@ -257,17 +257,17 @@ namespace mage {
 		 @return		The vertex matching the given vertex indices 
 						@a vertex_indices.
 		 */
-		const VertexT ConstructVertex(const XMUINT3 &vertex_indices);
+		const VertexT ConstructVertex(const U32x3 &vertex_indices);
 
 		/**
-		 A struct of @c XMUINT3 comparators for OBJ vertex indices.
+		 A struct of @c U32x3 comparators for OBJ vertex indices.
 		 */
-		struct OBJComparatorXMUINT3 final {
+		struct OBJComparatorU32x3 final {
 
 		public:
 
 			/**
-			 Compares the two given @c XMUINT3 vectors against each other.
+			 Compares the two given @c U32x3 vectors against each other.
 
 			 @param[in]		a
 							A reference to the first vector.
@@ -276,7 +276,7 @@ namespace mage {
 			 @return		@c true if the @a a is smaller than @a b. @c false 
 							otherwise.
 			 */
-			bool operator()(const XMUINT3& a, const XMUINT3& b) const {
+			bool operator()(const U32x3& a, const U32x3& b) const {
 				return (a.x == b.x) ? 
 					((a.y == b.y) ? (a.z < b.z) : (a.y < b.y)) : (a.x < b.x);
 			}
@@ -309,7 +309,7 @@ namespace mage {
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		map< XMUINT3, U32, OBJComparatorXMUINT3 > m_mapping;
+		map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
 		
 		/**
 		 A reference to a model output containing the read data of this OBJ 

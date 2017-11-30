@@ -208,7 +208,7 @@ namespace mage {
 		};
 		const size_t index = static_cast< size_t >(effects) & 3;
 
-		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
+		const F32x2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
 		if (effects != SpriteEffect::None) {
 			base_offset -= MeasureString(str) * axis_is_mirrored_table[index];
@@ -304,7 +304,7 @@ namespace mage {
 		};
 		const size_t index = static_cast< size_t >(effects) & 3;
 
-		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
+		const F32x2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
 		if (effects != SpriteEffect::None) {
 			base_offset -= MeasureString(text) * axis_is_mirrored_table[index];
@@ -493,7 +493,7 @@ namespace mage {
 	}
 
 	const RECT SpriteFont::MeasureDrawBounds(
-		const wchar_t *str, const XMFLOAT2 &position) const {
+		const wchar_t *str, const F32x2 &position) const {
 		
 		Assert(str);
 
@@ -558,7 +558,7 @@ namespace mage {
 	}
 
 	const RECT SpriteFont::MeasureDrawBounds(
-		const vector< ColorString > &text, const XMFLOAT2 &position) const {
+		const vector< ColorString > &text, const F32x2 &position) const {
 		
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
 		F32 x = 0;

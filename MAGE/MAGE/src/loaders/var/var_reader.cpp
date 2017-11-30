@@ -88,7 +88,7 @@ namespace mage {
 		const string name = ReadString();
 		const S32 x       = ReadS32();
 		const S32 y       = ReadS32();
-		const XMINT2 value(x, y);
+		const S32x2 value(x, y);
 		
 		m_variable_buffer.emplace_back(VariableType::Int2, name, value);
 	}
@@ -98,7 +98,7 @@ namespace mage {
 		const S32 x       = ReadS32();
 		const S32 y       = ReadS32();
 		const S32 z  = ReadS32();
-		const XMINT3 value(x, y, z);
+		const S32x3 value(x, y, z);
 		
 		m_variable_buffer.emplace_back(VariableType::Int3, name, value);
 	}
@@ -114,7 +114,7 @@ namespace mage {
 		const string name = ReadString();
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
-		const XMFLOAT2 value(x, y);
+		const F32x2 value(x, y);
 		
 		m_variable_buffer.emplace_back(VariableType::Float2, name, value);
 	}
@@ -124,7 +124,7 @@ namespace mage {
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
 		const F32 z = ReadF32();
-		const XMFLOAT3 value(x, y, z);
+		const F32x3 value(x, y, z);
 		
 		m_variable_buffer.emplace_back(VariableType::Float3, name, value);
 	}
@@ -135,7 +135,7 @@ namespace mage {
 		const F32 y = ReadF32();
 		const F32 z = ReadF32();
 		const F32 w = ReadF32();
-		const XMFLOAT4 value(x, y, z, w);
+		const F32x4 value(x, y, z, w);
 		
 		m_variable_buffer.emplace_back(VariableType::Float4, name, value);
 	}
@@ -146,7 +146,7 @@ namespace mage {
 		const F32 y = ReadF32();
 		const F32 z = ReadF32();
 		const F32 w = ReadF32();
-		const XMFLOAT4 value(x, y, z, w);
+		const F32x4 value(x, y, z, w);
 		
 		m_variable_buffer.emplace_back(VariableType::Color, name, value);
 	}

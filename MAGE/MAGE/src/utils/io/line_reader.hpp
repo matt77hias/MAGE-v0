@@ -306,37 +306,37 @@ namespace mage {
 		F64 ReadF64();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c XMFLOAT2.
+		 Reads and converts the next token of this line reader to a @c F32x2.
 
-		 @return		The @c XMFLOAT2 represented by the next token of this line 
+		 @return		The @c F32x2 represented by the next token of this line 
 						reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not 
-						represent a @c XMFLOAT2.
+						represent a @c F32x2.
 		 */
-		const XMFLOAT2 ReadF32x2();
+		const F32x2 ReadF32x2();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c XMFLOAT3.
+		 Reads and converts the next token of this line reader to a @c F32x3.
 
-		 @return		The @c XMFLOAT3 represented by the next token of this line 
+		 @return		The @c F32x3 represented by the next token of this line 
 						reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not 
-						represent a @c XMFLOAT3.
+						represent a @c F32x3.
 		 */
-		const XMFLOAT3 ReadF32x3();
+		const F32x3 ReadF32x3();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c XMFLOAT4.
+		 Reads and converts the next token of this line reader to a @c F32x4.
 
-		 @return		The @c XMFLOAT4 represented by the next token of this line 
+		 @return		The @c F32x4 represented by the next token of this line 
 						reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not 
-						represent a @c XMFLOAT4.
+						represent a @c F32x4.
 		*/
-		const XMFLOAT4 ReadF32x4();
+		const F32x4 ReadF32x4();
 		
 		/**
 		 Checks whether this line reader has a next token.

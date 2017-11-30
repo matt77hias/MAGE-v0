@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A struct of RGB color spectra.
 	 */
-	struct RGB final : public XMFLOAT3 {
+	struct RGB final : public F32x3 {
 
 	public:
 
@@ -54,7 +54,7 @@ namespace mage {
 						The blue component.
 		 */
 		RGB(F32 r, F32 g, F32 b) noexcept
-			: XMFLOAT3(r, g, b) {}
+			: F32x3(r, g, b) {}
 
 		/**
 		 Constructs a RGB spectrum from the given RGB spectrum.
@@ -94,8 +94,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit RGB(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit RGB(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Destructs this RGB spectrum.
@@ -127,7 +127,7 @@ namespace mage {
 		RGB &operator=(RGB &&rgb) = default;
 	};
 
-	static_assert(sizeof(RGB) == sizeof(XMFLOAT3), "RGB/XMFLOAT3 mismatch");
+	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
 
 #pragma endregion
 
@@ -139,7 +139,7 @@ namespace mage {
 	/**
 	 A struct of sRGB color spectra.
 	 */
-	struct SRGB final : public XMFLOAT3 {
+	struct SRGB final : public F32x3 {
 
 	public:
 
@@ -167,7 +167,7 @@ namespace mage {
 						The blue component.
 		 */
 		SRGB(F32 r, F32 g, F32 b) noexcept
-			: XMFLOAT3(r, g, b) {}
+			: F32x3(r, g, b) {}
 
 		/**
 		 Constructs a sRGB spectrum from the given sRGB spectrum.
@@ -199,8 +199,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit SRGB(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit SRGB(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Destructs this sRGB spectrum.
@@ -232,7 +232,7 @@ namespace mage {
 		SRGB &operator=(SRGB &&srgb) = default;
 	};
 
-	static_assert(sizeof(SRGB) == sizeof(XMFLOAT3), "SRGB/XMFLOAT3 mismatch");
+	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
 
 #pragma endregion
 
@@ -244,7 +244,7 @@ namespace mage {
 	/**
 	 A struct of XYZ color spectra.
 	 */
-	struct XYZ final : public XMFLOAT3 {
+	struct XYZ final : public F32x3 {
 
 	public:
 
@@ -272,7 +272,7 @@ namespace mage {
 						The z component.
 		 */
 		XYZ(F32 x, F32 y, F32 z) noexcept
-			: XMFLOAT3(x, y, z) {}
+			: F32x3(x, y, z) {}
 
 		/**
 		 Constructs a XYZ spectrum from the given XYZ spectrum.
@@ -304,8 +304,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit XYZ(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit XYZ(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Destructs this XYZ spectrum.
@@ -337,7 +337,7 @@ namespace mage {
 		XYZ &operator=(XYZ &&xyz) = default;
 	};
 
-	static_assert(sizeof(XYZ) == sizeof(XMFLOAT3), "XYZ/XMFLOAT3 mismatch");
+	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
 
 #pragma endregion
 
@@ -353,7 +353,7 @@ namespace mage {
 	/**
 	 A struct of RGBA color spectra.
 	 */
-	struct RGBA final : public XMFLOAT4 {
+	struct RGBA final : public F32x4 {
 
 	public:
 
@@ -383,7 +383,7 @@ namespace mage {
 						The alpha component.
 		 */
 		RGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
-			: XMFLOAT4(r, g, b, a) {}
+			: F32x4(r, g, b, a) {}
 
 		/**
 		 Constructs a RGBA spectrum from the given RGBA spectrum.
@@ -434,8 +434,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit RGBA(XMFLOAT4 v) noexcept
-			: XMFLOAT4(std::move(v)) {}
+		explicit RGBA(F32x4 v) noexcept
+			: F32x4(std::move(v)) {}
 
 		/**
 		 Destructs this RGBA spectrum.
@@ -467,7 +467,7 @@ namespace mage {
 		RGBA &operator=(RGBA &&rgba) = default;
 	};
 
-	static_assert(sizeof(RGBA) == sizeof(XMFLOAT4), "RGBA/XMFLOAT4 mismatch");
+	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
 
 #pragma endregion
 
@@ -479,7 +479,7 @@ namespace mage {
 	/**
 	 A struct of sRGBA color spectra.
 	 */
-	struct SRGBA final : public XMFLOAT4 {
+	struct SRGBA final : public F32x4 {
 
 	public:
 
@@ -509,7 +509,7 @@ namespace mage {
 						The alpha component.
 		 */
 		SRGBA(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
-			: XMFLOAT4(r, g, b, a) {}
+			: F32x4(r, g, b, a) {}
 
 		/**
 		 Constructs a sRGBA spectrum from the given sRGBA spectrum.
@@ -552,8 +552,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit SRGBA(XMFLOAT4 v) noexcept
-			: XMFLOAT4(std::move(v)) {}
+		explicit SRGBA(F32x4 v) noexcept
+			: F32x4(std::move(v)) {}
 
 		/**
 		 Destructs this sRGBA spectrum.
@@ -585,7 +585,7 @@ namespace mage {
 		SRGBA &operator=(SRGBA &&rgba) = default;
 	};
 
-	static_assert(sizeof(SRGBA) == sizeof(XMFLOAT4), "SRGBA/XMFLOAT4 mismatch");
+	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
 	
 #pragma endregion
 
@@ -597,7 +597,7 @@ namespace mage {
 	/**
 	 A struct of XYZA color spectra.
 	 */
-	struct XYZA final : public XMFLOAT4 {
+	struct XYZA final : public F32x4 {
 
 	public:
 
@@ -627,7 +627,7 @@ namespace mage {
 						The alpha component.
 		 */
 		XYZA(F32 x, F32 y, F32 z, F32 a = 1.0f) noexcept
-			: XMFLOAT4(x, y, z, a) {}
+			: F32x4(x, y, z, a) {}
 
 		/**
 		 Constructs a XYZA spectrum from the given XYZA spectrum.
@@ -670,8 +670,8 @@ namespace mage {
 		 @param[in]		v
 						The components.
 		 */
-		explicit XYZA(XMFLOAT4 v) noexcept
-			: XMFLOAT4(std::move(v)) {}
+		explicit XYZA(F32x4 v) noexcept
+			: F32x4(std::move(v)) {}
 
 		/**
 		 Destructs this XYZA spectrum.
@@ -703,7 +703,7 @@ namespace mage {
 		XYZA &operator=(XYZA &&xyza) = default;
 	};
 
-	static_assert(sizeof(XYZA) == sizeof(XMFLOAT4), "XYZA/XMFLOAT4 mismatch");
+	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");
 
 #pragma endregion
 

@@ -20,7 +20,7 @@ namespace mage {
 	 */
 	const F32 XM_GA = 2.399963230f;
 
-	inline void FibonacciSpiralSamplesInUnitCircle(XMFLOAT2 *samples, 
+	inline void FibonacciSpiralSamplesInUnitCircle(F32x2 *samples, 
 		size_t nb_samples, F32 shift = 1.0f, F32 alpha = 2.0f) noexcept {
 
 		// Boundary points
@@ -35,7 +35,7 @@ namespace mage {
 			const F32 r   = sqrt((i + 0.5f) / (nb_samples - 0.5f * np_boundary));
 			const F32 phi = XM_GA * (i + shift);
 			
-			*samples = XMFLOAT2(
+			*samples = F32x2(
 						r * cos(phi), 
 						r * sin(phi));
 		}
@@ -44,13 +44,13 @@ namespace mage {
 			const F32 r   = 1.0f;
 			const F32 phi = XM_GA * (i + shift);
 			
-			*samples = XMFLOAT2(
+			*samples = F32x2(
 						r * cos(phi), 
 						r * sin(phi));
 		}
 	}
 
-	inline void FibonacciSpiralSamplesOnUnitSphere(XMFLOAT3 *samples, 
+	inline void FibonacciSpiralSamplesOnUnitSphere(F32x3 *samples, 
 		size_t nb_samples, F32 shift = 1.0f) noexcept {
 
 		const F32 offset = 2.0f / nb_samples;
@@ -61,14 +61,14 @@ namespace mage {
 			const F32 cos_theta = ((i + 0.5f) * offset) - 1.0f;
 			const F32 sin_theta = sqrt(1.0f - cos_theta * cos_theta);
 			
-			*samples = XMFLOAT3(
+			*samples = F32x3(
 						cos(phi) * sin_theta, 
 						cos_theta, 
 						sin(phi) * sin_theta);
 		}
 	}
 
-	inline void FibonacciSpiralSamplesOnUnitHemisphere(XMFLOAT3 *samples, 
+	inline void FibonacciSpiralSamplesOnUnitHemisphere(F32x3 *samples, 
 		size_t nb_samples, F32 shift = 1.0f, bool positive = true) noexcept {
 
 		const F32 offset = 1.0f / nb_samples;
@@ -82,7 +82,7 @@ namespace mage {
 			const F32 cos_theta = ((i + 0.5f) * offset) - 1.0f;
 			const F32 sin_theta = sqrt(1.0f - cos_theta * cos_theta);
 			
-			*samples = XMFLOAT3(
+			*samples = F32x3(
 						cos(phi) * sin_theta, 
 						cos_theta, 
 						sin(phi) * sin_theta);
@@ -90,7 +90,7 @@ namespace mage {
 	}
 
 	inline void FibonacciSpiralCosineWeightedSamplesOnUnitHemisphere(
-		XMFLOAT3 *samples, size_t nb_samples, F32 shift = 1.0f) noexcept {
+		F32x3 *samples, size_t nb_samples, F32 shift = 1.0f) noexcept {
 
 		for (size_t i = 0; i < nb_samples; ++i, ++samples) {
 			
@@ -98,7 +98,7 @@ namespace mage {
 			const F32 sin_theta = sqrt((i + 0.5f) / (nb_samples - 0.5f));
 			const F32 cos_theta = sqrt(1.0f - sin_theta * sin_theta);
 			
-			*samples = XMFLOAT3(
+			*samples = F32x3(
 						cos(phi) * sin_theta, 
 						cos_theta, 
 						sin(phi) * sin_theta);

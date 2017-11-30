@@ -60,7 +60,7 @@ namespace mage {
 			
 			case VariableType::Int2: {
 				
-				const XMINT2 *value = static_cast< const XMINT2 * >(raw_value);
+				const S32x2 *value = static_cast< const S32x2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d", 
 					MAGE_VAR_TOKEN_INT2, name, value->x, value->y);
 				
@@ -69,7 +69,7 @@ namespace mage {
 			
 			case VariableType::Int3: {
 				
-				const XMINT3 *value = static_cast< const XMINT3 * >(raw_value);
+				const S32x3 *value = static_cast< const S32x3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d %d", 
 					MAGE_VAR_TOKEN_INT3, name, value->x, value->y, value->z);
 				
@@ -87,7 +87,7 @@ namespace mage {
 			
 			case VariableType::Float2: {
 				
-				const XMFLOAT2 *value = static_cast< const XMFLOAT2 * >(raw_value);
+				const F32x2 *value = static_cast< const F32x2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f", 
 					MAGE_VAR_TOKEN_FLOAT2, name, value->x, value->y);
 				
@@ -96,7 +96,7 @@ namespace mage {
 			
 			case VariableType::Float3: {
 				
-				const XMFLOAT3 *value = static_cast< const XMFLOAT3 * >(raw_value);
+				const F32x3 *value = static_cast< const F32x3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f", 
 					MAGE_VAR_TOKEN_FLOAT3, name, value->x, value->y, value->z);
 				
@@ -105,7 +105,7 @@ namespace mage {
 			
 			case VariableType::Float4: {
 				
-				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
+				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
 					MAGE_VAR_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
 				
@@ -114,7 +114,7 @@ namespace mage {
 			
 			case VariableType::Color: {
 				
-				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
+				const F32x4 *value = static_cast< const F32x4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
 					MAGE_VAR_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
 				

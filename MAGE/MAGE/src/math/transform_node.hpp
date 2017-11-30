@@ -144,7 +144,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(XMFLOAT3 translation) noexcept {
+		void SetTranslation(F32x3 translation) noexcept {
 			m_transform.SetTranslation(std::move(translation));
 			SetDirty();
 		}
@@ -220,7 +220,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT3 &translation) noexcept {
+		void AddTranslation(const F32x3 &translation) noexcept {
 			m_transform.AddTranslation(translation);
 			SetDirty();
 		}
@@ -275,7 +275,7 @@ namespace mage {
 
 		 @return		The translation component of this transform node.
 		 */
-		const XMFLOAT3 GetTranslation() const noexcept {
+		const F32x3 GetTranslation() const noexcept {
 			return m_transform.GetTranslation();
 		}
 		
@@ -364,7 +364,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(XMFLOAT3 rotation) noexcept {
+		void SetRotation(F32x3 rotation) noexcept {
 			m_transform.SetRotation(std::move(rotation));
 			SetDirty();
 		}
@@ -456,7 +456,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
-		void AddRotation(const XMFLOAT3 &rotation) noexcept {
+		void AddRotation(const F32x3 &rotation) noexcept {
 			m_transform.AddRotation(rotation);
 			SetDirty();
 		}
@@ -581,7 +581,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			const XMFLOAT3 &rotation, F32 min_angle, F32 max_angle) noexcept {
+			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
 			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
@@ -644,7 +644,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform node.
 		 */
-		const XMFLOAT3 GetRotation() const noexcept {
+		const F32x3 GetRotation() const noexcept {
 			return m_transform.GetRotation();
 		}
 		
@@ -743,7 +743,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(XMFLOAT3 scale) noexcept {
+		void SetScale(F32x3 scale) noexcept {
 			m_transform.SetScale(std::move(scale));
 			SetDirty();
 		}
@@ -828,7 +828,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT3 &scale) noexcept {
+		void AddScale(const F32x3 &scale) noexcept {
 			m_transform.AddScale(scale);
 			SetDirty();
 		}
@@ -880,7 +880,7 @@ namespace mage {
 
 		 @return		The scale component of this transform node.
 		 */
-		const XMFLOAT3 GetScale() const noexcept {
+		const F32x3 GetScale() const noexcept {
 			return m_transform.GetScale();
 		}
 		

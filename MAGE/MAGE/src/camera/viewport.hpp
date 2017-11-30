@@ -157,8 +157,8 @@ namespace mage {
 			return m_viewport.TopLeftY;
 		}
 
-		const XMFLOAT2 GetTopLeft() const noexcept {
-			return XMFLOAT2(m_viewport.TopLeftX, m_viewport.TopLeftY);
+		const F32x2 GetTopLeft() const noexcept {
+			return F32x2(m_viewport.TopLeftX, m_viewport.TopLeftY);
 		}
 
 		void SetTopLeft(U32 x, U32 y) noexcept {

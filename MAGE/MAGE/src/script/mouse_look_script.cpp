@@ -16,10 +16,10 @@ namespace mage::script {
 
 	MouseLookScript::MouseLookScript(TransformNode *transform,
 		RotationAxes axes, 
-		XMFLOAT2 sensitivity,
-		XMFLOAT2 minimum_rotation, 
-		XMFLOAT2 maximum_rotation,
-		XMFLOAT2 direction)
+		F32x2 sensitivity,
+		F32x2 minimum_rotation, 
+		F32x2 maximum_rotation,
+		F32x2 direction)
 		: BehaviorScript(),
 		m_transform(transform),
 		m_axes(axes),

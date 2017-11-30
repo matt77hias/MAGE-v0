@@ -51,7 +51,7 @@ namespace mage {
 	inline void OrthonormalBasis_Frisvad(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
-		XMFLOAT3 nf;
+		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
 		if (nf.z < -0.9999999f) {
@@ -81,7 +81,7 @@ namespace mage {
 	inline void OrthonormalBasis_Duff(
 		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
 		
-		XMFLOAT3 nf;
+		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
 		const F32 sign = copysignf(1.0f, nf.z);

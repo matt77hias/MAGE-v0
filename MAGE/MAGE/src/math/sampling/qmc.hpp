@@ -42,28 +42,28 @@ namespace mage {
 		}
 	}
 
-	inline const XMFLOAT2 Halton2D(size_t index) noexcept {
+	inline const F32x2 Halton2D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		
-		return XMFLOAT2(x, y);
+		return F32x2(x, y);
 	}
 
-	inline const XMFLOAT3 Halton3D(size_t index) noexcept {
+	inline const F32x3 Halton3D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		const F32 z = RadicalInverse(index, 5.0f);
 		
-		return XMFLOAT3(x, y, z);
+		return F32x3(x, y, z);
 	}
 
-	inline const XMFLOAT4 Halton4D(size_t index) noexcept {
+	inline const F32x4 Halton4D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		const F32 z = RadicalInverse(index, 5.0f);
 		const F32 w = RadicalInverse(index, 7.0f);
 		
-		return XMFLOAT4(x, y, z, w);
+		return F32x4(x, y, z, w);
 	}
 
 	inline void Hammersley(size_t index, F32 *sample, size_t nb_dims, 
@@ -81,26 +81,26 @@ namespace mage {
 		}
 	}
 
-	inline const XMFLOAT2 Hammersley2D(size_t index, size_t nb_samples) noexcept {
+	inline const F32x2 Hammersley2D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
 		const F32 y = RadicalInverse(index, 2.0f);
 		
-		return XMFLOAT2(x, y);
+		return F32x2(x, y);
 	}
 
-	inline const XMFLOAT3 Hammersley3D(size_t index, size_t nb_samples) noexcept {
+	inline const F32x3 Hammersley3D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
 		const F32 y = RadicalInverse(index, 2.0f);
 		const F32 z = RadicalInverse(index, 3.0f);
 		
-		return XMFLOAT3(x, y, z);
+		return F32x3(x, y, z);
 	}
 
-	inline const XMFLOAT4 Hammersley4D(size_t index, size_t nb_samples) noexcept {
+	inline const F32x4 Hammersley4D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -108,10 +108,10 @@ namespace mage {
 		const F32 z = RadicalInverse(index, 3.0f);
 		const F32 w = RadicalInverse(index, 5.0f);
 		
-		return XMFLOAT4(x, y, z, w);
+		return F32x4(x, y, z, w);
 	}
 
-	inline const XMFLOAT2 Roth(size_t index, size_t nb_samples) noexcept {
+	inline const F32x2 Roth(size_t index, size_t nb_samples) noexcept {
 		return Hammersley2D(index, nb_samples);
 	}
 }

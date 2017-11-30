@@ -38,9 +38,9 @@ namespace mage {
 						The scale component.
 		 */
 		explicit Transform(
-			XMFLOAT3 translation = { 0.0f, 0.0f, 0.0f }, 
-			XMFLOAT3 rotation    = { 0.0f, 0.0f, 0.0f }, 
-			XMFLOAT3 scale       = { 1.0f, 1.0f, 1.0f })
+			F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
+			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
+			F32x3 scale       = { 1.0f, 1.0f, 1.0f })
 			: m_translation(std::move(translation)), 
 			m_rotation(std::move(rotation)), 
 			m_scale(std::move(scale)) {
@@ -182,7 +182,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(XMFLOAT3 translation) noexcept {
+		void SetTranslation(F32x3 translation) noexcept {
 			m_translation = std::move(translation);
 			SetDirty();
 		}
@@ -257,7 +257,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT3 &translation) noexcept {
+		void AddTranslation(const F32x3 &translation) noexcept {
 			AddTranslation(translation.x, translation.y, translation.z);
 		}
 		
@@ -309,7 +309,7 @@ namespace mage {
 
 		 @return		The translation component of this transform.
 		 */
-		const XMFLOAT3 GetTranslation() const noexcept {
+		const F32x3 GetTranslation() const noexcept {
 			return m_translation;
 		}
 		
@@ -398,7 +398,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(XMFLOAT3 rotation) noexcept {
+		void SetRotation(F32x3 rotation) noexcept {
 			m_rotation = std::move(rotation);
 			SetDirty();
 		}
@@ -427,17 +427,14 @@ namespace mage {
 		void XM_CALLCONV SetRotationAroundDirection(
 			FXMVECTOR normal, F32 angle) noexcept {
 
-			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
+			const XMMATRIX rotation = XMMatrixRotationNormal(normal, angle);
 			
-			XMFLOAT4X4 rotation;
-			XMStoreFloat4x4(&rotation, rotation_m);
-
 			// cosf function instead of sinf in case the angles are not in [-1,1]
-			m_rotation.y = -asinf(rotation._32);
+			m_rotation.y = -asinf(XMVectorGetY(rotation.r[2]));
 			const F32 cp = cosf(m_rotation.y);
-			const F32 cr = rotation._22 / cp;
+			const F32 cr = XMVectorGetY(rotation.r[1]) / cp;
 			m_rotation.z = acosf(cr);
-			const F32 cy = rotation._33 / cp;
+			const F32 cy = XMVectorGetZ(rotation.r[2]) / cp;
 			m_rotation.x = acosf(cy);
 
 			SetDirty();
@@ -501,7 +498,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
-		void AddRotation(const XMFLOAT3 &rotation) noexcept {
+		void AddRotation(const F32x3 &rotation) noexcept {
 			AddRotation(rotation.x, rotation.y, rotation.z);
 		}
 		
@@ -628,7 +625,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			const XMFLOAT3 &rotation, F32 min_angle, F32 max_angle) noexcept {
+			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
 			AddAndClampRotation(rotation.x, rotation.y, rotation.z, min_angle, max_angle);
 		}
@@ -692,7 +689,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform.
 		 */
-		const XMFLOAT3 GetRotation() const noexcept {
+		const F32x3 GetRotation() const noexcept {
 			return m_rotation;
 		}
 		
@@ -794,7 +791,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(XMFLOAT3 scale) noexcept {
+		void SetScale(F32x3 scale) noexcept {
 			m_scale = std::move(scale);
 			SetDirty();
 		}
@@ -880,7 +877,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT3 &scale) noexcept {
+		void AddScale(const F32x3 &scale) noexcept {
 			AddScale(scale.x, scale.y, scale.z);
 		}
 
@@ -927,7 +924,7 @@ namespace mage {
 
 		 @return		The scale component of this transform.
 		 */
-		const XMFLOAT3 GetScale() const noexcept {
+		const F32x3 GetScale() const noexcept {
 			return m_scale;
 		}
 		
@@ -1251,17 +1248,17 @@ namespace mage {
 		/**
 		 The translation component of this transform.
 		 */
-		XMFLOAT3 m_translation;
+		F32x3 m_translation;
 
 		/**
 		 The rotation component (in radians) of this transform.
 		 */
-		XMFLOAT3 m_rotation;
+		F32x3 m_rotation;
 
 		/**
 		 The scale component of this transform.
 		 */
-		XMFLOAT3 m_scale;
+		F32x3 m_scale;
 
 		/**
 		 The cached object-to-parent matrix of this transform.

@@ -31,10 +31,10 @@ namespace mage::script {
 
 		explicit MouseLookScript(TransformNode *transform,
 			RotationAxes axes = RotationAxes::MouseXAndY,
-			XMFLOAT2 sensitivity      = { 1.8f, 1.8f },
-			XMFLOAT2 minimum_rotation = { -XM_PI / 3.0f, -XM_PI },
-			XMFLOAT2 maximum_rotation = {  XM_PI / 3.0f,  XM_PI },
-			XMFLOAT2 direction        = { 1.0f, 1.0f });
+			F32x2 sensitivity      = { 1.8f, 1.8f },
+			F32x2 minimum_rotation = { -XM_PI / 3.0f, -XM_PI },
+			F32x2 maximum_rotation = {  XM_PI / 3.0f,  XM_PI },
+			F32x2 direction        = { 1.0f, 1.0f });
 		MouseLookScript(const MouseLookScript &script) = delete;
 		MouseLookScript(MouseLookScript &&script);
 		virtual ~MouseLookScript();
@@ -65,7 +65,7 @@ namespace mage::script {
 		F32 GetSensitivityY() const noexcept {
 			return m_sensitivity.y;
 		}
-		const XMFLOAT2 GetSensitivity() const noexcept {
+		const F32x2 GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
 		void SetSensitivityX(F32 x) noexcept {
@@ -78,7 +78,7 @@ namespace mage::script {
 			m_sensitivity.x = x;
 			m_sensitivity.y = y;
 		}
-		void SetSensitivity(XMFLOAT2 sensitivity) noexcept {
+		void SetSensitivity(F32x2 sensitivity) noexcept {
 			m_sensitivity = std::move(sensitivity);
 		}
 		void XM_CALLCONV SetSensitivity(FXMVECTOR sensitivity) noexcept {
@@ -91,7 +91,7 @@ namespace mage::script {
 		F32 GetMinimumRotationY() const noexcept {
 			return m_minimum_rotation.y;
 		}
-		const XMFLOAT2 GetMinimumRotation() const noexcept {
+		const F32x2 GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
 		void SetMinimumRotationX(F32 x) noexcept {
@@ -104,7 +104,7 @@ namespace mage::script {
 			m_minimum_rotation.x = x;
 			m_minimum_rotation.y = y;
 		}
-		void SetMinimumRotation(XMFLOAT2 minimum_rotation) noexcept {
+		void SetMinimumRotation(F32x2 minimum_rotation) noexcept {
 			m_minimum_rotation = std::move(minimum_rotation);
 		}
 		void XM_CALLCONV SetMinimumRotation(FXMVECTOR minimum_rotation) noexcept {
@@ -117,7 +117,7 @@ namespace mage::script {
 		F32 GetMaximumRotationY() const noexcept {
 			return m_maximum_rotation.y;
 		}
-		const XMFLOAT2 GetMaximumRotation() const noexcept {
+		const F32x2 GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
 		void SetMaximumRotationX(F32 x) noexcept {
@@ -130,7 +130,7 @@ namespace mage::script {
 			m_maximum_rotation.x = x;
 			m_maximum_rotation.y = y;
 		}
-		void SetMaximumRotation(XMFLOAT2 maximum_rotation) noexcept {
+		void SetMaximumRotation(F32x2 maximum_rotation) noexcept {
 			m_maximum_rotation = std::move(maximum_rotation);
 		}
 		void XM_CALLCONV SetMaximumRotation(FXMVECTOR maximum_rotation) noexcept {
@@ -152,9 +152,9 @@ namespace mage::script {
 
 		TransformNode * const m_transform;
 		RotationAxes m_axes;
-		XMFLOAT2 m_sensitivity;
-		XMFLOAT2 m_minimum_rotation;
-		XMFLOAT2 m_maximum_rotation;
-		XMFLOAT2 m_direction;
+		F32x2 m_sensitivity;
+		F32x2 m_minimum_rotation;
+		F32x2 m_maximum_rotation;
+		F32x2 m_direction;
 	};
 }

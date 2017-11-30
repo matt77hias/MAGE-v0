@@ -629,7 +629,7 @@ namespace mage {
 	}
 	
 	TokenResult ReadF32x2(char *str, char **context, 
-		XMFLOAT2 &result, const char *delimiters) noexcept {
+		F32x2 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -650,7 +650,7 @@ namespace mage {
 	}
 	
 	TokenResult ReadF32x3(char *str, char **context, 
-		XMFLOAT3 &result, const char *delimiters) noexcept {
+		F32x3 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -677,7 +677,7 @@ namespace mage {
 	}
 	
 	TokenResult ReadF32x4(char *str, char **context, 
-		XMFLOAT4 &result, const char *delimiters) noexcept {
+		F32x4 &result, const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);

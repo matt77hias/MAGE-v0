@@ -429,11 +429,11 @@ namespace mage {
 			// Set z = depth.
 			const XMVECTOR position 
 				= XMVectorPermute< 0, 1, 7, 6 >(position2, origin_rotation_depth);
-			// Write the position as a XMFLOAT4, even though VertexPositionColorTexture::p 
-			// is an XMFLOAT3. This is faster, and harmless as we are just clobbering the 
+			// Write the position as a F32x4, even though VertexPositionColorTexture::p 
+			// is an F32x3. This is faster, and harmless as we are just clobbering the 
 			// first element of the following color field, which will immediately be 
 			// overwritten with its correct value.
-			XMStoreFloat4(reinterpret_cast< XMFLOAT4 * >(&vertices[i].p), position);
+			XMStoreFloat4(reinterpret_cast< F32x4 * >(&vertices[i].p), position);
 
 			// Write the color.
 			XMStoreFloat4(&vertices[i].c, color);

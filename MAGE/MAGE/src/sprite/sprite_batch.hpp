@@ -122,24 +122,24 @@ namespace mage {
 		 The texture source region (Left Top Width Height) of the sprite 
 		 associated with this sprite info.
 		 */
-		XMFLOAT4A m_source;
+		F32x4A m_source;
 
 		/**
 		 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
 		 this sprite info.
 		 */
-		XMFLOAT4A m_destination;
+		F32x4A m_destination;
 
 		/**
 		 The (sRGB) color of the sprite associated with this sprite info.
 		 */
-		XMFLOAT4A m_color;
+		F32x4A m_color;
 
 		/**
 		 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
 		 with this sprite info.
 		 */
-		XMFLOAT4A m_origin_rotation_depth;
+		F32x4A m_origin_rotation_depth;
 
 		/**
 		 A pointer to the shader resource view of the texture associated with 

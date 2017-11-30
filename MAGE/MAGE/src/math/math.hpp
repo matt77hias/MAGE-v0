@@ -26,6 +26,22 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	using F32x2 = XMFLOAT2;
+	using F32x3 = XMFLOAT3;
+	using F32x4 = XMFLOAT4;
+
+	using F32x2A = XMFLOAT2A;
+	using F32x3A = XMFLOAT3A;
+	using F32x4A = XMFLOAT4A;
+
+	using S32x2 = XMINT2;
+	using S32x3 = XMINT3;
+	using S32x4 = XMINT4;
+
+	using U32x2 = XMUINT2;
+	using U32x3 = XMUINT3;
+	using U32x4 = XMUINT4;
+
 	//-------------------------------------------------------------------------
 	// UV
 	//-------------------------------------------------------------------------
@@ -33,7 +49,7 @@ namespace mage {
 	/**
 	 A struct of UV texture coordinates.
 	 */
-	struct UV final : public XMFLOAT2 {
+	struct UV final : public F32x2 {
 
 	public:
 
@@ -56,7 +72,7 @@ namespace mage {
 						The v texture coordinate.			
 		 */
 		UV(F32 u, F32 v) noexcept
-			: XMFLOAT2(u, v) {}
+			: F32x2(u, v) {}
 		
 		/**
 		 Constructs a set of UV texture coordinates from the given set of UV 
@@ -84,8 +100,8 @@ namespace mage {
 		 @param[in]		v
 						The vector.
 		 */
-		explicit UV(XMFLOAT2 v) noexcept
-			: XMFLOAT2(std::move(v)) {}
+		explicit UV(F32x2 v) noexcept
+			: F32x2(std::move(v)) {}
 
 		/**
 		 Destructs this set of UV texture coordinates.
@@ -121,8 +137,8 @@ namespace mage {
 		UV &operator=(UV &&uv) = default;
 	};
 
-	static_assert(sizeof(UV) == sizeof(XMFLOAT2), 
-		"UV/XMFLOAT2 mismatch");
+	static_assert(sizeof(UV) == sizeof(F32x2), 
+		"UV/F32x2 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Point3
@@ -131,7 +147,7 @@ namespace mage {
 	/**
 	 A struct of points in 3D space.
 	 */
-	struct Point3 final : public XMFLOAT3 {
+	struct Point3 final : public F32x3 {
 
 	public:
 
@@ -156,7 +172,7 @@ namespace mage {
 						The z-coordinate.
 		 */
 		Point3(F32 x, F32 y, F32 z) noexcept
-			: XMFLOAT3(x, y, z) {}
+			: F32x3(x, y, z) {}
 		
 		/**
 		 Constructs a point from the given point.
@@ -180,8 +196,8 @@ namespace mage {
 		 @param[in]		v
 						The vector.
 		 */
-		explicit Point3(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit Point3(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Constructs a point.
@@ -212,8 +228,8 @@ namespace mage {
 		Point3 &operator=(Point3 &&point) = default;
 	};
 
-	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), 
-		"Point3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Point3) == sizeof(F32x3), 
+		"Point3/F32x3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Normal3
@@ -226,7 +242,7 @@ namespace mage {
 					directions. This should be guaranteed and enforced by the 
 					user.
 	 */
-	struct Normal3 final : public XMFLOAT3 {
+	struct Normal3 final : public F32x3 {
 
 	public:
 
@@ -251,7 +267,7 @@ namespace mage {
 						The z-coordinate.
 		 */
 		Normal3(F32 x, F32 y, F32 z) noexcept
-			: XMFLOAT3(x, y, z) {}
+			: F32x3(x, y, z) {}
 		
 		/**
 		 Constructs a normal from the given normal.
@@ -275,8 +291,8 @@ namespace mage {
 		 @param[in]		v
 						The vector.
 		 */
-		explicit Normal3(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit Normal3(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Destructs this normal.
@@ -307,8 +323,8 @@ namespace mage {
 		Normal3 &operator=(Normal3 &&normal) = default;
 	};
 
-	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), 
-		"Normal3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Normal3) == sizeof(F32x3), 
+		"Normal3/F32x3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Direction3
@@ -317,7 +333,7 @@ namespace mage {
 	/**
 	 A struct of directions in 3D space.
 	 */
-	struct Direction3 final : public XMFLOAT3 {
+	struct Direction3 final : public F32x3 {
 
 	public:
 
@@ -342,7 +358,7 @@ namespace mage {
 						The z-coordinate.
 		 */
 		Direction3(F32 x, F32 y, F32 z) noexcept
-			: XMFLOAT3(x, y, z) {}
+			: F32x3(x, y, z) {}
 		
 		/**
 		 Constructs a direction from the given direction.
@@ -367,7 +383,7 @@ namespace mage {
 						The normal.
 		 */
 		Direction3(Normal3 normal) noexcept
-			: XMFLOAT3(std::move(normal)) {}
+			: F32x3(std::move(normal)) {}
 
 		/**
 		 Constructs a direction from the given vector.
@@ -375,8 +391,8 @@ namespace mage {
 		 @param[in]		v
 						The vector.
 		 */
-		explicit Direction3(XMFLOAT3 v) noexcept
-			: XMFLOAT3(std::move(v)) {}
+		explicit Direction3(F32x3 v) noexcept
+			: F32x3(std::move(v)) {}
 
 		/**
 		 Constructs a direction.
@@ -407,8 +423,8 @@ namespace mage {
 		Direction3 &operator=(Direction3 &&direction) = default;
 	};
 
-	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), 
-		"Direction3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Direction3) == sizeof(F32x3), 
+		"Direction3/F32x3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// Utilities

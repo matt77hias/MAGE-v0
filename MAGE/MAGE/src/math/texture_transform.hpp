@@ -39,10 +39,10 @@ namespace mage {
 						The scale component.
 		 */
 		explicit TextureTransform(
-			XMFLOAT2 translation     = { 0.0f, 0.0f }, 
+			F32x2 translation     = { 0.0f, 0.0f }, 
 			F32 rotation             = 0.0f, 
-			XMFLOAT2 rotation_origin = { 0.0f, 0.0f }, 
-			XMFLOAT2 scale           = { 1.0f, 1.0f })
+			F32x2 rotation_origin = { 0.0f, 0.0f }, 
+			F32x2 scale           = { 1.0f, 1.0f })
 			: m_translation(std::move(translation)), 
 			m_rotation(rotation), 
 			m_rotation_origin(std::move(rotation_origin)), 
@@ -176,7 +176,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(XMFLOAT2 translation) noexcept {
+		void SetTranslation(F32x2 translation) noexcept {
 			m_translation = std::move(translation);
 			SetDirty();
 		}
@@ -239,7 +239,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT2 &translation) noexcept {
+		void AddTranslation(const F32x2 &translation) noexcept {
 			AddTranslation(translation.x, translation.y);
 		}
 
@@ -281,7 +281,7 @@ namespace mage {
 
 		 @return		The translation component of this texture transform.
 		 */
-		const XMFLOAT2 GetTranslation() const noexcept {
+		const F32x2 GetTranslation() const noexcept {
 			return m_translation;
 		}
 
@@ -394,7 +394,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The rotation origin.
 		 */
-		void SetRotationOrigin(XMFLOAT2 rotation_origin) noexcept {
+		void SetRotationOrigin(F32x2 rotation_origin) noexcept {
 			m_rotation_origin = std::move(rotation_origin);
 			SetDirty();
 		}
@@ -457,7 +457,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
-		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
+		void AddRotationOrigin(const F32x2 &rotation_origin) noexcept {
 			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
 		}
 
@@ -498,7 +498,7 @@ namespace mage {
 
 		 @return		The rotation origin of this texture transform.
 		 */
-		const XMFLOAT2 GetRotationOrigin() const noexcept {
+		const F32x2 GetRotationOrigin() const noexcept {
 			return m_rotation_origin;
 		}
 
@@ -563,7 +563,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(XMFLOAT2 scale) noexcept {
+		void SetScale(F32x2 scale) noexcept {
 			m_scale = std::move(scale);
 			SetDirty();
 		}
@@ -637,7 +637,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT2 &scale) noexcept {
+		void AddScale(const F32x2 &scale) noexcept {
 			AddScale(scale.x, scale.y);
 		}
 
@@ -678,7 +678,7 @@ namespace mage {
 
 		 @return		The scale component of this texture transform.
 		 */
-		const XMFLOAT2 GetScale() const noexcept {
+		const F32x2 GetScale() const noexcept {
 			return m_scale;
 		}
 
@@ -744,7 +744,7 @@ namespace mage {
 		/**
 		 The translation component of this texture transform.
 		 */
-		XMFLOAT2 m_translation;
+		F32x2 m_translation;
 
 		/**
 		 The rotation component (in radians) of this texture transform.
@@ -760,12 +760,12 @@ namespace mage {
 		/**
 		 The rotation origin of this texture transform.
 		 */
-		XMFLOAT2 m_rotation_origin;
+		F32x2 m_rotation_origin;
 
 		/**
 		 The scale component of this texture transform.
 		 */
-		XMFLOAT2 m_scale;
+		F32x2 m_scale;
 
 		/**
 		 The cached (object-to-parent) transform matrix of this texture 

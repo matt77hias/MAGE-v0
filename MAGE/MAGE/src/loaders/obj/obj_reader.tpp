@@ -180,7 +180,7 @@ namespace mage {
 		
 		vector< U32 > indices;
 		while (indices.size() < 3 || HasString()) {
-			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
+			const U32x3 vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 
 				it != m_mapping.cend()) {
@@ -235,7 +235,7 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	const XMUINT3 OBJReader< VertexT >::ReadOBJVertexIndices() {
+	const U32x3 OBJReader< VertexT >::ReadOBJVertexIndices() {
 		const char *token = ReadChars();
 
 		U32 vertex_index = 0;
@@ -290,12 +290,12 @@ namespace mage {
 				GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		return XMUINT3(vertex_index, texture_index, normal_index);
+		return U32x3(vertex_index, texture_index, normal_index);
 	}
 
 	template < typename VertexT >
 	const VertexT OBJReader< VertexT >::ConstructVertex(
-		const XMUINT3 &vertex_indices) {
+		const U32x3 &vertex_indices) {
 		
 		VertexT vertex;
 

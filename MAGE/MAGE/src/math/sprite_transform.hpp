@@ -48,8 +48,8 @@ namespace mage {
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
-	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
-		return XMFLOAT2(ConvertNormalizedToAbsoluteScreenX(x), 
+	inline const F32x2 ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
+		return F32x2(ConvertNormalizedToAbsoluteScreenX(x), 
 			            ConvertNormalizedToAbsoluteScreenY(y));
 	}
 	
@@ -61,8 +61,8 @@ namespace mage {
 	 @param[in]		position
 					A reference to the normalized screen position.
 	 */
-	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(
-		const XMFLOAT2 &position) {
+	inline const F32x2 ConvertNormalizedToAbsoluteScreen(
+		const F32x2 &position) {
 		
 		return ConvertNormalizedToAbsoluteScreen(position.x, position.y);
 	}
@@ -108,8 +108,8 @@ namespace mage {
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
-	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
-		return XMFLOAT2(ConvertAbsoluteToNormalizedScreenX(x), 
+	inline const F32x2 ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
+		return F32x2(ConvertAbsoluteToNormalizedScreenX(x), 
 			            ConvertAbsoluteToNormalizedScreenY(y));
 	}
 	
@@ -121,8 +121,8 @@ namespace mage {
 	 @param[in]		position
 					A reference to the absolute screen position.
 	 */
-	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(
-		const XMFLOAT2 &position) {
+	inline const F32x2 ConvertAbsoluteToNormalizedScreen(
+		const F32x2 &position) {
 		
 		return ConvertAbsoluteToNormalizedScreen(position.x, position.y);
 	}
@@ -169,11 +169,11 @@ namespace mage {
 						The scale component.
 		 */
 		explicit SpriteTransform(
-			XMFLOAT2 translation     = { 0.0f, 0.0f }, 
+			F32x2 translation     = { 0.0f, 0.0f }, 
 			F32 depth                = 0.0f,
 			F32 rotation             = 0.0f, 
-			XMFLOAT2 rotation_origin = { 0.0f, 0.0f }, 
-			XMFLOAT2 scale           = { 1.0f, 1.0f })
+			F32x2 rotation_origin = { 0.0f, 0.0f }, 
+			F32x2 scale           = { 1.0f, 1.0f })
 			: m_translation(std::move(translation)), 
 			m_depth(depth), 
 			m_rotation(rotation), 
@@ -310,7 +310,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(XMFLOAT2 translation) noexcept {
+		void SetTranslation(F32x2 translation) noexcept {
 			m_translation = std::move(translation);
 			SetDirty();
 		}
@@ -373,7 +373,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT2 &translation) noexcept {
+		void AddTranslation(const F32x2 &translation) noexcept {
 			AddTranslation(translation.x, translation.y);
 		}
 
@@ -415,7 +415,7 @@ namespace mage {
 
 		 @return		The translation component of this sprite transform.
 		 */
-		const XMFLOAT2 GetTranslation() const noexcept {
+		const F32x2 GetTranslation() const noexcept {
 			return m_translation;
 		}
 
@@ -473,7 +473,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the normalized translation component.
 		 */
-		void SetNormalizedTranslation(const XMFLOAT2 &translation) {
+		void SetNormalizedTranslation(const F32x2 &translation) {
 			SetTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -545,7 +545,7 @@ namespace mage {
 						A reference to the normalized translation component to 
 						add.
 		 */
-		void AddNormalizedTranslation(const XMFLOAT2 &translation) {
+		void AddNormalizedTranslation(const F32x2 &translation) {
 			AddTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -596,7 +596,7 @@ namespace mage {
 		 @return		The normalized translation component of this sprite 
 						transform.
 		 */
-		const XMFLOAT2 GetNormalizedTranslation() const {
+		const F32x2 GetNormalizedTranslation() const {
 			return ConvertAbsoluteToNormalizedScreen(GetTranslation());
 		}
 
@@ -746,7 +746,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The rotation origin.
 		 */
-		void SetRotationOrigin(XMFLOAT2 rotation_origin) noexcept {
+		void SetRotationOrigin(F32x2 rotation_origin) noexcept {
 			m_rotation_origin = std::move(rotation_origin);
 			SetDirty();
 		}
@@ -809,7 +809,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
-		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
+		void AddRotationOrigin(const F32x2 &rotation_origin) noexcept {
 			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
 		}
 
@@ -850,7 +850,7 @@ namespace mage {
 
 		 @return		The rotation origin of this sprite transform.
 		 */
-		const XMFLOAT2 GetRotationOrigin() const noexcept {
+		const F32x2 GetRotationOrigin() const noexcept {
 			return m_rotation_origin;
 		}
 
@@ -908,7 +908,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the normalized rotation origin.
 		 */
-		void SetNormalizedRotationOrigin(const XMFLOAT2 &rotation_origin) {
+		void SetNormalizedRotationOrigin(const F32x2 &rotation_origin) {
 			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(rotation_origin));
 		}
 
@@ -975,7 +975,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOrigin(const XMFLOAT2 &rotation_origin) {
+		void AddNormalizedRotationOrigin(const F32x2 &rotation_origin) {
 			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(rotation_origin));
 		}
 
@@ -1026,7 +1026,7 @@ namespace mage {
 		 @return		The normalized rotation origin of this sprite 
 						transform.
 		 */
-		const XMFLOAT2 GetNormalizedRotationOrigin() const {
+		const F32x2 GetNormalizedRotationOrigin() const {
 			return ConvertAbsoluteToNormalizedScreen(GetRotationOrigin());
 		}
 
@@ -1091,7 +1091,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(XMFLOAT2 scale) noexcept {
+		void SetScale(F32x2 scale) noexcept {
 			m_scale = std::move(scale);
 			SetDirty();
 		}
@@ -1165,7 +1165,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT2 &scale) noexcept {
+		void AddScale(const F32x2 &scale) noexcept {
 			AddScale(scale.x, scale.y);
 		}
 
@@ -1205,7 +1205,7 @@ namespace mage {
 
 		 @return		The scale component of this sprite transform.
 		 */
-		const XMFLOAT2 GetScale() const noexcept {
+		const F32x2 GetScale() const noexcept {
 			return m_scale;
 		}
 
@@ -1270,7 +1270,7 @@ namespace mage {
 		/**
 		 The translation component of this sprite transform.
 		 */
-		XMFLOAT2 m_translation;
+		F32x2 m_translation;
 
 		/**
 		 The depth component of this sprite transform.
@@ -1285,12 +1285,12 @@ namespace mage {
 		/**
 		 The rotation origin of this sprite transform.
 		 */
-		XMFLOAT2 m_rotation_origin;
+		F32x2 m_rotation_origin;
 
 		/**
 		 The scale component of this sprite transform.
 		 */
-		XMFLOAT2 m_scale;
+		F32x2 m_scale;
 
 		/**
 		 The cached (object-to-parent) transform matrix of this sprite 

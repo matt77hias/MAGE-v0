@@ -696,7 +696,7 @@ namespace mage {
 		 The projection values of the view-to-projection transformation matrix
 		 of this omni light buffer with shadow mapping.
 		 */
-		XMFLOAT2 m_projection_values;
+		F32x2 m_projection_values;
 		
 		/**
 		 The padding of this omni light buffer with shadow mapping. 

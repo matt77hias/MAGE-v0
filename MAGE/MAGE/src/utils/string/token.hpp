@@ -915,7 +915,7 @@ namespace mage {
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to a @c XMFLOAT2.
+	 Reads and converts the next token in the given string to a @c F32x2.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -928,20 +928,20 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c XMFLOAT2 represented by the next 
+					A reference to the @c F32x2 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c XMFLOAT2 succeeded 
+					next token in the given string to a @c F32x2 succeeded 
 					or not.
 	 */
-	TokenResult ReadF32x2(char *str, char **context, XMFLOAT2 &result, 
+	TokenResult ReadF32x2(char *str, char **context, F32x2 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to a @c XMFLOAT3.
+	 Reads and converts the next token in the given string to a @c F32x3.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -954,20 +954,20 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c XMFLOAT3 represented by the next 
+					A reference to the @c F32x3 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c XMFLOAT3 succeeded 
+					next token in the given string to a @c F32x3 succeeded 
 					or not.
 	 */
-	TokenResult ReadF32x3(char *str, char **context, XMFLOAT3 &result, 
+	TokenResult ReadF32x3(char *str, char **context, F32x3 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Reads and converts the next token in the given string to a @c XMFLOAT4.
+	 Reads and converts the next token in the given string to a @c F32x4.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -980,16 +980,16 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c XMFLOAT4 represented by the next 
+					A reference to the @c F32x4 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c XMFLOAT4 succeeded 
+					next token in the given string to a @c F32x4 succeeded 
 					or not.
 	*/
-	TokenResult ReadF32x4(char *str, char **context, XMFLOAT4 &result, 
+	TokenResult ReadF32x4(char *str, char **context, F32x4 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 #pragma endregion

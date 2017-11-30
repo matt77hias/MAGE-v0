@@ -150,17 +150,17 @@ namespace mage {
 		/**
 		 The local translation component of this model part.
 		 */
-		XMFLOAT3 m_translation;
+		F32x3 m_translation;
 
 		/**
 		 The local rotation component of this model part.
 		 */
-		XMFLOAT3 m_rotation;
+		F32x3 m_rotation;
 
 		/**
 		 The local scale component of this model part.
 		 */
-		XMFLOAT3 m_scale;
+		F32x3 m_scale;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material

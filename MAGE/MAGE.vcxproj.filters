@@ -1131,6 +1131,12 @@
     <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\utils\type\vector_types.hpp">
+      <Filter>Header Files\utils\type</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\utils\type\scalar_types.hpp">
+      <Filter>Header Files\utils\type</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

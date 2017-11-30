@@ -148,8 +148,8 @@ namespace mage {
 	 @return		A unique pointer to the constructed non-array type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	typename std::enable_if< !std::is_array< T >::value, 
-		UniquePtr< T > >::type MakeUnique(ConstructorArgsT&&... args);
+	typename std::enable_if_t< !std::is_array_v< T >, 
+		UniquePtr< T > > MakeUnique(ConstructorArgsT&&... args);
 	
 	/**
 	 Constructs an array of unknown bound T. This overload only participates 
@@ -162,8 +162,8 @@ namespace mage {
 	 @return		A unique pointer to the constructed array of unknown bound T.
 	 */
 	template< typename T >
-	typename std::enable_if< std::is_array< T >::value && std::extent< T >::value == 0,
-		UniquePtr< T > >::type MakeUnique(size_t count);
+	typename std::enable_if_t< std::is_array_v< T > && std::extent_v< T > == 0,
+		UniquePtr< T > > MakeUnique(size_t count);
 
 	/**
 	 Constructs an array of known bound T. This overload only participates
@@ -176,8 +176,8 @@ namespace mage {
 	 @return		A unique pointer to the constructed array of known bound T.
 	 */
 	template< typename T >
-	typename std::enable_if< std::extent< T >::value != 0,
-		UniquePtr< T > >::type MakeUnique(size_t count) = delete;
+	typename std::enable_if_t< std::extent_v< T > != 0,
+		UniquePtr< T > > MakeUnique(size_t count) = delete;
 	
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by statically 

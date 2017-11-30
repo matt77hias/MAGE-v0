@@ -281,6 +281,8 @@
     <ClInclude Include="MAGE\src\utils\system\system_usage.hpp" />
     <ClInclude Include="MAGE\src\utils\timer\cpu_timer.hpp" />
     <ClInclude Include="MAGE\src\utils\timer\timer.hpp" />
+    <ClInclude Include="MAGE\src\utils\type\vector_types.hpp" />
+    <ClInclude Include="MAGE\src\utils\type\scalar_types.hpp" />
     <ClInclude Include="MAGE\src\utils\type\types.hpp" />
   </ItemGroup>
   <ItemGroup>

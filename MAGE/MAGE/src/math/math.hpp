@@ -29,7 +29,6 @@ namespace mage {
 	using F32x2 = XMFLOAT2;
 	using F32x3 = XMFLOAT3;
 	using F32x4 = XMFLOAT4;
-
 	using F32x2A = XMFLOAT2A;
 	using F32x3A = XMFLOAT3A;
 	using F32x4A = XMFLOAT4A;

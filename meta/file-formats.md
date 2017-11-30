@@ -148,7 +148,6 @@
 | property          | `float2 <property-name> <F32> <F32>`                               |
 | property          | `float3 <property-name> <F32> <F32> <F32>`                         |
 | property          | `float4 <property-name> <F32> <F32> <F32> <F32>`                   |
-| property          | `color <property-name> <F32> <F32> <F32> <F32>`                    |
 | property          | `string <property-name> <string>`                                  |
 | `<property-name>` | `<string>`                                                         |
 | `<string>`        | `<ANSI string without delimiters and EOFs>`                        |

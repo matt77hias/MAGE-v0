@@ -24,6 +24,8 @@ A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
+ASTHANA A.: [*Introducing ‘Vector Calling Convention’*](https://blogs.msdn.microsoft.com/vcblog/2013/07/11/introducing-vector-calling-convention/), 2013.
+
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
 BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.com/blog/2007/06/scenegraphs-past-present-and-future/), 2007.

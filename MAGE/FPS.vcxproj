@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FPS\src\core\targetver.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_script.hpp" />
     <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp" />

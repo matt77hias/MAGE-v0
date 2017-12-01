@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\core">
-      <UniqueIdentifier>{f8cf1dd3-2fd6-47c1-b51d-9917dec9f07e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{82143448-34ad-461b-aa5d-fc44c75fcf0c}</UniqueIdentifier>
     </Filter>
@@ -51,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FPS\src\core\targetver.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp">
       <Filter>Header Files\samples\brdf</Filter>
     </ClInclude>

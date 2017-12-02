@@ -34,6 +34,10 @@ BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough
 
 BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SIGGRAPH Comput. Graph.* 11, 2, 1977.
 
+BOREAL GAMES: [*Implementing Component-Entity-Systems*](https://www.gamedev.net/articles/programming/general-and-gameplay-programming/implementing-component-entity-systems-r3382), 2013.
+
+BOREAL GAMES: [*Understanding Component-Entity-Systems*](https://www.gamedev.net/articles/programming/general-and-gameplay-programming/understanding-component-entity-systems-r3013/), 2013.
+
 BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/dataformats/mtl/), 1995.
 
 BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).

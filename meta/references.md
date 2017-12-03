@@ -130,11 +130,11 @@ LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*
 
 LAPIDOUS E., JIA G.: *Optimal depth buffer for low-cost graphics hardware*, *Proceedings of the ACM SIGGRAPH/EUROGRAPHICS Workshop on Graphics Hardware*, 1999.
 
-LOTTES T.: [*Optimized Reversible Tonemapper for Resolve*](https://gpuopen.com/optimized-reversible-tonemapper-for-resolve/), 2016.
-
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
 LEWIS R. R.: *Making Shaders More Physically Plausible*, *4th Eurographics Workshop on Rendering*, 1993.
+
+LOTTES T.: [*Optimized Reversible Tonemapper for Resolve*](https://gpuopen.com/optimized-reversible-tonemapper-for-resolve/), 2016.
 
 LUNA F.: *Introduction to 3D Game Programming with DirectX 11*, 1st Edition, Mercury Learning & Information, 2012.
 

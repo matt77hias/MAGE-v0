@@ -20,6 +20,8 @@
 
 ## Bibliography
 
+ANTE J.: [*Writing High Performance C# Scripts*](https://www.youtube.com/watch?v=tGmnZdY5Y-E), 2017.
+
 A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github.com/ampas/aces-dev), 2011.
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.

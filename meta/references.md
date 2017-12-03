@@ -24,6 +24,8 @@ A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
+ASTHANA A.: [*Introducing ‘Vector Calling Convention’*](https://blogs.msdn.microsoft.com/vcblog/2013/07/11/introducing-vector-calling-convention/), 2013.
+
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
 BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.com/blog/2007/06/scenegraphs-past-present-and-future/), 2007.
@@ -31,6 +33,10 @@ BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.
 
 BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SIGGRAPH Comput. Graph.* 11, 2, 1977.
+
+BOREAL GAMES: [*Implementing Component-Entity-Systems*](https://www.gamedev.net/articles/programming/general-and-gameplay-programming/implementing-component-entity-systems-r3382), 2013.
+
+BOREAL GAMES: [*Understanding Component-Entity-Systems*](https://www.gamedev.net/articles/programming/general-and-gameplay-programming/understanding-component-entity-systems-r3013/), 2013.
 
 BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/dataformats/mtl/), 1995.
 

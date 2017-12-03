@@ -90,7 +90,7 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to the renderer to move.
 		 */
-		Renderer(Renderer &&renderer);
+		Renderer(Renderer &&renderer) noexcept;
 
 		/**
 		 Destructs this renderer.

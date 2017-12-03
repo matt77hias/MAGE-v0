@@ -184,7 +184,7 @@ namespace mage {
 		 @param[in]		static_mesh
 						A reference to the static mesh to move.
 		 */
-		StaticMesh(StaticMesh &&static_mesh);
+		StaticMesh(StaticMesh &&static_mesh) noexcept;
 
 		/**
 		 Destructs this static mesh.

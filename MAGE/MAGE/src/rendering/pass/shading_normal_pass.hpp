@@ -68,7 +68,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the shading normal pass to move.
 		 */
-		ShadingNormalPass(ShadingNormalPass &&render_pass);
+		ShadingNormalPass(ShadingNormalPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this shading normal pass.

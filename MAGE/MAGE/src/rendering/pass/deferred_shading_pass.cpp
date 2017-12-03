@@ -31,7 +31,7 @@ namespace mage {
 		m_brdf(BRDFType::Unknown) {}
 
 	DeferredShadingPass::DeferredShadingPass(
-		DeferredShadingPass &&render_pass) = default;
+		DeferredShadingPass &&render_pass) noexcept = default;
 
 	DeferredShadingPass::~DeferredShadingPass() = default;
 

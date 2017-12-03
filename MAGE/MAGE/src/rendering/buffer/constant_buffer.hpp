@@ -65,7 +65,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the constant buffer to move.
 		 */
-		ConstantBuffer(ConstantBuffer &&buffer) = default;
+		ConstantBuffer(ConstantBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this constant buffer.

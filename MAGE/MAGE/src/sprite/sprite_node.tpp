@@ -15,7 +15,7 @@ namespace mage {
 
 	template< typename SpriteT >
 	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(
-		DerivedSpriteNode &&sprite_node) = default;
+		DerivedSpriteNode &&sprite_node) noexcept = default;
 
 	template< typename SpriteT >
 	DerivedSpriteNode< SpriteT >::~DerivedSpriteNode() = default;

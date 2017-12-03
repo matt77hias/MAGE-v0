@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Constructs a scene fog.
 		 */
-		SceneFog()
+		constexpr SceneFog() noexcept
 			: m_base_color(color::Silver), 
 			m_density(0.0) {}
 
@@ -40,7 +40,7 @@ namespace mage {
 		 @param[in]		scene_fog
 						A reference to the scene fog to copy.
 		 */
-		SceneFog(const SceneFog &scene_fog) = default;
+		constexpr SceneFog(const SceneFog &scene_fog) noexcept = default;
 
 		/**
 		 Constructs a scene fog by moving the given scene fog.
@@ -48,7 +48,7 @@ namespace mage {
 		 @param[in]		scene_fog
 						A reference to the scene fog to move.
 		 */
-		SceneFog(SceneFog &&scene_fog) = default;
+		constexpr SceneFog(SceneFog &&scene_fog) noexcept = default;
 
 		/**
 		 Destructs this scene fog.
@@ -67,7 +67,8 @@ namespace mage {
 		 @return		A reference to the copy of the given scene fog (i.e. 
 						this scene fog).
 		 */
-		SceneFog &operator=(const SceneFog &scene_fog) = default;
+		constexpr SceneFog &operator=(
+			const SceneFog &scene_fog) noexcept = default;
 
 		/**
 		 Moves the given scene fog to this scene fog.
@@ -77,7 +78,8 @@ namespace mage {
 		 @return		A reference to the moved scene fog (i.e. this scene 
 						fog).
 		 */
-		SceneFog &operator=(SceneFog &&scene_fog) = default;
+		constexpr SceneFog &operator=(
+			SceneFog &&scene_fog) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Fogging
@@ -88,7 +90,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this scene fog.
 		 */
-		SRGB &GetBaseColor() noexcept {
+		constexpr SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -97,7 +99,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this scene fog.
 		 */
-		const SRGB &GetBaseColor() const noexcept {
+		constexpr const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -106,7 +108,7 @@ namespace mage {
 		
 		 @return		The density of this scene fog.
 		 */
-		F32 GetDensity() const noexcept {
+		constexpr F32 GetDensity() const noexcept {
 			return m_density;
 		}
 
@@ -117,7 +119,7 @@ namespace mage {
 		 @param[in]		density
 						The density.
 		 */
-		void SetDensity(F32 density) noexcept {
+		constexpr void SetDensity(F32 density) noexcept {
 			Assert(0.0f <= density && density <= 1.0f);
 			m_density = density;
 		}

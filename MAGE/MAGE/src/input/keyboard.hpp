@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard to move.
 		 */
-		Keyboard(Keyboard &&keyboard);
+		Keyboard(Keyboard &&keyboard) noexcept;
 
 		/**
 		 Destructs this keyboard.

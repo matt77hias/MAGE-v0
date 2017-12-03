@@ -29,7 +29,7 @@ namespace mage {
 		m_ps(CreateSpritePS()),
 		m_sprite_batch(MakeUnique< SpriteBatch >()) {}
 
-	SpritePass::SpritePass(SpritePass &&render_pass) = default;
+	SpritePass::SpritePass(SpritePass &&render_pass) noexcept = default;
 
 	SpritePass::~SpritePass() = default;
 

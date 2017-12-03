@@ -29,7 +29,7 @@ namespace mage {
 		m_settings(MakeUnique< CameraSettings >(*camera_node.m_settings)),
 		m_viewport(camera_node.m_viewport) {}
 	
-	CameraNode::CameraNode(CameraNode &&camera_node) = default;
+	CameraNode::CameraNode(CameraNode &&camera_node) noexcept = default;
 	
 	CameraNode::~CameraNode() = default;
 

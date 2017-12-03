@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Constructs an ambient light.
 		 */
-		AmbientLight();
+		AmbientLight() noexcept;
 
 		/**
 		 Constructs an ambient light from the given ambient light.
@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the ambient light to copy.
 		 */
-		AmbientLight(const AmbientLight &light);
+		AmbientLight(const AmbientLight &light) noexcept;
 
 		/**
 		 Constructs an ambient light by moving the given ambient light.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the ambient light to move.
 		 */
-		AmbientLight(AmbientLight &&light);
+		AmbientLight(AmbientLight &&light) noexcept;
 
 		/**
 		 Destructs this ambient light.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given ambient light 
 						(i.e. this ambient light).
 		 */
-		AmbientLight &operator=(const AmbientLight &light);
+		AmbientLight &operator=(const AmbientLight &light) noexcept;
 
 		/**
 		 Moves the given ambient light to this ambient light.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the moved ambient light (i.e. this 
 						ambient light).
 		 */
-		AmbientLight &operator=(AmbientLight &&light);
+		AmbientLight &operator=(AmbientLight &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

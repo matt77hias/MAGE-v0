@@ -64,7 +64,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the sky pass to move.
 		 */
-		SkyPass(SkyPass &&render_pass);
+		SkyPass(SkyPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this sky pass.

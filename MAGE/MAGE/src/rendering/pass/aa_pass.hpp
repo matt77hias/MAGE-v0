@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the AA pass to move.
 		 */
-		AAPass(AAPass &&render_pass);
+		AAPass(AAPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this AA pass.

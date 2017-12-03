@@ -32,8 +32,8 @@ namespace mage {
 
 		LBufferPass();
 		LBufferPass(const LBufferPass &buffer) = delete;
-		LBufferPass(LBufferPass &&buffer) = default;
-		~LBufferPass() = default;
+		LBufferPass(LBufferPass &&buffer) noexcept;
+		~LBufferPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

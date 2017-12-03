@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Constructs a camera buffer.
 		 */
-		CameraBuffer()
+		CameraBuffer() noexcept
 			: m_view_to_projection{}, 
 			m_projection_to_view{},
 			m_world_to_view{}, 
@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the camera buffer to copy.
 		 */
-		CameraBuffer(const CameraBuffer &buffer) = default;
+		CameraBuffer(const CameraBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a camera buffer by moving the given camera buffer.
@@ -68,7 +68,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the camera buffer to move.
 		 */
-		CameraBuffer(CameraBuffer &&buffer) = default;
+		CameraBuffer(CameraBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this camera buffer.

@@ -40,7 +40,7 @@ namespace mage {
 		explicit Transform(
 			F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
 			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
-			F32x3 scale       = { 1.0f, 1.0f, 1.0f })
+			F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)), 
 			m_rotation(std::move(rotation)), 
 			m_scale(std::move(scale)) {
@@ -62,7 +62,7 @@ namespace mage {
 		explicit Transform(
 			FXMVECTOR translation, 
 			FXMVECTOR rotation, 
-			FXMVECTOR scale)
+			FXMVECTOR scale) noexcept
 			: m_translation(), 
 			m_rotation(), 
 			m_scale() {
@@ -78,7 +78,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform to copy.
 		 */
-		Transform(const Transform &transform) = default;
+		Transform(const Transform &transform) noexcept = default;
 
 		/**
 		 Constructs a transform by moving the given transform.
@@ -86,7 +86,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform to move.
 		 */
-		Transform(Transform &&transform) = default;
+		Transform(Transform &&transform) noexcept = default;
 
 		/**
 		 Destructs this transform.

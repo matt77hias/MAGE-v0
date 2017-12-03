@@ -18,7 +18,7 @@ namespace mage {
 		const NormalSpriteText &sprite_text) = default;
 
 	NormalSpriteText::NormalSpriteText(
-		NormalSpriteText &&sprite_text) = default;
+		NormalSpriteText &&sprite_text) noexcept = default;
 
 	NormalSpriteText::~NormalSpriteText() = default;
 

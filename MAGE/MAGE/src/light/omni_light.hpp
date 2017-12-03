@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Constructs an omni light.
 		 */
-		OmniLight();
+		OmniLight() noexcept;
 		
 		/**
 		 Constructs an omni light from the given omni light.
@@ -37,7 +37,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the omni light to copy.
 		 */
-		OmniLight(const OmniLight &light);
+		OmniLight(const OmniLight &light) noexcept;
 
 		/**
 		 Constructs an omni light by moving the given omni light.
@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the omni light to move.
 		 */
-		OmniLight(OmniLight &&light);
+		OmniLight(OmniLight &&light) noexcept;
 
 		/**
 		 Destructs this omni light.
@@ -64,7 +64,7 @@ namespace mage {
 		 @return		A reference to the copy of the given omni light (i.e. 
 						this omni light).
 		 */
-		OmniLight &operator=(const OmniLight &light);
+		OmniLight &operator=(const OmniLight &light) noexcept;
 
 		/**
 		 Moves the given omni light to this omni light.
@@ -74,7 +74,7 @@ namespace mage {
 		 @return		A reference to the moved omni light (i.e. this omni 
 						light).
 		 */
-		OmniLight &operator=(OmniLight &&light);
+		OmniLight &operator=(OmniLight &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		input_manager
 						A reference to the input manager to move.
 		 */
-		InputManager(InputManager &&input_manager);
+		InputManager(InputManager &&input_manager) noexcept;
 
 		/**
 		 Destructs this input manager.

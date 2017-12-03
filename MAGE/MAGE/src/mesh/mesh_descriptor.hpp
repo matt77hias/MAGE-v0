@@ -31,9 +31,9 @@ namespace mage {
 						defined in clockwise order or not (i.e. 
 						counterclockwise order).
 		 */
-		explicit MeshDescriptor(
+		constexpr explicit MeshDescriptor(
 			bool invert_handedness = false, 
-			bool clockwise_order   = true)
+			bool clockwise_order   = true) noexcept
 			: m_invert_handedness(invert_handedness), 
 			m_clockwise_order(clockwise_order) {}
 		
@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the mesh descriptor to copy.
 		 */
-		MeshDescriptor(const MeshDescriptor< VertexT > &desc) = default;
+		constexpr MeshDescriptor(const MeshDescriptor &desc) noexcept = default;
 		
 		/**
 		 Constructs a mesh descriptor by moving the given mesh descriptor.
@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the mesh descriptor to move.
 		 */
-		MeshDescriptor(MeshDescriptor< VertexT > &&desc) = default;
+		constexpr MeshDescriptor(MeshDescriptor &&desc) noexcept = default;
 		
 		/**
 		 Destructs this mesh descriptor.
@@ -70,7 +70,8 @@ namespace mage {
 		 @return		A reference to the copy of the given mesh descriptor 
 						(i.e. this mesh descriptor).
 		 */
-		MeshDescriptor &operator=(const MeshDescriptor< VertexT > &desc) = default;
+		constexpr MeshDescriptor &operator=(
+			const MeshDescriptor &desc) noexcept = default;
 
 		/**
 		 Moves the given mesh descriptor to this mesh descriptor.
@@ -80,7 +81,8 @@ namespace mage {
 		 @return		A reference to the moved mesh descriptor (i.e. this 
 						mesh descriptor).
 		 */
-		MeshDescriptor &operator=(MeshDescriptor< VertexT > &&desc) = default;
+		constexpr MeshDescriptor &operator=(
+			MeshDescriptor &&desc) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -93,7 +95,7 @@ namespace mage {
 		 @return		@c true if the mesh coordinate system handness should 
 						be inverted. @c false otherwise.
 		 */
-		bool InvertHandness() const noexcept {
+		constexpr bool InvertHandness() const noexcept {
 			return m_invert_handedness;
 		}
 
@@ -105,7 +107,7 @@ namespace mage {
 		 @return		@c true if the face vertices should be defined in 
 						clockwise order. @c false otherwise.
 		 */
-		bool ClockwiseOrder() const noexcept {
+		constexpr bool ClockwiseOrder() const noexcept {
 			return m_clockwise_order;
 		}
 

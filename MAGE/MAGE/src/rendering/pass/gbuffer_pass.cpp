@@ -31,7 +31,7 @@ namespace mage {
 		m_bound_ps(PSIndex::Count),
 		m_model_buffer() {}
 
-	GBufferPass::GBufferPass(GBufferPass &&render_pass) = default;
+	GBufferPass::GBufferPass(GBufferPass &&render_pass) noexcept = default;
 
 	GBufferPass::~GBufferPass() = default;
 

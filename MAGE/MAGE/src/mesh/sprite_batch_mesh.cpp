@@ -30,7 +30,7 @@ namespace mage {
 	}
 
 	SpriteBatchMesh::SpriteBatchMesh(
-		SpriteBatchMesh &&sprite_batch_mesh) = default;
+		SpriteBatchMesh &&sprite_batch_mesh) noexcept = default;
 
 	SpriteBatchMesh::~SpriteBatchMesh() = default;
 

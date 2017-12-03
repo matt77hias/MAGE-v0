@@ -61,7 +61,7 @@ namespace mage {
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer &buffer) = delete;
-		ShadowMapBuffer(ShadowMapBuffer &&buffer) = default;
+		ShadowMapBuffer(ShadowMapBuffer &&buffer) noexcept = default;
 		~ShadowMapBuffer() = default;
 
 		//---------------------------------------------------------------------
@@ -156,7 +156,7 @@ namespace mage {
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer &buffer) = delete;
-		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) = default;
+		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) noexcept = default;
 		~ShadowCubeMapBuffer() = default;
 
 		//---------------------------------------------------------------------

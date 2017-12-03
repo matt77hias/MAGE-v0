@@ -25,6 +25,8 @@ namespace mage {
 		m_scene_fog(), 
 		m_sky() {}
 
+	Scene::Scene(Scene &&scene) noexcept = default;
+
 	Scene::~Scene() = default;
 	
 	//-------------------------------------------------------------------------

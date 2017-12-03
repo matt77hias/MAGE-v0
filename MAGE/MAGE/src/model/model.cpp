@@ -32,7 +32,7 @@ namespace mage {
 		m_material(MakeUnique< Material >(*model.m_material)),
 		m_light_occlusion(model.m_light_occlusion) {}
 
-	Model::Model(Model &&model) = default;
+	Model::Model(Model &&model) noexcept = default;
 
 	Model::~Model() = default;
 

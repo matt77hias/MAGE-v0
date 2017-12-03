@@ -39,7 +39,7 @@ namespace mage {
 		 @param[in]		guid
 						The globally unique identifier.
 		 */
-		explicit Resource(wstring guid);
+		explicit Resource(wstring guid) noexcept;
 
 		/**
 		 Constructs a resource from the given resource.

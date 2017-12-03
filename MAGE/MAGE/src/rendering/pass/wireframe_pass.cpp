@@ -31,7 +31,7 @@ namespace mage {
 		m_color_buffer(), 
 		m_model_buffer() {}
 
-	WireframePass::WireframePass(WireframePass &&render_pass) = default;
+	WireframePass::WireframePass(WireframePass &&render_pass) noexcept = default;
 
 	WireframePass::~WireframePass() = default;
 

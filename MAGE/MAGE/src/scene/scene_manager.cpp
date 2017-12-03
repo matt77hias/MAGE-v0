@@ -19,12 +19,13 @@ namespace mage {
 		return Engine::Get()->GetSceneManager();
 	}
 
-	SceneManager::SceneManager()
+	SceneManager::SceneManager() noexcept
 		: m_scene(), 
 		m_requested_scene(), 
 		m_has_requested_scene(false) {}
 
-	SceneManager::SceneManager(SceneManager &&scene_behavior) = default;
+	SceneManager::SceneManager(
+		SceneManager &&scene_behavior) noexcept = default;
 
 	SceneManager::~SceneManager() = default;
 

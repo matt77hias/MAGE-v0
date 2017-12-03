@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the depth pass to move.
 		 */
-		DepthPass(DepthPass &&render_pass);
+		DepthPass(DepthPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this depth pass.

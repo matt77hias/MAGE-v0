@@ -28,7 +28,7 @@ namespace mage {
 		m_sky_vs(CreateSkyVS()), 
 		m_sky_ps(CreateSkyPS()){}
 
-	SkyPass::SkyPass(SkyPass &&render_pass) = default;
+	SkyPass::SkyPass(SkyPass &&render_pass) noexcept = default;
 
 	SkyPass::~SkyPass() = default;
 

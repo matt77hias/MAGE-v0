@@ -25,7 +25,7 @@ namespace mage {
 		m_vs(CreateNearFullscreenTriangleVS()), 
 		m_ps(CreateBackBufferPS()) {}
 
-	BackBufferPass::BackBufferPass(BackBufferPass &&render_pass) = default;
+	BackBufferPass::BackBufferPass(BackBufferPass &&render_pass) noexcept = default;
 
 	BackBufferPass::~BackBufferPass() = default;
 

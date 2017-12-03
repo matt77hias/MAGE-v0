@@ -34,7 +34,7 @@ namespace mage {
 		m_transparent_model_buffer(), 
 		m_dissolve_buffer() {}
 
-	DepthPass::DepthPass(DepthPass &&render_pass) = default;
+	DepthPass::DepthPass(DepthPass &&render_pass) noexcept = default;
 
 	DepthPass::~DepthPass() = default;
 

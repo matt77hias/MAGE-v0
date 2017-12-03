@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	StaticMesh::StaticMesh(StaticMesh &&static_mesh) = default;
+	StaticMesh::StaticMesh(StaticMesh &&static_mesh) noexcept = default;
 
 	StaticMesh::~StaticMesh() = default;
 }

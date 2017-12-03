@@ -68,7 +68,7 @@ namespace mage {
 		 @param[in]		rendering_manager
 						A reference to a rendering manager to move.
 		 */
-		RenderingManager(RenderingManager &&rendering_manager);
+		RenderingManager(RenderingManager &&rendering_manager) noexcept;
 
 		/**
 		 Destructs this rendering manager.

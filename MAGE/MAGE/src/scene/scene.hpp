@@ -175,7 +175,7 @@ namespace mage {
 
 		explicit Scene(string name);
 		Scene(const Scene &scene) = delete;
-		Scene(Scene &&scene) = default;
+		Scene(Scene &&scene) noexcept;
 
 	private:
 

@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the GBuffer pass to move.
 		 */
-		GBufferPass(GBufferPass &&render_pass);
+		GBufferPass(GBufferPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this GBuffer pass.

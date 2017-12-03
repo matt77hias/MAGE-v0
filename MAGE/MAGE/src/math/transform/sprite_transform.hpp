@@ -173,7 +173,7 @@ namespace mage {
 			F32 depth             = 0.0f,
 			F32 rotation          = 0.0f, 
 			F32x2 rotation_origin = { 0.0f, 0.0f }, 
-			F32x2 scale           = { 1.0f, 1.0f })
+			F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)), 
 			m_depth(depth), 
 			m_rotation(rotation), 
@@ -203,7 +203,7 @@ namespace mage {
 			F32 depth,
 			F32 rotation, 
 			FXMVECTOR rotation_origin, 
-			FXMVECTOR scale)
+			FXMVECTOR scale) noexcept
 			: m_translation(), 
 			m_depth(depth),
 			m_rotation(rotation), 
@@ -221,7 +221,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform to copy.
 		 */
-		SpriteTransform(const SpriteTransform &transform) = default;
+		SpriteTransform(const SpriteTransform &transform) noexcept = default;
 
 		/**
 		 Constructs a sprite transform by moving the given sprite transform.
@@ -229,7 +229,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform to move.
 		 */
-		SpriteTransform(SpriteTransform &&transform) = default;
+		SpriteTransform(SpriteTransform &&transform) noexcept = default;
 
 		/**
 		 Destructs this sprite transform.

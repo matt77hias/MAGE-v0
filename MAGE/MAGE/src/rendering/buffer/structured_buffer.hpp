@@ -73,7 +73,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the structured buffer to move.
 		 */
-		StructuredBuffer(StructuredBuffer &&buffer) = default;
+		StructuredBuffer(StructuredBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this structured buffer.

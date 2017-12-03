@@ -12,18 +12,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Light::Light()
+	Light::Light() noexcept
 		: m_base_color(SRGB(1.0f)),
 		m_aabb(MaximumAABB()),
 		m_bs(MaximumBS()) {}
 
-	Light::Light(const Light &light) = default;
+	Light::Light(const Light &light) noexcept = default;
 	
-	Light::Light(Light &&light) = default;
+	Light::Light(Light &&light) noexcept = default;
 
 	Light::~Light() = default;
 
-	Light &Light::operator=(const Light &light) = default;
+	Light &Light::operator=(const Light &light) noexcept = default;
 	
-	Light &Light::operator=(Light &&light) = default;
+	Light &Light::operator=(Light &&light) noexcept = default;
 }

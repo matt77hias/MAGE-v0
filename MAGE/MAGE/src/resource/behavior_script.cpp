@@ -12,12 +12,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	BehaviorScript::BehaviorScript() 
+	BehaviorScript::BehaviorScript() noexcept
 		: m_active(true), m_terminated(false) {}
 
-	BehaviorScript::BehaviorScript(const BehaviorScript &script) = default;
+	BehaviorScript::BehaviorScript(
+		const BehaviorScript &script) noexcept = default;
 
-	BehaviorScript::BehaviorScript(BehaviorScript &&script) = default;
+	BehaviorScript::BehaviorScript(
+		BehaviorScript &&script) noexcept = default;
 
 	BehaviorScript::~BehaviorScript() = default;
 

@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the constant shading pass to move.
 		 */
-		ConstantShadingPass(ConstantShadingPass &&render_pass);
+		ConstantShadingPass(ConstantShadingPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this constant shading pass.

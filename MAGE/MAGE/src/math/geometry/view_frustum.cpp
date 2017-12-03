@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ViewFrustum::ViewFrustum(CXMMATRIX transform) {
+	ViewFrustum::ViewFrustum(CXMMATRIX transform) noexcept {
 		const XMMATRIX C = XMMatrixTranspose(transform);
 
 		// Extract the view frustum planes from the given transform.

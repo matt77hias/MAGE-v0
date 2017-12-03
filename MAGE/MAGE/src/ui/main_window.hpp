@@ -72,7 +72,7 @@ namespace mage {
 		 @param[in]		main_window
 						A reference to the main window to move.
 		 */
-		MainWindow(MainWindow &&main_window);
+		MainWindow(MainWindow &&main_window) noexcept;
 
 		/**
 		 Destructs this main window.

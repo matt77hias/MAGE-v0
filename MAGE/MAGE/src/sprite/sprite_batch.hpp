@@ -61,7 +61,7 @@ namespace mage {
 		/**
 		 Constructs a sprite info.
 		 */
-		SpriteInfo()
+		SpriteInfo() noexcept
 			: m_source{}, 
 			m_destination{},
 			m_color{}, 
@@ -75,7 +75,7 @@ namespace mage {
 		 @param[in]		sprite_info
 						A reference to the sprite info to copy.
 		 */
-		SpriteInfo(const SpriteInfo &sprite_info) = default;
+		SpriteInfo(const SpriteInfo &sprite_info) noexcept = default;
 
 		/**
 		 Constructs a sprite info by moving the given sprite info.
@@ -83,7 +83,7 @@ namespace mage {
 		 @param[in]		sprite_info
 						A reference to the sprite info to move.
 		 */
-		SpriteInfo(SpriteInfo &&sprite_info) = default;
+		SpriteInfo(SpriteInfo &&sprite_info) noexcept = default;
 
 		/**
 		 Destructs this sprite info.
@@ -102,7 +102,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite info (i.e. 
 						this sprite info).
 		 */
-		SpriteInfo &operator=(const SpriteInfo &sprite_info) = default;
+		SpriteInfo &operator=(const SpriteInfo &sprite_info) noexcept = default;
 
 		/**
 		 Moves the given sprite info to this sprite info.
@@ -112,7 +112,7 @@ namespace mage {
 		 @return		A reference to the moved sprite info (i.e. this sprite 
 						info).
 		 */
-		SpriteInfo &operator=(SpriteInfo &&sprite_info) = default;
+		SpriteInfo &operator=(SpriteInfo &&sprite_info) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -208,7 +208,7 @@ namespace mage {
 		 @param[in]		sprite_batch
 						A reference to the sprite batch to move.
 		 */
-		SpriteBatch(SpriteBatch &&sprite_batch);
+		SpriteBatch(SpriteBatch &&sprite_batch) noexcept;
 		
 		/**
 		 Destructs this sprite batch.

@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Constructs a directional light.
 		 */
-		DirectionalLight();
+		DirectionalLight() noexcept;
 		
 		/**
 		 Constructs a directional light from the given directional light.
@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the directional light to copy.
 		 */
-		DirectionalLight(const DirectionalLight &light);
+		DirectionalLight(const DirectionalLight &light) noexcept;
 
 		/**
 		 Constructs a directional light by moving the given directional light.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the directional light to move.
 		 */
-		DirectionalLight(DirectionalLight &&light);
+		DirectionalLight(DirectionalLight &&light) noexcept;
 
 		/**
 		 Destructs this directional light.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given directional light
 						(i.e. this directional light).
 		 */
-		DirectionalLight &operator=(const DirectionalLight &light);
+		DirectionalLight &operator=(const DirectionalLight &light) noexcept;
 
 		/**
 		 Moves the given directional light to this directional light.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the moved directional light (i.e. this 
 						directional light).
 		 */
-		DirectionalLight &operator=(DirectionalLight &&light);
+		DirectionalLight &operator=(DirectionalLight &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

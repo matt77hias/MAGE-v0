@@ -27,7 +27,7 @@ namespace mage {
 		m_texture_transform(
 			MakeUnique< TextureTransform >(*model_node.m_texture_transform)) {}
 
-	ModelNode::ModelNode(ModelNode &&model_node) = default;
+	ModelNode::ModelNode(ModelNode &&model_node) noexcept = default;
 
 	ModelNode::~ModelNode() = default;
 

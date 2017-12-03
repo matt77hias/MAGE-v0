@@ -112,7 +112,7 @@ namespace mage {
 						The vertical field-of-view.
 		 */
 		explicit PerspectiveCamera(
-			F32 fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y);
+			F32 fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y) noexcept;
 
 		/**
 		 Constructs a perspective camera.
@@ -129,7 +129,7 @@ namespace mage {
 						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(
-			F32 fov_y, F32 near_z, F32 far_z);
+			F32 fov_y, F32 near_z, F32 far_z) noexcept;
 
 		/**
 		 Constructs a perspective camera.
@@ -144,7 +144,7 @@ namespace mage {
 						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(F32 aspect_ratio,
-			F32 fov_y, F32 near_z, F32 far_z);
+			F32 fov_y, F32 near_z, F32 far_z) noexcept;
 
 		/**
 		 Constructs a perspective camera.
@@ -161,7 +161,7 @@ namespace mage {
 						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(F32 width, F32 height,
-			F32 fov_y, F32 near_z, F32 far_z);
+			F32 fov_y, F32 near_z, F32 far_z) noexcept;
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.
@@ -169,7 +169,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to copy.
 		 */
-		PerspectiveCamera(const PerspectiveCamera &camera);
+		PerspectiveCamera(const PerspectiveCamera &camera) noexcept;
 		
 		/**
 		 Constructs a perspective camera by moving the given perspective camera.
@@ -177,7 +177,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to move.
 		 */
-		PerspectiveCamera(PerspectiveCamera &&camera);
+		PerspectiveCamera(PerspectiveCamera &&camera) noexcept;
 
 		/**
 		 Destructs this perspective camera.
@@ -196,7 +196,7 @@ namespace mage {
 		 @return		A reference to the copy of the given perspective 
 						camera (i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera);
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera) noexcept;
 
 		/**
 		 Moves the given perspective camera to this perspective camera.
@@ -206,7 +206,7 @@ namespace mage {
 		 @return		A reference to the moved perspective camera (i.e. this 
 						perspective camera).
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&camera);
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

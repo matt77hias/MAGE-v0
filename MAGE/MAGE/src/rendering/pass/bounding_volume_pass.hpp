@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the bounding volume pass to move.
 		 */
-		BoundingVolumePass(BoundingVolumePass &&render_pass);
+		BoundingVolumePass(BoundingVolumePass &&render_pass) noexcept;
 
 		/**
 		 Destructs this bounding volume pass.

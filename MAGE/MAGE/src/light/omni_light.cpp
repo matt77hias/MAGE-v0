@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	OmniLight::OmniLight()
+	OmniLight::OmniLight() noexcept
 		: Light(),
 		m_intensity(1.0f),
 		m_range(1.0f), 
@@ -22,15 +22,15 @@ namespace mage {
 		UpdateBoundingVolumes();
 	}
 
-	OmniLight::OmniLight(const OmniLight &light) = default;
+	OmniLight::OmniLight(const OmniLight &light) noexcept = default;
 	
-	OmniLight::OmniLight(OmniLight &&light) = default;
+	OmniLight::OmniLight(OmniLight &&light) noexcept = default;
 	
 	OmniLight::~OmniLight() = default;
 	
-	OmniLight &OmniLight::operator=(const OmniLight &light) = default;
+	OmniLight &OmniLight::operator=(const OmniLight &light) noexcept = default;
 	
-	OmniLight &OmniLight::operator=(OmniLight &&light) = default;
+	OmniLight &OmniLight::operator=(OmniLight &&light) noexcept = default;
 
 	UniquePtr< Light > OmniLight::CloneImplementation() const {
 		return MakeUnique< OmniLight >(*this);

@@ -42,7 +42,7 @@ namespace mage {
 		/**
 		 Constructs a engine statistics.
 		 */
-		EngineStatistics()
+		constexpr EngineStatistics() noexcept
 			: m_nb_draw_calls(0) {}
 
 		/**
@@ -51,7 +51,8 @@ namespace mage {
 		 @param[in]		engine_statistics
 						A reference to the engine statistics to copy.
 		 */
-		EngineStatistics(const EngineStatistics &engine_statistics) = default;
+		constexpr EngineStatistics(
+			const EngineStatistics &engine_statistics) noexcept = default;
 
 		/**
 		 Constructs a engine statistics by moving the given engine statistics.
@@ -59,7 +60,8 @@ namespace mage {
 		 @param[in]		engine_statistics
 						A reference to the engine statistics to move.
 		 */
-		EngineStatistics(EngineStatistics &&engine_statistics) = default;
+		constexpr EngineStatistics(
+			EngineStatistics &&engine_statistics) noexcept = default;
 
 		/**
 		 Destructs this engine statistics.
@@ -78,8 +80,8 @@ namespace mage {
 		 @return		A reference to the copy of the given engine statistics 
 						(i.e. this engine statistics).
 		 */
-		EngineStatistics &operator=(
-			const EngineStatistics &engine_statistics) = default;
+		constexpr EngineStatistics &operator=(
+			const EngineStatistics &engine_statistics) noexcept = default;
 
 		/**
 		 Moves the given engine statistics to this engine statistics.
@@ -89,8 +91,8 @@ namespace mage {
 		 @return		A reference to the moved engine statistics (i.e. this 
 						engine statistics).
 		 */
-		EngineStatistics &operator=(
-			EngineStatistics &&engine_statistics) = default;
+		constexpr EngineStatistics &operator=(
+			EngineStatistics &&engine_statistics) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -99,7 +101,7 @@ namespace mage {
 		/**
 		 Prepares this engine statistics for rendering.
 		 */
-		void PrepareRendering() noexcept {
+		constexpr void PrepareRendering() noexcept {
 			m_nb_draw_calls = 0;
 		}
 
@@ -108,7 +110,7 @@ namespace mage {
 
 		 @return		The number of draw calls of this engine statistics.
 		 */
-		U32 GetNumberOfDrawCalls() noexcept {
+		constexpr U32 GetNumberOfDrawCalls() noexcept {
 			return m_nb_draw_calls;
 		}
 
@@ -118,7 +120,7 @@ namespace mage {
 		 @param[in]		units
 						The number of units to add.
 		 */
-		void IncrementNumberOfDrawCalls(U32 units = 1) noexcept {
+		constexpr void IncrementNumberOfDrawCalls(U32 units = 1) noexcept {
 			m_nb_draw_calls += units;
 		}
 

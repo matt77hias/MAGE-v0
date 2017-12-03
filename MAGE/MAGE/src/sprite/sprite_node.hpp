@@ -137,7 +137,7 @@ namespace mage {
 		 @param[in]		sprite_node
 						A reference to the sprite node to move.
 		 */
-		SpriteNode(SpriteNode &&sprite_node);
+		SpriteNode(SpriteNode &&sprite_node) noexcept;
 
 	private:
 
@@ -201,7 +201,7 @@ namespace mage {
 		 @param[in]		sprite_node
 						A reference to the derived sprite node to move.
 		 */
-		DerivedSpriteNode(DerivedSpriteNode &&sprite_node);
+		DerivedSpriteNode(DerivedSpriteNode &&sprite_node) noexcept;
 
 		/**
 		 Destructs this derived sprite node.

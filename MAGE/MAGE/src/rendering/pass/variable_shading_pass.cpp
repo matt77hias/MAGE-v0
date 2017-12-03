@@ -39,7 +39,8 @@ namespace mage {
 		m_brdf(BRDFType::Unknown),
 		m_model_buffer() {}
 
-	VariableShadingPass::VariableShadingPass(VariableShadingPass &&render_pass) = default;
+	VariableShadingPass::VariableShadingPass(
+		VariableShadingPass &&render_pass) noexcept = default;
 
 	VariableShadingPass::~VariableShadingPass() = default;
 

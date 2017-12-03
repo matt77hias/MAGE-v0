@@ -33,7 +33,7 @@ namespace mage {
 		m_uv(CreateReferenceTexture()) {}
 
 	ConstantComponentPass::ConstantComponentPass(
-		ConstantComponentPass &&render_pass) = default;
+		ConstantComponentPass &&render_pass) noexcept = default;
 
 	ConstantComponentPass::~ConstantComponentPass() = default;
 

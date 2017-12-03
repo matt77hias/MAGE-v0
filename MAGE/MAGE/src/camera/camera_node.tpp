@@ -15,7 +15,7 @@ namespace mage {
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(
-		DerivedCameraNode &&camera_node) = default;
+		DerivedCameraNode &&camera_node) noexcept = default;
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::~DerivedCameraNode() = default;

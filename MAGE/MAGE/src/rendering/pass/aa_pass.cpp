@@ -28,7 +28,7 @@ namespace mage {
 		m_preprocess_cs(), m_cs(), 
 		m_aa_desc(AADescriptor::None) {}
 
-	AAPass::AAPass(AAPass &&render_pass) = default;
+	AAPass::AAPass(AAPass &&render_pass) noexcept = default;
 
 	AAPass::~AAPass() = default;
 

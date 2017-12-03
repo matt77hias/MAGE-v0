@@ -72,7 +72,7 @@ namespace mage {
 						A reference to the variable component pass to move.
 		 */
 		VariableComponentPass(
-			VariableComponentPass &&render_pass);
+			VariableComponentPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this variable component pass.

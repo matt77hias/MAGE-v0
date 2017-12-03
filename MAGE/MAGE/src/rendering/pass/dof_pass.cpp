@@ -27,7 +27,7 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDepthOfFieldCS()) {}
 
-	DOFPass::DOFPass(DOFPass &&render_pass) = default;
+	DOFPass::DOFPass(DOFPass &&render_pass) noexcept = default;
 
 	DOFPass::~DOFPass() = default;
 

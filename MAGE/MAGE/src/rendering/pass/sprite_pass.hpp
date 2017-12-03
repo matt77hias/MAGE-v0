@@ -65,7 +65,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the sprite pass to move.
 		 */
-		SpritePass(SpritePass &&render_pass);
+		SpritePass(SpritePass &&render_pass) noexcept;
 
 		/**
 		 Destructs this sprite pass.

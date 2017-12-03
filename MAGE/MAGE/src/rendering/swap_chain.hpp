@@ -70,7 +70,7 @@ namespace mage {
 		 @param[in]		swap_chain
 						A reference to a swap chain to move.
 		 */
-		SwapChain(SwapChain &&swap_chain);
+		SwapChain(SwapChain &&swap_chain) noexcept;
 
 		/**
 		 Destructs this swap chain.

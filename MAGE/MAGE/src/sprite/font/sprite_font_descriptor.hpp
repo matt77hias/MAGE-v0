@@ -23,7 +23,7 @@ namespace mage {
 						A flag indicating whether working around gamma issues 
 						is needed. 
 		 */
-		explicit SpriteFontDescriptor(bool force_srgb = false)
+		constexpr explicit SpriteFontDescriptor(bool force_srgb = false) noexcept
 			: m_force_srgb(force_srgb) {}
 
 		/**
@@ -33,7 +33,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to copy.
 		 */
-		SpriteFontDescriptor(const SpriteFontDescriptor &desc) = default;
+		constexpr SpriteFontDescriptor(
+			const SpriteFontDescriptor &desc) noexcept = default;
 
 		/**
 		 Constructs a sprite font descriptor by moving the given sprite font 
@@ -42,7 +43,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to move.
 		 */
-		SpriteFontDescriptor(SpriteFontDescriptor &&desc) = default;
+		constexpr SpriteFontDescriptor(
+			SpriteFontDescriptor &&desc) noexcept = default;
 
 		/**
 		Destructs this sprite font descriptor.
@@ -62,8 +64,8 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite font 
 						descriptor (i.e. this sprite font descriptor).
 		 */
-		SpriteFontDescriptor &operator=(
-			const SpriteFontDescriptor &desc) = default;
+		constexpr SpriteFontDescriptor &operator=(
+			const SpriteFontDescriptor &desc) noexcept = default;
 
 		/**
 		 Moves the given sprite font descriptor to this sprite font descriptor.
@@ -73,8 +75,8 @@ namespace mage {
 		 @return		A reference to the moved sprite font descriptor (i.e. 
 						this sprite font descriptor).
 		 */
-		SpriteFontDescriptor &operator=(
-			SpriteFontDescriptor &&desc) = default;
+		constexpr SpriteFontDescriptor &operator=(
+			SpriteFontDescriptor &&desc) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

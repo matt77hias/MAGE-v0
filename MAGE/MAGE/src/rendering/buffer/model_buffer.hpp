@@ -33,7 +33,7 @@ namespace mage {
 		/**
 		 Constructs a transform buffer.
 		 */
-		ModelNormalTransformBuffer()
+		ModelNormalTransformBuffer() noexcept
 			: m_object_to_view{},
 			m_normal_to_view{} {}
 
@@ -44,7 +44,7 @@ namespace mage {
 						A reference to the transform buffer to copy.
 		 */
 		ModelNormalTransformBuffer(
-			const ModelNormalTransformBuffer &buffer) = default;
+			const ModelNormalTransformBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a transform buffer by moving the given transform buffer.
@@ -53,7 +53,7 @@ namespace mage {
 						A reference to the transform buffer to move.
 		 */
 		ModelNormalTransformBuffer(
-			ModelNormalTransformBuffer &&buffer) = default;
+			ModelNormalTransformBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this transform buffer.
@@ -130,7 +130,7 @@ namespace mage {
 		/**
 		 Constructs a transform buffer.
 		 */
-		ModelTextureTransformBuffer()
+		ModelTextureTransformBuffer() noexcept
 			: m_object_to_view{},
 			m_texture_transform{} {}
 
@@ -141,7 +141,7 @@ namespace mage {
 						A reference to the transform buffer to copy.
 		 */
 		ModelTextureTransformBuffer(
-			const ModelTextureTransformBuffer &buffer) = default;
+			const ModelTextureTransformBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a transform buffer by moving the given transform buffer.
@@ -150,7 +150,7 @@ namespace mage {
 						A reference to the transform buffer to move.
 		 */
 		ModelTextureTransformBuffer(
-			ModelTextureTransformBuffer &&buffer) = default;
+			ModelTextureTransformBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this transform buffer.
@@ -226,7 +226,7 @@ namespace mage {
 		/**
 		 Constructs a transform buffer.
 		 */
-		ModelNormalTextureTransformBuffer()
+		ModelNormalTextureTransformBuffer() noexcept
 			: m_object_to_view{},
 			m_normal_to_view{},
 			m_texture_transform{} {}
@@ -238,7 +238,7 @@ namespace mage {
 						A reference to the transform buffer to copy.
 		 */
 		ModelNormalTextureTransformBuffer(
-			const ModelNormalTextureTransformBuffer &buffer) = default;
+			const ModelNormalTextureTransformBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a transform buffer by moving the given transform buffer.
@@ -247,7 +247,7 @@ namespace mage {
 						A reference to the transform buffer to move.
 		 */
 		ModelNormalTextureTransformBuffer(
-			ModelNormalTextureTransformBuffer &&buffer) = default;
+			ModelNormalTextureTransformBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this transform buffer.
@@ -329,7 +329,7 @@ namespace mage {
 		/**
 		 Constructs a model buffer.
 		 */
-		ModelBuffer()
+		ModelBuffer() noexcept
 			: m_transform(),
 			m_base_color{}, 
 			m_roughness(0.0f),
@@ -342,7 +342,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the model buffer to copy.
 		 */
-		ModelBuffer(const ModelBuffer &buffer) = default;
+		ModelBuffer(const ModelBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a model buffer by moving the given model 
@@ -351,7 +351,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the model buffer to move.
 		 */
-		ModelBuffer(ModelBuffer &&buffer) = default;
+		ModelBuffer(ModelBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this model buffer.

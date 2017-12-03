@@ -42,7 +42,7 @@ namespace mage {
 			F32x2 translation     = { 0.0f, 0.0f }, 
 			F32 rotation             = 0.0f, 
 			F32x2 rotation_origin = { 0.0f, 0.0f }, 
-			F32x2 scale           = { 1.0f, 1.0f })
+			F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)), 
 			m_rotation(rotation), 
 			m_rotation_origin(std::move(rotation_origin)), 
@@ -68,7 +68,7 @@ namespace mage {
 			FXMVECTOR translation, 
 			F32 rotation, 
 			FXMVECTOR rotation_origin, 
-			FXMVECTOR scale)
+			FXMVECTOR scale) noexcept
 			: m_translation(), 
 			m_rotation(rotation), 
 			m_rotation_origin(), 
@@ -85,7 +85,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the texture transform to copy.
 		 */
-		TextureTransform(const TextureTransform &transform) = default;
+		TextureTransform(const TextureTransform &transform) noexcept = default;
 
 		/**
 		 Constructs a texture transform by moving the given texture transform.
@@ -93,7 +93,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the texture transform to move.
 		 */
-		TextureTransform(TextureTransform &&transform) = default;
+		TextureTransform(TextureTransform &&transform) noexcept = default;
 
 		/**
 		 Destructs this texture transform.

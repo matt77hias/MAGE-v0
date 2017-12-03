@@ -12,24 +12,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DirectionalLight::DirectionalLight()
+	DirectionalLight::DirectionalLight() noexcept
 		: Light(), 
 		m_radiance(1.0f),
 		m_shadows(false) {}
 
 	DirectionalLight::DirectionalLight(
-		const DirectionalLight &light) = default;
+		const DirectionalLight &light) noexcept = default;
 	
 	DirectionalLight::DirectionalLight(
-		DirectionalLight &&light) = default;
+		DirectionalLight &&light) noexcept = default;
 	
 	DirectionalLight::~DirectionalLight() = default;
 
 	DirectionalLight &DirectionalLight::operator=(
-		const DirectionalLight &light) = default;
+		const DirectionalLight &light) noexcept = default;
 	
 	DirectionalLight &DirectionalLight::operator=(
-		DirectionalLight &&light) = default;
+		DirectionalLight &&light) noexcept = default;
 
 	UniquePtr< Light > DirectionalLight::CloneImplementation() const {
 		return MakeUnique< DirectionalLight >(*this);

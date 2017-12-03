@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpotLight::SpotLight()
+	SpotLight::SpotLight() noexcept
 		: Light(),
 		m_intensity(1.0f),
 		m_range(1.0f),
@@ -24,15 +24,15 @@ namespace mage {
 		UpdateBoundingVolumes();
 	}
 
-	SpotLight::SpotLight(const SpotLight &light) = default;
+	SpotLight::SpotLight(const SpotLight &light) noexcept = default;
 	
-	SpotLight::SpotLight(SpotLight &&light) = default;
+	SpotLight::SpotLight(SpotLight &&light) noexcept = default;
 	
 	SpotLight::~SpotLight() = default;
 
-	SpotLight &SpotLight::operator=(const SpotLight &light) = default;
+	SpotLight &SpotLight::operator=(const SpotLight &light) noexcept = default;
 	
-	SpotLight &SpotLight::operator=(SpotLight &&light) = default;
+	SpotLight &SpotLight::operator=(SpotLight &&light) noexcept = default;
 
 	UniquePtr< Light > SpotLight::CloneImplementation() const {
 		return MakeUnique< SpotLight >(*this);

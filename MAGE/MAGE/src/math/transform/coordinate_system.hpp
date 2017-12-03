@@ -134,7 +134,7 @@ namespace mage {
 		/**
 		 Constructs a Cartesian axes system.
 		 */
-		CartesianAxesSystem()
+		CartesianAxesSystem() noexcept
 			: m_x(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)), 
 			  m_y(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)), 
 			  m_z(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f)) {}
@@ -146,7 +146,7 @@ namespace mage {
 		 @param[in]		x
 						The x-axis.
 		 */
-		explicit CartesianAxesSystem(FXMVECTOR x) 
+		explicit CartesianAxesSystem(FXMVECTOR x) noexcept
 			: m_x(x) {
 			
 			OrthonormalBasis(m_x, m_y, m_z);
@@ -161,7 +161,7 @@ namespace mage {
 		 @param[in]		y
 						The y-axis.
 		 */
-		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y) 
+		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y) noexcept
 			: m_x(x), m_y(y), m_z(XMVector3Cross(x, y)) {}
 
 		/**
@@ -175,7 +175,7 @@ namespace mage {
 		 @param[in]		z
 						The z-axis.
 		 */
-		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y, FXMVECTOR z) 
+		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y, FXMVECTOR z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
 
 		/**
@@ -185,7 +185,7 @@ namespace mage {
 		 @param[in]		axes
 						A reference to the Cartesian axes system to copy.
 		 */
-		CartesianAxesSystem(const CartesianAxesSystem &axes) = default;
+		CartesianAxesSystem(const CartesianAxesSystem &axes) noexcept = default;
 
 		/**
 		 Constructs a Cartesian axes system by moving the given Cartesian axes 
@@ -194,7 +194,7 @@ namespace mage {
 		 @param[in]		axes
 						A reference to the Cartesian axes system to move.
 		 */
-		CartesianAxesSystem(CartesianAxesSystem &&axes) = default;
+		CartesianAxesSystem(CartesianAxesSystem &&axes) noexcept = default;
 
 		/**
 		 Destructs this Cartesian axes system.
@@ -214,7 +214,7 @@ namespace mage {
 						system (i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(
-			const CartesianAxesSystem &axes) = default;
+			const CartesianAxesSystem &axes) noexcept = default;
 
 		/**
 		 Moves the given Cartesian axes system to this Cartesian axes system.
@@ -225,7 +225,7 @@ namespace mage {
 						this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(
-			CartesianAxesSystem &&axes) = default;
+			CartesianAxesSystem &&axes) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -302,7 +302,7 @@ namespace mage {
 		 @param[in]		axes
 						A reference to the Cartesian axes system.
 		 */
-		explicit CartesianCoordinateSystem(const CartesianAxesSystem &axes)
+		explicit CartesianCoordinateSystem(const CartesianAxesSystem &axes) noexcept
 			: m_o(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)), m_axes(axes) {}
 
 		/**
@@ -315,7 +315,7 @@ namespace mage {
 						A reference to the Cartesian axes system.
 		 */
 		explicit CartesianCoordinateSystem(
-			FXMVECTOR o, const CartesianAxesSystem &axes)
+			FXMVECTOR o, const CartesianAxesSystem &axes) noexcept
 			: m_o(o), m_axes(axes) {}
 
 		/**
@@ -326,7 +326,7 @@ namespace mage {
 						A reference to the Cartesian coordinate system.
 		 */
 		CartesianCoordinateSystem(
-			const CartesianCoordinateSystem &coordinate_system) = default;
+			const CartesianCoordinateSystem &coordinate_system) noexcept = default;
 
 		/**
 		 Constructs a Cartesian coordinate system by moving the given Cartesian 
@@ -336,7 +336,7 @@ namespace mage {
 						A reference to the Cartesian coordinate system.
 		 */
 		CartesianCoordinateSystem(
-			CartesianCoordinateSystem &&coordinate_system) = default;
+			CartesianCoordinateSystem &&coordinate_system) noexcept = default;
 
 		/**
 		 Destructs this Cartesian coordinate system.
@@ -358,7 +358,7 @@ namespace mage {
 						system).
 		 */
 		CartesianCoordinateSystem &operator=(
-			const CartesianCoordinateSystem &coordinate_system) = default;
+			const CartesianCoordinateSystem &coordinate_system) noexcept = default;
 
 		/**
 		 Moves the given Cartesian coordinate system to this Cartesian 
@@ -370,7 +370,7 @@ namespace mage {
 						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(
-			CartesianCoordinateSystem &&coordinate_system) = default;
+			CartesianCoordinateSystem &&coordinate_system) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

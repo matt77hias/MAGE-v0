@@ -222,7 +222,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the sprite text to move.
 		 */
-		SpriteText(SpriteText &&sprite_text);
+		SpriteText(SpriteText &&sprite_text) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Text

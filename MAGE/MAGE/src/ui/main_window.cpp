@@ -153,7 +153,7 @@ namespace mage {
 		InitializeWindow(title_text, width, height);
 	}
 
-	MainWindow::MainWindow(MainWindow &&main_window) = default;
+	MainWindow::MainWindow(MainWindow &&main_window) noexcept = default;
 
 	MainWindow::~MainWindow() {
 		// Uninitialize the window.

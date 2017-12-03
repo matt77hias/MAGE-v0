@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		model_part
 						A reference to the model part to move.
 		 */
-		ModelPart(ModelPart &&model_part) = default;
+		ModelPart(ModelPart &&model_part) noexcept = default;
 
 		/**
 		 Destructs this model part.
@@ -96,7 +96,7 @@ namespace mage {
 		 @return		A reference to the moved model part (i.e. this model 
 						part).
 		 */
-		ModelPart &operator=(ModelPart &&model_part) = default;
+		ModelPart &operator=(ModelPart &&model_part) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -236,7 +236,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the model output to move.
 		 */
-		ModelOutput(ModelOutput &&output) = default;
+		ModelOutput(ModelOutput &&output) noexcept = default;
 
 		/**
 		 Destructs this model output.

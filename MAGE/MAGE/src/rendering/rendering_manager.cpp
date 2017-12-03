@@ -41,7 +41,7 @@ namespace mage {
 	}
 
 	RenderingManager::RenderingManager(
-		RenderingManager &&rendering_manager) = default;
+		RenderingManager &&rendering_manager) noexcept = default;
 
 	RenderingManager::~RenderingManager() {
 		UninitializeSystems();

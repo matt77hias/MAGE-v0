@@ -64,7 +64,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the Image pass to move.
 		 */
-		BackBufferPass(BackBufferPass &&render_pass);
+		BackBufferPass(BackBufferPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this back buffer pass.

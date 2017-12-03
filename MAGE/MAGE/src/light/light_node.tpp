@@ -15,7 +15,7 @@ namespace mage {
 
 	template< typename LightT >
 	DerivedLightNode< LightT >::DerivedLightNode(
-		DerivedLightNode &&light_node) = default;
+		DerivedLightNode &&light_node) noexcept = default;
 
 	template< typename LightT >
 	DerivedLightNode< LightT >::~DerivedLightNode() = default;

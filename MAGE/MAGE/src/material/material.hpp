@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		material
 						A reference to the material to move.
 		 */
-		Material(Material &&material) = default;
+		Material(Material &&material) noexcept = default;
 		
 		/**
 		 Destructs this material.

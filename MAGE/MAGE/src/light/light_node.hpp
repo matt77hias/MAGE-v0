@@ -119,7 +119,7 @@ namespace mage {
 		 @param[in]		light_node
 						A reference to the light node to move.
 		 */
-		LightNode(LightNode &&light_node);
+		LightNode(LightNode &&light_node) noexcept;
 
 	private:
 
@@ -182,7 +182,7 @@ namespace mage {
 		 @param[in]		light_node
 						A reference to the derived light node to move.
 		 */
-		DerivedLightNode(DerivedLightNode &&light_node);
+		DerivedLightNode(DerivedLightNode &&light_node) noexcept;
 
 		/**
 		 Destructs this derived light node.

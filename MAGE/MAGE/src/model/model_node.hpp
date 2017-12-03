@@ -65,7 +65,7 @@ namespace mage {
 		 @param[in]		model_node
 						A reference to the model node to move.
 		 */
-		ModelNode(ModelNode &&model_node);
+		ModelNode(ModelNode &&model_node) noexcept;
 
 		/**
 		 Destructs this model node.

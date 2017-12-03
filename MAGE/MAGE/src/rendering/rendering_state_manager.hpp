@@ -70,7 +70,7 @@ namespace mage {
 						A reference to the rendering state manager to move.
 		 */
 		RenderingStateManager(
-			RenderingStateManager &&rendering_state_manager);
+			RenderingStateManager &&rendering_state_manager) noexcept;
 
 		/**
 		 Destructs this rendering state manager.

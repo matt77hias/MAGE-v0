@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the DOF pass to move.
 		 */
-		DOFPass(DOFPass &&render_pass);
+		DOFPass(DOFPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this DOF pass.

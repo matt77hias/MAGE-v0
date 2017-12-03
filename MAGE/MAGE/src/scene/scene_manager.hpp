@@ -41,7 +41,7 @@ namespace mage {
 		/**
 		 Constructs a scene manager.
 		 */
-		SceneManager();
+		SceneManager() noexcept;
 		
 		/**
 		 Constructs a scene manager from the given scene manager.
@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		scene_behavior
 						A reference to the scene manager to move.
 		 */
-		SceneManager(SceneManager &&scene_behavior);
+		SceneManager(SceneManager &&scene_behavior) noexcept;
 
 		/**
 		 Destructs this scene manager.

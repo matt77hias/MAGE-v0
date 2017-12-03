@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Constructs a game buffer.
 		 */
-		GameBuffer()
+		GameBuffer() noexcept
 			: m_display_width(0), 
 			m_display_height(0),
 			m_display_inv_width_minus1(0.0f),
@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the game buffer to copy.
 		 */
-		GameBuffer(const GameBuffer &buffer) = default;
+		GameBuffer(const GameBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a game buffer by moving the given game buffer.
@@ -59,7 +59,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the game buffer to move.
 		 */
-		GameBuffer(GameBuffer &&buffer) = default;
+		GameBuffer(GameBuffer &&buffer) noexcept = default;
 
 		/**
 		 Destructs this game buffer.
@@ -78,7 +78,7 @@ namespace mage {
 		 @return		A reference to the copy of the given game buffer (i.e. 
 						this game buffer).
 		 */
-		GameBuffer &operator=(const GameBuffer &buffer) = default;
+		GameBuffer &operator=(const GameBuffer &buffer) noexcept = default;
 
 		/**
 		 Moves the given game buffer to this game buffer.
@@ -88,7 +88,7 @@ namespace mage {
 		 @return		A reference to the moved game buffer (i.e. this game 
 						buffer).
 		 */
-		GameBuffer &operator=(GameBuffer &&buffer) = default;
+		GameBuffer &operator=(GameBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material

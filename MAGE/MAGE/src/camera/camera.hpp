@@ -53,7 +53,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera (i.e. this 
 						camera).
 		 */
-		Camera &operator=(const Camera &camera);
+		Camera &operator=(const Camera &camera) noexcept;
 
 		/**
 		 Moves the given camera to this camera.
@@ -62,7 +62,7 @@ namespace mage {
 						A reference to the camera to move.
 		 @return		A reference to the moved camera (i.e. this camera).
 		 */
-		Camera &operator=(Camera &&camera);
+		Camera &operator=(Camera &&camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -242,7 +242,7 @@ namespace mage {
 						The position of the far z-plane in view space.
 		 */
 		explicit Camera(F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			            F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			            F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept;
 
 		/**
 		 Constructs a camera from the given camera.
@@ -250,7 +250,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to copy.
 		 */
-		Camera(const Camera &camera);
+		Camera(const Camera &camera) noexcept;
 
 		/**
 		 Constructs a camera by moving the given camera.
@@ -258,7 +258,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		Camera(Camera &&camera);
+		Camera(Camera &&camera) noexcept;
 
 	private:
 

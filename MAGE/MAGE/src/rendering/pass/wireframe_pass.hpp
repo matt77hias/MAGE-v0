@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the wireframe pass to move.
 		 */
-		WireframePass(WireframePass &&render_pass);
+		WireframePass(WireframePass &&render_pass) noexcept;
 
 		/**
 		 Destructs this wireframe pass.

@@ -53,7 +53,7 @@ namespace mage {
 			F32 width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			F32 height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept;
 		
 		/**
 		 Constructs an orthographic camera from the given orthographic 
@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera);
+		OrthographicCamera(const OrthographicCamera &camera) noexcept;
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic 
@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to move.
 		 */
-		OrthographicCamera(OrthographicCamera &&camera);
+		OrthographicCamera(OrthographicCamera &&camera) noexcept;
 
 		/**
 		 Destructs this orthographic camera.
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic 
 						camera (i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera);
+		OrthographicCamera &operator=(const OrthographicCamera &camera) noexcept;
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the moved orthographic camera (i.e. this 
 						orthographic camera).
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&camera);
+		OrthographicCamera &operator=(OrthographicCamera &&camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

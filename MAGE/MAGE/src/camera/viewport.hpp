@@ -70,29 +70,29 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		Viewport()
+		Viewport() noexcept
 			: Viewport(GetMaxViewport()) {}
 
-		explicit Viewport(U32 width, U32 height)
+		explicit Viewport(U32 width, U32 height) noexcept
 			: Viewport(GetMaxViewport(width, height)) {}
 
-		explicit Viewport(F32 width, F32 height)
+		explicit Viewport(F32 width, F32 height) noexcept
 			: Viewport(GetMaxViewport(width, height)) {}
 		
-		explicit Viewport(U32 width, U32 height, AADescriptor desc)
+		explicit Viewport(U32 width, U32 height, AADescriptor desc) noexcept
 			: Viewport(GetMaxViewport(width, height, desc)) {}
 
-		explicit Viewport(F32 width, F32 height, AADescriptor desc)
+		explicit Viewport(F32 width, F32 height, AADescriptor desc) noexcept
 			: Viewport(GetMaxViewport(width, height, desc)) {}
 
-		explicit Viewport(D3D11_VIEWPORT viewport)
+		explicit Viewport(D3D11_VIEWPORT viewport) noexcept
 			: m_viewport(std::move(viewport)) {}
 		
-		Viewport(const Viewport &viewport) = default;
+		Viewport(const Viewport &viewport) noexcept = default;
 		
-		Viewport(Viewport &&viewport) = default;
+		Viewport(Viewport &&viewport) noexcept = default;
 
-		explicit Viewport(Viewport viewport, AADescriptor desc)
+		explicit Viewport(Viewport viewport, AADescriptor desc) noexcept
 			: Viewport(std::move(viewport)) {
 
 			const U32 multiplier = GetResolutionMultiplier(desc);
@@ -108,9 +108,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		Viewport &operator=(const Viewport &viewport) = default;
+		Viewport &operator=(const Viewport &viewport) noexcept = default;
 		
-		Viewport &operator=(Viewport &&viewport) = default;
+		Viewport &operator=(Viewport &&viewport) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

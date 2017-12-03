@@ -71,7 +71,7 @@ namespace mage {
 						A reference to the constant component pass to move.
 		 */
 		ConstantComponentPass(
-			ConstantComponentPass &&render_pass);
+			ConstantComponentPass &&render_pass) noexcept;
 		
 		/**
 		 Destructs this constant component pass.

@@ -143,7 +143,7 @@ namespace mage {
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh to move.
 		 */
-		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh);
+		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) noexcept;
 
 		/**
 		 Destructs this sprite batch mesh.

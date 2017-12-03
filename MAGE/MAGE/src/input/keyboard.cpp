@@ -30,7 +30,7 @@ namespace mage {
 		InitializeKeyboard();
 	}
 
-	Keyboard::Keyboard(Keyboard &&keyboard) = default;
+	Keyboard::Keyboard(Keyboard &&keyboard) noexcept = default;
 
 	Keyboard::~Keyboard() = default;
 

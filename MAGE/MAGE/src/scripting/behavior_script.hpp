@@ -146,7 +146,7 @@ namespace mage {
 		/**
 		 Constructs a behavior script.
 		 */
-		BehaviorScript();
+		BehaviorScript() noexcept;
 
 		/**
 		 Constructs a behavior script from the given behavior script.
@@ -154,7 +154,7 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to copy.
 		 */
-		BehaviorScript(const BehaviorScript &script);
+		BehaviorScript(const BehaviorScript &script) noexcept;
 
 		/**
 		 Constructs a behavior script by moving the given behavior script.
@@ -162,7 +162,7 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to move.
 		 */
-		BehaviorScript(BehaviorScript &&script);
+		BehaviorScript(BehaviorScript &&script) noexcept;
 
 	private:
 

@@ -33,6 +33,10 @@ namespace mage {
 		m_omni_light_cameras(),
 		m_spot_light_cameras() {}
 
+	LBufferPass::LBufferPass(LBufferPass &&buffer) noexcept = default;
+	
+	LBufferPass::~LBufferPass() = default;
+
 	void XM_CALLCONV LBufferPass::Render(
 		const PassBuffer *scene, 
 		FXMMATRIX world_to_projection,

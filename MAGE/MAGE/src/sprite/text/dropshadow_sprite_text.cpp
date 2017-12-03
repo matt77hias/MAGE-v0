@@ -20,7 +20,7 @@ namespace mage {
 		const DropshadowSpriteText &sprite_text) = default;
 
 	DropshadowSpriteText::DropshadowSpriteText(
-		DropshadowSpriteText &&sprite_text) = default;
+		DropshadowSpriteText &&sprite_text) noexcept = default;
 
 	DropshadowSpriteText::~DropshadowSpriteText() = default;
 

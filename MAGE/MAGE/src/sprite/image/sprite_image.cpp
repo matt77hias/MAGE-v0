@@ -26,7 +26,7 @@ namespace mage {
 		m_base_color_texture_region(
 			MakeUnique< RECT >(*sprite_image.m_base_color_texture_region)) {}
 		
-	SpriteImage::SpriteImage(SpriteImage &&sprite_image) = default;
+	SpriteImage::SpriteImage(SpriteImage &&sprite_image) noexcept = default;
 
 	SpriteImage::~SpriteImage() = default;
 

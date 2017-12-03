@@ -12,18 +12,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	AmbientLight::AmbientLight() 
+	AmbientLight::AmbientLight() noexcept
 		: Light(), m_radiance(1.0f) {}
 
-	AmbientLight::AmbientLight(const AmbientLight &light) = default;
+	AmbientLight::AmbientLight(const AmbientLight &light) noexcept = default;
 	
-	AmbientLight::AmbientLight(AmbientLight &&light) = default;
+	AmbientLight::AmbientLight(AmbientLight &&light) noexcept = default;
 	
 	AmbientLight::~AmbientLight() = default;
 
-	AmbientLight &AmbientLight::operator=(const AmbientLight &light) = default;
+	AmbientLight &AmbientLight::operator=(
+		const AmbientLight &light) noexcept = default;
 	
-	AmbientLight &AmbientLight::operator=(AmbientLight &&light) = default;
+	AmbientLight &AmbientLight::operator=(
+		AmbientLight &&light) noexcept = default;
 
 	UniquePtr< Light > AmbientLight::CloneImplementation() const {
 		return MakeUnique< AmbientLight >(*this);

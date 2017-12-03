@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the variable shading pass to move.
 		 */
-		VariableShadingPass(VariableShadingPass &&render_pass);
+		VariableShadingPass(VariableShadingPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this variable shading pass.

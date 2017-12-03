@@ -205,7 +205,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the mesh to move.
 		 */
-		Mesh(Mesh &&mesh);
+		Mesh(Mesh &&mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

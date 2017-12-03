@@ -1670,7 +1670,7 @@ namespace mage {
 		 @param[in]		node
 						A reference to the node to move.
 		 */
-		Node(Node &&node);
+		Node(Node &&node) noexcept;
 
 		/**
 		 Destructs this node.

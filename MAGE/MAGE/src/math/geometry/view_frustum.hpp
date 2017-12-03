@@ -75,7 +75,7 @@ namespace mage {
 		 matrix, the planes of the view frustum are represented by object space 
 		 coordinates.
 		 */
-		explicit ViewFrustum(CXMMATRIX transform);
+		explicit ViewFrustum(CXMMATRIX transform) noexcept;
 
 		/**
 		 Constructs a view frustum from the given view frustum.
@@ -83,7 +83,7 @@ namespace mage {
 		 @param[in]		view_frustum
 						A reference to the view frustum to copy.
 		 */
-		ViewFrustum(const ViewFrustum &view_frustum) = default;
+		ViewFrustum(const ViewFrustum &view_frustum) noexcept = default;
 
 		/**
 		 Constructs a view frustum by moving the given view frustum.
@@ -91,7 +91,7 @@ namespace mage {
 		 @param[in]		view_frustum
 						A reference to the view frustum to move.
 		 */
-		ViewFrustum(ViewFrustum &&view_frustum) = default;
+		ViewFrustum(ViewFrustum &&view_frustum) noexcept = default;
 
 		/**
 		 Destructs this view frustum.
@@ -110,7 +110,7 @@ namespace mage {
 		 @return		A reference to the copy of the given view frustum (i.e. 
 						this view frustum).
 		 */
-		ViewFrustum &operator=(const ViewFrustum &view_frustum) = default;
+		ViewFrustum &operator=(const ViewFrustum &view_frustum) noexcept = default;
 
 		/**
 		 Moves the given view frustum to this view frustum.
@@ -120,7 +120,7 @@ namespace mage {
 		 @return		A reference to the moved view frustum (i.e. this view 
 						frustum).
 		 */
-		ViewFrustum &operator=(ViewFrustum &&view_frustum) = default;
+		ViewFrustum &operator=(ViewFrustum &&view_frustum) noexcept = default;
 		
 		//---------------------------------------------------------------------
 		// Member Methods: Enclosing = Full Coverage

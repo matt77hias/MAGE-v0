@@ -74,7 +74,7 @@ namespace mage {
 						A reference to a display configurator to move.
 		 */
 		DisplayConfigurator(
-			DisplayConfigurator &&display_configurator);
+			DisplayConfigurator &&display_configurator) noexcept;
 
 		/**
 		 Destructs this display configurator.

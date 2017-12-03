@@ -32,7 +32,7 @@ namespace mage {
 		m_white(CreateWhiteTexture()) {}
 
 	ConstantShadingPass::ConstantShadingPass(
-		ConstantShadingPass &&render_pass) = default;
+		ConstantShadingPass &&render_pass) noexcept = default;
 
 	ConstantShadingPass::~ConstantShadingPass() = default;
 

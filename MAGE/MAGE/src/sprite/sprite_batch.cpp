@@ -36,7 +36,7 @@ namespace mage {
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_srvs() {}
 
-	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) = default;
+	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
 
 	SpriteBatch::~SpriteBatch() = default;
 

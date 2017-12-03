@@ -46,7 +46,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the sprite font output to move.
 		 */
-		SpriteFontOutput(SpriteFontOutput &&output) = default;
+		SpriteFontOutput(SpriteFontOutput &&output) noexcept = default;
 
 		/**
 		 Destructs this sprite font output.

@@ -33,7 +33,7 @@ namespace mage {
 		m_white(CreateWhiteTexture()) {}
 
 	VariableComponentPass::VariableComponentPass(
-		VariableComponentPass &&render_pass) = default;
+		VariableComponentPass &&render_pass) noexcept = default;
 
 	VariableComponentPass::~VariableComponentPass() = default;
 

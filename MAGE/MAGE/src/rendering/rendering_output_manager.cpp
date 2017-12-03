@@ -34,7 +34,7 @@ namespace mage {
 	}
 
 	RenderingOutputManager::RenderingOutputManager(
-		RenderingOutputManager &&rendering_output_manager) = default;
+		RenderingOutputManager &&rendering_output_manager) noexcept = default;
 
 	RenderingOutputManager::~RenderingOutputManager() = default;
 

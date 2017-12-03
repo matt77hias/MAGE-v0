@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Constructs a camera settings.
 		 */
-		CameraSettings()
+		constexpr CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
 			m_brdf(BRDFType::Unknown),
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)) {}
@@ -41,7 +41,8 @@ namespace mage {
 		 @param[in]		scene_settings
 						A reference to the camera settings to copy.
 		 */
-		CameraSettings(const CameraSettings &scene_settings) = default;
+		constexpr CameraSettings(
+			const CameraSettings &scene_settings) noexcept = default;
 
 		/**
 		 Constructs a camera settings by moving the given camera settings.
@@ -49,7 +50,8 @@ namespace mage {
 		 @param[in]		scene_settings
 						A reference to the camera settings to move.
 		 */
-		CameraSettings(CameraSettings &&scene_settings) = default;
+		constexpr CameraSettings(
+			CameraSettings &&scene_settings) noexcept = default;
 
 		/**
 		 Destructs this camera settings.
@@ -68,8 +70,8 @@ namespace mage {
 		 @return		A reference to the copy of the given camera settings 
 						(i.e. this camera settings).
 		 */
-		CameraSettings &operator=(
-			const CameraSettings &scene_settings) = default;
+		constexpr CameraSettings &operator=(
+			const CameraSettings &scene_settings) noexcept = default;
 
 		/**
 		 Moves the given camera settings to this camera settings.
@@ -79,66 +81,66 @@ namespace mage {
 		 @return		A reference to the moved camera settings (i.e. this 
 						camera settings).
 		 */
-		CameraSettings &operator=(
-			CameraSettings &&scene_settings) = default;
+		constexpr CameraSettings &operator=(
+			CameraSettings &&scene_settings) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Reset() noexcept {
+		constexpr void Reset() noexcept {
 			ResetRenderMode();
 			ResetBRDF();
 			ResetRenderLayers();
 		}
 
-		RenderMode GetRenderMode() const noexcept {
+		constexpr RenderMode GetRenderMode() const noexcept {
 			return m_render_mode;
 		}
 
-		void SetRenderMode(RenderMode render_mode) noexcept {
+		constexpr void SetRenderMode(RenderMode render_mode) noexcept {
 			m_render_mode = render_mode;
 		}
 
-		void ResetRenderMode() noexcept {
+		constexpr void ResetRenderMode() noexcept {
 			SetRenderMode(RenderMode::Forward);
 		}
 
-		BRDFType GetBRDF() const noexcept {
+		constexpr BRDFType GetBRDF() const noexcept {
 			return m_brdf;
 		}
 
-		void SetBRDF(BRDFType brdf) noexcept {
+		constexpr void SetBRDF(BRDFType brdf) noexcept {
 			m_brdf = brdf;
 		}
 
-		void ResetBRDF() noexcept {
+		constexpr void ResetBRDF() noexcept {
 			SetBRDF(BRDFType::Unknown);
 		}
 
-		bool HasRenderLayers() const noexcept {
+		constexpr bool HasRenderLayers() const noexcept {
 			return m_render_layer_mask 
 				!= static_cast< U32 >(RenderLayer::None);
 		}
 
-		bool HasRenderLayer(RenderLayer render_layer) const noexcept {
+		constexpr bool HasRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(
 				m_render_layer_mask & static_cast< U32 >(render_layer));
 		}
 
-		void AddRenderLayer(RenderLayer render_layer) noexcept {
+		constexpr void AddRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask |= static_cast< U32 >(render_layer);
 		}
 
-		void RemoveRenderLayer(RenderLayer render_layer) noexcept {
+		constexpr void RemoveRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask &= ~(static_cast< U32 >(render_layer));
 		}
 
-		void ToggleRenderLayer(RenderLayer render_layer) noexcept {
+		constexpr void ToggleRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask ^= static_cast< U32 >(render_layer);
 		}
 
-		void ResetRenderLayers() noexcept {
+		constexpr void ResetRenderLayers() noexcept {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
 		}
 

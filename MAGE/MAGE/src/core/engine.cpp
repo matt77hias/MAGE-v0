@@ -42,7 +42,7 @@ namespace mage {
 		InitializeSystems(setup);
 	}
 
-	Engine::Engine(Engine &&engine) = default;
+	Engine::Engine(Engine &&engine) noexcept = default;
 
 	Engine::~Engine() {
 

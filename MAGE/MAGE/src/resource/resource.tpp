@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(wstring guid)
+	Resource< ResourceT >::Resource(wstring guid) noexcept
 		: m_guid(std::move(guid)) {}
 
 	template< typename ResourceT >

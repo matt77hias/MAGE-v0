@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		model
 						A reference to the model to move.
 		 */
-		Model(Model &&model);
+		Model(Model &&model) noexcept;
 
 		/**
 		 Destructs this model.

@@ -31,7 +31,7 @@ namespace mage {
 		InitializeMouse();
 	}
 
-	Mouse::Mouse(Mouse &&mouse) = default;
+	Mouse::Mouse(Mouse &&mouse) noexcept = default;
 
 	Mouse::~Mouse() = default;
 

@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		sprite_image
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite_image);
+		SpriteImage(SpriteImage &&sprite_image) noexcept;
 
 		/**
 		 Destruct this sprite image.

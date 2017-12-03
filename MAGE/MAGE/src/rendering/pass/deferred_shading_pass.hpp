@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		render_pass
 						A reference to the deferred shading pass to move.
 		 */
-		DeferredShadingPass(DeferredShadingPass &&render_pass);
+		DeferredShadingPass(DeferredShadingPass &&render_pass) noexcept;
 
 		/**
 		 Destructs this deferred shading pass.

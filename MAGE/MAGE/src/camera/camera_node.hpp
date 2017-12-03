@@ -166,7 +166,7 @@ namespace mage {
 		 @param[in]		camera_node
 						A reference to the camera node to move.
 		 */
-		CameraNode(CameraNode &&camera_node);
+		CameraNode(CameraNode &&camera_node) noexcept;
 
 	private:
 
@@ -240,7 +240,7 @@ namespace mage {
 		 @param[in]		camera_node
 						A reference to the derived camera node to move.
 		 */
-		DerivedCameraNode(DerivedCameraNode &&camera_node);
+		DerivedCameraNode(DerivedCameraNode &&camera_node) noexcept;
 		
 		/**
 		 Destructs this derived camera node.

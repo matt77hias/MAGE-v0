@@ -145,7 +145,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite to move.
 		 */
-		Sprite(Sprite &&sprite);
+		Sprite(Sprite &&sprite) noexcept;
 
 	private:
 

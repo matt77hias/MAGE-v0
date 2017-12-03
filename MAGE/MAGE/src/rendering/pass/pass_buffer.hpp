@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		pass_buffer
 						A reference to the pass buffer to move.
 		 */
-		PassBuffer(PassBuffer &&pass_buffer) = default;
+		PassBuffer(PassBuffer &&pass_buffer) noexcept = default;
 
 		/**
 		 Destructs this pass buffer.

@@ -44,7 +44,7 @@ namespace mage {
 		 @return		A reference to the copy of the given light (i.e. this 
 						light).
 		 */
-		Light &operator=(const Light &light);
+		Light &operator=(const Light &light) noexcept;
 
 		/**
 		 Moves the given light to this light.
@@ -53,7 +53,7 @@ namespace mage {
 						A reference to the light to move.
 		 @return		A reference to the moved light (i.e. this light).
 		 */
-		Light &operator=(Light &&light);
+		Light &operator=(Light &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -121,7 +121,7 @@ namespace mage {
 		/**
 		 Constructs a light.
 		 */
-		Light();
+		Light() noexcept;
 
 		/**
 		 Constructs a light from the given light.
@@ -129,7 +129,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the light to copy.
 		 */
-		Light(const Light &light);
+		Light(const Light &light) noexcept;
 
 		/**
 		 Constructs a light by moving the given light.
@@ -137,7 +137,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the light to move.
 		 */
-		Light(Light &&light);
+		Light(Light &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Range

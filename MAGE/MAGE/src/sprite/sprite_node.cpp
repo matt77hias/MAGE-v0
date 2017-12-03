@@ -23,7 +23,7 @@ namespace mage {
 	SpriteNode::SpriteNode(const SpriteNode &sprite_node)
 		: Node(sprite_node), m_sprite(sprite_node.m_sprite->Clone()) {}
 
-	SpriteNode::SpriteNode(SpriteNode &&light_node) = default;
+	SpriteNode::SpriteNode(SpriteNode &&light_node) noexcept = default;
 
 	SpriteNode::~SpriteNode() = default;
 }

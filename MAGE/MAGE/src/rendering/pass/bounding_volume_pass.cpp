@@ -32,7 +32,7 @@ namespace mage {
 		m_model_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
-		BoundingVolumePass &&render_pass) = default;
+		BoundingVolumePass &&render_pass) noexcept = default;
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 

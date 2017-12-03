@@ -36,7 +36,7 @@ namespace mage {
 		SetupSwapChain();
 	}
 
-	SwapChain::SwapChain(SwapChain &&swap_chain) = default;
+	SwapChain::SwapChain(SwapChain &&swap_chain) noexcept = default;
 
 	SwapChain::~SwapChain() {
 		// Switch to windowed mode since Direct3D is incapable to clear its 

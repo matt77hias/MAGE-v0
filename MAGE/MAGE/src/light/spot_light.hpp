@@ -38,7 +38,7 @@ namespace mage {
 		/**
 		 Constructs a spotlight.
 		 */
-		SpotLight();
+		SpotLight() noexcept;
 		
 		/**
 		 Constructs a spotlight from the given spotlight.
@@ -46,7 +46,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the spotlight to copy.
 		 */
-		SpotLight(const SpotLight &light);
+		SpotLight(const SpotLight &light) noexcept;
 
 		/**
 		 Constructs a spotlight by moving the given spotlight.
@@ -54,7 +54,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the spotlight to move.
 		 */
-		SpotLight(SpotLight &&light);
+		SpotLight(SpotLight &&light) noexcept;
 
 		/**
 		 Destructs this spotlight.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the copy of the given spotlight (i.e. 
 						this spotlight).
 		 */
-		SpotLight &operator=(const SpotLight &light);
+		SpotLight &operator=(const SpotLight &light) noexcept;
 
 		/**
 		 Moves the given spotlight to this spotlight.
@@ -83,7 +83,7 @@ namespace mage {
 		 @return		A reference to the moved spotlight (i.e. this 
 						spotlight).
 		 */
-		SpotLight &operator=(SpotLight &&light);
+		SpotLight &operator=(SpotLight &&light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

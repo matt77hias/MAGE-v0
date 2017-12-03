@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse to move.
 		 */
-		Mouse(Mouse &&mouse);
+		Mouse(Mouse &&mouse) noexcept;
 
 		/**
 		 Destructs this mouse.

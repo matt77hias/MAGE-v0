@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		sky
 						A reference to the sky to move.
 		 */
-		Sky(Sky &&sky) = default;
+		Sky(Sky &&sky) noexcept = default;
 
 		/**
 		 Destructs this sky.

@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Constructs a glyph.
 		 */
-		Glyph() = default;
+		Glyph() noexcept = default;
 
 		/**
 		 Constructs a glyph from the given glyph.
@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		glyph
 						A reference to the glyph to copy.
 		 */
-		Glyph(const Glyph &glyph) = default;
+		Glyph(const Glyph &glyph) noexcept = default;
 
 		/**
 		 Constructs a glyph by moving the given glyph.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		glyph
 						A reference to the glyph to move.
 		 */
-		Glyph(Glyph &&glyph) = default;
+		Glyph(Glyph &&glyph) noexcept = default;
 
 		/**
 		 Destructs this glyph.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to copy of the given glyph (i.e. this 
 						glyph).
 		 */
-		Glyph &operator=(const Glyph &glyph) = default;
+		Glyph &operator=(const Glyph &glyph) noexcept = default;
 
 		/**
 		 Moves the given glyph to this glyph.
@@ -72,7 +72,7 @@ namespace mage {
 						A reference to the glyph to move.
 		 @return		A reference to the moved glyph (i.e. this glyph).
 		 */
-		Glyph &operator=(Glyph &&glyph) = default;
+		Glyph &operator=(Glyph &&glyph) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

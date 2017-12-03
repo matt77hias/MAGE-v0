@@ -33,7 +33,7 @@ namespace mage {
 		m_model_buffer() {}
 
 	ShadingNormalPass::ShadingNormalPass(
-		ShadingNormalPass &&render_pass) = default;
+		ShadingNormalPass &&render_pass) noexcept = default;
 
 	ShadingNormalPass::~ShadingNormalPass() = default;
 

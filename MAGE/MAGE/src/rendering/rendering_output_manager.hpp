@@ -77,7 +77,7 @@ namespace mage {
 						A reference to the rendering output manager to move.
 		 */
 		RenderingOutputManager(
-			RenderingOutputManager &&rendering_output_manager);
+			RenderingOutputManager &&rendering_output_manager) noexcept;
 
 		/**
 		 Destructs this rendering output manager.

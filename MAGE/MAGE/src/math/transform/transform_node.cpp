@@ -78,7 +78,7 @@ namespace mage {
 		m_terminated(node.m_terminated),
 		m_transform(MakeUnique< TransformNode >(*node.m_transform)) {}
 
-	Node::Node(Node &&node) = default;
+	Node::Node(Node &&node) noexcept = default;
 
 	Node::~Node() = default;
 

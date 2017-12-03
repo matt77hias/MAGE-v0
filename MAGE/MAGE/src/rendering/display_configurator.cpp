@@ -107,7 +107,7 @@ namespace mage {
 	}
 
 	DisplayConfigurator::DisplayConfigurator(
-		DisplayConfigurator &&device_enumeration) = default;
+		DisplayConfigurator &&device_enumeration) noexcept = default;
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 

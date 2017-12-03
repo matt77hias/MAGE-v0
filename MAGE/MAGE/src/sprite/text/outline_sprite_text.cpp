@@ -20,7 +20,7 @@ namespace mage {
 		const OutlineSpriteText &sprite_text) = default;
 
 	OutlineSpriteText::OutlineSpriteText(
-		OutlineSpriteText &&sprite_text) = default;
+		OutlineSpriteText &&sprite_text) noexcept = default;
 
 	OutlineSpriteText::~OutlineSpriteText() = default;
 

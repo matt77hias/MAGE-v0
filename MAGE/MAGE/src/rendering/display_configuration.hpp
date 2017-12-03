@@ -83,7 +83,7 @@ namespace mage {
 						A reference to a display configuration to move.
 		 */
 		DisplayConfiguration(
-			DisplayConfiguration &&display_configuration) = default;
+			DisplayConfiguration &&display_configuration) noexcept = default;
 
 		/**
 		 Destructs this display configuration.
@@ -114,7 +114,7 @@ namespace mage {
 						this display configuration).
 		 */
 		DisplayConfiguration &operator=(
-			DisplayConfiguration &&display_configuration) = default;
+			DisplayConfiguration &&display_configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Adapter

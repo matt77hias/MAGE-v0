@@ -35,8 +35,9 @@ namespace mage {
 		 @param[in]		color
 						A reference to the sRGB color.
 		 */
-		explicit ColorString(wstring str, const SRGBA &color = color::White)
-			: m_str(std::move(str)), m_color(color) {}
+		explicit ColorString(wstring str, SRGBA color = color::White) noexcept
+			: m_str(std::move(str)), 
+			m_color(std::move(color)) {}
 		
 		/**
 		 Constructs a color string from the given color string.
@@ -52,7 +53,7 @@ namespace mage {
 		 @param[in]		color_string
 						A reference to the color string to move.
 		 */
-		ColorString(ColorString &&color_string) = default;
+		ColorString(ColorString &&color_string) noexcept = default;
 
 		/**
 		 Destructs this color string.
@@ -81,7 +82,7 @@ namespace mage {
 		 @return		A reference to the moved color string (i.e. this color 
 						string).
 		 */
-		ColorString &operator=(ColorString &&color_string) = default;
+		ColorString &operator=(ColorString &&color_string) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

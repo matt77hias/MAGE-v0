@@ -20,7 +20,7 @@ namespace mage {
 		: m_transform(MakeUnique< SpriteTransform >(*sprite.m_transform)),
 		m_effects(sprite.m_effects) {}
 
-	Sprite::Sprite(Sprite &&sprite) = default;
+	Sprite::Sprite(Sprite &&sprite) noexcept = default;
 
 	Sprite::~Sprite() = default;
 }

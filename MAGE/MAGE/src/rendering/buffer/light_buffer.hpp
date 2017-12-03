@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Constructs a light buffer.
 		 */
-		LightBuffer()
+		LightBuffer() noexcept
 			: m_La(), 
 			m_padding0(0),
 			m_fog_color(), 
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the light buffer to copy.
 		 */
-		LightBuffer(const LightBuffer &buffer) = default;
+		LightBuffer(const LightBuffer &buffer) noexcept = default;
 		
 		/**
 		 Constructs a light buffer by moving the given light buffer.
@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the light buffer to move.
 		 */
-		LightBuffer(LightBuffer &&buffer) = default;
+		LightBuffer(LightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this light buffer.
@@ -79,7 +79,7 @@ namespace mage {
 		 @return		A reference to the copy of the given light buffer (i.e. 
 						this light buffer).
 		 */
-		LightBuffer &operator=(const LightBuffer &buffer) = default;
+		LightBuffer &operator=(const LightBuffer &buffer) noexcept = default;
 		
 		/**
 		 Moves the given light buffer to this light buffer.
@@ -89,7 +89,7 @@ namespace mage {
 		 @return		A reference to the moved light buffer (i.e. this light 
 						buffer).
 		 */
-		LightBuffer &operator=(LightBuffer &&buffer) = default;
+		LightBuffer &operator=(LightBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Lights
@@ -179,7 +179,7 @@ namespace mage {
 		/**
 		 Constructs an directional light buffer.
 		 */
-		DirectionalLightBuffer()
+		DirectionalLightBuffer() noexcept
 			: m_L(), 
 			m_padding0(0),
 			m_neg_d(), 
@@ -192,7 +192,8 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the directional light buffer to copy.
 		 */
-		DirectionalLightBuffer(const DirectionalLightBuffer &buffer) = default;
+		DirectionalLightBuffer(
+			const DirectionalLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an directional light buffer by moving the given directional 
@@ -201,7 +202,8 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the directional light buffer to move.
 		 */
-		DirectionalLightBuffer(DirectionalLightBuffer &&buffer) = default;
+		DirectionalLightBuffer(
+			DirectionalLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this directional light buffer.
@@ -222,7 +224,7 @@ namespace mage {
 						buffer (i.e. this directional light buffer).
 		 */
 		DirectionalLightBuffer &operator=(
-			const DirectionalLightBuffer &buffer) = default;
+			const DirectionalLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Moves the given directional light buffer to this directional light 
@@ -234,7 +236,7 @@ namespace mage {
 						this directional light buffer).
 		 */
 		DirectionalLightBuffer &operator=(
-			DirectionalLightBuffer &&buffer) = default;
+			DirectionalLightBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -284,7 +286,7 @@ namespace mage {
 		/**
 		 Constructs an omni light buffer.
 		 */
-		OmniLightBuffer()
+		OmniLightBuffer() noexcept
 			: m_p(), 
 			m_inv_sqr_range(0.0f),
 			m_I(), 
@@ -296,7 +298,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the omni light buffer to copy.
 		 */
-		OmniLightBuffer(const OmniLightBuffer &buffer) = default;
+		OmniLightBuffer(const OmniLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an omni light buffer by moving the given omni light buffer.
@@ -304,7 +306,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the omni light buffer to move.
 		 */
-		OmniLightBuffer(OmniLightBuffer &&buffer) = default;
+		OmniLightBuffer(OmniLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this omni light buffer.
@@ -323,7 +325,8 @@ namespace mage {
 		 @return		A reference to the copy of the given omni light buffer
 						(i.e. this omni light buffer).
 		 */
-		OmniLightBuffer &operator=(const OmniLightBuffer &buffer) = default;
+		OmniLightBuffer &operator=(
+			const OmniLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Moves the given omni light buffer to this omni light buffer.
@@ -333,7 +336,8 @@ namespace mage {
 		 @return		A reference to the moved omni light buffer (i.e. this 
 						omni light buffer).
 		 */
-		OmniLightBuffer &operator=(OmniLightBuffer &&buffer) = default;
+		OmniLightBuffer &operator=(
+			OmniLightBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -383,7 +387,7 @@ namespace mage {
 		/**
 		 Constructs a spotlight buffer.
 		 */
-		SpotLightBuffer()
+		SpotLightBuffer() noexcept
 			: m_p(), 
 			m_inv_sqr_range(0.0f),
 			m_I(), 
@@ -397,7 +401,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the spotlight buffer to copy.
 		 */
-		SpotLightBuffer(const SpotLightBuffer &buffer) = default;
+		SpotLightBuffer(const SpotLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs a spotlight buffer by moving the given spotlight buffer.
@@ -405,7 +409,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the spotlight buffer to move.
 		 */
-		SpotLightBuffer(SpotLightBuffer &&buffer) = default;
+		SpotLightBuffer(SpotLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this spotlight buffer.
@@ -424,7 +428,8 @@ namespace mage {
 		 @return		A reference to the copy of the given spotlight buffer
 						(i.e. this spotlight buffer).
 		 */
-		SpotLightBuffer &operator=(const SpotLightBuffer &buffer) = default;
+		SpotLightBuffer &operator=(
+			const SpotLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Moves the given spotlight buffer to this spotlight buffer.
@@ -434,7 +439,8 @@ namespace mage {
 		 @return		A reference to the moved spotlight buffer (i.e. this 
 						spotlight buffer).
 		 */
-		SpotLightBuffer &operator=(SpotLightBuffer &&buffer) = default;
+		SpotLightBuffer &operator=(
+			SpotLightBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -496,7 +502,7 @@ namespace mage {
 		/**
 		 Constructs an directional light with shadow mapping buffer.
 		 */
-		DirectionalLightWithShadowMappingBuffer()
+		DirectionalLightWithShadowMappingBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lprojection() {}
 		
@@ -509,7 +515,7 @@ namespace mage {
 						mapping buffer to copy.
 		 */
 		DirectionalLightWithShadowMappingBuffer(
-			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
+			const DirectionalLightWithShadowMappingBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an directional light with shadow mapping buffer by moving 
@@ -520,7 +526,7 @@ namespace mage {
 						mapping buffer to move.
 		 */
 		DirectionalLightWithShadowMappingBuffer(
-			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
+			DirectionalLightWithShadowMappingBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this directional light with shadow mapping buffer.
@@ -605,7 +611,7 @@ namespace mage {
 		/**
 		 Constructs an omni light with shadow mapping buffer.
 		 */
-		OmniLightWithShadowMappingBuffer()
+		OmniLightWithShadowMappingBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lview(),
 			m_projection_values(), 
@@ -620,7 +626,7 @@ namespace mage {
 						buffer to copy.
 		 */
 		OmniLightWithShadowMappingBuffer(
-			const OmniLightWithShadowMappingBuffer &buffer) = default;
+			const OmniLightWithShadowMappingBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an omni light with shadow mapping buffer by moving the given 
@@ -631,7 +637,7 @@ namespace mage {
 						buffer to move.
 		 */
 		OmniLightWithShadowMappingBuffer(
-			OmniLightWithShadowMappingBuffer &&buffer) = default;
+			OmniLightWithShadowMappingBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this omni light with shadow mapping buffer.
@@ -725,7 +731,7 @@ namespace mage {
 		/**
 		 Constructs a spotlight with shadow mapping buffer.
 		 */
-		SpotLightWithShadowMappingBuffer()
+		SpotLightWithShadowMappingBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lprojection() {}
 		
@@ -738,7 +744,7 @@ namespace mage {
 						to copy.
 		 */
 		SpotLightWithShadowMappingBuffer(
-			const SpotLightWithShadowMappingBuffer &buffer) = default;
+			const SpotLightWithShadowMappingBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs a spotlight with shadow mapping buffer by moving the given 
@@ -749,7 +755,7 @@ namespace mage {
 						to move.
 		 */
 		SpotLightWithShadowMappingBuffer(
-			SpotLightWithShadowMappingBuffer &&buffer) = default;
+			SpotLightWithShadowMappingBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this spotlight with shadow mapping buffer.

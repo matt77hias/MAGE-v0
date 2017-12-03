@@ -256,6 +256,7 @@ Uses:
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 * FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/MAGE/shaders/aa/fxaa3_11.hlsli)]
 * [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
+  * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)

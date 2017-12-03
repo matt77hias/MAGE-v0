@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to move.
 		 */
-		CPUMonitor(CPUMonitor &&cpu_monitor) = default;
+		CPUMonitor(CPUMonitor &&cpu_monitor) noexcept = default;
 
 		/**
 		 Destructs this CPU monitor.
@@ -82,7 +82,7 @@ namespace mage {
 		 @return		A reference to the moved CPU monitor (i.e. this CPU 
 						monitor).
 		 */
-		CPUMonitor &operator=(CPUMonitor &&cpu_monitor) = default;
+		CPUMonitor &operator=(CPUMonitor &&cpu_monitor) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

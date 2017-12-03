@@ -31,7 +31,7 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		explicit IdGenerator(S32 first_id = 0)
+		constexpr explicit IdGenerator(S32 first_id = 0) noexcept
 			: m_current_id(first_id) {}
 
 		/**
@@ -40,7 +40,8 @@ namespace mage {
 		 @param[in]		id_generator
 						A reference to the id generator to copy.
 		 */
-		IdGenerator(const IdGenerator &id_generator) = delete;
+		constexpr IdGenerator(
+			const IdGenerator &id_generator) noexcept = delete;
 
 		/**
 		 Constructs an id generator by moving the given id generator.
@@ -48,7 +49,8 @@ namespace mage {
 		 @param[in]		id_generator
 						A reference to the id generator to move.
 		 */
-		IdGenerator(IdGenerator &&id_generator) = default;
+		constexpr IdGenerator(
+			IdGenerator &&id_generator) noexcept = default;
 
 		/**
 		 Destructs this id generator.

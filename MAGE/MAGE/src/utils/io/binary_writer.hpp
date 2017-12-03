@@ -107,7 +107,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to move.
 		 */
-		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer);
+		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

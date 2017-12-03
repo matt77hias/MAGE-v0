@@ -202,7 +202,7 @@ namespace mage {
 		/**
 		 Constructs an aligned allocator.
 		 */
-		AlignedAllocator() noexcept = default;
+		constexpr AlignedAllocator() noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator from the given aligned allocator.
@@ -210,7 +210,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to copy.
 		 */
-		AlignedAllocator(const AlignedAllocator &allocator) noexcept = default;
+		constexpr AlignedAllocator(
+			const AlignedAllocator &allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator by moving the given aligned allocator.
@@ -218,7 +219,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to move.
 		 */
-		AlignedAllocator(AlignedAllocator &&allocator) noexcept = default;
+		constexpr AlignedAllocator(
+			AlignedAllocator &&allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator from the given aligned allocator.
@@ -229,7 +231,7 @@ namespace mage {
 						A reference to the aligned allocator to copy.
 		 */
 		template< typename DataU >
-		AlignedAllocator(
+		constexpr AlignedAllocator(
 			const AlignedAllocator< DataU, AlignmentS > &allocator) noexcept {}
 		
 		/**
@@ -274,7 +276,7 @@ namespace mage {
 						A reference to the data.
 		 @return		A pointer to the given data.
 		 */
-		DataT *address(DataT &data) const noexcept {
+		constexpr DataT *address(DataT &data) const noexcept {
 			return &data;
 		}
 		
@@ -285,7 +287,7 @@ namespace mage {
 						A reference to the data.
 		 @return		A pointer to the given data.
 		 */
-		const DataT *address(const DataT &data) const noexcept {
+		constexpr const DataT *address(const DataT &data) const noexcept {
 			return &data;
 		}
 
@@ -293,7 +295,7 @@ namespace mage {
 		 Returns the maximum number of elements, each of member type @c DataT 
 		 that could potentially be allocated by a call to member allocate.
 		 */
-		size_t max_size() const noexcept {
+		constexpr size_t max_size() const noexcept {
 			return (static_cast< size_t >(0) - static_cast< size_t >(1)) 
 				/ sizeof(DataT);
 		}
@@ -419,7 +421,7 @@ namespace mage {
 						aligned allocator, and vice versa. This is always the
 						case for stateless allocators. @c false otherwise.
 		 */
-		bool operator==(const AlignedAllocator &rhs) const noexcept {
+		constexpr bool operator==(const AlignedAllocator &rhs) const noexcept {
 			return true;
 		}
 
@@ -434,7 +436,7 @@ namespace mage {
 						aligned allocator, and vice versa. This is never the
 						case for stateless allocators. @c false otherwise.
 		 */
-		bool operator!=(const AlignedAllocator &rhs) const noexcept {
+		constexpr bool operator!=(const AlignedAllocator &rhs) const noexcept {
 			return false;
 		}
 	};

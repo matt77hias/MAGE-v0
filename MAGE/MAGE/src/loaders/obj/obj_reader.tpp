@@ -31,7 +31,7 @@ namespace mage {
 		m_mesh_desc(mesh_desc) {}
 
 	template < typename VertexT >
-	OBJReader< VertexT >::OBJReader(OBJReader &&reader) = default;
+	OBJReader< VertexT >::OBJReader(OBJReader &&reader) noexcept = default;
 
 	template < typename VertexT >
 	OBJReader< VertexT >::~OBJReader() = default;

@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MTL reader to move.
 		 */
-		MTLReader(MTLReader &&reader);
+		MTLReader(MTLReader &&reader) noexcept;
 
 		/**
 		 Destructs this MTL reader.

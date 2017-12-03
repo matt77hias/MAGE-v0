@@ -60,8 +60,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2 &operator=(const Vector2 &v) = default;
-		constexpr Vector2 &operator=(Vector2 &&v) = default;
+		constexpr Vector2 &operator=(const Vector2 &v) noexcept = default;
+		constexpr Vector2 &operator=(Vector2 &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -130,8 +130,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3 &operator=(const Vector3 &v) = default;
-		constexpr Vector3 &operator=(Vector3 &&v) = default;
+		constexpr Vector3 &operator=(const Vector3 &v) noexcept = default;
+		constexpr Vector3 &operator=(Vector3 &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -204,8 +204,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4 &operator=(const Vector4 &v) = default;
-		constexpr Vector4 &operator=(Vector4 &&v) = default;
+		constexpr Vector4 &operator=(const Vector4 &v) noexcept = default;
+		constexpr Vector4 &operator=(Vector4 &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -280,8 +280,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2A &operator=(const Vector2A &v) = default;
-		constexpr Vector2A &operator=(Vector2A &&v) = default;
+		constexpr Vector2A &operator=(const Vector2A &v) noexcept = default;
+		constexpr Vector2A &operator=(Vector2A &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -360,8 +360,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3A &operator=(const Vector3A &v) = default;
-		constexpr Vector3A &operator=(Vector3A &&v) = default;
+		constexpr Vector3A &operator=(const Vector3A &v) noexcept = default;
+		constexpr Vector3A &operator=(Vector3A &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -445,8 +445,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4A &operator=(const Vector4A &v) = default;
-		constexpr Vector4A &operator=(Vector4A &&v) = default;
+		constexpr Vector4A &operator=(const Vector4A &v) noexcept = default;
+		constexpr Vector4A &operator=(Vector4A &&v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

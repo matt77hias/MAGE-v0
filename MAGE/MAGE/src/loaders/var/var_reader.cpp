@@ -18,7 +18,7 @@ namespace mage {
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VARReader::VARReader(VARReader &&reader) = default;
+	VARReader::VARReader(VARReader &&reader) noexcept = default;
 
 	VARReader::~VARReader() = default;
 

@@ -82,7 +82,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPosition() = default;
+		constexpr VertexPosition() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -90,7 +90,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the position of the vertex.
 		 */
-		explicit VertexPosition(const Point3 &p)
+		constexpr explicit VertexPosition(const Point3 &p) noexcept
 			: p(p) {}
 
 		/**
@@ -99,7 +99,7 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPosition(const VertexPosition &vertex) = default;
+		constexpr VertexPosition(const VertexPosition &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -107,7 +107,7 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPosition(VertexPosition &&vertex) = default;
+		constexpr VertexPosition(VertexPosition &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -126,7 +126,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex  (i.e. this 
 						vertex).
 		 */
-		VertexPosition &operator=(const VertexPosition &vertex) = default;
+		constexpr VertexPosition &operator=(
+			const VertexPosition &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -135,7 +136,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPosition &operator=(VertexPosition &&vertex) = default;
+		constexpr VertexPosition &operator=(
+			VertexPosition &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -215,7 +217,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionNormal() = default;
+		constexpr VertexPositionNormal() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -225,7 +227,8 @@ namespace mage {
 		 @param[in]		n
 						A reference to the normal of the vertex.
 		 */
-		explicit VertexPositionNormal(const Point3 &p, const Normal3 &n)
+		constexpr explicit VertexPositionNormal(
+			const Point3 &p, const Normal3 &n) noexcept
 			: p(p), n(n) {}
 
 		/**
@@ -234,7 +237,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		*/
-		VertexPositionNormal(const VertexPositionNormal &vertex) = default;
+		constexpr VertexPositionNormal(
+			const VertexPositionNormal &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -242,7 +246,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormal(VertexPositionNormal &&vertex) = default;
+		constexpr VertexPositionNormal(
+			VertexPositionNormal &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -261,8 +266,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionNormal &operator=(
-			const VertexPositionNormal &vertex) = default;
+		constexpr VertexPositionNormal &operator=(
+			const VertexPositionNormal &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -271,8 +276,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormal &operator=(
-			VertexPositionNormal &&vertex) = default;
+		constexpr VertexPositionNormal &operator=(
+			VertexPositionNormal &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -357,7 +362,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionColor() = default;
+		constexpr VertexPositionColor() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -367,7 +372,8 @@ namespace mage {
 		 @param[in]		c
 						A reference to the sRGB color of the vertex.
 		 */
-		explicit VertexPositionColor(const Point3 &p, const SRGBA &c)
+		constexpr explicit VertexPositionColor(
+			const Point3 &p, const SRGBA &c) noexcept
 			: p(p), c(c) {}
 
 		/**
@@ -376,7 +382,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionColor(const VertexPositionColor &vertex) = default;
+		constexpr VertexPositionColor(
+			const VertexPositionColor &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -384,7 +391,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionColor(VertexPositionColor &&vertex) = default;
+		constexpr VertexPositionColor(
+			VertexPositionColor &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -403,8 +411,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionColor &operator=(
-			const VertexPositionColor &vertex) = default;
+		constexpr VertexPositionColor &operator=(
+			const VertexPositionColor &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -413,8 +421,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionColor &operator=(
-			VertexPositionColor &&vertex) = default;
+		constexpr VertexPositionColor &operator=(
+			VertexPositionColor &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -499,7 +507,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionTexture() = default;
+		constexpr VertexPositionTexture() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -509,7 +517,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionTexture(const Point3 &p, const UV &tex)
+		constexpr explicit VertexPositionTexture(
+			const Point3 &p, const UV &tex) noexcept
 			: p(p), tex(tex) {}
 
 		/**
@@ -518,7 +527,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionTexture(const VertexPositionTexture &vertex) = default;
+		constexpr VertexPositionTexture(
+			const VertexPositionTexture &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -526,7 +536,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionTexture(VertexPositionTexture &&vertex) = default;
+		constexpr VertexPositionTexture(
+			VertexPositionTexture &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -545,8 +556,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionTexture &operator=(
-			const VertexPositionTexture &vertex) = default;
+		constexpr VertexPositionTexture &operator=(
+			const VertexPositionTexture &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -555,8 +566,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionTexture &operator=(
-			VertexPositionTexture &&vertex) = default;
+		constexpr VertexPositionTexture &operator=(
+			VertexPositionTexture &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -642,7 +653,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionNormalColor() = default;
+		constexpr VertexPositionNormalColor() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -654,8 +665,8 @@ namespace mage {
 		 @param[in]		c
 						A reference to the sRGB color of the vertex.
 		 */
-		explicit VertexPositionNormalColor(
-			const Point3 &p, const Normal3 &n, const SRGBA &c)
+		constexpr explicit VertexPositionNormalColor(
+			const Point3 &p, const Normal3 &n, const SRGBA &c) noexcept
 			: p(p), n(n), c(c) {}
 
 		/**
@@ -664,8 +675,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalColor(
-			const VertexPositionNormalColor &vertex) = default;
+		constexpr VertexPositionNormalColor(
+			const VertexPositionNormalColor &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -673,8 +684,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalColor(
-			VertexPositionNormalColor &&vertex) = default;
+		constexpr VertexPositionNormalColor(
+			VertexPositionNormalColor &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -693,8 +704,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionNormalColor &operator=(
-			const VertexPositionNormalColor &vertex) = default;
+		constexpr VertexPositionNormalColor &operator=(
+			const VertexPositionNormalColor &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -703,8 +714,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalColor &operator=(
-			VertexPositionNormalColor &&vertex) = default;
+		constexpr VertexPositionNormalColor &operator=(
+			VertexPositionNormalColor &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -794,7 +805,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionNormalTexture() = default;
+		constexpr VertexPositionNormalTexture() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -806,8 +817,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionNormalTexture(
-			const Point3 &p, const Normal3 &n, const UV &tex)
+		constexpr explicit VertexPositionNormalTexture(
+			const Point3 &p, const Normal3 &n, const UV &tex) noexcept
 			: p(p), n(n), tex(tex) {}
 
 		/**
@@ -816,8 +827,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalTexture(
-			const VertexPositionNormalTexture &vertex) = default;
+		constexpr VertexPositionNormalTexture(
+			const VertexPositionNormalTexture &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -825,8 +836,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalTexture(
-			VertexPositionNormalTexture &&vertex) = default;
+		constexpr VertexPositionNormalTexture(
+			VertexPositionNormalTexture &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -845,8 +856,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionNormalTexture &operator=(
-			const VertexPositionNormalTexture &vertex) = default;
+		constexpr VertexPositionNormalTexture &operator=(
+			const VertexPositionNormalTexture &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -855,8 +866,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalTexture &operator=(
-			VertexPositionNormalTexture &&vertex) = default;
+		constexpr VertexPositionNormalTexture &operator=(
+			VertexPositionNormalTexture &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -947,7 +958,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionColorTexture() = default;
+		constexpr VertexPositionColorTexture() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -959,8 +970,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionColorTexture(
-			const Point3 &p, const SRGBA &c, const UV &tex)
+		constexpr explicit VertexPositionColorTexture(
+			const Point3 &p, const SRGBA &c, const UV &tex) noexcept
 			: p(p), c(c), tex(tex) {}
 
 		/**
@@ -969,8 +980,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionColorTexture(
-			const VertexPositionColorTexture &vertex) = default;
+		constexpr VertexPositionColorTexture(
+			const VertexPositionColorTexture &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -978,8 +989,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionColorTexture(
-			VertexPositionColorTexture &&vertex) = default;
+		constexpr VertexPositionColorTexture(
+			VertexPositionColorTexture &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -998,8 +1009,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionColorTexture &operator=(
-			const VertexPositionColorTexture &vertex) = default;
+		constexpr VertexPositionColorTexture &operator=(
+			const VertexPositionColorTexture &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -1008,8 +1019,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionColorTexture &operator=(
-			VertexPositionColorTexture &&vertex) = default;
+		constexpr VertexPositionColorTexture &operator=(
+			VertexPositionColorTexture &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1100,7 +1111,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionNormalColorTexture() = default;
+		VertexPositionNormalColorTexture() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -1114,8 +1125,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionNormalColorTexture(
-			const Point3 &p, const Normal3 &n, const SRGBA &c, const UV &tex)
+		constexpr explicit VertexPositionNormalColorTexture(
+			const Point3 &p, const Normal3 &n, const SRGBA &c, const UV &tex) noexcept
 			: p(p), n(n), c(c), tex(tex) {}
 
 		/**
@@ -1124,8 +1135,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalColorTexture(
-			const VertexPositionNormalColorTexture &vertex) = default;
+		constexpr VertexPositionNormalColorTexture(
+			const VertexPositionNormalColorTexture &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -1133,8 +1144,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalColorTexture(
-			VertexPositionNormalColorTexture &&vertex) = default;
+		constexpr VertexPositionNormalColorTexture(
+			VertexPositionNormalColorTexture &&vertex) noexcept = default;
 
 		/**
 		 Destructs this vertex.
@@ -1153,8 +1164,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionNormalColorTexture &operator=(
-			const VertexPositionNormalColorTexture &vertex) = default;
+		constexpr VertexPositionNormalColorTexture &operator=(
+			const VertexPositionNormalColorTexture &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -1163,8 +1174,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalColorTexture &operator=(
-			VertexPositionNormalColorTexture &&vertex) = default;
+		constexpr VertexPositionNormalColorTexture &operator=(
+			VertexPositionNormalColorTexture &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1260,7 +1271,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		VertexPositionTextureTexture() = default;
+		constexpr VertexPositionTextureTexture() noexcept = default;
 
 		/**
 		 Constructs a vertex.
@@ -1274,8 +1285,8 @@ namespace mage {
 						A reference to the second texture coordinates of the 
 						vertex.
 		 */
-		explicit VertexPositionTextureTexture(
-			const Point3 &p, const UV &tex, const UV &tex2)
+		constexpr explicit VertexPositionTextureTexture(
+			const Point3 &p, const UV &tex, const UV &tex2) noexcept
 			: p(p), tex(tex), tex2(tex2) {}
 
 		/**
@@ -1284,8 +1295,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionTextureTexture(
-			const VertexPositionTextureTexture &vertex) = default;
+		constexpr VertexPositionTextureTexture(
+			const VertexPositionTextureTexture &vertex) noexcept = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -1293,8 +1304,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionTextureTexture(
-			VertexPositionTextureTexture &&vertex) = default;
+		constexpr VertexPositionTextureTexture(
+			VertexPositionTextureTexture &&vertex) noexcept = default;
 		
 		/**
 		 Destructs this vertex.
@@ -1313,8 +1324,8 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		VertexPositionTextureTexture &operator=(
-			const VertexPositionTextureTexture &vertex) = default;
+		constexpr VertexPositionTextureTexture &operator=(
+			const VertexPositionTextureTexture &vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -1323,8 +1334,8 @@ namespace mage {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionTextureTexture &operator=(
-			VertexPositionTextureTexture &&vertex) = default;
+		constexpr VertexPositionTextureTexture &operator=(
+			VertexPositionTextureTexture &&vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables

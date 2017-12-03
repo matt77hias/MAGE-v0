@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		args
 						The variable argument list.
 		 */
-		explicit FormattedException(const char * format, va_list args);
+		explicit FormattedException(const char *format, va_list args);
 
 		/**
 		 Constructs a formatted exception from the given formatted exception.

@@ -26,7 +26,8 @@ namespace mage {
 		Assert(device);
 	}
 
-	SpriteFontReader::SpriteFontReader(SpriteFontReader &&reader) = default;
+	SpriteFontReader::SpriteFontReader(
+		SpriteFontReader &&reader) noexcept = default;
 
 	SpriteFontReader::~SpriteFontReader() = default;
 

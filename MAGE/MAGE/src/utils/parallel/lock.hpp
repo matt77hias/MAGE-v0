@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Constructs a mutex.
 		 */
-		Mutex();
+		Mutex() noexcept;
 
 		/**
 		 Constructs a mutex from the given mutex.
@@ -48,7 +48,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to the mutex to move.
 		 */
-		Mutex(Mutex &&mutex) = default;
+		Mutex(Mutex &&mutex) noexcept = default;
 
 		/**
 		 Destructs this mutex.
@@ -115,7 +115,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to the mutex.
 		 */
-		explicit MutexLock(Mutex &mutex);
+		explicit MutexLock(Mutex &mutex) noexcept;
 
 		/**
 		 Constructs a mutex lock from the given mutex lock.
@@ -131,7 +131,7 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to move.
 		 */
-		MutexLock(MutexLock &&mutex_lock) = default;
+		MutexLock(MutexLock &&mutex_lock) noexcept = default;
 
 		/**
 		 Destructs this mutex lock.
@@ -192,7 +192,7 @@ namespace mage {
 		/**
 		 Constructs a read write mutex.
 		 */
-		ReadWriteMutex();
+		ReadWriteMutex() noexcept;
 
 		/**
 		 Constructs a read write mutex from the given read write mutex.
@@ -208,7 +208,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to the read write mutex to move.
 		 */
-		ReadWriteMutex(ReadWriteMutex &&mutex) = default;
+		ReadWriteMutex(ReadWriteMutex &&mutex) noexcept = default;
 
 		/**
 		 Destructs this read write mutex.
@@ -342,7 +342,8 @@ namespace mage {
 		 @param[in]		lock_type
 						The lock type.
 		 */
-		explicit ReadWriteMutexLock(ReadWriteMutex &mutex, LockType lock_type);
+		explicit ReadWriteMutexLock(
+			ReadWriteMutex &mutex, LockType lock_type) noexcept;
 
 		/**
 		 Constructs a read write mutex lock from the given read write mutex 
@@ -360,7 +361,7 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to move.
 		 */
-		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) = default;
+		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) noexcept = default;
 
 		/**
 		 Destructs this read write mutex lock.
@@ -442,7 +443,7 @@ namespace mage {
 		/**
 		 Constructs a semaphore.
 		 */
-		Semaphore();
+		Semaphore() noexcept;
 
 		/**
 		 Constructs a semaphore from the given semaphore.
@@ -458,7 +459,7 @@ namespace mage {
 		 @param[in]		semaphore
 						A reference to the semaphore to move.
 		 */
-		Semaphore(Semaphore &&semaphore) = default;
+		Semaphore(Semaphore &&semaphore) noexcept = default;
 
 		/**
 		 Destructs this semaphore.
@@ -550,7 +551,7 @@ namespace mage {
 		/**
 		 Constructs a condition variable.
 		 */
-		ConditionVariable();
+		ConditionVariable() noexcept;
 
 		/**
 		 Constructs a condition variable from the given condition variable.
@@ -569,7 +570,7 @@ namespace mage {
 						A reference to the condition variable to move.
 		 */
 		ConditionVariable(
-			ConditionVariable &&condition_variable) = default;
+			ConditionVariable &&condition_variable) noexcept = default;
 
 		/**
 		 Destructs this condition variable.

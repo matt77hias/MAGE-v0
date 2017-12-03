@@ -17,7 +17,7 @@ namespace mage {
 	// Mutex
 	//-------------------------------------------------------------------------
 	
-	Mutex::Mutex() {
+	Mutex::Mutex() noexcept {
 		// Initialize a critical section object.
 		InitializeCriticalSection(&m_critical_section);
 	}
@@ -31,7 +31,7 @@ namespace mage {
 	// MutexLock
 	//-------------------------------------------------------------------------
 	
-	MutexLock::MutexLock(Mutex &mutex)
+	MutexLock::MutexLock(Mutex &mutex) noexcept
 		: m_mutex(mutex) {
 		// Wait for ownership of the specified critical section object. 
 		// The function returns when the calling thread is granted ownership.
@@ -47,8 +47,8 @@ namespace mage {
 	// ReadWriteMutex
 	//-------------------------------------------------------------------------
 	
-	ReadWriteMutex::ReadWriteMutex() : 
-		m_nb_writers_waiting(0), 
+	ReadWriteMutex::ReadWriteMutex() noexcept 
+		: m_nb_writers_waiting(0), 
 		m_nb_readers_waiting(0), 
 		m_active_writer_readers(0), 
 		m_ready_to_read_handle(nullptr), 
@@ -293,7 +293,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, 
-		LockType lock_type)
+		LockType lock_type) noexcept
 		: m_type(lock_type), m_mutex(mutex) {
 		
 		if (m_type == LockType::Read) {
@@ -331,7 +331,7 @@ namespace mage {
 	// Semaphore
 	//-------------------------------------------------------------------------
 	
-	Semaphore::Semaphore() 
+	Semaphore::Semaphore() noexcept
 		: m_handle(nullptr) {
 		
 		// Creates or opens an unnamed semaphore object.
@@ -387,7 +387,7 @@ namespace mage {
 	// ConditionVariable
 	//-------------------------------------------------------------------------
 	
-	ConditionVariable::ConditionVariable()
+	ConditionVariable::ConditionVariable() noexcept
 		: m_nb_waiters(0) {
 
 		// Initialize the critical section objects

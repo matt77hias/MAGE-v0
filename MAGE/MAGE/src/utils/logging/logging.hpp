@@ -46,7 +46,8 @@ namespace mage {
 		 @param[in]		verbose
 						Flag indicating whether verbose logging is preferred.
 		 */
-		explicit LoggingConfiguration(bool quiet = false, bool verbose = false)
+		constexpr explicit LoggingConfiguration(
+			bool quiet = false, bool verbose = false) noexcept
 			: m_quiet(quiet), m_verbose(verbose) {}
 
 		/**
@@ -56,8 +57,8 @@ namespace mage {
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to copy.
 		 */
-		LoggingConfiguration(
-			const LoggingConfiguration &logging_configuration) = default;
+		constexpr LoggingConfiguration(
+			const LoggingConfiguration &logging_configuration) noexcept = default;
 
 		/**
 		 Constructs a logging configuration by moving the given logging 
@@ -66,8 +67,8 @@ namespace mage {
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to move.
 		 */
-		LoggingConfiguration(
-			LoggingConfiguration &&logging_configuration) = default;
+		constexpr LoggingConfiguration(
+			LoggingConfiguration &&logging_configuration) noexcept = default;
 
 		/**
 		 Destructs this logging configuration.
@@ -86,8 +87,8 @@ namespace mage {
 		 @return		A reference to the copy of the given logging 
 						configuration (i.e. this logging configuration).
 		 */
-		LoggingConfiguration &operator=(
-			const LoggingConfiguration &logging_configuration) = default;
+		constexpr LoggingConfiguration &operator=(
+			const LoggingConfiguration &logging_configuration) noexcept = default;
 
 		/**
 		 Moves the given logging configuration to this logging configuration.
@@ -97,8 +98,8 @@ namespace mage {
 		 @return		A reference to the moved logging configuration (i.e. 
 						this logging configuration).
 		 */
-		LoggingConfiguration &operator=(
-			LoggingConfiguration &&logging_configuration) = default;
+		constexpr LoggingConfiguration &operator=(
+			LoggingConfiguration &&logging_configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -110,7 +111,7 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is 
 						quiet. @c false otherwise.
 		 */
-		bool IsQuiet() const noexcept {
+		constexpr bool IsQuiet() const noexcept {
 			return m_quiet;
 		}
 
@@ -120,7 +121,7 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is 
 						verbose. @c false otherwise.
 		 */
-		bool IsVerbose() const noexcept {
+		constexpr bool IsVerbose() const noexcept {
 			return m_verbose;
 		}
 

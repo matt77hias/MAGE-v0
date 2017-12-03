@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the VAR reader to move.
 		 */
-		VARReader(VARReader &&reader);
+		VARReader(VARReader &&reader) noexcept;
 
 		/**
 		 Destructs this VAR reader.

@@ -58,7 +58,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the single-ended memory stack to move.
 		 */
-		SingleEndedMemoryStack(SingleEndedMemoryStack &&stack);
+		SingleEndedMemoryStack(SingleEndedMemoryStack &&stack) noexcept;
 		
 		/**
 		 Destructs this single-ended memory stack.
@@ -669,7 +669,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the double-ended memory stack to move.
 		 */
-		DoubleEndedMemoryStack(DoubleEndedMemoryStack &&stack);
+		DoubleEndedMemoryStack(DoubleEndedMemoryStack &&stack) noexcept;
 		
 		/**
 		 Destructs this double-ended memory stack.

@@ -58,7 +58,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MSH writer to move.
 		 */
-		MSHWriter(MSHWriter &&writer);
+		MSHWriter(MSHWriter &&writer) noexcept;
 
 		/**
 		 Destructs this MSH writer.

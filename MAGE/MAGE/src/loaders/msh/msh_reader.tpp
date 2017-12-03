@@ -23,7 +23,8 @@ namespace mage {
 		m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >
-	MSHReader< VertexT, IndexT >::MSHReader(MSHReader &&reader) = default;
+	MSHReader< VertexT, IndexT >::MSHReader(
+		MSHReader &&reader) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >::~MSHReader() = default;

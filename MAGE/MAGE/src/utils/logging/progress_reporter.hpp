@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		progress_reporter
 						A reference to the progress reporter to move.
 		 */
-		ProgressReporter(ProgressReporter &&progress_reporter);
+		ProgressReporter(ProgressReporter &&progress_reporter) noexcept;
 
 		/**
 		 Destructs this progress reporter.

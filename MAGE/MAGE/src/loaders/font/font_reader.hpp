@@ -55,7 +55,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the FONT reader to move.
 		 */
-		SpriteFontReader(SpriteFontReader &&reader);
+		SpriteFontReader(SpriteFontReader &&reader) noexcept;
 
 		/**
 		 Destructs this FONT reader.

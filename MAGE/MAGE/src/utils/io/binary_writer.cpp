@@ -17,7 +17,7 @@ namespace mage {
 		m_fname() {}
 
 	BigEndianBinaryWriter::BigEndianBinaryWriter(
-		BigEndianBinaryWriter &&writer) = default;
+		BigEndianBinaryWriter &&writer) noexcept = default;
 
 	BigEndianBinaryWriter::~BigEndianBinaryWriter() = default;
 

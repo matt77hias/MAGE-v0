@@ -18,7 +18,7 @@ namespace mage {
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VARWriter::VARWriter(VARWriter &&writer) = default;
+	VARWriter::VARWriter(VARWriter &&writer) noexcept = default;
 
 	VARWriter::~VARWriter() = default;
 

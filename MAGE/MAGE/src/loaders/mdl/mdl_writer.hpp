@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MDL writer to move.
 		 */
-		MDLWriter(MDLWriter &&writer);
+		MDLWriter(MDLWriter &&writer) noexcept;
 
 		/**
 		 Destructs this MDL writer.

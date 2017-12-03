@@ -23,7 +23,7 @@ namespace mage {
 		m_model_output(model_output) {}
 
 	template < typename VertexT >
-	MDLWriter< VertexT >::MDLWriter(MDLWriter &&writer) = default;
+	MDLWriter< VertexT >::MDLWriter(MDLWriter &&writer) noexcept = default;
 
 	template < typename VertexT >
 	MDLWriter< VertexT >::~MDLWriter() = default;

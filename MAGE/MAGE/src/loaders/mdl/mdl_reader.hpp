@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MDL reader to move.
 		 */
-		MDLReader(MDLReader &&reader);
+		MDLReader(MDLReader &&reader) noexcept;
 
 		/**
 		 Destructs this MDL reader.

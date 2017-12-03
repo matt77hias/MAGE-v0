@@ -38,7 +38,7 @@ namespace mage {
 	}
 
 	ProgressReporter::ProgressReporter(
-		ProgressReporter &&progress_reporter) = default;
+		ProgressReporter &&progress_reporter) noexcept = default;
 
 	ProgressReporter::~ProgressReporter() = default;
 

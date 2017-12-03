@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the OBJ reader to move.
 		 */
-		OBJReader(OBJReader &&reader);
+		OBJReader(OBJReader &&reader) noexcept;
 
 		/**
 		 Destructs this OBJ reader.

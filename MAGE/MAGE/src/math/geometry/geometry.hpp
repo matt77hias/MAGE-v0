@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A reference to the copy of the given set of UV texture 
 						coordinates (i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV &operator=(const UV &uv) = default;
+		constexpr UV &operator=(const UV &uv) noexcept = default;
 		
 		/**
 		 Moves the given set of UV texture coordinates to this set of texture 
@@ -106,7 +106,7 @@ namespace mage {
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV &operator=(UV &&uv) = default;
+		constexpr UV &operator=(UV &&uv) noexcept = default;
 	};
 
 	static_assert(sizeof(UV) == sizeof(F32x2));
@@ -189,7 +189,7 @@ namespace mage {
 		 @return		A reference to the copy of the given point (i.e. this 
 						point).
 		 */
-		constexpr Point3 &operator=(const Point3 &point) = default;
+		constexpr Point3 &operator=(const Point3 &point) noexcept = default;
 		
 		/**
 		 Moves the given point to this point.
@@ -198,7 +198,7 @@ namespace mage {
 						A reference to the point to move.
 		 @return		A reference to the moved point (i.e. this point).
 		 */
-		constexpr Point3 &operator=(Point3 &&point) = default;
+		constexpr Point3 &operator=(Point3 &&point) noexcept = default;
 	};
 
 	static_assert(sizeof(Point3) == sizeof(F32x3));
@@ -285,7 +285,7 @@ namespace mage {
 		 @return		A reference to the copy of the given normal (i.e. this 
 						normal).
 		 */
-		constexpr Normal3 &operator=(const Normal3 &normal) = default;
+		constexpr Normal3 &operator=(const Normal3 &normal) noexcept = default;
 		
 		/**
 		 Moves the given normal to this normal.
@@ -294,7 +294,7 @@ namespace mage {
 						A reference to the normal to move.
 		 @return		A reference to the moved normal (i.e. this normal).
 		 */
-		constexpr Normal3 &operator=(Normal3 &&normal) = default;
+		constexpr Normal3 &operator=(Normal3 &&normal) noexcept = default;
 	};
 
 	static_assert(sizeof(Normal3) == sizeof(F32x3));
@@ -386,7 +386,8 @@ namespace mage {
 		 @return		A reference to the copy of the given direction (i.e. 
 						this direction).
 		 */
-		constexpr Direction3 &operator=(const Direction3 &direction) = default;
+		constexpr Direction3 &operator=(
+			const Direction3 &direction) noexcept = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -395,7 +396,8 @@ namespace mage {
 						A reference to the direction to move.
 		 @return		A reference to the moved direction (i.e. this direction).
 		 */
-		constexpr Direction3 &operator=(Direction3 &&direction) = default;
+		constexpr Direction3 &operator=(
+			Direction3 &&direction) noexcept = default;
 	};
 
 	static_assert(sizeof(Direction3) == sizeof(F32x3));

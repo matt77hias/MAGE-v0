@@ -145,7 +145,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the binary reader to move.
 		 */
-		BinaryReader(BinaryReader &&reader);
+		BinaryReader(BinaryReader &&reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -419,7 +419,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the big endian binary reader to move.
 		 */
-		BigEndianBinaryReader(BigEndianBinaryReader &&reader);
+		BigEndianBinaryReader(BigEndianBinaryReader &&reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

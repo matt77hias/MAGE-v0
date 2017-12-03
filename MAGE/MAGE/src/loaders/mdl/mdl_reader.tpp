@@ -24,7 +24,7 @@ namespace mage {
 		m_model_output(model_output) {}
 
 	template < typename VertexT >
-	MDLReader< VertexT >::MDLReader(MDLReader &&reader) = default;
+	MDLReader< VertexT >::MDLReader(MDLReader &&reader) noexcept = default;
 
 	template < typename VertexT >
 	MDLReader< VertexT >::~MDLReader() = default;

@@ -61,7 +61,7 @@ namespace mage {
 		m_end(nullptr), 
 		m_data() {}
 
-	BinaryReader::BinaryReader(BinaryReader &&reader) = default;
+	BinaryReader::BinaryReader(BinaryReader &&reader) noexcept = default;
 
 	BinaryReader::~BinaryReader() = default;
 
@@ -236,7 +236,7 @@ namespace mage {
 		m_data() {}
 
 	BigEndianBinaryReader::BigEndianBinaryReader(
-		BigEndianBinaryReader &&reader) = default;
+		BigEndianBinaryReader &&reader) noexcept = default;
 
 	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
 

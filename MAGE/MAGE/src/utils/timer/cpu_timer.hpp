@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		timer
 						A reference to the CPU timer to copy.
 		 */
-		CPUTimer(const CPUTimer &timer) = default;
+		CPUTimer(const CPUTimer &timer) noexcept = default;
 
 		/**
 		 Constructs a CPU timer by moving the given CPU timer.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		timer
 						A reference to the CPU timer to move.
 		 */
-		CPUTimer(CPUTimer &&timer) = default;
+		CPUTimer(CPUTimer &&timer) noexcept = default;
 
 		/**
 		 Destructs this CPU timer.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given CPU timer (i.e. 
 						this CPU timer).
 		 */
-		CPUTimer &operator=(const CPUTimer &timer) = default;
+		CPUTimer &operator=(const CPUTimer &timer) noexcept = default;
 
 		/**
 		 Moves the given CPU timer to this CPU timer.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the moved CPU timer (i.e. this CPU 
 						timer).
 		 */
-		CPUTimer &operator=(CPUTimer &&timer) = default;
+		CPUTimer &operator=(CPUTimer &&timer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

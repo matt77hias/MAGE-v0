@@ -19,7 +19,7 @@ namespace mage {
 		: LineReader(), 
 		m_material_buffer(material_buffer) {}
 
-	MTLReader::MTLReader(MTLReader &&reader) = default;
+	MTLReader::MTLReader(MTLReader &&reader) noexcept = default;
 
 	MTLReader::~MTLReader() = default;
 

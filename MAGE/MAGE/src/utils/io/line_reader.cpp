@@ -22,7 +22,7 @@ namespace mage {
 		m_delimiters(g_default_delimiters), 
 		m_line_number(0) {}
 
-	LineReader::LineReader(LineReader &&reader) = default;
+	LineReader::LineReader(LineReader &&reader) noexcept = default;
 
 	LineReader::~LineReader() = default;
 

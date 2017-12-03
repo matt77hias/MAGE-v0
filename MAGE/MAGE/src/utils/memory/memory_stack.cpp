@@ -33,7 +33,7 @@ namespace mage {
 	}
 
 	SingleEndedMemoryStack::SingleEndedMemoryStack(
-		SingleEndedMemoryStack &&stack) = default;
+		SingleEndedMemoryStack &&stack) noexcept = default;
 
 	SingleEndedMemoryStack::~SingleEndedMemoryStack() {
 		FreeAligned(reinterpret_cast< void * >(m_begin));
@@ -82,7 +82,7 @@ namespace mage {
 	}
 
 	DoubleEndedMemoryStack::DoubleEndedMemoryStack(
-		DoubleEndedMemoryStack &&stack) = default;
+		DoubleEndedMemoryStack &&stack) noexcept = default;
 
 	DoubleEndedMemoryStack::~DoubleEndedMemoryStack() {
 		FreeAligned(reinterpret_cast< void * >(m_begin));

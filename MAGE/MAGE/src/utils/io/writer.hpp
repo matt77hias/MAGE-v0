@@ -101,7 +101,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to move.
 		 */
-		Writer(Writer &&writer);
+		Writer(Writer &&writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

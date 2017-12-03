@@ -23,7 +23,8 @@ namespace mage {
 		m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >
-	MSHWriter< VertexT, IndexT >::MSHWriter(MSHWriter &&writer) = default;
+	MSHWriter< VertexT, IndexT >::MSHWriter(
+		MSHWriter &&writer) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MSHWriter< VertexT, IndexT >::~MSHWriter() = default;

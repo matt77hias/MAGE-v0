@@ -114,7 +114,7 @@ namespace mage {
 		 @return		A reference to the copy of the given RGB spectrum (i.e. 
 						this RGB spectrum).
 		 */
-		constexpr RGB &operator=(const RGB &rgb) = default;
+		constexpr RGB &operator=(const RGB &rgb) noexcept = default;
 
 		/**
 		 Moves the given RGB spectrum to this RGB spectrum.
@@ -124,7 +124,7 @@ namespace mage {
 		 @return		A reference to the moved RGB spectrum (i.e. this RGB 
 						spectrum).
 		 */
-		constexpr RGB &operator=(RGB &&rgb) = default;
+		constexpr RGB &operator=(RGB &&rgb) noexcept = default;
 	};
 
 	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
@@ -219,7 +219,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sRGB spectrum (i.e. 
 						this sRGB spectrum).
 		 */
-		constexpr SRGB &operator=(const SRGB &srgb) = default;
+		constexpr SRGB &operator=(const SRGB &srgb) noexcept = default;
 
 		/**
 		 Moves the given sRGB spectrum to this sRGB spectrum.
@@ -229,7 +229,7 @@ namespace mage {
 		 @return		A reference to the moved sRGB spectrum (i.e. this sRGB 
 						spectrum).
 		 */
-		constexpr SRGB &operator=(SRGB &&srgb) = default;
+		constexpr SRGB &operator=(SRGB &&srgb) noexcept = default;
 	};
 
 	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
@@ -324,7 +324,7 @@ namespace mage {
 		 @return		A reference to the copy of the given XYZ spectrum (i.e. 
 						this XYZ spectrum).
 		 */
-		constexpr XYZ &operator=(const XYZ &xyz) = default;
+		constexpr XYZ &operator=(const XYZ &xyz) noexcept = default;
 
 		/**
 		 Moves the given XYZ spectrum to this XYZ spectrum.
@@ -334,7 +334,7 @@ namespace mage {
 		 @return		A reference to the moved XYZ spectrum (i.e. this XYZ 
 						spectrum).
 		 */
-		constexpr XYZ &operator=(XYZ &&xyz) = default;
+		constexpr XYZ &operator=(XYZ &&xyz) noexcept = default;
 	};
 
 	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
@@ -454,7 +454,7 @@ namespace mage {
 		 @return		A reference to the copy of the given RGBA spectrum 
 						(i.e. this RGBA spectrum).
 		 */
-		constexpr RGBA &operator=(const RGBA &rgba) = default;
+		constexpr RGBA &operator=(const RGBA &rgba) noexcept = default;
 
 		/**
 		 Moves the given RGBA spectrum to this RGBA spectrum.
@@ -464,7 +464,7 @@ namespace mage {
 		 @return		A reference to the moved RGBA spectrum (i.e. this RGBA 
 						spectrum).
 		 */
-		constexpr RGBA &operator=(RGBA &&rgba) = default;
+		constexpr RGBA &operator=(RGBA &&rgba) noexcept = default;
 	};
 
 	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
@@ -572,7 +572,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sRGBA spectrum 
 						(i.e. this sRGBA spectrum).
 		 */
-		constexpr SRGBA &operator=(const SRGBA &rgba) = default;
+		constexpr SRGBA &operator=(const SRGBA &rgba) noexcept = default;
 
 		/**
 		 Moves the given sRGBA spectrum to this sRGBA spectrum.
@@ -582,7 +582,7 @@ namespace mage {
 		 @return		A reference to the moved sRGBA spectrum (i.e. this sRGBA 
 						spectrum).
 		 */
-		constexpr SRGBA &operator=(SRGBA &&rgba) = default;
+		constexpr SRGBA &operator=(SRGBA &&rgba) noexcept = default;
 	};
 
 	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
@@ -690,7 +690,7 @@ namespace mage {
 		 @return		A reference to the copy of the given XYZA spectrum 
 						(i.e. this XYZA spectrum).
 		 */
-		constexpr XYZA &operator=(const XYZA &xyza) = default;
+		constexpr XYZA &operator=(const XYZA &xyza) noexcept = default;
 
 		/**
 		 Moves the given XYZA spectrum to this XYZA spectrum.
@@ -700,7 +700,7 @@ namespace mage {
 		 @return		A reference to the moved XYZA spectrum (i.e. this 
 						XYZA spectrum).
 		 */
-		constexpr XYZA &operator=(XYZA &&xyza) = default;
+		constexpr XYZA &operator=(XYZA &&xyza) noexcept = default;
 	};
 
 	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");

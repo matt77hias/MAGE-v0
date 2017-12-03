@@ -59,7 +59,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MSH reader to move.
 		 */
-		MSHReader(MSHReader &&reader);
+		MSHReader(MSHReader &&reader) noexcept;
 
 		/**
 		 Destructs this MSH reader.

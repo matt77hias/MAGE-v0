@@ -132,7 +132,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to move.
 		 */
-		LineReader(LineReader &&reader);
+		LineReader(LineReader &&reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

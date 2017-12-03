@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the VAR writer to move.
 		 */
-		VARWriter(VARWriter &&writer);
+		VARWriter(VARWriter &&writer) noexcept;
 
 		/**
 		 Destructs this VAR writer.

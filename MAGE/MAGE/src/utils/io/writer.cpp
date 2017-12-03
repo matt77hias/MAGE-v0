@@ -18,7 +18,7 @@ namespace mage {
 		: m_file_stream(nullptr), 
 		m_fname() {}
 
-	Writer::Writer(Writer &&writer) = default;
+	Writer::Writer(Writer &&writer) noexcept = default;
 
 	Writer::~Writer() = default;
 

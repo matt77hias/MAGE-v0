@@ -41,7 +41,7 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		device_context
 					A pointer to the device context.
-	 @param[out]	texture_srv
+	 @param[out]	texture
 					A pointer to the texture.
 	 @throws		FormattedException
 					Failed to export the texture to file.

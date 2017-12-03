@@ -210,7 +210,7 @@ namespace mage {
 		 @return		@c nullptr if no variable with the name @a name exists 
 						in this variable script.
 		 @return		A pointer to the value of the variable.
-		 @throws		@c std::bad_variant_access
+		 @throws		std::bad_variant_access
 						The variable corresponding to the given name has a 
 						different type.
 		 */

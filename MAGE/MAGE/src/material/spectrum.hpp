@@ -715,7 +715,7 @@ namespace mage {
 	/**
 	 Converts the given spectrum from (linear) RGB to sRGB space.
 
-	 @param[in]		linear
+	 @param[in]		rgb
 					The spectrum in (linear) RGB space.
 	 @return		The spectrum in sRGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
@@ -780,7 +780,7 @@ namespace mage {
 	/**
 	 Converts the given spectrum from (linear) RGB to XYZ space.
 
-	 @param[in]		linear
+	 @param[in]		rgb
 					The spectrum in (linear) RGB space.
 	 @return		The spectrum in XYZ space.
 	 @note			The alpha channel of the given spectrum is preserved.

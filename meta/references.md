@@ -126,6 +126,10 @@ KARIS B.: [*Tone Mapping*](http://graphicrants.blogspot.be/2013/12/tone-mapping.
 
 KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conference on Computer Graphics and Interactive Techniques*, 1986.
 
+KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.
+
+KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflection2.html), 2017.
+
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
 
 KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspot.be/2012/11/maximizing-depth-buffer-range-and.html), 2012.

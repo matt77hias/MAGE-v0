@@ -220,6 +220,10 @@ SPIRO L.: [*Scene Graphs*](http://lspiroengine.com/?p=566), 2013.
 
 TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/content/basics-gpu-voxelization), 2015.
 
+THOMPSON A.: [*Archetype System*](http://www.ademolathompson.com/archetypesystem/), s.d.
+
+THOMPSON A.: [*Archetype System 2.0*](http://www.ademolathompson.com/archetypesystem-20/), s.d.
+
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
 
 TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
@@ -273,6 +277,7 @@ Uses:
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
+* Ademola Thompson
 * AthosVG
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)

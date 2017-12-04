@@ -20,6 +20,10 @@
 
 ## Bibliography
 
+ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
+
+ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
+
 ANTE J.: [*Writing High Performance C# Scripts*](https://www.youtube.com/watch?v=tGmnZdY5Y-E), 2017.
 
 A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github.com/ampas/aces-dev), 2011.

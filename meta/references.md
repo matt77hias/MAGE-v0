@@ -273,6 +273,7 @@ Uses:
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
+* [Finalspace](https://github.com/f1nalspace)
 * Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
 * JoeJ

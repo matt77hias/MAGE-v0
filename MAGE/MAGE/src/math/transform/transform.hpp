@@ -6,7 +6,6 @@
 #pragma region
 
 #include "math\math_utils.hpp"
-#include "math\transform\coordinate_system.hpp"
 
 #pragma endregion
 
@@ -997,28 +996,6 @@ namespace mage {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
 		
-		/**
-		 Returns the local Cartesian axes system of this transform in object 
-		 space coordinates.
-
-		 @return		The local Cartesian axes system of this transform 
-						expressed in object space coordinates.
-		 */
-		const CartesianAxesSystem GetObjectAxes() const noexcept {
-			return CartesianAxesSystem(GetObjectAxisX(), GetObjectAxisY(), GetObjectAxisZ());
-		}
-		
-		/**
-		 Returns the local Cartesian coordinate system of this transform in 
-		 object space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform 
-						expressed in object space coordinates.
-		 */
-		const CartesianCoordinateSystem GetObjectCoordinateSystem() const noexcept {
-			return CartesianCoordinateSystem(GetObjectOrigin(), GetObjectAxes());
-		}
-		
 		//---------------------------------------------------------------------
 		// Member Methods: Parent Space
 		//---------------------------------------------------------------------
@@ -1067,30 +1044,6 @@ namespace mage {
 			return TransformObjectToParentDirection(GetObjectAxisZ());
 		}
 		
-		/**
-		 Returns the local Cartesian axes system of this transform expressed in 
-		 parent space coordinates.
-
-		 @return		The local Cartesian axes system of this transform 
-						expressed in parent space coordinates.
-		 */
-		const CartesianAxesSystem GetParentAxes() const noexcept {
-			return CartesianAxesSystem(GetParentAxisX(), 
-				                       GetParentAxisY(), 
-				                       GetParentAxisZ());
-		}
-		
-		/**
-		 Returns the local Cartesian coordinate system of this transform in 
-		 parent space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform 
-						expressed in parent space coordinates.
-		 */
-		const CartesianCoordinateSystem GetParentCoordinateSystem() const noexcept {
-			return CartesianCoordinateSystem(GetParentOrigin(), GetParentAxes());
-		}
-
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------

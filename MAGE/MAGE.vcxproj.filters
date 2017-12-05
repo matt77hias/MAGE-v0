@@ -1146,11 +1146,11 @@
     <ClInclude Include="MAGE\src\math\transform\sprite_transform.hpp">
       <Filter>Header Files\math\transform</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\coordinate_system.hpp">
-      <Filter>Header Files\math\transform</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable.hpp">
       <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\math\transform\basis.hpp">
+      <Filter>Header Files\math\transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

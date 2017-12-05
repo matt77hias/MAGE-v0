@@ -952,28 +952,6 @@ namespace mage {
 			return m_transform.GetObjectAxisZ();
 		}
 		
-		/**
-		 Returns the local Cartesian axes system of this transform node in 
-		 object space coordinates.
-
-		 @return		The local Cartesian axes system of this transform 
-						node expressed in object space coordinates.
-		 */
-		const CartesianAxesSystem GetObjectAxes() const noexcept {
-			return m_transform.GetObjectAxes();
-		}
-		
-		/**
-		 Returns the local Cartesian coordinate system of this transform node 
-		 in object space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform 
-						node expressed in object space coordinates.
-		 */
-		const CartesianCoordinateSystem GetObjectCoordinateSystem() const noexcept {
-			return m_transform.GetObjectCoordinateSystem();
-		}
-		
 		//---------------------------------------------------------------------
 		// Member Methods: Parent Space
 		//---------------------------------------------------------------------
@@ -1022,28 +1000,6 @@ namespace mage {
 			return m_transform.GetParentAxisZ();
 		}
 		
-		/**
-		 Returns the local Cartesian axes system of this transform node 
-		 expressed in parent space coordinates.
-
-		 @return		The local Cartesian axes system of this transform 
-						node expressed in parent space coordinates.
-		 */
-		const CartesianAxesSystem GetParentAxes() const noexcept {
-			return m_transform.GetParentAxes();
-		}
-		
-		/**
-		 Returns the local Cartesian coordinate system of this transform node 
-		 in parent space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform 
-						node expressed in parent space coordinates.
-		 */
-		const CartesianCoordinateSystem GetParentCoordinateSystem() const noexcept {
-			return m_transform.GetParentCoordinateSystem();
-		}
-
 		//---------------------------------------------------------------------
 		// Member Methods: World Space
 		//---------------------------------------------------------------------
@@ -1090,30 +1046,6 @@ namespace mage {
 		 */
 		const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
 			return TransformObjectToWorld(GetObjectAxisZ());
-		}
-
-		/**
-		 Returns the local Cartesian axes system of this transform node 
-		 expressed in world space coordinates.
-
-		 @return		The local Cartesian axes system of this transform node 
-						expressed in world space coordinates.
-		 */
-		const CartesianAxesSystem GetWorldAxes() const noexcept {
-			return CartesianAxesSystem(GetWorldAxisX(), 
-				                       GetWorldAxisY(), 
-				                       GetWorldAxisZ());
-		}
-
-		/**
-		 Returns the local Cartesian coordinate system of this transform node 
-		 in world space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform 
-						node expressed in world space coordinates.
-		 */
-		const CartesianCoordinateSystem GetWorldCoordinateSystem() const noexcept {
-			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
 		}
 
 		//---------------------------------------------------------------------

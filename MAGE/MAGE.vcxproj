@@ -93,7 +93,7 @@
     <ClInclude Include="MAGE\src\math\sampling\qmc.hpp" />
     <ClInclude Include="MAGE\src\math\sampling\rng.hpp" />
     <ClInclude Include="MAGE\src\math\sampling\sampling.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\coordinate_system.hpp" />
+    <ClInclude Include="MAGE\src\math\transform\basis.hpp" />
     <ClInclude Include="MAGE\src\math\transform\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform\texture_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform\transform.hpp" />

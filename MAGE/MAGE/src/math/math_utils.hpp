@@ -24,6 +24,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Angles
+	//-------------------------------------------------------------------------
+
 	/**
 	 Clamps the given angle (in degrees) to [-180, 180].
 
@@ -98,6 +102,10 @@ namespace mage {
 		return std::clamp(ClampAngleRadians(angle), min_angle, max_angle);
 	}
 	
+	//-------------------------------------------------------------------------
+	// Packing
+	//-------------------------------------------------------------------------
+
 	/**
 	 Returns the projection values from the given projection matrix to construct 
 	 the NDC position z-coordinate from the view position z-coordinate.

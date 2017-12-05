@@ -301,19 +301,19 @@ namespace mage {
 
 		if constexpr(VertexT::HasPosition()) {
 			if (vertex_indices.m_x) {
-				vertex.p = m_vertex_coordinates[vertex_indices.m_x - 1];
+				vertex.m_p = m_vertex_coordinates[vertex_indices.m_x - 1];
 			}
 		}
 
 		if constexpr(VertexT::HasTexture()) {
 			if (vertex_indices.m_y) {
-				vertex.tex = m_vertex_texture_coordinates[vertex_indices.m_y - 1];
+				vertex.m_tex = m_vertex_texture_coordinates[vertex_indices.m_y - 1];
 			}
 		}
 
 		if constexpr(VertexT::HasNormal()) {
 			if (vertex_indices.m_z) {
-				vertex.n = m_vertex_normal_coordinates[vertex_indices.m_z - 1];
+				vertex.m_n = m_vertex_normal_coordinates[vertex_indices.m_z - 1];
 			}
 		}
 

@@ -80,14 +80,14 @@ namespace mage {
 		
 		for (size_t i = start; i < end; ++i) {
 			const VertexT &v  = m_vertex_buffer[m_index_buffer[i]];
-			model_part.m_aabb = Union(model_part.m_aabb, v);
+			model_part.m_aabb = AABB::Union(model_part.m_aabb, v);
 		}
 
-		model_part.m_bs.m_p = model_part.m_aabb.Centroid();
+		model_part.m_bs = BS(model_part.m_aabb.Centroid());
 
 		for (size_t i = start; i < end; ++i) {
 			const VertexT &v = m_vertex_buffer[m_index_buffer[i]];
-			model_part.m_bs  = Union(model_part.m_bs, v);
+			model_part.m_bs  = BS::Union(model_part.m_bs, v);
 		}
 	}
 }

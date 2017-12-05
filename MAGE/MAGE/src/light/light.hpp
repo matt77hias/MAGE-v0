@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of lights.
 	 */
-	class Light {
+	class alignas(16) Light {
 
 	public:
 

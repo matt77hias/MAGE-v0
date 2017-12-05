@@ -93,7 +93,7 @@ namespace mage {
 	/**
 	 A class of perspective cameras.
 	 */
-	class PerspectiveCamera final : public Camera {
+	class alignas(16) PerspectiveCamera final : public Camera {
 
 	public:
 

@@ -433,15 +433,15 @@ namespace mage {
 			// is an F32x3. This is faster, and harmless as we are just clobbering the 
 			// first element of the following color field, which will immediately be 
 			// overwritten with its correct value.
-			XMStoreFloat4(reinterpret_cast< F32x4 * >(&vertices[i].p), position);
+			XMStoreFloat4(reinterpret_cast< F32x4 * >(&vertices[i].m_p), position);
 
 			// Write the color.
-			XMStoreFloat4(&vertices[i].c, color);
+			XMStoreFloat4(&vertices[i].m_c, color);
 
 			// Compute and write the texture coordinate.
 			const XMVECTOR texture_coordinate 
 				= XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
-			XMStoreFloat2(&vertices[i].tex, texture_coordinate);
+			XMStoreFloat2(&vertices[i].m_tex, texture_coordinate);
 		}
 	}
 }

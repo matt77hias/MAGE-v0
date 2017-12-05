@@ -14,8 +14,8 @@ namespace mage {
 
 	Light::Light() noexcept
 		: m_base_color(SRGB(1.0f)),
-		m_aabb(MaximumAABB()),
-		m_bs(MaximumBS()) {}
+		m_aabb(AABB::Maximum()),
+		m_bs(BS::Maximum()) {}
 
 	Light::Light(const Light &light) noexcept = default;
 	

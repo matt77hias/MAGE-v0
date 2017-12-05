@@ -91,7 +91,7 @@ namespace mage {
 						A reference to the position of the vertex.
 		 */
 		constexpr explicit VertexPosition(const Point3 &p) noexcept
-			: p(p) {}
+			: m_p(p) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -146,7 +146,7 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -229,7 +229,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionNormal(
 			const Point3 &p, const Normal3 &n) noexcept
-			: p(p), n(n) {}
+			: m_p(p), m_n(n) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -286,12 +286,12 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The normal of this vertex.
 		 */
-		Normal3 n;
+		Normal3 m_n;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -374,7 +374,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionColor(
 			const Point3 &p, const SRGBA &c) noexcept
-			: p(p), c(c) {}
+			: m_p(p), m_c(c) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -431,12 +431,12 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The sRGB color of this vertex.
 		 */
-		SRGBA c;
+		SRGBA m_c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -519,7 +519,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionTexture(
 			const Point3 &p, const UV &tex) noexcept
-			: p(p), tex(tex) {}
+			: m_p(p), m_tex(tex) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -576,12 +576,12 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The texture coordinates of this vertex.
 		 */
-		UV tex;
+		UV m_tex;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -667,7 +667,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionNormalColor(
 			const Point3 &p, const Normal3 &n, const SRGBA &c) noexcept
-			: p(p), n(n), c(c) {}
+			: m_p(p), m_n(n), m_c(c) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -724,17 +724,17 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The normal of this vertex.
 		 */
-		Normal3 n;
+		Normal3 m_n;
 
 		/**
 		 The sRGB color of this vertex.
 		 */
-		SRGBA c;
+		SRGBA m_c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -819,7 +819,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionNormalTexture(
 			const Point3 &p, const Normal3 &n, const UV &tex) noexcept
-			: p(p), n(n), tex(tex) {}
+			: m_p(p), m_n(n), m_tex(tex) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -876,17 +876,17 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The normal of this vertex.
 		 */
-		Normal3 n;
+		Normal3 m_n;
 
 		/**
 		 The texture coordinates of this vertex.
 		 */
-		UV tex;
+		UV m_tex;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -972,7 +972,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionColorTexture(
 			const Point3 &p, const SRGBA &c, const UV &tex) noexcept
-			: p(p), c(c), tex(tex) {}
+			: m_p(p), m_c(c), m_tex(tex) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -1029,17 +1029,17 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The sRGB color of this vertex.
 		 */
-		SRGBA c;
+		SRGBA m_c;
 
 		/**
 		 The texture coordinates of this vertex.
 		 */
-		UV tex;
+		UV m_tex;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -1127,7 +1127,7 @@ namespace mage {
 		 */
 		constexpr explicit VertexPositionNormalColorTexture(
 			const Point3 &p, const Normal3 &n, const SRGBA &c, const UV &tex) noexcept
-			: p(p), n(n), c(c), tex(tex) {}
+			: m_p(p), m_n(n), m_c(c), m_tex(tex) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -1184,22 +1184,22 @@ namespace mage {
 		/**
 		 The position of this vertex.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The normal of this vertex.
 		 */
-		Normal3 n;
+		Normal3 m_n;
 
 		/**
 		 The sRGB color of this vertex.
 		 */
-		SRGBA c;
+		SRGBA m_c;
 
 		/**
 		 The texture coordinates of this vertex.
 		 */
-		UV tex;
+		UV m_tex;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -1209,161 +1209,6 @@ namespace mage {
 		 The number of elements in the input element descriptor of a vertex.
 		 */
 		static const size_t s_nb_input_elements = 4;
-
-		/**
-		 The input element descriptor of a vertex.
-		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
-	};
-
-	/**
-	 A struct of vertices containing position coordinates and two sets of 
-	 texture coordinates.
-	 */
-	struct VertexPositionTextureTexture final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether vertices have a position.
-
-		 @return		@c true if vertices have a position. @c false otherwise.
-		 */
-		static constexpr bool HasPosition() noexcept {
-			return true;
-		}
-
-		/**
-		 Checks whether vertices have a normal.
-
-		 @return		@c true if vertices have a normal. @c false otherwise.
-		 */
-		static constexpr bool HasNormal() noexcept {
-			return true;
-		}
-
-		/**
-		 Checks whether vertices have a texture.
-
-		 @return		@c true if vertices have a texture. @c false otherwise.
-		 */
-		static constexpr bool HasTexture() noexcept {
-			return true;
-		}
-
-		/**
-		 Checks whether vertices have a color.
-
-		 @return		@c true if vertices have a color. @c false otherwise.
-		 */
-		static constexpr bool HasColor() noexcept {
-			return false;
-		}
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a vertex.
-		 */
-		constexpr VertexPositionTextureTexture() noexcept = default;
-
-		/**
-		 Constructs a vertex.
-
-		 @param[in]		p
-						A reference to the position of the vertex.
-		 @param[in]		tex
-						A reference to the first texture coordinates of the 
-						vertex.
-		 @param[in]		tex2
-						A reference to the second texture coordinates of the 
-						vertex.
-		 */
-		constexpr explicit VertexPositionTextureTexture(
-			const Point3 &p, const UV &tex, const UV &tex2) noexcept
-			: p(p), tex(tex), tex2(tex2) {}
-
-		/**
-		 Constructs a vertex from the given vertex.
-
-		 @param[in]		vertex
-						A reference to the vertex to copy.
-		 */
-		constexpr VertexPositionTextureTexture(
-			const VertexPositionTextureTexture &vertex) noexcept = default;
-
-		/**
-		 Constructs a vertex by moving the given vertex.
-
-		 @param[in]		vertex
-						A reference to the vertex to move.
-		 */
-		constexpr VertexPositionTextureTexture(
-			VertexPositionTextureTexture &&vertex) noexcept = default;
-		
-		/**
-		 Destructs this vertex.
-		 */
-		~VertexPositionTextureTexture() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given vertex to this vertex.
-
-		 @param[in]		vertex
-						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
-						vertex).
-		 */
-		constexpr VertexPositionTextureTexture &operator=(
-			const VertexPositionTextureTexture &vertex) noexcept = default;
-
-		/**
-		 Moves the given vertex to this vertex.
-
-		 @param[in]		vertex
-						A reference to the vertex to move.
-		 @return		A reference to the moved vertex (i.e. this vertex).
-		 */
-		constexpr VertexPositionTextureTexture &operator=(
-			VertexPositionTextureTexture &&vertex) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The position of this vertex.
-		 */
-		Point3 p;
-
-		/**
-		 The first texture coordinates of this vertex.
-		 */
-		UV tex;
-
-		/**
-		 The second texture coordinates of this vertex.
-		 */
-		UV tex2;
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The number of elements in the input element descriptor of a vertex.
-		 */
-		static const size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.

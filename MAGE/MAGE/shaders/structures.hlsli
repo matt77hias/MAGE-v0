@@ -77,16 +77,6 @@ struct VSInputPositionNormalColorTexture {
 	float2 tex    : TEXCOORD0;
 };
 
-/**
- A vertex shader input struct of vertices having a position and two pairs of 
- texture coordinates.
- */
-struct VSInputPositionTextureTexture {
-	float3 p      : POSITION0;
-	float2 tex    : TEXCOORD0;
-	float2 tex2   : TEXCOORD1;
-};
-
 //-----------------------------------------------------------------------------
 // PS Input Structures
 //-----------------------------------------------------------------------------

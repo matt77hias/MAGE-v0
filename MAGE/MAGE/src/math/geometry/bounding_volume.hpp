@@ -37,24 +37,82 @@ namespace mage {
 	 @c FullCoverage.
 	 */
 	enum struct Coverage {
-		NoCoverage,		 // No coverage (i.e. no overlap)
-		PartialCoverage, // Partial coverage (i.e. intersection, overlap)
-		FullCoverage	 // Full coverage (i.e. enclosing, overlap)
+		NoCoverage,		 // No coverage      (i.e. no overlap)
+		PartialCoverage, // Partial coverage (i.e. overlap + not enclosing)
+		FullCoverage	 // Full coverage    (i.e. overlap + enclosing)
 	};
 
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
+#pragma region
 
 	// Forward declaration.
-	struct AABB;
+	class AABB;
 
 	/**
 	 A struct of Bounding Spheres (BS).
 	 */
-	struct BS final {
+	class alignas(16) BS final {
 
 	public:
+
+		//-------------------------------------------------------------------------
+		// Class Member Methods
+		//-------------------------------------------------------------------------
+
+		/**
+		 Returns the union BS of the given BS and the given point.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @param[in]		point
+						A reference to the point.
+		 @return		The union BS of @a bs and @a point.
+		 */
+		static const BS Union(const BS &bs, const Point3 &point) noexcept {
+			return Union(bs, XMLoadFloat3(&point));
+		}
+
+		/**
+		 Returns the union BS of the given BS and the given vertex.
+
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		bs
+						A reference to the BS.
+		 @param[in]		vertex
+						A reference to the VertexT.
+		 @return		The union BS of @a bs and @a vertex.
+		 */
+		template< typename VertexT >
+		static const BS Union(const BS &bs, const VertexT &vertex) noexcept {
+			return Union(bs, vertex.m_p);
+		}
+
+		/**
+		 Returns the union BS of the given BS and the given point.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @param[in]		point
+						The point.
+		 @return		The union BS of @a bs and @a point.
+		 */
+		static const BS XM_CALLCONV Union(const BS &bs, FXMVECTOR point) noexcept {
+			const XMVECTOR length = XMVector3Length(point - bs.m_pr);
+			const F32 radius = std::max(bs.Radius(), XMVectorGetX(length));
+			return BS(bs.m_pr, radius);
+		}
+
+		/**
+		 Returns the maximum BS (i.e. invariant for union operations).
+
+		 @return		The maximum BS.
+		 */
+		static const BS Maximum() noexcept {
+			return BS(g_XMZero, std::numeric_limits< float >::infinity());
+		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -63,8 +121,8 @@ namespace mage {
 		/**
 		 Constructs a BS.
 		 */
-		constexpr BS() noexcept
-			: m_p(), m_r(0.0f) {}
+		BS() noexcept
+			: m_pr(g_XMZero) {}
 
 		/**
 		 Constructs a BS of the given point.
@@ -72,8 +130,17 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		constexpr explicit BS(const Point3 &p) noexcept
-			: m_p(p), m_r(0.0f) {}
+		explicit BS(const Point3 &p) noexcept 
+			: BS(p, 0.0f) {}
+
+		/**
+		 Constructs a BS of the given point.
+
+		 @param[in]		p
+						The point.
+		 */
+		explicit BS(FXMVECTOR p) noexcept
+			: BS(p, 0.0f) {}
 
 		/**
 		 Constructs a BS.
@@ -83,8 +150,19 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		constexpr explicit BS(const Point3 &p, F32 r) noexcept
-			: m_p(p), m_r(r) {}
+		BS(const Point3 &p, F32 r) noexcept
+			: BS(XMLoadFloat3(&p), r) {}
+
+		/**
+		 Constructs a BS.
+
+		 @param[in]		p
+						The position.
+		 @param[in]		r
+						The radius.
+		 */
+		BS(FXMVECTOR p, F32 r) noexcept
+			: m_pr(XMVectorSetW(p, r)) {}
 
 		/**
 		 Constructs a BS from the given AABB.
@@ -100,7 +178,7 @@ namespace mage {
 		 @param[in]		bs
 						A reference to the bs.
 		 */
-		constexpr BS(const BS &bs) noexcept = default;
+		BS(const BS &bs) noexcept = default;
 
 		/**
 		 Constructs a BS from the given BS.
@@ -108,7 +186,7 @@ namespace mage {
 		 @param[in]		bs
 						A reference to the bs.
 		 */
-		constexpr BS(BS &&bs) noexcept = default;
+		BS(BS &&bs) noexcept = default;
 
 		/**
 		 Destructs this BS.
@@ -126,7 +204,7 @@ namespace mage {
 						A reference to the BS to copy from.
 		 @return		A reference to the copy of the given BS (i.e. this BS).
 		 */
-		constexpr BS &operator=(const BS &bs) noexcept = default;
+		BS &operator=(const BS &bs) noexcept = default;
 
 		/**
 		 Copies the given BS to this BS.
@@ -135,19 +213,28 @@ namespace mage {
 						A reference to the BS to copy from.
 		 @return		A reference to the copy of the given BS (i.e. this BS).
 		 */
-		constexpr BS &operator=(BS &&bs) noexcept = default;
+		BS &operator=(BS &&bs) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the centroid of this AABB.
+		 Returns the centroid of this BS.
 
-		 @return		The centroid of this AABB.
+		 @return		The centroid of this BS.
 		 */
-		constexpr const Point3 Centroid() const noexcept {
-			return m_p;
+		const XMVECTOR Centroid() const noexcept {
+			return XMVectorSetW(m_pr, 1.0f);
+		}
+
+		/**
+		 Returns the radius of this BS.
+
+		 @return		The radius of this BS.
+		 */
+		F32 Radius() const noexcept {
+			return XMVectorGetW(m_pr);
 		}
 
 		//---------------------------------------------------------------------
@@ -164,7 +251,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool Encloses(const Point3 &point) const noexcept;
+		bool Encloses(const Point3 &point) const noexcept {
+			return Encloses(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given point.
@@ -176,7 +265,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool EnclosesStrict(const Point3 &point) const noexcept;
+		bool EnclosesStrict(const Point3 &point) const noexcept {
+			return EnclosesStrict(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this BS completely encloses the given point.
@@ -188,7 +279,10 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept {
+			const XMVECTOR length = XMVector3Length(point - m_pr);
+			return XMVectorGetX(length) <= Radius();
+		}
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given point.
@@ -200,7 +294,10 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a BS.
 		 */
-		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept {
+			const XMVECTOR length = XMVector3Length(point - m_pr);
+			return XMVectorGetX(length) < Radius();
+		}
 
 		/**
 		 Checks whether this BS completely encloses the given AABB.
@@ -251,70 +348,169 @@ namespace mage {
 		bool EnclosesStrict(const BS &bs) const noexcept;
 
 		//---------------------------------------------------------------------
+		// Member Methods: Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether the given BS is equal to this BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if the given BS is equal to this BS.
+						@c false otherwise.
+		 */
+		bool operator==(const BS &bs) const noexcept {
+			return XMVector4Equal(m_pr, bs.m_pr);
+		}
+
+		/**
+		 Checks whether the given BS is not equal to this BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if the given BS is equal to this BS.
+						@c false otherwise.
+		 */
+		bool operator!=(const BS &bs) const noexcept {
+			return !(*this == bs);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of this BS.
+		 The position and radus of this BS.
 		 */
-		Point3 m_p;
-
-		/**
-		 The radius of this BS.
-		 */
-		F32 m_r;
+		XMVECTOR m_pr;
 	};
 
-	//-------------------------------------------------------------------------
-	// Bounding Sphere: Non-Members
-	//-------------------------------------------------------------------------
-
-	/**
-	 Returns the union BS of the given BS and the given point.
-
-	 @param[in]		bs
-					A reference to the BS.
-	 @param[in]		point
-					A reference to the point.
-	 @return		The union BS of @a bs and @a point.
-	 */
-	const BS Union(const BS &bs, const Point3 &point) noexcept;
-
-	/**
-	 Returns the union BS of the given BS and the given vertex.
-
-	 @tparam		VertexT
-					The vertex type.
-	 @param[in]		bs
-					A reference to the BS.
-	 @param[in]		vertex
-					A reference to the VertexT.
-	 @return		The union BS of @a bs and @a vertex.
-	 */
-	template< typename VertexT >
-	inline const BS Union(const BS &bs, const VertexT &vertex) noexcept {
-		return Union(bs, vertex.p);
-	}
-
-	/**
-	 Returns the maximum BS (i.e. invariant for union operations).
-
-	 @return		The maximum BS.
-	 */
-	inline const BS MaximumBS() noexcept {
-		return BS(Point3(), std::numeric_limits< float >::infinity());
-	}
+#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Axis-Aligned Bounding Box
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 A struct of Axis-Aligned Bounding Boxes (AABBs).
 	 */
-	struct AABB final {
+	class alignas(16) AABB final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the union AABB of the given AABB and the given point.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		point
+						A reference to the point.
+		 @return		The union AABB of @a aabb and @a point.
+		 */
+		static const AABB Union(const AABB &aabb, const Point3 &point) noexcept {
+			return Union(aabb, XMLoadFloat3(&point));
+		}
+
+		/**
+		 Returns the union AABB of the given AABB and the given vertex.
+
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		vertex
+						A reference to the VertexT.
+		 @return		The union AABB of @a aabb and @a vertex.
+		*/
+		template< typename VertexT >
+		static const AABB Union(const AABB &aabb, const VertexT &vertex) noexcept {
+			return Union(aabb, vertex.m_p);
+		}
+
+		/**
+		 Returns the union AABB of the given AABB and the given point.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		point
+						A reference to the point.
+		 @return		The union AABB of @a aabb and @a point.
+		 */
+		static const AABB XM_CALLCONV Union(const AABB &aabb, FXMVECTOR point) noexcept {
+			return Union(aabb, AABB(point));
+		}
+
+		/**
+		 Returns the union AABB of the two given AABBs.
+
+		 @param[in]		aabb1
+						A reference to the first AABB.
+		 @param[in]		aabb2
+						A reference to the second AABB.
+		 @return		The union AABB of @a aabb1 and @a aabb2.
+		 */
+		static const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept {
+			const XMVECTOR p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
+			const XMVECTOR p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
+			return AABB(p_min, p_max);
+		}
+	
+		/**
+		 Returns the overlap AABB of the two given AABBs.
+
+		 @param[in]		aabb1
+						A reference to the first AABB.
+		 @param[in]		aabb2
+						A reference to the second AABB.
+		 @return		The identity AABB in case of no overlap.
+		 @return		The overlap AABB of @a aabb1 and @a aabb2.
+		 */
+		static const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
+			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
+			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
+			return aabb1.Overlaps(aabb2) ? AABB(p_min, p_max) : AABB();
+		}
+	
+		/**
+		 Returns the strict overlap AABB of the two given AABBs.
+
+		 @param[in]		aabb1
+						A reference to the first AABB.
+		 @param[in]		aabb2
+						A reference to the second AABB.
+		 @return		The identity AABB in case of no strict overlap.
+		 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
+		 */
+		static const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
+			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
+			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
+			return aabb1.OverlapsStrict(aabb2) ? AABB(p_min, p_max) : AABB();
+		}
+	
+		/**
+		 Returns the minimum AABB (i.e. variant for union operations).
+
+		 @return		The minimum AABB.
+		 */
+		static const AABB Minimum() noexcept {
+			return AABB();
+		}
+
+		/**
+		 Returns the maximum AABB (i.e. invariant for union operations).
+
+		 @return		The maximum AABB.
+		 */
+		static const AABB Maximum() noexcept {
+			return AABB(-g_XMInfinity, g_XMInfinity);
+		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -323,13 +519,8 @@ namespace mage {
 		/**
 		 Constructs an (identity) AABB.
 		 */
-		constexpr AABB() noexcept
-			: m_p_min( std::numeric_limits< float >::infinity(),
-				       std::numeric_limits< float >::infinity(),
-				       std::numeric_limits< float >::infinity()),
-			  m_p_max(-std::numeric_limits< float >::infinity(),
-				      -std::numeric_limits< float >::infinity(),
-				      -std::numeric_limits< float >::infinity()) {}
+		AABB() noexcept 
+			: AABB(g_XMInfinity, -g_XMInfinity) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -337,20 +528,40 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		constexpr explicit AABB(const Point3 &p) noexcept
-			: m_p_min(p), m_p_max(p) {}
+		explicit AABB(const Point3 &p) noexcept
+			: AABB(XMLoadFloat3(&p)) {}
+
+		/**
+		 Constructs an AABB of the given point.
+
+		 @param[in]		p
+						The point.
+		 */
+		explicit AABB(FXMVECTOR p) noexcept
+			: AABB(p, p) {}
 
 		/**
 		 Constructs an AABB of the given extents.
 
-		 @pre			@a p_min is entrywise smaller or equal to @a p_max.
 		 @param[in]		p_min
 						A reference to the minimum extents.
 		 @param[in]		p_max
 						A reference to the maximum extents.
 		 */
-		constexpr explicit AABB(const Point3 &p_min, const Point3 &p_max) noexcept
-			: m_p_min(p_min), m_p_max(p_max) {}
+		AABB(const Point3 &p_min, const Point3 &p_max) noexcept
+			: AABB(XMLoadFloat3(&p_min), XMLoadFloat3(&p_max)) {}
+
+		/**
+		 Constructs an AABB of the given extents.
+
+		 @param[in]		p_min
+						The minimum extents.
+		 @param[in]		p_max
+						The maximum extents.
+		 */
+		AABB(FXMVECTOR p_min, FXMVECTOR p_max) noexcept
+			: m_min(XMVectorSetW(p_min, 1.0f)), 
+			  m_max(XMVectorSetW(p_max, 1.0f)) {}
 
 		/**
 		 Constructs an AABB from the given AABB.
@@ -358,7 +569,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to copy.
 		 */
-		constexpr AABB(const AABB &aabb) noexcept = default;
+		AABB(const AABB &aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB by moving the given AABB.
@@ -366,7 +577,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to move.
 		 */
-		constexpr AABB(AABB &&aabb) noexcept = default;
+		AABB(AABB &&aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB of the given BS.
@@ -374,13 +585,7 @@ namespace mage {
 		 @param[in]		bs
 						A reference to the BS.
 		 */
-		constexpr explicit AABB(const BS &bs) noexcept
-			: m_p_min(Point3(bs.m_p.m_x - bs.m_r,
-			                 bs.m_p.m_y - bs.m_r,
-			                 bs.m_p.m_z - bs.m_r)),
-			  m_p_max(Point3(bs.m_p.m_x + bs.m_r,
-				             bs.m_p.m_y + bs.m_r,
-				             bs.m_p.m_z + bs.m_r)) {}
+		explicit AABB(const BS &bs) noexcept;
 
 		/**
 		 Destructs this AABB.
@@ -399,7 +604,7 @@ namespace mage {
 		 @return		A reference to the copy of the given AABB (i.e. this 
 						AABB).
 		 */
-		constexpr AABB &operator=(const AABB &aabb) noexcept = default;
+		AABB &operator=(const AABB &aabb) noexcept = default;
 
 		/**
 		 Moves the given AABB to this AABB.
@@ -408,32 +613,98 @@ namespace mage {
 						A reference to the AABB to move.
 		 @return		A reference to the moved AABB (i.e. this AABB).
 		 */
-		constexpr AABB &operator=(AABB &&aabb) noexcept = default;
+		AABB &operator=(AABB &&aabb) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the minimum point of this AABB.
+ 
+		 @return		The minimum point of this AABB.
+		 */
+		const XMVECTOR MinPoint() const noexcept {
+			return m_min;
+		}
+
+		/**
+		 Returns the maximum point of this AABB.
+ 
+		 @return		The maximum point of this AABB.
+		 */
+		const XMVECTOR MaxPoint() const noexcept {
+			return m_max;
+		}
+
+		/**
+		 Returns the minimum point of this AABB along a given normal.
+
+		 @param[in]		n
+						The normal.
+		 @param[out]	pmin
+						A reference to the minimum point of this AABB along @a n.
+		 @param[out]	pmax
+						A reference to the maximum point of this AABB along @a n.
+		 */
+		void XM_CALLCONV MinAndMaxPointAlongNormal(FXMVECTOR n, 
+			XMVECTOR &pmin, XMVECTOR &pmax) const noexcept {
+			
+			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			pmin = XMVectorSelect(m_max, m_min, control);
+			pmax = XMVectorSelect(m_min, m_max, control);
+		}
+
+		/**
+		 Returns the minimum point of this AABB along a given normal.
+
+		 @param[in]		n
+						The normal.
+		 @return		The minimum point of this AABB along @a n.
+		 */
+		const XMVECTOR XM_CALLCONV MinPointAlongNormal(FXMVECTOR n) const noexcept {
+			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			return XMVectorSelect(m_max, m_min, control);
+		}
+
+		/**
+		 Returns the maximum point of this AABB along a given normal.
+
+		 @param[in]		n
+						The normal.
+		 @return		The minimum point of this AABB along @a n.
+		 */
+		const XMVECTOR XM_CALLCONV MaxPointAlongNormal(FXMVECTOR n) const noexcept {
+			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			return XMVectorSelect(m_min, m_max, control);
+		}
+
+		/**
 		 Returns the centroid of this AABB.
  
 		 @return		The centroid of this AABB.
 		 */
-		const Point3 Centroid() const noexcept;
+		const XMVECTOR Centroid() const noexcept {
+			return 0.5f * (m_min + m_max);
+		}
 
 		/**
 		 Returns the radius of this AABB.
 
 		 @return		The radius of this AABB.
 		 */
-		const Direction3 Radius() const noexcept;
+		const XMVECTOR Radius() const noexcept {
+			return 0.5f * (m_max - m_min);
+		}
 
 		/**
 		 Returns the diagonal of this AABB.
 
 		 @return		The diagonal of this AABB.
 		 */
-		const Direction3 Diagonal() const noexcept;
+		const XMVECTOR Diagonal() const noexcept {
+			return m_max - m_min;
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Enclosing = Full Coverage
@@ -449,7 +720,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool Encloses(const Point3 &point) const noexcept;
+		bool Encloses(const Point3 &point) const noexcept {
+			return Encloses(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given point.
@@ -461,7 +734,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool EnclosesStrict(const Point3 &point) const noexcept;
+		bool EnclosesStrict(const Point3 &point) const noexcept {
+			return EnclosesStrict(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this AABB completely encloses the given point.
@@ -473,7 +748,16 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept {
+			if (XMVector3Less(point, m_min)) {
+				return false;
+			}
+			if (XMVector3Greater(point, m_max)) {
+				return false;
+			}
+
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given point.
@@ -485,7 +769,16 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						an AABB.
 		 */
-		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept {
+			if (XMVector3LessOrEqual(point, m_min)) {
+				return false;
+			}
+			if (XMVector3GreaterOrEqual(point, m_max)) {
+				return false;
+			}
+
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB completely encloses the given AABB.
@@ -497,7 +790,16 @@ namespace mage {
 		 @note			This is a full coverage test of an AABB with regard to 
 						an AABB.
 		 */
-		bool Encloses(const AABB &aabb) const noexcept;
+		bool Encloses(const AABB &aabb) const noexcept {
+			if (!Encloses(aabb.m_min)) {
+				return false;
+			}
+			if (!Encloses(aabb.m_max)) {
+				return false;
+			}
+
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given AABB.
@@ -509,7 +811,16 @@ namespace mage {
 		 @note			This is a full coverage test of an AABB with regard to 
 						an AABB.
 		 */
-		bool EnclosesStrict(const AABB &aabb) const noexcept;
+		bool EnclosesStrict(const AABB &aabb) const noexcept {
+			if (!EnclosesStrict(aabb.m_min)) {
+				return false;
+			}
+			if (!EnclosesStrict(aabb.m_max)) {
+				return false;
+			}
+
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB completely encloses the given BS.
@@ -549,7 +860,17 @@ namespace mage {
 		 @note			This is a (partial or full) coverage test of an AABB 
 						with regard to an AABB.
 		 */
-		bool Overlaps(const AABB &aabb) const noexcept;
+		bool Overlaps(const AABB &aabb) const noexcept {
+			// Test for no coverage.
+			if (XMVector3Greater(aabb.m_min, m_max)) {
+				return false;
+			}
+			if (XMVector3Less(aabb.m_max, m_min)) {
+				return false;
+			}
+			
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB strictly overlaps the given AABB.
@@ -561,7 +882,17 @@ namespace mage {
 		 @note			This is a (partial or full) coverage test of an AABB 
 						with regard to an AABB.
 		 */
-		bool OverlapsStrict(const AABB &aabb) const noexcept;
+		bool OverlapsStrict(const AABB &aabb) const noexcept {
+			// Test for no coverage.
+			if (XMVector3GreaterOrEqual(aabb.m_min, m_max)) {
+				return false;
+			}
+			if (XMVector3LessOrEqual(aabb.m_max, m_min)) {
+				return false;
+			}
+
+			return true;
+		}
 
 		/**
 		 Checks whether this AABB overlaps the given BS.
@@ -588,64 +919,6 @@ namespace mage {
 		bool OverlapsStrict(const BS &bs) const noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Intersecting = Partial Coverage
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this AABB intersects the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		@c true if this AABB intersects @a point. @c false 
-						otherwise.
-		 @note			This is a partial coverage test of a point with regard 
-						to an AABB.
-		 */
-		bool Intersects(const Point3 &point, 
-			F32 epsilon = 0.0f) const noexcept;
-
-		/**
-		 Checks whether this AABB intersects the given point.
-
-		 @param[in]		point
-						The point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		@c true if this AABB intersects @a point. @c false
-						otherwise.
-		 @note			This is a partial coverage test of a point with regard 
-						to an AABB.
-		 */
-		bool XM_CALLCONV Intersects(FXMVECTOR point,
-			F32 epsilon = 0.0f) const noexcept;
-
-		/**
-		 Checks whether this AABB intersects the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this AABB intersects @a aabb. @c false 
-						otherwise.
-		 @note			This is a partial coverage test of an AABB with regard 
-						to an AABB.
-		 */
-		bool Intersects(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this AABB intersects the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB intersects @a bs. @c false 
-						otherwise.
-		 @note			This is a partial coverage test of a BS with regard to 
-						an AABB.
-		 */
-		bool Intersects(const BS &bs) const noexcept;
-
-		//---------------------------------------------------------------------
 		// Member Methods: Classification
 		//---------------------------------------------------------------------
 
@@ -658,8 +931,11 @@ namespace mage {
 						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
-		Coverage Classify(const Point3 &point, 
-			F32 epsilon = 0.0f) const noexcept;
+		Coverage Classify(const Point3 &point,
+			F32 epsilon = 0.0f) const noexcept {
+
+			return Classify(XMLoadFloat3(&point), epsilon);
+		}
 
 		/**
 		 Classifies the coverage of the given point with regard to this AABB.
@@ -671,7 +947,10 @@ namespace mage {
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
 		Coverage XM_CALLCONV Classify(FXMVECTOR point,
-			F32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept {
+
+			return Classify(BS(point, epsilon));
+		}
 
 		/**
 		 Classifies the coverage of the given AABB with regard to this AABB.
@@ -680,7 +959,10 @@ namespace mage {
 						A reference to the AABB.
 		 @return		The coverage of @a aabb with regard to this AABB.
 		 */
-		Coverage Classify(const AABB &aabb) const noexcept;
+		Coverage Classify(const AABB &aabb) const noexcept {
+			return Encloses(aabb) ? Coverage::FullCoverage : 
+				(Overlaps(aabb) ? Coverage::PartialCoverage : Coverage::NoCoverage);
+		}
 		
 		/**
 		 Classifies the coverage of the given BS with regard to this AABB.
@@ -689,7 +971,41 @@ namespace mage {
 						A reference to the BS.
 		 @return		The coverage of @a bs with regard to this AABB.
 		 */
-		Coverage Classify(const BS &bs) const noexcept;
+		Coverage Classify(const BS &bs) const noexcept {
+			return Encloses(bs) ? Coverage::FullCoverage :
+				(Overlaps(bs) ? Coverage::PartialCoverage : Coverage::NoCoverage);
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether the given AABB is equal to this AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if the given AABB is equal to this AABB.
+						@c false otherwise.
+		 */
+		bool operator==(const AABB &aabb) const noexcept {
+			return XMVector4Equal(m_min, aabb.m_min)
+				&& XMVector4Equal(m_max, aabb.m_max);
+		}
+
+		/**
+		 Checks whether the given AABB is not equal to this AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if the given AABB is equal to this AABB.
+						@c false otherwise.
+		 */
+		bool operator!=(const AABB &aabb) const noexcept {
+			return !(*this == aabb);
+		}
+
+	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -698,100 +1014,13 @@ namespace mage {
 		/**
 		 The minimum extents of this AABB.
 		 */
-		Point3 m_p_min;
+		XMVECTOR m_min;
 
 		/**
 		 The maximum extents of this AABB.
 		 */
-		Point3 m_p_max;
+		XMVECTOR m_max;
 	};
 
-	//-------------------------------------------------------------------------
-	// Axis-Aligned Bounding Box: Non-Members
-	//-------------------------------------------------------------------------
-
-	/**
-	 Returns the union AABB of the given AABB and the given point.
-
-	 @param[in]		aabb
-					A reference to the AABB.
-	 @param[in]		point
-					A reference to the point.
-	 @return		The union AABB of @a aabb and @a point.
-	 */
-	const AABB Union(const AABB &aabb, const Point3 &point) noexcept;
-
-	/**
-	 Returns the union AABB of the given AABB and the given vertex.
-
-	 @tparam		VertexT
-					The vertex type.
-	 @param[in]		aabb
-					A reference to the AABB.
-	 @param[in]		vertex
-					A reference to the VertexT.
-	 @return		The union AABB of @a aabb and @a vertex.
-	 */
-	template< typename VertexT >
-	inline const AABB Union(const AABB &aabb, const VertexT &vertex) noexcept {
-		return Union(aabb, vertex.p);
-	}
-	
-	/**
-	 Returns the union AABB of the two given AABBs.
-
-	 @param[in]		aabb1
-					A reference to the first AABB.
-	 @param[in]		aabb2
-					A reference to the second AABB.
-	 @return		The union AABB of @a aabb1 and @a aabb2.
-	 */
-	const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept;
-	
-	/**
-	 Returns the overlap AABB of the two given AABBs.
-
-	 @param[in]		aabb1
-					A reference to the first AABB.
-	 @param[in]		aabb2
-					A reference to the second AABB.
-	 @return		The identity AABB in case of no overlap.
-	 @return		The overlap AABB of @a aabb1 and @a aabb2.
-	 */
-	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept;
-	
-	/**
-	 Returns the strict overlap AABB of the two given AABBs.
-
-	 @param[in]		aabb1
-					A reference to the first AABB.
-	 @param[in]		aabb2
-					A reference to the second AABB.
-	 @return		The identity AABB in case of no strict overlap.
-	 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
-	 */
-	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept;
-	
-	/**
-	 Returns the minimum AABB (i.e. variant for union operations).
-
-	 @return		The minimum AABB.
-	 */
-	constexpr const AABB MinimumAABB() noexcept {
-		return AABB();
-	}
-
-	/**
-	 Returns the maximum AABB (i.e. invariant for union operations).
-
-	 @return		The maximum AABB.
-	 */
-	constexpr const AABB MaximumAABB() noexcept {
-		return AABB(Point3(-std::numeric_limits< float >::infinity(), 
-			               -std::numeric_limits< float >::infinity(), 
-			               -std::numeric_limits< float >::infinity()),
-					Point3( std::numeric_limits< float >::infinity(), 
-						    std::numeric_limits< float >::infinity(), 
-						    std::numeric_limits< float >::infinity()));
-	}
+#pragma endregion
 }

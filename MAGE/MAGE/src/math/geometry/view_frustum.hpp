@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A struct of view frustums.
 	 */
-	struct alignas(16) ViewFrustum final {
+	class alignas(16) ViewFrustum final {
 
 	public:
 
@@ -136,7 +136,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a view frustum.
 		 */
-		bool Encloses(const Point3 &point) const noexcept;
+		bool Encloses(const Point3 &point) const noexcept {
+			return Encloses(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this view frustum completely, strictly encloses the 
@@ -149,7 +151,9 @@ namespace mage {
 		 @note			This is a full coverage test of a point with regard to 
 						a view frustum.
 		 */
-		bool EnclosesStrict(const Point3 &point) const noexcept;
+		bool EnclosesStrict(const Point3 &point) const noexcept {
+			return EnclosesStrict(XMLoadFloat3(&point));
+		}
 
 		/**
 		 Checks whether this view frustum completely encloses the given point.
@@ -278,64 +282,6 @@ namespace mage {
 		bool OverlapsStrict(const BS &bs) const noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Intersecting = Partial Coverage
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this view frustum intersects the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		@c true if this view frustum intersects @a point.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a point with regard 
-						to a view frustum.
-		 */
-		bool Intersects(const Point3 &point, 
-			F32 epsilon = 0.0f) const noexcept;
-
-		/**
-		 Checks whether this view frustum intersects the given point.
-
-		 @param[in]		point
-						The point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		@c true if this view frustum intersects @a point.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a point with regard 
-						to a view frustum.
-		 */
-		bool XM_CALLCONV Intersects(FXMVECTOR point,
-			F32 epsilon = 0.0f) const noexcept;
-
-		/**
-		 Checks whether this view frustum intersects the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this view frustum intersects @a aabb.
-						@c false otherwise.
-		 @note			This is a partial coverage test of an AABB with regard 
-						to a view frustum.
-		 */
-		bool Intersects(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this view frustum intersects the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this view frustum intersects @a bs.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a BS with regard to 
-						a view frustum.
-		 */
-		bool Intersects(const BS &bs) const noexcept;
-
-		//---------------------------------------------------------------------
 		// Member Methods: Classification
 		//---------------------------------------------------------------------
 
@@ -350,8 +296,11 @@ namespace mage {
 		 @return		The coverage of @a point with regard to this view 
 						frustum.
 		 */
-		Coverage Classify(const Point3 &point, 
-			F32 epsilon = 0.0f) const noexcept;
+		Coverage Classify(const Point3 &point,
+			F32 epsilon = 0.0f) const noexcept {
+			
+			return Classify(XMLoadFloat3(&point), epsilon);
+		}
 
 		/**
 		 Classifies the coverage of the given point with regard to this view 
@@ -365,7 +314,10 @@ namespace mage {
 						frustum.
 		 */
 		Coverage XM_CALLCONV Classify(FXMVECTOR point,
-			F32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept {
+
+			return Classify(BS(point, epsilon));
+		}
 
 		/**
 		 Classifies the coverage of the given AABB with regard to this view 
@@ -376,7 +328,10 @@ namespace mage {
 		 @return		The coverage of @a aabb with regard to this view 
 						frustum.
 		 */
-		Coverage Classify(const AABB &aabb) const noexcept;
+		Coverage Classify(const AABB &aabb) const noexcept {
+			return Encloses(aabb) ? Coverage::FullCoverage :
+				(Overlaps(aabb) ? Coverage::PartialCoverage : Coverage::NoCoverage);
+		}
 
 		/**
 		 Classifies the coverage of the given BS with regard to this view 
@@ -386,7 +341,37 @@ namespace mage {
 						A reference to the BS.
 		 @return		The coverage of @a bs with regard to this view frustum.
 		 */
-		Coverage Classify(const BS &bs) const noexcept;
+		Coverage Classify(const BS &bs) const noexcept {
+			return Encloses(bs) ? Coverage::FullCoverage :
+				(Overlaps(bs) ? Coverage::PartialCoverage : Coverage::NoCoverage);
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether the given view frustum is equal to this view frustum.
+
+		 @param[in]		view_frustum
+						A reference to the view frustum.
+		 @return		@c true if the given view frustum is equal to this view 
+						frustum. @c false otherwise.
+		 */
+		bool operator==(const ViewFrustum &view_frustum) const noexcept;
+
+		/**
+		 Checks whether the given view frustum is not equal to this view 
+		 frustum.
+
+		 @param[in]		view_frustum
+						A reference to the view frustum.
+		 @return		@c true if the given view frustum is equal to this view 
+						frustum. @c false otherwise.
+		 */
+		bool operator!=(const ViewFrustum &view_frustum) const noexcept {
+			return !(*this == view_frustum);
+		}
 
 	private:
 

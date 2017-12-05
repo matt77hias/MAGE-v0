@@ -30,7 +30,7 @@ namespace mage {
 	/**
 	 A struct of model parts.
 	 */
-	struct ModelPart final {
+	struct alignas(16) ModelPart final {
 
 	public:
 

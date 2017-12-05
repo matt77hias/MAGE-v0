@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of models.
 	 */
-	class Model {
+	class alignas(16) Model {
 
 	public:
 

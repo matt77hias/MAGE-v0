@@ -28,7 +28,7 @@ namespace mage {
 	/**
 	 A class of cameras.
 	 */
-	class Camera {
+	class alignas(16) Camera {
 
 	public:
 

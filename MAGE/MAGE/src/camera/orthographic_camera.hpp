@@ -27,7 +27,7 @@ namespace mage {
 	/**
 	 A class of orthographic cameras.
 	 */
-	class OrthographicCamera final : public Camera {
+	class alignas(16) OrthographicCamera final : public Camera {
 
 	public:
 

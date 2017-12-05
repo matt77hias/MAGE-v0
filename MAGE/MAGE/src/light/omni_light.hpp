@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of omni lights.
 	 */
-	class OmniLight final : public Light {
+	class alignas(16) OmniLight final : public Light {
 
 	public:
 

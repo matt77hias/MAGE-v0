@@ -26,7 +26,7 @@ namespace mage::script {
 
 		explicit LocationScript(TransformNode *transform, SpriteText *text);
 		LocationScript(const LocationScript &script) = delete;
-		LocationScript(LocationScript &&script);
+		LocationScript(LocationScript &&script) noexcept;
 		virtual ~LocationScript();
 
 		//---------------------------------------------------------------------

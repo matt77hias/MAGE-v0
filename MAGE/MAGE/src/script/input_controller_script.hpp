@@ -36,7 +36,7 @@ namespace mage::script {
 
 		explicit InputControllerScript(TransformNode *transform);
 		InputControllerScript(const InputControllerScript &script) = delete;
-		InputControllerScript(InputControllerScript &&script);
+		InputControllerScript(InputControllerScript &&script) noexcept;
 		virtual ~InputControllerScript();
 
 		//---------------------------------------------------------------------

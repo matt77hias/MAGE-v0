@@ -26,7 +26,7 @@ namespace mage::script {
 
 		RenderModeScript(CameraSettings *settings);
 		RenderModeScript(const RenderModeScript &script) = delete;
-		RenderModeScript(RenderModeScript &&script);
+		RenderModeScript(RenderModeScript &&script) noexcept;
 		virtual ~RenderModeScript();
 
 		//---------------------------------------------------------------------

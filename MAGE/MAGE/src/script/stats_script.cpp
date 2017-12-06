@@ -15,8 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	const F64 StatsScript::s_resource_fetch_period = 1.0;
-
 	StatsScript::StatsScript(SpriteText *text)
 		: BehaviorScript(),
 		m_accumulated_time(0.0), m_accumulated_nb_frames(0),
@@ -29,7 +27,7 @@ namespace mage::script {
 		m_monitor->Start();
 	}
 
-	StatsScript::StatsScript(StatsScript &&script) = default;
+	StatsScript::StatsScript(StatsScript &&script) noexcept = default;
 	
 	StatsScript::~StatsScript() = default;
 

@@ -31,7 +31,8 @@ namespace mage::script {
 		Assert(m_transform);
 	}
 	
-	MouseLookScript::MouseLookScript(MouseLookScript &&script) = default;
+	MouseLookScript::MouseLookScript(
+		MouseLookScript &&script) noexcept = default;
 	
 	MouseLookScript::~MouseLookScript() = default;
 

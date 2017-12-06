@@ -19,7 +19,7 @@ namespace mage::script {
 		Assert(m_transform);
 	}
 
-	RotationScript::RotationScript(RotationScript &&script) = default;
+	RotationScript::RotationScript(RotationScript &&script) noexcept = default;
 
 	RotationScript::~RotationScript() = default;
 

@@ -26,7 +26,8 @@ namespace mage::script {
 		Clear();
 	}
 
-	TextConsoleScript::TextConsoleScript(TextConsoleScript &&script) = default;
+	TextConsoleScript::TextConsoleScript(
+		TextConsoleScript &&script) noexcept = default;
 
 	TextConsoleScript::~TextConsoleScript() = default;
 

@@ -36,7 +36,7 @@ namespace mage::script {
 			F32x2 maximum_rotation = {  XM_PI / 3.0f,  XM_PI },
 			F32x2 direction        = { 1.0f, 1.0f });
 		MouseLookScript(const MouseLookScript &script) = delete;
-		MouseLookScript(MouseLookScript &&script);
+		MouseLookScript(MouseLookScript &&script) noexcept;
 		virtual ~MouseLookScript();
 
 		//---------------------------------------------------------------------

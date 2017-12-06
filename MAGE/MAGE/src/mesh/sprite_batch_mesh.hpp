@@ -29,24 +29,24 @@ namespace mage {
 		 The minimum number of sprites to draw per batch for sprite batch 
 		 meshes.
 		 */
-		static const size_t s_min_sprites_per_batch = 128;
+		static constexpr size_t s_min_sprites_per_batch = 128;
 
 		/**
 		 The maximum number of sprites to draw per batch (i.e. the maximum 
 		 number of sprites that can be represented by a single sprite batch 
 		 mesh) for sprite batch meshes.
 		 */
-		static const size_t s_max_sprites_per_batch = 2048;
+		static constexpr size_t s_max_sprites_per_batch = 2048;
 		
 		/**
 		 The number of vertices per sprite.
 		 */
-		static const size_t s_vertices_per_sprite = 4; // quad = 2 triangles
+		static constexpr size_t s_vertices_per_sprite = 4; // quad = 2 triangles
 		
 		/**
 		 The number of indices per sprite.
 		 */
-		static const size_t s_indices_per_sprite = 6; // quad = 2 triangles
+		static constexpr size_t s_indices_per_sprite = 6; // quad = 2 triangles
 
 		//---------------------------------------------------------------------
 		// Class Member Methods

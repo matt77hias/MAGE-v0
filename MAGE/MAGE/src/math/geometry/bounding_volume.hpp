@@ -387,6 +387,8 @@ namespace mage {
 		XMVECTOR m_pr;
 	};
 
+	static_assert(16 == sizeof(BS));
+
 #pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -1021,6 +1023,8 @@ namespace mage {
 		 */
 		XMVECTOR m_max;
 	};
+
+	static_assert(32 == sizeof(AABB));
 
 #pragma endregion
 }

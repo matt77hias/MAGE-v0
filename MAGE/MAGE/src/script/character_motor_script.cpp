@@ -21,7 +21,7 @@ namespace mage::script {
 	}
 	
 	CharacterMotorScript::CharacterMotorScript(
-		CharacterMotorScript &&script) = default;
+		CharacterMotorScript &&script) noexcept = default;
 	
 	CharacterMotorScript::~CharacterMotorScript() = default;
 

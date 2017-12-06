@@ -1860,7 +1860,7 @@ namespace mage {
 		/**
 		 The globally unique identifier generator for nodes. 
 		 */
-		static IdGenerator s_guid_generator;
+		static inline IdGenerator s_guid_generator;
 
 		//---------------------------------------------------------------------
 		// Member Methods: State

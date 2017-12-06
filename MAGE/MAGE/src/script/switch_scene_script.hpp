@@ -27,7 +27,7 @@ namespace mage::script {
 
 		explicit SwitchSceneScript();
 		SwitchSceneScript(const SwitchSceneScript &script) = delete;
-		SwitchSceneScript(SwitchSceneScript &&script);
+		SwitchSceneScript(SwitchSceneScript &&script) noexcept;
 		virtual ~SwitchSceneScript();
 
 		//---------------------------------------------------------------------

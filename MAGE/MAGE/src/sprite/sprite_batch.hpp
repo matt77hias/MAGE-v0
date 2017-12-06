@@ -41,17 +41,17 @@ namespace mage {
 		 Mask indicating whether the source region of sprite info structures is 
 		 expressed in texels.
 		 */
-		static const U32 source_in_texels = 4u;
+		static constexpr U32 s_source_in_texels = 4u;
 
 		/**
 		 Mask indicating whether the destination of sprite info structures is 
 		 expressed in pixels.
 		 */
-		static const U32 destination_size_in_pixels = 8u;
+		static constexpr U32 s_destination_size_in_pixels = 8u;
 
 		static_assert(
 			(static_cast< U32 >(SpriteEffect::FlipBoth)
-				& (source_in_texels | destination_size_in_pixels)) == 0u, 
+				& (s_source_in_texels | s_destination_size_in_pixels)) == 0u, 
 			"Flag bits must not overlap");
 		
 		//---------------------------------------------------------------------

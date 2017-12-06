@@ -30,11 +30,17 @@ namespace mage {
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)), 
 		m_vertex_buffer_position(0),
 		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
-		m_viewport_set(false), m_viewport{}, 
-		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode::Deferred), 
-		m_transform(XMMatrixIdentity()), m_transform_buffer(device),
-		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
-		m_sorted_sprites(), m_sprite_srvs() {}
+		m_viewport_set(false), 
+		m_viewport{}, 
+		m_in_begin_end_pair(false), 
+		m_sort_mode(SpriteSortMode::Deferred), 
+		m_transform(XMMatrixIdentity()), 
+		m_transform_buffer(device),
+		m_sprite_queue(), 
+		m_sprite_queue_size(0), 
+		m_sprite_queue_array_size(0), 
+		m_sorted_sprites(), 
+		m_sprite_srvs() {}
 
 	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
 
@@ -92,12 +98,12 @@ namespace mage {
 
 			// If the destination size is relative to the source region, 
 			// convert it to pixels.
-			if (!(flags & SpriteInfo::destination_size_in_pixels)) {
+			if (!(flags & SpriteInfo::s_destination_size_in_pixels)) {
 				dst = XMVectorPermute< 0, 1, 6, 7 >(dst, dst * src);
 			}
 
-			flags |= SpriteInfo::source_in_texels 
-				   | SpriteInfo::destination_size_in_pixels;
+			flags |= SpriteInfo::s_source_in_texels 
+				   | SpriteInfo::s_destination_size_in_pixels;
 		}
 		else {
 			// No explicit source region, so use the entire texture.
@@ -366,7 +372,7 @@ namespace mage {
 		XMVECTOR origin                      = XMVectorDivide(origin_rotation_depth, non_zero_source_size);
 
 		// Convert the source region from texels to mod-1 texture coordinate format.
-		if (flags & SpriteInfo::source_in_texels) {
+		if (flags & SpriteInfo::s_source_in_texels) {
 			source      *= inverse_texture_size;
 			source_size *= inverse_texture_size;
 		}
@@ -374,7 +380,7 @@ namespace mage {
 			origin      *= inverse_texture_size;
 		}
 		// If the destination size is relative to the source region, convert it to pixels.
-		if (!(flags & SpriteInfo::destination_size_in_pixels)) {
+		if (!(flags & SpriteInfo::s_destination_size_in_pixels)) {
 			destination_size *= texture_size;
 		}
 

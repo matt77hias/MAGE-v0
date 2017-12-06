@@ -24,7 +24,7 @@ namespace mage::script {
 		// Class Member Variables
 		//---------------------------------------------------------------------
 
-		static const F64 s_resource_fetch_period;
+		static constexpr F64 s_resource_fetch_period = 1.0;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -32,7 +32,7 @@ namespace mage::script {
 
 		explicit StatsScript(SpriteText *text);
 		StatsScript(const StatsScript &script) = delete;
-		StatsScript(StatsScript &&script);
+		StatsScript(StatsScript &&script) noexcept;
 		virtual ~StatsScript();
 
 		//---------------------------------------------------------------------

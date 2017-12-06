@@ -62,8 +62,6 @@ namespace mage {
 	// Node
 	//-------------------------------------------------------------------------
 
-	IdGenerator Node::s_guid_generator;
-
 	Node::Node(string name)
 		: m_guid(s_guid_generator.GetNextId()),
 		m_name(std::move(name)),

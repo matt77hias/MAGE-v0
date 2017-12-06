@@ -32,7 +32,7 @@ namespace mage::script {
 		RotationScript(TransformNode *transform,
 			RotationAxis axis = RotationAxis::Y);
 		RotationScript(const RotationScript &script) = delete;
-		RotationScript(RotationScript &&script);
+		RotationScript(RotationScript &&script) noexcept;
 		virtual ~RotationScript();
 
 		//---------------------------------------------------------------------

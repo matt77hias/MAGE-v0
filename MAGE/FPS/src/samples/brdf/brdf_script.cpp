@@ -97,14 +97,14 @@ namespace mage::script {
 
 			// Material: BRDF
 			if (light_interaction) {
-				static const char *brdf_names[] = {
+				static constexpr const char *brdf_names[] = {
 					"Lambertian",
 					"Frostbite",
 					"Cook-Torrance",
 					"Blinn-Phong",
 					"Ward-Duer"
 				};
-				static const BRDFType brdfs[] = {
+				static constexpr BRDFType brdfs[] = {
 					BRDFType::Lambertian,
 					BRDFType::Frostbite,
 					BRDFType::CookTorrance,

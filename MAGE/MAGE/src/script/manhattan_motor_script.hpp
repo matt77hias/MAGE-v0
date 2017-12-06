@@ -25,7 +25,7 @@ namespace mage::script {
 
 		explicit ManhattanMotorScript(TransformNode *transform);
 		ManhattanMotorScript(const ManhattanMotorScript &script) = delete;
-		ManhattanMotorScript(ManhattanMotorScript &&script);
+		ManhattanMotorScript(ManhattanMotorScript &&script) noexcept;
 		virtual ~ManhattanMotorScript();
 
 		//---------------------------------------------------------------------

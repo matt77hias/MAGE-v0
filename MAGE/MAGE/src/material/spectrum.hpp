@@ -722,7 +722,7 @@ namespace mage {
 	 */
 	inline const XMVECTOR XM_CALLCONV RGBtoSRGB(FXMVECTOR rgb) noexcept {
 		// Frostbite's conversion
-		static const float exp = 1.0f / 2.4f;
+		static constexpr float exp = 1.0f / 2.4f;
 		
 		const XMVECTOR low  = rgb * 12.92f;
 		const XMVECTOR high = 1.055f * XMVectorPow(rgb, XMVectorReplicate(exp))
@@ -742,8 +742,8 @@ namespace mage {
 	 */
 	inline const XMVECTOR XM_CALLCONV SRGBtoRGB(FXMVECTOR srgb) noexcept {
 		// Frostbite's conversion
-		static const float mlow  = 1.0f / 12.92f;
-		static const float mhigh = 1.0f / 1.055f;
+		static constexpr float mlow  = 1.0f / 12.92f;
+		static constexpr float mhigh = 1.0f / 1.055f;
 
 		const XMVECTOR low  = srgb * mlow;
 		const XMVECTOR high = XMVectorPow(
@@ -786,8 +786,7 @@ namespace mage {
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
 	inline const XMVECTOR XM_CALLCONV RGBtoXYZ(FXMVECTOR rgb) noexcept {
-		
-		const XMMATRIX transform = {
+		static const XMMATRIX transform = {
 			0.412453f, 0.212671f, 0.019334f, 0.0f,
 			0.357580f, 0.715160f, 0.119193f, 0.0f,
 			0.180423f, 0.072169f, 0.950227f, 0.0f,
@@ -806,8 +805,7 @@ namespace mage {
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
 	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
-
-		const XMMATRIX transform = {
+		static const XMMATRIX transform = {
 			 3.240479f, -0.969256f,  0.055648f, 0.0f,
 			-1.537150f,  1.875991f, -0.204043f, 0.0f, 
 			-0.498535f,  0.041556f,  1.057311f, 0.0f,

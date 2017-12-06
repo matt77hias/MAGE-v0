@@ -14,8 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const F64 CPUTimer::s_time_period = 0.0000001;
-
 	CPUTimer::CPUTimer() 
 		: m_handle(GetCurrentProcess()), 
 		m_nb_processor_cores(NumberOfSystemCores()),

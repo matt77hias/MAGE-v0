@@ -27,7 +27,7 @@ namespace mage::script {
 		explicit TextConsoleScript(SpriteText *text,
 			U32 nb_rows, U32 nb_columns);
 		TextConsoleScript(const TextConsoleScript &script) = delete;
-		TextConsoleScript(TextConsoleScript &&script);
+		TextConsoleScript(TextConsoleScript &&script) noexcept;
 		virtual ~TextConsoleScript();
 
 		//---------------------------------------------------------------------

@@ -21,7 +21,7 @@ namespace mage::script {
 	}
 
 	ManhattanMotorScript::ManhattanMotorScript(
-		ManhattanMotorScript &&script) = default;
+		ManhattanMotorScript &&script) noexcept = default;
 	
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 

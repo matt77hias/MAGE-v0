@@ -46,7 +46,7 @@ namespace mage {
 		const D3D11_TEXTURE2D_DESC texture_desc 
 			= CreateSingleColorTexture2DDesc();
 
-		static const U32 color = 0xFF000000;
+		static constexpr U32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -60,7 +60,7 @@ namespace mage {
 		const D3D11_TEXTURE2D_DESC texture_desc 
 			= CreateSingleColorTexture2DDesc();
 
-		static const U32 color = 0xFFFFFFFF;
+		static constexpr U32 color = 0xFFFFFFFF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -74,7 +74,7 @@ namespace mage {
 		const D3D11_TEXTURE2D_DESC texture_desc 
 			= CreateSingleColorTexture2DDesc();
 
-		static const U32 color = 0xFF000000;
+		static constexpr U32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -88,7 +88,7 @@ namespace mage {
 		const D3D11_TEXTURE2D_DESC texture_desc 
 			= CreateSingleColorTexture2DDesc();
 
-		static const U32 color = 0xFF00FF00;
+		static constexpr U32 color = 0xFF00FF00;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -102,7 +102,7 @@ namespace mage {
 		const D3D11_TEXTURE2D_DESC texture_desc 
 			= CreateSingleColorTexture2DDesc();
 
-		static const U32 color = 0xFF0000FF;
+		static constexpr U32 color = 0xFF0000FF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;

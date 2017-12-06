@@ -20,7 +20,7 @@ namespace mage::script {
 		Assert(m_text);
 	}
 	
-	LocationScript::LocationScript(LocationScript &&script) = default;
+	LocationScript::LocationScript(LocationScript &&script) noexcept = default;
 	
 	LocationScript::~LocationScript() = default;
 

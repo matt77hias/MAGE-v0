@@ -420,4 +420,6 @@ namespace mage {
 			XMVECTOR m_planes[6];
 		};
 	};
+
+	static_assert(96 == sizeof(ViewFrustum));
 }

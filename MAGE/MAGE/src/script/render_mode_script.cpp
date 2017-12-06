@@ -58,7 +58,8 @@ namespace mage::script {
 		Assert(m_render_modes.size() == m_render_mode_names.size());
 	}
 
-	RenderModeScript::RenderModeScript(RenderModeScript &&script) = default;
+	RenderModeScript::RenderModeScript(
+		RenderModeScript &&script) noexcept = default;
 	
 	RenderModeScript::~RenderModeScript() = default;
 

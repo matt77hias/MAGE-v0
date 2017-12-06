@@ -25,7 +25,7 @@ namespace mage::script {
 		
 		explicit CharacterMotorScript(TransformNode *transform);
 		CharacterMotorScript(const CharacterMotorScript &script) = delete;
-		CharacterMotorScript(CharacterMotorScript &&script);
+		CharacterMotorScript(CharacterMotorScript &&script) noexcept;
 		virtual ~CharacterMotorScript();
 
 		//---------------------------------------------------------------------

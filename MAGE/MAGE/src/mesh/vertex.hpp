@@ -155,7 +155,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 1;
+		static constexpr size_t s_nb_input_elements = 1;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -300,7 +300,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 2;
+		static constexpr size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -445,7 +445,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 2;
+		static constexpr size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -590,7 +590,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 2;
+		static constexpr size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -743,7 +743,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 3;
+		static constexpr size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -895,7 +895,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 3;
+		static constexpr size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -1048,7 +1048,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 3;
+		static constexpr size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -1208,7 +1208,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const size_t s_nb_input_elements = 4;
+		static constexpr size_t s_nb_input_elements = 4;
 
 		/**
 		 The input element descriptor of a vertex.

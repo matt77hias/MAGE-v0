@@ -322,6 +322,6 @@ namespace mage {
 		/**
 		 The time period of CPU timers.
 		 */
-		static const F64 s_time_period;
+		static constexpr F64 s_time_period = 0.0000001;
 	};
 }

@@ -208,6 +208,8 @@ REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/201
 
 REINHARD E., STARK M., SHIRLEY P., FERWERDA J.: *Photographic Tone Reproduction for Digital Images*, *ACM Trans. Graph.* 21, 3, 2002.
 
+RUSSELL J.: [*Basic Theory of Physically Based Rendering*](https://www.marmoset.co/posts/basic-theory-of-physically-based-rendering/), 2015.
+
 SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Computer Graphics Forum* 13, 3, 1994.
 
 SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. and Propagation* 15, 5, 1967.

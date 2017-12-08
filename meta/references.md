@@ -294,6 +294,7 @@ Uses:
 * [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
 * Maxest
+* [Mike Lewis](https://github.com/apoch)
 * Mike2343
 * [Naiwen Xie](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)

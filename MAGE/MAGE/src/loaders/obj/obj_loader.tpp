@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template < typename VertexT >
 	void ImportOBJMeshFromFile(const wstring &fname, 

@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template < typename VertexT >
 	void ImportMSHMeshFromFile(const wstring &fname,

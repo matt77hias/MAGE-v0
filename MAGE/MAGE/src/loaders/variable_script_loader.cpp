@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	void ImportVariableScriptFromFile(const wstring &fname, 
 		map< string, Value > &variable_buffer) {

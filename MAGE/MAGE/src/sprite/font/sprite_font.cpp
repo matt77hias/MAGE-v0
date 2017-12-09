@@ -159,7 +159,7 @@ namespace mage {
 		Assert(device);
 
 		SpriteFontOutput output;
-		ImportSpriteFontFromFile(GetFilename(), device, output, desc);
+		loader::ImportSpriteFontFromFile(GetFilename(), device, output, desc);
 
 		InitializeSpriteFont(output);
 	}

@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template < typename VertexT >
 	OBJReader< VertexT >::OBJReader(
@@ -59,35 +59,35 @@ namespace mage {
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || MAGE_OBJ_COMMENT_CHAR == token[0]) {
+		if (!token || g_obj_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, MAGE_OBJ_TOKEN_VERTEX)) {
+		if (str_equals(token, g_obj_token_vertex)) {
 			ReadOBJVertex();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_TEXTURE)) {
+		else if (str_equals(token, g_obj_token_texture)) {
 			ReadOBJVertexTexture();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_NORMAL)) {
+		else if (str_equals(token, g_obj_token_normal)) {
 			ReadOBJVertexNormal();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_FACE)) {
+		else if (str_equals(token, g_obj_token_face)) {
 			ReadOBJFace();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_MATERIAL_LIBRARY)) {
+		else if (str_equals(token, g_obj_token_material_library)) {
 			ReadOBJMaterialLibrary();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_MATERIAL_USE)) {
+		else if (str_equals(token, g_obj_token_material_use)) {
 			ReadOBJMaterialUse();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_GROUP)) {
+		else if (str_equals(token, g_obj_token_group)) {
 			ReadOBJGroup();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_OBJECT)) {
+		else if (str_equals(token, g_obj_token_object)) {
 			ReadOBJObject();
 		}
-		else if (str_equals(token, MAGE_OBJ_TOKEN_SMOOTHING_GROUP)) {
+		else if (str_equals(token, g_obj_token_smoothing_group)) {
 			ReadOBJSmoothingGroup();
 		}
 		else {

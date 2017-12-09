@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template < typename VertexT >
 	MDLWriter< VertexT >::MDLWriter(const ModelOutput< VertexT > &model_output)
@@ -65,7 +65,7 @@ namespace mage {
 		char output[MAX_PATH];
 		sprintf_s(output, _countof(output), 
 			"%s %s.mtl",
-			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, 
+			g_mdl_token_material_library, 
 			str_convert(file_name_we).c_str());
 
 		WriteStringLine(output);
@@ -79,7 +79,7 @@ namespace mage {
 
 			sprintf_s(output, _countof(output),
 				"%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
-				MAGE_MDL_TOKEN_SUBMODEL, 
+				g_mdl_token_submodel, 
 				model_part.m_child.c_str(), 
 				model_part.m_parent.c_str(),
 				model_part.m_translation.m_x,

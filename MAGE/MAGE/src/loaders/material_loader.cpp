@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	void ImportMaterialFromFile(const wstring &fname, 
 		vector< Material > &materials) {

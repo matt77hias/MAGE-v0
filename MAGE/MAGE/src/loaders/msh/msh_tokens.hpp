@@ -1,10 +1,9 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
+namespace mage::loader {
 
-#define MAGE_MSH_MAGIC "MAGEmesh"
-
-#pragma endregion
+	constexpr const char *g_msh_token_magic = "MAGEmesh";
+}

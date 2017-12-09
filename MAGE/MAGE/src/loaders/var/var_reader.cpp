@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	VARReader::VARReader(map< string, Value > &variable_buffer)
 		: LineReader(), 
@@ -27,35 +27,35 @@ namespace mage {
 		const char *token = 
 			strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || MAGE_VAR_TOKEN_COMMENT == token[0]) {
+		if (!token || g_var_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, MAGE_VAR_TOKEN_BOOL)) {
+		if (str_equals(token, g_var_token_bool)) {
 			ReadVARBool();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_INT)) {
+		else if (str_equals(token, g_var_token_int)) {
 			ReadVARInt();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_INT2)) {
+		else if (str_equals(token, g_var_token_int2)) {
 			ReadVARInt2();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_INT3)) {
+		else if (str_equals(token, g_var_token_int3)) {
 			ReadVARInt3();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT)) {
+		else if (str_equals(token, g_var_token_float)) {
 			ReadVARFloat();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT2)) {
+		else if (str_equals(token, g_var_token_float2)) {
 			ReadVARFloat2();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT3)) {
+		else if (str_equals(token, g_var_token_float3)) {
 			ReadVARFloat3();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT4)) {
+		else if (str_equals(token, g_var_token_float4)) {
 			ReadVARFloat4();
 		}
-		else if (str_equals(token, MAGE_VAR_TOKEN_STRING)) {
+		else if (str_equals(token, g_var_token_string)) {
 			ReadVARString();
 		}
 		else {

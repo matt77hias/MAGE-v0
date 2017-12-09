@@ -1,19 +1,18 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
+namespace mage::loader {
 
-#define MAGE_VAR_TOKEN_COMMENT '#'
-#define MAGE_VAR_TOKEN_BOOL    "bool"
-#define MAGE_VAR_TOKEN_INT     "int"
-#define MAGE_VAR_TOKEN_INT2    "int2"
-#define MAGE_VAR_TOKEN_INT3    "int3"
-#define MAGE_VAR_TOKEN_FLOAT   "float"
-#define MAGE_VAR_TOKEN_FLOAT2  "float2"
-#define MAGE_VAR_TOKEN_FLOAT3  "float3"
-#define MAGE_VAR_TOKEN_FLOAT4  "float4"
-#define MAGE_VAR_TOKEN_STRING  "string"
-
-#pragma endregion
+	constexpr const char  g_var_token_comment = '#';
+	constexpr const char *g_var_token_bool    = "bool";
+	constexpr const char *g_var_token_int     = "int";
+	constexpr const char *g_var_token_int2    = "int2";
+	constexpr const char *g_var_token_int3    = "int3";
+	constexpr const char *g_var_token_float   = "float";
+	constexpr const char *g_var_token_float2  = "float2";
+	constexpr const char *g_var_token_float3  = "float3";
+	constexpr const char *g_var_token_float4  = "float4";
+	constexpr const char *g_var_token_string  = "string";
+}

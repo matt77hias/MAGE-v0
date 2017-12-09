@@ -18,12 +18,12 @@ namespace mage {
 		m_materials(), m_model_parts() {
 
 		ModelOutput< VertexT > buffer;
-		ImportModelFromFile(GetFilename(), buffer, desc);
+		loader::ImportModelFromFile(GetFilename(), buffer, desc);
 
 		if (export_as_MDL) {
 			const wstring mdl_fname 
 				= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".mdl";
-			ExportModelToFile(mdl_fname, buffer);
+			loader::ExportModelToFile(mdl_fname, buffer);
 		}
 
 		m_mesh = MakeShared< StaticMesh >(device, 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	SpriteFontReader::SpriteFontReader(ID3D11Device5 *device, 
 		SpriteFontOutput &output, const SpriteFontDescriptor &desc)
@@ -57,7 +57,7 @@ namespace mage {
 	}
 
 	bool SpriteFontReader::IsHeaderValid() {
-		const char *magic = MAGE_FONT_MAGIC;
+		const char *magic = g_font_token_magic;
 		
 		while (*magic != L'\0') {
 			if (ReadValue< U8 >() != *magic) {

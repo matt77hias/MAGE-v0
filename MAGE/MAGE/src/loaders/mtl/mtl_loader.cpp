@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	void ImportMTLMaterialFromFile(const wstring &fname, 
 		vector< Material > &materials) {

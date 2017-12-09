@@ -1,10 +1,9 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
-	
-#define MAGE_FONT_MAGIC "MAGEfont"
+namespace mage::loader {
 
-#pragma endregion
+	constexpr const char *g_font_token_magic = "MAGEfont";
+}

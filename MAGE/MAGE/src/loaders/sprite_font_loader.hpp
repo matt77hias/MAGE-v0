@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	/**
 	 Imports the sprite font from the given file.

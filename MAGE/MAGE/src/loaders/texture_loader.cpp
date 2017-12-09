@@ -25,7 +25,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	void ImportTextureFromFile(const wstring &fname, 
 		ID3D11Device5 *device, 

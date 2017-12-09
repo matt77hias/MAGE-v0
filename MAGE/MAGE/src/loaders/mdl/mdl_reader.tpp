@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template < typename VertexT >
 	MDLReader< VertexT >::MDLReader(ModelOutput< VertexT > &model_output)
@@ -53,14 +53,14 @@ namespace mage {
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || MAGE_MDL_COMMENT_CHAR == token[0]) {
+		if (!token || g_mdl_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, MAGE_MDL_TOKEN_SUBMODEL)) {
+		if (str_equals(token, g_mdl_token_submodel)) {
 			ReadMDLSubModel();
 		}
-		else if (str_equals(token, MAGE_MDL_TOKEN_MATERIAL_LIBRARY)) {
+		else if (str_equals(token, g_mdl_token_material_library)) {
 			ReadMDLMaterialLibrary();
 		}
 		else {

@@ -176,7 +176,7 @@ namespace mage {
 			                + GetCurrentLocalSystemDateAndTimeAsString() 
 			                + L".png";
 		
-		ExportTextureToFile(fname,
+		loader::ExportTextureToFile(fname,
 			Pipeline::GetImmediateDeviceContext(), back_buffer.Get());
 	}
 

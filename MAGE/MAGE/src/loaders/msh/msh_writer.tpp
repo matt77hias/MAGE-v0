@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	MSHWriter< VertexT, IndexT >::MSHWriter(
@@ -32,7 +32,7 @@ namespace mage {
 	template< typename VertexT, typename IndexT >
 	void MSHWriter< VertexT, IndexT >::Write() {
 
-		WriteString(MAGE_MSH_MAGIC);
+		WriteString(g_msh_token_magic);
 
 		const U32 nb_vertices = static_cast< U32 >(m_vertices.size());
 		WriteValue(nb_vertices);

@@ -27,11 +27,11 @@ namespace mage {
 	VariableScript::~VariableScript() = default;
 
 	void VariableScript::ImportScript(const wstring &fname) {
-		ImportVariableScriptFromFile(fname, m_variables);
+		loader::ImportVariableScriptFromFile(fname, m_variables);
 	}
 
 	void VariableScript::ExportScript(const wstring &fname) const {
-		ExportVariableScriptToFile(fname, m_variables);
+		loader::ExportVariableScriptToFile(fname, m_variables);
 	}
 
 	bool VariableScript::HasVariable(const string &name) const noexcept {

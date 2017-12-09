@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >::MSHReader(
@@ -51,7 +51,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
-		const char *magic = MAGE_MSH_MAGIC;
+		const char *magic = g_msh_token_magic;
 		
 		while (*magic != L'\0') {
 			if (ReadValue< U8 >() != *magic) {

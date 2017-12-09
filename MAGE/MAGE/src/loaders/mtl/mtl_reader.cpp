@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::loader {
 
 	MTLReader::MTLReader(vector< Material > &material_buffer)
 		: LineReader(), 
@@ -28,38 +28,38 @@ namespace mage {
 		const char *token = 
 			strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || MAGE_MTL_COMMENT_CHAR == token[0]) {
+		if (!token || g_mtl_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
+		if (str_equals(token, g_mtl_token_material_declaration)) {
 			ReadMTLMaterialName();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_BASE_COLOR)) {
+		else if (str_equals(token, g_mtl_token_base_color)) {
 			ReadMTLBaseColor();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_ROUGHNESS)) {
+		else if (str_equals(token, g_mtl_token_roughness)) {
 			ReadMTLRoughness();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_METALNESS)) {
+		else if (str_equals(token, g_mtl_token_metalness)) {
 			ReadMTLMetalness();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_BASE_COLOR_TEXTURE)) {
+		else if (str_equals(token, g_mtl_token_base_color_texture)) {
 			ReadMTLBaseColorTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_TEXTURE)) {
+		else if (str_equals(token, g_mtl_token_material_texture)) {
 			ReadMTLMaterialTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_NORMAL_TEXTURE)) {
+		else if (str_equals(token, g_mtl_token_normal_texture)) {
 			ReadMTLNormalTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSPARENT)) {
+		else if (str_equals(token, g_mtl_token_transparent)) {
 			m_material_buffer.back().SetTransparent();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_OPAQUE)) {
+		else if (str_equals(token, g_mtl_token_opaque)) {
 			m_material_buffer.back().SetOpaque();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_EMISSIVE)) {
+		else if (str_equals(token, g_mtl_token_emissive)) {
 			m_material_buffer.back().DissableLightInteraction();
 		}
 		else {

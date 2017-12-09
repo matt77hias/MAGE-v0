@@ -1,28 +1,27 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
+namespace mage::loader {
 
-#define MAGE_MTL_COMMENT_CHAR               '#'
-#define MAGE_MTL_TOKEN_MATERIAL_DECLARATION "newmtl"
+	constexpr const char  g_mtl_token_comment              = '#';
+	constexpr const char *g_mtl_token_material_declaration = "newmtl";
 
-// RGBAs
-#define MAGE_MTL_TOKEN_BASE_COLOR           "base_color"
+	// RGBAs
+	constexpr const char *g_mtl_token_base_color           = "base_color";
 
-// Scalars
-#define MAGE_MTL_TOKEN_ROUGHNESS            "roughness"
-#define MAGE_MTL_TOKEN_METALNESS            "metalness"
+	// Scalars
+	constexpr const char *g_mtl_token_roughness            = "roughness";
+	constexpr const char *g_mtl_token_metalness            = "metalness";
 
-// Textures
-#define MAGE_MTL_TOKEN_BASE_COLOR_TEXTURE   "texture_base_color"
-#define MAGE_MTL_TOKEN_MATERIAL_TEXTURE     "texture_material"
-#define MAGE_MTL_TOKEN_NORMAL_TEXTURE       "texture_normal"
+	// Textures
+	constexpr const char *g_mtl_token_base_color_texture   = "texture_base_color";
+	constexpr const char *g_mtl_token_material_texture     = "texture_material";
+	constexpr const char *g_mtl_token_normal_texture       = "texture_normal";
 
-// Flags
-#define MAGE_MTL_TOKEN_TRANSPARENT          "transparent"
-#define MAGE_MTL_TOKEN_OPAQUE               "opaque"
-#define MAGE_MTL_TOKEN_EMISSIVE             "emissive"
-
-#pragma endregion
+	// Flags
+	constexpr const char *g_mtl_token_transparent          = "transparent";
+	constexpr const char *g_mtl_token_opaque               = "opaque";
+	constexpr const char *g_mtl_token_emissive             = "emissive";
+}

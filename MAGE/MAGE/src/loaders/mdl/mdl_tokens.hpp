@@ -1,12 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
+namespace mage::loader {
 
-#define MAGE_MDL_COMMENT_CHAR           '#'
-#define MAGE_MDL_TOKEN_SUBMODEL         "s"
-#define MAGE_MDL_TOKEN_MATERIAL_LIBRARY "mtllib"
-
-#pragma endregion
+	constexpr const char  g_mdl_token_comment          = '#';
+	constexpr const char *g_mdl_token_submodel         = "s";
+	constexpr const char *g_mdl_token_material_library = "mtllib";
+}

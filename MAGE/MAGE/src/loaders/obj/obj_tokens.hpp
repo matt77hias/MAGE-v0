@@ -1,19 +1,18 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
+namespace mage::loader {
 
-#define MAGE_OBJ_COMMENT_CHAR           '#'
-#define MAGE_OBJ_TOKEN_VERTEX           "v"
-#define MAGE_OBJ_TOKEN_TEXTURE          "vt"
-#define MAGE_OBJ_TOKEN_NORMAL           "vn"
-#define MAGE_OBJ_TOKEN_FACE             "f"
-#define MAGE_OBJ_TOKEN_MATERIAL_LIBRARY "mtllib"
-#define MAGE_OBJ_TOKEN_MATERIAL_USE     "usemtl"
-#define MAGE_OBJ_TOKEN_GROUP            "g"
-#define MAGE_OBJ_TOKEN_OBJECT           "o"
-#define MAGE_OBJ_TOKEN_SMOOTHING_GROUP  "s"
-
-#pragma endregion
+	constexpr const char  g_obj_token_comment          = '#';
+	constexpr const char *g_obj_token_vertex           = "v";
+	constexpr const char *g_obj_token_texture          = "vt";
+	constexpr const char *g_obj_token_normal           = "vn";
+	constexpr const char *g_obj_token_face             = "f";
+	constexpr const char *g_obj_token_material_library = "mtllib";
+	constexpr const char *g_obj_token_material_use     = "usemtl";
+	constexpr const char *g_obj_token_group            = "g";
+	constexpr const char *g_obj_token_object           = "o";
+	constexpr const char *g_obj_token_smoothing_group  = "s";
+}

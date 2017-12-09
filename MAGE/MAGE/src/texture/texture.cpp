@@ -24,7 +24,7 @@ namespace mage {
 
 		Assert(device);
 
-		ImportTextureFromFile(
+		loader::ImportTextureFromFile(
 			GetFilename(), device, m_texture_srv.ReleaseAndGetAddressOf());
 	}
 

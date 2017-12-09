@@ -1543,16 +1543,6 @@ namespace mage {
 		vector< Node * > m_childs;
 
 		/**
-		 The cached object-to-world matrix of this transform node.
-		 */
-		mutable XMMATRIX m_object_to_world;
-
-		/**
-		 The cached world-to-object matrix of this transform node.
-		 */
-		mutable XMMATRIX m_world_to_object;
-
-		/**
 		 A flag indicating whether the object-to-world matrix
 		 of this transform node are dirty.
 		 */
@@ -1563,6 +1553,16 @@ namespace mage {
 		 of this transform node are dirty.
 		 */
 		mutable bool m_dirty_world_to_object;
+
+		/**
+		 The cached object-to-world matrix of this transform node.
+		 */
+		mutable XMMATRIX m_object_to_world;
+
+		/**
+		 The cached world-to-object matrix of this transform node.
+		 */
+		mutable XMMATRIX m_world_to_object;
 	};
 
 	//-------------------------------------------------------------------------

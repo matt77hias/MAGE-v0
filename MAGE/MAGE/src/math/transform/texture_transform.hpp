@@ -40,16 +40,14 @@ namespace mage {
 		 */
 		explicit TextureTransform(
 			F32x2 translation     = { 0.0f, 0.0f }, 
-			F32 rotation             = 0.0f, 
+			F32 rotation          = 0.0f, 
 			F32x2 rotation_origin = { 0.0f, 0.0f }, 
 			F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)), 
+			m_padding(0.0f),
 			m_rotation(rotation), 
 			m_rotation_origin(std::move(rotation_origin)), 
-			m_scale(std::move(scale)) {
-
-			SetDirty();
-		}
+			m_scale(std::move(scale)) {}
 
 		/**
 		 Constructs a texture transform from the given translation, depth,
@@ -70,6 +68,7 @@ namespace mage {
 			FXMVECTOR rotation_origin, 
 			FXMVECTOR scale) noexcept
 			: m_translation(), 
+			m_padding(0.0f),
 			m_rotation(rotation), 
 			m_rotation_origin(), 
 			m_scale() {
@@ -139,7 +138,6 @@ namespace mage {
 		 */
 		void SetTranslationX(F32 x) noexcept {
 			m_translation.m_x = x;
-			SetDirty();
 		}
 
 		/**
@@ -151,7 +149,6 @@ namespace mage {
 		 */
 		void SetTranslationY(F32 y) noexcept {
 			m_translation.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -166,7 +163,6 @@ namespace mage {
 		void SetTranslation(F32 x, F32 y) noexcept {
 			m_translation.m_x = x;
 			m_translation.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -178,7 +174,6 @@ namespace mage {
 		 */
 		void SetTranslation(F32x2 translation) noexcept {
 			m_translation = std::move(translation);
-			SetDirty();
 		}
 
 		/**
@@ -190,7 +185,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat2(&m_translation, translation);
-			SetDirty();
 		}
 
 		/**
@@ -202,7 +196,6 @@ namespace mage {
 		 */
 		void AddTranslationX(F32 x) noexcept {
 			m_translation.m_x += x;
-			SetDirty();
 		}
 
 		/**
@@ -214,7 +207,6 @@ namespace mage {
 		 */
 		void AddTranslationY(F32 y) noexcept {
 			m_translation.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -229,7 +221,6 @@ namespace mage {
 		void AddTranslation(F32 x, F32 y) noexcept {
 			m_translation.m_x += x;
 			m_translation.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -299,7 +290,6 @@ namespace mage {
 		 */
 		void SetRotation(F32 rotation) noexcept {
 			m_rotation = rotation;
-			SetDirty();
 		}
 
 		/**
@@ -311,7 +301,6 @@ namespace mage {
 		 */
 		void AddRotation(F32 rotation) noexcept {
 			m_rotation += rotation;
-			SetDirty();
 		}
 
 		/**
@@ -333,7 +322,6 @@ namespace mage {
 			F32 rotation, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation = ClampAngleRadians(m_rotation + rotation, min_angle, max_angle);
-			SetDirty();
 		}
 
 		/**
@@ -358,7 +346,6 @@ namespace mage {
 		 */
 		void SetRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.m_x = x;
-			SetDirty();
 		}
 
 		/**
@@ -370,7 +357,6 @@ namespace mage {
 		 */
 		void SetRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -385,7 +371,6 @@ namespace mage {
 		void SetRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.m_x = x;
 			m_rotation_origin.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -397,7 +382,6 @@ namespace mage {
 		 */
 		void SetRotationOrigin(F32x2 rotation_origin) noexcept {
 			m_rotation_origin = std::move(rotation_origin);
-			SetDirty();
 		}
 
 		/**
@@ -409,7 +393,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
-			SetDirty();
 		}
 
 		/**
@@ -421,7 +404,6 @@ namespace mage {
 		 */
 		void AddRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.m_x += x;
-			SetDirty();
 		}
 
 		/**
@@ -433,7 +415,6 @@ namespace mage {
 		 */
 		void AddRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -448,7 +429,6 @@ namespace mage {
 		void AddRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.m_x += x;
 			m_rotation_origin.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -516,7 +496,6 @@ namespace mage {
 		 */
 		void SetScaleX(F32 x) noexcept {
 			m_scale.m_x = x;
-			SetDirty();
 		}
 
 		/**
@@ -528,7 +507,6 @@ namespace mage {
 		 */
 		void SetScaleY(F32 y) noexcept {
 			m_scale.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -554,7 +532,6 @@ namespace mage {
 		void SetScale(F32 x, F32 y) noexcept {
 			m_scale.m_x = x;
 			m_scale.m_y = y;
-			SetDirty();
 		}
 
 		/**
@@ -566,7 +543,6 @@ namespace mage {
 		 */
 		void SetScale(F32x2 scale) noexcept {
 			m_scale = std::move(scale);
-			SetDirty();
 		}
 
 		/**
@@ -578,7 +554,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat2(&m_scale, scale);
-			SetDirty();
 		}
 
 		/**
@@ -590,7 +565,6 @@ namespace mage {
 		 */
 		void AddScaleX(F32 x) noexcept {
 			m_scale.m_x += x;
-			SetDirty();
 		}
 
 		/**
@@ -602,7 +576,6 @@ namespace mage {
 		 */
 		void AddScaleY(F32 y) noexcept {
 			m_scale.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -628,7 +601,6 @@ namespace mage {
 		void AddScale(F32 x, F32 y) noexcept {
 			m_scale.m_x += x;
 			m_scale.m_y += y;
-			SetDirty();
 		}
 
 		/**
@@ -688,55 +660,30 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the (object-to-parent) matrix of this texture transform.
+		 Returns the transformation matrix of this texture transform.
 
-		 @return		The (object-to-parent) matrix of this texture 
-						transform.
+		 @return		The transformation matrix of this texture transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
-			UpdateObjectToParentMatrix();
-			return m_transform;
+			const F32 s = sin(m_rotation);
+			const F32 c = cos(m_rotation);
+			const F32 sSx = s * m_scale.m_x;
+			const F32 sSy = s * m_scale.m_y;
+			const F32 cSx = c * m_scale.m_x;
+			const F32 cSy = c * m_scale.m_y;
+
+			const F32 tx = (1.0f - cSx) * m_rotation_origin.m_x + sSy * m_rotation_origin.m_y + m_translation.m_x;
+			const F32 ty = (1.0f - cSy) * m_rotation_origin.m_y - sSx * m_rotation_origin.m_x + m_translation.m_y;
+
+			return XMMATRIX {
+				 cSx,  sSx, 0.0f, 0.0f,
+				-sSy,  cSy, 0.0f, 0.0f,
+				  tx,   ty, 1.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f
+			};
 		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Sets this texture transform to dirty.
-		 */
-		void SetDirty() const noexcept {
-			m_dirty_transform = true;
-		}
-
-		/**
-		 Updates the (object-to-parent) transform matrix of this texture 
-		 transform if dirty.
-		 */
-		void UpdateObjectToParentMatrix() const noexcept {
-			if (m_dirty_transform) {
-				
-				const F32 s = sin(m_rotation);
-				const F32 c = cos(m_rotation);
-				const F32 sSx = s * m_scale.m_x;
-				const F32 sSy = s * m_scale.m_y;
-				const F32 cSx = c * m_scale.m_x;
-				const F32 cSy = c * m_scale.m_y;
-
-				const F32 tx = (1.0f - cSx) * m_rotation_origin.m_x + sSy * m_rotation_origin.m_y + m_translation.m_x;
-				const F32 ty = (1.0f - cSy) * m_rotation_origin.m_y - sSx * m_rotation_origin.m_x + m_translation.m_y;
-
-				m_transform = XMMATRIX {
-					 cSx,  sSx, 0.0f, 0.0f,
-					-sSy,  cSy, 0.0f, 0.0f,
-					 tx,    ty, 1.0f, 0.0f,
-					0.0f, 0.0f, 0.0f, 0.0f
-				};
-				m_dirty_transform = false;
-			}
-		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -748,15 +695,14 @@ namespace mage {
 		F32x2 m_translation;
 
 		/**
+		 The padding of this texture transform.
+		 */
+		F32 m_padding;
+
+		/**
 		 The rotation component (in radians) of this texture transform.
 		 */
 		F32 m_rotation;
-
-		/**
-		 A flag indicating whether the (object-to-parent) transform matrix of 
-		 this texture transform is dirty.
-		 */
-		mutable bool m_dirty_transform;
 
 		/**
 		 The rotation origin of this texture transform.
@@ -767,11 +713,7 @@ namespace mage {
 		 The scale component of this texture transform.
 		 */
 		F32x2 m_scale;
-
-		/**
-		 The cached (object-to-parent) transform matrix of this texture 
-		 transform.
-		 */
-		mutable XMMATRIX m_transform;
 	};
+
+	static_assert(32 == sizeof(TextureTransform));
 }

@@ -40,12 +40,13 @@ namespace mage {
 			F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
 			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
 			F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
-			: m_translation(std::move(translation)), 
-			m_rotation(std::move(rotation)), 
-			m_scale(std::move(scale)) {
-			
-			SetDirty();
-		}
+			: m_translation(std::move(translation)),
+			m_dirty_object_to_parent(true),
+			m_rotation(std::move(rotation)),
+			m_dirty_parent_to_object(true),
+			m_scale(std::move(scale)),
+			m_object_to_parent(),
+			m_parent_to_object() {}
 		
 		/**
 		 Constructs a transform from the given translation, rotation and scale 
@@ -62,9 +63,13 @@ namespace mage {
 			FXMVECTOR translation, 
 			FXMVECTOR rotation, 
 			FXMVECTOR scale) noexcept
-			: m_translation(), 
-			m_rotation(), 
-			m_scale() {
+			: m_translation(),
+			m_dirty_object_to_parent(true),
+			m_rotation(),
+			m_dirty_parent_to_object(true),
+			m_scale(),
+			m_object_to_parent(),
+			m_parent_to_object() {
 			
 			SetTranslation(translation);
 			SetRotation(rotation);
@@ -1206,9 +1211,21 @@ namespace mage {
 		F32x3 m_translation;
 
 		/**
+		 A flag indicating whether the object-to-parent matrix of this transform 
+		 is dirty.
+		 */
+		mutable bool m_dirty_object_to_parent;
+
+		/**
 		 The rotation component (in radians) of this transform.
 		 */
 		F32x3 m_rotation;
+
+		/**
+		 A flag indicating whether the parent-to-object matrix of this transform 
+		 is dirty.
+		 */
+		mutable bool m_dirty_parent_to_object;
 
 		/**
 		 The scale component of this transform.
@@ -1224,17 +1241,7 @@ namespace mage {
 		 The cached parent-to-object matrix of this transform.
 		 */
 		mutable XMMATRIX m_parent_to_object;
-
-		/**
-		 A flag indicating whether the object-to-parent matrix of this transform 
-		 is dirty.
-		 */
-		mutable bool m_dirty_object_to_parent;
-
-		/**
-		 A flag indicating whether the parent-to-object matrix of this transform 
-		 is dirty.
-		 */
-		mutable bool m_dirty_parent_to_object;
 	};
+
+	static_assert(176 == sizeof(Transform));
 }

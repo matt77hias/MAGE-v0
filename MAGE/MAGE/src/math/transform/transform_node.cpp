@@ -20,26 +20,29 @@ namespace mage {
 	TransformNode::TransformNode()
 		: m_transform(),
 		m_parent(nullptr), 
-		m_childs() {
-		
-		SetDirty();
-	}
+		m_childs(),
+		m_dirty_object_to_world(true),
+		m_dirty_world_to_object(true),
+		m_object_to_world(), 
+		m_world_to_object() {}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
 		: m_transform(transform_node.m_transform),
 		m_parent(nullptr), 
-		m_childs() {
-		
-		SetDirty();
-	}
+		m_childs(),
+		m_dirty_object_to_world(true),
+		m_dirty_world_to_object(true),
+		m_object_to_world(),
+		m_world_to_object() {}
 
 	TransformNode::TransformNode(TransformNode &&transform_node) noexcept
 		: m_transform(std::move(transform_node.m_transform)),
 		m_parent(std::move(transform_node.m_parent)),
-		m_childs(std::move(transform_node.m_childs)) {
-
-		SetDirty();
-	}
+		m_childs(std::move(transform_node.m_childs)),
+		m_dirty_object_to_world(true),
+		m_dirty_world_to_object(true),
+		m_object_to_world(),
+		m_world_to_object() {}
 
 	TransformNode::~TransformNode() = default;
 

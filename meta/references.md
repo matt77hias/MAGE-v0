@@ -116,7 +116,7 @@ ISHEDEN D.: [*HDR inverse tone mapping MSAA resolve*](http://theagentd.blogspot.
 
 JIMENEZ J.: Next Generation Post Processing in Call of Duty Advanced Warfare, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
 
-JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o&t=722s), *CppCon 2017*, 2017.
+JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
 
@@ -208,6 +208,8 @@ REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/201
 
 REINHARD E., STARK M., SHIRLEY P., FERWERDA J.: *Photographic Tone Reproduction for Digital Images*, *ACM Trans. Graph.* 21, 3, 2002.
 
+RUSSELL J.: [*Basic Theory of Physically Based Rendering*](https://www.marmoset.co/posts/basic-theory-of-physically-based-rendering/), 2015.
+
 SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Computer Graphics Forum* 13, 3, 1994.
 
 SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. and Propagation* 15, 5, 1967.
@@ -292,6 +294,7 @@ Uses:
 * [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
 * Maxest
+* [Mike Lewis](https://github.com/apoch)
 * Mike2343
 * [Naiwen Xie](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)

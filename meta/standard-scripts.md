@@ -2,9 +2,6 @@
 
 ## Logging scripts (2D)
 
-### `LocationScript`
-A script displaying a `NodeTransform`'s translation `T` and rotation `R` coordinates.
-
 ### `StatsScript`
 A script displaying statistics like `FPS` (frames per second), `CPU` (CPU usage percentage between frames), and `RAM` (physical main memory usage between frames).
 

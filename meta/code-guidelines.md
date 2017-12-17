@@ -12,7 +12,7 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 ## Specific
 
 ### Built-in types
-Prefer the defined types (`memory\types.hpp`) and `size_t` over non-typedefed built-in types.
+Prefer the defined types (`utils\type\types.hpp`) and `size_t` over non-typedefed built-in types.
 
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.

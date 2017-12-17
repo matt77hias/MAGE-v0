@@ -13,9 +13,6 @@ A script displaying a console/terminal with a fixed number of rows and colums.
 ### `CharacterMotorScript`
 A script handling a `NodeTransform`'s translation based on the keyboard's input.
 
-### `FPSInputControllerScript`
-A script combining a `NodeTransform`'s translation and rotation via a `CharacterMotorScript` and `MouseLookScript`.
-
 ### `ManhattanInputControllerScript`
 A script combining a `NodeTransform`'s translation and rotation via a `ManhattanMotorScript` and `MouseLookScript`.
 

@@ -42,7 +42,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: Complete String
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Converts the given string to a @c bool (@c true or @c false).
@@ -187,12 +187,12 @@ namespace mage {
 	 */
 	TokenResult StringToF64(const char *str, F64 &result) noexcept;
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: Substring
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Converts the given string to a @c bool (@c true or @c false).
@@ -210,8 +210,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c bool succeeded or not.
 	 */
-	TokenResult StringToBool(
-		const char *begin, const char *end, bool &result) noexcept;
+	TokenResult StringToBool(const char *begin, const char *end, 
+		bool &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c S8.
@@ -229,8 +229,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c S8 succeeded or not.
 	 */
-	TokenResult StringToS8(
-		const char *begin, const char *end, S8 &result) noexcept;
+	TokenResult StringToS8(const char *begin, const char *end, 
+		S8 &result) noexcept;
 	
 	/**
 	 Converts the given string to an @c U8.
@@ -248,8 +248,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to an @c U8 succeeded or not.
 	 */
-	TokenResult StringToU8(
-		const char *begin, const char *end, U8 &result) noexcept;
+	TokenResult StringToU8(const char *begin, const char *end, 
+		U8 &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c S16.
@@ -267,8 +267,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c S16 succeeded or not.
 	 */
-	TokenResult StringToS16(
-		const char *begin, const char *end, S16 &result) noexcept;
+	TokenResult StringToS16(const char *begin, const char *end, 
+		S16 &result) noexcept;
 	
 	/**
 	 Converts the given string to an @c U16.
@@ -286,8 +286,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to an @c U16 succeeded or not.
 	 */
-	TokenResult StringToU16(
-		const char *begin, const char *end, U16 &result) noexcept;
+	TokenResult StringToU16(const char *begin, const char *end, 
+		U16 &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c S32.
@@ -305,8 +305,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c S32 succeeded or not.
 	 */
-	TokenResult StringToS32(
-		const char *begin, const char *end, S32 &result) noexcept;
+	TokenResult StringToS32(const char *begin, const char *end, 
+		S32 &result) noexcept;
 	
 	/**
 	 Converts the given string to an @c U32.
@@ -324,8 +324,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to an @c U32 succeeded or not.
 	 */
-	TokenResult StringToU32(
-		const char *begin, const char *end, U32 &result) noexcept;
+	TokenResult StringToU32(const char *begin, const char *end, 
+		U32 &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c S64.
@@ -343,8 +343,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c S64 succeeded or not.
 	 */
-	TokenResult StringToS64(
-		const char *begin, const char *end, S64 &result) noexcept;
+	TokenResult StringToS64(const char *begin, const char *end, 
+		S64 &result) noexcept;
 	
 	/**
 	 Converts the given string to an @c U64.
@@ -362,8 +362,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to an @c U64 succeeded or not.
 	 */
-	TokenResult StringToU64(
-		const char *begin, const char *end, U64 &result) noexcept;
+	TokenResult StringToU64(const char *begin, const char *end, 
+		U64 &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c F32.
@@ -381,8 +381,8 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c F32 succeeded or not.
 	 */
-	TokenResult StringToF32(
-		const char *begin, const char *end, F32 &result) noexcept;
+	TokenResult StringToF32(const char *begin, const char *end, 
+		F32 &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c F64.
@@ -400,15 +400,15 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c F64 succeeded or not.
 	 */
-	TokenResult StringToF64(
-		const char *begin, const char *end, F64 &result) noexcept;
+	TokenResult StringToF64(const char *begin, const char *end, 
+		F64 &result) noexcept;
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: String Prefix
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Converts the prefix of the given string @a str to a @c S8.
@@ -550,12 +550,12 @@ namespace mage {
 	 */
 	TokenResult StringPrefixToF64(const char *str, F64 &result) noexcept;
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Reading
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Reads and converts the next token in the given string to (non-delimiting) 
@@ -992,12 +992,12 @@ namespace mage {
 	TokenResult ReadF32x4(char *str, char **context, F32x4 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Peaking
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Checks whether the next token in the given string represents 
@@ -1240,12 +1240,12 @@ namespace mage {
 	TokenResult HasF64(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Advancing
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
@@ -1261,8 +1261,8 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	char *SkipDelimiters(
-		char *str, const char *delimiters = g_default_delimiters) noexcept;
+	char *SkipDelimiters(char *str, 
+		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
@@ -1278,8 +1278,8 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	const char *SkipDelimiters(
-		const char *str, const char *delimiters = g_default_delimiters) noexcept;
+	const char *SkipDelimiters(const char *str, 
+		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -1295,8 +1295,8 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	char *GotoDelimiters(
-		char *str, const char *delimiters = g_default_delimiters) noexcept;
+	char *GotoDelimiters(char *str, 
+		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -1312,8 +1312,8 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	const char *GotoDelimiters(
-		const char *str, const char *delimiters = g_default_delimiters) noexcept;
+	const char *GotoDelimiters(const char *str, 
+		const char *delimiters = g_default_delimiters) noexcept;
 
-#pragma endregion
+	#pragma endregion
 }

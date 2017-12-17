@@ -12,56 +12,68 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	BRDFScript::BRDFScript(CameraSettings *settings, 
-		vector< ModelNode * > models)
-		: m_settings(settings),
+	BRDFScript::BRDFScript(std::vector< ProxyPtr< Node > > models)
+		: m_camera(),
 		m_models(std::move(models)), 
 		m_model_index(0),
 		m_wireframe(false),
 		m_aabb(false),
 		m_material(), 
 		m_tsnm(false), 
-		m_tsnm_texture(ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/tsnm/rock 4.dds")),
+		m_tsnm_texture(ResourceManager::Get()->GetOrCreate< Texture >(
+			L"assets/textures/tsnm/rock 4.dds")),
 		m_brdf_index(0) {
-
-		Assert(m_settings);
 
 		m_model_names.reserve(models.size());
 		for (const auto &node : m_models) {
 			m_model_names.push_back(node->GetName().c_str());
-			node->Deactivate();
+			node->SetState(State::Passive);
 		}
-		m_models[m_model_index]->Activate();
+		m_models[m_model_index]->SetState(State::Active);
 	}
 
-	BRDFScript::BRDFScript(BRDFScript &&script) = default;
+	BRDFScript::BRDFScript(const BRDFScript &script) = default;
+
+	BRDFScript::BRDFScript(BRDFScript &&script) noexcept = default;
 
 	BRDFScript::~BRDFScript() = default;
+
+	void BRDFScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+
+		m_camera = GetOwner()->Get< PerspectiveCamera >();
+		if (nullptr == m_camera) {
+			m_camera = GetOwner()->Get< OrthographicCamera >();
+		}
+		ThrowIfFailed((nullptr != m_camera),
+			"This script needs a camera component.");
+	}
 
 	void BRDFScript::Update([[maybe_unused]] F64 time) {
 		ImGui::Begin("Configuration");
 			
 		if (ImGui::TreeNode("Model")) {
 			// Model
-			m_models[m_model_index]->Deactivate();
+			m_models[m_model_index]->SetState(State::Passive);
 			ImGui::ListBox("Model", &m_model_index, 
 				m_model_names.data(), static_cast< int >(m_model_names.size()));
-			m_models[m_model_index]->Activate();
+			m_models[m_model_index]->SetState(State::Active);
 
 			ImGui::Checkbox("Wireframe", &m_wireframe);
 			if (m_wireframe) {
-				m_settings->AddRenderLayer(RenderLayer::Wireframe);
+				m_camera->GetSettings().AddRenderLayer(RenderLayer::Wireframe);
 			}
 			else {
-				m_settings->RemoveRenderLayer(RenderLayer::Wireframe);
+				m_camera->GetSettings().RemoveRenderLayer(RenderLayer::Wireframe);
 			}
 
 			ImGui::Checkbox("AABB", &m_aabb);
 			if (m_aabb) {
-				m_settings->AddRenderLayer(RenderLayer::AABB);
+				m_camera->GetSettings().AddRenderLayer(RenderLayer::AABB);
 			}
 			else {
-				m_settings->RemoveRenderLayer(RenderLayer::AABB);
+				m_camera->GetSettings().RemoveRenderLayer(RenderLayer::AABB);
 			}
 			
 			ImGui::TreePop();
@@ -113,11 +125,11 @@ namespace mage::script {
 				};
 				ImGui::ListBox("BRDF", &m_brdf_index, 
 					brdf_names, _countof(brdf_names));
-				m_settings->SetBRDF(brdfs[m_brdf_index]);
+				m_camera->GetSettings().SetBRDF(brdfs[m_brdf_index]);
 			}
 
 			// Set the material.
-			*(m_models[m_model_index]->GetModel()->GetMaterial()) = m_material;
+			m_models[m_model_index]->Get< Model >()->GetMaterial() = m_material;
 
 			ImGui::TreePop();
 		}

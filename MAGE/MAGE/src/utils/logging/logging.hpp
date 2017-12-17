@@ -14,6 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// LoggingConfiguration
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of logging configurations of the engine processing.
 	 */
@@ -151,11 +156,18 @@ namespace mage {
 		bool m_verbose;
 	};
 
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Console
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 Returns the fixed console width.
 
 	 @return		The fixed console width.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to retrieve a handle to the standard output device.
 	 */
 	U16 ConsoleWidth();
@@ -164,8 +176,10 @@ namespace mage {
 	 Allocates a console to this engine for basic io and redirects @c stdin, 
 	 @c stdout and @c stderr to the allocated console.
 
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to initialize the console.
 	 */
 	void InitializeConsole();
+
+	#pragma endregion
 }

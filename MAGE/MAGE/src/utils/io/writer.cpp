@@ -22,6 +22,8 @@ namespace mage {
 
 	Writer::~Writer() = default;
 
+	Writer &Writer::operator=(Writer &&writer) noexcept = default;
+
 	void Writer::WriteToFile(wstring fname) {
 		m_fname = std::move(fname);
 

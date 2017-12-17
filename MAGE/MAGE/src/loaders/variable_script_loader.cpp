@@ -16,7 +16,7 @@
 namespace mage::loader {
 
 	void ImportVariableScriptFromFile(const wstring &fname, 
-		map< string, Value > &variable_buffer) {
+		std::map< string, Value > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -24,13 +24,13 @@ namespace mage::loader {
 			ImportVARFromFile(fname, variable_buffer);
 		}
 		else {
-			throw FormattedException(
+			throw Exception(
 				"Unknown variable script file extension: %ls", fname.c_str());
 		}
 	}
 
 	void ExportVariableScriptToFile(const wstring &fname, 
-		const map< string, Value > &variable_buffer) {
+		const std::map< string, Value > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -38,7 +38,7 @@ namespace mage::loader {
 			ExportVARToFile(fname, variable_buffer);
 		}
 		else {
-			throw FormattedException(
+			throw Exception(
 				"Unknown variable script file extension: %ls", fname.c_str());
 		}
 	}

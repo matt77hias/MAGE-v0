@@ -16,7 +16,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Mutex
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	Mutex::Mutex() noexcept {
 		// Initialize a critical section object.
 		InitializeCriticalSection(&m_critical_section);
@@ -27,10 +28,13 @@ namespace mage {
 		DeleteCriticalSection(&m_critical_section);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// MutexLock
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	MutexLock::MutexLock(Mutex &mutex) noexcept
 		: m_mutex(mutex) {
 		// Wait for ownership of the specified critical section object. 
@@ -43,10 +47,13 @@ namespace mage {
 		LeaveCriticalSection(&m_mutex.m_critical_section);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ReadWriteMutex
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	ReadWriteMutex::ReadWriteMutex() noexcept 
 		: m_nb_writers_waiting(0), 
 		m_nb_readers_waiting(0), 
@@ -288,10 +295,13 @@ namespace mage {
 		}
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ReadWriteMutexLock
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, 
 		LockType lock_type) noexcept
 		: m_type(lock_type), m_mutex(mutex) {
@@ -327,10 +337,13 @@ namespace mage {
 		m_type = LockType::Read;
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Semaphore
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	Semaphore::Semaphore() noexcept
 		: m_handle(nullptr) {
 		
@@ -383,10 +396,13 @@ namespace mage {
 		return (WaitForSingleObject(m_handle, 0L) == WAIT_OBJECT_0);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ConditionVariable
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	ConditionVariable::ConditionVariable() noexcept
 		: m_nb_waiters(0) {
 
@@ -483,4 +499,6 @@ namespace mage {
 
 		EnterCriticalSection(&m_condition_mutex);
 	}
+
+	#pragma endregion
 }

@@ -18,6 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// CompiledVertexShader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of compiled shaders.
@@ -47,8 +48,7 @@ namespace mage {
 		 @return		A reference to the copy of the given compiled shader 
 						(i.e. this compiled shader).
 		 */
-		CompiledShader &operator=(
-			const CompiledShader &compiled_shader) = delete;
+		CompiledShader &operator=(const CompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Moves the given compiled shader to this compiled shader.
@@ -58,8 +58,7 @@ namespace mage {
 		 @return		A reference to the moved compiled shader (i.e. this 
 						compiled shader).
 		 */
-		CompiledShader &operator=(
-			CompiledShader &&compiled_shader) = delete;
+		CompiledShader &operator=(CompiledShader &&compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -91,7 +90,7 @@ namespace mage {
 		/**
 		 Constructs a compiled shader.
 		 */
-		CompiledShader();
+		CompiledShader() noexcept;
 
 		/**
 		 Constructs a compiled shader from the given compiled shader.
@@ -99,7 +98,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
 		 */
-		CompiledShader(const CompiledShader &compiled_shader);
+		CompiledShader(const CompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Constructs a compiled shader by moving the given compiled shader.
@@ -107,12 +106,15 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to move.
 		 */
-		CompiledShader(CompiledShader &&compiled_shader);
+		CompiledShader(CompiledShader &&compiled_shader) noexcept;
 	};
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// BufferCompiledShader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of buffer compiled shaders.
@@ -136,8 +138,8 @@ namespace mage {
 		 @param[in]		bytecode_size
 						The size of the given shader bytecode.
 		 */
-		explicit BufferCompiledShader(
-			const BYTE *bytecode, SIZE_T bytecode_size);
+		explicit BufferCompiledShader(const BYTE *bytecode, 
+			SIZE_T bytecode_size) noexcept;
 
 		/**
 		 Constructs a buffer compiled shader from the given buffer compiled 
@@ -146,7 +148,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to copy.
 		 */
-		BufferCompiledShader(const BufferCompiledShader &compiled_shader);
+		BufferCompiledShader(const BufferCompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Constructs a buffer compiled shader by moving the given buffer 
@@ -155,7 +157,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to move.
 		 */
-		BufferCompiledShader(BufferCompiledShader &&compiled_shader);
+		BufferCompiledShader(BufferCompiledShader &&compiled_shader) noexcept;
 
 		/**
 		 Destructs this buffer compiled shader.
@@ -176,7 +178,7 @@ namespace mage {
 						shader (i.e. this buffer compiled shader).
 		 */
 		BufferCompiledShader &operator=(
-			const BufferCompiledShader &compiled_shader) = delete;
+			const BufferCompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Moves the given buffer compiled shader to this buffer compiled shader.
@@ -187,7 +189,7 @@ namespace mage {
 						this buffer compiled shader).
 		 */
 		BufferCompiledShader &operator=(
-			BufferCompiledShader &&compiled_shader) = delete;
+			BufferCompiledShader &&compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -223,17 +225,20 @@ namespace mage {
 		/**
 		 A pointer to the shader bytecode of this buffer compiled shader.
 		 */
-		const BYTE * const m_bytecode;
+		const BYTE *m_bytecode;
 
 		/**
 		 The size of the shader bytecode of this buffer compiled shader.
 		 */
-		const SIZE_T m_bytecode_size;
+		SIZE_T m_bytecode_size;
 	};
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// BlobCompiledShader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of blob compiled shaders.
@@ -251,10 +256,10 @@ namespace mage {
 		 
 		 @param[in]		fname
 						A reference to the filename.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to load the compiled shader from the given file.
 		 */
-		explicit BlobCompiledShader(const wstring &fname);
+		explicit BlobCompiledShader(const wstring &fname) noexcept;
 		
 		/**
 		 Constructs a blob compiled shader from the given blob compiled shader.
@@ -262,7 +267,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to copy.
 		 */
-		BlobCompiledShader(const BlobCompiledShader &compiled_shader);
+		BlobCompiledShader(const BlobCompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Constructs a blob compiled shader by moving the given blob compiled 
@@ -271,7 +276,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to move.
 		 */
-		BlobCompiledShader(BlobCompiledShader &&compiled_shader);
+		BlobCompiledShader(BlobCompiledShader &&compiled_shader) noexcept;
 
 		/**
 		 Destructs this blob compiled shader.
@@ -291,7 +296,7 @@ namespace mage {
 						shader (i.e. this blob compiled shader).
 		 */
 		BlobCompiledShader &operator=(
-			const BlobCompiledShader &compiled_shader) = delete;
+			const BlobCompiledShader &compiled_shader) noexcept;
 
 		/**
 		 Moves the given blob compiled shader to this blob compiled shader.
@@ -302,7 +307,7 @@ namespace mage {
 						this blob compiled shader).
 		 */
 		BlobCompiledShader &operator=(
-			BlobCompiledShader &&compiled_shader) = delete;
+			BlobCompiledShader &&compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -340,4 +345,6 @@ namespace mage {
 		 */
 		ComPtr< ID3DBlob > m_shader_blob;
 	};
+
+	#pragma endregion
 }

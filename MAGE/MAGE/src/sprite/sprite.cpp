@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -12,15 +12,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Sprite::Sprite()
-		: m_transform(MakeUnique< SpriteTransform >()), 
+	Sprite::Sprite() noexcept
+		: Component(),
+		m_sprite_transform(), 
 		m_effects(SpriteEffect::None) {}
 
-	Sprite::Sprite(const Sprite &sprite)
-		: m_transform(MakeUnique< SpriteTransform >(*sprite.m_transform)),
-		m_effects(sprite.m_effects) {}
+	Sprite::Sprite(const Sprite &sprite) noexcept = default;
 
 	Sprite::Sprite(Sprite &&sprite) noexcept = default;
 
 	Sprite::~Sprite() = default;
+
+	Sprite &Sprite::operator=(const Sprite &sprite) noexcept = default;
+
+	Sprite &Sprite::operator=(Sprite &&sprite) noexcept = default;
 }

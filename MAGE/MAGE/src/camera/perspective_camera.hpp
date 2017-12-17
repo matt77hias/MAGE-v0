@@ -10,15 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y XM_PIDIV2
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -26,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Perspective Utilities
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Returns the horizontal field-of-view corresponding to the given aspect 
@@ -86,14 +78,17 @@ namespace mage {
 		return tanf(0.5f * fov_x) / tanf(0.5f * fov_y);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// PerspectiveCamera
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of perspective cameras.
 	 */
-	class alignas(16) PerspectiveCamera final : public Camera {
+	class PerspectiveCamera final : public Camera {
 
 	public:
 
@@ -104,64 +99,10 @@ namespace mage {
 		/**
 		 Constructs a perspective camera.
 
-		 The aspect ratio will be based on the current screen resolution.
-
-		 @pre			The rendering manager associated with the current 
+		 @pre			The rendering manager associated with the current
 						engine must be loaded.
-		 @param[in]		fov_y
-						The vertical field-of-view.
 		 */
-		explicit PerspectiveCamera(
-			F32 fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y) noexcept;
-
-		/**
-		 Constructs a perspective camera.
-
-		 The aspect ratio will be based on the current screen resolution.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @param[in]		fov_y
-						The vertical field-of-view.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		explicit PerspectiveCamera(
-			F32 fov_y, F32 near_z, F32 far_z) noexcept;
-
-		/**
-		 Constructs a perspective camera.
-
-		 @param[in]		aspect_ratio
-						The aspect ratio.
-		 @param[in]		fov_y
-						The vertical field-of-view.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		explicit PerspectiveCamera(F32 aspect_ratio,
-			F32 fov_y, F32 near_z, F32 far_z) noexcept;
-
-		/**
-		 Constructs a perspective camera.
-
-		 @param[in]		width
-						The width.
-		 @param[in]		height
-						The height.
-		 @param[in]		fov_y
-						The vertical field-of-view.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		explicit PerspectiveCamera(F32 width, F32 height,
-			F32 fov_y, F32 near_z, F32 far_z) noexcept;
+		PerspectiveCamera() noexcept;
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.
@@ -211,15 +152,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Clones this perspective camera.
-
-		 @return		A pointer to the clone of this perspective camera.
-		 */
-		UniquePtr< PerspectiveCamera > Clone() const {
-			return static_pointer_cast< PerspectiveCamera >(CloneImplementation());
-		}
 
 		/**
 		 Returns the horizontal field-of-view of this perspective camera.
@@ -367,17 +299,6 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this perspective camera.
-
-		 @return		A pointer to the clone of this perspective camera.
-		 */
-		virtual UniquePtr< Camera > CloneImplementation() const override;
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -391,4 +312,6 @@ namespace mage {
 		 */
 		F32 m_fov_y;
 	};
+
+	#pragma endregion
 }

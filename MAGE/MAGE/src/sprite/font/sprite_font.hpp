@@ -7,8 +7,8 @@
 
 #include "resource\resource.hpp"
 #include "sprite\font\color_string.hpp"
-#include "sprite\font\sprite_font_output.hpp"
 #include "sprite\font\sprite_font_descriptor.hpp"
+#include "sprite\font\sprite_font_output.hpp"
 #include "sprite\sprite_batch.hpp"
 
 #pragma endregion
@@ -38,7 +38,7 @@ namespace mage {
 						The filename (the globally unique identifier).
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
 		explicit SpriteFont(wstring fname,
@@ -56,7 +56,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
 		explicit SpriteFont(wstring fname, ID3D11Device5 *device,
@@ -76,7 +76,7 @@ namespace mage {
 		 @param[in]		font
 						A reference to the sprite font to move.
 		 */
-		SpriteFont(SpriteFont &&font);
+		SpriteFont(SpriteFont &&font) noexcept;
 
 		/**
 		 Destructs this sprite font.
@@ -105,7 +105,7 @@ namespace mage {
 		 @return		A reference to the moved sprite font (i.e. this sprite 
 						font).
 		 */
-		SpriteFont &operator=(SpriteFont &&font) = delete;
+		SpriteFont &operator=(SpriteFont &&font) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -149,7 +149,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		void DrawString(SpriteBatch &sprite_batch, 
-			const vector< ColorString > &text,
+			const std::vector< ColorString > &text,
 			const SpriteTransform &transform,
 			SpriteEffect effects = SpriteEffect::None) const;
 		
@@ -178,7 +178,7 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR MeasureString(const vector< ColorString > &text) const;
+		const XMVECTOR MeasureString(const std::vector< ColorString > &text) const;
 		
 		/**
 		 Returns a rectangle bounding the given string with this sprite font.
@@ -205,7 +205,7 @@ namespace mage {
 						font.
 		 */
 		const RECT MeasureDrawBounds(
-			const vector< ColorString > &text, const F32x2 &position) const;
+			const std::vector< ColorString > &text, const F32x2 &position) const;
 		
 		/**
 		 Returns the line spacing of this sprite font.
@@ -246,7 +246,7 @@ namespace mage {
 
 		 @param[in]		character
 						The character.
-		 @throws		FormattedException
+		 @throws		Exception
 						If the given character does not match any glyphs of 
 						this sprite font and if this sprite font has not a 
 						default character.
@@ -279,7 +279,7 @@ namespace mage {
 						character.
 		 @return		A pointer to the glyph of this sprite font corresponding 
 						to the given character.
-		 @throws		FormattedException
+		 @throws		Exception
 						If the given character does not match any glyphs of 
 						this sprite font and if this sprite font has not a 
 						default character.
@@ -308,7 +308,7 @@ namespace mage {
 
 		 @param[in]		output
 						A reference to the sprite font output.
-		 @throws		FormattedException
+		 @throws		Exception
 						The sprite font glyphs of the given sprite font output 
 						are not sorted.
 		 */
@@ -326,7 +326,7 @@ namespace mage {
 		/**
 		 A vector containing the glyphs of this sprite font.
 		 */
-		vector < Glyph > m_glyphs;
+		std::vector < Glyph > m_glyphs;
 		
 		/**
 		 A pointer to the default glyph of this sprite font.

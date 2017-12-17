@@ -13,11 +13,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	FormattedException::FormattedException()
+	//-------------------------------------------------------------------------
+	// Exception
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	Exception::Exception()
 		: exception(), m_text{} {}
 
-	FormattedException::FormattedException(const char *format, ...)
-		: FormattedException() {
+	Exception::Exception(const char *format, ...)
+		: Exception() {
 
 		Assert(format);
 
@@ -34,7 +39,7 @@ namespace mage {
 		Error(m_text);
 	}
 
-	FormattedException::FormattedException(const char *format, va_list args) 
+	Exception::Exception(const char *format, va_list args) 
 		: exception(), m_text{} {
 
 		Assert(format);
@@ -44,23 +49,26 @@ namespace mage {
 		Error(m_text);
 	}
 
-	FormattedException::FormattedException(
-		const FormattedException &formatted_exception) = default;
+	Exception::Exception(const Exception &exception) = default;
 
-	FormattedException::FormattedException(
-		FormattedException &&formatted_exception) = default;
+	Exception::Exception(Exception &&exception) = default;
 
-	FormattedException::~FormattedException() = default;
+	Exception::~Exception() = default;
 
-	FormattedException &FormattedException::operator=(
-		const FormattedException &formatted_exception) = default;
+	Exception &Exception::operator=(const Exception &exception) = default;
 
-	FormattedException &FormattedException::operator=(
-		FormattedException &&formatted_exception) = default;
+	Exception &Exception::operator=(Exception &&exception) = default;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Exception: Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	void ThrowIfFailed(bool result) {
 		if (!result) {
-			throw FormattedException();
+			throw Exception();
 		}
 	}
 
@@ -71,7 +79,7 @@ namespace mage {
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const FormattedException exception = FormattedException(format);
+			const Exception exception = Exception(format);
 
 			// End using variable argument list.
 			va_end(args);
@@ -82,7 +90,7 @@ namespace mage {
 
 	void ThrowIfFailed(BOOL result) {
 		if (FALSE == result) {
-			throw FormattedException();
+			throw Exception();
 		}
 	}
 
@@ -93,7 +101,7 @@ namespace mage {
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const FormattedException exception = FormattedException(format);
+			const Exception exception = Exception(format);
 
 			// End using variable argument list.
 			va_end(args);
@@ -104,7 +112,7 @@ namespace mage {
 
 	void ThrowIfFailed(HRESULT result) {
 		if (FAILED(result)) {
-			throw FormattedException();
+			throw Exception();
 		}
 	}
 
@@ -115,7 +123,7 @@ namespace mage {
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const FormattedException exception = FormattedException(format);
+			const Exception exception = Exception(format);
 
 			// End using variable argument list.
 			va_end(args);
@@ -123,4 +131,6 @@ namespace mage {
 			throw exception;
 		}
 	}
+
+	#pragma endregion
 }

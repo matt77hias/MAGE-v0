@@ -6,7 +6,6 @@
 #pragma region
 
 #include "math\geometry\geometry.hpp"
-#include "utils\collection\collection.hpp"
 
 #pragma endregion
 
@@ -15,6 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <algorithm>
 #include <limits>
 
 #pragma endregion
@@ -45,7 +45,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	// Forward declaration.
 	class AABB;
@@ -389,12 +389,12 @@ namespace mage {
 
 	static_assert(16 == sizeof(BS));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Axis-Aligned Bounding Box
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of Axis-Aligned Bounding Boxes (AABBs).
@@ -1026,5 +1026,5 @@ namespace mage {
 
 	static_assert(32 == sizeof(AABB));
 
-#pragma endregion
+	#pragma endregion
 }

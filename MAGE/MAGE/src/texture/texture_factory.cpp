@@ -33,12 +33,12 @@ namespace mage {
 	}
 
 	SharedPtr< const Texture > CreateMAGETexture() {
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			L"assets/textures/mage.dds");
 	}
 
 	SharedPtr< const Texture > CreateReferenceTexture() {
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			L"assets/textures/reference.dds");
 	}
 
@@ -52,7 +52,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(U32);
 		
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
 	}
 
@@ -66,7 +66,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(U32);
 
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
 	}
 
@@ -80,7 +80,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(U32);
 
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
 	}
 
@@ -94,7 +94,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(U32);
 
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
 	}
 
@@ -108,7 +108,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(U32);
 
-		return ResourceManager::Get()->GetOrCreateTexture(
+		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
 	}
 }

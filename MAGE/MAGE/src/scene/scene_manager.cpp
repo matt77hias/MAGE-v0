@@ -24,8 +24,7 @@ namespace mage {
 		m_requested_scene(), 
 		m_has_requested_scene(false) {}
 
-	SceneManager::SceneManager(
-		SceneManager &&scene_behavior) noexcept = default;
+	SceneManager::SceneManager(SceneManager &&manager) noexcept = default;
 
 	SceneManager::~SceneManager() = default;
 
@@ -55,19 +54,21 @@ namespace mage {
 	}
 
 	void SceneManager::FixedUpdate() {
-		m_scene->ForEachScript([this](BehaviorScript *script) {
-			script->FixedUpdate();
-		});
+		m_scene->ForEach< BehaviorScript >(
+			[this](BehaviorScript &script) {
+				script.FixedUpdate();
+			}
+		);
 	}
 
 	void SceneManager::Update(F64 delta_time) {
-		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
-
-			if (!m_has_requested_scene) {
-				script->Update(delta_time);
+		m_scene->ForEach< BehaviorScript >(
+			[this, delta_time](BehaviorScript &script) {
+				if (!m_has_requested_scene) {
+					script.Update(delta_time);
+				}
 			}
-
-		});
+		);
 
 		if (m_has_requested_scene) {
 			ApplyRequestedScene();

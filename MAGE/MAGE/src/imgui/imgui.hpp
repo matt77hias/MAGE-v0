@@ -92,7 +92,7 @@ typedef unsigned long long ImU64;   // 64-bit unsigned integer
 #endif 
 
 // Others helpers at bottom of the file:
-// class ImVector<>                 // Lightweight std::vector like class.
+// class ImVector<>                 // Lightweight vector like class.
 // IMGUI_ONCE_UPON_A_FRAME          // Execute a block of code once per frame only (convenient for creating UI within deep-nested code that runs multiple times)
 
 struct ImVec2
@@ -922,7 +922,7 @@ namespace ImGui
 //-----------------------------------------------------------------------------
 
 // Lightweight std::vector<> like class to avoid dragging dependencies (also: windows implementation of STL with debug enabled is absurdly slow, so let's bypass it so our code runs fast in debug).
-// Our implementation does NOT call c++ constructors because we don't use them in ImGui. Don't use this class as a straight std::vector replacement in your code!
+// Our implementation does NOT call c++ constructors because we don't use them in ImGui. Don't use this class as a straight vector replacement in your code!
 template<typename T>
 class ImVector
 {

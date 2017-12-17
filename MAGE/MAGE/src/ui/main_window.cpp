@@ -31,8 +31,8 @@ namespace mage {
 		return Engine::Get()->GetMainWindow();
 	}
 
-	[[nodiscard]] LRESULT CALLBACK MainWindow::MainWindowProc(
-		HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
+	[[nodiscard]] LRESULT CALLBACK MainWindow
+		::MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 		
 		ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 
@@ -143,8 +143,8 @@ namespace mage {
 		return 0;
 	}
 
-	MainWindow::MainWindow(
-		HINSTANCE hinstance, const wstring &title_text, U32 width, U32 height)
+	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, 
+		U32 width, U32 height)
 		: m_hinstance(hinstance), m_hwindow(nullptr) {
 
 		Assert(m_hinstance);
@@ -179,8 +179,8 @@ namespace mage {
 		Assert(result);
 	}
 
-	void MainWindow::InitializeWindow(
-		const wstring &title_text, U32 width, U32 height) {
+	void MainWindow::InitializeWindow(const wstring &title_text, 
+		U32 width, U32 height) {
 		
 		const RECT rectangle = { 
 			0, 
@@ -192,8 +192,8 @@ namespace mage {
 		return InitializeWindow(title_text, rectangle);
 	}
 
-	void MainWindow::InitializeWindow(
-		const wstring &title_text, const RECT &rectangle) {
+	void MainWindow::InitializeWindow(const wstring &title_text, 
+		const RECT &rectangle) {
 
 		// Prepare and register the window class.
 		//---------------------------------------------------------------------

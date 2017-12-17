@@ -82,7 +82,7 @@ namespace mage {
 	 @tparam		AlignmentS
 					The alignment size in bytes.
 	 */
-	template< typename DataT, size_t AlignmentS = __alignof(DataT) >
+	template< typename DataT, size_t AlignmentS = alignof(DataT) >
 	struct AlignedAllocator final {
 		
 	public:
@@ -252,7 +252,7 @@ namespace mage {
 						(i.e. this aligned allocator).
 		 */
 		AlignedAllocator &operator=(
-			const AlignedAllocator &allocator) noexcept = delete;
+			const AlignedAllocator &allocator) = delete;
 
 		/**
 		 Moves the given aligned allocator to this aligned allocator.
@@ -263,7 +263,7 @@ namespace mage {
 						aligned allocator).
 		 */
 		AlignedAllocator &operator=(
-			AlignedAllocator &&allocator) noexcept = delete;
+			AlignedAllocator &&allocator) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

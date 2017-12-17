@@ -35,7 +35,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the sRGB color.
 		 */
-		explicit ColorString(wstring str, SRGBA color = color::White) noexcept
+		ColorString(wstring str, SRGBA color = color::White) noexcept
 			: m_str(std::move(str)), 
 			m_color(std::move(color)) {}
 		

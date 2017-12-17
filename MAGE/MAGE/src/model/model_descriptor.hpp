@@ -42,7 +42,7 @@ namespace mage {
 		 @param[in]		export_as_MDL
 						@c true if the model descriptor needs to be
 						exported as MDL file. @c false otherwise.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		export_as_MDL
 						@c true if the model descriptor needs to be exported as 
 						MDL file. @c false otherwise.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
@@ -89,7 +89,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to move.
 		 */
-		ModelDescriptor(ModelDescriptor &&desc);
+		ModelDescriptor(ModelDescriptor &&desc) noexcept;
 
 		/**
 		 Destructs a model descriptor.
@@ -114,7 +114,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to move.
 		 */
-		ModelDescriptor &operator=(ModelDescriptor &&desc) = delete;
+		ModelDescriptor &operator=(ModelDescriptor &&desc) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -147,7 +147,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all materials of this model 
 						descriptor. The action must accept @c const 
-						@c Material* values.
+						@c Material& values.
 		*/
 		template< typename ActionT >
 		void ForEachMaterial(ActionT action) const;
@@ -170,7 +170,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all model parts of this model
 						descriptor. The action must accept @c const 
-						@c ModelPart* values.
+						@c ModelPart& values.
 		 */
 		template< typename ActionT >
 		void ForEachModelPart(ActionT action) const;
@@ -190,13 +190,13 @@ namespace mage {
 		 A vector containing all the materials of the model of this model 
 		 descriptor.
 		 */
-		vector< Material > m_materials;
+		std::vector< Material > m_materials;
 
 		/**
 		 A vector containing all the model parts of the model of this model 
 		 descriptor.
 		 */
-		vector< ModelPart > m_model_parts;
+		std::vector< ModelPart > m_model_parts;
 	};
 }
 

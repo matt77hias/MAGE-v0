@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\geometry\geometry.hpp"
 #include "material\spectrum.hpp"
 
 #pragma endregion
@@ -17,6 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// LightBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of light buffers used by shaders.
@@ -158,12 +160,15 @@ namespace mage {
 		U32 m_padding2;
 	};
 
-	static_assert(sizeof(LightBuffer) == 64, 
+	static_assert(64 == sizeof(LightBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// DirectionalLightBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of directional light buffers used by shaders.
@@ -265,12 +270,15 @@ namespace mage {
 		U32 m_padding1;
 	};
 
-	static_assert(sizeof(DirectionalLightBuffer) == 32, 
+	static_assert(32 == sizeof(DirectionalLightBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// OmniLightBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of omni light buffers used by shaders.
@@ -366,12 +374,15 @@ namespace mage {
 		U32 m_padding0;
 	};
 
-	static_assert(sizeof(OmniLightBuffer) == 32, 
+	static_assert(32 == sizeof(OmniLightBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// SpotLightBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of spotlight buffers used by shaders.
@@ -481,12 +492,15 @@ namespace mage {
 		F32 m_cos_inv_range;
 	};
 
-	static_assert(sizeof(SpotLightBuffer) == 48, 
+	static_assert(48 == sizeof(SpotLightBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// DirectionalLightWithShadowMappingBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of directional light with shadow mapping buffers used by shaders.
@@ -590,12 +604,15 @@ namespace mage {
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(sizeof(DirectionalLightWithShadowMappingBuffer) == 96, 
+	static_assert(96 == sizeof(DirectionalLightWithShadowMappingBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// OmniLightWithShadowMappingBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of omni light with shadow mapping buffers used by shaders.
@@ -710,12 +727,15 @@ namespace mage {
 		U32 m_padding0[2];
 	};
 
-	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, 
+	static_assert(112 == sizeof(OmniLightWithShadowMappingBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// SpotLightWithShadowMappingBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of spotlight with shadow mapping buffers used by shaders.
@@ -818,6 +838,8 @@ namespace mage {
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 112, 
+	static_assert(112 == sizeof(SpotLightWithShadowMappingBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 }

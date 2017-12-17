@@ -29,7 +29,7 @@
 #pragma region
 
 #if (MAGE_POINTER_SIZE == 8)
-#define MAGE_HAS_64_BIT_ATOMICS
+	#define MAGE_HAS_64_BIT_ATOMICS
 #endif
 
 #pragma endregion
@@ -44,12 +44,14 @@ namespace mage {
 	 */
 	using AtomicS32 = volatile LONG;
 
-#ifdef MAGE_HAS_64_BIT_ATOMICS
+	#ifdef MAGE_HAS_64_BIT_ATOMICS
+
 	/**
 	 Atomic 64-bit integer value.
 	 */
 	using AtomicS64 = volatile LONGLONG;
-#endif
+	
+	#endif
 
 	//-------------------------------------------------------------------------
 	// Pointers
@@ -73,15 +75,15 @@ namespace mage {
 	 @return		The function returns the initial pointer of @a destination.
 	 */
 	template< typename T >
-	__forceinline T *AtomicCompareAndSwapPointer(
-		T **destination, T *exchange, T *comparand) noexcept {
+	__forceinline T *AtomicCompareAndSwapPointer(T **destination, 
+		T *exchange, T *comparand) noexcept {
 		
 		return InterlockedCompareExchangePointer(
 			destination, exchange, comparand);
 	}
 
 	//-------------------------------------------------------------------------
-	// 32 Bit Integers
+	// S32
 	//-------------------------------------------------------------------------
 
 	/**
@@ -128,16 +130,16 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline S32 AtomicCompareAndSwap(
-		AtomicS32 *destination, S32 exchange, S32 comparand) noexcept {
+	__forceinline S32 AtomicCompareAndSwap(AtomicS32 *destination, 
+		S32 exchange, S32 comparand) noexcept {
 		
 		return InterlockedCompareExchange(destination, exchange, comparand);
 	}
 
 	//-------------------------------------------------------------------------
-	// 64 Bit Integers
+	// S64
 	//-------------------------------------------------------------------------
-#ifdef MAGE_HAS_64_BIT_ATOMICS
+	#ifdef MAGE_HAS_64_BIT_ATOMICS
 
 	/**
 	 Performs an atomic addition operation on the specified values.
@@ -169,15 +171,16 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline S64 AtomicCompareAndSwap(
-		AtomicS64 *destination, S64 exchange, S64 comparand) noexcept {
+	__forceinline S64 AtomicCompareAndSwap(AtomicS64 *destination, 
+		S64 exchange, S64 comparand) noexcept {
 		
 		return InterlockedCompareExchange64(destination, exchange, comparand);
 	}
-#endif
+	
+	#endif
 
 	//-------------------------------------------------------------------------
-	// Floats
+	// F32
 	//-------------------------------------------------------------------------
 	
 	/**

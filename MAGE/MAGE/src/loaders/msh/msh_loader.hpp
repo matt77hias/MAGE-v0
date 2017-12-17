@@ -6,7 +6,15 @@
 #pragma region
 
 #include "utils\type\types.hpp"
-#include "utils\collection\collection.hpp" 
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -29,12 +37,13 @@ namespace mage::loader {
 					mesh.
 	 @param[out]	indices
 					A reference to a vector containing the indices of the mesh.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
 	template < typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring &fname, 
-		vector< VertexT > &vertices, vector< IndexT > &indices);
+		                       std::vector< VertexT > &vertices, 
+		                       std::vector< IndexT >  &indices);
 
 	/**
 	 Exports the given mesh to the given MSH file.
@@ -50,12 +59,13 @@ namespace mage::loader {
 					mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to export the mesh to file.
 	 */
 	template < typename VertexT, typename IndexT >
-	void ExportMSHMeshToFile(const wstring &fname,
-		const vector< VertexT > &vertices, const vector< IndexT > &indices);
+	void ExportMSHMeshToFile(const wstring &fname, 
+		                     const std::vector< VertexT > &vertices, 
+		                     const std::vector< IndexT >  &indices);
 }
 
 //-----------------------------------------------------------------------------

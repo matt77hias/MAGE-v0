@@ -18,11 +18,11 @@ namespace mage::script {
 
 	public:
 
-		BRDFScript(CameraSettings *settings, vector< ModelNode * > models);
+		BRDFScript(std::vector< ProxyPtr< Node > > models);
 
-		BRDFScript(const BRDFScript &script) = delete;
+		BRDFScript(const BRDFScript &script);
 
-		BRDFScript(BRDFScript &&script);
+		BRDFScript(BRDFScript &&script) noexcept;
 
 		virtual ~BRDFScript();
 
@@ -32,12 +32,13 @@ namespace mage::script {
 
 	private:
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 time) override;
 
-		CameraSettings * const m_settings;
+		ProxyPtr< Camera > m_camera;
 		
-		vector< ModelNode * > m_models;
-		vector< const char * > m_model_names;
+		std::vector< ProxyPtr< Node > > m_models;
+		std::vector< const char * > m_model_names;
 		int m_model_index;
 		bool m_wireframe;
 		bool m_aabb;

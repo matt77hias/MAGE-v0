@@ -6,7 +6,6 @@
 #pragma region
 
 #include "light\light.hpp"
-#include "camera\perspective_camera.hpp"
 
 #pragma endregion
 
@@ -27,7 +26,7 @@ namespace mage {
 	/**
 	 A class of spotlights.
 	 */
-	class alignas(16) SpotLight final : public Light {
+	class SpotLight final : public Light {
 
 	public:
 
@@ -84,19 +83,6 @@ namespace mage {
 						spotlight).
 		 */
 		SpotLight &operator=(SpotLight &&light) noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this spotlight.
-
-		 @return		A pointer to the clone of this spotlight.
-		 */
-		UniquePtr< SpotLight > Clone() const {
-			return static_pointer_cast< SpotLight >(CloneImplementation());
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
@@ -385,15 +371,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the aspect ratio of this spotlight.
-
-		 @return		The aspect ratio of this spotlight.
-		 */
-		F32 GetAspectRatio() const noexcept {
-			return 1.0f;
-		}
-
-		/**
 		 Returns the view-to-projection matrix of the light camera of this spot 
 		 light.
 
@@ -401,32 +378,14 @@ namespace mage {
 						this spot light.
 		 */
 		const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
-#ifdef DISSABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(
-				GetFOV(),
-				GetAspectRatio(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
-				GetRange());
-#else  // DISSABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(
-				GetFOV(),
-				GetAspectRatio(),
-				GetRange(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);
-#endif // DISSABLE_INVERTED_Z_BUFFER
-		}
+			static const F32 near_plane = 0.1f;
+			const F32 fov = 2.0f * GetUmbraAngle();
 
-		/**
-		 Returns the light camera of this spot light.
-
-		 @return		The light camera of this spot light.
-		 */
-		const PerspectiveCamera GetLightCamera() const noexcept {
-			return PerspectiveCamera(
-				GetAspectRatio(),
-				GetFOV(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
-				GetRange());
+			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			return XMMatrixPerspectiveFovLH(fov, 1.0f, near_plane, m_range);
+			#else  // DISSABLE_INVERTED_Z_BUFFER
+			return XMMatrixPerspectiveFovLH(fov, 1.0f, m_range, near_plane);
+			#endif // DISSABLE_INVERTED_Z_BUFFER
 		}
 
 	private:
@@ -434,13 +393,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Clones this spotlight.
-
-		 @return		A pointer to the clone of this spotlight.
-		 */
-		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		/**
 		 Updates the bounding volumes of this spotlight.

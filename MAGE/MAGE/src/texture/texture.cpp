@@ -53,4 +53,10 @@ namespace mage {
 			ThrowIfFailed(result, "Texture SRV creation failed: %08X.", result);
 		}
 	}
+
+	Texture::Texture(Texture &&texture) noexcept = default;
+
+	Texture::~Texture() = default;
+
+	Texture &Texture::operator=(Texture &&texture) noexcept = default;
 }

@@ -6,7 +6,15 @@
 #pragma region
 
 #include "utils\io\binary_writer.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -41,8 +49,8 @@ namespace mage::loader {
 		 @param[in]		indices
 						A reference to a vector containing the indices.
 		 */
-		explicit MSHWriter(const vector< VertexT > &vertices, 
-			const vector< IndexT > &indices);
+		explicit MSHWriter(const std::vector< VertexT > &vertices, 
+			               const std::vector< IndexT >  &indices);
 		
 		/**
 		 Constructs a MSH writer from the given MSH writer.
@@ -98,7 +106,7 @@ namespace mage::loader {
 		/**
 		 Starts writing.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		virtual void Write() override;
@@ -111,13 +119,13 @@ namespace mage::loader {
 		 A reference to a vector containing the vertices to write by this VS 
 		 writer.
 		 */
-		const vector< VertexT > &m_vertices;
+		const std::vector< VertexT > &m_vertices;
 		
 		/**
 		 A reference to a vector containing the indices to write by this VS 
 		 writer.
 		 */
-		const vector< IndexT > &m_indices;
+		const std::vector< IndexT > &m_indices;
 	};
 }
 

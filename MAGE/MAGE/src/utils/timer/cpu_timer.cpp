@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	CPUTimer::CPUTimer() 
+	CPUTimer::CPUTimer() noexcept
 		: m_handle(GetCurrentProcess()), 
 		m_nb_processor_cores(NumberOfSystemCores()),
 		m_last_timestamp{}, 

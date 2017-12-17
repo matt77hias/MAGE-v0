@@ -6,96 +6,223 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// ResourceManager
+	// ResourceManager: Has
 	//-------------------------------------------------------------------------
+	#pragma region
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const ModelDescriptor > ResourceManager::GetOrCreateModelDescriptor(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_model_descriptor_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< ModelDescriptor >(const wstring &guid) noexcept {
+		return m_model_descriptor_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const VertexShader > ResourceManager::GetOrCreateVS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_vs_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< VertexShader >(const wstring &guid) noexcept {
+		return m_vs_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const HullShader > ResourceManager::GetOrCreateHS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_hs_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< HullShader >(const wstring &guid) noexcept {
+		return m_hs_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const DomainShader > ResourceManager::GetOrCreateDS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_ds_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< DomainShader >(const wstring &guid) noexcept {
+		return m_ds_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const GeometryShader > ResourceManager::GetOrCreateGS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_gs_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< GeometryShader >(const wstring &guid) noexcept {
+		return m_gs_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const PixelShader > ResourceManager::GetOrCreatePS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_ps_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< PixelShader >(const wstring &guid) noexcept {
+		return m_ps_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const ComputeShader > ResourceManager::GetOrCreateCS(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_cs_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< ComputeShader >(const wstring &guid) noexcept {
+		return m_cs_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const SpriteFont > ResourceManager::GetOrCreateSpriteFont(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_sprite_font_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< SpriteFont >(const wstring &guid) noexcept {
+		return m_sprite_font_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< const Texture > ResourceManager::GetOrCreateTexture(
-		const wstring &guid, ConstructorArgsT&&... args) {
-
-		return m_texture_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< Texture >(const wstring &guid) noexcept {
+		return m_texture_pool.HasResource(guid);
 	}
 
-	template< typename... ConstructorArgsT >
-	inline SharedPtr< VariableScript > ResourceManager::GetOrCreateVariableScript(
-		const wstring &guid, ConstructorArgsT&&... args) {
-		
-		return m_variable_script_resource_pool->template
-			GetOrCreateResource< wstring, ConstructorArgsT... >(
-				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	template<>
+	inline bool ResourceManager
+		::Has< VariableScript >(const wstring &guid) noexcept {
+		return m_variable_script_pool.HasResource(guid);
 	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// ResourceManager: Get/GetMutable
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	inline SharedPtr< const ModelDescriptor > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_model_descriptor_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const VertexShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_vs_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const HullShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_hs_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const DomainShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_ds_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const GeometryShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_gs_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const PixelShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_ps_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const ComputeShader > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_cs_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const SpriteFont > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_sprite_font_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< const Texture > ResourceManager
+		::Get(const wstring &guid) noexcept {
+
+		return m_texture_pool.GetResource(guid);
+	}
+
+	template<>
+	inline SharedPtr< VariableScript > ResourceManager
+		::GetMutable(const wstring &guid) noexcept {
+
+		return m_variable_script_pool.GetResource(guid);
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// ResourceManager: GetOrCreate/GetOrCreateMutable
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline SharedPtr< const ResourceT > ResourceManager
+		::GetOrCreate(const wstring &guid, ConstructorArgsT&&... args) {
+
+		if constexpr (std::is_same_v< ModelDescriptor, ResourceT >) {
+			return m_model_descriptor_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< VertexShader, ResourceT >) {
+			return m_vs_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< HullShader, ResourceT >) {
+			return m_hs_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< DomainShader, ResourceT >) {
+			return m_ds_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< GeometryShader, ResourceT >) {
+			return m_gs_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< PixelShader, ResourceT >) {
+			return m_ps_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< ComputeShader, ResourceT >) {
+			return m_cs_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< SpriteFont, ResourceT >) {
+			return m_sprite_font_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+
+		if constexpr (std::is_same_v< Texture, ResourceT >) {
+			return m_texture_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline SharedPtr< ResourceT > ResourceManager
+		::GetOrCreateMutable(const wstring &guid, ConstructorArgsT&&... args) {
+
+		if constexpr (std::is_same_v< VariableScript, ResourceT >) {
+			return m_variable_script_pool.template
+				GetOrCreateResource< wstring, ConstructorArgsT... >(
+					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+	}
+
+	#pragma endregion
 }

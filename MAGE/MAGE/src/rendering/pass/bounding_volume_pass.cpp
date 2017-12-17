@@ -133,14 +133,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
-		const vector< const OmniLightNode * > &lights,
+		const std::vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 
 		for (const auto node : lights) {
 
 			// Obtain node components (1/2).
-			const TransformNode * const transform = node->GetTransform();
+			const Transform * const transform = node->GetTransform();
 			const OmniLight     * const light     = node->GetLight();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
@@ -168,14 +168,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
-		const vector< const SpotLightNode * > &lights,
+		const std::vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 
 		for (const auto node : lights) {
 
 			// Obtain node components (1/2).
-			const TransformNode * const transform = node->GetTransform();
+			const Transform * const transform = node->GetTransform();
 			const SpotLight     * const light     = node->GetLight();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
@@ -202,14 +202,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessModels(
-		const vector< const ModelNode * > &models,
+		const std::vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 
 			// Obtain node components (1/2).
-			const TransformNode * const transform = node->GetTransform();
+			const Transform * const transform = node->GetTransform();
 			const Model         * const model     = node->GetModel();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;

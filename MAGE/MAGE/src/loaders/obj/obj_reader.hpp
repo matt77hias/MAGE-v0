@@ -12,6 +12,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <unordered_map>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage::loader {
@@ -97,7 +106,7 @@ namespace mage::loader {
 		/**
 		 Pre-process before reading the current file of this OBJ reader.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to finish the pre-processing successfully.
 		 */
 		virtual void Preprocess() override;
@@ -108,7 +117,7 @@ namespace mage::loader {
 		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) override;
@@ -116,7 +125,7 @@ namespace mage::loader {
 		/**
 		 Post-processes after reading the current file of this OBJ reader.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to finish post-processing successfully.
 		 */
 		virtual void Postprocess() override;
@@ -124,7 +133,7 @@ namespace mage::loader {
 		/**
 		 Reads a Material Library Include definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Material Library Include definition.
 		 */
 		void ReadOBJMaterialLibrary();
@@ -133,9 +142,9 @@ namespace mage::loader {
 		 Reads a Material Usage definition and imports the materials 
 		 corresponding to the mesh.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Material Usage definition.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the materials.
 		 */
 		void ReadOBJMaterialUse();
@@ -143,7 +152,7 @@ namespace mage::loader {
 		/**
 		 Reads a Group definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Group definition.
 		 */
 		void ReadOBJGroup();
@@ -151,7 +160,7 @@ namespace mage::loader {
 		/**
 		 Reads an Object definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Object definition.
 		 */
 		void ReadOBJObject();
@@ -161,7 +170,7 @@ namespace mage::loader {
 
 		 @note			A smoothing group is, if present, 
 						silently ignored.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Smoothing Group definition.
 		 */
 		void ReadOBJSmoothingGroup();
@@ -169,7 +178,7 @@ namespace mage::loader {
 		/**
 		 Reads a Vertex Position Coordinates definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Vertex Position Coordinates 
 						definition.
 		 */
@@ -181,7 +190,7 @@ namespace mage::loader {
 		 @note			Only UV texture coordinates are supported,
 						The W component of UVW texture coordinates
 						is, if present, silently ignored.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Vertex Texture Coordinates definition.
 		 */
 		void ReadOBJVertexTexture();
@@ -190,7 +199,7 @@ namespace mage::loader {
 		 Reads a Vertex Normal Coordinates definition.
 
 		 @pre			All the vertex normals in the OBJ file are normalized.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Vertex Normal Coordinates definition.
 		 */
 		void ReadOBJVertexNormal();
@@ -198,7 +207,7 @@ namespace mage::loader {
 		/**
 		 Reads a Face definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Face definition.
 		 */
 		void ReadOBJFace();
@@ -209,7 +218,7 @@ namespace mage::loader {
 		 @return		The @c Point3 represented by the next token of this OBJ 
 						reader (modified according to the mesh descriptor of 
 						this OBj reader).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a @c Point3.
 		 */
 		const Point3 ReadOBJVertexCoordinates();
@@ -221,7 +230,7 @@ namespace mage::loader {
 		 @return		The @c Normal3 represented by the next token of this 
 						OBJ reader (modified according to the mesh descriptor 
 						of this OBj reader).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a @c Normal3.
 		 */
 		const Normal3 ReadOBJVertexNormalCoordinates();
@@ -232,7 +241,7 @@ namespace mage::loader {
 		 @return		The @c UV represented by the next token of this OBJ 
 						reader (modified according to the mesh descriptor of 
 						this OBj reader).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a @c UV.
 		 */
 		const UV ReadOBJVertexTextureCoordinates();
@@ -243,7 +252,7 @@ namespace mage::loader {
 		 @return		The face indices represented by the next token of this 
 						OBJ reader.	A zero indicates the absence of a 
 						component.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Bool variable.
 		 */
 		const U32x3 ReadOBJVertexIndices();
@@ -290,26 +299,26 @@ namespace mage::loader {
 		 A vector containing the read vertex position coordinates of this OBJ 
 		 reader.
 		 */
-		vector< Point3 >  m_vertex_coordinates;
+		std::vector< Point3 >  m_vertex_coordinates;
 
 		/**
 		 A vector containing the read vertex texture coordinates of this OBJ 
 		 reader.
 		 */
-		vector< UV > m_vertex_texture_coordinates;
+		std::vector< UV > m_vertex_texture_coordinates;
 
 		/**
 		 A vector containing the read normal texture coordinates of this OBJ 
 		 reader.
 		 */
-		vector< Normal3 > m_vertex_normal_coordinates;
+		std::vector< Normal3 > m_vertex_normal_coordinates;
 
 		/**
 		 A mapping between vertex position/texture/normal coordinates' indices
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
+		std::unordered_map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
 		
 		/**
 		 A reference to a model output containing the read data of this OBJ 

@@ -18,7 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Factory Methods: AA
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a AA preprocess compute shader.
@@ -28,7 +28,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the AA preprocess compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateAAPreprocessCS();
@@ -41,7 +41,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the FXAA compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateFXAACS();
@@ -54,7 +54,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the MSAA resolve compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateMSAAResolveCS();
@@ -67,17 +67,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the SSAA resolve compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateSSAAResolveCS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a deferred Blinn-Phong compute shader.
@@ -87,7 +87,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Blinn-Phong compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
@@ -100,7 +100,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Cook-Torrance compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
@@ -113,7 +113,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred emissive compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS();
@@ -126,7 +126,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Frostbite compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS();
@@ -139,7 +139,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Ward-Duer compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
@@ -152,7 +152,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Lambertian compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
@@ -168,7 +168,7 @@ namespace mage {
 					The BRDF type.
 	 @return		A pointer to the deferred compute shader matching the given 
 					BRDF.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
@@ -181,7 +181,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA Blinn-Phong pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAABlinnPhongPS();
@@ -194,7 +194,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA Cook-Torrance pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAACookTorrancePS();
@@ -207,7 +207,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA emissive pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAAEmissivePS();
@@ -220,7 +220,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA Frostbite pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAAFrostbitePS();
@@ -233,7 +233,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA Ward-Duer pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAAWardDuerPS();
@@ -246,7 +246,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred MSAA Lambertian pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAALambertianPS();
@@ -262,17 +262,17 @@ namespace mage {
 					The BRDF type.
 	 @return		A pointer to the deferred MSAA pixel shader matching the 
 					given BRDF.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredMSAAPS(BRDFType brdf);
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Depth
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a depth vertex shader.
@@ -282,7 +282,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the depth vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateDepthVS();
@@ -295,7 +295,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the depth transparent vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateDepthTransparentVS();
@@ -308,17 +308,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the depth transparent pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDepthTransparentPS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a forward Blinn-Phong pixel shader.
@@ -334,7 +334,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward Blinn-Phong pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardBlinnPhongPS(
@@ -354,7 +354,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward Cook-Torrance pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardCookTorrancePS(
@@ -371,7 +371,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward emissive pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardEmissivePS(
@@ -391,7 +391,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward Frostbite pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardFrostbitePS(
@@ -411,7 +411,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward Lambertian pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardLambertianPS(
@@ -431,7 +431,7 @@ namespace mage {
 					@c true if transparency should be supported. @c false 
 					otherwise.
 	 @return		A pointer to the forward Ward-Duer pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardWardDuerPS(
@@ -454,18 +454,18 @@ namespace mage {
 					otherwise.
 	 @return		A pointer to the forward pixel shader matching the given 
 					BRDF.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateForwardPS(BRDFType brdf,
 		bool tsnm = false, bool transparency = false);
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBuffer
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a GBuffer pixel shader.
@@ -478,17 +478,17 @@ namespace mage {
 					@c true if tangent space normal mapping should be 
 					supported. @c false otherwise.
 	 @return		A pointer to the GBuffer pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateGBufferPS(bool tsnm = false);
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Miscellaneous
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a back buffer pixel shader.
@@ -498,7 +498,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the back buffer pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateBackBufferPS();
@@ -511,7 +511,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the constant color pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateConstantColorPS();
@@ -524,7 +524,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the constant color texture pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateConstantColorTexturePS();
@@ -537,7 +537,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the distance pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDistancePS();
@@ -550,7 +550,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the shading normal vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateShadingNormalVS();
@@ -566,18 +566,18 @@ namespace mage {
 					@c true if tangent space normal mapping should be 
 					supported. @c false otherwise.
 	 @return		A pointer to the shading normal pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateShadingNormalPS(
 		bool tsnm = false);
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Post Processing
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a depth-of-field compute shader.
@@ -587,17 +587,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the depth-of-field compute shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDepthOfFieldCS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Primitive
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a line cube vertex shader.
@@ -607,7 +607,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the line cube vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateLineCubeVS();
@@ -620,7 +620,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the line cube pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateLineCubePS();
@@ -633,7 +633,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the far fullscreen triangle vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS();
@@ -646,17 +646,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the near fullscreen triangle vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Sky
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a sky vertex shader.
@@ -666,7 +666,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sky vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateSkyVS();
@@ -679,17 +679,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sky pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateSkyPS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Sprite
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a sprite vertex shader.
@@ -699,7 +699,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sprite vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateSpriteVS();
@@ -712,17 +712,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sprite pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateSpritePS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a transform vertex shader.
@@ -732,7 +732,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the transform vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateTransformVS();
@@ -745,17 +745,17 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the minimal transform vertex shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateMinimalTransformVS();
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Voxelization
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Creates a voxelization geometry shader.
@@ -765,7 +765,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the voxelization geometry shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
 	SharedPtr< const GeometryShader > CreateVoxelizationGS();
@@ -778,10 +778,10 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the voxelization pixel shader.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateVoxelizationPS();
 
-#pragma endregion
+	#pragma endregion
 }

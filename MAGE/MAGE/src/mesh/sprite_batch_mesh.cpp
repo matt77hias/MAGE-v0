@@ -6,9 +6,17 @@
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "utils\collection\collection.hpp"
 #include "utils\logging\error.hpp"
 #include "utils\exception\exception.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -29,10 +37,12 @@ namespace mage {
 		SetupIndexBuffer(device);
 	}
 
-	SpriteBatchMesh::SpriteBatchMesh(
-		SpriteBatchMesh &&sprite_batch_mesh) noexcept = default;
+	SpriteBatchMesh::SpriteBatchMesh(SpriteBatchMesh &&mesh) noexcept = default;
 
 	SpriteBatchMesh::~SpriteBatchMesh() = default;
+
+	SpriteBatchMesh &SpriteBatchMesh
+		::operator=(SpriteBatchMesh &&mesh) noexcept = default;
 
 	void SpriteBatchMesh::SetupVertexBuffer(ID3D11Device5 *device) {
 		
@@ -56,7 +66,7 @@ namespace mage {
 			"s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
-		vector< U16 > indices;
+		std::vector< U16 > indices;
 		indices.reserve(MaxIndicesPerBatch());
 		for (U16 i = 0; i < MaxVerticesPerBatch(); i += s_vertices_per_sprite) {
 			// First triangle

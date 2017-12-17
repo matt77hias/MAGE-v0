@@ -6,7 +6,15 @@
 #pragma region
 
 #include "mesh\mesh.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -53,18 +61,17 @@ namespace mage {
 						The index format.
 		 @param[in]		primitive_topology
 						The primitive topology.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the static mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
-		explicit StaticMesh(
-			const VertexT *vertices, size_t nb_vertices,
-			const IndexT *indices, size_t nb_indices, 
-			DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
-			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		explicit StaticMesh(const VertexT *vertices, size_t nb_vertices,
+			                const IndexT  *indices,  size_t nb_indices, 
+			                DXGI_FORMAT index_format, 
+			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
 		/**
 		 Constructs a static mesh.
@@ -94,18 +101,18 @@ namespace mage {
 						The index format.
 		 @param[in]		primitive_topology
 						The primitive topology.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the static mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
 		explicit StaticMesh(ID3D11Device5 *device, 
-			const VertexT *vertices, size_t nb_vertices, 
-			const IndexT *indices, size_t nb_indices, 
-			DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
-			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			                const VertexT *vertices, size_t nb_vertices, 
+			                const IndexT  *indices,  size_t nb_indices, 
+			                DXGI_FORMAT index_format, 
+			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
 		 Constructs a static mesh.
@@ -126,17 +133,17 @@ namespace mage {
 						The index format.
 		 @param[in]		primitive_topology
 						The primitive topology.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the static mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
-		explicit StaticMesh(
-			const vector< VertexT > &vertices, const vector< IndexT > &indices, 
-			DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
-			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		explicit StaticMesh(const std::vector< VertexT > &vertices, 
+			                const std::vector< IndexT >  &indices, 
+			                DXGI_FORMAT index_format, 
+			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
 		 Constructs a static mesh.
@@ -158,33 +165,34 @@ namespace mage {
 						The index format.
 		 @param[in]		primitive_topology
 						The primitive topology.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the static mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
 		explicit StaticMesh(ID3D11Device5 *device,
-			const vector< VertexT > &vertices, const vector< IndexT > &indices, 
-			DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
-			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			                const std::vector< VertexT > &vertices, 
+			                const std::vector< IndexT >  &indices, 
+			                DXGI_FORMAT index_format, 
+			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
 		 Constructs a static mesh from the given static mesh.
 
-		 @param[in]		static_mesh
+		 @param[in]		mesh
 						A reference to the static mesh to copy.
 		 */
-		StaticMesh(const StaticMesh &static_mesh) = delete;
+		StaticMesh(const StaticMesh &mesh) = delete;
 
 		/**
 		 Constructs a static mesh by moving the given static mesh.
 
-		 @param[in]		static_mesh
+		 @param[in]		mesh
 						A reference to the static mesh to move.
 		 */
-		StaticMesh(StaticMesh &&static_mesh) noexcept;
+		StaticMesh(StaticMesh &&mesh) noexcept;
 
 		/**
 		 Destructs this static mesh.
@@ -198,22 +206,22 @@ namespace mage {
 		/**
 		 Copies the given static mesh to this static mesh.
 
-		 @param[in]		static_mesh
+		 @param[in]		mesh
 						A reference to the static mesh to copy.
 		 @return		A reference to the copy of the given static mesh (i.e. 
 						this static mesh).
 		 */
-		StaticMesh &operator=(const StaticMesh &static_mesh) = delete;
+		StaticMesh &operator=(const StaticMesh &mesh) = delete;
 
 		/**
 		 Moves the given static mesh to this static mesh.
 
-		 @param[in]		static_mesh
+		 @param[in]		mesh
 						A reference to the static mesh to move.
 		 @return		A reference to the moved static mesh (i.e. this static 
 						mesh).
 		 */
-		StaticMesh &operator=(StaticMesh &&static_mesh) = delete;
+		StaticMesh &operator=(StaticMesh &&mesh) noexcept;
 
 	private:
 
@@ -236,7 +244,7 @@ namespace mage {
 						A pointer to an array of vertices.
 		 @param[in]		nb_vertices
 						The number of vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of this static mesh.
 		 */
 		template < typename VertexT >
@@ -258,11 +266,11 @@ namespace mage {
 						A pointer to an array of indices.
 		 @param[in]		nb_indices
 						The number of indices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of this static mesh.
 		 */
 		template < typename IndexT >
-		void SetupIndexBuffer(ID3D11Device5 *device, 
+		void SetupIndexBuffer(ID3D11Device5 *device,
 			const IndexT *indices, size_t nb_indices);
 	};
 }

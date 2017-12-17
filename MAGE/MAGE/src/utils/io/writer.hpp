@@ -51,7 +51,7 @@ namespace mage {
 						A reference to a writer to move.
 		 @return		A reference to the moved writer (i.e. this writer).
 		 */
-		Writer &operator=(Writer &&writer) = delete;
+		Writer &operator=(Writer &&writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -62,7 +62,7 @@ namespace mage {
 
 		 @param[in]		fname
 						The file name.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write to the given file.
 		 */
 		void WriteToFile(wstring fname);
@@ -112,7 +112,7 @@ namespace mage {
 
 		 @param[in]		c
 						The character to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given character.
 		 */
 		void WriteCharacter(char c);
@@ -124,7 +124,7 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to 
 						write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteString(const char *str);
@@ -134,7 +134,7 @@ namespace mage {
 
 		 @param[in]		str
 						A reference to the string to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteString(const string &str) {
@@ -148,7 +148,7 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to 
 						write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteStringLine(const char *str);
@@ -158,7 +158,7 @@ namespace mage {
 
 		 @param[in]		str
 						A reference to the string to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteStringLine(const string &str) {
@@ -174,7 +174,7 @@ namespace mage {
 		/**
 		 Starts writing.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		virtual void Write() = 0;

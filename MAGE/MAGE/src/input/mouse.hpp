@@ -50,7 +50,7 @@ namespace mage {
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the mouse.
 		 */
 		explicit Mouse(HWND hwindow, IDirectInput8 *di);
@@ -177,7 +177,7 @@ namespace mage {
 		/**
 		 Initializes the mouse device of this mouse.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the mouse.
 		 */
 		void InitializeMouse();
@@ -189,7 +189,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this mouse.
 		 */
-		const HWND m_hwindow;
+		HWND m_hwindow;
 
 		/**
 		 A pointer to the DirectInput object of this mouse.

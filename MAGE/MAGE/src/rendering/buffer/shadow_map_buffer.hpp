@@ -6,7 +6,15 @@
 #pragma region
 
 #include "camera\viewport.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -41,6 +49,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ShadowMapBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	struct ShadowMapBuffer final {
 
@@ -129,13 +138,16 @@ namespace mage {
 		Viewport m_viewport;
 		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
 		
-		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
+		std::vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
 	};
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// ShadowCubeMapBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	struct ShadowCubeMapBuffer final {
 
@@ -227,7 +239,9 @@ namespace mage {
 		Viewport m_viewport;
 		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
 		
-		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
+		std::vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
 	};
+
+	#pragma endregion
 }

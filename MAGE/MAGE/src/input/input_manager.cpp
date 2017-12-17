@@ -29,7 +29,7 @@ namespace mage {
 		InitializeInputSystems();
 	}
 
-	InputManager::InputManager(InputManager &&input_manager) noexcept = default;
+	InputManager::InputManager(InputManager &&manager) noexcept = default;
 
 	InputManager::~InputManager() = default;
 

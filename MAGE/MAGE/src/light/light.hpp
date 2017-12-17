@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scene\component.hpp"
 #include "material\spectrum.hpp"
 #include "math\geometry\bounding_volume.hpp"
 #include "utils\logging\error.hpp"
@@ -19,7 +20,7 @@ namespace mage {
 	/**
 	 A class of lights.
 	 */
-	class alignas(16) Light {
+	class Light : public Component {
 
 	public:
 
@@ -54,19 +55,6 @@ namespace mage {
 		 @return		A reference to the moved light (i.e. this light).
 		 */
 		Light &operator=(Light &&light) noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this light.
-
-		 @return		A pointer to the clone of this light.
-		 */
-		UniquePtr< Light > Clone() const {
-			return static_pointer_cast< Light >(CloneImplementation());
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
@@ -157,17 +145,6 @@ namespace mage {
 		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this light.
-
-		 @return		A pointer to the clone of this light.
-		 */
-		virtual UniquePtr< Light > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Lighting

@@ -5,8 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\collection\collection.hpp"
 #include "utils\parallel\lock.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <map>
 
 #pragma endregion
 
@@ -18,6 +26,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ResourcePool
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of resource pools.
@@ -28,7 +37,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	class ResourcePool {
+	class ResourcePool final {
 
 	public:
 
@@ -44,23 +53,25 @@ namespace mage {
 		/**
 		 Constructs a resource pool from the given resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the resource pool to copy.
 		 */
-		ResourcePool(const ResourcePool &resource_pool) = delete;
+		ResourcePool(const ResourcePool &pool) = delete;
 
 		/**
 		 Constructs a resource pool by moving the given resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool &&resource_pool);
+		ResourcePool(ResourcePool &&pool) = default;
 
 		/**
 		 Destructs this resource pool.
 		 */
-		virtual ~ResourcePool();
+		~ResourcePool() noexcept {
+			RemoveAllResources();
+		}
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -69,22 +80,22 @@ namespace mage {
 		/**
 		 Copies the given resource pool to this resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the resource pool to copy.
 		 @return		A reference to the copy of the given resource pool 
 						(i.e. this resource pool).
 		 */
-		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
+		ResourcePool &operator=(const ResourcePool &pool) = delete;
 
 		/**
 		 Moves the given resource pool to this resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the resource pool to move.
 		 @return		A reference to the moved resource pool (i.e. this 
 						resource pool).
 		 */
-		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
+		ResourcePool &operator=(ResourcePool &&pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -93,7 +104,7 @@ namespace mage {
 		/**
 		 Returns the number of resources contained in this resource pool.
 		 */
-		size_t GetNumberOfResources() const;
+		size_t GetNumberOfResources() const noexcept;
 
 		/**
 		 Checks whether this resource pool contains a resource corresponding 
@@ -192,7 +203,7 @@ namespace mage {
 		/**
 		 A resource map used by a resource pool.
 		 */
-		using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
+		using ResourceMap = std::map< KeyT, WeakPtr< ResourceT > >;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -206,7 +217,7 @@ namespace mage {
 		/**
 		 The mutex for accessing the resource map of this resource pool.
 		 */
-		Mutex m_resource_map_mutex;
+		mutable Mutex m_resource_map_mutex;
 
 		/**
 		 A class of resources.
@@ -309,9 +320,12 @@ namespace mage {
 		};
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// PersistentResourcePool
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of persistent resource pools.
@@ -322,7 +336,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	class PersistentResourcePool {
+	class PersistentResourcePool final {
 
 	public:
 
@@ -339,25 +353,26 @@ namespace mage {
 		 Constructs a persistent resource pool from the given persistent 
 		 resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the persistent resource pool to copy.
 		 */
-		PersistentResourcePool(
-			const PersistentResourcePool &resource_pool) = delete;
+		PersistentResourcePool(const PersistentResourcePool &pool) = delete;
 
 		/**
 		 Constructs a persistent resource pool by moving the given persistent 
 		 resource pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool &&resource_pool);
+		PersistentResourcePool(PersistentResourcePool &&pool) = default;
 
 		/**
 		 Destructs this persistent resource pool.
 		 */
-		virtual ~PersistentResourcePool();
+		~PersistentResourcePool() noexcept {
+			RemoveAllResources();
+		}
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -367,25 +382,25 @@ namespace mage {
 		 Copies the given persistent resource pool to this persistent resource 
 		 pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the persistent resource pool to copy.
 		 @return		A reference to the copy of the given persistent resource 
 						pool (i.e. this persistent resource pool).
 		 */
 		PersistentResourcePool &operator=(
-			const PersistentResourcePool &resource_pool) = delete;
+			const PersistentResourcePool &pool) = delete;
 
 		/**
 		 Moves the given persistent resource pool to this persistent resource 
 		 pool.
 
-		 @param[in]		resource_pool
+		 @param[in]		pool
 						A reference to the persistent resource pool to move.
 		 @return		A reference to the moved persistent resource pool (i.e. 
 						this persistent resource pool).
 		 */
 		PersistentResourcePool &operator=(
-			PersistentResourcePool &&resource_pool) = delete;
+			PersistentResourcePool &&pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -395,7 +410,7 @@ namespace mage {
 		 Returns the number of resources contained in this persistent resource 
 		 pool.
 		 */
-		size_t GetNumberOfResources() const;
+		size_t GetNumberOfResources() const noexcept;
 
 		/**
 		 Checks whether this persistent resource pool contains a resource 
@@ -495,7 +510,7 @@ namespace mage {
 		/**
 		 A resource map used by a persistent resource pool.
 		 */
-		using ResourceMap = map< KeyT, SharedPtr< ResourceT > >;
+		using ResourceMap = std::map< KeyT, SharedPtr< ResourceT > >;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -510,8 +525,10 @@ namespace mage {
 		 The mutex for accessing the persistent resource map of this persistent 
 		 resource pool.
 		 */
-		Mutex m_resource_map_mutex;
+		mutable Mutex m_resource_map_mutex;
 	};
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

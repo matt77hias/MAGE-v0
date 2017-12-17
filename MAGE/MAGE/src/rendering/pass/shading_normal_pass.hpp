@@ -110,7 +110,7 @@ namespace mage {
 
 		 @param[in]		render_mode
 						The render mode.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this shading normal 
 						pass.
 		 */
@@ -126,7 +126,7 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -183,7 +183,7 @@ namespace mage {
 		 @param[in]		world_to_object
 						The world-to-object transformation matrix used for
 						transforming normals.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this shading normal 
 						pass.
 		 */
@@ -205,11 +205,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
 

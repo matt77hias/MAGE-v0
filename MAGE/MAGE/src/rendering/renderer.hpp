@@ -127,7 +127,7 @@ namespace mage {
 		/**
 		 Binds the persistent state of this renderer.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the persistent state of this renderer.
 		 */
 		void BindPersistentState();
@@ -138,7 +138,7 @@ namespace mage {
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
 						A pointer to the scene.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void Render(const Scene *scene);
@@ -434,7 +434,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the persistent state of this renderer.
 		 */
 		void BindCameraBuffer(

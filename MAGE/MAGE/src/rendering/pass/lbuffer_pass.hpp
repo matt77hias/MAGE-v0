@@ -83,28 +83,28 @@ namespace mage {
 		void ProcessLightsData(const PassBuffer *scene);
 
 		void XM_CALLCONV ProcessLights(
-			const vector< const DirectionalLightNode * > &lights,
+			const std::vector< const DirectionalLightNode * > &lights,
 			FXMMATRIX world_to_view);
 		void XM_CALLCONV ProcessLights(
-			const vector< const OmniLightNode * > &lights,
+			const std::vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view);
 		void XM_CALLCONV ProcessLights(
-			const vector< const SpotLightNode * > &lights,
+			const std::vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view);
 
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const vector< const DirectionalLightNode * > &lights,
+			const std::vector< const DirectionalLightNode * > &lights,
 			FXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const vector< const OmniLightNode * > &lights,
+			const std::vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const vector< const SpotLightNode * > &lights,
+			const std::vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
@@ -151,8 +151,8 @@ namespace mage {
 		UniquePtr< ShadowCubeMapBuffer > m_omni_sms;
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
 
-		vector< LightCameraInfo > m_directional_light_cameras;
-		vector< LightCameraInfo > m_omni_light_cameras;
-		vector< LightCameraInfo > m_spot_light_cameras;
+		std::vector< LightCameraInfo > m_directional_light_cameras;
+		std::vector< LightCameraInfo > m_omni_light_cameras;
+		std::vector< LightCameraInfo > m_spot_light_cameras;
 	};
 }

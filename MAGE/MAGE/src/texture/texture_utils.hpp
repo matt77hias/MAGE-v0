@@ -206,7 +206,7 @@ namespace mage {
 					A pointer to the (texture) shader resource view.
 	 @return		The size of the given 2D texture as a
 					@c XMVECTOR (width, height, width, height).
-	 @throws		FormattedException
+	 @throws		Exception
 					The resource of the given shader resource view must be 
 					convertible to a @c ID3D11Texture2D.
 	 */

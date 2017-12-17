@@ -46,7 +46,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
@@ -56,21 +56,19 @@ namespace mage {
 		 Constructs a rendering state manager from the given rendering state 
 		 manager.
 
-		 @param[in]		rendering_state_manager
+		 @param[in]		manager
 						A reference to the rendering state manager to copy.
 		 */
-		RenderingStateManager(
-			const RenderingStateManager &rendering_state_manager) = delete;
+		RenderingStateManager(const RenderingStateManager &manager) = delete;
 
 		/**
 		 Constructs a rendering state manager by moving the given rendering 
 		 state manager.
 
-		 @param[in]		rendering_state_manager
+		 @param[in]		manager
 						A reference to the rendering state manager to move.
 		 */
-		RenderingStateManager(
-			RenderingStateManager &&rendering_state_manager) noexcept;
+		RenderingStateManager(RenderingStateManager &&manager) noexcept;
 
 		/**
 		 Destructs this rendering state manager.
@@ -85,25 +83,25 @@ namespace mage {
 		 Copies the given rendering state manager to this rendering state 
 		 manager.
 
-		 @param[in]		rendering_state_manager
+		 @param[in]		manager
 						A reference to the rendering state manager to copy.
 		 @return		A reference to the copy of the given rendering state 
 						manager (i.e. this rendering state manager).
 		 */
 		RenderingStateManager &operator=(
-			const RenderingStateManager &rendering_state_manager) = delete;
+			const RenderingStateManager &manager) = delete;
 
 		/**
 		 Moves the given rendering state manager to this rendering state 
 		 manager.
 
-		 @param[in]		rendering_state_manager
+		 @param[in]		manager
 						A reference to the rendering state manager to move.
 		 @return		A reference to the moved rendering state manager
 						(i.e. this rendering state manager).
 		 */
 		RenderingStateManager &operator=(
-			RenderingStateManager &&rendering_state_manager) = delete;
+			RenderingStateManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -112,7 +110,7 @@ namespace mage {
 		/**
 		 Binds the persistent state of this rendering state manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the persistent state of this rendering 
 						state manager.
 		 */
@@ -121,6 +119,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Blend States
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Binds the opaque blend state of this rendering state manager.
@@ -221,10 +220,13 @@ namespace mage {
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
-		
+		#pragma region
+
 		/**
 		 Binds the no-depth stencil state of this rendering state manager.
 
@@ -239,7 +241,7 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
 		}
 
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 
 		/**
 		 Binds the less-equal, read-write depth stencil state of this rendering
@@ -301,7 +303,7 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
 		}
 
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 
 		/**
 		 Binds the greater-equal, read-write depth stencil state of this rendering
@@ -363,11 +365,14 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
 		}
 
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Member Methods: Rasterizer States
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Binds the no-culling rasterizer state of this rendering state manager.
@@ -427,9 +432,12 @@ namespace mage {
 				GetRasterizerState(RasterizerStateIndex::Wireframe));
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Sampler States
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Binds the point sampler state with wrapping of this rendering state 
@@ -630,6 +638,8 @@ namespace mage {
 		void BindPCFSamplerState(
 			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
+		#pragma endregion
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -643,7 +653,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
@@ -655,7 +665,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the blend states of this rendering 
 						state manager.
 		 */
@@ -667,7 +677,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the depth stencil states of this 
 						rendering state manager.
 		 */
@@ -679,7 +689,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the rasterizer states of this rendering 
 						state manager.
 		 */
@@ -691,7 +701,7 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the samplers states of this rendering 
 						state manager.
 		 */
@@ -734,17 +744,17 @@ namespace mage {
 		 */
 		enum struct DepthStencilStateIndex {
 			DepthNone                  = 0,
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISSABLE_INVERTED_Z_BUFFER
 			LessEqualDepthReadWrite    = 1,
 			LessEqualDepthRead         = 2,
 			LessDepthReadWrite         = 3,
 			LessDepthRead              = 4,
-#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISSABLE_INVERTED_Z_BUFFER
 			GreaterEqualDepthReadWrite = 1,
 			GreaterEqualDepthRead      = 2,
 			GreaterDepthReadWrite      = 3,
 			GreaterDepthRead           = 4,
-#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISSABLE_INVERTED_Z_BUFFER
 			Count                      = 5
 		};
 		

@@ -25,7 +25,7 @@ namespace mage::loader {
 					A pointer to the device.
 	 @param[out]	texture_srv
 					A pointer to a pointer to a shader resource view.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the texture from file.
 	 */
 	void ImportTextureFromFile(const wstring &fname, 
@@ -43,7 +43,7 @@ namespace mage::loader {
 					A pointer to the device context.
 	 @param[out]	texture
 					A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to export the texture to file.
 	 */
 	void ExportTextureToFile(const wstring &fname, 

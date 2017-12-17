@@ -59,7 +59,7 @@ namespace mage {
 					The rotation mode.
 	 @return		The viewport transform for 
 					the given device context and rotation mode.
-	 @throws		FormattedException
+	 @throws		Exception
 					A viewport needs to be set.
 	 */
 	const XMMATRIX XM_CALLCONV GetViewportTransform(
@@ -80,7 +80,7 @@ namespace mage {
 					A pointer to the viewport.
 	 @return		The viewport transform for
 					the given device context and rotation mode.
-	 @throws		FormattedException
+	 @throws		Exception
 					A viewport needs to be set.
 	 */
 	const XMMATRIX XM_CALLCONV GetViewportTransform(

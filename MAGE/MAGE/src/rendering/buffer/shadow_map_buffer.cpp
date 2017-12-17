@@ -17,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ShadowMapBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	ShadowMapBuffer::ShadowMapBuffer(
 		size_t nb_shadow_maps, U32 width, U32 height, DepthFormat format) 
@@ -144,9 +145,12 @@ namespace mage {
 		}
 	}
 	
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ShadowCubeMapBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(
 		size_t nb_shadow_cube_maps, U32 width, U32 height, DepthFormat format)
@@ -274,4 +278,6 @@ namespace mage {
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
 	}
+
+	#pragma endregion
 }

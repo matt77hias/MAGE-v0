@@ -17,7 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// UV
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of UV texture coordinates.
@@ -111,12 +111,12 @@ namespace mage {
 
 	static_assert(sizeof(UV) == sizeof(F32x2));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Point3
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of points in 3D space.
@@ -203,12 +203,12 @@ namespace mage {
 
 	static_assert(sizeof(Point3) == sizeof(F32x3));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Normal3
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of normals in 3D space.
@@ -299,12 +299,12 @@ namespace mage {
 
 	static_assert(sizeof(Normal3) == sizeof(F32x3));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Direction3
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of directions in 3D space.
@@ -402,12 +402,12 @@ namespace mage {
 
 	static_assert(sizeof(Direction3) == sizeof(F32x3));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Utilities
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Inverts the handness of the given set of UV texture coordinates.
@@ -453,5 +453,5 @@ namespace mage {
 		return Direction3(direction.m_x, direction.m_y, -direction.m_z);
 	}
 
-#pragma endregion
+	#pragma endregion
 }

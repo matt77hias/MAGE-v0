@@ -45,9 +45,9 @@ namespace mage {
 		 @pre			@a hwindow is not equal to @c nullptr.
 		 @param[in]		hwindow
 						The handle of the parent window.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the DirectInput object.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the input systems.
 		 */
 		explicit InputManager(HWND hwindow);
@@ -55,18 +55,18 @@ namespace mage {
 		/**
 		 Constructs an input manager from the given input manager.
 
-		 @param[in]		input_manager
+		 @param[in]		manager
 						A reference to the input manager to copy.
 		 */
-		InputManager(const InputManager &input_manager) = delete;
+		InputManager(const InputManager &manager) = delete;
 
 		/**
 		 Constructs an input manager by moving the given input manager.
 
-		 @param[in]		input_manager
+		 @param[in]		manager
 						A reference to the input manager to move.
 		 */
-		InputManager(InputManager &&input_manager) noexcept;
+		InputManager(InputManager &&manager) noexcept;
 
 		/**
 		 Destructs this input manager.
@@ -80,22 +80,22 @@ namespace mage {
 		/**
 		 Copies the given input manager to this input manager.
 
-		 @param[in]		input_manager
+		 @param[in]		manager
 						A reference to the input manager to copy.
 		 @return		A reference to the copy of the given input manager 
 						(i.e. this input manager).
 		 */
-		InputManager &operator=(const InputManager &input_manager) = delete;
+		InputManager &operator=(const InputManager &manager) = delete;
 
 		/**
 		 Moves the given input manager to this input manager.
 
-		 @param[in]		input_manager
+		 @param[in]		manager
 						A reference to the input manager to move.
 		 @return		A reference to the moved input manager (i.e. this 
 						input manager).
 		 */
-		InputManager &operator=(InputManager &&input_manager) = delete;
+		InputManager &operator=(InputManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -136,7 +136,7 @@ namespace mage {
 		/**
 		 Initializes the DirectInput object of this input manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the DirectInput object.
 		 */
 		void InitializeDI();
@@ -144,7 +144,7 @@ namespace mage {
 		/**
 		 Initializes the different input systems of this input manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the input systems.
 		 */
 		void InitializeInputSystems();
@@ -156,7 +156,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this input manager.
 		 */
-		const HWND m_hwindow;
+		HWND m_hwindow;
 
 		/**
 		 A pointer to the DirectInput object of this input manager.

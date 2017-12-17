@@ -10,16 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH  2.0f
-#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT 2.0f
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -27,7 +17,7 @@ namespace mage {
 	/**
 	 A class of orthographic cameras.
 	 */
-	class alignas(16) OrthographicCamera final : public Camera {
+	class OrthographicCamera final : public Camera {
 
 	public:
 
@@ -38,23 +28,11 @@ namespace mage {
 		/**
 		 Constructs an orthographic camera.
 
-		 @param[in]		width
-						The width of the camera projection plane in camera 
-						space.
-		 @param[in]		height
-						The height of the camera projection plane in camera 
-						space.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
+		 @pre			The rendering manager associated with the current
+						engine must be loaded.
 		 */
-		explicit OrthographicCamera(
-			F32 width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
-			F32 height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
-			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept;
-		
+		OrthographicCamera() noexcept;
+
 		/**
 		 Constructs an orthographic camera from the given orthographic 
 		 camera.
@@ -103,17 +81,8 @@ namespace mage {
 		OrthographicCamera &operator=(OrthographicCamera &&camera) noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Projection
 		//---------------------------------------------------------------------
-
-		/**
-		 Clones this orthographic camera.
-
-		 @return		A pointer to the clone of this orthographic camera.
-		 */
-		UniquePtr< OrthographicCamera > Clone() const {
-			return static_pointer_cast< OrthographicCamera >(CloneImplementation());
-		}
 
 		/**
 		 Returns the width of the camera projection plane of this orthographic 
@@ -191,8 +160,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		*/
-		void SetViewToProjectionMatrix(
-			F32 width,  F32 height,
+		void SetViewToProjectionMatrix(F32 width,  F32 height, 
 			F32 near_z, F32 far_z) noexcept {
 			
 			SetWidthAndHeight(width, height);
@@ -240,18 +208,7 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this orthographic camera.
-
-		 @return		A pointer to the clone of this orthographic camera.
-		 */
-		virtual UniquePtr< Camera > CloneImplementation() const override;
-
-		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Projection
 		//---------------------------------------------------------------------
 
 		/**

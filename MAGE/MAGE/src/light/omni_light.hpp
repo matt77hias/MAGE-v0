@@ -6,7 +6,6 @@
 #pragma region
 
 #include "light\light.hpp"
-#include "camera\perspective_camera.hpp"
 
 #pragma endregion
 
@@ -18,7 +17,7 @@ namespace mage {
 	/**
 	 A class of omni lights.
 	 */
-	class alignas(16) OmniLight final : public Light {
+	class OmniLight final : public Light {
 
 	public:
 
@@ -76,19 +75,6 @@ namespace mage {
 		 */
 		OmniLight &operator=(OmniLight &&light) noexcept;
 
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this omni light.
-
-		 @return		A pointer to the clone of this omni light.
-		 */
-		UniquePtr< OmniLight > Clone() const {
-			return static_pointer_cast< OmniLight >(CloneImplementation());
-		}
-		
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
 		//---------------------------------------------------------------------
@@ -236,26 +222,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the (horizontal and vertical) field-of-view of this omni 
-		 light.
-
-		 @return		The (horizontal and vertical) field-of-view of this 
-						omni light.
-		 */
-		F32 GetFOV() const noexcept {
-			return XM_PIDIV2;
-		}
-
-		/**
-		 Returns the aspect ratio of this omni light.
-
-		 @return		The aspect ratio of this omni light.
-		 */
-		F32 GetAspectRatio() const noexcept {
-			return 1.0f;
-		}
-
-		/**
 		 Returns the view-to-projection matrix of the (forward) light camera 
 		 of this omni light.
 
@@ -263,17 +229,17 @@ namespace mage {
 						camera of this omni light.
 		 */
 		const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
-#ifdef DISSABLE_INVERTED_Z_BUFFER
-			const F32 m22 = GetRange()
-				/ (GetRange() - MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);
-			const F32 m32 = -MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z * m22;
-#else  // DISSABLE_INVERTED_Z_BUFFER
-			const F32 m22 = MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z 
-				/ (MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z - GetRange());
-			const F32 m32 = -GetRange() * m22;
-#endif // DISSABLE_INVERTED_Z_BUFFER
+			static const F32 near_plane = 0.1f;
+
+			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			const F32 m22 = m_range / (m_range - near_plane);
+			const F32 m32 = -near_plane * m22;
+			#else  // DISSABLE_INVERTED_Z_BUFFER
+			const F32 m22 = near_plane / (near_plane - m_range);
+			const F32 m32 = -m_range * m22;
+			#endif // DISSABLE_INVERTED_Z_BUFFER
 			
-			return XMMATRIX{
+			return XMMATRIX {
 				1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f,  m22, 1.0f,
@@ -281,31 +247,11 @@ namespace mage {
 			};
 		}
 
-		/**
-		 Returns the (forward) light camera of this omni light.
-
-		 @return		The (forward) light camera of this omni light.
-		 */
-		const PerspectiveCamera GetLightCamera() const noexcept {
-			return PerspectiveCamera(
-				GetAspectRatio(),
-				GetFOV(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
-				GetRange());
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Clones this omni light.
-
-		 @return		A pointer to the clone of this omni light.
-		 */
-		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		/**
 		 Updates the bounding volumes of this omni light.

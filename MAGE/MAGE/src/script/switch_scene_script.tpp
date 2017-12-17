@@ -20,16 +20,18 @@ namespace mage::script {
 	
 	template< typename SceneT >
 	SwitchSceneScript< SceneT >::SwitchSceneScript(
+		const SwitchSceneScript &script) noexcept = default;
+
+	template< typename SceneT >
+	SwitchSceneScript< SceneT >::SwitchSceneScript(
 		SwitchSceneScript &&script) noexcept = default;
 	
 	template< typename SceneT >
 	SwitchSceneScript< SceneT >::~SwitchSceneScript() = default;
-
+	
 	template< typename SceneT >
 	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] F64 delta_time) {
-		const Keyboard * const keyboard = Keyboard::Get();
-
-		if (keyboard->GetKeyPress(DIK_C)) {
+		if (Keyboard::Get()->GetKeyPress(DIK_C)) {
 			SceneManager::Get()->SetScene(MakeUnique< SceneT >());
 		}
 	}

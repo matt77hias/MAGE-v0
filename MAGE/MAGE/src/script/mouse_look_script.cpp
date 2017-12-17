@@ -4,8 +4,9 @@
 #pragma region
 
 #include "script\mouse_look_script.hpp"
+#include "scene\scene.hpp"
 #include "input\mouse.hpp"
-#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -14,30 +15,30 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	MouseLookScript::MouseLookScript(TransformNode *transform,
-		RotationAxes axes, 
-		F32x2 sensitivity,
-		F32x2 minimum_rotation, 
-		F32x2 maximum_rotation,
-		F32x2 direction)
+	MouseLookScript::MouseLookScript()
 		: BehaviorScript(),
-		m_transform(transform),
-		m_axes(axes),
-		m_sensitivity(std::move(sensitivity)),
-		m_minimum_rotation(std::move(minimum_rotation)),
-		m_maximum_rotation(std::move(maximum_rotation)),
-		m_direction(std::move(direction)) {
+		m_axes(RotationAxes::MouseXAndY),
+		m_sensitivity(F32x2(1.8f, 1.8f)),
+		m_minimum_rotation(F32x2(-XM_PI / 3.0f, -XM_PI)),
+		m_maximum_rotation(F32x2( XM_PI / 3.0f,  XM_PI)),
+		m_direction(F32x2(1.0f, 1.0f)) {}
 
-		Assert(m_transform);
-	}
-	
+	MouseLookScript::MouseLookScript(
+		const MouseLookScript &script) noexcept = default;
+
 	MouseLookScript::MouseLookScript(
 		MouseLookScript &&script) noexcept = default;
 	
 	MouseLookScript::~MouseLookScript() = default;
 
-	void MouseLookScript::Update([[maybe_unused]] F64 delta_time) {
+	void MouseLookScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+	}
+
+	void MouseLookScript::Update([[maybe_unused]] F64 delta_time)	 {
 		const Mouse * const mouse = Mouse::Get();
+		Transform &transform = GetOwner()->GetTransform();
 
 		switch (m_axes) {
 
@@ -47,12 +48,12 @@ namespace mage::script {
 				                 * m_sensitivity.m_x;
 			const F64 rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time 
 				                 * m_sensitivity.m_y;
-			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x),
-				                              m_minimum_rotation.m_x,
-				                              m_maximum_rotation.m_x);
-			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
-				                              m_minimum_rotation.m_y,
-				                              m_maximum_rotation.m_y);
+			transform.AddAndClampRotationX(static_cast< F32 >(rotation_x),
+				                           m_minimum_rotation.m_x,
+				                           m_maximum_rotation.m_x);
+			transform.AddAndClampRotationY(static_cast< F32 >(rotation_y),
+				                           m_minimum_rotation.m_y,
+				                           m_maximum_rotation.m_y);
 			break;
 		}
 		
@@ -60,9 +61,9 @@ namespace mage::script {
 			
 			const F64 rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time 
 				                 * m_sensitivity.m_y;
-			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
-				                              m_minimum_rotation.m_y,
-				                              m_maximum_rotation.m_y);
+			transform.AddAndClampRotationY(static_cast< F32 >(rotation_y),
+				                           m_minimum_rotation.m_y,
+				                           m_maximum_rotation.m_y);
 			break;
 		}
 		
@@ -70,9 +71,9 @@ namespace mage::script {
 			
 			const F64 rotation_x = m_direction.m_x * mouse->GetDeltaY() * delta_time 
 				                 * m_sensitivity.m_x;
-			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x), 
-				                              m_minimum_rotation.m_x,
-				                              m_maximum_rotation.m_x);
+			transform.AddAndClampRotationX(static_cast< F32 >(rotation_x),
+				                           m_minimum_rotation.m_x,
+				                           m_maximum_rotation.m_x);
 			break;
 		}
 		}

@@ -23,7 +23,7 @@ namespace mage::loader {
 					A reference to the MDL filename.
 	 @param[out]	model_output
 					A reference to the model output.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the model from file.
 	 */
 	template < typename VertexT >
@@ -39,7 +39,7 @@ namespace mage::loader {
 					A reference to the MDL filename.
 	 @param[in]		model_output
 					A reference to the model output.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to export the model to file.
 	 */
 	template < typename VertexT >

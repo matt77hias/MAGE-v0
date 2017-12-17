@@ -12,12 +12,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ModelDescriptor::ModelDescriptor(ModelDescriptor &&desc) = default;
+	ModelDescriptor::ModelDescriptor(ModelDescriptor &&desc) noexcept = default;
 
 	ModelDescriptor::~ModelDescriptor() = default;
 
-	const Material *ModelDescriptor::GetMaterial(
-		const string &name) const noexcept {
+	ModelDescriptor &ModelDescriptor
+		::operator=(ModelDescriptor &&desc) noexcept = default;
+
+	const Material *ModelDescriptor
+		::GetMaterial(const string &name) const noexcept {
 		
 		for (const auto &material : m_materials) {
 			if (material.GetName() == name) {
@@ -28,8 +31,8 @@ namespace mage {
 		return nullptr;
 	}
 
-	const ModelPart *ModelDescriptor::GetModelPart(
-		const string &name) const noexcept {
+	const ModelPart *ModelDescriptor
+		::GetModelPart(const string &name) const noexcept {
 		
 		for (const auto &model_part : m_model_parts) {
 			if (model_part.m_child == name) {

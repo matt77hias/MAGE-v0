@@ -15,16 +15,16 @@
 namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
-	MSHWriter< VertexT, IndexT >::MSHWriter(
-		const vector< VertexT > &vertices, 
-		const vector< IndexT > &indices)
+	MSHWriter< VertexT, IndexT >
+		::MSHWriter(const std::vector< VertexT > &vertices, 
+		            const std::vector< IndexT >  &indices)
 		: BigEndianBinaryWriter(), 
 		m_vertices(vertices), 
 		m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >
-	MSHWriter< VertexT, IndexT >::MSHWriter(
-		MSHWriter &&writer) noexcept = default;
+	MSHWriter< VertexT, IndexT >
+		::MSHWriter(MSHWriter &&writer) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MSHWriter< VertexT, IndexT >::~MSHWriter() = default;

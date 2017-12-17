@@ -17,10 +17,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// Engine
-	//-------------------------------------------------------------------------
-	
 	Engine *Engine::s_engine = nullptr;
 
 	Engine::Engine(const EngineSetup &setup)
@@ -32,7 +28,7 @@ namespace mage {
 		m_mode_switch(false),
 		m_input_manager(), 
 		m_scene_manager(),
-		m_timer(MakeUnique< Timer >()), 
+		m_timer(), 
 		m_fixed_delta_time(0.0f),
 		m_engine_stats(MakeUnique< EngineStatistics >()) {
 
@@ -119,15 +115,15 @@ namespace mage {
 		m_deactive = deactive;
 		
 		if (m_deactive) {
-			m_timer->Stop();
+			m_timer.Stop();
 		}
 		else {
-			m_timer->Resume();
+			m_timer.Resume();
 		}
 	}
 
 	void Engine::OnSceneChange() noexcept {
-		m_timer->Restart();
+		m_timer.Restart();
 	}
 	
 	int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
@@ -153,7 +149,7 @@ namespace mage {
 		swap_chain->SetInitialMode();
 
 		// Restart the timer.
-		m_timer->Restart();
+		m_timer.Restart();
 		F64 fixed_time_budget = 0.0f;
 
 		// Enter the message loop.
@@ -196,7 +192,7 @@ namespace mage {
 			m_rendering_manager->BeginFrame();
 
 			// Calculate the elapsed time.
-			const F64 delta_time = m_timer->GetDeltaTime();
+			const F64 delta_time = m_timer.GetDeltaTime();
 			// Perform the fixed delta time updates of the current scene.
 			if (m_fixed_delta_time) {
 				fixed_time_budget += delta_time;

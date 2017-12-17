@@ -6,7 +6,6 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform\transform_node.hpp"
 
 #pragma endregion
 
@@ -29,9 +28,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		RotationScript(TransformNode *transform,
-			RotationAxis axis = RotationAxis::Y);
-		RotationScript(const RotationScript &script) = delete;
+		RotationScript();
+		RotationScript(const RotationScript &script) noexcept;
 		RotationScript(RotationScript &&script) noexcept;
 		virtual ~RotationScript();
 
@@ -46,6 +44,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
 		RotationAxis GetRotationAxis() const noexcept {
@@ -61,7 +60,6 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		TransformNode * const m_transform;
 		RotationAxis m_axis;
 	};
 }

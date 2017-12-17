@@ -37,20 +37,18 @@ namespace mage {
 		/**
 		 Constructs an id generator from the given id generator.
 
-		 @param[in]		id_generator
+		 @param[in]		generator
 						A reference to the id generator to copy.
 		 */
-		constexpr IdGenerator(
-			const IdGenerator &id_generator) noexcept = delete;
+		constexpr IdGenerator(const IdGenerator &generator) noexcept = delete;
 
 		/**
 		 Constructs an id generator by moving the given id generator.
 
-		 @param[in]		id_generator
+		 @param[in]		generator
 						A reference to the id generator to move.
 		 */
-		constexpr IdGenerator(
-			IdGenerator &&id_generator) noexcept = default;
+		constexpr IdGenerator(IdGenerator &&generator) noexcept = default;
 
 		/**
 		 Destructs this id generator.
@@ -64,22 +62,22 @@ namespace mage {
 		/**
 		 Copies the given id generator to this id generator.
 
-		 @param[in]		id_generator
+		 @param[in]		generator
 						The id generator to copy.
 		 @return		A reference to the copy of the given id generator (i.e. 
 						this id generator).
 		 */
-		IdGenerator &operator=(const IdGenerator &id_generator) = delete;
+		IdGenerator &operator=(const IdGenerator &generator) noexcept = default;
 
 		/**
 		 Copies the given id generator to this id generator.
 
-		 @param[in]		id_generator
+		 @param[in]		generator
 						The id generator to move.
 		 @return		A reference to the moved id generator (i.e. this id 
 						generator).
 		 */
-		IdGenerator &operator=(IdGenerator &&id_generator) = delete;
+		IdGenerator &operator=(IdGenerator &&generator) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

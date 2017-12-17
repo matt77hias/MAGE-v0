@@ -108,7 +108,7 @@ namespace mage {
 						A reference to the viewport.
 		 @param[in]		desc
 						The AA descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void DispatchAAPreprocess(const Viewport &viewport, AADescriptor desc);
@@ -120,7 +120,7 @@ namespace mage {
 						A reference to the viewport.
 		 @param[in]		desc
 						The AA descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void DispatchAA(const Viewport &viewport, AADescriptor desc);
@@ -138,7 +138,7 @@ namespace mage {
 						engine must be loaded.
 		 @param[in]		desc
 						The AA descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to update the compute shaders of this AA pass.
 		 */
 		void UpdateCSs(AADescriptor desc);

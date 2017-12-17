@@ -16,10 +16,10 @@
 namespace mage {
 
 	/**
-	 A class of scene fog with respect to the camera position (eye) to avoid 
-	 popping artifacts while moving.
+	 A class of fog with respect to the camera position (eye) to avoid popping 
+	 artifacts while moving.
 	 */
-	class SceneFog final {
+	class Fog final {
 
 	public:
 
@@ -28,92 +28,88 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a scene fog.
+		 Constructs a fog.
 		 */
-		constexpr SceneFog() noexcept
+		constexpr Fog() noexcept
 			: m_base_color(color::Silver), 
 			m_density(0.0) {}
 
 		/**
-		 Constructs a scene fog from the given scene fog.
+		 Constructs a fog from the given fog.
 
-		 @param[in]		scene_fog
-						A reference to the scene fog to copy.
+		 @param[in]		fog
+						A reference to the fog to copy.
 		 */
-		constexpr SceneFog(const SceneFog &scene_fog) noexcept = default;
+		constexpr Fog(const Fog &fog) noexcept = default;
 
 		/**
-		 Constructs a scene fog by moving the given scene fog.
+		 Constructs a fog by moving the given fog.
 
-		 @param[in]		scene_fog
-						A reference to the scene fog to move.
+		 @param[in]		fog
+						A reference to the fog to move.
 		 */
-		constexpr SceneFog(SceneFog &&scene_fog) noexcept = default;
+		constexpr Fog(Fog &&fog) noexcept = default;
 
 		/**
-		 Destructs this scene fog.
+		 Destructs this fog.
 		 */
-		~SceneFog() = default;
+		~Fog() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given scene fog to this scene fog.
+		 Copies the given fog to this fog.
 
-		 @param[in]		scene_fog
-						A reference to the scene fog to copy.
-		 @return		A reference to the copy of the given scene fog (i.e. 
-						this scene fog).
+		 @param[in]		fog
+						A reference to the fog to copy.
+		 @return		A reference to the copy of the given fog (i.e. this fog).
 		 */
-		constexpr SceneFog &operator=(
-			const SceneFog &scene_fog) noexcept = default;
+		constexpr Fog &operator=(const Fog &fog) noexcept = default;
 
 		/**
-		 Moves the given scene fog to this scene fog.
+		 Moves the given fog to this fog.
 
-		 @param[in]		scene_fog
-						A reference to the scene fog to move.
-		 @return		A reference to the moved scene fog (i.e. this scene 
-						fog).
+		 @param[in]		fog
+						A reference to the fog to move.
+		 @return		A reference to the moved fog (i.e. this fog).
 		 */
-		constexpr SceneFog &operator=(
-			SceneFog &&scene_fog) noexcept = default;
+		constexpr Fog &operator=(Fog &&fog) noexcept = default;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Fogging
+		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this scene fog.
+		 Returns the sRGB base color of this fog.
 
-		 @return		A reference to the sRGB base color of this scene fog.
+		 @return		A reference to the sRGB base color of this fog.
 		 */
 		constexpr SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this scene fog.
+		 Returns the sRGB base color of this fog.
 
-		 @return		A reference to the sRGB base color of this scene fog.
+		 @return		A reference to the sRGB base color of this fog.
 		 */
 		constexpr const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the density of this scene fog.
+		 Returns the density of this fog.
 		
-		 @return		The density of this scene fog.
+		 @return		The density of this fog.
 		 */
 		constexpr F32 GetDensity() const noexcept {
 			return m_density;
 		}
 
 		/**
-		 Sets the density of this scene fog to the given value.
+		 Sets the density of this fog to the given value.
 
 		 @pre			@a density is an element of [0,1].
 		 @param[in]		density
@@ -131,12 +127,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB base color of this scene fog.
+		 The sRGB base color of this fog.
 		 */
 		SRGB m_base_color;
 
 		/**
-		 The density of this scene fog.
+		 The density of this fog.
 		 */
 		F32 m_density;
 	};

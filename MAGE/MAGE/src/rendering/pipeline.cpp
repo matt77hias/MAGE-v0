@@ -14,11 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	const D3D_FEATURE_LEVEL Pipeline::s_feature_levels[2] = {
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_11_0
-	};
-
 	ID3D11Device5 *Pipeline::GetDevice() noexcept {
 		Assert(RenderingManager::Get());
 

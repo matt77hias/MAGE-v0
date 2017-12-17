@@ -95,7 +95,7 @@ namespace mage::loader {
 		/**
 		 Starts reading.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read to the given file.
 		 */
 		virtual void Read() override;
@@ -105,7 +105,7 @@ namespace mage::loader {
 
 		 @return		@c true if the header of the file is valid. @c false 
 						otherwise.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read to the given file.
 		 */
 		bool IsHeaderValid();
@@ -113,9 +113,9 @@ namespace mage::loader {
 		/**
 		 Reads a texture.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a texture.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read to the given file.
 		 */
 		void ReadTexture();

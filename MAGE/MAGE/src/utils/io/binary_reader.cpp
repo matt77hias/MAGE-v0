@@ -12,8 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ReadBinaryFile(const wchar_t *fname, 
-		UniquePtr< U8[] > &data, size_t *size) {
+	void ReadBinaryFile(const wchar_t *fname, UniquePtr< U8[] > &data, 
+		size_t *size) {
 
 		Assert(fname);
 		Assert(size);
@@ -53,6 +53,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// BinaryReader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	BinaryReader::BinaryReader()
 		: m_fname(), 
@@ -64,6 +65,9 @@ namespace mage {
 	BinaryReader::BinaryReader(BinaryReader &&reader) noexcept = default;
 
 	BinaryReader::~BinaryReader() = default;
+
+	BinaryReader &BinaryReader
+		::operator=(BinaryReader &&reader) noexcept = default;
 
 	void BinaryReader::ReadFromFile(wstring fname, bool big_endian) {
 		m_fname = std::move(fname);
@@ -225,9 +229,12 @@ namespace mage {
 		return result;
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// BigEndianBinaryReader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	BigEndianBinaryReader::BigEndianBinaryReader()
 		: m_fname(), 
@@ -235,10 +242,13 @@ namespace mage {
 		m_end(nullptr), 
 		m_data() {}
 
-	BigEndianBinaryReader::BigEndianBinaryReader(
-		BigEndianBinaryReader &&reader) noexcept = default;
+	BigEndianBinaryReader
+		::BigEndianBinaryReader(BigEndianBinaryReader &&reader) noexcept = default;
 
 	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
+
+	BigEndianBinaryReader &BigEndianBinaryReader
+		::operator=(BigEndianBinaryReader &&reader) noexcept = default;
 
 	void BigEndianBinaryReader::ReadFromFile(wstring fname) {
 		m_fname = std::move(fname);
@@ -265,4 +275,6 @@ namespace mage {
 
 		Read();
 	}
+
+	#pragma endregion
 }

@@ -5,13 +5,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\collection\collection.hpp"
 #include "math\transform\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -49,9 +57,8 @@ namespace mage {
 		 */
 		static constexpr U32 s_destination_size_in_pixels = 8u;
 
-		static_assert(
-			(static_cast< U32 >(SpriteEffect::FlipBoth)
-				& (s_source_in_texels | s_destination_size_in_pixels)) == 0u, 
+		static_assert((static_cast< U32 >(SpriteEffect::FlipBoth)
+			& (s_source_in_texels | s_destination_size_in_pixels)) == 0u, 
 			"Flag bits must not overlap");
 		
 		//---------------------------------------------------------------------
@@ -533,7 +540,7 @@ namespace mage {
 		 A vector containing the pointer to the sorted sprites in the queue of 
 		 this sprite batch.
 		 */
-		vector< const SpriteInfo * > m_sorted_sprites;
+		std::vector< const SpriteInfo * > m_sorted_sprites;
 		
 		/**
 		 A vector containing the smart pointers of the texture shader resource 
@@ -545,6 +552,6 @@ namespace mage {
 		 collection is used to hold just a single refcount each time the 
 		 associated texture is changed.
 		 */
-		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_srvs;
+		std::vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_srvs;
 	};
 }

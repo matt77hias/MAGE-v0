@@ -5,18 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scene\component.hpp"
 #include "math\math.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_CAMERA_NEAR_Z        0.01f
-#define MAGE_DEFAULT_CAMERA_FAR_Z        100.0f
-#define MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z   0.1f
+#include "camera\camera_settings.hpp"
+#include "camera\viewport.hpp"
 
 #pragma endregion
 
@@ -25,10 +17,184 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// CameraLens
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of camera lenses.
+	 */
+	class CameraLens final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a camera settings.
+		 */
+		constexpr CameraLens() noexcept
+			: m_radius(0.0f),
+			m_focal_length(100.0f),
+			m_max_coc_radius(10.0f) {}
+
+		/**
+		 Constructs a camera lens from the given camera lens.
+
+		 @param[in]		lens
+						A reference to the camera lens to copy.
+		 */
+		constexpr CameraLens(const CameraLens &lens) noexcept = default;
+
+		/**
+		 Constructs a camera lens by moving the given camera lens.
+
+		 @param[in]		lens
+						A reference to the camera lens to move.
+		 */
+		constexpr CameraLens(CameraLens &&lens) noexcept = default;
+
+		/**
+		 Destructs this camera lens.
+		 */
+		~CameraLens() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given camera lens to this camera lens.
+
+		 @param[in]		lens
+						A reference to the camera lens to copy.
+		 @return		A reference to the copy of the given camera lens (i.e. 
+						this camera lens).
+		 */
+		constexpr CameraLens &operator=(
+			const CameraLens &lens) noexcept = default;
+
+		/**
+		 Moves the given camera lens to this camera lens.
+
+		 @param[in]		lens
+						A reference to the camera lens to move.
+		 @return		A reference to the moved camera lens (i.e. this camera 
+						lens).
+		 */
+		constexpr CameraLens &operator=(
+			CameraLens &&lens) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this camera lens has a finite aperture.
+
+		 @return		@c true if this camera lens has a finite aperture.
+						@c false otherwise.
+		 */
+		constexpr bool HasFiniteAperture() const noexcept {
+			return 0.0f != m_radius;
+		}
+
+		/**
+		 Returns the radius of this camera lens.
+
+		 @return		The radius of this camera lens.
+		 */
+		constexpr F32 GetLensRadius() const noexcept {
+			return m_radius;
+		}
+		
+		/**
+		 Sets the radius of this camera lens to the given value.
+
+		 @param[in]		radius
+						The radius of the camera lens.
+		 */
+		constexpr void SetLensRadius(F32 radius) noexcept {
+			m_radius = radius;
+		}
+
+		/**
+		 Returns the focal length of this camera lens.
+
+		 @return		The focal length of this camera lens.
+		 */
+		constexpr F32 GetFocalLength() const noexcept {
+			return m_focal_length;
+		}
+		
+		/**
+		 Sets the focal length of this camera lens to the given value.
+
+		 @param[in]		focal_length
+						The focal length.
+		 */
+		constexpr void SetFocalLength(F32 focal_length) noexcept {
+			m_focal_length = focal_length;
+		}
+
+		/**
+		 Returns the maximum radius of the circle of confusion of this camera 
+		 lens.
+
+		 @return		The maximum radius of the circle of confusion of this 
+						camera lens.
+		 */
+		constexpr F32 GetMaximumCoCRadius() const noexcept {
+			return m_max_coc_radius;
+		}
+		
+		/**
+		 Sets the maximum radius of the circle of confusion of this camera lens 
+		 to the given value.
+
+		 @param[in]		max_coc_radius
+						The maximum radius of the circle of confusion.
+		 */
+		constexpr void SetMaximumCoCRadius(F32 max_coc_radius) noexcept {
+			m_max_coc_radius = max_coc_radius;
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The radius of this camera lens.
+		 */
+		F32 m_radius;
+
+		/**
+		 The focal length of this camera lens.
+		 */
+		F32 m_focal_length;
+
+		/**
+		 The maximum radius of the circle-of-confusion of this camera lens.
+		 */
+		F32 m_max_coc_radius;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Camera
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of cameras.
 	 */
-	class alignas(16) Camera {
+	class Camera : public Component {
 
 	public:
 
@@ -63,19 +229,6 @@ namespace mage {
 		 @return		A reference to the moved camera (i.e. this camera).
 		 */
 		Camera &operator=(Camera &&camera) noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this camera.
-
-		 @return		A pointer to the clone of this camera.
-		 */
-		UniquePtr< Camera > Clone() const {
-			return static_pointer_cast< Camera >(CloneImplementation());
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Projection
@@ -154,77 +307,78 @@ namespace mage {
 		virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Depth-of-Field
+		// Member Methods: Lens
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this camera has a finite aperture.
+		 Returns the lens of this camera.
 
-		 @return		@c true if this camera has a finite aperture.
-						@c false otherwise.
+		 @return		A reference to the lens of this camera.	
 		 */
-		bool HasFiniteAperture() const noexcept {
-			return 0.0f != m_lens_radius;
-		}
-
-		/**
-		 Returns the lens radius of this camera in camera.
-
-		 @return		The lens radius of this camera.
-		 */
-		F32 GetLensRadius() const noexcept {
-			return m_lens_radius;
+		CameraLens &GetLens() noexcept {
+			return m_lens;
 		}
 		
 		/**
-		 Sets the lens radius of this camera to the given value.
+		 Returns the lens of this camera.
 
-		 @param[in]		lens_radius
-						The lens radius.
+		 @return		A reference to the lens of this camera.	
 		 */
-		void SetLensRadius(F32 lens_radius) noexcept {
-			m_lens_radius = lens_radius;
+		const CameraLens &GetLens() const noexcept {
+			return m_lens;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Viewport
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the viewport of this camera.
+
+		 @return		A reference to the viewport of this camera.
+		 */
+		Viewport &GetViewport() noexcept {
+			return m_viewport;
 		}
 
 		/**
-		 Returns the focal length of this camera in camera.
+		 Returns the viewport of this camera.
 
-		 @return		The focal length of this camera.
+		 @return		A reference to the viewport of this camera.
 		 */
-		F32 GetFocalLength() const noexcept {
-			return m_focal_length;
+		const Viewport &GetViewport() const noexcept {
+			return m_viewport;
+		}
+
+		/**
+		 Returns the super-sampled viewport of this camera.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @return		The super-sampled viewport of this camera.
+		 */
+		const Viewport GetSSViewport() const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Settings
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the settings of this camera.
+
+		 @return		A reference to the settings of this camera.	
+		 */
+		CameraSettings &GetSettings() noexcept {
+			return m_settings;
 		}
 		
 		/**
-		 Sets the focal length of this camera to the given value.
+		 Returns the settings of this camera.
 
-		 @param[in]		focal_length
-						The focal length.
+		 @return		A reference to the settings of this camera.
 		 */
-		void SetFocalLength(F32 focal_length) noexcept {
-			m_focal_length = focal_length;
-		}
-
-		/**
-		 Returns the maximum radius of the circle of confusion of this camera in 
-		 camera.
-
-		 @return		The maximum radius of the circle of confusion of this 
-						camera.
-		 */
-		F32 GetMaximumCoCRadius() const noexcept {
-			return m_max_coc_radius;
-		}
-		
-		/**
-		 Sets the maximum radius of the circle of confusion of this camera to 
-		 the given value.
-
-		 @param[in]		max_coc_radius
-						The maximum radius of the circle of confusion.
-		 */
-		void SetMaximumCoCRadius(F32 max_coc_radius) noexcept {
-			m_max_coc_radius = max_coc_radius;
+		const CameraSettings &GetSettings() const noexcept {
+			return m_settings;
 		}
 
 	protected:
@@ -236,13 +390,10 @@ namespace mage {
 		/**
 		 Constructs a camera.
 
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
+		 @pre			The rendering manager associated with the current
+						engine must be loaded.
 		 */
-		explicit Camera(F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			            F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept;
+		Camera() noexcept;
 
 		/**
 		 Constructs a camera from the given camera.
@@ -263,17 +414,6 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this camera.
-
-		 @return		A pointer to the clone of this camera.
-		 */
-		virtual UniquePtr< Camera > CloneImplementation() const = 0;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Projection
 		//---------------------------------------------------------------------
 
@@ -288,23 +428,32 @@ namespace mage {
 		F32 m_far_z;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Depth-of-Field
+		// Member Variables: Lens
 		//---------------------------------------------------------------------
 
 		/**
-		 The lens radius of this camera (for depth-of-field effects).
+		 The lens of this camera.
 		 */
-		F32 m_lens_radius;
+		CameraLens m_lens;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Viewport
+		//---------------------------------------------------------------------
 
 		/**
-		 The focal length of this camera (for depth-of-field effects).
+		 The viewport of this camera.
 		 */
-		F32 m_focal_length;
+		Viewport m_viewport;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Settings
+		//---------------------------------------------------------------------
 
 		/**
-		 The maximum radius of the circle-of-confusion of this camera (for 
-		 depth-of-field effects).
+		 The settings of this camera.
 		 */
-		F32 m_max_coc_radius;
+		CameraSettings m_settings;
 	};
+
+	#pragma endregion
 }

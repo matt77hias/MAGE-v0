@@ -116,7 +116,7 @@ namespace mage {
 
 		 @param[in]		render_mode
 						The render mode.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this variable 
 						component pass.
 		 */
@@ -134,7 +134,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -164,7 +164,7 @@ namespace mage {
 						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this variable 
 						component pass.
 		 */
@@ -193,11 +193,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						world-to-object transformation matrix for transforming 
 						normals.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view, 
 			CXMMATRIX view_to_world);

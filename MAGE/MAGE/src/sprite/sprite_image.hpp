@@ -29,23 +29,23 @@ namespace mage {
 		/**
 		 Constructs a sprite image.
 		 */
-		SpriteImage();
+		SpriteImage() noexcept;
 
 		/**
 		 Constructs a sprite image from the given sprite image.
 
-		 @param[in]		sprite_image
+		 @param[in]		sprite
 						A reference to the sprite image to copy.
 		 */
-		SpriteImage(const SpriteImage &sprite_image);
+		SpriteImage(const SpriteImage &sprite) noexcept;
 
 		/**
 		 Constructs a sprite image by moving the given sprite image.
 
-		 @param[in]		sprite_image
+		 @param[in]		sprite
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite_image) noexcept;
+		SpriteImage(SpriteImage &&sprite) noexcept;
 
 		/**
 		 Destruct this sprite image.
@@ -59,36 +59,27 @@ namespace mage {
 		/**
 		 Copies the given sprite image to this sprite image.
 
-		 @param[in]		sprite_image
+		 @param[in]		sprite
 						A reference to the sprite image to copy.
 		 @return		A reference to the copy of the given sprite image (i.e. 
 						this sprite image).
 		 */
-		SpriteImage &operator=(const SpriteImage &sprite_image) = delete;
+		SpriteImage &operator=(const SpriteImage &sprite) noexcept;
 
 		/**
 		 Moves the given sprite image to this sprite image.
 
-		 @param[in]		sprite_image
+		 @param[in]		sprite
 						A reference to the sprite image to move.
 		 @return		A reference to the moved sprite image (i.e. this sprite 
 						image).
 		 */
-		SpriteImage &operator=(SpriteImage &&sprite_image) = delete;
+		SpriteImage &operator=(SpriteImage &&sprite) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		/**
-		 Clones this sprite image.
-
-		 @return		A pointer to the clone of this sprite image.
-		 */
-		UniquePtr< SpriteImage > Clone() const {
-			return static_pointer_cast< SpriteImage >(CloneImplementation());
-		}
-		
 		/**
 		 Draws this sprite image.
 
@@ -97,10 +88,6 @@ namespace mage {
 						sprite image.
 		 */
 		void Draw(SpriteBatch &sprite_batch) const;
-
-		//---------------------------------------------------------------------
-		// Member Methods: Base Color and Base Color Texture
-		//---------------------------------------------------------------------
 
 		/**
 		 Returns the sRGB base color of this sprite image.
@@ -120,6 +107,49 @@ namespace mage {
 		 */
 		const SRGBA &GetBaseColor() const noexcept {
 			return m_base_color;
+		}
+
+		/**
+		 Returns the base color texture region of this sprite image.
+
+		 @return		The base color texture region of this sprite image.
+		 */
+		const RECT GetBaseColorTextureRegion() const noexcept {
+			return m_base_color_texture_region;
+		}
+
+		/**
+		 Checks whether the base color texture region of this sprite image 
+		 corresponds to the maximum texture region.
+
+		 @return		@c true if the base color texture region of this sprite 
+						image corresponds to the maximum texture region. 
+						@c false otherwise.
+		 */
+		bool HasMaximumBaseColorTextureRegion() const noexcept {
+			return 0 == m_base_color_texture_region.left
+				&& 0 == m_base_color_texture_region.top
+				&& 0 == m_base_color_texture_region.right
+				&& 0 == m_base_color_texture_region.bottom;
+		}
+
+		/**
+		 Sets the base color texture region of this sprite image to the maximum 
+		 texture region.
+		 */
+		void SetMaximumBaseColorTextureRegion() noexcept {
+			m_base_color_texture_region = {};
+		}
+
+		/**
+		 Sets the base color texture region of this sprite image to the given 
+		 texture region.
+
+		 @param[in]		texture_region
+						The texture region.
+		 */
+		void SetBaseColorTextureRegion(RECT texture_region) noexcept {
+			m_base_color_texture_region = std::move(texture_region);
 		}
 
 		/**
@@ -158,48 +188,7 @@ namespace mage {
 			m_base_color_texture = std::move(base_color_texture);
 		}
 
-		/**
-		 Returns the base color texture region of this sprite image.
-
-		 @return		A pointer to the base color texture region of this 
-						sprite image.
-		 */
-		const RECT *GetBaseColorTextureRegion() const noexcept {
-			return m_base_color_texture_region.get();
-		}
-
-		/**
-		 Sets the base color texture region of this sprite image to the maximum 
-		 texture region.
-		 */
-		void SetMaximumBaseColorTextureRegion() noexcept {
-			m_base_color_texture_region.reset();
-		}
-
-		/**
-		 Sets the base color texture region of this sprite image to the given 
-		 texture region.
-
-		 @param[in]		texture_region
-						The texture region.
-		 */
-		void SetBaseColorTextureRegion(RECT texture_region) noexcept {
-			m_base_color_texture_region 
-				= MakeUnique< RECT >(std::move(texture_region));
-		}
-
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this sprite image.
-
-		 @return		A pointer to the clone of this sprite image.
-		 */
-		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -211,15 +200,16 @@ namespace mage {
 		SRGBA m_base_color;
 
 		/**
+		 A pointer to the base color texture region of this sprite image.
+
+		 If every member variable of the rectangle is zero, the full texture 
+		 region is considered.
+		 */
+		RECT m_base_color_texture_region;
+
+		/**
 		 A pointer to the sRGB base color texture of this sprite image.
 		 */
 		SharedPtr< const Texture > m_base_color_texture;
-
-		/**
-		 A pointer to the base color texture region of this sprite image.
-
-		 If @c nullptr, the full texture region is considered.
-		 */
-		UniquePtr< RECT > m_base_color_texture_region;
 	};
 }

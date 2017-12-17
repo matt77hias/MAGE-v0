@@ -26,6 +26,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ComboBoxAdd
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Adds an item associated with the given data and described with the given
@@ -90,9 +91,12 @@ namespace mage {
 		ComboBoxAdd(dialog, id, (const void *)ptr, desc);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ComboBoxSelect
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Selects the item at the given index in a combo box.
@@ -153,10 +157,13 @@ namespace mage {
 		ComboBoxSelect(dialog, id, (const void *)ptr);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ComboBoxSelected
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	/**
 	 Returns the data associated with the selected item in a combo box.
 
@@ -206,9 +213,12 @@ namespace mage {
 		return static_cast< const T * >(ComboBoxSelected(dialog, id));
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ComboBoxSomethingSelected
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Checks whether a valid item is selected in a combo box.
@@ -223,9 +233,12 @@ namespace mage {
 	 */
 	bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ComboBoxCount
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Returns the number of items in a combo box.
@@ -239,9 +252,12 @@ namespace mage {
 	 */
 	int ComboBoxCount(HWND dialog, int id) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ComboBoxContains
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Checks whether a combo box contains the given descriptor.
@@ -258,4 +274,6 @@ namespace mage {
 					box. @c false otherwise.
 	 */
 	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
+
+	#pragma endregion
 }

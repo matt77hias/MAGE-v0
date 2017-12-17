@@ -50,7 +50,7 @@ namespace mage {
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the keyboard.
 		 */
 		explicit Keyboard(HWND hwindow, IDirectInput8 *di);
@@ -132,7 +132,7 @@ namespace mage {
 		/**
 		 Initializes the keyboard device of this keyboard.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the keyboard.
 		 */
 		void InitializeKeyboard();
@@ -144,7 +144,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this keyboard.
 		 */
-		const HWND m_hwindow;
+		HWND m_hwindow;
 
 		/**
 		 A pointer to the DirectInput object of this keyboard.

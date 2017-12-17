@@ -103,7 +103,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this sprite pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this sprite pass.
 		 */
 		void BindFixedState();
@@ -114,7 +114,7 @@ namespace mage {
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
 						A pointer to the scene.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void Render(const PassBuffer *scene);

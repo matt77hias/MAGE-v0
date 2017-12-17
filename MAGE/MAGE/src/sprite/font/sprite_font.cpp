@@ -24,6 +24,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// GlyphLessThan
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A struct of glyph "less than" comparators.
 	 */
@@ -144,6 +149,13 @@ namespace mage {
 		}
 	};
 
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SpriteFont
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	SpriteFont::SpriteFont(wstring fname, 
 		const SpriteFontDescriptor &desc)
 		: SpriteFont(std::move(fname), Pipeline::GetDevice(), desc) {}
@@ -164,9 +176,11 @@ namespace mage {
 		InitializeSpriteFont(output);
 	}
 
-	SpriteFont::SpriteFont(SpriteFont &&font) = default;
+	SpriteFont::SpriteFont(SpriteFont &&font) noexcept = default;
 
 	SpriteFont::~SpriteFont() = default;
+
+	SpriteFont &SpriteFont::operator=(SpriteFont &&font) noexcept = default;
 
 	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
 		m_glyphs = std::move(output.m_glyphs);
@@ -281,7 +295,7 @@ namespace mage {
 	}
 	
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, 
-		const vector< ColorString > &text, const SpriteTransform &transform, 
+		const std::vector< ColorString > &text, const SpriteTransform &transform, 
 		SpriteEffect effects) const {
 		
 		static_assert(
@@ -437,7 +451,7 @@ namespace mage {
 	}
 	
 	const XMVECTOR SpriteFont::MeasureString(
-		const vector< ColorString > &text) const {
+		const std::vector< ColorString > &text) const {
 		
 		XMVECTOR result = XMVectorZero();
 		F32 x = 0;
@@ -558,7 +572,7 @@ namespace mage {
 	}
 
 	const RECT SpriteFont::MeasureDrawBounds(
-		const vector< ColorString > &text, const F32x2 &position) const {
+		const std::vector< ColorString > &text, const F32x2 &position) const {
 		
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
 		F32 x = 0;
@@ -639,4 +653,6 @@ namespace mage {
 
 		return m_default_glyph;
 	}
+
+	#pragma endregion
 }

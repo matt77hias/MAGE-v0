@@ -23,7 +23,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateMAGETexture();
@@ -36,7 +36,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateReferenceTexture();
@@ -49,7 +49,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateBlackTexture();
@@ -62,7 +62,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateWhiteTexture();
@@ -75,7 +75,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateRedTexture();
@@ -88,7 +88,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateGreenTexture();
@@ -101,7 +101,7 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to create the texture.
 	 */
 	SharedPtr< const Texture > CreateBlueTexture();

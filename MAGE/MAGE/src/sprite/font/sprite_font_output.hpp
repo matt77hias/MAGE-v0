@@ -6,8 +6,16 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
-#include "utils\collection\collection.hpp"
 #include "sprite\font\glyph.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -75,7 +83,7 @@ namespace mage {
 		 @return		A reference to the moved sprite font output (i.e. this 
 						sprite font output).
 		 */
-		SpriteFontOutput &operator=(SpriteFontOutput &&output) = delete;
+		SpriteFontOutput &operator=(SpriteFontOutput &&output) noexcept = default;
 	
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -91,7 +99,7 @@ namespace mage {
 		 A vector containing the glyphs of the sprite font of this sprite font 
 		 output.
 		 */
-		vector < Glyph > m_glyphs;
+		std::vector< Glyph > m_glyphs;
 
 		/**
 		 The default character of the sprite font of this sprite font output.

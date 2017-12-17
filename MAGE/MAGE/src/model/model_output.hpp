@@ -7,7 +7,15 @@
 
 #include "math\geometry\bounding_volume.hpp"
 #include "material\material.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -265,7 +273,7 @@ namespace mage {
 		 @return		A reference to the moved model output
 						(i.e. this model output).
 		 */
-		ModelOutput &operator=(ModelOutput &&output) = delete;
+		ModelOutput &operator=(ModelOutput &&output) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -281,7 +289,7 @@ namespace mage {
 						created for the given model part.
 		 */
 		void AddModelPart(ModelPart model_part, 
-			bool create_bounding_volumes = true);
+			              bool create_bounding_volumes = true);
 
 		/**
 		 Checks whether this model output contains a model part with the given 
@@ -327,22 +335,22 @@ namespace mage {
 		/**
 		 A vector containing the vertices of this model output.
 		 */
-		vector< VertexT > m_vertex_buffer;
+		std::vector< VertexT > m_vertex_buffer;
 
 		/**
 		 A vector containing the indices of this model output.
 		 */
-		vector< U32 > m_index_buffer;
+		std::vector< U32 > m_index_buffer;
 
 		/**
 		 A vector containing the materials of this model output.
 		 */
-		vector< Material > m_material_buffer;
+		std::vector< Material > m_material_buffer;
 
 		/**
 		 A vector containing the model parts of this model output.
 		 */
-		vector< ModelPart > m_model_parts;
+		std::vector< ModelPart > m_model_parts;
 
 	private:
 

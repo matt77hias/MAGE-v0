@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of directional lights.
 	 */
-	class alignas(16) DirectionalLight final : public Light {
+	class DirectionalLight final : public Light {
 
 	public:
 
@@ -74,19 +74,6 @@ namespace mage {
 						directional light).
 		 */
 		DirectionalLight &operator=(DirectionalLight &&light) noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this directional light.
-
-		 @return		A pointer to the clone of this directional light.
-		 */
-		UniquePtr< DirectionalLight > Clone() const {
-			return static_pointer_cast< DirectionalLight >(CloneImplementation());
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
@@ -175,17 +162,6 @@ namespace mage {
 		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this directional light.
-
-		 @return		A pointer to the clone of this directional light.
-		 */
-		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

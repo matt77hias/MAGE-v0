@@ -20,13 +20,13 @@ using namespace mage;
  */
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
-#ifdef _DEBUG
+	#ifdef _DEBUG
 	const int debug_flags = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
 	// Perform automatic leak checking at program exit through a call to 
 	// _CrtDumpMemoryLeaks and generate an error report if the application 
 	// failed to free all the memory it allocated.
 	_CrtSetDbgFlag(debug_flags | _CRTDBG_LEAK_CHECK_DF);
-#endif
+	#endif
 
 	// Create the engine setup.
 	EngineSetup setup(hinstance, L"MAGE");

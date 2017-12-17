@@ -3,7 +3,17 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\orthographic_camera.hpp"
+#include "scene\scene.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_WIDTH  2.0f
+#define MAGE_DEFAULT_HEIGHT 2.0f
 
 #pragma endregion
 
@@ -12,10 +22,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	OrthographicCamera::OrthographicCamera(
-		F32 width, F32 height, F32 near_z, F32 far_z) noexcept
-		: Camera(near_z, far_z),
-		m_width(width), m_height(height) {}
+	OrthographicCamera::OrthographicCamera() noexcept
+		: Camera(),
+		m_width(MAGE_DEFAULT_WIDTH), 
+		m_height(MAGE_DEFAULT_HEIGHT) {}
 
 	OrthographicCamera::OrthographicCamera(
 		const OrthographicCamera &camera) noexcept = default;
@@ -25,13 +35,9 @@ namespace mage {
 
 	OrthographicCamera::~OrthographicCamera() = default;
 
-	OrthographicCamera &OrthographicCamera::operator=(
-		const OrthographicCamera &camera) noexcept = default;
+	OrthographicCamera &OrthographicCamera
+		::operator=(const OrthographicCamera &camera) noexcept = default;
 
-	OrthographicCamera &OrthographicCamera::operator=(
-		OrthographicCamera &&camera) noexcept = default;
-
-	UniquePtr< Camera > OrthographicCamera::CloneImplementation() const {
-		return MakeUnique< OrthographicCamera >(*this);
-	}
+	OrthographicCamera &OrthographicCamera
+		::operator=(OrthographicCamera &&camera) noexcept = default;
 }

@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 The Golden Angle.
 	 */
-	const F32 XM_GA = 2.399963230f;
+	constexpr F32 XM_GA = 2.399963230f;
 
 	inline void FibonacciSpiralSamplesInUnitCircle(F32x2 *samples, 
 		size_t nb_samples, F32 shift = 1.0f, F32 alpha = 2.0f) noexcept {

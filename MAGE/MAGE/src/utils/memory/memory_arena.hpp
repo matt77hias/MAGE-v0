@@ -6,8 +6,17 @@
 #pragma region
 
 #include "utils\type\types.hpp"
-#include "utils\collection\collection.hpp"
 #include "utils\logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <list>
+#include <utility>
 
 #pragma endregion
 
@@ -335,7 +344,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator &operator=(const Allocator &allocator) noexcept = delete;
+			Allocator &operator=(const Allocator &allocator) = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -345,7 +354,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator &operator=(Allocator &&allocator) noexcept = delete;
+			Allocator &operator=(Allocator &&allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -548,7 +557,7 @@ namespace mage {
 			/**
 			 A pointer to the memory arena of this allocator.
 			 */
-			MemoryArena * const m_memory_arena;
+			MemoryArena *m_memory_arena;
 		};
 
 		/**
@@ -572,7 +581,7 @@ namespace mage {
 		/**
 		 A type definition for a memory block.
 		 */
-		using MemoryBlock = pair< size_t, U8 * >;
+		using MemoryBlock = std::pair< size_t, U8 * >;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -601,12 +610,12 @@ namespace mage {
 		/**
 		 A collection containing the used blocks of this memory arena.
 		 */
-		list< MemoryBlock > m_used_blocks;
+		std::list< MemoryBlock > m_used_blocks;
 
 		/**
 		 A collection containing the available blocks of this memory arena.
 		 */
-		list< MemoryBlock > m_available_blocks;
+		std::list< MemoryBlock > m_available_blocks;
 	};
 }
 

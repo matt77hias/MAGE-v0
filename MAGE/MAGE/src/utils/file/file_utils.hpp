@@ -59,7 +59,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The extension of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file extension.
 	 */
 	inline const string GetFileExtension(const string &fname) {
@@ -76,7 +76,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The extension of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file extension.
 	 */
 	inline const wstring GetFileExtension(const wstring &fname) {
@@ -93,7 +93,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The name of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const string GetFileName(const string &fname) {
@@ -110,7 +110,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The name of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const wstring GetFileName(const wstring &fname) {
@@ -127,7 +127,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The path of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const string GetPathName(const string &fname) {
@@ -144,7 +144,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The path of the given file.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const wstring GetPathName(const wstring &fname) {
@@ -161,7 +161,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The filename of the given file without its file extension.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const string GetFilenameWithoutFileExtension(const string &fname) {
@@ -178,7 +178,7 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the filename of the file.
 	 @return		The filename of the given file without its file extension.
-	 @throws		FormattedException
+	 @throws		Exception
 					The filename does not have a file path.
 	 */
 	inline const wstring GetFilenameWithoutFileExtension(const wstring &fname) {

@@ -8,40 +8,59 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <map>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	Scene::Scene(string name)
-		: m_name(std::move(name)), 
-		m_scripts(), 
-		m_cameras(), 
-		m_models(), 
-		m_directional_lights(), 
-		m_omni_lights(), 
-		m_spot_lights(), 
-		m_sprites(),
-		m_ambient_light(), 
-		m_scene_fog(), 
-		m_sky() {}
+		: m_name(std::move(name)),
+		m_nodes(),
+		m_perspective_cameras(),
+		m_orthographic_cameras(),
+		m_ambient_lights(),
+		m_directional_lights(),
+		m_omni_lights(),
+		m_spot_lights(),
+		m_models(),
+		m_sprite_images(),
+		m_sprite_texts(),
+		m_scripts() {}
 
 	Scene::Scene(Scene &&scene) noexcept = default;
 
 	Scene::~Scene() = default;
+
+	Scene &Scene::operator=(Scene &&scene) noexcept = default;
 	
 	//-------------------------------------------------------------------------
 	// Scene Member Methods: Lifecycle
 	//-------------------------------------------------------------------------
 
 	void Scene::Initialize() {
-		m_scene_fog = MakeUnique< SceneFog >();
-		m_sky       = MakeUnique< Sky >();
-
 		// Loads this scene.
 		Load();
+
+		// Loads the behavior scripts of this scene.
+		ForEach< BehaviorScript >([](BehaviorScript &script) {
+			script.Load();
+		});
 	}
 	
 	void Scene::Uninitialize() {
+		// Closes the behavior scripts of this scene.
+		ForEach< BehaviorScript >([](BehaviorScript &script) {
+			script.Close();
+		});
+		
 		// Closes this scene.
 		Close();
 
@@ -49,102 +68,115 @@ namespace mage {
 		Clear();
 	}
 
+	void Scene::Load() {}
+	
+	void Scene::Close() {}
+
 	void Scene::Clear() noexcept {
-		m_scripts.clear();
-		m_cameras.clear();
-		m_models.clear();
+		m_nodes.clear();
+		m_perspective_cameras.clear();
+		m_orthographic_cameras.clear();
+		m_ambient_lights.clear();
 		m_directional_lights.clear();
 		m_omni_lights.clear();
 		m_spot_lights.clear();
-		m_sprites.clear();
-		m_ambient_light.reset();
-		m_scene_fog.reset();
-		m_sky.reset();
+		m_models.clear();
+		m_sprite_images.clear();
+		m_sprite_texts.clear();
+		m_scripts.clear();
 	}
 
 	//-------------------------------------------------------------------------
 	// Scene Member Methods
 	//-------------------------------------------------------------------------
 
-	ModelNode *Scene::CreateModel(const ModelDescriptor &desc) {
-		vector< ModelNode * > models;
-		return CreateModel(desc, models);
+	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc) {
+		std::vector< ProxyPtr< Node > > nodes;
+		return Import(desc, nodes);
 	}
 
-	ModelNode *Scene::CreateModel(const ModelDescriptor &desc, 
-		vector< ModelNode * > &models) {
+	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc, 
+		std::vector< ProxyPtr< Node > > &nodes) {
 
-		ModelNode *root = nullptr;
+		using ModelPtr = ProxyPtr< Model >;
+		using NodePtr  = ProxyPtr< Node >;
+		using NodePair = std::pair< NodePtr, string >;
+		
+		std::map< string, NodePair > mapping;
+		NodePtr root;
 		size_t nb_root_childs = 0;
 
-		using ModelPair = pair< ModelNode * , string >;
-		map< string, ModelPair > mapping;
-
-		// Create model nodes.
-		desc.ForEachModelPart([&](const ModelPart *model_part) {
-
-			// Create a submodel node.
-			UniquePtr< ModelNode > node = MakeUnique< ModelNode >(
-				                              model_part->m_child, 
-				                              desc.GetMesh(),
-										      model_part->m_start_index, 
-										      model_part->m_nb_indices,
-										      model_part->m_aabb, 
-					                          model_part->m_bs);
+		// Create the nodes with their model components.
+		desc.ForEachModelPart([&](const ModelPart &model_part) {
+			// Create the node.
+			const NodePtr node = Create< Node >(model_part.m_child);
 			
-			TransformNode * const transform = node->GetTransform();
-			transform->SetTranslation(model_part->m_translation);
-			transform->SetRotation(model_part->m_rotation);
-			transform->SetScale(model_part->m_scale);
-
-			// Create a material.
-			if (!model_part->HasDefaultMaterial()) {
-				const Material * const material = desc.GetMaterial(model_part->m_material);
-				ThrowIfFailed((nullptr != material), 
-					"%ls: material '%s' not found.", 
-					desc.GetGuid().c_str(), model_part->m_material.c_str());
-				*(node->GetModel()->GetMaterial()) = *material;
+			// Create the model component.
+			const ModelPtr model = Create< Model >(desc.GetMesh(),
+				                                   model_part.m_start_index,
+				                                   model_part.m_nb_indices,
+				                                   model_part.m_aabb,
+				                                   model_part.m_bs);
+			
+			// Set the material of the model component.
+			if (!model_part.HasDefaultMaterial()) {
+				const Material * const material 
+					= desc.GetMaterial(model_part.m_material);
+				ThrowIfFailed((nullptr != material),
+					"%ls: material '%s' not found.",
+					desc.GetGuid().c_str(), model_part.m_material.c_str());
+				
+				model->GetMaterial() = *material;
 			}
 
-			// Add the submodel node to this scene.
-			ModelNode * const ptr = node.get();
-			models.push_back(ptr);
-			m_models.push_back(std::move(node));
+			// Set the transform of the node.
+			Transform &transform = node->GetTransform();
+			transform.SetTranslation(model_part.m_translation);
+			transform.SetRotation(model_part.m_rotation);
+			transform.SetScale(model_part.m_scale);
 
-			if (model_part->HasDefaultParent()) {
-				root = ptr;
+			// Add the model component to the node.
+			node->AddComponent(model);
+
+			if (model_part.HasDefaultParent()) {
+				root = node;
 				++nb_root_childs;
 			}
 
-			// Add the submodel node to the mapping.
-			mapping.emplace(model_part->m_child, 
-							ModelPair(ptr, model_part->m_parent));
+			// Add the node to the mapping.
+			mapping.emplace(model_part.m_child, 
+							NodePair(node, model_part.m_parent));
+			
+			// Add the node to the collection to return.
+			nodes.push_back(std::move(node));
 		});
 
-		Assert(0 != nb_root_childs);
+		// There must be at least one root node.
+		ThrowIfFailed((0 != nb_root_childs),
+			"%ls: no root node fount.",
+			desc.GetGuid().c_str());
 
+		// An additional root node needs to be created if multiple root nodes 
+		// are present.
 		const bool create_root_model_node = (1 < nb_root_childs);
 		if (create_root_model_node) {
-			// Create root model node.
-			UniquePtr< ModelNode > node = MakeUnique< ModelNode >(
-				"model", desc.GetMesh(), 0, 0, AABB(), BS());
+			// Create the root node.
+			root = Create< Node >("model");
 			
-			// Add the root model node to this scene.
-			root = node.get();
-			models.push_back(root);
-			m_models.push_back(std::move(node));
+			// Add the node to the collection to return.
+			nodes.push_back(root);
 		}
 
-		// Connect model nodes.
+		// Connect the nodes.
 		for (const auto &model_pair : mapping) {
 			const auto &[child, parent] = model_pair.second;
 			if (MAGE_MDL_PART_DEFAULT_PARENT == parent) {
 				if (create_root_model_node) {
-					root->AddChildNode(child);
+					root->AddChild(child);
 				}
 			}
 			else {
-				mapping[parent].first->AddChildNode(child);
+				mapping[parent].first->AddChild(child);
 			}
 		}
 

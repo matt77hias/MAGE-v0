@@ -24,22 +24,22 @@ namespace mage {
 			Pipeline::GetDevice(), 
 			Pipeline::GetImmediateDeviceContext()) {}
 
-	SpriteBatch::SpriteBatch(
-		ID3D11Device5 *device, ID3D11DeviceContext4 *device_context)
-		: m_device_context(device_context), 
-		m_mesh(MakeUnique< SpriteBatchMesh >(device)), 
+	SpriteBatch::SpriteBatch(ID3D11Device5 *device, 
+		ID3D11DeviceContext4 *device_context)
+		: m_device_context(device_context),
+		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
 		m_vertex_buffer_position(0),
-		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
-		m_viewport_set(false), 
-		m_viewport{}, 
-		m_in_begin_end_pair(false), 
-		m_sort_mode(SpriteSortMode::Deferred), 
-		m_transform(XMMatrixIdentity()), 
+		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY),
+		m_viewport_set(false),
+		m_viewport{},
+		m_in_begin_end_pair(false),
+		m_sort_mode(SpriteSortMode::Deferred),
+		m_transform(XMMatrixIdentity()),
 		m_transform_buffer(device),
-		m_sprite_queue(), 
-		m_sprite_queue_size(0), 
-		m_sprite_queue_array_size(0), 
-		m_sorted_sprites(), 
+		m_sprite_queue(),
+		m_sprite_queue_size(0),
+		m_sprite_queue_array_size(0),
+		m_sorted_sprites(),
 		m_sprite_srvs() {}
 
 	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
@@ -244,9 +244,10 @@ namespace mage {
 			
 			std::sort(m_sorted_sprites.begin(), 
 				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->m_texture < rhs->m_texture;
-			});
+				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
+					return lhs->m_texture < rhs->m_texture;
+				}
+			);
 			
 			break;
 		}
@@ -255,9 +256,10 @@ namespace mage {
 			
 			std::sort(m_sorted_sprites.begin(), 
 				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->m_origin_rotation_depth.m_w > rhs->m_origin_rotation_depth.m_w;
-			});
+				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
+					return lhs->m_origin_rotation_depth.m_w > rhs->m_origin_rotation_depth.m_w;
+				}
+			);
 			
 			break;
 		}
@@ -266,9 +268,10 @@ namespace mage {
 			
 			std::sort(m_sorted_sprites.begin(), 
 				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->m_origin_rotation_depth.m_w < rhs->m_origin_rotation_depth.m_w;
-			});
+				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
+					return lhs->m_origin_rotation_depth.m_w < rhs->m_origin_rotation_depth.m_w;
+				}
+			);
 			
 			break;
 		}

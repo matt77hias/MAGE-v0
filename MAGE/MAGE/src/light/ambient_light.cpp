@@ -3,7 +3,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\ambient_light.hpp"
+#include "scene\scene.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_RADIANCE 1.0f
 
 #pragma endregion
 
@@ -13,7 +22,8 @@
 namespace mage {
 
 	AmbientLight::AmbientLight() noexcept
-		: Light(), m_radiance(1.0f) {}
+		: Light(), 
+		m_radiance(MAGE_DEFAULT_RADIANCE) {}
 
 	AmbientLight::AmbientLight(const AmbientLight &light) noexcept = default;
 	
@@ -21,13 +31,9 @@ namespace mage {
 	
 	AmbientLight::~AmbientLight() = default;
 
-	AmbientLight &AmbientLight::operator=(
-		const AmbientLight &light) noexcept = default;
-	
-	AmbientLight &AmbientLight::operator=(
-		AmbientLight &&light) noexcept = default;
+	AmbientLight &AmbientLight
+		::operator=(const AmbientLight &light) noexcept = default;
 
-	UniquePtr< Light > AmbientLight::CloneImplementation() const {
-		return MakeUnique< AmbientLight >(*this);
-	}
+	AmbientLight &AmbientLight
+		::operator=(AmbientLight &&light) noexcept = default;
 }

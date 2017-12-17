@@ -4,8 +4,10 @@
 #pragma region
 
 #include "script\render_mode_script.hpp"
+#include "scene\scene.hpp"
 #include "imgui\imgui.hpp"
 #include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -14,9 +16,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	RenderModeScript::RenderModeScript(CameraSettings *settings)
+	RenderModeScript::RenderModeScript()
 		: BehaviorScript(), 
-		m_settings(settings), 
+		m_camera(),
 		m_render_modes(), 
 		m_render_mode_names(), 
 		m_index(0),
@@ -59,9 +61,24 @@ namespace mage::script {
 	}
 
 	RenderModeScript::RenderModeScript(
+		const RenderModeScript &script) = default;
+
+	RenderModeScript::RenderModeScript(
 		RenderModeScript &&script) noexcept = default;
 	
 	RenderModeScript::~RenderModeScript() = default;
+
+	void RenderModeScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+
+		m_camera = GetOwner()->Get< PerspectiveCamera >();
+		if (nullptr == m_camera) {
+			m_camera = GetOwner()->Get< OrthographicCamera >();
+		}
+		ThrowIfFailed((nullptr != m_camera),
+			"This script needs a camera component.");
+	}
 
 	void RenderModeScript::Update([[maybe_unused]] F64 delta_time) {
 		ImGui::Begin("Configuration");
@@ -70,22 +87,22 @@ namespace mage::script {
 			           &m_index,
 			           m_render_mode_names.data(), 
 			           static_cast< int >(m_render_mode_names.size()));
-		m_settings->SetRenderMode(m_render_modes[m_index]);
+		m_camera->GetSettings().SetRenderMode(m_render_modes[m_index]);
 	
 		ImGui::Checkbox("Wireframe", &m_wireframe);
 		if (m_wireframe) {
-			m_settings->AddRenderLayer(RenderLayer::Wireframe);
+			m_camera->GetSettings().AddRenderLayer(RenderLayer::Wireframe);
 		}
 		else {
-			m_settings->RemoveRenderLayer(RenderLayer::Wireframe);
+			m_camera->GetSettings().RemoveRenderLayer(RenderLayer::Wireframe);
 		}
 
 		ImGui::Checkbox("AABB", &m_aabb);
 		if (m_aabb) {
-			m_settings->AddRenderLayer(RenderLayer::AABB);
+			m_camera->GetSettings().AddRenderLayer(RenderLayer::AABB);
 		}
 		else {
-			m_settings->RemoveRenderLayer(RenderLayer::AABB);
+			m_camera->GetSettings().RemoveRenderLayer(RenderLayer::AABB);
 		}
 
 		ImGui::End();

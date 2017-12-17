@@ -51,7 +51,7 @@ namespace mage {
 						A reference to the mesh to move.
 		 @return		A reference to the moved mesh (i.e. this mesh).
 		 */
-		Mesh &operator=(Mesh &&mesh) = delete;
+		Mesh &operator=(Mesh &&mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -264,16 +264,16 @@ namespace mage {
 		/**
 		 The vertex size of this mesh.
 		 */
-		const size_t m_vertex_size;
+		size_t m_vertex_size;
 
 		/**
 		 The index format of this mesh.
 		 */
-		const DXGI_FORMAT m_index_format;
+		DXGI_FORMAT m_index_format;
 
 		/**
 		 The primitive topology of this mesh.
 		 */
-		const D3D11_PRIMITIVE_TOPOLOGY m_primitive_topology;
+		D3D11_PRIMITIVE_TOPOLOGY m_primitive_topology;
 	};
 }

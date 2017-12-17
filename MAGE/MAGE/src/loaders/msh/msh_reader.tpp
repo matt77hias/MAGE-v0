@@ -16,8 +16,9 @@
 namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
-	MSHReader< VertexT, IndexT >::MSHReader(
-		vector< VertexT > &vertices, vector< IndexT > &indices)
+	MSHReader< VertexT, IndexT >
+		::MSHReader(std::vector< VertexT > &vertices, 
+		            std::vector< IndexT >  &indices)
 		: BigEndianBinaryReader(), 
 		m_vertices(vertices), 
 		m_indices(indices) {}

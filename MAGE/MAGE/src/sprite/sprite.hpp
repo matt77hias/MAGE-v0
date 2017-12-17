@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scene\component.hpp"
 #include "sprite\sprite_batch.hpp"
 
 #pragma endregion
@@ -17,7 +18,7 @@ namespace mage {
 	/**
 	 A class of sprites.
 	 */
-	class Sprite {
+	class Sprite : public Component {
 
 	public:
 
@@ -42,7 +43,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite (i.e. this 
 						sprite).
 		 */
-		Sprite &operator=(const Sprite &sprite) = delete;
+		Sprite &operator=(const Sprite &sprite) noexcept;
 
 		/**
 		 Moves the given sprite to this sprite.
@@ -51,20 +52,11 @@ namespace mage {
 						A reference to the sprite to move.
 		 @return		A reference to the moved sprite (i.e. this sprite).
 		 */
-		Sprite &operator=(Sprite &&sprite) = delete;
+		Sprite &operator=(Sprite &&sprite) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Clones this sprite.
-
-		 @return		A pointer to the clone of this sprite.
-		 */
-		UniquePtr< Sprite > Clone() const {
-			return CloneImplementation();
-		}
 
 		/**
 		 Draws this sprite.
@@ -75,32 +67,24 @@ namespace mage {
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
-		//---------------------------------------------------------------------
-		// Member Methods: Transform
-		//---------------------------------------------------------------------
-
 		/**
-		 Returns the transform of this sprite.
+		 Returns the sprite transform of this sprite.
 
-		 @return		A pointer to the transform of this sprite.
+		 @return		A reference to the sprite transform of this sprite.
 		 */
-		SpriteTransform *GetTransform() noexcept {
-			return m_transform.get();
+		SpriteTransform &GetSpriteTransform() noexcept {
+			return m_sprite_transform;
 		}
 
 		/**
-		 Returns the transform of this sprite.
+		 Returns the sprite transform of this sprite.
 
-		 @return		A pointer to the transform of this sprite.
+		 @return		A reference to the sprite transform of this sprite.
 		 */
-		const SpriteTransform *GetTransform() const noexcept {
-			return m_transform.get();
+		const SpriteTransform &GetSpriteTransform() const noexcept {
+			return m_sprite_transform;
 		}
 		
-		//---------------------------------------------------------------------
-		// Member Methods: Effects
-		//---------------------------------------------------------------------
-
 		/**
 		 Returns the sprite effects of this sprite.
 
@@ -129,7 +113,7 @@ namespace mage {
 		/**
 		 Constructs a sprite.
 		 */
-		Sprite();
+		Sprite() noexcept;
 
 		/**
 		 Constructs a sprite from the given sprite.
@@ -137,7 +121,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite to copy.
 		 */
-		Sprite(const Sprite &sprite);
+		Sprite(const Sprite &sprite) noexcept;
 
 		/**
 		 Constructs a sprite by moving the given sprite.
@@ -150,28 +134,13 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 Clones this sprite.
-
-		 @return		A pointer to the clone of this sprite.
+		 The sprite transform of this sprite.
 		 */
-		virtual UniquePtr< Sprite > CloneImplementation() const = 0;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transform
-		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the sprite transform of this sprite.
-		 */
-		UniquePtr< SpriteTransform > m_transform;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Effects
-		//---------------------------------------------------------------------
+		SpriteTransform m_sprite_transform;
 
 		/**
 		 The sprite effects of this sprite.

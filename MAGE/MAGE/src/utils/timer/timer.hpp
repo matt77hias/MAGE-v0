@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Constructs a timer.
 		 */
-		Timer();
+		Timer() noexcept;
 
 		/**
 		 Constructs a timer from the given timer.

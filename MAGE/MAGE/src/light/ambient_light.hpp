@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of ambient lights.
 	 */
-	class alignas(16) AmbientLight final : public Light {
+	class AmbientLight final : public Light {
 
 	public:
 
@@ -76,19 +76,6 @@ namespace mage {
 		AmbientLight &operator=(AmbientLight &&light) noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this ambient light.
-
-		 @return		A pointer to the clone of this ambient light.
-		 */
-		UniquePtr< AmbientLight > Clone() const {
-			return static_pointer_cast< AmbientLight >(CloneImplementation());
-		}
-
-		//---------------------------------------------------------------------
 		// Member Methods: Lighting
 		//---------------------------------------------------------------------
 
@@ -129,17 +116,6 @@ namespace mage {
 		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this ambient light.
-
-		 @return		A pointer to the clone of this ambient light.
-		 */
-		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

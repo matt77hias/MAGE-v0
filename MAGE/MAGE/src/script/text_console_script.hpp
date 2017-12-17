@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "sprite\text\sprite_text.hpp"
+#include "sprite\sprite_text.hpp"
 #include "utils\parallel\lock.hpp"
 
 #pragma endregion
@@ -24,9 +24,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit TextConsoleScript(SpriteText *text,
-			U32 nb_rows, U32 nb_columns);
-		TextConsoleScript(const TextConsoleScript &script) = delete;
+		explicit TextConsoleScript(U32 nb_rows, U32 nb_columns);
+		TextConsoleScript(const TextConsoleScript &script);
 		TextConsoleScript(TextConsoleScript &&script) noexcept;
 		virtual ~TextConsoleScript();
 
@@ -41,6 +40,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 		
 		void Clear();
@@ -63,7 +63,7 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		SpriteText * const m_text;
+		ProxyPtr< SpriteText > m_text;
 
 		const U32 m_nb_rows;
 		const U32 m_nb_columns;
@@ -71,7 +71,7 @@ namespace mage::script {
 		U32 m_current_row;
 
 		UniquePtr< wchar_t[] > m_buffer;
-		vector< wchar_t > m_temp_buffer;
+		std::vector< wchar_t > m_temp_buffer;
 		
 		Mutex m_mutex;
 	};

@@ -5,8 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scene\component.hpp"
 #include "mesh\static_mesh.hpp"
 #include "math\geometry\bounding_volume.hpp"
+#include "math\transform\texture_transform.hpp"
 #include "material\material.hpp"
 
 #pragma endregion
@@ -19,7 +21,7 @@ namespace mage {
 	/**
 	 A class of models.
 	 */
-	class alignas(16) Model {
+	class Model : public Component {
 
 	public:
 
@@ -88,20 +90,7 @@ namespace mage {
 						A reference to the model to move.
 		 @return		A reference to the moved model (i.e. this model).
 		 */
-		Model &operator=(Model &&model) = delete;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Clones this model.
-
-		 @return		A pointer to the clone of this model.
-		 */
-		UniquePtr< Model > Clone() const {
-			return CloneImplementation();
-		}
+		Model &operator=(Model &&model) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Geometry
@@ -182,6 +171,46 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
+		// Member Methods: Appearance
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the texture transform of this model.
+
+		 @return		A reference to the texture transform of this model.
+		 */
+		TextureTransform &GetTextureTransform() noexcept {
+			return m_texture_transform;
+		}
+
+		/**
+		 Returns the texture transform of this model.
+
+		 @return		A reference to the texture transform of this model.
+		 */
+		const TextureTransform &GetTextureTransform() const noexcept {
+			return m_texture_transform;
+		}
+
+		/**
+		 Returns the material of this model.
+
+		 @return		A reference to the material of this model.
+		 */
+		Material &GetMaterial() noexcept {
+			return m_material;
+		}
+
+		/**
+		 Returns the material of this model.
+
+		 @return		A reference to the material of this model.
+		 */
+		const Material &GetMaterial() const noexcept {
+			return m_material;
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods: Occlusion
 		//---------------------------------------------------------------------
 
@@ -227,44 +256,21 @@ namespace mage {
 			m_light_occlusion = light_occlusion;
 		}
 
-		//---------------------------------------------------------------------
-		// Member Methods: Appearance
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the material of this model.
-
-		 @return		A pointer to the material of this model.
-		 */
-		Material *GetMaterial() noexcept {
-			return m_material.get();
-		}
-
-		/**
-		 Returns the material of this model.
-
-		 @return		A pointer to the material of this model.
-		 */
-		const Material *GetMaterial() const noexcept {
-			return m_material.get();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Variables: Geometry
 		//---------------------------------------------------------------------
 
 		/**
-		 Clones this model.
-
-		 @return		A pointer to the clone of this model.
+		 The AABB of this model.
 		 */
-		virtual UniquePtr< Model > CloneImplementation() const;
+		AABB m_aabb;
 
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
+		/**
+		 The BS of this model.
+		 */
+		BS m_bs;
 
 		/**
 		 A pointer to the mesh of this model.
@@ -274,31 +280,34 @@ namespace mage {
 		/**
 		 The start index of this model in the mesh of this model.
 		 */
-		const size_t m_start_index;
+		size_t m_start_index;
 
 		/**
 		 The number of indices of this model in the mesh of this model.
 		 */
-		const size_t m_nb_indices;
+		size_t m_nb_indices;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Appearance
+		//---------------------------------------------------------------------
 
 		/**
-		 The AABB of this model.
+		 The texture transform of this model.
 		 */
-		const AABB m_aabb;
+		TextureTransform m_texture_transform;
 
 		/**
-		 The BS of this model.
+		 The material of this model.
 		 */
-		const BS m_bs;
+		Material m_material;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Occlusion
+		//---------------------------------------------------------------------
 
 		/**
 		 A flag indicating whether this model occludes light.
 		 */
 		bool m_light_occlusion;
-
-		/**
-		 A pointer to the material of this model.
-		 */
-		UniquePtr< Material > m_material;
 	};
 }

@@ -12,10 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Timer::Timer()
-		: m_last_timestamp{}, 
-		m_delta_time(0), 
-		m_total_delta_time(0), 
+	Timer::Timer() noexcept
+		: m_last_timestamp{},
+		m_delta_time(0),
+		m_total_delta_time(0),
 		m_running(false) {
 		
 		// Retrieve the frequency of the performance counter. 

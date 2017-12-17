@@ -13,7 +13,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\input_controller_script.hpp"
+#include "script\character_motor_script.hpp"
+#include "script\mouse_look_script.hpp"
 #include "script\render_mode_script.hpp"
 #include "script\rotation_script.hpp"
 #include "script\stats_script.hpp"
@@ -34,130 +35,145 @@ namespace mage {
 	ForrestScene::~ForrestScene() = default;
 
 	void ForrestScene::Load() {
-		//---------------------------------------------------------------------
-		// Fog
-		//---------------------------------------------------------------------
-		auto fog = GetSceneFog();
-		fog->SetDensity(0.001f);
 
 		//---------------------------------------------------------------------
-		// Sky
+		// Resources
 		//---------------------------------------------------------------------
-		auto sky = GetSky();
-		auto sky_texture =
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
-		sky->SetTexture(sky_texture);
-
-		//---------------------------------------------------------------------
-		// Camera
-		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCameraNode >();
-		camera->GetTransform()->SetTranslationY(2.0f);
-
-		//---------------------------------------------------------------------
-		// ModelDescriptors
-		//---------------------------------------------------------------------
+		ResourceManager * const factory = ResourceManager::Get();
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		
-		auto model_desc_plane =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
-		auto model_desc_tree1 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl",  mesh_desc);
-		auto model_desc_tree2 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1b_lod0.mdl",  mesh_desc);
-		auto model_desc_tree3 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree2a_lod0.mdl",  mesh_desc);
-		auto model_desc_tree4 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree2b_lod0.mdl",  mesh_desc);
-		auto model_desc_tree5 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree3a_lod0.mdl",  mesh_desc);
-		auto model_desc_tree6 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree3b_lod0.mdl",  mesh_desc);
-		auto model_desc_tree7 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4a_lod0.mdl",  mesh_desc);
-		auto model_desc_tree8 =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4b_lod0.mdl",  mesh_desc);
-		auto model_desc_windmill =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/windmill/windmill.mdl", mesh_desc);
+
+		auto plane_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/plane/plane.mdl", mesh_desc);
+		auto tree1_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
+		auto tree2_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree1b_lod0.mdl", mesh_desc);
+		auto tree3_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree2a_lod0.mdl", mesh_desc);
+		auto tree4_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree2b_lod0.mdl", mesh_desc);
+		auto tree5_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree3a_lod0.mdl", mesh_desc);
+		auto tree6_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree3b_lod0.mdl", mesh_desc);
+		auto tree7_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree4a_lod0.mdl", mesh_desc);
+		auto tree8_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree4b_lod0.mdl", mesh_desc);
+		auto windmill_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/windmill/windmill.mdl", mesh_desc);
+		auto sky_texture = factory->GetOrCreate< Texture >(
+			L"assets/textures/sky/sky.dds");
+
+		//---------------------------------------------------------------------
+		// Cameras
+		//---------------------------------------------------------------------
+		auto camera = Create< PerspectiveCamera >();
+
+		// Camera: Lens
+		// camera->GetLens().SetLensRadius(0.01f);
+		// camera->GetLens().SetFocalLength(3.0f);
+		// camera->GetLens().SetMaximumCoCRadius(2.0f);
+		// Camera: Viewport
+		// camera->GetViewport().SetNormalizedWidth(0.5f);
+		// Camera: Fog
+		camera->GetSettings().GetFog().SetDensity(0.001f);
+		// Camera: Sky
+		camera->GetSettings().GetSky().SetTexture(sky_texture);
+
+		auto camera_node = Create< Node >();
+		camera_node->AddComponent(camera);
+		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto model_plane = CreateModel(*model_desc_plane);
-		model_plane->GetTransform()->SetScale(30.0f);
+		auto plane_node = Import(*plane_model_desc);
+		plane_node->GetTransform().SetScale(30.0f);
 		
-		auto model_tree1 = CreateModel(*model_desc_tree1);
-		model_tree1->GetTransform()->SetScale(5.0f);
-		model_tree1->GetTransform()->SetTranslation(-5.0f, 2.5f, -10.0f);
-		auto model_tree2 = CreateModel(*model_desc_tree2);
-		model_tree2->GetTransform()->SetScale(5.0f);
-		model_tree2->GetTransform()->SetTranslation(-5.0f, 2.5f, -5.0f);
-		auto model_tree3 = CreateModel(*model_desc_tree3);
-		model_tree3->GetTransform()->SetScale(5.0f);
-		model_tree3->GetTransform()->SetTranslation(-5.0f, 2.5f, 5.0f);
-		auto model_tree4 = CreateModel(*model_desc_tree4);
-		model_tree4->GetTransform()->SetScale(5.0f);
-		model_tree4->GetTransform()->SetTranslation(-5.0f, 2.5f, 10.0f);
-		auto model_tree5 = CreateModel(*model_desc_tree5);
-		model_tree5->GetTransform()->SetScale(5.0f);
-		model_tree5->GetTransform()->SetTranslation(-10.0f, 2.5f, -10.0f);
-		auto model_tree6 = CreateModel(*model_desc_tree6);
-		model_tree6->GetTransform()->SetScale(5.0f);
-		model_tree6->GetTransform()->SetTranslation(-10.0f, 2.5f, -5.0f);
-		auto model_tree7 = CreateModel(*model_desc_tree7);
-		model_tree7->GetTransform()->SetScale(5.0f);
-		model_tree7->GetTransform()->SetTranslation(-10.0f, 2.5f, 5.0f);
-		auto model_tree8 = CreateModel(*model_desc_tree8);
-		model_tree8->GetTransform()->SetScale(5.0f);
-		model_tree8->GetTransform()->SetTranslation(-10.0f, 2.5f, 10.0f);
+		auto tree1_node = Import(*tree1_model_desc);
+		tree1_node->GetTransform().SetScale(5.0f);
+		tree1_node->GetTransform().SetTranslation(-5.0f, 2.5f, -10.0f);
+		auto tree2_node = Import(*tree2_model_desc);
+		tree2_node->GetTransform().SetScale(5.0f);
+		tree2_node->GetTransform().SetTranslation(-5.0f, 2.5f, -5.0f);
+		auto tree3_node = Import(*tree3_model_desc);
+		tree3_node->GetTransform().SetScale(5.0f);
+		tree3_node->GetTransform().SetTranslation(-5.0f, 2.5f, 5.0f);
+		auto tree4_node = Import(*tree4_model_desc);
+		tree4_node->GetTransform().SetScale(5.0f);
+		tree4_node->GetTransform().SetTranslation(-5.0f, 2.5f, 10.0f);
+		auto tree5_node = Import(*tree5_model_desc);
+		tree5_node->GetTransform().SetScale(5.0f);
+		tree5_node->GetTransform().SetTranslation(-10.0f, 2.5f, -10.0f);
+		auto tree6_node = Import(*tree6_model_desc);
+		tree6_node->GetTransform().SetScale(5.0f);
+		tree6_node->GetTransform().SetTranslation(-10.0f, 2.5f, -5.0f);
+		auto tree7_node = Import(*tree7_model_desc);
+		tree7_node->GetTransform().SetScale(5.0f);
+		tree7_node->GetTransform().SetTranslation(-10.0f, 2.5f, 5.0f);
+		auto tree8_node = Import(*tree8_model_desc);
+		tree8_node->GetTransform().SetScale(5.0f);
+		tree8_node->GetTransform().SetTranslation(-10.0f, 2.5f, 10.0f);
 		
-		vector< ModelNode * > models_windmill;
-		auto model_windmill = CreateModel(*model_desc_windmill, models_windmill);
-		model_windmill->GetTransform()->SetScale(10.0f);
-		model_windmill->GetTransform()->SetTranslationY(4.25f);
+		std::vector< ProxyPtr< Node > >windmill_nodes;
+		auto windmill_node = Import(*windmill_model_desc, windmill_nodes);
+		windmill_node->GetTransform().SetScale(10.0f);
+		windmill_node->GetTransform().SetTranslationY(4.25f);
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto spot_light = Create< SpotLightNode >();
-		spot_light->GetTransform()->SetTranslationY(15.0f);
-		spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		spot_light->GetLight()->SetRange(20.0f);
-		spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f)/2.0f);
-		spot_light->GetLight()->SetIntensity(40.0f);
-		spot_light->GetLight()->EnableShadows();
+		auto light = Create< SpotLight >();
+		light->SetRange(20.0f);
+		light->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
+		light->SetIntensity(40.0f);
+		light->EnableShadows();
 
-		auto light = Create< SpotLightNode >();
-		light->GetLight()->SetRange(5.0f);
-		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		camera->AddChildNode(light);
+		auto light_node = Create< Node >();
+		light_node->AddComponent(light);
+		light_node->GetTransform().SetTranslationY(15.0f);
+		light_node->GetTransform().SetRotationX(XM_PIDIV2);
 
-		auto directional_light = Create< DirectionalLightNode >();
-		directional_light->GetTransform()->SetTranslation(20.0f, 20.0f, 0.0f);
-		directional_light->GetTransform()->SetRotationZ(XM_PIDIV4);
-		directional_light->GetLight()->SetRadiance(4.0f);
+		auto spot_light = Create< SpotLight >();
+		spot_light->SetRange(5.0f);
+		spot_light->SetAngularCutoff(1.0f, 0.5f);
 
-		//---------------------------------------------------------------------
-		// Image
-		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImageNode >();
-		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
-		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
+		camera_node->AddComponent(spot_light);
 
+		auto directional_light = Create< DirectionalLight >();
+		directional_light->SetRadiance(4.0f);
+		
+		auto directional_light_node = Create< Node >();
+		directional_light_node->AddComponent(directional_light);
+		directional_light_node->GetTransform().SetTranslation(20.0f, 20.0f, 0.0f);
+		directional_light_node->GetTransform().SetRotationZ(XM_PIDIV4);
+		
 		//---------------------------------------------------------------------
-		// Text
+		// Sprites
 		//---------------------------------------------------------------------
-		auto text = Create< NormalSpriteTextNode >();
+		auto logo = Create< SpriteImage >();
+		logo->SetBaseColorTexture(CreateMAGETexture());
+		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform().SetNormalizedTranslation(0.90f, 0.88f);
+
+		auto text = Create< SpriteText >();
+
+		camera_node->AddComponent(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< BRDFScene > >();
-		Create< script::FPSInputControllerScript >(camera->GetTransform());
-		Create< script::RotationScript >(models_windmill[0]->GetTransform(), 
-			script::RotationScript::RotationAxis::X);
-		Create< script::RenderModeScript >(camera->GetSettings());
-		Create< script::StatsScript >(text->GetSprite());
+		
+		auto script = Create< script::RotationScript >();
+		script->SetRotationAxis(script::RotationScript::RotationAxis::X);
+		
+		windmill_nodes[0]->AddComponent(script);
+		
+		camera_node->AddComponent(Create< script::MouseLookScript >());
+		camera_node->AddComponent(Create< script::CharacterMotorScript >());
+		camera_node->AddComponent(Create< script::RenderModeScript >());
+		camera_node->AddComponent(Create< script::StatsScript >());
 	}
 }

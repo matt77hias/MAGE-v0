@@ -16,7 +16,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: Complete String
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	TokenResult StringToBool(const char *str, bool &result) noexcept {
 		if (!str) {
@@ -143,15 +143,15 @@ namespace mage {
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: Substring
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-	TokenResult StringToBool(
-		const char *begin, const char *end, bool &result) noexcept {
+	TokenResult StringToBool(const char *begin, const char *end, 
+		bool &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -192,8 +192,8 @@ namespace mage {
 		return TokenResult::Invalid;
 	}
 	
-	TokenResult StringToS8(
-		const char *begin, const char *end, S8 &result) noexcept {
+	TokenResult StringToS8(const char *begin, const char *end, 
+		S8 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -206,8 +206,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU8(
-		const char *begin, const char *end, U8 &result) noexcept {
+	TokenResult StringToU8(const char *begin, const char *end, 
+		U8 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -220,8 +220,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToS16(
-		const char *begin, const char *end, S16 &result) noexcept {
+	TokenResult StringToS16(const char *begin, const char *end, 
+		S16 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -234,8 +234,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU16(
-		const char *begin, const char *end, U16 &result) noexcept {
+	TokenResult StringToU16(const char *begin, const char *end, 
+		U16 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -248,8 +248,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToS32(
-		const char *begin, const char *end, S32 &result) noexcept {
+	TokenResult StringToS32(const char *begin, const char *end, 
+		S32 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -262,8 +262,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU32(
-		const char *begin, const char *end, U32 &result) noexcept {
+	TokenResult StringToU32(const char *begin, const char *end, 
+		U32 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -276,8 +276,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToS64(
-		const char *begin, const char *end, S64 &result) noexcept {
+	TokenResult StringToS64(const char *begin, const char *end, 
+		S64 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -290,8 +290,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU64(
-		const char *begin, const char *end, U64 &result) noexcept {
+	TokenResult StringToU64(const char *begin, const char *end, 
+		U64 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -304,8 +304,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF32(
-		const char *begin, const char *end, F32 &result) noexcept {
+	TokenResult StringToF32(const char *begin, const char *end, 
+		F32 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -318,8 +318,8 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF64(
-		const char *begin, const char *end, F64 &result) noexcept {
+	TokenResult StringToF64(const char *begin, const char *end, 
+		F64 &result) noexcept {
 		
 		if (!begin) {
 			return TokenResult::None;
@@ -332,12 +332,12 @@ namespace mage {
 		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// String Conversion Utilities: String Prefix
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	TokenResult StringPrefixToS8(const char *str, S8 &result) noexcept {
 		if (!str) {
@@ -449,15 +449,15 @@ namespace mage {
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Reading
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-	TokenResult ReadChars(char *str, char **context, 
-		char **result, const char *delimiters) noexcept {
+	TokenResult ReadChars(char *str, char **context, char **result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(result);
@@ -471,8 +471,8 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadString(char *str, char **context, 
-		string &result, const char *delimiters) {
+	TokenResult ReadString(char *str, char **context, string &result, 
+		const char *delimiters) {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -487,8 +487,8 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadQuotedString(char *str, char **context, 
-		string &result, const char *delimiters) {
+	TokenResult ReadQuotedString(char *str, char **context, string &result, 
+		const char *delimiters) {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -518,8 +518,8 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadBool(char *str, char **context, 
-		bool &result, const char *delimiters) noexcept {
+	TokenResult ReadBool(char *str, char **context, bool &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -528,8 +528,8 @@ namespace mage {
 		return StringToBool(token, result);
 	}
 	
-	TokenResult ReadS8(char *str, char **context, 
-		S8 &result, const char *delimiters) noexcept {
+	TokenResult ReadS8(char *str, char **context, S8 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -538,8 +538,8 @@ namespace mage {
 		return StringToS8(token, result);
 	}
 	
-	TokenResult ReadU8(char *str, char **context, 
-		U8 &result, const char *delimiters) noexcept {
+	TokenResult ReadU8(char *str, char **context, U8 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -548,8 +548,8 @@ namespace mage {
 		return StringToU8(token, result);
 	}
 	
-	TokenResult ReadS16(char *str, char **context, 
-		S16 &result, const char *delimiters) noexcept {
+	TokenResult ReadS16(char *str, char **context, S16 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -558,8 +558,8 @@ namespace mage {
 		return StringToS16(token, result);
 	}
 	
-	TokenResult ReadU16(char *str, char **context, 
-		U16 &result, const char *delimiters) noexcept {
+	TokenResult ReadU16(char *str, char **context, U16 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -568,8 +568,8 @@ namespace mage {
 		return StringToU16(token, result);
 	}
 	
-	TokenResult ReadS32(char *str, char **context, 
-		S32 &result, const char *delimiters) noexcept {
+	TokenResult ReadS32(char *str, char **context, S32 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -578,8 +578,8 @@ namespace mage {
 		return StringToS32(token, result);
 	}
 	
-	TokenResult ReadU32(char *str, char **context, 
-		U32 &result, const char *delimiters) noexcept {
+	TokenResult ReadU32(char *str, char **context, U32 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -588,8 +588,8 @@ namespace mage {
 		return StringToU32(token, result);
 	}
 	
-	TokenResult ReadS64(char *str, char **context, 
-		S64 &result, const char *delimiters) noexcept {
+	TokenResult ReadS64(char *str, char **context, S64 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -598,8 +598,8 @@ namespace mage {
 		return StringToS64(token, result);
 	}
 	
-	TokenResult ReadU64(char *str, char **context, 
-		U64 &result, const char *delimiters) noexcept {
+	TokenResult ReadU64(char *str, char **context, U64 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -608,8 +608,8 @@ namespace mage {
 		return StringToU64(token, result);
 	}
 	
-	TokenResult ReadF32(char *str, char **context, 
-		F32 &result, const char *delimiters) noexcept {
+	TokenResult ReadF32(char *str, char **context, F32 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -618,8 +618,8 @@ namespace mage {
 		return StringToF32(token, result);
 	}
 	
-	TokenResult ReadF64(char *str, char **context, 
-		F64 &result, const char *delimiters) noexcept {
+	TokenResult ReadF64(char *str, char **context, F64 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -628,8 +628,8 @@ namespace mage {
 		return StringToF64(token, result);
 	}
 	
-	TokenResult ReadF32x2(char *str, char **context, 
-		F32x2 &result, const char *delimiters) noexcept {
+	TokenResult ReadF32x2(char *str, char **context, F32x2 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -649,8 +649,8 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadF32x3(char *str, char **context, 
-		F32x3 &result, const char *delimiters) noexcept {
+	TokenResult ReadF32x3(char *str, char **context, F32x3 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -676,8 +676,8 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadF32x4(char *str, char **context, 
-		F32x4 &result, const char *delimiters) noexcept {
+	TokenResult ReadF32x4(char *str, char **context, F32x4 &result, 
+		const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -709,12 +709,12 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Peaking
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	TokenResult HasChars(const char *str, const char *delimiters) noexcept {
 		Assert(str);
@@ -907,12 +907,12 @@ namespace mage {
 		return StringToF64(start, end, result);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Parsing Utilities: Advancing
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	char *SkipDelimiters(char *str, const char *delimiters) noexcept {
 		Assert(str);
@@ -958,5 +958,5 @@ namespace mage {
 		return (*str != '\0') ? str : nullptr;
 	}
 
-#pragma endregion
+	#pragma endregion
 }

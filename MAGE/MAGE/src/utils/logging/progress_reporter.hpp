@@ -88,7 +88,7 @@ namespace mage {
 						progress reporter).
 		 */
 		ProgressReporter &operator=(
-			ProgressReporter &&progress_reporter) = delete;
+			ProgressReporter &&progress_reporter) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -131,7 +131,7 @@ namespace mage {
 		/**
 		 The total number of work units that need to be done.
 		 */
-		const U32 m_nb_work_total;
+		U32 m_nb_work_total;
 
 		/**
 		 The number of work units that are already done
@@ -154,7 +154,7 @@ namespace mage {
 		 The character representing a work unit that is already done
 		 of this progress reporter.
 		 */
-		const char m_plus_char;
+		char m_plus_char;
 
 		/**
 		 A pointer to the output file stream of this progress reporter.
@@ -173,9 +173,9 @@ namespace mage {
 		char *m_current_pos;
 
 		/**
-		 A pointer to the timer of this progress reporter.
+		 The timer of this progress reporter.
 		 */
-		UniquePtr< Timer > m_timer;
+		Timer m_timer;
 
 		/**
 		 The mutex needed for updating this progress reporter.

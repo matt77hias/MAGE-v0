@@ -27,7 +27,7 @@ namespace mage::loader {
 					A reference to the sprite font output.
 	 @param[in]		desc
 					A reference to the sprite font descriptor.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the sprite font from file.
 	 */
 	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device5 *device, 

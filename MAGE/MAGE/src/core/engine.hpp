@@ -57,7 +57,7 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to an engine setup.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the engine.
 		 */
 		explicit Engine(const EngineSetup &setup);
@@ -255,7 +255,7 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to an engine setup.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize at least one of the different 
 						systems of this engine.
 		 */
@@ -327,9 +327,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the timer of this engine.
+		 The timer of this engine.
 		 */
-		UniquePtr< Timer > m_timer;
+		Timer m_timer;
 
 		/**
 		 The fixed delta time of this engine.

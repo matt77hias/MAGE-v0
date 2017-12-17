@@ -22,8 +22,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ProgressReporter::ProgressReporter(
-		const string &title, U32 nb_work, char plus_char, U32 bar_length)
+	ProgressReporter::ProgressReporter(const string &title, U32 nb_work, 
+		char plus_char, U32 bar_length)
 		: m_nb_work_total(nb_work), 
 		m_nb_work_done(0), 
 		m_nb_plusses_printed(0), 
@@ -31,19 +31,21 @@ namespace mage {
 		m_fout(stdout), 
 		m_buffer(), 
 		m_current_pos(nullptr), 
-		m_timer(MakeUnique< Timer >()), 
+		m_timer(), 
 		m_mutex() {
 		
 		Initialize(title, bar_length);
 	}
 
-	ProgressReporter::ProgressReporter(
-		ProgressReporter &&progress_reporter) noexcept = default;
+	ProgressReporter
+		::ProgressReporter(ProgressReporter &&progress_reporter) noexcept = default;
 
 	ProgressReporter::~ProgressReporter() = default;
 
-	void ProgressReporter::Initialize(const string &title, U32 bar_length) {
+	ProgressReporter &ProgressReporter
+		::operator=(ProgressReporter &&progress_reporter) noexcept = default;
 
+	void ProgressReporter::Initialize(const string &title, U32 bar_length) {
 		if (0 == bar_length) {
 			bar_length = ConsoleWidth() - 28;
 		}
@@ -86,11 +88,10 @@ namespace mage {
 		// stream.
 		fflush(m_fout);
 
-		m_timer->Start();
+		m_timer.Start();
 	}
 
 	void ProgressReporter::Update(U32 nb_work) {
-		
 		if (0 == nb_work || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
@@ -113,7 +114,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time and estimated time to completion
-		const F32 seconds = static_cast< F32 >(m_timer->GetTotalDeltaTime());
+		const F32 seconds = static_cast< F32 >(m_timer.GetTotalDeltaTime());
 		if (1.0f == percent_done) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", seconds);
@@ -133,7 +134,6 @@ namespace mage {
 	}
 
 	void ProgressReporter::Done() {
-		
 		if (LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
@@ -150,7 +150,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time
-		const F32 seconds = static_cast< F32 >(m_timer->GetTotalDeltaTime());
+		const F32 seconds = static_cast< F32 >(m_timer.GetTotalDeltaTime());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", seconds);
 	

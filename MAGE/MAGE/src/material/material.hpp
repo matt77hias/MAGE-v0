@@ -79,7 +79,7 @@ namespace mage {
 						A reference to the material to move.
 		 @return		A reference to the moved material (i.e. this material).
 		 */
-		Material &operator=(Material &&material) = default;
+		Material &operator=(Material &&material) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Name

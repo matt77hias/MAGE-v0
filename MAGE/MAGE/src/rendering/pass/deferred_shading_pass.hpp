@@ -112,7 +112,7 @@ namespace mage {
 	     @param[in]		use_compute
 						If @c true, the compute pipeline is used.
 						Otherwise, the rendering pipeline is used.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this deferred 
 						shading pass.
 		 */
@@ -145,10 +145,10 @@ namespace mage {
 						must be loaded.
 		 @param[in]		brdf
 						The BRDF.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to update the compute shader of this deferred 
 						shading pass.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to update the pixel shader of this deferred 
 						shading pass.
 		 */

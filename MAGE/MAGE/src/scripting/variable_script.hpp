@@ -7,7 +7,15 @@
 
 #include "resource\resource.hpp"
 #include "scripting\variable.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <map>
 
 #pragma endregion
 
@@ -35,7 +43,7 @@ namespace mage {
 		 @param[in]		import
 						Flag indicating whether the variables of the variable 
 						script need to be imported.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the variable script from file (only 
 						possible if @a import is equal to @c true).
 		 */
@@ -84,7 +92,7 @@ namespace mage {
 		 @return		A reference to the moved variable script (i.e. this 
 						variable script).
 		 */
-		VariableScript &operator=(VariableScript &&variable_script) = delete;
+		VariableScript &operator=(VariableScript &&variable_script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -93,7 +101,7 @@ namespace mage {
 		/**
 		 Imports this variable script from the file of this variable script.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the variable script from file.
 		 */
 		void ImportScript() {
@@ -105,7 +113,7 @@ namespace mage {
 
 		 @param[in]		fname
 						A reference to the filename.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the variable script from file.
 		 */
 		void ImportScript(const wstring &fname);
@@ -113,7 +121,7 @@ namespace mage {
 		/**
 		 Exports this variable script to the file of this variable script.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to export the variable script to file.
 		 */
 		void ExportScript() const {
@@ -125,7 +133,7 @@ namespace mage {
 
 		 @param[in]		fname
 						A reference to the filename.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to export the variable script to file.
 		 */
 		void ExportScript(const wstring &fname) const;
@@ -241,7 +249,7 @@ namespace mage {
 		/**
 		 A map containing the variables in this variable script.
 		 */
-		map< string, Value > m_variables;
+		std::map< string, Value > m_variables;
 	};
 }
 

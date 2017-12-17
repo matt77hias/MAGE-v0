@@ -6,6 +6,7 @@
 #pragma region
 
 #include "utils\type\types.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -26,7 +27,7 @@ namespace mage {
 	/**
 	 A struct of engine setups.
 	 */
-	struct EngineSetup final {
+	class EngineSetup final {
 
 	public:
 
@@ -44,7 +45,12 @@ namespace mage {
 						The name of the application.
 		 */
 		explicit EngineSetup(HINSTANCE hinstance, 
-			wstring name = MAGE_DEFAULT_APPLICATION_NAME);
+			wstring name = MAGE_DEFAULT_APPLICATION_NAME)
+			: m_hinstance(hinstance),
+			m_name(std::move(name)) {
+
+			Assert(m_hinstance);
+		}
 
 		/**
 		 Constructs an engine setup from the given engine setup.
@@ -52,7 +58,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to copy.
 		 */
-		EngineSetup(const EngineSetup &setup);
+		EngineSetup(const EngineSetup &setup) = default;
 
 		/**
 		 Constructs an engine setup by moving the given engine setup.
@@ -60,12 +66,12 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to move.
 		 */
-		EngineSetup(EngineSetup &&setup);
+		EngineSetup(EngineSetup &&setup) noexcept = default;
 
 		/**
 		 Destructs this engine setup.
 		 */
-		~EngineSetup();
+		~EngineSetup() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -79,7 +85,7 @@ namespace mage {
 		 @return		A reference to the copy of the given engine setup (i.e. 
 						this engine setup).
 		 */
-		EngineSetup &operator=(const EngineSetup &setup) = delete;
+		EngineSetup &operator=(const EngineSetup &setup) = default;
 
 		/**
 		 Moves the given engine setup to this engine setup.
@@ -89,7 +95,7 @@ namespace mage {
 		 @return		A reference to the moved engine setup (i.e. this engine 
 						setup).
 		 */
-		EngineSetup &operator=(EngineSetup &&setup) = delete;
+		EngineSetup &operator=(EngineSetup &&setup) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -122,11 +128,11 @@ namespace mage {
 		/**
 		 Application instance handle.
 		 */
-		const HINSTANCE m_hinstance;
+		HINSTANCE m_hinstance;
 
 		/**
 		 Name of the application.
 		 */
-		const wstring m_name;
+		wstring m_name;
 	};
 }

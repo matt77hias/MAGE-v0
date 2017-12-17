@@ -15,14 +15,14 @@
 namespace mage {
 
 	HRESULT CompileShaderFromFile(const wstring &fname, 
-		const string &entry_point, 
-		const string &shader_target, 
-		ID3DBlob **output_blob) {
+		                          const string &entry_point, 
+		                          const string &shader_target, 
+		                          ID3DBlob **output_blob) {
 
 		Assert(output_blob);
 
 		DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;
-#ifdef _DEBUG
+		#ifdef _DEBUG
 		// Set the D3DCOMPILE_DEBUG flag to embed debug information in the 
 		// shaders. Setting this flag improves the shader debugging experience, 
 		// but still allows the shaders to be optimized and to run exactly the 
@@ -30,7 +30,7 @@ namespace mage {
 		shader_flags |= D3DCOMPILE_DEBUG;
 		// Disable optimizations to further improve shader debugging.
 		shader_flags |= D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif
+		#endif
 
 		// Compiles Microsoft High Level Shader Language (HLSL) code into 
 		// bytecode for a given target.
@@ -53,15 +53,16 @@ namespace mage {
 		//    ID3DBlob interface that you can use to access compiler error 
 		//    messages.
 		ComPtr< ID3DBlob > error_blob;
-		const HRESULT result_compile 
-			= D3DCompileFromFile(fname.c_str(), nullptr, nullptr, 
-				entry_point.c_str(), shader_target.c_str(), 
-				shader_flags, 0, output_blob, error_blob.GetAddressOf());
+		const HRESULT result_compile = D3DCompileFromFile(fname.c_str(), 
+			nullptr, nullptr, entry_point.c_str(), shader_target.c_str(), 
+			shader_flags, 0, output_blob, error_blob.GetAddressOf());
+		
 		if (FAILED(result_compile)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.
-				OutputDebugStringA(reinterpret_cast<const char *>(
-					error_blob->GetBufferPointer()));
+				OutputDebugStringA(
+					reinterpret_cast< const char * >(
+						error_blob->GetBufferPointer()));
 			}
 			return result_compile;
 		}

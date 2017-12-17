@@ -17,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Sprite Transform Utilities
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Converts the given normalized screen x-value to absolute screen x-value.
@@ -138,9 +139,12 @@ namespace mage {
 	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(
 		FXMVECTOR position);
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// SpriteTransform
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of sprite transforms.
@@ -1240,4 +1244,6 @@ namespace mage {
 	};
 
 	static_assert(32 == sizeof(SpriteTransform));
+
+	#pragma endregion
 }

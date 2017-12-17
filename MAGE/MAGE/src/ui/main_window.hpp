@@ -50,9 +50,9 @@ namespace mage {
 						The width of the window.
 		 @param[in]		height
 						The height of the window.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to register the main window's class.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to create the main window.
 		 */
 		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, 
@@ -211,9 +211,9 @@ namespace mage {
 						The width of the client rectangle of the window.
 		 @param[in]		height
 						The height of the client rectangle of the window.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to register the main window's class.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to create the main window.
 		 */
 		void InitializeWindow(const wstring &title_text, U32 width, U32 height);
@@ -225,9 +225,9 @@ namespace mage {
 						A reference to the title text.
 		 @param[in]		rectangle
 						A reference to the client rectangle of the window.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to register the main window's class.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to create the main window.
 		 */
 		void InitializeWindow(const wstring &title_text, const RECT &rectangle);

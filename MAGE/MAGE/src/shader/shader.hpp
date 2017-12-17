@@ -18,6 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// VertexShader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of vertex shaders.
@@ -47,7 +48,7 @@ namespace mage {
 		 @param[in]		nb_input_elements
 						The number of elements contained in the
 						given input element descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize this vertex shader.
 		 */
 		explicit VertexShader(wstring guid,
@@ -73,7 +74,7 @@ namespace mage {
 		 @param[in]		nb_input_elements
 						The number of elements contained in the
 						given input element descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize this vertex shader.
 		*/
 		explicit VertexShader(wstring guid, ID3D11Device5 *device, 
@@ -95,7 +96,7 @@ namespace mage {
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to move.
 		 */
-		VertexShader(VertexShader &&vertex_shader);
+		VertexShader(VertexShader &&vertex_shader) noexcept;
 		
 		/**
 		 Destructs this vertex shader.
@@ -124,7 +125,7 @@ namespace mage {
 		 @return		A reference to the moved vertex shader (i.e. this 
 						vertex shader).
 		 */
-		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
+		VertexShader &operator=(VertexShader &&vertex_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -164,7 +165,7 @@ namespace mage {
 		 @param[in]		nb_input_elements
 						The number of elements contained in the
 						given input element descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup this vertex shader.
 		 */
 		void SetupShader(ID3D11Device5 *device,
@@ -187,9 +188,12 @@ namespace mage {
 		ComPtr< ID3D11InputLayout >  m_vertex_layout;
 	};
 	
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Shader
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of shaders.
@@ -217,7 +221,7 @@ namespace mage {
 						The globally unique identifier.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize this shader.
 		 */
 		explicit Shader(wstring guid, 
@@ -233,7 +237,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize this shader.
 		 */
 		explicit Shader(wstring guid, ID3D11Device5 *device,
@@ -253,7 +257,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to move.
 		 */
-		Shader(Shader &&shader);
+		Shader(Shader &&shader) noexcept;
 
 		/**
 		 Destructs this shader.
@@ -281,7 +285,7 @@ namespace mage {
 						A reference to the shader to move.
 		 @return		A reference to the moved shader (i.e. this shader).
 		 */
-		Shader &operator=(Shader &&shader) = delete;
+		Shader &operator=(Shader &&shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -310,7 +314,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup this shader.
 		 */
 		void SetupShader(ID3D11Device5 *device, 
@@ -326,9 +330,12 @@ namespace mage {
 		ComPtr< ShaderT > m_shader;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Type Declarations and Definitions
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of hull shaders.
@@ -354,6 +361,8 @@ namespace mage {
 	 A class of compute shaders.
 	 */
 	using ComputeShader = Shader< ID3D11ComputeShader, Pipeline::CS >;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

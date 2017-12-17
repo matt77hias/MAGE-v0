@@ -27,7 +27,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Vector2
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	template< typename T, typename Enable = void >
 	struct Vector2;
@@ -89,12 +89,12 @@ namespace mage {
 		T m_y;
 	};
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Vector3
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	template< typename T, typename Enable = void >
 	struct Vector3;
@@ -160,12 +160,12 @@ namespace mage {
 		T m_z;
 	};
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Vector4
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	template< typename T, typename Enable = void >
 	struct Vector4;
@@ -235,21 +235,21 @@ namespace mage {
 		T m_w;
 	};
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Vector2A
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-#pragma warning( push )
-#pragma warning( disable : 4324)
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
 
 	template< typename T, typename Enable = void >
 	struct alignas(16) Vector2A;
 
 	template< typename T >
-	struct alignas(16) Vector2A< T, 
+	struct alignas(16) Vector2A< T,
 		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
 
 	public:
@@ -309,17 +309,17 @@ namespace mage {
 		T m_y;
 	};
 
-#pragma warning( pop )
+	#pragma warning( pop )
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Vector3A
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-#pragma warning( push )
-#pragma warning( disable : 4324)
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
 
 	template< typename T, typename Enable = void >
 	struct alignas(16) Vector3A;
@@ -390,17 +390,17 @@ namespace mage {
 		T m_z;
 	};
 
-#pragma warning( pop )
+	#pragma warning( pop )
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Vector4A
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-#pragma warning( push )
-#pragma warning( disable : 4324)
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
 
 	template< typename T, typename Enable = void >
 	struct __declspec(align(16)) Vector4A;
@@ -476,42 +476,42 @@ namespace mage {
 		T m_w;
 	};
 
-#pragma warning( pop )
+	#pragma warning( pop )
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Floating Point Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
-	 A 2x1 32-bit floating point vector.
+	 A 2x1 32-bit floating point vector type.
 	 */
 	using F32x2 = Vector2< F32 >;
 
 	/**
-	 A 3x1 32-bit floating point vector.
+	 A 3x1 32-bit floating point vector type.
 	 */
 	using F32x3 = Vector3< F32 >;
 
 	/**
-	 A 4x1 32-bit floating point vector.
+	 A 4x1 32-bit floating point vector type.
 	 */
 	using F32x4 = Vector4< F32 >;
 
 	/**
-	 A 2x1 32-bit floating point aligned vector.
+	 A 2x1 32-bit floating point aligned vector type.
 	 */
 	using F32x2A = Vector2A< F32 >;
 
 	/**
-	 A 3x1 32-bit floating point aligned vector.
+	 A 3x1 32-bit floating point aligned vector type.
 	 */
 	using F32x3A = Vector3A< F32 >;
 
 	/**
-	 A 4x1 32-bit floating point aligned vector.
+	 A 4x1 32-bit floating point aligned vector type.
 	 */
 	using F32x4A = Vector4A< F32 >;
 
@@ -523,25 +523,25 @@ namespace mage {
 	static_assert(16 == sizeof(F32x3A));
 	static_assert(16 == sizeof(F32x4A));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Signed Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
-	 A 2x1 signed 32-bit integer vector.
+	 A 2x1 signed 32-bit integer vector type.
 	 */
 	using S32x2 = Vector2< S32 >;
 
 	/**
-	 A 3x1 signed 32-bit integer vector.
+	 A 3x1 signed 32-bit integer vector type.
 	 */
 	using S32x3 = Vector3< S32 >;
 
 	/**
-	 A 4x1 signed 32-bit integer vector.
+	 A 4x1 signed 32-bit integer vector type.
 	 */
 	using S32x4 = Vector4< S32 >;
 
@@ -549,25 +549,25 @@ namespace mage {
 	static_assert(12 == sizeof(S32x3));
 	static_assert(16 == sizeof(S32x4));
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Unsigned Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
-	 An 2x1 unsigned 32-bit integer vector.
+	 An 2x1 unsigned 32-bit integer vector type.
 	 */
 	using U32x2 = Vector2< U32 >;
 
 	/**
-	 An 3x1 unsigned 32-bit integer vector.
+	 An 3x1 unsigned 32-bit integer vector type.
 	 */
 	using U32x3 = Vector3< U32 >;
 
 	/**
-	 An 4x1 unsigned 32-bit integer vector.
+	 An 4x1 unsigned 32-bit integer vector type.
 	 */
 	using U32x4 = Vector4< U32 >;
 
@@ -575,5 +575,5 @@ namespace mage {
 	static_assert(12 == sizeof(U32x3));
 	static_assert(16 == sizeof(U32x4));
 
-#pragma endregion
+	#pragma endregion
 }

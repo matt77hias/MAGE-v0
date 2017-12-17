@@ -111,7 +111,7 @@ namespace mage {
 
 		 @param[in]		brdf
 						The BRDF.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this variable shading 
 						pass.
 		 */
@@ -129,7 +129,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -150,7 +150,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderEmissive(
@@ -171,7 +171,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderTransparent(
@@ -213,7 +213,7 @@ namespace mage {
 						engine must be loaded.
 		 @param[in]		brdf
 						The BRDF.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to update the pixel shaders of this variable 
 						shading pass.
 		 */
@@ -256,7 +256,7 @@ namespace mage {
 						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this variable shading 
 						pass.
 		 */
@@ -288,11 +288,11 @@ namespace mage {
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false 
 						otherwise.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view, 
 			CXMMATRIX view_to_world,

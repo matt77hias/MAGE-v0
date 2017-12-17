@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Constructs a CPU timer.
 		 */
-		CPUTimer();
+		CPUTimer() noexcept;
 
 		/**
 		 Constructs a CPU timer from the given CPU timer.

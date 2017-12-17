@@ -93,7 +93,7 @@ namespace mage::loader {
 		/**
 		 Pre-processes before reading the current file of this MDL reader.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to finish the pre-processing successfully.
 		 */
 		virtual void Preprocess() override;
@@ -104,7 +104,7 @@ namespace mage::loader {
 		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) override;
@@ -113,9 +113,9 @@ namespace mage::loader {
 		 Reads the Mesh definition and imports the mesh corresponding to the 
 		 model.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read the Mesh definition.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the mesh.
 		 */
 		void ImportMesh();
@@ -123,7 +123,7 @@ namespace mage::loader {
 		/**
 		 Reads a Submodel definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Submodel definition.
 		 */
 		void ReadMDLSubModel();
@@ -132,9 +132,9 @@ namespace mage::loader {
 		 Reads a Material Library definition and imports the materials 
 		 corresponding to the model.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Material Library definition.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to import the materials.
 		 */
 		void ReadMDLMaterialLibrary();

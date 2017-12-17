@@ -214,7 +214,7 @@ namespace mage {
 		}
 
 		// Enumerate the display modes.
-		m_display_modes = vector< DXGI_MODE_DESC1 >();
+		m_display_modes = std::vector< DXGI_MODE_DESC1 >();
 		for (U32 mode = 0u; mode < nb_display_modes; ++mode) {
 			
 			// Reject small display modes.
@@ -269,7 +269,7 @@ namespace mage {
 	 */
 	inline size_t ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
-			/ static_cast< F32 >(desc.RefreshRate.Denominator)));
+			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
 	[[nodiscard]] INT_PTR DisplayConfigurator::DisplayDialogProc(

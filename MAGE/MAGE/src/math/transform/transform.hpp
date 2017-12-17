@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math_utils.hpp"
+#include "math\transform\local_transform.hpp"
 
 #pragma endregion
 
@@ -13,6 +13,9 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	// Forward declaration.
+	class Node;
 
 	/**
 	 A class of transforms.
@@ -26,68 +29,34 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a transform from the given translation, rotation and scale 
-		 component.
-
-		 @param[in]		translation
-						The translation component.
-		 @param[in]		rotation
-						The rotation component.
-		 @param[in]		scale
-						The scale component.
+		 Constructs a transform.
 		 */
-		explicit Transform(
-			F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
-			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
-			F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
-			: m_translation(std::move(translation)),
-			m_dirty_object_to_parent(true),
-			m_rotation(std::move(rotation)),
-			m_dirty_parent_to_object(true),
-			m_scale(std::move(scale)),
-			m_object_to_parent(),
-			m_parent_to_object() {}
-		
-		/**
-		 Constructs a transform from the given translation, rotation and scale 
-		 component.
-
-		 @param[in]		translation
-						The translation component.
-		 @param[in]		rotation
-						The rotation component.
-		 @param[in]		scale
-						The scale component.
-		 */
-		explicit Transform(
-			FXMVECTOR translation, 
-			FXMVECTOR rotation, 
-			FXMVECTOR scale) noexcept
-			: m_translation(),
-			m_dirty_object_to_parent(true),
-			m_rotation(),
-			m_dirty_parent_to_object(true),
-			m_scale(),
-			m_object_to_parent(),
-			m_parent_to_object() {
-			
-			SetTranslation(translation);
-			SetRotation(rotation);
-			SetScale(scale);
-		}
+		Transform() noexcept
+			: m_transform(),
+			m_object_to_world(),
+			m_world_to_object(),
+			m_dirty_object_to_world(true),
+			m_dirty_world_to_object(true),
+			m_owner() {}
 
 		/**
 		 Constructs a transform from the given transform.
 
-		 @param[in]		transform
+		 @param[in]		transform_node
 						A reference to the transform to copy.
 		 */
-		Transform(const Transform &transform) noexcept = default;
+		Transform(const Transform &transform) noexcept
+			: m_transform(transform.m_transform),
+			m_object_to_world(),
+			m_world_to_object(),
+			m_dirty_object_to_world(true),
+			m_dirty_world_to_object(true),
+			m_owner() {}
 
 		/**
 		 Constructs a transform by moving the given transform.
 
-		 @param[in]		transform
+		 @param[in]		transform_node
 						A reference to the transform to move.
 		 */
 		Transform(Transform &&transform) noexcept = default;
@@ -96,7 +65,7 @@ namespace mage {
 		 Destructs this transform.
 		 */
 		~Transform() = default;
-		
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
@@ -104,22 +73,31 @@ namespace mage {
 		/**
 		 Copies the given transform to this transform.
 
-		 @param[in]		transform
+		 @param[in]		node
 						A reference to the transform to copy.
 		 @return		A reference to the copy of the given transform (i.e. 
 						this transform).
 		 */
-		Transform &operator=(const Transform &transform) = default;
+		Transform &operator=(const Transform &transform) noexcept {
+			m_transform = transform.m_transform;
+			SetDirty();
+			return *this;
+		}
 
 		/**
 		 Moves the given transform to this transform.
 
-		 @param[in]		transform
+		 @param[in]		node
 						A reference to the transform to move.
-		 @return		A reference to the moved transform (i.e. this 
-						transform).
+		 @return		A reference to the copy of the given transform (i.e. 
+						this transform).
 		 */
-		Transform &operator=(Transform &&transform) = default;
+		Transform &operator=(Transform &&transform) noexcept {
+			m_transform = std::move(transform.m_transform);
+			m_owner     = std::move(transform.m_owner);
+			SetDirty();
+			return *this;
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
@@ -133,7 +111,7 @@ namespace mage {
 						The x-value of the translation component.
 		 */
 		void SetTranslationX(F32 x) noexcept {
-			m_translation.m_x = x;
+			m_transform.SetTranslationX(x);
 			SetDirty();
 		}
 		
@@ -145,7 +123,7 @@ namespace mage {
 						The y-value of the translation component.
 		 */
 		void SetTranslationY(F32 y) noexcept {
-			m_translation.m_y = y;
+			m_transform.SetTranslationY(y);
 			SetDirty();
 		}
 		
@@ -157,7 +135,7 @@ namespace mage {
 						The z-value of the translation component.
 		 */
 		void SetTranslationZ(F32 z) noexcept {
-			m_translation.m_z = z;
+			m_transform.SetTranslationZ(z);
 			SetDirty();
 		}
 		
@@ -173,9 +151,7 @@ namespace mage {
 						The z-value of the translation component.
 		 */
 		void SetTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_translation.m_x = x;
-			m_translation.m_y = y;
-			m_translation.m_z = z;
+			m_transform.SetTranslation(x, y, z);
 			SetDirty();
 		}
 		
@@ -187,7 +163,7 @@ namespace mage {
 						The translation component.
 		 */
 		void SetTranslation(F32x3 translation) noexcept {
-			m_translation = std::move(translation);
+			m_transform.SetTranslation(std::move(translation));
 			SetDirty();
 		}
 		
@@ -199,7 +175,7 @@ namespace mage {
 						The translation component.
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
-			XMStoreFloat3(&m_translation, translation);
+			m_transform.SetTranslation(translation);
 			SetDirty();
 		}
 
@@ -210,7 +186,7 @@ namespace mage {
 						The x-value of the translation component to add.
 		 */
 		void AddTranslationX(F32 x) noexcept {
-			m_translation.m_x += x;
+			m_transform.AddTranslationX(x);
 			SetDirty();
 		}
 		
@@ -221,7 +197,7 @@ namespace mage {
 						The y-value of the translation component to add.
 		 */
 		void AddTranslationY(F32 y) noexcept {
-			m_translation.m_y += y;
+			m_transform.AddTranslationY(y);
 			SetDirty();
 		}
 		
@@ -232,7 +208,7 @@ namespace mage {
 						The z-value of the translation component to add.
 		 */
 		void AddTranslationZ(F32 z) noexcept {
-			m_translation.m_z += z;
+			m_transform.AddTranslationZ(z);
 			SetDirty();
 		}
 		
@@ -248,9 +224,7 @@ namespace mage {
 						The z-value of the translation component to add.
 		 */
 		void AddTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_translation.m_x += x;
-			m_translation.m_y += y;
-			m_translation.m_z += z;
+			m_transform.AddTranslation(x, y, z);
 			SetDirty();
 		}
 		
@@ -262,7 +236,8 @@ namespace mage {
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const F32x3 &translation) noexcept {
-			AddTranslation(translation.m_x, translation.m_y, translation.m_z);
+			m_transform.AddTranslation(translation);
+			SetDirty();
 		}
 		
 		/**
@@ -273,9 +248,8 @@ namespace mage {
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslation(XMVectorGetX(translation), 
-				           XMVectorGetY(translation), 
-				           XMVectorGetZ(translation));
+			m_transform.AddTranslation(translation);
+			SetDirty();
 		}
 
 		/**
@@ -285,7 +259,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetTranslationX() const noexcept {
-			return m_translation.m_x;
+			return m_transform.GetTranslationX();
 		}
 		
 		/**
@@ -295,7 +269,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetTranslationY() const noexcept {
-			return m_translation.m_y;
+			return m_transform.GetTranslationY();
 		}
 		
 		/**
@@ -305,7 +279,7 @@ namespace mage {
 						transform.
 		 */
 		F32 GetTranslationZ() const noexcept {
-			return m_translation.m_z;
+			return m_transform.GetTranslationZ();
 		}
 		
 		/**
@@ -314,7 +288,7 @@ namespace mage {
 		 @return		The translation component of this transform.
 		 */
 		const F32x3 GetTranslation() const noexcept {
-			return m_translation;
+			return m_transform.GetTranslation();
 		}
 		
 		/**
@@ -324,7 +298,7 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
+			return m_transform.GetObjectToParentTranslationMatrix();
 		}
 
 		/**
@@ -334,7 +308,7 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixTranslationFromVector(-XMLoadFloat3(&m_translation));
+			return m_transform.GetParentToObjectTranslationMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -349,7 +323,7 @@ namespace mage {
 						The x-value of the rotation component.
 		 */
 		void SetRotationX(F32 x) noexcept {
-			m_rotation.m_x = x;
+			m_transform.SetRotationX(x);
 			SetDirty();
 		}
 		
@@ -361,7 +335,7 @@ namespace mage {
 						The y-value of the rotation component.
 		 */
 		void SetRotationY(F32 y) noexcept {
-			m_rotation.m_y = y;
+			m_transform.SetRotationY(y);
 			SetDirty();
 		}
 		
@@ -373,7 +347,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotationZ(F32 z) noexcept {
-			m_rotation.m_z = z;
+			m_transform.SetRotationZ(z);
 			SetDirty();
 		}
 		
@@ -389,9 +363,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotation(F32 x, F32 y, F32 z) noexcept {
-			m_rotation.m_x = x;
-			m_rotation.m_y = y;
-			m_rotation.m_z = z;
+			m_transform.SetRotation(x, y, z);
 			SetDirty();
 		}
 		
@@ -403,7 +375,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void SetRotation(F32x3 rotation) noexcept {
-			m_rotation = std::move(rotation);
+			m_transform.SetRotation(std::move(rotation));
 			SetDirty();
 		}
 
@@ -415,13 +387,13 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			XMStoreFloat3(&m_rotation, rotation);
+			m_transform.SetRotation(rotation);
 			SetDirty();
 		}
 		
 		/**
-		 Sets the rotation component to a rotation of the given angle around 
-		 the given normal.
+		 Sets the rotation component of this transform to a rotation of the 
+		 given angle around the given normal.
 
 		 @param[in]		normal
 						The normal.
@@ -430,17 +402,8 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetRotationAroundDirection(
 			FXMVECTOR normal, F32 angle) noexcept {
-
-			const XMMATRIX rotation = XMMatrixRotationNormal(normal, angle);
 			
-			// cosf function instead of sinf in case the angles are not in [-1,1]
-			m_rotation.m_y = -asinf(XMVectorGetY(rotation.r[2]));
-			const F32 cp = cosf(m_rotation.m_y);
-			const F32 cr = XMVectorGetY(rotation.r[1]) / cp;
-			m_rotation.m_z = acosf(cr);
-			const F32 cy = XMVectorGetZ(rotation.r[2]) / cp;
-			m_rotation.m_x = acosf(cy);
-
+			m_transform.SetRotationAroundDirection(normal, angle);
 			SetDirty();
 		}
 		
@@ -451,7 +414,7 @@ namespace mage {
 						The x-value of the rotation component to add.
 		 */
 		void AddRotationX(F32 x) noexcept {
-			m_rotation.m_x += x;
+			m_transform.AddRotationX(x);
 			SetDirty();
 		}
 		
@@ -462,7 +425,7 @@ namespace mage {
 						The y-value of the rotation component to add.
 		 */
 		void AddRotationY(F32 y) noexcept {
-			m_rotation.m_y += y;
+			m_transform.AddRotationY(y);
 			SetDirty();
 		}
 		
@@ -473,7 +436,7 @@ namespace mage {
 						The z-value of the rotation component to add.
 		 */
 		void AddRotationZ(F32 z) noexcept {
-			m_rotation.m_z += z;
+			m_transform.AddRotationZ(z);
 			SetDirty();
 		}
 		
@@ -489,9 +452,7 @@ namespace mage {
 						The z-value of the rotation component to add.
 		 */
 		void AddRotation(F32 x, F32 y, F32 z) noexcept {
-			m_rotation.m_x += x;
-			m_rotation.m_y += y;
-			m_rotation.m_z += z;
+			m_transform.AddRotation(x, y, z);
 			SetDirty();
 		}
 		
@@ -503,7 +464,8 @@ namespace mage {
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const F32x3 &rotation) noexcept {
-			AddRotation(rotation.m_x, rotation.m_y, rotation.m_z);
+			m_transform.AddRotation(rotation);
+			SetDirty();
 		}
 		
 		/**
@@ -514,9 +476,8 @@ namespace mage {
 						The rotation component to add.
 		 */
 		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
-			AddRotation(XMVectorGetX(rotation), 
-				        XMVectorGetY(rotation), 
-				        XMVectorGetZ(rotation));
+			m_transform.AddRotation(rotation);
+			SetDirty();
 		}
 
 		/**
@@ -537,7 +498,7 @@ namespace mage {
 		void AddAndClampRotationX(
 			F32 x, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, min_angle, max_angle);
+			m_transform.AddAndClampRotationX(x, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -559,7 +520,7 @@ namespace mage {
 		void AddAndClampRotationY(
 			F32 y, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, min_angle, max_angle);
+			m_transform.AddAndClampRotationY(y, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -581,7 +542,7 @@ namespace mage {
 		void AddAndClampRotationZ(
 			F32 z, F32 min_angle, F32 max_angle) noexcept {
 			
-			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, min_angle, max_angle);
+			m_transform.AddAndClampRotationZ(z, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -607,9 +568,7 @@ namespace mage {
 		void AddAndClampRotation(
 			F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
 
-			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, min_angle, max_angle);
-			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, min_angle, max_angle);
-			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, min_angle, max_angle);
+			m_transform.AddAndClampRotation(x, y, z, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -631,7 +590,8 @@ namespace mage {
 		void AddAndClampRotation(
 			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, min_angle, max_angle);
+			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
+			SetDirty();
 		}
 
 		/**
@@ -652,40 +612,35 @@ namespace mage {
 		void XM_CALLCONV AddAndClampRotation(
 			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			AddAndClampRotation(XMVectorGetX(rotation), 
-				                XMVectorGetY(rotation), 
-				                XMVectorGetZ(rotation), 
-				                min_angle, max_angle);
+			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
+			SetDirty();
 		}
 
 		/**
 		 Returns the x-value of the rotation component of this transform.
 
-		 @return		The x-value of the rotation component of this 
-						transform.
+		 @return		The x-value of the rotation component of this transform.
 		 */
 		F32 GetRotationX() const noexcept {
-			return m_rotation.m_x;
+			return m_transform.GetRotationX();
 		}
 		
 		/**
 		 Returns the y-value of the rotation component of this transform.
 
-		 @return		The y-value of the rotation component of this 
-						transform.
+		 @return		The y-value of the rotation component of this transform.
 		 */
 		F32 GetRotationY() const noexcept {
-			return m_rotation.m_y;
+			return m_transform.GetRotationY();
 		}
 		
 		/**
 		 Returns the z-value of the rotation component of this transform.
 
-		 @return		The z-value of the rotation component of this 
-						transform.
+		 @return		The z-value of the rotation component of this transform.
 		 */
 		F32 GetRotationZ() const noexcept {
-			return m_rotation.m_z;
+			return m_transform.GetRotationZ();
 		}
 		
 		/**
@@ -694,7 +649,7 @@ namespace mage {
 		 @return		The rotation component of this transform.
 		 */
 		const F32x3 GetRotation() const noexcept {
-			return m_rotation;
+			return m_transform.GetRotation();
 		}
 		
 		/**
@@ -703,9 +658,7 @@ namespace mage {
 		 @return		The object-to-parent rotation matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentRotationMatrix() const noexcept {
-			return XMMatrixRotationZ(GetRotationZ()) 
-				 * XMMatrixRotationX(GetRotationX()) 
-				 * XMMatrixRotationY(GetRotationY());
+			return m_transform.GetObjectToParentRotationMatrix();
 		}
 
 		/**
@@ -714,9 +667,7 @@ namespace mage {
 		 @return		The parent-to-object rotation matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectRotationMatrix() const noexcept {
-			return XMMatrixRotationY(-GetRotationY()) 
-				 * XMMatrixRotationX(-GetRotationX()) 
-				 * XMMatrixRotationZ(-GetRotationZ());
+			return m_transform.GetParentToObjectRotationMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -731,7 +682,7 @@ namespace mage {
 						The x-value of the scale component.
 		 */
 		void SetScaleX(F32 x) noexcept {
-			m_scale.m_x = x;
+			m_transform.SetScaleX(x);
 			SetDirty();
 		}
 		
@@ -743,7 +694,7 @@ namespace mage {
 						The y-value of the scale component.
 		 */
 		void SetScaleY(F32 y) noexcept {
-			m_scale.m_y = y;
+			m_transform.SetScaleY(y);
 			SetDirty();
 		}
 		
@@ -755,7 +706,7 @@ namespace mage {
 						The z-value of the scale component.
 		 */
 		void SetScaleZ(F32 z) noexcept {
-			m_scale.m_z = z;
+			m_transform.SetScaleZ(z);
 			SetDirty();
 		}
 
@@ -767,7 +718,8 @@ namespace mage {
 						The scale component.
 		 */
 		void SetScale(F32 s) noexcept {
-			SetScale(s, s, s);
+			m_transform.SetScale(s);
+			SetDirty();
 		}
 		
 		/**
@@ -782,9 +734,7 @@ namespace mage {
 						The z-value of the scale component.
 		 */
 		void SetScale(F32 x, F32 y, F32 z) noexcept {
-			m_scale.m_x = x;
-			m_scale.m_y = y;
-			m_scale.m_z = z;
+			m_transform.SetScale(x, y, z);
 			SetDirty();
 		}
 		
@@ -796,10 +746,10 @@ namespace mage {
 						The scale component.
 		 */
 		void SetScale(F32x3 scale) noexcept {
-			m_scale = std::move(scale);
+			m_transform.SetScale(std::move(scale));
 			SetDirty();
 		}
-
+		
 		/**
 		 Sets the scale component of this transform to the given scale 
 		 component.
@@ -808,7 +758,7 @@ namespace mage {
 						The scale component.
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
-			XMStoreFloat3(&m_scale, scale);
+			m_transform.SetScale(scale);
 			SetDirty();
 		}
 
@@ -819,7 +769,7 @@ namespace mage {
 						The x-value of the scale component to add.
 		 */
 		void AddScaleX(F32 x) noexcept {
-			m_scale.m_x += x;
+			m_transform.AddScaleX(x);
 			SetDirty();
 		}
 		
@@ -830,7 +780,7 @@ namespace mage {
 						The y-value of the scale component to add.
 		 */
 		void AddScaleY(F32 y) noexcept {
-			m_scale.m_y += y;
+			m_transform.AddScaleY(y);
 			SetDirty();
 		}
 		
@@ -841,24 +791,23 @@ namespace mage {
 						The z-value of the scale component to add.
 		 */
 		void AddScaleZ(F32 z) noexcept {
-			m_scale.m_z += z;
+			m_transform.AddScaleZ(z);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this 
-		 transform.
+		 Adds the given scale component to the scale component of this transform.
 
 		 @param[in]		s
 						The scale component to add.
 		 */
 		void AddScale(F32 s) noexcept {
-			AddScale(s, s, s);
+			m_transform.AddScale(s);
+			SetDirty();
 		}
 		
 		/**
-		 Adds the given scale component to the scale component of this 
-		 transform.
+		 Adds the given scale component to the scale component of this transform.
 
 		 @param[in]		x
 						The x-value of the scale component to add.
@@ -868,34 +817,30 @@ namespace mage {
 						The z-value of the scale component to add.
 		 */
 		void AddScale(F32 x, F32 y, F32 z) noexcept {
-			m_scale.m_x += x;
-			m_scale.m_y += y;
-			m_scale.m_z += z;
+			m_transform.AddScale(x, y, z);
 			SetDirty();
 		}
 		
 		/**
-		 Adds the given scale component to the scale component of this 
-		 transform.
+		 Adds the given scale component to the scale component of this transform.
 
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
 		void AddScale(const F32x3 &scale) noexcept {
-			AddScale(scale.m_x, scale.m_y, scale.m_z);
+			m_transform.AddScale(scale);
+			SetDirty();
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this 
-		 transform.
+		 Adds the given scale component to the scale component of this transform.
 
 		 @param[in]		scale
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			AddScale(XMVectorGetX(scale), 
-				     XMVectorGetY(scale), 
-				     XMVectorGetZ(scale));
+			m_transform.AddScale(scale);
+			SetDirty();
 		}
 		
 		/**
@@ -904,7 +849,7 @@ namespace mage {
 		 @return		The x-value of the scale component of this transform.
 		 */
 		F32 GetScaleX() const noexcept {
-			return m_scale.m_x;
+			return m_transform.GetScaleX();
 		}
 		
 		/**
@@ -913,7 +858,7 @@ namespace mage {
 		 @return		The y-value of the scale component of this transform.
 		 */
 		F32 GetScaleY() const noexcept {
-			return m_scale.m_y;
+			return m_transform.GetScaleY();
 		}
 		
 		/**
@@ -922,7 +867,7 @@ namespace mage {
 		 @return		The z-value of the scale component of this transform.
 		 */
 		F32 GetScaleZ() const noexcept {
-			return m_scale.m_z;
+			return m_transform.GetScaleZ();
 		}
 		
 		/**
@@ -931,7 +876,7 @@ namespace mage {
 		 @return		The scale component of this transform.
 		 */
 		const F32x3 GetScale() const noexcept {
-			return m_scale;
+			return m_transform.GetScale();
 		}
 		
 		/**
@@ -940,7 +885,7 @@ namespace mage {
 		 @return		The scale object-to-parent matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
+			return m_transform.GetObjectToParentScaleMatrix();
 		}
 
 		/**
@@ -949,8 +894,7 @@ namespace mage {
 		 @return		The parent-to-object scale matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixScalingFromVector(XMVectorSet(
-				1.0f / m_scale.m_x, 1.0f / m_scale.m_y, 1.0f / m_scale.m_z, 0.0f));
+			return m_transform.GetParentToObjectScaleMatrix();
 		}
 
 		//---------------------------------------------------------------------
@@ -965,7 +909,7 @@ namespace mage {
 						expressed in object space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetObjectOrigin() const noexcept {
-			return XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+			return m_transform.GetObjectOrigin();
 		}
 
 		/**
@@ -976,7 +920,7 @@ namespace mage {
 						expressed in object space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetObjectAxisX() const noexcept {
-			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+			return m_transform.GetObjectAxisX();
 		}
 		
 		/**
@@ -987,7 +931,7 @@ namespace mage {
 						expressed in object space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetObjectAxisY() const noexcept {
-			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+			return m_transform.GetObjectAxisY();
 		}
 		
 		/**
@@ -998,7 +942,7 @@ namespace mage {
 						expressed in object space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetObjectAxisZ() const noexcept {
-			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+			return m_transform.GetObjectAxisZ();
 		}
 		
 		//---------------------------------------------------------------------
@@ -1013,7 +957,7 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return XMLoadFloat3(&m_translation);
+			return m_transform.GetParentOrigin();
 		}
 
 		/**
@@ -1024,7 +968,7 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisX());
+			return m_transform.GetParentAxisX();
 		}
 		
 		/**
@@ -1035,7 +979,7 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisY());
+			return m_transform.GetParentAxisY();
 		}
 		
 		/**
@@ -1046,7 +990,151 @@ namespace mage {
 						expressed in parent space coordinates.
 		 */
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisZ());
+			return m_transform.GetParentAxisZ();
+		}
+		
+		//---------------------------------------------------------------------
+		// Member Methods: World Space
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the position of the local origin of this transform expressed 
+		 in world space coordinates.
+
+		 @return		The position of the local origin of this transform 
+						expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldOrigin() const noexcept {
+			return TransformObjectToWorld(GetObjectOrigin());
+		}
+
+		/**
+		 Returns the direction of the local x-axis of this transform expressed 
+		 in world space coordinates.
+
+		 @return		The direction of the local x-axis of this transform 
+						expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
+			return TransformObjectToWorld(GetObjectAxisX());
+		}
+
+		/**
+		 Returns the direction of the local y-axis of this transform expressed 
+		 in world space coordinates.
+
+		 @return		The direction of the local y-axis of this transform 
+						expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
+			return TransformObjectToWorld(GetObjectAxisY());
+		}
+
+		/**
+		 Returns the direction of the local z-axis of this transform expressed 
+		 in world space coordinates.
+
+		 @return		The direction of the local z-axis of this transform 
+						expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
+			return TransformObjectToWorld(GetObjectAxisZ());
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Camera Object Space
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the local eye position of this transform expressed in object 
+		 space coordinates.
+
+		 @return		The local eye position of this transform expressed 
+						in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectEye() const noexcept {
+			return GetObjectOrigin();
+		}
+
+		/**
+		 Returns the local left direction of this transform expressed in object 
+		 space coordinates.
+
+		 @return		The local left direction of this transform 
+						expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectLeft() const noexcept {
+			return GetObjectAxisX();
+		}
+		
+		/**
+		 Returns the local up direction of this transform expressed in object 
+		 space coordinates.
+
+		 @return		The local up direction of this transform 
+						expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectUp() const noexcept {
+			return GetObjectAxisY();
+		}
+		
+		/**
+		 Returns the local forward direction of this transform expressed in 
+		 object space coordinates.
+
+		 @return		The local forward direction of this transform 
+						expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectForward() const noexcept {
+			return GetObjectAxisZ();
+		}
+		
+		//---------------------------------------------------------------------
+		// Member Methods: Camera World Space
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the local eye position of this transform expressed in world 
+		 space coordinates.
+
+		 @return		The local eye position of this transform expressed in 
+						world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldEye() const noexcept {
+			return GetWorldOrigin();
+		}
+
+		/**
+		 Returns the local left direction of this transform expressed in world 
+		 space coordinates.
+
+		 @return		The local left direction of this transform expressed in 
+						world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldLeft() const noexcept {
+			return GetWorldAxisX();
+		}
+		
+		/**
+		 Returns the local up direction of this transform expressed in world 
+		 space coordinates.
+
+		 @return		The local up direction of this transform expressed in 
+						world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldUp() const noexcept {
+			return GetWorldAxisY();
+		}
+		
+		/**
+		 Returns the local forward direction of this transform expressed in 
+		 world space coordinates.
+
+		 @return		The local forward direction of this transform expressed 
+						in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV GetWorldForward() const noexcept {
+			return GetWorldAxisZ();
 		}
 		
 		//---------------------------------------------------------------------
@@ -1059,8 +1147,7 @@ namespace mage {
 		 @return		The object-to-parent matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
-			UpdateObjectToParentMatrix();
-			return m_object_to_parent;
+			return m_transform.GetObjectToParentMatrix();
 		}
 
 		/**
@@ -1069,13 +1156,54 @@ namespace mage {
 		 @return		The parent-to-object matrix of this transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
-			UpdateParentToObjectMatrix();
-			return m_parent_to_object;
+			return m_transform.GetParentToObjectMatrix();
 		}
 
 		/**
-		 Transforms the given vector expressed in object space coordinates to 
-		 parent space coordinates.
+		 Returns the object-to-world matrix of this transform.
+
+		 @return		The object-to-world matrix of this transform.
+		 */
+		const XMMATRIX XM_CALLCONV GetObjectToWorldMatrix() const noexcept {
+			UpdateObjectToWorldMatrix();
+			return m_object_to_world;
+		}
+
+		/**
+		 Returns the world-to-object matrix of this transform.
+
+		 @return		The world-to-object matrix of this transform.
+		 */
+		const XMMATRIX XM_CALLCONV GetWorldToObjectMatrix() const noexcept {
+			UpdateWorldToObjectMatrix();
+			return m_world_to_object;
+		}
+
+		/**
+		 Returns the view-to-world matrix of this transform.
+
+		 @return		The view-to-world matrix of this transform.
+		 @note			Transforms for cameras should not contain scaling 
+						components.
+		 */
+		const XMMATRIX XM_CALLCONV GetViewToWorldMatrix() const noexcept {
+			return GetObjectToWorldMatrix();
+		}
+
+		/**
+		 Returns the world-to-view matrix of this transform.
+
+		 @return		The world-to-view matrix of this transform.
+		 @note			Transforms for cameras should not contain scaling 
+						components.
+		 */
+		const XMMATRIX XM_CALLCONV GetWorldToViewMatrix() const noexcept {
+			return GetWorldToObjectMatrix();
+		}
+
+		/**
+		 Transforms the given vector expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in object space coordinates.
@@ -1085,12 +1213,12 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParent(
 			FXMVECTOR vector) const noexcept {
 			
-			return XMVector4Transform(vector, GetObjectToParentMatrix());
+			return m_transform.TransformObjectToParent(vector);
 		}
 
 		/**
-		 Transforms the given point expressed in object space coordinates to 
-		 parent space coordinates.
+		 Transforms the given point expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		point
 						The point expressed in object space coordinates.
@@ -1100,12 +1228,12 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(
 			FXMVECTOR point) const noexcept {
 			
-			return XMVector3TransformCoord(point, GetObjectToParentMatrix());
+			return m_transform.TransformObjectToParentPoint(point);
 		}
 
 		/**
-		 Transforms the given direction expressed in object space coordinates to 
-		 parent space coordinates.
+		 Transforms the given direction expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in object space coordinates.
@@ -1115,12 +1243,12 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(
 			FXMVECTOR direction) const noexcept {
 			
-			return XMVector3TransformNormal(direction, GetObjectToParentMatrix());
+			return m_transform.TransformObjectToParentDirection(direction);
 		}
 
 		/**
-		 Transforms the given vector expressed in parent space coordinates to 
-		 object space coordinates.
+		 Transforms the given vector expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in parent space coordinates.
@@ -1130,12 +1258,12 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObject(
 			FXMVECTOR vector) const noexcept {
 			
-			return XMVector4Transform(vector, GetParentToObjectMatrix());
+			return m_transform.TransformParentToObject(vector);
 		}
 
 		/**
-		 Transforms the given point expressed in parent space coordinates to 
-		 object space coordinates.
+		 Transforms the given point expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		point
 						The point expressed in parent space coordinates.
@@ -1145,12 +1273,12 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(
 			FXMVECTOR point) const noexcept {
 			
-			return XMVector3TransformCoord(point, GetParentToObjectMatrix());
+			return m_transform.TransformParentToObjectPoint(point);
 		}
 
 		/**
-		 Transforms the given direction expressed in parent space coordinates to 
-		 object space coordinates.
+		 Transforms the given direction expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in parent space coordinates.
@@ -1160,88 +1288,207 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(
 			FXMVECTOR direction) const noexcept {
 			
-			return XMVector3TransformNormal(direction, GetParentToObjectMatrix());
+			return m_transform.TransformParentToObjectDirection(direction);
 		}
 
-	private:
+		/**
+		 Transforms the given vector expressed in object space coordinates 
+		 to world space coordinates.
+
+		 @param[in]		vector
+						The vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in world space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToWorld(
+			FXMVECTOR vector) const noexcept {
+			
+			return XMVector4Transform(vector, GetObjectToWorldMatrix());
+		}
+
+		/**
+		 Transforms the given point expressed in object space coordinates 
+		 to world space coordinates.
+
+		 @param[in]		point
+						The point expressed in object space coordinates.
+		 @return		The transformed point expressed in world space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldPoint(
+			FXMVECTOR point) const noexcept {
+			
+			return XMVector3TransformCoord(point, GetObjectToWorldMatrix());
+		}
+
+		/**
+		 Transforms the given direction expressed in object space coordinates 
+		 to world space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in world space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldDirection(
+			FXMVECTOR direction) const noexcept {
+			
+			return XMVector3TransformNormal(direction, GetObjectToWorldMatrix());
+		}
+
+		/**
+		 Transforms the given vector expressed in world space coordinates 
+		 to object space coordinates.
+
+		 @param[in]		vector
+						The vector expressed in world space coordinates.
+		 @return		The transformed vector expressed in object space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformWorldToObject(
+			FXMVECTOR vector) const noexcept {
+			
+			return XMVector4Transform(vector, GetWorldToObjectMatrix());
+		}
+
+		/**
+		 Transforms the given point expressed in world space coordinates 
+		 to object space coordinates.
+
+		 @param[in]		point
+						The point expressed in world space coordinates.
+		 @return		The transformed point expressed in object space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectPoint(
+			FXMVECTOR point) const noexcept {
+			
+			return XMVector3TransformCoord(point, GetWorldToObjectMatrix());
+		}
+
+		/**
+		 Transforms the direction vector expressed in world space coordinates 
+		 to object space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in world space coordinates.
+		 @return		The transformed direction expressed in object space 
+						coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectDirection(
+			FXMVECTOR direction) const noexcept {
+			
+			return XMVector3TransformNormal(direction, GetWorldToObjectMatrix());
+		}
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Update
 		//---------------------------------------------------------------------
 
 		/**
 		 Sets this transform to dirty.
 		 */
-		void SetDirty() const noexcept {
-			m_dirty_object_to_parent = true;
-			m_dirty_parent_to_object = true;
+		void SetDirty() const noexcept;
+
+		/**
+		 Checks whether this transform has an owner.
+
+		 @return		@c true if this transform has an owner. @c false 
+						otherwise.
+		 */
+		bool HasOwner() const noexcept {
+			return bool(m_owner);
 		}
 
 		/**
-		 Updates the object-to-parent matrix of this transform if dirty.
+		 Returns the owner of this transform.
+
+		 @return		A pointer to the owner of this transform.
 		 */
-		void UpdateObjectToParentMatrix() const noexcept {
-			if (m_dirty_object_to_parent) {
-				m_object_to_parent = GetObjectToParentScaleMatrix() 
-					               * GetObjectToParentRotationMatrix() 
-					               * GetObjectToParentTranslationMatrix();
-				m_dirty_object_to_parent = false;
-			}
+		ProxyPtr< Node > GetOwner() noexcept {
+			return m_owner;
 		}
-		
+
 		/**
-		 Updates the parent-to-object matrix of this transform if dirty.
+		 Returns the owner of this transform.
+
+		 @return		A pointer to the owner of this transform.
 		 */
-		void UpdateParentToObjectMatrix() const noexcept {
-			if (m_dirty_parent_to_object) {
-				m_parent_to_object = GetParentToObjectTranslationMatrix() 
-					               * GetParentToObjectRotationMatrix() 
-					               * GetParentToObjectScaleMatrix();
-				m_dirty_parent_to_object = false;
-			}
+		ProxyPtr< const Node > GetOwner() const noexcept {
+			return m_owner;
 		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Update
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the owner of this transform to the given owner.
+
+		 @param[in]		owner
+						A pointer to the owner.
+		 */
+		void SetOwner(ProxyPtr< Node > owner) noexcept {
+			m_owner = std::move(owner);
+			SetDirty();
+		}
+
+		/**
+		 Updates the object-to-world matrix of this transform if dirty.
+
+		 @pre			This transform must have an owner.
+		 */
+		void UpdateObjectToWorldMatrix() const noexcept;
+
+		/**
+		 Updates the world-to-object matrix of this transform if dirty.
+
+		 @pre			This transform must have an owner.
+		 */
+		void UpdateWorldToObjectMatrix() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The translation component of this transform.
+		 The local transform of this transform.
 		 */
-		F32x3 m_translation;
+		LocalTransform m_transform;
 
 		/**
-		 A flag indicating whether the object-to-parent matrix of this transform 
+		 The cached object-to-world matrix of this transform.
+		 */
+		mutable XMMATRIX m_object_to_world;
+
+		/**
+		 The cached world-to-object matrix of this transform.
+		 */
+		mutable XMMATRIX m_world_to_object;
+
+		/**
+		 A flag indicating whether the object-to-world matrix of this transform 
 		 is dirty.
 		 */
-		mutable bool m_dirty_object_to_parent;
+		mutable bool m_dirty_object_to_world;
 
 		/**
-		 The rotation component (in radians) of this transform.
-		 */
-		F32x3 m_rotation;
-
-		/**
-		 A flag indicating whether the parent-to-object matrix of this transform 
+		 A flag indicating whether the world-to-object matrix of this transform 
 		 is dirty.
 		 */
-		mutable bool m_dirty_parent_to_object;
+		mutable bool m_dirty_world_to_object;
 
 		/**
-		 The scale component of this transform.
+		 A pointer to the node owning this transform.
 		 */
-		F32x3 m_scale;
-
-		/**
-		 The cached object-to-parent matrix of this transform.
-		 */
-		mutable XMMATRIX m_object_to_parent;
-
-		/**
-		 The cached parent-to-object matrix of this transform.
-		 */
-		mutable XMMATRIX m_parent_to_object;
+		ProxyPtr< Node > m_owner;
 	};
-
-	static_assert(176 == sizeof(Transform));
 }

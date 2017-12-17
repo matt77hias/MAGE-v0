@@ -6,8 +6,8 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
+#include "sprite\sprite_text.hpp"
 #include "utils\system\cpu_monitor.hpp"
-#include "sprite\text\sprite_text.hpp"
 
 #pragma endregion
 
@@ -30,8 +30,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit StatsScript(SpriteText *text);
-		StatsScript(const StatsScript &script) = delete;
+		StatsScript();
+		StatsScript(const StatsScript &script) noexcept;
 		StatsScript(StatsScript &&script) noexcept;
 		virtual ~StatsScript();
 
@@ -46,6 +46,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
 	private:
@@ -54,14 +55,14 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		ProxyPtr< SpriteText > m_text;
+
 		F64 m_accumulated_time;
 		U32 m_accumulated_nb_frames;
 		U32 m_last_frames_per_second;
 		F64 m_last_milliseconds_per_frame;
 		F64 m_last_cpu_usage;
 		U32 m_last_ram_usage;
-		UniquePtr< CPUMonitor > m_monitor;
-		
-		SpriteText * const m_text;
+		CPUMonitor m_monitor;
 	};
 }

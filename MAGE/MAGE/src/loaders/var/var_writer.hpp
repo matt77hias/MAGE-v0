@@ -7,7 +7,15 @@
 
 #include "utils\io\writer.hpp"
 #include "scripting\variable.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <map>
 
 #pragma endregion
 
@@ -34,7 +42,7 @@ namespace mage::loader {
 						A reference to a map containing the variables to write 
 						to file.
 		 */
-		explicit VARWriter(const map< string, Value > &variable_buffer);
+		explicit VARWriter(const std::map< string, Value > &variable_buffer);
 		
 		/**
 		 Constructs a VAR writer from the given VAR writer.
@@ -90,7 +98,7 @@ namespace mage::loader {
 		/**
 		 Starts writing.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		virtual void Write() override;
@@ -103,6 +111,6 @@ namespace mage::loader {
 		 A reference to a map containing the variables to write by this VAR 
 		 writer.
 		 */
-		const map< string, Value > &m_variable_buffer;
+		const std::map< string, Value > &m_variable_buffer;
 	};
 }

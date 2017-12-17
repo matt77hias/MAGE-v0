@@ -14,10 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// CameraBuffer
-	//-------------------------------------------------------------------------
-
 	/**
 	 A struct of camera buffers.
 	 */
@@ -226,5 +222,5 @@ namespace mage {
 		U32 m_padding0;
 	};
 
-	static_assert(sizeof(CameraBuffer) == 320, "CPU/GPU struct mismatch");
+	static_assert(320 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
 }

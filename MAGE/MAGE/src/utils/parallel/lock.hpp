@@ -17,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Mutex
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of mutexes.
@@ -76,7 +77,7 @@ namespace mage {
 						A reference to the mutex to move.
 		 @return		A reference to the moved mutex (i.e. this mutex).
 		 */
-		Mutex &operator=(Mutex &&mutex) = delete;
+		Mutex &operator=(Mutex &&mutex) noexcept = default;
 
 	private:
 
@@ -96,9 +97,12 @@ namespace mage {
 		CRITICAL_SECTION m_critical_section;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// MutexLock
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of mutex locks.
@@ -160,7 +164,7 @@ namespace mage {
 		 @return		A reference to the moved mutex lock (i.e. this mutex 
 						lock)
 		 */
-		MutexLock &operator=(MutexLock &&mutex_lock) = delete;
+		MutexLock &operator=(MutexLock &&mutex_lock) noexcept = default;
 
 	private:
 
@@ -174,9 +178,12 @@ namespace mage {
 		Mutex &m_mutex;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ReadWriteMutex
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of read write mutexes.
@@ -237,7 +244,7 @@ namespace mage {
 		 @return		A reference to the moved read write mutex (i.e. this 
 						read write mutex).
 		 */
-		ReadWriteMutex &operator=(ReadWriteMutex &&mutex) = delete;
+		ReadWriteMutex &operator=(ReadWriteMutex &&mutex) noexcept = default;
 
 	private:
 
@@ -309,9 +316,12 @@ namespace mage {
 		CRITICAL_SECTION m_critical_section;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ReadWriteMutexLock
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of read write mutex locks.
@@ -392,7 +402,7 @@ namespace mage {
 						this read write mutex lock).
 		 */
 		ReadWriteMutexLock &operator=(
-			ReadWriteMutexLock &&mutex_lock) = delete;
+			ReadWriteMutexLock &&mutex_lock) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -425,9 +435,12 @@ namespace mage {
 		ReadWriteMutex &m_mutex;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Semaphore
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of semaphores.
@@ -487,7 +500,7 @@ namespace mage {
 						A reference to the semaphore to move.
 		 @return		A reference to the moved semaphore (i.e. this semaphore)
 		 */
-		Semaphore &operator=(Semaphore &&semaphore) = delete;
+		Semaphore &operator=(Semaphore &&semaphore) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -533,9 +546,12 @@ namespace mage {
 		HANDLE m_handle;
 	};
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// ConditionVariable
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of condition variables.
@@ -601,7 +617,7 @@ namespace mage {
 						condition variable)
 		 */
 		ConditionVariable &operator=(
-			ConditionVariable &&condition_variable) = delete;
+			ConditionVariable &&condition_variable) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -665,4 +681,6 @@ namespace mage {
 		 */
 		HANDLE m_events[COUNT];
 	};
+
+	#pragma endregion
 }

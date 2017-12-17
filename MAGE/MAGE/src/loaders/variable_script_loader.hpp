@@ -6,7 +6,15 @@
 #pragma region
 
 #include "scripting\variable.hpp"
-#include "utils\collection\collection.hpp" 
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <map>
 
 #pragma endregion
 
@@ -22,11 +30,11 @@ namespace mage::loader {
 					A reference to the filename.
 	 @param[in,out]	variable_buffer
 					A reference to a map containing the variables.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the variable script from file.
 	 */
 	void ImportVariableScriptFromFile(const wstring &fname, 
-		map< string, Value > &variable_buffer);
+		std::map< string, Value > &variable_buffer);
 
 	/**
 	 Exports the given variables to the given file.
@@ -35,9 +43,9 @@ namespace mage::loader {
 					A reference to the filename.
 	 @param[in]		variable_buffer
 					A reference to a map containing the variables.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to export the variable script to file.
 	 */
 	void ExportVariableScriptToFile(const wstring &fname, 
-		const map< string, Value > &variable_buffer);
+		const std::map< string, Value > &variable_buffer);
 }

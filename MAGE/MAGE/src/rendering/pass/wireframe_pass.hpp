@@ -104,7 +104,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this wireframe pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this wireframe pass.
 		 */
 		void BindFixedState();
@@ -119,7 +119,7 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -136,7 +136,7 @@ namespace mage {
 		/**
 		 Binds the color data of this wireframe pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the color data of this wireframe pass.
 		 */
 		void BindColorData();
@@ -147,7 +147,7 @@ namespace mage {
 		 @param[in]		object_to_view
 						The object-to-view transformation matrix used for
 						transforming vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data 
 						of this wireframe pass.
 		 */
@@ -167,11 +167,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for 
 						transforming vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
 

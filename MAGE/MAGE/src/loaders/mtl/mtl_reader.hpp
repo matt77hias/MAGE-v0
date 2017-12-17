@@ -7,7 +7,15 @@
 
 #include "utils\io\line_reader.hpp"
 #include "material\material.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -34,7 +42,7 @@ namespace mage::loader {
 						A reference to a vector for storing the read materials 
 						from file.
 		 */
-		explicit MTLReader(vector< Material > &material_buffer);
+		explicit MTLReader(std::vector< Material > &material_buffer);
 
 		/**
 		 Constructs a MTL reader from the given MTL reader.
@@ -93,7 +101,7 @@ namespace mage::loader {
 		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) override;
@@ -101,7 +109,7 @@ namespace mage::loader {
 		/**
 		 Reads a Material Name definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Material Name definition.
 		 */
 		void ReadMTLMaterialName();
@@ -109,7 +117,7 @@ namespace mage::loader {
 		/**
 		 Reads a Base Color definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Base Color definition.
 		 */
 		void ReadMTLBaseColor();
@@ -117,7 +125,7 @@ namespace mage::loader {
 		/**
 		 Reads a Roughness definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Roughness definition.
 		 */
 		void ReadMTLRoughness();
@@ -125,7 +133,7 @@ namespace mage::loader {
 		/**
 		 Reads a Metalness definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Metalness definition.
 		 */
 		void ReadMTLMetalness();
@@ -133,7 +141,7 @@ namespace mage::loader {
 		/**
 		 Reads a Base Color Texture definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Base Color Texture definition.
 		 */
 		void ReadMTLBaseColorTexture();
@@ -141,7 +149,7 @@ namespace mage::loader {
 		/**
 		 Reads a Material Texture definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Material Texture definition.
 		 */
 		void ReadMTLMaterialTexture();
@@ -149,7 +157,7 @@ namespace mage::loader {
 		/**
 		 Reads a Normal Texture definition.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a Normal Texture definition.
 		 */
 		void ReadMTLNormalTexture();
@@ -159,7 +167,7 @@ namespace mage::loader {
 
 		 @return		The @c SRGB represented by the next token of this 
 						MTL reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a @c SRGB.
 		 */
 		const SRGB ReadMTLSRGB();
@@ -169,7 +177,7 @@ namespace mage::loader {
 
 		 @return		The @c SRGBA represented by the next token of 
 						this MTL reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a @c SRGBA.
 		 */
 		const SRGBA ReadMTLSRGBA();
@@ -179,7 +187,7 @@ namespace mage::loader {
 
 		 @return		A pointer to the texture represented by the next token
 						of this MTL reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read a texture.
 		 */
 		SharedPtr< const Texture > ReadMTLTexture();
@@ -192,6 +200,6 @@ namespace mage::loader {
 		 A reference to a vector containing the read materials of this MTL 
 		 reader.
 		 */
-		vector< Material > &m_material_buffer;
+		std::vector< Material > &m_material_buffer;
 	};
 }

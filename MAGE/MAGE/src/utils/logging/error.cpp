@@ -119,7 +119,7 @@ namespace mage {
 	}
 
 	void Debug([[maybe_unused]] const char *format, ...) {
-#ifdef _DEBUG
+	#ifdef _DEBUG
 		if (!LoggingConfiguration::Get()->IsVerbose() 
 			|| LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process info in non-verbose mode.
@@ -136,7 +136,7 @@ namespace mage {
 		
 		// End using variable argument list.
 		va_end(args);	
-#endif
+	#endif
 	}
 
 	void Info(const char *format, ...) {

@@ -123,62 +123,62 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Factory Methods: AA
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const ComputeShader > CreateAAPreprocessCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_aa_preprocess_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateFXAACS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 				MAGE_SHADER_ARGS(g_fxaa_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateMSAAResolveCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_msaa_resolve_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateSSAAResolveCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredLambertianCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
 	}
 
@@ -199,32 +199,32 @@ namespace mage {
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAABlinnPhongPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAACookTorrancePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAAEmissivePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAAFrostbitePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAALambertianPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredMSAAWardDuerPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
 	}
 
@@ -244,55 +244,55 @@ namespace mage {
 		}
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Depth
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const VertexShader > CreateDepthVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_depth_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
 	SharedPtr< const VertexShader > CreateDepthTransparentVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_depth_transparent_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
 	SharedPtr< const PixelShader > CreateDepthTransparentPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_depth_transparent_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const PixelShader > CreateForwardBlinnPhongPS(
 		bool tsnm, bool transparency) {
 
 		return tsnm ?
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS)))
 			:
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_blinn_phong_PS)));
 	}
 
@@ -301,17 +301,17 @@ namespace mage {
 
 		return tsnm ?
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS)))
 			:
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_cook_torrance_PS)));
 	}
 
@@ -319,10 +319,10 @@ namespace mage {
 		bool transparency) {
 
 		return transparency ?
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_forward_transparent_emissive_PS))
 			:
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
@@ -331,17 +331,17 @@ namespace mage {
 
 		return tsnm ?
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS)))
 			:
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_frostbite_PS)));
 	}
 
@@ -350,17 +350,17 @@ namespace mage {
 
 		return tsnm ?
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS)))
 			:
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_lambertian_PS)));
 	}
 
@@ -369,17 +369,17 @@ namespace mage {
 
 		return tsnm ?
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS)))
 			:
 			(transparency ?
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS))
 				:
-				ResourceManager::Get()->GetOrCreatePS(
+				ResourceManager::Get()->GetOrCreate< PixelShader >(
 					MAGE_SHADER_ARGS(g_forward_ward_duer_PS)));
 	}
 
@@ -401,51 +401,51 @@ namespace mage {
 		}
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBuffer
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const PixelShader > CreateGBufferPS(bool tsnm) {
 		return tsnm ?
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_gbuffer_tsnm_PS))
 			:
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_gbuffer_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Miscellaneous
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const PixelShader > CreateBackBufferPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_back_buffer_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateConstantColorPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_constant_color_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateConstantColorTexturePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_constant_color_texture_PS));
 	}
 
 	SharedPtr< const PixelShader > CreateDistancePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_distance_PS));
 	}
 
 	SharedPtr< const VertexShader > CreateShadingNormalVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_shading_normal_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
@@ -453,125 +453,125 @@ namespace mage {
 
 	SharedPtr< const PixelShader > CreateShadingNormalPS(bool tsnm) {
 		return tsnm ?
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS))
 			:
-			ResourceManager::Get()->GetOrCreatePS(
+			ResourceManager::Get()->GetOrCreate< PixelShader >(
 				MAGE_SHADER_ARGS(g_shading_normal_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Post Processing
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const ComputeShader > CreateDepthOfFieldCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
+		return ResourceManager::Get()->GetOrCreate< ComputeShader >(
 			MAGE_SHADER_ARGS(g_postprocessing_depth_of_field_CS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Primitive
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const VertexShader > CreateLineCubeVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_line_cube_VS), nullptr, 0u);
 	}
 
 	SharedPtr< const PixelShader > CreateLineCubePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_line_cube_PS));
 	}
 
 	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS), nullptr, 0u);
 	}
 
 	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS), nullptr, 0u);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Sky
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const VertexShader > CreateSkyVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_sky_VS), nullptr, 0u);
 	}
 
 	SharedPtr< const PixelShader > CreateSkyPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_sky_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Sprite
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const VertexShader > CreateSpriteVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_sprite_VS),
 			VertexPositionColorTexture::s_input_element_desc,
 			VertexPositionColorTexture::s_nb_input_elements);
 	}
 
 	SharedPtr< const PixelShader > CreateSpritePS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_sprite_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const VertexShader > CreateMinimalTransformVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_minimal_transform_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
 	SharedPtr< const VertexShader > CreateTransformVS() {
-		return ResourceManager::Get()->GetOrCreateVS(
+		return ResourceManager::Get()->GetOrCreate< VertexShader >(
 			MAGE_SHADER_ARGS(g_transform_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Voxelization
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	SharedPtr< const GeometryShader > CreateVoxelizationGS() {
-		return ResourceManager::Get()->GetOrCreateGS(
+		return ResourceManager::Get()->GetOrCreate< GeometryShader >(
 			MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
 	SharedPtr< const PixelShader > CreateVoxelizationPS() {
-		return ResourceManager::Get()->GetOrCreatePS(
+		return ResourceManager::Get()->GetOrCreate< PixelShader >(
 			MAGE_SHADER_ARGS(g_voxelization_PS));
 	}
 
-#pragma endregion
+	#pragma endregion
 }

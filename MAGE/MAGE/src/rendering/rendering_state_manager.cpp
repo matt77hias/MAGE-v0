@@ -34,7 +34,7 @@ namespace mage {
 	}
 
 	RenderingStateManager::RenderingStateManager(
-		RenderingStateManager &&rendering_state_manager) noexcept = default;
+		RenderingStateManager &&manager) noexcept = default;
 
 	RenderingStateManager::~RenderingStateManager() = default;
 

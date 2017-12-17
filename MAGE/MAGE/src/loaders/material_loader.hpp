@@ -6,7 +6,15 @@
 #pragma region
 
 #include "material\material.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -22,9 +30,9 @@ namespace mage::loader {
 					A reference to the filename.
 	 @param[out]	materials
 					A reference to a vector containing the materials.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the materials from file.
 	 */
 	void ImportMaterialFromFile(const wstring &fname, 
-		vector< Material > &materials);
+		std::vector< Material > &materials);
 }

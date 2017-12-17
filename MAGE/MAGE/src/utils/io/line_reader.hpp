@@ -52,7 +52,7 @@ namespace mage {
 		 @return		A reference to the moved line reader (i.e. this line 
 						reader).
 		 */
-		LineReader &operator=(LineReader &&reader) = delete;
+		LineReader &operator=(LineReader &&reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		delimiters
 						The string containing the token delimiters (single 
 						characters).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read from the given file.
 		 */
 		void ReadFromFile(wstring fname, 
@@ -81,7 +81,7 @@ namespace mage {
 		 @param[in]		delimiters
 						The string containing the token delimiters (single 
 						characters).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read from the given input string.
 		 */
 		void ReadFromMemory(const char *input, 
@@ -157,7 +157,7 @@ namespace mage {
 
 		 @return		The string represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token.
 		 */
 		const char *ReadChars();
@@ -167,7 +167,7 @@ namespace mage {
 
 		 @return		The string represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token.
 		 */
 		const string ReadString();
@@ -178,7 +178,7 @@ namespace mage {
 
 		 @return		The quoted string represented by the next token of this 
 						line reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a quoted string.
 		 */
@@ -189,7 +189,7 @@ namespace mage {
 
 		 @return		The @c bool represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c bool.
 		 */
@@ -200,7 +200,7 @@ namespace mage {
 
 		 @return		The @c S8 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c S8.
 		 */
@@ -211,7 +211,7 @@ namespace mage {
 
 		 @return		The @c U8 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c U8.
 		 */
@@ -222,7 +222,7 @@ namespace mage {
 
 		 @return		The @c S16 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c S16.
 		 */
@@ -233,7 +233,7 @@ namespace mage {
 
 		 @return		The @c U16 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c U16.
 		 */
@@ -244,7 +244,7 @@ namespace mage {
 
 		 @return		The @c S32 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c S32.
 		 */
@@ -255,7 +255,7 @@ namespace mage {
 
 		 @return		The @c U32 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c U32.
 		 */
@@ -266,7 +266,7 @@ namespace mage {
 
 		 @return		The @c S64 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c S64.
 		 */
@@ -277,7 +277,7 @@ namespace mage {
 
 		 @return		The @c U64 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c U64.
 		 */
@@ -288,7 +288,7 @@ namespace mage {
 
 		 @return		The @c F32 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c F32.
 		 */
@@ -299,7 +299,7 @@ namespace mage {
 
 		 @return		The @c F64 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent an @c F64.
 		 */
@@ -310,7 +310,7 @@ namespace mage {
 
 		 @return		The @c F32x2 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c F32x2.
 		 */
@@ -321,7 +321,7 @@ namespace mage {
 
 		 @return		The @c F32x3 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c F32x3.
 		 */
@@ -332,7 +332,7 @@ namespace mage {
 
 		 @return		The @c F32x4 represented by the next token of this line 
 						reader.
-		 @throws		FormattedException
+		 @throws		Exception
 						There is no next token or the next token does not 
 						represent a @c F32x4.
 		*/
@@ -468,7 +468,7 @@ namespace mage {
 		/**
 		 Pre-processes before reading the current file of this line reader.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to finish the pre-processing successfully.
 		 */
 		virtual void Preprocess() {}
@@ -479,7 +479,7 @@ namespace mage {
 		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) = 0;
@@ -487,7 +487,7 @@ namespace mage {
 		/**
 		 Post-processes after reading the current file of this line reader.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to finish post-processing successfully.
 		 */
 		virtual void Postprocess() {}

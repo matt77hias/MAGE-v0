@@ -26,7 +26,7 @@ namespace mage::loader {
 					A reference to the model output.
 	 @param[in]		mesh_desc
 					A reference to the mesh descriptor.
-	 @throws		FormattedException
+	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
 	template < typename VertexT >

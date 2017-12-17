@@ -104,7 +104,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this depth pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this depth pass.
 		 */
 		void BindFixedState();
@@ -121,7 +121,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -142,7 +142,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderOccluders(
@@ -173,7 +173,7 @@ namespace mage {
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix used for
 						transforming vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the projection data of this depth pass.
 		 */
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
@@ -184,7 +184,7 @@ namespace mage {
 		 @param[in]		object_to_view
 						The object-to-view transformation matrix used for
 						transforming vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this depth pass.
 		 */
 		void XM_CALLCONV BindOpaqueModelData(FXMMATRIX object_to_view);
@@ -201,7 +201,7 @@ namespace mage {
 						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this depth pass.
 		 */
 		void XM_CALLCONV BindTransparentModelData(
@@ -223,11 +223,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessOpaqueModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
 
@@ -246,11 +246,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessOpaqueOccluderModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
 
@@ -269,11 +269,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessTransparentOccluderModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
 

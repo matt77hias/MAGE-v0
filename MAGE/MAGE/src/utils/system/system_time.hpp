@@ -85,7 +85,8 @@ namespace mage {
 	inline void GetCurrentCoreTimestamp(
 		U64 *kernel_mode_timestamp, U64 *user_mode_timestamp) noexcept {
 		
-		GetCurrentCoreTimestamp(
-			GetCurrentProcess(), kernel_mode_timestamp, user_mode_timestamp);
+		GetCurrentCoreTimestamp(GetCurrentProcess(), 
+			                    kernel_mode_timestamp, 
+			                    user_mode_timestamp);
 	}
 }

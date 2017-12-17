@@ -37,7 +37,10 @@ namespace mage {
 		/**
 		 The supported feature levels.
 		 */
-		static const D3D_FEATURE_LEVEL s_feature_levels[2];
+		static constexpr D3D_FEATURE_LEVEL s_feature_levels[2] = {
+			D3D_FEATURE_LEVEL_11_1,
+			D3D_FEATURE_LEVEL_11_0
+		};
 
 		/**
 		 Returns the device.
@@ -60,6 +63,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Class Member Methods: Drawing and Dispatching
 		//---------------------------------------------------------------------
+		#pragma region
 
 		static void DrawAuto(ID3D11DeviceContext4 *device_context) noexcept {
 			device_context->DrawAuto();
@@ -153,9 +157,12 @@ namespace mage {
 				dst_box, src_data, src_row_pitch, src_depth_pitch);
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Class Member Methods: Shaders
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Binds a constant buffer to all shader stages.
@@ -335,9 +342,12 @@ namespace mage {
 			CS::BindSamplers(device_context, slot, nb_samplers, samplers);
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// IA
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The input assembler stage.
@@ -406,9 +416,12 @@ namespace mage {
 			~IA() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// VS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The vertex shader stage.
@@ -628,9 +641,12 @@ namespace mage {
 			~VS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// DS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The domain shader stage.
@@ -850,9 +866,12 @@ namespace mage {
 			~DS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// TS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The tesselator stage.
@@ -884,9 +903,12 @@ namespace mage {
 			~TS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// HS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The hull shader stage.
@@ -1106,9 +1128,12 @@ namespace mage {
 			~HS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// GS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The geometry shader stage.
@@ -1328,9 +1353,12 @@ namespace mage {
 			~GS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// SO
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The stream output stage.
@@ -1362,9 +1390,12 @@ namespace mage {
 			~SO() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// RS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The rasterizer stage.
@@ -1432,9 +1463,12 @@ namespace mage {
 			~RS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// PS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The pixel shader stage.
@@ -1654,9 +1688,12 @@ namespace mage {
 			~PS() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// OM
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The output merger stage.
@@ -1785,7 +1822,7 @@ namespace mage {
 				device_context->ClearRenderTargetView(rtv, rgba);
 			}
 			
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISSABLE_INVERTED_Z_BUFFER
 			
 			static void ClearDSV(ID3D11DeviceContext4 *device_context,
 				ID3D11DepthStencilView *dsv, 
@@ -1802,7 +1839,7 @@ namespace mage {
 				dsv, D3D11_CLEAR_DEPTH, depth, 0u);
 			}
 
-#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISSABLE_INVERTED_Z_BUFFER
 			
 			static void ClearDSV(ID3D11DeviceContext4 *device_context,
 				ID3D11DepthStencilView *dsv,
@@ -1819,7 +1856,7 @@ namespace mage {
 					dsv, D3D11_CLEAR_DEPTH, depth, 0u);
 			}
 
-#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISSABLE_INVERTED_Z_BUFFER
 			
 			static void ClearStencilOfDSV(ID3D11DeviceContext4 *device_context, 
 				ID3D11DepthStencilView *dsv, U8 stencil = 0u) noexcept {
@@ -1847,9 +1884,12 @@ namespace mage {
 			~OM() = delete;
 		};
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// CS
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 The compute shader stage.
@@ -2127,6 +2167,8 @@ namespace mage {
 			CS(CS &&cs) = delete;
 			~CS() = delete;
 		};
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

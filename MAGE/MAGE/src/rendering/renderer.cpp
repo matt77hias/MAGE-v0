@@ -127,7 +127,7 @@ namespace mage {
 			output_manager->BindBegin(m_device_context);
 
 			// Obtain node components.
-			const TransformNode  * const transform = node->GetTransform();
+			const Transform  * const transform = node->GetTransform();
 			const Camera         * const camera    = node->GetCamera();
 			const XMMATRIX world_to_view           = transform->GetWorldToViewMatrix();
 			const XMMATRIX view_to_world           = transform->GetViewToWorldMatrix();

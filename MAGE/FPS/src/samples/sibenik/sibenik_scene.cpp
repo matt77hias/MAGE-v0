@@ -13,7 +13,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\input_controller_script.hpp"
+#include "script\character_motor_script.hpp"
+#include "script\mouse_look_script.hpp"
 #include "script\render_mode_script.hpp"
 #include "script\rotation_script.hpp"
 #include "script\stats_script.hpp"
@@ -34,80 +35,90 @@ namespace mage {
 	SibenikScene::~SibenikScene() = default;
 
 	void SibenikScene::Load() {
-		//---------------------------------------------------------------------
-		// Fog
-		//---------------------------------------------------------------------
-		auto fog = GetSceneFog();
-		fog->SetDensity(0.001f);
 
 		//---------------------------------------------------------------------
-		// Sky
+		// Resources
 		//---------------------------------------------------------------------
-		auto sky = GetSky();
-		auto sky_texture =
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
-		sky->SetTexture(sky_texture);
-
-		//---------------------------------------------------------------------
-		// Camera
-		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCameraNode >();
-		camera->GetTransform()->SetTranslationY(2.0f);
-
-		//---------------------------------------------------------------------
-		// ModelDescriptors
-		//---------------------------------------------------------------------
+		ResourceManager * const factory = ResourceManager::Get();
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		auto model_desc_sibenik = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sibenik/sibenik.mdl", mesh_desc);
-		auto model_desc_tree = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
-		
+		auto sibenik_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/sibenik/sibenik.mdl", mesh_desc);
+		auto tree_model_desc_tree = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
+		auto sky_texture = factory->GetOrCreate< Texture >(
+			L"assets/textures/sky/sky.dds");
+
+		//---------------------------------------------------------------------
+		// Cameras
+		//---------------------------------------------------------------------
+		auto camera = Create< PerspectiveCamera >();
+
+		// Camera: Lens
+		// camera->GetLens().SetLensRadius(0.01f);
+		// camera->GetLens().SetFocalLength(3.0f);
+		// camera->GetLens().SetMaximumCoCRadius(2.0f);
+		// Camera: Viewport
+		// camera->GetViewport().SetNormalizedWidth(0.5f);
+		// Camera: Fog
+		camera->GetSettings().GetFog().SetDensity(0.001f);
+		// Camera: Sky
+		camera->GetSettings().GetSky().SetTexture(sky_texture);
+
+		auto camera_node = Create< Node >();
+		camera_node->AddComponent(camera);
+		camera_node->GetTransform().SetTranslationY(2.0f);
+
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto model_sibenik = CreateModel(*model_desc_sibenik);
-		model_sibenik->GetTransform()->SetScale(30.0f);
-		model_sibenik->GetTransform()->SetTranslationY(12.0f);
-		auto model_tree = CreateModel(*model_desc_tree);
-		model_tree->GetTransform()->SetScale(5.0f);
-		model_tree->GetTransform()->AddTranslationY(2.5f);
+		auto sibenik_node = Import(*sibenik_model_desc);
+		sibenik_node->GetTransform().SetScale(30.0f);
+		sibenik_node->GetTransform().SetTranslationY(12.1f);
+
+		auto tree_node = Import(*tree_model_desc_tree);
+		tree_node->GetTransform().SetScale(5.0f);
+		tree_node->GetTransform().AddTranslationY(2.5f);
 		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLightNode >();
-		omni_light->GetTransform()->SetTranslationY(7.0f);
-		omni_light->GetLight()->SetRange(20.0f);
-		omni_light->GetLight()->SetIntensity(20.0f);
-		omni_light->GetLight()->EnableShadows();
+		auto omni_light = Create< OmniLight >();
+		omni_light->SetRange(20.0f);
+		omni_light->SetIntensity(20.0f);
+		omni_light->EnableShadows();
 
-		auto light = Create< SpotLightNode >();
-		light->GetLight()->SetRange(15.0f);
-		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		camera->AddChildNode(light);
+		auto omni_light_node = Create< Node >();
+		omni_light_node->AddComponent(omni_light);
+		omni_light_node->GetTransform().SetTranslationY(7.0f);
 
-		//---------------------------------------------------------------------
-		// Image
-		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImageNode >();
-		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
-		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
+		auto spot_light = Create< SpotLight >();
+		spot_light->SetRange(15.0f);
+		spot_light->SetAngularCutoff(1.0f, 0.5f);
+
+		camera_node->AddComponent(spot_light);
 
 		//---------------------------------------------------------------------
-		// Text
+		// Sprites
 		//---------------------------------------------------------------------
-		auto text = Create< NormalSpriteTextNode >();
+		auto logo = Create< SpriteImage >();
+		logo->SetBaseColorTexture(CreateMAGETexture());
+		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform().SetNormalizedTranslation(0.90f, 0.88f);
+
+		auto text = Create< SpriteText >();
+
+		camera_node->AddComponent(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< ForrestScene > >();
-		Create< script::RotationScript >(model_tree->GetTransform());
-		Create< script::FPSInputControllerScript >(camera->GetTransform());
-		Create< script::RenderModeScript >(camera->GetSettings());
-		Create< script::StatsScript >(text->GetSprite());
+
+		tree_node->AddComponent(Create< script::RotationScript >());
+		camera_node->AddComponent(Create< script::MouseLookScript >());
+		camera_node->AddComponent(Create< script::CharacterMotorScript >());
+		camera_node->AddComponent(Create< script::RenderModeScript >());
+		camera_node->AddComponent(Create< script::StatsScript >());
 	}
 }

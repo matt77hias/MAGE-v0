@@ -27,6 +27,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Angles
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Clamps the given angle (in degrees) to [-180, 180].
@@ -102,9 +103,12 @@ namespace mage {
 		return std::clamp(ClampAngleRadians(angle), min_angle, max_angle);
 	}
 	
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Packing
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Returns the projection values from the given projection matrix to construct 
@@ -132,4 +136,6 @@ namespace mage {
 		
 		return XMVectorSet(x, y, 0.0f, 0.0f);
 	}
+
+	#pragma endregion
 }

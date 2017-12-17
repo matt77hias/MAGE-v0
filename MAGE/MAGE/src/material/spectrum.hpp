@@ -17,7 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// (linear) RGB
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	// Forward declaration
 	struct SRGB;
@@ -129,12 +129,12 @@ namespace mage {
 
 	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// SRGB
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of sRGB color spectra.
@@ -234,12 +234,12 @@ namespace mage {
 
 	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// XYZ
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of XYZ color spectra.
@@ -339,12 +339,12 @@ namespace mage {
 
 	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// (linear) RGBA
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	// Forward declaration
 	struct SRGBA;
@@ -469,12 +469,12 @@ namespace mage {
 
 	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// SRGBA
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of sRGBA color spectra.
@@ -587,12 +587,12 @@ namespace mage {
 
 	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
 	
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// XYZA
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 A struct of XYZA color spectra.
@@ -705,12 +705,12 @@ namespace mage {
 
 	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Conversions: (linear) RGB <-> sRGB
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Converts the given spectrum from (linear) RGB to sRGB space.
@@ -770,12 +770,12 @@ namespace mage {
 		XMStoreFloat4(this, RGBtoSRGB(XMLoadFloat4(&rgba)));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Conversions: (linear) RGB <-> XYZ
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Converts the given spectrum from (linear) RGB to XYZ space.
@@ -831,5 +831,5 @@ namespace mage {
 		XMStoreFloat4(this, RGBtoXYZ(XMLoadFloat4(&rgba)));
 	}
 
-#pragma endregion
+	#pragma endregion
 }

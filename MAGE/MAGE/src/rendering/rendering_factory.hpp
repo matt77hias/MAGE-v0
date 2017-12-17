@@ -17,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Buffers
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates a static vertex buffer.
@@ -187,9 +188,12 @@ namespace mage {
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Blend states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates an opaque blend state (i.e. no blending).
@@ -316,9 +320,12 @@ namespace mage {
 	[[nodiscard]] HRESULT CreateAlphaToCoverageBlendState(
 		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Depth stencil states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates a no-read-no-write depth stencil state.
@@ -368,9 +375,12 @@ namespace mage {
 		ID3D11Device5 *device, ID3D11DepthStencilState **depth_stencil_state,
 		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates a rasterizer state.
@@ -487,9 +497,12 @@ namespace mage {
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Sampler states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates a sampling state.
@@ -650,6 +663,8 @@ namespace mage {
 	 */
 	[[nodiscard]] HRESULT CreatePCFSamplerState(
 		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

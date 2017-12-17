@@ -6,8 +6,8 @@
 namespace mage {
 
 	template< typename DataT >
-	DataT *SingleEndedMemoryStack::AllocData(
-		size_t count, bool initialization) noexcept {
+	DataT *SingleEndedMemoryStack
+		::AllocData(size_t count, bool initialization) noexcept {
 		
 		// Allocation
 		DataT * const ptr 
@@ -29,8 +29,8 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	DataT *DoubleEndedMemoryStack::AllocDataLow(
-		size_t count, bool initialization) noexcept {
+	DataT *DoubleEndedMemoryStack
+		::AllocDataLow(size_t count, bool initialization) noexcept {
 		
 		// Allocation
 		DataT * const ptr 
@@ -52,8 +52,8 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	DataT *DoubleEndedMemoryStack::AllocDataHigh(
-		size_t count, bool initialization) noexcept {
+	DataT *DoubleEndedMemoryStack
+		::AllocDataHigh(size_t count, bool initialization) noexcept {
 		
 		// Allocation
 		DataT * const ptr 

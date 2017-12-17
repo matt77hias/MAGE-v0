@@ -4,8 +4,9 @@
 #pragma region
 
 #include "script\manhattan_motor_script.hpp"
+#include "scene\scene.hpp"
 #include "input\keyboard.hpp"
-#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -14,48 +15,55 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	ManhattanMotorScript::ManhattanMotorScript(TransformNode *transform)
-		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {
+	ManhattanMotorScript::ManhattanMotorScript()
+		: BehaviorScript(), 
+		m_velocity(2.0f) {}
 
-		Assert(m_transform);
-	}
+	ManhattanMotorScript::ManhattanMotorScript(
+		const ManhattanMotorScript &script) noexcept = default;
 
 	ManhattanMotorScript::ManhattanMotorScript(
 		ManhattanMotorScript &&script) noexcept = default;
 	
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
+	void ManhattanMotorScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+	}
+
 	void ManhattanMotorScript::Update([[maybe_unused]] F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
+		Transform &transform = GetOwner()->GetTransform();
 
 		const F32 movement_magnitude 
 			= static_cast< F32 >(delta_time * m_velocity);
 
-		if (keyboard->GetKeyPress(DIK_UP, true) 
-			|| keyboard->GetKeyPress(DIK_W, true)) {
+		if (     keyboard->GetKeyPress(DIK_UP,     true) 
+			  || keyboard->GetKeyPress(DIK_W,      true)) {
 			
-			m_transform->AddTranslationZ(movement_magnitude);
+			transform.AddTranslationZ(movement_magnitude);
 		}
-		else if (keyboard->GetKeyPress(DIK_DOWN, true) 
-			|| keyboard->GetKeyPress(DIK_S, true)) {
+		else if (keyboard->GetKeyPress(DIK_DOWN,   true) 
+			  || keyboard->GetKeyPress(DIK_S,      true)) {
 			
-			m_transform->AddTranslationZ(-movement_magnitude);
+			transform.AddTranslationZ(-movement_magnitude);
 		}
-		else if (keyboard->GetKeyPress(DIK_RIGHT, true) 
-			|| keyboard->GetKeyPress(DIK_D, true)) {
+		else if (keyboard->GetKeyPress(DIK_RIGHT,  true) 
+			  || keyboard->GetKeyPress(DIK_D,      true)) {
 			
-			m_transform->AddTranslationX(movement_magnitude);
+			transform.AddTranslationX(movement_magnitude);
 		}
-		else if (keyboard->GetKeyPress(DIK_LEFT, true) 
-			|| keyboard->GetKeyPress(DIK_A, true)) {
+		else if (keyboard->GetKeyPress(DIK_LEFT,   true) 
+			  || keyboard->GetKeyPress(DIK_A,      true)) {
 			
-			m_transform->AddTranslationX(-movement_magnitude);
+			transform.AddTranslationX(-movement_magnitude);
 		}
 		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
-			m_transform->AddTranslationY(-movement_magnitude);
+			transform.AddTranslationY(-movement_magnitude);
 		}
 		else if (keyboard->GetKeyPress(DIK_RSHIFT, true)) {
-			m_transform->AddTranslationY(movement_magnitude);
+			transform.AddTranslationY(movement_magnitude);
 		}
 	}
 }

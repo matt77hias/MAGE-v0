@@ -6,7 +6,6 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform\transform_node.hpp"
 
 #pragma endregion
 
@@ -23,8 +22,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 		
-		explicit CharacterMotorScript(TransformNode *transform);
-		CharacterMotorScript(const CharacterMotorScript &script) = delete;
+		CharacterMotorScript();
+		CharacterMotorScript(const CharacterMotorScript &script) noexcept;
 		CharacterMotorScript(CharacterMotorScript &&script) noexcept;
 		virtual ~CharacterMotorScript();
 
@@ -41,6 +40,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
 		F32 GetVelocity() const noexcept {
@@ -56,7 +56,6 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		TransformNode * const m_transform;
 		F32 m_velocity;
 	};
 }

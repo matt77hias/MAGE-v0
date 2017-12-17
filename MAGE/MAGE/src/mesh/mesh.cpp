@@ -22,4 +22,6 @@ namespace mage {
 	Mesh::Mesh(Mesh &&mesh) noexcept = default;
 
 	Mesh::~Mesh() = default;
+
+	Mesh &Mesh::operator=(Mesh &&mesh) noexcept = default;
 }

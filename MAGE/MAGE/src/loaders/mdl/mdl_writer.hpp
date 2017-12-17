@@ -93,7 +93,7 @@ namespace mage::loader {
 		/**
 		 Starts writing.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		virtual void Write() override;
@@ -101,9 +101,9 @@ namespace mage::loader {
 		/**
 		 Writes and exports the mesh corresponding to the model.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to export the mesh corresponding 
 						to the model to file.
 		 */
@@ -112,7 +112,7 @@ namespace mage::loader {
 		/**
 		 Writes the materials corresponding to the model.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		void WriteMaterials();
@@ -120,7 +120,7 @@ namespace mage::loader {
 		/**
 		 Writes the model parts corresponding to the model.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		void WriteModelParts();

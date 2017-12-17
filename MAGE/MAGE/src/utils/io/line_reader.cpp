@@ -26,6 +26,8 @@ namespace mage {
 
 	LineReader::~LineReader() = default;
 
+	LineReader &LineReader::operator=(LineReader &&reader) noexcept = default;
+
 	void LineReader::ReadFromFile(wstring fname, string delimiters) {
 		m_fname      = std::move(fname);
 		m_delimiters = std::move(delimiters);
@@ -99,7 +101,7 @@ namespace mage {
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no char string value found.",
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -118,7 +120,7 @@ namespace mage {
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no string value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -137,13 +139,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no quoted string value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid quoted string value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -162,13 +164,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no bool value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid bool value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -187,13 +189,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 8 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 8 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -212,13 +214,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 8 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 8 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -237,13 +239,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 16 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 16 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -262,13 +264,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 16 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 16 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -287,13 +289,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -312,13 +314,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no unsigned 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid unsigned 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -337,13 +339,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 64 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 64 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -362,13 +364,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no 64 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid 64 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -387,12 +389,12 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no F32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid F32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
@@ -410,13 +412,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no F64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid F64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -435,13 +437,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no F32x2 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid F322 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -460,13 +462,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no F32x3 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid F323 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -485,13 +487,13 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: no F32x4 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw FormattedException(
+			throw Exception(
 				"%ls: line %u: invalid F324 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}

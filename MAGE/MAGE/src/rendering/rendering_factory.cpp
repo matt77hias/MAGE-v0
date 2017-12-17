@@ -16,6 +16,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Blend states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	[[nodiscard]] HRESULT CreateOpaqueBlendState(
 		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept {
@@ -144,9 +145,12 @@ namespace mage {
 		return device->CreateBlendState(&desc, blend_state);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Depth stencil states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	[[nodiscard]] HRESULT CreateDepthNoneDepthStencilState(
 		ID3D11Device5 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
@@ -193,9 +197,12 @@ namespace mage {
 		return device->CreateDepthStencilState(&desc, depth_stencil_state);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	[[nodiscard]] HRESULT CreateRasterizerState(
 		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state, 
@@ -209,15 +216,15 @@ namespace mage {
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = fill_mode;
 		
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = depth_bias;
 		desc.SlopeScaledDepthBias = slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = depth_bias_clamp;
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = -depth_bias;
 		desc.SlopeScaledDepthBias = -slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = -depth_bias_clamp;
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		
 		desc.DepthClipEnable      = true;
 		desc.MultisampleEnable    = true;
@@ -277,9 +284,12 @@ namespace mage {
 			depth_bias, slope_scaled_depth_bias, depth_bias_clamp);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Sampler states
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	[[nodiscard]] HRESULT CreateSamplerState(
 		ID3D11Device5 *device, ID3D11SamplerState **sampler_state, 
@@ -415,4 +425,6 @@ namespace mage {
 
 		return device->CreateSamplerState(&desc, sampler_state);
 	}
+
+	#pragma endregion
 }

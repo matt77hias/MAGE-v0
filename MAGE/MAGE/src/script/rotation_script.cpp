@@ -4,7 +4,8 @@
 #pragma region
 
 #include "script\rotation_script.hpp"
-#include "utils\logging\error.hpp"
+#include "scene\scene.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -13,37 +14,41 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	RotationScript::RotationScript(TransformNode *transform, RotationAxis axis)
-		: BehaviorScript(), m_transform(transform), m_axis(axis) {
+	RotationScript::RotationScript()
+		: BehaviorScript(), 
+		m_axis(RotationAxis::Y) {}
 
-		Assert(m_transform);
-	}
+	RotationScript::RotationScript(const RotationScript &script) noexcept = default;
 
 	RotationScript::RotationScript(RotationScript &&script) noexcept = default;
 
 	RotationScript::~RotationScript() = default;
 
-	void RotationScript::Update([[maybe_unused]] F64 delta_time) {
+	void RotationScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+	}
 
+	void RotationScript::Update([[maybe_unused]] F64 delta_time) {
 		switch (m_axis) {
 		
 		case RotationAxis::X: {
-			
-			m_transform->AddRotationX(static_cast< F32 >(delta_time));
+			GetOwner()->GetTransform().AddRotationX(
+				static_cast< F32 >(delta_time));
 			
 			break;
 		}
 		
 		case RotationAxis::Y: {
-		
-			m_transform->AddRotationY(static_cast< F32 >(delta_time));
+			GetOwner()->GetTransform().AddRotationY(
+				static_cast< F32 >(delta_time));
 			
 			break; 
 		}
 		
 		case RotationAxis::Z: {
-			
-			m_transform->AddRotationZ(static_cast< F32 >(delta_time));
+			GetOwner()->GetTransform().AddRotationZ(
+				static_cast< F32 >(delta_time));
 			
 			break;
 		}

@@ -18,7 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Binary Conversion Utilities: Big Endian
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Reads a @c DataT element from the given big endian byte array.
@@ -189,12 +189,12 @@ namespace mage {
 		return *BytesBigEndianToValue< F64 >(bytes);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Binary Conversion Utilities: Little Endian
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Reads a @c S8 from the given little endian byte array.
@@ -379,12 +379,12 @@ namespace mage {
 		return BytesBigEndianToF64(reversed_bytes);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Binary Conversion Utilities: Big | Little Endian
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	/**
 	 Reads a @c S8 from the given byte array.
@@ -558,5 +558,5 @@ namespace mage {
 			BytesBigEndianToF64(bytes) : BytesLittleEndianToF64(bytes);
 	}
 
-#pragma endregion
+	#pragma endregion
 }

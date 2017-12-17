@@ -39,8 +39,8 @@ namespace mage {
 
 	template < typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(
-		const vector< VertexT > &vertices, 
-		const vector< IndexT > &indices, 
+		const std::vector< VertexT > &vertices, 
+		const std::vector< IndexT > &indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(Pipeline::GetDevice(),
 			vertices, indices, 
@@ -48,8 +48,8 @@ namespace mage {
 
 	template < typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(ID3D11Device5 *device,
-		const vector< VertexT > &vertices, 
-		const vector< IndexT > &indices, 
+		const std::vector< VertexT > &vertices, 
+		const std::vector< IndexT > &indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(device, 
 			vertices.data(), vertices.size(), 

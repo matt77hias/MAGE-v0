@@ -6,7 +6,15 @@
 #pragma region
 
 #include "utils\io\binary_reader.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -42,8 +50,8 @@ namespace mage::loader {
 						A reference to a vector for storing the read indices
 						from file.
 		 */
-		explicit MSHReader(
-			vector< VertexT > &vertices, vector< IndexT > &indices);
+		explicit MSHReader(std::vector< VertexT > &vertices, 
+			               std::vector< IndexT >  &indices);
 
 		/**
 		 Constructs a MSH reader from the given MSH reader.
@@ -99,7 +107,7 @@ namespace mage::loader {
 		/**
 		 Starts reading.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to read to the given file.
 		 */
 		virtual void Read() override;
@@ -120,13 +128,13 @@ namespace mage::loader {
 		 A reference to a vector containing the read vertices of this MSH 
 		 reader.
 		 */
-		vector< VertexT > &m_vertices;
+		std::vector< VertexT > &m_vertices;
 
 		/**
 		 A reference to a vector containing the read indices of this MSH 
 		 reader.
 		 */
-		vector< IndexT > &m_indices;
+		std::vector< IndexT > &m_indices;
 	};
 }
 

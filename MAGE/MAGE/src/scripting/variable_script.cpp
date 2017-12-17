@@ -26,6 +26,9 @@ namespace mage {
 
 	VariableScript::~VariableScript() = default;
 
+	VariableScript &VariableScript::operator=(
+		VariableScript &&variable_script) noexcept = default;
+
 	void VariableScript::ImportScript(const wstring &fname) {
 		loader::ImportVariableScriptFromFile(fname, m_variables);
 	}

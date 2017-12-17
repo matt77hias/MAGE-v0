@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\type\types.hpp"
+#include "camera\fog.hpp"
+#include "camera\sky.hpp"
 #include "material\brdf.hpp"
 #include "rendering\pass\configuration.hpp"
 
@@ -30,10 +31,12 @@ namespace mage {
 		/**
 		 Constructs a camera settings.
 		 */
-		constexpr CameraSettings() noexcept
+		CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
 			m_brdf(BRDFType::Unknown),
-			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)) {}
+			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
+			m_fog(), 
+			m_sky() {}
 		
 		/**
 		 Constructs a camera settings from the given camera settings.
@@ -41,8 +44,7 @@ namespace mage {
 		 @param[in]		scene_settings
 						A reference to the camera settings to copy.
 		 */
-		constexpr CameraSettings(
-			const CameraSettings &scene_settings) noexcept = default;
+		CameraSettings(const CameraSettings &scene_settings) noexcept = default;
 
 		/**
 		 Constructs a camera settings by moving the given camera settings.
@@ -50,8 +52,7 @@ namespace mage {
 		 @param[in]		scene_settings
 						A reference to the camera settings to move.
 		 */
-		constexpr CameraSettings(
-			CameraSettings &&scene_settings) noexcept = default;
+		CameraSettings(CameraSettings &&scene_settings) noexcept = default;
 
 		/**
 		 Destructs this camera settings.
@@ -70,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera settings 
 						(i.e. this camera settings).
 		 */
-		constexpr CameraSettings &operator=(
+		CameraSettings &operator=(
 			const CameraSettings &scene_settings) noexcept = default;
 
 		/**
@@ -81,67 +82,83 @@ namespace mage {
 		 @return		A reference to the moved camera settings (i.e. this 
 						camera settings).
 		 */
-		constexpr CameraSettings &operator=(
+		CameraSettings &operator=(
 			CameraSettings &&scene_settings) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr void Reset() noexcept {
+		void Reset() noexcept {
 			ResetRenderMode();
 			ResetBRDF();
 			ResetRenderLayers();
 		}
 
-		constexpr RenderMode GetRenderMode() const noexcept {
+		RenderMode GetRenderMode() const noexcept {
 			return m_render_mode;
 		}
 
-		constexpr void SetRenderMode(RenderMode render_mode) noexcept {
+		void SetRenderMode(RenderMode render_mode) noexcept {
 			m_render_mode = render_mode;
 		}
 
-		constexpr void ResetRenderMode() noexcept {
+		void ResetRenderMode() noexcept {
 			SetRenderMode(RenderMode::Forward);
 		}
 
-		constexpr BRDFType GetBRDF() const noexcept {
+		BRDFType GetBRDF() const noexcept {
 			return m_brdf;
 		}
 
-		constexpr void SetBRDF(BRDFType brdf) noexcept {
+		void SetBRDF(BRDFType brdf) noexcept {
 			m_brdf = brdf;
 		}
 
-		constexpr void ResetBRDF() noexcept {
+		void ResetBRDF() noexcept {
 			SetBRDF(BRDFType::Unknown);
 		}
 
-		constexpr bool HasRenderLayers() const noexcept {
+		bool HasRenderLayers() const noexcept {
 			return m_render_layer_mask 
 				!= static_cast< U32 >(RenderLayer::None);
 		}
 
-		constexpr bool HasRenderLayer(RenderLayer render_layer) const noexcept {
+		bool HasRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(
 				m_render_layer_mask & static_cast< U32 >(render_layer));
 		}
 
-		constexpr void AddRenderLayer(RenderLayer render_layer) noexcept {
+		void AddRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask |= static_cast< U32 >(render_layer);
 		}
 
-		constexpr void RemoveRenderLayer(RenderLayer render_layer) noexcept {
+		void RemoveRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask &= ~(static_cast< U32 >(render_layer));
 		}
 
-		constexpr void ToggleRenderLayer(RenderLayer render_layer) noexcept {
+		void ToggleRenderLayer(RenderLayer render_layer) noexcept {
 			m_render_layer_mask ^= static_cast< U32 >(render_layer);
 		}
 
-		constexpr void ResetRenderLayers() noexcept {
+		void ResetRenderLayers() noexcept {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
+		}
+
+		Fog &GetFog() noexcept {
+			return m_fog;
+		}
+
+		const Fog &GetFog() const noexcept {
+			return m_fog;
+		}
+
+		Sky &GetSky() noexcept {
+			return m_sky;
+		}
+
+		const Sky &GetSky() const noexcept {
+			return m_sky;
 		}
 
 	private:
@@ -164,5 +181,15 @@ namespace mage {
 		 The render layer mask of this camera settings.
 		 */
 		U32 m_render_layer_mask;
+
+		/**
+		 The fog of this camera settings. 
+		 */
+		Fog m_fog;
+
+		/**
+		 The sky of this camera settings. 
+		 */
+		Sky m_sky;
 	};
 }

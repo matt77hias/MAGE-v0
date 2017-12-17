@@ -102,7 +102,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this back buffer pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this back buffer 
 						pass.
 		 */

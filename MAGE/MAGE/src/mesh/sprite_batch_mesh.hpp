@@ -105,10 +105,10 @@ namespace mage {
 
 		 @pre			The device associated with the current engine must be 
 						loaded.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the sprite batch 
 						mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the sprite batch 
 						mesh.
 		 */
@@ -120,10 +120,10 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the vertex buffer of the sprite batch 
 						mesh.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the index buffer of the sprite batch 
 						mesh.
 		 */
@@ -132,18 +132,18 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.
 
-		 @param[in]		sprite_batch_mesh
+		 @param[in]		mesh
 						A reference to the sprite batch mesh to copy.
 		 */
-		SpriteBatchMesh(const SpriteBatchMesh &sprite_batch_mesh) = delete;
+		SpriteBatchMesh(const SpriteBatchMesh &mesh) = delete;
 
 		/**
 		 Constructs a sprite batch mesh by moving the given sprite batch mesh.
 
-		 @param[in]		sprite_batch_mesh
+		 @param[in]		mesh
 						A reference to the sprite batch mesh to move.
 		 */
-		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) noexcept;
+		SpriteBatchMesh(SpriteBatchMesh &&mesh) noexcept;
 
 		/**
 		 Destructs this sprite batch mesh.
@@ -157,24 +157,22 @@ namespace mage {
 		/**
 		 Copies the given sprite batch mesh to this sprite batch mesh.
 
-		 @param[in]		sprite_batch_mesh
+		 @param[in]		mesh
 						A reference to the sprite batch mesh to copy.
 		 @return		A reference to the copy of the given sprite batch mesh 
 						(i.e. this sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(
-			const SpriteBatchMesh &sprite_batch_mesh) = delete;
+		SpriteBatchMesh &operator=(const SpriteBatchMesh &mesh) = delete;
 
 		/**
 		 Moves the given sprite batch mesh to this sprite batch mesh.
 
-		 @param[in]		sprite_batch_mesh
+		 @param[in]		mesh
 						A reference to the sprite batch mesh to move.
 		 @return		A reference to the moved sprite batch mesh (i.e. this 
 						sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(
-			SpriteBatchMesh &&sprite_batch_mesh) = delete;
+		SpriteBatchMesh &operator=(SpriteBatchMesh &&mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

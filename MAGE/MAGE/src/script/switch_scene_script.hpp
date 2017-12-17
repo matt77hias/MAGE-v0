@@ -25,8 +25,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SwitchSceneScript();
-		SwitchSceneScript(const SwitchSceneScript &script) = delete;
+		SwitchSceneScript();
+		SwitchSceneScript(const SwitchSceneScript &script) noexcept;
 		SwitchSceneScript(SwitchSceneScript &&script) noexcept;
 		virtual ~SwitchSceneScript();
 

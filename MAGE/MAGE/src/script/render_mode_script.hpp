@@ -6,8 +6,16 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "utils\collection\collection.hpp"
-#include "camera\camera_settings.hpp"
+#include "camera\camera.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -24,8 +32,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		RenderModeScript(CameraSettings *settings);
-		RenderModeScript(const RenderModeScript &script) = delete;
+		RenderModeScript();
+		RenderModeScript(const RenderModeScript &script);
 		RenderModeScript(RenderModeScript &&script) noexcept;
 		virtual ~RenderModeScript();
 
@@ -40,6 +48,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
 	private:
@@ -48,9 +57,9 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		CameraSettings * const m_settings;
-		vector< RenderMode > m_render_modes;
-		vector< const char * > m_render_mode_names;
+		ProxyPtr< Camera > m_camera;
+		std::vector< RenderMode > m_render_modes;
+		std::vector< const char * > m_render_mode_names;
 		int m_index;
 		bool m_wireframe;
 		bool m_aabb;

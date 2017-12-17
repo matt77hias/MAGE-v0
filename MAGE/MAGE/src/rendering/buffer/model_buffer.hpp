@@ -17,6 +17,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ModelNormalTransformBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of transform buffers used by shaders for transforming vertex 
@@ -108,12 +109,15 @@ namespace mage {
 		XMMATRIX m_normal_to_view;
 	};
 
-	static_assert(sizeof(ModelNormalTransformBuffer) == 128, 
+	static_assert(128 == sizeof(ModelNormalTransformBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// ModelTextureTransformBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of transform buffers used by shaders for transforming vertex 
@@ -204,12 +208,15 @@ namespace mage {
 		XMMATRIX m_texture_transform;
 	};
 
-	static_assert(sizeof(ModelTextureTransformBuffer) == 128, 
+	static_assert(128 == sizeof(ModelTextureTransformBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// ModelNormalTextureTransformBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of transform buffers used by shaders for transforming vertex 
@@ -308,12 +315,15 @@ namespace mage {
 		XMMATRIX m_texture_transform;
 	};
 
-	static_assert(sizeof(ModelNormalTextureTransformBuffer) == 192, 
+	static_assert(192 == sizeof(ModelNormalTextureTransformBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// ModelBuffer
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A struct of model buffers.
@@ -416,6 +426,8 @@ namespace mage {
 		U32 m_padding[2];
 	};
 
-	static_assert(sizeof(ModelBuffer) == 224, 
+	static_assert(224 == sizeof(ModelBuffer), 
 		"CPU/GPU struct mismatch");
+
+	#pragma endregion
 }

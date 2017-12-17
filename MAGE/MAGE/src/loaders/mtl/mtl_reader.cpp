@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	MTLReader::MTLReader(vector< Material > &material_buffer)
+	MTLReader::MTLReader(std::vector< Material > &material_buffer)
 		: LineReader(), 
 		m_material_buffer(material_buffer) {}
 
@@ -136,6 +136,6 @@ namespace mage::loader {
 		const wstring texture_path  = mage::GetPathName(GetFilename());
 		const wstring texture_name  = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
-		return ResourceManager::Get()->GetOrCreateTexture(texture_fname);
+		return ResourceManager::Get()->GetOrCreate< Texture >(texture_fname);
 	}
 }

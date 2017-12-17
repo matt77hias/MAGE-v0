@@ -3,7 +3,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scene\scene.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_BASE_COLOR 1.0f
 
 #pragma endregion
 
@@ -13,7 +22,8 @@
 namespace mage {
 
 	Light::Light() noexcept
-		: m_base_color(SRGB(1.0f)),
+		: Component(), 
+		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)),
 		m_aabb(AABB::Maximum()),
 		m_bs(BS::Maximum()) {}
 
@@ -24,6 +34,6 @@ namespace mage {
 	Light::~Light() = default;
 
 	Light &Light::operator=(const Light &light) noexcept = default;
-	
+
 	Light &Light::operator=(Light &&light) noexcept = default;
 }

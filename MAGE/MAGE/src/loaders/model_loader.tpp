@@ -30,7 +30,7 @@ namespace mage::loader {
 			ImportOBJMeshFromFile(fname, model_output, mesh_desc);
 		}
 		else {
-			throw FormattedException(
+			throw Exception(
 				"Unknown model file extension: %ls", fname.c_str());
 		}
 	}
@@ -45,7 +45,7 @@ namespace mage::loader {
 			ExportMDLModelToFile(fname, model_output);
 		}
 		else {
-			throw FormattedException(
+			throw Exception(
 				"Unknown model file extension: %ls", fname.c_str());
 		}
 	}

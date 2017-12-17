@@ -14,10 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <new>
-namespace mage {
-	using std::exception;
-}
+#include <exception>
 
 #pragma endregion
 
@@ -26,10 +23,15 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Exception
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of formatted exceptions.
 	 */
-	class FormattedException : public exception {
+	class Exception : public std::exception {
 
 	public:
 
@@ -40,7 +42,7 @@ namespace mage {
 		/**
 		 Constructs a formatted exception.
 		 */
-		FormattedException();
+		Exception();
 
 		/**
 		 Constructs a formatted exception.
@@ -49,7 +51,7 @@ namespace mage {
 		 @param[in]		format
 						Pointer to the message format.
 		 */
-		explicit FormattedException(const char *format, ...);
+		explicit Exception(const char *format, ...);
 
 		/**
 		 Constructs a formatted exception.
@@ -60,29 +62,29 @@ namespace mage {
 		 @param[in]		args
 						The variable argument list.
 		 */
-		explicit FormattedException(const char *format, va_list args);
+		explicit Exception(const char *format, va_list args);
 
 		/**
 		 Constructs a formatted exception from the given formatted exception.
 
-		 @param[in]		formatted_exception
+		 @param[in]		exception
 						A reference to a formatted exception to copy.
 		 */
-		FormattedException(const FormattedException &formatted_exception);
+		Exception(const Exception &exception);
 
 		/**
 		 Constructs a formatted exception by moving the given formatted 
 		 exception.
 
-		 @param[in]		formatted_exception
+		 @param[in]		exception
 						A reference to a formatted exception to move.
 		 */
-		FormattedException(FormattedException &&formatted_exception);
+		Exception(Exception &&exception);
 		
 		/**
 		 Destructs this formatted exception.
 		 */
-		virtual ~FormattedException();
+		virtual ~Exception();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -91,24 +93,22 @@ namespace mage {
 		/**
 		 Copies the given formatted exception to this formatted exception.
 
-		 @param[in]		formatted_exception
+		 @param[in]		exception
 						A reference to a formatted exception to copy.
 		 @return		A reference to the copy of the given formatted 
 						exception (i.e. this formatted exception).
 		 */
-		FormattedException &operator=(
-			const FormattedException &formatted_exception);
+		Exception &operator=(const Exception &exception);
 		
 		/**
 		 Moves the given formatted exception to this formatted exception.
 
-		 @param[in]		formatted_exception
+		 @param[in]		exception
 						A reference to a formatted exception to move.
 		 @return		A reference to the moved formatted exception (i.e. 
 						this formatted exception).
 		 */
-		FormattedException &operator=(
-			FormattedException &&formatted_exception);
+		Exception &operator=(Exception &&exception);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -136,6 +136,13 @@ namespace mage {
 		 */
 		char m_text[2048];
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Exception: Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	static_assert(!std::is_same< bool, BOOL >::value,
 		"MAGE/Windows primitive type mismatch");
@@ -198,4 +205,6 @@ namespace mage {
 					Pointer to the message format.
 	 */
 	void ThrowIfFailed(HRESULT result, const char *format, ...);
+
+	#pragma endregion
 }

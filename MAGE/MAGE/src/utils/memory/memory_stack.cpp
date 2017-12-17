@@ -16,10 +16,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// MemoryStack
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-	SingleEndedMemoryStack::SingleEndedMemoryStack(
-		size_t size, size_t alignment)
+	SingleEndedMemoryStack
+		::SingleEndedMemoryStack(size_t size, size_t alignment)
 		: m_alignment(alignment), m_size(size), 
 		m_begin(), m_current() {
 
@@ -32,8 +32,8 @@ namespace mage {
 		Reset();
 	}
 
-	SingleEndedMemoryStack::SingleEndedMemoryStack(
-		SingleEndedMemoryStack &&stack) noexcept = default;
+	SingleEndedMemoryStack
+		::SingleEndedMemoryStack(SingleEndedMemoryStack &&stack) noexcept = default;
 
 	SingleEndedMemoryStack::~SingleEndedMemoryStack() {
 		FreeAligned(reinterpret_cast< void * >(m_begin));
@@ -60,15 +60,15 @@ namespace mage {
 		return ptr;
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// DoubleEndedMemoryStack
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
-	DoubleEndedMemoryStack::DoubleEndedMemoryStack(
-		size_t size, size_t alignment)
+	DoubleEndedMemoryStack
+		::DoubleEndedMemoryStack(size_t size, size_t alignment)
 		: m_alignment(alignment), m_size(size),
 		m_begin(), m_current_low(), m_current_high() {
 
@@ -81,8 +81,8 @@ namespace mage {
 		Reset();
 	}
 
-	DoubleEndedMemoryStack::DoubleEndedMemoryStack(
-		DoubleEndedMemoryStack &&stack) noexcept = default;
+	DoubleEndedMemoryStack
+		::DoubleEndedMemoryStack(DoubleEndedMemoryStack &&stack) noexcept = default;
 
 	DoubleEndedMemoryStack::~DoubleEndedMemoryStack() {
 		FreeAligned(reinterpret_cast< void * >(m_begin));
@@ -127,5 +127,5 @@ namespace mage {
 		return ptr;
 	}
 
-#pragma endregion
+	#pragma endregion
 }

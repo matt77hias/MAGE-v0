@@ -29,7 +29,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Type Checks
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	static_assert(sizeof(F32x2) == sizeof(XMFLOAT2),
 		"MAGE/DirectX type mismatch");
@@ -67,12 +67,12 @@ namespace mage {
 	static_assert(sizeof(U32x4) == sizeof(XMUINT4),
 		"MAGE/DirectX type mismatch");
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Loading Floating Point Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline XMVECTOR XM_CALLCONV XMLoadFloat2(const F32x2 *src) noexcept {
 		return XMLoadFloat2(reinterpret_cast< const XMFLOAT2 * >(src));
@@ -98,12 +98,12 @@ namespace mage {
 		return XMLoadFloat4A(reinterpret_cast< const XMFLOAT4A * >(src));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Loading Signed Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline XMVECTOR XM_CALLCONV XMLoadSInt2(const S32x2 *src) noexcept {
 		return XMLoadSInt2(reinterpret_cast< const XMINT2 * >(src));
@@ -117,12 +117,12 @@ namespace mage {
 		return XMLoadSInt4(reinterpret_cast< const XMINT4 * >(src));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Loading Unsigned Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline XMVECTOR XM_CALLCONV XMLoadUInt2(const U32x2 *src) noexcept {
 		return XMLoadUInt2(reinterpret_cast< const XMUINT2 * >(src));
@@ -136,12 +136,12 @@ namespace mage {
 		return XMLoadUInt4(reinterpret_cast< const XMUINT4 * >(src));
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Storing Floating Point Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline void XM_CALLCONV XMStoreFloat2(F32x2 *dst, FXMVECTOR v) noexcept {
 		XMStoreFloat2(reinterpret_cast< XMFLOAT2 * >(dst), v);
@@ -167,12 +167,12 @@ namespace mage {
 		XMStoreFloat4A(reinterpret_cast< XMFLOAT4A * >(dst), v);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Storing Signed Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline void XM_CALLCONV XMStoreSInt2(S32x2 *dst, FXMVECTOR v) noexcept {
 		XMStoreSInt2(reinterpret_cast< XMINT2 * >(dst), v);
@@ -186,12 +186,12 @@ namespace mage {
 		XMStoreSInt4(reinterpret_cast< XMINT4 * >(dst), v);
 	}
 
-#pragma endregion
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Storing Unsigned Integer Vectors
 	//-------------------------------------------------------------------------
-#pragma region
+	#pragma region
 
 	inline void XM_CALLCONV XMStoreUInt2(U32x2 *dst, FXMVECTOR v) noexcept {
 		XMStoreUInt2(reinterpret_cast< XMUINT2 * >(dst), v);
@@ -205,5 +205,5 @@ namespace mage {
 		XMStoreUInt4(reinterpret_cast< XMUINT4 * >(dst), v);
 	}
 
-#pragma endregion
+	#pragma endregion
 }

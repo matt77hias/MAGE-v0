@@ -46,18 +46,18 @@ namespace mage {
 		/**
 		 Constructs a scene manager from the given scene manager.
 
-		 @param[in]		scene_behavior
+		 @param[in]		manager
 						A reference to the scene manager to copy.
 		 */
-		SceneManager(const SceneManager &scene_behavior) = delete;
+		SceneManager(const SceneManager &manager) = delete;
 
 		/**
 		 Constructs a scene manager by moving the given scene manager.
 
-		 @param[in]		scene_behavior
+		 @param[in]		manager
 						A reference to the scene manager to move.
 		 */
-		SceneManager(SceneManager &&scene_behavior) noexcept;
+		SceneManager(SceneManager &&manager) noexcept;
 
 		/**
 		 Destructs this scene manager.
@@ -71,22 +71,22 @@ namespace mage {
 		/**
 		 Copies the given scene manager to this scene manager.
 
-		 @param[in]		scene_behavior
+		 @param[in]		manager
 						A reference to the scene manager to copy.
 		 @return		A reference to the copy of the given scene manager 
 						(i.e. this scene manager).
 		 */
-		SceneManager &operator=(const SceneManager &scene_behavior) = delete;
+		SceneManager &operator=(const SceneManager &manager) = delete;
 
 		/**
 		 Moves the given scene manager to this scene manager.
 
-		 @param[in]		scene_behavior
+		 @param[in]		manager
 						A reference to the scene manager to move.
 		 @return		A reference to the moved scene manager (i.e. this scene 
 						manager).
 		 */
-		SceneManager &operator=(SceneManager &&scene_behavior) = delete;
+		SceneManager &operator=(SceneManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

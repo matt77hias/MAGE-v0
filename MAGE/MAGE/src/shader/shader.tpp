@@ -20,13 +20,14 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >::Shader(wstring guid,
-		const CompiledShader &compiled_shader)
+	Shader< ShaderT, PipelineStageT >
+		::Shader(wstring guid, const CompiledShader &compiled_shader)
 		: Shader(std::move(guid), Pipeline::GetDevice(), compiled_shader) {}
 
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >::Shader(wstring guid, 
-		ID3D11Device5 *device, const CompiledShader &compiled_shader)
+	Shader< ShaderT, PipelineStageT >
+		::Shader(wstring guid, ID3D11Device5 *device, 
+			const CompiledShader &compiled_shader)
 		: Resource< Shader >(std::move(guid)), 
 		m_shader() {
 
@@ -34,11 +35,16 @@ namespace mage {
 	}
 
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >::Shader(Shader &&shader) = default;
+	Shader< ShaderT, PipelineStageT >
+		::Shader(Shader &&shader) noexcept = default;
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
 	
+	template< typename ShaderT, typename PipelineStageT >
+	Shader< ShaderT, PipelineStageT > &Shader< ShaderT, PipelineStageT >
+		::operator=(Shader &&shader) noexcept = default;
+
 	template<>
 	inline void HullShader::SetupShader(ID3D11Device5 *device, 
 		const CompiledShader &compiled_shader) {

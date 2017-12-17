@@ -29,9 +29,7 @@ namespace mage {
 		/**
 		 Constructs a CPU monitor.
 		 */
-		CPUMonitor()
-			: m_timer(MakeUnique< Timer >()), 
-			m_cpu_timer(MakeUnique< CPUTimer >()) {}
+		CPUMonitor() noexcept = default;
 
 		/**
 		 Constructs a CPU monitor from the given CPU monitor.
@@ -39,9 +37,7 @@ namespace mage {
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to copy.
 		 */
-		CPUMonitor(const CPUMonitor &cpu_monitor)
-			: m_timer(MakeUnique< Timer >(*cpu_monitor.m_timer)), 
-			m_cpu_timer(MakeUnique< CPUTimer >(*cpu_monitor.m_cpu_timer)) {}
+		CPUMonitor(const CPUMonitor &cpu_monitor) noexcept = default;
 
 		/**
 		 Constructs a CPU monitor by moving the given CPU monitor.
@@ -68,11 +64,7 @@ namespace mage {
 		 @return		A reference to the copy of the given CPU monitor (i.e. 
 						this CPU monitor).
 		 */
-		CPUMonitor &operator=(const CPUMonitor &cpu_monitor) {
-			m_timer     = MakeUnique< Timer >(*cpu_monitor.m_timer);
-			m_cpu_timer = MakeUnique< CPUTimer >(*cpu_monitor.m_cpu_timer);
-			return (*this);
-		}
+		CPUMonitor &operator=(const CPUMonitor &cpu_monitor) noexcept = default;
 
 		/**
 		 Moves the given CPU monitor to this CPU monitor.
@@ -92,32 +84,32 @@ namespace mage {
 		 Starts this CPU monitor.
 		 */
 		void Start() noexcept {
-			m_timer->Start();
-			m_cpu_timer->Start();
+			m_timer.Start();
+			m_cpu_timer.Start();
 		}
 
 		/**
 		 Stops this CPU monitor.
 		 */
 		void Stop() noexcept {
-			m_timer->Stop();
-			m_cpu_timer->Stop();
+			m_timer.Stop();
+			m_cpu_timer.Stop();
 		}
 
 		/**
 		 Restarts this CPU monitor.
 		 */
 		void Restart() noexcept {
-			m_timer->Restart();
-			m_cpu_timer->Restart();
+			m_timer.Restart();
+			m_cpu_timer.Restart();
 		}
 
 		/**
 		 Resumes this CPU monitor.
 		 */
 		void Resume() noexcept {
-			m_timer->Resume();
-			m_cpu_timer->Resume();
+			m_timer.Resume();
+			m_cpu_timer.Resume();
 		}
 
 		/**
@@ -126,8 +118,8 @@ namespace mage {
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
 		F64 GetCPUDeltaPercentage() const noexcept {
-			const F64 time     = m_timer->GetDeltaTime();
-			const F64 cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
+			const F64 time     = m_timer.GetDeltaTime();
+			const F64 cpu_time = m_cpu_timer.GetCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
 
@@ -138,8 +130,8 @@ namespace mage {
 						process.
 		 */
 		F64 GetTotalCPUDeltaPercentage() const noexcept {
-			const F64 time     = m_timer->GetTotalDeltaTime();
-			const F64 cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
+			const F64 time     = m_timer.GetTotalDeltaTime();
+			const F64 cpu_time = m_cpu_timer.GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
 
@@ -150,13 +142,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the wallclock timer of this CPU monitor.
+		 The wallclock timer of this CPU monitor.
 		 */
-		UniquePtr< Timer > m_timer;
+		Timer m_timer;
 
 		/**
-		 A pointer to the CPU core timer of this CPU monitor.
+		 The CPU core timer of this CPU monitor.
 		 */
-		UniquePtr< CPUTimer > m_cpu_timer;
+		CPUTimer m_cpu_timer;
 	};
 }

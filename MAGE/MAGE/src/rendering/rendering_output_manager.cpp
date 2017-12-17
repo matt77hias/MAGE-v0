@@ -23,18 +23,21 @@ namespace mage {
 		return RenderingManager::Get()->GetRenderingOutputManager();
 	}
 
-	RenderingOutputManager::RenderingOutputManager(
-		ID3D11Device5 *device, U32 width, U32 height, 
-		AADescriptor desc)
-		: m_srvs{}, m_rtvs{}, m_uavs{}, m_dsv(), 
+	RenderingOutputManager::RenderingOutputManager(ID3D11Device5 *device, 
+		U32 width, U32 height, AADescriptor desc)
+		: m_srvs{}, 
+		m_rtvs{}, 
+		m_uavs{}, 
+		m_dsv(), 
 		m_hdr0_to_hdr1(true), 
-		m_msaa(false), m_ssaa(false) {
+		m_msaa(false), 
+		m_ssaa(false) {
 
 		SetupBuffers(device, width, height, desc);
 	}
 
 	RenderingOutputManager::RenderingOutputManager(
-		RenderingOutputManager &&rendering_output_manager) noexcept = default;
+		RenderingOutputManager &&manager) noexcept = default;
 
 	RenderingOutputManager::~RenderingOutputManager() = default;
 

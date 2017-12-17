@@ -3,7 +3,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\directional_light.hpp"
+#include "scene\scene.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_RADIANCE 1.0f
 
 #pragma endregion
 
@@ -14,7 +23,7 @@ namespace mage {
 
 	DirectionalLight::DirectionalLight() noexcept
 		: Light(), 
-		m_radiance(1.0f),
+		m_radiance(MAGE_DEFAULT_RADIANCE),
 		m_shadows(false) {}
 
 	DirectionalLight::DirectionalLight(
@@ -25,13 +34,9 @@ namespace mage {
 	
 	DirectionalLight::~DirectionalLight() = default;
 
-	DirectionalLight &DirectionalLight::operator=(
-		const DirectionalLight &light) noexcept = default;
-	
-	DirectionalLight &DirectionalLight::operator=(
-		DirectionalLight &&light) noexcept = default;
+	DirectionalLight &DirectionalLight
+		::operator=(const DirectionalLight &light) noexcept = default;
 
-	UniquePtr< Light > DirectionalLight::CloneImplementation() const {
-		return MakeUnique< DirectionalLight >(*this);
-	}
+	DirectionalLight &DirectionalLight
+		::operator=(DirectionalLight &&light) noexcept = default;
 }

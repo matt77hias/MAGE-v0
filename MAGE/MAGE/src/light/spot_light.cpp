@@ -3,7 +3,19 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\spot_light.hpp"
+#include "scene\scene.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_INTENSITY    1.0f
+#define MAGE_DEFAULT_RANGE        1.0f
+#define MAGE_DEFAULT_COS_PENUMBRA 1.0f
+#define MAGE_DEFAULT_COS_UMBRA    0.707106781f
 
 #pragma endregion
 
@@ -14,10 +26,10 @@ namespace mage {
 
 	SpotLight::SpotLight() noexcept
 		: Light(),
-		m_intensity(1.0f),
-		m_range(1.0f),
-		m_cos_penumbra(1.0f), 
-		m_cos_umbra(0.707106781f),
+		m_intensity(MAGE_DEFAULT_INTENSITY),
+		m_range(MAGE_DEFAULT_RANGE),
+		m_cos_penumbra(MAGE_DEFAULT_COS_PENUMBRA),
+		m_cos_umbra(MAGE_DEFAULT_COS_UMBRA),
 		m_shadows(false) {
 
 		// Update the bounding volumes.
@@ -31,12 +43,8 @@ namespace mage {
 	SpotLight::~SpotLight() = default;
 
 	SpotLight &SpotLight::operator=(const SpotLight &light) noexcept = default;
-	
-	SpotLight &SpotLight::operator=(SpotLight &&light) noexcept = default;
 
-	UniquePtr< Light > SpotLight::CloneImplementation() const {
-		return MakeUnique< SpotLight >(*this);
-	}
+	SpotLight &SpotLight::operator=(SpotLight &&light) noexcept = default;
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const F32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);

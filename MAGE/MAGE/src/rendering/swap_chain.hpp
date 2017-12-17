@@ -153,7 +153,7 @@ namespace mage {
 		 
 		 Call this method before starting the game loop.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to reset up the swap chain.
 		 */
 		void SetInitialMode() {
@@ -172,7 +172,7 @@ namespace mage {
 						and no mode switch will occurs. If @c false, then the 
 						swap chain buffers will be recreated and a mode switch 
 						will occur.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to reset up the swap chain.
 		 */
 		void SwitchMode(bool toggle);
@@ -204,7 +204,7 @@ namespace mage {
 		/**
 		 Takes a screenshot of the current back buffer of this swap chain.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to take a screenshot of the current back buffer 
 						of this swap chain. 
 		 */
@@ -246,7 +246,7 @@ namespace mage {
 		/**
 		 Sets up the swap chain.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to set up the swap chain.
 		 */
 		void SetupSwapChain();
@@ -254,7 +254,7 @@ namespace mage {
 		/**
 		 Resets the swap chain.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to reset up the swap chain.
 		 */
 		void ResetSwapChain();
@@ -262,7 +262,7 @@ namespace mage {
 		/**
 		 Creates the swap chain.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to create the swap chain.
 		 */
 		void CreateSwapChain();
@@ -270,10 +270,10 @@ namespace mage {
 		/**
 		 Creates the render target view of the back buffer of this swap chain.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to obtain the back buffer resource of this swap 
 						chain.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to create the render target view of the back 
 						buffer of this swap chain.
 		 */

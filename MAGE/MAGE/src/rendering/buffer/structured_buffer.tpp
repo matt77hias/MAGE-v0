@@ -17,29 +17,36 @@
 namespace mage {
 
 	template< typename DataT >
-	StructuredBuffer< DataT >::StructuredBuffer(
-		size_t nb_initial_data_elements)
+	StructuredBuffer< DataT >
+		::StructuredBuffer(size_t nb_initial_data_elements)
 		: StructuredBuffer(Pipeline::GetDevice(), nb_initial_data_elements) {}
 
 	template< typename DataT >
-	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device5 *device,
-		size_t nb_initial_data_elements)
-		: m_buffer(), m_buffer_srv(),
-		m_nb_data_elements(0), m_nb_used_data_elements(0) {
+	StructuredBuffer< DataT >
+		::StructuredBuffer(ID3D11Device5 *device, 
+			               size_t nb_initial_data_elements)
+		: m_buffer(), 
+		m_buffer_srv(),
+		m_nb_data_elements(0), 
+		m_nb_used_data_elements(0) {
 
 		SetupStructuredBuffer(device, nb_initial_data_elements);
 	}
 
 	template< typename DataT >
-	void StructuredBuffer< DataT >::SetupStructuredBuffer(
-		ID3D11Device5 *device, size_t nb_data_elements) {
+	void StructuredBuffer< DataT >
+		::SetupStructuredBuffer(ID3D11Device5 *device, 
+			                    size_t nb_data_elements) {
 		
 		Assert(device);
 
-		const HRESULT result_buffer = CreateDynamicStructuredBuffer< DataT >(
-			device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
-		ThrowIfFailed(result_buffer, 
-			"Structured buffer creation failed: %08X.", result_buffer);
+		// Create the buffer resource.
+		{
+			const HRESULT result = CreateDynamicStructuredBuffer< DataT >(
+				device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
+			ThrowIfFailed(result_buffer,
+				"Structured buffer creation failed: %08X.", result_buffer);
+		}
 
 		m_nb_data_elements = nb_data_elements;
 
@@ -49,23 +56,29 @@ namespace mage {
 		resource_view_desc.Buffer.FirstElement = 0;
 		resource_view_desc.Buffer.NumElements  = static_cast< U32 >(m_nb_data_elements);
 
-		const HRESULT result_buffer_srv = device->CreateShaderResourceView(
-			m_buffer.Get(), &resource_view_desc, 
-			m_buffer_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_buffer_srv, 
-			"SRV creation failed: %08X.", result_buffer_srv);
+		// Create the SRV.
+		{
+			const HRESULT result = device->CreateShaderResourceView(
+				m_buffer.Get(), &resource_view_desc,
+				m_buffer_srv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result_buffer_srv,
+				"SRV creation failed: %08X.", result_buffer_srv);
+		}
 	}
 
 	template< typename DataT >
-	inline void StructuredBuffer< DataT >::UpdateData(
-		ID3D11DeviceContext4 *device_context, const vector< DataT > &data) {
+	inline void StructuredBuffer< DataT >
+		::UpdateData(ID3D11DeviceContext4 *device_context, 
+			         const std::vector< DataT > &data) {
 
 		UpdateData(Pipeline::GetDevice(), device_context, data);
 	}
 
 	template< typename DataT >
-	void StructuredBuffer< DataT >::UpdateData(ID3D11Device5 *device, 
-		ID3D11DeviceContext4 *device_context, const vector< DataT > &data) {
+	void StructuredBuffer< DataT >
+		::UpdateData(ID3D11Device5 *device, 
+		             ID3D11DeviceContext4 *device_context, 
+			         const std::vector< DataT > &data) {
 		
 		Assert(device_context);
 		Assert(m_buffer);
@@ -91,8 +104,8 @@ namespace mage {
 
 	template< typename DataT >
 	template< typename PipelineStageT >
-	inline void StructuredBuffer< DataT >::Bind(
-		ID3D11DeviceContext4 *device_context, U32 slot) const noexcept {
+	inline void StructuredBuffer< DataT >
+		::Bind(ID3D11DeviceContext4 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

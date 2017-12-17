@@ -8,19 +8,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ResourcePool
 	//-------------------------------------------------------------------------
-
-	template< typename KeyT, typename ResourceT >
-	ResourcePool< KeyT, ResourceT >::~ResourcePool() {
-		RemoveAllResources();
-	}
-
-	template< typename KeyT, typename ResourceT >
-	ResourcePool< KeyT, ResourceT >::ResourcePool(
-		ResourcePool &&resource_pool) = default;
+	#pragma region
 
 	template< typename KeyT, typename ResourceT >
 	inline size_t ResourcePool< KeyT, ResourceT >
-		::GetNumberOfResources() const {
+		::GetNumberOfResources() const noexcept {
+		
 		MutexLock lock(m_resource_map_mutex);
 		
 		return m_resource_map.size();
@@ -118,15 +111,19 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void ResourcePool< KeyT, ResourceT >::RemoveAllResources() {
+	inline void ResourcePool< KeyT, ResourceT >
+		::RemoveAllResources() {
 		MutexLock lock(m_resource_map_mutex);
 
 		m_resource_map.clear();
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Resource
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	template< typename KeyT, typename ResourceT >
 	template< typename DerivedResourceT >
@@ -144,25 +141,22 @@ namespace mage {
 
 	template< typename KeyT, typename ResourceT >
 	template< typename DerivedResourceT >
-	ResourcePool< KeyT, ResourceT >::Resource< DerivedResourceT >::~Resource() {
+	ResourcePool< KeyT, ResourceT >::Resource< DerivedResourceT >
+		::~Resource() {
+		
 		m_resource_pool.RemoveResource(m_resource_key);
 	}
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// PersistentResourcePool
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	template< typename KeyT, typename ResourceT >
-	PersistentResourcePool< KeyT, ResourceT >::~PersistentResourcePool() {
-		RemoveAllResources();
-	}
-
-	template< typename KeyT, typename ResourceT >
-	PersistentResourcePool< KeyT, ResourceT >::PersistentResourcePool(
-		PersistentResourcePool &&resource_pool) = default;
-
-	template< typename KeyT, typename ResourceT >
-	inline size_t PersistentResourcePool< KeyT, ResourceT >::GetNumberOfResources() const {
+	inline size_t PersistentResourcePool< KeyT, ResourceT >
+		::GetNumberOfResources() const noexcept {
 		
 		MutexLock lock(m_resource_map_mutex);
 		
@@ -233,9 +227,12 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void PersistentResourcePool< KeyT, ResourceT >::RemoveAllResources() {
+	inline void PersistentResourcePool< KeyT, ResourceT >
+		::RemoveAllResources() {
 		MutexLock lock(m_resource_map_mutex);
 
 		m_resource_map.clear();
 	}
+
+	#pragma endregion
 }

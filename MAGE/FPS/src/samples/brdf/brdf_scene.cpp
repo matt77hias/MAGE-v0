@@ -32,107 +32,113 @@ namespace mage {
 	BRDFScene::~BRDFScene() = default;
 
 	void BRDFScene::Load() {
-		//---------------------------------------------------------------------
-		// Sky
-		//---------------------------------------------------------------------
-		auto sky = GetSky();
-		auto sky_texture =
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sky.dds");
-		sky->SetTexture(sky_texture);
 
 		//---------------------------------------------------------------------
-		// Camera
+		// Resources
 		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCameraNode >();
-		camera->GetTransform()->SetTranslation(-0.66f, 20.0f, -15.23f);
-		camera->GetTransform()->SetRotationX(0.54f);
-
-		//---------------------------------------------------------------------
-		// ModelDescriptors
-		//---------------------------------------------------------------------
+		ResourceManager * const factory = ResourceManager::Get();
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		
-		auto model_desc_teapot
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
-		auto model_desc_skull
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.mdl",       mesh_desc);
-		auto model_desc_cone
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
-		auto model_desc_cube
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
-		auto model_desc_cylinder
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
-		auto model_desc_plane
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
-		auto model_desc_sphere
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
-		auto model_desc_torus
-			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
+
+		auto teapot_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/teapot/teapot.mdl", mesh_desc);
+		auto skull_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/skull/skull.mdl", mesh_desc);
+		auto cone_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/cone/cone.mdl", mesh_desc);
+		auto cube_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/cube/cube.mdl", mesh_desc);
+		auto cylinder_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/cylinder/cylinder.mdl", mesh_desc);
+		auto plane_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/plane/plane.mdl", mesh_desc);
+		auto sphere_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/sphere/sphere.mdl", mesh_desc);
+		auto trous_model_desc = factory->GetOrCreate< ModelDescriptor >(
+			L"assets/models/torus/torus.mdl", mesh_desc);
+		auto sky_texture = factory->GetOrCreate< Texture >(
+			L"assets/textures/sky/sky.dds");
+
+		//---------------------------------------------------------------------
+		// Cameras
+		//---------------------------------------------------------------------
+		auto camera = Create< PerspectiveCamera >();
+
+		// Camera: Sky
+		camera->GetSettings().GetSky().SetTexture(sky_texture);
+
+		auto camera_node = Create< Node >();
+		camera_node->AddComponent(camera);
+		camera_node->GetTransform().SetTranslation(-0.66f, 20.0f, -15.23f);
+		camera_node->GetTransform().SetRotationX(0.54f);
+
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto model_teapot   = CreateModel(*model_desc_teapot);
-		auto model_skull    = CreateModel(*model_desc_skull);
-		auto model_cone     = CreateModel(*model_desc_cone);
-		auto model_cube     = CreateModel(*model_desc_cube);
-		auto model_cylinder = CreateModel(*model_desc_cylinder);
-		auto model_plane    = CreateModel(*model_desc_plane);
-		auto model_sphere   = CreateModel(*model_desc_sphere);
-		auto model_torus    = CreateModel(*model_desc_torus);
+		auto teapot_node   = Import(*teapot_model_desc);
+		auto skull_node    = Import(*skull_model_desc);
+		auto cone_node     = Import(*cone_model_desc);
+		auto cube_node     = Import(*cube_model_desc);
+		auto cylinder_node = Import(*cylinder_model_desc);
+		auto plane_node    = Import(*plane_model_desc);
+		auto sphere_node   = Import(*sphere_model_desc);
+		auto torus_node    = Import(*trous_model_desc);
 
-		model_teapot->GetTransform()->SetScale(30.0f);
-		model_teapot->GetTransform()->SetTranslationY(10.0f);
-		model_skull->GetTransform()->SetScale(20.0f);
-		model_skull->GetTransform()->SetTranslationY(10.0f);
-		model_cone->GetTransform()->SetScale(10.0f);
-		model_cone->GetTransform()->SetTranslationY(10.0f);
-		model_cube->GetTransform()->SetScale(10.0f);
-		model_cube->GetTransform()->SetTranslationY(10.0f);
-		model_cylinder->GetTransform()->SetScale(10.0f);
-		model_cylinder->GetTransform()->SetTranslationY(10.0f);
-		model_plane->GetTransform()->SetScale(20.0f);
-		model_plane->GetTransform()->SetTranslationY(10.0f);
-		model_sphere->GetTransform()->SetScale(10.0f);
-		model_sphere->GetTransform()->SetTranslationY(10.0f);
-		model_torus->GetTransform()->SetScale(10.0f);
-		model_torus->GetTransform()->SetTranslationY(10.0f);
+		teapot_node->GetTransform().SetScale(30.0f);
+		teapot_node->GetTransform().SetTranslationY(10.0f);
+		skull_node->GetTransform().SetScale(20.0f);
+		skull_node->GetTransform().SetTranslationY(10.0f);
+		cone_node->GetTransform().SetScale(10.0f);
+		cone_node->GetTransform().SetTranslationY(10.0f);
+		cube_node->GetTransform().SetScale(10.0f);
+		cube_node->GetTransform().SetTranslationY(10.0f);
+		cylinder_node->GetTransform().SetScale(10.0f);
+		cylinder_node->GetTransform().SetTranslationY(10.0f);
+		plane_node->GetTransform().SetScale(20.0f);
+		plane_node->GetTransform().SetTranslationY(10.0f);
+		sphere_node->GetTransform().SetScale(10.0f);
+		sphere_node->GetTransform().SetTranslationY(10.0f);
+		torus_node->GetTransform().SetScale(10.0f);
+		torus_node->GetTransform().SetTranslationY(10.0f);
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLightNode >();
-		omni_light->GetTransform()->SetTranslation(0.0f, 20.0f, -15.0f);
-		omni_light->GetLight()->SetRange(50.0f);
-		omni_light->GetLight()->SetIntensity(50.0f);
+		auto omni_light = Create< OmniLight >();
+		omni_light->SetRange(50.0f);
+		omni_light->SetIntensity(50.0f);
 
+		auto omni_light_node = Create< Node >();
+		omni_light_node->AddComponent(omni_light);
+		omni_light_node->GetTransform().SetTranslation(0.0f, 20.0f, -15.0f);
+		
 		//---------------------------------------------------------------------
-		// Image
+		// Sprites
 		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImageNode >();
-		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
-		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
+		auto logo = Create< SpriteImage >();
+		logo->SetBaseColorTexture(CreateMAGETexture());
+		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform().SetNormalizedTranslation(0.90f, 0.88f);
 
-		//---------------------------------------------------------------------
-		// Text
-		//---------------------------------------------------------------------
-		auto stats = Create< NormalSpriteTextNode >();
+		auto text = Create< SpriteText >();
+
+		camera_node->AddComponent(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< SponzaScene > >();
-		Create< script::StatsScript >(stats->GetSprite());
-
-		vector< ModelNode * > models;
-		models.push_back(model_teapot);
-		models.push_back(model_skull);
-		models.push_back(model_cone);
-		models.push_back(model_cube);
-		models.push_back(model_cylinder);
-		models.push_back(model_plane);
-		models.push_back(model_sphere);
-		models.push_back(model_torus);
-		Create< script::BRDFScript >(camera->GetSettings(), std::move(models));
+		camera_node->AddComponent(Create< script::StatsScript >());
+		
+		std::vector< ProxyPtr< Node > > models;
+		models.push_back(teapot_node);
+		models.push_back(skull_node);
+		models.push_back(cone_node);
+		models.push_back(cube_node);
+		models.push_back(cylinder_node);
+		models.push_back(plane_node);
+		models.push_back(sphere_node);
+		models.push_back(torus_node);
+		
+		camera_node->AddComponent(Create< script::BRDFScript >(std::move(models)));
 	}
 }

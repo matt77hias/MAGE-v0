@@ -107,7 +107,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this bounding volume pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this bounding volume 
 						pass.
 		 */
@@ -123,7 +123,7 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -142,7 +142,7 @@ namespace mage {
 
 		 @param[in]		color
 						A reference to the color.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the light color data of this bounding 
 						volume pass.
 		 */
@@ -151,7 +151,7 @@ namespace mage {
 		/**
 		 Binds the light color data of this bounding volume pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the light color data of this bounding 
 						volume pass.
 		 */
@@ -160,7 +160,7 @@ namespace mage {
 		/**
 		 Binds the model color data of this bounding volume pass.
 		 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model color data of this bounding 
 						volume pass.
 		 */
@@ -172,7 +172,7 @@ namespace mage {
 		 @param[in]		box_to_view
 						The box-to-view transformation matrix used for
 						transforming box vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data of this bounding volume 
 						pass.
 		 */
@@ -193,11 +193,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the lights.
 		 */
 		void XM_CALLCONV ProcessLights(
-			const vector< const OmniLightNode * > &lights,
+			const std::vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view);
 		
@@ -216,11 +216,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the lights.
 		 */
 		void XM_CALLCONV ProcessLights(
-			const vector< const SpotLightNode * > &lights,
+			const std::vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view);
 		
@@ -239,11 +239,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						object-to-view transformation matrix for transforming 
 						vertices.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view);
 

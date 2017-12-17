@@ -3,7 +3,18 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\camera.hpp"
+#include "scene\scene.hpp"
+#include "rendering\display_configuration.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_NEAR_Z          0.01f
+#define MAGE_DEFAULT_FAR_Z          100.0f
 
 #pragma endregion
 
@@ -12,10 +23,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Camera::Camera(F32 near_z, F32 far_z) noexcept
-		: m_near_z(near_z), m_far_z(far_z),
-		m_lens_radius(0.0f), m_focal_length(far_z), 
-		m_max_coc_radius(10.0f) {}
+	Camera::Camera() noexcept
+		: Component(), 
+		m_near_z(MAGE_DEFAULT_NEAR_Z),
+		m_far_z(MAGE_DEFAULT_FAR_Z),
+		m_lens(),
+		m_viewport(),
+		m_settings() {}
 
 	Camera::Camera(const Camera &camera) noexcept = default;
 
@@ -26,4 +40,10 @@ namespace mage {
 	Camera &Camera::operator=(const Camera &camera) noexcept = default;
 
 	Camera &Camera::operator=(Camera &&camera) noexcept = default;
+
+	const Viewport Camera::GetSSViewport() const noexcept {
+		const AADescriptor desc
+			= DisplayConfiguration::Get()->GetAADescriptor();
+		return Viewport(m_viewport, desc);
+	}
 }

@@ -140,14 +140,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLights(
-		const vector< const DirectionalLightNode * > &lights,
+		const std::vector< const DirectionalLightNode * > &lights,
 		FXMMATRIX world_to_view) {
 
-		vector< DirectionalLightBuffer > buffer;
+		std::vector< DirectionalLightBuffer > buffer;
 		buffer.reserve(lights.size());
 
 		for (const auto node : lights) {
-			const TransformNode    * const transform = node->GetTransform();
+			const Transform    * const transform = node->GetTransform();
 			const DirectionalLight * const light     = node->GetLight();
 
 			// Transform to view space.
@@ -167,15 +167,15 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLights(
-		const vector< const OmniLightNode * > &lights,
+		const std::vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 
-		vector< OmniLightBuffer > buffer;
+		std::vector< OmniLightBuffer > buffer;
 		buffer.reserve(lights.size());
 
 		for (const auto node : lights) {
-			const TransformNode * const transform = node->GetTransform();
+			const Transform * const transform = node->GetTransform();
 			const OmniLight     * const light     = node->GetLight();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
@@ -203,15 +203,15 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLights(
-		const vector< const SpotLightNode * > &lights,
+		const std::vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 
-		vector< SpotLightBuffer > buffer;
+		std::vector< SpotLightBuffer > buffer;
 		buffer.reserve(lights.size());
 
 		for (const auto node : lights) {
-			const TransformNode  * const transform = node->GetTransform();
+			const Transform  * const transform = node->GetTransform();
 			const SpotLight      * const light     = node->GetLight();
 			const XMMATRIX object_to_world         = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection    = object_to_world * world_to_projection;
@@ -243,16 +243,16 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
-		const vector< const DirectionalLightNode * > &lights,
+		const std::vector< const DirectionalLightNode * > &lights,
 		FXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		vector< DirectionalLightWithShadowMappingBuffer > buffer;
+		std::vector< DirectionalLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
 		m_directional_light_cameras.clear();
 
 		for (const auto node : lights) {
-			const TransformNode    * const transform = node->GetTransform();
+			const Transform    * const transform = node->GetTransform();
 			const DirectionalLight * const light     = node->GetLight();
 
 			// Transform to view space.
@@ -272,7 +272,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
-		const vector< const OmniLightNode * > &lights,
+		const std::vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
@@ -286,12 +286,12 @@ namespace mage {
 			XMMatrixRotationY(XM_PI),      // Look: -z
 		};
 
-		vector< OmniLightWithShadowMappingBuffer > buffer;
+		std::vector< OmniLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
 		m_omni_light_cameras.clear();
 
 		for (const auto node : lights) {
-			const TransformNode * const transform = node->GetTransform();
+			const Transform * const transform = node->GetTransform();
 			const OmniLight     * const light     = node->GetLight();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
@@ -333,17 +333,17 @@ namespace mage {
 	}
 
 	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
-		const vector< const SpotLightNode * > &lights,
+		const std::vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		vector< SpotLightWithShadowMappingBuffer > buffer;
+		std::vector< SpotLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
 		m_spot_light_cameras.clear();
 
 		for (const auto node : lights) {
-			const TransformNode  * const transform = node->GetTransform();
+			const Transform  * const transform = node->GetTransform();
 			const SpotLight      * const light     = node->GetLight();
 			const XMMATRIX object_to_world         = transform->GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection    = object_to_world * world_to_projection;

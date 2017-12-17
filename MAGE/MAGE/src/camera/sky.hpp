@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sky (i.e. this 
 						sky).
 		 */
-		Sky &operator=(const Sky &sky) = delete;
+		Sky &operator=(const Sky &sky) noexcept = default;
 
 		/**
 		 Moves the given sky to this sky.
@@ -72,7 +72,7 @@ namespace mage {
 						A reference to the sky to move.
 		 @return		A reference to the moved sky (i.e. this sky).
 		 */
-		Sky &operator=(Sky &&sky) = delete;
+		Sky &operator=(Sky &&sky) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

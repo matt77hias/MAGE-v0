@@ -6,7 +6,15 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
-#include "utils\collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <vector>
 
 #pragma endregion
 
@@ -39,7 +47,7 @@ namespace mage {
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data elements 
 						to provide.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(size_t nb_initial_data_elements);
@@ -53,11 +61,11 @@ namespace mage {
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data elements 
 						to provide.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(ID3D11Device5 *device, 
-			size_t nb_initial_data_elements);
+			                      size_t nb_initial_data_elements);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -128,11 +136,11 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		data
 						A reference to a vector with the data elements.
-		  @throws		FormattedException
+		  @throws		Exception
 						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext4 *device_context, 
-			const vector< DataT > &data);
+			            const std::vector< DataT > &data);
 
 		/**
 		 Updates the data of this structured buffer with the given data.
@@ -145,12 +153,12 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		data
 						A reference to a vector with the data elements.
-	     @throws		FormattedException
+	     @throws		Exception
 						Failed to update the data.
 		 */
 		void UpdateData(ID3D11Device5 *device, 
-			ID3D11DeviceContext4 *device_context,
-			const vector< DataT > &data);
+			            ID3D11DeviceContext4 *device_context,
+			            const std::vector< DataT > &data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.
@@ -179,7 +187,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void Bind(ID3D11DeviceContext4 *device_context, 
-			U32 slot) const noexcept;
+			      U32 slot) const noexcept;
 
 	private:
 
@@ -197,11 +205,11 @@ namespace mage {
 		 @param[in]		nb_data_elements
 						The number of slots for storing data elements to 
 						provide.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
 		void SetupStructuredBuffer(ID3D11Device5 *device, 
-			size_t nb_data_elements);
+			                       size_t nb_data_elements);
 
 		//---------------------------------------------------------------------
 		// Member Variables

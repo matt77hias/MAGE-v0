@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\type\types.hpp"
+#include "scene\component.hpp"
 
 #pragma endregion
 
@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of behavior scripts.
 	 */
-	class BehaviorScript {
+	class BehaviorScript : public Component {
 
 	public:
 
@@ -52,78 +52,29 @@ namespace mage {
 		 @return		A reference to the moved behavior script (i.e. this 
 						behavior script).
 		 */
-		BehaviorScript &operator=(BehaviorScript &&script) = delete;
-
-		//---------------------------------------------------------------------
-		// Member Methods: State
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this behavior script is active.
-
-		 @return		@c true if this behavior script is active. @c false 
-						otherwise (i.e. passive).
-		 */
-		bool IsActive() const noexcept {
-			return m_active;
-		}
-
-		/**
-		 Checks whether this behavior script is passive.
-
-		 @return		@c true if this behavior script is passive. @c false 
-						otherwise (i.e. active).
-		 */
-		bool IsPassive() const noexcept {
-			return !m_active;
-		}
-
-		/**
-		 Activates this behavior script (and its descendant behavior scripts).
-		 */
-		void Activate() noexcept {
-			SetActive(true);
-		}
-
-		/**
-		 Deactives this behavior script (and its descendant behavior scripts).
-		 */
-		void Deactivate() noexcept {
-			SetActive(false);
-		}
-
-		/**
-		 Sets this behavior script active flag to the given value.
-
-		 @param[in]		active
-						The active flag.
-		 */
-		void SetActive(bool active) noexcept;
-
-		/**
-		 Checks whether this behavior script is terminated or not.
-
-		 @return		@c true if this behavior script is terminated. @c false 
-						otherwise.
-		 */
-		bool IsTerminated() const noexcept {
-			return m_terminated;
-		}
-
-		/**
-		 Terminates this behavior script.
-		 */
-		void Terminate() noexcept;
+		BehaviorScript &operator=(BehaviorScript &&script) noexcept;
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle
 		//-------------------------------------------------------------------------
 
 		/**
+		 Loads this behavior script. Allows this behavior script to preform any 
+		 pre-processing.
+
+		 @throws		Exception
+						Failed to load this behavior script.
+		 */
+		virtual void Load();
+
+		/**
 		 Updates this behavior script.
 		 
 		 This method can be called zero, one or multiple times per frame depending 
 		 on the fixed delta time used by the engine.
+
+		 @throws		Exception
+						Failed to update this behavior script.
 		 */
 		virtual void FixedUpdate();
 
@@ -134,8 +85,19 @@ namespace mage {
 
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
+		 @throws		Exception
+						Failed to update this behavior script.
 		 */
 		virtual void Update([[maybe_unused]] F64 delta_time);
+
+		/**
+		 Closes this behavior script. Allows this behavior script to preform any 
+		 post-processing destruction.
+
+		 @throws		Exception
+						Failed to close this behavior script.
+		 */
+		virtual void Close();
 
 	protected:
 
@@ -163,31 +125,5 @@ namespace mage {
 						A reference to the behavior script to move.
 		 */
 		BehaviorScript(BehaviorScript &&script) noexcept;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods: State
-		//---------------------------------------------------------------------
-
-		/**
-		 Notifies this transform behavior script of a change in activeness.
-		 */
-		virtual void OnActiveChange() noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Variables: State
-		//---------------------------------------------------------------------
-
-		/**
-		 A flag indicating whether this behavior script is active or not (i.e. 
-		 passive).
-		 */
-		bool m_active;
-
-		/**
-		 A flag indicating whether this behavior script is terminated or not. 
-		 */
-		bool m_terminated;
 	};
 }

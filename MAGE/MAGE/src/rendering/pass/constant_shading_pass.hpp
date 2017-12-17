@@ -109,7 +109,7 @@ namespace mage {
 		/**
 		 Binds the fixed state of this constant shading pass.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the fixed state of this constant shading 
 						pass.
 		 */
@@ -127,7 +127,7 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
@@ -154,7 +154,7 @@ namespace mage {
 		 @param[in]		texture_transform
 						The texture transformation matrix used for
 						transforming texture coordinates.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the model data 
 						of this constant shading pass.
 		 */
@@ -182,11 +182,11 @@ namespace mage {
 						transformation matrix will be chained with the 
 						world-to-object transformation matrix for transforming 
 						normals.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
+			const std::vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view, 
 			CXMMATRIX view_to_world);

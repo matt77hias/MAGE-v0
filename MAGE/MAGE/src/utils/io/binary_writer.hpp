@@ -55,7 +55,7 @@ namespace mage {
 						this big endian binary writer).
 		 */
 		BigEndianBinaryWriter &operator=(
-			BigEndianBinaryWriter &&writer) = delete;
+			BigEndianBinaryWriter &&writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -66,7 +66,7 @@ namespace mage {
 
 		 @param[in]		fname
 						The file name.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write to the given file.
 		 */
 		void WriteToFile(wstring fname);
@@ -120,7 +120,7 @@ namespace mage {
 						The data type.
 		 @param[in]		data
 						A reference to the data.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given data.
 		 */
 		template< typename DataT >
@@ -138,7 +138,7 @@ namespace mage {
 						A pointer to the data.
 		 @param[in]		count
 						The number of data elements of @c size(DataT) to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given data.
 		 */
 		template< typename DataT >
@@ -149,7 +149,7 @@ namespace mage {
 
 		 @param[in]		c
 						The character to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given character.
 		 */
 		void WriteCharacter(char c);
@@ -161,7 +161,7 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to 
 						write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteString(const char *str);
@@ -171,7 +171,7 @@ namespace mage {
 
 		 @param[in]		str
 						A reference to the string to write.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write the given string.
 		 */
 		void WriteString(const string &str) {
@@ -187,7 +187,7 @@ namespace mage {
 		/**
 		 Starts writing.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to write.
 		 */
 		virtual void Write() = 0;

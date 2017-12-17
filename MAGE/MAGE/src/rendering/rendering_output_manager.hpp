@@ -52,7 +52,7 @@ namespace mage {
 						The height in pixels of the back buffer.
 		 @param[in]		desc
 						The Anti-Aliasing descriptor.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
@@ -63,21 +63,19 @@ namespace mage {
 		 Constructs a rendering output manager from the given rendering output 
 		 manager.
 
-		 @param[in]		rendering_output_manager
+		 @param[in]		manager
 						A reference to the rendering output manager to copy.
 		 */
-		RenderingOutputManager(
-			const RenderingOutputManager &rendering_output_manager) = delete;
+		RenderingOutputManager(const RenderingOutputManager &manager) = delete;
 
 		/**
 		 Constructs a rendering output manager by moving the given rendering 
 		 output manager.
 
-		 @param[in]		rendering_output_manager
+		 @param[in]		manager
 						A reference to the rendering output manager to move.
 		 */
-		RenderingOutputManager(
-			RenderingOutputManager &&rendering_output_manager) noexcept;
+		RenderingOutputManager(RenderingOutputManager &&manager) noexcept;
 
 		/**
 		 Destructs this rendering output manager.
@@ -98,7 +96,7 @@ namespace mage {
 						manager (i.e. this rendering output manager).
 		 */
 		RenderingOutputManager &operator=(
-			const RenderingOutputManager &rendering_output_manager) = delete;
+			const RenderingOutputManager &manager) = delete;
 
 		/**
 		 Moves the given rendering output manager to this rendering output 
@@ -110,7 +108,7 @@ namespace mage {
 						(i.e. this rendering output manager).
 		 */
 		RenderingOutputManager &operator=(
-			RenderingOutputManager &&rendering_output_manager) = delete;
+			RenderingOutputManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

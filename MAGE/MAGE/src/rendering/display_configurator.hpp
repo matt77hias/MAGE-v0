@@ -160,7 +160,7 @@ namespace mage {
 		/**
 		 Initializes the adapter and the output this display configurator.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the adapter and the output of this 
 						display configurator.
 		 */
@@ -169,7 +169,7 @@ namespace mage {
 		/**
 		 Initializes the display modes of this display configurator.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the display modes of this display 
 						configurator.
 		 */
@@ -228,6 +228,6 @@ namespace mage {
 		 The enumerated display modes of this display 
 		 configurator.
 		 */
-		vector< DXGI_MODE_DESC1 > m_display_modes;
+		std::vector< DXGI_MODE_DESC1 > m_display_modes;
 	};
 }

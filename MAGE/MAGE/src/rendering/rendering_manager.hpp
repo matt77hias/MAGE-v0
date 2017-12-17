@@ -57,18 +57,18 @@ namespace mage {
 		/**
 		 Constructs a rendering manager from the given rendering manager.
 
-		 @param[in]		rendering_manager
+		 @param[in]		manager
 						A reference to a rendering manager to copy.
 		 */
-		RenderingManager(const RenderingManager &rendering_manager) = delete;
+		RenderingManager(const RenderingManager &manager) = delete;
 
 		/**
 		 Constructs a rendering manager by moving the given rendering manager.
 
-		 @param[in]		rendering_manager
+		 @param[in]		manager
 						A reference to a rendering manager to move.
 		 */
-		RenderingManager(RenderingManager &&rendering_manager) noexcept;
+		RenderingManager(RenderingManager &&manager) noexcept;
 
 		/**
 		 Destructs this rendering manager.
@@ -82,24 +82,22 @@ namespace mage {
 		/**
 		 Copies the given rendering manager to this rendering manager.
 
-		 @param[in]		rendering_manager
+		 @param[in]		manager
 						A reference to a rendering manager to copy.
 		 @return		A reference to the copy of the given rendering manager 
 						(i.e. this rendering manager).
 		 */
-		RenderingManager &operator=(
-			const RenderingManager &rendering_manager) = delete;
+		RenderingManager &operator=(const RenderingManager &manager) = delete;
 
 		/**
 		 Moves the given rendering manager to this rendering manager.
 
-		 @param[in]		rendering_manager
+		 @param[in]		manager
 						A reference to a rendering manager to move.
 		 @return		A reference to the moved rendering manager (i.e. this 
 						rendering manager).
 		 */
-		RenderingManager &operator=(
-			RenderingManager &&rendering_manager) = delete;
+		RenderingManager &operator=(RenderingManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Display Configuration
@@ -190,10 +188,10 @@ namespace mage {
 		/**
 		 Binds the persistent state of this rendering manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the persistent state of the rendering
 						output manager of this rendering manager.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to bind the persistent state of the rendering
 						state manager of this rendering manager.
 		 */
@@ -208,7 +206,7 @@ namespace mage {
 		/**
 		 Initializes the different rendering systems of this rendering manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize at least one of the different 
 						rendering systems of this rendering manager.
 		 */
@@ -227,7 +225,7 @@ namespace mage {
 		/**
 		 Sets up the D3D11 device and context of this rendering manager.
 
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to set up the device and device context of this 
 						rendering manager.
 		 */

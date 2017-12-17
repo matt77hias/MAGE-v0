@@ -16,8 +16,9 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// MemoryStack
+	// SingleEndedMemoryStack
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of single-ended memory stacks.
@@ -195,8 +196,8 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocData(
-			size_t count = 1, bool initialization = false) noexcept;
+		DataT *AllocData(size_t count = 1, 
+			bool initialization = false) noexcept;
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -367,7 +368,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator &operator=(const Allocator &allocator) noexcept = delete;
+			Allocator &operator=(const Allocator &allocator) = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -377,7 +378,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator &operator=(Allocator &&allocator) noexcept = delete;
+			Allocator &operator=(Allocator &&allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -579,7 +580,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this allocator.
 			 */
-			SingleEndedMemoryStack * const m_memory_stack;
+			SingleEndedMemoryStack *m_memory_stack;
 		};
 
 		/**
@@ -621,14 +622,12 @@ namespace mage {
 		uintptr_t m_current;
 	};
 
-	/**
-	 A class of single-ended memory stacks.
-	 */
-	using MemoryStack = SingleEndedMemoryStack;
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// DoubleEndedMemoryStack
 	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of double-ended memory stacks.
@@ -862,8 +861,8 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocDataLow(
-			size_t count = 1, bool initialization = false) noexcept;
+		DataT *AllocDataLow(size_t count = 1, 
+			bool initialization = false) noexcept;
 
 		/**
 		 Allocates a block of memory on the high side of this memory stack.
@@ -882,8 +881,8 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocDataHigh(
-			size_t count = 1, bool initialization = false) noexcept;
+		DataT *AllocDataHigh(size_t count = 1, 
+			bool initialization = false) noexcept;
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -1055,7 +1054,7 @@ namespace mage {
 							(i.e. this low allocator).
 			 */
 			LowAllocator &operator=(
-				const LowAllocator &low_allocator) noexcept = delete;
+				const LowAllocator &low_allocator) = delete;
 
 			/**
 			 Moves the given low allocator to this low allocator.
@@ -1066,7 +1065,7 @@ namespace mage {
 							low allocator).
 			 */
 			LowAllocator &operator=(
-				LowAllocator &&low_allocator) noexcept = delete;
+				LowAllocator &&low_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -1270,7 +1269,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this low allocator.
 			 */
-			DoubleEndedMemoryStack * const m_memory_stack;
+			DoubleEndedMemoryStack *m_memory_stack;
 		};
 
 		/**
@@ -1440,7 +1439,7 @@ namespace mage {
 							(i.e. this high allocator).
 			 */
 			HighAllocator &operator=(
-				const HighAllocator &high_allocator) noexcept = delete;
+				const HighAllocator &high_allocator) = delete;
 
 			/**
 			 Moves the given high allocator to this high allocator.
@@ -1451,7 +1450,7 @@ namespace mage {
 							high allocator).
 			 */
 			HighAllocator &operator=(
-				HighAllocator &&high_allocator) noexcept = delete;
+				HighAllocator &&high_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -1655,7 +1654,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this high allocator.
 			 */
-			DoubleEndedMemoryStack * const m_memory_stack;
+			DoubleEndedMemoryStack *m_memory_stack;
 		};
 
 		/**
@@ -1715,6 +1714,20 @@ namespace mage {
 		 */
 		uintptr_t m_current_high;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// MemoryStack
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of single-ended memory stacks.
+	 */
+	using MemoryStack = SingleEndedMemoryStack;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

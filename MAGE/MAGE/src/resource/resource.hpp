@@ -14,10 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// Resource
-	//-------------------------------------------------------------------------
-
 	/**
 	 A class of resources.
 
@@ -55,7 +51,7 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource to move.
 		 */
-		Resource(Resource &&resource);
+		Resource(Resource &&resource) noexcept;
 
 		/**
 		 Destructs this resource.
@@ -83,7 +79,7 @@ namespace mage {
 						A reference to the resource to move.
 		 @return		A reference to the moved resource (i.e. this resource).
 		 */
-		Resource &operator=(Resource &&resource) = delete;
+		Resource &operator=(Resource &&resource) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -132,7 +128,7 @@ namespace mage {
 		/**
 		 The globally unique identifier of this resource.
 		 */
-		const wstring m_guid;
+		wstring m_guid;
 	};
 }
 

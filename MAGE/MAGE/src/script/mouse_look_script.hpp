@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform\transform_node.hpp"
+#include "math\math.hpp"
 
 #pragma endregion
 
@@ -29,13 +29,8 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MouseLookScript(TransformNode *transform,
-			RotationAxes axes = RotationAxes::MouseXAndY,
-			F32x2 sensitivity      = { 1.8f, 1.8f },
-			F32x2 minimum_rotation = { -XM_PI / 3.0f, -XM_PI },
-			F32x2 maximum_rotation = {  XM_PI / 3.0f,  XM_PI },
-			F32x2 direction        = { 1.0f, 1.0f });
-		MouseLookScript(const MouseLookScript &script) = delete;
+		MouseLookScript();
+		MouseLookScript(const MouseLookScript &script) noexcept;
 		MouseLookScript(MouseLookScript &&script) noexcept;
 		virtual ~MouseLookScript();
 
@@ -50,6 +45,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
 		RotationAxes GetRotationAxes() const noexcept {
@@ -150,7 +146,6 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		TransformNode * const m_transform;
 		RotationAxes m_axes;
 		F32x2 m_sensitivity;
 		F32x2 m_minimum_rotation;

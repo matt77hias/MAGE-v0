@@ -4,7 +4,9 @@
 #pragma region
 
 #include "script\text_console_script.hpp"
+#include "scene\scene.hpp"
 #include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -13,17 +15,34 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	TextConsoleScript::TextConsoleScript(
-		SpriteText *text, U32 nb_rows, U32 nb_columns)
+	TextConsoleScript::TextConsoleScript(U32 nb_rows, U32 nb_columns)
 		: BehaviorScript(),
-		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
-		m_current_column(0), m_current_row(0),
+		m_text(),
+		m_nb_rows(nb_rows), 
+		m_nb_columns(nb_columns + 1),
+		m_current_column(0), 
+		m_current_row(0),
 		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)), 
-		m_temp_buffer(), m_mutex(), m_text(text) {
+		m_temp_buffer(), 
+		m_mutex() {
 		
-		Assert(m_text);
-
 		Clear();
+	}
+
+	TextConsoleScript::TextConsoleScript(const TextConsoleScript &script) 
+		: BehaviorScript(script),
+		m_text(),
+		m_nb_rows(script.m_nb_rows),
+		m_nb_columns(script.m_nb_columns),
+		m_current_column(script.m_current_column),
+		m_current_row(script.m_current_row),
+		m_buffer(MakeUnique< wchar_t[] >((script.m_nb_columns) * script.m_nb_rows + 1)),
+		m_temp_buffer(script.m_temp_buffer),
+		m_mutex() {
+
+		memcpy(m_buffer.get(), script.m_buffer.get(),
+			sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
+
 	}
 
 	TextConsoleScript::TextConsoleScript(
@@ -31,11 +50,20 @@ namespace mage::script {
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
+	void TextConsoleScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()),
+			"This script needs to be attached to a node.");
+
+		m_text = GetOwner()->Get< SpriteText >();
+		ThrowIfFailed((nullptr != m_text),
+			"This script needs a sprite text component.");
+	}
+
 	void TextConsoleScript::Update([[maybe_unused]] F64 delta_time) {
 		const MutexLock lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
-		m_text->SetText(m_buffer.get());
+		m_text->SetText(wstring(m_buffer.get()));
 	}
 
 	void TextConsoleScript::Clear() {

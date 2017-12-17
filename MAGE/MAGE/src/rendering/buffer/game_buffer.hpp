@@ -14,10 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// GameBuffer
-	//-------------------------------------------------------------------------
-
 	/**
 	 A struct of game buffers.
 	 */
@@ -152,5 +148,5 @@ namespace mage {
 		U32 m_padding[2];
 	};
 
-	static_assert(sizeof(GameBuffer) == 48, "CPU/GPU struct mismatch");
+	static_assert(48 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
 }

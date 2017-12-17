@@ -4,8 +4,9 @@
 #pragma region
 
 #include "script\character_motor_script.hpp"
+#include "scene\scene.hpp"
 #include "input\keyboard.hpp"
-#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -14,55 +15,62 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	CharacterMotorScript::CharacterMotorScript(TransformNode *transform)
-		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {
-
-		Assert(m_transform);
-	}
+	CharacterMotorScript::CharacterMotorScript()
+		: BehaviorScript(), 
+		m_velocity(2.0f) {}
 	
+	CharacterMotorScript::CharacterMotorScript(
+		const CharacterMotorScript &script) noexcept = default;
+
 	CharacterMotorScript::CharacterMotorScript(
 		CharacterMotorScript &&script) noexcept = default;
 	
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
+	void CharacterMotorScript::Load() {
+		ThrowIfFailed((nullptr != GetOwner()), 
+			"This script needs to be attached to a node.");
+	}
+
 	void CharacterMotorScript::Update([[maybe_unused]] F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
-		
+		Transform &transform = GetOwner()->GetTransform();
+
 		const F64 movement_magnitude = delta_time * m_velocity;
 		const F64 movement_cos 
-			= cos(m_transform->GetRotationY()) * movement_magnitude;
+			= cos(transform.GetRotationY()) * movement_magnitude;
 		const F64 movement_sin 
-			= sin(m_transform->GetRotationY()) * movement_magnitude;
+			= sin(transform.GetRotationY()) * movement_magnitude;
 		
-		if (keyboard->GetKeyPress(DIK_UP, true) 
-			|| keyboard->GetKeyPress(DIK_W, true)) {
+		if (     keyboard->GetKeyPress(DIK_UP,     true) 
+			  || keyboard->GetKeyPress(DIK_W,      true)) {
 			
-			m_transform->AddTranslationX(static_cast< F32 >(movement_sin));
-			m_transform->AddTranslationZ(static_cast< F32 >(movement_cos));
+			transform.AddTranslationX(static_cast< F32 >(movement_sin));
+			transform.AddTranslationZ(static_cast< F32 >(movement_cos));
 		}
-		else if (keyboard->GetKeyPress(DIK_DOWN, true) 
-			|| keyboard->GetKeyPress(DIK_S, true)) {
+		else if (keyboard->GetKeyPress(DIK_DOWN,   true) 
+			  || keyboard->GetKeyPress(DIK_S,      true)) {
 			
-			m_transform->AddTranslationX(static_cast< F32 >(-movement_sin));
-			m_transform->AddTranslationZ(static_cast< F32 >(-movement_cos));
+			transform.AddTranslationX(static_cast< F32 >(-movement_sin));
+			transform.AddTranslationZ(static_cast< F32 >(-movement_cos));
 		}
-		else if (keyboard->GetKeyPress(DIK_RIGHT, true) 
-			|| keyboard->GetKeyPress(DIK_D, true)) {
+		else if (keyboard->GetKeyPress(DIK_RIGHT,  true) 
+			  || keyboard->GetKeyPress(DIK_D,      true)) {
 			
-			m_transform->AddTranslationX(static_cast< F32 >( movement_cos));
-			m_transform->AddTranslationZ(static_cast< F32 >(-movement_sin));
+			transform.AddTranslationX(static_cast< F32 >( movement_cos));
+			transform.AddTranslationZ(static_cast< F32 >(-movement_sin));
 		}
-		else if (keyboard->GetKeyPress(DIK_LEFT, true) 
-			|| keyboard->GetKeyPress(DIK_A, true)) {
+		else if (keyboard->GetKeyPress(DIK_LEFT,   true) 
+			  || keyboard->GetKeyPress(DIK_A,      true)) {
 			
-			m_transform->AddTranslationX(static_cast< F32 >(-movement_cos));
-			m_transform->AddTranslationZ(static_cast< F32 >( movement_sin));
+			transform.AddTranslationX(static_cast< F32 >(-movement_cos));
+			transform.AddTranslationZ(static_cast< F32 >( movement_sin));
 		}
 		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
-			m_transform->AddTranslationY(static_cast< F32 >(-movement_magnitude));
+			transform.AddTranslationY(static_cast< F32 >(-movement_magnitude));
 		}
 		else if (keyboard->GetKeyPress(DIK_RSHIFT, true)) {
-			m_transform->AddTranslationY(static_cast< F32 >(movement_magnitude));
+			transform.AddTranslationY(static_cast< F32 >(movement_magnitude));
 		}
 	}
 }

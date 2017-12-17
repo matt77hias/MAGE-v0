@@ -33,7 +33,7 @@ namespace mage {
 						associated with the current engine must be loaded.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring fname);
@@ -48,7 +48,7 @@ namespace mage {
 						The filename (the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring fname, ID3D11Device5 *device);
@@ -66,7 +66,7 @@ namespace mage {
 						A pointer to the texture descriptor.
 		 @param[in]		initial_data
 						A pointer to the initial data.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring guid,
@@ -87,7 +87,7 @@ namespace mage {
 						A pointer to the texture descriptor.
 		 @param[in]		initial_data
 						A pointer to the initial data.
-		 @throws		FormattedException
+		 @throws		Exception
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring guid, ID3D11Device5 *device,
@@ -108,12 +108,12 @@ namespace mage {
 		 @param[in]		texture
 						A reference to the texture to move.
 		 */
-		Texture(Texture &&texture) = default;
+		Texture(Texture &&texture) noexcept;
 
 		/**
 		 Destructs this texture.
 		 */
-		virtual ~Texture() = default;
+		virtual ~Texture();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -136,7 +136,7 @@ namespace mage {
 						A reference to the texture to move.
 		 @return		A reference to the moved texture (i.e. this texture).
 		 */
-		Texture &operator=(Texture &&texture) = delete;
+		Texture &operator=(Texture &&texture) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -166,8 +166,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext4 *device_context, 
-			U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 
 	private:
 

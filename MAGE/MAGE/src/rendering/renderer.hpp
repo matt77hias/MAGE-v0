@@ -135,13 +135,12 @@ namespace mage {
 		/**
 		 Renders the given scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene *scene);
+		void Render(const Scene &scene);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Render Passes
@@ -419,13 +418,8 @@ namespace mage {
 		/**
 		 Binds the camera buffer of this renderer.
 		 
-		 @pre			@a camera is not equal to @c nullptr.
 		 @param[in]		camera
-						A pointer to the camera.
-		 @param[in]		viewport
-						A reference to the viewport.
-		 @param[in]		ss_viewport
-						A reference to the super-sampled viewport.
+						A reference to the camera.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
 		 @param[in]		projection_to_view
@@ -437,37 +431,31 @@ namespace mage {
 		 @throws		Exception
 						Failed to bind the persistent state of this renderer.
 		 */
-		void BindCameraBuffer(
-			const Camera *camera,
-			const Viewport &viewport,
-			const Viewport &ss_viewport,
-			FXMMATRIX view_to_projection, 
-			CXMMATRIX projection_to_view,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void BindCameraBuffer(const Camera &camera,
+			                  FXMMATRIX view_to_projection, 
+			                  CXMMATRIX projection_to_view,
+			                  CXMMATRIX world_to_view,
+			                  CXMMATRIX view_to_world);
 
-		void ExecuteSolidForwardPipeline(
-			const Viewport &viewport,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void ExecuteSolidForwardPipeline(const Scene &scene,
+			                             const Camera &camera,
+			                             FXMMATRIX world_to_projection,
+			                             CXMMATRIX world_to_view,
+			                             CXMMATRIX view_to_world);
 
-		void ExecuteForwardPipeline(
-			const Viewport &viewport,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			BRDFType brdf);
+		void ExecuteForwardPipeline(const Scene &scene, 
+			                        const Camera &camera,
+			                        FXMMATRIX world_to_projection,
+			                        CXMMATRIX world_to_view,
+			                        CXMMATRIX view_to_world);
 
-		void ExecuteDeferredPipeline(
-			const Viewport &viewport,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			BRDFType brdf);
+		void ExecuteDeferredPipeline(const Scene &scene, 
+			                         const Camera &camera,
+			                         FXMMATRIX world_to_projection,
+			                         CXMMATRIX world_to_view,
+			                         CXMMATRIX view_to_world);
 
-		void ExecuteAAPipeline(
-			const Viewport &viewport);
+		void ExecuteAAPipeline(const Camera &camera);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -483,11 +471,6 @@ namespace mage {
 		 */
 		Viewport m_maximum_viewport;
 
-		/**
-		 A pointer to the pass buffer of this renderer.
-		 */
-		UniquePtr< PassBuffer > m_pass_buffer;
-		
 		/**
 		 A pointer to the game buffer of this renderer.
 		 */

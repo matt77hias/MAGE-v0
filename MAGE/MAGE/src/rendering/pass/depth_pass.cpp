@@ -119,7 +119,7 @@ namespace mage {
 		#endif // DISSABLE_INVERTED_Z_BUFFER
 	}
 
-	void XM_CALLCONV DepthPass::RenderOccluders(
+	void XM_CALLCONV DepthPass::Render(
 		const Scene &scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,

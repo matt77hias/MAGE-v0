@@ -44,8 +44,8 @@ namespace mage {
 		{
 			const HRESULT result = CreateDynamicStructuredBuffer< DataT >(
 				device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
-			ThrowIfFailed(result_buffer,
-				"Structured buffer creation failed: %08X.", result_buffer);
+			ThrowIfFailed(result,
+				"Structured buffer creation failed: %08X.", result);
 		}
 
 		m_nb_data_elements = nb_data_elements;
@@ -61,8 +61,8 @@ namespace mage {
 			const HRESULT result = device->CreateShaderResourceView(
 				m_buffer.Get(), &resource_view_desc,
 				m_buffer_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result_buffer_srv,
-				"SRV creation failed: %08X.", result_buffer_srv);
+			ThrowIfFailed(result,
+				"SRV creation failed: %08X.", result);
 		}
 	}
 

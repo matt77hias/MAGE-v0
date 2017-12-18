@@ -76,6 +76,6 @@ namespace mage {
 	}
 
 	void SceneManager::Render() const {
-		Renderer::Get()->Render(GetScene());
+		Renderer::Get()->Render(*m_scene);
 	}
 }

@@ -125,7 +125,6 @@ namespace mage {
 			const Transform &transform          = model.GetOwner()->GetTransform();
 			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
 			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
-			const AABB &aabb                    = model.GetAABB();
 
 			// Apply view frustum culling.
 			if (ViewFrustum::Cull(object_to_projection, model.GetAABB())) {

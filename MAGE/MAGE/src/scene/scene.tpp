@@ -20,7 +20,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ElementT, typename... ConstructorArgsT >
-	static ProxyPtr< ElementT > Create(std::vector< ElementT > &elements, 
+	ProxyPtr< ElementT > Scene::AddElement(std::vector< ElementT > &elements,
 		ConstructorArgsT&&... args) {
 		
 		size_t index = 0;
@@ -38,94 +38,103 @@ namespace mage {
 		return ProxyPtr< ElementT >(elements, index);
 	}
 
+	template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
+	ProxyPtr< ElementT > Scene::AddElement(
+		std::vector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args) {
+
+		size_t index = 0;
+		for (auto &element : elements) {
+			if (State::Terminated == element->GetState()) {
+				element = MakeUnique< ElementT >(
+					std::forward< ConstructorArgsT >(args)...);
+				element->Set(ProxyPtr< ElementT >(
+					[&elements, index]() noexcept {
+					return elements[index].get();
+				}
+				));
+
+				return ProxyPtr< ElementT >(
+					[&elements, index]() noexcept {
+					return elements[index].get();
+				}
+				);
+			}
+
+			++index;
+		}
+
+		m_scripts.emplace_back(MakeUnique< ElementT >(
+			std::forward< ConstructorArgsT >(args)...));
+		(*elements.end())->Set(ProxyPtr< ElementT >(
+			[&elements, index]() noexcept {
+			return elements[index].get();
+		}
+		));
+
+		return ProxyPtr< ElementT >(
+			[&elements, index]() noexcept {
+			return elements[index].get();
+		}
+		);
+
+	}
+
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline ProxyPtr< ElementT > Scene::Create(ConstructorArgsT&&... args) {
 		
 		if constexpr (std::is_same_v< Node, ElementT >) {
-			return mage::Create(m_nodes,
+			return AddElement(m_nodes, 
 				std::forward< ConstructorArgsT >(args)...);
 		}
 		
 		if constexpr (std::is_same_v< PerspectiveCamera, ElementT >) {
-			return mage::Create(m_perspective_cameras,
+			return AddElement(m_perspective_cameras,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< OrthographicCamera, ElementT >) {
-			return mage::Create(m_orthographic_cameras,
+			return AddElement(m_orthographic_cameras,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< AmbientLight, ElementT >) {
-			return mage::Create(m_ambient_lights,
+			return AddElement(m_ambient_lights,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< DirectionalLight, ElementT >) {
-			return mage::Create(m_directional_lights,
+			return AddElement(m_directional_lights,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< OmniLight, ElementT >) {
-			return mage::Create(m_omni_lights,
+			return AddElement(m_omni_lights,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< SpotLight, ElementT >) {
-			return mage::Create(m_spot_lights,
+			return AddElement(m_spot_lights,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< Model, ElementT >) {
-			return mage::Create(m_models,
+			return AddElement(m_models,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< SpriteImage, ElementT >) {
-			return mage::Create(m_sprite_images,
+			return AddElement(m_sprite_images,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_same_v< SpriteText, ElementT >) {
-			return mage::Create(m_sprite_texts,
+			return AddElement(m_sprite_texts,
 				std::forward< ConstructorArgsT >(args)...);
 		}
 
 		if constexpr (std::is_base_of_v< BehaviorScript, ElementT >) {
-			size_t index = 0;
-			for (auto &element : m_scripts) {
-				if (State::Terminated == element->GetState()) {
-					element = MakeUnique< ElementT >(
-						std::forward< ConstructorArgsT >(args)...);
-					element->Set(ProxyPtr< ElementT >(
-						[&m_scripts, index]() noexcept {
-							return m_scripts[index].get();
-						}
-					));
-				
-					return ProxyPtr< ElementT >(
-						[&m_scripts, index]() noexcept {
-							return m_scripts[index].get();
-						}
-					);
-				}
-				
-				++index;
-			}
-
-			m_scripts.emplace_back(MakeUnique< ElementT >(
-				std::forward< ConstructorArgsT >(args)...));
-			(*elements.end())->Set(ProxyPtr< ElementT >(
-				[&m_scripts, index]() noexcept {
-					return m_scripts[index].get();
-				}
-			));
-		
-			return ProxyPtr< ElementT >(
-				[&m_scripts, index]() noexcept {
-					return m_scripts[index].get();
-				}
-			);
+			return AddElement(m_scripts,
+				std::forward< ConstructorArgsT >(args)...);
 		}
 	}
 

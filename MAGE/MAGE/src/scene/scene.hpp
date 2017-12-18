@@ -166,6 +166,18 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		static ProxyPtr< ElementT > AddElement(
+			std::vector< ElementT > &elements, ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
+		static ProxyPtr< ElementT > AddElement(
+			std::vector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args);
+
+		//---------------------------------------------------------------------
 		// Member Methods: Lifecycle
 		//---------------------------------------------------------------------
 

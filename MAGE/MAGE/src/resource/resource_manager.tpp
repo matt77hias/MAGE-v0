@@ -199,13 +199,13 @@ namespace mage {
 				GetOrCreateResource< wstring, ConstructorArgsT... >(
 					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
 		}
-
+		
 		if constexpr (std::is_same_v< SpriteFont, ResourceT >) {
 			return m_sprite_font_pool.template
 				GetOrCreateResource< wstring, ConstructorArgsT... >(
 					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
 		}
-
+		
 		if constexpr (std::is_same_v< Texture, ResourceT >) {
 			return m_texture_pool.template
 				GetOrCreateResource< wstring, ConstructorArgsT... >(

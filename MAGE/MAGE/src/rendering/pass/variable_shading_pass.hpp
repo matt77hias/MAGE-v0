@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\model_buffer.hpp"
 #include "shader\shader.hpp"
@@ -120,9 +120,8 @@ namespace mage {
 		/**
 		 Renders the scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -132,18 +131,16 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV Render(const Scene &scene,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view,
+			                    CXMMATRIX view_to_world);
 
 		/**
 		 Renders the scene (only the emissive models).
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -153,18 +150,16 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderEmissive(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV RenderEmissive(const Scene &scene,
+			                            FXMMATRIX world_to_projection,
+			                            CXMMATRIX world_to_view,
+			                            CXMMATRIX view_to_world);
 
 		/**
 		 Renders the scene (only the transparent models).
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -174,11 +169,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderTransparent(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV RenderTransparent(const Scene &scene,
+			                               FXMMATRIX world_to_projection,
+			                               CXMMATRIX world_to_view,
+			                               CXMMATRIX view_to_world);
 
 	private:
 
@@ -232,19 +226,17 @@ namespace mage {
 		 Binds the pixel shader of this variable shading pass associated with 
 		 the given material.
 
-		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
-						A pointer to the material.
+						A reference to the material.
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false 
 						otherwise.
 		 */
-		void BindPS(const Material *material, bool transparency) noexcept;
+		void BindPS(const Material &material, bool transparency) noexcept;
 		
 		/**
 		 Binds the model data of this variable shading pass.
 
-		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		object_to_view
 						The object-to-view transformation matrix used for
 						transforming vertices.
@@ -255,48 +247,15 @@ namespace mage {
 						The texture transformation matrix used for transforming 
 						texture coordinates.
 		 @param[in]		material
-						A pointer to the material.
+						A reference to the material.
 		 @throws		Exception
 						Failed to bind the model data of this variable shading 
 						pass.
 		 */
-		void XM_CALLCONV BindModelData(
-			FXMMATRIX object_to_view, 
-			CXMMATRIX view_to_object,
-			CXMMATRIX texture_transform,
-			const Material *material);
-		
-		/**
-		 Process the given models.
-
-		 @param[in]		models
-						A reference to a vector containing the model pointers 
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @param[in]		view_to_world
-						The view-to-world transformation matrix. This 
-						transformation matrix will be chained with the 
-						world-to-object transformation matrix for transforming 
-						normals.
-		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
-						otherwise.
-		 @throws		Exception
-						Failed to process the models.
-		 */
-		void XM_CALLCONV ProcessModels(
-			const std::vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, 
-			CXMMATRIX world_to_view, 
-			CXMMATRIX view_to_world,
-			bool transparency = false);
+		void XM_CALLCONV BindModelData(FXMMATRIX object_to_view, 
+			                           CXMMATRIX view_to_object,
+			                           CXMMATRIX texture_transform,
+			                           const Material &material);
 
 		//---------------------------------------------------------------------
 		// Member Variables

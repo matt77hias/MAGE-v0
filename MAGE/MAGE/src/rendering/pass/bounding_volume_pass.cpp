@@ -37,7 +37,6 @@ namespace mage {
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
 	void BoundingVolumePass::BindColorData(const RGBA &color) {
-		
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);
 		// Bind the color buffer.
@@ -72,7 +71,7 @@ namespace mage {
 			m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
-	void BoundingVolumePass::BindFixedState() {
+	void BoundingVolumePass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
 			D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
@@ -89,149 +88,111 @@ namespace mage {
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV BoundingVolumePass::Render(
-		const PassBuffer *scene, 
+		const Scene &scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
-		
-		Assert(scene);
 
 		// Bind the light color data.
 		BindLightColorData();
 		
 		// Process the lights.
-		ProcessLights(scene->GetOmniLights(), 
-			world_to_projection, world_to_view);
-		ProcessLights(scene->GetOmniLightsWithShadowMapping(), 
-			world_to_projection, world_to_view);
-		ProcessLights(scene->GetSpotLights(), 
-			world_to_projection, world_to_view);
-		ProcessLights(scene->GetSpotLightsWithShadowMapping(), 
-			world_to_projection, world_to_view);
+		scene.ForEach< OmniLight >([this, world_to_projection, world_to_view](const OmniLight &light) {
+			if (State::Active != light.GetState()) {
+				return;
+			}
+			
+			const Transform &transform          = light.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+
+			// Apply view frustum culling.
+			if (ViewFrustum::Cull(object_to_projection, light.GetBS())) {
+				return;
+			}
+
+			const AABB &aabb                    = light.GetAABB();
+
+			Transform box_transform;
+			box_transform.SetScale(aabb.Diagonal());
+			box_transform.SetTranslation(aabb.Centroid());
+
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
+
+			// Bind the model data.
+			BindModelData(box_to_view);
+			// Draw the line cube.
+			Pipeline::Draw(m_device_context, 24u, 0u);
+		});
+
+		scene.ForEach< SpotLight >([this, world_to_projection, world_to_view](const SpotLight &light) {
+			if (State::Active != light.GetState()) {
+				return;
+			}
+			
+			const Transform &transform          = light.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const AABB &aabb                    = light.GetAABB();
+
+			// Apply view frustum culling.
+			if (ViewFrustum::Cull(object_to_projection, aabb)) {
+				return;
+			}
+
+			Transform box_transform;
+			box_transform.SetScale(aabb.Diagonal());
+			box_transform.SetTranslation(aabb.Centroid());
+
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
+
+			// Bind the model data.
+			BindModelData(box_to_view);
+			// Draw the line cube.
+			Pipeline::Draw(m_device_context, 24u, 0u);
+		});
 
 		// Bind the model color data.
 		BindModelColorData();
 
 		// Process the models.
-		ProcessModels(scene->GetOpaqueEmissiveModels(),
-			world_to_projection, world_to_view);
-		ProcessModels(scene->GetOpaqueBRDFModels(),
-			world_to_projection, world_to_view);
-		ProcessModels(scene->GetTransparentEmissiveModels(),
-			world_to_projection, world_to_view);
-		ProcessModels(scene->GetTransparentBRDFModels(),
-			world_to_projection, world_to_view);
-	}
-
-	void XM_CALLCONV BoundingVolumePass::ProcessLights(
-		const std::vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view) {
-
-		for (const auto node : lights) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const OmniLight     * const light     = node->GetLight();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
-
-			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, light->GetBS())) {
-				continue;
+		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
 			}
-
-			// Obtain node components (2/2).
-			const AABB &aabb                      = light->GetAABB();
-
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
-
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
-
-			// Bind the model data.
-			BindModelData(box_to_view);
-			// Draw the line cube.
-			Pipeline::Draw(m_device_context, 24u, 0u);
-		}
-	}
-
-	void XM_CALLCONV BoundingVolumePass::ProcessLights(
-		const std::vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view) {
-
-		for (const auto node : lights) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const SpotLight     * const light     = node->GetLight();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
-			const AABB &aabb                      = light->GetAABB();
+			
+			const Transform &transform          = model.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const AABB &aabb                    = model.GetAABB();
 
 			// Apply view frustum culling.
 			if (ViewFrustum::Cull(object_to_projection, aabb)) {
-				continue;
+				return;
 			}
 
-			// Obtain node components (2/2).
 			Transform box_transform;
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
 			BindModelData(box_to_view);
 			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
-		}
-	}
-
-	void XM_CALLCONV BoundingVolumePass::ProcessModels(
-		const std::vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view) {
-
-		for (const auto node : models) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const Model         * const model     = node->GetModel();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
-			const AABB &aabb                      = model->GetAABB();
-
-			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, aabb)) {
-				continue;
-			}
-
-			// Obtain node components (2/2).
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
-
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
-
-			// Bind the model data.
-			BindModelData(box_to_view);
-			// Draw the line cube.
-			Pipeline::Draw(m_device_context, 24u, 0u);
-		}
+		});
 	}
 }

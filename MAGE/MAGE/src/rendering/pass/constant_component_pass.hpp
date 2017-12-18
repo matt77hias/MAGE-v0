@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\model_buffer.hpp"
 #include "shader\shader.hpp"
@@ -123,9 +123,8 @@ namespace mage {
 		/**
 		 Renders the scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -135,11 +134,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV Render(const Scene &scene,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view,
+			                    CXMMATRIX view_to_world);
 
 	private:
 
@@ -189,39 +187,10 @@ namespace mage {
 						Failed to bind the model data of this constant 
 						component pass.
 		 */
-		void XM_CALLCONV BindModelData(
-			FXMMATRIX object_to_view,
-			CXMMATRIX view_to_object,
-			CXMMATRIX texture_transform);
+		void XM_CALLCONV BindModelData(FXMMATRIX object_to_view,
+			                           CXMMATRIX view_to_object,
+			                           CXMMATRIX texture_transform);
 		
-		/**
-		 Process the given models.
-
-		 @param[in]		models
-						A reference to a vector containing the model pointers
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @param[in]		view_to_world
-						The view-to-world transformation matrix. This 
-						transformation matrix will be chained with the 
-						world-to-object transformation matrix for transforming 
-						normals.
-		 @throws		Exception
-						Failed to process the models.
-		 */
-		void XM_CALLCONV ProcessModels(
-			const std::vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, 
-			CXMMATRIX world_to_view, 
-			CXMMATRIX view_to_world);
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

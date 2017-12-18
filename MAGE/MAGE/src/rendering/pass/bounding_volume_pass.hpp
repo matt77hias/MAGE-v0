@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "shader\shader.hpp"
 
@@ -106,19 +106,14 @@ namespace mage {
 
 		/**
 		 Binds the fixed state of this bounding volume pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this bounding volume 
-						pass.
 		 */
-		void BindFixedState();
+		void BindFixedState() const noexcept;
 
 		/**
 		 Renders the scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -126,10 +121,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
+		void XM_CALLCONV Render(const Scene &scene,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view);
 
 	private:
 
@@ -178,75 +172,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV BindModelData(FXMMATRIX box_to_view);
 		
-		/**
-		 Process the given omni lights.
-
-		 @param[in]		lights
-						A reference to a vector containing the light pointers
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling and 
-						transforming box vertices.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @throws		Exception
-						Failed to process the lights.
-		 */
-		void XM_CALLCONV ProcessLights(
-			const std::vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
-		
-		/**
-		 Process the given spotlights.
-
-		 @param[in]		lights
-						A reference to a vector containing the light pointers
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling and 
-						transforming box vertices.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @throws		Exception
-						Failed to process the lights.
-		 */
-		void XM_CALLCONV ProcessLights(
-			const std::vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
-		
-		/**
-		 Process the given models.
-
-		 @param[in]		models
-						A reference to a vector containing the model pointers
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling and 
-						transforming box vertices.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @throws		Exception
-						Failed to process the models.
-		 */
-		void XM_CALLCONV ProcessModels(
-			const std::vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

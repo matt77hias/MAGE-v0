@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "sprite\sprite_batch.hpp"
 #include "shader\shader.hpp"
 
@@ -106,18 +106,17 @@ namespace mage {
 		 @throws		Exception
 						Failed to bind the fixed state of this sprite pass.
 		 */
-		void BindFixedState();
+		void BindFixedState() const noexcept;
 
 		/**
 		 Renders the scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const PassBuffer *scene);
+		void Render(const Scene &scene) const;
 
 	private:
 

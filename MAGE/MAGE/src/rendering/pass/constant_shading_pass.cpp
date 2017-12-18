@@ -76,65 +76,47 @@ namespace mage {
 		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_BASE_COLOR, m_white->Get());
 		// OM: Bind the depth-stencil state.
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::Render(
-		const PassBuffer *scene,
+		const Scene &scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		Assert(scene);
-
 		// Process the models.
-		ProcessModels(scene->GetOpaqueEmissiveModels(), 
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetOpaqueBRDFModels(), 
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetTransparentEmissiveModels(), 
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetTransparentBRDFModels(), 
-			world_to_projection, world_to_view, view_to_world);
-	}
+		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
+			}
+			
+			const Transform &transform          = model.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
-	void XM_CALLCONV ConstantShadingPass::ProcessModels(
-		const std::vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, 
-		CXMMATRIX world_to_view, 
-		CXMMATRIX view_to_world) {
-
-		for (const auto node : models) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const Model         * const model     = node->GetModel();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
-
-			// Cull the model against the view frustum.
-			if (ViewFrustum::Cull(object_to_projection, model->GetAABB())) {
-				continue;
+			// Apply view frustum culling.
+			if (ViewFrustum::Cull(object_to_projection, model.GetAABB())) {
+				return;
 			}
 
-			// Obtain node components (2/2).
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object         = view_to_world * world_to_object;
-			const XMMATRIX texture_transform      = node->GetTextureTransform()->GetTransformMatrix();
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
+			const XMMATRIX view_to_object       = view_to_world * world_to_object;
+			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform);
 			// Bind the model mesh.
-			model->BindMesh(m_device_context);
+			model.BindMesh(m_device_context);
 			// Draw the model.
-			model->Draw(m_device_context);
-		}
+			model.Draw(m_device_context);
+		});
 	}
 }

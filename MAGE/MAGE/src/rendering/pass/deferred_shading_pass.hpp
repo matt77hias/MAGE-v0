@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "camera\viewport.hpp"
+#include "material\brdf.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion

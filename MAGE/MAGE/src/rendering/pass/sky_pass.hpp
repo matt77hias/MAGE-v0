@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "camera\sky.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -106,13 +106,10 @@ namespace mage {
 		/**
 		 Renders the given scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
-		 @throws		Exception
-						Failed to render the scene.
+						A reference to the sky.
 		 */
-		void Render(const PassBuffer *scene);
+		void Render(const Sky &sky) const noexcept;
 		
 	private:
 

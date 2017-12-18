@@ -41,7 +41,7 @@ namespace mage {
 		FXMMATRIX object_to_view,
 		CXMMATRIX view_to_object,
 		CXMMATRIX texture_transform,
-		const Material *material) {
+		const Material &material) {
 
 		ModelNormalTextureTransformBuffer buffer;
 		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
@@ -55,14 +55,14 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBA(material->GetBaseColor()));
+				RGBA(material.GetBaseColor()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetBaseColorSRV());
+				SLOT_SRV_TEXTURE, material.GetBaseColorSRV());
 
 			break;
 		}
@@ -73,7 +73,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBA(material->GetBaseColor()));
+				RGBA(material.GetBaseColor()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -98,7 +98,7 @@ namespace mage {
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetBaseColorSRV());
+				SLOT_SRV_TEXTURE, material.GetBaseColorSRV());
 
 			break;
 		}
@@ -109,14 +109,14 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				material->GetMaterialRGBA());
+				material.GetMaterialRGBA());
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetMaterialSRV());
+				SLOT_SRV_TEXTURE, material.GetMaterialSRV());
 
 			break;
 		}
@@ -127,7 +127,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				material->GetMaterialRGBA());
+				material.GetMaterialRGBA());
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -152,7 +152,7 @@ namespace mage {
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetMaterialSRV());
+				SLOT_SRV_TEXTURE, material.GetMaterialSRV());
 
 			break;
 		}
@@ -170,7 +170,7 @@ namespace mage {
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetNormalSRV());
+				SLOT_SRV_TEXTURE, material.GetNormalSRV());
 
 			break;
 		}
@@ -200,66 +200,47 @@ namespace mage {
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV VariableComponentPass::Render(
-		const PassBuffer *scene,
+		const Scene &scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		Assert(scene);
-
 		// Process the models.
-		ProcessModels(scene->GetOpaqueEmissiveModels(), 
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetTransparentEmissiveModels(),
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetOpaqueBRDFModels(), 
-			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetTransparentBRDFModels(), 
-			world_to_projection, world_to_view, view_to_world);
-	}
-
-	void XM_CALLCONV VariableComponentPass::ProcessModels(
-		const std::vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, 
-		CXMMATRIX world_to_view, 
-		CXMMATRIX view_to_world) {
-
-		for (const auto node : models) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const Model         * const model     = node->GetModel();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
+		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
+			}
+			
+			const Transform &transform          = model.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, model->GetAABB())) {
-				continue;
+			if (ViewFrustum::Cull(object_to_projection, model.GetAABB())) {
+				return;
 			}
 
-			// Obtain node components (2/2).
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object         = view_to_world * world_to_object;
-			const XMMATRIX texture_transform      = node->GetTextureTransform()->GetTransformMatrix();
-			const Material * const material       = model->GetMaterial();
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
+			const XMMATRIX view_to_object       = view_to_world * world_to_object;
+			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
-			// Bind the model data (inc. PS).
-			BindModelData(object_to_view, view_to_object, texture_transform, material);
+			// Bind the model data (incl. PS).
+			BindModelData(object_to_view, view_to_object, texture_transform, model.GetMaterial());
 			// Bind the model mesh.
-			model->BindMesh(m_device_context);
+			model.BindMesh(m_device_context);
 			// Draw the model.
-			model->Draw(m_device_context);
-		}
+			model.Draw(m_device_context);
+		});
 	}
 }

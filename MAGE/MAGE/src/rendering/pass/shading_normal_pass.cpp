@@ -44,16 +44,16 @@ namespace mage {
 		}
 	}
 
-	void ShadingNormalPass::BindPS(const Material *material) noexcept {
+	void ShadingNormalPass::BindPS(const Material &material) noexcept {
 		if (RenderMode::TSNMShadingNormal == m_render_mode
-			&& material->GetNormalSRV()) {
+			&& material.GetNormalSRV()) {
 
 			// Bind the pixel shader.
 			BindPS(PSIndex::TSNM);
 
 			// Bind the normal SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_NORMAL, material->GetNormalSRV());
+				SLOT_SRV_NORMAL, material.GetNormalSRV());
 		}
 		else {
 
@@ -95,59 +95,46 @@ namespace mage {
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV ShadingNormalPass::Render(
-		const PassBuffer *scene, 
+		const Scene &scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
 		
-		Assert(scene);
-
 		// Process the models (which interact with light).
-		ProcessModels(scene->GetOpaqueBRDFModels(), 
-			world_to_projection, world_to_view);
-		ProcessModels(scene->GetTransparentBRDFModels(), 
-			world_to_projection, world_to_view);
-	}
-
-	void XM_CALLCONV ShadingNormalPass::ProcessModels(
-		const std::vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, 
-		CXMMATRIX world_to_view) {
-
-		for (const auto node : models) {
-
-			// Obtain node components (1/2).
-			const Transform * const transform = node->GetTransform();
-			const Model         * const model     = node->GetModel();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
+		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
+			}
+			
+			const Transform &transform          = model.GetOwner()->GetTransform();
+			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, model->GetAABB())) {
-				continue;
+			if (ViewFrustum::Cull(object_to_projection, model.GetAABB())) {
+				return;
 			}
 
-			// Obtain node components (2/2).
-			const XMMATRIX object_to_view         = object_to_world * world_to_view;
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
+			const XMMATRIX object_to_view       = object_to_world * world_to_view;
+			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
 
 			// Bind the model data.
 			BindModelData(object_to_view, world_to_object);
 			// Bind the pixel shader.
-			BindPS(model->GetMaterial());
+			BindPS(model.GetMaterial());
 			// Bind the model mesh.
-			model->BindMesh(m_device_context);
+			model.BindMesh(m_device_context);
 			// Draw the model.
-			model->Draw(m_device_context);
-		}
+			model.Draw(m_device_context);
+		});
 	}
 }

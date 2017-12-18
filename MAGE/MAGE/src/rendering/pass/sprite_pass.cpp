@@ -33,7 +33,7 @@ namespace mage {
 
 	SpritePass::~SpritePass() = default;
 
-	void SpritePass::BindFixedState() {
+	void SpritePass::BindFixedState() const noexcept {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -52,19 +52,18 @@ namespace mage {
 		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
 	}
 
-	void SpritePass::Render(const PassBuffer *scene) {
-		
-		Assert(scene);
-		
+	void SpritePass::Render(const Scene &scene) const {
 		m_sprite_batch->Begin();
 
-		for (const auto node : scene->GetSprites()) {
-			// Obtain node components.
-			const Sprite * const sprite = node->GetSprite();
+		SpriteBatch &sprite_batch = *m_sprite_batch;
+		scene.ForEach< Sprite >([&sprite_batch](const Sprite &sprite) {
+			if (State::Active == sprite.GetState()) {
+				return;
+			}
 
 			// Draw the sprite.
-			sprite->Draw(*m_sprite_batch);
-		}
+			sprite.Draw(sprite_batch);
+		});
 
 		m_sprite_batch->End();
 	}

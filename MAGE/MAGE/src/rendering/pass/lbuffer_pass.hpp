@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\structured_buffer.hpp"
 #include "rendering\buffer\light_buffer.hpp"
@@ -65,11 +65,11 @@ namespace mage {
 			return m_sm_spot_lights.size();
 		}
 
-		void XM_CALLCONV Render(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV Render(const Scene &scene,
+								const Fog &fog,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view,
+			                    CXMMATRIX view_to_world);
 		
 	private:
 
@@ -80,52 +80,33 @@ namespace mage {
 		void UnbindShadowMaps() const noexcept;
 		void BindLBuffer() const noexcept;
 
-		void ProcessLightsData(const PassBuffer *scene);
+		void ProcessLightsData(const Scene &scene, const Fog &fog);
 
-		void XM_CALLCONV ProcessLights(
-			const std::vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view);
-		void XM_CALLCONV ProcessLights(
-			const std::vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
-		void XM_CALLCONV ProcessLights(
-			const std::vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
-
-		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const std::vector< const DirectionalLightNode * > &lights,
+		void XM_CALLCONV ProcessDirectionalLights(
+			const Scene &scene,
 			FXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
-		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const std::vector< const OmniLightNode * > &lights,
+		void XM_CALLCONV ProcessOmniLights(
+			const Scene &scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
-		void XM_CALLCONV ProcessLightsWithShadowMapping(
-			const std::vector< const SpotLightNode * > &lights,
+		void XM_CALLCONV ProcessSpotLights(
+			const Scene &scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
 
-		void SetupShadowMaps();
 		void SetupDirectionalShadowMaps();
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
 
-		void RenderShadowMaps(
-			const PassBuffer *scene, 
-			FXMMATRIX world_to_cview);
-		void RenderDirectionalShadowMaps(
-			DepthPass *pass, const PassBuffer *scene, 
-			FXMMATRIX world_to_cview);
-		void RenderOmniShadowMaps(
-			DepthPass *pass, const PassBuffer *scene, 
-			FXMMATRIX world_to_cview);
-		void RenderSpotShadowMaps(
-			DepthPass *pass, const PassBuffer *scene, 
-			FXMMATRIX world_to_cview);
+		void RenderDirectionalShadowMaps(DepthPass *pass, const Scene &scene, 
+			                             FXMMATRIX world_to_cview);
+		void RenderOmniShadowMaps(DepthPass *pass, const Scene &scene, 
+			                      FXMMATRIX world_to_cview);
+		void RenderSpotShadowMaps(DepthPass *pass, const Scene &scene, 
+			                      FXMMATRIX world_to_cview);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -139,7 +120,6 @@ namespace mage {
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights;
-
 		StructuredBuffer< DirectionalLightWithShadowMappingBuffer > 
 			m_sm_directional_lights;
 		StructuredBuffer< OmniLightWithShadowMappingBuffer > 

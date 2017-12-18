@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\pass_buffer.hpp"
+#include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\model_buffer.hpp"
 #include "shader\shader.hpp"
@@ -119,9 +119,8 @@ namespace mage {
 		/**
 		 Renders the scene.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
-						A pointer to the scene.
+						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
@@ -129,10 +128,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
-			const PassBuffer *scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view);
+		void XM_CALLCONV Render(const Scene &scene,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view);
 
 	private:
 
@@ -168,11 +166,10 @@ namespace mage {
 		 given material and the current render mode of this shading normal 
 		 pass.
 
-		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
-						A pointer to the material.
+						A reference to the material.
 		 */
-		void BindPS(const Material *material) noexcept;
+		void BindPS(const Material &material) noexcept;
 		
 		/**
 		 Binds the model data of this shading normal pass.
@@ -187,31 +184,8 @@ namespace mage {
 						Failed to bind the model data of this shading normal 
 						pass.
 		 */
-		void XM_CALLCONV BindModelData(
-			FXMMATRIX object_to_view, 
-			CXMMATRIX world_to_object);
-		
-		/**
-		 Process the given models.
-
-		 @param[in]		models
-						A reference to a vector containing the model pointers
-						to process.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix. This 
-						transformation matrix will be used for culling.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix. This 
-						transformation matrix will be chained with the 
-						object-to-view transformation matrix for transforming 
-						vertices.
-		 @throws		Exception
-						Failed to process the models.
-		 */
-		void XM_CALLCONV ProcessModels(
-			const std::vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, 
-			CXMMATRIX world_to_view);
+		void XM_CALLCONV BindModelData(FXMMATRIX object_to_view, 
+			                           CXMMATRIX world_to_object);
 
 		//---------------------------------------------------------------------
 		// Member Variables

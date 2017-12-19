@@ -28,7 +28,7 @@ namespace mage::script {
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
 	void ManhattanMotorScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 	}
 

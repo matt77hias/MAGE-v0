@@ -51,7 +51,7 @@ namespace mage::script {
 	TextConsoleScript::~TextConsoleScript() = default;
 
 	void TextConsoleScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 
 		m_text = GetOwner()->Get< SpriteText >();

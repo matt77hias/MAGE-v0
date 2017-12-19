@@ -59,15 +59,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Draws this sprite.
-
-		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering 
-						this sprite.
-		 */
-		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
-
-		/**
 		 Returns the sprite transform of this sprite.
 
 		 @return		A reference to the sprite transform of this sprite.

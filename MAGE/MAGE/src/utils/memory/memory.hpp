@@ -543,7 +543,7 @@ namespace mage {
 	inline bool operator==(const ProxyPtr< T >& lhs,
 		                   std::nullptr_t) noexcept {
 		
-		return bool(lhs);
+		return !bool(lhs);
 	}
 
 	/**
@@ -560,7 +560,7 @@ namespace mage {
 	inline bool operator!=(const ProxyPtr< T >& lhs,
 		                   std::nullptr_t) noexcept {
 		
-		return !bool(lhs);
+		return bool(lhs);
 	}
 
 	/**
@@ -577,7 +577,7 @@ namespace mage {
 	inline bool operator==(std::nullptr_t,
 		                   const ProxyPtr< T >& rhs) noexcept {
 		
-		return bool(rhs);
+		return !bool(rhs);
 	}
 
 	/**
@@ -594,7 +594,7 @@ namespace mage {
 	inline bool operator!=(std::nullptr_t,
 		                   const ProxyPtr< T >& rhs) noexcept {
 		
-		return !bool(rhs);
+		return bool(rhs);
 	}
 
 	/**

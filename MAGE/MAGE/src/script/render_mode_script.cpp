@@ -69,7 +69,7 @@ namespace mage::script {
 	RenderModeScript::~RenderModeScript() = default;
 
 	void RenderModeScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 
 		m_camera = GetOwner()->Get< PerspectiveCamera >();

@@ -25,7 +25,7 @@ namespace mage::script {
 	RotationScript::~RotationScript() = default;
 
 	void RotationScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 	}
 

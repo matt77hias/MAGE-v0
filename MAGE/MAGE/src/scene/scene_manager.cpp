@@ -56,6 +56,10 @@ namespace mage {
 	void SceneManager::FixedUpdate() {
 		m_scene->ForEach< BehaviorScript >(
 			[this](BehaviorScript &script) {
+				if (State::Active != script.GetState()) {
+					return;
+				}
+
 				script.FixedUpdate();
 			}
 		);
@@ -64,9 +68,12 @@ namespace mage {
 	void SceneManager::Update(F64 delta_time) {
 		m_scene->ForEach< BehaviorScript >(
 			[this, delta_time](BehaviorScript &script) {
-				if (!m_has_requested_scene) {
-					script.Update(delta_time);
+				if (State::Active != script.GetState() 
+					|| m_has_requested_scene) {
+					return;
 				}
+
+				script.Update(delta_time);
 			}
 		);
 

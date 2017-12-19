@@ -28,7 +28,7 @@ namespace mage::script {
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
 	void CharacterMotorScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()), 
+		ThrowIfFailed(HasOwner(), 
 			"This script needs to be attached to a node.");
 	}
 

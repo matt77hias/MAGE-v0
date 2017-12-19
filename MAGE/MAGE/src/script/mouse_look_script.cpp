@@ -32,7 +32,7 @@ namespace mage::script {
 	MouseLookScript::~MouseLookScript() = default;
 
 	void MouseLookScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 	}
 

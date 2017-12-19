@@ -93,7 +93,48 @@ namespace mage {
 			std::vector< ProxyPtr< Node > > &nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
-		ProxyPtr< ElementT > Create(ConstructorArgsT&&... args);
+		typename std::enable_if_t< std::is_same_v< Node, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< PerspectiveCamera, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< OrthographicCamera, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< AmbientLight, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< DirectionalLight, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< OmniLight, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< SpotLight, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< Model, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< SpriteImage, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< SpriteText, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
+
+		template< typename ElementT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of_v< BehaviorScript, ElementT >,
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
 
 		template< typename ElementT >
 		ElementT &Get(size_t index) noexcept;
@@ -174,7 +215,7 @@ namespace mage {
 			std::vector< ElementT > &elements, ConstructorArgsT&&... args);
 
 		template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
-		static ProxyPtr< ElementT > AddElement(
+		static ProxyPtr< ElementT > AddElementPtr(
 			std::vector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args);
 
 		//---------------------------------------------------------------------

@@ -32,9 +32,7 @@ namespace mage {
 		m_this(std::move(node.m_this)),
 		m_name(std::move(node.m_name)) {}
 
-	Node::~Node() {
-		RemoveAllChilds();
-	}
+	Node::~Node() = default;
 
 	Node &Node::operator=(Node &&node) noexcept = default;
 
@@ -95,7 +93,6 @@ namespace mage {
 	}
 
 	void Node::RemoveAllChilds() noexcept {
-
 		ForEachChild([](Node &node) noexcept {
 			node.m_parent = nullptr;
 			node.m_transform.SetDirty();

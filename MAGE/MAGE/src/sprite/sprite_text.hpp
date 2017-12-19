@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of sprite texts.
 	 */
-	class SpriteText : public Sprite {
+	class SpriteText final : public Sprite {
 
 	public:
 
@@ -109,7 +109,7 @@ namespace mage {
 						A reference to the sprite batch used for rendering this 
 						sprite text.
 		 */
-		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
+		void Draw(SpriteBatch &sprite_batch) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Text

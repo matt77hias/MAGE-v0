@@ -21,7 +21,7 @@ namespace mage {
 	/**
 	 A class of models.
 	 */
-	class Model : public Component {
+	class Model final : public Component {
 
 	public:
 

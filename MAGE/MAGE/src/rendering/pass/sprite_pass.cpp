@@ -56,8 +56,20 @@ namespace mage {
 		m_sprite_batch->Begin();
 
 		SpriteBatch &sprite_batch = *m_sprite_batch;
-		scene.ForEach< Sprite >([&sprite_batch](const Sprite &sprite) {
-			if (State::Active == sprite.GetState()) {
+
+		// Processes the sprite images.
+		scene.ForEach< SpriteImage >([&sprite_batch](const SpriteImage &sprite) {
+			if (State::Active != sprite.GetState()) {
+				return;
+			}
+
+			// Draw the sprite.
+			sprite.Draw(sprite_batch);
+		});
+
+		// Processes the sprite texts.
+		scene.ForEach< SpriteText >([&sprite_batch](const SpriteText &sprite) {
+			if (State::Active != sprite.GetState()) {
 				return;
 			}
 

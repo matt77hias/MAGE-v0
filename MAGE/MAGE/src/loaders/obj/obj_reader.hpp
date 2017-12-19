@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <unordered_map>
+#include <map>
 
 #pragma endregion
 
@@ -318,7 +318,7 @@ namespace mage::loader {
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		std::unordered_map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
+		std::map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
 		
 		/**
 		 A reference to a model output containing the read data of this OBJ 

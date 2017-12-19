@@ -155,73 +155,103 @@ namespace mage {
 	#pragma region
 
 	template< typename ResourceT, typename... ConstructorArgsT >
-	inline SharedPtr< const ResourceT > ResourceManager
-		::GetOrCreate(const wstring &guid, ConstructorArgsT&&... args) {
+	inline typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
 
-		if constexpr (std::is_same_v< ModelDescriptor, ResourceT >) {
-			return m_model_descriptor_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< VertexShader, ResourceT >) {
-			return m_vs_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< HullShader, ResourceT >) {
-			return m_hs_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< DomainShader, ResourceT >) {
-			return m_ds_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< GeometryShader, ResourceT >) {
-			return m_gs_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< PixelShader, ResourceT >) {
-			return m_ps_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-
-		if constexpr (std::is_same_v< ComputeShader, ResourceT >) {
-			return m_cs_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-		
-		if constexpr (std::is_same_v< SpriteFont, ResourceT >) {
-			return m_sprite_font_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
-		
-		if constexpr (std::is_same_v< Texture, ResourceT >) {
-			return m_texture_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
+		return m_model_descriptor_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ResourceT, typename... ConstructorArgsT >
-	inline SharedPtr< ResourceT > ResourceManager
-		::GetOrCreateMutable(const wstring &guid, ConstructorArgsT&&... args) {
+	inline typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
 
-		if constexpr (std::is_same_v< VariableScript, ResourceT >) {
-			return m_variable_script_pool.template
-				GetOrCreateResource< wstring, ConstructorArgsT... >(
-					guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
-		}
+		return m_vs_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_hs_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_ds_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_gs_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_ps_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_cs_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_sprite_font_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
+		SharedPtr< const ResourceT > > ResourceManager::GetOrCreate(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_texture_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
+	}
+
+	template< typename ResourceT, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_same_v< VariableScript, ResourceT >,
+		SharedPtr< ResourceT > > ResourceManager::GetOrCreateMutable(
+			const wstring &guid, ConstructorArgsT&&... args) {
+
+		return m_variable_script_pool.template
+			GetOrCreateResource< wstring, ConstructorArgsT... >(
+				guid, wstring(guid), std::forward< ConstructorArgsT >(args)...);
 	}
 
 	#pragma endregion

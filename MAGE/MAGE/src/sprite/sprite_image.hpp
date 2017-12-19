@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of sprite images.
 	 */
-	class SpriteImage : public Sprite {
+	class SpriteImage final : public Sprite {
 
 	public:
 

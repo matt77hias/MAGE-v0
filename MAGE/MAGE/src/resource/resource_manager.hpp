@@ -165,7 +165,192 @@ namespace mage {
 						Failed to create the resource.
 		 */
 		template< typename ResourceT, typename... ConstructorArgsT >
-		SharedPtr< const ResourceT > GetOrCreate(const wstring &guid, 
+		typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >, 
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
+			ConstructorArgsT&&... args);
+
+		/**
+		 Creates a resource of the given type (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the resource 
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						resource.
+		 @param[in]		args
+						A reference to the constructor arguments for the 
+						resource (excluding the globally unique identifier).
+		 @return		A pointer to the resource.
+		 @throws		Exception
+						Failed to create the resource.
+		 */
+		template< typename ResourceT, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
+			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
 			ConstructorArgsT&&... args);
 		
 		/**
@@ -187,8 +372,9 @@ namespace mage {
 						Failed to create the resource.
 		 */
 		template< typename ResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateMutable(const wstring &guid, 
-			ConstructorArgsT&&... args);
+		typename std::enable_if_t< std::is_same_v< VariableScript, ResourceT >,
+			SharedPtr< ResourceT > > GetOrCreateMutable(const wstring &guid,
+				ConstructorArgsT&&... args);
 		
 	private:
 

@@ -34,7 +34,7 @@ namespace mage::script {
 	StatsScript::~StatsScript() = default;
 
 	void StatsScript::Load() {
-		ThrowIfFailed((nullptr != GetOwner()),
+		ThrowIfFailed(HasOwner(),
 			"This script needs to be attached to a node.");
 		
 		m_text = GetOwner()->Get< SpriteText >();

@@ -20,17 +20,17 @@ namespace mage {
 	Engine *Engine::s_engine = nullptr;
 
 	Engine::Engine(const EngineSetup &setup)
-		: Loadable(), 
-		m_resource_manager(),
+		: m_resource_manager(), 
 		m_main_window(), 
-		m_deactive(false),
 		m_rendering_manager(), 
-		m_mode_switch(false),
 		m_input_manager(), 
-		m_scene_manager(),
+		m_scene_manager(), 
+		m_engine_stats(),
 		m_timer(), 
-		m_fixed_delta_time(0.0f),
-		m_engine_stats(MakeUnique< EngineStatistics >()) {
+		m_fixed_delta_time(0.0f), 
+		m_deactive(false), 
+		m_mode_switch(false), 
+		m_loaded(false) {
 
 		s_engine = this;
 
@@ -86,16 +86,17 @@ namespace mage {
 		// Initialize the scene system.
 		m_scene_manager       = MakeUnique< SceneManager >();
 
+		// Initialize the statistics.
+		m_engine_stats        = MakeUnique< EngineStatistics >();
+
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
-		SetLoaded();
+		m_loaded = true;
 	}
 
 	void Engine::UninitializeSystems() noexcept {
-		SetLoaded(false);
-		
 		// Uninitialize the COM.
 		CoUninitialize();
 

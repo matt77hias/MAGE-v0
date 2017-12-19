@@ -17,7 +17,6 @@
 
 #include "resource\resource_factory.hpp"
 
-#include "core\loadable.hpp"
 #include "core\engine_setup.hpp"
 #include "core\engine_statistics.hpp"
 
@@ -31,7 +30,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine final : public Loadable {
+	class Engine final {
 
 	public:
 
@@ -81,7 +80,7 @@ namespace mage {
 		/**
 		 Destructs this engine.
 		 */
-		virtual ~Engine();
+		~Engine();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -107,8 +106,17 @@ namespace mage {
 		Engine &operator=(Engine &&engine) = delete;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Run
+		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this loadable is loaded.
+
+		 @return		@c true if this loadable is loaded. @c false otherwise.
+		 */
+		bool IsLoaded() const noexcept {
+			return m_loaded;
+		}
 
 		/**
 		 Runs this engine.
@@ -267,7 +275,7 @@ namespace mage {
 		void UninitializeSystems() noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Resource System
+		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
@@ -275,23 +283,10 @@ namespace mage {
 		 */
 		UniquePtr< ResourceManager > m_resource_manager;
 
-		//---------------------------------------------------------------------
-		// Member Variables: Window System
-		//---------------------------------------------------------------------
-
 		/**
 		 A pointer to the main window of this engine. 
 		 */
 		UniquePtr< MainWindow > m_main_window;
-
-		/** 
-		 Flag indicating whether the application is active or not.
-		 */
-		bool m_deactive;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Rendering System
-		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the rendering manager of this engine.
@@ -299,32 +294,19 @@ namespace mage {
 		UniquePtr< RenderingManager > m_rendering_manager;
 
 		/**
-		 Flag indicating whether the application should switch between full 
-		 screen and windowed mode.
-		 */
-		bool m_mode_switch;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Input System
-		//---------------------------------------------------------------------
-
-		/**
 		 A pointer to the input manager of this engine.
 		 */
 		UniquePtr< InputManager > m_input_manager;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Scene System
-		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the scene manager of this engine.
 		 */
 		UniquePtr< SceneManager > m_scene_manager;
 
-		//---------------------------------------------------------------------
-		// Member Variables: Timer
-		//---------------------------------------------------------------------
+		/**
+		 A pointer to the statistics of this engine.
+		 */
+		UniquePtr< EngineStatistics > m_engine_stats;
 
 		/**
 		 The timer of this engine.
@@ -339,10 +321,20 @@ namespace mage {
 		 */
 		F64 m_fixed_delta_time;
 
-		//---------------------------------------------------------------------
-		// Member Variables: Statistics
-		//---------------------------------------------------------------------
+		/** 
+		 Flag indicating whether the application is active or not.
+		 */
+		bool m_deactive;
 
-		UniquePtr< EngineStatistics > m_engine_stats;
+		/**
+		 Flag indicating whether the application should switch between full 
+		 screen and windowed mode.
+		 */
+		bool m_mode_switch;
+
+		/**
+		 Flag indicating whether this engine is loaded.
+		 */
+		bool m_loaded;
 	};
 }

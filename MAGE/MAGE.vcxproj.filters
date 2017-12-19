@@ -342,9 +342,6 @@
     <ClInclude Include="MAGE\src\core\engine.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\core\loadable.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\core\version.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
@@ -1201,9 +1198,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\light\omni_light.cpp">
       <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\core\loadable.cpp">
-      <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>

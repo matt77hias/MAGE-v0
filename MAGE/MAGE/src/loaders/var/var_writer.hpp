@@ -27,7 +27,7 @@ namespace mage::loader {
 	/**
 	 A class of VAR file writers for writing variable scripts.
 	 */
-	class VARWriter final : public Writer {
+	class VARWriter final : private Writer {
 
 	public:
 
@@ -63,7 +63,7 @@ namespace mage::loader {
 		/**
 		 Destructs this VAR writer.
 		 */
-		virtual ~VARWriter();
+		~VARWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -88,6 +88,14 @@ namespace mage::loader {
 						writer).
 		 */
 		VARWriter &operator=(VARWriter &&writer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using Writer::WriteToFile;
+
+		using Writer::GetFilename;
 
 	private:
 

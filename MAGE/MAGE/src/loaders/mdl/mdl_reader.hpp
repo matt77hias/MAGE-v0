@@ -22,7 +22,7 @@ namespace mage::loader {
 					The vertex type.
 	 */
 	template < typename VertexT >
-	class MDLReader final : public LineReader {
+	class MDLReader final : private LineReader {
 
 	public:
 
@@ -58,7 +58,7 @@ namespace mage::loader {
 		/**
 		 Destructs this MDL reader.
 		 */
-		virtual ~MDLReader();
+		~MDLReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -83,6 +83,18 @@ namespace mage::loader {
 						reader).
 		 */
 		MDLReader &operator=(MDLReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using LineReader::ReadFromFile;
+
+		using LineReader::ReadFromMemory;
+
+		using LineReader::GetFilename;
+
+		using LineReader::GetDelimiters;
 
 	private:
 

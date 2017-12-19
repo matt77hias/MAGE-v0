@@ -27,7 +27,7 @@ namespace mage::loader {
 	/**
 	 A class of VAR file readers for reading variable scripts.
 	 */
-	class VARReader final : public LineReader {
+	class VARReader final : private LineReader {
 
 	public:
 
@@ -63,7 +63,7 @@ namespace mage::loader {
 		/**
 		 Destructs this VAR reader.
 		 */
-		virtual ~VARReader();
+		~VARReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -88,6 +88,18 @@ namespace mage::loader {
 						reader).
 		 */
 		VARReader &operator=(VARReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using LineReader::ReadFromFile;
+
+		using LineReader::ReadFromMemory;
+
+		using LineReader::GetFilename;
+
+		using LineReader::GetDelimiters;
 
 	private:
 

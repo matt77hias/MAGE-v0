@@ -46,15 +46,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destructs this binary reader.
-		 */
-		virtual ~BinaryReader();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
@@ -124,7 +115,7 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -147,6 +138,11 @@ namespace mage {
 						A reference to the binary reader to move.
 		 */
 		BinaryReader(BinaryReader &&reader) noexcept;
+
+		/**
+		 Destructs this binary reader.
+		 */
+		~BinaryReader();
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -323,15 +319,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destructs this big endian binary reader.
-		 */
-		virtual ~BigEndianBinaryReader();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
@@ -399,7 +386,7 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -424,6 +411,11 @@ namespace mage {
 						A reference to the big endian binary reader to move.
 		 */
 		BigEndianBinaryReader(BigEndianBinaryReader &&reader) noexcept;
+
+		/**
+		 Destructs this big endian binary reader.
+		 */
+		~BigEndianBinaryReader();
 
 		//---------------------------------------------------------------------
 		// Member Methods

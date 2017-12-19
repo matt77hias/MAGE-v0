@@ -22,15 +22,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destructs this line reader.
-		 */
-		virtual ~LineReader();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
@@ -110,7 +101,7 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -133,6 +124,11 @@ namespace mage {
 						A reference to the line reader to move.
 		 */
 		LineReader(LineReader &&reader) noexcept;
+
+		/**
+		 Destructs this line reader.
+		 */
+		~LineReader();
 
 		//---------------------------------------------------------------------
 		// Member Methods

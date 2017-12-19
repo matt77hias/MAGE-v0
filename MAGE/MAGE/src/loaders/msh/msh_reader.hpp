@@ -32,7 +32,7 @@ namespace mage::loader {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	class MSHReader final : public BigEndianBinaryReader {
+	class MSHReader final : private BigEndianBinaryReader {
 
 	public:
 
@@ -72,7 +72,7 @@ namespace mage::loader {
 		/**
 		 Destructs this MSH reader.
 		 */
-		virtual ~MSHReader();
+		~MSHReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -97,6 +97,16 @@ namespace mage::loader {
 						reader).
 		 */
 		MSHReader &operator=(MSHReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using BigEndianBinaryReader::ReadFromFile;
+
+		using BigEndianBinaryReader::ReadFromMemory;
+
+		using BigEndianBinaryReader::GetFilename;
 
 	private:
 

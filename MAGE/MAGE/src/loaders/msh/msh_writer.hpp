@@ -33,7 +33,7 @@ namespace mage::loader {
 
 	 */
 	template< typename VertexT, typename IndexT >
-	class MSHWriter final : public BigEndianBinaryWriter {
+	class MSHWriter final : private BigEndianBinaryWriter {
 
 	public:
 
@@ -71,7 +71,7 @@ namespace mage::loader {
 		/**
 		 Destructs this MSH writer.
 		 */
-		virtual ~MSHWriter();
+		~MSHWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -96,6 +96,14 @@ namespace mage::loader {
 						writer).
 		 */
 		MSHWriter &operator=(MSHWriter &&writer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using BigEndianBinaryWriter::WriteToFile;
+
+		using BigEndianBinaryWriter::GetFilename;
 
 	private:
 

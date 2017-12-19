@@ -27,7 +27,7 @@ namespace mage::loader {
 	/**
 	 A class of MTL file readers for reading materials.
 	 */
-	class MTLReader final : public LineReader {
+	class MTLReader final : private LineReader {
 
 	public:
 
@@ -63,7 +63,7 @@ namespace mage::loader {
 		/**
 		 Destructs this MTL reader.
 		 */
-		virtual ~MTLReader();
+		~MTLReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -88,6 +88,18 @@ namespace mage::loader {
 						reader).
 		 */
 		MTLReader &operator=(MTLReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using LineReader::ReadFromFile;
+
+		using LineReader::ReadFromMemory;
+
+		using LineReader::GetFilename;
+
+		using LineReader::GetDelimiters;
 
 	private:
 

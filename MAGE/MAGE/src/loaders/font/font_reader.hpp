@@ -19,7 +19,7 @@ namespace mage::loader {
 	/**
 	 A class of readers for reading FONT files.
 	 */
-	class SpriteFontReader final : public BigEndianBinaryReader {
+	class SpriteFontReader final : private BigEndianBinaryReader {
 
 	public:
 
@@ -60,7 +60,7 @@ namespace mage::loader {
 		/**
 		 Destructs this FONT reader.
 		 */
-		virtual ~SpriteFontReader();
+		~SpriteFontReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -85,6 +85,16 @@ namespace mage::loader {
 						FONT reader).
 		 */
 		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using BigEndianBinaryReader::ReadFromFile;
+
+		using BigEndianBinaryReader::ReadFromMemory;
+
+		using BigEndianBinaryReader::GetFilename;
 
 	private:
 

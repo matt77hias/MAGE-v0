@@ -32,7 +32,7 @@ namespace mage::loader {
 					The vertex type.
 	 */
 	template < typename VertexT >
-	class OBJReader final : public LineReader {
+	class OBJReader final : private LineReader {
 
 	public:
 
@@ -71,7 +71,7 @@ namespace mage::loader {
 		/**
 		 Destructs this OBJ reader.
 		 */
-		virtual ~OBJReader();
+		~OBJReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -96,6 +96,18 @@ namespace mage::loader {
 						reader).
 		 */
 		OBJReader &operator=(OBJReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using LineReader::ReadFromFile;
+
+		using LineReader::ReadFromMemory;
+
+		using LineReader::GetFilename;
+
+		using LineReader::GetDelimiters;
 
 	private:
 

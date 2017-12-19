@@ -22,7 +22,7 @@ namespace mage::loader {
 					The vertex type.
 	 */
 	template < typename VertexT >
-	class MDLWriter final : public Writer {
+	class MDLWriter final : private Writer {
 
 	public:
 
@@ -58,7 +58,7 @@ namespace mage::loader {
 		/**
 		 Destructs this MDL writer.
 		 */
-		virtual ~MDLWriter();
+		~MDLWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -83,6 +83,14 @@ namespace mage::loader {
 						writer).
 		 */
 		MDLWriter &operator=(MDLWriter &&writer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		using Writer::WriteToFile;
+
+		using Writer::GetFilename;
 
 	private:
 

@@ -22,15 +22,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destructs this big endian binary writer.
-		 */
-		virtual ~BigEndianBinaryWriter();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
@@ -108,6 +99,11 @@ namespace mage {
 						A reference to the big endian binary writer to move.
 		 */
 		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) noexcept;
+
+		/**
+		 Destructs this big endian binary writer.
+		 */
+		~BigEndianBinaryWriter();
 
 		//---------------------------------------------------------------------
 		// Member Methods

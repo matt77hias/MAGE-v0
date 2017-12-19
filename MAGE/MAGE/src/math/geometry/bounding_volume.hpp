@@ -224,7 +224,7 @@ namespace mage {
 
 		 @return		The centroid of this BS.
 		 */
-		const XMVECTOR Centroid() const noexcept {
+		const XMVECTOR XM_CALLCONV Centroid() const noexcept {
 			return XMVectorSetW(m_pr, 1.0f);
 		}
 
@@ -626,7 +626,7 @@ namespace mage {
  
 		 @return		The minimum point of this AABB.
 		 */
-		const XMVECTOR MinPoint() const noexcept {
+		const XMVECTOR XM_CALLCONV MinPoint() const noexcept {
 			return m_min;
 		}
 
@@ -635,7 +635,7 @@ namespace mage {
  
 		 @return		The maximum point of this AABB.
 		 */
-		const XMVECTOR MaxPoint() const noexcept {
+		const XMVECTOR XM_CALLCONV MaxPoint() const noexcept {
 			return m_max;
 		}
 
@@ -686,7 +686,7 @@ namespace mage {
  
 		 @return		The centroid of this AABB.
 		 */
-		const XMVECTOR Centroid() const noexcept {
+		const XMVECTOR XM_CALLCONV Centroid() const noexcept {
 			return 0.5f * (m_min + m_max);
 		}
 
@@ -695,7 +695,7 @@ namespace mage {
 
 		 @return		The radius of this AABB.
 		 */
-		const XMVECTOR Radius() const noexcept {
+		const XMVECTOR XM_CALLCONV Radius() const noexcept {
 			return 0.5f * (m_max - m_min);
 		}
 
@@ -704,7 +704,7 @@ namespace mage {
 
 		 @return		The diagonal of this AABB.
 		 */
-		const XMVECTOR Diagonal() const noexcept {
+		const XMVECTOR XM_CALLCONV Diagonal() const noexcept {
 			return m_max - m_min;
 		}
 

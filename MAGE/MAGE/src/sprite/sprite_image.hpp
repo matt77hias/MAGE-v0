@@ -50,7 +50,7 @@ namespace mage {
 		/**
 		 Destruct this sprite image.
 		 */
-		virtual ~SpriteImage();
+		~SpriteImage();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

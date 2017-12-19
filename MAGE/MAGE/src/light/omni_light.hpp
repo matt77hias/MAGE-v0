@@ -49,7 +49,7 @@ namespace mage {
 		/**
 		 Destructs this omni light.
 		 */
-		virtual ~OmniLight();
+		~OmniLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

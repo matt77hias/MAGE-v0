@@ -199,15 +199,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destructs this camera.
-		 */
-		virtual ~Camera();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
@@ -384,7 +375,7 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -410,6 +401,11 @@ namespace mage {
 						A reference to the camera to move.
 		 */
 		Camera(Camera &&camera) noexcept;
+
+		/**
+		 Destructs this camera.
+		 */
+		~Camera();
 
 	private:
 

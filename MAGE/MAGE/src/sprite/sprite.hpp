@@ -23,15 +23,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Destruct this sprite.
-		 */
-		virtual ~Sprite();
-
-		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
@@ -98,7 +89,7 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -121,6 +112,11 @@ namespace mage {
 						A reference to the sprite to move.
 		 */
 		Sprite(Sprite &&sprite) noexcept;
+
+		/**
+		 Destruct this sprite.
+		 */
+		~Sprite();
 
 	private:
 

@@ -137,7 +137,7 @@ namespace mage {
 		/**
 		 Destructs this component.
 		 */
-		virtual ~Component();
+		~Component();
 
 	private:
 

@@ -49,7 +49,7 @@ namespace mage {
 		/**
 		 Destructs this ambient light.
 		 */
-		virtual ~AmbientLight();
+		~AmbientLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -58,7 +58,7 @@ namespace mage {
 		/**
 		 Destructs this spotlight.
 		 */
-		virtual ~SpotLight();
+		~SpotLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -50,16 +50,16 @@ namespace mage {
 		 Constructs a model part.
 		 */
 		ModelPart()
-			: m_child(MAGE_MDL_PART_DEFAULT_CHILD),
-			m_parent(MAGE_MDL_PART_DEFAULT_PARENT),
+			: m_aabb(),
+			m_bs(),
 			m_translation(0.0f, 0.0f, 0.0f),
 			m_rotation(0.0f, 0.0f, 0.0f),
 			m_scale(1.0f, 1.0f, 1.0f),
-			m_material(MAGE_MDL_PART_DEFAULT_MATERIAL),
 			m_start_index(0), 
 			m_nb_indices(0),
-			m_aabb(), 
-			m_bs() {}
+			m_child(MAGE_MDL_PART_DEFAULT_CHILD),
+			m_parent(MAGE_MDL_PART_DEFAULT_PARENT),
+			m_material(MAGE_MDL_PART_DEFAULT_MATERIAL) {}
 		
 		/**
 		 Constructs a model part from the given model part.
@@ -142,18 +142,22 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Variables: Scene Graph
+		// Member Variables: Bounding Volumes
 		//---------------------------------------------------------------------
 
 		/**
-		 The name of this model part.
+		 The AABB of this model part.
 		 */
-		string m_child;
+		AABB m_aabb;
 
 		/**
-		 The name of the parent model part of this model part.
+		 The BS of this model part.
 		 */
-		string m_parent;
+		BS m_bs;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
 
 		/**
 		 The local translation component of this model part.
@@ -169,15 +173,6 @@ namespace mage {
 		 The local scale component of this model part.
 		 */
 		F32x3 m_scale;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Material
-		//---------------------------------------------------------------------
-
-		/**
-		 The name of the material of this model part.
-		 */
-		string m_material;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Mesh
@@ -196,18 +191,27 @@ namespace mage {
 		U32 m_nb_indices;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Bounding Volumes
+		// Member Variables: Scene Graph
 		//---------------------------------------------------------------------
 
 		/**
-		 The AABB of this model part.
+		 The name of this model part.
 		 */
-		AABB m_aabb;
+		string m_child;
 
 		/**
-		 The BS of this model part.
+		 The name of the parent model part of this model part.
 		 */
-		BS m_bs;
+		string m_parent;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Material
+		//---------------------------------------------------------------------
+
+		/**
+		 The name of the material of this model part.
+		 */
+		string m_material;
 	};
 
 	/**

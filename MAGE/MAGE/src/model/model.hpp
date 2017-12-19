@@ -18,10 +18,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of models.
 	 */
-	class Model final : public Component {
+	class alignas(16) Model final : public Component {
 
 	public:
 
@@ -310,4 +313,6 @@ namespace mage {
 		 */
 		bool m_light_occlusion;
 	};
+
+	#pragma warning( pop )
 }

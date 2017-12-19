@@ -14,10 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of ambient lights.
 	 */
-	class AmbientLight final : public Light {
+	class alignas(16) AmbientLight final : public Light {
 
 	public:
 
@@ -127,4 +130,6 @@ namespace mage {
 		 */
 		F32 m_radiance;
 	};
+
+	#pragma warning( pop )
 }

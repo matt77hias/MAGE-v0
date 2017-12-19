@@ -14,10 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of orthographic cameras.
 	 */
-	class OrthographicCamera final : public Camera {
+	class alignas(16) OrthographicCamera final : public Camera {
 
 	public:
 
@@ -223,4 +226,6 @@ namespace mage {
 		 */
 		F32 m_height;
 	};
+
+	#pragma warning( pop )
 }

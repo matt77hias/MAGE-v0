@@ -15,10 +15,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of sprite images.
 	 */
-	class SpriteImage final : public Sprite {
+	class alignas(16) SpriteImage final : public Sprite {
 
 	public:
 
@@ -212,4 +215,6 @@ namespace mage {
 		 */
 		SharedPtr< const Texture > m_base_color_texture;
 	};
+
+	#pragma warning( pop )
 }

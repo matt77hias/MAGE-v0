@@ -16,10 +16,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of sprite texts.
 	 */
-	class SpriteText final : public Sprite {
+	class alignas(16) SpriteText final : public Sprite {
 
 	public:
 
@@ -290,6 +293,8 @@ namespace mage {
 		 */
 		SharedPtr< const SpriteFont > m_font;
 	};
+
+	#pragma warning( pop )
 }
 
 //-----------------------------------------------------------------------------

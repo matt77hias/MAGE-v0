@@ -14,10 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of directional lights.
 	 */
-	class DirectionalLight final : public Light {
+	class alignas(16) DirectionalLight final : public Light {
 
 	public:
 
@@ -179,4 +182,6 @@ namespace mage {
 		 */
 		bool m_shadows;
 	};
+
+	#pragma warning( pop )
 }

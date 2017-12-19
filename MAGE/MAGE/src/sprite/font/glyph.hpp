@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4201)
+
 	/**
 	 A struct of glyphs.
 	 */
@@ -143,4 +146,6 @@ namespace mage {
 		 */
 		F32 m_advance_x;
 	};
+
+	#pragma warning( pop )
 }

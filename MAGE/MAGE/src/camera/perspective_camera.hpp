@@ -85,10 +85,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of perspective cameras.
 	 */
-	class PerspectiveCamera final : public Camera {
+	class alignas(16) PerspectiveCamera final : public Camera {
 
 	public:
 
@@ -312,6 +315,8 @@ namespace mage {
 		 */
 		F32 m_fov_y;
 	};
+
+	#pragma warning( pop )
 
 	#pragma endregion
 }

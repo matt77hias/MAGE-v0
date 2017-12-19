@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4201)
+
 	/**
 	 A struct of view frustums.
 	 */
@@ -422,4 +425,6 @@ namespace mage {
 	};
 
 	static_assert(96 == sizeof(ViewFrustum));
+
+	#pragma warning( pop )
 }

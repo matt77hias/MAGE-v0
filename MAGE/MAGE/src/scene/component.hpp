@@ -31,6 +31,15 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------	
+
+		/**
+		 Destructs this component.
+		 */
+		virtual ~Component();
+
+		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
@@ -133,11 +142,6 @@ namespace mage {
 						A reference to the component to move.
 		 */
 		Component(Component &&component) noexcept;
-
-		/**
-		 Destructs this component.
-		 */
-		~Component();
 
 	private:
 

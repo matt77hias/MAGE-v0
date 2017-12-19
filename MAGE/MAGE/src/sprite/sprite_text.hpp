@@ -72,7 +72,7 @@ namespace mage {
 		/**
 		 Destruct this sprite text.
 		 */
-		~SpriteText();
+		virtual ~SpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

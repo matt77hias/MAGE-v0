@@ -149,7 +149,7 @@ namespace mage {
 	/**
 	 A class of sprite transforms.
 	 */
-	class alignas(16) SpriteTransform final {
+	class SpriteTransform final {
 
 	public:
 

@@ -49,7 +49,7 @@ namespace mage {
 		/**
 		 Destructs this directional light.
 		 */
-		~DirectionalLight();
+		virtual ~DirectionalLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

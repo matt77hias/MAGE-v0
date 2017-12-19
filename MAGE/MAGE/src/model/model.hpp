@@ -67,7 +67,7 @@ namespace mage {
 		/**
 		 Destructs this model.
 		 */
-		~Model();
+		virtual ~Model();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

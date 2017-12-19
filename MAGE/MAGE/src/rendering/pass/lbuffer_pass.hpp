@@ -101,12 +101,15 @@ namespace mage {
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
 
-		void RenderDirectionalShadowMaps(DepthPass *pass, const Scene &scene, 
-			                             FXMMATRIX world_to_cview);
-		void RenderOmniShadowMaps(DepthPass *pass, const Scene &scene, 
-			                      FXMMATRIX world_to_cview);
-		void RenderSpotShadowMaps(DepthPass *pass, const Scene &scene, 
-			                      FXMMATRIX world_to_cview);
+		void XM_CALLCONV RenderDirectionalShadowMaps(
+			DepthPass *pass, const Scene &scene,
+			FXMMATRIX world_to_cview);
+		void XM_CALLCONV RenderOmniShadowMaps(
+			DepthPass *pass, const Scene &scene,
+			FXMMATRIX world_to_cview);
+		void XM_CALLCONV RenderSpotShadowMaps(
+			DepthPass *pass, const Scene &scene,
+			FXMMATRIX world_to_cview);
 
 		//---------------------------------------------------------------------
 		// Member Variables

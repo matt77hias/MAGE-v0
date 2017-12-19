@@ -393,7 +393,7 @@ namespace mage {
 		m_spot_sms->ClearDSVs(m_device_context);
 	}
 
-	void LBufferPass::RenderDirectionalShadowMaps(
+	void XM_CALLCONV LBufferPass::RenderDirectionalShadowMaps(
 		DepthPass *pass, const Scene &scene,
 		FXMMATRIX world_to_cview) {
 
@@ -418,7 +418,7 @@ namespace mage {
 		}
 	}
 
-	void LBufferPass::RenderOmniShadowMaps(
+	void XM_CALLCONV LBufferPass::RenderOmniShadowMaps(
 		DepthPass *pass, const Scene &scene,
 		FXMMATRIX world_to_cview) {
 
@@ -443,7 +443,7 @@ namespace mage {
 		}
 	}
 	
-	void LBufferPass::RenderSpotShadowMaps(
+	void XM_CALLCONV LBufferPass::RenderSpotShadowMaps(
 		DepthPass *pass, const Scene &scene, 
 		FXMMATRIX world_to_cview) {
 

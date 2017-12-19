@@ -34,7 +34,7 @@ namespace mage {
 	/**
 	 A class of nodes.
 	 */
-	class Node final {
+	class alignas(16) Node final {
 
 	public:
 

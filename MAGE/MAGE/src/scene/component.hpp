@@ -15,6 +15,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Component
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	// Forward declaration.
 	class Node;
 
@@ -140,7 +145,7 @@ namespace mage {
 		// Friends
 		//---------------------------------------------------------------------
 
-		friend class Node;
+		friend class ComponentClient;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Update
@@ -174,4 +179,61 @@ namespace mage {
 		 */
 		ProxyPtr< Node > m_owner;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// ComponentClient
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of component clients.
+	 */
+	class ComponentClient final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		ComponentClient &operator=(const ComponentClient &client) = delete;
+		ComponentClient &operator=(ComponentClient &&client) = delete;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Static Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the owner of the given component to the given owner.
+
+		 @param[in]		component
+						A reference to the component.
+		 @param[in]		owner
+						A pointer to the owner.
+		 */
+		static void SetOwner(Component &component, ProxyPtr< Node > owner) noexcept {
+			component.SetOwner(std::move(owner));
+		}
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		ComponentClient() = delete;
+		ComponentClient(const ComponentClient &client) = delete;
+		ComponentClient(ComponentClient &&client) = delete;
+		~ComponentClient() = delete;
+	};
+
+	#pragma endregion
 }

@@ -14,6 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Transform
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	// Forward declaration.
 	class Node;
 
@@ -1424,7 +1429,7 @@ namespace mage {
 		// Friends
 		//---------------------------------------------------------------------
 
-		friend class Node;
+		friend class TransformClient;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Update
@@ -1491,4 +1496,61 @@ namespace mage {
 		 */
 		ProxyPtr< Node > m_owner;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// TransformClient
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of transform clients.
+	 */
+	class TransformClient final {
+	
+	public:
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		TransformClient &operator=(const TransformClient &client) = delete;
+		TransformClient &operator=(TransformClient &&client) = delete;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Static Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the owner of the given transform to the given owner.
+
+		 @param[in]		transform
+						A reference to the transform.
+		 @param[in]		owner
+						A pointer to the owner.
+		 */
+		static void SetOwner(Transform &transform, ProxyPtr< Node > owner) noexcept {
+			transform.SetOwner(std::move(owner));
+		}
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		TransformClient() = delete;
+		TransformClient(const TransformClient &client) = delete;
+		TransformClient(TransformClient &&client) = delete;
+		~TransformClient() = delete;
+	};
+
+	#pragma endregion
 }

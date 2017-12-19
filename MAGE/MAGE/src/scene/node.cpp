@@ -39,10 +39,10 @@ namespace mage {
 	void Node::Set(NodePtr ptr) noexcept {
 		m_this = std::move(ptr);
 
-		m_transform.SetOwner(m_this);
+		TransformClient::SetOwner(m_transform, m_this);
 
 		ForEachComponent([this](Component &component) noexcept {
-			component.SetOwner(m_this);
+			ComponentClient::SetOwner(component, m_this);
 		});
 
 		ForEachChild([this](Node &node) noexcept {
@@ -113,7 +113,7 @@ namespace mage {
 			return;
 		}
 
-		component->SetOwner(m_this);
+		ComponentClient::SetOwner(*component, m_this);
 
 		m_components.emplace(typeid(*component), std::move(component));
 	}

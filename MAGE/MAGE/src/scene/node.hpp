@@ -26,6 +26,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Node
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of nodes.
 	 */
@@ -388,7 +393,7 @@ namespace mage {
 		// Friends
 		//---------------------------------------------------------------------
 
-		friend class Scene;
+		friend class NodeClient;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Identification
@@ -458,6 +463,63 @@ namespace mage {
 		 */
 		string m_name;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// TransformClient
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of node clients.
+	 */
+	class NodeClient final {
+	
+	public:
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		NodeClient &operator=(const NodeClient &client) = delete;
+		NodeClient &operator=(NodeClient &&client) = delete;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend class Scene;
+
+		//---------------------------------------------------------------------
+		// Static Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the pointer of the given node to the given pointer.
+
+		 @param[in]		node
+						A reference to the node.
+		 @param[in]		ptr
+						The pointer.
+		 */
+		static void Set(Node &node, ProxyPtr< Node > ptr) noexcept {
+			node.Set(std::move(ptr));
+		}
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		NodeClient() = delete;
+		NodeClient(const NodeClient &client) = delete;
+		NodeClient(NodeClient &&client) = delete;
+		~NodeClient() = delete;
+	};
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

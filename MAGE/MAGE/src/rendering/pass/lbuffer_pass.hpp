@@ -131,8 +131,8 @@ namespace mage {
 		UniquePtr< ShadowCubeMapBuffer > m_omni_sms;
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
 
-		std::vector< LightCameraInfo > m_directional_light_cameras;
-		std::vector< LightCameraInfo > m_omni_light_cameras;
-		std::vector< LightCameraInfo > m_spot_light_cameras;
+		AlignedVector< LightCameraInfo > m_directional_light_cameras;
+		AlignedVector< LightCameraInfo > m_omni_light_cameras;
+		AlignedVector< LightCameraInfo > m_spot_light_cameras;
 	};
 }

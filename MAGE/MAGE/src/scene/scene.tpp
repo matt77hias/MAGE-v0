@@ -20,7 +20,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ElementT, typename... ConstructorArgsT >
-	static ProxyPtr< ElementT > AddElement(std::vector< ElementT > &elements,
+	static ProxyPtr< ElementT > AddElement(AlignedVector< ElementT > &elements,
 		ConstructorArgsT&&... args) {
 		
 		size_t index = 0;
@@ -38,7 +38,7 @@ namespace mage {
 
 	template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
 	static ProxyPtr< ElementT > AddElementPtr(
-		std::vector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args) {
+		AlignedVector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args) {
 
 		size_t index = 0;
 		for (auto &element : elements) {

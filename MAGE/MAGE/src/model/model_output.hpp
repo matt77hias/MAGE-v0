@@ -7,6 +7,7 @@
 
 #include "math\geometry\bounding_volume.hpp"
 #include "material\material.hpp"
+#include "utils\collection\vector.hpp"
 
 #pragma endregion
 
@@ -354,7 +355,7 @@ namespace mage {
 		/**
 		 A vector containing the model parts of this model output.
 		 */
-		std::vector< ModelPart > m_model_parts;
+		AlignedVector< ModelPart > m_model_parts;
 
 	private:
 

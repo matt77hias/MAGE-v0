@@ -69,7 +69,7 @@ namespace mage {
 	template< typename DataT >
 	inline void StructuredBuffer< DataT >
 		::UpdateData(ID3D11DeviceContext4 *device_context, 
-			         const std::vector< DataT > &data) {
+			         const AlignedVector< DataT > &data) {
 
 		UpdateData(Pipeline::GetDevice(), device_context, data);
 	}
@@ -78,7 +78,7 @@ namespace mage {
 	void StructuredBuffer< DataT >
 		::UpdateData(ID3D11Device5 *device, 
 		             ID3D11DeviceContext4 *device_context, 
-			         const std::vector< DataT > &data) {
+			         const AlignedVector< DataT > &data) {
 		
 		Assert(device_context);
 		Assert(m_buffer);

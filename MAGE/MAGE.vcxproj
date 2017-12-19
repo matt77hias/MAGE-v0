@@ -242,6 +242,7 @@
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
+    <ClInclude Include="MAGE\src\utils\collection\vector.hpp" />
     <ClInclude Include="MAGE\src\utils\exception\exception.hpp" />
     <ClInclude Include="MAGE\src\utils\file\file_utils.hpp" />
     <ClInclude Include="MAGE\src\utils\io\binary_reader.hpp" />

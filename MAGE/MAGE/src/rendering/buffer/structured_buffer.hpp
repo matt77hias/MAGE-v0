@@ -6,15 +6,7 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <vector>
+#include "utils\collection\vector.hpp"
 
 #pragma endregion
 
@@ -140,7 +132,7 @@ namespace mage {
 						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext4 *device_context, 
-			            const std::vector< DataT > &data);
+			            const AlignedVector< DataT > &data);
 
 		/**
 		 Updates the data of this structured buffer with the given data.
@@ -158,7 +150,7 @@ namespace mage {
 		 */
 		void UpdateData(ID3D11Device5 *device, 
 			            ID3D11DeviceContext4 *device_context,
-			            const std::vector< DataT > &data);
+			            const AlignedVector< DataT > &data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.

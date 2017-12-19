@@ -231,7 +231,7 @@ namespace mage {
 						A reference to the aligned allocator to copy.
 		 */
 		template< typename DataU >
-		constexpr AlignedAllocator(
+		constexpr AlignedAllocator([[maybe_unused]]
 			const AlignedAllocator< DataU, AlignmentS > &allocator) noexcept {}
 		
 		/**
@@ -314,7 +314,7 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		DataT *allocate(size_t count) const {
-			DataT * const data = AllocAlignedData(count, AlignmentS);
+			DataT * const data = AllocAlignedData< DataT >(count, AlignmentS);
 			if (!data) {
 				throw std::bad_alloc();
 			}
@@ -349,8 +349,7 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		template< typename DataU >
-		DataT *allocate(size_t count, const DataU *hint) const {
-			(void)hint;
+		DataT *allocate(size_t count, [[maybe_unused]] const DataU *hint) const {
 			return allocate(count);
 		}
 
@@ -369,8 +368,7 @@ namespace mage {
 						allocate for this block of storage.
 		 @note			The elements in the array are not destroyed.
 		 */
-		void deallocate(DataT *data, size_t count) const {
-			(void)count;
+		void deallocate(DataT *data, [[maybe_unused]] size_t count) const {
 			FreeAligned((void *)data);
 		}
 		
@@ -421,7 +419,9 @@ namespace mage {
 						aligned allocator, and vice versa. This is always the
 						case for stateless allocators. @c false otherwise.
 		 */
-		constexpr bool operator==(const AlignedAllocator &rhs) const noexcept {
+		constexpr bool operator==([[maybe_unused]] 
+			const AlignedAllocator &rhs) const noexcept {
+			
 			return true;
 		}
 
@@ -436,7 +436,9 @@ namespace mage {
 						aligned allocator, and vice versa. This is never the
 						case for stateless allocators. @c false otherwise.
 		 */
-		constexpr bool operator!=(const AlignedAllocator &rhs) const noexcept {
+		constexpr bool operator!=([[maybe_unused]] 
+			const AlignedAllocator &rhs) const noexcept {
+			
 			return false;
 		}
 	};

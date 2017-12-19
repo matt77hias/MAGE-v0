@@ -337,6 +337,9 @@
     <Filter Include="Source Files\math\transform">
       <UniqueIdentifier>{0bfcf05f-e04f-462f-8923-ea8a1551200e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils\collection">
+      <UniqueIdentifier>{5ef711f9-f98b-46bb-b820-c9e5d6f24230}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
@@ -1100,6 +1103,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_text.hpp">
       <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\utils\collection\vector.hpp">
+      <Filter>Header Files\utils\collection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@
 #include "scripting\behavior_script.hpp"
 #include "sprite\sprite_image.hpp"
 #include "sprite\sprite_text.hpp"
+#include "utils\collection\vector.hpp"
 
 #pragma endregion
 
@@ -240,57 +241,57 @@ namespace mage {
 		/**
 		 A vector containing the nodes of this scene.
 		 */
-		std::vector< Node > m_nodes;
+		AlignedVector< Node > m_nodes;
 
 		/**
 		 A vector containing the perspective cameras of this scene.
 		 */
-		std::vector< PerspectiveCamera > m_perspective_cameras;
+		AlignedVector< PerspectiveCamera > m_perspective_cameras;
 
 		/**
 		 A vector containing the orthographic cameras of this scene.
 		 */
-		std::vector< OrthographicCamera > m_orthographic_cameras;
+		AlignedVector< OrthographicCamera > m_orthographic_cameras;
 
 		/**
 		 A vector containing the ambient lights of this scene.
 		 */
-		std::vector< AmbientLight > m_ambient_lights;
+		AlignedVector< AmbientLight > m_ambient_lights;
 
 		/**
 		 A vector containing the directional lights of this scene.
 		 */
-		std::vector< DirectionalLight > m_directional_lights;
+		AlignedVector< DirectionalLight > m_directional_lights;
 
 		/**
 		 A vector containing the omni lights of this scene.
 		 */
-		std::vector< OmniLight > m_omni_lights;
+		AlignedVector< OmniLight > m_omni_lights;
 
 		/**
 		 A vector containing the spot lights of this scene.
 		 */
-		std::vector< SpotLight > m_spot_lights;
+		AlignedVector< SpotLight > m_spot_lights;
 
 		/**
 		 A vector containing the models of this scene.
 		 */
-		std::vector< Model > m_models;
+		AlignedVector< Model > m_models;
 
 		/**
 		 A vector containing the sprite images of this scene.
 		 */
-		std::vector< SpriteImage > m_sprite_images;
+		AlignedVector< SpriteImage > m_sprite_images;
 
 		/**
 		 A vector containing the sprite texts of this scene.
 		 */
-		std::vector< SpriteText > m_sprite_texts;
+		AlignedVector< SpriteText > m_sprite_texts;
 
 		/**
 		 A vector containing the pointers to the scripts of this scene.
 		 */
-		std::vector< UniquePtr< BehaviorScript > > m_scripts;
+		AlignedVector< UniquePtr< BehaviorScript > > m_scripts;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Identification

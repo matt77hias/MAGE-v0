@@ -146,10 +146,10 @@ namespace mage {
 		FXMMATRIX world_to_view, 
 		CXMMATRIX view_to_world) {
 
-		std::vector< DirectionalLightBuffer > buffer;
+		AlignedVector< DirectionalLightBuffer > buffer;
 		buffer.reserve(m_directional_lights.size());
 
-		std::vector< DirectionalLightWithShadowMappingBuffer > buffer_sm;
+		AlignedVector< DirectionalLightWithShadowMappingBuffer > buffer_sm;
 		buffer_sm.reserve(m_sm_directional_lights.size());
 		m_directional_light_cameras.clear();
 
@@ -198,10 +198,10 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		std::vector< OmniLightBuffer > buffer;
+		AlignedVector< OmniLightBuffer > buffer;
 		buffer.reserve(m_omni_lights.size());
 
-		std::vector< OmniLightWithShadowMappingBuffer > buffer_sm;
+		AlignedVector< OmniLightWithShadowMappingBuffer > buffer_sm;
 		buffer_sm.reserve(m_sm_omni_lights.size());
 		m_omni_light_cameras.clear();
 
@@ -284,10 +284,10 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
-		std::vector< SpotLightBuffer > buffer;
+		AlignedVector< SpotLightBuffer > buffer;
 		buffer.reserve(m_spot_lights.size());
 
-		std::vector< SpotLightWithShadowMappingBuffer > buffer_sm;
+		AlignedVector< SpotLightWithShadowMappingBuffer > buffer_sm;
 		buffer_sm.reserve(m_sm_spot_lights.size());
 		m_spot_light_cameras.clear();
 

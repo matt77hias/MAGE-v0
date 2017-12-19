@@ -196,7 +196,7 @@ namespace mage {
 		 A vector containing all the model parts of the model of this model 
 		 descriptor.
 		 */
-		std::vector< ModelPart > m_model_parts;
+		AlignedVector< ModelPart > m_model_parts;
 	};
 }
 

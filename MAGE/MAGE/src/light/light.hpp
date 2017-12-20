@@ -17,10 +17,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#pragma warning( push )
+	#pragma warning( disable : 4324)
+
 	/**
 	 A class of lights.
 	 */
-	class Light : public Component {
+	class alignas(16) Light : public Component {
 
 	public:
 
@@ -169,4 +172,6 @@ namespace mage {
 		 */
 		BS m_bs;
 	};
+
+	#pragma warning( pop )
 }

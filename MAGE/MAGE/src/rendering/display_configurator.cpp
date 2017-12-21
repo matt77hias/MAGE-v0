@@ -119,7 +119,7 @@ namespace mage {
 	 @return		@c true if the given display mode needs to be rejected.
 					@c false otherwise.
 	 */
-	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
+	static inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
 		return (display_mode_desc.Width < 512u) || (display_mode_desc.Height < 512u);
 	}
 	
@@ -254,7 +254,7 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the resolution of 
 					the given display format descriptor.
 	 */
-	inline size_t ConvertResolution(const DXGI_MODE_DESC1 &desc) noexcept {
+	static inline size_t ConvertResolution(const DXGI_MODE_DESC1 &desc) noexcept {
 		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
 	}
 
@@ -267,7 +267,7 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the refresh rate of 
 					the given display format descriptor.
 	 */
-	inline size_t ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
+	static inline size_t ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}

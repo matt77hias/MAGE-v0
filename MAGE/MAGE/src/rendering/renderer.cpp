@@ -74,7 +74,7 @@ namespace mage {
 			m_device_context, SLOT_CBUFFER_GAME);
 	}
 
-	void Renderer::BindCameraBuffer(
+	void XM_CALLCONV Renderer::BindCameraBuffer(
 		const Camera &camera,
 		FXMMATRIX view_to_projection,
 		CXMMATRIX projection_to_view,
@@ -266,7 +266,7 @@ namespace mage {
 		sprite_pass->Render(scene);
 	}
 
-	void Renderer::ExecuteSolidForwardPipeline(
+	void XM_CALLCONV Renderer::ExecuteSolidForwardPipeline(
 		const Scene &scene,
 		const Camera &camera,
 		FXMMATRIX world_to_projection,
@@ -294,7 +294,7 @@ namespace mage {
 			world_to_projection, world_to_view, view_to_world);
 	}
 
-	void Renderer::ExecuteForwardPipeline(
+	void XM_CALLCONV Renderer::ExecuteForwardPipeline(
 		const Scene &scene,
 		const Camera &camera,
 		FXMMATRIX world_to_projection,
@@ -332,7 +332,7 @@ namespace mage {
 			world_to_projection, world_to_view, view_to_world);
 	}
 
-	void Renderer::ExecuteDeferredPipeline(
+	void XM_CALLCONV Renderer::ExecuteDeferredPipeline(
 		const Scene &scene,
 		const Camera &camera,
 		FXMMATRIX world_to_projection,

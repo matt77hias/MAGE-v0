@@ -431,29 +431,29 @@ namespace mage {
 		 @throws		Exception
 						Failed to bind the persistent state of this renderer.
 		 */
-		void BindCameraBuffer(const Camera &camera,
-			                  FXMMATRIX view_to_projection, 
-			                  CXMMATRIX projection_to_view,
-			                  CXMMATRIX world_to_view,
-			                  CXMMATRIX view_to_world);
+		void XM_CALLCONV BindCameraBuffer(const Camera &camera,
+			                              FXMMATRIX view_to_projection, 
+			                              CXMMATRIX projection_to_view,
+			                              CXMMATRIX world_to_view,
+			                              CXMMATRIX view_to_world);
 
-		void ExecuteSolidForwardPipeline(const Scene &scene,
-			                             const Camera &camera,
-			                             FXMMATRIX world_to_projection,
-			                             CXMMATRIX world_to_view,
-			                             CXMMATRIX view_to_world);
+		void XM_CALLCONV ExecuteSolidForwardPipeline(const Scene &scene,
+			                                         const Camera &camera,
+			                                         FXMMATRIX world_to_projection,
+			                                         CXMMATRIX world_to_view,
+			                                         CXMMATRIX view_to_world);
 
-		void ExecuteForwardPipeline(const Scene &scene, 
-			                        const Camera &camera,
-			                        FXMMATRIX world_to_projection,
-			                        CXMMATRIX world_to_view,
-			                        CXMMATRIX view_to_world);
+		void XM_CALLCONV ExecuteForwardPipeline(const Scene &scene,
+			                                    const Camera &camera,
+			                                    FXMMATRIX world_to_projection,
+			                                    CXMMATRIX world_to_view,
+			                                    CXMMATRIX view_to_world);
 
-		void ExecuteDeferredPipeline(const Scene &scene, 
-			                         const Camera &camera,
-			                         FXMMATRIX world_to_projection,
-			                         CXMMATRIX world_to_view,
-			                         CXMMATRIX view_to_world);
+		void XM_CALLCONV ExecuteDeferredPipeline(const Scene &scene,
+			                                     const Camera &camera,
+			                                     FXMMATRIX world_to_projection,
+			                                     CXMMATRIX world_to_view,
+			                                     CXMMATRIX view_to_world);
 
 		void ExecuteAAPipeline(const Camera &camera);
 

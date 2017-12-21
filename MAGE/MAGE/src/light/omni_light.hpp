@@ -5,7 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scene\component.hpp"
+#include "material\spectrum.hpp"
+#include "math\geometry\bounding_volume.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -20,7 +23,7 @@ namespace mage {
 	/**
 	 A class of omni lights.
 	 */
-	class alignas(16) OmniLight final : public Light {
+	class alignas(16) OmniLight final : public Component {
 
 	public:
 
@@ -83,6 +86,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the sRGB base color of this spotlight.
+
+		 @return		A reference to the sRGB base color of this spotlight.
+		 */
+		SRGB &GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this spotlight.
+
+		 @return		A reference to the sRGB base color of this spotlight.
+		 */
+		const SRGB &GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
 		 Returns the power of this omni light.
 
 		 @return		The power in watts of this omni light.
@@ -107,9 +128,8 @@ namespace mage {
 		 @return		The power spectrum of this omni light.
 		 */
 		const RGB GetPowerSpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR P_v = GetPower()
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB P;
 			XMStoreFloat3(&P, P_v);
 			return P;
@@ -142,12 +162,33 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this omni light.
 		 */
 		const RGB GetIntensitySpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR I_v = GetIntensity()
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB I;
 			XMStoreFloat3(&I, I_v);
 			return I;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Range
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the AABB of this omni light.
+
+		 @return		A reference to the AABB of this omni light.
+		 */
+		const AABB &GetAABB() const noexcept {
+			return m_aabb;
+		}
+
+		/**
+		 Returns the BS of this omni light.
+
+		 @return		A reference to the BS of this omni light.
+		 */
+		const BS &GetBS() const noexcept {
+			return m_bs;
 		}
 
 		//---------------------------------------------------------------------
@@ -266,9 +307,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiant intensity in watts per steradians of this omni light.
+		 A flag indicating whether shadows should be calculated or not for 
+		 this omni light.
 		 */
-		F32 m_intensity;
+		bool m_shadows;
 
 		/**
 		 The range of this omni light.
@@ -276,10 +318,24 @@ namespace mage {
 		F32 m_range;
 
 		/**
-		 A flag indicating whether shadows should be calculated or not for 
-		 this omni light.
+		 The radiant intensity in watts per steradians of this omni light.
 		 */
-		bool m_shadows;
+		F32 m_intensity;
+
+		/**
+		 The AABB of this omni light.
+		 */
+		AABB m_aabb;
+
+		/**
+		 The BS of this omni light.
+		 */
+		BS m_bs;
+
+		/**
+		 The sRGB base color of this omni light.
+		 */
+		SRGB m_base_color;
 	};
 
 	#pragma warning( pop )

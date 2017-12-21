@@ -12,6 +12,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#define MAGE_DEFAULT_BASE_COLOR   1.0f
 #define MAGE_DEFAULT_INTENSITY    1.0f
 #define MAGE_DEFAULT_RANGE        1.0f
 #define MAGE_DEFAULT_COS_PENUMBRA 1.0f
@@ -25,12 +26,15 @@
 namespace mage {
 
 	SpotLight::SpotLight() noexcept
-		: Light(),
-		m_intensity(MAGE_DEFAULT_INTENSITY),
-		m_range(MAGE_DEFAULT_RANGE),
-		m_cos_penumbra(MAGE_DEFAULT_COS_PENUMBRA),
-		m_cos_umbra(MAGE_DEFAULT_COS_UMBRA),
-		m_shadows(false) {
+		: Component(),
+		m_shadows(false), 
+		m_aabb(), 
+		m_bs(), 
+		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)), 
+		m_intensity(MAGE_DEFAULT_INTENSITY), 
+		m_range(MAGE_DEFAULT_RANGE), 
+		m_cos_penumbra(MAGE_DEFAULT_COS_PENUMBRA), 
+		m_cos_umbra(MAGE_DEFAULT_COS_UMBRA) {
 
 		// Update the bounding volumes.
 		UpdateBoundingVolumes();
@@ -53,11 +57,9 @@ namespace mage {
 		const F32 rz        = m_range * 0.5f;
 		const F32 r         = sqrt(rxy * rxy + rz * rz);
 
-		AABB aabb(Point3(-rxy, -rxy, 0.0f),
-				  Point3( rxy,  rxy, m_range));
+		m_aabb = AABB(Point3(-rxy, -rxy, 0.0f),
+				      Point3( rxy,  rxy, m_range));
 
-		BS bs(Point3(0.0f, 0.0f, rz), r);
-
-		SetBoundingVolumes(std::move(aabb), std::move(bs));
+		m_bs   = BS(Point3(0.0f, 0.0f, rz), r);
 	}
 }

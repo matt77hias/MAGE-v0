@@ -5,7 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scene\component.hpp"
+#include "material\spectrum.hpp"
+#include "math\geometry\bounding_volume.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -29,7 +32,7 @@ namespace mage {
 	/**
 	 A class of spotlights.
 	 */
-	class alignas(16) SpotLight final : public Light {
+	class alignas(16) SpotLight final : public Component {
 
 	public:
 
@@ -92,6 +95,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the sRGB base color of this omni light.
+
+		 @return		A reference to the sRGB base color of this omni light.
+		 */
+		SRGB &GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this omni light.
+
+		 @return		A reference to the sRGB base color of this omni light.
+		 */
+		const SRGB &GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
 		 Returns the power of this spotlight.
 
 		 @return		The power in watts of this spotlight.
@@ -118,9 +139,8 @@ namespace mage {
 		 @return		The power spectrum of this spotlight.
 		 */
 		const RGB GetPowerSpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR P_v = GetPower()
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB P;
 			XMStoreFloat3(&P, P_v);
 			return P;
@@ -153,12 +173,33 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this spotlight.
 		 */
 		const RGB GetIntensitySpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR I_v = GetIntensity()
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB I;
 			XMStoreFloat3(&I, I_v);
 			return I;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Range
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the AABB of this spotlight.
+
+		 @return		A reference to the AABB of this spotlight.
+		 */
+		const AABB &GetAABB() const noexcept {
+			return m_aabb;
+		}
+
+		/**
+		 Returns the BS of this spotlight.
+
+		 @return		A reference to the BS of this spotlight.
+		 */
+		const BS &GetBS() const noexcept {
+			return m_bs;
 		}
 
 		//---------------------------------------------------------------------
@@ -407,6 +448,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 A flag indicating whether shadows should be calculated or not for 
+		 this spotlight.
+		 */
+		bool m_shadows;
+
+		/**
+		 The AABB of this spotlight.
+		 */
+		AABB m_aabb;
+
+		/**
+		 The BS of this spotlight.
+		 */
+		BS m_bs;
+
+		/**
+		 The sRGB base color of this spotlight.
+		 */
+		SRGB m_base_color;
+
+		/**
 		 The radiant intensity in watts per steradians of this spotlight.
 		 */
 		F32 m_intensity;
@@ -425,12 +487,6 @@ namespace mage {
 		 The cosine of the umbra angle of this spotlight.
 		 */
 		F32 m_cos_umbra;
-
-		/**
-		 A flag indicating whether shadows should be calculated or not for 
-		 this spotlight.
-		 */
-		bool m_shadows;
 	};
 
 	#pragma warning( pop )

@@ -5,7 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scene\component.hpp"
+#include "material\spectrum.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -20,7 +22,7 @@ namespace mage {
 	/**
 	 A class of directional lights.
 	 */
-	class alignas(16) DirectionalLight final : public Light {
+	class alignas(16) DirectionalLight final : public Component {
 
 	public:
 
@@ -83,6 +85,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the sRGB base color of this directional light.
+
+		 @return		A reference to the sRGB base color of this directional 
+						light.
+		 */
+		SRGB &GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this directional light.
+
+		 @return		A reference to the sRGB base color of this directional 
+						light.
+		 */
+		const SRGB &GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
 		 Returns the radiance of this directional light.
 
 		 @return		The radiance in watts per square meter per steradians 
@@ -110,9 +132,8 @@ namespace mage {
 		 @return		The radiance spectrum of this directional light.
 		 */
 		const RGB GetRadianceSpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR L_v = m_radiance 
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB L;
 			XMStoreFloat3(&L, L_v);
 			return L;
@@ -171,16 +192,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 A flag indicating whether shadows should be calculated or not not for 
+		 this directional light.
+		 */
+		bool m_shadows;
+
+		/**
 		 The radiance in watts per square meter per steradians of this 
 		 directional light.
 		 */
 		F32 m_radiance;
 
 		/**
-		 A flag indicating whether shadows should be calculated or not not for 
-		 this directional light.
+		 The sRGB base color of this directional light.
 		 */
-		bool m_shadows;
+		SRGB m_base_color;
 	};
 
 	#pragma warning( pop )

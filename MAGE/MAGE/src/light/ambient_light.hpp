@@ -5,7 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scene\component.hpp"
+#include "material\spectrum.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -20,7 +22,7 @@ namespace mage {
 	/**
 	 A class of ambient lights.
 	 */
-	class alignas(16) AmbientLight final : public Light {
+	class alignas(16) AmbientLight final : public Component {
 
 	public:
 
@@ -83,6 +85,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the sRGB base color of this ambient light.
+
+		 @return		A reference to the sRGB base color of this ambient 
+						light.
+		 */
+		SRGB &GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this ambient light.
+
+		 @return		A reference to the sRGB base color of this ambient 
+						light.
+		 */
+		const SRGB &GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
 		 Returns the radiance of this ambient light.
 
 		 @return		The radiance in watts per square meter per steradians 
@@ -110,9 +132,8 @@ namespace mage {
 		 @return		The radiance spectrum of this ambient light.
 		 */
 		const RGB GetRadianceSpectrum() const noexcept {
-			const SRGB color   = GetBaseColor();
 			const XMVECTOR L_v = m_radiance 
-				               * SRGBtoRGB(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB L;
 			XMStoreFloat3(&L, L_v);
 			return L;
@@ -121,7 +142,7 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Lighting
 		//---------------------------------------------------------------------
 
 		/**
@@ -129,6 +150,11 @@ namespace mage {
 		 light.
 		 */
 		F32 m_radiance;
+
+		/**
+		 The sRGB base color of this ambient light.
+		 */
+		SRGB m_base_color;
 	};
 
 	#pragma warning( pop )

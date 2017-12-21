@@ -477,9 +477,6 @@
     <ClInclude Include="MAGE\src\light\spot_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\light\light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\light\omni_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
@@ -515,9 +512,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite.hpp">
-      <Filter>Header Files\sprite</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
@@ -1202,9 +1196,6 @@
     <ClCompile Include="MAGE\src\light\directional_light.cpp">
       <Filter>Source Files\light</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\light\light.cpp">
-      <Filter>Source Files\light</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\light\omni_light.cpp">
       <Filter>Source Files\light</Filter>
     </ClCompile>
@@ -1225,9 +1216,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite.cpp">
-      <Filter>Source Files\sprite</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>

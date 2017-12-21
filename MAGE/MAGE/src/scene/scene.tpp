@@ -376,13 +376,6 @@ namespace mage {
 			}
 		}
 
-		if constexpr (std::is_same_v< Light, ElementT >) {
-			ForEach< AmbientLight >(action);
-			ForEach< DirectionalLight >(action);
-			ForEach< OmniLight >(action);
-			ForEach< SpotLight >(action);
-		}
-
 		if constexpr (std::is_same_v< Model, ElementT >) {
 			for (auto &element : m_models) {
 				if (State::Terminated != element.GetState()) {
@@ -405,11 +398,6 @@ namespace mage {
 					action(element);
 				}
 			}
-		}
-
-		if constexpr (std::is_same_v< Sprite, ElementT >) {
-			ForEach< SpriteImage >(action);
-			ForEach< SpriteText >(action);
 		}
 
 		if constexpr (std::is_same_v< BehaviorScript, ElementT >) {
@@ -493,13 +481,6 @@ namespace mage {
 			}
 		}
 
-		if constexpr (std::is_same_v< Light, ElementT >) {
-			ForEach< AmbientLight >(action);
-			ForEach< DirectionalLight >(action);
-			ForEach< OmniLight >(action);
-			ForEach< SpotLight >(action);
-		}
-
 		if constexpr (std::is_same_v< Model, ElementT >) {
 			for (const auto &element : m_models) {
 				if (State::Terminated != element.GetState()) {
@@ -522,11 +503,6 @@ namespace mage {
 					action(element);
 				}
 			}
-		}
-
-		if constexpr (std::is_same_v< Sprite, ElementT >) {
-			ForEach< SpriteImage >(action);
-			ForEach< SpriteText >(action);
 		}
 
 		if constexpr (std::is_same_v< BehaviorScript, ElementT >) {

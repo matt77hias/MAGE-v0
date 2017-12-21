@@ -12,7 +12,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_RADIANCE 1.0f
+#define MAGE_DEFAULT_RADIANCE   1.0f
+#define MAGE_DEFAULT_BASE_COLOR 1.0f
 
 #pragma endregion
 
@@ -22,8 +23,9 @@
 namespace mage {
 
 	AmbientLight::AmbientLight() noexcept
-		: Light(), 
-		m_radiance(MAGE_DEFAULT_RADIANCE) {}
+		: Component(),
+		m_radiance(MAGE_DEFAULT_RADIANCE),
+		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
 
 	AmbientLight::AmbientLight(const AmbientLight &light) noexcept = default;
 	

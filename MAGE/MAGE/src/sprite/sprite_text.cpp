@@ -23,7 +23,9 @@
 namespace mage {
 
 	SpriteText::SpriteText()
-		: Sprite(),
+		: Component(),
+		m_sprite_transform(),
+		m_sprite_effects(SpriteEffect::None),
 		m_text(),
 		m_strings(),
 		m_text_effect_color(SRGB(MAGE_DEFAULT_TEXT_EFFECT_COLOR)),
@@ -44,9 +46,7 @@ namespace mage {
 	void SpriteText::Draw(SpriteBatch &sprite_batch) const {
 		const wchar_t * const text  = m_text.c_str();
 		const XMVECTOR effect_color = XMLoadFloat4(&m_text_effect_color);
-		const SpriteTransform &transform = GetSpriteTransform();
-		SpriteTransform effect_transform(transform);
-		const SpriteEffect effects  = GetSpriteEffects();
+		SpriteTransform effect_transform(m_sprite_transform);
 		
 		switch (m_text_effect) {
 		
@@ -54,11 +54,11 @@ namespace mage {
 			// -1, -1
 			effect_transform.AddTranslation(-1.0f, -1.0f);
 			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, effects);
+				effect_transform, effect_color, m_sprite_effects);
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
 			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, effects);
+				effect_transform, effect_color, m_sprite_effects);
 			
 			[[fallthrough]];
 		}
@@ -67,18 +67,18 @@ namespace mage {
 			// +1, +1
 			effect_transform.AddTranslationY(2.0f);
 			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, effects);
+				effect_transform, effect_color, m_sprite_effects);
 			// -1, +1
 			effect_transform.AddTranslationX(-2.0f);
 			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, effects);
+				effect_transform, effect_color, m_sprite_effects);
 
 			[[fallthrough]];
 		}
 
 		default: {
 			m_font->DrawString(sprite_batch, m_strings, 
-				transform, effects);
+				m_sprite_transform, m_sprite_effects);
 		}
 
 		}

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite.hpp"
+#include "scene\component.hpp"
 #include "sprite\font\sprite_font.hpp"
 #include "utils\logging\error.hpp"
 
@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of sprite texts.
 	 */
-	class alignas(16) SpriteText final : public Sprite {
+	class alignas(16) SpriteText final : public Component {
 
 	public:
 
@@ -113,6 +113,54 @@ namespace mage {
 						sprite text.
 		 */
 		void Draw(SpriteBatch &sprite_batch) const;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the sprite transform of this sprite text.
+
+		 @return		A reference to the sprite transform of this sprite 
+						text.
+		 */
+		SpriteTransform &GetSpriteTransform() noexcept {
+			return m_sprite_transform;
+		}
+
+		/**
+		 Returns the sprite transform of this sprite text.
+
+		 @return		A reference to the sprite transform of this sprite 
+						text.
+		 */
+		const SpriteTransform &GetSpriteTransform() const noexcept {
+			return m_sprite_transform;
+		}
+		
+		//---------------------------------------------------------------------
+		// Member Methods: Sprite Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the sprite effects of this sprite text.
+
+		 @return		The sprite effects of this sprite text.
+		 */
+		SpriteEffect GetSpriteEffects() const noexcept {
+			return m_sprite_effects;
+		}
+		
+		/**
+		 Sets the sprite effects of this sprite text to the given sprite 
+		 effects.
+
+		 @param[in]		sprite_effects
+						The sprite effects.
+		 */
+		void SetSpriteEffects(SpriteEffect sprite_effects) noexcept {
+			m_sprite_effects = sprite_effects;
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Text
@@ -229,7 +277,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Methods: Font
+		// Member Methods: Text Font
 		//---------------------------------------------------------------------
 
 		/**
@@ -255,6 +303,24 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 The sprite transform of this sprite text.
+		 */
+		SpriteTransform m_sprite_transform;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Sprite Effects
+		//---------------------------------------------------------------------
+
+		/**
+		 The sprite effects of this sprite text.
+		 */
+		SpriteEffect m_sprite_effects;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Text
@@ -285,7 +351,7 @@ namespace mage {
 		TextEffect m_text_effect;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Font
+		// Member Variables: Text Font
 		//---------------------------------------------------------------------
 
 		/**

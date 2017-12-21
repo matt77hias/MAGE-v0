@@ -22,7 +22,9 @@
 namespace mage {
 
 	SpriteImage::SpriteImage() noexcept
-		: Sprite(),
+		: Component(),
+		m_sprite_transform(),
+		m_sprite_effects(SpriteEffect::None),
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)),
 		m_base_color_texture_region{},
 		m_base_color_texture() {}
@@ -43,13 +45,13 @@ namespace mage {
 		if (HasMaximumBaseColorTextureRegion()) {
 			sprite_batch.Draw(
 				GetBaseColorSRV(), XMLoadFloat4(&m_base_color),
-				GetSpriteEffects(), GetSpriteTransform(),
+				m_sprite_effects, m_sprite_transform,
 				nullptr);
 		}
 		else {
 			sprite_batch.Draw(
 				GetBaseColorSRV(), XMLoadFloat4(&m_base_color),
-				GetSpriteEffects(), GetSpriteTransform(),
+				m_sprite_effects, m_sprite_transform,
 				&m_base_color_texture_region);
 		}
 	}

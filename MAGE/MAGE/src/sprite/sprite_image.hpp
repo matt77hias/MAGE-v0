@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite.hpp"
+#include "scene\component.hpp"
+#include "sprite\sprite_batch.hpp"
 #include "texture\texture.hpp"
 
 #pragma endregion
@@ -21,7 +22,7 @@ namespace mage {
 	/**
 	 A class of sprite images.
 	 */
-	class alignas(16) SpriteImage final : public Sprite {
+	class alignas(16) SpriteImage final : public Component{
 
 	public:
 
@@ -91,6 +92,58 @@ namespace mage {
 						sprite image.
 		 */
 		void Draw(SpriteBatch &sprite_batch) const;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the sprite transform of this sprite image.
+
+		 @return		A reference to the sprite transform of this sprite 
+						image.
+		 */
+		SpriteTransform &GetSpriteTransform() noexcept {
+			return m_sprite_transform;
+		}
+
+		/**
+		 Returns the sprite transform of this sprite image.
+
+		 @return		A reference to the sprite transform of this sprite 
+						image.
+		 */
+		const SpriteTransform &GetSpriteTransform() const noexcept {
+			return m_sprite_transform;
+		}
+		
+		//---------------------------------------------------------------------
+		// Member Methods: Sprite Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the sprite effects of this sprite image.
+
+		 @return		The sprite effects of this sprite image.
+		 */
+		SpriteEffect GetSpriteEffects() const noexcept {
+			return m_sprite_effects;
+		}
+		
+		/**
+		 Sets the sprite effects of this sprite image to the given sprite 
+		 effects.
+
+		 @param[in]		sprite_effects
+						The sprite effects.
+		 */
+		void SetSpriteEffects(SpriteEffect sprite_effects) noexcept {
+			m_sprite_effects = sprite_effects;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Image
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the sRGB base color of this sprite image.
@@ -194,7 +247,25 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 The sprite transform of this sprite image.
+		 */
+		SpriteTransform m_sprite_transform;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Sprite Effects
+		//---------------------------------------------------------------------
+
+		/**
+		 The sprite effects of this sprite image.
+		 */
+		SpriteEffect m_sprite_effects;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Image
 		//---------------------------------------------------------------------
 
 		/**

@@ -18,8 +18,8 @@ namespace mage {
 		Assert(fname);
 		Assert(size);
 		
-		UniqueHandle file_handle(SafeHandle(CreateFile2(
-			fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+		UniqueHandle file_handle = CreateUniqueHandle(
+			CreateFile2(fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr));
 		
 		FILE_STANDARD_INFO file_info;
 		{

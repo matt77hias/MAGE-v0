@@ -250,6 +250,7 @@
     <ClInclude Include="MAGE\src\utils\io\binary_writer.hpp" />
     <ClInclude Include="MAGE\src\utils\io\line_reader.hpp" />
     <ClInclude Include="MAGE\src\utils\io\writer.hpp" />
+    <ClInclude Include="MAGE\src\utils\logging\dump.hpp" />
     <ClInclude Include="MAGE\src\utils\logging\error.hpp" />
     <ClInclude Include="MAGE\src\utils\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\utils\logging\progress_reporter.hpp" />
@@ -381,6 +382,7 @@
     <ClCompile Include="MAGE\src\utils\io\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\utils\io\line_reader.cpp" />
     <ClCompile Include="MAGE\src\utils\io\writer.cpp" />
+    <ClCompile Include="MAGE\src\utils\logging\dump.cpp" />
     <ClCompile Include="MAGE\src\utils\logging\error.cpp" />
     <ClCompile Include="MAGE\src\utils\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\utils\logging\progress_reporter.cpp" />

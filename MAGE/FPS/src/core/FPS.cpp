@@ -1,4 +1,5 @@
 #include "samples\sponza\sponza_scene.hpp"
+#include "utils\logging\dump.hpp"
 
 using namespace mage;
 
@@ -28,11 +29,13 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	_CrtSetDbgFlag(debug_flags | _CRTDBG_LEAK_CHECK_DF);
 	#endif
 
+	AddUnhandledExceptionFilter();
+
 	// Create the engine setup.
 	EngineSetup setup(hinstance, L"MAGE");
 	// Create the engine.
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
-	
+
 	if (engine->IsLoaded()) {
 		// Run the engine.
 		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);

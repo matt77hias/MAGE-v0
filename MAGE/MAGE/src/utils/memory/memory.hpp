@@ -223,7 +223,7 @@ namespace mage {
 	 @param[in]		handle
 					The handle to destruct.
 	 */
-	inline void DestructHandle(HANDLE handle) {
+	static inline void DestructHandle(HANDLE handle) noexcept {
 		if (handle) {
 			CloseHandle(handle);
 		}
@@ -240,7 +240,7 @@ namespace mage {
 		 @param[in]		handle
 						The handle to destruct.
 		 */
-		void operator()(HANDLE handle) const {
+		void operator()(HANDLE handle) const noexcept {
 			DestructHandle(handle);
 		}
 	};
@@ -266,8 +266,19 @@ namespace mage {
 	 @return		Otherwise, the given handle is returned.
 
 	 */
-	inline HANDLE SafeHandle(HANDLE handle) noexcept {
+	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle;
+	}
+
+	/**
+	 Creates a unique handle for the given handle.
+
+	 @param[in]		handle
+					A handle.
+	 @return		A unique handle for the given handle @a handle.
+	 */
+	inline UniqueHandle CreateUniqueHandle(HANDLE handle) {
+		return UniqueHandle(SafeHandle(handle));
 	}
 
 	/**
@@ -299,7 +310,7 @@ namespace mage {
 		 @param[in]		stream
 						A pointer to a file stream to destruct.
 		 */
-		void operator()(FILE *stream) const {
+		void operator()(FILE *stream) const noexcept {
 			if (stream) {
 				fclose(stream);
 			}

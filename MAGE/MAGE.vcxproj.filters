@@ -1107,6 +1107,9 @@
     <ClInclude Include="MAGE\src\utils\collection\vector.hpp">
       <Filter>Header Files\utils\collection</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\utils\logging\dump.hpp">
+      <Filter>Header Files\utils\logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1462,6 +1465,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_text.cpp">
       <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\utils\logging\dump.cpp">
+      <Filter>Source Files\utils\logging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

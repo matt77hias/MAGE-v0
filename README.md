@@ -1,4 +1,4 @@
-<img align="left" src="res/MAGE.png" width="120px"/>
+<img align="left" src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/MAGE.png" width="120px"/>
 
 [![Build status][s1]][av] [![Documentation][s2]][do] [![License][s3]][li] [![Join the chat][s4]][gi]
 <a href="https://twitter.com/intent/follow?screen_name=matt77hias"><img src="https://img.shields.io/twitter/follow/matt77hias.svg?style=social" alt="follow on Twitter"></a>
@@ -17,13 +17,13 @@
 
 ## About
 
-<p align="center"><img src="res/Example.png"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
 
 <p align="center">
-<img src="res/Example 2.png" width="214">
-<img src="res/Example 3.png" width="214">
-<img src="res/Example 4.png" width="214">
-<img src="res/Example 5.png" width="214">
+<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="214">
+<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="214">
+<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 4.png" width="214">
+<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 5.png" width="214">
 </p>
 
 <p align="center"><img src="meta/Pipeline.png"></p>

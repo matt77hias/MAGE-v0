@@ -1845,5 +1845,8 @@
     <None Include="MAGE\src\utils\io\binary_utils.tpp">
       <Filter>Header Files\utils\io</Filter>
     </None>
+    <None Include="MAGE\src\utils\string\token.tpp">
+      <Filter>Header Files\utils\string</Filter>
+    </None>
   </ItemGroup>
 </Project>

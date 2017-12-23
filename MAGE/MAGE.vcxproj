@@ -2437,6 +2437,7 @@
     <None Include="MAGE\src\utils\memory\memory_arena.tpp" />
     <None Include="MAGE\src\utils\memory\memory_stack.tpp" />
     <None Include="MAGE\src\utils\platform\windows_utils.tpp" />
+    <None Include="MAGE\src\utils\string\token.tpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\shaders\tone_mapping.hlsli" />

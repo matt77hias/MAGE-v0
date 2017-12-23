@@ -15,11 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	//-------------------------------------------------------------------------
-	// Binary Conversion Utilities: Big Endian
-	//-------------------------------------------------------------------------
-	#pragma region
-
 	/**
 	 Reads a @c DataT element from the given big endian byte array.
 
@@ -34,17 +29,10 @@ namespace mage {
 					array @a bytes.
 	 */
 	template< typename DataT >
-	const DataT BytesBigEndianTo(const U8 *bytes) noexcept {
+	inline const DataT BytesBigEndianTo(const U8 *bytes) noexcept {
 		Assert(bytes);
 		return *reinterpret_cast< const DataT * >(bytes);
 	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Binary Conversion Utilities: Little Endian
-	//-------------------------------------------------------------------------
-	#pragma region
 
 	/**
 	 Reads a @c DataT element from the given little endian byte array.
@@ -61,13 +49,6 @@ namespace mage {
 	 */
 	template< typename DataT >
 	const DataT BytesLittleEndianTo(const U8 *bytes) noexcept;
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Binary Conversion Utilities: Big | Little Endian
-	//-------------------------------------------------------------------------
-	#pragma region
 
 	/**
 	 Reads a @c DataT element from the given byte array.
@@ -91,8 +72,6 @@ namespace mage {
 		return (big_endian) ? BytesBigEndianTo< DataT >(bytes)
 			                : BytesLittleEndianTo< DataT >(bytes);
 	}
-
-	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

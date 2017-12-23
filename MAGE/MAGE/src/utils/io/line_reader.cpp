@@ -111,7 +111,7 @@ namespace mage {
 	const string LineReader::ReadString() {
 		string result;
 		const TokenResult token_result 
-			= mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< string >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -155,7 +155,7 @@ namespace mage {
 	bool LineReader::ReadBool() {
 		bool result;
 		const TokenResult token_result 
-			= mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< bool >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -180,7 +180,7 @@ namespace mage {
 	S8 LineReader::ReadS8() {
 		S8 result;
 		const TokenResult token_result 
-			= mage::ReadS8(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< S8 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -205,7 +205,7 @@ namespace mage {
 	U8 LineReader::ReadU8() {
 		U8 result;
 		const TokenResult token_result 
-			= mage::ReadU8(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< U8 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -230,7 +230,7 @@ namespace mage {
 	S16 LineReader::ReadS16() {
 		S16 result;
 		const TokenResult token_result 
-			= mage::ReadS16(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< S16 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -255,7 +255,7 @@ namespace mage {
 	U16 LineReader::ReadU16() {
 		U16 result;
 		const TokenResult token_result 
-			= mage::ReadU16(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< U16 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -280,7 +280,7 @@ namespace mage {
 	S32 LineReader::ReadS32() {
 		S32 result;
 		const TokenResult token_result 
-			= mage::ReadS32(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< S32 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -305,7 +305,7 @@ namespace mage {
 	U32 LineReader::ReadU32() {
 		U32 result;
 		const TokenResult token_result 
-			= mage::ReadU32(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< U32 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -330,7 +330,7 @@ namespace mage {
 	S64 LineReader::ReadS64() {
 		S64 result;
 		const TokenResult token_result 
-			= mage::ReadS64(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< S64 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -355,7 +355,7 @@ namespace mage {
 	U64 LineReader::ReadU64() {
 		U64 result;
 		const TokenResult token_result 
-			= mage::ReadU64(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< U64 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -380,7 +380,7 @@ namespace mage {
 	F32 LineReader::ReadF32() {
 		F32 result;
 		const TokenResult token_result 
-			= mage::ReadF32(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< F32 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -403,7 +403,7 @@ namespace mage {
 	F64 LineReader::ReadF64() {
 		F64 result;
 		const TokenResult token_result 
-			= mage::ReadF64(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< F64 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -428,7 +428,7 @@ namespace mage {
 	const F32x2 LineReader::ReadF32x2() {
 		F32x2 result;
 		const TokenResult token_result 
-			= mage::ReadF32x2(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< F32x2 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -453,7 +453,7 @@ namespace mage {
 	const F32x3 LineReader::ReadF32x3() {
 		F32x3 result;
 		const TokenResult token_result 
-			= mage::ReadF32x3(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< F32x3 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -478,7 +478,7 @@ namespace mage {
 	const F32x4 LineReader::ReadF32x4() {
 		F32x4 result;
 		const TokenResult token_result 
-			= mage::ReadF32x4(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::Read< F32x4 >(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -506,7 +506,7 @@ namespace mage {
 	}
 	
 	bool LineReader::HasString() const {
-		return mage::HasString(m_context, GetDelimiters().c_str()) 
+		return mage::Has< string >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
@@ -516,57 +516,57 @@ namespace mage {
 	}
 	
 	bool LineReader::HasBool() const {
-		return mage::HasBool(m_context, GetDelimiters().c_str()) 
+		return mage::Has< bool >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasS8() const {
-		return mage::HasS8(m_context, GetDelimiters().c_str()) 
+		return mage::Has< S8 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasU8() const {
-		return mage::HasU8(m_context, GetDelimiters().c_str()) 
+		return mage::Has< U8 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasS16() const {
-		return mage::HasS16(m_context, GetDelimiters().c_str()) 
+		return mage::Has< S16 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasU16() const {
-		return mage::HasU16(m_context, GetDelimiters().c_str()) 
+		return mage::Has< U16 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasS32() const {
-		return mage::HasS32(m_context, GetDelimiters().c_str()) 
+		return mage::Has< S32 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasU32() const {
-		return mage::HasU32(m_context, GetDelimiters().c_str()) 
+		return mage::Has< U32 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasS64() const {
-		return mage::HasS64(m_context, GetDelimiters().c_str()) 
+		return mage::Has< S64 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasU64() const {
-		return mage::HasU64(m_context, GetDelimiters().c_str()) 
+		return mage::Has< U64 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasF32() const {
-		return mage::HasF32(m_context, GetDelimiters().c_str()) 
+		return mage::Has< F32 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
 	bool LineReader::HasF64() const {
-		return mage::HasF64(m_context, GetDelimiters().c_str()) 
+		return mage::Has< F64 >(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 }

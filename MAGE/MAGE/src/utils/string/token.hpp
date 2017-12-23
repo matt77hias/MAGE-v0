@@ -48,6 +48,8 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given string.
 
+	 @tparam		DataT
+					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -69,6 +71,8 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given string.
 
+	 @tparam		DataT
+					The data type.
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
 	 @param[in]		begin
@@ -95,6 +99,8 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the prefix of the given string.
 
+	 @tparam		DataT
+					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -173,6 +179,8 @@ namespace mage {
 	 Reads and converts the next token in the given string to a @c DataT 
 	 element.
 
+	 @tparam		DataT
+					The data type.
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
@@ -245,6 +253,8 @@ namespace mage {
 	 Checks whether the next token in the given string represents a @c DataT 
 	 element.
 
+	 @tparam		DataT
+					The data type.
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str

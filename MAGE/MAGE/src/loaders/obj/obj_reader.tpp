@@ -103,7 +103,7 @@ namespace mage::loader {
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJMaterialLibrary() {
 		const wstring mtl_path  = mage::GetPathName(GetFilename());
-		const wstring mtl_name  = str_convert(ReadString());
+		const wstring mtl_name  = str_convert(Read< string >());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
@@ -111,7 +111,7 @@ namespace mage::loader {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJMaterialUse() {
-		m_model_output.SetMaterial(ReadString());
+		m_model_output.SetMaterial(Read< string >());
 	}
 
 	template < typename VertexT >
@@ -120,14 +120,14 @@ namespace mage::loader {
 		m_model_output.EndModelPart();
 
 		ModelPart model_part;
-		model_part.m_child = ReadString();
+		model_part.m_child = Read< string >();
 		if (HasChars()) {
-			if (!HasF32()) {
-				model_part.m_parent  = ReadString();
+			if (!Has< F32 >()) {
+				model_part.m_parent  = Read< string >();
 			}
-			model_part.m_translation = InvertHandness(Point3(ReadF32x3()));
-			model_part.m_rotation    = ReadF32x3();
-			model_part.m_scale       = ReadF32x3();
+			model_part.m_translation = InvertHandness(Point3(Read< F32x3 >()));
+			model_part.m_rotation    = Read< F32x3 >();
+			model_part.m_scale       = Read< F32x3 >();
 		}
 		
 		// Begin current group.
@@ -136,13 +136,13 @@ namespace mage::loader {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJObject() {
-		ReadString();
+		Read< string >();
 	}
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJSmoothingGroup() {
 		// Silently ignore smoothing group declarations
-		ReadString();
+		Read< string >();
 	}
 
 	template < typename VertexT >
@@ -179,7 +179,7 @@ namespace mage::loader {
 	void OBJReader< VertexT >::ReadOBJFace() {
 		
 		std::vector< U32 > indices;
-		while (indices.size() < 3 || HasString()) {
+		while (indices.size() < 3 || HasChars()) {
 			const U32x3 vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 
@@ -214,21 +214,21 @@ namespace mage::loader {
 
 	template < typename VertexT >
 	inline const Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
-		return Point3(ReadF32x3());
+		return Point3(Read< F32x3 >());
 	}
 
 	template < typename VertexT >
 	inline const Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
-		return Normal3(ReadF32x3());
+		return Normal3(Read< F32x3 >());
 	}
 
 	template < typename VertexT >
 	inline const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
-		const UV result(ReadF32x2());
+		const UV result(Read< F32x2 >());
 		
-		if (HasF32()) {
+		if (Has< F32 >()) {
 			// Silently ignore 3D vertex texture coordinates.
-			ReadF32();
+			Read< F32 >();
 		}
 
 		return result;

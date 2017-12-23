@@ -1848,5 +1848,8 @@
     <None Include="MAGE\src\utils\string\token.tpp">
       <Filter>Header Files\utils\string</Filter>
     </None>
+    <None Include="MAGE\src\utils\io\line_reader.tpp">
+      <Filter>Header Files\utils\io</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -72,7 +72,7 @@ namespace mage::loader {
 	}
 
 	void MTLReader::ReadMTLMaterialName() {
-		m_material_buffer.emplace_back(ReadString());
+		m_material_buffer.emplace_back(Read< string >());
 	}
 
 	void MTLReader::ReadMTLBaseColor() {
@@ -80,12 +80,12 @@ namespace mage::loader {
 	}
 
 	void MTLReader::ReadMTLRoughness() {
-		const F32 roughness = ReadF32();
+		const F32 roughness = Read< F32 >();
 		m_material_buffer.back().SetRoughness(roughness);
 	}
 
 	void MTLReader::ReadMTLMetalness() {
-		const F32 metalness = ReadF32();
+		const F32 metalness = Read< F32 >();
 		m_material_buffer.back().SetMetalness(metalness);
 	}
 
@@ -103,13 +103,13 @@ namespace mage::loader {
 
 	const SRGB MTLReader::ReadMTLSRGB() {
 
-		const F32 red = ReadF32();
+		const F32 red = Read< F32 >();
 
 		F32 green = red;
-		F32 blue = red;
-		if (HasF32()) {
-			green = ReadF32();
-			blue = ReadF32();
+		F32 blue  = red;
+		if (Has< F32 >()) {
+			green = Read< F32 >();
+			blue  = Read< F32 >();
 		}
 
 		return SRGB(red, green, blue);
@@ -117,16 +117,16 @@ namespace mage::loader {
 
 	const SRGBA MTLReader::ReadMTLSRGBA() {
 		
-		const F32 red = ReadF32();
+		const F32 red = Read< F32 >();
 
 		F32 green = red;
 		F32 blue  = red;
-		if (HasF32()) {
-			green = ReadF32();
-			blue  = ReadF32();
+		if (Has< F32 >()) {
+			green = Read< F32 >();
+			blue  = Read< F32 >();
 		}
 
-		const F32 alpha = HasF32() ? ReadF32() : 1.0f;
+		const F32 alpha = Has< F32 >() ? Read< F32 >() : 1.0f;
 		
 		return SRGBA(red, green, blue, alpha);
 	}
@@ -134,7 +134,7 @@ namespace mage::loader {
 	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
 		const wstring texture_path  = mage::GetPathName(GetFilename());
-		const wstring texture_name  = str_convert(ReadString());
+		const wstring texture_name  = str_convert(Read< string >());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
 		return ResourceManager::Get()->GetOrCreate< Texture >(texture_fname);
 	}

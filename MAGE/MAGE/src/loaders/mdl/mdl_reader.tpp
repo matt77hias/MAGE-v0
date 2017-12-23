@@ -75,14 +75,14 @@ namespace mage::loader {
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.m_child       = ReadString();
-		model_part.m_parent      = ReadString();
-		model_part.m_translation = ReadF32x3();
-		model_part.m_rotation    = ReadF32x3();
-		model_part.m_scale       = ReadF32x3();
-		model_part.m_material    = ReadString();
-		model_part.m_start_index = ReadU32();
-		model_part.m_nb_indices  = ReadU32();
+		model_part.m_child       = Read< string >();
+		model_part.m_parent      = Read< string >();
+		model_part.m_translation = Read< F32x3 >();
+		model_part.m_rotation    = Read< F32x3 >();
+		model_part.m_scale       = Read< F32x3 >();
+		model_part.m_material    = Read< string >();
+		model_part.m_start_index = Read< U32 >();
+		model_part.m_nb_indices  = Read< U32 >();
 		
 		m_model_output.AddModelPart(std::move(model_part));
 	}
@@ -90,7 +90,7 @@ namespace mage::loader {
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadMDLMaterialLibrary() {
 		const wstring mtl_path  = mage::GetPathName(GetFilename());
-		const wstring mtl_name  = str_convert(ReadString());
+		const wstring mtl_name  = str_convert(Read< string >());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);

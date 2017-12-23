@@ -18,10 +18,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
-	OBJReader< VertexT >
-		::OBJReader(ModelOutput< VertexT > &model_output,
-			        const MeshDescriptor< VertexT > &mesh_desc)
+	template< typename VertexT, typename IndexT >
+	OBJReader< VertexT, IndexT >
+		::OBJReader(ModelOutput< VertexT, IndexT > &model_output,
+			        const MeshDescriptor< VertexT, IndexT > &mesh_desc)
 		: LineReader(),
 		m_vertex_coordinates(), 
 		m_vertex_texture_coordinates(),
@@ -30,14 +30,14 @@ namespace mage::loader {
 		m_model_output(model_output), 
 		m_mesh_desc(mesh_desc) {}
 
-	template < typename VertexT >
-	OBJReader< VertexT >::OBJReader(OBJReader &&reader) noexcept = default;
+	template< typename VertexT, typename IndexT >
+	OBJReader< VertexT, IndexT >::OBJReader(OBJReader &&reader) noexcept = default;
 
-	template < typename VertexT >
-	OBJReader< VertexT >::~OBJReader() = default;
+	template< typename VertexT, typename IndexT >
+	OBJReader< VertexT, IndexT >::~OBJReader() = default;
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::Preprocess() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::Preprocess() {
 		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(),
 			"%ls: vertex buffer must be empty.", GetFilename().c_str());
 		ThrowIfFailed(m_model_output.m_index_buffer.empty(),
@@ -47,14 +47,14 @@ namespace mage::loader {
 		m_model_output.StartModelPart(ModelPart());
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::Postprocess() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::Postprocess() {
 		// End current group.
 		m_model_output.EndModelPart();
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadLine(char *line) {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
@@ -100,8 +100,8 @@ namespace mage::loader {
 		ReadLineRemaining();
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJMaterialLibrary() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
 		const wstring mtl_path  = mage::GetPathName(GetFilename());
 		const wstring mtl_name  = str_convert(Read< string >());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
@@ -109,13 +109,13 @@ namespace mage::loader {
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJMaterialUse() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
 		m_model_output.SetMaterial(Read< string >());
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJGroup() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJGroup() {
 		// End current group.
 		m_model_output.EndModelPart();
 
@@ -134,19 +134,19 @@ namespace mage::loader {
 		m_model_output.StartModelPart(std::move(model_part));
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJObject() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJObject() {
 		Read< string >();
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJSmoothingGroup() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJSmoothingGroup() {
 		// Silently ignore smoothing group declarations
 		Read< string >();
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJVertex() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJVertex() {
 		const Point3 vertex = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexCoordinates()) :
 			ReadOBJVertexCoordinates();
@@ -154,8 +154,8 @@ namespace mage::loader {
 		m_vertex_coordinates.push_back(std::move(vertex));
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJVertexTexture() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJVertexTexture() {
 		const UV texture = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexTextureCoordinates()) :
 			ReadOBJVertexTextureCoordinates();
@@ -163,8 +163,8 @@ namespace mage::loader {
 		m_vertex_texture_coordinates.push_back(std::move(texture));
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJVertexNormal() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJVertexNormal() {
 		const Normal3 normal = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexNormalCoordinates()) :
 			ReadOBJVertexNormalCoordinates();
@@ -175,12 +175,12 @@ namespace mage::loader {
 		m_vertex_normal_coordinates.push_back(std::move(normal));
 	}
 
-	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJFace() {
+	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
 		
-		std::vector< U32 > indices;
+		std::vector< IndexT > indices;
 		while (indices.size() < 3 || HasChars()) {
-			const U32x3 vertex_indices = ReadOBJVertexIndices();
+			const Index3 vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 
 				it != m_mapping.cend()) {
@@ -188,8 +188,8 @@ namespace mage::loader {
 				indices.push_back(it->second);
 			}
 			else {
-				const U32 index 
-					= static_cast< U32 >(m_model_output.m_vertex_buffer.size());
+				const IndexT index 
+					= static_cast< IndexT >(m_model_output.m_vertex_buffer.size());
 				indices.push_back(index);
 				m_model_output.m_vertex_buffer.push_back(ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;
@@ -212,18 +212,24 @@ namespace mage::loader {
 		}
 	}
 
-	template < typename VertexT >
-	inline const Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
+	template< typename VertexT, typename IndexT >
+	inline const Point3 OBJReader< VertexT, IndexT >
+		::ReadOBJVertexCoordinates() {
+
 		return Point3(Read< F32x3 >());
 	}
 
-	template < typename VertexT >
-	inline const Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
+	template< typename VertexT, typename IndexT >
+	inline const Normal3 OBJReader< VertexT, IndexT >
+		::ReadOBJVertexNormalCoordinates() {
+
 		return Normal3(Read< F32x3 >());
 	}
 
-	template < typename VertexT >
-	inline const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
+	template< typename VertexT, typename IndexT >
+	inline const UV OBJReader< VertexT, IndexT >
+		::ReadOBJVertexTextureCoordinates() {
+
 		const UV result(Read< F32x2 >());
 		
 		if (Has< F32 >()) {
@@ -234,23 +240,25 @@ namespace mage::loader {
 		return result;
 	}
 
-	template < typename VertexT >
-	const U32x3 OBJReader< VertexT >::ReadOBJVertexIndices() {
+	template< typename VertexT, typename IndexT >
+	const typename OBJReader< VertexT, IndexT >::Index3 
+		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
+
 		const char *token = ReadChars();
 
-		U32 vertex_index  = 0;
-		U32 texture_index = 0;
-		U32 normal_index  = 0;
+		IndexT vertex_index  = 0;
+		IndexT texture_index = 0;
+		IndexT normal_index  = 0;
 
 		if (str_contains(token, "//")) {
 			// v1//vn1
 			const char *index_end = strchr(token, '/');
-			if (StringTo< U32 >(token, index_end, vertex_index) == TokenResult::Invalid) {
+			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
 				throw Exception(
 					"%ls: line %u: invalid vertex index value found in %s.", 
 					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
-			if (StringTo< U32 >(index_end + 2, normal_index) == TokenResult::Invalid) {
+			if (StringTo< IndexT >(index_end + 2, normal_index) == TokenResult::Invalid) {
 				throw Exception(
 					"%ls: line %u: invalid normal index value found in %s.", 
 					GetFilename().c_str(), GetCurrentLineNumber(), token);
@@ -259,7 +267,7 @@ namespace mage::loader {
 		else if (str_contains(token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
 			const char *index_end = strchr(token, '/');
-			if (StringTo< U32 >(token, index_end, vertex_index) == TokenResult::Invalid) {
+			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
 				throw Exception(
 					"%ls: line %u: invalid vertex index value found in %s.", 
 					GetFilename().c_str(), GetCurrentLineNumber(), token);
@@ -267,35 +275,35 @@ namespace mage::loader {
 			
 			if (str_contains(index_end + 1, '/')) {
 				const char *texture_end = strchr(index_end + 1, '/');
-				if (StringTo< U32 >(index_end + 1, texture_end, texture_index) == TokenResult::Invalid) {
+				if (StringTo< IndexT >(index_end + 1, texture_end, texture_index) == TokenResult::Invalid) {
 					throw Exception(
 						"%ls: line %u: invalid texture index value found in %s.", 
 						GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
-				if (StringTo< U32 >(texture_end + 1, normal_index) == TokenResult::Invalid) {
+				if (StringTo< IndexT >(texture_end + 1, normal_index) == TokenResult::Invalid) {
 					throw Exception(
 						"%ls: line %u: invalid normal index value found in %s.", 
 						GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
-			else if (StringTo< U32 >(index_end + 1, texture_index) == TokenResult::Invalid) {
+			else if (StringTo< IndexT >(index_end + 1, texture_index) == TokenResult::Invalid) {
 				throw Exception(
 					"%ls: line %u: invalid texture index value found in %s.", 
 					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
-		else if (StringTo< U32 >(token, vertex_index) == TokenResult::Invalid) {
+		else if (StringTo< IndexT >(token, vertex_index) == TokenResult::Invalid) {
 			throw Exception(
 				"%ls: line %u: invalid vertex index value found in %s.", 
 				GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		return U32x3(vertex_index, texture_index, normal_index);
+		return Index3(vertex_index, texture_index, normal_index);
 	}
 
-	template < typename VertexT >
-	const VertexT OBJReader< VertexT >::ConstructVertex(
-		const U32x3 &vertex_indices) {
+	template< typename VertexT, typename IndexT >
+	const VertexT OBJReader< VertexT, IndexT >
+		::ConstructVertex(const Index3 &vertex_indices) {
 		
 		VertexT vertex;
 

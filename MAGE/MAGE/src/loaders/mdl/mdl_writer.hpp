@@ -20,8 +20,10 @@ namespace mage::loader {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	class MDLWriter final : private Writer {
 
 	public:
@@ -37,7 +39,7 @@ namespace mage::loader {
 						A reference to the model output containing the model 
 						data.
 		 */
-		explicit MDLWriter(const ModelOutput< VertexT > &model_output);
+		explicit MDLWriter(const ModelOutput< VertexT, IndexT > &model_output);
 
 		/**
 		 Constructs a MDL writer from the given MDL writer.
@@ -141,7 +143,7 @@ namespace mage::loader {
 		 A reference to the model output containing the model data of this MDL 
 		 writer.
 		 */
-		const ModelOutput< VertexT > &m_model_output;
+		const ModelOutput< VertexT, IndexT > &m_model_output;
 	};
 }
 

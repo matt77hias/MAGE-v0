@@ -16,10 +16,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ImportModelFromFile(const wstring &fname, 
-		ModelOutput< VertexT > &model_output, 
-		const MeshDescriptor< VertexT > &mesh_desc) {
+		ModelOutput< VertexT, IndexT > &model_output,
+		const MeshDescriptor< VertexT, IndexT > &mesh_desc) {
 
 		const wstring extension = GetFileExtension(fname);
 
@@ -35,9 +35,9 @@ namespace mage::loader {
 		}
 	}
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ExportModelToFile(const wstring &fname, 
-		const ModelOutput< VertexT > &model_output) {
+		const ModelOutput< VertexT, IndexT > &model_output) {
 
 		const wstring extension = GetFileExtension(fname);
 

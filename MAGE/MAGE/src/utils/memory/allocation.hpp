@@ -53,7 +53,7 @@ namespace mage {
 	 @return		A pointer to the memory block that was allocated. The 
 					pointer is a multiple of the given alignment.
 	 */
-	template < typename DataT >
+	template< typename DataT >
 	inline DataT *AllocAlignedData(size_t count, size_t alignment) noexcept {
 		return static_cast< DataT * >(AllocAligned(count * sizeof(DataT), alignment));
 	}

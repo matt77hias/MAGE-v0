@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename VertexT >
+	template< typename VertexT >
 	[[nodiscard]] HRESULT CreateStaticVertexBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const VertexT *vertices, size_t nb_vertices) noexcept {
@@ -38,7 +38,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename VertexT >
+	template< typename VertexT >
 	[[nodiscard]] HRESULT CreateDynamicVertexBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const VertexT *vertices, size_t nb_vertices) noexcept {
@@ -66,7 +66,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename IndexT >
+	template< typename IndexT >
 	[[nodiscard]] HRESULT CreateStaticIndexBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const IndexT *indices, size_t nb_indices) noexcept {
@@ -90,7 +90,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename DataT >
+	template< typename DataT >
 	[[nodiscard]] HRESULT CreateStaticConstantBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count) noexcept {
@@ -114,7 +114,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename DataT >
+	template< typename DataT >
 	[[nodiscard]] HRESULT CreateDynamicConstantBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count) noexcept {
@@ -142,7 +142,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename DataT >
+	template< typename DataT >
 	[[nodiscard]] HRESULT CreateStaticStructuredBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count) noexcept {
@@ -168,7 +168,7 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename DataT >
+	template< typename DataT >
 	[[nodiscard]] HRESULT CreateDynamicStructuredBuffer(
 		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count) noexcept {

@@ -40,6 +40,6 @@ namespace mage::loader {
 		Write< U32 >(nb_indices);
 		
 		WriteArray(m_vertices.data(), m_vertices.size());
-		WriteArray(m_indices.data(), m_indices.size());
+		WriteArray(m_indices.data(),  m_indices.size());
 	}
 }

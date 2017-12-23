@@ -17,19 +17,20 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
-	MDLWriter< VertexT >::MDLWriter(const ModelOutput< VertexT > &model_output)
+	template< typename VertexT, typename IndexT >
+	MDLWriter< VertexT, IndexT >
+		::MDLWriter(const ModelOutput< VertexT, IndexT > &model_output)
 		: Writer(), 
 		m_model_output(model_output) {}
 
-	template < typename VertexT >
-	MDLWriter< VertexT >::MDLWriter(MDLWriter &&writer) noexcept = default;
+	template< typename VertexT, typename IndexT >
+	MDLWriter< VertexT, IndexT >::MDLWriter(MDLWriter &&writer) noexcept = default;
 
-	template < typename VertexT >
-	MDLWriter< VertexT >::~MDLWriter() = default;
+	template< typename VertexT, typename IndexT >
+	MDLWriter< VertexT, IndexT >::~MDLWriter() = default;
 
-	template < typename VertexT >
-	void MDLWriter< VertexT >::Write() {
+	template< typename VertexT, typename IndexT >
+	void MDLWriter< VertexT, IndexT >::Write() {
 		// Export mesh.
 		ExportMesh();
 		// Export materials.
@@ -38,17 +39,17 @@ namespace mage::loader {
 		WriteModelParts();
 	}
 
-	template < typename VertexT >
-	void MDLWriter< VertexT >::ExportMesh() {
+	template< typename VertexT, typename IndexT >
+	void MDLWriter< VertexT, IndexT >::ExportMesh() {
 		const wstring &fname = GetFilename();
 		const wstring msh_fname 
 			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		ExportMSHMeshToFile(msh_fname, 
-			m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
+		ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, 
+			                           m_model_output.m_index_buffer);
 	}
 
-	template < typename VertexT >
-	void MDLWriter< VertexT >::WriteMaterials() {
+	template< typename VertexT, typename IndexT >
+	void MDLWriter< VertexT, IndexT >::WriteMaterials() {
 		const wstring &fname = GetFilename();
 		
 		const wstring mtl_fname 
@@ -71,8 +72,8 @@ namespace mage::loader {
 		WriteStringLine(output);
 	}
 
-	template < typename VertexT >
-	void MDLWriter< VertexT >::WriteModelParts() {
+	template< typename VertexT, typename IndexT >
+	void MDLWriter< VertexT, IndexT >::WriteModelParts() {
 		char output[MAX_PATH];
 
 		for (const auto &model_part : m_model_output.m_model_parts) {

@@ -20,8 +20,10 @@ namespace mage::loader {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	class MDLReader final : private LineReader {
 
 	public:
@@ -37,7 +39,7 @@ namespace mage::loader {
 						A reference to the model output for storing the model 
 						data from file.
 		 */
-		explicit MDLReader(ModelOutput< VertexT > &model_output);
+		explicit MDLReader(ModelOutput< VertexT, IndexT > &model_output);
 		
 		/**
 		 Constructs a MDL reader from the given MDL reader.
@@ -159,7 +161,7 @@ namespace mage::loader {
 		 A reference to the model output containing the model data of this MDL 
 		 reader.
 		 */
-		ModelOutput< VertexT > &m_model_output;
+		ModelOutput< VertexT, IndexT > &m_model_output;
 	};
 }
 

@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename VertexT >
-	inline void ModelOutput< VertexT >::AddModelPart(ModelPart model_part, 
-		bool create_bounding_volumes) {
+	template< typename VertexT, typename IndexT >
+	inline void ModelOutput< VertexT, IndexT >
+		::AddModelPart(ModelPart model_part, bool create_bounding_volumes) {
 		
 		m_model_parts.push_back(std::move(model_part));
 		
@@ -25,34 +25,41 @@ namespace mage {
 		}
 	}
 
-	template < typename VertexT >
-	bool ModelOutput< VertexT >::HasModelPart(const string &name) noexcept {
+	template< typename VertexT, typename IndexT >
+	bool ModelOutput< VertexT, IndexT >
+		::HasModelPart(const string &name) noexcept {
+		
 		for (const auto &model_part : m_model_parts) {
-			if (model_part.m_child == name) {
+			if (name == model_part.m_child) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
-	template < typename VertexT >
-	inline void ModelOutput< VertexT >::StartModelPart(ModelPart model_part) {
+	template< typename VertexT, typename IndexT >
+	inline void ModelOutput< VertexT, IndexT >
+		::StartModelPart(ModelPart model_part) {
+		
 		model_part.m_start_index = static_cast< U32 >(m_index_buffer.size());
 		
 		m_model_parts.push_back(std::move(model_part));
 	}
 
-	template < typename VertexT >
-	inline void ModelOutput< VertexT >::SetMaterial(string material) {
+	template< typename VertexT, typename IndexT >
+	inline void ModelOutput< VertexT, IndexT >
+		::SetMaterial(string material) {
+		
 		Assert(!m_model_parts.empty());
 
 		ModelPart &current = m_model_parts.back();
 		current.m_material = std::move(material);
 	}
 
-	template < typename VertexT >
-	inline void ModelOutput< VertexT >::EndModelPart(
-		bool create_bounding_volumes) noexcept {
+	template< typename VertexT, typename IndexT >
+	inline void ModelOutput< VertexT, IndexT >
+		::EndModelPart(bool create_bounding_volumes) noexcept {
 		
 		Assert(!m_model_parts.empty());
 
@@ -71,9 +78,9 @@ namespace mage {
 		}
 	}
 
-	template < typename VertexT >
-	inline void ModelOutput< VertexT >::SetupBoundingVolumes(
-		ModelPart &model_part) noexcept {
+	template< typename VertexT, typename IndexT >
+	inline void ModelOutput< VertexT, IndexT >
+		::SetupBoundingVolumes(ModelPart &model_part) noexcept {
 		
 		const size_t start = model_part.m_start_index;
 		const size_t end   = start + model_part.m_nb_indices;

@@ -71,10 +71,10 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given string.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to 
 					convert.
@@ -179,10 +179,10 @@ namespace mage {
 	 Reads and converts the next token in the given string to a @c DataT 
 	 element.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated byte string. If @a str is 
 					equal to @c nullptr, reading continues from the beginning 
@@ -253,10 +253,10 @@ namespace mage {
 	 Checks whether the next token in the given string represents a @c DataT 
 	 element.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters

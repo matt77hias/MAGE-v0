@@ -5,21 +5,21 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	ModelDescriptor::ModelDescriptor(wstring fname, 
-		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
+		const MeshDescriptor< VertexT, IndexT > &desc, bool export_as_MDL)
 		: ModelDescriptor(std::move(fname), Pipeline::GetDevice(), 
 			desc, export_as_MDL) {}
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	ModelDescriptor::ModelDescriptor(wstring fname, ID3D11Device5 *device,
-		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
+		const MeshDescriptor< VertexT, IndexT > &desc, bool export_as_MDL)
 		: Resource< ModelDescriptor >(std::move(fname)), 
 		m_mesh(), 
 		m_materials(), 
 		m_model_parts() {
 
-		ModelOutput< VertexT > buffer;
+		ModelOutput< VertexT, IndexT > buffer;
 		loader::ImportModelFromFile(GetFilename(), buffer, desc);
 
 		if (export_as_MDL) {
@@ -28,8 +28,8 @@ namespace mage {
 			loader::ExportModelToFile(mdl_fname, buffer);
 		}
 
-		m_mesh = MakeShared< StaticMesh >(device, 
-			buffer.m_vertex_buffer, buffer.m_index_buffer, DXGI_FORMAT_R32_UINT);
+		m_mesh = MakeShared< StaticMesh >(device, buffer.m_vertex_buffer, 
+			                                      buffer.m_index_buffer);
 		m_materials   = std::move(buffer.m_material_buffer);
 		m_model_parts = std::move(buffer.m_model_parts);
 	}

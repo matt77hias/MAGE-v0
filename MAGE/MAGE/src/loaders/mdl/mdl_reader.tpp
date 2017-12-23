@@ -18,19 +18,20 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
-	MDLReader< VertexT >::MDLReader(ModelOutput< VertexT > &model_output)
+	template< typename VertexT, typename IndexT >
+	MDLReader< VertexT, IndexT >
+		::MDLReader(ModelOutput< VertexT, IndexT > &model_output)
 		: LineReader(), 
 		m_model_output(model_output) {}
 
-	template < typename VertexT >
-	MDLReader< VertexT >::MDLReader(MDLReader &&reader) noexcept = default;
+	template< typename VertexT, typename IndexT >
+	MDLReader< VertexT, IndexT >::MDLReader(MDLReader &&reader) noexcept = default;
 
-	template < typename VertexT >
-	MDLReader< VertexT >::~MDLReader() = default;
+	template< typename VertexT, typename IndexT >
+	MDLReader< VertexT, IndexT >::~MDLReader() = default;
 
-	template < typename VertexT >
-	void MDLReader< VertexT >::Preprocess() {
+	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::Preprocess() {
 		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(),
 			"%ls: vertex buffer must be empty.", GetFilename().c_str());
 		ThrowIfFailed(m_model_output.m_index_buffer.empty(),
@@ -39,16 +40,16 @@ namespace mage::loader {
 		ImportMesh();
 	}
 
-	template < typename VertexT >
-	void MDLReader< VertexT >::ImportMesh() {
+	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::ImportMesh() {
 		const wstring msh_fname 
 			= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".msh";
-		ImportMSHMeshFromFile(msh_fname, 
-			m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
+		ImportMSHMeshFromFile(msh_fname, m_model_output.m_vertex_buffer, 
+			                             m_model_output.m_index_buffer);
 	}
 
-	template < typename VertexT >
-	void MDLReader< VertexT >::ReadLine(char *line) {
+	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
@@ -72,8 +73,8 @@ namespace mage::loader {
 		ReadLineRemaining();
 	}
 
-	template < typename VertexT >
-	void MDLReader< VertexT >::ReadMDLSubModel() {
+	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::ReadMDLSubModel() {
 		ModelPart model_part;
 		model_part.m_child       = Read< string >();
 		model_part.m_parent      = Read< string >();
@@ -87,8 +88,8 @@ namespace mage::loader {
 		m_model_output.AddModelPart(std::move(model_part));
 	}
 
-	template < typename VertexT >
-	void MDLReader< VertexT >::ReadMDLMaterialLibrary() {
+	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::ReadMDLMaterialLibrary() {
 		const wstring mtl_path  = mage::GetPathName(GetFilename());
 		const wstring mtl_name  = str_convert(Read< string >());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);

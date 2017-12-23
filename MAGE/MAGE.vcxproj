@@ -2426,6 +2426,7 @@
     <None Include="MAGE\src\loaders\msh\msh_writer.tpp" />
     <None Include="MAGE\src\loaders\obj\obj_loader.tpp" />
     <None Include="MAGE\src\loaders\obj\obj_reader.tpp" />
+    <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\rendering\buffer\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\buffer\structured_buffer.tpp" />
     <None Include="MAGE\src\scene\node.tpp" />

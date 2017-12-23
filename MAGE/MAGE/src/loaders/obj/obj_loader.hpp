@@ -20,6 +20,8 @@ namespace mage::loader {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 @param[in]		fname
 					A reference to the OBJ filename.
 	 @param[in,out]	model_output
@@ -29,10 +31,11 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ImportOBJMeshFromFile(const wstring &fname, 
-		ModelOutput< VertexT > &model_output, 
-		const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
+		ModelOutput< VertexT, IndexT > &model_output,
+		const MeshDescriptor< VertexT, IndexT > &mesh_desc 
+		    = MeshDescriptor< VertexT, IndexT >());
 }
 
 //-----------------------------------------------------------------------------

@@ -30,8 +30,10 @@ namespace mage::loader {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	class OBJReader final : private LineReader {
 
 	public:
@@ -49,8 +51,8 @@ namespace mage::loader {
 		 @param[in]		mesh_desc
 						A reference to a mesh descriptor.
 		 */
-		explicit OBJReader(ModelOutput< VertexT > &model_output,
-			const MeshDescriptor< VertexT > &mesh_desc);
+		explicit OBJReader(ModelOutput< VertexT, IndexT > &model_output,
+			const MeshDescriptor< VertexT, IndexT > &mesh_desc);
 		
 		/**
 		 Constructs an OBJ reader from the given OBJ reader.
@@ -110,6 +112,15 @@ namespace mage::loader {
 		using LineReader::GetDelimiters;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Type Declarations and Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 A struct of three indices.
+		 */
+		using Index3 = Vector3< IndexT >;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -267,7 +278,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a Bool variable.
 		 */
-		const U32x3 ReadOBJVertexIndices();
+		const Index3 ReadOBJVertexIndices();
 		
 		/**
 		 Constructs or retrieves (if already existing) the vertex matching the 
@@ -278,17 +289,17 @@ namespace mage::loader {
 		 @return		The vertex matching the given vertex indices 
 						@a vertex_indices.
 		 */
-		const VertexT ConstructVertex(const U32x3 &vertex_indices);
+		const VertexT ConstructVertex(const Index3 &vertex_indices);
 
 		/**
-		 A struct of @c U32x3 comparators for OBJ vertex indices.
+		 A struct of @c Index3 comparators for OBJ vertex indices.
 		 */
-		struct OBJComparatorU32x3 final {
+		struct OBJComparatorIndex3 final {
 
 		public:
 
 			/**
-			 Compares the two given @c U32x3 vectors against each other.
+			 Compares the two given @c Index3 vectors against each other.
 
 			 @param[in]		a
 							A reference to the first vector.
@@ -297,7 +308,7 @@ namespace mage::loader {
 			 @return		@c true if the @a a is smaller than @a b. @c false 
 							otherwise.
 			 */
-			bool operator()(const U32x3& a, const U32x3& b) const {
+			bool operator()(const Index3& a, const Index3& b) const {
 				return (a.m_x == b.m_x) ? ((a.m_y == b.m_y) ? 
 					(a.m_z < b.m_z) : (a.m_y < b.m_y)) : (a.m_x < b.m_x);
 			}
@@ -330,18 +341,18 @@ namespace mage::loader {
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		std::map< U32x3, U32, OBJComparatorU32x3 > m_mapping;
+		std::map< Index3, IndexT, OBJComparatorIndex3 > m_mapping;
 		
 		/**
 		 A reference to a model output containing the read data of this OBJ 
 		 reader.
 		 */
-		ModelOutput< VertexT > &m_model_output;
+		ModelOutput< VertexT, IndexT > &m_model_output;
 
 		/**
 		 A reference to the mesh descriptor for this OBJ reader.
 		 */
-		const MeshDescriptor< VertexT > &m_mesh_desc;
+		const MeshDescriptor< VertexT, IndexT > &m_mesh_desc;
 	};
 }
 

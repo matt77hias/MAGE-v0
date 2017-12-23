@@ -19,6 +19,8 @@ namespace mage::loader {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 @param[in]		fname
 					A reference to the MDL filename.
 	 @param[out]	model_output
@@ -26,15 +28,17 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the model from file.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ImportMDLModelFromFile(const wstring &fname,
-		ModelOutput< VertexT > &model_output);
+		ModelOutput< VertexT, IndexT > &model_output);
 
 	/**
 	 Exports the given model to the given MDL file.
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 @param[in]		fname
 					A reference to the MDL filename.
 	 @param[in]		model_output
@@ -42,9 +46,9 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to export the model to file.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ExportMDLModelToFile(const wstring &fname,
-		const ModelOutput< VertexT > &model_output);
+		const ModelOutput< VertexT, IndexT > &model_output);
 }
 
 //-----------------------------------------------------------------------------

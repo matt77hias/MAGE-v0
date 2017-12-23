@@ -1851,5 +1851,8 @@
     <None Include="MAGE\src\utils\io\line_reader.tpp">
       <Filter>Header Files\utils\io</Filter>
     </None>
+    <None Include="MAGE\src\mesh\mesh.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </None>
   </ItemGroup>
 </Project>

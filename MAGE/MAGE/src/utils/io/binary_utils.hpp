@@ -18,11 +18,11 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given big endian byte array.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
 	 @return		The @c DataT element represented by the big endian byte 
@@ -37,11 +37,11 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given little endian byte array.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
 	 @return		The @c DataT element represented by the little endian byte 
@@ -53,11 +53,11 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given byte array.
 
-	 @tparam		DataT
-					The data type.
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
+	 @tparam		DataT
+					The data type.
 	 @param[in]		bytes
 					A pointer to a byte array.
 	 @param[in]		big_endian

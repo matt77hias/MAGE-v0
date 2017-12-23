@@ -16,47 +16,47 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(
 		const VertexT *vertices, size_t nb_vertices,
-		const IndexT *indices, size_t nb_indices, 
-		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		const IndexT *indices,   size_t nb_indices, 
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(Pipeline::GetDevice(),
 			vertices, nb_vertices,
-			indices, nb_indices, 
-			index_format, primitive_topology) {}
+			indices,  nb_indices, 
+			primitive_topology) {}
 
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(ID3D11Device5 *device,
 		const VertexT *vertices, size_t nb_vertices, 
-		const IndexT *indices, size_t nb_indices, 
-		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: Mesh(sizeof(VertexT), index_format, primitive_topology) {
+		const IndexT *indices,   size_t nb_indices, 
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		: Mesh(sizeof(VertexT), mage::GetIndexFormat< IndexT >(), 
+			primitive_topology) {
 
 		SetupVertexBuffer(device, vertices, nb_vertices);
-		SetupIndexBuffer(device, indices, nb_indices);
+		SetupIndexBuffer( device, indices,  nb_indices);
 	}
 
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(
 		const std::vector< VertexT > &vertices, 
-		const std::vector< IndexT > &indices, 
-		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		const std::vector< IndexT >  &indices, 
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(Pipeline::GetDevice(),
-			vertices, indices, 
-			index_format, primitive_topology) {}
+			vertices, indices, primitive_topology) {}
 
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(ID3D11Device5 *device,
 		const std::vector< VertexT > &vertices, 
-		const std::vector< IndexT > &indices, 
-		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		const std::vector< IndexT >  &indices, 
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(device, 
 			vertices.data(), vertices.size(), 
-			indices.data(), indices.size(), 
-			index_format, primitive_topology) {}
+			indices.data(),  indices.size(), 
+			primitive_topology) {}
 
-	template < typename VertexT >
+	template< typename VertexT >
 	void StaticMesh::SetupVertexBuffer(ID3D11Device5 *device, 
 		const VertexT *vertices, size_t nb_vertices) {
 		

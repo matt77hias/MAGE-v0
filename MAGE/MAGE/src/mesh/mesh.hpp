@@ -14,6 +14,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Mesh Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Returns the format of the given index type.
+
+	 @tparam		IndexT
+					The index type.
+	 @return		The format of the given index type.
+	 */
+	template< typename IndexT >
+	constexpr DXGI_FORMAT GetIndexFormat() noexcept;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Mesh
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of indexed meshes.
 	 */
@@ -276,4 +298,15 @@ namespace mage {
 		 */
 		D3D11_PRIMITIVE_TOPOLOGY m_primitive_topology;
 	};
+
+	#pragma endregion
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh.tpp"
+
+#pragma endregion

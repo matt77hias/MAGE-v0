@@ -15,19 +15,19 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ImportMDLModelFromFile(const wstring &fname,
-		ModelOutput< VertexT > &model_output) {
+		ModelOutput< VertexT, IndexT > &model_output) {
 		
-		MDLReader< VertexT > reader(model_output);
+		MDLReader< VertexT, IndexT > reader(model_output);
 		reader.ReadFromFile(fname);
 	}
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ExportMDLModelToFile(const wstring &fname,
-		const ModelOutput< VertexT > &model_output) {
+		const ModelOutput< VertexT, IndexT > &model_output) {
 		
-		MDLWriter< VertexT > writer(model_output);
+		MDLWriter< VertexT, IndexT > writer(model_output);
 		writer.WriteToFile(fname);
 	}
 }

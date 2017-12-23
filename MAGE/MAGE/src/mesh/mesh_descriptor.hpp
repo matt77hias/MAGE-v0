@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "utils\type\types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -9,9 +18,11 @@ namespace mage {
 	 A struct of mesh descriptors.
 
 	 @tparam		VertexT
-					the vertex type.
+					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT = U32 >
 	struct MeshDescriptor final {
 
 	public:

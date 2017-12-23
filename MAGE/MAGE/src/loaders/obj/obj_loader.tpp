@@ -14,12 +14,12 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	void ImportOBJMeshFromFile(const wstring &fname, 
-		ModelOutput< VertexT > &model_output, 
-		const MeshDescriptor< VertexT > &mesh_desc) {
+		ModelOutput< VertexT, IndexT > &model_output, 
+		const MeshDescriptor< VertexT, IndexT > &mesh_desc) {
 		
-		OBJReader< VertexT > reader(model_output, mesh_desc);
+		OBJReader< VertexT, IndexT > reader(model_output, mesh_desc);
 		reader.ReadFromFile(fname);
 	}
 }

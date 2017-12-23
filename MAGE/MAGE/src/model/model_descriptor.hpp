@@ -29,6 +29,10 @@ namespace mage {
 		/**
 		 Constructs a model descriptor.
 
+		 @tparam		VertexT
+						The vertex type.
+		 @tparam		IndexT
+						The index type.
 		 @pre			The device associated with the current engine
 						must be loaded.
 		 @pre			The resource manager associated with the current engine
@@ -45,14 +49,19 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the model descriptor.
 		 */
-		template < typename VertexT >
+		template< typename VertexT, typename IndexT >
 		explicit ModelDescriptor(wstring fname, 
-			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
+			const MeshDescriptor< VertexT, IndexT > &desc 
+			    = MeshDescriptor< VertexT, IndexT >(),
 			bool export_as_MDL = false);
 
 		/**
 		 Constructs a model descriptor.
 
+		 @tparam		VertexT
+						The vertex type.
+		 @tparam		IndexT
+						The index type.
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The resource manager associated with the current engine
 						must be loaded.
@@ -70,9 +79,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the model descriptor.
 		 */
-		template < typename VertexT >
+		template< typename VertexT, typename IndexT >
 		explicit ModelDescriptor(wstring fname, ID3D11Device5 *device,
-			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
+			const MeshDescriptor< VertexT, IndexT > &desc 
+			    = MeshDescriptor< VertexT, IndexT >(),
 			bool export_as_MDL = false);
 		
 		/**

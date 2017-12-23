@@ -211,8 +211,10 @@ namespace mage {
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 */
-	template < typename VertexT >
+	template< typename VertexT, typename IndexT >
 	struct ModelOutput final {
 
 	public:
@@ -336,7 +338,7 @@ namespace mage {
 		/**
 		 A vector containing the indices of this model output.
 		 */
-		std::vector< U32 > m_index_buffer;
+		std::vector< IndexT > m_index_buffer;
 
 		/**
 		 A vector containing the materials of this model output.

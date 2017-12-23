@@ -57,7 +57,7 @@ namespace mage {
 	 @tparam		T
 					The COM resource type.
 	 */
-	template < typename T >
+	template< typename T >
 	using ComPtr = Microsoft::WRL::ComPtr< T >;
 
 	#pragma endregion
@@ -73,7 +73,7 @@ namespace mage {
 	 @tparam		T
 					The memory resource type.
 	 */
-	template < typename T >
+	template< typename T >
 	using SharedPtr = std::shared_ptr< T >;
 
 	/**
@@ -118,7 +118,7 @@ namespace mage {
 	 @tparam		T
 					The memory resource type.
 	 */
-	template < typename T >
+	template< typename T >
 	using WeakPtr = std::weak_ptr< T >;
 
 	#pragma endregion
@@ -135,7 +135,7 @@ namespace mage {
 	 @tparam		T
 					The memory resource type.
 	 */
-	template < typename T, typename DeleterT = std::default_delete< T > >
+	template< typename T, typename DeleterT = std::default_delete< T > >
 	using UniquePtr = std::unique_ptr< T, DeleterT >;
 
 	/**

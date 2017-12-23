@@ -40,7 +40,7 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring &fname, 
 		                       std::vector< VertexT > &vertices, 
 		                       std::vector< IndexT >  &indices);
@@ -62,7 +62,7 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to export the mesh to file.
 	 */
-	template < typename VertexT, typename IndexT >
+	template< typename VertexT, typename IndexT >
 	void ExportMSHMeshToFile(const wstring &fname, 
 		                     const std::vector< VertexT > &vertices, 
 		                     const std::vector< IndexT >  &indices);

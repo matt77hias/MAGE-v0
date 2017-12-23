@@ -31,7 +31,7 @@ namespace mage::loader {
 	MSHReader< VertexT, IndexT >::~MSHReader() = default;
 
 	template< typename VertexT, typename IndexT >
-	void MSHReader< VertexT, IndexT >::Read() {
+	void MSHReader< VertexT, IndexT >::ReadData() {
 
 		// Read the header.
 		{
@@ -40,13 +40,13 @@ namespace mage::loader {
 				"%ls: invalid mesh header.", GetFilename().c_str());
 		}
 
-		const U32 nb_vertices = ReadValue< U32 >();
-		const U32 nb_indices  = ReadValue< U32 >();
+		const U32 nb_vertices = Read< U32 >();
+		const U32 nb_indices  = Read< U32 >();
 		
-		const VertexT *vertices = ReadValueArray< VertexT >(nb_vertices);
+		const VertexT *vertices = ReadArray< VertexT >(nb_vertices);
 		m_vertices.assign(vertices, vertices + nb_vertices);
 
-		const IndexT *indices   = ReadValueArray< IndexT >(nb_indices);
+		const IndexT *indices   = ReadArray< IndexT >(nb_indices);
 		m_indices.assign(indices, indices + nb_indices);
 	}
 
@@ -55,7 +55,7 @@ namespace mage::loader {
 		const char *magic = g_msh_token_magic;
 		
 		while (*magic != L'\0') {
-			if (ReadValue< U8 >() != *magic) {
+			if (Read< U8 >() != *magic) {
 				return false;
 			}
 			++magic;

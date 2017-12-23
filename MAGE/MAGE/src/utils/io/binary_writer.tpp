@@ -16,12 +16,12 @@
 namespace mage {
 
 	template< typename DataT >
-	inline void BigEndianBinaryWriter::WriteValue(const DataT &data) {
-		WriteValueArray(&data, 1);
+	inline void BigEndianBinaryWriter::Write(const DataT &data) {
+		WriteArray(&data, 1);
 	}
 
 	template< typename DataT >
-	inline void BigEndianBinaryWriter::WriteValueArray(const DataT *data, 
+	inline void BigEndianBinaryWriter::WriteArray(const DataT *data, 
 		size_t count) {
 		
 		Assert(data);

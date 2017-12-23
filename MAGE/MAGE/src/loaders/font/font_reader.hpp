@@ -106,9 +106,9 @@ namespace mage::loader {
 		 Starts reading.
 
 		 @throws		Exception
-						Failed to read to the given file.
+						Failed to read from the given file.
 		 */
-		virtual void Read() override;
+		virtual void ReadData() override;
 
 		/**
 		 Checks whether the header of the file is valid.

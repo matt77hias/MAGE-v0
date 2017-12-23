@@ -120,7 +120,7 @@ namespace mage {
 						Failed to write the given data.
 		 */
 		template< typename DataT >
-		void WriteValue(const DataT &data);
+		void Write(const DataT &data);
 		
 		/**
 		 Writes the given data.
@@ -138,7 +138,7 @@ namespace mage {
 						Failed to write the given data.
 		 */
 		template< typename DataT >
-		void WriteValueArray(const DataT *data, size_t count);
+		void WriteArray(const DataT *data, size_t count);
 
 		/**
 		 Writes the given character.
@@ -186,7 +186,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to write.
 		 */
-		virtual void Write() = 0;
+		virtual void WriteData() = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

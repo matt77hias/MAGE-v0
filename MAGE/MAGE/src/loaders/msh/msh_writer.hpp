@@ -117,7 +117,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to write.
 		 */
-		virtual void Write() override;
+		virtual void WriteData() override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -36,7 +36,7 @@ namespace mage {
 
 		m_file_stream.reset(file);
 
-		Write();
+		WriteData();
 	}
 
 	void BigEndianBinaryWriter::WriteCharacter(char c) {

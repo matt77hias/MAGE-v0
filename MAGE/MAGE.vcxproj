@@ -2431,6 +2431,7 @@
     <None Include="MAGE\src\scene\node.tpp" />
     <None Include="MAGE\src\sprite\sprite_text.tpp" />
     <None Include="MAGE\src\utils\io\binary_reader.tpp" />
+    <None Include="MAGE\src\utils\io\binary_utils.tpp" />
     <None Include="MAGE\src\utils\io\binary_writer.tpp" />
     <None Include="MAGE\src\utils\memory\memory.tpp" />
     <None Include="MAGE\src\utils\memory\memory_arena.tpp" />

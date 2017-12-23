@@ -170,94 +170,16 @@ namespace mage {
 		const char *ReadChars(size_t size);
 
 		/**
-		 Reads a @c S8.
+		 Reads a @c DataT element.
 
-		 @return		The @c S8 read.
+		 @tparam		DataT
+						The data type.
+		 @return		The @c DataT element read.
 		 @throws		Exception
-						Failed to read a @c S8.
+						Failed to read a @c DataT element.
 		 */
-		S8 ReadS8();
-
-		/**
-		 Reads an @c U8.
-
-		 @return		The @c U8 read.
-		 @throws		Exception
-						Failed to read an @c U8.
-		 */
-		U8 ReadU8();
-
-		/**
-		 Reads a @c S16.
-
-		 @return		The @c S16 read.
-		 @throws		Exception
-						Failed to read a @c S16.
-		 */
-		S16 ReadS16();
-
-		/**
-		 Reads an @c U16.
-
-		 @return		The @c U16 read.
-		 @throws		Exception
-						Failed to read an @c U16.
-		 */
-		U16 ReadU16();
-
-		/**
-		 Reads a @c S32.
-
-		 @return		The @c S32 read.
-		 @throws		Exception
-						Failed to read a @c S32.
-		 */
-		S32 ReadS32();
-
-		/**
-		 Reads an @c U32.
-
-		 @return		The @c U32 read.
-		 @throws		Exception
-						Failed to read an @c U32.
-		 */
-		U32 ReadU32();
-
-		/**
-		 Reads a @c S64.
-
-		 @return		The @c S64 read.
-		 @throws		Exception
-						Failed to read a @c S64.
-		 */
-		S64 ReadS64();
-
-		/**
-		 Reads an @c U64.
-
-		 @return		The @c U64 read.
-		 @throws		Exception
-						Failed to read an @c U64.
-		 */
-		U64 ReadU64();
-
-		/**
-		 Reads a @c F32.
-
-		 @return		The @c F32 read.
-		 @throws		Exception
-						Failed to read a @c F32.
-		 */
-		F32 ReadF32();
-
-		/**
-		 Reads a @c F64.
-
-		 @return		The @c F64 read.
-		 @throws		Exception
-						Failed to read a @c F64.
-		 */
-		F64 ReadF64();
+		template< typename DataT >
+		const DataT Read();
 
 	private:
 
@@ -269,9 +191,9 @@ namespace mage {
 		 Starts reading.
 
 		 @throws		Exception
-						Failed to read to the given file.
+						Failed to read from the given file.
 		 */
-		virtual void Read() = 0;
+		virtual void ReadData() = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -436,12 +358,12 @@ namespace mage {
 
 		 @tparam		DataT
 						The data type.
-		 @return		A reference to the @c DataT element read.
+		 @return		The @c DataT element read.
 		 @throws		Exception
 						Failed to read a @c DataT element.
 		 */
 		template< typename DataT >
-		const DataT &ReadValue();
+		const DataT Read();
 		
 		/**
 		 Reads an array of @c DataT elements.
@@ -455,7 +377,7 @@ namespace mage {
 						Failed to read @c count @c DataT elements.
 		 */
 		template< typename DataT >
-		const DataT *ReadValueArray(size_t count);
+		const DataT *ReadArray(size_t count);
 		
 	private:
 
@@ -467,9 +389,9 @@ namespace mage {
 		 Starts reading.
 
 		 @throws		Exception
-						Failed to read to the given file.
+						Failed to read from the given file.
 		 */
-		virtual void Read() = 0;
+		virtual void ReadData() = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -31,7 +31,7 @@ namespace mage::loader {
 
 	SpriteFontReader::~SpriteFontReader() = default;
 
-	void SpriteFontReader::Read() {
+	void SpriteFontReader::ReadData() {
 	
 		// Read the header.
 		{
@@ -41,16 +41,15 @@ namespace mage::loader {
 		}
 
 		// Read glyphs.
-		const U32 glyph_count   = ReadValue< U32 >();
-		const Glyph *glyph_data = ReadValueArray< Glyph >(glyph_count);
+		const U32 glyph_count   = Read< U32 >();
+		const Glyph *glyph_data = ReadArray< Glyph >(glyph_count);
 		m_output.m_glyphs.assign(glyph_data, glyph_data + glyph_count);
 
 		// Read font properties.
-		m_output.m_line_spacing = ReadValue< F32 >();
+		m_output.m_line_spacing = Read< F32 >();
 		
 		// Read default character.
-		m_output.m_default_character 
-			= static_cast< wchar_t >(ReadValue< U32 >());
+		m_output.m_default_character = static_cast< wchar_t >(Read< U32 >());
 
 		// Read texture.
 		ReadTexture();
@@ -60,7 +59,7 @@ namespace mage::loader {
 		const char *magic = g_font_token_magic;
 		
 		while (*magic != L'\0') {
-			if (ReadValue< U8 >() != *magic) {
+			if (Read< U8 >() != *magic) {
 				return false;
 			}
 			++magic;
@@ -71,14 +70,14 @@ namespace mage::loader {
 
 	void SpriteFontReader::ReadTexture() {
 		// Read texture data.
-		const U32 texture_width     = ReadValue< U32 >();
-		const U32 texture_height    = ReadValue< U32 >();
+		const U32 texture_width     = Read< U32 >();
+		const U32 texture_height    = Read< U32 >();
+		const DXGI_FORMAT format    = Read< DXGI_FORMAT >();
 		const DXGI_FORMAT texture_format = m_desc.ForceSRGB() ? 
-			ConvertToSRGB(ReadValue< DXGI_FORMAT >()) : ReadValue< DXGI_FORMAT >();
-		const U32 texture_stride    = ReadValue< U32 >();
-		const U32 texture_rows      = ReadValue< U32 >();
-		const U8 *texture_data      = ReadValueArray< U8 >(
-											texture_stride * texture_rows);
+			                               ConvertToSRGB(format) : format;
+		const U32 texture_stride    = Read< U32 >();
+		const U32 texture_rows      = Read< U32 >();
+		const U8 *texture_data      = ReadArray< U8 >(texture_stride * texture_rows);
 
 		// Create the texture descriptor.
 		CD3D11_TEXTURE2D_DESC texture_desc(

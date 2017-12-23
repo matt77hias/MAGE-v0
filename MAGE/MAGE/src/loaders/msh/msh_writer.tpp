@@ -30,16 +30,16 @@ namespace mage::loader {
 	MSHWriter< VertexT, IndexT >::~MSHWriter() = default;
 
 	template< typename VertexT, typename IndexT >
-	void MSHWriter< VertexT, IndexT >::Write() {
+	void MSHWriter< VertexT, IndexT >::WriteData() {
 
 		WriteString(g_msh_token_magic);
 
 		const U32 nb_vertices = static_cast< U32 >(m_vertices.size());
-		WriteValue(nb_vertices);
+		Write< U32 >(nb_vertices);
 		const U32 nb_indices  = static_cast< U32 >(m_indices.size());
-		WriteValue(nb_indices);
+		Write< U32 >(nb_indices);
 		
-		WriteValueArray(m_vertices.data(), m_vertices.size());
-		WriteValueArray(m_indices.data(), m_indices.size());
+		WriteArray(m_vertices.data(), m_vertices.size());
+		WriteArray(m_indices.data(), m_indices.size());
 	}
 }

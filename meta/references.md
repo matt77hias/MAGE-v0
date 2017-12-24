@@ -78,6 +78,8 @@ ERKENBRACH L.: [*Voxel Cone Traced Global Illumination*](http://leifnode.com/201
 
 FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
+FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [x86 Assembly Guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html), 2017.
+
 FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.

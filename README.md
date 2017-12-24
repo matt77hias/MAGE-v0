@@ -71,4 +71,4 @@ Sample scene - buttons:
 * [References](meta/references.md)
 * [Standard Scripts](meta/standard-scripts.md)
 
-<p align="center">Copyright © 2016-2017 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>

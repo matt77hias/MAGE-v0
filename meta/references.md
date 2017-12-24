@@ -281,6 +281,7 @@ Uses:
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
+* Adam_42
 * Ademola Thompson
 * AthosVG
 * [Brooke Hodgman](https://github.com/hodgman)

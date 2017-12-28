@@ -192,7 +192,7 @@ namespace mage {
 		 */
 		void SetText(ColorString text) {
 			ClearText();
-			m_text = text.c_str();
+			m_text = text.GetString();
 			m_strings.push_back(std::move(text));
 		}
 		

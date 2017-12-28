@@ -147,30 +147,30 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertex() {
-		const Point3 vertex = m_mesh_desc.InvertHandness() ?
-			InvertHandness(ReadOBJVertexCoordinates()) :
-			ReadOBJVertexCoordinates();
+		const Point3 read_vertex = ReadOBJVertexCoordinates();
+		Point3 vertex = m_mesh_desc.InvertHandness() ? 
+			InvertHandness(read_vertex) : read_vertex;
 
 		m_vertex_coordinates.push_back(std::move(vertex));
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexTexture() {
-		const UV texture = m_mesh_desc.InvertHandness() ?
-			InvertHandness(ReadOBJVertexTextureCoordinates()) :
-			ReadOBJVertexTextureCoordinates();
+		const UV read_texture = ReadOBJVertexTextureCoordinates();
+		UV texture = m_mesh_desc.InvertHandness() ? 
+			InvertHandness(read_texture) : read_texture;
 
 		m_vertex_texture_coordinates.push_back(std::move(texture));
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexNormal() {
-		const Normal3 normal = m_mesh_desc.InvertHandness() ?
-			InvertHandness(ReadOBJVertexNormalCoordinates()) :
-			ReadOBJVertexNormalCoordinates();
-		const XMVECTOR v = XMLoadFloat3(&normal);
-		const XMVECTOR normal_v = XMVector3Normalize(v);
-		XMLoadFloat3(&normal);
+		const Normal3 read_normal = ReadOBJVertexNormalCoordinates();
+		Normal3 normal = m_mesh_desc.InvertHandness() ?
+			InvertHandness(read_normal) : read_normal;
+
+		const XMVECTOR normal_v = XMVector3Normalize(XMLoadFloat3(&normal));
+		XMStoreFloat3(&normal, normal_v);
 
 		m_vertex_normal_coordinates.push_back(std::move(normal));
 	}

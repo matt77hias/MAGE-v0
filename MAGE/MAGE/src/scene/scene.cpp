@@ -109,7 +109,7 @@ namespace mage {
 		// Create the nodes with their model components.
 		desc.ForEachModelPart([&](const ModelPart &model_part) {
 			// Create the node.
-			const NodePtr node = Create< Node >(model_part.m_child);
+			NodePtr node = Create< Node >(model_part.m_child);
 			
 			// Create the model component.
 			const ModelPtr model = Create< Model >(desc.GetMesh(),

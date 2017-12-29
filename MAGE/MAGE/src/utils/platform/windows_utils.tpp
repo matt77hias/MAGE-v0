@@ -19,7 +19,7 @@ namespace mage {
 		}
 
 		CallerT * const caller = reinterpret_cast< CallerT * >(
-			(reinterpret_cast< CREATESTRUCT * >lParam)->lpCreateParams);
+			reinterpret_cast< CREATESTRUCT * >(lParam)->lpCreateParams);
 
 		// Changes an attribute of the specified window.
 		// 1. A handle to the window and, indirectly, the class to which the 

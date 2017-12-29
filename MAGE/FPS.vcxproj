@@ -181,9 +181,9 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>

@@ -88,8 +88,9 @@ namespace mage {
 #ifdef NDEBUG
 #define Assert(expr) (__noop)
 #else
-#define Assert(expr) ((expr) ? __noop : Fatal("Assertion \"%s\" failed in %s, line %d", \
-												#expr, __FILE__, __LINE__))
+#define Assert(expr) ((expr) ? (void)0 \
+                             : Fatal("Assertion \"%s\" failed in %s, line %d", \
+									 #expr, __FILE__, __LINE__))
 #endif
 
 #pragma endregion

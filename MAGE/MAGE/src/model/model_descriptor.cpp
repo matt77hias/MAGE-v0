@@ -36,7 +36,7 @@ namespace mage {
 		
 		for (const auto &model_part : m_model_parts) {
 			if (model_part.m_child == name) {
-				return &(model_part);
+				return &model_part;
 			}
 		}
 		

@@ -223,101 +223,8 @@ namespace mage {
 			 */
 			using value_type = DataT;
 
-			/**
-			 The pointer to element of allocators.
-			 */
-			using pointer =  DataT *;
-
-			/**
-			 The reference to element of allocators.
-			 */
-			using reference = DataT &;
-
-			/**
-			 The pointer to constant element of allocators.
-			 */
-			using const_pointer = const DataT *;
-
-			/**
-			 The reference to constant element of allocators.
-			 */
-			using const_reference = const DataT &;
-		
-			/**
-			 The size type of elements of allocators.
-			 */
-			using size_type = size_t;
-
-			/**
-			 The difference between two pointers to elements of allocators.
-			 */
-			using difference_type = ptrdiff_t;
-
-			/**
-			 A struct of equivalent allocators for other elements.
-
-			 @tparam		DataU
-							The data type.
-			 */
-			template< typename DataU >
-			struct rebind final {
-
-			public:
-
-				/**
-				 The equivalent allocator for elements of type @c DataU.
-				 */
-				using other = Allocator< DataU >;
-
-				/**
-				 Copies the given allocator to this allocator.
-
-				 @param[in]		r
-								A reference to the allocator to copy.
-				 @return		A reference to the copy of the given aligned 
-								allocator (i.e. this allocator).
-				 */
-				rebind &operator=(const rebind &r) = delete;
-
-				/**
-				 Moves the given allocator to this allocator.
-
-				 @param[in]		r
-								A reference to the allocator to move.
-				 @return		A reference to the moved allocator (i.e. 
-								this allocator).
-				 */
-				rebind &operator=(rebind &&r) = delete;
-
-			private:
-
-				/**
-				 Constructs an allocator.
-				 */
-				rebind() = delete;
-
-				/**
-				 Constructs an allocator from the given allocator.
-
-				 @param[in]		r
-								A reference to the allocator to copy.
-				 */
-				rebind(const rebind &r) = delete;
-
-				/**
-				 Constructs an allocator by moving the given aligned 
-				 allocator.
-
-				 @param[in]		r
-								A reference to the allocator to move.
-				 */
-				rebind(rebind &&r) = delete;
-
-				/**
-				 Destructs this allocator.
-				 */
-				~rebind() = delete;
-			};
+			using propagate_on_container_move_assignment = std::true_type;
+			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
 			// Constructors and Destructors
@@ -385,37 +292,6 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			DataT *address(DataT &data) const noexcept {
-				return &data;
-			}
-		
-			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			const DataT *address(const DataT &data) const noexcept {
-				return &data;
-			}
-
-			/**
-			 Returns the maximum number of elements, each of member type 
-			 @c DataT that could potentially be allocated by a call to member 
-			 allocate.
-			 */
-			size_t max_size() const noexcept {
-				return m_memory_stack->GetSize() / sizeof(DataT);
-			}
-
-			/**
 			 Attempts to allocate a block of storage with a size large enough to 
 			 contain @a count elements of type @c DataT, and returns a pointer 
 			 to the first element.
@@ -461,9 +337,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			template< typename DataU >
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const DataU *hint) const {
+				[[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -484,69 +359,38 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const {}
+				[[maybe_unused]] size_t count) const noexcept {}
 		
-			/**
-			 Constructs an element object of type @c DataU on the location 
-			 pointed by the given pointer.
-
-			 @tparam		DataU
-							The element type.
-			 @tparam		ConstructorArgsT
-							The constructor argument types of the element 
-							object of type @c DataU.
-			 @param[in]		data
-							The pointer to the location.
-			 @param[in]		args
-							A reference to the constructor arguments for the 
-							constructing the element object of type @c DataU.
-			 @note			This does not allocate storage space for the 
-							element. It should already be available at @a ptr.
-			 */
-			template< typename DataU, typename... ConstructorArgsT >
-			void construct(DataU *data, ConstructorArgsT&&... args) const {
-				new ((void *)data) DataU(std::forward< ConstructorArgsT >(args)...);
-			}
-
-			/**
-			 Destroys in-place the element pointed by the given pointer.
-		
-			 @tparam		DataU
-							The element type.
-			 @param[in]		data
-							The pointer to the element.
-			 @note			This does not deallocate the storage for the 
-							element.
-			 */
-			template< typename DataU >
-			void destroy(DataU *data) const {
-				data->~DataU();
-			}
-	
 			/**
 			 Compares this allocator to the given allocator for equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const Allocator &rhs) const noexcept {
-				return m_memory_stack = rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator==(const Allocator< DataU > &rhs) const noexcept {
+				return m_memory_stack == rhs.m_memory_stack;
 			}
 
 			/**
 			 Compares this allocator to the given allocator for non-equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const Allocator &rhs) const noexcept {
-				return m_memory_stack != rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
+				return !(*this == rhs);
 			}
 
 		private:
@@ -908,101 +752,8 @@ namespace mage {
 			 */
 			using value_type = DataT;
 
-			/**
-			 The pointer to element of low allocators.
-			 */
-			using pointer =  DataT *;
-
-			/**
-			 The reference to element of low allocators.
-			 */
-			using reference = DataT &;
-
-			/**
-			 The pointer to constant element of low allocators.
-			 */
-			using const_pointer = const DataT *;
-
-			/**
-			 The reference to constant element of low allocators.
-			 */
-			using const_reference = const DataT &;
-		
-			/**
-			 The size type of elements of low allocators.
-			 */
-			using size_type = size_t;
-
-			/**
-			 The difference between two pointers to elements of low allocators.
-			 */
-			using difference_type = ptrdiff_t;
-
-			/**
-			 A struct of equivalent low allocators for other elements.
-
-			 @tparam		DataU
-							The data type.
-			 */
-			template< typename DataU >
-			struct rebind final {
-
-			public:
-
-				/**
-				 The equivalent low allocator for elements of type @c DataU.
-				 */
-				using other = LowAllocator< DataU >;
-
-				/**
-				 Copies the given low allocator to this low allocator.
-
-				 @param[in]		r
-								A reference to the low allocator to copy.
-				 @return		A reference to the copy of the given aligned 
-								low allocator (i.e. this low allocator).
-				 */
-				rebind &operator=(const rebind &r) = delete;
-
-				/**
-				 Moves the given low allocator to this low allocator.
-
-				 @param[in]		r
-								A reference to the low allocator to move.
-				 @return		A reference to the moved low allocator (i.e. 
-								this low allocator).
-				 */
-				rebind &operator=(rebind &&r) = delete;
-
-			private:
-
-				/**
-				 Constructs an low allocator.
-				 */
-				rebind() = delete;
-
-				/**
-				 Constructs an low allocator from the given low allocator.
-
-				 @param[in]		r
-								A reference to the low allocator to copy.
-				 */
-				rebind(const rebind &r) = delete;
-
-				/**
-				 Constructs an low allocator by moving the given aligned 
-				 low allocator.
-
-				 @param[in]		r
-								A reference to the low allocator to move.
-				 */
-				rebind(rebind &&r) = delete;
-
-				/**
-				 Destructs this low allocator.
-				 */
-				~rebind() = delete;
-			};
+			using propagate_on_container_move_assignment = std::true_type;
+			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
 			// Constructors and Destructors
@@ -1072,37 +823,6 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			DataT *address(DataT &data) const noexcept {
-				return &data;
-			}
-		
-			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			const DataT *address(const DataT &data) const noexcept {
-				return &data;
-			}
-
-			/**
-			 Returns the maximum number of elements, each of member type 
-			 @c DataT that could potentially be allocated by a call to member 
-			 allocate.
-			 */
-			size_t max_size() const noexcept {
-				return m_memory_stack->GetSize() / sizeof(DataT);
-			}
-
-			/**
 			 Attempts to allocate a block of storage with a size large enough 
 			 to contain @a count elements of type @c DataT, and returns a 
 			 pointer to the first element.
@@ -1148,9 +868,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			template< typename DataU >
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const DataU *hint) const {
+				[[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -1171,71 +890,40 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const {}
+				[[maybe_unused]] size_t count) const noexcept {}
 		
-			/**
-			 Constructs an element object of type @c DataU on the location 
-			 pointed by the given pointer.
-
-			 @tparam		DataU
-							The element type.
-			 @tparam		ConstructorArgsT
-							The constructor argument types of the element 
-							object of type @c DataU.
-			 @param[in]		data
-							The pointer to the location.
-			 @param[in]		args
-							A reference to the constructor arguments for the 
-							constructing the element object of type @c DataU.
-			 @note			This does not allocate storage space for the 
-							element. It should already be available at @a ptr.
-			 */
-			template< typename DataU, typename... ConstructorArgsT >
-			void construct(DataU *data, ConstructorArgsT&&... args) const {
-				new ((void *)data) DataU(std::forward< ConstructorArgsT >(args)...);
-			}
-
-			/**
-			 Destroys in-place the element pointed by the given pointer.
-		
-			 @tparam		DataU
-							The element type.
-			 @param[in]		data
-							The pointer to the element.
-			 @note			This does not deallocate the storage for the 
-							element.
-			 */
-			template< typename DataU >
-			void destroy(DataU *data) const {
-				data->~DataU();
-			}
-	
 			/**
 			 Compares this low allocator to the given low allocator for 
 			 equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the low allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							low allocator can be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const LowAllocator &rhs) const noexcept {
-				return m_memory_stack = rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator==(const LowAllocator< DataU > &rhs) const noexcept {
+				return m_memory_stack == rhs.m_memory_stack;
 			}
 
 			/**
 			 Compares this low allocator to the given low allocator for 
 			 non-equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the low allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							low allocator cannot be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const LowAllocator &rhs) const noexcept {
-				return m_memory_stack != rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator!=(const LowAllocator< DataU > &rhs) const noexcept {
+				return !(*this == rhs);
 			}
 
 		private:
@@ -1292,102 +980,8 @@ namespace mage {
 			 */
 			using value_type = DataT;
 
-			/**
-			 The pointer to element of high allocators.
-			 */
-			using pointer =  DataT *;
-
-			/**
-			 The reference to element of high allocators.
-			 */
-			using reference = DataT &;
-
-			/**
-			 The pointer to constant element of high allocators.
-			 */
-			using const_pointer = const DataT *;
-
-			/**
-			 The reference to constant element of high allocators.
-			 */
-			using const_reference = const DataT &;
-		
-			/**
-			 The size type of elements of high allocators.
-			 */
-			using size_type = size_t;
-
-			/**
-			 The difference between two pointers to elements of high 
-			 allocators.
-			 */
-			using difference_type = ptrdiff_t;
-
-			/**
-			 A struct of equivalent high allocators for other elements.
-
-			 @tparam		DataU
-							The data type.
-			 */
-			template< typename DataU >
-			struct rebind final {
-
-			public:
-
-				/**
-				 The equivalent high allocator for elements of type @c DataU.
-				 */
-				using other = HighAllocator< DataU >;
-
-				/**
-				 Copies the given high allocator to this high allocator.
-
-				 @param[in]		r
-								A reference to the high allocator to copy.
-				 @return		A reference to the copy of the given aligned 
-								high allocator (i.e. this high allocator).
-				 */
-				rebind &operator=(const rebind &r) = delete;
-
-				/**
-				 Moves the given high allocator to this high allocator.
-
-				 @param[in]		r
-								A reference to the high allocator to move.
-				 @return		A reference to the moved high allocator (i.e. 
-								this high allocator).
-				 */
-				rebind &operator=(rebind &&r) = delete;
-
-			private:
-
-				/**
-				 Constructs an high allocator.
-				 */
-				rebind() = delete;
-
-				/**
-				 Constructs an high allocator from the given high allocator.
-
-				 @param[in]		r
-								A reference to the high allocator to copy.
-				 */
-				rebind(const rebind &r) = delete;
-
-				/**
-				 Constructs an high allocator by moving the given aligned 
-				 high allocator.
-
-				 @param[in]		r
-								A reference to the high allocator to move.
-				 */
-				rebind(rebind &&r) = delete;
-
-				/**
-				 Destructs this high allocator.
-				 */
-				~rebind() = delete;
-			};
+			using propagate_on_container_move_assignment = std::true_type;
+			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
 			// Constructors and Destructors
@@ -1457,37 +1051,6 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			DataT *address(DataT &data) const noexcept {
-				return &data;
-			}
-		
-			/**
-			 Returns the address of the given data.
-
-			 @param[in]		data
-							A reference to the data.
-			 @return		A pointer to the given data.
-			 */
-			const DataT *address(const DataT &data) const noexcept {
-				return &data;
-			}
-
-			/**
-			 Returns the maximum number of elements, each of member type 
-			 @c DataT that could potentially be allocated by a call to member 
-			 allocate.
-			 */
-			size_t max_size() const noexcept {
-				return m_memory_stack->GetSize() / sizeof(DataT);
-			}
-
-			/**
 			 Attempts to allocate a block of storage with a size large enough to 
 			 contain @a count elements of type @c DataT, and returns a pointer 
 			 to the first element.
@@ -1533,9 +1096,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			template< typename DataU >
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const DataU *hint) const {
+				[[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -1556,71 +1118,40 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const {}
+				[[maybe_unused]] size_t count) const noexcept {}
 		
-			/**
-			 Constructs an element object of type @c DataU on the location 
-			 pointed by the given pointer.
-
-			 @tparam		DataU
-							The element type.
-			 @tparam		ConstructorArgsT
-							The constructor argument types of the element 
-							object of type @c DataU.
-			 @param[in]		data
-							The pointer to the location.
-			 @param[in]		args
-							A reference to the constructor arguments for the 
-							constructing the element object of type @c DataU.
-			 @note			This does not allocate storage space for the 
-							element. It should already be available at @a ptr.
-			 */
-			template< typename DataU, typename... ConstructorArgsT >
-			void construct(DataU *data, ConstructorArgsT&&... args) const {
-				new ((void *)data) DataU(std::forward< ConstructorArgsT >(args)...);
-			}
-
-			/**
-			 Destroys in-place the element pointed by the given pointer.
-		
-			 @tparam		DataU
-							The element type.
-			 @param[in]		data
-							The pointer to the element.
-			 @note			This does not deallocate the storage for the 
-							element.
-			 */
-			template< typename DataU >
-			void destroy(DataU *data) const {
-				data->~DataU();
-			}
-	
 			/**
 			 Compares this high allocator to the given high allocator for 
 			 equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the high allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							high allocator can be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const HighAllocator &rhs) const noexcept {
-				return m_memory_stack = rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator==(const HighAllocator< DataU > &rhs) const noexcept {
+				return m_memory_stack == rhs.m_memory_stack;
 			}
 
 			/**
 			 Compares this high allocator to the given high allocator for 
 			 non-equality.
 
+			 @tparam		DataU
+							The data type.
 			 @param[in]		rhs
 							A reference to the high allocator to compare with.
 			 @return		@c true if and only if storage allocated from this
 							high allocator cannot be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const HighAllocator &rhs) const noexcept {
-				return m_memory_stack != rhs.m_memory_stack;
+			template< typename DataU >
+			bool operator!=(const HighAllocator< DataU > &rhs) const noexcept {
+				return !(*this == rhs);
 			}
 
 		private:

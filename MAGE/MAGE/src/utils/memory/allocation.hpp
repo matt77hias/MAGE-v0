@@ -96,40 +96,12 @@ namespace mage {
 		 */
 		using value_type = DataT;
 
-		/**
-		 The pointer to element of aligned allocators.
-		 */
-		using pointer =  DataT *;
-
-		/**
-		 The reference to element of aligned allocators.
-		 */
-		using reference = DataT &;
-
-		/**
-		 The pointer to constant element of aligned allocators.
-		 */
-		using const_pointer = const DataT *;
-
-		/**
-		 The reference to constant element of aligned allocators.
-		 */
-		using const_reference = const DataT &;
-		
-		/**
-		 The size type of elements of aligned allocators.
-		 */
-		using size_type = size_t;
-
-		/**
-		 The difference between two pointers to elements of aligned allocators.
-		 */
-		using difference_type = ptrdiff_t;
+		using propagate_on_container_move_assignment = std::true_type;
+		using is_always_equal = std::true_type;
 
 		/**
 		 A struct of equivalent aligned allocators for other elements with the 
 		 same alignment.
-
 		 @tparam		DataU
 						The data type.
 		 */
@@ -147,7 +119,6 @@ namespace mage {
 
 			/**
 			 Copies the given aligned allocator to this aligned allocator.
-
 			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 @return		A reference to the copy of the given aligned 
@@ -157,7 +128,6 @@ namespace mage {
 
 			/**
 			 Moves the given aligned allocator to this aligned allocator.
-
 			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 @return		A reference to the moved aligned allocator (i.e. 
@@ -174,7 +144,6 @@ namespace mage {
 
 			/**
 			 Constructs an aligned allocator from the given aligned allocator.
-
 			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 */
@@ -183,7 +152,6 @@ namespace mage {
 			/**
 			 Constructs an aligned allocator by moving the given aligned 
 			 allocator.
-
 			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 */
@@ -270,37 +238,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the address of the given data.
-
-		 @param[in]		data
-						A reference to the data.
-		 @return		A pointer to the given data.
-		 */
-		constexpr DataT *address(DataT &data) const noexcept {
-			return &data;
-		}
-		
-		/**
-		 Returns the address of the given data.
-
-		 @param[in]		data
-						A reference to the data.
-		 @return		A pointer to the given data.
-		 */
-		constexpr const DataT *address(const DataT &data) const noexcept {
-			return &data;
-		}
-
-		/**
-		 Returns the maximum number of elements, each of member type @c DataT 
-		 that could potentially be allocated by a call to member allocate.
-		 */
-		constexpr size_t max_size() const noexcept {
-			return (static_cast< size_t >(0) - static_cast< size_t >(1)) 
-				/ sizeof(DataT);
-		}
-
-		/**
 		 Attempts to allocate a block of storage with a size large enough to 
 		 contain @a count elements of type @c DataT, and returns a pointer to 
 		 the first element.
@@ -348,8 +285,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
-		template< typename DataU >
-		DataT *allocate(size_t count, [[maybe_unused]] const DataU *hint) const {
+		DataT *allocate(size_t count, [[maybe_unused]] const void *hint) const {
 			return allocate(count);
 		}
 
@@ -368,50 +304,16 @@ namespace mage {
 						allocate for this block of storage.
 		 @note			The elements in the array are not destroyed.
 		 */
-		void deallocate(DataT *data, [[maybe_unused]] size_t count) const {
+		void deallocate(DataT *data, [[maybe_unused]] size_t count) const noexcept {
 			FreeAligned((void *)data);
 		}
 		
 		/**
-		 Constructs an element object of type @c DataU on the location pointed 
-		 by the given pointer.
-
-		 @tparam		DataU
-						The element type.
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the element object of
-						type @c DataU.
-		 @param[in]		data
-						The pointer to the location.
-		 @param[in]		args
-						A reference to the constructor arguments for the 
-						constructing the element object of type @c DataU.
-		 @note			This does not allocate storage space for the element. It 
-						should already be available at @a ptr.
-		 */
-		template< typename DataU, typename... ConstructorArgsT >
-		void construct(DataU *data, ConstructorArgsT&&... args) const {
-			new ((void *)data) DataU(std::forward< ConstructorArgsT >(args)...);
-		}
-
-		/**
-		 Destroys in-place the element pointed by the given pointer.
-		
-		 @tparam		DataU
-						The element type.
-		 @param[in]		data
-						The pointer to the element.
-		 @note			This does not deallocate the storage for the element.
-		 */
-		template< typename DataU >
-		void destroy(DataU *data) const {
-			data->~DataU();
-		}
-	
-		/**
 		 Compares this aligned allocator to the given aligned allocator for 
 		 equality.
 
+		 @tparam		DataU
+						The data type.
 		 @param[in]		rhs
 						A reference to the aligned allocator to compare with.
 		 @return		@c true if and only if storage allocated from this
@@ -419,8 +321,9 @@ namespace mage {
 						aligned allocator, and vice versa. This is always the
 						case for stateless allocators. @c false otherwise.
 		 */
+		template< typename DataU >
 		constexpr bool operator==([[maybe_unused]] 
-			const AlignedAllocator &rhs) const noexcept {
+			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return true;
 		}
@@ -429,6 +332,8 @@ namespace mage {
 		 Compares this aligned allocator to the given aligned allocator for 
 		 non-equality.
 
+		 @tparam		DataU
+						The data type.
 		 @param[in]		rhs
 						A reference to the aligned allocator to compare with.
 		 @return		@c true if and only if storage allocated from this
@@ -436,8 +341,9 @@ namespace mage {
 						aligned allocator, and vice versa. This is never the
 						case for stateless allocators. @c false otherwise.
 		 */
+		template< typename DataU >
 		constexpr bool operator!=([[maybe_unused]] 
-			const AlignedAllocator &rhs) const noexcept {
+			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return false;
 		}

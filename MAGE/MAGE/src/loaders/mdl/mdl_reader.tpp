@@ -51,7 +51,7 @@ namespace mage::loader {
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token 
+		const char * const token
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_mdl_token_comment == token[0]) {

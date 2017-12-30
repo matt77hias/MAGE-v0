@@ -56,7 +56,7 @@ namespace mage::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token 
+		const char * const token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_obj_token_comment == token[0]) {

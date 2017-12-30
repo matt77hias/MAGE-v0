@@ -25,8 +25,8 @@ namespace mage::loader {
 
 	void MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token = 
-			strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const char * const token 
+			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_mtl_token_comment == token[0]) {
 			return;

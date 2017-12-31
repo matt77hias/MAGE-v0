@@ -43,13 +43,13 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices in the mesh.
 		 @param[in]		aabb
-						The AABB.
+						A reference to the AABB.
 		 @param[in]		bs
-						The BS.
+						A reference to the BS.
 		 */
 		explicit Model(SharedPtr< const Mesh > mesh, 
 			size_t start_index, size_t nb_indices, 
-			AABB aabb, BS bs);
+			const AABB &aabb, const BS &bs);
 
 		/**
 		 Constructs a model from the given model.

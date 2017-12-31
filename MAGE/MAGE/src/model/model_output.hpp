@@ -286,8 +286,8 @@ namespace mage {
 						A flag indicating whether bounding volumes must be 
 						created for the given model part.
 		 */
-		void AddModelPart(ModelPart model_part, 
-			              bool create_bounding_volumes = true);
+		void XM_CALLCONV AddModelPart(ModelPart model_part, 
+			                          bool create_bounding_volumes = true);
 
 		/**
 		 Checks whether this model output contains a model part with the given 
@@ -304,7 +304,7 @@ namespace mage {
 		 @param[in]		model_part
 						The model part to add.
 		 */
-		void StartModelPart(ModelPart model_part);
+		void XM_CALLCONV StartModelPart(ModelPart model_part);
 		
 		/**
 		 Sets the name of the material of the last model part to the given 

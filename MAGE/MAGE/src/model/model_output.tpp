@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	inline void ModelOutput< VertexT, IndexT >
+	inline void XM_CALLCONV ModelOutput< VertexT, IndexT >
 		::AddModelPart(ModelPart model_part, bool create_bounding_volumes) {
 		
 		m_model_parts.push_back(std::move(model_part));
@@ -39,7 +39,7 @@ namespace mage {
 	}
 
 	template< typename VertexT, typename IndexT >
-	inline void ModelOutput< VertexT, IndexT >
+	inline void XM_CALLCONV ModelOutput< VertexT, IndexT >
 		::StartModelPart(ModelPart model_part) {
 		
 		model_part.m_start_index = static_cast< U32 >(m_index_buffer.size());

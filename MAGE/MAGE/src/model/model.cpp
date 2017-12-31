@@ -14,10 +14,10 @@ namespace mage {
 
 	Model::Model(SharedPtr< const Mesh > mesh, 
 		size_t start_index, size_t nb_indices,
-		AABB aabb, BS bs) 
+		const AABB &aabb, const BS &bs) 
 		: Component(),
-		m_aabb(std::move(aabb)),
-		m_bs(std::move(bs)),
+		m_aabb(aabb),
+		m_bs(bs),
 		m_mesh(std::move(mesh)), 
 		m_start_index(start_index), 
 		m_nb_indices(nb_indices),

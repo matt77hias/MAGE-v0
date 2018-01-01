@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\exception\exception.hpp"
+#include "utils\type\types.hpp"
 
 #pragma endregion
 
@@ -15,6 +15,7 @@
 #pragma region
 
 #include <malloc.h>
+#include <new>
 
 #pragma endregion
 

@@ -94,6 +94,8 @@ GAUL R.: [*Component Based Engine Design*](http://www.randygaul.net/2013/05/20/c
 
 GAUL R.: [*Sane Usage of Components and Entity Systems*](http://www.randygaul.net/2014/06/10/sane-usage-of-components-and-entity-systems/), 2014.
 
+GLATZEL B.: [Reverse Z Cheat Sheet](http://www.intrinsic-engine.com/reverse-z-cheat-sheet/), 2018.
+
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.

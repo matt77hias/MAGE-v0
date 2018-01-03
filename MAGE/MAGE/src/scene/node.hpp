@@ -360,6 +360,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the guid of this node.
+
+		 @return		The guid of this node.
+		 */
+		S32 GetGuid() const noexcept {
+			return m_guid;
+		}
+
+		/**
 		 Returns a pointer to this node.
 
 		 @return		A pointer to this node.
@@ -454,6 +463,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 The guid of this node.
+		 */
+		S32 m_guid;
+
+		/**
 		 A pointer to this node.
 		 */
 		NodePtr m_this;
@@ -467,7 +481,7 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// TransformClient
+	// NodeClient
 	//-------------------------------------------------------------------------
 	#pragma region
 

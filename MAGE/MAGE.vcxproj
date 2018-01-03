@@ -384,6 +384,7 @@
     <ClCompile Include="MAGE\src\utils\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\utils\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\utils\memory\memory_stack.cpp" />
+    <ClCompile Include="MAGE\src\utils\parallel\id_generator.cpp" />
     <ClCompile Include="MAGE\src\utils\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\utils\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\utils\string\string_utils.cpp" />

@@ -89,6 +89,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the guid of this component.
+
+		 @return		The guid of this component.
+		 */
+		S32 GetGuid() const noexcept {
+			return m_guid;
+		}
+
+		/**
 		 Checks whether this component has an owner.
 
 		 @return		@c true if this component has an owner. @c false 
@@ -177,6 +186,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables: Identification
 		//---------------------------------------------------------------------
+
+		/**
+		 The guid of this component.
+		 */
+		S32 m_guid;
 
 		/**
 		 A pointer to the node owning this component.

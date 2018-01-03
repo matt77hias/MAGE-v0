@@ -1457,6 +1457,9 @@
     <ClCompile Include="MAGE\src\utils\logging\dump.cpp">
       <Filter>Source Files\utils\logging</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\utils\parallel\id_generator.cpp">
+      <Filter>Source Files\utils\parallel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">

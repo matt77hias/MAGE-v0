@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "utils\parallel\id_generator.hpp"
 
 #pragma endregion
 
@@ -18,10 +19,19 @@ namespace mage {
 		m_childs(),
 		m_components(),
 		m_state(State::Active),
+		m_guid(IdGenerator::GetNextGuid()),
 		m_this(),
 		m_name(std::move(name)) {}
 
-	Node::Node(const Node &node) = default;
+	Node::Node(const Node &node) 
+		: m_transform(node.m_transform),
+		m_parent(nullptr),
+		m_childs(),
+		m_components(),
+		m_state(node.m_state),
+		m_guid(IdGenerator::GetNextGuid()),
+		m_this(),
+		m_name(node.m_name) {}
 
 	Node::Node(Node &&node) noexcept
 		: m_transform(std::move(node.m_transform)),

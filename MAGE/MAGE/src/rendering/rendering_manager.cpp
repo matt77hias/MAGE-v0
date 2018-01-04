@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -97,9 +106,9 @@ namespace mage {
 	void RenderingManager::SetupDevice() {
 		// Set the runtime layers to enable.
 		U32 create_device_flags = 0u;
-#ifdef _DEBUG
+		#ifdef _DEBUG
 		create_device_flags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
+		#endif
 
 		ComPtr< ID3D11Device > device;
 		ComPtr< ID3D11DeviceContext > device_context;
@@ -111,7 +120,7 @@ namespace mage {
 				nullptr,
 				create_device_flags,
 				Pipeline::s_feature_levels,
-				_countof(Pipeline::s_feature_levels),
+				static_cast< U32 >(std::size(Pipeline::s_feature_levels)),
 				D3D11_SDK_VERSION,
 				device.GetAddressOf(),
 				&m_feature_level,

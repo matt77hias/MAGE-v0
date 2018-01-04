@@ -13,6 +13,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Integrated + Dedicated GPU on notebooks  
 //-----------------------------------------------------------------------------
 #pragma region
@@ -368,7 +377,7 @@ namespace mage {
 
 				// Fill in the resolutions combo box.
 				for (const auto &mode : m_display_modes) {
-					swprintf_s(buffer, _countof(buffer), L"%u x %u", mode.Width, mode.Height);
+					swprintf_s(buffer, std::size(buffer), L"%u x %u", mode.Width, mode.Height);
 
 					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
 						const size_t resolution = ConvertResolution(mode);
@@ -395,7 +404,7 @@ namespace mage {
 					if (selected_resolution == resolution) {
 
 						const size_t refresh_rate = ConvertRefreshRate(mode);
-						swprintf_s(buffer, _countof(buffer), L"%u Hz",
+						swprintf_s(buffer, std::size(buffer), L"%u Hz",
 							static_cast< unsigned int >(refresh_rate));
 
 						if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
@@ -523,7 +532,7 @@ namespace mage {
 						if (selected_resolution == resolution) {
 							
 							const size_t refresh_rate = ConvertRefreshRate(mode);
-							swprintf_s(buffer, _countof(buffer), L"%u Hz",
+							swprintf_s(buffer, std::size(buffer), L"%u Hz",
 								static_cast< unsigned int >(refresh_rate));
 							
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {

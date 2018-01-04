@@ -13,6 +13,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -77,10 +86,10 @@ namespace mage {
 		// Unbind the shadow map SRVs.
 		Pipeline::PS::BindSRVs(m_device_context,
 			SLOT_SRV_SHADOW_MAPS_START,
-			_countof(srvs), srvs);
+			static_cast< U32 >(std::size(srvs)), srvs);
 		Pipeline::CS::BindSRVs(m_device_context,
 			SLOT_SRV_SHADOW_MAPS_START,
-			_countof(srvs), srvs);
+			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
 	void LBufferPass::BindLBuffer() const noexcept {
@@ -110,10 +119,10 @@ namespace mage {
 		// Bind the SRVs.
 		Pipeline::PS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
-			_countof(srvs), srvs);
+			static_cast< U32 >(std::size(srvs)), srvs);
 		Pipeline::CS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
-			_countof(srvs), srvs);
+			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
 	void LBufferPass::ProcessLightsData(const Scene &scene, const Fog &fog) {
@@ -240,7 +249,7 @@ namespace mage {
 				// Create six omni light cameras.
 				const XMMATRIX world_to_lview       = transform.GetWorldToViewMatrix();
 				const XMMATRIX lview_to_lprojection = light.GetViewToProjectionMatrix();
-				for (size_t i = 0; i < _countof(rotations); ++i) {
+				for (size_t i = 0; i < std::size(rotations); ++i) {
 					LightCameraInfo camera;
 					camera.cview_to_lprojection = view_to_world * world_to_lview * rotations[i] * lview_to_lprojection;
 

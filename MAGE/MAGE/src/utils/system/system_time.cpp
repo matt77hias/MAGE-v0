@@ -9,6 +9,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -55,8 +64,13 @@ namespace mage {
 
 		wchar_t str_date[255];
 
-		const int result = GetDateFormat(LOCALE_USER_DEFAULT, 0,
-			&local_stime, L"yyyy-MM-dd", str_date, _countof(str_date));
+		const int result = GetDateFormat(LOCALE_USER_DEFAULT, 
+			                             0,
+			                             &local_stime, 
+			                             L"yyyy-MM-dd", 
+			                             str_date, 
+			                             static_cast< int >(std::size(str_date)));
+		
 		return (result) ? wstring(str_date) : wstring();
 	}
 
@@ -79,8 +93,13 @@ namespace mage {
 
 		wchar_t str_time[255];
 
-		const int result = GetTimeFormat(LOCALE_USER_DEFAULT, 0, 
-			&local_stime, L"HH-mm-ss", str_time, _countof(str_time));
+		const int result = GetTimeFormat(LOCALE_USER_DEFAULT, 
+			                             0, 
+			                             &local_stime, 
+			                             L"HH-mm-ss", 
+			                             str_time, 
+			                             static_cast< int >(std::size(str_time)));
+		
 		return (result) ? wstring(str_time) : wstring();
 	}
 
@@ -104,13 +123,21 @@ namespace mage {
 		wchar_t str_date[255];
 		wchar_t str_time[255];
 
-		if (!GetDateFormat(LOCALE_USER_DEFAULT, 0, &local_stime, 
-			L"yyyy-MM-dd", str_date, _countof(str_date))) {
+		if (!GetDateFormat(LOCALE_USER_DEFAULT, 
+			               0, 
+			               &local_stime, 
+			               L"yyyy-MM-dd", 
+			               str_date, 
+			               static_cast< int >(std::size(str_date)))) {
 			return wstring();
 		}
 		
-		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 0, &local_stime, 
-			L"HH-mm-ss", str_time, _countof(str_time))) {
+		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 
+			               0, 
+			               &local_stime, 
+			               L"HH-mm-ss", 
+			               str_time, 
+			               static_cast< int >(std::size(str_time)))) {
 			return wstring();
 		}
 

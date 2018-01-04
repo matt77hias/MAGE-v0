@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -33,7 +42,7 @@ namespace mage {
 	}
 
 	inline void Halton(size_t index, F32 *sample, size_t nb_dims) noexcept {
-		Assert(nb_dims < _countof(g_primes));
+		Assert(nb_dims < std::size(g_primes));
 
 		for (size_t i = 0; i < nb_dims; ++i, ++sample) {
 			*sample = RadicalInverse(index, 
@@ -69,7 +78,7 @@ namespace mage {
 		size_t nb_samples) noexcept {
 		
 		Assert(index < nb_samples);
-		Assert(nb_dims <= _countof(g_primes));
+		Assert(nb_dims <= std::size(g_primes));
 		
 		*sample = index / F32(nb_samples);
 		++sample;

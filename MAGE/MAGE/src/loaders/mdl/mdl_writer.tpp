@@ -13,6 +13,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::loader {
@@ -33,8 +42,10 @@ namespace mage::loader {
 	void MDLWriter< VertexT, IndexT >::Write() {
 		// Export mesh.
 		ExportMesh();
+		
 		// Export materials.
 		WriteMaterials();
+		
 		// Export model.
 		WriteModelParts();
 	}
@@ -44,6 +55,7 @@ namespace mage::loader {
 		const wstring &fname = GetFilename();
 		const wstring msh_fname 
 			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+
 		ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, 
 			                           m_model_output.m_index_buffer);
 	}
@@ -64,7 +76,7 @@ namespace mage::loader {
 			= mage::GetFilenameWithoutFileExtension(file_name);
 
 		char output[MAX_PATH];
-		sprintf_s(output, _countof(output), 
+		sprintf_s(output, std::size(output), 
 			"%s %s.mtl",
 			g_mdl_token_material_library, 
 			str_convert(file_name_we).c_str());
@@ -78,7 +90,7 @@ namespace mage::loader {
 
 		for (const auto &model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, _countof(output),
+			sprintf_s(output, std::size(output),
 				"%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
 				g_mdl_token_submodel, 
 				model_part.m_child.c_str(), 

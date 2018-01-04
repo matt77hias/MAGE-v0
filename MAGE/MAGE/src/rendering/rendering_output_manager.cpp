@@ -13,6 +13,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -325,10 +334,10 @@ namespace mage {
 		// Collect the GBuffer SRVs.
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
 		// Bind no GBuffer SRVs.
-		Pipeline::PS::BindSRVs(device_context, 
-			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
-		Pipeline::CS::BindSRVs(device_context, 
-			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			static_cast< U32 >(std::size(srvs)), srvs);
+		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			static_cast< U32 >(std::size(srvs)), srvs);
 
 		// Clear the GBuffer RTVs.
 		Pipeline::OM::ClearRTV(device_context, 
@@ -341,10 +350,10 @@ namespace mage {
 		Pipeline::OM::ClearDepthOfDSV(device_context, m_dsv.Get());
 
 		// Bind no HDR SRV.
-		Pipeline::PS::BindSRV(device_context,
-			SLOT_SRV_IMAGE, nullptr);
-		Pipeline::CS::BindSRV(device_context, 
-			SLOT_SRV_IMAGE, nullptr);
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+			nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+			nullptr);
 		
 		// Clear the HDR RTV.
 		Pipeline::OM::ClearRTV(device_context,
@@ -365,7 +374,7 @@ namespace mage {
 
 		// Bind the GBuffer RTVs and GBuffer DSV.
 		Pipeline::OM::BindRTVsAndDSV(device_context,
-			_countof(rtvs), rtvs, m_dsv.Get());
+			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
 	}
 	
 	void RenderingOutputManager::BindEndGBuffer(
@@ -389,8 +398,8 @@ namespace mage {
 		
 		if (m_msaa) {
 			// Bind the GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context,
-				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR RTV and no DSV.
 			Pipeline::OM::BindRTVAndDSV(device_context,
@@ -398,12 +407,12 @@ namespace mage {
 		}
 		else {
 			// Bind the GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context,
-				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR UAV.
-			Pipeline::CS::BindUAV(device_context,
-				SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR));
+			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+				GetUAV(UAVIndex::HDR));
 		}
 	}
 	
@@ -415,8 +424,8 @@ namespace mage {
 
 		if (m_msaa) {
 			// Bind no GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context,
-				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no RTV and no DSV.
 			Pipeline::OM::BindRTVAndDSV(device_context,
@@ -424,12 +433,12 @@ namespace mage {
 		}
 		else {
 			// Bind no GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context,
-				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no HDR UAV.
-			Pipeline::CS::BindUAV(device_context,
-				SLOT_UAV_IMAGE, nullptr);
+			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+				nullptr);
 		}
 	}
 	
@@ -444,7 +453,7 @@ namespace mage {
 
 		// Bind the RTVs and DSV.
 		Pipeline::OM::BindRTVsAndDSV(device_context,
-			_countof(rtvs), rtvs, m_dsv.Get());
+			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
 	}
 
 	void RenderingOutputManager::BindEndForward(
@@ -459,12 +468,12 @@ namespace mage {
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind the SRVs.
-		Pipeline::CS::BindSRV(device_context, 
-			SLOT_SRV_IMAGE,  GetSRV(SRVIndex::HDR));
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_NORMAL, GetSRV(SRVIndex::GBuffer_Normal));
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_DEPTH,  GetSRV(SRVIndex::GBuffer_Depth));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+			GetSRV(SRVIndex::HDR));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
+			GetSRV(SRVIndex::GBuffer_Normal));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
+			GetSRV(SRVIndex::GBuffer_Depth));
 
 		// Collect the SRVs.
 		ID3D11UnorderedAccessView * const uavs[SLOT_UAV_RESOLVE_COUNT] = {
@@ -474,60 +483,60 @@ namespace mage {
 		};
 
 		// Bind the UAVs.
-		Pipeline::CS::BindUAVs(device_context, 
-			SLOT_UAV_RESOLVE_START, _countof(uavs), uavs);
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_RESOLVE_START, 
+			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
 	void RenderingOutputManager::BindEndResolve(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind no SRVs.
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_IMAGE,  nullptr);
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_NORMAL, nullptr);
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_DEPTH,  nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+			nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
+			nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
+			nullptr);
 
 		// Collect the SRVs.
 		ID3D11UnorderedAccessView * const uavs[SLOT_UAV_RESOLVE_COUNT] = {};
 
 		// Bind no UAVs.
-		Pipeline::CS::BindUAVs(device_context,
-			SLOT_UAV_RESOLVE_START, _countof(uavs), uavs);
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_RESOLVE_START, 
+			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
 	void RenderingOutputManager::BindBeginPostProcessing(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_NORMAL, GetSRV(SRVIndex::PostProcessing_Normal));
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_DEPTH,  GetSRV(SRVIndex::PostProcessing_Depth));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
+			GetSRV(SRVIndex::PostProcessing_Normal));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
+			GetSRV(SRVIndex::PostProcessing_Depth));
 	}
 
 	void RenderingOutputManager::BindPingPong(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context,
-			SLOT_UAV_IMAGE, nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+			nullptr);
 		
 		if (m_hdr0_to_hdr1) {
 			// Bind HDR UAV.
-			Pipeline::CS::BindUAV(device_context,
-				SLOT_UAV_IMAGE, GetUAV(UAVIndex::PostProcessing_HDR1));
+			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+				GetUAV(UAVIndex::PostProcessing_HDR1));
 			// Bind HDR SRV.
-			Pipeline::CS::BindSRV(device_context,
-				SLOT_SRV_IMAGE, GetSRV(SRVIndex::PostProcessing_HDR0));
+			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+				GetSRV(SRVIndex::PostProcessing_HDR0));
 		}
 		else {
 			// Bind HDR UAV.
-			Pipeline::CS::BindUAV(device_context,
-				SLOT_UAV_IMAGE, GetUAV(UAVIndex::PostProcessing_HDR0));
+			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+				GetUAV(UAVIndex::PostProcessing_HDR0));
 			// Bind HDR SRV.
-			Pipeline::CS::BindSRV(device_context,
-				SLOT_SRV_IMAGE, GetSRV(SRVIndex::PostProcessing_HDR1));
+			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+				GetSRV(SRVIndex::PostProcessing_HDR1));
 		}
 
 		m_hdr0_to_hdr1 = !m_hdr0_to_hdr1;
@@ -541,18 +550,18 @@ namespace mage {
 			SwapChain::Get()->GetRTV(), nullptr);
 		
 		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context,
-			SLOT_UAV_IMAGE, nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
+			nullptr);
 
 		if (m_hdr0_to_hdr1) {
 			// Bind HDR SRV.
-			Pipeline::PS::BindSRV(device_context,
-				SLOT_SRV_IMAGE, GetSRV(SRVIndex::PostProcessing_HDR0));
+			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+				GetSRV(SRVIndex::PostProcessing_HDR0));
 		}
 		else {
 			// Bind HDR SRV.
-			Pipeline::PS::BindSRV(device_context,
-				SLOT_SRV_IMAGE, GetSRV(SRVIndex::PostProcessing_HDR1));
+			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+				GetSRV(SRVIndex::PostProcessing_HDR1));
 		}
 	}
 }

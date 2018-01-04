@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -46,7 +55,10 @@ namespace mage {
 		char current_line[MAX_PATH];
 		m_line_number = 1;
 		// Continue reading from the file until the eof is reached.
-		while (fgets(current_line, _countof(current_line), m_file_stream.get())) {
+		while (fgets(current_line, 
+			         static_cast< int >(std::size(current_line)), 
+			         m_file_stream.get())) {
+
 			ReadLine(current_line);
 			++m_line_number;
 		}
@@ -69,7 +81,10 @@ namespace mage {
 		char current_line[MAX_PATH];
 		m_line_number = 1;
 		// Continue reading from the file until the eof is reached.
-		while (str_gets(current_line, _countof(current_line), &input)) {
+		while (str_gets(current_line, 
+			            std::size(current_line), 
+			            &input)) {
+
 			ReadLine(current_line);
 			++m_line_number;
 		}

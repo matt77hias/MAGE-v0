@@ -8,6 +8,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Game Definitions
 //-----------------------------------------------------------------------------
 namespace mage::script {
@@ -123,8 +132,11 @@ namespace mage::script {
 					BRDFType::BlinnPhong,
 					BRDFType::WardDuer
 				};
-				ImGui::ListBox("BRDF", &m_brdf_index, 
-					brdf_names, _countof(brdf_names));
+				ImGui::ListBox("BRDF", 
+					           &m_brdf_index, 
+					           brdf_names, 
+					           static_cast< int >(std::size(brdf_names)));
+				
 				m_camera->GetSettings().SetBRDF(brdfs[m_brdf_index]);
 			}
 

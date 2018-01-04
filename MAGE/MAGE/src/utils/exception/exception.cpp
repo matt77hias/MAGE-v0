@@ -9,6 +9,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -31,7 +40,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 
-		vsnprintf_s(m_text, _countof(m_text), _TRUNCATE, format, args);
+		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
 		// End using variable argument list.
 		va_end(args);
@@ -44,7 +53,7 @@ namespace mage {
 
 		Assert(format);
 
-		vsnprintf_s(m_text, _countof(m_text), _TRUNCATE, format, args);
+		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
 		Error(m_text);
 	}

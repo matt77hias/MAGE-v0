@@ -17,72 +17,69 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh::StaticMesh(
-		const VertexT *vertices, size_t nb_vertices,
-		const IndexT *indices,   size_t nb_indices, 
+	StaticMesh< VertexT, IndexT >::StaticMesh(
+		std::vector< VertexT > vertices, 
+		std::vector< IndexT >  indices,
 		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(Pipeline::GetDevice(),
-			vertices, nb_vertices,
-			indices,  nb_indices, 
-			primitive_topology) {}
+			         std::move(vertices), 
+			         std::move(indices), 
+			         primitive_topology) {}
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh::StaticMesh(ID3D11Device5 *device,
-		const VertexT *vertices, size_t nb_vertices, 
-		const IndexT *indices,   size_t nb_indices, 
+	StaticMesh< VertexT, IndexT >::StaticMesh(ID3D11Device5 *device,
+		std::vector< VertexT > vertices,
+		std::vector< IndexT >  indices,
 		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: Mesh(sizeof(VertexT), mage::GetIndexFormat< IndexT >(), 
-			primitive_topology) {
+		: Mesh(sizeof(VertexT), 
+			   mage::GetIndexFormat< IndexT >(),
+			   primitive_topology),
+	    m_vertices(std::move(vertices)), 
+		m_indices(std::move(indices)) {
 
-		SetupVertexBuffer(device, vertices, nb_vertices);
-		SetupIndexBuffer( device, indices,  nb_indices);
+		SetupVertexBuffer(device);
+		SetupIndexBuffer(device);
 	}
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh::StaticMesh(
-		const std::vector< VertexT > &vertices, 
-		const std::vector< IndexT >  &indices, 
-		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: StaticMesh(Pipeline::GetDevice(),
-			vertices, indices, primitive_topology) {}
+	StaticMesh< VertexT, IndexT >
+		::StaticMesh(StaticMesh &&mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh::StaticMesh(ID3D11Device5 *device,
-		const std::vector< VertexT > &vertices, 
-		const std::vector< IndexT >  &indices, 
-		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: StaticMesh(device, 
-			vertices.data(), vertices.size(), 
-			indices.data(),  indices.size(), 
-			primitive_topology) {}
+	StaticMesh< VertexT, IndexT >
+		::StaticMesh::~StaticMesh() = default;
 
-	template< typename VertexT >
-	void StaticMesh::SetupVertexBuffer(ID3D11Device5 *device, 
-		const VertexT *vertices, size_t nb_vertices) {
+	template< typename VertexT, typename IndexT >
+	StaticMesh< VertexT, IndexT > &StaticMesh< VertexT, IndexT >
+		::StaticMesh::operator=(StaticMesh &&mesh) noexcept = default;
+
+	template< typename VertexT, typename IndexT >
+	void StaticMesh< VertexT, IndexT >
+		::SetupVertexBuffer(ID3D11Device5 *device) {
 		
 		Assert(device);
-		Assert(vertices);
 
-		const HRESULT result_vertex_buffer = CreateStaticVertexBuffer< VertexT >(
-			device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
-		ThrowIfFailed(result_vertex_buffer, 
-			"Vertex buffer creation failed: %08X.", result_vertex_buffer);
+		const HRESULT result = CreateStaticVertexBuffer< VertexT >(
+			device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
+			m_vertices.data(), m_vertices.size());
+		ThrowIfFailed(result,
+			"Vertex buffer creation failed: %08X.", result);
 
-		SetNumberOfVertices(nb_vertices);
+		SetNumberOfVertices(m_vertices.size());
 	}
 
-	template< typename IndexT >
-	void StaticMesh::SetupIndexBuffer(ID3D11Device5 *device, 
-		const IndexT *indices, size_t nb_indices) {
+	template< typename VertexT, typename IndexT >
+	void StaticMesh< VertexT, IndexT >
+		::SetupIndexBuffer(ID3D11Device5 *device) {
 		
 		Assert(device);
-		Assert(indices);
 
-		const HRESULT result_index_buffer = CreateStaticIndexBuffer< IndexT >(
-			device, m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
-		ThrowIfFailed(result_index_buffer, 
-			"Index buffer creation failed: %08X.", result_index_buffer);
+		const HRESULT result = CreateStaticIndexBuffer< IndexT >(
+			device, m_index_buffer.ReleaseAndGetAddressOf(), 
+			m_indices.data(), m_indices.size());
+		ThrowIfFailed(result, 
+			"Index buffer creation failed: %08X.", result);
 
-		SetNumberOfIndices(nb_indices);
+		SetNumberOfIndices(m_indices.size());
 	}
 }

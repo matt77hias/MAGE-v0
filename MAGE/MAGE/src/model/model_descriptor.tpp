@@ -28,8 +28,10 @@ namespace mage {
 			loader::ExportModelToFile(mdl_fname, buffer);
 		}
 
-		m_mesh = MakeShared< StaticMesh >(device, buffer.m_vertex_buffer, 
-			                                      buffer.m_index_buffer);
+		m_mesh = MakeShared< StaticMesh< VertexT, IndexT > >(
+			               device, 
+			               std::move(buffer.m_vertex_buffer), 
+			               std::move(buffer.m_index_buffer));
 		m_materials   = std::move(buffer.m_material_buffer);
 		m_model_parts = std::move(buffer.m_model_parts);
 	}

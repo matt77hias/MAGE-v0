@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "mesh\static_mesh.hpp"
+#include "mesh\mesh.hpp"
 #include "math\geometry\bounding_volume.hpp"
 #include "math\transform\texture_transform.hpp"
 #include "material\material.hpp"

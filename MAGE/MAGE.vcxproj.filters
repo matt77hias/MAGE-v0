@@ -1154,9 +1154,6 @@
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\static_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\mesh\vertex.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>

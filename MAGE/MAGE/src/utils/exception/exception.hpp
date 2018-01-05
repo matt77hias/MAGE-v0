@@ -150,59 +150,71 @@ namespace mage {
 		"MAGE/Windows primitive type mismatch");
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @param[in]		result
 					The result value.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(bool result);
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
 					Pointer to the message format.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(bool result, const char *format, ...);
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @param[in]		result
 					The result value.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(BOOL result);
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
 					Pointer to the message format.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(BOOL result, const char *format, ...);
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @param[in]		result
 					The result value.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(HRESULT result);
 
 	/**
-	 Throws if the given results corresponds to a failure.
+	 Throws if the given result correspond to a failure.
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
 					Pointer to the message format.
+	 @throws		Exception
+					The given results correspond to a failure.
 	 */
 	void ThrowIfFailed(HRESULT result, const char *format, ...);
 

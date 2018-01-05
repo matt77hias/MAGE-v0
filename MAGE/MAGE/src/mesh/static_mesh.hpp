@@ -24,7 +24,7 @@
 namespace mage {
 
 	/**
-	 A class of indexed static meshes.
+	 A class of static meshes.
 
 	 @tparam		VertexT
 					The vertex type.

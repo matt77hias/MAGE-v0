@@ -17,20 +17,21 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh< VertexT, IndexT >::StaticMesh(
-		std::vector< VertexT > vertices, 
-		std::vector< IndexT >  indices,
-		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+	StaticMesh< VertexT, IndexT >
+		::StaticMesh(std::vector< VertexT > vertices, 
+		             std::vector< IndexT >  indices,
+		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(Pipeline::GetDevice(),
 			         std::move(vertices), 
 			         std::move(indices), 
 			         primitive_topology) {}
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh< VertexT, IndexT >::StaticMesh(ID3D11Device5 *device,
-		std::vector< VertexT > vertices,
-		std::vector< IndexT >  indices,
-		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+	StaticMesh< VertexT, IndexT >
+		::StaticMesh(ID3D11Device5 *device,
+		             std::vector< VertexT > vertices,
+		             std::vector< IndexT >  indices,
+		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: Mesh(sizeof(VertexT), 
 			   mage::GetIndexFormat< IndexT >(),
 			   primitive_topology),
@@ -47,11 +48,11 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT >
-		::StaticMesh::~StaticMesh() = default;
+		::~StaticMesh() = default;
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT > &StaticMesh< VertexT, IndexT >
-		::StaticMesh::operator=(StaticMesh &&mesh) noexcept = default;
+		::operator=(StaticMesh &&mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	void StaticMesh< VertexT, IndexT >

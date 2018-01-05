@@ -20,23 +20,23 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of mutexes.
+	 A class of mutexes.
 	 */
-	struct Mutex final {
+	class Mutex final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a mutex.
+		 Conclasss a mutex.
 		 */
 		Mutex() noexcept;
 
 		/**
-		 Constructs a mutex from the given mutex.
+		 Conclasss a mutex from the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex to copy.
@@ -44,7 +44,7 @@ namespace mage {
 		Mutex(const Mutex &mutex) = delete;
 
 		/**
-		 Constructs a mutex by moving the given mutex.
+		 Conclasss a mutex by moving the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex to move.
@@ -52,7 +52,7 @@ namespace mage {
 		Mutex(Mutex &&mutex) noexcept = default;
 
 		/**
-		 Destructs this mutex.
+		 Declasss this mutex.
 		 */
 		~Mutex();
 
@@ -85,7 +85,7 @@ namespace mage {
 		// Friends
 		//---------------------------------------------------------------------
 
-		friend struct MutexLock;
+		friend class MutexLock;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -105,16 +105,18 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of mutex locks.
+	 A class of mutex locks.
 	 */
-	struct MutexLock final {
+	class MutexLock final {
+
+	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a mutex lock for the given mutex.
+		 Conclasss a mutex lock for the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex.
@@ -122,7 +124,7 @@ namespace mage {
 		explicit MutexLock(Mutex &mutex) noexcept;
 
 		/**
-		 Constructs a mutex lock from the given mutex lock.
+		 Conclasss a mutex lock from the given mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to copy.
@@ -130,7 +132,7 @@ namespace mage {
 		MutexLock(const MutexLock &mutex_lock) = delete;
 
 		/**
-		 Constructs a mutex lock by moving the given mutex lock.
+		 Conclasss a mutex lock by moving the given mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to move.
@@ -138,7 +140,7 @@ namespace mage {
 		MutexLock(MutexLock &&mutex_lock) noexcept = default;
 
 		/**
-		 Destructs this mutex lock.
+		 Declasss this mutex lock.
 		 */
 		~MutexLock();
 
@@ -186,23 +188,23 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of read write mutexes.
+	 A class of read write mutexes.
 	 */
-	struct ReadWriteMutex final {
+	class ReadWriteMutex final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a read write mutex.
+		 Conclasss a read write mutex.
 		 */
 		ReadWriteMutex() noexcept;
 
 		/**
-		 Constructs a read write mutex from the given read write mutex.
+		 Conclasss a read write mutex from the given read write mutex.
 
 		 @param[in]		mutex
 						A reference to the read write mutex to copy.
@@ -210,7 +212,7 @@ namespace mage {
 		ReadWriteMutex(const ReadWriteMutex &mutex) = delete;
 
 		/**
-		 Constructs a read write mutex by moving the given read write mutex.
+		 Conclasss a read write mutex by moving the given read write mutex.
 
 		 @param[in]		mutex
 						A reference to the read write mutex to move.
@@ -218,7 +220,7 @@ namespace mage {
 		ReadWriteMutex(ReadWriteMutex &&mutex) noexcept = default;
 
 		/**
-		 Destructs this read write mutex.
+		 Declasss this read write mutex.
 		 */
 		~ReadWriteMutex();
 
@@ -252,7 +254,7 @@ namespace mage {
 		// Friends
 		//---------------------------------------------------------------------
 
-		friend struct ReadWriteMutexLock;
+		friend class ReadWriteMutexLock;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -324,9 +326,11 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of read write mutex locks.
+	 A class of read write mutex locks.
 	 */
-	struct ReadWriteMutexLock final {
+	class ReadWriteMutexLock final {
+
+	public:
 
 		/**
 		 An enumeration of the different read write mutex lock types.
@@ -334,17 +338,17 @@ namespace mage {
 		 This contains:
 		 @c Read and @c Write.
 		 */
-		enum struct LockType {
+		enum class LockType {
 			Read,
 			Write
 		};
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a read write mutex lock for the given read write mutex and 
+		 Conclasss a read write mutex lock for the given read write mutex and 
 		 lock type.
 
 		 @param[in]		mutex
@@ -356,7 +360,7 @@ namespace mage {
 			ReadWriteMutex &mutex, LockType lock_type) noexcept;
 
 		/**
-		 Constructs a read write mutex lock from the given read write mutex 
+		 Conclasss a read write mutex lock from the given read write mutex 
 		 lock.
 
 		 @param[in]		mutex_lock
@@ -365,7 +369,7 @@ namespace mage {
 		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
-		 Constructs a read write mutex lock by moving the given read write 
+		 Conclasss a read write mutex lock by moving the given read write 
 		 mutex lock.
 
 		 @param[in]		mutex_lock
@@ -374,7 +378,7 @@ namespace mage {
 		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) noexcept = default;
 
 		/**
-		 Destructs this read write mutex lock.
+		 Declasss this read write mutex lock.
 		 */
 		~ReadWriteMutexLock();
 
@@ -443,23 +447,23 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of semaphores.
+	 A class of semaphores.
 	 */
-	struct Semaphore final {
+	class Semaphore final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a semaphore.
+		 Conclasss a semaphore.
 		 */
 		Semaphore() noexcept;
 
 		/**
-		 Constructs a semaphore from the given semaphore.
+		 Conclasss a semaphore from the given semaphore.
 
 		 @param[in]		semaphore
 						A reference to the semaphore to copy.
@@ -467,7 +471,7 @@ namespace mage {
 		Semaphore(const Semaphore &semaphore) = delete;
 
 		/**
-		 Constructs a semaphore by moving the given semaphore.
+		 Conclasss a semaphore by moving the given semaphore.
 
 		 @param[in]		semaphore
 						A reference to the semaphore to move.
@@ -475,7 +479,7 @@ namespace mage {
 		Semaphore(Semaphore &&semaphore) noexcept = default;
 
 		/**
-		 Destructs this semaphore.
+		 Declasss this semaphore.
 		 */
 		~Semaphore();
 
@@ -554,23 +558,23 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of condition variables.
+	 A class of condition variables.
 	 */
-	struct ConditionVariable final {
+	class ConditionVariable final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Conclassors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a condition variable.
+		 Conclasss a condition variable.
 		 */
 		ConditionVariable() noexcept;
 
 		/**
-		 Constructs a condition variable from the given condition variable.
+		 Conclasss a condition variable from the given condition variable.
 
 		 @param[in]		condition_variable
 						A reference to the condition variable to copy.
@@ -579,7 +583,7 @@ namespace mage {
 			const ConditionVariable &condition_variable) = delete;
 
 		/**
-		 Constructs a condition variable by moving the given condition 
+		 Conclasss a condition variable by moving the given condition 
 		 variable.
 
 		 @param[in]		condition_variable
@@ -589,7 +593,7 @@ namespace mage {
 			ConditionVariable &&condition_variable) noexcept = default;
 
 		/**
-		 Destructs this condition variable.
+		 Declasss this condition variable.
 		 */
 		~ConditionVariable();
 

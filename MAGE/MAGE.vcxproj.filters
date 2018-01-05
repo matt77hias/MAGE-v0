@@ -1104,6 +1104,12 @@
     <ClInclude Include="MAGE\src\utils\logging\dump.hpp">
       <Filter>Header Files\utils\logging</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp">
+      <Filter>Header Files\rendering\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1852,6 +1858,9 @@
       <Filter>Header Files\utils\io</Filter>
     </None>
     <None Include="MAGE\src\mesh\mesh.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
   </ItemGroup>

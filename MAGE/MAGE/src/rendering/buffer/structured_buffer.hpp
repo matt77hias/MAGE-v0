@@ -23,7 +23,7 @@ namespace mage {
 					The data type.
 	 */
 	template< typename DataT >
-	struct StructuredBuffer final {
+	class StructuredBuffer final {
 
 	public:
 

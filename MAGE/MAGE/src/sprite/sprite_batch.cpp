@@ -7,7 +7,6 @@
 #include "sprite\sprite_utils.hpp"
 #include "texture\texture_utils.hpp"
 #include "rendering\rendering_state_manager.hpp"
-#include "utils\logging\error.hpp"
 
 // Include HLSL bindings.
 #include "..\..\shaders\hlsl.hpp"
@@ -317,38 +316,35 @@ namespace mage {
 					nb_sprites_to_render = nb_sprites_available;
 				}
 			}
-				
-			// Map vertex buffer
-			const D3D11_MAP map_type = (m_vertex_buffer_position == 0) 
-				? D3D11_MAP_WRITE_DISCARD : D3D11_MAP_WRITE_NO_OVERWRITE;
-			D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-			const HRESULT result_map = 
-				m_mesh->MapVertexBuffer(m_device_context, map_type, &mapped_buffer);
-			if (FAILED(result_map)) {
-				Error("Vertex buffer mapping failed: %08X.", result_map);
-				return;
+
+			// Update the vertex buffer.
+			{
+				// Map the vertex buffer.
+				const D3D11_MAP map_type = (0 == m_vertex_buffer_position)
+					                       ? D3D11_MAP_WRITE_DISCARD 
+					                       : D3D11_MAP_WRITE_NO_OVERWRITE;
+				D3D11_MAPPED_SUBRESOURCE mapped_buffer;
+				const BufferLock lock = m_mesh->Lock(m_device_context, 
+					                                 map_type, &mapped_buffer);
+
+				// Update the data.
+				VertexPositionColorTexture *vertices =
+					static_cast< VertexPositionColorTexture * >(mapped_buffer.pData)
+					+ m_vertex_buffer_position * SpriteBatchMesh::s_vertices_per_sprite;
+				for (size_t i = 0; i < nb_sprites_to_render; ++i) {
+					PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
+					vertices += SpriteBatchMesh::s_vertices_per_sprite;
+				}
 			}
 
-			// Update vertex buffer
-			VertexPositionColorTexture *vertices = 
-				static_cast< VertexPositionColorTexture * >(mapped_buffer.pData) 
-				+ m_vertex_buffer_position * SpriteBatchMesh::s_vertices_per_sprite;
-			for (size_t i = 0; i < nb_sprites_to_render; ++i) {
-				PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
-				vertices += SpriteBatchMesh::s_vertices_per_sprite;
-			}
-			
-			// Unmap vertex buffer
-			m_mesh->UnmapVertexBuffer(m_device_context);
-
-			// Draw mesh
-			const size_t start_index 
-				= m_vertex_buffer_position * SpriteBatchMesh::s_indices_per_sprite;
-			const size_t nb_indices  
-				= nb_sprites_to_render * SpriteBatchMesh::s_indices_per_sprite;
+			// Draw the mesh.
+			const size_t start_index = m_vertex_buffer_position 
+				                     * SpriteBatchMesh::s_indices_per_sprite;
+			const size_t nb_indices  = nb_sprites_to_render 
+				                     * SpriteBatchMesh::s_indices_per_sprite;
 			m_mesh->Draw(m_device_context, start_index, nb_indices);
 
-			// Update workload
+			// Update the workload.
 			m_vertex_buffer_position += nb_sprites_to_render;
 			sprites += nb_sprites_to_render;
 			nb_sprites -= nb_sprites_to_render;

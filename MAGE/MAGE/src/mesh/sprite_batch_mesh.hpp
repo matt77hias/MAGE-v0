@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh.hpp"
+#include "mesh\primitive_batch_mesh.hpp"
+#include "mesh\vertex.hpp"
 
 #pragma endregion
 
@@ -17,7 +18,8 @@ namespace mage {
 	/**
 	 A class of indexed sprite batch meshes.
 	 */
-	class SpriteBatchMesh : public Mesh {
+	class SpriteBatchMesh : 
+		public PrimitiveBatchMesh< VertexPositionColorTexture, U16 > {
 
 	public:
 
@@ -174,64 +176,17 @@ namespace mage {
 		 */
 		SpriteBatchMesh &operator=(SpriteBatchMesh &&mesh) noexcept;
 
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Maps the vertex buffer of this this sprite batch mesh.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a mapped_buffer is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		map_type
-						The map type specifying the CPU's read and write 
-						permissions for the vertex buffer of this this sprite 
-						batch mesh.
-		 @param[out]	mapped_buffer
-						A pointer to the map the vertex buffer of this this 
-						sprite batch mesh to.
-		 @return		A success/error value.
-		 */
-		HRESULT MapVertexBuffer(ID3D11DeviceContext4 *device_context,
-			D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer);
-		
-		/**
-		 Unmaps the vertex buffer of this this sprite batch mesh.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The vertex buffer of this this sprite batch mesh
-						must be mapped with 
-						{@link mage::SpriteBatchMesh::MapVertexBuffer(ID3D11DeviceContext4 *, D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
-						before it can be unmapped.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void UnmapVertexBuffer(ID3D11DeviceContext4 *device_context);
-
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Class Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Sets up the vertex buffer of this sprite batch mesh.
+		 Generates the indices of a sprite batch mesh.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
+		 @return		A vector containing the indices of a sprite batch mesh.
 		 */
-		void SetupVertexBuffer(ID3D11Device5 *device);
-
-		/**
-		 Sets up the index buffer of this sprite batch mesh.
-
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 */
-		void SetupIndexBuffer(ID3D11Device5 *device);
+		static std::vector< U16 > GenerateIndices();
 	};
 }

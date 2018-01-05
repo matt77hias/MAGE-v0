@@ -95,6 +95,7 @@
     <ClInclude Include="MAGE\src\math\transform\local_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform\transform.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
+    <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\static_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
     <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp" />
     <ClInclude Include="MAGE\src\rendering\aa_descriptor.hpp" />
+    <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\camera_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\game_buffer.hpp" />
@@ -2427,6 +2429,7 @@
     <None Include="MAGE\src\loaders\obj\obj_loader.tpp" />
     <None Include="MAGE\src\loaders\obj\obj_reader.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
+    <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp" />
     <None Include="MAGE\src\rendering\buffer\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\buffer\structured_buffer.tpp" />
     <None Include="MAGE\src\scene\node.tpp" />

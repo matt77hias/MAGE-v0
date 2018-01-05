@@ -22,7 +22,7 @@ namespace mage {
 					The data type.
 	 */
 	template< typename DataT >
-	struct ConstantBuffer final {
+	class ConstantBuffer final {
 
 	public:
 

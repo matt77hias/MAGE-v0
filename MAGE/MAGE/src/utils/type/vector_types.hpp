@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-// Primitive types.
+// Scalar types.
 #include "utils\type\scalar_types.hpp"
 
 #pragma endregion

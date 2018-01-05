@@ -187,6 +187,6 @@ namespace mage {
 
 		 @return		A vector containing the indices of a sprite batch mesh.
 		 */
-		static std::vector< U16 > GenerateIndices();
+		static const std::vector< U16 > GenerateIndices();
 	};
 }

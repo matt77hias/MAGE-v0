@@ -27,16 +27,16 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a mutex.
+		 Constructs a mutex.
 		 */
 		Mutex() noexcept;
 
 		/**
-		 Conclasss a mutex from the given mutex.
+		 Constructs a mutex from the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex to copy.
@@ -44,7 +44,7 @@ namespace mage {
 		Mutex(const Mutex &mutex) = delete;
 
 		/**
-		 Conclasss a mutex by moving the given mutex.
+		 Constructs a mutex by moving the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex to move.
@@ -112,11 +112,11 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a mutex lock for the given mutex.
+		 Constructs a mutex lock for the given mutex.
 
 		 @param[in]		mutex
 						A reference to the mutex.
@@ -124,7 +124,7 @@ namespace mage {
 		explicit MutexLock(Mutex &mutex) noexcept;
 
 		/**
-		 Conclasss a mutex lock from the given mutex lock.
+		 Constructs a mutex lock from the given mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to copy.
@@ -132,7 +132,7 @@ namespace mage {
 		MutexLock(const MutexLock &mutex_lock) = delete;
 
 		/**
-		 Conclasss a mutex lock by moving the given mutex lock.
+		 Constructs a mutex lock by moving the given mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to move.
@@ -195,16 +195,16 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a read write mutex.
+		 Constructs a read write mutex.
 		 */
 		ReadWriteMutex() noexcept;
 
 		/**
-		 Conclasss a read write mutex from the given read write mutex.
+		 Constructs a read write mutex from the given read write mutex.
 
 		 @param[in]		mutex
 						A reference to the read write mutex to copy.
@@ -212,7 +212,7 @@ namespace mage {
 		ReadWriteMutex(const ReadWriteMutex &mutex) = delete;
 
 		/**
-		 Conclasss a read write mutex by moving the given read write mutex.
+		 Constructs a read write mutex by moving the given read write mutex.
 
 		 @param[in]		mutex
 						A reference to the read write mutex to move.
@@ -344,11 +344,11 @@ namespace mage {
 		};
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a read write mutex lock for the given read write mutex and 
+		 Constructs a read write mutex lock for the given read write mutex and 
 		 lock type.
 
 		 @param[in]		mutex
@@ -360,7 +360,7 @@ namespace mage {
 			ReadWriteMutex &mutex, LockType lock_type) noexcept;
 
 		/**
-		 Conclasss a read write mutex lock from the given read write mutex 
+		 Constructs a read write mutex lock from the given read write mutex 
 		 lock.
 
 		 @param[in]		mutex_lock
@@ -369,7 +369,7 @@ namespace mage {
 		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
-		 Conclasss a read write mutex lock by moving the given read write 
+		 Constructs a read write mutex lock by moving the given read write 
 		 mutex lock.
 
 		 @param[in]		mutex_lock
@@ -454,16 +454,16 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a semaphore.
+		 Constructs a semaphore.
 		 */
 		Semaphore() noexcept;
 
 		/**
-		 Conclasss a semaphore from the given semaphore.
+		 Constructs a semaphore from the given semaphore.
 
 		 @param[in]		semaphore
 						A reference to the semaphore to copy.
@@ -471,7 +471,7 @@ namespace mage {
 		Semaphore(const Semaphore &semaphore) = delete;
 
 		/**
-		 Conclasss a semaphore by moving the given semaphore.
+		 Constructs a semaphore by moving the given semaphore.
 
 		 @param[in]		semaphore
 						A reference to the semaphore to move.
@@ -565,16 +565,16 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Conclassors and Declassors
+		// Constructors and Declassors
 		//---------------------------------------------------------------------
 
 		/**
-		 Conclasss a condition variable.
+		 Constructs a condition variable.
 		 */
 		ConditionVariable() noexcept;
 
 		/**
-		 Conclasss a condition variable from the given condition variable.
+		 Constructs a condition variable from the given condition variable.
 
 		 @param[in]		condition_variable
 						A reference to the condition variable to copy.
@@ -583,7 +583,7 @@ namespace mage {
 			const ConditionVariable &condition_variable) = delete;
 
 		/**
-		 Conclasss a condition variable by moving the given condition 
+		 Constructs a condition variable by moving the given condition 
 		 variable.
 
 		 @param[in]		condition_variable

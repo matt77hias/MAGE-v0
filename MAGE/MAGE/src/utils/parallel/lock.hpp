@@ -27,7 +27,7 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -52,7 +52,7 @@ namespace mage {
 		Mutex(Mutex &&mutex) noexcept = default;
 
 		/**
-		 Declasss this mutex.
+		 Destructs this mutex.
 		 */
 		~Mutex();
 
@@ -112,7 +112,7 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -140,7 +140,7 @@ namespace mage {
 		MutexLock(MutexLock &&mutex_lock) noexcept = default;
 
 		/**
-		 Declasss this mutex lock.
+		 Destructs this mutex lock.
 		 */
 		~MutexLock();
 
@@ -195,7 +195,7 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -220,7 +220,7 @@ namespace mage {
 		ReadWriteMutex(ReadWriteMutex &&mutex) noexcept = default;
 
 		/**
-		 Declasss this read write mutex.
+		 Destructs this read write mutex.
 		 */
 		~ReadWriteMutex();
 
@@ -344,7 +344,7 @@ namespace mage {
 		};
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -378,7 +378,7 @@ namespace mage {
 		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) noexcept = default;
 
 		/**
-		 Declasss this read write mutex lock.
+		 Destructs this read write mutex lock.
 		 */
 		~ReadWriteMutexLock();
 
@@ -454,7 +454,7 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -479,7 +479,7 @@ namespace mage {
 		Semaphore(Semaphore &&semaphore) noexcept = default;
 
 		/**
-		 Declasss this semaphore.
+		 Destructs this semaphore.
 		 */
 		~Semaphore();
 
@@ -565,7 +565,7 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Declassors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
@@ -593,7 +593,7 @@ namespace mage {
 			ConditionVariable &&condition_variable) noexcept = default;
 
 		/**
-		 Declasss this condition variable.
+		 Destructs this condition variable.
 		 */
 		~ConditionVariable();
 

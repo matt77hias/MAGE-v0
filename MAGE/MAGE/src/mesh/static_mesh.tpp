@@ -59,7 +59,7 @@ namespace mage {
 		
 		Assert(device);
 
-		const HRESULT result = CreateStaticVertexBuffer< VertexT >(
+		const HRESULT result = CreateStaticVertexBuffer(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
 			m_vertices.data(), m_vertices.size());
 		ThrowIfFailed(result,
@@ -74,7 +74,7 @@ namespace mage {
 		
 		Assert(device);
 
-		const HRESULT result = CreateStaticIndexBuffer< IndexT >(
+		const HRESULT result = CreateStaticIndexBuffer(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), 
 			m_indices.data(), m_indices.size());
 		ThrowIfFailed(result, 

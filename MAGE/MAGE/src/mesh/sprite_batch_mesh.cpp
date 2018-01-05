@@ -16,6 +16,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <limits>
 #include <vector>
 
 #pragma endregion
@@ -48,12 +49,12 @@ namespace mage {
 		
 		Assert(device);
 		
-		const HRESULT result_vertex_buffer 
+		const HRESULT result
 			= CreateDynamicVertexBuffer< VertexPositionColorTexture >(
 				device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
 				nullptr, MaxVerticesPerBatch());
-		ThrowIfFailed(result_vertex_buffer, 
-			"Vertex buffer creation failed: %08X.", result_vertex_buffer);
+		ThrowIfFailed(result,
+			"Vertex buffer creation failed: %08X.", result);
 	
 		SetNumberOfVertices(MaxVerticesPerBatch());
 	}
@@ -62,7 +63,7 @@ namespace mage {
 		
 		Assert(device);
 		
-		static_assert(MaxVerticesPerBatch() < USHRT_MAX, 
+		static_assert(MaxVerticesPerBatch() < std::numeric_limits< U16 >::max(),
 			"s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
@@ -79,11 +80,11 @@ namespace mage {
 			indices.push_back(i + 2);
 		}
 
-		const HRESULT result_index_buffer = CreateStaticIndexBuffer< U16 >(
+		const HRESULT result = CreateStaticIndexBuffer(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), 
 			indices.data(), indices.size());
-		ThrowIfFailed(result_index_buffer, 
-			"Index buffer creation failed: %08X.", result_index_buffer);
+		ThrowIfFailed(result,
+			"Index buffer creation failed: %08X.", result);
 
 		SetNumberOfIndices(indices.size());
 	}
@@ -98,7 +99,6 @@ namespace mage {
 	}
 
 	void SpriteBatchMesh::UnmapVertexBuffer(ID3D11DeviceContext4 *device_context) {
-		
 		Pipeline::Unmap(device_context, m_vertex_buffer.Get(), 0u);
 	}
 }

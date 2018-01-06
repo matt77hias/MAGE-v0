@@ -441,10 +441,10 @@ namespace mage {
 			
 			// cosf function instead of sinf in case the angles are not in [-1,1]
 			m_rotation.m_y = -asinf(XMVectorGetY(rotation.r[2]));
-			const F32 cp = cosf(m_rotation.m_y);
-			const F32 cr = XMVectorGetY(rotation.r[1]) / cp;
+			const F32 cp   = cosf(m_rotation.m_y);
+			const F32 cr   = XMVectorGetY(rotation.r[1]) / cp;
 			m_rotation.m_z = acosf(cr);
-			const F32 cy = XMVectorGetZ(rotation.r[2]) / cp;
+			const F32 cy   = XMVectorGetZ(rotation.r[2]) / cp;
 			m_rotation.m_x = acosf(cy);
 
 			SetDirty();
@@ -640,7 +640,8 @@ namespace mage {
 		void AddAndClampRotation(
 			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
-			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, min_angle, max_angle);
+			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, 
+				                min_angle, max_angle);
 		}
 
 		/**
@@ -965,8 +966,10 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixScalingFromVector(XMVectorSet(
-				1.0f / m_scale.m_x, 1.0f / m_scale.m_y, 1.0f / m_scale.m_z, 0.0f));
+			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.m_x, 
+				                                         1.0f / m_scale.m_y, 
+				                                         1.0f / m_scale.m_z, 
+				                                         0.0f));
 		}
 
 		//---------------------------------------------------------------------

@@ -1193,22 +1193,10 @@ namespace mage {
 		 @return		The transformation matrix of this sprite transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
-			const F32 s = sin(m_rotation);
-			const F32 c = cos(m_rotation);
-			const F32 sSx = s * m_scale.m_x;
-			const F32 sSy = s * m_scale.m_y;
-			const F32 cSx = c * m_scale.m_x;
-			const F32 cSy = c * m_scale.m_y;
-
-			const F32 tx = (1.0f - cSx) * m_rotation_origin.m_x + sSy * m_rotation_origin.m_y + m_translation.m_x;
-			const F32 ty = (1.0f - cSy) * m_rotation_origin.m_y - sSx * m_rotation_origin.m_x + m_translation.m_y;
-
-			return XMMATRIX {
-				 cSx,  sSx, 0.0f, 0.0f,
-				-sSy,  cSy, 0.0f, 0.0f,
-				  tx,   ty, 1.0f, 0.0f,
-				0.0f, 0.0f, 0.0f, 0.0f
-			};
+			return XMMatrixAffineTransformation2D(XMLoadFloat2(&m_scale),
+				                                  XMLoadFloat2(&m_rotation_origin),
+				                                  m_rotation,
+				                                  XMLoadFloat2(&m_translation));
 		}
 
 	private:

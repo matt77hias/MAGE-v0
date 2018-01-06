@@ -677,6 +677,26 @@ namespace mage {
 		}
 
 		/**
+		 Returns the object-to-parent rotation quaternion of this transform.
+
+		 @return		The object-to-parent rotation quaternion of this 
+						transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectToParentRotationQuaternion() const noexcept {
+			return m_transform.GetObjectToParentRotationQuaternion();
+		}
+
+		/**
+		 Returns the parent-to-object rotation quaternion of this transform.
+
+		 @return		The parent-to-object rotation quaternion of this 
+						transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetParentToObjectRotationQuaternion() const noexcept {
+			return m_transform.GetParentToObjectRotationQuaternion();
+		}
+
+		/**
 		 Returns the object-to-parent rotation matrix of this transform.
 
 		 @return		The object-to-parent rotation matrix of this transform.

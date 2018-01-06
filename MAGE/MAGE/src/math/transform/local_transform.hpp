@@ -698,6 +698,29 @@ namespace mage {
 		}
 
 		/**
+		 Returns the object-to-parent rotation quaternion of this local 
+		 transform.
+
+		 @return		The object-to-parent rotation quaternion of this local 
+						transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetObjectToParentRotationQuaternion() const noexcept {
+			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
+			return XMQuaternionRotationRollPitchYawFromVector(GetRotationV());
+		}
+
+		/**
+		 Returns the parent-to-object rotation quaternion of this local 
+		 transform.
+
+		 @return		The parent-to-object rotation quaternion of this local 
+						transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetParentToObjectRotationQuaternion() const noexcept {
+			return XMQuaternionInverse(GetObjectToParentRotationQuaternion());
+		}
+
+		/**
 		 Returns the object-to-parent rotation matrix of this local transform.
 
 		 @return		The object-to-parent rotation matrix of this local 
@@ -1074,12 +1097,9 @@ namespace mage {
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			const XMVECTOR quaternion = 
-				XMQuaternionRotationRollPitchYawFromVector(GetRotationV());
-
 			return XMMatrixAffineTransformation(GetScaleV(),
 				                                g_XMZero,
-				                                quaternion,
+				                                GetObjectToParentRotationQuaternion(),
 				                                GetTranslationV());
 		}
 

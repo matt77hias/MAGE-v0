@@ -714,9 +714,8 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentRotationMatrix() const noexcept {
-			return XMMatrixRotationZ(GetRotationZ()) 
-				 * XMMatrixRotationX(GetRotationX()) 
-				 * XMMatrixRotationY(GetRotationY());
+			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
+			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
 		}
 
 		/**
@@ -726,9 +725,7 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectRotationMatrix() const noexcept {
-			return XMMatrixRotationY(-GetRotationY()) 
-				 * XMMatrixRotationX(-GetRotationX()) 
-				 * XMMatrixRotationZ(-GetRotationZ());
+			return XMMatrixTranspose(GetObjectToParentRotationMatrix());
 		}
 
 		//---------------------------------------------------------------------
@@ -1200,24 +1197,24 @@ namespace mage {
 		 Updates the object-to-parent matrix of this local transform if dirty.
 		 */
 		void UpdateObjectToParentMatrix() const noexcept {
-			if (m_dirty_object_to_parent) {
+			//if (m_dirty_object_to_parent) {
 				m_object_to_parent = GetObjectToParentScaleMatrix() 
 					               * GetObjectToParentRotationMatrix() 
 					               * GetObjectToParentTranslationMatrix();
-				m_dirty_object_to_parent = false;
-			}
+			//	m_dirty_object_to_parent = false;
+			//}
 		}
 		
 		/**
 		 Updates the parent-to-object matrix of this local transform if dirty.
 		 */
 		void UpdateParentToObjectMatrix() const noexcept {
-			if (m_dirty_parent_to_object) {
+			//if (m_dirty_parent_to_object) {
 				m_parent_to_object = GetParentToObjectTranslationMatrix() 
 					               * GetParentToObjectRotationMatrix() 
 					               * GetParentToObjectScaleMatrix();
-				m_dirty_parent_to_object = false;
-			}
+			//	m_dirty_parent_to_object = false;
+			//}
 		}
 
 		//---------------------------------------------------------------------

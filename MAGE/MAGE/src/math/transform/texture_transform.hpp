@@ -277,6 +277,15 @@ namespace mage {
 			return m_translation;
 		}
 
+		/**
+		 Returns the translation component of this texture transform.
+
+		 @return		The translation component of this texture transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+			return XMLoadFloat2(&m_translation);
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Rotation
 		//---------------------------------------------------------------------
@@ -483,6 +492,15 @@ namespace mage {
 			return m_rotation_origin;
 		}
 
+		/**
+		 Returns the rotation origin of this texture transform.
+
+		 @return		The rotation origin of this texture transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
+			return XMLoadFloat2(&m_rotation_origin);
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Scale
 		//---------------------------------------------------------------------
@@ -655,6 +673,15 @@ namespace mage {
 			return m_scale;
 		}
 
+		/**
+		 Returns the scale component of this texture transform.
+
+		 @return		The scale component of this texture transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+			return XMLoadFloat2(&m_scale);
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------
@@ -665,10 +692,10 @@ namespace mage {
 		 @return		The transformation matrix of this texture transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
-			return XMMatrixAffineTransformation2D(XMLoadFloat2(&m_scale),
-				                                  XMLoadFloat2(&m_rotation_origin),
-				                                  m_rotation,
-				                                  XMLoadFloat2(&m_translation));
+			return XMMatrixAffineTransformation2D(GetScaleV(),
+				                                  GetRotationOriginV(),
+				                                  GetRotation(),
+				                                  GetTranslationV());
 		}
 
 	private:

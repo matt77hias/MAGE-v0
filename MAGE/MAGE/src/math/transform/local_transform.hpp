@@ -1097,10 +1097,10 @@ namespace mage {
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScaleV(),
-				                                g_XMZero,
-				                                GetObjectToParentRotationQuaternion(),
-				                                GetTranslationV());
+			XMMATRIX transformation = GetObjectToParentScaleMatrix()
+				                    * GetObjectToParentRotationMatrix();
+			transformation.r[3]     = XMVectorSetW(GetTranslationV(), 1.0f);
+			return transformation;
 		}
 
 		/**
@@ -1110,9 +1110,9 @@ namespace mage {
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			return GetParentToObjectTranslationMatrix()
-				 * GetParentToObjectRotationMatrix()
-				 * GetParentToObjectScaleMatrix();
+			XMMATRIX transformation = GetParentToObjectRotationMatrix();
+			transformation.r[3]     = XMVectorSetW(-GetTranslationV(), 1.0f);
+			return transformation * GetParentToObjectScaleMatrix();
 		}
 
 		/**

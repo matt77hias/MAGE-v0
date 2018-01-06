@@ -78,9 +78,9 @@ namespace mage::loader {
 		ModelPart model_part;
 		model_part.m_child       = Read< string >();
 		model_part.m_parent      = Read< string >();
-		model_part.m_translation = Read< F32x3 >();
-		model_part.m_rotation    = Read< F32x3 >();
-		model_part.m_scale       = Read< F32x3 >();
+		model_part.m_transform.SetTranslation(Read< F32x3 >());
+		model_part.m_transform.SetRotation(   Read< F32x3 >());
+		model_part.m_transform.SetScale(      Read< F32x3 >());
 		model_part.m_material    = Read< string >();
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();

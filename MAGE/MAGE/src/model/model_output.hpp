@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\transform\transform.hpp"
 #include "math\geometry\bounding_volume.hpp"
 #include "material\material.hpp"
 #include "utils\collection\vector.hpp"
@@ -44,9 +45,7 @@ namespace mage {
 		ModelPart()
 			: m_aabb(),
 			m_bs(),
-			m_translation(0.0f, 0.0f, 0.0f),
-			m_rotation(0.0f, 0.0f, 0.0f),
-			m_scale(1.0f, 1.0f, 1.0f),
+			m_transform(),
 			m_start_index(0), 
 			m_nb_indices(0),
 			m_child(MAGE_MDL_PART_DEFAULT_CHILD),
@@ -152,19 +151,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The local translation component of this model part.
+		 The local transform of this model part.
 		 */
-		F32x3 m_translation;
-
-		/**
-		 The local rotation component of this model part.
-		 */
-		F32x3 m_rotation;
-
-		/**
-		 The local scale component of this model part.
-		 */
-		F32x3 m_scale;
+		LocalTransform m_transform;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Mesh

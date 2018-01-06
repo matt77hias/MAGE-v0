@@ -1216,6 +1216,18 @@ namespace mage {
 		#pragma region
 
 		/**
+		 Sets the local transform of this transform to the given local 
+		 transform.
+
+		 @param[in]		transform
+						The local transform.
+		 */
+		void SetLocalTransform(LocalTransform transform) noexcept {
+			m_transform = std::move(transform);
+			SetDirty();
+		}
+
+		/**
 		 Returns the object-to-parent matrix of this transform.
 
 		 @return		The object-to-parent matrix of this transform.

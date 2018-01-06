@@ -131,9 +131,7 @@ namespace mage {
 
 			// Set the transform of the node.
 			Transform &transform = node->GetTransform();
-			transform.SetTranslation(model_part.m_translation);
-			transform.SetRotation(model_part.m_rotation);
-			transform.SetScale(model_part.m_scale);
+			transform.SetLocalTransform(model_part.m_transform);
 
 			// Add the model component to the node.
 			node->AddComponent(model);

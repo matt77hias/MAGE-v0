@@ -125,9 +125,11 @@ namespace mage::loader {
 			if (!Has< F32 >()) {
 				model_part.m_parent  = Read< string >();
 			}
-			model_part.m_translation = InvertHandness(Point3(Read< F32x3 >()));
-			model_part.m_rotation    = Read< F32x3 >();
-			model_part.m_scale       = Read< F32x3 >();
+			
+			F32x3 translation = InvertHandness(Point3(Read< F32x3 >()));
+			model_part.m_transform.SetTranslation(std::move(translation));
+			model_part.m_transform.SetRotation(Read< F32x3 >());
+			model_part.m_transform.SetScale(   Read< F32x3 >());
 		}
 		
 		// Begin current group.

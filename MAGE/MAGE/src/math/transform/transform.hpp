@@ -107,6 +107,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the translation component of this transform to the 
@@ -297,6 +298,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the translation component of this transform.
+
+		 @return		The translation component of this transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+			return m_transform.GetTranslationV();
+		}
+
+		/**
 		 Returns the object-to-parent translation matrix of this transform.
 
 		 @return		The object-to-parent translation matrix of this 
@@ -316,9 +326,12 @@ namespace mage {
 			return m_transform.GetParentToObjectTranslationMatrix();
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Rotation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the rotation component of this transform to the 
@@ -405,8 +418,8 @@ namespace mage {
 		 @param[in]		angle
 						The angle.
 		 */
-		void XM_CALLCONV SetRotationAroundDirection(
-			FXMVECTOR normal, F32 angle) noexcept {
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, 
+			                                        F32 angle) noexcept {
 			
 			m_transform.SetRotationAroundDirection(normal, angle);
 			SetDirty();
@@ -500,9 +513,7 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationX(
-			F32 x, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
 			m_transform.AddAndClampRotationX(x, min_angle, max_angle);
 			SetDirty();
 		}
@@ -522,9 +533,7 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationY(
-			F32 y, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
 			m_transform.AddAndClampRotationY(y, min_angle, max_angle);
 			SetDirty();
 		}
@@ -544,9 +553,7 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationZ(
-			F32 z, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
 			m_transform.AddAndClampRotationZ(z, min_angle, max_angle);
 			SetDirty();
 		}
@@ -570,8 +577,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(
-			F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
+		void AddAndClampRotation(F32 x, F32 y, F32 z, 
+			                     F32 min_angle, 
+			                     F32 max_angle) noexcept {
 
 			m_transform.AddAndClampRotation(x, y, z, min_angle, max_angle);
 			SetDirty();
@@ -592,8 +600,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(
-			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
+		void AddAndClampRotation(const F32x3 &rotation, 
+			                     F32 min_angle, 
+			                     F32 max_angle) noexcept {
 
 			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
@@ -614,8 +623,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(
-			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
+		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
+			                                 F32 min_angle, 
+			                                 F32 max_angle) noexcept {
 
 			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
@@ -658,6 +668,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the rotation component of this transform.
+
+		 @return		The rotation component of this transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
+			return m_transform.GetRotationV();
+		}
+
+		/**
 		 Returns the object-to-parent rotation matrix of this transform.
 
 		 @return		The object-to-parent rotation matrix of this transform.
@@ -675,9 +694,12 @@ namespace mage {
 			return m_transform.GetParentToObjectRotationMatrix();
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Scale
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the scale component of this transform to the given 
@@ -885,6 +907,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the scale component of this transform.
+
+		 @return		The scale component of this transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+			return m_transform.GetScaleV();
+		}
+
+		/**
 		 Returns the object-to-parent scale matrix of this transform.
 
 		 @return		The scale object-to-parent matrix of this transform.
@@ -902,9 +933,12 @@ namespace mage {
 			return m_transform.GetParentToObjectScaleMatrix();
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Object Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the position of the local origin of this transform expressed 
@@ -950,9 +984,12 @@ namespace mage {
 			return m_transform.GetObjectAxisZ();
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Parent Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the position of the local origin of this transform expressed 
@@ -998,9 +1035,12 @@ namespace mage {
 			return m_transform.GetParentAxisZ();
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: World Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the position of the local origin of this transform expressed 
@@ -1046,9 +1086,12 @@ namespace mage {
 			return TransformObjectToWorld(GetObjectAxisZ());
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Camera Object Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the local eye position of this transform expressed in object 
@@ -1094,9 +1137,12 @@ namespace mage {
 			return GetObjectAxisZ();
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Camera World Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the local eye position of this transform expressed in world 
@@ -1142,9 +1188,12 @@ namespace mage {
 			return GetWorldAxisZ();
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the object-to-parent matrix of this transform.
@@ -1386,9 +1435,12 @@ namespace mage {
 			return XMVector3TransformNormal(direction, GetWorldToObjectMatrix());
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Update
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets this transform to dirty.
@@ -1422,6 +1474,8 @@ namespace mage {
 		ProxyPtr< const Node > GetOwner() const noexcept {
 			return m_owner;
 		}
+
+		#pragma endregion
 
 	private:
 

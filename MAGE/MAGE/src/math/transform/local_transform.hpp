@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of local transforms.
 	 */
-	class alignas(16) LocalTransform final {
+	class LocalTransform final {
 
 	public:
 
@@ -41,12 +41,11 @@ namespace mage {
 			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
 			F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
-			m_dirty_object_to_parent(true),
+			m_padding0(0),
 			m_rotation(std::move(rotation)),
-			m_dirty_parent_to_object(true),
+			m_padding1(0),
 			m_scale(std::move(scale)),
-			m_object_to_parent(),
-			m_parent_to_object() {}
+			m_padding2(0) {}
 		
 		/**
 		 Constructs a local transform from the given translation, rotation and 
@@ -60,16 +59,15 @@ namespace mage {
 						The scale component.
 		 */
 		explicit LocalTransform(
-			FXMVECTOR translation, 
-			FXMVECTOR rotation, 
+			FXMVECTOR translation,
+			FXMVECTOR rotation,
 			FXMVECTOR scale) noexcept
 			: m_translation(),
-			m_dirty_object_to_parent(true),
+			m_padding0(0),
 			m_rotation(),
-			m_dirty_parent_to_object(true),
+			m_padding1(0),
 			m_scale(),
-			m_object_to_parent(),
-			m_parent_to_object() {
+			m_padding2(0) {
 			
 			SetTranslation(translation);
 			SetRotation(rotation);
@@ -124,6 +122,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the translation component of this local transform 
@@ -134,7 +133,6 @@ namespace mage {
 		 */
 		void SetTranslationX(F32 x) noexcept {
 			m_translation.m_x = x;
-			SetDirty();
 		}
 		
 		/**
@@ -146,7 +144,6 @@ namespace mage {
 		 */
 		void SetTranslationY(F32 y) noexcept {
 			m_translation.m_y = y;
-			SetDirty();
 		}
 		
 		/**
@@ -158,7 +155,6 @@ namespace mage {
 		 */
 		void SetTranslationZ(F32 z) noexcept {
 			m_translation.m_z = z;
-			SetDirty();
 		}
 		
 		/**
@@ -173,10 +169,9 @@ namespace mage {
 						The z-value of the translation component.
 		 */
 		void SetTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_translation.m_x = x;
-			m_translation.m_y = y;
-			m_translation.m_z = z;
-			SetDirty();
+			SetTranslationX(x);
+			SetTranslationY(y);
+			SetTranslationZ(z);
 		}
 		
 		/**
@@ -188,7 +183,6 @@ namespace mage {
 		 */
 		void SetTranslation(F32x3 translation) noexcept {
 			m_translation = std::move(translation);
-			SetDirty();
 		}
 		
 		/**
@@ -200,7 +194,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat3(&m_translation, translation);
-			SetDirty();
 		}
 
 		/**
@@ -212,7 +205,6 @@ namespace mage {
 		 */
 		void AddTranslationX(F32 x) noexcept {
 			m_translation.m_x += x;
-			SetDirty();
 		}
 		
 		/**
@@ -223,7 +215,6 @@ namespace mage {
 		 */
 		void AddTranslationY(F32 y) noexcept {
 			m_translation.m_y += y;
-			SetDirty();
 		}
 		
 		/**
@@ -234,7 +225,6 @@ namespace mage {
 		 */
 		void AddTranslationZ(F32 z) noexcept {
 			m_translation.m_z += z;
-			SetDirty();
 		}
 		
 		/**
@@ -249,10 +239,9 @@ namespace mage {
 						The z-value of the translation component to add.
 		 */
 		void AddTranslation(F32 x, F32 y, F32 z) noexcept {
-			m_translation.m_x += x;
-			m_translation.m_y += y;
-			m_translation.m_z += z;
-			SetDirty();
+			AddTranslationX(x);
+			AddTranslationY(y);
+			AddTranslationZ(z);
 		}
 		
 		/**
@@ -322,6 +311,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the translation component of this local transform.
+
+		 @return		The translation component of this local transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+			return XMLoadFloat3(&m_translation);
+		}
+
+		/**
 		 Returns the object-to-parent translation matrix of this local 
 		 transform.
 
@@ -329,7 +327,7 @@ namespace mage {
 						local transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
+			return XMMatrixTranslationFromVector(GetTranslationV());
 		}
 
 		/**
@@ -340,12 +338,15 @@ namespace mage {
 						local transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixTranslationFromVector(-XMLoadFloat3(&m_translation));
+			return XMMatrixTranslationFromVector(-GetTranslationV());
 		}
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Member Methods: Rotation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the rotation component of this local transform to 
@@ -356,7 +357,6 @@ namespace mage {
 		 */
 		void SetRotationX(F32 x) noexcept {
 			m_rotation.m_x = x;
-			SetDirty();
 		}
 		
 		/**
@@ -368,7 +368,6 @@ namespace mage {
 		 */
 		void SetRotationY(F32 y) noexcept {
 			m_rotation.m_y = y;
-			SetDirty();
 		}
 		
 		/**
@@ -380,7 +379,6 @@ namespace mage {
 		 */
 		void SetRotationZ(F32 z) noexcept {
 			m_rotation.m_z = z;
-			SetDirty();
 		}
 		
 		/**
@@ -395,10 +393,9 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotation(F32 x, F32 y, F32 z) noexcept {
-			m_rotation.m_x = x;
-			m_rotation.m_y = y;
-			m_rotation.m_z = z;
-			SetDirty();
+			SetRotationX(x);
+			SetRotationY(y);
+			SetRotationZ(z);
 		}
 		
 		/**
@@ -410,7 +407,6 @@ namespace mage {
 		 */
 		void SetRotation(F32x3 rotation) noexcept {
 			m_rotation = std::move(rotation);
-			SetDirty();
 		}
 
 		/**
@@ -422,7 +418,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
 			XMStoreFloat3(&m_rotation, rotation);
-			SetDirty();
 		}
 		
 		/**
@@ -434,8 +429,8 @@ namespace mage {
 		 @param[in]		angle
 						The angle.
 		 */
-		void XM_CALLCONV SetRotationAroundDirection(
-			FXMVECTOR normal, F32 angle) noexcept {
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, 
+			                                        F32 angle) noexcept {
 
 			const XMMATRIX rotation = XMMatrixRotationNormal(normal, angle);
 			
@@ -446,8 +441,6 @@ namespace mage {
 			m_rotation.m_z = acosf(cr);
 			const F32 cy   = XMVectorGetZ(rotation.r[2]) / cp;
 			m_rotation.m_x = acosf(cy);
-
-			SetDirty();
 		}
 		
 		/**
@@ -459,7 +452,6 @@ namespace mage {
 		 */
 		void AddRotationX(F32 x) noexcept {
 			m_rotation.m_x += x;
-			SetDirty();
 		}
 		
 		/**
@@ -471,7 +463,6 @@ namespace mage {
 		 */
 		void AddRotationY(F32 y) noexcept {
 			m_rotation.m_y += y;
-			SetDirty();
 		}
 		
 		/**
@@ -483,7 +474,6 @@ namespace mage {
 		 */
 		void AddRotationZ(F32 z) noexcept {
 			m_rotation.m_z += z;
-			SetDirty();
 		}
 		
 		/**
@@ -498,10 +488,9 @@ namespace mage {
 						The z-value of the rotation component to add.
 		 */
 		void AddRotation(F32 x, F32 y, F32 z) noexcept {
-			m_rotation.m_x += x;
-			m_rotation.m_y += y;
-			m_rotation.m_z += z;
-			SetDirty();
+			AddRotationX(x);
+			AddRotationY(y);
+			AddRotationZ(z);
 		}
 		
 		/**
@@ -543,11 +532,8 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationX(
-			F32 x, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
 			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, min_angle, max_angle);
-			SetDirty();
 		}
 
 		/**
@@ -565,11 +551,8 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationY(
-			F32 y, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
 			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, min_angle, max_angle);
-			SetDirty();
 		}
 
 		/**
@@ -587,11 +570,8 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationZ(
-			F32 z, F32 min_angle, F32 max_angle) noexcept {
-			
+		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
 			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, min_angle, max_angle);
-			SetDirty();
 		}
 
 		/**
@@ -613,13 +593,13 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(
-			F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
+		void AddAndClampRotation(F32 x, F32 y, F32 z, 
+			                     F32 min_angle, 
+			                     F32 max_angle) noexcept {
 
-			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, min_angle, max_angle);
-			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, min_angle, max_angle);
-			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, min_angle, max_angle);
-			SetDirty();
+			AddAndClampRotationX(x, min_angle, max_angle);
+			AddAndClampRotationY(y, min_angle, max_angle);
+			AddAndClampRotationZ(z, min_angle, max_angle);
 		}
 
 		/**
@@ -637,11 +617,11 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(
-			const F32x3 &rotation, F32 min_angle, F32 max_angle) noexcept {
+		void AddAndClampRotation(const F32x3 &rotation, 
+			                     F32 min_angle, 
+			                     F32 max_angle) noexcept {
 
-			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, 
-				                min_angle, max_angle);
+			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, min_angle, max_angle);
 		}
 
 		/**
@@ -659,8 +639,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(
-			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
+		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
+			                                 F32 min_angle, 
+			                                 F32 max_angle) noexcept {
 
 			AddAndClampRotation(XMVectorGetX(rotation), 
 				                XMVectorGetY(rotation), 
@@ -708,6 +689,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the rotation component of this local transform.
+
+		 @return		The rotation component of this local transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
+			return XMLoadFloat3(&m_rotation);
+		}
+
+		/**
 		 Returns the object-to-parent rotation matrix of this local transform.
 
 		 @return		The object-to-parent rotation matrix of this local 
@@ -715,7 +705,7 @@ namespace mage {
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentRotationMatrix() const noexcept {
 			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
-			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
+			return XMMatrixRotationRollPitchYawFromVector(GetRotationV());
 		}
 
 		/**
@@ -728,9 +718,12 @@ namespace mage {
 			return XMMatrixTranspose(GetObjectToParentRotationMatrix());
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Scale
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the scale component of this local transform to the 
@@ -741,7 +734,6 @@ namespace mage {
 		 */
 		void SetScaleX(F32 x) noexcept {
 			m_scale.m_x = x;
-			SetDirty();
 		}
 		
 		/**
@@ -753,7 +745,6 @@ namespace mage {
 		 */
 		void SetScaleY(F32 y) noexcept {
 			m_scale.m_y = y;
-			SetDirty();
 		}
 		
 		/**
@@ -765,7 +756,6 @@ namespace mage {
 		 */
 		void SetScaleZ(F32 z) noexcept {
 			m_scale.m_z = z;
-			SetDirty();
 		}
 
 		/**
@@ -791,10 +781,9 @@ namespace mage {
 						The z-value of the scale component.
 		 */
 		void SetScale(F32 x, F32 y, F32 z) noexcept {
-			m_scale.m_x = x;
-			m_scale.m_y = y;
-			m_scale.m_z = z;
-			SetDirty();
+			SetScaleX(x);
+			SetScaleY(y);
+			SetScaleZ(z);
 		}
 		
 		/**
@@ -806,7 +795,6 @@ namespace mage {
 		 */
 		void SetScale(F32x3 scale) noexcept {
 			m_scale = std::move(scale);
-			SetDirty();
 		}
 
 		/**
@@ -818,7 +806,6 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat3(&m_scale, scale);
-			SetDirty();
 		}
 
 		/**
@@ -829,7 +816,6 @@ namespace mage {
 		 */
 		void AddScaleX(F32 x) noexcept {
 			m_scale.m_x += x;
-			SetDirty();
 		}
 		
 		/**
@@ -840,7 +826,6 @@ namespace mage {
 		 */
 		void AddScaleY(F32 y) noexcept {
 			m_scale.m_y += y;
-			SetDirty();
 		}
 		
 		/**
@@ -851,7 +836,6 @@ namespace mage {
 		 */
 		void AddScaleZ(F32 z) noexcept {
 			m_scale.m_z += z;
-			SetDirty();
 		}
 
 		/**
@@ -877,10 +861,9 @@ namespace mage {
 						The z-value of the scale component to add.
 		 */
 		void AddScale(F32 x, F32 y, F32 z) noexcept {
-			m_scale.m_x += x;
-			m_scale.m_y += y;
-			m_scale.m_z += z;
-			SetDirty();
+			AddScaleX(x);
+			AddScaleY(y);
+			AddScaleZ(z);
 		}
 		
 		/**
@@ -947,13 +930,22 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the scale component of this local transform.
+
+		 @return		The scale component of this local transform.
+		 */
+		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+			return XMLoadFloat3(&m_scale);
+		}
+
+		/**
 		 Returns the object-to-parent scale matrix of this local transform.
 
 		 @return		The scale object-to-parent matrix of this local 
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
+			return XMMatrixScalingFromVector(GetScaleV());
 		}
 
 		/**
@@ -963,15 +955,15 @@ namespace mage {
 						transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.m_x, 
-				                                         1.0f / m_scale.m_y, 
-				                                         1.0f / m_scale.m_z, 
-				                                         0.0f));
+			return XMMatrixScalingFromVector(XMVectorReciprocal(GetScaleV()));
 		}
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Member Methods: Object Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the position of the local origin of this local transform 
@@ -1017,9 +1009,12 @@ namespace mage {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Parent Space
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the position of the local origin of this local transform 
@@ -1065,9 +1060,12 @@ namespace mage {
 			return TransformObjectToParentDirection(GetObjectAxisZ());
 		}
 		
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: LocalTransformation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the object-to-parent matrix of this local transform.
@@ -1075,8 +1073,9 @@ namespace mage {
 		 @return		The object-to-parent matrix of this local transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
-			UpdateObjectToParentMatrix();
-			return m_object_to_parent;
+			return GetObjectToParentScaleMatrix()
+				 * GetObjectToParentRotationMatrix()
+				 * GetObjectToParentTranslationMatrix();
 		}
 
 		/**
@@ -1085,8 +1084,9 @@ namespace mage {
 		 @return		The parent-to-object matrix of this local transform.
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
-			UpdateParentToObjectMatrix();
-			return m_parent_to_object;
+			return GetParentToObjectTranslationMatrix()
+				 * GetParentToObjectRotationMatrix()
+				 * GetParentToObjectScaleMatrix();
 		}
 
 		/**
@@ -1179,43 +1179,9 @@ namespace mage {
 			return XMVector3TransformNormal(direction, GetParentToObjectMatrix());
 		}
 
+		#pragma endregion
+
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Sets this local transform to dirty.
-		 */
-		void SetDirty() const noexcept {
-			m_dirty_object_to_parent = true;
-			m_dirty_parent_to_object = true;
-		}
-
-		/**
-		 Updates the object-to-parent matrix of this local transform if dirty.
-		 */
-		void UpdateObjectToParentMatrix() const noexcept {
-			//if (m_dirty_object_to_parent) {
-				m_object_to_parent = GetObjectToParentScaleMatrix() 
-					               * GetObjectToParentRotationMatrix() 
-					               * GetObjectToParentTranslationMatrix();
-			//	m_dirty_object_to_parent = false;
-			//}
-		}
-		
-		/**
-		 Updates the parent-to-object matrix of this local transform if dirty.
-		 */
-		void UpdateParentToObjectMatrix() const noexcept {
-			//if (m_dirty_parent_to_object) {
-				m_parent_to_object = GetParentToObjectTranslationMatrix() 
-					               * GetParentToObjectRotationMatrix() 
-					               * GetParentToObjectScaleMatrix();
-			//	m_dirty_parent_to_object = false;
-			//}
-		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1227,10 +1193,9 @@ namespace mage {
 		F32x3 m_translation;
 
 		/**
-		 A flag indicating whether the object-to-parent matrix of this local 
-		 transform is dirty.
+		 The padding of this local transform.
 		 */
-		mutable bool m_dirty_object_to_parent;
+		F32 m_padding0;
 
 		/**
 		 The rotation component (in radians) of this local transform.
@@ -1238,10 +1203,9 @@ namespace mage {
 		F32x3 m_rotation;
 
 		/**
-		 A flag indicating whether the parent-to-object matrix of this local 
-		 transform is dirty.
+		 The padding of this local transform.
 		 */
-		mutable bool m_dirty_parent_to_object;
+		F32 m_padding1;
 
 		/**
 		 The scale component of this local transform.
@@ -1249,15 +1213,10 @@ namespace mage {
 		F32x3 m_scale;
 
 		/**
-		 The cached object-to-parent matrix of this local transform.
+		 The padding of this local transform.
 		 */
-		mutable XMMATRIX m_object_to_parent;
-
-		/**
-		 The cached parent-to-object matrix of this local transform.
-		 */
-		mutable XMMATRIX m_parent_to_object;
+		F32 m_padding2;
 	};
 
-	static_assert(176 == sizeof(LocalTransform));
+	static_assert(48 == sizeof(LocalTransform));
 }

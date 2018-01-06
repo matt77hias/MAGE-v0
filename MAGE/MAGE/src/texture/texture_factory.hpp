@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "texture\guids.hpp"
-#include "texture\texture.hpp"
+#include "utils\type\types.hpp"
 
 #pragma endregion
 
@@ -14,6 +13,9 @@
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	// Forward declaration.
+	class Texture;
 
 	/**
 	 Creates a MAGE texture.

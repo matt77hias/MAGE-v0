@@ -18,6 +18,7 @@
 #pragma region
 
 #include <iterator>
+#include <windowsx.h>
 
 #pragma endregion
 

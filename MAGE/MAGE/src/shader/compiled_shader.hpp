@@ -23,7 +23,7 @@ namespace mage {
 	/**
 	 A struct of compiled shaders.
 	 */
-	struct CompiledShader {
+	class CompiledShader {
 
 	public:
 
@@ -119,7 +119,7 @@ namespace mage {
 	/**
 	 A struct of buffer compiled shaders.
 	 */
-	struct BufferCompiledShader : public CompiledShader {
+	class BufferCompiledShader : public CompiledShader {
 
 	public:
 
@@ -243,7 +243,7 @@ namespace mage {
 	/**
 	 A struct of blob compiled shaders.
 	 */
-	struct BlobCompiledShader : public CompiledShader {
+	class BlobCompiledShader : public CompiledShader {
 
 	public:
 

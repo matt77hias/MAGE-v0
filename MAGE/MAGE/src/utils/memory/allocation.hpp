@@ -84,7 +84,7 @@ namespace mage {
 					The alignment size in bytes.
 	 */
 	template< typename DataT, size_t AlignmentS = alignof(DataT) >
-	struct AlignedAllocator final {
+	class AlignedAllocator final {
 		
 	public:
 

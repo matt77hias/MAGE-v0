@@ -164,7 +164,7 @@ namespace mage {
 		/**
 		 A pointer to the output buffer of this progress reporter.
 		 */
-		UniquePtr< char [] > m_buffer;
+		UniquePtr< char[] > m_buffer;
 
 		/**
 		 A pointer to the current (output) character in the output buffer 

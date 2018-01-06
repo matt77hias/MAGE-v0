@@ -126,6 +126,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the translation component of this texture 
@@ -147,6 +148,20 @@ namespace mage {
 		 */
 		void SetTranslationY(F32 y) noexcept {
 			m_translation.m_y = y;
+		}
+
+		/**
+		 Sets the translation component of this texture transform to the given 
+		 translation component.
+
+		 @param[in]		x
+						The x-value of the translation component.
+		 @param[in]		y
+						The y-value of the translation component.
+		 */
+		void SetTranslation(F32 x, F32 y) noexcept {
+			SetTranslationX(x);
+			SetTranslationY(y);
 		}
 
 		/**
@@ -197,12 +212,25 @@ namespace mage {
 		 Adds the given translation component to the translation component of 
 		 this texture transform.
 
+		 @param[in]		x
+						The x-value of the translation component to add.
+		 @param[in]		y
+						The y-value of the translation component to add.
+		 */
+		void AddTranslation(F32 x, F32 y) noexcept {
+			AddTranslationX(x);
+			AddTranslationY(y);
+		}
+
+		/**
+		 Adds the given translation component to the translation component of 
+		 this texture transform.
+
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const F32x2 &translation) noexcept {
-			AddTranslationX(translation.m_x);
-			AddTranslationY(translation.m_y);
+			AddTranslation(translation.m_x, translation.m_y);
 		}
 
 		/**
@@ -213,8 +241,8 @@ namespace mage {
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslationX(XMVectorGetX(translation));
-			AddTranslationY(XMVectorGetY(translation));
+			AddTranslation(XMVectorGetX(translation), 
+				           XMVectorGetY(translation));
 		}
 
 		/**
@@ -257,9 +285,12 @@ namespace mage {
 			return XMLoadFloat2(&m_translation);
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Rotation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the rotation component of this texture transform to the given 
@@ -314,9 +345,12 @@ namespace mage {
 			return m_rotation;
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Rotation Origin
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the rotation origin of this texture transform to 
@@ -338,6 +372,20 @@ namespace mage {
 		 */
 		void SetRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.m_y = y;
+		}
+
+		/**
+		 Sets the rotation origin of this texture transform to the given 
+		 rotation origin.
+
+		 @param[in]		x
+						The x-value of the rotation origin.
+		 @param[in]		y
+						The y-value of the rotation origin.
+		 */
+		void SetRotationOrigin(F32 x, F32 y) noexcept {
+			SetRotationOriginX(x);
+			SetRotationOriginY(y);
 		}
 
 		/**
@@ -388,12 +436,25 @@ namespace mage {
 		 Adds the given rotation origin to the rotation origin of this texture 
 		 transform.
 
+		 @param[in]		x
+						The x-value of the rotation origin to add.
+		 @param[in]		y
+						The y-value of the rotation origin to add.
+		 */
+		void AddRotationOrigin(F32 x, F32 y) noexcept {
+			AddRotationOriginX(x);
+			AddRotationOriginY(y);
+		}
+
+		/**
+		 Adds the given rotation origin to the rotation origin of this texture 
+		 transform.
+
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
 		void AddRotationOrigin(const F32x2 &rotation_origin) noexcept {
-			AddRotationOriginX(rotation_origin.m_x);
-			AddRotationOriginY(rotation_origin.m_y);
+			AddRotationOrigin(rotation_origin.m_x, rotation_origin.m_y);
 		}
 
 		/**
@@ -404,8 +465,8 @@ namespace mage {
 						The rotation origin to add.
 		 */
 		void XM_CALLCONV AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
-			AddRotationOriginX(XMVectorGetX(rotation_origin));
-			AddRotationOriginY(XMVectorGetY(rotation_origin));
+			AddRotationOrigin(XMVectorGetX(rotation_origin), 
+				              XMVectorGetY(rotation_origin));
 		}
 
 		/**
@@ -446,9 +507,12 @@ namespace mage {
 			return XMLoadFloat2(&m_rotation_origin);
 		}
 
+		#pragma endregion
+
 		//---------------------------------------------------------------------
 		// Member Methods: Scale
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Sets the x-value of the scale component of this texture transform to 
@@ -480,8 +544,21 @@ namespace mage {
 						The scale component.
 		 */
 		void SetScale(F32 s) noexcept {
-			SetScaleX(s);
-			SetScaleY(s);
+			SetScale(s, s);
+		}
+
+		/**
+		 Sets the scale component of this texture transform to the given scale 
+		 component.
+
+		 @param[in]		x
+						The x-value of the scale component.
+		 @param[in]		y
+						The y-value of the scale component.
+		 */
+		void SetScale(F32 x, F32 y) noexcept {
+			SetScaleX(x);
+			SetScaleY(y);
 		}
 
 		/**
@@ -536,8 +613,21 @@ namespace mage {
 						The scale component to add.
 		 */
 		void AddScale(F32 s) noexcept {
-			AddScaleX(s);
-			AddScaleY(s);
+			AddScale(s, s);
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this texture 
+		 transform.
+
+		 @param[in]		x
+						The x-value of the scale component to add.
+		 @param[in]		y
+						The y-value of the scale component to add.
+		 */
+		void AddScale(F32 x, F32 y) noexcept {
+			AddScaleX(x);
+			AddScaleY(y);
 		}
 
 		/**
@@ -548,8 +638,7 @@ namespace mage {
 						A reference to the scale component to add.
 		 */
 		void AddScale(const F32x2 &scale) noexcept {
-			AddScaleX(scale.m_x);
-			AddScaleY(scale.m_y);
+			AddScale(scale.m_x, scale.m_y);
 		}
 
 		/**
@@ -560,8 +649,8 @@ namespace mage {
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			AddScaleX(XMVectorGetX(scale));
-			AddScaleY(XMVectorGetY(scale));
+			AddScale(XMVectorGetX(scale), 
+				     XMVectorGetY(scale));
 		}
 
 		/**
@@ -601,6 +690,8 @@ namespace mage {
 		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
 			return XMLoadFloat2(&m_scale);
 		}
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation

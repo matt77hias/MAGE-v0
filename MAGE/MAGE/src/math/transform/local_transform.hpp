@@ -1110,9 +1110,9 @@ namespace mage {
 		 */
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			XMMATRIX transformation = GetParentToObjectRotationMatrix();
-			transformation.r[3]     = XMVectorSetW(-GetTranslationV(), 1.0f);
-			return transformation * GetParentToObjectScaleMatrix();
+			return GetParentToObjectTranslationMatrix() 
+				 * GetParentToObjectRotationMatrix()
+			     * GetParentToObjectScaleMatrix();
 		}
 
 		/**

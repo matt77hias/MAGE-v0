@@ -6,8 +6,6 @@
 #pragma region
 
 #include "rendering\rendering_factory.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
 
 #pragma endregion
 
@@ -44,14 +42,14 @@ namespace mage {
 		Assert(device_context);
 		Assert(m_buffer);
 
-		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-		const HRESULT result = Pipeline::Map(device_context,
-			m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_buffer);
-		Assert(SUCCEEDED(result));
+		// Map the buffer.
+		{
+			D3D11_MAPPED_SUBRESOURCE mapped_buffer;
+			BufferLock(device_context, m_buffer.Get(),
+				       D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
 
-		memcpy(mapped_buffer.pData, &data, sizeof(DataT));
-
-		device_context->Unmap(m_buffer.Get(), 0);
+			memcpy(mapped_buffer.pData, &data, sizeof(DataT));
+		}
 	}
 
 	template< typename DataT >

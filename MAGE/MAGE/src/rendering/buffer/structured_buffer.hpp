@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
+#include "rendering\buffer\buffer_lock.hpp"
 #include "utils\collection\vector.hpp"
 
 #pragma endregion

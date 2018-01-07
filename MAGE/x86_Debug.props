@@ -34,6 +34,10 @@
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

@@ -6,6 +6,7 @@
     <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
     <IncludePath>$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -48,6 +49,8 @@
     </Link>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />

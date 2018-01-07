@@ -29,6 +29,10 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "hlsl.hpp"
+#include "..\src\hlsl.hpp"
 #include "hlsl_syntax.hlsli"
 #include "math.hlsli"
 #include "structures.hlsli"

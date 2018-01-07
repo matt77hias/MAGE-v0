@@ -38,7 +38,7 @@ float GetBlurFactor(float p_view_z) {
 }
 
 #ifndef GROUP_SIZE
-#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

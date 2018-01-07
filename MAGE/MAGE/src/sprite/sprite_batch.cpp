@@ -9,7 +9,7 @@
 #include "rendering\rendering_state_manager.hpp"
 
 // Include HLSL bindings.
-#include "..\..\shaders\hlsl.hpp"
+#include "hlsl.hpp"
 
 #pragma endregion
 

@@ -92,7 +92,7 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 // without knowing the positioning of the subpixels inside the pixel.
 
 #ifndef GROUP_SIZE
-#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

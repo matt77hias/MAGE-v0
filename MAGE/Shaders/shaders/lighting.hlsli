@@ -127,19 +127,19 @@ float3 BRDFShading(float3 p, float3 n,
 
 	const float r_eye = length(p);
 
-#ifndef BRDFxCOS
+	#ifndef BRDFxCOS
 	float3 L = base_color;
-#else // BRDFxCOS
+	#else // BRDFxCOS
 	float3 L = float3(0.0f, 0.0f, 0.0f);
 
-#ifndef DISSABLE_AMBIENT_LIGHT
+	#ifndef DISSABLE_AMBIENT_LIGHT
 	// Ambient light contribution
 	L += g_La;
-#endif // DISSABLE_AMBIENT_LIGHT
+	#endif // DISSABLE_AMBIENT_LIGHT
 
 	const float3 v = -p / r_eye;
 
-#ifndef DISSABLE_DIRECTIONAL_LIGHTS
+	#ifndef DISSABLE_DIRECTIONAL_LIGHTS
 	// Directional lights contribution
 	for (uint i0 = 0u; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
@@ -149,9 +149,9 @@ float3 BRDFShading(float3 p, float3 n,
 
 		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_DIRECTIONAL_LIGHTS
+	#endif // DISSABLE_DIRECTIONAL_LIGHTS
 
-#ifndef DISSABLE_OMNI_LIGHTS
+	#ifndef DISSABLE_OMNI_LIGHTS
 	// Omni lights contribution
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
@@ -161,9 +161,9 @@ float3 BRDFShading(float3 p, float3 n,
 
 		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_OMNI_LIGHTS
+	#endif // DISSABLE_OMNI_LIGHTS
 
-#ifndef DISSABLE_SPOT_LIGHTS
+	#ifndef DISSABLE_SPOT_LIGHTS
 	// Spotlights contribution
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
@@ -173,11 +173,11 @@ float3 BRDFShading(float3 p, float3 n,
 
 		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_SPOT_LIGHTS
+	#endif // DISSABLE_SPOT_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAPPING
+	#ifndef DISSABLE_SHADOW_MAPPING
 
-#ifndef DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
+	#ifndef DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 	// Directional lights with shadow mapping contribution
 	for (uint i3 = 0u; i3 < g_nb_sm_directional_lights; ++i3) {
 		const DirectionalLightWithShadowMapping light = g_sm_directional_lights[i3];
@@ -187,9 +187,9 @@ float3 BRDFShading(float3 p, float3 n,
 
 		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
+	#endif // DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAP_OMNI_LIGHTS
+	#ifndef DISSABLE_SHADOW_MAP_OMNI_LIGHTS
 	// Omni lights with shadow mapping contribution
 	for (uint i4 = 0u; i4 < g_nb_sm_omni_lights; ++i4) {
 		const OmniLightWithShadowMapping light = g_sm_omni_lights[i4];
@@ -199,9 +199,9 @@ float3 BRDFShading(float3 p, float3 n,
 		
 		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_SHADOW_MAP_OMNI_LIGHTS
+	#endif // DISSABLE_SHADOW_MAP_OMNI_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAP_SPOT_LIGHTS
+	#ifndef DISSABLE_SHADOW_MAP_SPOT_LIGHTS
 	// Spotlights with shadow mapping contribution
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const SpotLightWithShadowMapping light = g_sm_spot_lights[i5];
@@ -211,16 +211,16 @@ float3 BRDFShading(float3 p, float3 n,
 
 		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
-#endif // DISSABLE_SHADOW_MAP_SPOT_LIGHTS
+	#endif // DISSABLE_SHADOW_MAP_SPOT_LIGHTS
 
-#endif // DISSABLE_SHADOW_MAPPING
+	#endif // DISSABLE_SHADOW_MAPPING
 
-#endif // BRDFxCOS
+	#endif // BRDFxCOS
 
-#ifndef DISSABLE_FOG
+	#ifndef DISSABLE_FOG
 	const float fog_factor = FOG_FACTOR_COMPONENT(r_eye, g_fog_density);
 	L = lerp(g_fog_color, L, fog_factor);
-#endif // DISSABLE_FOG
+	#endif // DISSABLE_FOG
 	
 	return L;
 }

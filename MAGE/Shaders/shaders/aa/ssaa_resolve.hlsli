@@ -75,11 +75,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 	
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISSABLE_INVERTED_Z_BUFFER
 	float depth       = 1.0f;
-#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISSABLE_INVERTED_Z_BUFFER
 	float depth       = 0.0f;
-#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISSABLE_INVERTED_Z_BUFFER
 	
 	// Resolve the (multi-sampled) radiance, normal and depth.
 	[unroll]
@@ -87,11 +87,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 		ldr_sum    += data[i].ldr;
 		normal_sum += data[i].normal;
 
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		depth = min(depth, data[i].depth);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		depth = max(depth, data[i].depth);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 	}
 
 	// Store the resolved radiance.
@@ -104,9 +104,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 
 #else  // SSAA && GROUP_SIZE
 
-#ifndef GROUP_SIZE
-#define GROUP_SIZE GROUP_SIZE_DEFAULT
-#endif
+	#ifndef GROUP_SIZE
+		#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
@@ -127,11 +127,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISSABLE_INVERTED_Z_BUFFER
 	float depth       = 1.0f;
-#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISSABLE_INVERTED_Z_BUFFER
 	float depth       = 0.0f;
-#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISSABLE_INVERTED_Z_BUFFER
 
 	// Resolve the (super-sampled) radiance, normal and depth.
 	for (uint i = 0; i < nb_samples.x; ++i) {
@@ -144,11 +144,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 			normal_sum += g_input_normal_texture[location];
 
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISSABLE_INVERTED_Z_BUFFER
 			depth = min(depth, g_input_depth_texture[location]);
-#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISSABLE_INVERTED_Z_BUFFER
 			depth = max(depth, g_input_depth_texture[location]);
-#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISSABLE_INVERTED_Z_BUFFER
 		}
 	}
 

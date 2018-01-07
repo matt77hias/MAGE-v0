@@ -47,11 +47,11 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	// Obtain the base color of the material.
 	const float4 base_color = GetMaterialBaseColor(input.tex);
 
-#ifdef ENABLE_TRANSPARENCY
+	#ifdef ENABLE_TRANSPARENCY
 	clip(base_color.w - TRANSPARENCY_SKIP_THRESHOLD);
-#else
+	#else
 	clip(base_color.w - TRANSPARENCY_THRESHOLD);
-#endif
+	#endif
 
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material   = GetMaterialParameters(input.tex);
@@ -66,10 +66,10 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	// Store the color.
 	output.color      = float4(L, base_color.w);
 	// Pack and store the view-space normal.
-#pragma warning(push)
-#pragma warning(disable : 3578)
+	#pragma warning( push )
+	#pragma warning( disable : 3578 )
 	output.normal.xyz = PackNormal(n_view);
-#pragma warning(pop)
+	#pragma warning( pop )
 								
 	return output;
 }

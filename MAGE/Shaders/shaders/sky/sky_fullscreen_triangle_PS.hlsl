@@ -19,9 +19,9 @@ TEXTURE_CUBE(g_sky, float3, SLOT_SRV_TEXTURE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-	float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
+float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
-	float4 PS(PSInputNDCPosition input) : SV_Target {
+float4 PS(PSInputNDCPosition input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
 	// Obtain the projection space coodinates.

@@ -160,11 +160,11 @@ float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) 
 }
 
 #ifndef LIGHT_DISTANCE_ATTENUATION_COMPONENT
-#define LIGHT_DISTANCE_ATTENUATION_COMPONENT DistanceAttenuation
+	#define LIGHT_DISTANCE_ATTENUATION_COMPONENT DistanceAttenuation
 #endif // LIGHT_DISTANCE_ATTENUATION_COMPONENT
 
 #ifndef LIGHT_ANGULAR_ATTENUATION_COMPONENT
-#define LIGHT_ANGULAR_ATTENUATION_COMPONENT AngularAttenuation
+	#define LIGHT_ANGULAR_ATTENUATION_COMPONENT AngularAttenuation
 #endif // LIGHT_ANGULAR_ATTENUATION_COMPONENT
 
 /**
@@ -422,7 +422,7 @@ float FogFactor_Exponential(float distance, float density) {
 }
 
 #ifndef FOG_FACTOR_COMPONENT
-#define FOG_FACTOR_COMPONENT FogFactor_Exponential
+	#define FOG_FACTOR_COMPONENT FogFactor_Exponential
 #endif // FOG_FACTOR_COMPONENT
 
 #endif //MAGE_HEADER_LIGHT

@@ -7,7 +7,7 @@
 #include "utils\logging\error.hpp"
 
 // Include HLSL bindings.
-#include "..\..\shaders\hlsl.hpp"
+#include "hlsl.hpp"
 
 #pragma endregion
 

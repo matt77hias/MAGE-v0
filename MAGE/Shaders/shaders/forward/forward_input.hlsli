@@ -55,11 +55,11 @@ TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
  */
 float4 GetMaterialBaseColor(float2 tex) {
 	// Obtain the base color of the material.
-#ifdef DISSABLE_BASE_COLOR_TEXTURE
+	#ifdef DISSABLE_BASE_COLOR_TEXTURE
 	return g_base_color;
-#else  // DISSABLE_BASE_COLOR_TEXTURE
+	#else  // DISSABLE_BASE_COLOR_TEXTURE
 	return g_base_color * g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
-#endif // DISSABLE_BASE_COLOR_TEXTURE
+	#endif // DISSABLE_BASE_COLOR_TEXTURE
 }
 
 /**
@@ -71,13 +71,13 @@ float4 GetMaterialBaseColor(float2 tex) {
  */
 float2 GetMaterialParameters(float2 tex) {
 	// Obtain the material parameters of the material.
-#ifdef DISSABLE_MATERIAL_TEXTURE
+	#ifdef DISSABLE_MATERIAL_TEXTURE
 	return float2(g_roughness, g_metalness);
-#else  // DISSABLE_MATERIAL_TEXTURE
+	#else  // DISSABLE_MATERIAL_TEXTURE
 	const float2 material 
 		= g_material_texture.Sample(g_linear_wrap_sampler, tex).xy;
 	return float2(g_roughness, g_metalness) * material;
-#endif // DISSABLE_MATERIAL_TEXTURE
+	#endif // DISSABLE_MATERIAL_TEXTURE
 }
 
 /**
@@ -93,14 +93,14 @@ float2 GetMaterialParameters(float2 tex) {
  */
 float3 GetNormal(float3 p, float3 n, float2 tex) {
 	// Obtain the view-space normal.
-#ifdef TSNM
+	#ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
 	const float3 c 
 		= UnpackNormal(g_normal_texture.Sample(g_linear_wrap_sampler, tex));
 	// Perturb the view-space normal.
 	return PerturbNormal(p, normalize(n), tex, c);
-#else  // TSNM
+	#else  // TSNM
 	// Normalize the view-space normal.
 	return normalize(n);
-#endif // TSNM
+	#endif // TSNM
 }

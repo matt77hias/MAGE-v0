@@ -8,95 +8,95 @@
 #include "mesh\vertex.hpp"
 
 // AA
-#include "shader\cso\aa\aa_preprocess_CS.hpp"
-#include "shader\cso\aa\fxaa_CS.hpp"
-#include "shader\cso\aa\msaa_resolve_CS.hpp"
-#include "shader\cso\aa\ssaa_resolve_CS.hpp"
+#include "aa\aa_preprocess_CS.hpp"
+#include "aa\fxaa_CS.hpp"
+#include "aa\msaa_resolve_CS.hpp"
+#include "aa\ssaa_resolve_CS.hpp"
 
 // Deferred
-#include "shader\cso\deferred\deferred_blinn_phong_CS.hpp"
-#include "shader\cso\deferred\deferred_cook_torrance_CS.hpp"
-#include "shader\cso\deferred\deferred_emissive_CS.hpp"
-#include "shader\cso\deferred\deferred_frostbite_CS.hpp"
-#include "shader\cso\deferred\deferred_lambertian_CS.hpp"
-#include "shader\cso\deferred\deferred_ward_duer_CS.hpp"
-#include "shader\cso\deferred\deferred_msaa_blinn_phong_PS.hpp"
-#include "shader\cso\deferred\deferred_msaa_cook_torrance_PS.hpp"
-#include "shader\cso\deferred\deferred_msaa_emissive_PS.hpp"
-#include "shader\cso\deferred\deferred_msaa_frostbite_PS.hpp"
-#include "shader\cso\deferred\deferred_msaa_lambertian_PS.hpp"
-#include "shader\cso\deferred\deferred_msaa_ward_duer_PS.hpp"
+#include "deferred\deferred_blinn_phong_CS.hpp"
+#include "deferred\deferred_cook_torrance_CS.hpp"
+#include "deferred\deferred_emissive_CS.hpp"
+#include "deferred\deferred_frostbite_CS.hpp"
+#include "deferred\deferred_lambertian_CS.hpp"
+#include "deferred\deferred_ward_duer_CS.hpp"
+#include "deferred\deferred_msaa_blinn_phong_PS.hpp"
+#include "deferred\deferred_msaa_cook_torrance_PS.hpp"
+#include "deferred\deferred_msaa_emissive_PS.hpp"
+#include "deferred\deferred_msaa_frostbite_PS.hpp"
+#include "deferred\deferred_msaa_lambertian_PS.hpp"
+#include "deferred\deferred_msaa_ward_duer_PS.hpp"
 
 // Depth
-#include "shader\cso\depth\depth_VS.hpp"
-#include "shader\cso\depth\depth_transparent_VS.hpp"
-#include "shader\cso\depth\depth_transparent_PS.hpp"
+#include "depth\depth_VS.hpp"
+#include "depth\depth_transparent_VS.hpp"
+#include "depth\depth_transparent_PS.hpp"
 
 // Forward
-#include "shader\cso\forward\forward_blinn_phong_PS.hpp"
-#include "shader\cso\forward\forward_cook_torrance_PS.hpp"
-#include "shader\cso\forward\forward_emissive_PS.hpp"
-#include "shader\cso\forward\forward_frostbite_PS.hpp"
-#include "shader\cso\forward\forward_lambertian_PS.hpp"
-#include "shader\cso\forward\forward_ward_duer_PS.hpp"
+#include "forward\forward_blinn_phong_PS.hpp"
+#include "forward\forward_cook_torrance_PS.hpp"
+#include "forward\forward_emissive_PS.hpp"
+#include "forward\forward_frostbite_PS.hpp"
+#include "forward\forward_lambertian_PS.hpp"
+#include "forward\forward_ward_duer_PS.hpp"
 // Forward: TSNM
-#include "shader\cso\forward\forward_tsnm_blinn_phong_PS.hpp"
-#include "shader\cso\forward\forward_tsnm_cook_torrance_PS.hpp"
-#include "shader\cso\forward\forward_tsnm_frostbite_PS.hpp"
-#include "shader\cso\forward\forward_tsnm_lambertian_PS.hpp"
-#include "shader\cso\forward\forward_tsnm_ward_duer_PS.hpp"
+#include "forward\forward_tsnm_blinn_phong_PS.hpp"
+#include "forward\forward_tsnm_cook_torrance_PS.hpp"
+#include "forward\forward_tsnm_frostbite_PS.hpp"
+#include "forward\forward_tsnm_lambertian_PS.hpp"
+#include "forward\forward_tsnm_ward_duer_PS.hpp"
 // Forward: Transparent
-#include "shader\cso\forward\forward_transparent_blinn_phong_PS.hpp"
-#include "shader\cso\forward\forward_transparent_cook_torrance_PS.hpp"
-#include "shader\cso\forward\forward_transparent_emissive_PS.hpp"
-#include "shader\cso\forward\forward_transparent_frostbite_PS.hpp"
-#include "shader\cso\forward\forward_transparent_lambertian_PS.hpp"
-#include "shader\cso\forward\forward_transparent_ward_duer_PS.hpp"
+#include "forward\forward_transparent_blinn_phong_PS.hpp"
+#include "forward\forward_transparent_cook_torrance_PS.hpp"
+#include "forward\forward_transparent_emissive_PS.hpp"
+#include "forward\forward_transparent_frostbite_PS.hpp"
+#include "forward\forward_transparent_lambertian_PS.hpp"
+#include "forward\forward_transparent_ward_duer_PS.hpp"
 // Forward: Transparent + TSNM
-#include "shader\cso\forward\forward_transparent_tsnm_blinn_phong_PS.hpp"
-#include "shader\cso\forward\forward_transparent_tsnm_cook_torrance_PS.hpp"
-#include "shader\cso\forward\forward_transparent_tsnm_frostbite_PS.hpp"
-#include "shader\cso\forward\forward_transparent_tsnm_lambertian_PS.hpp"
-#include "shader\cso\forward\forward_transparent_tsnm_ward_duer_PS.hpp"
+#include "forward\forward_transparent_tsnm_blinn_phong_PS.hpp"
+#include "forward\forward_transparent_tsnm_cook_torrance_PS.hpp"
+#include "forward\forward_transparent_tsnm_frostbite_PS.hpp"
+#include "forward\forward_transparent_tsnm_lambertian_PS.hpp"
+#include "forward\forward_transparent_tsnm_ward_duer_PS.hpp"
 
 // GBuffer
-#include "shader\cso\gbuffer\gbuffer_PS.hpp"
+#include "gbuffer\gbuffer_PS.hpp"
 // GBuffer: TSNM
-#include "shader\cso\gbuffer\gbuffer_tsnm_PS.hpp"
+#include "gbuffer\gbuffer_tsnm_PS.hpp"
 
 // Miscellaneous
-#include "shader\cso\miscellaneous\back_buffer_PS.hpp"
-#include "shader\cso\miscellaneous\distance_PS.hpp"
-#include "shader\cso\miscellaneous\constant_color_PS.hpp"
-#include "shader\cso\miscellaneous\constant_color_texture_PS.hpp"
-#include "shader\cso\miscellaneous\shading_normal_VS.hpp"
-#include "shader\cso\miscellaneous\shading_normal_PS.hpp"
-#include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
+#include "miscellaneous\back_buffer_PS.hpp"
+#include "miscellaneous\distance_PS.hpp"
+#include "miscellaneous\constant_color_PS.hpp"
+#include "miscellaneous\constant_color_texture_PS.hpp"
+#include "miscellaneous\shading_normal_VS.hpp"
+#include "miscellaneous\shading_normal_PS.hpp"
+#include "miscellaneous\tsnm_shading_normal_PS.hpp"
 
 // Post-processing
-#include "shader\cso\postprocessing\postprocessing_depth_of_field_CS.hpp"
+#include "postprocessing\postprocessing_depth_of_field_CS.hpp"
 
 // Primitive
-#include "shader\cso\primitive\line_cube_VS.hpp"
-#include "shader\cso\primitive\line_cube_PS.hpp"
-#include "shader\cso\primitive\far_fullscreen_triangle_VS.hpp"
-#include "shader\cso\primitive\near_fullscreen_triangle_VS.hpp"
+#include "primitive\line_cube_VS.hpp"
+#include "primitive\line_cube_PS.hpp"
+#include "primitive\far_fullscreen_triangle_VS.hpp"
+#include "primitive\near_fullscreen_triangle_VS.hpp"
 
 // Sky
-#include "shader\cso\sky\sky_VS.hpp"
-#include "shader\cso\sky\sky_PS.hpp"
+#include "sky\sky_VS.hpp"
+#include "sky\sky_PS.hpp"
 
 // Sprite
-#include "shader\cso\sprite\sprite_VS.hpp"
-#include "shader\cso\sprite\sprite_PS.hpp"
+#include "sprite\sprite_VS.hpp"
+#include "sprite\sprite_PS.hpp"
 
 // Transform
-#include "shader\cso\transform\minimal_transform_VS.hpp"
-#include "shader\cso\transform\transform_VS.hpp"
+#include "transform\minimal_transform_VS.hpp"
+#include "transform\transform_VS.hpp"
 
 // Voxelization
-#include "shader\cso\voxelization\voxelization_GS.hpp"
-#include "shader\cso\voxelization\voxelization_PS.hpp"
+#include "voxelization\voxelization_GS.hpp"
+#include "voxelization\voxelization_PS.hpp"
 
 #pragma endregion
 

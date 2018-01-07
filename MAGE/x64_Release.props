@@ -28,17 +28,21 @@
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
+    <FxCompile />
+    <FxCompile />
     <FxCompile>
-      <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
-    </FxCompile>
-    <FxCompile>
-      <EnableDebuggingInformation>true</EnableDebuggingInformation>
-    </FxCompile>
-    <FxCompile>
-      <ShaderModel>5.0</ShaderModel>
       <VariableName>g_%(Filename)</VariableName>
       <ObjectFileOutput />
+      <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
+      <EnableDebuggingInformation>true</EnableDebuggingInformation>
+      <ShaderModel>5.0</ShaderModel>
     </FxCompile>
+    <Link>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

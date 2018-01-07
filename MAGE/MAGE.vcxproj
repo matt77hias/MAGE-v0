@@ -140,10 +140,8 @@
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_manager.hpp" />
     <ClInclude Include="MAGE\src\rendering\swap_chain.hpp" />
-    <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
-    <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\component.hpp" />
     <ClInclude Include="MAGE\src\scene\node.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
@@ -264,6 +262,8 @@
     <ClInclude Include="MAGE\src\utils\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\utils\platform\windows.hpp" />
     <ClInclude Include="MAGE\src\utils\platform\windows_utils.hpp" />
+    <ClInclude Include="MAGE\src\utils\resource\resource.hpp" />
+    <ClInclude Include="MAGE\src\utils\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\utils\string\string.hpp" />
     <ClInclude Include="MAGE\src\utils\string\string_utils.hpp" />
     <ClInclude Include="MAGE\src\utils\string\token.hpp" />
@@ -345,12 +345,12 @@
     <ClCompile Include="MAGE\src\rendering\rendering_output_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp" />
-    <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\component.cpp" />
     <ClCompile Include="MAGE\src\scene\node.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
+    <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\script\character_motor_script.cpp" />
     <ClCompile Include="MAGE\src\script\manhattan_motor_script.cpp" />
@@ -2442,6 +2442,8 @@
     <None Include="MAGE\src\utils\memory\memory_arena.tpp" />
     <None Include="MAGE\src\utils\memory\memory_stack.tpp" />
     <None Include="MAGE\src\utils\platform\windows_utils.tpp" />
+    <None Include="MAGE\src\utils\resource\resource.tpp" />
+    <None Include="MAGE\src\utils\resource\resource_pool.tpp" />
     <None Include="MAGE\src\utils\string\token.tpp" />
   </ItemGroup>
   <ItemGroup>
@@ -2453,9 +2455,7 @@
     <None Include="MAGE\src\model\model_output.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\rendering\rendering_state_manager.tpp" />
-    <None Include="MAGE\src\resource\resource.tpp" />
     <None Include="MAGE\src\resource\resource_manager.tpp" />
-    <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
     <None Include="MAGE\src\script\switch_scene_script.tpp" />

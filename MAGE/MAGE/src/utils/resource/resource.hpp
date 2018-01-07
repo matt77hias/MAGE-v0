@@ -140,6 +140,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource.tpp"
+#include "utils\resource\resource.tpp"
 
 #pragma endregion

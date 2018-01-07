@@ -340,6 +340,9 @@
     <Filter Include="Header Files\utils\collection">
       <UniqueIdentifier>{5ef711f9-f98b-46bb-b820-c9e5d6f24230}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils\resource">
+      <UniqueIdentifier>{d132e118-cfb3-466e-a306-36abdc46adca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
@@ -362,9 +365,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource.hpp">
-      <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp">
       <Filter>Header Files\scripting</Filter>
@@ -446,9 +446,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp">
       <Filter>Header Files\sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_pool.hpp">
-      <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp">
       <Filter>Header Files\mesh</Filter>
@@ -1110,6 +1107,12 @@
     <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp">
       <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\utils\resource\resource_pool.hpp">
+      <Filter>Header Files\utils\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\utils\resource\resource.hpp">
+      <Filter>Header Files\utils\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1201,9 +1204,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\light\omni_light.cpp">
       <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\resource\behavior_script.cpp">
-      <Filter>Source Files\scripting</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
       <Filter>Source Files\shader</Filter>
@@ -1463,6 +1463,9 @@
     <ClCompile Include="MAGE\src\utils\parallel\id_generator.cpp">
       <Filter>Source Files\utils\parallel</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
@@ -1686,9 +1689,6 @@
     <None Include="MAGE\src\rendering\rendering_factory.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
-    <None Include="MAGE\src\resource\resource_pool.tpp">
-      <Filter>Header Files\resource</Filter>
-    </None>
     <None Include="MAGE\src\mesh\static_mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
@@ -1697,9 +1697,6 @@
     </None>
     <None Include="MAGE\src\model\model_output.tpp">
       <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\resource\resource.tpp">
-      <Filter>Header Files\resource</Filter>
     </None>
     <None Include="MAGE\src\resource\resource_manager.tpp">
       <Filter>Header Files\resource</Filter>
@@ -1862,6 +1859,12 @@
     </None>
     <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp">
       <Filter>Header Files\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\utils\resource\resource.tpp">
+      <Filter>Header Files\utils\resource</Filter>
+    </None>
+    <None Include="MAGE\src\utils\resource\resource_pool.tpp">
+      <Filter>Header Files\utils\resource</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -536,6 +536,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_pool.tpp"
+#include "utils\resource\resource_pool.tpp"
 
 #pragma endregion

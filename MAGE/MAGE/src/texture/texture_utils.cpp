@@ -4,8 +4,8 @@
 #pragma region
 
 #include "texture\texture_utils.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

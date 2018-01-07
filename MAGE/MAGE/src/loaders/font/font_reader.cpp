@@ -6,8 +6,8 @@
 #include "loaders\font\font_reader.hpp"
 #include "loaders\font\font_tokens.hpp"
 #include "texture\texture_utils.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

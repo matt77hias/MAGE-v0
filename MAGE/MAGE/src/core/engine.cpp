@@ -6,9 +6,9 @@
 #include "core\engine.hpp"
 #include "core\version.hpp"
 #include "rendering\display_configurator.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
-#include "utils\logging\logging.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 

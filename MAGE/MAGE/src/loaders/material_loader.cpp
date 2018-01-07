@@ -5,8 +5,8 @@
 
 #include "loaders\material_loader.hpp"
 #include "loaders\mtl\mtl_loader.hpp"
-#include "utils\file\file_utils.hpp"
-#include "utils\exception\exception.hpp"
+#include "file\file_utils.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\resource\resource_pool.hpp"
+#include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
 #include "sprite\font\sprite_font.hpp"

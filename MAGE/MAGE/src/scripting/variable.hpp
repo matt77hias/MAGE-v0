@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\type\types.hpp"
+#include "type\types.hpp"
 
 #pragma endregion
 

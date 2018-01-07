@@ -5,7 +5,7 @@
 
 #include "loaders\var\var_writer.hpp"
 #include "loaders\var\var_tokens.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

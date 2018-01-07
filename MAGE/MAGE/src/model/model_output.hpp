@@ -8,7 +8,7 @@
 #include "math\transform\transform.hpp"
 #include "math\geometry\bounding_volume.hpp"
 #include "material\material.hpp"
-#include "utils\collection\vector.hpp"
+#include "collection\vector.hpp"
 
 #pragma endregion
 

@@ -7,8 +7,8 @@
 
 #include "shader\compiled_shader.hpp"
 #include "shader\shading.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

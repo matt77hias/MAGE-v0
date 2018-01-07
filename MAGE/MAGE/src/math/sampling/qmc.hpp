@@ -6,7 +6,7 @@
 #pragma region
 
 #include "math\sampling\primes.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

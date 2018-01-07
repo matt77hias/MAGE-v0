@@ -1,5 +1,5 @@
 #include "samples\sponza\sponza_scene.hpp"
-#include "utils\logging\dump.hpp"
+#include "logging\dump.hpp"
 
 using namespace mage;
 

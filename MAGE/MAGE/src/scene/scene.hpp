@@ -17,7 +17,7 @@
 #include "scripting\behavior_script.hpp"
 #include "sprite\sprite_image.hpp"
 #include "sprite\sprite_text.hpp"
-#include "utils\collection\vector.hpp"
+#include "collection\vector.hpp"
 
 #pragma endregion
 

@@ -7,8 +7,8 @@
 
 #include "rendering\rendering_manager.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"

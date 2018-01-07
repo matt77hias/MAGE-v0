@@ -5,7 +5,7 @@
 
 #include "script\rotation_script.hpp"
 #include "scene\scene.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

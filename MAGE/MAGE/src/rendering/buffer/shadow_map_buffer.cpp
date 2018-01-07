@@ -5,7 +5,7 @@
 
 #include "rendering\buffer\shadow_map_buffer.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

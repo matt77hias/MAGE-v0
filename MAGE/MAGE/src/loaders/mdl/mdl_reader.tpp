@@ -8,8 +8,8 @@
 #include "loaders\material_loader.hpp"
 #include "loaders\mdl\mdl_tokens.hpp"
 #include "loaders\msh\msh_loader.hpp"
-#include "utils\string\string_utils.hpp"
-#include "utils\exception\exception.hpp"
+#include "string\string_utils.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

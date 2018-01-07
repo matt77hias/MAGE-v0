@@ -6,7 +6,7 @@
 #include "script\character_motor_script.hpp"
 #include "scene\scene.hpp"
 #include "input\keyboard.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

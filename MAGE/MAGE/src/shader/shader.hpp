@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\resource\resource.hpp"
+#include "resource\resource.hpp"
 #include "shader\compiled_shader.hpp"
 
 #pragma endregion

@@ -5,7 +5,7 @@
 
 #include "math\transform\sprite_transform.hpp"
 #include "rendering\display_configuration.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

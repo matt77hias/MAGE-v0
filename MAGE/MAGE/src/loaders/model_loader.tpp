@@ -7,7 +7,7 @@
 
 #include "loaders\mdl\mdl_loader.hpp"
 #include "loaders\obj\obj_loader.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

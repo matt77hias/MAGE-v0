@@ -5,7 +5,7 @@
 
 #include "core\engine_statistics.hpp"
 #include "rendering\rendering_manager.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

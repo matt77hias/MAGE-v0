@@ -6,8 +6,8 @@
 #include "core\engine.hpp"
 #include "ui\main_window_settings.hpp"
 #include "imgui\imgui_impl_dx11.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

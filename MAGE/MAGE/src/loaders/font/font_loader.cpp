@@ -5,7 +5,7 @@
 
 #include "loaders\font\font_loader.hpp"
 #include "loaders\font\font_reader.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

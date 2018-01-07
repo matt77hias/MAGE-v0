@@ -5,7 +5,7 @@
 
 #include "loaders\var\var_reader.hpp"
 #include "loaders\var\var_tokens.hpp"
-#include "utils\string\string_utils.hpp"
+#include "string\string_utils.hpp"
 
 #pragma endregion
 

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\io\binary_reader.hpp"
+#include "io\binary_reader.hpp"
 #include "sprite\font\sprite_font_output.hpp"
 #include "sprite\font\sprite_font_descriptor.hpp"
 

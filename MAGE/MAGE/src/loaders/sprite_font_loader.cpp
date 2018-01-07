@@ -5,9 +5,9 @@
 
 #include "loaders\sprite_font_loader.hpp"
 #include "loaders\font\font_loader.hpp"
-#include "utils\file\file_utils.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "file\file_utils.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

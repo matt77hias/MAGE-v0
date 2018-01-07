@@ -6,7 +6,7 @@
 #include "script\mouse_look_script.hpp"
 #include "scene\scene.hpp"
 #include "input\mouse.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

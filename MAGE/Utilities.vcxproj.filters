@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\collection">
+      <UniqueIdentifier>{867d4db8-c773-430c-8592-3c6522943c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\exception">
+      <UniqueIdentifier>{6229e601-2630-4593-9a4c-b8b7cc0ec7bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\file">
+      <UniqueIdentifier>{bfcb86bc-9d94-46b6-b818-6cff07dc4073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\io">
+      <UniqueIdentifier>{0228defb-ba6e-41c8-9f49-1665af4ff1ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\logging">
+      <UniqueIdentifier>{d2c41557-06d4-4b6d-b0ee-e6e4eaff5508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\memory">
+      <UniqueIdentifier>{fb5bef81-8fc1-4a55-af44-577809f69665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\parallel">
+      <UniqueIdentifier>{db45b555-8f53-4faa-8397-8e6754e4ec96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\platform">
+      <UniqueIdentifier>{21bfdc3e-d93c-4b47-b269-0094a86b4b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource">
+      <UniqueIdentifier>{49be294a-d754-4f7d-add1-428ebd64f81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\string">
+      <UniqueIdentifier>{7c2a34b1-d2ba-4eff-a458-6bd596166bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\system">
+      <UniqueIdentifier>{a0f03cb5-54cc-4cb4-a839-956d51c3b5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\timer">
+      <UniqueIdentifier>{1b7808ff-87b6-4ef2-95ec-5cb5f470fa0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\type">
+      <UniqueIdentifier>{f6613fd5-3caa-42d8-b82a-b8226a423fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\exception">
+      <UniqueIdentifier>{945f6804-6d57-46a5-9818-ea67fb90d46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\file">
+      <UniqueIdentifier>{0994a1ad-cf09-4c98-a2a4-7ff542cde50b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\io">
+      <UniqueIdentifier>{3b70b949-7cdb-4e84-ac06-cd2bc4820fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logging">
+      <UniqueIdentifier>{e7475580-7535-4cf7-aa41-cf008a65be27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memory">
+      <UniqueIdentifier>{e9dd3f38-7146-4b6f-8bcf-cb1554c4c1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\parallel">
+      <UniqueIdentifier>{9d9afb08-f6f4-4771-bd5c-a519577ebc6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\system">
+      <UniqueIdentifier>{4c78bd7f-6f11-4827-801e-b6d0d0bbeff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\timer">
+      <UniqueIdentifier>{82ed82d8-4163-4177-82b9-8d92c56c87b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{f7ea1007-c471-417d-b7f5-7da347bdd5fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{3220fcd9-16b6-4223-9847-65e8db4fc197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\string">
+      <UniqueIdentifier>{a1e53004-a6bc-4cb2-a605-547a244482d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utilities\src\collection\vector.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\exception\exception.hpp">
+      <Filter>Header Files\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\file\file_utils.hpp">
+      <Filter>Header Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\io\binary_utils.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\io\binary_writer.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\io\line_reader.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\io\writer.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\io\binary_reader.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\logging\dump.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\logging\error.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\logging\logging.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\logging\progress_reporter.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\memory\allocation.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\memory\memory.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\memory\memory_arena.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\memory\memory_stack.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\parallel\atomic.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\parallel\id_generator.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\parallel\lock.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\parallel\parallel.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\platform\windows.hpp">
+      <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\platform\windows_utils.hpp">
+      <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\resource\resource.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\resource\resource_pool.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\string\string.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\string\string_utils.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\string\token.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\system\cpu_monitor.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\system\system_time.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\system\system_usage.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\timer\cpu_timer.hpp">
+      <Filter>Header Files\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\timer\timer.hpp">
+      <Filter>Header Files\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\type\scalar_types.hpp">
+      <Filter>Header Files\type</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\type\types.hpp">
+      <Filter>Header Files\type</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\type\vector_types.hpp">
+      <Filter>Header Files\type</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\ui\combo_box.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utilities\src\exception\exception.cpp">
+      <Filter>Source Files\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\file\file_utils.cpp">
+      <Filter>Source Files\file</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\io\binary_reader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\io\binary_writer.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\io\line_reader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\io\writer.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\logging\dump.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\logging\error.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\logging\logging.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\logging\progress_reporter.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\memory\memory_arena.cpp">
+      <Filter>Source Files\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\memory\memory_stack.cpp">
+      <Filter>Source Files\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\parallel\id_generator.cpp">
+      <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\parallel\lock.cpp">
+      <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\parallel\parallel.cpp">
+      <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\string\string_utils.cpp">
+      <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\string\token.cpp">
+      <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\system\system_time.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\system\system_usage.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\timer\cpu_timer.cpp">
+      <Filter>Source Files\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\timer\timer.cpp">
+      <Filter>Source Files\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\ui\combo_box.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utilities\src\io\binary_reader.tpp">
+      <Filter>Header Files\io</Filter>
+    </None>
+    <None Include="Utilities\src\io\binary_utils.tpp">
+      <Filter>Header Files\io</Filter>
+    </None>
+    <None Include="Utilities\src\io\binary_writer.tpp">
+      <Filter>Header Files\io</Filter>
+    </None>
+    <None Include="Utilities\src\io\line_reader.tpp">
+      <Filter>Header Files\io</Filter>
+    </None>
+    <None Include="Utilities\src\memory\memory.tpp">
+      <Filter>Header Files\memory</Filter>
+    </None>
+    <None Include="Utilities\src\memory\memory_arena.tpp">
+      <Filter>Header Files\memory</Filter>
+    </None>
+    <None Include="Utilities\src\memory\memory_stack.tpp">
+      <Filter>Header Files\memory</Filter>
+    </None>
+    <None Include="Utilities\src\platform\windows_utils.tpp">
+      <Filter>Header Files\platform</Filter>
+    </None>
+    <None Include="Utilities\src\resource\resource.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="Utilities\src\resource\resource_pool.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="Utilities\src\string\token.tpp">
+      <Filter>Header Files\string</Filter>
+    </None>
+  </ItemGroup>
+</Project>

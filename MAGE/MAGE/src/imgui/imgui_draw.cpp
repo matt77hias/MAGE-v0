@@ -352,7 +352,7 @@ void ImDrawList::AddDrawCmd()
     CmdBuffer.push_back(draw_cmd);
 }
 
-void ImDrawList::AddCallback(ImDrawCallback callback, void* callback_data)
+void ImDrawList::AddCallback(ImDrawCallback callback, void * callback_data)
 {
     ImDrawCmd* current_cmd = CmdBuffer.Size ? &CmdBuffer.back() : NULL;
     if (!current_cmd || current_cmd->ElemCount != 0 || current_cmd->UserCallback != NULL)
@@ -1522,7 +1522,7 @@ ImFont* ImFontAtlas::AddFontDefault(const ImFontConfig* font_cfg_template)
 ImFont* ImFontAtlas::AddFontFromFileTTF(const char* filename, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
 {
     int data_size = 0;
-    void* data = ImFileLoadToMemory(filename, "rb", &data_size, 0);
+    void * data = ImFileLoadToMemory(filename, "rb", &data_size, 0);
     if (!data)
     {
         IM_ASSERT(0); // Could not load file.
@@ -1540,7 +1540,7 @@ ImFont* ImFontAtlas::AddFontFromFileTTF(const char* filename, float size_pixels,
 }
 
 // NB: Transfer ownership of 'ttf_data' to ImFontAtlas, unless font_cfg_template->FontDataOwnedByAtlas == false. Owned TTF buffer will be deleted after Build().
-ImFont* ImFontAtlas::AddFontFromMemoryTTF(void* ttf_data, int ttf_size, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
+ImFont* ImFontAtlas::AddFontFromMemoryTTF(void * ttf_data, int ttf_size, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
 {
     ImFontConfig font_cfg = font_cfg_template ? *font_cfg_template : ImFontConfig();
     IM_ASSERT(font_cfg.FontData == NULL);
@@ -1552,7 +1552,7 @@ ImFont* ImFontAtlas::AddFontFromMemoryTTF(void* ttf_data, int ttf_size, float si
     return AddFont(&font_cfg);
 }
 
-ImFont* ImFontAtlas::AddFontFromMemoryCompressedTTF(const void* compressed_ttf_data, int compressed_ttf_size, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
+ImFont* ImFontAtlas::AddFontFromMemoryCompressedTTF(const void * compressed_ttf_data, int compressed_ttf_size, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
 {
     const unsigned int buf_decompressed_size = stb_decompress_length((unsigned char*)compressed_ttf_data);
     unsigned char* buf_decompressed_data = (unsigned char *)ImGui::MemAlloc(buf_decompressed_size);
@@ -1567,7 +1567,7 @@ ImFont* ImFontAtlas::AddFontFromMemoryCompressedTTF(const void* compressed_ttf_d
 ImFont* ImFontAtlas::AddFontFromMemoryCompressedBase85TTF(const char* compressed_ttf_data_base85, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges)
 {
     int compressed_ttf_size = (((int)strlen(compressed_ttf_data_base85) + 4) / 5) * 4;
-    void* compressed_ttf = ImGui::MemAlloc((size_t)compressed_ttf_size);
+    void * compressed_ttf = ImGui::MemAlloc((size_t)compressed_ttf_size);
     Decode85((const unsigned char*)compressed_ttf_data_base85, (unsigned char*)compressed_ttf);
     ImFont* font = AddFontFromMemoryCompressedTTF(compressed_ttf, compressed_ttf_size, size_pixels, font_cfg, glyph_ranges);
     ImGui::MemFree(compressed_ttf);
@@ -1845,7 +1845,7 @@ void ImFontAtlasBuildSetupFont(ImFontAtlas* atlas, ImFont* font, ImFontConfig* f
     font->ConfigDataCount++;
 }
 
-void ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, void* pack_context_opaque)
+void ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, void * pack_context_opaque)
 {
     stbrp_context* pack_context = (stbrp_context*)pack_context_opaque;
 

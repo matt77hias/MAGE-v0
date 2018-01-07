@@ -7,7 +7,7 @@
 
 #include "scripting\behavior_script.hpp"
 #include "sprite\sprite_text.hpp"
-#include "utils\system\cpu_monitor.hpp"
+#include "system\cpu_monitor.hpp"
 
 #pragma endregion
 

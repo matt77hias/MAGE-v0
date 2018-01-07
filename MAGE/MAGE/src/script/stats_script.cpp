@@ -6,8 +6,8 @@
 #include "script\stats_script.hpp"
 #include "scene\scene.hpp"
 #include "core\engine_statistics.hpp"
-#include "utils\system\system_usage.hpp"
-#include "utils\exception\exception.hpp"
+#include "system\system_usage.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

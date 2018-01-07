@@ -518,7 +518,7 @@ void    ImGui_ImplDX11_InvalidateDeviceObjects()
     if (g_pVertexShaderBlob) { g_pVertexShaderBlob->Release(); g_pVertexShaderBlob = NULL; }
 }
 
-bool    ImGui_ImplDX11_Init(void* hwnd, ID3D11Device5* device, ID3D11DeviceContext4* device_context)
+bool    ImGui_ImplDX11_Init(void * hwnd, ID3D11Device5* device, ID3D11DeviceContext4* device_context)
 {
     g_hWnd = (HWND)hwnd;
     g_pd3dDevice = device;

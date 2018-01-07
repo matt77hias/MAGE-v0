@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\io\line_reader.hpp"
+#include "io\line_reader.hpp"
 #include "model\model_output.hpp"
 #include "mesh\mesh_descriptor.hpp"
 

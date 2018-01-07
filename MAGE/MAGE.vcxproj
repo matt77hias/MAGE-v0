@@ -178,44 +178,8 @@
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_utils.hpp" />
-    <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
-    <ClInclude Include="MAGE\src\utils\collection\vector.hpp" />
-    <ClInclude Include="MAGE\src\utils\exception\exception.hpp" />
-    <ClInclude Include="MAGE\src\utils\file\file_utils.hpp" />
-    <ClInclude Include="MAGE\src\utils\io\binary_reader.hpp" />
-    <ClInclude Include="MAGE\src\utils\io\binary_utils.hpp" />
-    <ClInclude Include="MAGE\src\utils\io\binary_writer.hpp" />
-    <ClInclude Include="MAGE\src\utils\io\line_reader.hpp" />
-    <ClInclude Include="MAGE\src\utils\io\writer.hpp" />
-    <ClInclude Include="MAGE\src\utils\logging\dump.hpp" />
-    <ClInclude Include="MAGE\src\utils\logging\error.hpp" />
-    <ClInclude Include="MAGE\src\utils\logging\logging.hpp" />
-    <ClInclude Include="MAGE\src\utils\logging\progress_reporter.hpp" />
-    <ClInclude Include="MAGE\src\utils\memory\allocation.hpp" />
-    <ClInclude Include="MAGE\src\utils\memory\memory.hpp" />
-    <ClInclude Include="MAGE\src\utils\memory\memory_arena.hpp" />
-    <ClInclude Include="MAGE\src\utils\memory\memory_stack.hpp" />
-    <ClInclude Include="MAGE\src\utils\parallel\atomic.hpp" />
-    <ClInclude Include="MAGE\src\utils\parallel\id_generator.hpp" />
-    <ClInclude Include="MAGE\src\utils\parallel\lock.hpp" />
-    <ClInclude Include="MAGE\src\utils\parallel\parallel.hpp" />
-    <ClInclude Include="MAGE\src\utils\platform\windows.hpp" />
-    <ClInclude Include="MAGE\src\utils\platform\windows_utils.hpp" />
-    <ClInclude Include="MAGE\src\utils\resource\resource.hpp" />
-    <ClInclude Include="MAGE\src\utils\resource\resource_pool.hpp" />
-    <ClInclude Include="MAGE\src\utils\string\string.hpp" />
-    <ClInclude Include="MAGE\src\utils\string\string_utils.hpp" />
-    <ClInclude Include="MAGE\src\utils\string\token.hpp" />
-    <ClInclude Include="MAGE\src\utils\system\cpu_monitor.hpp" />
-    <ClInclude Include="MAGE\src\utils\system\system_time.hpp" />
-    <ClInclude Include="MAGE\src\utils\system\system_usage.hpp" />
-    <ClInclude Include="MAGE\src\utils\timer\cpu_timer.hpp" />
-    <ClInclude Include="MAGE\src\utils\timer\timer.hpp" />
-    <ClInclude Include="MAGE\src\utils\type\vector_types.hpp" />
-    <ClInclude Include="MAGE\src\utils\type\scalar_types.hpp" />
-    <ClInclude Include="MAGE\src\utils\type\types.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
@@ -312,29 +276,7 @@
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_utils.cpp" />
-    <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
-    <ClCompile Include="MAGE\src\utils\exception\exception.cpp" />
-    <ClCompile Include="MAGE\src\utils\file\file_utils.cpp" />
-    <ClCompile Include="MAGE\src\utils\io\binary_reader.cpp" />
-    <ClCompile Include="MAGE\src\utils\io\binary_writer.cpp" />
-    <ClCompile Include="MAGE\src\utils\io\line_reader.cpp" />
-    <ClCompile Include="MAGE\src\utils\io\writer.cpp" />
-    <ClCompile Include="MAGE\src\utils\logging\dump.cpp" />
-    <ClCompile Include="MAGE\src\utils\logging\error.cpp" />
-    <ClCompile Include="MAGE\src\utils\logging\logging.cpp" />
-    <ClCompile Include="MAGE\src\utils\logging\progress_reporter.cpp" />
-    <ClCompile Include="MAGE\src\utils\memory\memory_arena.cpp" />
-    <ClCompile Include="MAGE\src\utils\memory\memory_stack.cpp" />
-    <ClCompile Include="MAGE\src\utils\parallel\id_generator.cpp" />
-    <ClCompile Include="MAGE\src\utils\parallel\lock.cpp" />
-    <ClCompile Include="MAGE\src\utils\parallel\parallel.cpp" />
-    <ClCompile Include="MAGE\src\utils\string\string_utils.cpp" />
-    <ClCompile Include="MAGE\src\utils\string\token.cpp" />
-    <ClCompile Include="MAGE\src\utils\system\system_time.cpp" />
-    <ClCompile Include="MAGE\src\utils\system\system_usage.cpp" />
-    <ClCompile Include="MAGE\src\utils\timer\cpu_timer.cpp" />
-    <ClCompile Include="MAGE\src\utils\timer\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\loaders\mdl\mdl_loader.tpp" />
@@ -363,17 +305,6 @@
     <None Include="MAGE\src\shader\shader.tpp" />
     <None Include="MAGE\src\sprite\sprite_text.tpp" />
     <None Include="MAGE\src\texture\texture.tpp" />
-    <None Include="MAGE\src\utils\io\binary_reader.tpp" />
-    <None Include="MAGE\src\utils\io\binary_utils.tpp" />
-    <None Include="MAGE\src\utils\io\binary_writer.tpp" />
-    <None Include="MAGE\src\utils\io\line_reader.tpp" />
-    <None Include="MAGE\src\utils\memory\memory.tpp" />
-    <None Include="MAGE\src\utils\memory\memory_arena.tpp" />
-    <None Include="MAGE\src\utils\memory\memory_stack.tpp" />
-    <None Include="MAGE\src\utils\platform\windows_utils.tpp" />
-    <None Include="MAGE\src\utils\resource\resource.tpp" />
-    <None Include="MAGE\src\utils\resource\resource_pool.tpp" />
-    <None Include="MAGE\src\utils\string\token.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
@@ -432,16 +363,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

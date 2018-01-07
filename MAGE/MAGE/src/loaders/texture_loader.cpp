@@ -7,9 +7,9 @@
 #include "loaders\dds\dds_loader.hpp"
 #include "loaders\dds\screen_grab.hpp"
 #include "loaders\wic\wic_loader.hpp"
-#include "utils\file\file_utils.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "file\file_utils.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

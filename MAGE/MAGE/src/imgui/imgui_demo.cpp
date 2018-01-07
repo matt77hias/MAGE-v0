@@ -390,7 +390,7 @@ void ImGui::ShowTestWindow(bool* p_open)
             if (ImGui::TreeNode("Basic trees"))
             {
                 for (int i = 0; i < 5; i++)
-                    if (ImGui::TreeNode((void*)(intptr_t)i, "Child %d", i))
+                    if (ImGui::TreeNode((void *)(intptr_t)i, "Child %d", i))
                     {
                         ImGui::Text("blah blah");
                         ImGui::SameLine(); 
@@ -419,7 +419,7 @@ void ImGui::ShowTestWindow(bool* p_open)
                     if (i < 3)
                     {
                         // Node
-                        bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "Selectable Node %d", i);
+                        bool node_open = ImGui::TreeNodeEx((void *)(intptr_t)i, node_flags, "Selectable Node %d", i);
                         if (ImGui::IsItemClicked()) 
                             node_clicked = i;
                         if (node_open)
@@ -432,7 +432,7 @@ void ImGui::ShowTestWindow(bool* p_open)
                     {
                         // Leaf: The only reason we have a TreeNode at all is to allow selection of the leaf. Otherwise we can use BulletText() or TreeAdvanceToLabelPos()+Text().
                         node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet
-                        ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "Selectable Leaf %d", i);
+                        ImGui::TreeNodeEx((void *)(intptr_t)i, node_flags, "Selectable Leaf %d", i);
                         if (ImGui::IsItemClicked()) 
                             node_clicked = i;
                     }
@@ -716,15 +716,15 @@ void ImGui::ShowTestWindow(bool* p_open)
             // FIXME: This is rather awkward because current plot API only pass in indices. We probably want an API passing floats and user provide sample rate/count.
             struct Funcs
             {
-                static float Sin(void*, int i) { return sinf(i * 0.1f); }
-                static float Saw(void*, int i) { return (i & 1) ? 1.0f : -1.0f; }
+                static float Sin(void *, int i) { return sinf(i * 0.1f); }
+                static float Saw(void *, int i) { return (i & 1) ? 1.0f : -1.0f; }
             };
             static int func_type = 0, display_count = 70;
             ImGui::Separator();
             ImGui::PushItemWidth(100); ImGui::Combo("func", &func_type, "Sin\0Saw\0"); ImGui::PopItemWidth();
             ImGui::SameLine();
             ImGui::SliderInt("Sample count", &display_count, 1, 400);
-            float (*func)(void*, int) = (func_type == 0) ? Funcs::Sin : Funcs::Saw;
+            float (*func)(void *, int) = (func_type == 0) ? Funcs::Sin : Funcs::Saw;
             ImGui::PlotLines("Lines", func, NULL, display_count, 0, NULL, -1.0f, 1.0f, ImVec2(0,80));
             ImGui::PlotHistogram("Histogram", func, NULL, display_count, 0, NULL, -1.0f, 1.0f, ImVec2(0,80));
             ImGui::Separator();
@@ -1262,7 +1262,7 @@ void ImGui::ShowTestWindow(bool* p_open)
                 if (i > 0) ImGui::SameLine();
                 ImGui::BeginGroup();
                 ImGui::Text("%s", i == 0 ? "Top" : i == 1 ? "25%" : i == 2 ? "Center" : i == 3 ? "75%" : "Bottom");
-                ImGui::BeginChild(ImGui::GetID((void*)(intptr_t)i), ImVec2(ImGui::GetWindowWidth() * 0.17f, 200.0f), true);
+                ImGui::BeginChild(ImGui::GetID((void *)(intptr_t)i), ImVec2(ImGui::GetWindowWidth() * 0.17f, 200.0f), true);
                 if (scroll_to)
                     ImGui::SetScrollFromPosY(ImGui::GetCursorStartPos().y + scroll_to_px, i * 0.25f);
                 for (int line = 0; line < 100; line++)
@@ -2120,7 +2120,7 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
                         int count = 0;
                         for (int n = 0; n < 256; n++)
                             count += font->FindGlyph((ImWchar)(base + n)) ? 1 : 0;
-                        if (count > 0 && ImGui::TreeNode((void*)(intptr_t)base, "U+%04X..U+%04X (%d %s)", base, base+255, count, count > 1 ? "glyphs" : "glyph"))
+                        if (count > 0 && ImGui::TreeNode((void *)(intptr_t)base, "U+%04X..U+%04X (%d %s)", base, base+255, count, count > 1 ? "glyphs" : "glyph"))
                         {
                             float cell_spacing = style.ItemSpacing.y;
                             ImVec2 cell_size(font->FontSize * 1, font->FontSize * 1);
@@ -2289,7 +2289,7 @@ static void ShowExampleAppConstrainedResize(bool* p_open)
     if (type == 3) ImGui::SetNextWindowSizeConstraints(ImVec2(400, -1),  ImVec2(500, -1));          // Width 400-500
     if (type == 4) ImGui::SetNextWindowSizeConstraints(ImVec2(-1, 400),  ImVec2(-1, 500));          // Height 400-500
     if (type == 5) ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0),     ImVec2(FLT_MAX, FLT_MAX), CustomConstraints::Square);          // Always Square
-    if (type == 6) ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0),     ImVec2(FLT_MAX, FLT_MAX), CustomConstraints::Step, (void*)100);// Fixed Step
+    if (type == 6) ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0),     ImVec2(FLT_MAX, FLT_MAX), CustomConstraints::Step, (void *)100);// Fixed Step
 
     ImGuiWindowFlags flags = auto_resize ? ImGuiWindowFlags_AlwaysAutoResize : 0;
     if (ImGui::Begin("Example: Constrained Resize", p_open, flags))
@@ -2506,7 +2506,7 @@ struct ExampleAppConsole
     // Portable helpers
     static int   Stricmp(const char* str1, const char* str2)         { int d; while ((d = toupper(*str2) - toupper(*str1)) == 0 && *str1) { str1++; str2++; } return d; }
     static int   Strnicmp(const char* str1, const char* str2, int n) { int d = 0; while (n > 0 && (d = toupper(*str2) - toupper(*str1)) == 0 && *str1) { str1++; str2++; n--; } return d; }
-    static char* Strdup(const char *str)                             { size_t len = strlen(str) + 1; void* buff = malloc(len); return (char*)memcpy(buff, (const void*)str, len); }
+    static char* Strdup(const char *str)                             { size_t len = strlen(str) + 1; void * buff = malloc(len); return (char*)memcpy(buff, (const void *)str, len); }
 
     void    ClearLog()
     {
@@ -2611,7 +2611,7 @@ struct ExampleAppConsole
         ImGui::Separator();
 
         // Command-line
-        if (ImGui::InputText("Input", InputBuf, IM_ARRAYSIZE(InputBuf), ImGuiInputTextFlags_EnterReturnsTrue|ImGuiInputTextFlags_CallbackCompletion|ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void*)this))
+        if (ImGui::InputText("Input", InputBuf, IM_ARRAYSIZE(InputBuf), ImGuiInputTextFlags_EnterReturnsTrue|ImGuiInputTextFlags_CallbackCompletion|ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void *)this))
         {
             char* input_end = InputBuf+strlen(InputBuf);
             while (input_end > InputBuf && input_end[-1] == ' ') { input_end--; } *input_end = 0;

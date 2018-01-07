@@ -5,10 +5,10 @@
 
 #include "rendering\display_configurator.hpp"
 #include "rendering\display_settings.hpp"
-#include "utils\platform\windows_utils.hpp"
+#include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
-#include "utils\file\file_utils.hpp"
-#include "utils\logging\error.hpp"
+#include "file\file_utils.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -138,7 +138,7 @@ namespace mage {
 		ComPtr< IDXGIFactory5 > factory;
 		{
 			const HRESULT result = CreateDXGIFactory1(
-				__uuidof(IDXGIFactory5), (void**)factory.GetAddressOf());
+				__uuidof(IDXGIFactory5), (void **)factory.GetAddressOf());
 			ThrowIfFailed(result, 
 				"IDXGIFactory5 creation failed: %08X.", result);
 		}

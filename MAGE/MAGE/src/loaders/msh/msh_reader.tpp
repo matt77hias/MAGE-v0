@@ -6,7 +6,7 @@
 #pragma region
 
 #include "loaders\msh\msh_tokens.hpp"
-#include "utils\exception\exception.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

@@ -7,7 +7,7 @@
 
 #include "scene\component.hpp"
 #include "sprite\font\sprite_font.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

@@ -8,8 +8,8 @@
 #include "loaders\obj\obj_tokens.hpp"
 #include "loaders\material_loader.hpp"
 #include "mesh\vertex.hpp"
-#include "utils\string\string_utils.hpp"
-#include "utils\exception\exception.hpp"
+#include "string\string_utils.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

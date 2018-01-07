@@ -138,7 +138,7 @@
      // TODO: At this points you've got the texture data and you need to upload that your your graphic system:
      MyTexture* texture = MyEngine::CreateTextureFromMemoryPixels(pixels, width, height, TEXTURE_TYPE_RGBA)
      // TODO: Store your texture pointer/identifier (whatever your engine uses) in 'io.Fonts->TexID'. This will be passed back to your via the renderer.
-     io.Fonts->TexID = (void*)texture;
+     io.Fonts->TexID = (void *)texture;
 
      // Application main loop
      while (true)
@@ -253,7 +253,7 @@
  - 2017/05/26 (1.50) - removed ImFontConfig::MergeGlyphCenterV in favor of a more multipurpose ImFontConfig::GlyphOffset.
  - 2017/05/01 (1.50) - renamed ImDrawList::PathFill() (rarely used directly) to ImDrawList::PathFillConvex() for clarity.
  - 2016/11/06 (1.50) - BeginChild(const char*) now applies the stack id to the provided label, consistently with other functions as it should always have been. It shouldn't affect you unless (extremely unlikely) you were appending multiple times to a same child from different locations of the stack id. If that's the case, generate an id with GetId() and use it instead of passing string to BeginChild().
- - 2016/10/15 (1.50) - avoid 'void* user_data' parameter to io.SetClipboardTextFn/io.GetClipboardTextFn pointers. We pass io.ClipboardUserData to it.
+ - 2016/10/15 (1.50) - avoid 'void * user_data' parameter to io.SetClipboardTextFn/io.GetClipboardTextFn pointers. We pass io.ClipboardUserData to it.
  - 2016/09/25 (1.50) - style.WindowTitleAlign is now a ImVec2 (ImGuiAlign enum was removed). set to (0.5f,0.5f) for horizontal+vertical centering, (0.0f,0.0f) for upper-left, etc.
  - 2016/07/30 (1.50) - SameLine(x) with x>0.0f is now relative to left of column/group if any, and not always to left of window. This was sort of always the intent and hopefully breakage should be minimal.
  - 2016/05/12 (1.49) - title bar (using ImGuiCol_TitleBg/ImGuiCol_TitleBgActive colors) isn't rendered over a window background (ImGuiCol_WindowBg color) anymore. 
@@ -332,7 +332,7 @@
  - 2015/01/11 (1.30) - big font/image API change! now loads TTF file. allow for multiple fonts. no need for a PNG loader.
               (1.30) - removed GetDefaultFontData(). uses io.Fonts->GetTextureData*() API to retrieve uncompressed pixels.
                        this sequence:
-                           const void* png_data;
+                           const void * png_data;
                            unsigned int png_size;
                            ImGui::GetDefaultFontData(NULL, NULL, &png_data, &png_size);
                            // <Copy to GPU>
@@ -373,12 +373,12 @@
     - Become a Patron/donate! Convince your company to become a Patron or provide serious funding for development time! See http://www.patreon.com/imgui
 
  Q: What is ImTextureID and how do I display an image?
- A: ImTextureID is a void* used to pass renderer-agnostic texture references around until it hits your render function.
-    Dear ImGui knows nothing about what those bits represent, it just passes them around. It is up to you to decide what you want the void* to carry!
-    It could be an identifier to your OpenGL texture (cast GLuint to void*), a pointer to your custom engine material (cast MyMaterial* to void*), etc.
-    At the end of the chain, your renderer takes this void* to cast it back into whatever it needs to select a current texture to render.
+ A: ImTextureID is a void * used to pass renderer-agnostic texture references around until it hits your render function.
+    Dear ImGui knows nothing about what those bits represent, it just passes them around. It is up to you to decide what you want the void * to carry!
+    It could be an identifier to your OpenGL texture (cast GLuint to void *), a pointer to your custom engine material (cast MyMaterial* to void *), etc.
+    At the end of the chain, your renderer takes this void * to cast it back into whatever it needs to select a current texture to render.
     Refer to examples applications, where each renderer (in a imgui_impl_xxxx.cpp file) is treating ImTextureID as a different thing.
-    (c++ tip: OpenGL uses integers to identify textures. You can safely store an integer into a void*, just cast it to void*, don't take it's address!)
+    (c++ tip: OpenGL uses integers to identify textures. You can safely store an integer into a void *, just cast it to void *, don't take it's address!)
     To display a custom image/texture within an ImGui window, you may use ImGui::Image(), ImGui::ImageButton(), ImDrawList::AddImage() functions.
     Dear ImGui will generate the geometry and draw calls using the ImTextureID that you passed and which your renderer can use.
     It is your responsibility to get textures uploaded to your GPU.
@@ -614,12 +614,12 @@
 #pragma clang diagnostic ignored "-Wexit-time-destructors"  // warning : declaration requires an exit-time destructor       // exit-time destruction order is undefined. if MemFree() leads to users code that has been disabled before exit it might cause problems. ImGui coding style welcomes static/globals.
 #pragma clang diagnostic ignored "-Wglobal-constructors"    // warning : declaration requires a global destructor           // similar to above, not sure what the exact difference it.
 #pragma clang diagnostic ignored "-Wsign-conversion"        // warning : implicit conversion changes signedness             //
-#pragma clang diagnostic ignored "-Wformat-pedantic"        // warning : format specifies type 'void *' but the argument has type 'xxxx *' // unreasonable, would lead to casting every %p arg to void*. probably enabled by -pedantic. 
+#pragma clang diagnostic ignored "-Wformat-pedantic"        // warning : format specifies type 'void *' but the argument has type 'xxxx *' // unreasonable, would lead to casting every %p arg to void *. probably enabled by -pedantic. 
 #pragma clang diagnostic ignored "-Wint-to-void-pointer-cast" // warning : cast to 'void *' from smaller integer type 'int' //
 #elif defined(__GNUC__)
 #pragma GCC diagnostic ignored "-Wunused-function"          // warning: 'xxxx' defined but not used
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"      // warning: cast to pointer from integer of different size
-#pragma GCC diagnostic ignored "-Wformat"                   // warning: format '%p' expects argument of type 'void*', but argument 6 has type 'ImGuiWindow*'
+#pragma GCC diagnostic ignored "-Wformat"                   // warning: format '%p' expects argument of type 'void *', but argument 6 has type 'ImGuiWindow*'
 #pragma GCC diagnostic ignored "-Wdouble-promotion"         // warning: implicit conversion from 'float' to 'double' when passing argument to function
 #pragma GCC diagnostic ignored "-Wconversion"               // warning: conversion to 'xxxx' from 'xxxx' may alter its value
 #pragma GCC diagnostic ignored "-Wcast-qual"                // warning: cast from type 'xxxx' to type 'xxxx' casts away qualifiers
@@ -663,14 +663,14 @@ static void             CloseInactivePopups(ImGuiWindow* ref_window);
 static void             ClosePopupToLevel(int remaining);
 static ImGuiWindow*     GetFrontMostModalRootWindow();
 
-static bool             InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void* user_data);
+static bool             InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data);
 static int              InputTextCalcTextLenAndLineCount(const char* text_begin, const char** out_text_end);
 static ImVec2           InputTextCalcTextSizeW(const ImWchar* text_begin, const ImWchar* text_end, const ImWchar** remaining = NULL, ImVec2* out_offset = NULL, bool stop_on_new_line = false);
 
-static inline void      DataTypeFormatString(ImGuiDataType data_type, void* data_ptr, const char* display_format, char* buf, int buf_size);
-static inline void      DataTypeFormatString(ImGuiDataType data_type, void* data_ptr, int decimal_precision, char* buf, int buf_size);
-static void             DataTypeApplyOp(ImGuiDataType data_type, int op, void* value1, const void* value2);
-static bool             DataTypeApplyOpFromText(const char* buf, const char* initial_value_buf, ImGuiDataType data_type, void* data_ptr, const char* scalar_format);
+static inline void      DataTypeFormatString(ImGuiDataType data_type, void * data_ptr, const char* display_format, char* buf, int buf_size);
+static inline void      DataTypeFormatString(ImGuiDataType data_type, void * data_ptr, int decimal_precision, char* buf, int buf_size);
+static void             DataTypeApplyOp(ImGuiDataType data_type, int op, void * value1, const void * value2);
+static bool             DataTypeApplyOpFromText(const char* buf, const char* initial_value_buf, ImGuiDataType data_type, void * data_ptr, const char* scalar_format);
 
 namespace ImGui
 {
@@ -681,8 +681,8 @@ static void             FocusPreviousWindow();
 // Platform dependent default implementations
 //-----------------------------------------------------------------------------
 
-static const char*      GetClipboardTextFn_DefaultImpl(void* user_data);
-static void             SetClipboardTextFn_DefaultImpl(void* user_data, const char* text);
+static const char*      GetClipboardTextFn_DefaultImpl(void * user_data);
+static void             SetClipboardTextFn_DefaultImpl(void * user_data, const char* text);
 static void             ImeSetInputScreenPosFn_DefaultImpl(int x, int y);
 
 //-----------------------------------------------------------------------------
@@ -928,8 +928,8 @@ void ImStrncpy(char* dst, const char* src, size_t count)
 char* ImStrdup(const char *str)
 {
     size_t len = strlen(str) + 1;
-    void* buf = ImGui::MemAlloc(len);
-    return (char*)memcpy(buf, (const void*)str, len);
+    void * buf = ImGui::MemAlloc(len);
+    return (char*)memcpy(buf, (const void *)str, len);
 }
 
 char* ImStrchrRange(const char* str, const char* str_end, char c)
@@ -1020,7 +1020,7 @@ int ImFormatStringV(char* buf, size_t buf_size, const char* fmt, va_list args)
 
 // Pass data_size==0 for zero-terminated strings
 // FIXME-OPT: Replace with e.g. FNV1a hash? CRC32 pretty much randomly access 1KB. Need to do proper measurements.
-ImU32 ImHash(const void* data, int data_size, ImU32 seed)
+ImU32 ImHash(const void * data, int data_size, ImU32 seed)
 {
     static ImU32 crc32_lut[256] = { 0 };
     if (!crc32_lut[1])
@@ -1359,7 +1359,7 @@ FILE* ImFileOpen(const char* filename, const char* mode)
 
 // Load file content into memory
 // Memory allocated with ImGui::MemAlloc(), must be freed by user using ImGui::MemFree()
-void* ImFileLoadToMemory(const char* filename, const char* file_open_mode, int* out_file_size, int padding_bytes)
+void * ImFileLoadToMemory(const char* filename, const char* file_open_mode, int* out_file_size, int padding_bytes)
 {
     IM_ASSERT(filename && file_open_mode);
     if (out_file_size)
@@ -1377,7 +1377,7 @@ void* ImFileLoadToMemory(const char* filename, const char* file_open_mode, int* 
     }
 
     int file_size = (int)file_size_signed;
-    void* file_data = ImGui::MemAlloc(file_size + padding_bytes);
+    void * file_data = ImGui::MemAlloc(file_size + padding_bytes);
     if (file_data == NULL)
     {
         fclose(f);
@@ -1432,7 +1432,7 @@ void ImGuiStorage::BuildSortByKey()
 {
     struct StaticFunc 
     { 
-        static int PairCompareByID(const void* lhs, const void* rhs) 
+        static int PairCompareByID(const void * lhs, const void * rhs) 
         {
             // We can't just do a subtraction because qsort uses signed integers and subtracting our ID doesn't play well with that.
             if (((const Pair*)lhs)->key > ((const Pair*)rhs)->key) return +1;
@@ -1465,7 +1465,7 @@ float ImGuiStorage::GetFloat(ImGuiID key, float default_val) const
     return it->val_f;
 }
 
-void* ImGuiStorage::GetVoidPtr(ImGuiID key) const
+void * ImGuiStorage::GetVoidPtr(ImGuiID key) const
 {
     ImVector<Pair>::iterator it = LowerBound(const_cast<ImVector<ImGuiStorage::Pair>&>(Data), key);
     if (it == Data.end() || it->key != key)
@@ -1495,7 +1495,7 @@ float* ImGuiStorage::GetFloatRef(ImGuiID key, float default_val)
     return &it->val_f;
 }
 
-void** ImGuiStorage::GetVoidPtrRef(ImGuiID key, void* default_val)
+void ** ImGuiStorage::GetVoidPtrRef(ImGuiID key, void * default_val)
 {
     ImVector<Pair>::iterator it = LowerBound(Data, key);
     if (it == Data.end() || it->key != key)
@@ -1531,7 +1531,7 @@ void ImGuiStorage::SetFloat(ImGuiID key, float val)
     it->val_f = val;
 }
 
-void ImGuiStorage::SetVoidPtr(ImGuiID key, void* val)
+void ImGuiStorage::SetVoidPtr(ImGuiID key, void * val)
 {
     ImVector<Pair>::iterator it = LowerBound(Data, key);
     if (it == Data.end() || it->key != key)
@@ -1889,10 +1889,10 @@ ImGuiID ImGuiWindow::GetID(const char* str, const char* str_end)
     return id;
 }
 
-ImGuiID ImGuiWindow::GetID(const void* ptr)
+ImGuiID ImGuiWindow::GetID(const void * ptr)
 {
     ImGuiID seed = IDStack.back();
-    ImGuiID id = ImHash(&ptr, sizeof(void*), seed);
+    ImGuiID id = ImHash(&ptr, sizeof(void *), seed);
     ImGui::KeepAliveID(id);
     return id;
 }
@@ -2162,13 +2162,13 @@ float ImGui::CalcWrapWidthForPos(const ImVec2& pos, float wrap_pos_x)
 
 //-----------------------------------------------------------------------------
 
-void* ImGui::MemAlloc(size_t sz)
+void * ImGui::MemAlloc(size_t sz)
 {
     GImGui->IO.MetricsAllocs++;
     return GImGui->IO.MemAllocFn(sz);
 }
 
-void ImGui::MemFree(void* ptr)
+void ImGui::MemFree(void * ptr)
 {
     if (ptr) GImGui->IO.MetricsAllocs--;
     return GImGui->IO.MemFreeFn(ptr);
@@ -2206,7 +2206,7 @@ void ImGui::SetCurrentContext(ImGuiContext* ctx)
 #endif
 }
 
-ImGuiContext* ImGui::CreateContext(void* (*malloc_fn)(size_t), void (*free_fn)(void*))
+ImGuiContext* ImGui::CreateContext(void * (*malloc_fn)(size_t), void (*free_fn)(void *))
 {
     if (!malloc_fn) malloc_fn = malloc;
     ImGuiContext* ctx = (ImGuiContext*)malloc_fn(sizeof(ImGuiContext));
@@ -2218,7 +2218,7 @@ ImGuiContext* ImGui::CreateContext(void* (*malloc_fn)(size_t), void (*free_fn)(v
 
 void ImGui::DestroyContext(ImGuiContext* ctx)
 {
-    void (*free_fn)(void*) = ctx->IO.MemFreeFn;
+    void (*free_fn)(void *) = ctx->IO.MemFreeFn;
     ctx->~ImGuiContext();
     free_fn(ctx);
     if (GImGui == ctx)
@@ -2523,15 +2523,15 @@ void ImGui::NewFrame()
     Begin("Debug##Default");
 }
 
-static void* SettingsHandlerWindow_ReadOpen(ImGuiContext&, const char* name)
+static void * SettingsHandlerWindow_ReadOpen(ImGuiContext&, const char* name)
 {
     ImGuiWindowSettings* settings = ImGui::FindWindowSettings(ImHash(name, 0));
     if (!settings)
         settings = AddWindowSettings(name);
-    return (void*)settings;
+    return (void *)settings;
 }
 
-static void SettingsHandlerWindow_ReadLine(ImGuiContext&, void* entry, const char* line)
+static void SettingsHandlerWindow_ReadLine(ImGuiContext&, void * entry, const char* line)
 {
     ImGuiWindowSettings* settings = (ImGuiWindowSettings*)entry;
     float x, y; 
@@ -2708,7 +2708,7 @@ static void LoadIniSettingsFromMemory(const char* buf_readonly)
     char* buf_end = buf + strlen(buf);
 
     ImGuiContext& g = *GImGui;
-    void* entry_data = NULL;
+    void * entry_data = NULL;
     const ImGuiSettingsHandler* entry_handler = NULL;
 
     char* line_end = NULL;
@@ -2799,7 +2799,7 @@ static void MarkIniSettingsDirty(ImGuiWindow* window)
 }
 
 // FIXME: Add a more explicit sort order in the window structure.
-static int ChildWindowComparer(const void* lhs, const void* rhs)
+static int ChildWindowComparer(const void * lhs, const void * rhs)
 {
     const ImGuiWindow* a = *(const ImGuiWindow**)lhs;
     const ImGuiWindow* b = *(const ImGuiWindow**)rhs;
@@ -4710,7 +4710,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
                     ImRect resize_rect(corner, corner + grip.InnerDir * grip_hover_size);
                     resize_rect.FixInverted();
                     bool hovered, held;
-                    ButtonBehavior(resize_rect, window->GetID((void*)(intptr_t)resize_grip_n), &hovered, &held, ImGuiButtonFlags_FlattenChildren);
+                    ButtonBehavior(resize_rect, window->GetID((void *)(intptr_t)resize_grip_n), &hovered, &held, ImGuiButtonFlags_FlattenChildren);
                     if (hovered || held)
                         g.MouseCursor = (resize_grip_n & 1) ? ImGuiMouseCursor_ResizeNESW : ImGuiMouseCursor_ResizeNWSE;
 
@@ -4736,7 +4736,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
                     const float BORDER_APPEAR_TIMER = 0.05f; // Reduce visual noise
                     bool hovered, held;
                     ImRect border_rect = GetBorderRect(window, border_n, grip_hover_size, BORDER_SIZE);
-                    ButtonBehavior(border_rect, window->GetID((void*)(intptr_t)(border_n+4)), &hovered, &held, ImGuiButtonFlags_FlattenChildren);
+                    ButtonBehavior(border_rect, window->GetID((void *)(intptr_t)(border_n+4)), &hovered, &held, ImGuiButtonFlags_FlattenChildren);
                     if ((hovered && g.HoveredIdTimer > BORDER_APPEAR_TIMER) || held)
                     {
                         g.MouseCursor = (border_n & 1) ? ImGuiMouseCursor_ResizeEW : ImGuiMouseCursor_ResizeNS;
@@ -5367,7 +5367,7 @@ struct ImGuiStyleVarInfo
 {
     ImGuiDataType   Type;
     ImU32           Offset;
-    void*           GetVarPtr(ImGuiStyle* style) const { return (void*)((unsigned char*)style + Offset); }
+    void *           GetVarPtr(ImGuiStyle* style) const { return (void *)((unsigned char*)style + Offset); }
 };
 
 static const ImGuiStyleVarInfo GStyleVarInfo[ImGuiStyleVar_Count_] =
@@ -5724,7 +5724,7 @@ void ImGui::SetNextWindowSize(const ImVec2& size, ImGuiCond cond)
     g.SetNextWindowSizeCond = cond ? cond : ImGuiCond_Always;
 }
 
-void ImGui::SetNextWindowSizeConstraints(const ImVec2& size_min, const ImVec2& size_max, ImGuiSizeConstraintCallback custom_callback, void* custom_callback_user_data)
+void ImGui::SetNextWindowSizeConstraints(const ImVec2& size_min, const ImVec2& size_max, ImGuiSizeConstraintCallback custom_callback, void * custom_callback_user_data)
 {
     ImGuiContext& g = *GImGui;
     g.SetNextWindowSizeConstraint = true;
@@ -6801,7 +6801,7 @@ bool ImGui::CollapsingHeader(const char* label, bool* p_open, ImGuiTreeNodeFlags
         ImGuiContext& g = *GImGui;
         float button_sz = g.FontSize * 0.5f;
         ImGuiItemHoveredDataBackup last_item_backup;
-        if (CloseButton(window->GetID((void*)(intptr_t)(id+1)), ImVec2(ImMin(window->DC.LastItemRect.Max.x, window->ClipRect.Max.x) - g.Style.FramePadding.x - button_sz, window->DC.LastItemRect.Min.y + g.Style.FramePadding.y + button_sz), button_sz))
+        if (CloseButton(window->GetID((void *)(intptr_t)(id+1)), ImVec2(ImMin(window->DC.LastItemRect.Max.x, window->ClipRect.Max.x) - g.Style.FramePadding.x - button_sz, window->DC.LastItemRect.Min.y + g.Style.FramePadding.y + button_sz), button_sz))
             *p_open = false;
         last_item_backup.Restore();
     }
@@ -6829,7 +6829,7 @@ bool ImGui::TreeNodeExV(const char* str_id, ImGuiTreeNodeFlags flags, const char
     return TreeNodeBehavior(window->GetID(str_id), flags, g.TempBuffer, label_end);
 }
 
-bool ImGui::TreeNodeExV(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args)
+bool ImGui::TreeNodeExV(const void * ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args)
 {
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)
@@ -6845,7 +6845,7 @@ bool ImGui::TreeNodeV(const char* str_id, const char* fmt, va_list args)
     return TreeNodeExV(str_id, 0, fmt, args);
 }
 
-bool ImGui::TreeNodeV(const void* ptr_id, const char* fmt, va_list args)
+bool ImGui::TreeNodeV(const void * ptr_id, const char* fmt, va_list args)
 {
     return TreeNodeExV(ptr_id, 0, fmt, args);
 }
@@ -6859,7 +6859,7 @@ bool ImGui::TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char*
     return is_open;
 }
 
-bool ImGui::TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, ...)
+bool ImGui::TreeNodeEx(const void * ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
@@ -6877,7 +6877,7 @@ bool ImGui::TreeNode(const char* str_id, const char* fmt, ...)
     return is_open;
 }
 
-bool ImGui::TreeNode(const void* ptr_id, const char* fmt, ...)
+bool ImGui::TreeNode(const void * ptr_id, const char* fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
@@ -6928,7 +6928,7 @@ void ImGui::PushID(const char* str_id_begin, const char* str_id_end)
     window->IDStack.push_back(window->GetID(str_id_begin, str_id_end));
 }
 
-void ImGui::PushID(const void* ptr_id)
+void ImGui::PushID(const void * ptr_id)
 {
     ImGuiWindow* window = GetCurrentWindowRead();
     window->IDStack.push_back(window->GetID(ptr_id));
@@ -6936,7 +6936,7 @@ void ImGui::PushID(const void* ptr_id)
 
 void ImGui::PushID(int int_id)
 {
-    const void* ptr_id = (void*)(intptr_t)int_id;
+    const void * ptr_id = (void *)(intptr_t)int_id;
     ImGuiWindow* window = GetCurrentWindowRead();
     window->IDStack.push_back(window->GetID(ptr_id));
 }
@@ -6957,7 +6957,7 @@ ImGuiID ImGui::GetID(const char* str_id_begin, const char* str_id_end)
     return GImGui->CurrentWindow->GetID(str_id_begin, str_id_end);
 }
 
-ImGuiID ImGui::GetID(const void* ptr_id)
+ImGuiID ImGui::GetID(const void * ptr_id)
 {
     return GImGui->CurrentWindow->GetID(ptr_id);
 }
@@ -7017,7 +7017,7 @@ void ImGui::BulletText(const char* fmt, ...)
     va_end(args);
 }
 
-static inline void DataTypeFormatString(ImGuiDataType data_type, void* data_ptr, const char* display_format, char* buf, int buf_size)
+static inline void DataTypeFormatString(ImGuiDataType data_type, void * data_ptr, const char* display_format, char* buf, int buf_size)
 {
     if (data_type == ImGuiDataType_Int)
         ImFormatString(buf, buf_size, display_format, *(int*)data_ptr);
@@ -7025,7 +7025,7 @@ static inline void DataTypeFormatString(ImGuiDataType data_type, void* data_ptr,
         ImFormatString(buf, buf_size, display_format, *(float*)data_ptr);
 }
 
-static inline void DataTypeFormatString(ImGuiDataType data_type, void* data_ptr, int decimal_precision, char* buf, int buf_size)
+static inline void DataTypeFormatString(ImGuiDataType data_type, void * data_ptr, int decimal_precision, char* buf, int buf_size)
 {
     if (data_type == ImGuiDataType_Int)
     {
@@ -7043,7 +7043,7 @@ static inline void DataTypeFormatString(ImGuiDataType data_type, void* data_ptr,
     }
 }
 
-static void DataTypeApplyOp(ImGuiDataType data_type, int op, void* value1, const void* value2)// Store into value1
+static void DataTypeApplyOp(ImGuiDataType data_type, int op, void * value1, const void * value2)// Store into value1
 {
     if (data_type == ImGuiDataType_Int)
     {
@@ -7062,7 +7062,7 @@ static void DataTypeApplyOp(ImGuiDataType data_type, int op, void* value1, const
 }
 
 // User can input math operators (e.g. +100) to edit a numerical values.
-static bool DataTypeApplyOpFromText(const char* buf, const char* initial_value_buf, ImGuiDataType data_type, void* data_ptr, const char* scalar_format)
+static bool DataTypeApplyOpFromText(const char* buf, const char* initial_value_buf, ImGuiDataType data_type, void * data_ptr, const char* scalar_format)
 {
     while (ImCharIsSpace(*buf))
         buf++;
@@ -7126,7 +7126,7 @@ static bool DataTypeApplyOpFromText(const char* buf, const char* initial_value_b
 
 // Create text input in place of a slider (when CTRL+Clicking on slider)
 // FIXME: Logic is messy and confusing.
-bool ImGui::InputScalarAsWidgetReplacement(const ImRect& aabb, const char* label, ImGuiDataType data_type, void* data_ptr, ImGuiID id, int decimal_precision)
+bool ImGui::InputScalarAsWidgetReplacement(const ImRect& aabb, const char* label, ImGuiDataType data_type, void * data_ptr, ImGuiID id, int decimal_precision)
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = GetCurrentWindow();
@@ -7839,7 +7839,7 @@ bool ImGui::DragIntRange2(const char* label, int* v_current_min, int* v_current_
     return value_changed;
 }
 
-void ImGui::PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_getter)(void* data, int idx), void* data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
+void ImGui::PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_getter)(void * data, int idx), void * data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
 {
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)
@@ -7956,20 +7956,20 @@ struct ImGuiPlotArrayGetterData
     ImGuiPlotArrayGetterData(const float* values, int stride) { Values = values; Stride = stride; }
 };
 
-static float Plot_ArrayGetter(void* data, int idx)
+static float Plot_ArrayGetter(void * data, int idx)
 {
     ImGuiPlotArrayGetterData* plot_data = (ImGuiPlotArrayGetterData*)data;
-    const float v = *(float*)(void*)((unsigned char*)plot_data->Values + (size_t)idx * plot_data->Stride);
+    const float v = *(float*)(void *)((unsigned char*)plot_data->Values + (size_t)idx * plot_data->Stride);
     return v;
 }
 
 void ImGui::PlotLines(const char* label, const float* values, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size, int stride)
 {
     ImGuiPlotArrayGetterData data(values, stride);
-    PlotEx(ImGuiPlotType_Lines, label, &Plot_ArrayGetter, (void*)&data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
+    PlotEx(ImGuiPlotType_Lines, label, &Plot_ArrayGetter, (void *)&data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
 }
 
-void ImGui::PlotLines(const char* label, float (*values_getter)(void* data, int idx), void* data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
+void ImGui::PlotLines(const char* label, float (*values_getter)(void * data, int idx), void * data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
 {
     PlotEx(ImGuiPlotType_Lines, label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
 }
@@ -7977,10 +7977,10 @@ void ImGui::PlotLines(const char* label, float (*values_getter)(void* data, int 
 void ImGui::PlotHistogram(const char* label, const float* values, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size, int stride)
 {
     ImGuiPlotArrayGetterData data(values, stride);
-    PlotEx(ImGuiPlotType_Histogram, label, &Plot_ArrayGetter, (void*)&data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
+    PlotEx(ImGuiPlotType_Histogram, label, &Plot_ArrayGetter, (void *)&data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
 }
 
-void ImGui::PlotHistogram(const char* label, float (*values_getter)(void* data, int idx), void* data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
+void ImGui::PlotHistogram(const char* label, float (*values_getter)(void * data, int idx), void * data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size)
 {
     PlotEx(ImGuiPlotType_Histogram, label, values_getter, data, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size);
 }
@@ -8350,7 +8350,7 @@ void ImGuiTextEditCallbackData::InsertChars(int pos, const char* new_text, const
 }
 
 // Return false to discard a character.
-static bool InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void* user_data)
+static bool InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
 {
     unsigned int c = *p_char;
 
@@ -8406,7 +8406,7 @@ static bool InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags f
 // Edit a string of text
 // NB: when active, hold on a privately held copy of the text (and apply back to 'buf'). So changing 'buf' while active has no effect.
 // FIXME: Rather messy function partly because we are doing UTF8 > u16 > UTF8 conversions on the go to more easily handle stb_textedit calls. Ideally we should stay in UTF-8 all the time. See https://github.com/nothings/stb/issues/188
-bool ImGui::InputTextEx(const char* label, char* buf, int buf_size, const ImVec2& size_arg, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void* user_data)
+bool ImGui::InputTextEx(const char* label, char* buf, int buf_size, const ImVec2& size_arg, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
 {
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)
@@ -8991,19 +8991,19 @@ bool ImGui::InputTextEx(const char* label, char* buf, int buf_size, const ImVec2
         return value_changed;
 }
 
-bool ImGui::InputText(const char* label, char* buf, size_t buf_size, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void* user_data)
+bool ImGui::InputText(const char* label, char* buf, size_t buf_size, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
 {
     IM_ASSERT(!(flags & ImGuiInputTextFlags_Multiline)); // call InputTextMultiline()
     return InputTextEx(label, buf, (int)buf_size, ImVec2(0,0), flags, callback, user_data);
 }
 
-bool ImGui::InputTextMultiline(const char* label, char* buf, size_t buf_size, const ImVec2& size, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void* user_data)
+bool ImGui::InputTextMultiline(const char* label, char* buf, size_t buf_size, const ImVec2& size, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
 {
     return InputTextEx(label, buf, (int)buf_size, size, flags | ImGuiInputTextFlags_Multiline, callback, user_data);
 }
 
 // NB: scalar_format here must be a simple "%xx" format string with no prefix/suffix (unlike the Drag/Slider functions "display_format" argument)
-bool ImGui::InputScalarEx(const char* label, ImGuiDataType data_type, void* data_ptr, void* step_ptr, void* step_fast_ptr, const char* scalar_format, ImGuiInputTextFlags extra_flags)
+bool ImGui::InputScalarEx(const char* label, ImGuiDataType data_type, void * data_ptr, void * step_ptr, void * step_fast_ptr, const char* scalar_format, ImGuiInputTextFlags extra_flags)
 {
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)
@@ -9066,14 +9066,14 @@ bool ImGui::InputFloat(const char* label, float* v, float step, float step_fast,
         strcpy(display_format, "%f");      // Ideally we'd have a minimum decimal precision of 1 to visually denote that this is a float, while hiding non-significant digits? %f doesn't have a minimum of 1
     else
         ImFormatString(display_format, IM_ARRAYSIZE(display_format), "%%.%df", decimal_precision);
-    return InputScalarEx(label, ImGuiDataType_Float, (void*)v, (void*)(step>0.0f ? &step : NULL), (void*)(step_fast>0.0f ? &step_fast : NULL), display_format, extra_flags);
+    return InputScalarEx(label, ImGuiDataType_Float, (void *)v, (void *)(step>0.0f ? &step : NULL), (void *)(step_fast>0.0f ? &step_fast : NULL), display_format, extra_flags);
 }
 
 bool ImGui::InputInt(const char* label, int* v, int step, int step_fast, ImGuiInputTextFlags extra_flags)
 {
     // Hexadecimal input provided as a convenience but the flag name is awkward. Typically you'd use InputText() to parse your own data, if you want to handle prefixes.
     const char* scalar_format = (extra_flags & ImGuiInputTextFlags_CharsHexadecimal) ? "%08X" : "%d";
-    return InputScalarEx(label, ImGuiDataType_Int, (void*)v, (void*)(step>0.0f ? &step : NULL), (void*)(step_fast>0.0f ? &step_fast : NULL), scalar_format, extra_flags);
+    return InputScalarEx(label, ImGuiDataType_Int, (void *)v, (void *)(step>0.0f ? &step : NULL), (void *)(step_fast>0.0f ? &step_fast : NULL), scalar_format, extra_flags);
 }
 
 bool ImGui::InputFloatN(const char* label, float* v, int components, int decimal_precision, ImGuiInputTextFlags extra_flags)
@@ -9268,7 +9268,7 @@ void ImGui::EndCombo()
 }
 
 // Old API, prefer using BeginCombo() nowadays if you can.
-bool ImGui::Combo(const char* label, int* current_item, bool (*items_getter)(void*, int, const char**), void* data, int items_count, int popup_max_height_in_items)
+bool ImGui::Combo(const char* label, int* current_item, bool (*items_getter)(void *, int, const char**), void * data, int items_count, int popup_max_height_in_items)
 {
     ImGuiContext& g = *GImGui;
 
@@ -9291,7 +9291,7 @@ bool ImGui::Combo(const char* label, int* current_item, bool (*items_getter)(voi
     bool value_changed = false;
     for (int i = 0; i < items_count; i++)
     {
-        PushID((void*)(intptr_t)i);
+        PushID((void *)(intptr_t)i);
         const bool item_selected = (i == *current_item);
         const char* item_text;
         if (!items_getter(data, i, &item_text))
@@ -9310,7 +9310,7 @@ bool ImGui::Combo(const char* label, int* current_item, bool (*items_getter)(voi
     return value_changed;
 }
 
-static bool Items_ArrayGetter(void* data, int idx, const char** out_text)
+static bool Items_ArrayGetter(void * data, int idx, const char** out_text)
 {
     const char* const* items = (const char* const*)data;
     if (out_text)
@@ -9318,7 +9318,7 @@ static bool Items_ArrayGetter(void* data, int idx, const char** out_text)
     return true;
 }
 
-static bool Items_SingleStringGetter(void* data, int idx, const char** out_text)
+static bool Items_SingleStringGetter(void * data, int idx, const char** out_text)
 {
     // FIXME-OPT: we could pre-compute the indices to fasten this. But only 1 active combo means the waste is limited.
     const char* items_separated_by_zeros = (const char*)data;
@@ -9341,7 +9341,7 @@ static bool Items_SingleStringGetter(void* data, int idx, const char** out_text)
 // Combo box helper allowing to pass an array of strings.
 bool ImGui::Combo(const char* label, int* current_item, const char* const items[], int items_count, int height_in_items)
 {
-    const bool value_changed = Combo(label, current_item, Items_ArrayGetter, (void*)items, items_count, height_in_items);
+    const bool value_changed = Combo(label, current_item, Items_ArrayGetter, (void *)items, items_count, height_in_items);
     return value_changed;
 }
 
@@ -9355,7 +9355,7 @@ bool ImGui::Combo(const char* label, int* current_item, const char* items_separa
         p += strlen(p) + 1;
         items_count++;
     }
-    bool value_changed = Combo(label, current_item, Items_SingleStringGetter, (void*)items_separated_by_zeros, items_count, height_in_items);
+    bool value_changed = Combo(label, current_item, Items_SingleStringGetter, (void *)items_separated_by_zeros, items_count, height_in_items);
     return value_changed;
 }
 
@@ -9510,11 +9510,11 @@ void ImGui::ListBoxFooter()
 
 bool ImGui::ListBox(const char* label, int* current_item, const char* const* items, int items_count, int height_items)
 {
-    const bool value_changed = ListBox(label, current_item, Items_ArrayGetter, (void*)items, items_count, height_items);
+    const bool value_changed = ListBox(label, current_item, Items_ArrayGetter, (void *)items, items_count, height_items);
     return value_changed;
 }
 
-bool ImGui::ListBox(const char* label, int* current_item, bool (*items_getter)(void*, int, const char**), void* data, int items_count, int height_in_items)
+bool ImGui::ListBox(const char* label, int* current_item, bool (*items_getter)(void *, int, const char**), void * data, int items_count, int height_in_items)
 {
     if (!ListBoxHeader(label, items_count, height_in_items))
         return false;
@@ -11165,12 +11165,12 @@ void ImGui::TreePush(const char* str_id)
     PushID(str_id ? str_id : "#TreePush");
 }
 
-void ImGui::TreePush(const void* ptr_id)
+void ImGui::TreePush(const void * ptr_id)
 {
     ImGuiWindow* window = GetCurrentWindow();
     Indent();
     window->DC.TreeDepth++;
-    PushID(ptr_id ? ptr_id : (const void*)"#TreePush");
+    PushID(ptr_id ? ptr_id : (const void *)"#TreePush");
 }
 
 void ImGui::TreePushRawID(ImGuiID id)
@@ -11340,7 +11340,7 @@ void ImGui::EndDragDropSource()
 }
 
 // Use 'cond' to choose to submit payload on drag start or every frame
-bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_size, ImGuiCond cond)
+bool ImGui::SetDragDropPayload(const char* type, const void * data, size_t data_size, ImGuiCond cond)
 {
     ImGuiContext& g = *GImGui;
     ImGuiPayload& payload = g.DragDropPayload;
@@ -11363,14 +11363,14 @@ bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_s
             // Store in heap
             g.DragDropPayloadBufHeap.resize((int)data_size);
             payload.Data = g.DragDropPayloadBufHeap.Data;
-            memcpy((void*)payload.Data, data, data_size);
+            memcpy((void *)payload.Data, data, data_size);
         }
         else if (data_size > 0)
         {
             // Store locally
             memset(&g.DragDropPayloadBufLocal, 0, sizeof(g.DragDropPayloadBufLocal));
             payload.Data = g.DragDropPayloadBufLocal;
-            memcpy((void*)payload.Data, data, data_size);
+            memcpy((void *)payload.Data, data, data_size);
         }
         else
         {
@@ -11500,7 +11500,7 @@ void ImGui::EndDragDropTarget()
 #pragma comment(lib, "user32")
 #endif
 
-static const char* GetClipboardTextFn_DefaultImpl(void*)
+static const char* GetClipboardTextFn_DefaultImpl(void *)
 {
     static ImVector<char> buf_local;
     buf_local.clear();
@@ -11523,7 +11523,7 @@ static const char* GetClipboardTextFn_DefaultImpl(void*)
     return buf_local.Data;
 }
 
-static void SetClipboardTextFn_DefaultImpl(void*, const char* text)
+static void SetClipboardTextFn_DefaultImpl(void *, const char* text)
 {
     if (!OpenClipboard(NULL))
         return;
@@ -11545,14 +11545,14 @@ static void SetClipboardTextFn_DefaultImpl(void*, const char* text)
 #else
 
 // Local ImGui-only clipboard implementation, if user hasn't defined better clipboard handlers
-static const char* GetClipboardTextFn_DefaultImpl(void*)
+static const char* GetClipboardTextFn_DefaultImpl(void *)
 {
     ImGuiContext& g = *GImGui;
     return g.PrivateClipboard.empty() ? NULL : g.PrivateClipboard.begin();
 }
 
 // Local ImGui-only clipboard implementation, if user hasn't defined better clipboard handlers
-static void SetClipboardTextFn_DefaultImpl(void*, const char* text)
+static void SetClipboardTextFn_DefaultImpl(void *, const char* text)
 {
     ImGuiContext& g = *GImGui;
     g.PrivateClipboard.clear();
@@ -11635,7 +11635,7 @@ void ImGui::ShowMetricsWindow(bool* p_open)
                         continue;
                     }
                     ImDrawIdx* idx_buffer = (draw_list->IdxBuffer.Size > 0) ? draw_list->IdxBuffer.Data : NULL;
-                    bool pcmd_node_open = ImGui::TreeNode((void*)(pcmd - draw_list->CmdBuffer.begin()), "Draw %-4d %s vtx, tex = %p, clip_rect = (%.0f,%.0f)..(%.0f,%.0f)", pcmd->ElemCount, draw_list->IdxBuffer.Size > 0 ? "indexed" : "non-indexed", pcmd->TextureId, pcmd->ClipRect.x, pcmd->ClipRect.y, pcmd->ClipRect.z, pcmd->ClipRect.w);
+                    bool pcmd_node_open = ImGui::TreeNode((void *)(pcmd - draw_list->CmdBuffer.begin()), "Draw %-4d %s vtx, tex = %p, clip_rect = (%.0f,%.0f)..(%.0f,%.0f)", pcmd->ElemCount, draw_list->IdxBuffer.Size > 0 ? "indexed" : "non-indexed", pcmd->TextureId, pcmd->ClipRect.x, pcmd->ClipRect.y, pcmd->ClipRect.z, pcmd->ClipRect.w);
                     if (show_clip_rects && ImGui::IsItemHovered())
                     {
                         ImRect clip_rect = pcmd->ClipRect;

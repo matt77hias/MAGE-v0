@@ -7,8 +7,8 @@
 
 #include "loaders\mdl\mdl_tokens.hpp"
 #include "loaders\msh\msh_loader.hpp"
-#include "utils\string\string_utils.hpp"
-#include "utils\file\file_utils.hpp"
+#include "string\string_utils.hpp"
+#include "file\file_utils.hpp"
 
 #pragma endregion
 

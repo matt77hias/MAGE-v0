@@ -6,8 +6,8 @@
 #pragma region
 
 #include "rendering\rendering_factory.hpp"
-#include "utils\logging\error.hpp"
-#include "utils\exception\exception.hpp"
+#include "logging\error.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 

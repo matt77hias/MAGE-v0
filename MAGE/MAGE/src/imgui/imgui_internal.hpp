@@ -88,8 +88,8 @@ IMGUI_API int           ImTextCountCharsFromUtf8(const char* in_text, const char
 IMGUI_API int           ImTextCountUtf8BytesFromStr(const ImWchar* in_text, const ImWchar* in_text_end);                   // return number of bytes to express string as UTF-8 code-points
 
 // Helpers: Misc
-IMGUI_API ImU32         ImHash(const void* data, int data_size, ImU32 seed = 0);    // Pass data_size==0 for zero-terminated strings
-IMGUI_API void*         ImFileLoadToMemory(const char* filename, const char* file_open_mode, int* out_file_size = NULL, int padding_bytes = 0);
+IMGUI_API ImU32         ImHash(const void * data, int data_size, ImU32 seed = 0);    // Pass data_size==0 for zero-terminated strings
+IMGUI_API void *         ImFileLoadToMemory(const char* filename, const char* file_open_mode, int* out_file_size = NULL, int padding_bytes = 0);
 IMGUI_API FILE*         ImFileOpen(const char* filename, const char* file_open_mode);
 static inline bool      ImCharIsSpace(int c)            { return c == ' ' || c == '\t' || c == 0x3000; }
 static inline bool      ImIsPowerOfTwo(int v)           { return v != 0 && (v & (v - 1)) == 0; }
@@ -161,8 +161,8 @@ static inline ImVec2 ImMul(const ImVec2& lhs, const ImVec2& rhs)                
 // We call C++ constructor on own allocated memory via the placement "new(ptr) Type()" syntax.
 // Defining a custom placement new() with a dummy parameter allows us to bypass including <new> which on some platforms complains when user has disabled exceptions.
 struct ImPlacementNewDummy {};
-inline void* operator new(size_t, ImPlacementNewDummy, void* ptr) { return ptr; }
-inline void operator delete(void*, ImPlacementNewDummy, void*) {}
+inline void * operator new(size_t, ImPlacementNewDummy, void * ptr) { return ptr; }
+inline void operator delete(void *, ImPlacementNewDummy, void *) {}
 #define IM_PLACEMENT_NEW(_PTR)  new(ImPlacementNewDummy(), _PTR)
 
 //-----------------------------------------------------------------------------
@@ -385,8 +385,8 @@ struct ImGuiSettingsHandler
 {
     const char* TypeName;   // Short description stored in .ini file. Disallowed characters: '[' ']'  
     ImGuiID     TypeHash;   // == ImHash(TypeName, 0, 0)
-    void*       (*ReadOpenFn)(ImGuiContext& ctx, const char* name);
-    void        (*ReadLineFn)(ImGuiContext& ctx, void* entry, const char* line);
+    void *       (*ReadOpenFn)(ImGuiContext& ctx, const char* name);
+    void        (*ReadLineFn)(ImGuiContext& ctx, void * entry, const char* line);
     void        (*WriteAllFn)(ImGuiContext& ctx, ImGuiTextBuffer* out_buf);
 };
 
@@ -524,7 +524,7 @@ struct ImGuiContext
     ImGuiCond               SetNextWindowCollapsedCond;
     ImRect                  SetNextWindowSizeConstraintRect;           // Valid if 'SetNextWindowSizeConstraint' is true
     ImGuiSizeConstraintCallback SetNextWindowSizeConstraintCallback;
-    void*                   SetNextWindowSizeConstraintCallbackUserData;
+    void *                   SetNextWindowSizeConstraintCallbackUserData;
     bool                    SetNextWindowSizeConstraint;
     bool                    SetNextWindowFocus;
     bool                    SetNextTreeNodeOpenVal;
@@ -824,7 +824,7 @@ public:
     ~ImGuiWindow();
 
     ImGuiID     GetID(const char* str, const char* str_end = NULL);
-    ImGuiID     GetID(const void* ptr);
+    ImGuiID     GetID(const void * ptr);
     ImGuiID     GetIDNoKeepAlive(const char* str, const char* str_end = NULL);
     ImGuiID     GetIDFromRectangle(const ImRect& r_abs);
 
@@ -940,11 +940,11 @@ namespace ImGui
     IMGUI_API bool          DragFloatN(const char* label, float* v, int components, float v_speed, float v_min, float v_max, const char* display_format, float power);
     IMGUI_API bool          DragIntN(const char* label, int* v, int components, float v_speed, int v_min, int v_max, const char* display_format);
 
-    IMGUI_API bool          InputTextEx(const char* label, char* buf, int buf_size, const ImVec2& size_arg, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback = NULL, void* user_data = NULL);
+    IMGUI_API bool          InputTextEx(const char* label, char* buf, int buf_size, const ImVec2& size_arg, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback = NULL, void * user_data = NULL);
     IMGUI_API bool          InputFloatN(const char* label, float* v, int components, int decimal_precision, ImGuiInputTextFlags extra_flags);
     IMGUI_API bool          InputIntN(const char* label, int* v, int components, ImGuiInputTextFlags extra_flags);
-    IMGUI_API bool          InputScalarEx(const char* label, ImGuiDataType data_type, void* data_ptr, void* step_ptr, void* step_fast_ptr, const char* scalar_format, ImGuiInputTextFlags extra_flags);
-    IMGUI_API bool          InputScalarAsWidgetReplacement(const ImRect& aabb, const char* label, ImGuiDataType data_type, void* data_ptr, ImGuiID id, int decimal_precision);
+    IMGUI_API bool          InputScalarEx(const char* label, ImGuiDataType data_type, void * data_ptr, void * step_ptr, void * step_fast_ptr, const char* scalar_format, ImGuiInputTextFlags extra_flags);
+    IMGUI_API bool          InputScalarAsWidgetReplacement(const ImRect& aabb, const char* label, ImGuiDataType data_type, void * data_ptr, ImGuiID id, int decimal_precision);
 
     IMGUI_API void          ColorTooltip(const char* text, const float* col, ImGuiColorEditFlags flags);
     IMGUI_API void          ColorEditOptionsPopup(const float* col, ImGuiColorEditFlags flags);
@@ -953,7 +953,7 @@ namespace ImGui
     IMGUI_API bool          TreeNodeBehaviorIsOpen(ImGuiID id, ImGuiTreeNodeFlags flags = 0);                     // Consume previous SetNextTreeNodeOpened() data, if any. May return true when logging
     IMGUI_API void          TreePushRawID(ImGuiID id);
 
-    IMGUI_API void          PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_getter)(void* data, int idx), void* data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size);
+    IMGUI_API void          PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_getter)(void * data, int idx), void * data, int values_count, int values_offset, const char* overlay_text, float scale_min, float scale_max, ImVec2 graph_size);
 
     IMGUI_API int           ParseFormatPrecision(const char* fmt, int default_value);
     IMGUI_API float         RoundScalar(float value, int decimal_precision);
@@ -969,7 +969,7 @@ namespace ImGui
 IMGUI_API bool              ImFontAtlasBuildWithStbTruetype(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildRegisterDefaultCustomRects(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildSetupFont(ImFontAtlas* atlas, ImFont* font, ImFontConfig* font_config, float ascent, float descent); 
-IMGUI_API void              ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, void* spc);
+IMGUI_API void              ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, void * spc);
 IMGUI_API void              ImFontAtlasBuildFinish(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildMultiplyCalcLookupTable(unsigned char out_table[256], float in_multiply_factor);
 IMGUI_API void              ImFontAtlasBuildMultiplyRectAlpha8(const unsigned char table[256], unsigned char* pixels, int x, int y, int w, int h, int stride);

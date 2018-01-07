@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\io\line_reader.hpp"
+#include "io\line_reader.hpp"
 #include "material\material.hpp"
 
 #pragma endregion

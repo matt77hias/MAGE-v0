@@ -874,7 +874,7 @@ namespace
 
                     assert(index < mipCount * arraySize);
                     _Analysis_assume_(index < mipCount * arraySize);
-                    initData[index].pSysMem = (const void*)pSrcBits;
+                    initData[index].pSysMem = (const void *)pSrcBits;
                     initData[index].SysMemPitch = static_cast<UINT>(RowBytes);
                     initData[index].SysMemSlicePitch = static_cast<UINT>(NumBytes);
                     ++index;

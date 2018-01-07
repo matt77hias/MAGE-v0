@@ -4,7 +4,7 @@
 #pragma region
 
 #include "math\geometry\bounding_volume.hpp"
-#include "utils\logging\error.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

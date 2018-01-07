@@ -7,7 +7,7 @@
 
 #include "scripting\behavior_script.hpp"
 #include "sprite\sprite_text.hpp"
-#include "utils\parallel\lock.hpp"
+#include "parallel\lock.hpp"
 
 #pragma endregion
 

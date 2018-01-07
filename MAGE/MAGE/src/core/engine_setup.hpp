@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\type\types.hpp"
-#include "utils\logging\error.hpp"
+#include "type\types.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

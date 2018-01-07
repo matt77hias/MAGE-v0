@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utilities\src\collection\vector.hpp" />
+    <ClInclude Include="Utilities\src\exception\exception.hpp" />
+    <ClInclude Include="Utilities\src\file\file_utils.hpp" />
+    <ClInclude Include="Utilities\src\io\binary_reader.hpp" />
+    <ClInclude Include="Utilities\src\io\binary_utils.hpp" />
+    <ClInclude Include="Utilities\src\io\binary_writer.hpp" />
+    <ClInclude Include="Utilities\src\io\line_reader.hpp" />
+    <ClInclude Include="Utilities\src\io\writer.hpp" />
+    <ClInclude Include="Utilities\src\logging\dump.hpp" />
+    <ClInclude Include="Utilities\src\logging\error.hpp" />
+    <ClInclude Include="Utilities\src\logging\logging.hpp" />
+    <ClInclude Include="Utilities\src\logging\progress_reporter.hpp" />
+    <ClInclude Include="Utilities\src\memory\allocation.hpp" />
+    <ClInclude Include="Utilities\src\memory\memory.hpp" />
+    <ClInclude Include="Utilities\src\memory\memory_arena.hpp" />
+    <ClInclude Include="Utilities\src\memory\memory_stack.hpp" />
+    <ClInclude Include="Utilities\src\parallel\atomic.hpp" />
+    <ClInclude Include="Utilities\src\parallel\id_generator.hpp" />
+    <ClInclude Include="Utilities\src\parallel\lock.hpp" />
+    <ClInclude Include="Utilities\src\parallel\parallel.hpp" />
+    <ClInclude Include="Utilities\src\platform\windows.hpp" />
+    <ClInclude Include="Utilities\src\platform\windows_utils.hpp" />
+    <ClInclude Include="Utilities\src\resource\resource.hpp" />
+    <ClInclude Include="Utilities\src\resource\resource_pool.hpp" />
+    <ClInclude Include="Utilities\src\string\string.hpp" />
+    <ClInclude Include="Utilities\src\string\string_utils.hpp" />
+    <ClInclude Include="Utilities\src\string\token.hpp" />
+    <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
+    <ClInclude Include="Utilities\src\system\system_time.hpp" />
+    <ClInclude Include="Utilities\src\system\system_usage.hpp" />
+    <ClInclude Include="Utilities\src\timer\cpu_timer.hpp" />
+    <ClInclude Include="Utilities\src\timer\timer.hpp" />
+    <ClInclude Include="Utilities\src\type\scalar_types.hpp" />
+    <ClInclude Include="Utilities\src\type\types.hpp" />
+    <ClInclude Include="Utilities\src\type\vector_types.hpp" />
+    <ClInclude Include="Utilities\src\ui\combo_box.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utilities\src\exception\exception.cpp" />
+    <ClCompile Include="Utilities\src\file\file_utils.cpp" />
+    <ClCompile Include="Utilities\src\io\binary_reader.cpp" />
+    <ClCompile Include="Utilities\src\io\binary_writer.cpp" />
+    <ClCompile Include="Utilities\src\io\line_reader.cpp" />
+    <ClCompile Include="Utilities\src\io\writer.cpp" />
+    <ClCompile Include="Utilities\src\logging\dump.cpp" />
+    <ClCompile Include="Utilities\src\logging\error.cpp" />
+    <ClCompile Include="Utilities\src\logging\logging.cpp" />
+    <ClCompile Include="Utilities\src\logging\progress_reporter.cpp" />
+    <ClCompile Include="Utilities\src\memory\memory_arena.cpp" />
+    <ClCompile Include="Utilities\src\memory\memory_stack.cpp" />
+    <ClCompile Include="Utilities\src\parallel\id_generator.cpp" />
+    <ClCompile Include="Utilities\src\parallel\lock.cpp" />
+    <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
+    <ClCompile Include="Utilities\src\string\string_utils.cpp" />
+    <ClCompile Include="Utilities\src\string\token.cpp" />
+    <ClCompile Include="Utilities\src\system\system_time.cpp" />
+    <ClCompile Include="Utilities\src\system\system_usage.cpp" />
+    <ClCompile Include="Utilities\src\timer\cpu_timer.cpp" />
+    <ClCompile Include="Utilities\src\timer\timer.cpp" />
+    <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utilities\src\io\binary_reader.tpp" />
+    <None Include="Utilities\src\io\binary_utils.tpp" />
+    <None Include="Utilities\src\io\binary_writer.tpp" />
+    <None Include="Utilities\src\io\line_reader.tpp" />
+    <None Include="Utilities\src\memory\memory.tpp" />
+    <None Include="Utilities\src\memory\memory_arena.tpp" />
+    <None Include="Utilities\src\memory\memory_stack.tpp" />
+    <None Include="Utilities\src\platform\windows_utils.tpp" />
+    <None Include="Utilities\src\resource\resource.tpp" />
+    <None Include="Utilities\src\resource\resource_pool.tpp" />
+    <None Include="Utilities\src\string\token.tpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{E7F1C114-0904-40ED-9E9D-97FD842334C6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Utilities</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="x86_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="x86_Release.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="x64_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="x64_Release.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "utils\parallel\id_generator.hpp"
+#include "parallel\id_generator.hpp"
 
 #pragma endregion
 

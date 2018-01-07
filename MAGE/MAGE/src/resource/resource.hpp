@@ -67,7 +67,7 @@ namespace mage {
 
 		 @param[in]		resource
 						A reference to the resource to copy.
-		 @return		A reference to the copy of the given resource (i.e. 
+		 @return		A reference to the copy of the given resource (i.e.
 						this resource).
 		 */
 		Resource &operator=(const Resource &resource) = delete;
@@ -88,7 +88,7 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		A refernce to the globally unique identifier of this 
+		 @return		A refernce to the globally unique identifier of this
 						resource.
 		 */
 		const wstring &GetGuid() const noexcept {
@@ -101,7 +101,10 @@ namespace mage {
 		 @pre			This resource represents a file resource.
 		 @return		A reference to the filename of this resource.
 		 */
-		const wstring &GetFilename() const noexcept;
+		const wstring &GetFilename() const noexcept {
+			return GetGuid();
+		}
+
 
 		/**
 		 Returns the name of this resource.

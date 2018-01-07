@@ -96,12 +96,12 @@ namespace mage {
 
 		// Translation . Rotation . Scale
 		XMMATRIX transformation = XMMatrixInverseRotationRollPitchYaw(rotation);
-		transformation.r[3]     = XMVector3TransformCoord(-translation, transformation);
-		const XMVECTOR v        = XMVectorSetW(XMVectorReciprocal(scale), 1.0f);
-		transformation.r[0]    *= v;
-		transformation.r[1]    *= v;
-		transformation.r[2]    *= v;
-		transformation.r[3]    *= v;
+		const XMVECTOR t        = XMVector3TransformCoord(-translation, transformation);
+		const XMVECTOR s        = XMVectorSetW(XMVectorReciprocal(scale), 1.0f);
+		transformation.r[0]    *= s;
+		transformation.r[1]    *= s;
+		transformation.r[2]    *= s;
+		transformation.r[3]     = s * t;
 		return transformation;
 	}
 

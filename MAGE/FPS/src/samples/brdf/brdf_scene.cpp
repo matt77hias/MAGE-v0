@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\stats_script.hpp"
-#include "script\switch_scene_script.hpp"
+#include "stats_script.hpp"
+#include "switch_scene_script.hpp"
 
 #pragma endregion
 

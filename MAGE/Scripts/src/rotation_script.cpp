@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\rotation_script.hpp"
+#include "rotation_script.hpp"
 #include "scene\scene.hpp"
 #include "exception\exception.hpp"
 

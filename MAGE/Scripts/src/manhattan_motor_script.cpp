@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\manhattan_motor_script.hpp"
+#include "manhattan_motor_script.hpp"
 #include "scene\scene.hpp"
 #include "input\keyboard.hpp"
 #include "exception\exception.hpp"

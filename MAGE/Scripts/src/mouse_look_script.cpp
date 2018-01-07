@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\mouse_look_script.hpp"
+#include "mouse_look_script.hpp"
 #include "scene\scene.hpp"
 #include "input\mouse.hpp"
 #include "exception\exception.hpp"

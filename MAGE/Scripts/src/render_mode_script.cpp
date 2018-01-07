@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\render_mode_script.hpp"
+#include "render_mode_script.hpp"
 #include "scene\scene.hpp"
 #include "imgui\imgui.hpp"
 #include "logging\error.hpp"

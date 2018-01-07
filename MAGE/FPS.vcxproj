@@ -37,6 +37,9 @@
     <ProjectReference Include="MAGE.vcxproj">
       <Project>{28dc5fac-c856-43e1-828e-beaa8a0e2ce4}</Project>
     </ProjectReference>
+    <ProjectReference Include="Scripts.vcxproj">
+      <Project>{61311fe7-441d-4ff2-b861-e312a1569899}</Project>
+    </ProjectReference>
     <ProjectReference Include="Utilities.vcxproj">
       <Project>{e7f1c114-0904-40ed-9e9d-97fd842334c6}</Project>
     </ProjectReference>
@@ -104,16 +107,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Utilities\src\;MAGE\src\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Utilities\src\;MAGE\src\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>Utilities\src\;MAGE\src\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>Utilities\src\;MAGE\src\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

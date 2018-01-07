@@ -50,6 +50,6 @@ namespace mage::script {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\switch_scene_script.tpp"
+#include "switch_scene_script.tpp"
 
 #pragma endregion

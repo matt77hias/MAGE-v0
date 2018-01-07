@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\stats_script.hpp"
+#include "stats_script.hpp"
 #include "scene\scene.hpp"
 #include "core\engine_statistics.hpp"
 #include "system\system_usage.hpp"

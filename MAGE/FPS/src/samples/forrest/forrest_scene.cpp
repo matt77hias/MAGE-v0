@@ -13,12 +13,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\character_motor_script.hpp"
-#include "script\mouse_look_script.hpp"
-#include "script\render_mode_script.hpp"
-#include "script\rotation_script.hpp"
-#include "script\stats_script.hpp"
-#include "script\switch_scene_script.hpp"
+#include "character_motor_script.hpp"
+#include "mouse_look_script.hpp"
+#include "render_mode_script.hpp"
+#include "rotation_script.hpp"
+#include "stats_script.hpp"
+#include "switch_scene_script.hpp"
 
 #pragma endregion
 

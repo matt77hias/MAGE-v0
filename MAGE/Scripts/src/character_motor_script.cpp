@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\character_motor_script.hpp"
+#include "character_motor_script.hpp"
 #include "scene\scene.hpp"
 #include "input\keyboard.hpp"
 #include "exception\exception.hpp"
@@ -54,7 +54,8 @@ namespace mage::script {
 			transform.AddTranslationX(static_cast< F32 >(-movement_sin));
 			transform.AddTranslationZ(static_cast< F32 >(-movement_cos));
 		}
-		else if (keyboard->GetKeyPress(DIK_RIGHT,  true) 
+
+		if (keyboard->GetKeyPress(DIK_RIGHT,  true) 
 			  || keyboard->GetKeyPress(DIK_D,      true)) {
 			
 			transform.AddTranslationX(static_cast< F32 >( movement_cos));
@@ -66,7 +67,8 @@ namespace mage::script {
 			transform.AddTranslationX(static_cast< F32 >(-movement_cos));
 			transform.AddTranslationZ(static_cast< F32 >( movement_sin));
 		}
-		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
+
+		if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
 			transform.AddTranslationY(static_cast< F32 >(-movement_magnitude));
 		}
 		else if (keyboard->GetKeyPress(DIK_RSHIFT, true)) {

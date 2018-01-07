@@ -5,6 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MAGE", "MAGE.vcxproj", "{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}"
 	ProjectSection(ProjectDependencies) = postProject
+		{E7F1C114-0904-40ED-9E9D-97FD842334C6} = {E7F1C114-0904-40ED-9E9D-97FD842334C6}
 		{299ADBE0-4C5B-4466-A04A-B45DBD78E39D} = {299ADBE0-4C5B-4466-A04A-B45DBD78E39D}
 	EndProjectSection
 EndProject
@@ -15,6 +16,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "Utilities.vcxproj", "{E7F1C114-0904-40ED-9E9D-97FD842334C6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scripts", "Scripts.vcxproj", "{61311FE7-441D-4FF2-B861-E312A1569899}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7F1C114-0904-40ED-9E9D-97FD842334C6} = {E7F1C114-0904-40ED-9E9D-97FD842334C6}
+		{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4} = {28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

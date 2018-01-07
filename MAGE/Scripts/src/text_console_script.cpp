@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\text_console_script.hpp"
+#include "text_console_script.hpp"
 #include "scene\scene.hpp"
 #include "logging\error.hpp"
 #include "exception\exception.hpp"

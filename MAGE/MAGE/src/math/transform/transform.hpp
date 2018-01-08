@@ -47,7 +47,7 @@ namespace mage {
 		/**
 		 Constructs a transform from the given transform.
 
-		 @param[in]		transform_node
+		 @param[in]		transform
 						A reference to the transform to copy.
 		 */
 		Transform(const Transform &transform) noexcept
@@ -61,7 +61,7 @@ namespace mage {
 		/**
 		 Constructs a transform by moving the given transform.
 
-		 @param[in]		transform_node
+		 @param[in]		transform
 						A reference to the transform to move.
 		 */
 		Transform(Transform &&transform) noexcept = default;
@@ -78,7 +78,7 @@ namespace mage {
 		/**
 		 Copies the given transform to this transform.
 
-		 @param[in]		node
+		 @param[in]		transform
 						A reference to the transform to copy.
 		 @return		A reference to the copy of the given transform (i.e. 
 						this transform).
@@ -92,7 +92,7 @@ namespace mage {
 		/**
 		 Moves the given transform to this transform.
 
-		 @param[in]		node
+		 @param[in]		transform
 						A reference to the transform to move.
 		 @return		A reference to the copy of the given transform (i.e. 
 						this transform).

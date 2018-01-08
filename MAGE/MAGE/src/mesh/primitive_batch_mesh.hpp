@@ -48,8 +48,6 @@ namespace mage {
 						must be loaded.
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
-		 @param[in]		device
-						A pointer to the device.
 		 @param[in]		nb_vertices
 						The number of vertices.
 		 @param[in]		indices

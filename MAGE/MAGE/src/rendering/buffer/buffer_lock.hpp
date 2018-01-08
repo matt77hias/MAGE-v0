@@ -35,8 +35,6 @@ namespace mage {
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a buffer is not equal to @c nullptr.
 		 @pre			@a mapped_buffer is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 @param[in]		buffer
 						A pointer to the buffer.
 		 @param[in]		map_type

@@ -15,7 +15,7 @@
 namespace mage {
 
 	#pragma warning( push )
-	#pragma warning( disable : 4201)
+	#pragma warning( disable : 4201 ) // Anonymous struct.
 
 	/**
 	 A struct of glyphs.

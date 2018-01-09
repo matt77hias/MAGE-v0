@@ -29,7 +29,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 	OMInputDeferred output;
 	#pragma warning( push )
-	#pragma warning( disable : 3578 )
+	#pragma warning( disable : 3578 ) // Partial initialization.
 	// Store the base color of the material.
 	output.base_color.xyz = base_color.xyz;
 	// Store the material parameters [roughness, metalness] of the material.

@@ -19,7 +19,7 @@
 namespace mage {
 
 	#pragma warning( push )
-	#pragma warning( disable : 4324)
+	#pragma warning( disable : 4324 ) // Added padding.
 
 	/**
 	 A class of models.

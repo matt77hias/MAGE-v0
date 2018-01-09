@@ -67,7 +67,7 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	output.color      = float4(L, base_color.w);
 	// Pack and store the view-space normal.
 	#pragma warning( push )
-	#pragma warning( disable : 3578 )
+	#pragma warning( disable : 3578 ) // Partial initialization.
 	output.normal.xyz = PackNormal(n_view);
 	#pragma warning( pop )
 								

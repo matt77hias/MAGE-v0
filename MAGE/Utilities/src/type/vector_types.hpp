@@ -243,7 +243,7 @@ namespace mage {
 	#pragma region
 
 	#pragma warning( push )
-	#pragma warning( disable : 4324)
+	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T, typename Enable = void >
 	struct alignas(16) Vector2A;
@@ -319,7 +319,7 @@ namespace mage {
 	#pragma region
 
 	#pragma warning( push )
-	#pragma warning( disable : 4324)
+	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T, typename Enable = void >
 	struct alignas(16) Vector3A;
@@ -400,7 +400,7 @@ namespace mage {
 	#pragma region
 
 	#pragma warning( push )
-	#pragma warning( disable : 4324)
+	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T, typename Enable = void >
 	struct alignas(16) Vector4A;

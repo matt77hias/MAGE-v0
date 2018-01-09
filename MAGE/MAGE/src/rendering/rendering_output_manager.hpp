@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "rendering\aa_descriptor.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -90,7 +91,7 @@ namespace mage {
 		 Copies the given rendering output manager to this rendering output 
 		 manager.
 
-		 @param[in]		rendering_output_manager
+		 @param[in]		manager
 						A reference to the rendering output manager to copy.
 		 @return		A reference to the copy of the given rendering output 
 						manager (i.e. this rendering output manager).
@@ -102,7 +103,7 @@ namespace mage {
 		 Moves the given rendering output manager to this rendering output 
 		 manager.
 
-		 @param[in]		rendering_output_manager
+		 @param[in]		manager
 						A reference to the rendering output manager to move.
 		 @return		A reference to the moved rendering output manager
 						(i.e. this rendering output manager).

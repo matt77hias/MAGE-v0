@@ -106,7 +106,7 @@ namespace mage {
 		/**
 		 Renders the given scene.
 
-		 @param[in]		scene
+		 @param[in]		sky
 						A reference to the sky.
 		 */
 		void Render(const Sky &sky) const noexcept;

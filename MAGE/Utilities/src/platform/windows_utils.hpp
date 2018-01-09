@@ -22,9 +22,9 @@ namespace mage {
 					@c this should point to an instance of type @a CallerT.	
 	 @tparam		CallerT
 					The caller type.
-	 @param[in]		hwndDlg
-					A handle to the dialog box.
-	 @param[in]		uMsg
+	 @param[in]		window
+					A handle to the window.
+	 @param[in]		message
 					The message.
 	 @param[in]		wParam
 					Additional message-specific information.
@@ -34,8 +34,10 @@ namespace mage {
 					@c CreateWindowEx.
 	 */
 	template< typename CallerT >
-	CallerT *GetWindowCaller(HWND hwndDlg, UINT uMsg, 
-		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam);
+	CallerT *GetWindowCaller(HWND window, 
+		                     UINT message,
+		                     [[maybe_unused]] WPARAM wParam, 
+		                     [[maybe_unused]] LPARAM lParam) noexcept;
 
 	/**
 	 Returns the caller of @c DialogBoxParam.
@@ -45,9 +47,9 @@ namespace mage {
 					instance of type @a CallerT.
 	 @tparam		CallerT
 					The caller type.
-	 @param[in]		hwndDlg
+	 @param[in]		dialog
 					A handle to the dialog box.
-	 @param[in]		uMsg
+	 @param[in]		message
 					The message.
 	 @param[in]		wParam
 					Additional message-specific information.
@@ -56,8 +58,10 @@ namespace mage {
 	 @return		A pointer to the caller of @c DialogBoxParam.
 	 */
 	template< typename CallerT >
-	CallerT *GetDialogCaller(HWND hwndDlg, UINT uMsg, 
-		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam);
+	CallerT *GetDialogCaller(HWND dialog, 
+		                     UINT message,
+		                     [[maybe_unused]] WPARAM wParam, 
+		                     [[maybe_unused]] LPARAM lParam) noexcept;
 }
 
 //-----------------------------------------------------------------------------

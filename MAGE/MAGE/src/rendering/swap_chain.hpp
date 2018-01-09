@@ -44,17 +44,18 @@ namespace mage {
 		 Constructs a swap chain.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a hwindow is not equal to @c nullptr.
+		 @pre			@a window is not equal to @c nullptr.
 		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		hwindow
+		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
 						A pointer to the display configuration.
 		 */
-		explicit SwapChain(ID3D11Device5 *device, HWND hwindow,
-			DisplayConfiguration *display_configuration);
+		explicit SwapChain(ID3D11Device5 *device, 
+			               HWND window,
+			               DisplayConfiguration *display_configuration);
 
 		/**
 		 Constructs a swap chain from the given swap chain.
@@ -104,6 +105,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Display Configuration
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the window handle of this swap chain.
+
+		 @return		The window handle of this swap chain.
+		 */
+		HWND GetWindow() noexcept {
+			return m_window;
+		}
 
 		/**
 		 Returns the display configuration of this swap chain.
@@ -286,7 +296,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this swap chain.
 		 */
-		const HWND m_hwindow;
+		HWND m_window;
 
 		/**
 		 A pointer to the display configuration of this swap chain.

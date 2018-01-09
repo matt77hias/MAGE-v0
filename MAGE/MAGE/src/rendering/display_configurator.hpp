@@ -41,8 +41,8 @@ namespace mage {
 		 @param[in]		pixel_format
 						The pixel format.
 		 */
-		explicit DisplayConfigurator(
-			DXGI_FORMAT pixel_format = DXGI_FORMAT_R10G10B10A2_UNORM);
+		explicit DisplayConfigurator(DXGI_FORMAT pixel_format 
+			                         = DXGI_FORMAT_R10G10B10A2_UNORM);
 
 		/**
 		 Constructs a display configurator.
@@ -54,27 +54,26 @@ namespace mage {
 		 @param[in]		pixel_format
 						The pixel format.
 		 */
-		explicit DisplayConfigurator(
-			ComPtr< IDXGIAdapter4 > adapter, ComPtr< IDXGIOutput6 > output,
-			DXGI_FORMAT pixel_format = DXGI_FORMAT_R10G10B10A2_UNORM);
+		explicit DisplayConfigurator(ComPtr< IDXGIAdapter4 > adapter, 
+			                         ComPtr< IDXGIOutput6 > output,
+			                         DXGI_FORMAT pixel_format 
+			                         = DXGI_FORMAT_R10G10B10A2_UNORM);
 
 		/**
 		 Constructs a display configurator from the given display configurator.
 
-		 @param[in]		display_configurator
+		 @param[in]		configurator
 						A reference to a display configurator to copy.
 		 */
-		DisplayConfigurator(
-			const DisplayConfigurator &display_configurator) = delete;
+		DisplayConfigurator(const DisplayConfigurator &configurator) = delete;
 
 		/**
 		 Constructs a display configurator by moving the given display configurator.
 
-		 @param[in]		display_configurator
+		 @param[in]		configurator
 						A reference to a display configurator to move.
 		 */
-		DisplayConfigurator(
-			DisplayConfigurator &&display_configurator) noexcept;
+		DisplayConfigurator(DisplayConfigurator &&configurator) noexcept;
 
 		/**
 		 Destructs this display configurator.
@@ -88,24 +87,24 @@ namespace mage {
 		/**
 		 Copies the given display configurator to this display configurator.
 
-		 @param[in]		display_configurator
+		 @param[in]		configurator
 						A reference to a display configurator to copy.
 		 @return		A reference to the copy of the given display 
 						configurator (i.e. this display configurator).
 		 */
 		DisplayConfigurator &operator=(
-			const DisplayConfigurator &display_configurator) = delete;
+			const DisplayConfigurator &configurator) = delete;
 
 		/**
 		 Moves the given display configurator to this display configurator.
 
-		 @param[in]		display_configurator
+		 @param[in]		configurator
 						A reference to a display configurator to move.
 		 @return		A reference to the moved display configurator (i.e. 
 						this display configurator).
 		 */
 		DisplayConfigurator &operator=(
-			DisplayConfigurator &&display_configurator) = delete;
+			DisplayConfigurator &&configurator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -140,18 +139,18 @@ namespace mage {
 		 Engine-defined callback function used with the CreateDialog for 
 		 display configuration.
 
-		 @param[in]		hwndDlg
+		 @param[in]		dialog
 						A handle to the dialog box.
-		 @param[in]		uMsg
+		 @param[in]		message
 						The message.
 		 @param[in]		wParam
 						Additional message-specific information.
 		 @param[in]		lParam
 						Additional message-specific information.
-		 @return		@c true if @a uMsg is processed. @c false otherwise.
+		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
 		[[nodiscard]] static INT_PTR CALLBACK DisplayDialogProcDelegate(
-			HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+			HWND dialog, UINT message, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -179,18 +178,20 @@ namespace mage {
 		 Engine-defined callback function used with the CreateDialog for 
 		 display configuration.
 
-		 @param[in]		hwndDlg
+		 @param[in]		dialog
 						A handle to the dialog box.
-		 @param[in]		uMsg
+		 @param[in]		message
 						The message.
 		 @param[in]		wParam
 						Additional message-specific information.
 		 @param[in]		lParam
 						Additional message-specific information.
-		 @return		@c true if @a uMsg is processed. @c false otherwise.
+		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
-		[[nodiscard]] INT_PTR DisplayDialogProc(HWND hwndDlg, UINT uMsg,
-			[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam);
+		[[nodiscard]] INT_PTR DisplayDialogProc(HWND dialog, 
+			                                    UINT message,
+			                                    [[maybe_unused]] WPARAM wParam, 
+			                                    [[maybe_unused]] LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Variables

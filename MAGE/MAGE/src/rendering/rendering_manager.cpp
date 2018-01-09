@@ -30,9 +30,9 @@ namespace mage {
 		return Engine::Get()->GetRenderingManager();
 	}
 
-	RenderingManager::RenderingManager(HWND hwindow, 
+	RenderingManager::RenderingManager(HWND window, 
 		const DisplayConfiguration *display_configuration) 
-		: m_hwindow(hwindow),
+		: m_window(window),
 		m_display_configuration(
 			MakeUnique< DisplayConfiguration >(*display_configuration)),
 		m_feature_level(),
@@ -43,7 +43,7 @@ namespace mage {
 		m_rendering_output_manager(), 
 		m_rendering_state_manager() {
 
-		Assert(m_hwindow);
+		Assert(m_window);
 		Assert(m_display_configuration);
 
 		InitializeSystems();
@@ -61,29 +61,29 @@ namespace mage {
 		SetupDevice();
 		
 		// Setup the swap chain.
-		m_swap_chain = MakeUnique< SwapChain >(
-			           m_device.Get(), m_hwindow, 
-			           m_display_configuration.get());
+		m_swap_chain 
+			= MakeUnique< SwapChain >(m_device.Get(), m_window, 
+			                          m_display_configuration.get());
 
 		// Setup the rendering output manager.
-		m_rendering_output_manager = MakeUnique< RenderingOutputManager >(
-			                         m_device.Get(), 
-			                         m_display_configuration->GetDisplayWidth(),
-			                         m_display_configuration->GetDisplayHeight(),
-									 m_display_configuration->GetAADescriptor());
+		m_rendering_output_manager 
+			= MakeUnique< RenderingOutputManager >(m_device.Get(), 
+			                                       m_display_configuration->GetDisplayWidth(),
+			                                       m_display_configuration->GetDisplayHeight(),
+									               m_display_configuration->GetAADescriptor());
 		
 		// Setup the rendering state manager.
-		m_rendering_state_manager = MakeUnique< RenderingStateManager >(
-			                        m_device.Get());
+		m_rendering_state_manager 
+			= MakeUnique< RenderingStateManager >(m_device.Get());
+		
 		// Setup the renderer.
-		m_renderer = MakeUnique< Renderer >(
-			         m_device.Get(), 
-			         m_device_context.Get(), 
-			         m_display_configuration->GetDisplayWidth(),
-			         m_display_configuration->GetDisplayHeight());
+		m_renderer = MakeUnique< Renderer >(m_device.Get(), 
+			                                m_device_context.Get(), 
+			                                m_display_configuration->GetDisplayWidth(),
+			                                m_display_configuration->GetDisplayHeight());
 
 		// Setup ImGui.
-		ImGui_ImplDX11_Init(m_hwindow, m_device.Get(), m_device_context.Get());
+		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());
 	}
 
 	void RenderingManager::UninitializeSystems() noexcept {
@@ -114,19 +114,18 @@ namespace mage {
 		ComPtr< ID3D11DeviceContext > device_context;
 		{
 			// Get the ID3D11Device and ID3D11DeviceContext.
-			const HRESULT result = D3D11CreateDevice(
-				m_display_configuration->GetAdapter(),
-				D3D_DRIVER_TYPE_UNKNOWN,
-				nullptr,
-				create_device_flags,
-				Pipeline::s_feature_levels,
-				static_cast< U32 >(std::size(Pipeline::s_feature_levels)),
-				D3D11_SDK_VERSION,
-				device.GetAddressOf(),
-				&m_feature_level,
-				device_context.GetAddressOf());
-			ThrowIfFailed(result,
-				"ID3D11Device creation failed: %08X.", result);
+			const HRESULT result 
+				= D3D11CreateDevice(m_display_configuration->GetAdapter(),
+				                    D3D_DRIVER_TYPE_UNKNOWN,
+				                    nullptr,
+				                    create_device_flags,
+				                    Pipeline::s_feature_levels,
+				                    static_cast< U32 >(std::size(Pipeline::s_feature_levels)),
+				                    D3D11_SDK_VERSION,
+				                    device.GetAddressOf(),
+				                    &m_feature_level,
+				                    device_context.GetAddressOf());
+			ThrowIfFailed(result, "ID3D11Device creation failed: %08X.", result);
 		}
 
 		{

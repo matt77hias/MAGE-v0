@@ -25,7 +25,7 @@
 namespace mage {
 
 	/**
-	 A struct of engine setups.
+	 A class of engine setups.
 	 */
 	class EngineSetup final {
 
@@ -38,18 +38,18 @@ namespace mage {
 		/**
 		 Constructs an engine setup.
 
-		 @pre			@a hinstance is not equal to @c nullptr.
-		 @param[in]		hinstance
-						The application instance handle of the application.
+		 @pre			@a instance is not equal to @c nullptr.
+		 @param[in]		instance
+						The application instance handle.
 		 @param[in]		name
 						The name of the application.
 		 */
-		explicit EngineSetup(HINSTANCE hinstance, 
-			wstring name = MAGE_DEFAULT_APPLICATION_NAME)
-			: m_hinstance(hinstance),
+		explicit EngineSetup(HINSTANCE instance, 
+			                 wstring name = MAGE_DEFAULT_APPLICATION_NAME)
+			: m_instance(instance),
 			m_name(std::move(name)) {
 
-			Assert(m_hinstance);
+			Assert(m_instance);
 		}
 
 		/**
@@ -111,12 +111,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the application instance handle of the application.
+		 Returns the application instance handle.
 
-		 @return		The application instance handle of the application.
+		 @return		The application instance handle.
 		 */
-		HINSTANCE GetApplicationHinstance() const noexcept {
-			return m_hinstance;
+		HINSTANCE GetApplicationInstance() const noexcept {
+			return m_instance;
 		}
 	
 	private:
@@ -126,12 +126,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Application instance handle.
+		 The application instance handle.
 		 */
-		HINSTANCE m_hinstance;
+		HINSTANCE m_instance;
 
 		/**
-		 Name of the application.
+		 The name of the application.
 		 */
 		wstring m_name;
 	};

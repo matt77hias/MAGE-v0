@@ -41,8 +41,8 @@ namespace mage {
 		/**
 		 Constructs a main window.
 
-		 @pre			@a hinstance is not equal to @c nullptr.
-		 @param[in]		hinstance
+		 @pre			@a instance is not equal to @c nullptr.
+		 @param[in]		instance
 						The application instance handle.
 		 @param[in]		title_text
 						A reference to the title text.
@@ -55,8 +55,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the main window.
 		 */
-		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, 
-			U32 width, U32 height);
+		explicit MainWindow(HINSTANCE instance, 
+			                const wstring &title_text, 
+			                U32 width, 
+			                U32 height);
 
 		/**
 		 Constructs a main window from the given main window.
@@ -113,15 +115,15 @@ namespace mage {
 		 @param[in]		nCmdShow
 						Controls how this window is to be shown.
 		 */
-		void Show(int nCmdShow) noexcept;
+		void Show(int nCmdShow);
 
 		/**
 		 Returns the application instance handle of this main window.
 		 
 		 @return		The application instance handle of this main window.
 		 */
-		HINSTANCE GetHinstance() noexcept {
-			return m_hinstance;
+		HINSTANCE GetInstance() noexcept {
+			return m_instance;
 		}
 
 		/**
@@ -129,8 +131,8 @@ namespace mage {
 
 		 @return		The window handle of this main window.
 		 */
-		HWND GetHandle() noexcept {
-			return m_hwindow;
+		HWND GetWindow() noexcept {
+			return m_window;
 		}
 
 		/**
@@ -146,7 +148,7 @@ namespace mage {
 		 @param[in]		title_text
 						A reference to the title text.
 		 */
-		void SetTitleText(const wstring &title_text) noexcept;
+		void SetTitleText(const wstring &title_text);
 
 		/**
 		 Sets the title text of this main window to the given title text.
@@ -155,7 +157,7 @@ namespace mage {
 		 @param[in]		title_text
 						A pointer to the title text.
 		 */
-		void SetTitleText(const wchar_t *title_text) noexcept;
+		void SetTitleText(const wchar_t *title_text);
 
 	private:
 
@@ -164,13 +166,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The engine-defined function that processes messages sent to the engine 
-		 window. The WindowProc type defines a pointer to this callback 
-		 function.
+		 The engine-defined function that processes messages sent to the window. 
+		 The WindowProc type defines a pointer to this callback function.
 
-		 @param[in]		hWnd
+		 @param[in]		window
 						A handle to the window.
-		 @param[in]		msg
+		 @param[in]		message
 						The message.
 		 @param[in]		wParam
 						Additional message information. The contents of this 
@@ -181,8 +182,10 @@ namespace mage {
 		 @return		The return value is the result of the message 
 						processing and depends on the message sent.
 		 */
-		[[nodiscard]] static LRESULT CALLBACK MainWindowProc(
-			HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+		[[nodiscard]] static LRESULT CALLBACK MainWindowProc(HWND window, 
+			                                                 UINT message, 
+			                                                 WPARAM wParam, 
+			                                                 LPARAM lParam) noexcept;
 
 		/**
 		 An enumeration of the different hot keys registered by main windows.
@@ -203,7 +206,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Initializes the engine window of this main window.
+		 Initializes the window of this main window.
 
 		 @param[in]		title_text
 						A reference to the title text.
@@ -219,7 +222,7 @@ namespace mage {
 		void InitializeWindow(const wstring &title_text, U32 width, U32 height);
 
 		/**
-		 Initializes the engine window of this main window.
+		 Initializes the window of this main window.
 
 		 @param[in]		title_text
 						A reference to the title text.
@@ -233,7 +236,7 @@ namespace mage {
 		void InitializeWindow(const wstring &title_text, const RECT &rectangle);
 
 		/**
-		 Uninitializes the engine window of this main window.
+		 Uninitializes the window of this main window.
 		 */
 		void UninitializeWindow() noexcept;
 
@@ -244,11 +247,11 @@ namespace mage {
 		/**
 		 The application instance handle of this main window.
 		 */
-		const HINSTANCE m_hinstance;
+		const HINSTANCE m_instance;
 
 		/**
-		 The handle of the parent window of this main window.
+		 The window handle of this main window.
 		 */
-		HWND m_hwindow;
+		HWND m_window;
 	};
 }

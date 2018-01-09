@@ -53,12 +53,11 @@ namespace mage {
 		 @param[in]		display_mode
 						A reference to the display mode.
 		 */
-		explicit DisplayConfiguration(
-			ComPtr< IDXGIAdapter4 > adapter,
-			ComPtr< IDXGIOutput6 > output,
-			const DXGI_MODE_DESC1 &display_mode)
-			: m_adapter(adapter),
-			m_output(output),
+		explicit DisplayConfiguration(ComPtr< IDXGIAdapter4 > adapter,
+			                          ComPtr< IDXGIOutput6 > output,
+			                          const DXGI_MODE_DESC1 &display_mode)
+			: m_adapter(std::move(adapter)),
+			m_output(std::move(output)),
 			m_display_mode(display_mode),
 			m_aa_desc(AADescriptor::None),
 			m_windowed(true),
@@ -69,21 +68,21 @@ namespace mage {
 		 Constructs a display configuration from the given display 
 		 configuration.
 
-		 @param[in]		display_configuration
+		 @param[in]		configuration
 						A reference to a display configuration to copy.
 		 */
 		DisplayConfiguration(
-			const DisplayConfiguration &display_configuration) = default;
+			const DisplayConfiguration &configuration) = default;
 
 		/**
 		 Constructs a display configuration by moving the given display 
 		 configuration.
 
-		 @param[in]		display_configuration
+		 @param[in]		configuration
 						A reference to a display configuration to move.
 		 */
 		DisplayConfiguration(
-			DisplayConfiguration &&display_configuration) noexcept = default;
+			DisplayConfiguration &&configuration) noexcept = default;
 
 		/**
 		 Destructs this display configuration.
@@ -97,24 +96,24 @@ namespace mage {
 		/**
 		 Copies the given display configuration to this display configuration.
 
-		 @param[in]		display_configuration
+		 @param[in]		configuration
 						A reference to a display configuration to copy.
 		 @return		A reference to the copy of the given display 
 						configuration (i.e. this display configuration).
 		 */
 		DisplayConfiguration &operator=(
-			const DisplayConfiguration &display_configuration) = default;
+			const DisplayConfiguration &configuration) = default;
 
 		/**
 		 Moves the given display configuration to this display configuration.
 
-		 @param[in]		display_configuration
+		 @param[in]		configuration
 						A reference to a display configuration to move.
 		 @return		A reference to the moved display configuration (i.e. 
 						this display configuration).
 		 */
 		DisplayConfiguration &operator=(
-			DisplayConfiguration &&display_configuration) noexcept = default;
+			DisplayConfiguration &&configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Adapter

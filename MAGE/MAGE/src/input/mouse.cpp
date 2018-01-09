@@ -20,12 +20,12 @@ namespace mage {
 		return InputManager::Get()->GetMouse();
 	}
 
-	Mouse::Mouse(HWND hwindow, IDirectInput8 *di) 
-		: m_hwindow(hwindow), m_di(di), m_mouse(),
-		m_press_stamp(0), m_mouse_state{}, 
-		m_mouse_button_press_stamp(), m_mouse_position{} {
+	Mouse::Mouse(HWND window, IDirectInput8 *di) 
+		: m_window(window), m_di(di), m_mouse(),
+		m_press_stamp(0), m_button_state{}, 
+		m_button_press_stamp(), m_position{} {
 
-		Assert(m_hwindow);
+		Assert(m_window);
 		Assert(m_di);
 
 		InitializeMouse();
@@ -45,44 +45,54 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown 
 		//    interface for COM aggregation, or nullptr if the interface is not 
 		//    aggregated.
-		const HRESULT result_mouse_create = m_di->CreateDevice(
-			GUID_SysMouse, m_mouse.ReleaseAndGetAddressOf(), nullptr);
-		ThrowIfFailed(result_mouse_create, 
-			"Mouse device creation failed: %08X.", result_mouse_create);
+		{
+			const HRESULT result 
+				= m_di->CreateDevice(GUID_SysMouse,
+				                     m_mouse.ReleaseAndGetAddressOf(),
+				                     nullptr);
+			ThrowIfFailed(result, 
+				"Mouse device creation failed: %08X.", result);
+		}
 		
-		// Set the data format for the DirectInput device. 
-		const HRESULT result_mouse_format = m_mouse->SetDataFormat(&c_dfDIMouse);
-		ThrowIfFailed(result_mouse_format, 
-			"Setting data format for mouse device failed: %08X.", 
-			result_mouse_format);
+		// Set the data format for the DirectInput device.
+		{
+			const HRESULT result = m_mouse->SetDataFormat(&c_dfDIMouse);
+			ThrowIfFailed(result, 
+				          "Setting data format for mouse device failed: %08X.",
+				          result);
+		}
 		
 		// Establish the cooperative level for this instance of the device. 
 		// The cooperative level determines how this instance of the device 
 		// interacts with other instances of the device and the rest of the 
-		// system. 
-		const HRESULT result_mouse_cooperative = 
-			m_mouse->SetCooperativeLevel(m_hwindow, 
-				DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-		ThrowIfFailed(result_mouse_cooperative, 
-			"Setting cooperation level for mouse device failed: %08X.", 
-			result_mouse_cooperative);
+		// system.
+		{
+			const HRESULT result 
+				= m_mouse->SetCooperativeLevel(m_window,
+				                               DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+			ThrowIfFailed(result,
+				          "Setting cooperation level for mouse device failed: %08X.",
+				          result);
+		}
 		
 		// Obtain access to the input device. 
 		m_mouse->Acquire();
 	}
 
-	bool Mouse::GetMouseButtonPress(char mouse_button, 
-		bool ignore_press_stamp) const {
+	bool Mouse::GetMouseButtonPress(char button, 
+		                            bool ignore_press_stamp) const noexcept {
 		
-		if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
+		if (false == (m_button_state.rgbButtons[button] & 0x80)) {
 			return false;
 		}
 
+		const U64 prev_press_stamp = m_press_stamp - 1;
 		const bool pressed = (!ignore_press_stamp 
-			&& (m_mouse_button_press_stamp[mouse_button] == m_press_stamp - 1)) 
-			? false : true;
+			                  && 
+			                 (prev_press_stamp == m_button_press_stamp[button]))
+			                 ? false : true;
 
-		m_mouse_button_press_stamp[mouse_button] = m_press_stamp;
+		m_button_press_stamp[button] = m_press_stamp;
 
 		return pressed;
 	}
@@ -90,6 +100,7 @@ namespace mage {
 	void Mouse::Update() {
 		// Poll the mouse until it succeeds or returns an unknown error.
 		while (true) {
+			
 			// Retrieves data from polled objects on a DirectInput device.
 			m_mouse->Poll();
 
@@ -97,15 +108,16 @@ namespace mage {
 			// 1. Size of the buffer in bytes.
 			// 2. Address of a structure that receives the current state of 
 			//    the device. (format determined by SetDataFormat)
-			const HRESULT result_mouse_state = 
-				m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_mouse_state);
-			if (SUCCEEDED(result_mouse_state)) {
+			const HRESULT result = m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), 
+				                                           &m_button_state);
+			if (SUCCEEDED(result)) {
 				break;
 			}
-			if (result_mouse_state != DIERR_INPUTLOST 
-				&& result_mouse_state != DIERR_NOTACQUIRED) {
+			if ( DIERR_NOTACQUIRED != result
+				&& DIERR_INPUTLOST != result) {
 				return;
 			}
+			
 			// Reacquire the device if the focus was lost.
 			if (FAILED(m_mouse->Acquire())) {
 				return;
@@ -113,10 +125,10 @@ namespace mage {
 		}
 
 		// Retrieve the position of the mouse cursor, in screen coordinates.
-		GetCursorPos(&m_mouse_position);
+		GetCursorPos(&m_position);
 		// Convert the screen coordinates of a specified point on the screen 
 		// to client-area coordinates.
-		ScreenToClient(m_hwindow, &m_mouse_position);
+		ScreenToClient(m_window, &m_position);
 
 		// Increment the press stamp.
 		++m_press_stamp;

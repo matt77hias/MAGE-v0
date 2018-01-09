@@ -42,15 +42,15 @@ namespace mage {
 		/**
 		 Constructs an input manager for the given window handle.
 
-		 @pre			@a hwindow is not equal to @c nullptr.
-		 @param[in]		hwindow
+		 @pre			@a window is not equal to @c nullptr.
+		 @param[in]		window
 						The handle of the parent window.
 		 @throws		Exception
 						Failed to initialize the DirectInput object.
 		 @throws		Exception
 						Failed to initialize the input systems.
 		 */
-		explicit InputManager(HWND hwindow);
+		explicit InputManager(HWND window);
 
 		/**
 		 Constructs an input manager from the given input manager.
@@ -100,6 +100,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the window handle of this input manager.
+
+		 @return		The window handle of this input manager.
+		 */
+		HWND GetWindow() noexcept {
+			return m_window;
+		}
 
 		/**
 		 Updates the state of the input systems of this input manager.
@@ -156,7 +165,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this input manager.
 		 */
-		HWND m_hwindow;
+		HWND m_window;
 
 		/**
 		 A pointer to the DirectInput object of this input manager.

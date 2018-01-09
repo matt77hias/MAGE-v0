@@ -44,16 +44,16 @@ namespace mage {
 		/**
 		 Constructs a keyboard.
 
-		 @pre			@a hwindow is not equal to @c nullptr.
+		 @pre			@a window is not equal to @c nullptr.
 		 @pre			@a di is not equal to @c nullptr.
-		 @param[in]		hwindow
+		 @param[in]		window
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
 		 @throws		Exception
 						Failed to initialize the keyboard.
 		 */
-		explicit Keyboard(HWND hwindow, IDirectInput8 *di);
+		explicit Keyboard(HWND window, IDirectInput8 *di);
 
 		/**
 		 Constructs a keyboard from the given keyboard.
@@ -104,6 +104,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the window handle of this keyboard.
+
+		 @return		The window handle of this keyboard.
+		 */
+		HWND GetWindow() noexcept {
+			return m_window;
+		}
+
+		/**
 		 Updates the state of this keyboard.
 		 */
 		void Update();
@@ -121,7 +130,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool GetKeyPress(unsigned char key, 
-			bool ignore_press_stamp = false) const;
+			             bool ignore_press_stamp = false) const noexcept;
 
 	private:
 
@@ -144,7 +153,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this keyboard.
 		 */
-		HWND m_hwindow;
+		HWND m_window;
 
 		/**
 		 A pointer to the DirectInput object of this keyboard.

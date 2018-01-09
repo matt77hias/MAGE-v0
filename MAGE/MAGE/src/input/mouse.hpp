@@ -44,16 +44,16 @@ namespace mage {
 		/**
 		 Constructs a mouse.
 
-		 @pre			@a hwindow is not equal to @c nullptr.
+		 @pre			@a window is not equal to @c nullptr.
 		 @pre			@a di is not equal to @c nullptr.
-		 @param[in]		hwindow
+		 @param[in]		window
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
 		 @throws		Exception
 						Failed to initialize the mouse.
 		 */
-		explicit Mouse(HWND hwindow, IDirectInput8 *di);
+		explicit Mouse(HWND window, IDirectInput8 *di);
 
 		/**
 		 Constructs a mouse from the given mouse.
@@ -104,6 +104,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the window handle of this mouse.
+
+		 @return		The window handle of this mouse.
+		 */
+		HWND GetWindow() noexcept {
+			return m_window;
+		}
+
+		/**
 		 Updates the state of this mouse.
 		 */
 		void Update();
@@ -111,7 +120,7 @@ namespace mage {
 		/**
 		 Checks whether the given mouse button of this mouse is pressed.
 
-		 @param[in]		mouse_button
+		 @param[in]		button
 						The mouse button.
 		 @param[in]		ignore_press_stamp
 						Flag indicating whether press stamps should be 
@@ -120,8 +129,8 @@ namespace mage {
 		 @return		@c true if the given mouse button is pressed. @c false 
 						otherwise.
 		 */
-		bool GetMouseButtonPress(char mouse_button, 
-			bool ignore_press_stamp = false) const;
+		bool GetMouseButtonPress(char button, 
+			                     bool ignore_press_stamp = false) const noexcept;
 
 		/**
 		 Returns the horizontal position of this mouse.
@@ -129,7 +138,7 @@ namespace mage {
 		 @return		The horizontal position of this mouse.
 		 */
 		S32 GetPositionX() const noexcept {
-			return static_cast< S32 >(m_mouse_position.x);
+			return static_cast< S32 >(m_position.x);
 		}
 
 		/**
@@ -138,7 +147,7 @@ namespace mage {
 		 @return		The vertical position of this mouse.
 		 */
 		S32 GetPositionY() const noexcept {
-			return static_cast< S32 >(m_mouse_position.y);
+			return static_cast< S32 >(m_position.y);
 		}
 
 		/**
@@ -147,7 +156,7 @@ namespace mage {
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
 		S32 GetDeltaX() const noexcept {
-			return static_cast< S32 >(m_mouse_state.lX);
+			return static_cast< S32 >(m_button_state.lX);
 		}
 
 		/**
@@ -156,7 +165,7 @@ namespace mage {
 		 @return		The change in this mouse's vertical coordinate.
 		 */
 		S32 GetDeltaY() const noexcept {
-			return static_cast< S32 >(m_mouse_state.lY);
+			return static_cast< S32 >(m_button_state.lY);
 		}
 
 		/**
@@ -165,7 +174,7 @@ namespace mage {
 		 @return		The change in this mouse's scroll wheel.
 		 */
 		S32 GetDeltaWheel() const noexcept {
-			return static_cast< S32 >(m_mouse_state.lZ);
+			return static_cast< S32 >(m_button_state.lZ);
 		}
 
 	private:
@@ -189,7 +198,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this mouse.
 		 */
-		HWND m_hwindow;
+		HWND m_window;
 
 		/**
 		 A pointer to the DirectInput object of this mouse.
@@ -212,18 +221,18 @@ namespace mage {
 		 Describes the state of a mouse device that has up to four buttons, or 
 		 another device that is being accessed as if it were a mouse device.
 		 */
-		DIMOUSESTATE m_mouse_state;
+		DIMOUSESTATE m_button_state;
 
 		/**
 		 The mouse button press stamp of this mouse.
 
 		 Stamps the mouse buttons pressed in the last frame of this mouse.
 		 */
-		mutable U64 m_mouse_button_press_stamp[3];
+		mutable U64 m_button_press_stamp[3];
 
 		/**
 		 The position of the mouse cursor on the screen of this mouse.
 		 */
-		POINT m_mouse_position;
+		POINT m_position;
 	};
 }

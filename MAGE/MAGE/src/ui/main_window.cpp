@@ -12,6 +12,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
@@ -32,11 +41,14 @@ namespace mage {
 	}
 
 	[[nodiscard]] LRESULT CALLBACK MainWindow
-		::MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
+		::MainWindowProc(HWND window, 
+			             UINT message, 
+			             WPARAM wParam, 
+			             LPARAM lParam) noexcept {
 		
-		ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+		ImGui_ImplWin32_WndProcHandler(window, message, wParam, lParam);
 
-		switch (msg) {
+		switch (message) {
 		
 		case WM_ACTIVATEAPP: {
 			// Sent when a window belonging to a different application 
@@ -76,10 +88,7 @@ namespace mage {
 			}
 
 			default: {
-				// Calls the default window procedure to provide default processing 
-				// for any window messages that an application does not process.
-				// This function ensures that every message is processed.
-				return DefWindowProc(hWnd, msg, wParam, lParam);
+				return DefWindowProc(window, message, wParam, lParam);
 			}
 
 			}
@@ -103,9 +112,9 @@ namespace mage {
 			// return a handle to to a display device context for the specified 
 			// window.
 			PAINTSTRUCT ps;
-			BeginPaint(hWnd, &ps);
+			BeginPaint(window, &ps);
 			// Mark the end of painting in the specified window.
-			EndPaint(hWnd, &ps);
+			EndPaint(window, &ps);
 			
 			break;
 		}
@@ -123,31 +132,27 @@ namespace mage {
 			}
 
 			default: {
-				// Calls the default window procedure to provide default processing 
-				// for any window messages that an application does not process.
-				// This function ensures that every message is processed.
-				return DefWindowProc(hWnd, msg, wParam, lParam);
+				return DefWindowProc(window, message, wParam, lParam);
 			}
 
 			}
 		}
 
 		default: {
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			return DefWindowProc(window, message, wParam, lParam);
 		}
 		}
 
 		return 0;
 	}
 
-	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, 
-		U32 width, U32 height)
-		: m_hinstance(hinstance), m_hwindow(nullptr) {
+	MainWindow::MainWindow(HINSTANCE instance, 
+		                   const wstring &title_text, 
+		                   U32 width, 
+		                   U32 height)
+		: m_instance(instance), m_window(nullptr) {
 
-		Assert(m_hinstance);
+		Assert(m_instance);
 
 		//Initialize a window.
 		InitializeWindow(title_text, width, height);
@@ -161,26 +166,28 @@ namespace mage {
 	}
 
 	const wstring MainWindow::GetTitleText() const noexcept {
+		wchar_t text[1024];
+		const int result = GetWindowText(m_window, 
+			                             text, 
+			                             static_cast< int >(std::size(text)));
 		
-		wchar_t m_text[1024];
-		const int result = GetWindowText(m_hwindow, m_text, 1024);
-		
-		return result ? m_text : L"";
+		return result ? text : L"";
 	}
 
-	void MainWindow::SetTitleText(const wstring &title_text) noexcept {
+	void MainWindow::SetTitleText(const wstring &title_text) {
 		SetTitleText(title_text.c_str());
 	}
 
-	void MainWindow::SetTitleText(const wchar_t *title_text) noexcept {
+	void MainWindow::SetTitleText(const wchar_t *title_text) {
 		Assert(title_text);
 		
-		const BOOL result = SetWindowText(m_hwindow, title_text);
-		Assert(result);
+		const BOOL result = SetWindowText(m_window, title_text);
+		ThrowIfFailed(result, "Failed to set the window text.");
 	}
 
 	void MainWindow::InitializeWindow(const wstring &title_text, 
-		U32 width, U32 height) {
+		                              U32 width, 
+		                              U32 height) {
 		
 		const RECT rectangle = { 
 			0, 
@@ -193,14 +200,13 @@ namespace mage {
 	}
 
 	void MainWindow::InitializeWindow(const wstring &title_text, 
-		const RECT &rectangle) {
+		                              const RECT &rectangle) {
 
 		// Prepare and register the window class.
 		//---------------------------------------------------------------------
 		// Structure ontaining window class information. 
-		WNDCLASSEX wcex   = {};
-		// The size, in bytes, of this structure.
-		wcex.cbSize       = sizeof(WNDCLASSEX);
+		WNDCLASSEX wcex    = {};
+		wcex.cbSize        = sizeof(WNDCLASSEX);
 		// The class style(s)
 		// CS_CLASSDC:	Allocates one device context to be shared by all 
 		//              windows in the class. Because window classes are process 
@@ -211,34 +217,23 @@ namespace mage {
 		//              system allows only one thread to successfully finish its 
 		//              drawing operation.
 		wcex.style         = CS_CLASSDC;
-		// A pointer to the window procedure.
 		wcex.lpfnWndProc   = MainWindowProc;
-		// A handle to the instance that contains the window procedure for the 
-		// class.
-		wcex.hInstance     = m_hinstance;
-		// A handle to the class icon. This member must be a handle to an icon 
-		// resource.
-		wcex.hIcon         = (HICON)LoadImage(
-			m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, 
-			GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), 0);
-		// A handle to a small icon that is associated with the window class.
-		wcex.hIconSm       = (HICON)LoadImage(
-			m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, 
-			GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), 0);
-		// A handle to the class cursor. This member must be a handle to a cursor 
-		// resource.
+		wcex.hInstance     = m_instance;
+		wcex.hIcon         = (HICON)LoadImage(m_instance, 
+			                                  MAKEINTRESOURCE(IDI_APPLICATION_ICON), 
+			                                  IMAGE_ICON, 
+			                                  GetSystemMetrics(SM_CXICON), 
+			                                  GetSystemMetrics(SM_CYICON), 
+			                                  0);
+		wcex.hIconSm       = (HICON)LoadImage(m_instance, 
+			                                  MAKEINTRESOURCE(IDI_APPLICATION_ICON), 
+			                                  IMAGE_ICON, 
+			                                  GetSystemMetrics(SM_CXSMICON), 
+			                                  GetSystemMetrics(SM_CYSMICON), 
+			                                  0);
 		wcex.hCursor       = LoadCursor(nullptr, IDC_ARROW);
-		// A handle to the class background brush. This member can be a handle to
-		// the brush to be used for painting the background, or it can be a color 
-		// value.
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-		// Pointer to a null-terminated character string that specifies the 
-		// resource name of the class menu, as the name appears in the resource 
-		// file. If this member is nullptr, windows belonging to this class 
-		// have no default menu.
-		wcex.lpszMenuName = nullptr;
-		// A pointer to a null-terminated string, or an atom. If lpszClassName is 
-		// a string, it specifies the window class name.
+		wcex.lpszMenuName  = nullptr;
 		wcex.lpszClassName = MAGE_MAIN_WINDOW_CLASS_NAME;
 
 		// Register a window class.
@@ -262,39 +257,46 @@ namespace mage {
 		AdjustWindowRect(&adjusted_rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(MAGE_MAIN_WINDOW_CLASS_NAME, title_text.c_str(), 
-			style, CW_USEDEFAULT, CW_USEDEFAULT, 
-			adjusted_rectangle.right  - adjusted_rectangle.left, 
-			adjusted_rectangle.bottom - adjusted_rectangle.top, 
-			nullptr, nullptr, m_hinstance, nullptr);
-		ThrowIfFailed((nullptr != m_hwindow), "Main window creation failed.");
+		m_window = CreateWindow(MAGE_MAIN_WINDOW_CLASS_NAME, 
+			                    title_text.c_str(), 
+			                    style, 
+			                    CW_USEDEFAULT, 
+			                    CW_USEDEFAULT, 
+			                    adjusted_rectangle.right  - adjusted_rectangle.left, 
+			                    adjusted_rectangle.bottom - adjusted_rectangle.top, 
+			                    nullptr, 
+			                    nullptr, 
+			                    m_instance, 
+			                    nullptr);
+		ThrowIfFailed((nullptr != m_window), "Main window creation failed.");
 
 		// Register a print screen hot key, because pressing down VK_SNAPSHOT 
 		// does not result in a WM_KEYDOWN (or WM_SYSKEYDOWN).
 		{
-			const BOOL result = RegisterHotKey(m_hwindow,
-				static_cast<int>(HotKey::AltPrintScreen), 
-				MOD_ALT | MOD_NOREPEAT, VK_SNAPSHOT);
+			const BOOL result = RegisterHotKey(m_window,
+				                               static_cast< int >(HotKey::AltPrintScreen), 
+				                               MOD_ALT | MOD_NOREPEAT, 
+				                               VK_SNAPSHOT);
 			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 		{
-			const BOOL result = RegisterHotKey(m_hwindow,
-				static_cast<int>(HotKey::PrintScreen),
-				MOD_NOREPEAT, VK_SNAPSHOT);
+			const BOOL result = RegisterHotKey(m_window,
+				                              static_cast< int >(HotKey::PrintScreen),
+				                              MOD_NOREPEAT, 
+				                              VK_SNAPSHOT);
 			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 	}
 
 	void MainWindow::UninitializeWindow() noexcept {
 		// Unregister the window class.
-		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_hinstance);
+		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_instance);
 	}
 
-	void MainWindow::Show(int nCmdShow) noexcept {
+	void MainWindow::Show(int nCmdShow) {
+		ShowWindow(m_window, nCmdShow);
 		
-		ShowWindow(m_hwindow, nCmdShow);
-		
-		const BOOL result = UpdateWindow(m_hwindow);
-		Assert(result);
+		const BOOL result = UpdateWindow(m_window);
+		ThrowIfFailed(result, "Failed to update the window.");
 	}
 }

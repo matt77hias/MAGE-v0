@@ -63,19 +63,25 @@ extern "C" {
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator::DisplayDialogProcDelegate(
-		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator
+		::DisplayDialogProcDelegate(HWND dialog, 
+			                        UINT message, 
+			                        WPARAM wParam, 
+			                        LPARAM lParam) {
 
 		DisplayConfigurator * const display_configurator
-			= GetDialogCaller< DisplayConfigurator >(
-				hwndDlg, uMsg, wParam, lParam);
+			= GetDialogCaller< DisplayConfigurator >(dialog, 
+				                                     message, 
+				                                     wParam, 
+				                                     lParam);
 		
-		return display_configurator->DisplayDialogProc(
-				hwndDlg, uMsg, wParam, lParam);
+		return display_configurator->DisplayDialogProc(dialog, 
+			                                           message, 
+			                                           wParam, 
+			                                           lParam);
 	}
 
-	DisplayConfigurator::DisplayConfigurator(
-		DXGI_FORMAT pixel_format)
+	DisplayConfigurator::DisplayConfigurator(DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format), 
 		m_display_configuration(),
 		m_display_configuration_script(),
@@ -96,13 +102,14 @@ namespace mage {
 
 	}
 
-	DisplayConfigurator::DisplayConfigurator(
-		ComPtr< IDXGIAdapter4 > adapter, ComPtr< IDXGIOutput6 > output,
-		DXGI_FORMAT pixel_format)
+	DisplayConfigurator::DisplayConfigurator(ComPtr< IDXGIAdapter4 > adapter, 
+		                                     ComPtr< IDXGIOutput6 > output,
+		                                     DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format),
 		m_display_configuration(), 
 		m_display_configuration_script(),
-		m_adapter(adapter), m_output(output), 
+		m_adapter(std::move(adapter)), 
+		m_output(std::move(output)), 
 		m_display_modes() {
 
 		// Load the settings script.
@@ -117,7 +124,7 @@ namespace mage {
 	}
 
 	DisplayConfigurator::DisplayConfigurator(
-		DisplayConfigurator &&device_enumeration) noexcept = default;
+		DisplayConfigurator &&configurator) noexcept = default;
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 
@@ -129,8 +136,11 @@ namespace mage {
 	 @return		@c true if the given display mode needs to be rejected.
 					@c false otherwise.
 	 */
-	static inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
-		return (display_mode_desc.Width < 512u) || (display_mode_desc.Height < 512u);
+	static inline bool RejectDisplayMode(
+		const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
+		
+		return (display_mode_desc.Width  < 512u) 
+			|| (display_mode_desc.Height < 512u);
 	}
 	
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
@@ -151,7 +161,7 @@ namespace mage {
 		ComPtr< IDXGIOutput > output;
 		SIZE_T max_vram = 0;
 		for (U32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
-			!= DXGI_ERROR_NOT_FOUND; ++i) {
+			             != DXGI_ERROR_NOT_FOUND; ++i) {
 
 			// Get the IDXGIAdapter4.
 			ComPtr< IDXGIAdapter4 > adapter4;
@@ -197,7 +207,6 @@ namespace mage {
 	}
 	
 	void DisplayConfigurator::InitializeDisplayModes() {
-		
 		const U32 flags = DXGI_ENUM_MODES_INTERLACED;
 		
 		// Get the number of display modes that match the requested format 
@@ -247,12 +256,13 @@ namespace mage {
 		// 4. A pointer to the dialog box procedure.
 		// 5. The value to pass to the dialog box in the lParam parameter 
 		//    of the WM_INITDIALOG message.
-		const INT_PTR result_dialog 
-			= DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
-				             nullptr, DisplayDialogProcDelegate, 
-				             reinterpret_cast< LPARAM >(this));
+		const INT_PTR result_dialog = DialogBoxParam(nullptr, 
+			                                         MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
+				                                     nullptr, 
+			                                         DisplayDialogProcDelegate, 
+				                                     reinterpret_cast< LPARAM >(this));
 		
-		return (result_dialog == IDOK) ? S_OK : E_FAIL;
+		return (IDOK == result_dialog) ? S_OK : E_FAIL;
 	}
 	
 	/**
@@ -282,15 +292,17 @@ namespace mage {
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	[[nodiscard]] INT_PTR DisplayConfigurator::DisplayDialogProc(
-		HWND hwndDlg, UINT uMsg,
-		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam) {
+	[[nodiscard]] INT_PTR DisplayConfigurator
+		::DisplayDialogProc(HWND dialog, 
+			                UINT message,
+		                    [[maybe_unused]] WPARAM wParam, 
+			                [[maybe_unused]] LPARAM lParam) {
 
 		wchar_t buffer[16];
 
 		// color depth (format) affects resolution affects refresh rate.
 
-		switch (uMsg) {
+		switch (message) {
 		
 		case WM_INITDIALOG: {
 			// Sent to the dialog box procedure immediately before a dialog box is 
@@ -301,7 +313,7 @@ namespace mage {
 			// Display the adapter details.
 			DXGI_ADAPTER_DESC2 desc;
 			m_adapter->GetDesc2(&desc);
-			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
+			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_display_configuration_script->IsEmpty()) {
 				m_display_configuration_script->AddVariable(
@@ -326,8 +338,8 @@ namespace mage {
 				// 1. A handle to the dialog box that contains the button.
 				// 2. The identifier of the button to modify.
 				// 3. The check state of the button.
-				CheckDlgButton(hwndDlg, IDC_WINDOWED, windowed);
-				CheckDlgButton(hwndDlg, IDC_FULLSCREEN, !windowed);
+				CheckDlgButton(dialog, IDC_WINDOWED, windowed);
+				CheckDlgButton(dialog, IDC_FULLSCREEN, !windowed);
 			}
 
 			// Vsync state
@@ -340,64 +352,63 @@ namespace mage {
 				// 1. A handle to the dialog box that contains the button.
 				// 2. The identifier of the button to modify.
 				// 3. The check state of the button.
-				CheckDlgButton(hwndDlg, IDC_VSYNC, vsync);
+				CheckDlgButton(dialog, IDC_VSYNC, vsync);
 			}
 			
 			// Anti-aliasing state
 			{
 				// Remove all items from the list box and edit control of a combo box.
-				ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_AA));
+				ComboBox_ResetContent(GetDlgItem(dialog, IDC_AA));
 				
 				// Fill in the anti-aliasing combo box.
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::None),     L"None");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::FXAA),     L"FXAA");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::MSAA_2x),  L"MSAA 2x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::MSAA_4x),  L"MSAA 4x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::MSAA_8x),  L"MSAA 8x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::SSAA_2x),  L"SSAA 2x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::SSAA_3x),  L"SSAA 3x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
+				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast<size_t>(AADescriptor::SSAA_4x),  L"SSAA 4x");
 				
 				const int aa_index = *m_display_configuration_script->
 					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_AA);
-				ComboBoxSelect(hwndDlg, IDC_AA, aa_index);
+				ComboBoxSelect(dialog, IDC_AA, aa_index);
 			}
 			
 			// Resolution state
 			{
 				// Remove all items from the list box and edit control of a combo box.
-				ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
+				ComboBox_ResetContent(GetDlgItem(dialog, IDC_RESOLUTION));
 
 				// Fill in the resolutions combo box.
 				for (const auto &mode : m_display_modes) {
 					swprintf_s(buffer, std::size(buffer), L"%u x %u", mode.Width, mode.Height);
 
-					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
+					if (!ComboBoxContains(dialog, IDC_RESOLUTION, buffer)) {
 						const size_t resolution = ConvertResolution(mode);
-						ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
+						ComboBoxAddValue(dialog, IDC_RESOLUTION, resolution, buffer);
 					}
 				}
 
 				const int resolution_index = *m_display_configuration_script->
 					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
-				ComboBoxSelect(hwndDlg, IDC_RESOLUTION, resolution_index);
+				ComboBoxSelect(dialog, IDC_RESOLUTION, resolution_index);
 			}
 
 			// Refresh rate state
 			{
-
-				const size_t selected_resolution = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+				const size_t selected_resolution = ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 
 				// Remove all items from the list box and edit control of a combo box.
-				ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
+				ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
 
 				// Fill in the refresh rates combo box associated with the current resolution.
 				for (const auto &mode : m_display_modes) {
@@ -408,15 +419,15 @@ namespace mage {
 						swprintf_s(buffer, std::size(buffer), L"%u Hz",
 							static_cast< unsigned int >(refresh_rate));
 
-						if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-							ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
+						if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
+							ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
 						}
 					}
 				}
 
 				const int refresh_rate_index = *m_display_configuration_script->
 					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
-				ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, refresh_rate_index);
+				ComboBoxSelect(dialog, IDC_REFRESH_RATE, refresh_rate_index);
 			}
 
 			return TRUE;
@@ -432,11 +443,11 @@ namespace mage {
 				
 				// Load all the settings.
 				const AADescriptor selected_aa
-					= RetrieveAADescriptor(ComboBoxSelectedValue(hwndDlg, IDC_AA));
+					= RetrieveAADescriptor(ComboBoxSelectedValue(dialog, IDC_AA));
 				const size_t selected_refresh_rate 
-					= ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
+					= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
 				const size_t selected_resolution
-					= ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 				
 				const DXGI_MODE_DESC1 *selected_diplay_mode 
 					= nullptr;
@@ -458,15 +469,15 @@ namespace mage {
 				if (!selected_diplay_mode) {
 					Error("Selected display mode retrieval failed.");
 
-					// Close the hwndDlg.
-					EndDialog(hwndDlg, IDCANCEL);
+					// Close the dialog.
+					EndDialog(dialog, IDCANCEL);
 
 					return TRUE;
 				}
 				
-				const bool windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) 
+				const bool windowed = IsDlgButtonChecked(dialog, IDC_WINDOWED) 
 									? true : false;
-				const bool vsync	= IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    
+				const bool vsync	= IsDlgButtonChecked(dialog, IDC_VSYNC)    
 									? true : false;
 
 				// Store all the settings to the display configuration.
@@ -478,11 +489,11 @@ namespace mage {
 
 				// Get the selected index from each combo box.
 				const int aa_index 
-					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_AA));
+					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_AA));
 				const int refresh_rate_index 
-					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
+					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_REFRESH_RATE));
 				const int resolution_index
-					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
+					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_RESOLUTION));
 				
 				// Store all the settings to the display configuration script.
 				m_display_configuration_script->SetValueOfVariable(
@@ -499,15 +510,15 @@ namespace mage {
 				// Save all the settings in the display configuration script.
 				m_display_configuration_script->ExportScript();
 
-				// Close the hwndDlg.
-				EndDialog(hwndDlg, IDOK);
+				// Close the dialog.
+				EndDialog(dialog, IDOK);
 
 				return TRUE;
 			}
 			
 			case IDCANCEL: {
-				// Close the hwndDlg.
-				EndDialog(hwndDlg, IDCANCEL);
+				// Close the dialog.
+				EndDialog(dialog, IDCANCEL);
 
 				return TRUE;
 			}
@@ -517,13 +528,13 @@ namespace mage {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					
 					const size_t selected_resolution 
-						= ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+						= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 					const size_t selected_refresh_rate 
-						= ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
+						= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
 
 					// Remove all items from the list box and edit control of a 
 					// combo box.
-					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
+					ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
 					
 					// Update the refresh rate combo box.
 					for (const auto &mode : m_display_modes) {
@@ -536,18 +547,18 @@ namespace mage {
 							swprintf_s(buffer, std::size(buffer), L"%u Hz",
 								static_cast< unsigned int >(refresh_rate));
 							
-							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
+							if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
+								ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
 								
 								if (selected_refresh_rate == refresh_rate) {
-									ComboBoxSelectValue(hwndDlg, IDC_REFRESH_RATE, selected_refresh_rate);
+									ComboBoxSelectValue(dialog, IDC_REFRESH_RATE, selected_refresh_rate);
 								}
 							}
 						}
 					}
 
-					if (ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE) == nullptr) {
-						ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, 0);
+					if (ComboBoxSelected(dialog, IDC_REFRESH_RATE) == nullptr) {
+						ComboBoxSelect(dialog, IDC_REFRESH_RATE, 0);
 					}
 				}
 

@@ -20,10 +20,10 @@ namespace mage {
 		return Engine::Get()->GetInputManager();
 	}
 
-	InputManager::InputManager(HWND hwindow) 
-		: m_hwindow(hwindow), m_di(), m_keyboard(), m_mouse() {
+	InputManager::InputManager(HWND window) 
+		: m_window(window), m_di(), m_keyboard(), m_mouse() {
 
-		Assert(m_hwindow);
+		Assert(m_window);
 
 		InitializeDI();
 		InitializeInputSystems();
@@ -47,15 +47,16 @@ namespace mage {
 		// 5. Pointer to the address of the controlling object's IUnknown 
 		//    interface for COM aggregation, or nullptr if the interface is 
 		//    not aggregated.
-		const HRESULT result_di = DirectInput8Create(
-			GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, 
-			(void **)m_di.ReleaseAndGetAddressOf(), nullptr);
-		ThrowIfFailed(result_di, 
-			"DirectInput initialization failed: %ld", result_di);
+		const HRESULT result = DirectInput8Create(GetModuleHandle(nullptr), 
+			                                      DIRECTINPUT_VERSION, 
+			                                      IID_IDirectInput8, 
+			                                      (void **)m_di.ReleaseAndGetAddressOf(), 
+			                                      nullptr);
+		ThrowIfFailed(result, "DirectInput initialization failed: %ld", result);
 	}
 
 	void InputManager::InitializeInputSystems() {
-		m_keyboard = MakeUnique< Keyboard >(m_hwindow, m_di.Get());
-		m_mouse    = MakeUnique< Mouse >(   m_hwindow, m_di.Get());
+		m_keyboard = MakeUnique< Keyboard >(m_window, m_di.Get());
+		m_mouse    = MakeUnique< Mouse >(   m_window, m_di.Get());
 	}
 }

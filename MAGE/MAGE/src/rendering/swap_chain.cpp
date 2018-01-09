@@ -22,13 +22,16 @@ namespace mage {
 		return RenderingManager::Get()->GetSwapChain();
 	}
 
-	SwapChain::SwapChain(ID3D11Device5 *device, HWND hwindow,
-		DisplayConfiguration *display_configuration)
-		: m_hwindow(hwindow), 
+	SwapChain::SwapChain(ID3D11Device5 *device, 
+		                 HWND window,
+		                 DisplayConfiguration *display_configuration)
+		: m_window(window), 
 		m_display_configuration(display_configuration),
-		m_device(device), m_swap_chain(), m_rtv() {
+		m_device(device), 
+		m_swap_chain(), 
+		m_rtv() {
 
-		Assert(m_hwindow);
+		Assert(m_window);
 		Assert(m_display_configuration);
 		Assert(m_device);
 
@@ -61,7 +64,8 @@ namespace mage {
 	void SwapChain::ResetSwapChain() {
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0u, 0u, 0u,
-			DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+			                        DXGI_FORMAT_UNKNOWN, 
+			                        DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		// Create the back buffer RTV.
 		CreateRTV();
 	}
@@ -87,11 +91,10 @@ namespace mage {
 		//
 		// DXGI_MWA_NO_PRINT_SCREEN: 
 		// Prevent DXGI from responding to a print-screen key.
-		dxgi_factory5->MakeWindowAssociation(
-			m_hwindow, 
-			  DXGI_MWA_NO_WINDOW_CHANGES 
-			| DXGI_MWA_NO_ALT_ENTER 
-			| DXGI_MWA_NO_PRINT_SCREEN);
+		dxgi_factory5->MakeWindowAssociation(m_window, 
+			                                 DXGI_MWA_NO_WINDOW_CHANGES 
+			                               | DXGI_MWA_NO_ALT_ENTER 
+			                               | DXGI_MWA_NO_PRINT_SCREEN);
 
 		// Create a swap chain descriptor.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
@@ -112,7 +115,7 @@ namespace mage {
 		{
 			// Get the IDXGISwapChain1.
 			const HRESULT result = dxgi_factory5->CreateSwapChainForHwnd(
-				m_device, m_hwindow,
+				m_device, m_window,
 				&swap_chain_desc, &swap_chain_fullscreen_desc, nullptr,
 				swap_chain1.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
@@ -133,17 +136,20 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result = m_swap_chain->GetBuffer(
-				0u, __uuidof(ID3D11Texture2D), 
-				(void **)back_buffer.GetAddressOf());
+			const HRESULT result 
+				= m_swap_chain->GetBuffer(0u, 
+					                      __uuidof(ID3D11Texture2D), 
+				                          (void **)back_buffer.GetAddressOf());
 			ThrowIfFailed(result,
 				"Back buffer texture creation failed: %08X.", result);
 		}
 
 		{
 			// Create the RTV.
-			const HRESULT result = m_device->CreateRenderTargetView(
-				back_buffer.Get(), nullptr, m_rtv.ReleaseAndGetAddressOf());
+			const HRESULT result 
+				= m_device->CreateRenderTargetView(back_buffer.Get(), 
+					                               nullptr, 
+					                               m_rtv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
 				"Back buffer RTV creation failed: %08X.", result);
 		}
@@ -156,8 +162,8 @@ namespace mage {
 
 	void SwapChain::Present() const noexcept {
 		// Present the back buffer to the front buffer.
-		const U32 sync_interval 
-			= (m_display_configuration->IsVSynced()) ? 1u : 0u;
+		const U32 sync_interval = (m_display_configuration->IsVSynced()) 
+			                      ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 	}
 
@@ -165,9 +171,10 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result = m_swap_chain->GetBuffer(
-				0u, __uuidof(ID3D11Texture2D),
-				(void **)back_buffer.GetAddressOf());
+			const HRESULT result 
+				= m_swap_chain->GetBuffer(0u, 
+				                          __uuidof(ID3D11Texture2D),
+				                          (void **)back_buffer.GetAddressOf());
 			ThrowIfFailed(result,
 				"Back buffer texture creation failed: %08X.", result);
 		}
@@ -177,7 +184,8 @@ namespace mage {
 			                + L".png";
 		
 		loader::ExportTextureToFile(fname,
-			Pipeline::GetImmediateDeviceContext(), back_buffer.Get());
+			                        Pipeline::GetImmediateDeviceContext(), 
+			                        back_buffer.Get());
 	}
 
 	//-------------------------------------------------------------------------

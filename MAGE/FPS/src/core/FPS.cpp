@@ -6,9 +6,9 @@ using namespace mage;
 /**
  The user-provided entry point for MAGE.
 
- @param[in]		hinstance
+ @param[in]		instance
 				A handle to the current instance of the application.
- @param[in]		hPrevInstance
+ @param[in]		prev_instance
 				A handle to the previous instance of the application.
 				This parameter is always @c nullptr.
  @param[in]		lpCmdLine
@@ -19,7 +19,7 @@ using namespace mage;
 				it returns the exit value contained in that message's @c wParam parameter. 
 				If the function terminates before entering the message loop, it returns 0.
  */
-int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	#ifdef _DEBUG
 	const int debug_flags = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
@@ -32,7 +32,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	AddUnhandledExceptionFilter();
 
 	// Create the engine setup.
-	EngineSetup setup(hinstance, L"MAGE");
+	EngineSetup setup(instance, L"MAGE");
 	// Create the engine.
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
 

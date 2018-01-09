@@ -44,14 +44,14 @@ namespace mage {
 		/**
 		 Constructs a rendering manager.
 
-		 @pre			@a hwindow is not equal to @c nullptr.
+		 @pre			@a window is not equal to @c nullptr.
 		 @pre			@a display_configuration is not equal to @c nullptr.
-		 @param[in]		hwindow
+		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
 						A pointer to the display configuration.
 		 */
-		explicit RenderingManager(HWND hwindow, 
+		explicit RenderingManager(HWND window, 
 			const DisplayConfiguration *display_configuration);
 
 		/**
@@ -238,7 +238,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this rendering manager.
 		 */
-		const HWND m_hwindow;
+		const HWND m_window;
 
 		/**
 		 A pointer to the display configuration of this rendering manager.

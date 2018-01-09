@@ -41,7 +41,6 @@ namespace mage {
 	Engine::Engine(Engine &&engine) noexcept = default;
 
 	Engine::~Engine() {
-
 		// Uninitialize the systems of this engine.
 		UninitializeSystems();
 
@@ -49,7 +48,6 @@ namespace mage {
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {
-
 		// Initialize a console.
 		InitializeConsole();
 		PrintConsoleHeader();
@@ -57,9 +55,9 @@ namespace mage {
 		// Enumerate the devices.
 		UniquePtr< DisplayConfigurator > display_configurator(
 			MakeUnique< DisplayConfigurator >());
-		const HRESULT result_configure = display_configurator->Configure();
-		if (FAILED(result_configure)) {
-			Error("Display configuration failed: %ld", result_configure);
+		const HRESULT result = display_configurator->Configure();
+		if (FAILED(result)) {
+			Error("Display configuration failed: %ld", result);
 			return;
 		}
 
@@ -72,17 +70,17 @@ namespace mage {
 		const U32 width  = display_configuration->GetDisplayWidth();
 		const U32 height = display_configuration->GetDisplayHeight();
 		m_main_window         = MakeUnique< MainWindow >(
-									setup.GetApplicationHinstance(), 
+									setup.GetApplicationInstance(), 
 									setup.GetApplicationName(), 
 									width, height);
 		// Initialize the rendering system.
 		m_rendering_manager   = MakeUnique< RenderingManager >(
-									m_main_window->GetHandle(), 
+									m_main_window->GetWindow(), 
 									display_configuration);
 		m_rendering_manager->BindPersistentState();
 		// Initialize the input system.
 		m_input_manager       = MakeUnique< InputManager >(
-									m_main_window->GetHandle());
+									m_main_window->GetWindow());
 		// Initialize the scene system.
 		m_scene_manager       = MakeUnique< SceneManager >();
 
@@ -128,7 +126,6 @@ namespace mage {
 	}
 	
 	int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
-		
 		// Check if this engine is loaded.
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");

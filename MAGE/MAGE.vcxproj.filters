@@ -606,9 +606,6 @@
     <ClInclude Include="MAGE\src\math\geometry\geometry.hpp">
       <Filter>Header Files\math\geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\geometry\view_frustum.hpp">
-      <Filter>Header Files\math\geometry</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\math\transform\texture_transform.hpp">
       <Filter>Header Files\math\transform</Filter>
     </ClInclude>
@@ -896,12 +893,6 @@
     <ClCompile Include="MAGE\src\math\transform\sprite_transform.cpp">
       <Filter>Source Files\math\transform</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp">
-      <Filter>Source Files\math\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\math\geometry\view_frustum.cpp">
-      <Filter>Source Files\math\geometry</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\transform\transform.cpp">
       <Filter>Source Files\math\transform</Filter>
     </ClCompile>
@@ -919,6 +910,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp">
+      <Filter>Source Files\math\geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -183,12 +183,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the BS of this omni light.
+		 Returns the BoundingSphere of this omni light.
 
-		 @return		A reference to the BS of this omni light.
+		 @return		A reference to the BoundingSphere of this omni light.
 		 */
-		const BS &GetBS() const noexcept {
-			return m_bs;
+		const BoundingSphere &GetBoundingSphere() const noexcept {
+			return m_sphere;
 		}
 
 		//---------------------------------------------------------------------
@@ -328,9 +328,9 @@ namespace mage {
 		AABB m_aabb;
 
 		/**
-		 The BS of this omni light.
+		 The BoundingSphere of this omni light.
 		 */
-		BS m_bs;
+		BoundingSphere m_sphere;
 
 		/**
 		 The sRGB base color of this omni light.

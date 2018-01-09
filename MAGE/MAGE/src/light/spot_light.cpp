@@ -29,7 +29,7 @@ namespace mage {
 		: Component(),
 		m_shadows(false), 
 		m_aabb(), 
-		m_bs(), 
+		m_sphere(), 
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)), 
 		m_intensity(MAGE_DEFAULT_INTENSITY), 
 		m_range(MAGE_DEFAULT_RANGE), 
@@ -57,9 +57,9 @@ namespace mage {
 		const F32 rz        = m_range * 0.5f;
 		const F32 r         = sqrt(rxy * rxy + rz * rz);
 
-		m_aabb = AABB(Point3(-rxy, -rxy, 0.0f),
-				      Point3( rxy,  rxy, m_range));
+		m_aabb   = AABB(Point3(-rxy, -rxy, 0.0f),
+				        Point3( rxy,  rxy, m_range));
 
-		m_bs   = BS(Point3(0.0f, 0.0f, rz), r);
+		m_sphere = BoundingSphere(Point3(0.0f, 0.0f, rz), r);
 	}
 }

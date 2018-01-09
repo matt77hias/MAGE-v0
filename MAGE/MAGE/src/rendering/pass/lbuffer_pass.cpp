@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "math\geometry\view_frustum.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -231,7 +230,7 @@ namespace mage {
 			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
 			// Cull the light against the view frustum.
-			if (ViewFrustum::Cull(object_to_projection, light.GetBS())) {
+			if (BoundingFrustum::Cull(object_to_projection, light.GetBoundingSphere())) {
 				return;
 			}
 
@@ -308,7 +307,7 @@ namespace mage {
 			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
 			// Cull the light against the view frustum.
-			if (ViewFrustum::Cull(object_to_projection, light.GetAABB())) {
+			if (BoundingFrustum::Cull(object_to_projection, light.GetAABB())) {
 				return;
 			}
 

@@ -13,15 +13,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <algorithm>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -194,12 +185,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the BS of this spotlight.
+		 Returns the BoundingSphere of this spotlight.
 
-		 @return		A reference to the BS of this spotlight.
+		 @return		A reference to the BoundingSphere of this spotlight.
 		 */
-		const BS &GetBS() const noexcept {
-			return m_bs;
+		const BoundingSphere &GetBoundingSphere() const noexcept {
+			return m_sphere;
 		}
 
 		//---------------------------------------------------------------------
@@ -459,9 +450,9 @@ namespace mage {
 		AABB m_aabb;
 
 		/**
-		 The BS of this spotlight.
+		 The BoundingSphere of this spotlight.
 		 */
-		BS m_bs;
+		BoundingSphere m_sphere;
 
 		/**
 		 The sRGB base color of this spotlight.

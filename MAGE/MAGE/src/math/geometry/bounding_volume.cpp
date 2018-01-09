@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <algorithm>
+#include <iterator>
 
 #pragma endregion
 
@@ -26,9 +26,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box
 	//-------------------------------------------------------------------------
 
-	AABB::AABB(const BS &bs) noexcept {
-		const XMVECTOR centroid = bs.Centroid();
-		const F32 r = bs.Radius();
+	AABB::AABB(const BoundingSphere &sphere) noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 r = sphere.Radius();
 		const XMVECTOR radius = XMVectorSet(r, r, r, 0.0f);
 		m_min = centroid - radius;
 		m_max = centroid + radius;
@@ -38,9 +38,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	bool AABB::Encloses(const BS &bs) const noexcept {
-		const XMVECTOR centroid = bs.Centroid();
-		const F32 r = bs.Radius();
+	bool AABB::Encloses(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 r = sphere.Radius();
 		const XMVECTOR radius = XMVectorSet(r, r, r, 0.0f);
 
 		if (XMVector3Less(m_max - centroid, radius)) {
@@ -53,9 +53,9 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::EnclosesStrict(const BS &bs) const noexcept {
-		const XMVECTOR centroid = bs.Centroid();
-		const F32 r = bs.Radius();
+	bool AABB::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 r = sphere.Radius();
 		const XMVECTOR radius = XMVectorSet(r, r, r, 0.0f);
 
 		if (XMVector3LessOrEqual(m_max - centroid, radius)) {
@@ -72,9 +72,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Partial | Full Coverage
 	//-------------------------------------------------------------------------
 
-	bool AABB::Overlaps(const BS &bs) const noexcept {
-		const XMVECTOR centroid = bs.Centroid();
-		const F32 r = -bs.Radius();
+	bool AABB::Overlaps(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 r = -sphere.Radius();
 		const XMVECTOR radius = XMVectorSet(r, r, r, 0.0f);
 
 		// Test for no coverage.
@@ -88,9 +88,9 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::OverlapsStrict(const BS &bs) const noexcept {
-		const XMVECTOR centroid = bs.Centroid();
-		const F32 r = -bs.Radius();
+	bool AABB::OverlapsStrict(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 r = -sphere.Radius();
 		const XMVECTOR radius = XMVectorSet(r, r, r, 0.0f);
 
 		// Test for no coverage.
@@ -108,7 +108,7 @@ namespace mage {
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
 
-	BS::BS(const AABB &aabb) noexcept {
+	BoundingSphere::BoundingSphere(const AABB &aabb) noexcept {
 		const XMVECTOR centroid = aabb.Centroid();
 		const XMVECTOR radius   = aabb.Radius();
 		const F32 r = std::max(XMVectorGetX(radius), 
@@ -121,7 +121,7 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	bool BS::Encloses(const AABB &aabb) const noexcept {
+	bool BoundingSphere::Encloses(const AABB &aabb) const noexcept {
 		const XMVECTOR pmin = aabb.MinPoint();
 		const XMVECTOR pmax = aabb.MaxPoint();
 		
@@ -153,7 +153,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosesStrict(const AABB &aabb) const noexcept {
+	bool BoundingSphere::EnclosesStrict(const AABB &aabb) const noexcept {
 		const XMVECTOR pmin = aabb.MinPoint();
 		const XMVECTOR pmax = aabb.MaxPoint();
 
@@ -185,9 +185,9 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::Encloses(const BS &bs) const noexcept {
-		const XMVECTOR p = bs.Centroid();
-		const F32 radius = bs.Radius();
+	bool BoundingSphere::Encloses(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR p = sphere.Centroid();
+		const F32 radius = sphere.Radius();
 
 		if (!Encloses(p - XMVectorSet(radius, 0.0f, 0.0f, 0.0f))) {
 			return false;
@@ -211,9 +211,9 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosesStrict(const BS &bs) const noexcept {
-		const XMVECTOR p = bs.Centroid();
-		const F32 radius = bs.Radius();
+	bool BoundingSphere::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR p = sphere.Centroid();
+		const F32 radius = sphere.Radius();
 
 		if (!EnclosesStrict(p - XMVectorSet(radius, 0.0f, 0.0f, 0.0f))) {
 			return false;
@@ -235,5 +235,209 @@ namespace mage {
 		}
 
 		return true;
+	}
+
+	//-------------------------------------------------------------------------
+	// Bounding Frustum
+	//-------------------------------------------------------------------------
+
+	BoundingFrustum::BoundingFrustum(CXMMATRIX transform) noexcept {
+		const XMMATRIX C = XMMatrixTranspose(transform);
+
+		// Extract the view frustum planes from the given transform.
+		// All view frustum planes are inward facing: 0 <= n . p + d
+
+		// p' = (x',y',z',w') = (x,y,z,1) T = p T
+
+		//   -w' <= x'
+		// <=> 0 <= w' + x'
+		// <=> 0 <= p . c3 + p . c0
+		// <=> 0 <= p . (c3 + c0)
+		m_left_plane = C.r[3] + C.r[0];
+		
+		//    x' <= w'
+		// <=> 0 <= w' - x'
+		// <=> 0 <= p . c3 - p . c0
+		// <=> 0 <= p . (c3 - c0)
+		m_right_plane = C.r[3] - C.r[0];
+		
+		//   -w' <= y'
+		// <=> 0 <= w' + y'
+		// <=> 0 <= p . c3 + p . c1
+		// <=> 0 <= p . (c3 + c1)
+		m_bottom_plane = C.r[3] + C.r[1];
+		
+		//    y' <= w'
+		// <=> 0 <= w' - y'
+		// <=> 0 <= p . c3 - p . c1
+		// <=> 0 <= p . (c3 - c1)
+		m_top_plane = C.r[3] - C.r[1];
+		
+		//     0 <= z'
+		// <=> 0 <= p . c2
+		m_near_plane = C.r[2];
+
+		//    z' <= w'
+		// <=> 0 <= w' - z'
+		// <=> 0 <= p . c3 - p . c2
+		// <=> 0 <= p . (c3 - c2)
+		m_far_plane = C.r[3] - C.r[2];
+
+		// Normalize the view frustum planes.
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			m_planes[i] = XMPlaneNormalize(m_planes[i]);
+		}
+	}
+
+	//-------------------------------------------------------------------------
+	// BoundingFrustum: Enclosing = Full Coverage
+	//-------------------------------------------------------------------------
+
+	bool XM_CALLCONV BoundingFrustum::Encloses(FXMVECTOR point) const noexcept {
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
+			if (XMVectorGetX(result) < 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool XM_CALLCONV BoundingFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
+			if (XMVectorGetX(result) <= 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::Encloses(const AABB &aabb) const noexcept {
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR p = aabb.MinPointAlongNormal(m_planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
+			if (XMVectorGetX(result) < 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::EnclosesStrict(const AABB &aabb) const noexcept {
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR p = aabb.MinPointAlongNormal(m_planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
+			if (XMVectorGetX(result) <= 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::Encloses(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 radius = sphere.Radius();
+		
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], centroid);
+			if (XMVectorGetX(result) < radius) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 radius = sphere.Radius();
+
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], centroid);
+			if (XMVectorGetX(result) <= radius) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	//-------------------------------------------------------------------------
+	// BoundingFrustum: Overlapping = Partial | Full Coverage
+	//-------------------------------------------------------------------------
+
+	bool BoundingFrustum::Overlaps(const AABB &aabb) const noexcept {
+		// Test for no coverage.
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR p = aabb.MaxPointAlongNormal(m_planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
+			if (XMVectorGetX(result) < 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::OverlapsStrict(const AABB &aabb) const noexcept {
+		// Test for no coverage.
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR p = aabb.MaxPointAlongNormal(m_planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
+			if (XMVectorGetX(result) <= 0.0f) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::Overlaps(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 radius = sphere.Radius();
+		
+		// Test for no coverage.
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], centroid);
+			if (XMVectorGetX(result) < -radius) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool BoundingFrustum::OverlapsStrict(const BoundingSphere &sphere) const noexcept {
+		const XMVECTOR centroid = sphere.Centroid();
+		const F32 radius = sphere.Radius();
+		
+		// Test for no coverage.
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], centroid);
+			if (XMVectorGetX(result) <= -radius) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	//-------------------------------------------------------------------------
+	// BoundingFrustum: Operators
+	//-------------------------------------------------------------------------
+
+	bool BoundingFrustum::operator==(const BoundingFrustum &frustum) const noexcept {
+		for (size_t i = 0; i < std::size(m_planes); ++i) {
+			if (XMVector4NotEqual(m_planes[i], frustum.m_planes[i])) {
+				return false;
+			}
+		}
+		
+		return false;
 	}
 }

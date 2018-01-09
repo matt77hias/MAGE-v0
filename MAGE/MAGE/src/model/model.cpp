@@ -13,11 +13,13 @@
 namespace mage {
 
 	Model::Model(SharedPtr< const Mesh > mesh, 
-		size_t start_index, size_t nb_indices,
-		const AABB &aabb, const BS &bs) 
+		         size_t start_index, 
+		         size_t nb_indices,
+		         const AABB &aabb, 
+		         const BoundingSphere &bs) 
 		: Component(),
 		m_aabb(aabb),
-		m_bs(bs),
+		m_sphere(bs),
 		m_mesh(std::move(mesh)), 
 		m_start_index(start_index), 
 		m_nb_indices(nb_indices),

@@ -45,11 +45,13 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB.
 		 @param[in]		bs
-						A reference to the BS.
+						A reference to the BoundingSphere.
 		 */
 		explicit Model(SharedPtr< const Mesh > mesh, 
-			size_t start_index, size_t nb_indices, 
-			const AABB &aabb, const BS &bs);
+			           size_t start_index, 
+			           size_t nb_indices, 
+			           const AABB &aabb, 
+			           const BoundingSphere &bs);
 
 		/**
 		 Constructs a model from the given model.
@@ -109,12 +111,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the BS of this model.
+		 Returns the bounding sphere of this model.
 
-		 @return		A reference to the BS of this model.
+		 @return		A reference to the bounding sphere of this model.
 		 */
-		const BS &GetBS() const noexcept {
-			return m_bs;
+		const BoundingSphere &GetBoundingSphere() const noexcept {
+			return m_sphere;
 		}
 
 		/**
@@ -157,7 +159,7 @@ namespace mage {
 						The primitive topology.
 		 */
 		void BindMesh(ID3D11DeviceContext4 *device_context, 
-			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			m_mesh->BindMesh(device_context, topology);
 		}
@@ -271,9 +273,9 @@ namespace mage {
 		AABB m_aabb;
 
 		/**
-		 The BS of this model.
+		 The bounding sphere of this model.
 		 */
-		BS m_bs;
+		BoundingSphere m_sphere;
 
 		/**
 		 A pointer to the mesh of this model.

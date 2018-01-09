@@ -5,7 +5,6 @@
 
 #include "rendering\rendering_manager.hpp"
 #include "resource\resource_factory.hpp"
-#include "math\geometry\view_frustum.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -116,7 +115,7 @@ namespace mage {
 			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, light.GetBS())) {
+			if (BoundingFrustum::Cull(object_to_projection, light.GetBoundingSphere())) {
 				return;
 			}
 
@@ -146,7 +145,7 @@ namespace mage {
 			const AABB &aabb                    = light.GetAABB();
 
 			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, aabb)) {
+			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
 				return;
 			}
 
@@ -178,7 +177,7 @@ namespace mage {
 			const AABB &aabb                    = model.GetAABB();
 
 			// Apply view frustum culling.
-			if (ViewFrustum::Cull(object_to_projection, aabb)) {
+			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
 				return;
 			}
 

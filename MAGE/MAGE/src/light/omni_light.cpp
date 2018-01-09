@@ -29,7 +29,7 @@ namespace mage {
 		m_range(MAGE_DEFAULT_RANGE), 
 		m_intensity(MAGE_DEFAULT_INTENSITY),
 		m_aabb(), 
-		m_bs(), 
+		m_sphere(), 
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {
 
 		// Update the bounding volumes.
@@ -47,8 +47,8 @@ namespace mage {
 	OmniLight &OmniLight::operator=(OmniLight &&light) noexcept = default;
 	
 	void OmniLight::UpdateBoundingVolumes() noexcept {
-		m_aabb = AABB(Point3(-m_range, -m_range, -m_range),
-			          Point3( m_range,  m_range,  m_range));
-		m_bs   = BS(Point3(), m_range);
+		m_aabb   = AABB(Point3(-m_range, -m_range, -m_range),
+			            Point3( m_range,  m_range,  m_range));
+		m_sphere = BoundingSphere(Point3(), m_range);
 	}
 }

@@ -25,24 +25,6 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Coverage
-	//-------------------------------------------------------------------------
-
-	/**
-	 An enumeration of the different coverages for volumes.
-
-	 This contains:
-	 @c NoCoverage,
-	 @c PartialCoverage and
-	 @c FullCoverage.
-	 */
-	enum struct Coverage {
-		NoCoverage,		 // No coverage      (i.e. no overlap)
-		PartialCoverage, // Partial coverage (i.e. overlap + not enclosing)
-		FullCoverage	 // Full coverage    (i.e. overlap + enclosing)
-	};
-
-	//-------------------------------------------------------------------------
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -51,9 +33,9 @@ namespace mage {
 	class AABB;
 
 	/**
-	 A struct of Bounding Spheres (BS).
+	 A class of Bounding Spheres.
 	 */
-	class alignas(16) BS final {
+	class alignas(16) BoundingSphere final {
 
 	public:
 
@@ -62,56 +44,66 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Returns the union BS of the given BS and the given point.
+		 Returns the union bounding sphere of the given bounding sphere and the 
+		 given point.
 
-		 @param[in]		bs
-						A reference to the BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
 		 @param[in]		point
 						A reference to the point.
-		 @return		The union BS of @a bs and @a point.
+		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
-		static const BS Union(const BS &bs, const Point3 &point) noexcept {
-			return Union(bs, XMLoadFloat3(&point));
+		static const BoundingSphere Union(const BoundingSphere &sphere, 
+			                              const Point3 &point) noexcept {
+
+			return Union(sphere, XMLoadFloat3(&point));
 		}
 
 		/**
-		 Returns the union BS of the given BS and the given vertex.
+		 Returns the union bounding sphere of the given bounding sphere and the 
+		 given vertex.
 
 		 @tparam		VertexT
 						The vertex type.
-		 @param[in]		bs
-						A reference to the BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
 		 @param[in]		vertex
-						A reference to the VertexT.
-		 @return		The union BS of @a bs and @a vertex.
+						A reference to the vertex.
+		 @return		The union bounding sphere of @a sphere and @a vertex.
 		 */
 		template< typename VertexT >
-		static const BS Union(const BS &bs, const VertexT &vertex) noexcept {
-			return Union(bs, vertex.m_p);
+		static const BoundingSphere Union(const BoundingSphere &sphere, 
+			                              const VertexT &vertex) noexcept {
+
+			return Union(sphere, vertex.m_p);
 		}
 
 		/**
-		 Returns the union BS of the given BS and the given point.
+		 Returns the union bounding sphere of the given bounding sphere and the 
+		 given point.
 
-		 @param[in]		bs
-						A reference to the BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
 		 @param[in]		point
 						The point.
-		 @return		The union BS of @a bs and @a point.
+		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
-		static const BS XM_CALLCONV Union(const BS &bs, FXMVECTOR point) noexcept {
-			const XMVECTOR length = XMVector3Length(point - bs.m_pr);
-			const F32 radius = std::max(bs.Radius(), XMVectorGetX(length));
-			return BS(bs.m_pr, radius);
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere &sphere, 
+			                                          FXMVECTOR point) noexcept {
+			const XMVECTOR length = XMVector3Length(point - sphere.m_pr);
+			const F32 radius = std::max(sphere.Radius(), XMVectorGetX(length));
+			return BoundingSphere(sphere.m_pr, radius);
 		}
 
 		/**
-		 Returns the maximum BS (i.e. invariant for union operations).
+		 Returns the maximum bounding sphere (i.e. the bounding sphere that is
+		 invariant for union operations).
 
-		 @return		The maximum BS.
+		 @return		The maximum bounding sphere.
 		 */
-		static const BS Maximum() noexcept {
-			return BS(g_XMZero, std::numeric_limits< float >::infinity());
+		static const BoundingSphere Maximum() noexcept {
+			return BoundingSphere(g_XMZero, 
+				                  std::numeric_limits< float >::infinity());
 		}
 
 		//---------------------------------------------------------------------
@@ -119,119 +111,121 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a BS.
+		 Constructs a bounding sphere.
 		 */
-		BS() noexcept
+		BoundingSphere() noexcept
 			: m_pr(g_XMZero) {}
 
 		/**
-		 Constructs a BS of the given point.
+		 Constructs a bounding sphere of the given point.
 
 		 @param[in]		p
 						A reference to the point.
 		 */
-		explicit BS(const Point3 &p) noexcept 
-			: BS(p, 0.0f) {}
+		explicit BoundingSphere(const Point3 &p) noexcept 
+			: BoundingSphere(p, 0.0f) {}
 
 		/**
-		 Constructs a BS of the given point.
+		 Constructs a bounding sphere of the given point.
 
 		 @param[in]		p
 						The point.
 		 */
-		explicit BS(FXMVECTOR p) noexcept
-			: BS(p, 0.0f) {}
+		explicit BoundingSphere(FXMVECTOR p) noexcept
+			: BoundingSphere(p, 0.0f) {}
 
 		/**
-		 Constructs a BS.
+		 Constructs a BoundingSphere.
 
 		 @param[in]		p
 						A reference to the position.
 		 @param[in]		r
 						The radius.
 		 */
-		BS(const Point3 &p, F32 r) noexcept
-			: BS(XMLoadFloat3(&p), r) {}
+		BoundingSphere(const Point3 &p, F32 r) noexcept
+			: BoundingSphere(XMLoadFloat3(&p), r) {}
 
 		/**
-		 Constructs a BS.
+		 Constructs a bounding sphere.
 
 		 @param[in]		p
 						The position.
 		 @param[in]		r
 						The radius.
 		 */
-		BS(FXMVECTOR p, F32 r) noexcept
+		BoundingSphere(FXMVECTOR p, F32 r) noexcept
 			: m_pr(XMVectorSetW(p, r)) {}
 
 		/**
-		 Constructs a BS from the given AABB.
+		 Constructs a bounding sphere from the given AABB.
 
 		 @param[in]		aabb
 						A reference to the aabb.
 		 */
-		explicit BS(const AABB &aabb) noexcept;
+		explicit BoundingSphere(const AABB &aabb) noexcept;
 
 		/**
-		 Constructs a BS from the given BS.
+		 Constructs a bounding sphere from the given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the bs.
+		 @param[in]		sphere
+						A reference to the sphere to copy.
 		 */
-		BS(const BS &bs) noexcept = default;
+		BoundingSphere(const BoundingSphere &sphere) noexcept = default;
 
 		/**
-		 Constructs a BS from the given BS.
+		 Constructs a bounding sphere by moving the given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the bs.
+		 @param[in]		sphere
+						A reference to the sphere to move.
 		 */
-		BS(BS &&bs) noexcept = default;
+		BoundingSphere(BoundingSphere &&sphere) noexcept = default;
 
 		/**
-		 Destructs this BS.
+		 Destructs this bounding sphere.
 		 */
-		~BS() = default;
+		~BoundingSphere() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given BS to this BS.
+		 Copies the given bounding sphere to this bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS (i.e. this BS).
+		 @param[in]		sphere
+						A reference to the bounding sphere to copy.
+		 @return		A reference to the copy of the given bounding sphere 
+						(i.e. this bounding sphere).
 		 */
-		BS &operator=(const BS &bs) noexcept = default;
+		BoundingSphere &operator=(const BoundingSphere &sphere) noexcept = default;
 
 		/**
-		 Copies the given BS to this BS.
+		 Moves the given bounding sphere to this bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS (i.e. this BS).
+		 @param[in]		sphere
+						A reference to the bounding sphere to move.
+		 @return		A reference to the moved bounding sphere (i.e. this 
+						bounding sphere).
 		 */
-		BS &operator=(BS &&bs) noexcept = default;
+		BoundingSphere &operator=(BoundingSphere &&sphere) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the centroid of this BS.
+		 Returns the centroid of this bounding sphere.
 
-		 @return		The centroid of this BS.
+		 @return		The centroid of this bounding sphere.
 		 */
 		const XMVECTOR XM_CALLCONV Centroid() const noexcept {
 			return XMVectorSetW(m_pr, 1.0f);
 		}
 
 		/**
-		 Returns the radius of this BS.
+		 Returns the radius of this bounding sphere.
 
-		 @return		The radius of this BS.
+		 @return		The radius of this bounding sphere.
 		 */
 		F32 Radius() const noexcept {
 			return XMVectorGetW(m_pr);
@@ -242,42 +236,45 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this BS completely encloses the given point.
+		 Checks whether this bounding sphere completely encloses the given 
+		 point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this BS completely encloses 
+		 @return		@c true if this bounding sphere completely encloses 
 						@a point. @c false otherwise.
 		 @note			This is a full coverage test of a point with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool Encloses(const Point3 &point) const noexcept {
 			return Encloses(XMLoadFloat3(&point));
 		}
 
 		/**
-		 Checks whether this BS completely, strictly encloses the given point.
+		 Checks whether this bounding sphere completely, strictly encloses the 
+		 given point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a point. @c false otherwise.
+		 @return		@c true if this bounding sphere completely, strictly 
+						encloses @a point. @c false otherwise.
 		 @note			This is a full coverage test of a point with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool EnclosesStrict(const Point3 &point) const noexcept {
 			return EnclosesStrict(XMLoadFloat3(&point));
 		}
 
 		/**
-		 Checks whether this BS completely encloses the given point.
+		 Checks whether this bounding sphere completely encloses the given 
+		 point.
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this BS completely encloses
+		 @return		@c true if this bounding sphere completely encloses
 						@a point. @c false otherwise.
 		 @note			This is a full coverage test of a point with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept {
 			const XMVECTOR length = XMVector3Length(point - m_pr);
@@ -285,14 +282,15 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this BS completely, strictly encloses the given point.
+		 Checks whether this bounding sphere completely, strictly encloses the 
+		 given point.
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a point. @c false otherwise.
+		 @return		@c true if this bounding sphere completely, strictly 
+						encloses @a point. @c false otherwise.
 		 @note			This is a full coverage test of a point with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept {
 			const XMVECTOR length = XMVector3Length(point - m_pr);
@@ -300,79 +298,85 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this BS completely encloses the given AABB.
+		 Checks whether this bounding sphere completely encloses the given 
+		 AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this BS completely encloses @a aabb. 
-						@c false otherwise.
+		 @return		@c true if this bounding sphere completely encloses 
+						@a aabb. @c false otherwise.
 		 @note			This is a full coverage test of an AABB with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool Encloses(const AABB &aabb) const noexcept;
 
 		/**
-		 Checks whether this BS completely, strictly encloses the given AABB.
+		 Checks whether this bounding sphere completely, strictly encloses the 
+		 given AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this BS completely, strictly encloses 
-						@a aabb. @c false otherwise.
+		 @return		@c true if this bounding sphere completely, strictly 
+						encloses @a aabb. @c false otherwise.
 		 @note			This is a full coverage test of an AABB with regard to 
-						a BS.
+						a bounding sphere.
 		 */
 		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
 		/**
-		 Checks whether this BS completely encloses the given BS.
+		 Checks whether this bounding sphere completely encloses the given 
+		 bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this BS completely encloses @a bs.
-						@c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to a 
-						BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding sphere completely encloses 
+						@a sphere. @c false otherwise.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to a bounding sphere.
 		 */
-		bool Encloses(const BS &bs) const noexcept;
+		bool Encloses(const BoundingSphere &sphere) const noexcept;
 
 		/**
-		 Checks whether this BS completely, strictly encloses the given BS.
+		 Checks whether this bounding sphere completely, strictly encloses the 
+		 given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this BS completely, strictly encloses @a bs.
-						@c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to a 
-						BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding sphere completely, strictly 
+						encloses @a sphere. @c false otherwise.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to a bounding sphere.
 		 */
-		bool EnclosesStrict(const BS &bs) const noexcept;
+		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether the given BS is equal to this BS.
+		 Checks whether the given bounding sphere is equal to this bounding 
+		 sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if the given BS is equal to this BS.
-						@c false otherwise.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if the given bounding sphere is equal to this 
+						bounding sphere. @c false otherwise.
 		 */
-		bool operator==(const BS &bs) const noexcept {
-			return XMVector4Equal(m_pr, bs.m_pr);
+		bool operator==(const BoundingSphere &sphere) const noexcept {
+			return XMVector4Equal(m_pr, sphere.m_pr);
 		}
 
 		/**
-		 Checks whether the given BS is not equal to this BS.
+		 Checks whether the given bounding sphere is not equal to this bounding 
+		 sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if the given BS is equal to this BS.
-						@c false otherwise.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if the given bounding sphere is equal to this 
+						bounding sphere. @c false otherwise.
 		 */
-		bool operator!=(const BS &bs) const noexcept {
-			return !(*this == bs);
+		bool operator!=(const BoundingSphere &sphere) const noexcept {
+			return !(*this == sphere);
 		}
 
 	private:
@@ -382,12 +386,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position and radus of this BS.
+		 The position and radus of this bounding sphere.
 		 */
 		XMVECTOR m_pr;
 	};
 
-	static_assert(16 == sizeof(BS));
+	static_assert(16 == sizeof(BoundingSphere));
 
 	#pragma endregion
 
@@ -397,7 +401,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of Axis-Aligned Bounding Boxes (AABBs).
+	 A class of Axis-Aligned Bounding Boxes (AABBs).
 	 */
 	class alignas(16) AABB final {
 
@@ -416,7 +420,9 @@ namespace mage {
 						A reference to the point.
 		 @return		The union AABB of @a aabb and @a point.
 		 */
-		static const AABB Union(const AABB &aabb, const Point3 &point) noexcept {
+		static const AABB Union(const AABB &aabb, 
+			                    const Point3 &point) noexcept {
+
 			return Union(aabb, XMLoadFloat3(&point));
 		}
 
@@ -432,7 +438,9 @@ namespace mage {
 		 @return		The union AABB of @a aabb and @a vertex.
 		*/
 		template< typename VertexT >
-		static const AABB Union(const AABB &aabb, const VertexT &vertex) noexcept {
+		static const AABB Union(const AABB &aabb, 
+			                    const VertexT &vertex) noexcept {
+
 			return Union(aabb, vertex.m_p);
 		}
 
@@ -445,7 +453,9 @@ namespace mage {
 						A reference to the point.
 		 @return		The union AABB of @a aabb and @a point.
 		 */
-		static const AABB XM_CALLCONV Union(const AABB &aabb, FXMVECTOR point) noexcept {
+		static const AABB XM_CALLCONV Union(const AABB &aabb, 
+			                                FXMVECTOR point) noexcept {
+
 			return Union(aabb, AABB(point));
 		}
 
@@ -458,7 +468,9 @@ namespace mage {
 						A reference to the second AABB.
 		 @return		The union AABB of @a aabb1 and @a aabb2.
 		 */
-		static const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept {
+		static const AABB Union(const AABB &aabb1, 
+			                    const AABB &aabb2) noexcept {
+
 			const XMVECTOR p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
 			const XMVECTOR p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
 			return AABB(p_min, p_max);
@@ -474,7 +486,9 @@ namespace mage {
 		 @return		The identity AABB in case of no overlap.
 		 @return		The overlap AABB of @a aabb1 and @a aabb2.
 		 */
-		static const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
+		static const AABB Overlap(const AABB &aabb1, 
+			                      const AABB &aabb2) noexcept {
+
 			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.Overlaps(aabb2) ? AABB(p_min, p_max) : AABB();
@@ -490,14 +504,17 @@ namespace mage {
 		 @return		The identity AABB in case of no strict overlap.
 		 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 		 */
-		static const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
+		static const AABB OverlapStrict(const AABB &aabb1, 
+			                            const AABB &aabb2) noexcept {
+
 			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.OverlapsStrict(aabb2) ? AABB(p_min, p_max) : AABB();
 		}
 	
 		/**
-		 Returns the minimum AABB (i.e. variant for union operations).
+		 Returns the minimum AABB (i.e. the AABB that is variant for union 
+		 operations).
 
 		 @return		The minimum AABB.
 		 */
@@ -506,7 +523,8 @@ namespace mage {
 		}
 
 		/**
-		 Returns the maximum AABB (i.e. invariant for union operations).
+		 Returns the maximum AABB (i.e. the AABB that is invariant for union 
+		 operations).
 
 		 @return		The maximum AABB.
 		 */
@@ -519,7 +537,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs an (identity) AABB.
+		 Constructs an AABB.
 		 */
 		AABB() noexcept 
 			: AABB(g_XMInfinity, -g_XMInfinity) {}
@@ -582,12 +600,12 @@ namespace mage {
 		AABB(AABB &&aabb) noexcept = default;
 
 		/**
-		 Constructs an AABB of the given BS.
+		 Constructs an AABB of the given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
 		 */
-		explicit AABB(const BS &bs) noexcept;
+		explicit AABB(const BoundingSphere &sphere) noexcept;
 
 		/**
 		 Destructs this AABB.
@@ -650,7 +668,8 @@ namespace mage {
 						A reference to the maximum point of this AABB along @a n.
 		 */
 		void XM_CALLCONV MinAndMaxPointAlongNormal(FXMVECTOR n, 
-			XMVECTOR &pmin, XMVECTOR &pmax) const noexcept {
+			                                       XMVECTOR &pmin, 
+			                                       XMVECTOR &pmax) const noexcept {
 			
 			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			pmin = XMVectorSelect(m_max, m_min, control);
@@ -696,7 +715,7 @@ namespace mage {
 		 @return		The radius of this AABB.
 		 */
 		const XMVECTOR XM_CALLCONV Radius() const noexcept {
-			return 0.5f * (m_max - m_min);
+			return 0.5f * Diagonal();
 		}
 
 		/**
@@ -825,28 +844,30 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this AABB completely encloses the given BS.
+		 Checks whether this AABB completely encloses the given bounding 
+		 sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB completely encloses @a bs.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this AABB completely encloses @a sphere.
 						@c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to an 
-						AABB.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to an AABB.
 		 */
-		bool Encloses(const BS &bs) const noexcept;
+		bool Encloses(const BoundingSphere &sphere) const noexcept;
 
 		/**
-		 Checks whether this AABB completely, strictly encloses the given BS.
+		 Checks whether this AABB completely, strictly encloses the given 
+		 bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
 		 @return		@c true if this AABB completely, strictly encloses 
-						@a bs. @c false otherwise.
-		 @note			This is a full coverage test of a BS with regard to an 
-						AABB.
+						@a sphere. @c false otherwise.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to an AABB.
 		 */
-		bool EnclosesStrict(const BS &bs) const noexcept;
+		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Overlapping = Partial | Full Coverage
@@ -897,86 +918,28 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this AABB overlaps the given BS.
+		 Checks whether this AABB overlaps the given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB overlaps @a bs.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this AABB overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a BS with 
-						regard to an AABB.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to an AABB.
 		 */
-		bool Overlaps(const BS &bs) const noexcept;
+		bool Overlaps(const BoundingSphere &sphere) const noexcept;
 
 		/**
-		 Checks whether this AABB strictly overlaps the given BS.
+		 Checks whether this AABB strictly overlaps the given bounding sphere.
 
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB strictly overlaps @a bs.
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this AABB strictly overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a BS with 
-						regard to an AABB.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to an AABB.
 		 */
-		bool OverlapsStrict(const BS &bs) const noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods: Classification
-		//---------------------------------------------------------------------
-
-		/**
-		 Classifies the coverage of the given point with regard to this AABB.
-
-		 @param[in]		point
-						A reference to the point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		The coverage of @a point with regard to this AABB.
-		 */
-		Coverage Classify(const Point3 &point,
-			F32 epsilon = 0.0f) const noexcept {
-
-			return Classify(XMLoadFloat3(&point), epsilon);
-		}
-
-		/**
-		 Classifies the coverage of the given point with regard to this AABB.
-
-		 @param[in]		point
-						The point.
-		 @param[in]		epsilon
-						The epsilon value for F32 comparisons.
-		 @return		The coverage of @a point with regard to this AABB.
-		 */
-		Coverage XM_CALLCONV Classify(FXMVECTOR point,
-			F32 epsilon = 0.0f) const noexcept {
-
-			return Classify(BS(point, epsilon));
-		}
-
-		/**
-		 Classifies the coverage of the given AABB with regard to this AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		The coverage of @a aabb with regard to this AABB.
-		 */
-		Coverage Classify(const AABB &aabb) const noexcept {
-			return Encloses(aabb) ? Coverage::FullCoverage : 
-				(Overlaps(aabb) ? Coverage::PartialCoverage : Coverage::NoCoverage);
-		}
-		
-		/**
-		 Classifies the coverage of the given BS with regard to this AABB.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		The coverage of @a bs with regard to this AABB.
-		 */
-		Coverage Classify(const BS &bs) const noexcept {
-			return Encloses(bs) ? Coverage::FullCoverage :
-				(Overlaps(bs) ? Coverage::PartialCoverage : Coverage::NoCoverage);
-		}
+		bool OverlapsStrict(const BoundingSphere &sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Operators
@@ -1025,6 +988,454 @@ namespace mage {
 	};
 
 	static_assert(32 == sizeof(AABB));
+
+	/**
+	 A class of Axis-Aligned Bounding Boxes (AABBs).
+	 */
+	using AxisAlignedBoundingBox = AABB;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Bounding Frustum
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	#pragma warning( push )
+	#pragma warning( disable : 4201 )
+
+	/**
+	 A class of bounding frustums.
+	 */
+	class alignas(16) BoundingFrustum final {
+
+	public:
+
+		/**
+		 Checks if the given bounding volume is culled by the bounding frustum 
+		 constructed from the given object-to-projection transformation matrix.
+
+		 @tparam		BoundingVolumeT
+						The bounding volume type.
+		 @param[in]		object_to_projection
+						The object-to-projection transformation matrix.
+		 @param[in]		volume
+						A reference to the bounding volume.
+		 @return		@c true if the given bounding volume is culled by the 
+						bounding frustum constructed from the given 
+						object-to-projection transformation matrix. @c false 
+						otherwise.
+		 */
+		template< typename BoundingVolumeT >
+		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection, 
+			                         const BoundingVolumeT &volume) noexcept {
+
+			const BoundingFrustum frustum(object_to_projection);
+			return !frustum.Overlaps(volume);
+		}
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+		
+		/**
+		 Constructs a bounding frustum from the given transform.
+		 
+		 If the given transform represents the view-to-projection 
+		 transformation matrix, the planes of the bounding frustum are 
+		 represented by view space coordinates.
+
+		 If the given transform represents the world-to-view-to-projection 
+		 transformation matrix, the planes of the bounding frustum are 
+		 represented by world space coordinates.
+
+		 If the given transform represents the object-to-world-to-view-projection 
+		 transformation matrix, the planes of the bounding frustum are 
+		 represented by object space coordinates.
+
+		 @param[in]		transform
+						The transform.
+		 */
+		explicit BoundingFrustum(CXMMATRIX transform) noexcept;
+
+		/**
+		 Constructs a bounding frustum from the given bounding frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum to copy.
+		 */
+		BoundingFrustum(const BoundingFrustum &frustum) noexcept = default;
+
+		/**
+		 Constructs a bounding frustum by moving the given bounding frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum to move.
+		 */
+		BoundingFrustum(BoundingFrustum &&frustum) noexcept = default;
+
+		/**
+		 Destructs this bounding frustum.
+		 */
+		~BoundingFrustum() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given bounding frustum to this bounding frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum to copy.
+		 @return		A reference to the copy of the given bounding frustum 
+						(i.e. this bounding frustum).
+		 */
+		BoundingFrustum &operator=(const BoundingFrustum &frustum) noexcept = default;
+
+		/**
+		 Moves the given bounding frustum to this bounding frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum to move.
+		 @return		A reference to the moved bounding frustum (i.e. this 
+						bounding frustum).
+		 */
+		BoundingFrustum &operator=(BoundingFrustum &&frustum) noexcept = default;
+		
+		//---------------------------------------------------------------------
+		// Member Methods: Enclosing = Full Coverage
+		//---------------------------------------------------------------------
+		
+		/**
+		 Checks whether this bounding frustum completely encloses the given 
+		 point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this bounding frustum completely encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a bounding frustum.
+		 */
+		bool Encloses(const Point3 &point) const noexcept {
+			return Encloses(XMLoadFloat3(&point));
+		}
+
+		/**
+		 Checks whether this bounding frustum completely, strictly encloses the 
+		 given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this bounding frustum completely, strictly 
+						encloses @a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a bounding frustum.
+		 */
+		bool EnclosesStrict(const Point3 &point) const noexcept {
+			return EnclosesStrict(XMLoadFloat3(&point));
+		}
+
+		/**
+		 Checks whether this bounding frustum completely encloses the given 
+		 point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this bounding frustum completely encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a bounding frustum.
+		 */
+		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum completely, strictly encloses the 
+		 given point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this bounding frustum completely, strictly 
+						encloses @a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a bounding frustum.
+		 */
+		bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum completely encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this bounding frustum completely encloses 
+						@a aabb. @c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a bounding frustum.
+		 */
+		bool Encloses(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum completely, strictly encloses the 
+		 given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this bounding frustum completely, strictly 
+						encloses @a aabb. @c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a bounding frustum.
+		 */
+		bool EnclosesStrict(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum completely encloses the given 
+		 bounding sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding frustum completely encloses 
+						@a sphere.
+						@c false otherwise.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to a bounding frustum.
+		 */
+		bool Encloses(const BoundingSphere &sphere) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum completely, strictly encloses the 
+		 given bounding sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding frustum completely, strictly 
+						encloses @a sphere. @c false otherwise.
+		 @note			This is a full coverage test of a bounding sphere with 
+						regard to a bounding frustum.
+		 */
+		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
+		
+		//---------------------------------------------------------------------
+		// Member Methods: Overlapping = Partial | Full Coverage
+		//---------------------------------------------------------------------
+		
+		/**
+		 Checks whether this bounding frustum overlaps the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this bounding frustum overlaps @a aabb.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of an AABB 
+						with regard to a bounding frustum.
+		 */
+		bool Overlaps(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum strictly overlaps the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this bounding frustum strictly overlaps 
+						@a aabb.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of an AABB 
+						with regard to a bounding frustum.
+		 */
+		bool OverlapsStrict(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum overlaps the given bounding 
+		 sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding frustum overlaps @a sphere.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to a bounding frustum.
+		 */
+		bool Overlaps(const BoundingSphere &sphere) const noexcept;
+
+		/**
+		 Checks whether this bounding frustum strictly overlaps the given 
+		 bounding sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding frustum strictly overlaps 
+						@a sphere.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to a bounding frustum.
+		 */
+		bool OverlapsStrict(const BoundingSphere &sphere) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether the given bounding frustum is equal to this bounding 
+		 frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum.
+		 @return		@c true if the given bounding frustum is equal to this 
+						bounding frustum. @c false otherwise.
+		 */
+		bool operator==(const BoundingFrustum &frustum) const noexcept;
+
+		/**
+		 Checks whether the given bounding frustum is not equal to this 
+		 bounding frustum.
+
+		 @param[in]		frustum
+						A reference to the bounding frustum.
+		 @return		@c true if the given bounding frustum is equal to this 
+						bounding frustum. @c false otherwise.
+		 */
+		bool operator!=(const BoundingFrustum &frustum) const noexcept {
+			return !(*this == frustum);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		union {
+			
+			struct {
+
+				/**
+				 The left plane of this bounding frustum.
+				 */
+				XMVECTOR m_left_plane;
+
+				/**
+				 The right plane of this bounding frustum.
+				 */
+				XMVECTOR m_right_plane;
+
+				/**
+				 The bottom plane of this bounding frustum.
+				 */
+				XMVECTOR m_bottom_plane;
+
+				/**
+				 The top plane of this bounding frustum.
+				 */
+				XMVECTOR m_top_plane;
+
+				/**
+				 The near plane of this bounding frustum.
+				 */
+				XMVECTOR m_near_plane;
+
+				/**
+				 The far plane of this bounding frustum.
+				 */
+				XMVECTOR m_far_plane;
+			};
+			
+			/**
+			 The six planes of this bounding frustum. 
+			 */
+			XMVECTOR m_planes[6];
+		};
+	};
+
+	static_assert(96 == sizeof(BoundingFrustum));
+
+	#pragma warning( pop )
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Coverage
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 An enumeration of the different coverages for bounding volumes.
+
+	 This contains:
+	 @c NoCoverage,
+	 @c PartialCoverage and
+	 @c FullCoverage.
+	 */
+	enum struct Coverage {
+		NoCoverage,		 // No coverage      (i.e. no overlap)
+		PartialCoverage, // Partial coverage (i.e. overlap + not enclosing)
+		FullCoverage	 // Full coverage    (i.e. overlap + enclosing)
+	};
+
+	/**
+     Classifies the second given bounding volume with regard to the first given
+	 bounding volume.
+
+	 @tparam		BoundingVolumeT
+					The first bounding volume type.
+	 @tparam		BoundingVolumeU
+					The second bounding volume type.
+	 @param[in]		volume1
+					A reference to the first bounding volume.
+	 @param[in]		volume2
+					A reference to the second bounding volume.
+     @return		The coverage of @a volume2 with regard to @a volume1.
+	 */
+	template< typename BoundingVolumeT, typename BoundingVolumeU >
+	inline Coverage Classify(const BoundingVolumeT &volume1,
+		                     const BoundingVolumeU &volume2) noexcept {
+
+		return volume1.Encloses(volume2) ? Coverage::FullCoverage 
+			: (volume1.Overlaps(volume2) ? Coverage::PartialCoverage 
+				                         : Coverage::NoCoverage);
+	}
+
+	/**
+     Classifies the given point with regard to the given bounding volume.
+
+	 @tparam		BoundingVolumeT
+					The bounding volume type.
+	 @param[in]		volume
+					A reference to the bounding volume.
+	 @param[in]		point
+					The point.
+	 @param[in]		epsilon
+					The epsilon value.
+     @return		The coverage of @a point with regard to @a volume.
+	 */
+	template< typename BoundingVolumeT >
+	inline Coverage XM_CALLCONV Classify(const BoundingVolumeT &volume,
+		                                 FXMVECTOR point,
+		                                 F32 epsilon) noexcept {
+
+		return Classify(volume, BoundingSphere(point, epsilon));
+	}
+
+	/**
+     Classifies the given point with regard to the given bounding volume.
+
+	 @tparam		BoundingVolumeT
+					The bounding volume type.
+	 @param[in]		volume
+					A reference to the bounding volume.
+	 @param[in]		point
+					A reference to the point.
+	 @param[in]		epsilon
+					The epsilon value.
+     @return		The coverage of @a point with regard to @a volume.
+	 */
+	template< typename BoundingVolumeT >
+	inline Coverage Classify(const BoundingVolumeT &volume,
+		                     const Point3 &point,
+		                     F32 epsilon) noexcept {
+
+		return Classify(volume, XMLoadFloat3(&point), epsilon);
+	}
 
 	#pragma endregion
 }

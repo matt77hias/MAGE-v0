@@ -116,7 +116,7 @@ namespace mage {
 				                                   model_part.m_start_index,
 				                                   model_part.m_nb_indices,
 				                                   model_part.m_aabb,
-				                                   model_part.m_bs);
+				                                   model_part.m_sphere);
 			
 			// Set the material of the model component.
 			if (!model_part.HasDefaultMaterial()) {

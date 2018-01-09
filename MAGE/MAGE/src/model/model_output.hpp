@@ -44,7 +44,7 @@ namespace mage {
 		 */
 		ModelPart()
 			: m_aabb(),
-			m_bs(),
+			m_sphere(),
 			m_transform(),
 			m_start_index(0), 
 			m_nb_indices(0),
@@ -142,9 +142,9 @@ namespace mage {
 		AABB m_aabb;
 
 		/**
-		 The BS of this model part.
+		 The bounding sphere of this model part.
 		 */
-		BS m_bs;
+		BoundingSphere m_sphere;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transform

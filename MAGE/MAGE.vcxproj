@@ -81,7 +81,6 @@
     <ClInclude Include="MAGE\src\material\spectrum.hpp" />
     <ClInclude Include="MAGE\src\math\geometry\bounding_volume.hpp" />
     <ClInclude Include="MAGE\src\math\geometry\geometry.hpp" />
-    <ClInclude Include="MAGE\src\math\geometry\view_frustum.hpp" />
     <ClInclude Include="MAGE\src\math\math.hpp" />
     <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sampling\fibonacci.hpp" />
@@ -208,7 +207,6 @@
     <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp" />
     <ClCompile Include="MAGE\src\material\material.cpp" />
     <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp" />
-    <ClCompile Include="MAGE\src\math\geometry\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\math\transform\sprite_transform.cpp" />
     <ClCompile Include="MAGE\src\math\transform\transform.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />

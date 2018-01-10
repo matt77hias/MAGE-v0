@@ -1450,7 +1450,7 @@ float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
 	const float energy_factor = lerp(1.0f, 1.0f / 1.51f, roughness);
 
 	const float F0  = 1.0f;
-	const float F90 = (0.5f + sqr(v_dot_h)) * roughness;
+	const float F90 = (0.5f + 2.0f * sqr(v_dot_h)) * roughness;
 	const float FV  = F_Schlick(n_dot_v, F0, F90);
 	const float FL  = F_Schlick(n_dot_l, F0, F90);
 

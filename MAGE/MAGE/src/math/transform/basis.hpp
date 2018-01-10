@@ -26,9 +26,10 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void XM_CALLCONV OrthonormalBasis_HughesMoller(
-		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
-		
+	inline void XM_CALLCONV OrthonormalBasis_HughesMoller(FXMVECTOR n, 
+		                                                  XMVECTOR &b1, 
+		                                                  XMVECTOR &b2) noexcept {
+
 		const XMVECTOR u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
 			: XMVectorSet(0.0f, -XMVectorGetZ(n), XMVectorGetY(n), 0.0f);
@@ -48,9 +49,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void XM_CALLCONV OrthonormalBasis_Frisvad(
-		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
-		
+	inline void XM_CALLCONV OrthonormalBasis_Frisvad(FXMVECTOR n, 
+		                                             XMVECTOR &b1, 
+		                                             XMVECTOR &b2) noexcept {
 		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
@@ -82,9 +83,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void XM_CALLCONV OrthonormalBasis_Duff(
-		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
-		
+	inline void XM_CALLCONV OrthonormalBasis_Duff(FXMVECTOR n, 
+		                                          XMVECTOR &b1, 
+		                                          XMVECTOR &b2) noexcept {
 		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
@@ -110,9 +111,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void XM_CALLCONV OrthonormalBasis(
-		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
-		
+	inline void XM_CALLCONV OrthonormalBasis(FXMVECTOR n, 
+		                                     XMVECTOR &b1, 
+		                                     XMVECTOR &b2) noexcept {
 		OrthonormalBasis_Duff(n, b1, b2);
 	}
 }

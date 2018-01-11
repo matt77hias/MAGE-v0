@@ -30,7 +30,7 @@ namespace mage {
 
 		 @return		The next guid.
 		 */
-		static S32 GetNextGuid() noexcept {
+		static U64 GetNextGuid() noexcept {
 			return s_guid_generator.GetNextId();
 		}
 
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		constexpr explicit IdGenerator(S32 first_id = 0) noexcept
+		constexpr explicit IdGenerator(U64 first_id = 0) noexcept
 			: m_current_id(first_id) {}
 
 		/**
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		generator
 						A reference to the id generator to copy.
 		 */
-		constexpr IdGenerator(const IdGenerator &generator) noexcept = delete;
+		constexpr IdGenerator(const IdGenerator &generator) = delete;
 
 		/**
 		 Constructs an id generator by moving the given id generator.
@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		generator
 						A reference to the id generator to move.
 		 */
-		constexpr IdGenerator(IdGenerator &&generator) noexcept = default;
+		constexpr IdGenerator(IdGenerator &&generator) = delete;
 
 		/**
 		 Destructs this id generator.
@@ -80,7 +80,7 @@ namespace mage {
 		 @return		A reference to the copy of the given id generator (i.e. 
 						this id generator).
 		 */
-		IdGenerator &operator=(const IdGenerator &generator) noexcept = default;
+		IdGenerator &operator=(const IdGenerator &generator) = delete;
 
 		/**
 		 Copies the given id generator to this id generator.
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the moved id generator (i.e. this id 
 						generator).
 		 */
-		IdGenerator &operator=(IdGenerator &&generator) noexcept = default;
+		IdGenerator &operator=(IdGenerator &&generator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -101,8 +101,8 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		S32 GetNextId() noexcept {
-			return AtomicAdd(&m_current_id, 1);
+		U64 GetNextId() noexcept {
+			return m_current_id++;
 		}
 
 	private:
@@ -123,6 +123,6 @@ namespace mage {
 		/**
 		 The current id of this id generator.
 		 */
-		AtomicS32 m_current_id;
+		AtomicU64 m_current_id;
 	};
 }

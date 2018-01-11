@@ -93,7 +93,7 @@ namespace mage {
 
 		 @return		The guid of this component.
 		 */
-		S32 GetGuid() const noexcept {
+		U64 GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -190,7 +190,7 @@ namespace mage {
 		/**
 		 The guid of this component.
 		 */
-		S32 m_guid;
+		U64 m_guid;
 
 		/**
 		 A pointer to the node owning this component.

@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\rendering_factory.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -415,11 +414,11 @@ namespace mage {
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
 								? D3D11_MAX_MAXANISOTROPY : 2;
 		
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 		
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 

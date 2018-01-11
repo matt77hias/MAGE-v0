@@ -174,6 +174,8 @@ MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog
 
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
 
+MÜLLER J.: [Lazy evaluation of function arguments in C++](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
+
 NARKOWICZ K.: [*ACES Filmic Tone Mapping Curve*](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/)
 
 NEUMANN L., NEUMANN A., SZIRMAY-KALOS L.: *Compact Metallic Reflectance Models*, *Computer Graphics Forum* 18, 3, 1999.

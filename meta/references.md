@@ -56,6 +56,8 @@ CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambr
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
 
+CORENTIN B.: [Undefining the C++ Pre-processor](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.
+
 COZZI P., RICCIO P.: *OpenGL Insights*, 1st Edition, A K Peters/CRC Press, 2012.
 
 CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
@@ -171,6 +173,8 @@ MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](ht
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
 
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
+
+MÜLLER J.: [Lazy evaluation of function arguments in C++](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
 NARKOWICZ K.: [*ACES Filmic Tone Mapping Curve*](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/)
 

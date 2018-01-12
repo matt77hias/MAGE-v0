@@ -137,9 +137,6 @@
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\parallel\lock.hpp">
-      <Filter>Header Files\parallel</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\parallel\parallel.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
@@ -230,9 +227,6 @@
       <Filter>Source Files\memory</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp">
-      <Filter>Source Files\parallel</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\parallel\lock.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\parallel\parallel.cpp">

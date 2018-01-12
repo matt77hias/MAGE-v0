@@ -7,7 +7,15 @@
 
 #include "scripting\behavior_script.hpp"
 #include "sprite\sprite_text.hpp"
-#include "parallel\lock.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <mutex>
 
 #pragma endregion
 
@@ -73,6 +81,6 @@ namespace mage::script {
 		UniquePtr< wchar_t[] > m_buffer;
 		std::vector< wchar_t > m_temp_buffer;
 		
-		Mutex m_mutex;
+		std::mutex m_mutex;
 	};
 }

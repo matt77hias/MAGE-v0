@@ -6,7 +6,15 @@
 #pragma region
 
 #include "timer\timer.hpp"
-#include "parallel\lock.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <mutex>
 
 #pragma endregion
 
@@ -33,31 +41,32 @@ namespace mage {
 						A reference to the title.
 		 @param[in]		nb_work
 						The total number of work units.
-		 @param[in]		plus_char
-						The character representing a work unit 
-						that is already done.
+		 @param[in]		progress_char
+						The character representing the progress.
 		 @param[in]		bar_length
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string &title, U32 nb_work, 
-			char plus_char = '+', U32 bar_length = 0);
+		explicit ProgressReporter(const string &title, 
+			                      U32 nb_work, 
+			                      char progress_char = '+', 
+			                      U16 bar_length = 0u);
 
 		/**
 		 Constructs a progress reporter from the given progress reporter.
 
-		 @param[in]		progress_reporter
+		 @param[in]		reporter
 						A reference to the progress reporter to copy.
 		 */
-		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
+		ProgressReporter(const ProgressReporter &reporter) = delete;
 
 		/**
 		 Constructs a progress reporter by moving the given progress reporter.
 
-		 @param[in]		progress_reporter
+		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 */
-		ProgressReporter(ProgressReporter &&progress_reporter) noexcept;
+		ProgressReporter(ProgressReporter &&reporter) = delete;
 
 		/**
 		 Destructs this progress reporter.
@@ -71,24 +80,22 @@ namespace mage {
 		/**
 		 Copies the given progress reporter to this progress reporter.
 
-		 @param[in]		progress_reporter
+		 @param[in]		reporter
 						A reference to the progress reporter to copy.
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
-		ProgressReporter &operator=(
-			const ProgressReporter &progress_reporter) = delete;
+		ProgressReporter &operator=(const ProgressReporter &reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
 
-		 @param[in]		progress_reporter
+		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 @return		A reference to moved progress reporter (i.e. this 
 						progress reporter).
 		 */
-		ProgressReporter &operator=(
-			ProgressReporter &&progress_reporter) noexcept;
+		ProgressReporter &operator=(ProgressReporter &&reporter) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -100,7 +107,7 @@ namespace mage {
 		 @param[in]		nb_work
 						The number of work units that are done.
 		 */
-		void Update(U32 nb_work = 1);
+		void Update(U32 nb_work = 1u);
 		
 		/**
 		 Finishes this progress reporter.
@@ -122,7 +129,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		void Initialize(const string &title, U32 bar_length = 0);
+		void Initialize(const string &title, U16 bar_length = 0u);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -134,27 +141,26 @@ namespace mage {
 		U32 m_nb_work_total;
 
 		/**
-		 The number of work units that are already done
+		 The number of work units that are currently done.
 		 */
 		U32 m_nb_work_done;
 
 		/**
-		 The total number of plusses that need to be outputted
-		 by this progress reporter.
+		 The total number of progress characters that need to be outputted by 
+		 this progress reporter.
 		 */
-		U32 m_nb_plusses_total;
+		U16 m_nb_progress_total;
 
 		/**
-		 The total number of plusses that are already outputted
+		 The total number of progress characters that are currently outputted 
 		 by this progress reporter.
 		 */
-		U32 m_nb_plusses_printed;
+		U16 m_nb_progress_printed;
 
 		/**
-		 The character representing a work unit that is already done
-		 of this progress reporter.
+		 The progress character of this progress reporter.
 		 */
-		char m_plus_char;
+		char m_progress_char;
 
 		/**
 		 A pointer to the output file stream of this progress reporter.
@@ -167,8 +173,8 @@ namespace mage {
 		UniquePtr< char[] > m_buffer;
 
 		/**
-		 A pointer to the current (output) character in the output buffer 
-		 of this progress reporter.
+		 A pointer to the current character in the output buffer of this progress 
+		 reporter.
 		 */
 		char *m_current_pos;
 
@@ -178,8 +184,8 @@ namespace mage {
 		Timer m_timer;
 
 		/**
-		 The mutex needed for updating this progress reporter.
+		 The mutex of this progress reporter.
 		 */
-		Mutex m_mutex;
+		std::mutex m_mutex;
 	};
 }

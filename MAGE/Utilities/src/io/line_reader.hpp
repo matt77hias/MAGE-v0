@@ -211,7 +211,7 @@ namespace mage {
 						@c DataT element. @c false otherwise.
 		 */
 		template< typename DataT >
-		bool Has() const;
+		bool Contains() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

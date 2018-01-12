@@ -22,12 +22,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ProgressReporter::ProgressReporter(const string &title, U32 nb_work, 
-		char plus_char, U32 bar_length)
+	ProgressReporter::ProgressReporter(const string &title, 
+		                               U32 nb_work, 
+		                               char progress_char, 
+		                               U16 bar_length)
 		: m_nb_work_total(nb_work), 
-		m_nb_work_done(0), 
-		m_nb_plusses_printed(0), 
-		m_plus_char(plus_char),
+		m_nb_work_done(0u), 
+		m_nb_progress_total(),
+		m_nb_progress_printed(0u), 
+		m_progress_char(progress_char),
 		m_fout(stdout), 
 		m_buffer(), 
 		m_current_pos(nullptr), 
@@ -37,37 +40,23 @@ namespace mage {
 		Initialize(title, bar_length);
 	}
 
-	ProgressReporter
-		::ProgressReporter(ProgressReporter &&progress_reporter) noexcept = default;
-
 	ProgressReporter::~ProgressReporter() = default;
 
-	ProgressReporter &ProgressReporter
-		::operator=(ProgressReporter &&progress_reporter) noexcept = default;
-
-	void ProgressReporter::Initialize(const string &title, U32 bar_length) {
-		if (0 == bar_length) {
-			bar_length = ConsoleWidth() - 28;
+	void ProgressReporter::Initialize(const string &title, U16 bar_length) {
+		if (0u == bar_length) {
+			bar_length = ConsoleWidth() - U16(28u);
 		}
 
-		m_nb_plusses_total = 
-			std::max(2u, bar_length - static_cast< U32 >(title.size()));
+		m_nb_progress_total = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
 		
-		// Initialize progress string
-		const size_t buffer_length = title.size() + m_nb_plusses_total + 64;
+		// Initialize the output buffer.
+		const size_t buffer_length = title.size() + m_nb_progress_total + 64;
 		m_buffer = MakeUnique< char[] >(buffer_length);
 		
-		// Composes a string with the same text that would be printed if format 
-		// was used on printf, but instead of being printed, the content is 
-		// stored in the buffer.
 		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
-
-		// A C string is as long as the number of characters between the 
-		// beginning of the string and the terminating null character (without 
-		// including the terminating null character itself).
 		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
 		char *s = m_current_pos;
-		for (size_t i = 0; i < m_nb_plusses_total; ++i) {
+		for (U16 i = 0; i < m_nb_progress_total; ++i) {
 			*s++ = ' ';
 		}
 		*s++ = ']';
@@ -82,54 +71,46 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 
-		// If the given stream was open for writing (or if it was open for 
-		// updating and the last IO operation was an output operation) any 
-		// unwritten data in its output buffer is written to the output file 
-		// stream.
 		fflush(m_fout);
 
 		m_timer.Start();
 	}
 
 	void ProgressReporter::Update(U32 nb_work) {
-		if (0 == nb_work || LoggingConfiguration::Get()->IsQuiet()) {
+		if (0u == nb_work || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
 		}
 
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
-		const F32 percent_done = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
-		const U32 plusses_needed = 
-			std::min(static_cast< U32 >(round(percent_done * m_nb_plusses_total)), 
-					 m_nb_plusses_total);
+		const F32 fraction = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
+		const U16 nb_progress_total = std::min(static_cast< U16 >(
+			                                   round(fraction * m_nb_progress_total)),
+					                           m_nb_progress_total);
 		
-		while (m_nb_plusses_printed < plusses_needed) {
-			*m_current_pos = m_plus_char;
+		while (m_nb_progress_printed < nb_progress_total) {
+			*m_current_pos = m_progress_char;
 			++m_current_pos;
-			++m_nb_plusses_printed;
+			++m_nb_progress_printed;
 		}
 
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
+
 		// Update elapsed time and estimated time to completion
-		const F32 seconds = static_cast< F32 >(m_timer.GetTotalDeltaTime());
-		if (1.0f == percent_done) {
+		const F32 time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		if (1.0f == fraction) {
 			// Writes the string format to the output file stream.
-			fprintf(m_fout, " (%.1fs)       ", seconds);
+			fprintf(m_fout, " (%.1fs)       ", time);
 		}
 		else {
-			const F32 estimation_remaining = seconds / percent_done - seconds;
+			const F32 remaining_time = std::max(0.0f, time / fraction - time);
 			// Writes the string format to the output file stream.
-			fprintf(m_fout, " (%.1fs|%.1fs)  ", 
-				seconds, std::max(0.0f, estimation_remaining));
+			fprintf(m_fout, " (%.1fs|%.1fs)  ", time, remaining_time);
 		}
 
-		// If the given stream was open for writing (or if it was open for 
-		// updating and the last IO operation was an output operation) any 
-		// unwritten data in its output buffer is written to the output file 
-		// stream.
 		fflush(m_fout);
 	}
 
@@ -139,25 +120,22 @@ namespace mage {
 			return;
 		}
 
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 		
-		while (m_nb_plusses_printed < m_nb_plusses_total) {
-			*m_current_pos = m_plus_char;
+		while (m_nb_progress_printed < m_nb_progress_total) {
+			*m_current_pos = m_progress_char;
 			++m_current_pos;
-			++m_nb_plusses_printed;
+			++m_nb_progress_printed;
 		}
 
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
+
 		// Update elapsed time
-		const F32 seconds = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		const F32 time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
 		// Writes the string format to the output file stream.
-		fprintf(m_fout, " (%.1fs)       \n", seconds);
+		fprintf(m_fout, " (%.1fs)       \n", time);
 	
-		// If the given stream was open for writing (or if it was open for 
-		// updating and the last IO operation was an output operation) any 
-		// unwritten data in its output buffer is written to the output file 
-		// stream.
 		fflush(m_fout);
 	}
 }

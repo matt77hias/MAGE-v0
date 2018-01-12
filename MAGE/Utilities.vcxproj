@@ -57,7 +57,6 @@
     <ClInclude Include="Utilities\src\memory\memory_stack.hpp" />
     <ClInclude Include="Utilities\src\parallel\atomic.hpp" />
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp" />
-    <ClInclude Include="Utilities\src\parallel\lock.hpp" />
     <ClInclude Include="Utilities\src\parallel\parallel.hpp" />
     <ClInclude Include="Utilities\src\platform\windows.hpp" />
     <ClInclude Include="Utilities\src\platform\windows_utils.hpp" />
@@ -90,7 +89,6 @@
     <ClCompile Include="Utilities\src\memory\memory_arena.cpp" />
     <ClCompile Include="Utilities\src\memory\memory_stack.cpp" />
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp" />
-    <ClCompile Include="Utilities\src\parallel\lock.cpp" />
     <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
     <ClCompile Include="Utilities\src\string\string_utils.cpp" />
     <ClCompile Include="Utilities\src\string\token.cpp" />

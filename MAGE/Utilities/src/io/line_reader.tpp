@@ -43,8 +43,8 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	inline bool LineReader::Has() const {
-		return mage::Has< DataT >(m_context, GetDelimiters().c_str()) 
+	inline bool LineReader::Contains() const {
+		return mage::Contains< DataT >(m_context, GetDelimiters().c_str()) 
 			   == TokenResult::Valid;
 	}
 }

@@ -88,7 +88,7 @@ namespace mage {
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	SharedPtr< T > MakeShared(ConstructorArgsT&&... args);
+	SharedPtr< T > MakeShared(ConstructorArgsT &&...args);
 
 	/**
 	 Constructs an object of type T.
@@ -102,7 +102,7 @@ namespace mage {
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	SharedPtr< T > MakeAllocatedShared(ConstructorArgsT&&... args);
+	SharedPtr< T > MakeAllocatedShared(ConstructorArgsT &&...args);
 
 	#pragma endregion
 
@@ -148,7 +148,7 @@ namespace mage {
 	 @return		A unique pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	UniquePtr< T > MakeUnique(ConstructorArgsT&&... args);
+	UniquePtr< T > MakeUnique(ConstructorArgsT &&...args);
 	
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by statically 

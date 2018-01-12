@@ -38,8 +38,6 @@ namespace mage {
 		InitializeSystems(setup);
 	}
 
-	Engine::Engine(Engine &&engine) noexcept = default;
-
 	Engine::~Engine() {
 		// Uninitialize the systems of this engine.
 		UninitializeSystems();

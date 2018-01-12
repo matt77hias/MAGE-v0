@@ -11,12 +11,12 @@ namespace mage {
 	#pragma region
 
 	template< typename T, typename... ConstructorArgsT >
-	inline SharedPtr< T > MakeShared(ConstructorArgsT&&... args) {
+	inline SharedPtr< T > MakeShared(ConstructorArgsT &&...args) {
 		return std::make_shared< T >(std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename T, typename... ConstructorArgsT >
-	inline SharedPtr< T > MakeAllocatedShared(ConstructorArgsT&&... args) {
+	inline SharedPtr< T > MakeAllocatedShared(ConstructorArgsT &&...args) {
 		return SharedPtr< T >(new T(std::forward< ConstructorArgsT >(args)...));
 	}
 
@@ -28,7 +28,7 @@ namespace mage {
 	#pragma region
 
 	template< typename T, typename... ConstructorArgsT >
-	inline UniquePtr< T > MakeUnique(ConstructorArgsT&&... args) {
+	inline UniquePtr< T > MakeUnique(ConstructorArgsT &&...args) {
 		return std::make_unique< T >(std::forward< ConstructorArgsT >(args)...);
 	}
 

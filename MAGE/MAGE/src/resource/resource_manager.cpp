@@ -13,19 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// ResourceManager
-	//-------------------------------------------------------------------------
-	
 	ResourceManager *ResourceManager::Get() noexcept {
 		Assert(Engine::Get());
 
-		return Engine::Get()->GetResourceManager();
+		return Engine::Get()->GetManager();
 	}
 
 	ResourceManager::ResourceManager() = default;
-
-	ResourceManager::ResourceManager(ResourceManager &&manager) = default;
 
 	ResourceManager::~ResourceManager() = default;
 }

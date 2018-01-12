@@ -1,11 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "parallel\lock.hpp"
+#include "type\types.hpp"
 
 #pragma endregion
 
@@ -15,6 +15,7 @@
 #pragma region
 
 #include <map>
+#include <mutex>
 
 #pragma endregion
 
@@ -64,13 +65,13 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool &&pool) = default;
+		ResourcePool(ResourcePool &&pool) = delete;
 
 		/**
 		 Destructs this resource pool.
 		 */
 		~ResourcePool() noexcept {
-			RemoveAllResources();
+			RemoveAll();
 		}
 
 		//---------------------------------------------------------------------
@@ -104,7 +105,7 @@ namespace mage {
 		/**
 		 Returns the number of resources contained in this resource pool.
 		 */
-		size_t GetNumberOfResources() const noexcept;
+		size_t size() const noexcept;
 
 		/**
 		 Checks whether this resource pool contains a resource corresponding 
@@ -116,7 +117,7 @@ namespace mage {
 						pool corresponding to the given key. @c false, 
 						otherwise.
 		 */
-		bool HasResource(const KeyT &key) noexcept;
+		bool Contains(const KeyT &key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -129,7 +130,7 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to the given key 
 						from this resource pool.
 		 */
-		SharedPtr< ResourceT > GetResource(const KeyT &key) noexcept;
+		SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource 
@@ -151,8 +152,8 @@ namespace mage {
 						key from this resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateResource(
-			const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreate(const KeyT &key, 
+			                               ConstructorArgsT &&...args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource 
@@ -177,8 +178,8 @@ namespace mage {
 						key from this resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerivedResource(
-			const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT &key, 
+			                                      ConstructorArgsT &&...args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this resource 
@@ -187,12 +188,12 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource to remove.
 		 */
-		void RemoveResource(const KeyT &key);
+		void Remove(const KeyT &key);
 
 		/**
 		 Removes all resources from this resource pool.
 		 */
-		void RemoveAllResources();
+		void RemoveAll();
 		
 	private:
 
@@ -217,7 +218,7 @@ namespace mage {
 		/**
 		 The mutex for accessing the resource map of this resource pool.
 		 */
-		mutable Mutex m_resource_map_mutex;
+		mutable std::mutex m_mutex;
 
 		/**
 		 A class of resources.
@@ -227,11 +228,11 @@ namespace mage {
 						The derived resource type.
 		 */
 		template< typename DerivedResourceT >
-		struct Resource final : public DerivedResourceT {
+		class Resource final : public DerivedResourceT {
 
 		public:
 
-			static_assert(std::is_base_of< ResourceT, DerivedResourceT >::value);
+			static_assert(std::is_base_of_v< ResourceT, DerivedResourceT >);
 
 			//-----------------------------------------------------------------
 			// Constructors and Destructors
@@ -254,7 +255,8 @@ namespace mage {
 			 */
 			template< typename... ConstructorArgsT >
 			Resource(ResourcePool &resource_pool,
-				const KeyT &resource_key, ConstructorArgsT&&... args);
+				     const KeyT &resource_key, 
+				     ConstructorArgsT &&...args);
 			
 			/**
 			 Constructs a resource from the given resource.
@@ -316,7 +318,7 @@ namespace mage {
 			 The key of this resource in the resource pool map containing
 			 this resource.
 			 */
-			const KeyT m_resource_key;
+			KeyT m_resource_key;
 		};
 	};
 
@@ -365,13 +367,13 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool &&pool) = default;
+		PersistentResourcePool(PersistentResourcePool &&pool) = delete;
 
 		/**
 		 Destructs this persistent resource pool.
 		 */
 		~PersistentResourcePool() noexcept {
-			RemoveAllResources();
+			RemoveAll();
 		}
 
 		//---------------------------------------------------------------------
@@ -410,7 +412,7 @@ namespace mage {
 		 Returns the number of resources contained in this persistent resource 
 		 pool.
 		 */
-		size_t GetNumberOfResources() const noexcept;
+		size_t size() const noexcept;
 
 		/**
 		 Checks whether this persistent resource pool contains a resource 
@@ -422,7 +424,7 @@ namespace mage {
 						this persistent resource pool corresponding to the 
 						given key. @c false, otherwise.
 		 */
-		bool HasResource(const KeyT &key) noexcept;
+		bool Contains(const KeyT &key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -436,7 +438,7 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to
 						the given key from this persistent resource pool.
 		 */
-		SharedPtr< ResourceT > GetResource(const KeyT &key) noexcept;
+		SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -458,8 +460,8 @@ namespace mage {
 						key from this persistent resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateResource(
-			const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreate(const KeyT &key, 
+			                               ConstructorArgsT &&...args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -484,8 +486,8 @@ namespace mage {
 						key from this persistent resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerivedResource(
-			const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT &key, 
+			                                      ConstructorArgsT &&...args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this 
@@ -494,12 +496,12 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource to remove.
 		 */
-		void RemoveResource(const KeyT &key);
+		void Remove(const KeyT &key);
 
 		/**
 		 Removes all resources from this persistent resource pool.
 		 */
-		void RemoveAllResources();
+		void RemoveAll();
 		
 	private:
 
@@ -517,15 +519,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The persistent resource map of this persistent resource pool.
+		 The resource map of this persistent resource pool.
 		 */
 		ResourceMap m_resource_map;
 
 		/**
-		 The mutex for accessing the persistent resource map of this persistent 
-		 resource pool.
+		 The mutex for accessing the resource map of this persistent resource 
+		 pool.
 		 */
-		mutable Mutex m_resource_map_mutex;
+		mutable std::mutex m_mutex;
 	};
 
 	#pragma endregion

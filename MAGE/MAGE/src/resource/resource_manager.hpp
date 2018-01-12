@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the resource manager to move.
 		 */
-		ResourceManager(ResourceManager &&manager);
+		ResourceManager(ResourceManager &&manager) = delete;
 		
 		/**
 		 Destructs this resource manager.
@@ -110,7 +110,7 @@ namespace mage {
 						unique identifier. @c false otherwise.
 		 */
 		template< typename ResourceT >
-		bool Has(const wstring &guid) noexcept;
+		bool Contains(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the resource of the given type corresponding to the given 
@@ -167,7 +167,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >, 
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -190,7 +190,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -213,7 +213,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -236,7 +236,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -259,7 +259,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -282,7 +282,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -305,7 +305,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -328,7 +328,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -351,7 +351,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
 			SharedPtr< const ResourceT > > GetOrCreate(const wstring &guid, 
-			ConstructorArgsT&&... args);
+			                                           ConstructorArgsT &&...args);
 		
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -374,7 +374,7 @@ namespace mage {
 		template< typename ResourceT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< VariableScript, ResourceT >,
 			SharedPtr< ResourceT > > GetOrCreateMutable(const wstring &guid,
-				ConstructorArgsT&&... args);
+				                                        ConstructorArgsT &&...args);
 		
 	private:
 

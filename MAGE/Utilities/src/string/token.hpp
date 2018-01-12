@@ -267,7 +267,7 @@ namespace mage {
 					succeeds or not.
 	 */
 	template< typename DataT >
-	TokenResult Has(const char *str, 
+	TokenResult Contains(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	#pragma endregion

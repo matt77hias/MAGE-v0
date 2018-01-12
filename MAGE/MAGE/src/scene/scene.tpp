@@ -21,7 +21,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	static ProxyPtr< ElementT > AddElement(AlignedVector< ElementT > &elements,
-		ConstructorArgsT&&... args) {
+		ConstructorArgsT &&...args) {
 		
 		size_t index = 0;
 		for (auto &element : elements) {
@@ -38,7 +38,7 @@ namespace mage {
 
 	template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
 	static ProxyPtr< ElementT > AddElementPtr(
-		AlignedVector< UniquePtr< BaseT > > &elements, ConstructorArgsT&&... args) {
+		AlignedVector< UniquePtr< BaseT > > &elements, ConstructorArgsT &&...args) {
 
 		size_t index = 0;
 		for (auto &element : elements) {
@@ -66,7 +66,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< Node, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		auto ptr = AddElement(m_nodes, std::forward< ConstructorArgsT >(args)...);
 		NodeClient::Set(*ptr, ptr);
@@ -75,7 +75,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< PerspectiveCamera, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_perspective_cameras, 
 			std::forward< ConstructorArgsT >(args)...);
@@ -83,7 +83,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< OrthographicCamera, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_orthographic_cameras,
 			std::forward< ConstructorArgsT >(args)...);
@@ -91,7 +91,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< AmbientLight, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_ambient_lights,
 			std::forward< ConstructorArgsT >(args)...);
@@ -99,7 +99,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< DirectionalLight, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_directional_lights,
 			std::forward< ConstructorArgsT >(args)...);
@@ -107,7 +107,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< OmniLight, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_omni_lights,
 			std::forward< ConstructorArgsT >(args)...);
@@ -115,7 +115,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< SpotLight, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_spot_lights,
 			std::forward< ConstructorArgsT >(args)...);
@@ -123,7 +123,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< Model, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_models,
 			std::forward< ConstructorArgsT >(args)...);
@@ -131,7 +131,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< SpriteImage, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_sprite_images,
 			std::forward< ConstructorArgsT >(args)...);
@@ -139,7 +139,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< SpriteText, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_sprite_texts,
 			std::forward< ConstructorArgsT >(args)...);
@@ -147,7 +147,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_base_of_v< BehaviorScript, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElementPtr< ElementT >(m_scripts,
 			std::forward< ConstructorArgsT >(args)...);

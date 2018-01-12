@@ -650,7 +650,7 @@ namespace mage {
 	}
 	
 	template< typename DataT >
-	inline TokenResult Has(const char *str, const char *delimiters) noexcept {
+	inline TokenResult Contains(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
@@ -665,7 +665,7 @@ namespace mage {
 	}
 
 	template<>
-	inline TokenResult Has< string >(const char *str, const char *delimiters) noexcept {
+	inline TokenResult Contains< string >(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 

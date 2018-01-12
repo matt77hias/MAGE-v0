@@ -43,7 +43,7 @@ namespace mage {
 	//---------------------------------------------------------------------
 
 	template< typename ComponentT >
-	inline bool Node::Has() const noexcept {
+	inline bool Node::Contains() const noexcept {
 		return m_components.find(typeid(ComponentT)) != m_components.cend();
 	}
 

@@ -45,8 +45,16 @@ namespace mage::script {
 
 	}
 
-	TextConsoleScript::TextConsoleScript(
-		TextConsoleScript &&script) noexcept = default;
+	TextConsoleScript::TextConsoleScript(TextConsoleScript &&script) noexcept 
+		: BehaviorScript(std::move(script)),
+		m_text(std::move(script.m_text)),
+		m_nb_rows(script.m_nb_rows),
+		m_nb_columns(script.m_nb_columns),
+		m_current_column(script.m_current_column),
+		m_current_row(script.m_current_row),
+		m_buffer(std::move(script.m_buffer)),
+		m_temp_buffer(std::move(script.m_temp_buffer)),
+		m_mutex() {}
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
@@ -60,7 +68,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Update([[maybe_unused]] F64 delta_time) {
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
 		m_text->SetText(wstring(m_buffer.get()));
@@ -74,18 +82,18 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Write(const wchar_t *str) {
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 		ProcessString(str);
 	}
 
 	void TextConsoleScript::WriteLine(const wchar_t *str) {
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 		ProcessString(str);
 		IncrementRow();
 	}
 
 	void TextConsoleScript::Format(const wchar_t *format, ...) {
-		const MutexLock lock(m_mutex);
+		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		va_list args;
 		// Retrieve the additional arguments after format

@@ -107,7 +107,7 @@ namespace mage::loader {
 
 		F32 green = red;
 		F32 blue  = red;
-		if (Has< F32 >()) {
+		if (Contains< F32 >()) {
 			green = Read< F32 >();
 			blue  = Read< F32 >();
 		}
@@ -121,12 +121,12 @@ namespace mage::loader {
 
 		F32 green = red;
 		F32 blue  = red;
-		if (Has< F32 >()) {
+		if (Contains< F32 >()) {
 			green = Read< F32 >();
 			blue  = Read< F32 >();
 		}
 
-		const F32 alpha = Has< F32 >() ? Read< F32 >() : 1.0f;
+		const F32 alpha = Contains< F32 >() ? Read< F32 >() : 1.0f;
 		
 		return SRGBA(red, green, blue, alpha);
 	}

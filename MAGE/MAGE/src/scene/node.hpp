@@ -232,7 +232,7 @@ namespace mage {
 						type. @c false otherwise.
 		 */
 		template< typename ComponentT >
-		bool Has() const noexcept;
+		bool Contains() const noexcept;
 
 		/**
 		 Returns the number of components of the given type of this node.

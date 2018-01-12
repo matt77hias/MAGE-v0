@@ -122,7 +122,7 @@ namespace mage::loader {
 		ModelPart model_part;
 		model_part.m_child = Read< string >();
 		if (HasChars()) {
-			if (!Has< F32 >()) {
+			if (!Contains< F32 >()) {
 				model_part.m_parent  = Read< string >();
 			}
 			
@@ -234,7 +234,7 @@ namespace mage::loader {
 
 		const UV result(Read< F32x2 >());
 		
-		if (Has< F32 >()) {
+		if (Contains< F32 >()) {
 			// Silently ignore 3D vertex texture coordinates.
 			Read< F32 >();
 		}

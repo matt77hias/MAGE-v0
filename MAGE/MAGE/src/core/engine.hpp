@@ -75,7 +75,7 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine to move.
 		 */
-		Engine(Engine &&engine) noexcept;
+		Engine(Engine &&engine) = delete;
 
 		/**
 		 Destructs this engine.
@@ -132,7 +132,7 @@ namespace mage {
 						it returns 0.
 		 */
 		[[nodiscard]] int Run(UniquePtr< Scene > &&scene, 
-			int nCmdShow = SW_NORMAL);
+			                  int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Resource System
@@ -144,7 +144,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the resource manager of this engine.
 		 */
-		ResourceManager *GetResourceManager() const noexcept {
+		ResourceManager *GetManager() const noexcept {
 			return m_resource_manager.get();
 		}
 

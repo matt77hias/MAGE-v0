@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion

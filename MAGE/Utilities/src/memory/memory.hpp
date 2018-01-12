@@ -34,11 +34,6 @@
 	#define MAGE_POINTER_SIZE 4
 #endif
 
-// Memory management macros
-#define SAFE_DELETE(p)       { if(p) { delete (p);     (p) = nullptr; } }
-#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = nullptr; } }
-#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = nullptr; } }
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -267,7 +262,7 @@ namespace mage {
 
 	 */
 	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
-		return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle;
+		return (INVALID_HANDLE_VALUE == handle) ? nullptr : handle;
 	}
 
 	/**

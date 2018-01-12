@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

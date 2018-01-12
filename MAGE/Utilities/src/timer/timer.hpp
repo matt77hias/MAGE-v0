@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <chrono>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -128,11 +137,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the last timestamp of this timer.
-		 */
-		void UpdateLastTimestamp() const noexcept;
-
-		/**
 		 Resets the delta time, total delta time and last timestamp of this 
 		 timer.
 		 */
@@ -149,33 +153,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 The clock type of timers.
+		 */
+		using Clock = std::chrono::high_resolution_clock;
+		
+		/**
+		 The time stamp type representing the time points of timers.
+		 */
+		using TimeStamp = Clock::time_point;
+
+		/**
+		 The time interval type representing the interval between time points 
+		 of timers.
+		 */
+		using TimeInterval = Clock::duration;
+
+		/**
+		 The clock of this timer.
+		 */
+		Clock m_clock;
+
+		/**
 		 The last timestamp of this timer.
 		 */
-		mutable LARGE_INTEGER m_last_timestamp;
+		mutable TimeStamp m_last_timestamp;
 
 		/**
 		 The delta time of this timer.
 		 */
-		mutable U64 m_delta_time;
+		mutable TimeInterval m_delta_time;
 
 		/**
 		 The total delta time of this timer.
 		 */
-		mutable U64 m_total_delta_time;
+		mutable TimeInterval m_total_delta_time;
 
 		/**
 		 Flag indicating whether this timer is running.
 		 */
 		bool m_running;
-
-		/**
-		 The time frequency of this timer.
-		 */
-		LARGE_INTEGER m_time_frequency;
-
-		/**
-		 The time period of this timer.
-		 */
-		F64 m_time_period;
 	};
 }

@@ -13,19 +13,11 @@
 namespace mage {
 
 	Timer::Timer() noexcept
-		: m_last_timestamp{},
-		m_delta_time(0),
-		m_total_delta_time(0),
-		m_running(false) {
-		
-		// Retrieve the frequency of the performance counter. 
-		// The frequency of the performance counter is fixed at system boot 
-		// and is consistent across all processors.
-		QueryPerformanceFrequency(&m_time_frequency);
-		
-		// Calculate the period of the performance counter.
-		m_time_period = 1.0 / (static_cast< F64 >(m_time_frequency.QuadPart));
-	}
+		: m_clock(),
+		m_last_timestamp(TimeStamp::min()),
+		m_delta_time(TimeInterval::min()),
+		m_total_delta_time(TimeInterval::min()),
+		m_running(false) {}
 
 	void Timer::Start() noexcept {
 		if (m_running) {
@@ -56,7 +48,7 @@ namespace mage {
 		}
 
 		m_running = true;
-		UpdateLastTimestamp();
+		m_last_timestamp = m_clock.now();
 	}
 
 	F64 Timer::GetDeltaTime() const noexcept {
@@ -64,7 +56,8 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return m_time_period * static_cast< F64 >(m_delta_time);
+		using Seconds = std::chrono::duration< F64 >;
+		return std::chrono::duration_cast< Seconds >(m_delta_time).count();
 	}
 
 	F64 Timer::GetTotalDeltaTime() const noexcept {
@@ -72,31 +65,25 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return m_time_period * static_cast< F64 >(m_total_delta_time);
-	}
-
-	void Timer::UpdateLastTimestamp() const noexcept {
-		// Get the current timestamp of this timer.
-		QueryPerformanceCounter(&m_last_timestamp);
+		using Seconds = std::chrono::duration< F64 >;
+		return std::chrono::duration_cast< Seconds >(m_total_delta_time).count();
 	}
 
 	void Timer::ResetDeltaTime() const noexcept {
 		// Resets the delta time of this timer.
-		m_delta_time       = 0;
+		m_delta_time       = TimeInterval::min();
 		// Resets the total delta time of this timer.
-		m_total_delta_time = 0;
+		m_total_delta_time = TimeInterval::min();
 		// Resets the last timestamp of this timer.
-		UpdateLastTimestamp();
+		m_last_timestamp   = m_clock.now();
 	}
 
 	void Timer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer.
-		LARGE_INTEGER current_timestamp;
-		QueryPerformanceCounter(&current_timestamp);
+		const TimeStamp current_timestamp = m_clock.now();
 
 		// Updates the delta time of this timer.
-		m_delta_time        = current_timestamp.QuadPart 
-							 - m_last_timestamp.QuadPart;
+		m_delta_time        = current_timestamp - m_last_timestamp;
 		// Updates the total delta time of this timer.
 		m_total_delta_time += m_delta_time;
 		// Updates the last timestamp of this timer.

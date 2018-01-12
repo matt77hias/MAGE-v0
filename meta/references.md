@@ -248,6 +248,8 @@ WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction T
 
 WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. Graph.* 26, 2, 1992.
 
+WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
+
 WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-conversion/), 2015.
 
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.

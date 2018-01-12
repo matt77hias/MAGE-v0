@@ -16,7 +16,7 @@ namespace mage {
 	ResourceManager *ResourceManager::Get() noexcept {
 		Assert(Engine::Get());
 
-		return Engine::Get()->GetManager();
+		return Engine::Get()->GetResourceManager();
 	}
 
 	ResourceManager::ResourceManager() = default;

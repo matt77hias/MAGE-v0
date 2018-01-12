@@ -144,7 +144,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the resource manager of this engine.
 		 */
-		ResourceManager *GetManager() const noexcept {
+		ResourceManager *GetResourceManager() const noexcept {
 			return m_resource_manager.get();
 		}
 

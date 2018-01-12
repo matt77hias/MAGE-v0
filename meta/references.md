@@ -234,6 +234,8 @@ SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Compute
 
 SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. and Propagation* 15, 5, 1967.
 
+STEVENS J.: [*Physically Based Rendering Algorithms: A Comprehensive Study In Unity3D*](http://www.jordanstevenstechart.com/physically-based-rendering), 2016.
+
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
 
 TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.

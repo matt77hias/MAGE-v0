@@ -53,7 +53,7 @@
   * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
   * Optional custom gamma correction before presenting (i.e. brightness adjustment)
 * Culling
-  * Non-hierarchical
+  * Non-hierarchical light and object
 * Depth buffer
   * Standard Z-depth
   * Reversed Z-depth

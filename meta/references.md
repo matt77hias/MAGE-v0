@@ -124,6 +124,8 @@ ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River
 
 MCGUIRE M.: [*The Graphics Codex*](http://www.graphicscodex.com), 2016.
 
+SANGLARD F.: Game Engine Black Book: Wolfenstein 3D, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
+
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
 ### General Game Engines
@@ -267,6 +269,10 @@ SPIRO L.: [*Scene Graphs*](http://lspiroengine.com/?p=566), 2013.
 ### Scripting
 
 ANTE J.: [*Writing High Performance C# Scripts*](https://www.youtube.com/watch?v=tGmnZdY5Y-E), 2017.
+
+### Shadows
+
+EISEMANN E., SCHWARZ M., ASSARSSON U., WIMMER M.: Real-Time Shadows, 1st Edition, A K Peters/CRC Press, 2012.
 
 ### SIMD
 

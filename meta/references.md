@@ -72,6 +72,12 @@ HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/li
 
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
 
+### Data Structures
+
+ARNEBÄCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.
+
+CRASSIN C.: GigaVoxels: *A Voxel-Based Rendering Pipeline For Efficient Exploration Of Large And Detailed Scenes*, PhD Thesis, 2011.
+
 ### Depth Test
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
@@ -189,6 +195,8 @@ BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SI
 BURLEY B.: *Physically Based Shading at Disney*, *SIGGRAPH 2012 Course: Practical Physically Based Shading in Film and Game Production*, 2012.
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
+
+CRASSIN C., NEYRET F., SAINZ M., GREEN S., EISEMANN E.: Interactive Indirect Illumination Using Voxel Cone Tracing, *Computer Graphics Forum (Proceedings of Pacific Graphics 2011)* 30, 7 (2011).
 
 DÜR A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
 

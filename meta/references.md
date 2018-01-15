@@ -310,6 +310,8 @@ KARIS B.: [*Tone Mapping*](http://graphicrants.blogspot.be/2013/12/tone-mapping.
 
 LOTTES T.: [*Optimized Reversible Tonemapper for Resolve*](https://gpuopen.com/optimized-reversible-tonemapper-for-resolve/), 2016.
 
+MADAMS T.: [*Why Reinhard desaturates my blacks*](https://imdoingitwrong.wordpress.com/2010/08/19/why-reinhard-desaturates-my-blacks-3/), 2010.
+
 NARKOWICZ K.: [*ACES Filmic Tone Mapping Curve*](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/), 2016.
 
 PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com/2010/04/30/a-closer-look-at-tone-mapping/), 2010.

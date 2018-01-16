@@ -88,7 +88,7 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		A refernce to the globally unique identifier of this
+		 @return		A reference to the globally unique identifier of this
 						resource.
 		 */
 		const wstring &GetGuid() const noexcept {

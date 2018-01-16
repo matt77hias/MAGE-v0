@@ -15,8 +15,8 @@
 
 #include "character_motor_script.hpp"
 #include "mouse_look_script.hpp"
-#include "render_mode_script.hpp"
 #include "rotation_script.hpp"
+#include "editor_script.hpp"
 #include "stats_script.hpp"
 #include "switch_scene_script.hpp"
 
@@ -81,7 +81,7 @@ namespace mage {
 		// Camera: Sky
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 
-		auto camera_node = Create< Node >();
+		auto camera_node = Create< Node >("Player");
 		camera_node->AddComponent(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
@@ -130,7 +130,7 @@ namespace mage {
 		light->SetIntensity(40.0f);
 		light->EnableShadows();
 
-		auto light_node = Create< Node >();
+		auto light_node = Create< Node >("Spotlight");
 		light_node->AddComponent(light);
 		light_node->GetTransform().SetTranslationY(15.0f);
 		light_node->GetTransform().SetRotationX(XM_PIDIV2);
@@ -144,7 +144,7 @@ namespace mage {
 		auto directional_light = Create< DirectionalLight >();
 		directional_light->SetRadiance(4.0f);
 		
-		auto directional_light_node = Create< Node >();
+		auto directional_light_node = Create< Node >("Directional Light");
 		directional_light_node->AddComponent(directional_light);
 		directional_light_node->GetTransform().SetTranslation(20.0f, 20.0f, 0.0f);
 		directional_light_node->GetTransform().SetRotationZ(XM_PIDIV4);
@@ -165,15 +165,15 @@ namespace mage {
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< BRDFScene > >();
-		
+		Create< script::EditorScript >();
+
+		camera_node->AddComponent(Create< script::StatsScript >());
+		camera_node->AddComponent(Create< script::MouseLookScript >());
+		camera_node->AddComponent(Create< script::CharacterMotorScript >());
+
 		auto script = Create< script::RotationScript >();
 		script->SetRotationAxis(script::RotationScript::RotationAxis::X);
 		
 		windmill_nodes[0]->AddComponent(script);
-		
-		camera_node->AddComponent(Create< script::MouseLookScript >());
-		camera_node->AddComponent(Create< script::CharacterMotorScript >());
-		camera_node->AddComponent(Create< script::RenderModeScript >());
-		camera_node->AddComponent(Create< script::StatsScript >());
 	}
 }

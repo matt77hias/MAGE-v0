@@ -4,7 +4,6 @@
 #pragma region
 
 #include "samples\brdf\brdf_scene.hpp"
-#include "samples\brdf\brdf_script.hpp"
 #include "samples\sponza\sponza_scene.hpp"
 
 #pragma endregion
@@ -14,6 +13,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "editor_script.hpp"
 #include "stats_script.hpp"
 #include "switch_scene_script.hpp"
 
@@ -66,7 +66,7 @@ namespace mage {
 		// Camera: Sky
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 
-		auto camera_node = Create< Node >();
+		auto camera_node = Create< Node >("Player");
 		camera_node->AddComponent(camera);
 		camera_node->GetTransform().SetTranslation(-0.66f, 20.0f, -15.23f);
 		camera_node->GetTransform().SetRotationX(0.54f);
@@ -85,18 +85,25 @@ namespace mage {
 
 		teapot_node->GetTransform().SetScale(30.0f);
 		teapot_node->GetTransform().SetTranslationY(10.0f);
+		skull_node->SetState(State::Passive);
 		skull_node->GetTransform().SetScale(20.0f);
 		skull_node->GetTransform().SetTranslationY(10.0f);
+		cone_node->SetState(State::Passive);
 		cone_node->GetTransform().SetScale(10.0f);
 		cone_node->GetTransform().SetTranslationY(10.0f);
+		cube_node->SetState(State::Passive);
 		cube_node->GetTransform().SetScale(10.0f);
 		cube_node->GetTransform().SetTranslationY(10.0f);
+		cylinder_node->SetState(State::Passive);
 		cylinder_node->GetTransform().SetScale(10.0f);
 		cylinder_node->GetTransform().SetTranslationY(10.0f);
+		plane_node->SetState(State::Passive);
 		plane_node->GetTransform().SetScale(20.0f);
 		plane_node->GetTransform().SetTranslationY(10.0f);
+		sphere_node->SetState(State::Passive);
 		sphere_node->GetTransform().SetScale(10.0f);
 		sphere_node->GetTransform().SetTranslationY(10.0f);
+		torus_node->SetState(State::Passive);
 		torus_node->GetTransform().SetScale(10.0f);
 		torus_node->GetTransform().SetTranslationY(10.0f);
 
@@ -107,7 +114,7 @@ namespace mage {
 		omni_light->SetRange(50.0f);
 		omni_light->SetIntensity(50.0f);
 
-		auto omni_light_node = Create< Node >();
+		auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->AddComponent(omni_light);
 		omni_light_node->GetTransform().SetTranslation(0.0f, 20.0f, -15.0f);
 		
@@ -127,18 +134,8 @@ namespace mage {
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< SponzaScene > >();
+		Create< script::EditorScript >();
+
 		camera_node->AddComponent(Create< script::StatsScript >());
-		
-		std::vector< ProxyPtr< Node > > models;
-		models.push_back(teapot_node);
-		models.push_back(skull_node);
-		models.push_back(cone_node);
-		models.push_back(cube_node);
-		models.push_back(cylinder_node);
-		models.push_back(plane_node);
-		models.push_back(sphere_node);
-		models.push_back(torus_node);
-		
-		camera_node->AddComponent(Create< script::BRDFScript >(std::move(models)));
 	}
 }

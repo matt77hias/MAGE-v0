@@ -31,6 +31,7 @@
     <ClInclude Include="MAGE\src\core\engine_statistics.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\editor\widget.hpp" />
     <ClInclude Include="MAGE\src\imgui\imconfig.hpp" />
     <ClInclude Include="MAGE\src\imgui\imgui.hpp" />
     <ClInclude Include="MAGE\src\imgui\imgui_impl_dx11.hpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
+    <ClCompile Include="MAGE\src\editor\widget.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp" />
@@ -346,15 +348,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

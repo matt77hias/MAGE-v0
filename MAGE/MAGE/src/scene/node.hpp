@@ -158,7 +158,7 @@ namespace mage {
 		 @return		The number of childs of this node.
 		 */
 		size_t GetNumberOfChilds() const noexcept {
-			m_childs.size();
+			return m_childs.size();
 		}
 		
 		/**
@@ -289,7 +289,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		std::vector< ProxyPtr< ComponentT > > GetAll();
+		const std::vector< ProxyPtr< ComponentT > > GetAll();
 
 		/**
 		 Returns all components of the given type of this node.
@@ -300,7 +300,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		std::vector< ProxyPtr< const ComponentT > > GetAll() const;
+		const std::vector< ProxyPtr< const ComponentT > > GetAll() const;
 
 		/**
 		 Adds the given component to this node.
@@ -309,6 +309,36 @@ namespace mage {
 						A pointer to the component.
 		 */
 		void AddComponent(ComponentPtr component);
+
+		/**
+		 Traverses all components of the given type of this node.
+
+		 @tparam		ComponentT
+						The component type.
+		 @tparam		ActionT
+						An action to perform on all components of the given 
+						type of this node. 
+						The action must accept @c ComponentT& values.
+		 @param[in]		action
+						The action.
+		 */
+		template< typename ComponentT, typename ActionT >
+		void ForEach(ActionT action);
+
+		/**
+		 Traverses all components of the given type of this node.
+
+		 @tparam		ComponentT
+						The component type.
+		 @tparam		ActionT
+						An action to perform on all components of the given 
+						type of this node. 
+						The action must accept @c const @c ComponentT& values.
+		 @param[in]		action
+						The action.
+		 */
+		template< typename ComponentT, typename ActionT >
+		void ForEach(ActionT action) const;
 
 		/**
 		 Traverses all components of this node.

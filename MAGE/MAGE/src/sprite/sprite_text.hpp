@@ -39,7 +39,7 @@ namespace mage {
 		 @c Outline.
 		 */
 		enum struct TextEffect {
-			None,
+			None = 0,
 			DropShadow,
 			Outline
 		};

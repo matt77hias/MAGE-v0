@@ -15,8 +15,8 @@
 
 #include "character_motor_script.hpp"
 #include "mouse_look_script.hpp"
-#include "render_mode_script.hpp"
 #include "rotation_script.hpp"
+#include "editor_script.hpp"
 #include "stats_script.hpp"
 #include "switch_scene_script.hpp"
 
@@ -65,7 +65,7 @@ namespace mage {
 		// Camera: Sky
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 		
-		auto camera_node = Create< Node >();
+		auto camera_node = Create< Node >("Player");
 		camera_node->AddComponent(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
@@ -87,7 +87,7 @@ namespace mage {
 		omni_light->SetIntensity(4.0f);
 		omni_light->EnableShadows();
 		
-		auto omni_light_node = Create< Node >();
+		auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->AddComponent(omni_light);
 		omni_light_node->GetTransform().SetTranslationY(2.0f);
 		
@@ -113,11 +113,11 @@ namespace mage {
 		// Scripts
 		//---------------------------------------------------------------------
 		Create< script::SwitchSceneScript< SibenikScene > >();
+		Create< script::EditorScript >();
 		
-		tree_node->AddComponent(Create< script::RotationScript >());
+		camera_node->AddComponent(Create< script::StatsScript >());
 		camera_node->AddComponent(Create< script::MouseLookScript >());
 		camera_node->AddComponent(Create< script::CharacterMotorScript >());
-		camera_node->AddComponent(Create< script::RenderModeScript >());
-		camera_node->AddComponent(Create< script::StatsScript >());
+		tree_node->AddComponent(Create< script::RotationScript >());
 	}
 }

@@ -1,20 +1,27 @@
-//-----------------------------------------------------------------------------
-// USER IMPLEMENTATION
-// This file contains compile-time options for ImGui.
-// Other options (memory allocation overrides, callbacks, etc.) can be set at runtime via the ImGuiIO structure - ImGui::GetIO().
-//-----------------------------------------------------------------------------
-
 #pragma once
 
-//---- Define assertion handler. Defaults to calling assert().
-//#define IM_ASSERT(_EXPR)  MyAssert(_EXPR)
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\vector_types.hpp"
+#include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define IM_ASSERT(expr)  Assert(expr)
+
+#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
 
 //---- Define attributes of all API symbols declarations, e.g. for DLL under Windows.
 //#define IMGUI_API __declspec( dllexport )
 //#define IMGUI_API __declspec( dllimport )
-
-//---- Don't define obsolete functions names. Consider enabling from time to time or when updating to reduce like hood of using already obsolete function/names
-//#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
 
 //---- Include imgui_user.h at the end of imgui.h
 //#define IMGUI_INCLUDE_IMGUI_USER_H
@@ -36,26 +43,15 @@
 //---- Implement STB libraries in a namespace to avoid linkage conflicts
 //#define IMGUI_STB_NAMESPACE     ImGuiStb
 
-//---- Define constructor and implicit cast operators to convert back<>forth from your math types and ImVec2/ImVec4.
-/*
-#define IM_VEC2_CLASS_EXTRA                                                 \
-        ImVec2(const MyVec2& f) { x = f.x; y = f.y; }                       \
-        operator MyVec2() const { return MyVec2(x,y); }
+#define IM_VEC2_CLASS_EXTRA \
+        ImVec2(const mage::F32x2 &f) { x = f.m_x; y = f.m_y; } \
+        operator mage::F32x2() const noexcept { return mage::F32x2(x, y); }
 
-#define IM_VEC4_CLASS_EXTRA                                                 \
-        ImVec4(const MyVec4& f) { x = f.x; y = f.y; z = f.z; w = f.w; }     \
-        operator MyVec4() const { return MyVec4(x,y,z,w); }
-*/
+#define IM_VEC4_CLASS_EXTRA \
+        ImVec4(const mage::F32x4 &f) { x = f.m_x; y = f.m_y; z = f.m_z; w = f.m_w; } \
+        operator mage::F32x4() const noexcept { return mage::F32x4(x, y, z, w); }
 
 //---- Use 32-bit vertex indices (instead of default: 16-bit) to allow meshes with more than 64K vertices
 //#define ImDrawIdx unsigned int
 
-//---- Tip: You can add extra functions within the ImGui:: namespace, here or in your own headers files.
-//---- e.g. create variants of the ImGui::Value() helper for your low-level math types, or your own widgets/helpers.
-/*
-namespace ImGui
-{
-    void    Value(const char* prefix, const MyMatrix44& v, const char* float_format = NULL);
-}
-*/
-
+#pragma endregion

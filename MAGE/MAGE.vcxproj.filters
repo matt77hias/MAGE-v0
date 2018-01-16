@@ -193,6 +193,12 @@
     <Filter Include="Source Files\math\transform">
       <UniqueIdentifier>{0bfcf05f-e04f-462f-8923-ea8a1551200e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\editor">
+      <UniqueIdentifier>{f8427fd3-9d1c-484b-9b1e-581a9e67c7f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\editor">
+      <UniqueIdentifier>{da8f04b2-df39-4183-8245-a2d235c6ca37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
@@ -651,6 +657,9 @@
     <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp">
       <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\editor\widget.hpp">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -913,6 +922,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp">
       <Filter>Source Files\math\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\editor\widget.cpp">
+      <Filter>Source Files\editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

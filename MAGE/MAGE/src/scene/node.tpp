@@ -67,7 +67,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT >
-	inline std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
+	inline const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
 		std::vector< ProxyPtr< ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));
@@ -81,7 +81,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT >
-	inline std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
+	inline const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
 		std::vector< ProxyPtr< const ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));
@@ -92,6 +92,26 @@ namespace mage {
 		);
 		
 		return components;
+	}
+
+	template< typename ComponentT, typename ActionT >
+	inline void Node::ForEach(ActionT action) {
+		const auto range = m_components.equal_range(typeid(ComponentT));
+		for_each(range.first, range.second,
+			[&action](decltype(m_components)::value_type &x) {
+				action(static_cast< ComponentT & >(*x.second));
+			}
+		);
+	}
+
+	template< typename ComponentT, typename ActionT >
+	inline void Node::ForEach(ActionT action) const {
+		const auto range = m_components.equal_range(typeid(ComponentT));
+		for_each(range.first, range.second,
+			[&action](decltype(m_components)::value_type &x) {
+				action(static_cast< const ComponentT & >(*x.second));
+			}
+		);
 	}
 
 	template< typename ActionT >

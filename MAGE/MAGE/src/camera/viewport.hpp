@@ -7,6 +7,7 @@
 
 #include "rendering\pipeline.hpp"
 #include "rendering\aa_descriptor.hpp"
+#include "math\transform\sprite_transform.hpp"
 
 #pragma endregion
 
@@ -61,10 +62,6 @@ namespace mage {
 			viewport.MaxDepth = 1.0f;
 			return viewport;
 		}
-
-		static F32 NormalizeWidth(F32 x) noexcept;
-
-		static F32 NormalizeHeight(F32 x) noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -155,53 +152,119 @@ namespace mage {
 		}
 
 		const F32x2 GetTopLeft() const noexcept {
-			return F32x2(m_viewport.TopLeftX, m_viewport.TopLeftY);
+			return F32x2(GetTopLeftX(), GetTopLeftY());
 		}
 
-		void SetTopLeft(U32 x, U32 y) noexcept {
-			m_viewport.TopLeftX = static_cast< F32 >(x);
-			m_viewport.TopLeftY = static_cast< F32 >(y);
+		void SetTopLeftX(U32 x) noexcept {
+			SetTopLeftX(static_cast< F32 >(x));
 		}
 
-		void SetTopLeft(F32 x, F32 y) noexcept {
+		void SetTopLeftX(F32 x) noexcept {
 			m_viewport.TopLeftX = x;
+		}
+
+		void SetTopLeftY(U32 y) noexcept {
+			SetTopLeftY(static_cast< F32 >(y));
+		}
+
+		void SetTopLeftY(F32 y) noexcept {
 			m_viewport.TopLeftY = y;
 		}
 
+		void SetTopLeft(U32 x, U32 y) noexcept {
+			SetTopLeftX(x);
+			SetTopLeftY(y);
+		}
+
+		void SetTopLeft(U32x2 top_left) noexcept {
+			SetTopLeftX(top_left.m_x);
+			SetTopLeftY(top_left.m_y);
+		}
+
+		void SetTopLeft(F32 x, F32 y) noexcept {
+			SetTopLeftX(x);
+			SetTopLeftY(y);
+		}
+
+		void SetTopLeft(F32x2 top_left) noexcept {
+			SetTopLeftX(top_left.m_x);
+			SetTopLeftY(top_left.m_y);
+		}
+
+		F32 GetNormalizedTopLeftX() const noexcept {
+			return ConvertAbsoluteToNormalizedScreenX(GetTopLeftX());
+		}
+
+		F32 GetNormalizedTopLeftY() const noexcept {
+			return ConvertAbsoluteToNormalizedScreenY(GetTopLeftY());
+		}
+
+		const F32x2 GetNormalizedTopLeft() const noexcept {
+			return ConvertAbsoluteToNormalizedScreen(GetTopLeft());
+		}
+
+		void SetNormalizedTopLeftX(U32 x) noexcept {
+			SetNormalizedTopLeftX(static_cast< F32 >(x));
+		}
+
+		void SetNormalizedTopLeftX(F32 x) noexcept {
+			SetTopLeftX(ConvertNormalizedToAbsoluteScreenX(x));
+		}
+
+		void SetNormalizedTopLeftY(U32 y) noexcept {
+			SetNormalizedTopLeftY(static_cast< F32 >(y));
+		}
+
+		void SetNormalizedTopLeftY(F32 y) noexcept {
+			SetTopLeftY(ConvertNormalizedToAbsoluteScreenY(y));
+		}
+
+		void SetNormalizedTopLeft(U32 x, U32 y) noexcept {
+			SetNormalizedTopLeftX(x);
+			SetNormalizedTopLeftY(y);
+		}
+
+		void SetNormalizedTopLeft(U32x2 top_left) noexcept {
+			SetNormalizedTopLeftX(top_left.m_x);
+			SetNormalizedTopLeftY(top_left.m_y);
+		}
+
 		void SetNormalizedTopLeft(F32 x, F32 y) noexcept {
-			SetTopLeft(NormalizeWidth(x), NormalizeHeight(y));
+			SetNormalizedTopLeftX(x);
+			SetNormalizedTopLeftY(y);
+		}
+
+		void SetNormalizedTopLeft(F32x2 top_left) noexcept {
+			SetNormalizedTopLeftX(top_left.m_x);
+			SetNormalizedTopLeftY(top_left.m_y);
 		}
 
 		F32 GetWidth() const noexcept {
 			return m_viewport.Width;
 		}
 
+		F32 GetHeight() const noexcept {
+			return m_viewport.Height;
+		}
+
+		const F32x2 GetWidthAndHeight() const noexcept {
+			return F32x2(GetWidth(), GetHeight());
+		}
+
 		void SetWidth(U32 width) noexcept {
-			m_viewport.Width = static_cast< F32 >(width);
+			SetWidth(static_cast< F32 >(width));
 		}
 
 		void SetWidth(F32 width) noexcept {
 			m_viewport.Width = width;
 		}
 
-		void SetNormalizedWidth(F32 width) noexcept {
-			SetWidth(NormalizeWidth(width));
-		}
-
-		F32 GetHeight() const noexcept {
-			return m_viewport.Height;
-		}
-
 		void SetHeight(U32 height) noexcept {
-			m_viewport.Height = static_cast< F32 >(height);
+			SetHeight(static_cast< F32 >(height));
 		}
 
 		void SetHeight(F32 height) noexcept {
 			m_viewport.Height = height;
-		}
-
-		void SetNormalizedHeight(F32 height) noexcept {
-			SetHeight(NormalizeHeight(height));
 		}
 
 		void SetWidthAndHeight(U32 width, U32 height) noexcept {
@@ -209,14 +272,67 @@ namespace mage {
 			SetHeight(height);
 		}
 
+		void SetWidthAndHeight(U32x2 resolution) noexcept {
+			SetWidth(resolution.m_x);
+			SetHeight(resolution.m_y);
+		}
+
 		void SetWidthAndHeight(F32 width, F32 height) noexcept {
 			SetWidth(width);
 			SetHeight(height);
 		}
 
+		void SetWidthAndHeight(F32x2 resolution) noexcept {
+			SetWidth(resolution.m_x);
+			SetHeight(resolution.m_y);
+		}
+
+		F32 GetNormalizedWidth() const noexcept {
+			return ConvertAbsoluteToNormalizedScreenX(GetWidth());
+		}
+
+		F32 GetNormalizedHeight() const noexcept {
+			return ConvertAbsoluteToNormalizedScreenY(GetHeight());
+		}
+
+		const F32x2 GetNormalizedWidthAndHeight() const noexcept {
+			return ConvertAbsoluteToNormalizedScreen(GetWidthAndHeight());
+		}
+
+		void SetNormalizedWidth(U32 width) noexcept {
+			SetNormalizedWidth(static_cast< F32 >(width));
+		}
+
+		void SetNormalizedWidth(F32 width) noexcept {
+			SetWidth(ConvertNormalizedToAbsoluteScreenX(width));
+		}
+
+		void SetNormalizedHeight(U32 height) noexcept {
+			SetNormalizedHeight(static_cast< F32 >(height));
+		}
+
+		void SetNormalizedHeight(F32 height) noexcept {
+			SetHeight(ConvertNormalizedToAbsoluteScreenY(height));
+		}
+
+		void SetNormalizedWidthAndHeight(U32 width, U32 height) noexcept {
+			SetNormalizedWidth(width);
+			SetNormalizedHeight(height);
+		}
+
+		void SetNormalizedWidthAndHeight(U32x2 resolution) noexcept {
+			SetNormalizedWidth(resolution.m_x);
+			SetNormalizedHeight(resolution.m_y);
+		}
+
 		void SetNormalizedWidthAndHeight(F32 width, F32 height) noexcept {
-			SetWidth(NormalizeWidth(width));
-			SetHeight(NormalizeHeight(height));
+			SetNormalizedWidth(width);
+			SetNormalizedHeight(height);
+		}
+
+		void SetNormalizedWidthAndHeight(F32x2 resolution) noexcept {
+			SetNormalizedWidth(resolution.m_x);
+			SetNormalizedHeight(resolution.m_y);
 		}
 
 		F32 GetMinimumDepth() const noexcept {

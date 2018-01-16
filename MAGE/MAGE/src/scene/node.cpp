@@ -39,6 +39,7 @@ namespace mage {
 		m_childs(std::move(node.m_childs)),
 		m_components(std::move(node.m_components)),
 		m_state(node.m_state),
+		m_guid(node.m_guid),
 		m_this(std::move(node.m_this)),
 		m_name(std::move(node.m_name)) {}
 

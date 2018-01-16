@@ -89,8 +89,8 @@ namespace mage {
 	#define Assert(expr) (__noop)
 #else
 	#define Assert(expr) ((expr) ? (void)0 \
-                                 : Fatal("Assertion \"%s\" failed in %s, line %d", \
-									     #expr, __FILE__, __LINE__))
+                                 : mage::Fatal("Assertion \"%s\" failed in %s, line %d", \
+									           #expr, __FILE__, __LINE__))
 #endif
 
 #pragma endregion

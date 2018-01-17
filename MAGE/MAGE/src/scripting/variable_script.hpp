@@ -15,7 +15,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <iterator>
 #include <map>
 
 #pragma endregion
@@ -244,8 +243,6 @@ namespace mage {
 		std::map< string, Value > m_variables;
 	};
 }
-
-
 
 //-----------------------------------------------------------------------------
 // Engine Includes

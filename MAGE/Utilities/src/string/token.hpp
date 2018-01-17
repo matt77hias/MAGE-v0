@@ -227,7 +227,7 @@ namespace mage {
 					of the next token in the given string to an @c U32 succeeds 
 					or not.
 	 */
-	TokenResult HasChars(const char *str, 
+	TokenResult ContainsChars(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
@@ -246,7 +246,7 @@ namespace mage {
 					of the next token in the given string to a quoted string 
 					succeeds or not.
 	 */
-	TokenResult HasQuotedString(const char *str, 
+	TokenResult ContainsQuotedString(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**

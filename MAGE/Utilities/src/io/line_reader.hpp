@@ -191,7 +191,7 @@ namespace mage {
 		 @return		@c true if this line reader has a next token. @c false
 						otherwise.
 		 */
-		bool HasChars() const;
+		bool ContainsChars() const;
 		
 		/**
 		 Checks whether the next token of this line reader is a quoted string.
@@ -199,7 +199,7 @@ namespace mage {
 		 @return		@c true if the next token of this line reader is a 
 						quoted string. @c false otherwise.
 		 */
-		bool HasQuotedString() const;
+		bool ContainsQuotedString() const;
 
 		/**
 		 Checks whether the next token of this line reader is a @c DataT 

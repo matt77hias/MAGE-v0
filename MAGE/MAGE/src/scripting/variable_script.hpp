@@ -166,7 +166,7 @@ namespace mage {
 		 @return		@c true if this variable script has a variable with the
 						given name. @c false otherwise.
 		 */
-		bool HasVariable(const string &name) const noexcept;
+		bool ContainsVariable(const string &name) const noexcept;
 
 		/**
 		 Checks whether this variable script has a variable with the given 
@@ -180,7 +180,7 @@ namespace mage {
 						given name. @c false otherwise.
 		 */
 		template< typename T >
-		bool HasVariableOfType(const string &name) const noexcept;
+		bool ContainsVariableOfType(const string &name) const noexcept;
 
 		/**
 		 Adds the given variable to this variable script.

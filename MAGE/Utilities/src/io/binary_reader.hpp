@@ -154,7 +154,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool HasCharsLeft() const noexcept {
+		bool ContainsCharsLeft() const noexcept {
 			return m_pos < m_end;
 		}
 
@@ -349,7 +349,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool HasCharsLeft() const noexcept {
+		bool ContainsCharsLeft() const noexcept {
 			return m_pos < m_end;
 		}
 

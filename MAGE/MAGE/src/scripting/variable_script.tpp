@@ -15,7 +15,7 @@
 namespace mage {
 	
 	template< typename T >
-	bool VariableScript::HasVariableOfType(const string &name) const noexcept {
+	bool VariableScript::ContainsVariableOfType(const string &name) const noexcept {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 

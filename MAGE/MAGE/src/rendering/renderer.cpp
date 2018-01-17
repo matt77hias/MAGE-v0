@@ -223,12 +223,12 @@ namespace mage {
 			}
 
 			// RenderLayer
-			if (camera.GetSettings().HasRenderLayer(RenderLayer::Wireframe)) {
+			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::Wireframe)) {
 				WireframePass * const pass = GetWireframePass();
 				pass->BindFixedState();
 				pass->Render(scene, world_to_projection, world_to_view);
 			}
-			if (camera.GetSettings().HasRenderLayer(RenderLayer::AABB)) {
+			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::AABB)) {
 				BoundingVolumePass * const pass = GetBoundingVolumePass();
 				pass->BindFixedState();
 				pass->Render(scene, world_to_projection, world_to_view);

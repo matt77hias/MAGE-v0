@@ -641,7 +641,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline TokenResult HasChars(const char *str, const char *delimiters) noexcept {
+	inline TokenResult ContainsChars(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
@@ -669,7 +669,7 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 
-		return HasChars(str, delimiters);
+		return ContainsChars(str, delimiters);
 	}
 	
 	#pragma endregion

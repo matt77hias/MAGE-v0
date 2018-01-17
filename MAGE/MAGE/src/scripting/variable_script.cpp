@@ -37,7 +37,7 @@ namespace mage {
 		loader::ExportVariableScriptToFile(fname, m_variables);
 	}
 
-	bool VariableScript::HasVariable(const string &name) const noexcept {
+	bool VariableScript::ContainsVariable(const string &name) const noexcept {
 		return m_variables.cend() != m_variables.find(name);
 	}
 

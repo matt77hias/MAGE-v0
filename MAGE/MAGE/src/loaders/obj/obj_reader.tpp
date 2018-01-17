@@ -121,7 +121,7 @@ namespace mage::loader {
 
 		ModelPart model_part;
 		model_part.m_child = Read< string >();
-		if (HasChars()) {
+		if (ContainsChars()) {
 			if (!Contains< F32 >()) {
 				model_part.m_parent  = Read< string >();
 			}
@@ -181,7 +181,7 @@ namespace mage::loader {
 	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
 		
 		std::vector< IndexT > indices;
-		while (indices.size() < 3 || HasChars()) {
+		while (indices.size() < 3 || ContainsChars()) {
 			const Index3 vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 

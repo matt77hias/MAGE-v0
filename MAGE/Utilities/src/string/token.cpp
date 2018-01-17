@@ -55,7 +55,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	TokenResult HasQuotedString(const char *str, const char *delimiters) noexcept {
+	TokenResult ContainsQuotedString(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		

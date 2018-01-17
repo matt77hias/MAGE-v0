@@ -285,7 +285,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the model part.
 		 */
-		bool HasModelPart(const string &name) noexcept;
+		bool ContainsModelPart(const string &name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.

@@ -133,13 +133,13 @@ namespace mage::editor {
 		}
 		if (ImGui::BeginPopup("Render Layers")) {
 			
-			if (bool wireframe = settings.HasRenderLayer(RenderLayer::Wireframe);
+			if (bool wireframe = settings.ContainsRenderLayer(RenderLayer::Wireframe);
 				ImGui::Checkbox("Wireframe", &wireframe)) {
 
 				settings.ToggleRenderLayer(RenderLayer::Wireframe);
 			}
 
-			if (bool aabb = settings.HasRenderLayer(RenderLayer::AABB);
+			if (bool aabb = settings.ContainsRenderLayer(RenderLayer::AABB);
 				ImGui::Checkbox("AABB", &aabb)) {
 
 				settings.ToggleRenderLayer(RenderLayer::AABB);

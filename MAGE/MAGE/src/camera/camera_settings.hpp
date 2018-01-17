@@ -119,12 +119,12 @@ namespace mage {
 			SetBRDF(BRDFType::Unknown);
 		}
 
-		bool HasRenderLayers() const noexcept {
+		bool ContainsRenderLayers() const noexcept {
 			return m_render_layer_mask 
 				!= static_cast< U32 >(RenderLayer::None);
 		}
 
-		bool HasRenderLayer(RenderLayer render_layer) const noexcept {
+		bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(
 				m_render_layer_mask & static_cast< U32 >(render_layer));
 		}

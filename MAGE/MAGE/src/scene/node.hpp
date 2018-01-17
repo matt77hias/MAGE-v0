@@ -169,7 +169,7 @@ namespace mage {
 		 @return		@c true if this node contains the given node as a 
 						child. @c false otherwise.
 		 */
-		bool HasChild(ProxyPtr< const Node > node) const {
+		bool ContainsChild(ProxyPtr< const Node > node) const {
 			return std::find(m_childs.begin(), m_childs.end(), node) 
 				   != m_childs.end();
 		}

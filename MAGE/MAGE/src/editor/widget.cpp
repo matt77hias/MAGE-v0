@@ -679,16 +679,16 @@ namespace mage::editor {
 				? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 			if (ImGui::TreeNodeEx(id.c_str(), flags, name.c_str())) {
-				
-				if (ImGui::IsItemClicked()) {
-					SetSelected(node.Get());
-				}
 
 				node.ForEachChild([](Node &child) {
 					DrawGraph(child);
 				});
 
 				ImGui::TreePop();
+			}
+
+			if (ImGui::IsItemClicked()) {
+				SetSelected(node.Get());
 			}
 		}
 		else {

@@ -234,7 +234,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this node has a component of the given type.
+		 Checks whether this node contains a component of the given type.
 
 		 @tparam		ComponentT
 						The component type.
@@ -245,7 +245,7 @@ namespace mage {
 		bool Contains() const noexcept;
 
 		/**
-		 Checks whether this node has components.
+		 Checks whether this node contains components.
 
 		 @return		@c true if this node contains at least one component. 
 						@c false otherwise.

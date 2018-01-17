@@ -316,15 +316,15 @@ namespace mage {
 			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_display_configuration_script->IsEmpty()) {
-				m_display_configuration_script->AddVariable(
+				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_AA,           0);
-				m_display_configuration_script->AddVariable(
+				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_REFRESH_RATE, 0);
-				m_display_configuration_script->AddVariable(
+				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_RESOLUTION,   0);
-				m_display_configuration_script->AddVariable(
+				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_VSYNC,    false);
-				m_display_configuration_script->AddVariable(
+				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_WINDOWED,  true);
 			}
 			
@@ -332,7 +332,7 @@ namespace mage {
 			{
 				// Load the windowed state.
 				const bool windowed = *m_display_configuration_script->
-					GetValueOfVariable< bool >(MAGE_DISPLAY_VARIABLE_WINDOWED);
+					GetValue< bool >(MAGE_DISPLAY_VARIABLE_WINDOWED);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
@@ -346,7 +346,7 @@ namespace mage {
 			{
 				// Load the vsync state.
 				const bool vsync = *m_display_configuration_script->
-					GetValueOfVariable< bool >(MAGE_DISPLAY_VARIABLE_VSYNC);
+					GetValue< bool >(MAGE_DISPLAY_VARIABLE_VSYNC);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
@@ -379,7 +379,7 @@ namespace mage {
 					static_cast<size_t>(AADescriptor::SSAA_4x),  L"SSAA 4x");
 				
 				const int aa_index = *m_display_configuration_script->
-					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_AA);
+					GetValue< int >(MAGE_DISPLAY_VARIABLE_AA);
 				ComboBoxSelect(dialog, IDC_AA, aa_index);
 			}
 			
@@ -399,7 +399,7 @@ namespace mage {
 				}
 
 				const int resolution_index = *m_display_configuration_script->
-					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
+					GetValue< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
 				ComboBoxSelect(dialog, IDC_RESOLUTION, resolution_index);
 			}
 
@@ -426,7 +426,7 @@ namespace mage {
 				}
 
 				const int refresh_rate_index = *m_display_configuration_script->
-					GetValueOfVariable< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
+					GetValue< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
 				ComboBoxSelect(dialog, IDC_REFRESH_RATE, refresh_rate_index);
 			}
 
@@ -496,15 +496,15 @@ namespace mage {
 					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_RESOLUTION));
 				
 				// Store all the settings to the display configuration script.
-				m_display_configuration_script->SetValueOfVariable(
+				m_display_configuration_script->SetValue(
 					MAGE_DISPLAY_VARIABLE_AA, aa_index);
-				m_display_configuration_script->SetValueOfVariable(
+				m_display_configuration_script->SetValue(
 					MAGE_DISPLAY_VARIABLE_REFRESH_RATE, refresh_rate_index);
-				m_display_configuration_script->SetValueOfVariable(
+				m_display_configuration_script->SetValue(
 					MAGE_DISPLAY_VARIABLE_RESOLUTION, resolution_index);
-				m_display_configuration_script->SetValueOfVariable(
+				m_display_configuration_script->SetValue(
 					MAGE_DISPLAY_VARIABLE_VSYNC, vsync);
-				m_display_configuration_script->SetValueOfVariable(
+				m_display_configuration_script->SetValue(
 					MAGE_DISPLAY_VARIABLE_WINDOWED, windowed);
 
 				// Save all the settings in the display configuration script.

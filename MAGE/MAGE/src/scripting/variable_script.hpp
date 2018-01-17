@@ -15,6 +15,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <iterator>
 #include <map>
 
 #pragma endregion
@@ -144,7 +145,7 @@ namespace mage {
 		 @return		@c true if this variable script is empty. @c false 
 						otherwise.
 		 */
-		bool IsEmpty() const noexcept {
+		[[nodiscard]] bool IsEmpty() const noexcept {
 			return m_variables.empty();
 		}
 
@@ -153,20 +154,9 @@ namespace mage {
 
 		 @return		The number of variables in this variable script.
 		 */
-		size_t GetNumberOfVariables() const noexcept {
+		size_t GetSize() const noexcept {
 			return m_variables.size();
 		}
-
-		/**
-		 Checks whether this variable script has a variable with the given 
-		 name.
-
-		 @param[in]		name
-						A reference to the name of the variable.
-		 @return		@c true if this variable script has a variable with the
-						given name. @c false otherwise.
-		 */
-		bool ContainsVariable(const string &name) const noexcept;
 
 		/**
 		 Checks whether this variable script has a variable with the given 
@@ -179,8 +169,8 @@ namespace mage {
 		 @return		@c true if this variable script has a variable with the
 						given name. @c false otherwise.
 		 */
-		template< typename T >
-		bool ContainsVariableOfType(const string &name) const noexcept;
+		template< typename T = void >
+		bool Contains(const string &name) const noexcept;
 
 		/**
 		 Adds the given variable to this variable script.
@@ -193,7 +183,7 @@ namespace mage {
 						The value of the variable.
 		 */
 		template< typename T >
-		void AddVariable(string name, T value);
+		void Add(string name, T value);
 
 		/**
 		 Removes the given variable from this variable script.
@@ -201,12 +191,14 @@ namespace mage {
 		 @param[in]		name
 						The name of the variable.
 		 */
-		void RemoveVariable(const string &name);
+		void Remove(const string &name);
 
 		/**
 		 Removes all variables from this variable script.
 		 */
-		void RemoveAllVariables() noexcept;
+		void RemoveAll() noexcept {
+			m_variables.clear();
+		}
 
 		/**
 		 Returns the value of the given variable in this variable script.
@@ -223,7 +215,7 @@ namespace mage {
 						different type.
 		 */
 		template< typename T >
-		const T *GetValueOfVariable(const string &name) const;
+		const T *GetValue(const string &name) const;
 
 		/**
 		 Sets the value of the given variable in this variable script.
@@ -238,7 +230,7 @@ namespace mage {
 						exists in this variable script.
 		 */
 		template< typename T >
-		void SetValueOfVariable(const string &name, T value);
+		void SetValue(const string &name, T value);
 
 	private:
 
@@ -252,6 +244,8 @@ namespace mage {
 		std::map< string, Value > m_variables;
 	};
 }
+
+
 
 //-----------------------------------------------------------------------------
 // Engine Includes

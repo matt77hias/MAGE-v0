@@ -14,8 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
+	template<>
+	inline bool VariableScript::Contains< void >(const string &name) const noexcept {
+		return m_variables.cend() != m_variables.find(name);
+	}
+
 	template< typename T >
-	bool VariableScript::ContainsVariableOfType(const string &name) const noexcept {
+	bool VariableScript::Contains(const string &name) const noexcept {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
@@ -26,12 +31,12 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline void VariableScript::AddVariable(string name, T value) {
+	inline void VariableScript::Add(string name, T value) {
 		m_variables.insert_or_assign(std::move(name), Value(std::move(value)));
 	}
 
 	template< typename T >
-	const T *VariableScript::GetValueOfVariable(const string &name) const {
+	const T *VariableScript::GetValue(const string &name) const {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
@@ -43,7 +48,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	void VariableScript::SetValueOfVariable(const string &name, T value) {
+	void VariableScript::SetValue(const string &name, T value) {
 		if (const auto it = m_variables.find(name); 
 			it != m_variables.end()) {
 

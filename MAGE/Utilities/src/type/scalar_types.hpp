@@ -1,7 +1,7 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Type Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 

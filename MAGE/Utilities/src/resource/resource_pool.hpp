@@ -113,7 +113,7 @@ namespace mage {
 		/**
 		 Returns the number of resources contained in this resource pool.
 		 */
-		size_t size() const noexcept;
+		[[nodiscard]] size_t size() const noexcept;
 
 		/**
 		 Checks whether this resource pool contains a resource corresponding 
@@ -125,7 +125,7 @@ namespace mage {
 						pool corresponding to the given key. @c false, 
 						otherwise.
 		 */
-		bool Contains(const KeyT &key) noexcept;
+		[[nodiscard]] bool Contains(const KeyT &key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -428,7 +428,7 @@ namespace mage {
 		 Returns the number of resources contained in this persistent resource 
 		 pool.
 		 */
-		size_t size() const noexcept;
+		[[nodiscard]] size_t size() const noexcept;
 
 		/**
 		 Checks whether this persistent resource pool contains a resource 
@@ -440,7 +440,7 @@ namespace mage {
 						this persistent resource pool corresponding to the 
 						given key. @c false, otherwise.
 		 */
-		bool Contains(const KeyT &key) noexcept;
+		[[nodiscard]] bool Contains(const KeyT &key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this 

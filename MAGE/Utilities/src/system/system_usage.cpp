@@ -27,7 +27,7 @@ namespace mage {
 			GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
 		
 		return (FALSE == result) ? 
-			0 : static_cast< U64 >(memory_stats.PagefileUsage);
+			0ull : static_cast< U64 >(memory_stats.PagefileUsage);
 	}
 
 	U64 GetPhysicalMemoryUsage() noexcept {
@@ -36,6 +36,6 @@ namespace mage {
 			GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
 		
 		return (FALSE == result) ? 
-			0 : static_cast< U64 >(memory_stats.WorkingSetSize);
+			0ull : static_cast< U64 >(memory_stats.WorkingSetSize);
 	}
 }

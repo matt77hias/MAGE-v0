@@ -36,7 +36,9 @@ namespace mage {
 	 @return		A pointer to the memory block that was allocated. The 
 					pointer is a multiple of the given alignment.
 	 */
-	inline void *AllocAligned(size_t size, size_t alignment) noexcept {
+	[[nodiscard]] inline void *AllocAligned(size_t size, 
+		                                    size_t alignment) noexcept {
+
 		return _aligned_malloc(size, alignment);
 	}
 
@@ -55,7 +57,9 @@ namespace mage {
 					pointer is a multiple of the given alignment.
 	 */
 	template< typename DataT >
-	inline DataT *AllocAlignedData(size_t count, size_t alignment) noexcept {
+	[[nodiscard]] inline DataT *AllocAlignedData(size_t count, 
+		                                         size_t alignment) noexcept {
+
 		return static_cast< DataT * >(AllocAligned(count * sizeof(DataT), alignment));
 	}
 
@@ -103,6 +107,7 @@ namespace mage {
 		/**
 		 A struct of equivalent aligned allocators for other elements with the 
 		 same alignment.
+
 		 @tparam		DataU
 						The data type.
 		 */
@@ -120,6 +125,7 @@ namespace mage {
 
 			/**
 			 Copies the given aligned allocator to this aligned allocator.
+
 			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 @return		A reference to the copy of the given aligned 
@@ -129,6 +135,7 @@ namespace mage {
 
 			/**
 			 Moves the given aligned allocator to this aligned allocator.
+
 			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 @return		A reference to the moved aligned allocator (i.e. 
@@ -145,6 +152,7 @@ namespace mage {
 
 			/**
 			 Constructs an aligned allocator from the given aligned allocator.
+
 			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 */
@@ -153,6 +161,7 @@ namespace mage {
 			/**
 			 Constructs an aligned allocator by moving the given aligned 
 			 allocator.
+
 			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 */
@@ -251,7 +260,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
-		DataT *allocate(size_t count) const {
+		[[nodiscard]] DataT *allocate(size_t count) const {
 			DataT * const data = AllocAlignedData< DataT >(count, AlignmentS);
 			if (!data) {
 				throw std::bad_alloc();
@@ -286,7 +295,9 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
-		DataT *allocate(size_t count, [[maybe_unused]] const void *hint) const {
+		[[nodiscard]] DataT *allocate(size_t count, 
+			                          [[maybe_unused]] const void *hint) const {
+
 			return allocate(count);
 		}
 
@@ -323,7 +334,7 @@ namespace mage {
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename DataU >
-		constexpr bool operator==([[maybe_unused]] 
+		[[nodiscard]] constexpr bool operator==([[maybe_unused]]
 			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return true;
@@ -343,7 +354,7 @@ namespace mage {
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename DataU >
-		constexpr bool operator!=([[maybe_unused]] 
+		[[nodiscard]] constexpr bool operator!=([[maybe_unused]]
 			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return false;

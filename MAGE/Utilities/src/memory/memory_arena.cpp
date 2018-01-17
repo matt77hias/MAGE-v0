@@ -44,7 +44,7 @@ namespace mage {
 		}
 	}
 
-	size_t MemoryArena::GetTotalBlockSize() const noexcept {
+	[[nodiscard]] size_t MemoryArena::GetTotalBlockSize() const noexcept {
 		size_t size = GetCurrentBlockSize();
 		
 		for (const auto &block : m_used_blocks) {

@@ -30,7 +30,7 @@ namespace mage {
 	 @return		A @c U64 (in 100 ns) representing the given file time 
 					@a ftime.
 	 */
-	static inline U64 ConvertTimestamp(const FILETIME &ftime) noexcept {
+	[[nodiscard]] static inline U64 ConvertTimestamp(const FILETIME &ftime) noexcept {
 		return static_cast< U64 >(ftime.dwLowDateTime) 
 			 | static_cast< U64 >(ftime.dwHighDateTime) << 32;
 	}
@@ -125,6 +125,7 @@ namespace mage {
 			               L"yyyy-MM-dd", 
 			               str_date, 
 			               static_cast< int >(std::size(str_date)))) {
+
 			return wstring();
 		}
 		
@@ -134,6 +135,7 @@ namespace mage {
 			               L"HH-mm-ss", 
 			               str_time, 
 			               static_cast< int >(std::size(str_time)))) {
+
 			return wstring();
 		}
 
@@ -141,7 +143,8 @@ namespace mage {
 	}
 
 	void GetCurrentCoreTimestamp(HANDLE handle_process,
-		U64 *kernel_mode_timestamp, U64 *user_mode_timestamp) noexcept {
+		                         U64 *kernel_mode_timestamp, 
+		                         U64 *user_mode_timestamp) noexcept {
 		
 		Assert(kernel_mode_timestamp);
 		Assert(user_mode_timestamp);

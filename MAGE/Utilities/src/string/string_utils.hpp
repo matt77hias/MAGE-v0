@@ -26,9 +26,11 @@ namespace mage {
 					A pointer to the second null-terminated byte string.
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
-	inline bool str_equals(const char *str1, const char *str2) noexcept {
+	[[nodiscard]] inline bool str_equals(const char *str1, 
+		                                 const char *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
+
 		return strcmp(str1, str2) ? false : true;
 	}
 
@@ -43,9 +45,11 @@ namespace mage {
 					A pointer to the second null-terminated wide string.
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
-	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) noexcept {
+	[[nodiscard]] inline bool str_equals(const wchar_t *str1, 
+		                                 const wchar_t *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
+
 		return wcscmp(str1, str2) ? false : true;
 	}
 
@@ -62,9 +66,11 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2. @c false 
 					otherwise.
 	 */
-	inline bool str_contains(const char *str1, const char *str2) noexcept {
+	[[nodiscard]] inline bool str_contains(const char *str1, 
+		                                   const char *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
+
 		return strstr(str1, str2) ? true : false;
 	}
 
@@ -81,9 +87,11 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2. @c false 
 					otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) noexcept {
+	[[nodiscard]] inline bool str_contains(const wchar_t *str1, 
+		                                   const wchar_t *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
+
 		return wcsstr(str1, str2) ? true : false;
 	}
 
@@ -97,8 +105,10 @@ namespace mage {
 					The byte character to match.
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
-	inline bool str_contains(const char *str, char c) noexcept {
+	[[nodiscard]] inline bool str_contains(const char *str, 
+		                                   char c) noexcept {
 		Assert(str);
+
 		return strchr(str, static_cast< int >(c)) ? true : false;
 	}
 
@@ -112,8 +122,10 @@ namespace mage {
 					The wide character to match.
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str, wchar_t c) noexcept {
+	[[nodiscard]] inline bool str_contains(const wchar_t *str, 
+		                                   wchar_t c) noexcept {
 		Assert(str);
+
 		return wcschr(str, c) ? true : false;
 	}
 

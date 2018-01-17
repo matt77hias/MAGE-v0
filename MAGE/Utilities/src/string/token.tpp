@@ -481,7 +481,7 @@ namespace mage {
 	#pragma region
 
 	inline TokenResult ReadChars(char *str, char **context, char **result, 
-		const char *delimiters) noexcept {
+		                         const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(result);
@@ -497,7 +497,7 @@ namespace mage {
 	
 	template< typename DataT >
 	inline TokenResult Read(char *str, char **context, DataT &result,
-		const char *delimiters) noexcept {
+		                    const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -508,7 +508,7 @@ namespace mage {
 
 	template<>
 	inline TokenResult Read(char *str, char **context, string &result,
-		const char *delimiters) {
+		                    const char *delimiters) {
 
 		Assert(str || context);
 		Assert(delimiters);
@@ -525,7 +525,7 @@ namespace mage {
 
 	template<>
 	inline TokenResult Read(char *str, char **context, F32x2 &result,
-		const char *delimiters) noexcept {
+		                    const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -553,7 +553,7 @@ namespace mage {
 	
 	template<>
 	inline TokenResult Read(char *str, char **context, F32x3 &result,
-		const char *delimiters) noexcept {
+		                    const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);
@@ -590,7 +590,7 @@ namespace mage {
 	
 	template<>
 	inline TokenResult Read(char *str, char **context, F32x4 &result,
-		const char *delimiters) noexcept {
+		                    const char *delimiters) noexcept {
 		
 		Assert(str || context);
 		Assert(delimiters);

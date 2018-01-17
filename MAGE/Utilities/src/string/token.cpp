@@ -18,7 +18,7 @@ namespace mage {
 	#pragma region
 
 	TokenResult ReadQuotedString(char *str, char **context, string &result, 
-		const char *delimiters) {
+		                         const char *delimiters) {
 		
 		Assert(str || context);
 		Assert(delimiters);

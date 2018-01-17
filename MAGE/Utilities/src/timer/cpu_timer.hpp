@@ -246,7 +246,7 @@ namespace mage {
 
 		 @return		The kernel mode index of CPU timers.
 		 */
-		static constexpr size_t GetKernelModeIndex() noexcept {
+		[[nodiscard]] static constexpr size_t GetKernelModeIndex() noexcept {
 			return static_cast< size_t >(ModeIndex::Kernel);
 		}
 
@@ -255,7 +255,7 @@ namespace mage {
 
 		 @return		The user mode index of CPU timers.
 		 */
-		static constexpr size_t GetUserModeIndex() noexcept {
+		[[nodiscard]] static constexpr size_t GetUserModeIndex() noexcept {
 			return static_cast< size_t >(ModeIndex::User);
 		}
 

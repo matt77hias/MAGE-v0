@@ -41,7 +41,7 @@ namespace mage::script {
 		m_mutex() {
 
 		memcpy(m_buffer.get(), script.m_buffer.get(),
-			sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
+			   sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
 
 	}
 
@@ -76,18 +76,20 @@ namespace mage::script {
 
 	void TextConsoleScript::Clear() {
 		memset(m_buffer.get(), 0, 
-			sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
+			   sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
 		m_current_row    = 0;
 		m_current_column = 0;
 	}
 
 	void TextConsoleScript::Write(const wchar_t *str) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
+		
 		ProcessString(str);
 	}
 
 	void TextConsoleScript::WriteLine(const wchar_t *str) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
+		
 		ProcessString(str);
 		IncrementRow();
 	}

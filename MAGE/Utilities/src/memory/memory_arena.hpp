@@ -100,7 +100,7 @@ namespace mage {
 
 		 @return		The alignment in bytes of this memory arena.
 		 */
-		size_t GetAlignment() const noexcept {
+		[[nodiscard]] size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -109,7 +109,7 @@ namespace mage {
 
 		 @return		The maximum block size in bytes of this memory arena.
 		 */
-		size_t GetMaximumBlockSize() const noexcept {
+		[[nodiscard]] size_t GetMaximumBlockSize() const noexcept {
 			return m_maximum_block_size;
 		}
 
@@ -120,7 +120,7 @@ namespace mage {
 		 @return		The block size (in bytes) of the current block of this 
 						memory arena.
 		 */
-		size_t GetCurrentBlockSize() const noexcept {
+		[[nodiscard]] size_t GetCurrentBlockSize() const noexcept {
 			return m_current_block.first;
 		}
 
@@ -130,14 +130,14 @@ namespace mage {
 		 @return		The block size (in bytes) of all blocks of this memory
 						arena.
 		 */
-		size_t GetTotalBlockSize() const noexcept;
+		[[nodiscard]] size_t GetTotalBlockSize() const noexcept;
 
 		/**
 		 Returns a pointer to the current block of this memory arena.
 
 		 @return		A pointer to the current block of this memory arena.
 		 */
-		void *GetCurrentBlockPtr() const noexcept {
+		[[nodiscard]] void *GetCurrentBlockPtr() const noexcept {
 			return (void *)m_current_block.second;
 		}
 
@@ -314,7 +314,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const void *hint) const {
+				            [[maybe_unused]] const void *hint) const {
 				
 				return allocate(count);
 			}
@@ -335,7 +335,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
@@ -349,7 +349,9 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator==(const Allocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator==(
+				const Allocator< DataU > &rhs) const noexcept {
+
 				return m_memory_arena == rhs.m_memory_arena;
 			}
 
@@ -365,7 +367,9 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator!=(
+				const Allocator< DataU > &rhs) const noexcept {
+
 				return !(*this == rhs);
 			}
 
@@ -390,6 +394,7 @@ namespace mage {
 			 */
 			explicit Allocator(MemoryArena *memory_arena) noexcept
 				: m_memory_arena(memory_arena) {
+
 				Assert(m_memory_arena);
 			}
 

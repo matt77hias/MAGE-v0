@@ -261,7 +261,7 @@ namespace mage {
 	 @return		Otherwise, the given handle is returned.
 
 	 */
-	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
+	[[nodiscard]] static inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (INVALID_HANDLE_VALUE == handle) ? nullptr : handle;
 	}
 

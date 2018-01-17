@@ -20,7 +20,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline size_t ResourcePool< KeyT, ResourceT >
+	[[nodiscard]] inline size_t ResourcePool< KeyT, ResourceT >
 		::size() const noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -29,7 +29,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	bool ResourcePool< KeyT, ResourceT >
+	[[nodiscard]] bool ResourcePool< KeyT, ResourceT >
 		::Contains(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -171,7 +171,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline size_t PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]] inline size_t PersistentResourcePool< KeyT, ResourceT >
 		::size() const noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -180,7 +180,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	bool PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]] bool PersistentResourcePool< KeyT, ResourceT >
 		::Contains(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);

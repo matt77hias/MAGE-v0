@@ -48,20 +48,20 @@ namespace mage::script {
 		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
-		RotationAxes GetRotationAxes() const noexcept {
+		[[nodiscard]] RotationAxes GetRotationAxes() const noexcept {
 			return m_axes;
 		}
 		void SetRotationAxes(RotationAxes axes) noexcept {
 			m_axes = axes;
 		}
 
-		F32 GetSensitivityX() const noexcept {
+		[[nodiscard]] F32 GetSensitivityX() const noexcept {
 			return m_sensitivity.m_x;
 		}
-		F32 GetSensitivityY() const noexcept {
+		[[nodiscard]] F32 GetSensitivityY() const noexcept {
 			return m_sensitivity.m_y;
 		}
-		const F32x2 GetSensitivity() const noexcept {
+		[[nodiscard]] const F32x2 GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
 		void SetSensitivityX(F32 x) noexcept {
@@ -81,13 +81,13 @@ namespace mage::script {
 			XMStoreFloat2(&m_sensitivity, sensitivity);
 		}
 
-		F32 GetMinimumRotationX() const noexcept {
+		[[nodiscard]] F32 GetMinimumRotationX() const noexcept {
 			return m_minimum_rotation.m_x;
 		}
-		F32 GetMinimumRotationY() const noexcept {
+		[[nodiscard]] F32 GetMinimumRotationY() const noexcept {
 			return m_minimum_rotation.m_y;
 		}
-		const F32x2 GetMinimumRotation() const noexcept {
+		[[nodiscard]] const F32x2 GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
 		void SetMinimumRotationX(F32 x) noexcept {
@@ -107,13 +107,13 @@ namespace mage::script {
 			XMStoreFloat2(&m_minimum_rotation, minimum_rotation);
 		}
 
-		F32 GetMaximumRotationX() const noexcept {
+		[[nodiscard]] F32 GetMaximumRotationX() const noexcept {
 			return m_maximum_rotation.m_x;
 		}
-		F32 GetMaximumRotationY() const noexcept {
+		[[nodiscard]] F32 GetMaximumRotationY() const noexcept {
 			return m_maximum_rotation.m_y;
 		}
-		const F32x2 GetMaximumRotation() const noexcept {
+		[[nodiscard]] const F32x2 GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
 		void SetMaximumRotationX(F32 x) noexcept {

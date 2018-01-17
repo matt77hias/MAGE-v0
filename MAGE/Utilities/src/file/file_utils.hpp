@@ -22,7 +22,7 @@ namespace mage {
 	 @return		@c true if a file with the given filename exists. @c false 
 					otherwise.
 	 */
-	bool FileExists(const wstring &fname) noexcept;
+	[[nodiscard]] bool FileExists(const wstring &fname) noexcept;
 
 	/**
 	 Returns the filename of the given file.

@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -222,7 +222,7 @@ namespace mage {
 	 @return		@c true if a valid item is selected in the combo box.
 					@c false otherwise.
 	 */
-	bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept;
+	[[nodiscard]] bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept;
 
 	#pragma endregion
 
@@ -241,7 +241,7 @@ namespace mage {
 					The identifier of the control to be retrieved.
 	 @return		The number of items of a combo box.	
 	 */
-	int ComboBoxCount(HWND dialog, int id) noexcept;
+	[[nodiscard]] int ComboBoxCount(HWND dialog, int id) noexcept;
 
 	#pragma endregion
 
@@ -264,7 +264,7 @@ namespace mage {
 	 @return		@c true if the given description is contained in the combo 
 					box. @c false otherwise.
 	 */
-	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
+	[[nodiscard]] bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
 
 	#pragma endregion
 }

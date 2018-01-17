@@ -74,17 +74,19 @@ namespace mage::script {
 				= static_cast< U32 >(GetVirtualMemoryUsage() >> 20);
 		}
 
-		const SRGBA color = (m_last_frames_per_second > 120) ? 
-								color::Green : color::Red;
+		SRGBA color = (m_last_frames_per_second > 120) ? color::Green : color::Red;
 
 		m_text->SetText(wstring(L"FPS: "));
-		m_text->AppendText(ColorString(std::to_wstring(m_last_frames_per_second), color));
+		m_text->AppendText(ColorString(std::to_wstring(m_last_frames_per_second), 
+			                           std::move(color)));
 		
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, std::size(buffer), 
-			L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB\nDCs: %u", 
-			m_last_milliseconds_per_frame, m_last_cpu_usage, m_last_ram_usage, 
-			EngineStatistics::Get()->GetNumberOfDrawCalls());
+			         L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB\nDCs: %u", 
+			         m_last_milliseconds_per_frame, 
+			         m_last_cpu_usage, 
+			         m_last_ram_usage, 
+			         EngineStatistics::Get()->GetNumberOfDrawCalls());
 		m_text->AppendText(wstring(buffer));
 	}
 }

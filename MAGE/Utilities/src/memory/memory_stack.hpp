@@ -104,7 +104,7 @@ namespace mage {
 		 @return		The alignment in bytes of this single-ended memory 
 						stack.
 		 */
-		size_t GetAlignment() const noexcept {
+		[[nodiscard]] size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -114,7 +114,7 @@ namespace mage {
 		 @return		The size (used + available) in bytes of this 
 						single-ended memory stack.
 		 */
-		size_t GetSize() const noexcept {
+		[[nodiscard]] size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -124,7 +124,7 @@ namespace mage {
 		 @return		The used size in bytes of this single-ended memory 
 						stack.
 		 */
-		size_t GetUsedSize() const noexcept {
+		[[nodiscard]] size_t GetUsedSize() const noexcept {
 			return m_current - m_begin;
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 		 @return		The available size in bytes of this single-ended memory 
 						stack.
 		 */
-		size_t GetAvailableSize() const noexcept {
+		[[nodiscard]] size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -145,7 +145,7 @@ namespace mage {
 		 @return		A pointer to the current position of this single-ended 
 						memory stack.
 		 */
-		uintptr_t GetCurrentPtr() const noexcept {
+		[[nodiscard]] uintptr_t GetCurrentPtr() const noexcept {
 			return m_current;
 		}
 
@@ -338,7 +338,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const void *hint) const {
+				            [[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -359,7 +359,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
@@ -373,7 +373,9 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator==(const Allocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator==(
+				const Allocator< DataU > &rhs) const noexcept {
+
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -389,7 +391,9 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator!=(
+				const Allocator< DataU > &rhs) const noexcept {
+
 				return !(*this == rhs);
 			}
 
@@ -414,6 +418,7 @@ namespace mage {
 			 */
 			explicit Allocator(SingleEndedMemoryStack *memory_stack) noexcept
 				: m_memory_stack(memory_stack) {
+
 				Assert(m_memory_stack);
 			}
 
@@ -557,7 +562,7 @@ namespace mage {
 		 @return		The alignment in bytes of this double-ended memory 
 						stack.
 		 */
-		size_t GetAlignment() const noexcept {
+		[[nodiscard]] size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -567,7 +572,7 @@ namespace mage {
 		 @return		The size (used + available) in bytes of this memory 
 						stack.
 		 */
-		size_t GetSize() const noexcept {
+		[[nodiscard]] size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -577,7 +582,7 @@ namespace mage {
 		 @return		The used size in bytes of this double-ended memory 
 						stack.
 		 */
-		size_t GetUsedSize() const noexcept {
+		[[nodiscard]] size_t GetUsedSize() const noexcept {
 			return m_size - m_current_high + m_current_low;
 		}
 
@@ -587,7 +592,7 @@ namespace mage {
 		 @return		The used high size in bytes of this double-ended memory 
 						stack.
 		 */
-		size_t GetUsedLowSize() const noexcept {
+		[[nodiscard]] size_t GetUsedLowSize() const noexcept {
 			return m_current_low - m_begin;
 		}
 
@@ -597,7 +602,7 @@ namespace mage {
 		 @return		The used low size in bytes of this double-ended memory 
 						stack.
 		 */
-		size_t GetUsedHighSize() const noexcept {
+		[[nodiscard]] size_t GetUsedHighSize() const noexcept {
 			return m_begin + m_size - m_current_high;
 		}
 
@@ -607,7 +612,7 @@ namespace mage {
 		 @return		The available size in bytes of this double-ended memory 
 						stack.
 		 */
-		size_t GetAvailableSize() const noexcept {
+		[[nodiscard]] size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -618,7 +623,7 @@ namespace mage {
 		 @return		A pointer to the current low position of this 
 						double-ended memory stack.
 		 */
-		uintptr_t GetCurrentLowPtr() const noexcept {
+		[[nodiscard]] uintptr_t GetCurrentLowPtr() const noexcept {
 			return m_current_low;
 		}
 
@@ -629,7 +634,7 @@ namespace mage {
 		 @return		A pointer to the current high position of this 
 						double-ended memory stack.
 		 */
-		uintptr_t GetCurrentHighPtr() const noexcept {
+		[[nodiscard]] uintptr_t GetCurrentHighPtr() const noexcept {
 			return m_current_high;
 		}
 
@@ -869,7 +874,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const void *hint) const {
+				            [[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -890,7 +895,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this low allocator to the given low allocator for 
@@ -905,7 +910,9 @@ namespace mage {
 							low allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator==(const LowAllocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator==(
+				const LowAllocator< DataU > &rhs) const noexcept {
+
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -922,7 +929,9 @@ namespace mage {
 							low allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator!=(const LowAllocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator!=(
+				const LowAllocator< DataU > &rhs) const noexcept {
+
 				return !(*this == rhs);
 			}
 
@@ -947,6 +956,7 @@ namespace mage {
 			 */
 			explicit LowAllocator(DoubleEndedMemoryStack *memory_stack) noexcept
 				: m_memory_stack(memory_stack) {
+
 				Assert(m_memory_stack);
 			}
 
@@ -1097,7 +1107,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count, 
-				[[maybe_unused]] const void *hint) const {
+				            [[maybe_unused]] const void *hint) const {
 
 				return allocate(count);
 			}
@@ -1118,7 +1128,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] DataT *data, 
-				[[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this high allocator to the given high allocator for 
@@ -1133,7 +1143,9 @@ namespace mage {
 							high allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator==(const HighAllocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator==(
+				const HighAllocator< DataU > &rhs) const noexcept {
+
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -1150,7 +1162,9 @@ namespace mage {
 							high allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			bool operator!=(const HighAllocator< DataU > &rhs) const noexcept {
+			[[nodiscard]] bool operator!=(
+				const HighAllocator< DataU > &rhs) const noexcept {
+
 				return !(*this == rhs);
 			}
 
@@ -1175,6 +1189,7 @@ namespace mage {
 			 */
 			explicit HighAllocator(DoubleEndedMemoryStack *memory_stack) noexcept
 				: m_memory_stack(memory_stack) {
+
 				Assert(m_memory_stack);
 			}
 

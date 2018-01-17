@@ -111,7 +111,7 @@ namespace mage {
 			               : (void *)ComboBox_GetItemData(control, index);
 	}
 
-	bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept {
+	[[nodiscard]] bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -123,7 +123,7 @@ namespace mage {
 		return (index >= 0);
 	}
 
-	int ComboBoxCount(HWND dialog, int id) noexcept {
+	[[nodiscard]] int ComboBoxCount(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -133,7 +133,7 @@ namespace mage {
 		return ComboBox_GetCount(control);
 	}
 
-	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept {
+	[[nodiscard]] bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept {
 		Assert(dialog);
 		Assert(desc);
 		

@@ -12,8 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ReadBinaryFile(const wchar_t *fname, UniquePtr< U8[] > &data, 
-		size_t *size) {
+	void ReadBinaryFile(const wchar_t *fname, 
+		                UniquePtr< U8[] > &data, 
+		                size_t *size) {
 
 		Assert(fname);
 		Assert(size);

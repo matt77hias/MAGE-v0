@@ -30,8 +30,9 @@ namespace mage {
 	 @throws		Exception
 					Failed to read from the given file.
 	 */
-	void ReadBinaryFile(const wchar_t *fname, UniquePtr< U8[] > &data, 
-		size_t *size);
+	void ReadBinaryFile(const wchar_t *fname, 
+		                UniquePtr< U8[] > &data, 
+		                size_t *size);
 
 	//-------------------------------------------------------------------------
 	// BinaryReader
@@ -154,7 +155,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool ContainsCharsLeft() const noexcept {
+		bool ContainsChars() const noexcept {
 			return m_pos < m_end;
 		}
 
@@ -349,7 +350,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool ContainsCharsLeft() const noexcept {
+		bool ContainsChars() const noexcept {
 			return m_pos < m_end;
 		}
 

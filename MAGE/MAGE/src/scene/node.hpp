@@ -162,6 +162,16 @@ namespace mage {
 		}
 		
 		/**
+		 Checks whether this node contains childs.
+
+		 @return		@c true if this node contains at least one child. 
+						@c false otherwise.
+		 */
+		bool ContainsChilds() const {
+			return !m_childs.empty();
+		}
+
+		/**
 		 Checks whether this node contains the given node as a child.
 
 		 @param[in]		node
@@ -228,11 +238,30 @@ namespace mage {
 
 		 @tparam		ComponentT
 						The component type.
-		 @return		@c true if this node contains a component of the given 
-						type. @c false otherwise.
+		 @return		@c true if this node contains at least one component 
+						of the given type. @c false otherwise.
 		 */
 		template< typename ComponentT >
 		bool Contains() const noexcept;
+
+		/**
+		 Checks whether this node has components.
+
+		 @return		@c true if this node contains at least one component. 
+						@c false otherwise.
+		 */
+		bool ContainsComponents() const noexcept {
+			return !m_components.empty();
+		}
+
+		/**
+		 Returns the number of components of this node.
+
+		 @return		The number of components of this node.
+		 */
+		size_t GetNumberOfComponents() const noexcept {
+			return m_components.size();
+		}
 
 		/**
 		 Returns the number of components of the given type of this node.
@@ -244,15 +273,6 @@ namespace mage {
 		 */
 		template< typename ComponentT >
 		size_t GetNumberOf() const noexcept;
-
-		/**
-		 Returns the number of components of this node.
-
-		 @return		The number of components of this node.
-		 */
-		size_t GetNumberOfComponents() const noexcept {
-			return m_components.size();
-		};
 
 		/**
 		 Returns the first component of the given type of this node.

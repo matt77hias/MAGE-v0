@@ -114,7 +114,7 @@ namespace mage {
 						than the second given glyph's character. @c false 
 						otherwise.
 		 */
-		bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]] bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
 			return lhs.m_character < rhs.m_character;
 		}
 
@@ -129,7 +129,7 @@ namespace mage {
 		 @return		@c true if the given glyph's character is smaller than 
 						the given character. @c false otherwise.
 		 */
-		bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
+		[[nodiscard]] bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
 			return lhs.m_character < static_cast< U32 >(rhs);
 		}
 
@@ -144,7 +144,7 @@ namespace mage {
 		 @return		@c true if the given character is smaller than the 
 						given glyph's character. @c false otherwise.
 		 */
-		bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]] bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
 			return static_cast< U32 >(lhs) < rhs.m_character;
 		}
 	};
@@ -394,7 +394,7 @@ namespace mage {
 		}
 	}
 
-	const XMVECTOR SpriteFont::MeasureString(
+	const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
 		const wchar_t *str) const {
 		
 		Assert(str);
@@ -450,7 +450,7 @@ namespace mage {
 		return result;
 	}
 	
-	const XMVECTOR SpriteFont::MeasureString(
+	const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
 		const std::vector< ColorString > &text) const {
 		
 		XMVECTOR result = XMVectorZero();

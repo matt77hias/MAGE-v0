@@ -50,7 +50,7 @@ namespace mage {
 	template< typename ComponentT >
 	inline size_t Node::GetNumberOf() const noexcept {
 		return m_components.count(typeid(ComponentT));
-	};
+	}
 
 	template< typename ComponentT >
 	inline ProxyPtr< ComponentT > Node::Get() noexcept {

@@ -315,7 +315,7 @@ namespace mage {
 			m_adapter->GetDesc2(&desc);
 			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
-			if (m_display_configuration_script->IsEmpty()) {
+			if (m_display_configuration_script->empty()) {
 				m_display_configuration_script->Add(
 					MAGE_DISPLAY_VARIABLE_AA,           0);
 				m_display_configuration_script->Add(

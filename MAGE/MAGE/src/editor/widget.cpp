@@ -21,6 +21,8 @@ namespace mage::editor {
 	}
 
 	static void DrawWidget(CameraLens &lens, const F32x2 &clipping_planes) {
+		ImGui::Text("Lens:");
+		
 		// Lens radius
 		F32 radius = lens.GetLensRadius();
 		ImGui::InputFloat("Radius", &radius);
@@ -348,7 +350,7 @@ namespace mage::editor {
 
 		// Base Color Texture
 		const wstring base_color_guid = material.GetBaseColorTexture()->GetGuid();
-		ImGui::LabelText("Base Color Texture", str_convert(base_color_guid).c_str());
+		ImGui::Text(str_convert(base_color_guid).c_str());
 
 		// Transparency
 		bool transparency = material.IsTransparant();
@@ -367,12 +369,12 @@ namespace mage::editor {
 
 		// Material Texture
 		const wstring material_guid = material.GetMaterialTexture()->GetGuid();
-		ImGui::LabelText("Material Texture", str_convert(material_guid).c_str());
+		ImGui::Text(str_convert(material_guid).c_str());
 
 		// Normal Texture
 		if (material.GetNormalTexture()) {
 			const wstring normal_guid = material.GetNormalTexture()->GetGuid();
-			ImGui::LabelText("Normal Texture", str_convert(normal_guid).c_str());
+			ImGui::LabelText("Normals", str_convert(normal_guid).c_str());
 		}
 
 		// Light Interaction
@@ -668,7 +670,7 @@ namespace mage::editor {
 		const string id = std::to_string(node.GetGuid());
 		const string &name = node.GetName();
 		
-		if (0 != node.GetNumberOfChilds()) {
+		if (node.ContainsChilds()) {
 			static constexpr ImGuiTreeNodeFlags node_flags
 				= ImGuiTreeNodeFlags_OpenOnArrow
 				| ImGuiTreeNodeFlags_OpenOnDoubleClick;
@@ -678,6 +680,10 @@ namespace mage::editor {
 
 			if (ImGui::TreeNodeEx(id.c_str(), flags, name.c_str())) {
 				
+				if (ImGui::IsItemClicked()) {
+					SetSelected(node.Get());
+				}
+
 				node.ForEachChild([](Node &child) {
 					DrawGraph(child);
 				});

@@ -308,7 +308,9 @@ namespace mage::loader {
 			 @return		@c true if the @a a is smaller than @a b. @c false 
 							otherwise.
 			 */
-			bool operator()(const Index3& a, const Index3& b) const {
+			[[nodiscard]] bool operator()(const Index3& a, 
+				                          const Index3& b) const noexcept {
+
 				return (a.m_x == b.m_x) ? ((a.m_y == b.m_y) ? 
 					(a.m_z < b.m_z) : (a.m_y < b.m_y)) : (a.m_x < b.m_x);
 			}

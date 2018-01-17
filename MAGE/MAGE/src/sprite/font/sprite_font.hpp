@@ -165,7 +165,7 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR MeasureString(const wchar_t *str) const;
+		const XMVECTOR XM_CALLCONV MeasureString(const wchar_t *str) const;
 
 		/**
 		 Returns the size of the given text with this sprite font in pixels.
@@ -178,7 +178,8 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR MeasureString(const std::vector< ColorString > &text) const;
+		const XMVECTOR XM_CALLCONV MeasureString(
+			const std::vector< ColorString > &text) const;
 		
 		/**
 		 Returns a rectangle bounding the given string with this sprite font.
@@ -207,6 +208,25 @@ namespace mage {
 		const RECT MeasureDrawBounds(
 			const std::vector< ColorString > &text, const F32x2 &position) const;
 		
+		/**
+		 Checks whether this sprite font is empty.
+
+		 @return		@c true if this sprite font is empty. @c false 
+						otherwise.
+		 */
+		[[nodiscard]] bool empty() const noexcept {
+			return m_glyphs.empty();
+		}
+
+		/**
+		 Returns the number of characters in this sprite font.
+
+		 @return		The number of characters in this sprite font.
+		 */
+		size_t size() const noexcept {
+			return m_glyphs.size();
+		}
+
 		/**
 		 Returns the line spacing of this sprite font.
 
@@ -326,7 +346,7 @@ namespace mage {
 		/**
 		 A vector containing the glyphs of this sprite font.
 		 */
-		std::vector < Glyph > m_glyphs;
+		std::vector< Glyph > m_glyphs;
 		
 		/**
 		 A pointer to the default glyph of this sprite font.

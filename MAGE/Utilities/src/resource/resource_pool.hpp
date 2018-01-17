@@ -103,6 +103,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Checks whether this resource pool is empty.
+
+		 @return		@c true if this resource pool is empty. @c false 
+						otherwise.
+		 */
+		[[nodiscard]] bool empty() const noexcept;
+
+		/**
 		 Returns the number of resources contained in this resource pool.
 		 */
 		size_t size() const noexcept;
@@ -407,6 +415,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this persistent resource pool is empty.
+
+		 @return		@c true if this persistent resource pool is empty. 
+						@c false otherwise.
+		 */
+		[[nodiscard]] bool empty() const noexcept;
 
 		/**
 		 Returns the number of resources contained in this persistent resource 

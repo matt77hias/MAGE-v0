@@ -22,7 +22,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	const char *str_escape_first(const char *str, char c) noexcept {
+	[[nodiscard]] const char *
+		str_escape_first(const char *str, char c) noexcept {
+		
 		Assert(str);
 		
 		const char *input = str;
@@ -47,7 +49,9 @@ namespace mage {
 		}
 	}
 
-	char *str_escape_first(char *str, char c) noexcept {
+	[[nodiscard]] char *
+		str_escape_first(char *str, char c) noexcept {
+		
 		Assert(str);
 		
 		char *input = str;
@@ -72,7 +76,9 @@ namespace mage {
 		}
 	}
 
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept {
+	[[nodiscard]] const wchar_t *
+		str_escape_first(const wchar_t *str, wchar_t c) noexcept {
+		
 		Assert(str);
 		
 		const wchar_t *input = str;
@@ -97,7 +103,9 @@ namespace mage {
 		}
 	}
 
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept {
+	[[nodiscard]] wchar_t *
+		str_escape_first(wchar_t *str, wchar_t c) noexcept {
+		
 		Assert(str);
 		
 		wchar_t *input = str;
@@ -122,7 +130,9 @@ namespace mage {
 		}
 	}
 
-	char *str_gets(char *str, size_t num, const char **input) noexcept {
+	[[nodiscard]] char *
+		str_gets(char *str, size_t num, const char **input) noexcept {
+		
 		Assert(str);
 		Assert(input);
 		
@@ -150,7 +160,9 @@ namespace mage {
 		return str;
 	}
 
-	wchar_t *str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
+	[[nodiscard]] wchar_t *
+		str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
+		
 		Assert(str);
 		Assert(input);
 		
@@ -178,11 +190,11 @@ namespace mage {
 		return str;
 	}
 
-	const wstring str_convert(const string &str) {
+	[[nodiscard]] const wstring str_convert(const string &str) {
 		return wstring(CA2W(str.c_str()));
 	}
 
-	const string str_convert(const wstring &str) {
+	[[nodiscard]] const string str_convert(const wstring &str) {
 		return string(CW2A(str.c_str()));
 	}
 }

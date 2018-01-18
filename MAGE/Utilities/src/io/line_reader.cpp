@@ -114,9 +114,9 @@ namespace mage {
 		}
 		
 		default: {
-			throw Exception(
-				"%ls: line %u: no char string value found.",
-				GetFilename().c_str(), GetCurrentLineNumber());
+			throw Exception("%ls: line %u: no char string value found.",
+				            GetFilename().c_str(), 
+				            GetCurrentLineNumber());
 		}
 		}
 	}
@@ -124,7 +124,10 @@ namespace mage {
 	const string LineReader::ReadQuotedString() {
 		string result;
 		const TokenResult token_result 
-			= mage::ReadQuotedString(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadQuotedString(nullptr, 
+				                     &m_context, 
+				                     result, 
+				                     GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -133,25 +136,25 @@ namespace mage {
 		}
 		
 		case TokenResult::None: {
-			throw Exception(
-				"%ls: line %u: no quoted string value found.", 
-				GetFilename().c_str(), GetCurrentLineNumber());
+			throw Exception("%ls: line %u: no quoted string value found.", 
+				            GetFilename().c_str(), 
+				            GetCurrentLineNumber());
 		}
 		
 		default: {
-			throw Exception(
-				"%ls: line %u: invalid quoted string value found.", 
-				GetFilename().c_str(), GetCurrentLineNumber());
+			throw Exception("%ls: line %u: invalid quoted string value found.", 
+				            GetFilename().c_str(), 
+				            GetCurrentLineNumber());
 		}
 		}
 	}
 	
-	bool LineReader::ContainsChars() const {
+	[[nodiscard]] bool LineReader::ContainsChars() const {
 		return mage::ContainsChars(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
-	bool LineReader::ContainsQuotedString() const {
+	[[nodiscard]] bool LineReader::ContainsQuotedString() const {
 		return mage::ContainsQuotedString(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}

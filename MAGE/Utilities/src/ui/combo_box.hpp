@@ -34,8 +34,10 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	void ComboBoxAdd(HWND dialog, int id, const void *data, 
-		const wchar_t *desc) noexcept;
+	void ComboBoxAdd(HWND dialog, 
+		             int id, 
+		             const void *data, 
+		             const wchar_t *desc) noexcept;
 	
 	/**
 	 Adds an item associated with the given value and described with the given
@@ -52,8 +54,10 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	inline void ComboBoxAddValue(HWND dialog, int id, size_t value, 
-		const wchar_t *desc) noexcept {
+	inline void ComboBoxAddValue(HWND dialog, 
+		                         int id, 
+		                         size_t value, 
+		                         const wchar_t *desc) noexcept {
 		
 		ComboBoxAdd(dialog, id, (const void *)value, desc);
 	}
@@ -76,8 +80,10 @@ namespace mage {
 					The description of the item to add.
 	 */
 	template< typename T >
-	inline void ComboBoxAddPtr(HWND dialog, int id, const T *ptr, 
-		const wchar_t *desc) noexcept {
+	inline void ComboBoxAddPtr(HWND dialog, 
+		                       int id, 
+		                       const T *ptr, 
+		                       const wchar_t *desc) noexcept {
 
 		ComboBoxAdd(dialog, id, (const void *)ptr, desc);
 	}
@@ -167,7 +173,7 @@ namespace mage {
 	 @return		A pointer to the data associated with the selected item in 
 					the combo box.
 	 */
-	const void *ComboBoxSelected(HWND dialog, int id) noexcept;
+	[[nodiscard]] const void *ComboBoxSelected(HWND dialog, int id) noexcept;
 
 	/**
 	 Returns the value associated with the selected item in a combo box.
@@ -181,7 +187,9 @@ namespace mage {
 	 @return		The value associated with the selected item in a combo box.
 	 @note			This function converts the @c void * data to @c size_t data.
 	 */
-	inline size_t ComboBoxSelectedValue(HWND dialog, int id) noexcept {
+	[[nodiscard]] inline size_t ComboBoxSelectedValue(HWND dialog, 
+		                                              int id) noexcept {
+
 		return static_cast< size_t >(PtrToUlong(ComboBoxSelected(dialog, id)));
 	}
 
@@ -200,7 +208,9 @@ namespace mage {
 	 @note			This function converts the @c void * data to @c DataT* data.
 	 */
 	template< typename T >
-	inline const T *ComboBoxSelectedPtr(HWND dialog, int id) noexcept {
+	[[nodiscard]] inline const T *ComboBoxSelectedPtr(HWND dialog, 
+		                                              int id) noexcept {
+		
 		return static_cast< const T * >(ComboBoxSelected(dialog, id));
 	}
 
@@ -264,7 +274,9 @@ namespace mage {
 	 @return		@c true if the given description is contained in the combo 
 					box. @c false otherwise.
 	 */
-	[[nodiscard]] bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
+	[[nodiscard]] bool ComboBoxContains(HWND dialog, 
+		                                int id, 
+		                                const wchar_t *desc) noexcept;
 
 	#pragma endregion
 }

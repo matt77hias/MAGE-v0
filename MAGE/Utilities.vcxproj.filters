@@ -288,5 +288,8 @@
     <None Include="Utilities\src\string\token.tpp">
       <Filter>Header Files\string</Filter>
     </None>
+    <None Include="Utilities\src\file\file_utils.tpp">
+      <Filter>Header Files\file</Filter>
+    </None>
   </ItemGroup>
 </Project>

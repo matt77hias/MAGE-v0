@@ -99,6 +99,7 @@
     <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Utilities\src\file\file_utils.tpp" />
     <None Include="Utilities\src\io\binary_reader.tpp" />
     <None Include="Utilities\src\io\binary_utils.tpp" />
     <None Include="Utilities\src\io\binary_writer.tpp" />

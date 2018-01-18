@@ -4,7 +4,6 @@
 #pragma region
 
 #include "system\system_time.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -30,12 +29,14 @@ namespace mage {
 	 @return		A @c U64 (in 100 ns) representing the given file time 
 					@a ftime.
 	 */
-	[[nodiscard]] static inline U64 ConvertTimestamp(const FILETIME &ftime) noexcept {
+	[[nodiscard]] static inline U64 
+		ConvertTimestamp(const FILETIME &ftime) noexcept {
+		
 		return static_cast< U64 >(ftime.dwLowDateTime) 
 			 | static_cast< U64 >(ftime.dwHighDateTime) << 32;
 	}
 
-	U64 GetCurrentSystemTimestamp() noexcept {
+	[[nodiscard]] U64 GetCurrentSystemTimestamp() noexcept {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
@@ -44,7 +45,7 @@ namespace mage {
 		return ConvertTimestamp(ftime);
 	}
 
-	const wstring GetCurrentLocalSystemDateAsString() noexcept {
+	[[nodiscard]] const wstring GetCurrentLocalSystemDateAsString() {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
@@ -72,7 +73,7 @@ namespace mage {
 		return (result) ? wstring(str_date) : wstring();
 	}
 
-	const wstring GetCurrentLocalSystemTimeAsString() noexcept {
+	[[nodiscard]] const wstring GetCurrentLocalSystemTimeAsString() {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
@@ -100,7 +101,7 @@ namespace mage {
 		return (result) ? wstring(str_time) : wstring();
 	}
 
-	const wstring GetCurrentLocalSystemDateAndTimeAsString() noexcept {
+	[[nodiscard]] const wstring GetCurrentLocalSystemDateAndTimeAsString() {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
@@ -143,12 +144,9 @@ namespace mage {
 	}
 
 	void GetCurrentCoreTimestamp(HANDLE handle_process,
-		                         U64 *kernel_mode_timestamp, 
-		                         U64 *user_mode_timestamp) noexcept {
+		                         U64 &kernel_mode_timestamp, 
+		                         U64 &user_mode_timestamp) noexcept {
 		
-		Assert(kernel_mode_timestamp);
-		Assert(user_mode_timestamp);
-
 		FILETIME ftime;
 		FILETIME kernel_mode_ftime;
 		FILETIME user_mode_ftime;
@@ -163,15 +161,18 @@ namespace mage {
 		// 5. A pointer to a FILETIME structure that receives the amount of time 
 		//    that the process has executed in user mode.
 		const BOOL result = GetProcessTimes(handle_process, 
-			&ftime, &ftime, &kernel_mode_ftime, &user_mode_ftime);
+			                                &ftime, 
+			                                &ftime, 
+			                                &kernel_mode_ftime, 
+			                                &user_mode_ftime);
 		
 		if (TRUE == result) {
-			*kernel_mode_timestamp = ConvertTimestamp(kernel_mode_ftime);
-			*user_mode_timestamp   = ConvertTimestamp(user_mode_ftime);
+			kernel_mode_timestamp = ConvertTimestamp(kernel_mode_ftime);
+			user_mode_timestamp   = ConvertTimestamp(user_mode_ftime);
 		}
 		else {
-			*kernel_mode_timestamp = 0;
-			*user_mode_timestamp   = 0;
+			kernel_mode_timestamp = 0ull;
+			user_mode_timestamp   = 0ull;
 		}
 	}
 }

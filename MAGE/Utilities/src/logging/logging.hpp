@@ -33,10 +33,10 @@ namespace mage {
 		/**
 		 Returns the global logging configuration.
 
-		 @return		A pointer to the global logging configuration.
+		 @return		A reference to the global logging configuration.
 		 */
-		static LoggingConfiguration *Get() noexcept {
-			return &s_logging_configuration;
+		[[nodiscard]] static LoggingConfiguration &Get() noexcept {
+			return s_logging_configuration;
 		}
 
 		//---------------------------------------------------------------------
@@ -59,21 +59,21 @@ namespace mage {
 		 Constructs a logging configuration from the given logging 
 		 configuration.
 		 
-		 @param[in]		logging_configuration
+		 @param[in]		configuration
 						A reference to the logging configuration to copy.
 		 */
 		constexpr LoggingConfiguration(
-			const LoggingConfiguration &logging_configuration) noexcept = default;
+			const LoggingConfiguration &configuration) noexcept = default;
 
 		/**
 		 Constructs a logging configuration by moving the given logging 
 		 configuration.
 
-		 @param[in]		logging_configuration
+		 @param[in]		configuration
 						A reference to the logging configuration to move.
 		 */
 		constexpr LoggingConfiguration(
-			LoggingConfiguration &&logging_configuration) noexcept = default;
+			LoggingConfiguration &&configuration) noexcept = default;
 
 		/**
 		 Destructs this logging configuration.
@@ -87,24 +87,24 @@ namespace mage {
 		/**
 		 Copies the given logging configuration to this logging configuration.
 
-		 @param[in]		logging_configuration
+		 @param[in]		configuration
 						A reference to the logging configuration to copy.
 		 @return		A reference to the copy of the given logging 
 						configuration (i.e. this logging configuration).
 		 */
 		constexpr LoggingConfiguration &operator=(
-			const LoggingConfiguration &logging_configuration) noexcept = default;
+			const LoggingConfiguration &configuration) noexcept = default;
 
 		/**
 		 Moves the given logging configuration to this logging configuration.
 
-		 @param[in]		logging_configuration
+		 @param[in]		configuration
 						A reference to the logging configuration to move.
 		 @return		A reference to the moved logging configuration (i.e. 
 						this logging configuration).
 		 */
 		constexpr LoggingConfiguration &operator=(
-			LoggingConfiguration &&logging_configuration) noexcept = default;
+			LoggingConfiguration &&configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -170,7 +170,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to retrieve a handle to the standard output device.
 	 */
-	U16 ConsoleWidth();
+	[[nodiscard]] U16 ConsoleWidth();
 
 	/**
 	 Allocates a console to this engine for basic io and redirects @c stdin, 

@@ -4,8 +4,8 @@
 #pragma region
 
 #include "memory\memory.hpp"
-#include "logging\error.hpp"
 #include "logging\logging.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -32,11 +32,28 @@ namespace mage {
 	 @c Continue and 
 	 @c Abort.
 	 */
-	enum struct ErrorDisposition {
+	enum struct [[nodiscard]] ErrorDisposition {
 		Ignore,	  // Ignore and continue execution.
 		Continue, // Report and continue execution.
 		Abort     // Report and abort exceution.
 	};
+
+	/**
+	 Finds the start of a word.
+
+	 @pre			@a buffer is not equal to @c nullptr.
+	 @param[in]		buffer
+					A pointer to the first character.
+	 @return		A pointer to the start of the word.
+					(i.e. pointer to a space or null-terminating character)
+	 */
+	[[nodiscard]] static const char *FindWordStart(const char *buffer) {
+		while ('\0' != *buffer && isspace(*buffer)) {
+			++buffer;
+		}
+
+		return buffer;
+	}
 
 	/**
 	 Finds the end of a word.
@@ -47,8 +64,8 @@ namespace mage {
 	 @return		A pointer to the end of the word.
 					(i.e. pointer to a space or null-terminating character)
 	 */
-	static const char *FindWordEnd(const char *buffer) {
-		while (*buffer != '\0' && !isspace(*buffer)) {
+	[[nodiscard]] static const char *FindWordEnd(const char *buffer) {
+		while ('\0' != *buffer && !isspace(*buffer)) {
 			++buffer;
 		}
 
@@ -68,8 +85,10 @@ namespace mage {
 	 @param[in]		disposition
 					The disposition of the error.
 	 */
-	static void ProcessError(const char *format, const va_list args,
-		const string &error_type, ErrorDisposition disposition) {
+	static void ProcessError(const char *format, 
+		                     const va_list args,
+		                     const string &error_type, 
+		                     ErrorDisposition disposition) {
 
 		if (ErrorDisposition::Ignore == disposition) {
 			return;
@@ -81,37 +100,38 @@ namespace mage {
 		size_t error_pos    = error_string.size();
 
 		char error_buffer[2048];
-		// Write formatted output using a pointer to a list of arguments.
-		vsnprintf_s(error_buffer, std::size(error_buffer), _TRUNCATE, format, args);
+		vsnprintf_s(error_buffer, std::size(error_buffer), 
+			        _TRUNCATE, format, args);
 
 		const char *msg_pos = error_buffer;
 		while (true) {
-			
-			while ('\0' != *msg_pos && isspace(*msg_pos)) {
-				++msg_pos;
-			}
+			msg_pos = FindWordStart(msg_pos);
+
 			if ('\0' == *msg_pos) {
 				break;
 			}
 
-			// true == isspace(*msg_pos)
+			// false == isspace(*msg_pos)
 
 			const char * const word_end  = FindWordEnd(msg_pos);
-			if (const size_t word_length = static_cast< size_t >(word_end - msg_pos);
+			if (const size_t word_length 
+				= static_cast< size_t >(word_end - msg_pos);
 				width < error_pos + word_length) {
+
 				error_string += "\n    ";
 				error_pos     = 4;
 			}
+
 			while (word_end != msg_pos) {
 				error_string += *msg_pos;
 				++msg_pos;
 				++error_pos;
 			}
+
 			error_string += ' ';
 			++error_pos;
 		}
 
-		// Writes the error_string pointed by format to stderr.
 		fprintf(stderr, "%s\n", error_string.c_str());
 
 		if (ErrorDisposition::Abort == disposition) {
@@ -121,8 +141,8 @@ namespace mage {
 
 	void Debug([[maybe_unused]] const char *format, ...) {
 		#ifdef _DEBUG
-		if (!LoggingConfiguration::Get()->IsVerbose() 
-			|| LoggingConfiguration::Get()->IsQuiet()) {
+		if (!LoggingConfiguration::Get().IsVerbose() 
+			|| LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -141,8 +161,8 @@ namespace mage {
 	}
 
 	void Info(const char *format, ...) {
-		if (!LoggingConfiguration::Get()->IsVerbose() 
-			|| LoggingConfiguration::Get()->IsQuiet()) {
+		if (!LoggingConfiguration::Get().IsVerbose() 
+			|| LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -160,7 +180,7 @@ namespace mage {
 	}
 
 	void Warning(const char *format, ...) {
-		if (LoggingConfiguration::Get()->IsQuiet()) {
+		if (LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
 		}

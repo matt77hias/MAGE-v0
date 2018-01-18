@@ -22,8 +22,7 @@ namespace mage {
 
 	template< typename DataT >
 	inline void BigEndianBinaryWriter::WriteArray(const DataT *data, 
-		size_t count) {
-		
+		                                          size_t count) {
 		Assert(data);
 		
 		const size_t count_written = fwrite(

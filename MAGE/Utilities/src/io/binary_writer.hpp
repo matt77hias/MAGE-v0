@@ -67,7 +67,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this writer.
 		 */
-		const wstring &GetFilename() const noexcept {
+		[[nodiscard]] const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 

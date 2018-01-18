@@ -19,7 +19,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -128,13 +128,22 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The buffer size of exceptions.
+		 */
+		static constexpr size_t s_buffer_size = 2048;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
 		 The text buffer of this formatted exception.
 		 */
-		char m_text[2048];
+		char m_text[s_buffer_size];
 	};
 
 	#pragma endregion

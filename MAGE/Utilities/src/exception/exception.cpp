@@ -76,19 +76,19 @@ namespace mage {
 	#pragma region
 
 	void ThrowIfFailed(bool result) {
-		if (!result) {
+		if (false == result) {
 			throw Exception();
 		}
 	}
 
 	void ThrowIfFailed(bool result, const char *format, ...) {
-		if (!result) {
+		if (false == result) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const Exception exception = Exception(format);
+			const Exception exception(format);
 
 			// End using variable argument list.
 			va_end(args);
@@ -110,7 +110,7 @@ namespace mage {
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const Exception exception = Exception(format);
+			const Exception exception(format);
 
 			// End using variable argument list.
 			va_end(args);
@@ -132,7 +132,7 @@ namespace mage {
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
 
-			const Exception exception = Exception(format);
+			const Exception exception(format);
 
 			// End using variable argument list.
 			va_end(args);

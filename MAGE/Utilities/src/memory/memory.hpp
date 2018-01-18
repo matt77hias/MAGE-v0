@@ -490,7 +490,7 @@ namespace mage {
 		 @return		A pointer to the memory resource pointed to by this 
 						proxy pointer.
 		 */
-		T *Get() const noexcept {
+		[[nodiscard]] T *Get() const noexcept {
 			return m_getter();
 		}
 

@@ -16,7 +16,7 @@ namespace mage {
 
 	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
 
-	U16 ConsoleWidth() {
+	[[nodiscard]] U16 ConsoleWidth() {
 		
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -49,7 +49,9 @@ namespace mage {
 	 @return		@c TRUE if the function handles the control signal. 
 					@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
 	 */
-	[[nodiscard]] static inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
+	[[nodiscard]] static inline BOOL WINAPI 
+		ConsoleCloseHandler(DWORD dwCtrlType) {
+
 		return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
 	}
 
@@ -71,30 +73,30 @@ namespace mage {
 
 		// Redirect stdin to the allocated console.
 		{
-			FILE *stream_in;
+			FILE *stream;
 			// Reuse stdin to open the file "CONIN$".
 			const errno_t result 
-				= freopen_s(&stream_in, "CONIN$", "r", stdin);
+				= freopen_s(&stream, "CONIN$", "r", stdin);
 			ThrowIfFailed(0 == result, 
 				"stdin redirection failed: %d.", result);
 		}
 
 		// Redirect stdout to the allocated console.
 		{
-			FILE *stream_out;
+			FILE *stream;
 			// Reuse stdout to open the file "CONOUT$".
 			const errno_t result
-				= freopen_s(&stream_out, "CONOUT$", "w", stdout);
+				= freopen_s(&stream, "CONOUT$", "w", stdout);
 			ThrowIfFailed(0 == result, 
 				"stdout redirection failed: %d.", result);
 		}
 
 		// Redirect stderr to the allocated console.
 		{
-			FILE *stream_err;
+			FILE *stream;
 			// Reuse stderr to open the file "CONOUT$".
 			const errno_t result 
-				= freopen_s(&stream_err, "CONOUT$", "w", stderr);
+				= freopen_s(&stream, "CONOUT$", "w", stderr);
 			ThrowIfFailed(0 == result, 
 				"stderr redirection failed: %d.", result);
 		}

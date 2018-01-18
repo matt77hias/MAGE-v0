@@ -22,8 +22,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ComboBoxAdd(HWND dialog, int id, const void *data, 
-		const wchar_t *desc) noexcept {
+	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) noexcept {
 
 		Assert(dialog);
 		Assert(desc);
@@ -96,7 +95,7 @@ namespace mage {
 		}
 	}
 
-	const void *ComboBoxSelected(HWND dialog, int id) noexcept {
+	[[nodiscard]] const void *ComboBoxSelected(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.

@@ -76,7 +76,7 @@ namespace mage {
 						Failed to read from the given input string.
 		 */
 		void ReadFromMemory(const char *input, 
-			string delimiters = g_default_delimiters);
+			                string delimiters = g_default_delimiters);
 
 		/**
 		 Returns the current filename of this line reader.
@@ -84,7 +84,7 @@ namespace mage {
 		 @return		A reference to the current filename of this line 
 						reader.
 		 */
-		const wstring &GetFilename() const noexcept {
+		[[nodiscard]] const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A reference to the current delimiters of this line 
 						reader.
 		 */
-		const string &GetDelimiters() const noexcept {
+		[[nodiscard]] const string &GetDelimiters() const noexcept {
 			return m_delimiters;
 		}
 
@@ -139,7 +139,7 @@ namespace mage {
 
 		 @return		The current line number of this line reader.
 		 */
-		U32 GetCurrentLineNumber() const noexcept {
+		[[nodiscard]] U32 GetCurrentLineNumber() const noexcept {
 			return m_line_number;
 		}
 		
@@ -191,7 +191,7 @@ namespace mage {
 		 @return		@c true if this line reader has a next token. @c false
 						otherwise.
 		 */
-		bool ContainsChars() const;
+		[[nodiscard]] bool ContainsChars() const;
 		
 		/**
 		 Checks whether the next token of this line reader is a quoted string.
@@ -199,7 +199,7 @@ namespace mage {
 		 @return		@c true if the next token of this line reader is a 
 						quoted string. @c false otherwise.
 		 */
-		bool ContainsQuotedString() const;
+		[[nodiscard]] bool ContainsQuotedString() const;
 
 		/**
 		 Checks whether the next token of this line reader is a @c DataT 
@@ -211,7 +211,7 @@ namespace mage {
 						@c DataT element. @c false otherwise.
 		 */
 		template< typename DataT >
-		bool Contains() const;
+		[[nodiscard]] bool Contains() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

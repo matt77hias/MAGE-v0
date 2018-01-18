@@ -22,6 +22,6 @@
 namespace mage {
 
 	[[nodiscard]] bool FileExists(const wstring &fname) noexcept {
-		return PathFileExists(fname.c_str()) != 0;
+		return TRUE == PathFileExists(fname.c_str());
 	}
 }

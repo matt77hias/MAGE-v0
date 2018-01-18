@@ -416,7 +416,7 @@ namespace mage {
 		 @return		An allocator for this memory arena.
 		 */
 		template< typename DataT >
-		Allocator< DataT > GetAllocator() const noexcept{
+		[[nodiscard]] Allocator< DataT > GetAllocator() const noexcept{
 			return Allocator< DataT >(this);
 		}
 

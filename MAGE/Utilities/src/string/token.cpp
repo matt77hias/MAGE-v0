@@ -84,7 +84,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	char *SkipDelimiters(char *str, const char *delimiters) noexcept {
+	[[nodiscard]] char *
+		SkipDelimiters(char *str, const char *delimiters) noexcept {
+		
 		Assert(str);
 		Assert(delimiters);
 
@@ -95,7 +97,9 @@ namespace mage {
 		return ('\0' != *str) ? str : nullptr;
 	}
 	
-	const char *SkipDelimiters(const char *str, const char *delimiters) noexcept {
+	[[nodiscard]] const char *
+		SkipDelimiters(const char *str, const char *delimiters) noexcept {
+		
 		Assert(str);
 		Assert(delimiters);
 		
@@ -106,7 +110,9 @@ namespace mage {
 		return ('\0' != *str) ? str : nullptr;
 	}
 	
-	char *GotoDelimiters(char *str, const char *delimiters) noexcept {
+	[[nodiscard]] char *
+		GotoDelimiters(char *str, const char *delimiters) noexcept {
+		
 		Assert(str);
 		Assert(delimiters);
 		
@@ -117,7 +123,9 @@ namespace mage {
 		return (*str != '\0') ? str : nullptr;
 	}
 	
-	const char *GotoDelimiters(const char *str, const char *delimiters) noexcept {
+	[[nodiscard]] const char *
+		GotoDelimiters(const char *str, const char *delimiters) noexcept {
+		
 		Assert(str);
 		Assert(delimiters);
 		

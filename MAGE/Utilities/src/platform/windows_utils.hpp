@@ -34,10 +34,10 @@ namespace mage {
 					@c CreateWindowEx.
 	 */
 	template< typename CallerT >
-	CallerT *GetWindowCaller(HWND window, 
-		                     UINT message,
-		                     [[maybe_unused]] WPARAM wParam, 
-		                     [[maybe_unused]] LPARAM lParam) noexcept;
+	[[nodiscard]] CallerT *GetWindowCaller(HWND window,
+		                                   UINT message,
+		                                   [[maybe_unused]] WPARAM wParam, 
+		                                   LPARAM lParam) noexcept;
 
 	/**
 	 Returns the caller of @c DialogBoxParam.
@@ -58,10 +58,10 @@ namespace mage {
 	 @return		A pointer to the caller of @c DialogBoxParam.
 	 */
 	template< typename CallerT >
-	CallerT *GetDialogCaller(HWND dialog, 
-		                     UINT message,
-		                     [[maybe_unused]] WPARAM wParam, 
-		                     [[maybe_unused]] LPARAM lParam) noexcept;
+	[[nodiscard]] CallerT *GetDialogCaller(HWND dialog,
+		                                   UINT message,
+		                                   [[maybe_unused]] WPARAM wParam, 
+		                                   LPARAM lParam) noexcept;
 }
 
 //-----------------------------------------------------------------------------

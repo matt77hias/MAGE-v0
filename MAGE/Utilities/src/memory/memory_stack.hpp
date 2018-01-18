@@ -440,7 +440,7 @@ namespace mage {
 		 @return		An allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		Allocator< DataT > GetAllocator() const noexcept{
+		[[nodiscard]] Allocator< DataT > GetAllocator() const noexcept{
 			return Allocator< DataT >(this);
 		}
 
@@ -1211,7 +1211,7 @@ namespace mage {
 		 @return		A low allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		LowAllocator< DataT > GetLowAllocator() const noexcept{
+		[[nodiscard]] LowAllocator< DataT > GetLowAllocator() const noexcept{
 			return LowAllocator< DataT >(this);
 		}
 
@@ -1223,7 +1223,7 @@ namespace mage {
 		 @return		A high allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		HighAllocator< DataT > GetHighAllocator() const noexcept{
+		[[nodiscard]] HighAllocator< DataT > GetHighAllocator() const noexcept{
 			return HighAllocator< DataT >(this);
 		}
 

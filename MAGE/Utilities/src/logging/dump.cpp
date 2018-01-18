@@ -19,12 +19,12 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	static inline LONG WINAPI UnhandledExceptionFilter(
-		EXCEPTION_POINTERS *exception_record) {
+	[[nodiscard]] static inline LONG WINAPI 
+		UnhandledExceptionFilter(EXCEPTION_POINTERS *exception_record) noexcept {
 		
 		CreateMiniDump(exception_record);
 		return EXCEPTION_CONTINUE_SEARCH;

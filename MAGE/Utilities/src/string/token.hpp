@@ -291,7 +291,7 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	char *SkipDelimiters(char *str, 
+	[[nodiscard]] char *SkipDelimiters(char *str,
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
@@ -308,7 +308,7 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	const char *SkipDelimiters(const char *str, 
+	[[nodiscard]] const char *SkipDelimiters(const char *str,
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
@@ -325,7 +325,7 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	char *GotoDelimiters(char *str, 
+	[[nodiscard]] char *GotoDelimiters(char *str,
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
@@ -342,7 +342,7 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	const char *GotoDelimiters(const char *str, 
+	[[nodiscard]] const char *GotoDelimiters(const char *str,
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	#pragma endregion

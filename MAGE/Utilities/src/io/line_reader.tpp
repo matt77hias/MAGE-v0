@@ -29,21 +29,21 @@ namespace mage {
 		}
 
 		case TokenResult::None: {
-			throw Exception(
-				"%ls: line %u: no value found.",
-				GetFilename().c_str(), GetCurrentLineNumber());
+			throw Exception("%ls: line %u: no value found.",
+				            GetFilename().c_str(), 
+				            GetCurrentLineNumber());
 		}
 
 		default: {
-			throw Exception(
-				"%ls: line %u: invalid value found.",
-				GetFilename().c_str(), GetCurrentLineNumber());
+			throw Exception("%ls: line %u: invalid value found.",
+				            GetFilename().c_str(), 
+				            GetCurrentLineNumber());
 		}
 		}
 	}
 
 	template< typename DataT >
-	inline bool LineReader::Contains() const {
+	[[nodiscard]] inline bool LineReader::Contains() const {
 		return mage::Contains< DataT >(m_context, GetDelimiters().c_str()) 
 			   == TokenResult::Valid;
 	}

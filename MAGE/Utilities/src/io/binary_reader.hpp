@@ -109,7 +109,7 @@ namespace mage {
 		 @return		A reference to the current filename of this binary 
 						reader.
 		 */
-		const wstring &GetFilename() const noexcept {
+		[[nodiscard]] const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 		
@@ -155,7 +155,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool ContainsChars() const noexcept {
+		[[nodiscard]] bool ContainsChars() const noexcept {
 			return m_pos < m_end;
 		}
 
@@ -302,7 +302,7 @@ namespace mage {
 		 @return		A reference to the current filename of this big endian 
 						binary reader.
 		 */
-		const wstring &GetFilename() const noexcept {
+		[[nodiscard]] const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -350,7 +350,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this 
 						binary reader. @c false otherwise.
 		 */
-		bool ContainsChars() const noexcept {
+		[[nodiscard]] bool ContainsChars() const noexcept {
 			return m_pos < m_end;
 		}
 

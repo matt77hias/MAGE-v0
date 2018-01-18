@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	size_t NumberOfPhysicalCores() noexcept {
+	[[nodiscard]] size_t NumberOfPhysicalCores() noexcept {
 
-		DWORD length = 0;
+		DWORD length = 0u;
 		
 		// Obtain the buffer length.
 		{
@@ -56,7 +56,7 @@ namespace mage {
 		return nb_physical_cores;
 	}
 
-	size_t NumberOfSystemCores() noexcept {
+	[[nodiscard]] size_t NumberOfSystemCores() noexcept {
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info = {};
 		// Retrieve information about the current system.

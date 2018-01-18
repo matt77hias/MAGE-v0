@@ -29,12 +29,16 @@ namespace mage {
 		::operator=(Resource &&resource) noexcept = default;
 
 	template< typename ResourceT >
-	inline const wstring Resource< ResourceT >::GetName() const noexcept {
+	[[nodiscard]] inline const wstring Resource< ResourceT >
+		::GetName() const {
+		
 		return GetFileName(GetFilename());
 	}
 
 	template< typename ResourceT >
-	inline const wstring Resource< ResourceT >::GetPath() const noexcept {
+	[[nodiscard]] inline const wstring Resource< ResourceT >
+		::GetPath() const {
+		
 		return GetPathName(GetFilename());
 	}
 }

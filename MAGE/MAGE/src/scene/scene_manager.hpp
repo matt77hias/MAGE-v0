@@ -32,7 +32,7 @@ namespace mage {
 		 @return		A pointer to the scene manager associated with the 
 						current engine.
 		 */
-		static SceneManager *Get() noexcept;
+		[[nodiscard]] static SceneManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -92,15 +92,15 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		bool IsFinished() const noexcept {
+		[[nodiscard]] bool IsFinished() const noexcept {
 			return !HasScene();
 		}
 
-		bool HasScene() const noexcept {
+		[[nodiscard]] bool HasScene() const noexcept {
 			return m_scene != nullptr;
 		}
 
-		Scene *GetScene() const noexcept {
+		[[nodiscard]] Scene *GetScene() const noexcept {
 			return m_scene.get();
 		}
 

@@ -285,17 +285,11 @@
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp">
-      <Filter>Header Files\sprite</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp">
       <Filter>Header Files\sprite</Filter>
@@ -699,9 +693,6 @@
       <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp">
-      <Filter>Source Files\sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp">

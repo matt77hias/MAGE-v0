@@ -34,7 +34,7 @@ namespace mage {
 		 @return		A pointer to the swap chain of the rendering manager 
 						associated with the current engine.
 		 */
-		static SwapChain *Get() noexcept;
+		[[nodiscard]] static SwapChain *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -111,7 +111,7 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		HWND GetWindow() noexcept {
+		[[nodiscard]] HWND GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -121,7 +121,9 @@ namespace mage {
 		 @return		A pointer to the display configuration of this swap 
 						chain.
 		 */
-		const DisplayConfiguration *GetDisplayConfiguration() const noexcept {
+		[[nodiscard]] const DisplayConfiguration *
+			GetDisplayConfiguration() const noexcept {
+
 			return m_display_configuration;
 		}
 
@@ -131,7 +133,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		bool IsWindowed() const noexcept {
+		[[nodiscard]] bool IsWindowed() const noexcept {
 			return !IsFullScreen();
 		}
 		
@@ -141,7 +143,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		bool IsFullScreen() const noexcept {
+		[[nodiscard]] bool IsFullScreen() const noexcept {
 			BOOL current = false;
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return current == TRUE;
@@ -154,7 +156,7 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		bool LostMode() const noexcept {
+		[[nodiscard]] bool LostMode() const noexcept {
 			return IsTrackedFullScreen() == IsWindowed();
 		}
 
@@ -234,7 +236,7 @@ namespace mage {
 						corresponds to fullscreen mode.
 						@c false otherwise.
 		 */
-		bool IsTrackedFullScreen() const noexcept {
+		[[nodiscard]] bool IsTrackedFullScreen() const noexcept {
 			return m_display_configuration->IsFullScreen();
 		}
 

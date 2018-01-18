@@ -90,7 +90,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this omni light.
 		 */
-		SRGB &GetBaseColor() noexcept {
+		[[nodiscard]] SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -99,7 +99,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this omni light.
 		 */
-		const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]] const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The power in watts of this spotlight.
 		 */
-		F32 GetPower() const noexcept {
+		[[nodiscard]] F32 GetPower() const noexcept {
 			// [Frostbite]
 			return GetIntensity() * XM_1DIVPI;
 		}
@@ -129,7 +129,7 @@ namespace mage {
 
 		 @return		The power spectrum of this spotlight.
 		 */
-		const RGB GetPowerSpectrum() const noexcept {
+		[[nodiscard]] const RGB GetPowerSpectrum() const noexcept {
 			const XMVECTOR P_v = GetPower()
 				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB P;
@@ -143,7 +143,7 @@ namespace mage {
 		 @return		The radiant intensity in watts per steradians of this 
 						spotlight.
 		 */
-		F32 GetIntensity() const noexcept {
+		[[nodiscard]] F32 GetIntensity() const noexcept {
 			return m_intensity;
 		}
 
@@ -163,7 +163,7 @@ namespace mage {
 
 		 @return		The radiant intensity spectrum of this spotlight.
 		 */
-		const RGB GetIntensitySpectrum() const noexcept {
+		[[nodiscard]] const RGB GetIntensitySpectrum() const noexcept {
 			const XMVECTOR I_v = GetIntensity()
 				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB I;
@@ -180,7 +180,7 @@ namespace mage {
 
 		 @return		A reference to the AABB of this spotlight.
 		 */
-		const AABB &GetAABB() const noexcept {
+		[[nodiscard]] const AABB &GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -189,7 +189,7 @@ namespace mage {
 
 		 @return		A reference to the BoundingSphere of this spotlight.
 		 */
-		const BoundingSphere &GetBoundingSphere() const noexcept {
+		[[nodiscard]] const BoundingSphere &GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
 
@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		The range of this spotlight.
 		 */
-		F32 GetRange() const noexcept {
+		[[nodiscard]] F32 GetRange() const noexcept {
 			return m_range;
 		}
 
@@ -226,7 +226,7 @@ namespace mage {
 
 		 @return		The cosine of the penumbra angle of this spotlight.
 		 */
-		F32 GetStartAngularCutoff() const noexcept {
+		[[nodiscard]] F32 GetStartAngularCutoff() const noexcept {
 			return m_cos_penumbra;
 		}
 		
@@ -246,7 +246,7 @@ namespace mage {
 
 		 @return		The cosine of the umbra angle of this spotlight.
 		 */
-		F32 GetEndAngularCutoff() const noexcept {
+		[[nodiscard]] F32 GetEndAngularCutoff() const noexcept {
 			return m_cos_umbra;
 		}
 		
@@ -289,7 +289,7 @@ namespace mage {
 						this spotlight. @a GetStartAngularCutoff() - 
 						@a GetEndAngularCutoff().
 		 */
-		F32 GetRangeAngularCutoff() const noexcept {
+		[[nodiscard]] F32 GetRangeAngularCutoff() const noexcept {
 			return std::max(0.001f, m_cos_penumbra - m_cos_umbra);
 		}
 
@@ -298,7 +298,7 @@ namespace mage {
 
 		 @return		The penumbra angle (in radians) of this spotlight.
 		 */
-		F32 GetPenumbraAngle() const noexcept {
+		[[nodiscard]] F32 GetPenumbraAngle() const noexcept {
 			return acos(m_cos_penumbra);
 		}
 		
@@ -318,7 +318,7 @@ namespace mage {
 
 		 @return		The umbra angle (in radians) of this spotlight.
 		 */
-		F32 GetUmbraAngle() const noexcept {
+		[[nodiscard]] F32 GetUmbraAngle() const noexcept {
 			return acos(m_cos_umbra);
 		}
 		
@@ -359,7 +359,7 @@ namespace mage {
 		 @return		@c true if shadows should be used for this spotlight. 
 						@c false otherwise.
 		 */
-		bool UseShadows() const noexcept {
+		[[nodiscard]] bool UseShadows() const noexcept {
 			return m_shadows;
 		}
 
@@ -401,7 +401,7 @@ namespace mage {
 		 @return		The (horizontal and vertical) field-of-view of this 
 						spotlight.
 		 */
-		F32 GetFOV() const noexcept {
+		[[nodiscard]] F32 GetFOV() const noexcept {
 			return 2.0f * GetUmbraAngle();
 		}
 
@@ -412,7 +412,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of the light camera of 
 						this spot light.
 		 */
-		const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
+		[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
 			static const F32 near_plane = 0.1f;
 			const F32 fov = 2.0f * GetUmbraAngle();
 

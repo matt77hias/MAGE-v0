@@ -86,7 +86,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
-		constexpr SRGB &GetBaseColor() noexcept {
+		[[nodiscard]] constexpr SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -95,7 +95,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
-		constexpr const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]] constexpr const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -104,7 +104,7 @@ namespace mage {
 		
 		 @return		The density of this fog.
 		 */
-		constexpr F32 GetDensity() const noexcept {
+		[[nodiscard]] constexpr F32 GetDensity() const noexcept {
 			return m_density;
 		}
 
@@ -116,7 +116,6 @@ namespace mage {
 						The density.
 		 */
 		constexpr void SetDensity(F32 density) noexcept {
-			Assert(0.0f <= density && density <= 1.0f);
 			m_density = density;
 		}
 

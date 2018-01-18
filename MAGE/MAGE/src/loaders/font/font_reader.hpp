@@ -12,7 +12,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
@@ -118,7 +118,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read to the given file.
 		 */
-		bool IsHeaderValid();
+		[[nodiscard]] bool IsHeaderValid();
 
 		/**
 		 Reads a texture.

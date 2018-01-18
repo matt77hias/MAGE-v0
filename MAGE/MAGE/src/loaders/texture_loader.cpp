@@ -28,7 +28,8 @@
 namespace mage::loader {
 
 	void ImportTextureFromFile(const wstring &fname, 
-		ID3D11Device5 *device, ID3D11ShaderResourceView **texture_srv) {
+		                       ID3D11Device5 *device, 
+		                       ID3D11ShaderResourceView **texture_srv) {
 		
 		Assert(device);
 		Assert(texture_srv);
@@ -58,7 +59,9 @@ namespace mage::loader {
 	 @return		The WIC container format associated with the given image 
 					file extension.
 	 */
-	static inline const GUID GetGUIDContainerFormat(const wstring &extension) noexcept {
+	[[nodiscard]] static inline const GUID GetGUIDContainerFormat(
+		const wstring &extension) noexcept {
+
 		if (extension == L"png" || extension == L"PNG") {
 			return GUID_ContainerFormatPng;
 		}
@@ -92,7 +95,8 @@ namespace mage::loader {
 	}
 
 	void ExportTextureToFile(const wstring &fname,
-		ID3D11DeviceContext4 *device_context, ID3D11Resource *texture) {
+		                     ID3D11DeviceContext4 *device_context, 
+		                     ID3D11Resource *texture) {
 
 		Assert(device_context);
 		Assert(texture);

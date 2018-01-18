@@ -90,7 +90,7 @@ namespace mage {
 
 		 @return		A reference to the name of this material.
 		 */
-		const string &GetName() const noexcept {
+		[[nodiscard]] const string &GetName() const noexcept {
 			return m_name;
 		}
 		
@@ -114,7 +114,7 @@ namespace mage {
 		 @return		@c true if this material interacts with light and 
 						light sources. @c false otherwise.
 		 */
-		bool InteractsWithLight() const noexcept {
+		[[nodiscard]] bool InteractsWithLight() const noexcept {
 			return m_light_interaction;
 		}
 
@@ -161,7 +161,7 @@ namespace mage {
 		 @return		@c true if and only if this material is opaque. 
 						@c false otherwise.
 		 */
-		bool IsOpaque() const noexcept {
+		[[nodiscard]] bool IsOpaque() const noexcept {
 			return !IsTransparant();
 		}
 		
@@ -172,7 +172,7 @@ namespace mage {
 		 @return		@c true if and only if this material is transparent.
 						@c false otherwise.
 		 */
-		bool IsTransparant() const noexcept {
+		[[nodiscard]] bool IsTransparant() const noexcept {
 			return m_transparent;
 		}
 		
@@ -203,7 +203,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this material.
 		 */
-		SRGBA &GetBaseColor() noexcept {
+		[[nodiscard]] SRGBA &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -212,7 +212,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this material.
 		 */
-		const SRGBA &GetBaseColor() const noexcept {
+		[[nodiscard]] const SRGBA &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -222,7 +222,7 @@ namespace mage {
 		 @return		A pointer to the sRGB base color texture of this 
 						material.
 		 */
-		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+		[[nodiscard]] SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
 		
@@ -235,7 +235,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the sRGB base 
 						color texture of this material.
 		 */
-		ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
 		
@@ -261,7 +261,7 @@ namespace mage {
 		
 		 @return		The roughness of this material.			
 		 */
-		F32 GetRoughness() const noexcept {
+		[[nodiscard]] F32 GetRoughness() const noexcept {
 			return m_roughness;
 		}
 
@@ -282,7 +282,7 @@ namespace mage {
 
 		 @return		The metalness of this material.			
 		 */
-		F32 GetMetalness() const noexcept {
+		[[nodiscard]] F32 GetMetalness() const noexcept {
 			return m_metalness;
 		}
 
@@ -303,7 +303,7 @@ namespace mage {
 
 		 @return		The material RGBA channels of this material.
 		 */
-		const RGBA GetMaterialRGBA() const noexcept {
+		[[nodiscard]] const RGBA GetMaterialRGBA() const noexcept {
 			return RGBA(GetRoughness(), GetMetalness(), 0.0f, 0.0f);
 		}
 
@@ -312,7 +312,7 @@ namespace mage {
 
 		 @return		A pointer to the material texture of this material.
 		 */
-		SharedPtr< const Texture > GetMaterialTexture() const noexcept {
+		[[nodiscard]] SharedPtr< const Texture > GetMaterialTexture() const noexcept {
 			return m_material_texture;
 		}
 		
@@ -324,7 +324,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the material 
 						texture of this material.
 		 */
-		ID3D11ShaderResourceView *GetMaterialSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetMaterialSRV() const noexcept {
 			return m_material_texture ? m_material_texture->Get() : nullptr;
 		}
 
@@ -350,7 +350,7 @@ namespace mage {
 
 		 @return		A pointer to the normal texture of this material.
 		 */
-		SharedPtr< const Texture > GetNormalTexture() const noexcept {
+		[[nodiscard]] SharedPtr< const Texture > GetNormalTexture() const noexcept {
 			return m_normal_texture;
 		}
 		
@@ -362,7 +362,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the normal 
 						texture of this material.
 		 */
-		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
 			return m_normal_texture ? m_normal_texture->Get() : nullptr;
 		}
 

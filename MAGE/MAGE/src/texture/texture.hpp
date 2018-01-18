@@ -70,8 +70,8 @@ namespace mage {
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring guid,
-			const D3D11_TEXTURE2D_DESC *desc,
-			const D3D11_SUBRESOURCE_DATA *initial_data);
+			             const D3D11_TEXTURE2D_DESC *desc,
+			             const D3D11_SUBRESOURCE_DATA *initial_data);
 
 		/**
 		 Constructs a 2D texture.
@@ -90,9 +90,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the texture.
 		 */
-		explicit Texture(wstring guid, ID3D11Device5 *device,
-			const D3D11_TEXTURE2D_DESC *desc,
-			const D3D11_SUBRESOURCE_DATA *initial_data);
+		explicit Texture(wstring guid, 
+			             ID3D11Device5 *device,
+			             const D3D11_TEXTURE2D_DESC *desc,
+			             const D3D11_SUBRESOURCE_DATA *initial_data);
 
 		/**
 		 Constructs a texture from the given texture.
@@ -147,7 +148,7 @@ namespace mage {
 
 		 @return		A pointer to the shader resource view of this texture.
 		 */
-		ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 		

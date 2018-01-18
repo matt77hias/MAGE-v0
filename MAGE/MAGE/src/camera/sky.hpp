@@ -83,7 +83,7 @@ namespace mage {
 
 		 @return		A pointer to the texture of this sky.
 		 */
-		SharedPtr< const Texture > GetTexture() const noexcept {
+		[[nodiscard]] SharedPtr< const Texture > GetTexture() const noexcept {
 			return m_texture;
 		}
 		
@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the texture of 
 						this sky.
 		 */
-		ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_texture ? m_texture->Get() : nullptr;
 		}
 		

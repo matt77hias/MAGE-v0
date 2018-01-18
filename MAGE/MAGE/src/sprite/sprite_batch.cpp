@@ -4,7 +4,7 @@
 #pragma region
 
 #include "sprite\sprite_batch.hpp"
-#include "sprite\sprite_utils.hpp"
+#include "math\math_utils.hpp"
 #include "texture\texture_utils.hpp"
 #include "rendering\rendering_state_manager.hpp"
 
@@ -24,7 +24,7 @@ namespace mage {
 			Pipeline::GetImmediateDeviceContext()) {}
 
 	SpriteBatch::SpriteBatch(ID3D11Device5 *device, 
-		ID3D11DeviceContext4 *device_context)
+		                     ID3D11DeviceContext4 *device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
 		m_vertex_buffer_position(0),
@@ -45,8 +45,8 @@ namespace mage {
 
 	SpriteBatch::~SpriteBatch() = default;
 
-	void XM_CALLCONV SpriteBatch::Begin(
-		SpriteSortMode sort_mode, FXMMATRIX transform) {
+	void XM_CALLCONV SpriteBatch::Begin(SpriteSortMode sort_mode, 
+		                                FXMMATRIX transform) {
 		
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
@@ -63,8 +63,10 @@ namespace mage {
 	}
 	
 	void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView *texture,
-		FXMVECTOR color, SpriteEffect effects,
-		const SpriteTransform &transform, const RECT *source) {
+		                               FXMVECTOR color,
+		                               SpriteEffect effects,
+		                               const SpriteTransform &transform, 
+		                               const RECT *source) {
 		
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
@@ -117,7 +119,7 @@ namespace mage {
 		sprite->m_texture = texture;
 		sprite->m_flags = flags;
 
-		if (m_sort_mode == SpriteSortMode::Immediate) {
+		if (SpriteSortMode::Immediate == m_sort_mode) {
 			RenderBatch(texture, &sprite, 1);
 		}
 		else {
@@ -141,7 +143,7 @@ namespace mage {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
-		if (m_sort_mode != SpriteSortMode::Immediate) {
+		if (SpriteSortMode::Immediate != m_sort_mode) {
 			// Draw the queued sprites.
 			BindSpriteBatch();
 			FlushBatch();
@@ -152,8 +154,8 @@ namespace mage {
 	}
 
 	void SpriteBatch::GrowSpriteQueue() {
-		const size_t sprite_queue_array_size = 
-			std::max(SpriteBatch::s_initial_queue_size, m_sprite_queue_array_size * 2);
+		const size_t sprite_queue_array_size = std::max(SpriteBatch::s_initial_queue_size, 
+			                                            m_sprite_queue_array_size * 2);
 		UniquePtr< SpriteInfo[] > sprite_queue(
 			MakeUnique< SpriteInfo[] >(sprite_queue_array_size));
 		
@@ -169,12 +171,12 @@ namespace mage {
 	}
 
 	void SpriteBatch::BindSpriteBatch() {
-		if (m_device_context->GetType() == D3D11_DEVICE_CONTEXT_DEFERRED) {
+		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context->GetType()) {
 			m_vertex_buffer_position = 0;
 		}
 
 		// Apply the rotation mode to the transform of this sprite batch.
-		if (m_rotation_mode != DXGI_MODE_ROTATION_UNSPECIFIED) {
+		if (DXGI_MODE_ROTATION_UNSPECIFIED != m_rotation_mode) {
 			if (m_viewport_set) {
 				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
 			}
@@ -206,14 +208,18 @@ namespace mage {
 		ID3D11ShaderResourceView *batch_texture = nullptr;
 		size_t batch_start = 0;
 		for (size_t i = 0; i < m_sprite_queue_size; ++i) {
+			
 			ID3D11ShaderResourceView *sprite_texture = m_sorted_sprites[i]->m_texture;
 			Assert(sprite_texture);
+			
 			if (sprite_texture != batch_texture) {
+				
 				if (i > batch_start) {
 					// Flush the current subbatch.
 					const size_t nb_sprites = i - batch_start;
 					RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites);
 				}
+				
 				batch_texture = sprite_texture;
 				batch_start   = i;
 			}
@@ -227,7 +233,7 @@ namespace mage {
 		m_sprite_srvs.clear();
 
 		// We always re-sort the original ordering.
-		if (m_sort_mode != SpriteSortMode::Deferred) {
+		if (SpriteSortMode::Deferred != m_sort_mode) {
 			m_sorted_sprites.clear();
 		}
 	}
@@ -242,36 +248,35 @@ namespace mage {
 		case SpriteSortMode::Texture: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
-					return lhs->m_texture < rhs->m_texture;
-				}
-			);
-			
+				      m_sorted_sprites.begin() + m_sprite_queue_size, 
+				      [](const SpriteInfo *lhs, 
+						 const SpriteInfo *rhs) noexcept -> bool {
+					     return lhs->m_texture < rhs->m_texture;
+				      });
 			break;
 		}
 		
 		case SpriteSortMode::BackToFront: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
-					return lhs->m_origin_rotation_depth.m_w > rhs->m_origin_rotation_depth.m_w;
-				}
-			);
-			
+				      m_sorted_sprites.begin() + m_sprite_queue_size, 
+				      [](const SpriteInfo *lhs, 
+						 const SpriteInfo *rhs) noexcept -> bool {
+					     return lhs->m_origin_rotation_depth.m_w 
+							  > rhs->m_origin_rotation_depth.m_w;
+				      });
 			break;
 		}
 		
 		case SpriteSortMode::FrontToBack: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				m_sorted_sprites.begin() + m_sprite_queue_size, 
-				[](const SpriteInfo *lhs, const SpriteInfo *rhs) noexcept -> bool {
-					return lhs->m_origin_rotation_depth.m_w < rhs->m_origin_rotation_depth.m_w;
-				}
-			);
-			
+				      m_sorted_sprites.begin() + m_sprite_queue_size, 
+				      [](const SpriteInfo *lhs, 
+						 const SpriteInfo *rhs) noexcept -> bool {
+					     return lhs->m_origin_rotation_depth.m_w 
+							  < rhs->m_origin_rotation_depth.m_w;
+				      });
 			break;
 		}
 		}
@@ -289,11 +294,11 @@ namespace mage {
 	}
 
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
-		const SpriteInfo * const *sprites, size_t nb_sprites) {
+		                          const SpriteInfo * const *sprites, 
+		                          size_t nb_sprites) {
 
 		// Binds the texture.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_SPRITE, texture);
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_SPRITE, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -302,15 +307,15 @@ namespace mage {
 			// Number of sprites that must be rendered.
 			size_t nb_sprites_to_render = nb_sprites;
 			// Number of sprites that can fit in the vertex buffer.
-			const size_t nb_sprites_available 
-				= SpriteBatchMesh::s_max_sprites_per_batch - m_vertex_buffer_position;
+			const size_t nb_sprites_available = SpriteBatchMesh::s_max_sprites_per_batch 
+				                              - m_vertex_buffer_position;
 			if (nb_sprites_to_render > nb_sprites_available) {
 				// Not all sprites fit in the vertex buffer.
 				if (nb_sprites_available < SpriteBatchMesh::s_min_sprites_per_batch) {
 					// Wrap back to the start of the vertex buffer in case of a excessively small batch.
 					m_vertex_buffer_position = 0;
-					nb_sprites_to_render 
-						= std::min(nb_sprites, SpriteBatchMesh::s_max_sprites_per_batch);
+					nb_sprites_to_render = std::min(nb_sprites, 
+						                            SpriteBatchMesh::s_max_sprites_per_batch);
 				}
 				else {
 					nb_sprites_to_render = nb_sprites_available;
@@ -351,9 +356,11 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV SpriteBatch::PrepareSprite(
-		const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-		FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept {
+	void XM_CALLCONV SpriteBatch
+		::PrepareSprite(const SpriteInfo *sprite, 
+		                VertexPositionColorTexture *vertices,
+		                FXMVECTOR texture_size, 
+			            FXMVECTOR inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->m_source);
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);

@@ -106,7 +106,7 @@ namespace mage {
 
 		 @return		A reference to the AABB of this model.
 		 */
-		const AABB &GetAABB() const noexcept {
+		[[nodiscard]] const AABB &GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -115,7 +115,7 @@ namespace mage {
 
 		 @return		A reference to the bounding sphere of this model.
 		 */
-		const BoundingSphere &GetBoundingSphere() const noexcept {
+		[[nodiscard]] const BoundingSphere &GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
 
@@ -124,7 +124,7 @@ namespace mage {
 
 		 @return		The start index of this model in the mesh of this model.
 		 */
-		size_t GetStartIndex() const noexcept {
+		[[nodiscard]] size_t GetStartIndex() const noexcept {
 			return m_start_index;
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 		 @return		The number of indices of this model in the mesh of this 
 						model.
 		 */
-		size_t GetNumberOfIndices() const noexcept {
+		[[nodiscard]] size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -184,7 +184,7 @@ namespace mage {
 
 		 @return		A reference to the texture transform of this model.
 		 */
-		TextureTransform &GetTextureTransform() noexcept {
+		[[nodiscard]] TextureTransform &GetTextureTransform() noexcept {
 			return m_texture_transform;
 		}
 
@@ -193,7 +193,7 @@ namespace mage {
 
 		 @return		A reference to the texture transform of this model.
 		 */
-		const TextureTransform &GetTextureTransform() const noexcept {
+		[[nodiscard]] const TextureTransform &GetTextureTransform() const noexcept {
 			return m_texture_transform;
 		}
 
@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		Material &GetMaterial() noexcept {
+		[[nodiscard]] Material &GetMaterial() noexcept {
 			return m_material;
 		}
 
@@ -211,7 +211,7 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		const Material &GetMaterial() const noexcept {
+		[[nodiscard]] const Material &GetMaterial() const noexcept {
 			return m_material;
 		}
 
@@ -225,7 +225,7 @@ namespace mage {
 		 @return		@c true if this model occludes light. @c false 
 						otherwise.
 		 */
-		bool OccludesLight() const noexcept {
+		[[nodiscard]] bool OccludesLight() const noexcept {
 			return m_light_occlusion;
 		}
 
@@ -246,7 +246,7 @@ namespace mage {
 		/**
 		 Toggles the occlusion of light by this model.
 		 */
-		bool ToggleLightOcclusion() noexcept {
+		void ToggleLightOcclusion() noexcept {
 			SetLightOcclusion(!m_light_occlusion);
 		}
 

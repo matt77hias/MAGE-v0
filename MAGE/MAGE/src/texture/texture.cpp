@@ -29,13 +29,14 @@ namespace mage {
 	}
 
 	Texture::Texture(wstring guid,
-		const D3D11_TEXTURE2D_DESC *desc,
-		const D3D11_SUBRESOURCE_DATA *initial_data)
+		             const D3D11_TEXTURE2D_DESC *desc,
+		             const D3D11_SUBRESOURCE_DATA *initial_data)
 		: Texture(std::move(guid), Pipeline::GetDevice(), desc, initial_data) {}
 
-	Texture::Texture(wstring guid, ID3D11Device5 *device,
-		const D3D11_TEXTURE2D_DESC *desc, 
-		const D3D11_SUBRESOURCE_DATA *initial_data)
+	Texture::Texture(wstring guid, 
+		            ID3D11Device5 *device,
+		            const D3D11_TEXTURE2D_DESC *desc, 
+		            const D3D11_SUBRESOURCE_DATA *initial_data)
 		: Resource< Texture >(std::move(guid)), 
 		m_texture_srv() {
 

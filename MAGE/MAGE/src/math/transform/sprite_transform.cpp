@@ -14,22 +14,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	F32 ConvertNormalizedToAbsoluteScreenX(F32 x) {
+	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenX(F32 x) {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return x * static_cast< F32 >(config->GetDisplayWidth());
 	}
 
-	F32 ConvertNormalizedToAbsoluteScreenY(F32 y) {
+	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenY(F32 y) {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return y * static_cast< F32 >(config->GetDisplayHeight());
 	}
 
-	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(
-		FXMVECTOR position) {
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		ConvertNormalizedToAbsoluteScreen(FXMVECTOR position) {
 		
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);
@@ -42,22 +42,22 @@ namespace mage {
 		return multiplier * position;
 	}
 
-	F32 ConvertAbsoluteToNormalizedScreenX(F32 x) {
+	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenX(F32 x) {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return x / static_cast< F32 >(config->GetDisplayWidth());
 	}
 
-	F32 ConvertAbsoluteToNormalizedScreenY(F32 y) {
+	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenY(F32 y) {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return y / static_cast< F32 >(config->GetDisplayHeight());
 	}
 
-	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(
-		FXMVECTOR position) {
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		ConvertAbsoluteToNormalizedScreen(FXMVECTOR position) {
 		
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		Assert(config);

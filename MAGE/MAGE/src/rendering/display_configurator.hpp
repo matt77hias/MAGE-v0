@@ -125,7 +125,9 @@ namespace mage {
 		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		const DisplayConfiguration *GetDisplayConfiguration() const noexcept {
+		[[nodiscard]] const DisplayConfiguration *
+			GetDisplayConfiguration() const noexcept {
+
 			return m_display_configuration.get();
 		}
 

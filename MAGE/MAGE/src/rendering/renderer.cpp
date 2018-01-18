@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Renderer *Renderer::Get() noexcept {
+	[[nodiscard]] Renderer *Renderer::Get() noexcept {
 		Assert(RenderingManager::Get());
 		
 		return RenderingManager::Get()->GetRenderer();

@@ -32,7 +32,7 @@ namespace mage {
 		 @return		A pointer to the main window associated with the 
 						current engine.
 		 */
-		static MainWindow *Get() noexcept;
+		[[nodiscard]] static MainWindow *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -122,7 +122,7 @@ namespace mage {
 		 
 		 @return		The application instance handle of this main window.
 		 */
-		HINSTANCE GetInstance() noexcept {
+		[[nodiscard]] HINSTANCE GetInstance() noexcept {
 			return m_instance;
 		}
 
@@ -131,7 +131,7 @@ namespace mage {
 
 		 @return		The window handle of this main window.
 		 */
-		HWND GetWindow() noexcept {
+		[[nodiscard]] HWND GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -140,7 +140,7 @@ namespace mage {
 
 		 @return		The title text of this main window.
 		 */
-		const wstring GetTitleText() const noexcept;
+		[[nodiscard]] const wstring GetTitleText() const noexcept;
 
 		/**
 		 Sets the title text of this main window to the given title text.

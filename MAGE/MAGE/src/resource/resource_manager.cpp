@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ResourceManager *ResourceManager::Get() noexcept {
+	[[nodiscard]] ResourceManager *ResourceManager::Get() noexcept {
 		Assert(Engine::Get());
 
 		return Engine::Get()->GetResourceManager();

@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const RenderingOutputManager *RenderingOutputManager::Get() noexcept {
+	[[nodiscard]] const RenderingOutputManager *RenderingOutputManager::Get() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetRenderingOutputManager();

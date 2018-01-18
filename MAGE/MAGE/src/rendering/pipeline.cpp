@@ -14,13 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	ID3D11Device5 *Pipeline::GetDevice() noexcept {
+	[[nodiscard]] ID3D11Device5 *Pipeline::GetDevice() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDevice();
 	}
 
-	ID3D11DeviceContext4 *Pipeline::GetImmediateDeviceContext() noexcept {
+	[[nodiscard]] ID3D11DeviceContext4 *Pipeline::GetImmediateDeviceContext() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDeviceContext();

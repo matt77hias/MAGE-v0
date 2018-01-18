@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A struct of sprite font descriptors.
 	 */
-	struct SpriteFontDescriptor final {
+	class SpriteFontDescriptor final {
 
 	public:
 
@@ -89,7 +89,7 @@ namespace mage {
 		 @return		@c true if working around gamma issues is needed. 
 						@c false if not.
 		 */
-		bool ForceSRGB() const noexcept {
+		[[nodiscard]] bool ForceSRGB() const noexcept {
 			return m_force_srgb;
 		}
 

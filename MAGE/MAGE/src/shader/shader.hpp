@@ -52,9 +52,9 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		 */
 		explicit VertexShader(wstring guid,
-			const CompiledShader &compiled_shader,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			size_t nb_input_elements);
+			                  const CompiledShader &compiled_shader,
+			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+			                  size_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader.
@@ -77,10 +77,11 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this vertex shader.
 		*/
-		explicit VertexShader(wstring guid, ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader, 
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			size_t nb_input_elements);
+		explicit VertexShader(wstring guid, 
+			                  ID3D11Device5 *device, 
+			                  const CompiledShader &compiled_shader, 
+			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+			                  size_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader from the given vertex shader.
@@ -169,9 +170,9 @@ namespace mage {
 						Failed to setup this vertex shader.
 		 */
 		void SetupShader(ID3D11Device5 *device,
-			const CompiledShader &compiled_shader,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			size_t nb_input_elements);
+			             const CompiledShader &compiled_shader,
+			             const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+			             size_t nb_input_elements);
 			
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -225,7 +226,7 @@ namespace mage {
 						Failed to initialize this shader.
 		 */
 		explicit Shader(wstring guid, 
-			const CompiledShader &compiled_shader);
+			            const CompiledShader &compiled_shader);
 
 		/**
 		 Constructs a shader.
@@ -240,8 +241,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this shader.
 		 */
-		explicit Shader(wstring guid, ID3D11Device5 *device,
-			const CompiledShader &compiled_shader);
+		explicit Shader(wstring guid, 
+			            ID3D11Device5 *device,
+			            const CompiledShader &compiled_shader);
 		
 		/**
 		 Constructs a shader from the given shader.
@@ -318,7 +320,7 @@ namespace mage {
 						Failed to setup this shader.
 		 */
 		void SetupShader(ID3D11Device5 *device, 
-			const CompiledShader &compiled_shader);
+			             const CompiledShader &compiled_shader);
 		
 		//---------------------------------------------------------------------
 		// Member Variables

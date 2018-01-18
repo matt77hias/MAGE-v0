@@ -29,8 +29,8 @@ namespace mage::loader {
 					Failed to import the texture from file.
 	 */
 	void ImportTextureFromFile(const wstring &fname, 
-		ID3D11Device5 *device, 
-		ID3D11ShaderResourceView **texture_srv);
+		                       ID3D11Device5 *device, 
+		                       ID3D11ShaderResourceView **texture_srv);
 
 	/**
 	 Exports the texture to the given file.
@@ -47,6 +47,6 @@ namespace mage::loader {
 					Failed to export the texture to file.
 	 */
 	void ExportTextureToFile(const wstring &fname, 
-		ID3D11DeviceContext4 *device_context, 
-		ID3D11Resource *texture);
+		                     ID3D11DeviceContext4 *device_context, 
+		                     ID3D11Resource *texture);
 }

@@ -31,56 +31,58 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixTranslation(
-		FXMVECTOR translation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixTranslation(FXMVECTOR translation) noexcept {
 
 		return XMMatrixTranslationFromVector(translation);
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixInverseTranslation(
-		FXMVECTOR translation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixInverseTranslation(FXMVECTOR translation) noexcept {
 		
 		return XMMatrixTranslation(-translation);
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMQuaternionRotationRollPitchYaw(
-		FXMVECTOR rotation) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMQuaternionRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMQuaternionRotationRollPitchYawFromVector(rotation);
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMQuaternionInverseRotationRollPitchYaw(
-		FXMVECTOR rotation) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMQuaternionInverseRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMQuaternionInverse(XMQuaternionRotationRollPitchYaw(rotation));
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixRotationRollPitchYaw(
-		FXMVECTOR rotation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMMatrixRotationRollPitchYawFromVector(rotation);
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixInverseRotationRollPitchYaw(
-		FXMVECTOR rotation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixInverseRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMMatrixTranspose(XMMatrixRotationRollPitchYaw(rotation));
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixScaling(
-		FXMVECTOR scale) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixScaling(FXMVECTOR scale) noexcept {
 
 		return XMMatrixScalingFromVector(scale);
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixInverseScaling(
-		FXMVECTOR scale) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixInverseScaling(FXMVECTOR scale) noexcept {
 
 		return XMMatrixScaling(XMVectorReciprocal(scale));
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixAffineTransformation(
-		FXMVECTOR scale, FXMVECTOR rotation, FXMVECTOR translation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixAffineTransformation(FXMVECTOR scale, 
+			                         FXMVECTOR rotation, 
+			                         FXMVECTOR translation) noexcept {
 
 		// Scale . Rotation . Translation
 		XMMATRIX transformation = XMMatrixRotationRollPitchYaw(rotation);
@@ -91,8 +93,10 @@ namespace mage {
 		return transformation;
 	}
 
-	inline const XMMATRIX XM_CALLCONV XMMatrixInverseAffineTransformation(
-		FXMVECTOR scale, FXMVECTOR rotation, FXMVECTOR translation) noexcept {
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixInverseAffineTransformation(FXMVECTOR scale, 
+			                                FXMVECTOR rotation, 
+			                                FXMVECTOR translation) noexcept {
 
 		// Translation . Rotation . Scale
 		XMMATRIX transformation = XMMatrixInverseRotationRollPitchYaw(rotation);
@@ -155,27 +159,39 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat2(const F32x2 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat2(const F32x2 *src) noexcept {
+
 		return XMLoadFloat2(reinterpret_cast< const XMFLOAT2 * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat3(const F32x3 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat3(const F32x3 *src) noexcept {
+
 		return XMLoadFloat3(reinterpret_cast< const XMFLOAT3 * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat4(const F32x4 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat4(const F32x4 *src) noexcept {
+		
 		return XMLoadFloat4(reinterpret_cast< const XMFLOAT4 * >(src));
 	}
 	
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat2A(const F32x2A *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat2A(const F32x2A *src) noexcept {
+		
 		return XMLoadFloat2A(reinterpret_cast< const XMFLOAT2A * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat3A(const F32x3A *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat3A(const F32x3A *src) noexcept {
+		
 		return XMLoadFloat3A(reinterpret_cast< const XMFLOAT3A * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadFloat4A(const F32x4A *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadFloat4A(const F32x4A *src) noexcept {
+		
 		return XMLoadFloat4A(reinterpret_cast< const XMFLOAT4A * >(src));
 	}
 
@@ -186,15 +202,21 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline const XMVECTOR XM_CALLCONV XMLoadSInt2(const S32x2 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadSInt2(const S32x2 *src) noexcept {
+
 		return XMLoadSInt2(reinterpret_cast< const XMINT2 * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadSInt3(const S32x3 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadSInt3(const S32x3 *src) noexcept {
+
 		return XMLoadSInt3(reinterpret_cast< const XMINT3 * >(src));
 	}
 
-	inline const XMVECTOR XM_CALLCONV XMLoadSInt4(const S32x4 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadSInt4(const S32x4 *src) noexcept {
+
 		return XMLoadSInt4(reinterpret_cast< const XMINT4 * >(src));
 	}
 
@@ -205,15 +227,21 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline const XMVECTOR XM_CALLCONV XMLoadUInt2(const U32x2 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadUInt2(const U32x2 *src) noexcept {
+
 		return XMLoadUInt2(reinterpret_cast< const XMUINT2 * >(src));
 	}
 	
-	inline const XMVECTOR XM_CALLCONV XMLoadUInt3(const U32x3 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadUInt3(const U32x3 *src) noexcept {
+
 		return XMLoadUInt3(reinterpret_cast< const XMUINT3 * >(src));
 	}
 	
-	inline const XMVECTOR XM_CALLCONV XMLoadUInt4(const U32x4 *src) noexcept {
+	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
+		XMLoadUInt4(const U32x4 *src) noexcept {
+
 		return XMLoadUInt4(reinterpret_cast< const XMUINT4 * >(src));
 	}
 

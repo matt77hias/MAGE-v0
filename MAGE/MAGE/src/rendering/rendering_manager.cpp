@@ -24,7 +24,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const RenderingManager *RenderingManager::Get() noexcept {
+	[[nodiscard]] const RenderingManager *RenderingManager::Get() noexcept {
 		Assert(Engine::Get());
 
 		return Engine::Get()->GetRenderingManager();

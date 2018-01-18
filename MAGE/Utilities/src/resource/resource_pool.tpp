@@ -50,7 +50,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >
+	[[nodiscard]] SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >
 		::Get(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -149,6 +149,12 @@ namespace mage {
 	template< typename KeyT, typename ResourceT >
 	template< typename DerivedResourceT >
 	ResourcePool< KeyT, ResourceT >::Resource< DerivedResourceT >
+		::Resource(Resource &&resource) = default;
+
+
+	template< typename KeyT, typename ResourceT >
+	template< typename DerivedResourceT >
+	ResourcePool< KeyT, ResourceT >::Resource< DerivedResourceT >
 		::~Resource() {
 		
 		m_resource_pool.Remove(m_resource_key);
@@ -190,7 +196,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]] SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >
 		::Get(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);

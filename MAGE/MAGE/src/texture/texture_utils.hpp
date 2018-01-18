@@ -22,7 +22,7 @@ namespace mage {
 					The DXGI format.
 	 @return		The number of bits per pixel of the given DXGI format.
 	 */
-	constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
+	[[nodiscard]] constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
@@ -175,7 +175,7 @@ namespace mage {
 	 @return		The matching sRGB converted DXGI format of the given DXGI 
 					format.
 	 */
-	constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
+	[[nodiscard]] constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R8G8B8A8_UNORM:
@@ -210,7 +210,7 @@ namespace mage {
 					The resource of the given shader resource view must be 
 					convertible to a @c ID3D11Texture2D.
 	 */
-	const XMVECTOR XM_CALLCONV GetTexture2DSize(
+	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
 		ID3D11ShaderResourceView *texture_srv);
 
 	/**
@@ -222,6 +222,6 @@ namespace mage {
 	 @return		The size of the given 2D texture as a @c XMVECTOR 
 					(width, height, width, height).
 	 */
-	const XMVECTOR XM_CALLCONV GetTexture2DSize(
+	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
 		ID3D11Texture2D *texture) noexcept;
 }

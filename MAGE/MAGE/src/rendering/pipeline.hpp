@@ -49,7 +49,7 @@ namespace mage {
 						must be loaded.
 		 @return		A pointer to the device.
 		 */
-		static ID3D11Device5 *GetDevice() noexcept;
+		[[nodiscard]] static ID3D11Device5 *GetDevice() noexcept;
 
 		/**
 		 Returns the immediate device context.
@@ -58,7 +58,7 @@ namespace mage {
 						must be loaded.
 		 @return		A pointer to the immediate device context.
 		 */
-		static ID3D11DeviceContext4 *GetImmediateDeviceContext() noexcept;
+		[[nodiscard]] static ID3D11DeviceContext4 *GetImmediateDeviceContext() noexcept;
 
 		//---------------------------------------------------------------------
 		// Class Member Methods: Drawing and Dispatching

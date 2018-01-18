@@ -16,7 +16,7 @@
 namespace mage::loader {
 
 	void ImportMaterialFromFile(const wstring &fname, 
-		std::vector< Material > &materials) {
+		                        std::vector< Material > &materials) {
 		
 		const wstring extension = GetFileExtension(fname);
 

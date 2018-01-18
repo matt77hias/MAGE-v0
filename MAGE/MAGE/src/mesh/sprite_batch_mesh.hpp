@@ -61,7 +61,7 @@ namespace mage {
 		 @return		The minimum number of vertices to draw per batch for 
 						sprite batch meshes.
 		 */
-		static constexpr size_t MinVerticesPerBatch() noexcept {
+		[[nodiscard]] static constexpr size_t MinVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -72,7 +72,7 @@ namespace mage {
 		 @return		The maximum number of vertices to draw per batch for 
 						sprite batch meshes.
 		 */
-		static constexpr size_t MaxVerticesPerBatch() noexcept {
+		[[nodiscard]] static constexpr size_t MaxVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_max_sprites_per_batch;
 		}
 
@@ -83,7 +83,7 @@ namespace mage {
 		 @return		The minimum number of indices to draw per batch for 
 						sprite batch meshes.
 		 */
-		static constexpr size_t MinIndicesPerBatch() noexcept {
+		[[nodiscard]] static constexpr size_t MinIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -94,7 +94,7 @@ namespace mage {
 		 @return		The maximum number of indices to draw per batch for 
 						sprite batch meshes.
 		 */
-		static constexpr size_t MaxIndicesPerBatch() noexcept {
+		[[nodiscard]] static constexpr size_t MaxIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_max_sprites_per_batch;
 		}
 
@@ -187,6 +187,6 @@ namespace mage {
 
 		 @return		A vector containing the indices of a sprite batch mesh.
 		 */
-		static const std::vector< U16 > GenerateIndices();
+		[[nodiscard]] static const std::vector< U16 > GenerateIndices();
 	};
 }

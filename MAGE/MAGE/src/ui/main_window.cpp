@@ -34,7 +34,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	MainWindow *MainWindow::Get() noexcept {
+	[[nodiscard]] MainWindow *MainWindow::Get() noexcept {
 		Assert(Engine::Get());
 
 		return Engine::Get()->GetMainWindow();
@@ -165,7 +165,7 @@ namespace mage {
 		UninitializeWindow();
 	}
 
-	const wstring MainWindow::GetTitleText() const noexcept {
+	[[nodiscard]] const wstring MainWindow::GetTitleText() const noexcept {
 		wchar_t text[1024];
 		const int result = GetWindowText(m_window, 
 			                             text, 

@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SwapChain *SwapChain::Get() noexcept {
+	[[nodiscard]] SwapChain *SwapChain::Get() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetSwapChain();

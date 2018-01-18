@@ -157,11 +157,12 @@ namespace mage {
 	#pragma region
 
 	SpriteFont::SpriteFont(wstring fname, 
-		const SpriteFontDescriptor &desc)
+		                   const SpriteFontDescriptor &desc)
 		: SpriteFont(std::move(fname), Pipeline::GetDevice(), desc) {}
 
-	SpriteFont::SpriteFont(wstring fname, ID3D11Device5 *device, 
-		const SpriteFontDescriptor &desc)
+	SpriteFont::SpriteFont(wstring fname, 
+		                   ID3D11Device5 *device, 
+		                   const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(std::move(fname)), 
 		m_texture_srv(), 
 		m_glyphs(),
@@ -394,7 +395,7 @@ namespace mage {
 		}
 	}
 
-	const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
+	[[nodiscard]] const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
 		const wchar_t *str) const {
 		
 		Assert(str);
@@ -450,7 +451,7 @@ namespace mage {
 		return result;
 	}
 	
-	const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
+	[[nodiscard]] const XMVECTOR XM_CALLCONV SpriteFont::MeasureString(
 		const std::vector< ColorString > &text) const {
 		
 		XMVECTOR result = XMVectorZero();
@@ -506,7 +507,7 @@ namespace mage {
 		return result;
 	}
 
-	const RECT SpriteFont::MeasureDrawBounds(
+	[[nodiscard]] const RECT SpriteFont::MeasureDrawBounds(
 		const wchar_t *str, const F32x2 &position) const {
 		
 		Assert(str);
@@ -571,7 +572,7 @@ namespace mage {
 		return result;
 	}
 
-	const RECT SpriteFont::MeasureDrawBounds(
+	[[nodiscard]] const RECT SpriteFont::MeasureDrawBounds(
 		const std::vector< ColorString > &text, const F32x2 &position) const {
 		
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
@@ -636,12 +637,12 @@ namespace mage {
 		return result;
 	}
 
-	bool SpriteFont::ContainsCharacter(wchar_t character) const {
+	[[nodiscard]] bool SpriteFont::ContainsCharacter(wchar_t character) const {
 		return std::binary_search(
 			m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 	}
 	
-	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
+	[[nodiscard]] const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
 		if (const auto it = std::lower_bound(
 			m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan()); 
 			it != m_glyphs.cend() && it->m_character == character) {

@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SceneManager *SceneManager::Get() noexcept {
+	[[nodiscard]] SceneManager *SceneManager::Get() noexcept {
 		Assert(Engine::Get());
 
 		return Engine::Get()->GetSceneManager();

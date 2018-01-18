@@ -93,7 +93,7 @@ namespace mage {
 
 		 @return		A pointer to the string of this color string.
 		 */
-		const wchar_t *c_str() const noexcept {
+		[[nodiscard]] const wchar_t *c_str() const noexcept {
 			return m_str.c_str();
 		}
 
@@ -102,7 +102,7 @@ namespace mage {
 
 		 @return		A reference to the string of this color string.
 		 */
-		const wstring &GetString() const noexcept {
+		[[nodiscard]] const wstring &GetString() const noexcept {
 			return m_str;
 		}
 		
@@ -121,7 +121,7 @@ namespace mage {
 
 		 @return		A reference to sRGB color of this color string.
 		 */
-		SRGBA &GetColor() noexcept {
+		[[nodiscard]] SRGBA &GetColor() noexcept {
 			return m_color;
 		}
 
@@ -130,7 +130,7 @@ namespace mage {
 
 		 @return		A reference to sRGB color of this color string.
 		 */
-		const SRGBA &GetColor() const noexcept {
+		[[nodiscard]] const SRGBA &GetColor() const noexcept {
 			return m_color;
 		}
 

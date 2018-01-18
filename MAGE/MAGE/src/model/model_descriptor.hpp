@@ -135,7 +135,7 @@ namespace mage {
 
 		 @return		A pointer to the mesh of this model descriptor.
 		 */
-		SharedPtr< const Mesh > GetMesh() const noexcept {
+		[[nodiscard]] SharedPtr< const Mesh > GetMesh() const noexcept {
 			return m_mesh;
 		}
 
@@ -149,7 +149,7 @@ namespace mage {
 		 @return		A pointer to the material of this model 
 						descriptor matching the given name @a name.
 		 */
-		const Material *GetMaterial(const string &name) const noexcept;
+		[[nodiscard]] const Material *GetMaterial(const string &name) const noexcept;
 
 		/**
 		 Traverses all materials of this model descriptor.
@@ -172,7 +172,7 @@ namespace mage {
 		 @return		A pointer to the model part of this model descriptor 
 						matching the given name @a name.
 		 */
-		const ModelPart *GetModelPart(const string &name) const noexcept;
+		[[nodiscard]] const ModelPart *GetModelPart(const string &name) const noexcept;
 		
 		/**
 		 Traverses all model parts of this model descriptor.

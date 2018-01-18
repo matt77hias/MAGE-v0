@@ -52,7 +52,7 @@ namespace mage {
 		 @return		A pointer to the renderer of the rendering manager 
 						associated with the current engine.
 		 */
-		static Renderer *Get() noexcept;
+		[[nodiscard]] static Renderer *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -73,8 +73,8 @@ namespace mage {
 						The height in pixels of the back buffer.
 		 */
 		explicit Renderer(ID3D11Device5 *device, 
-			ID3D11DeviceContext4 *device_context, 
-			U32 width, U32 height);
+			              ID3D11DeviceContext4 *device_context, 
+			              U32 width, U32 height);
 
 		/**
 		 Constructs a renderer from the given renderer.

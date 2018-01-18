@@ -5,12 +5,11 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform\sprite_transform.hpp"
+#include "camera\viewport.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
-#include "sprite\sprite_sort_mode.hpp"
-#include "sprite\sprite_effects.hpp"
+#include "sprite\sprite_utils.hpp"
 
 #pragma endregion
 
@@ -260,9 +259,8 @@ namespace mage {
 		 @param[in]		transform
 						The transform for the whole batch of sprites.
 		 */
-		void XM_CALLCONV Begin(
-			SpriteSortMode sort_mode = SpriteSortMode::Deferred,
-			FXMMATRIX transform = XMMatrixIdentity());
+		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
+			                   FXMMATRIX transform = XMMatrixIdentity());
 		
 		/**
 		 Draws a sprite.
@@ -281,10 +279,11 @@ namespace mage {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void XM_CALLCONV Draw(
-			ID3D11ShaderResourceView *texture, FXMVECTOR color, 
-			SpriteEffect effects, const SpriteTransform &transform, 
-			const RECT *source = nullptr);
+		void XM_CALLCONV Draw(ID3D11ShaderResourceView *texture, 
+			                  FXMVECTOR color, 
+			                  SpriteEffect effects, 
+			                  const SpriteTransform &transform, 
+			                  const RECT *source = nullptr);
 		
 		/**
 		 Ends the processing of a batch of sprites.
@@ -303,7 +302,7 @@ namespace mage {
 
 		 @return		The rotation mode of this sprite batch .
 		 */
-		DXGI_MODE_ROTATION GetRotationMode() const noexcept {
+		[[nodiscard]] DXGI_MODE_ROTATION GetRotationMode() const noexcept {
 			return m_rotation_mode;
 		}
 
@@ -323,7 +322,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this sprite batch.
 		 */
-		const D3D11_VIEWPORT &GetViewport() const noexcept {
+		[[nodiscard]] const D3D11_VIEWPORT &GetViewport() const noexcept {
 			return m_viewport;
 		}
 
@@ -333,7 +332,7 @@ namespace mage {
 		 @param[in]		viewport
 						The viewport.
 		 */
-		void SetViewport(D3D11_VIEWPORT viewport) noexcept {
+		[[nodiscard]] void SetViewport(D3D11_VIEWPORT viewport) noexcept {
 			m_viewport_set = true;
 			m_viewport     = std::move(viewport);
 		}
@@ -411,7 +410,8 @@ namespace mage {
 						The number of sprites which need to be rendered.
 		 */
 		void RenderBatch(ID3D11ShaderResourceView *texture,
-			const SpriteInfo * const *sprites, size_t nb_sprites);
+			             const SpriteInfo * const *sprites, 
+			             size_t nb_sprites);
 		
 		/**
 		 Prepares a single sprite for rendering.
@@ -429,9 +429,10 @@ namespace mage {
 		 @param[in]		inverse_texture_size
 						The inverse size of the texture.
 		 */
-		void XM_CALLCONV PrepareSprite(
-			const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-			FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept;
+		void XM_CALLCONV PrepareSprite(const SpriteInfo *sprite, 
+			                           VertexPositionColorTexture *vertices,
+			                           FXMVECTOR texture_size, 
+			                           FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables

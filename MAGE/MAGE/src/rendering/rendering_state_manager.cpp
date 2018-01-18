@@ -20,7 +20,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const RenderingStateManager *RenderingStateManager::Get() noexcept {
+	[[nodiscard]] const RenderingStateManager *RenderingStateManager::Get() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetRenderingStateManager();
@@ -118,7 +118,7 @@ namespace mage {
 				result);
 		}
 
-#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
@@ -156,7 +156,7 @@ namespace mage {
 				result);
 		}
 
-#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISSABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(

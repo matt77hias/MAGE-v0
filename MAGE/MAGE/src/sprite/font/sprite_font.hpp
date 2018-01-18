@@ -14,7 +14,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -129,10 +129,10 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		void XM_CALLCONV DrawString(SpriteBatch &sprite_batch,
-			const wchar_t *str,
-			const SpriteTransform &transform,
-			FXMVECTOR color, 
-			SpriteEffect effects = SpriteEffect::None) const;
+			                        const wchar_t *str,
+			                        const SpriteTransform &transform,
+			                        FXMVECTOR color, 
+			                        SpriteEffect effects = SpriteEffect::None) const;
 
 		/**
 		 Draws the given text with this sprite font using the given sprite 
@@ -149,9 +149,9 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		void DrawString(SpriteBatch &sprite_batch, 
-			const std::vector< ColorString > &text,
-			const SpriteTransform &transform,
-			SpriteEffect effects = SpriteEffect::None) const;
+			            const std::vector< ColorString > &text,
+			            const SpriteTransform &transform,
+			            SpriteEffect effects = SpriteEffect::None) const;
 		
 		/**
 		 Returns the size of the given string with this sprite font in pixels.
@@ -165,7 +165,8 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR XM_CALLCONV MeasureString(const wchar_t *str) const;
+		[[nodiscard]] const XMVECTOR XM_CALLCONV MeasureString(
+			const wchar_t *str) const;
 
 		/**
 		 Returns the size of the given text with this sprite font in pixels.
@@ -178,7 +179,7 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR XM_CALLCONV MeasureString(
+		[[nodiscard]] const XMVECTOR XM_CALLCONV MeasureString(
 			const std::vector< ColorString > &text) const;
 		
 		/**
@@ -192,7 +193,7 @@ namespace mage {
 		 @return		A @c RECT bounding the given string with this sprite 
 						font.
 		 */
-		const RECT MeasureDrawBounds(
+		[[nodiscard]] const RECT MeasureDrawBounds(
 			const wchar_t *str, const F32x2 &position) const;
 
 		/**
@@ -205,7 +206,7 @@ namespace mage {
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.
 		 */
-		const RECT MeasureDrawBounds(
+		[[nodiscard]] const RECT MeasureDrawBounds(
 			const std::vector< ColorString > &text, const F32x2 &position) const;
 		
 		/**
@@ -223,7 +224,7 @@ namespace mage {
 
 		 @return		The number of characters in this sprite font.
 		 */
-		size_t size() const noexcept {
+		[[nodiscard]] size_t size() const noexcept {
 			return m_glyphs.size();
 		}
 
@@ -232,7 +233,7 @@ namespace mage {
 
 		 @return		The line spacing of this sprite font.
 		 */
-		F32 GetLineSpacing() const noexcept {
+		[[nodiscard]] F32 GetLineSpacing() const noexcept {
 			return m_line_spacing;
 		}
 
@@ -253,7 +254,7 @@ namespace mage {
 
 		 @return		The default character of this sprite font.
 		 */
-		wchar_t GetDefaultCharacter() const noexcept {
+		[[nodiscard]] wchar_t GetDefaultCharacter() const noexcept {
 			return m_default_glyph ? 
 				static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
 		}
@@ -285,7 +286,7 @@ namespace mage {
 						corresponding to the given character. @c false 
 						otherwise.
 		 */
-		bool ContainsCharacter(wchar_t character) const;
+		[[nodiscard]] bool ContainsCharacter(wchar_t character) const;
 		
 		/**
 		 Returns the glyph of this sprite font corresponding to the given 
@@ -304,7 +305,7 @@ namespace mage {
 						this sprite font and if this sprite font has not a 
 						default character.
 		 */
-		const Glyph *GetGlyph(wchar_t character) const;
+		[[nodiscard]] const Glyph *GetGlyph(wchar_t character) const;
 		
 		/**
 		 Returns a pointer to the shader resource view of the texture of this 
@@ -313,7 +314,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the texture 
 						of this sprite font.
 		 */
-		ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 

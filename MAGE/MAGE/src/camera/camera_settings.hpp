@@ -95,7 +95,7 @@ namespace mage {
 			ResetRenderLayers();
 		}
 
-		RenderMode GetRenderMode() const noexcept {
+		[[nodiscard]] RenderMode GetRenderMode() const noexcept {
 			return m_render_mode;
 		}
 
@@ -107,7 +107,7 @@ namespace mage {
 			SetRenderMode(RenderMode::Forward);
 		}
 
-		BRDFType GetBRDF() const noexcept {
+		[[nodiscard]] BRDFType GetBRDF() const noexcept {
 			return m_brdf;
 		}
 
@@ -119,12 +119,12 @@ namespace mage {
 			SetBRDF(BRDFType::Unknown);
 		}
 
-		bool ContainsRenderLayers() const noexcept {
+		[[nodiscard]] bool ContainsRenderLayers() const noexcept {
 			return m_render_layer_mask 
 				!= static_cast< U32 >(RenderLayer::None);
 		}
 
-		bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
+		[[nodiscard]] bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(
 				m_render_layer_mask & static_cast< U32 >(render_layer));
 		}
@@ -145,19 +145,19 @@ namespace mage {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
 		}
 
-		Fog &GetFog() noexcept {
+		[[nodiscard]] Fog &GetFog() noexcept {
 			return m_fog;
 		}
 
-		const Fog &GetFog() const noexcept {
+		[[nodiscard]] const Fog &GetFog() const noexcept {
 			return m_fog;
 		}
 
-		Sky &GetSky() noexcept {
+		[[nodiscard]] Sky &GetSky() noexcept {
 			return m_sky;
 		}
 
-		const Sky &GetSky() const noexcept {
+		[[nodiscard]] const Sky &GetSky() const noexcept {
 			return m_sky;
 		}
 

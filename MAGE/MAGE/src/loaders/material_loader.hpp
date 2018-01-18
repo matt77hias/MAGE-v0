@@ -34,5 +34,5 @@ namespace mage::loader {
 					Failed to import the materials from file.
 	 */
 	void ImportMaterialFromFile(const wstring &fname, 
-		std::vector< Material > &materials);
+		                        std::vector< Material > &materials);
 }

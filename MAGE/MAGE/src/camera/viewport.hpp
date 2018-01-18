@@ -16,6 +16,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Viewport
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of viewports.
+	 */
 	class Viewport final {
 
 	public:
@@ -24,16 +32,16 @@ namespace mage {
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
-		static const D3D11_VIEWPORT GetMaxViewport() noexcept;
+		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		static const D3D11_VIEWPORT GetMaxViewport(
+		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
 			U32 width, U32 height) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width), 
 				                  static_cast< F32 >(height));
 		}
 
-		static const D3D11_VIEWPORT GetMaxViewport(
+		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
 			F32 width, F32 height) noexcept {
 			
 			D3D11_VIEWPORT viewport = {};
@@ -43,7 +51,7 @@ namespace mage {
 			return viewport;
 		}
 
-		static const D3D11_VIEWPORT GetMaxViewport(
+		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
 			U32 width, U32 height, AADescriptor desc) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width),
@@ -51,7 +59,7 @@ namespace mage {
 				                  desc);
 		}
 
-		static const D3D11_VIEWPORT GetMaxViewport(
+		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
 			F32 width, F32 height, AADescriptor desc) noexcept {
 			
 			const U32 multiplier = GetResolutionMultiplier(desc);
@@ -122,7 +130,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this viewport.
 		 */
-		const D3D11_VIEWPORT &GetViewport() const noexcept {
+		[[nodiscard]] const D3D11_VIEWPORT &GetViewport() const noexcept {
 			return m_viewport;
 		}
 
@@ -143,15 +151,15 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
-		F32 GetTopLeftX() const noexcept {
+		[[nodiscard]] F32 GetTopLeftX() const noexcept {
 			return m_viewport.TopLeftX;
 		}
 
-		F32 GetTopLeftY() const noexcept {
+		[[nodiscard]] F32 GetTopLeftY() const noexcept {
 			return m_viewport.TopLeftY;
 		}
 
-		const F32x2 GetTopLeft() const noexcept {
+		[[nodiscard]] const F32x2 GetTopLeft() const noexcept {
 			return F32x2(GetTopLeftX(), GetTopLeftY());
 		}
 
@@ -191,15 +199,15 @@ namespace mage {
 			SetTopLeftY(top_left.m_y);
 		}
 
-		F32 GetNormalizedTopLeftX() const noexcept {
+		[[nodiscard]] F32 GetNormalizedTopLeftX() const noexcept {
 			return ConvertAbsoluteToNormalizedScreenX(GetTopLeftX());
 		}
 
-		F32 GetNormalizedTopLeftY() const noexcept {
+		[[nodiscard]] F32 GetNormalizedTopLeftY() const noexcept {
 			return ConvertAbsoluteToNormalizedScreenY(GetTopLeftY());
 		}
 
-		const F32x2 GetNormalizedTopLeft() const noexcept {
+		[[nodiscard]] const F32x2 GetNormalizedTopLeft() const noexcept {
 			return ConvertAbsoluteToNormalizedScreen(GetTopLeft());
 		}
 
@@ -239,15 +247,15 @@ namespace mage {
 			SetNormalizedTopLeftY(top_left.m_y);
 		}
 
-		F32 GetWidth() const noexcept {
+		[[nodiscard]] F32 GetWidth() const noexcept {
 			return m_viewport.Width;
 		}
 
-		F32 GetHeight() const noexcept {
+		[[nodiscard]] F32 GetHeight() const noexcept {
 			return m_viewport.Height;
 		}
 
-		const F32x2 GetWidthAndHeight() const noexcept {
+		[[nodiscard]] const F32x2 GetWidthAndHeight() const noexcept {
 			return F32x2(GetWidth(), GetHeight());
 		}
 
@@ -287,15 +295,15 @@ namespace mage {
 			SetHeight(resolution.m_y);
 		}
 
-		F32 GetNormalizedWidth() const noexcept {
+		[[nodiscard]] F32 GetNormalizedWidth() const noexcept {
 			return ConvertAbsoluteToNormalizedScreenX(GetWidth());
 		}
 
-		F32 GetNormalizedHeight() const noexcept {
+		[[nodiscard]] F32 GetNormalizedHeight() const noexcept {
 			return ConvertAbsoluteToNormalizedScreenY(GetHeight());
 		}
 
-		const F32x2 GetNormalizedWidthAndHeight() const noexcept {
+		[[nodiscard]] const F32x2 GetNormalizedWidthAndHeight() const noexcept {
 			return ConvertAbsoluteToNormalizedScreen(GetWidthAndHeight());
 		}
 
@@ -335,7 +343,7 @@ namespace mage {
 			SetNormalizedHeight(resolution.m_y);
 		}
 
-		F32 GetMinimumDepth() const noexcept {
+		[[nodiscard]] F32 GetMinimumDepth() const noexcept {
 			return m_viewport.MinDepth;
 		}
 
@@ -343,7 +351,7 @@ namespace mage {
 			m_viewport.MinDepth = min_depth;
 		}
 
-		F32 GetMaximumDepth() const noexcept {
+		[[nodiscard]] F32 GetMaximumDepth() const noexcept {
 			return m_viewport.MaxDepth;
 		}
 
@@ -367,4 +375,67 @@ namespace mage {
 		 */
 		D3D11_VIEWPORT m_viewport;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Viewport Transformations
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Returns the viewport transform for the given device context and rotation 
+	 mode.
+
+	 @pre			@a device_context is not equal to @c nullptr.
+	 @param[in]		device_context
+					A pointer to the device context.
+	 @param[in]		rotation_mode
+					The rotation mode.
+	 @return		The viewport transform for 
+					the given device context and rotation mode.
+	 @throws		Exception
+					A viewport needs to be set.
+	 */
+	[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		GetViewportTransform(ID3D11DeviceContext4 *device_context,
+		                     DXGI_MODE_ROTATION rotation_mode);
+
+	/**
+	 Returns the viewport transform for the given device context and rotation 
+	 mode.
+
+	 @pre			@a device_context is not equal to @c nullptr.
+	 @pre			@a viewport is not equal to @c nullptr.
+	 @param[in]		device_context
+					A pointer to the device context.
+	 @param[in]		rotation_mode
+					The rotation mode.
+	 @param[out]	viewport
+					A pointer to the viewport.
+	 @return		The viewport transform for
+					the given device context and rotation mode.
+	 @throws		Exception
+					A viewport needs to be set.
+	 */
+	[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		GetViewportTransform(ID3D11DeviceContext4 *device_context,
+		                     DXGI_MODE_ROTATION rotation_mode, 
+		                     D3D11_VIEWPORT *viewport);
+	
+	/**
+	 Returns the viewport transform for the viewport and rotation mode.
+
+	 @param[in]		viewport
+					A reference to the viewport.
+	 @param[in]		rotation_mode
+					The rotation mode.
+	 @return		The viewport transform for
+					the given viewport and rotation mode.
+	 */
+	[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		GetViewportTransform(const D3D11_VIEWPORT &viewport, 
+		                     DXGI_MODE_ROTATION rotation_mode) noexcept;
+
+	#pragma endregion
 }

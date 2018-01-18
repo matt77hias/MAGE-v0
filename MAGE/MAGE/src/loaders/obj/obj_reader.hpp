@@ -244,7 +244,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c Point3.
 		 */
-		const Point3 ReadOBJVertexCoordinates();
+		[[nodiscard]] const Point3 ReadOBJVertexCoordinates();
 
 		/**
 		 Reads a set of vertex normal coordinates.
@@ -256,7 +256,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c Normal3.
 		 */
-		const Normal3 ReadOBJVertexNormalCoordinates();
+		[[nodiscard]] const Normal3 ReadOBJVertexNormalCoordinates();
 
 		/**
 		 Reads a set of vertex texture coordinates.
@@ -267,7 +267,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c UV.
 		 */
-		const UV ReadOBJVertexTextureCoordinates();
+		[[nodiscard]] const UV ReadOBJVertexTextureCoordinates();
 
 		/**
 		 Reads a set of face indices.
@@ -278,7 +278,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a Bool variable.
 		 */
-		const Index3 ReadOBJVertexIndices();
+		[[nodiscard]] const Index3 ReadOBJVertexIndices();
 		
 		/**
 		 Constructs or retrieves (if already existing) the vertex matching the 
@@ -289,7 +289,7 @@ namespace mage::loader {
 		 @return		The vertex matching the given vertex indices 
 						@a vertex_indices.
 		 */
-		const VertexT ConstructVertex(const Index3 &vertex_indices);
+		[[nodiscard]] const VertexT ConstructVertex(const Index3 &vertex_indices);
 
 		/**
 		 A struct of @c Index3 comparators for OBJ vertex indices.

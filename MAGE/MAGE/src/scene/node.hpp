@@ -117,7 +117,7 @@ namespace mage {
 
 		 @return		A reference to the transform of this node.
 		 */
-		Transform &GetTransform() noexcept {
+		[[nodiscard]] Transform &GetTransform() noexcept {
 			return m_transform;
 		}
 		
@@ -126,7 +126,7 @@ namespace mage {
 
 		 @return		A reference to the transform of this node.
 		 */
-		const Transform &GetTransform() const noexcept {
+		[[nodiscard]] const Transform &GetTransform() const noexcept {
 			return m_transform;
 		}
 
@@ -139,7 +139,7 @@ namespace mage {
 
 		 @return		@c true if this node has a parent. @c false otherwise.
 		 */
-		bool HasParent() const noexcept {
+		[[nodiscard]] bool HasParent() const noexcept {
 			return bool(m_parent);
 		}
 		
@@ -148,7 +148,7 @@ namespace mage {
 
 		 @return		A pointer to the parent of this node.
 		 */
-		NodePtr GetParent() const noexcept {
+		[[nodiscard]] NodePtr GetParent() const noexcept {
 			return m_parent;
 		}
 		
@@ -157,7 +157,7 @@ namespace mage {
 
 		 @return		The number of childs of this node.
 		 */
-		size_t GetNumberOfChilds() const noexcept {
+		[[nodiscard]] size_t GetNumberOfChilds() const noexcept {
 			return m_childs.size();
 		}
 		
@@ -167,7 +167,7 @@ namespace mage {
 		 @return		@c true if this node contains at least one child. 
 						@c false otherwise.
 		 */
-		bool ContainsChilds() const {
+		[[nodiscard]] bool ContainsChilds() const {
 			return !m_childs.empty();
 		}
 
@@ -179,7 +179,7 @@ namespace mage {
 		 @return		@c true if this node contains the given node as a 
 						child. @c false otherwise.
 		 */
-		bool ContainsChild(ProxyPtr< const Node > node) const {
+		[[nodiscard]] bool ContainsChild(ProxyPtr< const Node > node) const {
 			return std::find(m_childs.begin(), m_childs.end(), node) 
 				   != m_childs.end();
 		}
@@ -242,7 +242,7 @@ namespace mage {
 						of the given type. @c false otherwise.
 		 */
 		template< typename ComponentT >
-		bool Contains() const noexcept;
+		[[nodiscard]] bool Contains() const noexcept;
 
 		/**
 		 Checks whether this node contains components.
@@ -250,7 +250,7 @@ namespace mage {
 		 @return		@c true if this node contains at least one component. 
 						@c false otherwise.
 		 */
-		bool ContainsComponents() const noexcept {
+		[[nodiscard]] bool ContainsComponents() const noexcept {
 			return !m_components.empty();
 		}
 
@@ -259,7 +259,7 @@ namespace mage {
 
 		 @return		The number of components of this node.
 		 */
-		size_t GetNumberOfComponents() const noexcept {
+		[[nodiscard]] size_t GetNumberOfComponents() const noexcept {
 			return m_components.size();
 		}
 
@@ -272,7 +272,7 @@ namespace mage {
 						node.
 		 */
 		template< typename ComponentT >
-		size_t GetNumberOf() const noexcept;
+		[[nodiscard]] size_t GetNumberOf() const noexcept;
 
 		/**
 		 Returns the first component of the given type of this node.
@@ -285,7 +285,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		ProxyPtr< ComponentT > Get() noexcept;
+		[[nodiscard]] ProxyPtr< ComponentT > Get() noexcept;
 
 		/**
 		 Returns the first component of the given type of this node.
@@ -298,7 +298,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		ProxyPtr< const ComponentT > Get() const noexcept;
+		[[nodiscard]] ProxyPtr< const ComponentT > Get() const noexcept;
 
 		/**
 		 Returns all components of the given type of this node.
@@ -309,7 +309,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		const std::vector< ProxyPtr< ComponentT > > GetAll();
+		[[nodiscard]] const std::vector< ProxyPtr< ComponentT > > GetAll();
 
 		/**
 		 Returns all components of the given type of this node.
@@ -320,7 +320,7 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		const std::vector< ProxyPtr< const ComponentT > > GetAll() const;
+		[[nodiscard]] const std::vector< ProxyPtr< const ComponentT > > GetAll() const;
 
 		/**
 		 Adds the given component to this node.
@@ -393,7 +393,7 @@ namespace mage {
 
 		 @return		The state of this node.
 		 */
-		State GetState() const noexcept {
+		[[nodiscard]] State GetState() const noexcept {
 			return m_state;
 		}
 
@@ -414,7 +414,7 @@ namespace mage {
 
 		 @return		The guid of this node.
 		 */
-		U64 GetGuid() const noexcept {
+		[[nodiscard]] U64 GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -423,7 +423,7 @@ namespace mage {
 
 		 @return		A pointer to this node.
 		 */
-		NodePtr Get() const noexcept {
+		[[nodiscard]] NodePtr Get() const noexcept {
 			return m_this;
 		}
 
@@ -432,7 +432,7 @@ namespace mage {
 
 		 @return		A reference to the name of this node.
 		 */
-		const string &GetName() const noexcept {
+		[[nodiscard]] const string &GetName() const noexcept {
 			return m_name;
 		}
 

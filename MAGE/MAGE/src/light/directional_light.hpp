@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this directional 
 						light.
 		 */
-		SRGB &GetBaseColor() noexcept {
+		[[nodiscard]] SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this directional 
 						light.
 		 */
-		const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]] const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -110,7 +110,7 @@ namespace mage {
 		 @return		The radiance in watts per square meter per steradians 
 						of this directional light.
 		 */
-		F32 GetRadiance() const noexcept {
+		[[nodiscard]] F32 GetRadiance() const noexcept {
 			return m_radiance;
 		}
 
@@ -131,7 +131,7 @@ namespace mage {
 
 		 @return		The radiance spectrum of this directional light.
 		 */
-		const RGB GetRadianceSpectrum() const noexcept {
+		[[nodiscard]] const RGB GetRadianceSpectrum() const noexcept {
 			const XMVECTOR L_v = m_radiance 
 				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB L;
@@ -149,7 +149,7 @@ namespace mage {
 		 @return		@c true if shadows should be used for this
 						directional light. @c false otherwise.
 		 */
-		bool UseShadows() const noexcept {
+		[[nodiscard]] bool UseShadows() const noexcept {
 			return m_shadows;
 		}
 

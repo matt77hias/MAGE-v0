@@ -36,7 +36,7 @@ namespace mage {
 		 @return		A pointer to the resource manager associated with the 
 						current engine.
 		 */
-		static ResourceManager *Get() noexcept;
+		[[nodiscard]] static ResourceManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -110,7 +110,7 @@ namespace mage {
 						unique identifier. @c false otherwise.
 		 */
 		template< typename ResourceT >
-		bool Contains(const wstring &guid) noexcept;
+		[[nodiscard]] bool Contains(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the resource of the given type corresponding to the given 
@@ -127,7 +127,7 @@ namespace mage {
 		 @return		A pointer to the resource.
 		 */
 		template< typename ResourceT >
-		SharedPtr< const ResourceT > Get(const wstring &guid) noexcept;
+		[[nodiscard]] SharedPtr< const ResourceT > Get(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the resource of the given type corresponding to the given 
@@ -144,7 +144,7 @@ namespace mage {
 		 @return		A pointer to the resource.
 		 */
 		template< typename ResourceT >
-		SharedPtr< ResourceT > GetMutable(const wstring &guid) noexcept;
+		[[nodiscard]] SharedPtr< ResourceT > GetMutable(const wstring &guid) noexcept;
 
 		/**
 		 Creates a resource of the given type (if not existing).

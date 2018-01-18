@@ -6,7 +6,6 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "math\math.hpp"
 #include "camera\camera_settings.hpp"
 #include "camera\viewport.hpp"
 
@@ -98,7 +97,7 @@ namespace mage {
 		 @return		@c true if this camera lens has a finite aperture.
 						@c false otherwise.
 		 */
-		constexpr bool HasFiniteAperture() const noexcept {
+		[[nodiscard]] constexpr bool HasFiniteAperture() const noexcept {
 			return 0.0f != m_radius;
 		}
 
@@ -107,7 +106,7 @@ namespace mage {
 
 		 @return		The radius of this camera lens.
 		 */
-		constexpr F32 GetLensRadius() const noexcept {
+		[[nodiscard]] constexpr F32 GetLensRadius() const noexcept {
 			return m_radius;
 		}
 		
@@ -126,7 +125,7 @@ namespace mage {
 
 		 @return		The focal length of this camera lens.
 		 */
-		constexpr F32 GetFocalLength() const noexcept {
+		[[nodiscard]] constexpr F32 GetFocalLength() const noexcept {
 			return m_focal_length;
 		}
 		
@@ -147,7 +146,7 @@ namespace mage {
 		 @return		The maximum radius of the circle of confusion of this 
 						camera lens.
 		 */
-		constexpr F32 GetMaximumCoCRadius() const noexcept {
+		[[nodiscard]] constexpr F32 GetMaximumCoCRadius() const noexcept {
 			return m_max_coc_radius;
 		}
 		
@@ -241,7 +240,7 @@ namespace mage {
 		 @return		The position of the near z-plane of this camera in 
 						camera view space.
 		 */
-		F32 GetNearZ() const noexcept {
+		[[nodiscard]] F32 GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
@@ -263,7 +262,7 @@ namespace mage {
 		 @return		The position of the far z-plane of this camera in 
 						camera view space.
 		 */
-		F32 GetFarZ() const noexcept {
+		[[nodiscard]] F32 GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
@@ -297,14 +296,14 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this camera.
 		 */
-		virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept = 0;
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept = 0;
 
 		/**
 		 Returns the projection-to-view matrix of this camera.
 
 		 @return		The projection-to-view matrix of this camera.
 		 */
-		virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept = 0;
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lens
@@ -315,7 +314,7 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		CameraLens &GetLens() noexcept {
+		[[nodiscard]] CameraLens &GetLens() noexcept {
 			return m_lens;
 		}
 		
@@ -324,7 +323,7 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		const CameraLens &GetLens() const noexcept {
+		[[nodiscard]] const CameraLens &GetLens() const noexcept {
 			return m_lens;
 		}
 
@@ -337,7 +336,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		Viewport &GetViewport() noexcept {
+		[[nodiscard]] Viewport &GetViewport() noexcept {
 			return m_viewport;
 		}
 
@@ -346,7 +345,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		const Viewport &GetViewport() const noexcept {
+		[[nodiscard]] const Viewport &GetViewport() const noexcept {
 			return m_viewport;
 		}
 
@@ -357,7 +356,7 @@ namespace mage {
 						engine must be loaded.
 		 @return		The super-sampled viewport of this camera.
 		 */
-		const Viewport GetSSViewport() const noexcept;
+		[[nodiscard]] const Viewport GetSSViewport() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Settings
@@ -368,7 +367,7 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.	
 		 */
-		CameraSettings &GetSettings() noexcept {
+		[[nodiscard]] CameraSettings &GetSettings() noexcept {
 			return m_settings;
 		}
 		
@@ -377,7 +376,7 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.
 		 */
-		const CameraSettings &GetSettings() const noexcept {
+		[[nodiscard]] const CameraSettings &GetSettings() const noexcept {
 			return m_settings;
 		}
 

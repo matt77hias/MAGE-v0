@@ -101,7 +101,7 @@ namespace mage::loader {
 		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
-	const SRGB MTLReader::ReadMTLSRGB() {
+	[[nodiscard]] const SRGB MTLReader::ReadMTLSRGB() {
 
 		const F32 red = Read< F32 >();
 
@@ -115,7 +115,7 @@ namespace mage::loader {
 		return SRGB(red, green, blue);
 	}
 
-	const SRGBA MTLReader::ReadMTLSRGBA() {
+	[[nodiscard]] const SRGBA MTLReader::ReadMTLSRGBA() {
 		
 		const F32 red = Read< F32 >();
 
@@ -131,7 +131,7 @@ namespace mage::loader {
 		return SRGBA(red, green, blue, alpha);
 	}
 
-	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
+	[[nodiscard]] SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
 		const wstring texture_path  = mage::GetPathName(GetFilename());
 		const wstring texture_name  = str_convert(Read< string >());

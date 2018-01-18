@@ -35,7 +35,7 @@ namespace mage {
 		 @return		A pointer to the rendering manager associated with the 
 						current engine.
 		 */
-		static const RenderingManager *Get() noexcept;
+		[[nodiscard]] static const RenderingManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -109,7 +109,9 @@ namespace mage {
 		 @return		A pointer to the display configuration of this 
 						rendering manager.
 		 */
-		const DisplayConfiguration *GetDisplayConfiguration() const noexcept {
+		[[nodiscard]] const DisplayConfiguration *
+			GetDisplayConfiguration() const noexcept {
+
 			return m_display_configuration.get();
 		}
 
@@ -122,7 +124,7 @@ namespace mage {
 
 		 @return		A pointer to the device of this rendering manager.
 		 */
-		ID3D11Device5 *GetDevice() const noexcept {
+		[[nodiscard]] ID3D11Device5 *GetDevice() const noexcept {
 			return m_device.Get();
 		}
 
@@ -132,7 +134,7 @@ namespace mage {
 		 @return		A pointer to the device context of this rendering 
 						manager.
 		 */
-		ID3D11DeviceContext4 *GetDeviceContext() const noexcept {
+		[[nodiscard]] ID3D11DeviceContext4 *GetDeviceContext() const noexcept {
 			return m_device_context.Get();
 		}
 
@@ -141,7 +143,7 @@ namespace mage {
 
 		 @return		A pointer to the swap chain of this rendering manager.
 		 */
-		SwapChain *GetSwapChain() const noexcept {
+		[[nodiscard]] SwapChain *GetSwapChain() const noexcept {
 			return m_swap_chain.get();
 		}
 
@@ -151,7 +153,7 @@ namespace mage {
 		 @return		A pointer to the rendering output manager of this 
 						rendering manager.
 		 */
-		Renderer *GetRenderer() const noexcept {
+		[[nodiscard]] Renderer *GetRenderer() const noexcept {
 			return m_renderer.get();
 		}
 
@@ -161,7 +163,9 @@ namespace mage {
 		 @return		A pointer to the rendering output manager of this 
 						rendering manager.
 		 */
-		const RenderingOutputManager *GetRenderingOutputManager() const noexcept {
+		[[nodiscard]] const RenderingOutputManager *
+			GetRenderingOutputManager() const noexcept {
+
 			return m_rendering_output_manager.get();
 		}
 
@@ -171,7 +175,9 @@ namespace mage {
 		 @return		A pointer to the rendering state manager of this 
 						rendering manager.
 		 */
-		const RenderingStateManager *GetRenderingStateManager() const noexcept {
+		[[nodiscard]] const RenderingStateManager *
+			GetRenderingStateManager() const noexcept {
+
 			return m_rendering_state_manager.get();
 		}
 

@@ -35,7 +35,7 @@ namespace mage {
 		 @return		A pointer to the keyboard of the input manager 
 						associated with the current engine.
 		 */
-		static const Keyboard *Get() noexcept;
+		[[nodiscard]] static const Keyboard *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The window handle of this keyboard.
 		 */
-		HWND GetWindow() noexcept {
+		[[nodiscard]] HWND GetWindow() noexcept {
 			return m_window;
 		}
 

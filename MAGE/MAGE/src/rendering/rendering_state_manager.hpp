@@ -34,7 +34,7 @@ namespace mage {
 		 @return		A pointer to the rendering state manager of the 
 						rendering manager associated with the current engine.
 		 */
-		static const RenderingStateManager *Get() noexcept;
+		[[nodiscard]] static const RenderingStateManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

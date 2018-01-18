@@ -20,7 +20,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
@@ -182,7 +182,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c SRGB.
 		 */
-		const SRGB ReadMTLSRGB();
+		[[nodiscard]] const SRGB ReadMTLSRGB();
 
 		/**
 		 Reads an sRGBA spectrum.
@@ -192,7 +192,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c SRGBA.
 		 */
-		const SRGBA ReadMTLSRGBA();
+		[[nodiscard]] const SRGBA ReadMTLSRGBA();
 
 		/**
 		 Reads a texture.
@@ -202,7 +202,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a texture.
 		 */
-		SharedPtr< const Texture > ReadMTLTexture();
+		[[nodiscard]] SharedPtr< const Texture > ReadMTLTexture();
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -19,7 +19,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
@@ -128,7 +128,7 @@ namespace mage::loader {
 		 @return		@c true if the header of the file is valid. @c false 
 						otherwise.
 		 */
-		bool IsHeaderValid();
+		[[nodiscard]] bool IsHeaderValid();
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -15,10 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// Shader
-	//-------------------------------------------------------------------------
-
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >
 		::Shader(wstring guid, const CompiledShader &compiled_shader)

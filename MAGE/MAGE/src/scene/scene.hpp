@@ -138,13 +138,13 @@ namespace mage {
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
 		template< typename ElementT >
-		ElementT &Get(size_t index) noexcept;
+		[[nodiscard]] ElementT &Get(size_t index) noexcept;
 
 		template< typename ElementT >
-		const ElementT &Get(size_t index) const noexcept;
+		[[nodiscard]] const ElementT &Get(size_t index) const noexcept;
 
 		template< typename ElementT >
-		size_t GetNumberOf() const noexcept;
+		[[nodiscard]] size_t GetNumberOf() const noexcept;
 
 		template< typename ElementT, typename ActionT >
 		void ForEach(ActionT action);
@@ -161,7 +161,7 @@ namespace mage {
 
 		 @return		A reference to the name of this scene.
 		 */
-		const string &GetName() const noexcept {
+		[[nodiscard]] const string &GetName() const noexcept {
 			return m_name;
 		}
 

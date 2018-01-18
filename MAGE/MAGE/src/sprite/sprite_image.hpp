@@ -103,7 +103,7 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						image.
 		 */
-		SpriteTransform &GetSpriteTransform() noexcept {
+		[[nodiscard]] SpriteTransform &GetSpriteTransform() noexcept {
 			return m_sprite_transform;
 		}
 
@@ -113,7 +113,7 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						image.
 		 */
-		const SpriteTransform &GetSpriteTransform() const noexcept {
+		[[nodiscard]] const SpriteTransform &GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
 		
@@ -126,7 +126,7 @@ namespace mage {
 
 		 @return		The sprite effects of this sprite image.
 		 */
-		SpriteEffect GetSpriteEffects() const noexcept {
+		[[nodiscard]] SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
 		
@@ -151,7 +151,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this sprite 
 						image.
 		 */
-		SRGBA &GetBaseColor() noexcept {
+		[[nodiscard]] SRGBA &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -161,7 +161,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this sprite 
 						image.
 		 */
-		const SRGBA &GetBaseColor() const noexcept {
+		[[nodiscard]] const SRGBA &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -170,7 +170,7 @@ namespace mage {
 
 		 @return		The base color texture region of this sprite image.
 		 */
-		const RECT GetBaseColorTextureRegion() const noexcept {
+		[[nodiscard]] const RECT GetBaseColorTextureRegion() const noexcept {
 			return m_base_color_texture_region;
 		}
 
@@ -182,7 +182,7 @@ namespace mage {
 						image corresponds to the maximum texture region. 
 						@c false otherwise.
 		 */
-		bool HasMaximumBaseColorTextureRegion() const noexcept {
+		[[nodiscard]] bool HasMaximumBaseColorTextureRegion() const noexcept {
 			return 0 == m_base_color_texture_region.left
 				&& 0 == m_base_color_texture_region.top
 				&& 0 == m_base_color_texture_region.right
@@ -214,7 +214,7 @@ namespace mage {
 		 @return		A pointer to the sRGB base color texture of this sprite 
 						image.
 		 */
-		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+		[[nodiscard]] SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
 		
@@ -227,7 +227,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the sRGB base 
 						color texture of this sprite image.
 		 */
-		ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
 		

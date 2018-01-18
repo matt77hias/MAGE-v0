@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT CompileShaderFromFile(const wstring &fname, 
-		                          const string &entry_point, 
-		                          const string &shader_target, 
-		                          ID3DBlob **output_blob) {
+	[[nodiscard]] HRESULT CompileShaderFromFile(const wstring &fname,
+		                                        const string &entry_point, 
+		                                        const string &shader_target, 
+		                                        ID3DBlob **output_blob) {
 
 		Assert(output_blob);
 
@@ -53,18 +53,18 @@ namespace mage {
 		//    ID3DBlob interface that you can use to access compiler error 
 		//    messages.
 		ComPtr< ID3DBlob > error_blob;
-		const HRESULT result_compile = D3DCompileFromFile(fname.c_str(), 
+		const HRESULT result = D3DCompileFromFile(fname.c_str(), 
 			nullptr, nullptr, entry_point.c_str(), shader_target.c_str(), 
 			shader_flags, 0, output_blob, error_blob.GetAddressOf());
 		
-		if (FAILED(result_compile)) {
+		if (FAILED(result)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.
 				OutputDebugStringA(
 					reinterpret_cast< const char * >(
 						error_blob->GetBufferPointer()));
 			}
-			return result_compile;
+			return result;
 		}
 
 		return S_OK;

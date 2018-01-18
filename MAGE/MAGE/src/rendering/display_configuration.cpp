@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const DisplayConfiguration *DisplayConfiguration::Get() noexcept {
+	[[nodiscard]] const DisplayConfiguration *DisplayConfiguration::Get() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDisplayConfiguration();

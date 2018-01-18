@@ -67,17 +67,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -137,17 +137,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -211,17 +211,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -287,17 +287,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -367,17 +367,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -452,17 +452,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		constexpr T operator[](size_t i) const noexcept {
+		[[nodiscard]] constexpr const T operator[](size_t i) noexcept {
 			return GetData()[i];
 		}
-		constexpr T &operator[](size_t i) noexcept {
+		[[nodiscard]] constexpr const T &operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
-		constexpr T *GetData() noexcept {
+		[[nodiscard]] constexpr T *GetData() noexcept {
 			return &m_x;
 		}
-		constexpr const T *GetData() const noexcept {
+		[[nodiscard]] constexpr const T *GetData() const noexcept {
 			return &m_x;
 		}
 

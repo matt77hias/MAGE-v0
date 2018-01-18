@@ -27,7 +27,7 @@ namespace mage {
 	 @param[in]		x
 					The normalized screen x-value.
 	 */
-	F32 ConvertNormalizedToAbsoluteScreenX(F32 x);
+	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenX(F32 x);
 
 	/**
 	 Converts the given normalized screen y-value to absolute screen y-value.
@@ -37,7 +37,7 @@ namespace mage {
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
-	F32 ConvertNormalizedToAbsoluteScreenY(F32 y);
+	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenY(F32 y);
 	
 	/**
 	 Converts the given normalized screen values to absolute screen values.
@@ -49,7 +49,9 @@ namespace mage {
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
-	inline const F32x2 ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
+	[[nodiscard]] inline const F32x2 
+		ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
+
 		return F32x2(ConvertNormalizedToAbsoluteScreenX(x), 
 			         ConvertNormalizedToAbsoluteScreenY(y));
 	}
@@ -62,8 +64,8 @@ namespace mage {
 	 @param[in]		position
 					A reference to the normalized screen position.
 	 */
-	inline const F32x2 ConvertNormalizedToAbsoluteScreen(
-		const F32x2 &position) {
+	[[nodiscard]] inline const F32x2 
+		ConvertNormalizedToAbsoluteScreen(const F32x2 &position) {
 		
 		return ConvertNormalizedToAbsoluteScreen(position.m_x, position.m_y);
 	}
@@ -76,8 +78,8 @@ namespace mage {
 	 @param[in]		position
 					The normalized screen position.
 	 */
-	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(
-		FXMVECTOR position);
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		ConvertNormalizedToAbsoluteScreen(FXMVECTOR position);
 
 	/**
 	 Converts the given absolute screen x-value to normalized screen x-value.
@@ -87,7 +89,7 @@ namespace mage {
 	 @param[in]		x
 					The absolute screen x-value.
 	 */
-	F32 ConvertAbsoluteToNormalizedScreenX(F32 x);
+	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenX(F32 x);
 
 	/**
 	 Converts the given absolute screen y-value to normalized screen y-value.
@@ -97,7 +99,7 @@ namespace mage {
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
-	F32 ConvertAbsoluteToNormalizedScreenY(F32 y);
+	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenY(F32 y);
 	
 	/**
 	 Converts the given absolute screen values to normalized screen values.
@@ -109,7 +111,9 @@ namespace mage {
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
-	inline const F32x2 ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
+	[[nodiscard]] inline const F32x2 
+		ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
+
 		return F32x2(ConvertAbsoluteToNormalizedScreenX(x), 
 			         ConvertAbsoluteToNormalizedScreenY(y));
 	}
@@ -122,8 +126,8 @@ namespace mage {
 	 @param[in]		position
 					A reference to the absolute screen position.
 	 */
-	inline const F32x2 ConvertAbsoluteToNormalizedScreen(
-		const F32x2 &position) {
+	[[nodiscard]] inline const F32x2 
+		ConvertAbsoluteToNormalizedScreen(const F32x2 &position) {
 		
 		return ConvertAbsoluteToNormalizedScreen(position.m_x, position.m_y);
 	}
@@ -136,8 +140,8 @@ namespace mage {
 	 @param[in]		position
 					The absolute screen position.
 	 */
-	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(
-		FXMVECTOR position);
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		ConvertAbsoluteToNormalizedScreen(FXMVECTOR position);
 
 	#pragma endregion
 
@@ -390,7 +394,7 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						sprite transform.
 		 */
-		F32 GetTranslationX() const noexcept {
+		[[nodiscard]] F32 GetTranslationX() const noexcept {
 			return m_translation.m_x;
 		}
 
@@ -401,7 +405,7 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						sprite transform.
 		 */
-		F32 GetTranslationY() const noexcept {
+		[[nodiscard]] F32 GetTranslationY() const noexcept {
 			return m_translation.m_y;
 		}
 
@@ -410,7 +414,7 @@ namespace mage {
 
 		 @return		The translation component of this sprite transform.
 		 */
-		const F32x2 GetTranslation() const noexcept {
+		[[nodiscard]] const F32x2 GetTranslation() const noexcept {
 			return m_translation;
 		}
 
@@ -419,7 +423,7 @@ namespace mage {
 
 		 @return		The translation component of this sprite transform.
 		 */
-		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+		[[nodiscard]] const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
 			return XMLoadFloat2(&m_translation);
 		}
 
@@ -578,7 +582,7 @@ namespace mage {
 		 @return		The x-value of the normalized translation component of 
 						this sprite transform.
 		 */
-		F32 GetNormalizedTranslationX() const {
+		[[nodiscard]] F32 GetNormalizedTranslationX() const {
 			return ConvertAbsoluteToNormalizedScreenX(GetTranslationX());
 		}
 
@@ -591,7 +595,7 @@ namespace mage {
 		 @return		The y-value of the normalized translation component of 
 						this sprite transform.
 		 */
-		F32 GetNormalizedTranslationY() const {
+		[[nodiscard]] F32 GetNormalizedTranslationY() const {
 			return ConvertAbsoluteToNormalizedScreenY(GetTranslationY());
 		}
 
@@ -603,7 +607,7 @@ namespace mage {
 		 @return		The normalized translation component of this sprite 
 						transform.
 		 */
-		const F32x2 GetNormalizedTranslation() const {
+		[[nodiscard]] const F32x2 GetNormalizedTranslation() const {
 			return ConvertAbsoluteToNormalizedScreen(GetTranslation());
 		}
 
@@ -641,7 +645,7 @@ namespace mage {
 
 		 @return		The depth component of this sprite transform.
 		 */
-		F32 GetDepth() const noexcept {
+		[[nodiscard]] F32 GetDepth() const noexcept {
 			return m_depth;
 		}
 
@@ -701,7 +705,7 @@ namespace mage {
 
 		 @return		The rotation component of this sprite transform.
 		 */
-		F32 GetRotation() const noexcept {
+		[[nodiscard]] F32 GetRotation() const noexcept {
 			return m_rotation;
 		}
 
@@ -835,7 +839,7 @@ namespace mage {
 		 @return		The x-value of the rotation origin of this sprite 
 						transform.
 		 */
-		F32 GetRotationOriginX() const noexcept {
+		[[nodiscard]] F32 GetRotationOriginX() const noexcept {
 			return m_rotation_origin.m_x;
 		}
 
@@ -845,7 +849,7 @@ namespace mage {
 		 @return		The y-value of the rotation origin of this sprite 
 						transform.
 		 */
-		F32 GetRotationOriginY() const noexcept {
+		[[nodiscard]] F32 GetRotationOriginY() const noexcept {
 			return m_rotation_origin.m_y;
 		}
 
@@ -863,7 +867,7 @@ namespace mage {
 
 		 @return		The rotation origin of this sprite transform.
 		 */
-		const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
+		[[nodiscard]] const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
 			return XMLoadFloat2(&m_rotation_origin);
 		}
 
@@ -1017,7 +1021,7 @@ namespace mage {
 		 @return		The x-value of the normalized rotation origin of this 
 						sprite transform.
 		 */
-		F32 GetNormalizedRotationOriginX() const {
+		[[nodiscard]] F32 GetNormalizedRotationOriginX() const {
 			return ConvertAbsoluteToNormalizedScreenX(GetRotationOriginX());
 		}
 
@@ -1030,7 +1034,7 @@ namespace mage {
 		 @return		The y-value of the normalized rotation origin of this 
 						sprite transform.
 		 */
-		F32 GetNormalizedRotationOriginY() const {
+		[[nodiscard]] F32 GetNormalizedRotationOriginY() const {
 			return ConvertAbsoluteToNormalizedScreenY(GetRotationOriginY());
 		}
 
@@ -1042,7 +1046,7 @@ namespace mage {
 		 @return		The normalized rotation origin of this sprite 
 						transform.
 		 */
-		const F32x2 GetNormalizedRotationOrigin() const {
+		[[nodiscard]] const F32x2 GetNormalizedRotationOrigin() const {
 			return ConvertAbsoluteToNormalizedScreen(GetRotationOrigin());
 		}
 
@@ -1198,7 +1202,7 @@ namespace mage {
 		 @return		The x-value of the scale component of this sprite 
 						transform.
 		 */
-		F32 GetScaleX() const noexcept {
+		[[nodiscard]] F32 GetScaleX() const noexcept {
 			return m_scale.m_x;
 		}
 
@@ -1208,7 +1212,7 @@ namespace mage {
 		 @return		The y-value of the scale component of this sprite 
 						transform.
 		 */
-		F32 GetScaleY() const noexcept {
+		[[nodiscard]] F32 GetScaleY() const noexcept {
 			return m_scale.m_y;
 		}
 
@@ -1217,7 +1221,7 @@ namespace mage {
 
 		 @return		The scale component of this sprite transform.
 		 */
-		const F32x2 GetScale() const noexcept {
+		[[nodiscard]] const F32x2 GetScale() const noexcept {
 			return m_scale;
 		}
 
@@ -1226,7 +1230,7 @@ namespace mage {
 
 		 @return		The scale component of this sprite transform.
 		 */
-		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+		[[nodiscard]] const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
 			return XMLoadFloat2(&m_scale);
 		}
 
@@ -1241,7 +1245,9 @@ namespace mage {
 
 		 @return		The transformation matrix of this sprite transform.
 		 */
-		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
+		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+			GetTransformMatrix() const noexcept {
+
 			return XMMatrixAffineTransformation2D(GetScaleV(),
 				                                  GetRotationOriginV(),
 				                                  GetRotation(),

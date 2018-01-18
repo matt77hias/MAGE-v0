@@ -55,7 +55,7 @@ namespace mage::loader {
 		ReadTexture();
 	}
 
-	bool SpriteFontReader::IsHeaderValid() {
+	[[nodiscard]] bool SpriteFontReader::IsHeaderValid() {
 		const char *magic = g_font_token_magic;
 		
 		while (*magic != L'\0') {

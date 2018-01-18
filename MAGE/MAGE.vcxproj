@@ -161,9 +161,7 @@
     <ClInclude Include="MAGE\src\sprite\font\sprite_font_descriptor.hpp" />
     <ClInclude Include="MAGE\src\sprite\font\sprite_font_output.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_text.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
     <ClInclude Include="MAGE\src\texture\guids.hpp" />
@@ -257,7 +255,6 @@
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_text.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_utils.cpp" />

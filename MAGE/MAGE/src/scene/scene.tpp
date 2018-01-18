@@ -161,127 +161,127 @@ namespace mage {
 	#pragma region
 
 	template<>
-	inline Node &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline Node &Scene::Get(size_t index) noexcept {
 		Assert(index < m_nodes.size());
 		return m_nodes[index];
 	}
 
 	template<>
-	inline PerspectiveCamera &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline PerspectiveCamera &Scene::Get(size_t index) noexcept {
 		Assert(index < m_perspective_cameras.size());
 		return m_perspective_cameras[index];
 	}
 
 	template<>
-	inline OrthographicCamera &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline OrthographicCamera &Scene::Get(size_t index) noexcept {
 		Assert(index < m_orthographic_cameras.size());
 		return m_orthographic_cameras[index];
 	}
 
 	template<>
-	inline AmbientLight &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline AmbientLight &Scene::Get(size_t index) noexcept {
 		Assert(index < m_ambient_lights.size());
 		return m_ambient_lights[index];
 	}
 
 	template<>
-	inline DirectionalLight &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline DirectionalLight &Scene::Get(size_t index) noexcept {
 		Assert(index < m_directional_lights.size());
 		return m_directional_lights[index];
 	}
 
 	template<>
-	inline OmniLight &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline OmniLight &Scene::Get(size_t index) noexcept {
 		Assert(index < m_omni_lights.size());
 		return m_omni_lights[index];
 	}
 
 	template<>
-	inline SpotLight &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline SpotLight &Scene::Get(size_t index) noexcept {
 		Assert(index < m_spot_lights.size());
 		return m_spot_lights[index];
 	}
 
 	template<>
-	inline Model &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline Model &Scene::Get(size_t index) noexcept {
 		Assert(index < m_models.size());
 		return m_models[index];
 	}
 
 	template<>
-	inline SpriteImage &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline SpriteImage &Scene::Get(size_t index) noexcept {
 		Assert(index < m_sprite_images.size());
 		return m_sprite_images[index];
 	}
 	
 	template<>
-	inline SpriteText &Scene::Get(size_t index) noexcept {
+	[[nodiscard]] inline SpriteText &Scene::Get(size_t index) noexcept {
 		Assert(index < m_sprite_texts.size());
 		return m_sprite_texts[index];
 	}
 
 	template<>
-	inline const Node &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const Node &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_nodes.size());
 		return m_nodes[index];
 	}
 
 	template<>
-	inline const PerspectiveCamera &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const PerspectiveCamera &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_perspective_cameras.size());
 		return m_perspective_cameras[index];
 	}
 
 	template<>
-	inline const OrthographicCamera &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const OrthographicCamera &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_orthographic_cameras.size());
 		return m_orthographic_cameras[index];
 	}
 
 	template<>
-	inline const AmbientLight &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const AmbientLight &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_ambient_lights.size());
 		return m_ambient_lights[index];
 	}
 
 	template<>
-	inline const DirectionalLight &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const DirectionalLight &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_directional_lights.size());
 		return m_directional_lights[index];
 	}
 
 	template<>
-	inline const OmniLight &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const OmniLight &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_omni_lights.size());
 		return m_omni_lights[index];
 	}
 
 	template<>
-	inline const SpotLight &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const SpotLight &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_spot_lights.size());
 		return m_spot_lights[index];
 	}
 
 	template<>
-	inline const Model &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const Model &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_models.size());
 		return m_models[index];
 	}
 
 	template<>
-	inline const SpriteImage &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const SpriteImage &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_sprite_images.size());
 		return m_sprite_images[index];
 	}
 
 	template<>
-	inline const SpriteText &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const SpriteText &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_sprite_texts.size());
 		return m_sprite_texts[index];
 	}
 
 	template<>
-	inline const BehaviorScript &Scene::Get(size_t index) const noexcept {
+	[[nodiscard]] inline const BehaviorScript &Scene::Get(size_t index) const noexcept {
 		Assert(index < m_scripts.size());
 		return *m_scripts[index].get();
 	}
@@ -294,7 +294,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ElementT >
-	inline size_t Scene::GetNumberOf() const noexcept {
+	[[nodiscard]] inline size_t Scene::GetNumberOf() const noexcept {
 		size_t count = 0;
 		ForEach< ElementT >([&count](
 			[[maybe_unused]] const ElementT &element) noexcept {

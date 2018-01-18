@@ -13,16 +13,17 @@
 namespace mage {
 
 	VertexShader::VertexShader(wstring guid,
-		const CompiledShader &compiled_shader,
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-		size_t nb_input_elements)
+		                       const CompiledShader &compiled_shader,
+		                       const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+		                       size_t nb_input_elements)
 		: VertexShader(std::move(guid), Pipeline::GetDevice(), 
 			compiled_shader, input_element_desc, nb_input_elements) {}
 
-	VertexShader::VertexShader(wstring guid, ID3D11Device5 *device,
-		const CompiledShader &compiled_shader, 
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-		size_t nb_input_elements)
+	VertexShader::VertexShader(wstring guid, 
+		                       ID3D11Device5 *device,
+		                       const CompiledShader &compiled_shader, 
+		                       const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+		                       size_t nb_input_elements)
 		: Resource< VertexShader >(std::move(guid)), 
 		m_vertex_shader(), 
 		m_vertex_layout() {
@@ -37,10 +38,10 @@ namespace mage {
 	VertexShader &VertexShader::operator=(
 		VertexShader &&vertex_shader) noexcept = default;
 	
-	void VertexShader::SetupShader(
-		ID3D11Device5 *device, const CompiledShader &compiled_shader,
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-		size_t nb_input_elements) {
+	void VertexShader::SetupShader(ID3D11Device5 *device, 
+		                           const CompiledShader &compiled_shader,
+		                           const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+		                           size_t nb_input_elements) {
 
 		Assert(device);
 

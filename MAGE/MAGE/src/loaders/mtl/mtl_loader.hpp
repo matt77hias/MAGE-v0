@@ -34,5 +34,5 @@ namespace mage::loader {
 					Failed to import the mesh from file.
 	 */
 	void ImportMTLMaterialFromFile(const wstring &fname, 
-		std::vector< Material > &materials);
+		                           std::vector< Material > &materials);
 }

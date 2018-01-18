@@ -138,7 +138,7 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to the given key 
 						from this resource pool.
 		 */
-		SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
+		[[nodiscard]] SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource 
@@ -454,7 +454,7 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to
 						the given key from this persistent resource pool.
 		 */
-		SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
+		[[nodiscard]] SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 

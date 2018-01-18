@@ -153,7 +153,7 @@ namespace mage {
 
 		 @return		The number of variables in this variable script.
 		 */
-		size_t size() const noexcept {
+		[[nodiscard]] size_t size() const noexcept {
 			return m_variables.size();
 		}
 
@@ -169,7 +169,7 @@ namespace mage {
 						given name. @c false otherwise.
 		 */
 		template< typename T = void >
-		bool Contains(const string &name) const noexcept;
+		[[nodiscard]] bool Contains(const string &name) const noexcept;
 
 		/**
 		 Adds the given variable to this variable script.
@@ -214,7 +214,7 @@ namespace mage {
 						different type.
 		 */
 		template< typename T >
-		const T *GetValue(const string &name) const;
+		[[nodiscard]] const T *GetValue(const string &name) const;
 
 		/**
 		 Sets the value of the given variable in this variable script.

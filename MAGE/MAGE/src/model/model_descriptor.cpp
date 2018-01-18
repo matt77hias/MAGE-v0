@@ -19,7 +19,7 @@ namespace mage {
 	ModelDescriptor &ModelDescriptor
 		::operator=(ModelDescriptor &&desc) noexcept = default;
 
-	const Material *ModelDescriptor
+	[[nodiscard]] const Material *ModelDescriptor
 		::GetMaterial(const string &name) const noexcept {
 		
 		for (const auto &material : m_materials) {
@@ -31,7 +31,7 @@ namespace mage {
 		return nullptr;
 	}
 
-	const ModelPart *ModelDescriptor
+	[[nodiscard]] const ModelPart *ModelDescriptor
 		::GetModelPart(const string &name) const noexcept {
 		
 		for (const auto &model_part : m_model_parts) {

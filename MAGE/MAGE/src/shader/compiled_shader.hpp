@@ -70,7 +70,7 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this compiled 
 						shader.
 		 */
-		virtual const BYTE *GetBytecode() const noexcept = 0;
+		[[nodiscard]] virtual const BYTE *GetBytecode() const noexcept = 0;
 
 		/**
 		 Returns the size of the shader bytecode (in bytes) of this compiled 
@@ -79,7 +79,7 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this 
 						compiled shader.
 		 */
-		virtual SIZE_T GetBytecodeSize() const noexcept = 0;
+		[[nodiscard]] virtual SIZE_T GetBytecodeSize() const noexcept = 0;
 		
 	protected:
 	
@@ -139,7 +139,7 @@ namespace mage {
 						The size of the given shader bytecode.
 		 */
 		explicit BufferCompiledShader(const BYTE *bytecode, 
-			SIZE_T bytecode_size) noexcept;
+			                          SIZE_T bytecode_size) noexcept;
 
 		/**
 		 Constructs a buffer compiled shader from the given buffer compiled 
@@ -201,7 +201,7 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this buffer 
 						compiled shader.
 		 */
-		virtual const BYTE *GetBytecode() const noexcept override {
+		[[nodiscard]] virtual const BYTE *GetBytecode() const noexcept override {
 			return m_bytecode;
 		}
 
@@ -212,7 +212,7 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this 
 						buffer compiled shader.
 		 */
-		virtual SIZE_T GetBytecodeSize() const noexcept override {
+		[[nodiscard]] virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_bytecode_size;
 		}
 
@@ -319,7 +319,7 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this blob compiled 
 						shader.
 		 */
-		virtual const BYTE *GetBytecode() const noexcept override {
+		[[nodiscard]] virtual const BYTE *GetBytecode() const noexcept override {
 			return static_cast< BYTE * >(m_shader_blob->GetBufferPointer());
 		}
 
@@ -330,7 +330,7 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this blob 
 						compiled shader.
 		 */
-		virtual SIZE_T GetBytecodeSize() const noexcept override {
+		[[nodiscard]] virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_shader_blob->GetBufferSize();
 		}
 

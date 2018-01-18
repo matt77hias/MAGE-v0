@@ -11,61 +11,61 @@ namespace mage {
 	#pragma region
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< ModelDescriptor >(const wstring &guid) noexcept {
 		return m_model_descriptor_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< VertexShader >(const wstring &guid) noexcept {
 		return m_vs_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< HullShader >(const wstring &guid) noexcept {
 		return m_hs_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< DomainShader >(const wstring &guid) noexcept {
 		return m_ds_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< GeometryShader >(const wstring &guid) noexcept {
 		return m_gs_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< PixelShader >(const wstring &guid) noexcept {
 		return m_ps_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< ComputeShader >(const wstring &guid) noexcept {
 		return m_cs_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< SpriteFont >(const wstring &guid) noexcept {
 		return m_sprite_font_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< Texture >(const wstring &guid) noexcept {
 		return m_texture_pool.Contains(guid);
 	}
 
 	template<>
-	inline bool ResourceManager
+	[[nodiscard]] inline bool ResourceManager
 		::Contains< VariableScript >(const wstring &guid) noexcept {
 		return m_variable_script_pool.Contains(guid);
 	}
@@ -78,70 +78,70 @@ namespace mage {
 	#pragma region
 
 	template<>
-	inline SharedPtr< const ModelDescriptor > ResourceManager
+	[[nodiscard]] inline SharedPtr< const ModelDescriptor > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_model_descriptor_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const VertexShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const VertexShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_vs_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const HullShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const HullShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_hs_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const DomainShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const DomainShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_ds_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const GeometryShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const GeometryShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_gs_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const PixelShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const PixelShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_ps_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const ComputeShader > ResourceManager
+	[[nodiscard]] inline SharedPtr< const ComputeShader > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_cs_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const SpriteFont > ResourceManager
+	[[nodiscard]] inline SharedPtr< const SpriteFont > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_sprite_font_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< const Texture > ResourceManager
+	[[nodiscard]] inline SharedPtr< const Texture > ResourceManager
 		::Get(const wstring &guid) noexcept {
 
 		return m_texture_pool.Get(guid);
 	}
 
 	template<>
-	inline SharedPtr< VariableScript > ResourceManager
+	[[nodiscard]] inline SharedPtr< VariableScript > ResourceManager
 		::GetMutable(const wstring &guid) noexcept {
 
 		return m_variable_script_pool.Get(guid);

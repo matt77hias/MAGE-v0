@@ -10,74 +10,16 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< ModelDescriptor > &
-		ResourceManager::GetPool< ModelDescriptor >() noexcept {
+	template< typename ResourceT >
+	[[nodiscard]] inline ResourceManager::pool_type< ResourceT > &
+		ResourceManager::GetPool() noexcept {
 
-		return m_model_descriptor_pool;
-	}
+		// This member method is non-const 
+		// => this object instance is non-const
+		// => const_cast is safe.
 
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< VertexShader > &
-		ResourceManager::GetPool< VertexShader >() noexcept {
-
-		return m_vs_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< HullShader > &
-		ResourceManager::GetPool< HullShader >() noexcept {
-
-		return m_hs_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< DomainShader > &
-		ResourceManager::GetPool< DomainShader >() noexcept {
-
-		return m_ds_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< GeometryShader > &
-		ResourceManager::GetPool< GeometryShader >() noexcept {
-
-		return m_gs_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< PixelShader > &
-		ResourceManager::GetPool< PixelShader >() noexcept {
-
-		return m_ps_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< ComputeShader > &
-		ResourceManager::GetPool< ComputeShader >() noexcept {
-
-		return m_cs_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< SpriteFont > &
-		ResourceManager::GetPool< SpriteFont >() noexcept {
-
-		return m_sprite_font_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< Texture > &
-		ResourceManager::GetPool< Texture >() noexcept {
-
-		return m_texture_pool;
-	}
-
-	template<>
-	[[nodiscard]] inline ResourceManager::pool_type< VariableScript > &
-		ResourceManager::GetPool< VariableScript >() noexcept {
-
-		return m_variable_script_pool;
+		return const_cast< pool_type< ResourceT > & >(
+			static_cast< const ResourceManager * >(this)->GetPool< ResourceT >());
 	}
 
 	template<>

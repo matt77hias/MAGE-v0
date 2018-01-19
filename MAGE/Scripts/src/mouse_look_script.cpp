@@ -39,7 +39,7 @@ namespace mage::script {
 	}
 
 	void MouseLookScript::Update([[maybe_unused]] F64 delta_time)	 {
-		if (Keyboard::Get()->GetKeyPress(DIK_F2, true)) {
+		if (Keyboard::Get()->GetKeyPress(DIK_F2)) {
 			m_locked = !m_locked;
 		}
 		if (m_locked) {

@@ -73,8 +73,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera lens (i.e. 
 						this camera lens).
 		 */
-		constexpr CameraLens &operator=(
-			const CameraLens &lens) noexcept = default;
+		constexpr CameraLens &operator=(const CameraLens &lens) noexcept = default;
 
 		/**
 		 Moves the given camera lens to this camera lens.
@@ -84,8 +83,7 @@ namespace mage {
 		 @return		A reference to the moved camera lens (i.e. this camera 
 						lens).
 		 */
-		constexpr CameraLens &operator=(
-			CameraLens &&lens) noexcept = default;
+		constexpr CameraLens &operator=(CameraLens &&lens) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -296,14 +294,16 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept = 0;
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+			GetViewToProjectionMatrix() const noexcept = 0;
 
 		/**
 		 Returns the projection-to-view matrix of this camera.
 
 		 @return		The projection-to-view matrix of this camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept = 0;
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+			GetProjectionToViewMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lens

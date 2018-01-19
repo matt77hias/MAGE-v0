@@ -8,6 +8,18 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_VERTEX_SEMANTIC_NAME_POSITION "POSITION"
+#define MAGE_VERTEX_SEMANTIC_NAME_NORMAL   "NORMAL"
+#define MAGE_VERTEX_SEMANTIC_NAME_COLOR    "COLOR"
+#define MAGE_VERTEX_SEMANTIC_NAME_TEXTURE  "TEXCOORD"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {

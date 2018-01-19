@@ -309,7 +309,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]] const std::vector< ProxyPtr< ComponentT > > GetAll();
+		[[nodiscard]] const std::vector< ProxyPtr< ComponentT > > 
+			GetAll();
 
 		/**
 		 Returns all components of the given type of this node.
@@ -320,7 +321,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]] const std::vector< ProxyPtr< const ComponentT > > GetAll() const;
+		[[nodiscard]] const std::vector< ProxyPtr< const ComponentT > > 
+			GetAll() const;
 
 		/**
 		 Adds the given component to this node.

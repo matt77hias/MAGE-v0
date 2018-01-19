@@ -43,25 +43,25 @@ namespace mage {
 		 Constructs a engine statistics.
 		 */
 		constexpr EngineStatistics() noexcept
-			: m_nb_draw_calls(0) {}
+			: m_nb_draw_calls(0u) {}
 
 		/**
 		 Constructs a engine statistics from the given engine statistics.
 
-		 @param[in]		engine_statistics
+		 @param[in]		statistics
 						A reference to the engine statistics to copy.
 		 */
 		constexpr EngineStatistics(
-			const EngineStatistics &engine_statistics) noexcept = default;
+			const EngineStatistics &statistics) noexcept = default;
 
 		/**
 		 Constructs a engine statistics by moving the given engine statistics.
 
-		 @param[in]		engine_statistics
+		 @param[in]		statistics
 						A reference to the engine statistics to move.
 		 */
 		constexpr EngineStatistics(
-			EngineStatistics &&engine_statistics) noexcept = default;
+			EngineStatistics &&statistics) noexcept = default;
 
 		/**
 		 Destructs this engine statistics.
@@ -75,24 +75,24 @@ namespace mage {
 		/**
 		 Copies the given engine statistics to this engine statistics.
 
-		 @param[in]		engine_statistics
+		 @param[in]		statistics
 						A reference to the engine statistics to copy.
 		 @return		A reference to the copy of the given engine statistics 
 						(i.e. this engine statistics).
 		 */
 		constexpr EngineStatistics &operator=(
-			const EngineStatistics &engine_statistics) noexcept = default;
+			const EngineStatistics &statistics) noexcept = default;
 
 		/**
 		 Moves the given engine statistics to this engine statistics.
 
-		 @param[in]		engine_statistics
+		 @param[in]		statistics
 						A reference to the engine statistics to move.
 		 @return		A reference to the moved engine statistics (i.e. this 
 						engine statistics).
 		 */
 		constexpr EngineStatistics &operator=(
-			EngineStatistics &&engine_statistics) noexcept = default;
+			EngineStatistics &&statistics) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -120,7 +120,7 @@ namespace mage {
 		 @param[in]		units
 						The number of units to add.
 		 */
-		constexpr void IncrementNumberOfDrawCalls(U32 units = 1) noexcept {
+		constexpr void IncrementNumberOfDrawCalls(U32 units = 1u) noexcept {
 			m_nb_draw_calls += units;
 		}
 

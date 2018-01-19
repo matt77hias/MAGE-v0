@@ -24,8 +24,9 @@ namespace mage {
 
 		Assert(device);
 
-		loader::ImportTextureFromFile(
-			GetFilename(), device, m_texture_srv.ReleaseAndGetAddressOf());
+		loader::ImportTextureFromFile(GetFilename(), 
+			                          device, 
+			                          m_texture_srv.ReleaseAndGetAddressOf());
 	}
 
 	Texture::Texture(wstring guid,
@@ -43,11 +44,13 @@ namespace mage {
 		Assert(device);
 
 		ComPtr< ID3D11Texture2D > texture;
+		// Create the texture.
 		{
 			const HRESULT result = device->CreateTexture2D(
 				desc, initial_data, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
+		// Create the SRV.
 		{
 			const HRESULT result = device->CreateShaderResourceView(
 				texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());

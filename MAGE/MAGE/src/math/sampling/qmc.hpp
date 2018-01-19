@@ -90,6 +90,7 @@ namespace mage {
 
 	[[nodiscard]] inline const F32x2 
 		Hammersley2D(size_t index, size_t nb_samples) noexcept {
+		
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -100,6 +101,7 @@ namespace mage {
 
 	[[nodiscard]] inline const F32x3 
 		Hammersley3D(size_t index, size_t nb_samples) noexcept {
+		
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -111,6 +113,7 @@ namespace mage {
 
 	[[nodiscard]] inline const F32x4 
 		Hammersley4D(size_t index, size_t nb_samples) noexcept {
+		
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);

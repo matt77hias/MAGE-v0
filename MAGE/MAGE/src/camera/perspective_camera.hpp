@@ -59,7 +59,9 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given width and 
 					height.
 	 */
-	[[nodiscard]] constexpr F32 AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
+	[[nodiscard]] constexpr F32 
+		AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
+		
 		return width / height;
 	}
 
@@ -232,7 +234,9 @@ namespace mage {
 						The position of the far z-plane in view space.
 		 */
 		void SetViewToProjectionMatrix(F32 aspect_ratio,
-			F32 fov_y, F32 near_z, F32 far_z) noexcept {
+			                           F32 fov_y, 
+			                           F32 near_z, 
+			                           F32 far_z) noexcept {
 
 			SetAspectRatio(aspect_ratio);
 			SetFOVY(fov_y);
@@ -253,8 +257,11 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		void SetViewToProjectionMatrix(F32 width, F32 height,
-			F32 fov_y, F32 near_z, F32 far_z) noexcept {
+		void SetViewToProjectionMatrix(F32 width, 
+			                           F32 height,
+			                           F32 fov_y, 
+			                           F32 near_z, 
+			                           F32 far_z) noexcept {
 			
 			SetAspectRatio(width, height);
 			SetFOVY(fov_y);
@@ -267,7 +274,9 @@ namespace mage {
 		 @return		The view-to-projection matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept override {
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+			GetViewToProjectionMatrix() const noexcept override {
+
 			#ifdef DISSABLE_INVERTED_Z_BUFFER
 			return XMMatrixPerspectiveFovLH(
 				GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
@@ -283,7 +292,9 @@ namespace mage {
 		 @return		The projection-to-view matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV GetProjectionToViewMatrix() const noexcept override {
+		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+			GetProjectionToViewMatrix() const noexcept override {
+
 			const XMMATRIX view_to_projection = GetViewToProjectionMatrix();
 
 			const F32 m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);

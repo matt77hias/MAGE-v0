@@ -176,12 +176,11 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit SpriteTransform(
-			F32x2 translation     = { 0.0f, 0.0f }, 
-			F32   depth           =   0.0f,
-			F32   rotation        =   0.0f, 
-			F32x2 rotation_origin = { 0.0f, 0.0f }, 
-			F32x2 scale           = { 1.0f, 1.0f }) noexcept
+		explicit SpriteTransform(F32x2 translation     = { 0.0f, 0.0f }, 
+			                     F32   depth           =   0.0f,
+			                     F32   rotation        =   0.0f, 
+			                     F32x2 rotation_origin = { 0.0f, 0.0f }, 
+			                     F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)), 
 			m_depth(depth), 
 			m_rotation(rotation), 
@@ -203,12 +202,11 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit SpriteTransform(
-			FXMVECTOR translation, 
-			F32       depth,
-			F32       rotation, 
-			FXMVECTOR rotation_origin, 
-			FXMVECTOR scale) noexcept
+		explicit SpriteTransform(FXMVECTOR translation, 
+			                     F32       depth,
+			                     F32       rotation, 
+			                     FXMVECTOR rotation_origin, 
+			                     FXMVECTOR scale) noexcept
 			: m_translation(), 
 			m_depth(depth),
 			m_rotation(rotation), 
@@ -697,7 +695,9 @@ namespace mage {
 			                     F32 min_angle, 
 			                     F32 max_angle) noexcept {
 			
-			m_rotation = ClampAngleRadians(m_rotation + rotation, min_angle, max_angle);
+			m_rotation = ClampAngleRadians(m_rotation + rotation, 
+				                           min_angle, 
+				                           max_angle);
 		}
 
 		/**

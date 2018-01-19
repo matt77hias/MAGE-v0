@@ -20,7 +20,6 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Node::ForEachChild(ActionT action) const {
-		
 		for (const auto &child : m_childs) {
 			// Visit child node.
 			action(*child);
@@ -29,7 +28,6 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Node::ForEachDescendant(ActionT action) const {
-		
 		for (const auto &child : m_childs) {
 			// Visit child node.
 			action(*child);
@@ -67,7 +65,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] inline const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
+	[[nodiscard]] const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
 		std::vector< ProxyPtr< ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));
@@ -81,7 +79,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] inline const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
+	[[nodiscard]] const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
 		std::vector< ProxyPtr< const ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));

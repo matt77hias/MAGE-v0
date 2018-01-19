@@ -34,15 +34,15 @@ namespace mage {
 
 		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
-			U32 width, U32 height) noexcept {
+		[[nodiscard]] static const D3D11_VIEWPORT 
+			GetMaxViewport(U32 width, U32 height) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width), 
 				                  static_cast< F32 >(height));
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
-			F32 width, F32 height) noexcept {
+		[[nodiscard]] static const D3D11_VIEWPORT 
+			GetMaxViewport(F32 width, F32 height) noexcept {
 			
 			D3D11_VIEWPORT viewport = {};
 			viewport.Width    = width;
@@ -51,16 +51,16 @@ namespace mage {
 			return viewport;
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
-			U32 width, U32 height, AADescriptor desc) noexcept {
+		[[nodiscard]] static const D3D11_VIEWPORT 
+			GetMaxViewport(U32 width, U32 height, AADescriptor desc) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width),
 				                  static_cast< F32 >(height), 
 				                  desc);
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport(
-			F32 width, F32 height, AADescriptor desc) noexcept {
+		[[nodiscard]] static const D3D11_VIEWPORT 
+			GetMaxViewport(F32 width, F32 height, AADescriptor desc) noexcept {
 			
 			const U32 multiplier = GetResolutionMultiplier(desc);
 

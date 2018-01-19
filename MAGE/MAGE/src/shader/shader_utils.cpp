@@ -18,7 +18,6 @@ namespace mage {
 		                                        const string &entry_point, 
 		                                        const string &shader_target, 
 		                                        ID3DBlob **output_blob) {
-
 		Assert(output_blob);
 
 		DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -55,7 +54,7 @@ namespace mage {
 		ComPtr< ID3DBlob > error_blob;
 		const HRESULT result = D3DCompileFromFile(fname.c_str(), 
 			nullptr, nullptr, entry_point.c_str(), shader_target.c_str(), 
-			shader_flags, 0, output_blob, error_blob.GetAddressOf());
+			shader_flags, 0u, output_blob, error_blob.GetAddressOf());
 		
 		if (FAILED(result)) {
 			if (error_blob) {

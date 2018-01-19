@@ -207,6 +207,7 @@
     <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp" />
     <ClCompile Include="MAGE\src\material\material.cpp" />
     <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp" />
+    <ClCompile Include="MAGE\src\math\sampling\fibonacci.cpp" />
     <ClCompile Include="MAGE\src\math\transform\sprite_transform.cpp" />
     <ClCompile Include="MAGE\src\math\transform\transform.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />

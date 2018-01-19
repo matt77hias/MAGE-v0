@@ -36,10 +36,9 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit LocalTransform(
-			F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
-			F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
-			F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
+		explicit LocalTransform(F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
+			                    F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
+			                    F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_padding0(0),
 			m_rotation(std::move(rotation)),
@@ -58,10 +57,9 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit LocalTransform(
-			FXMVECTOR translation,
-			FXMVECTOR rotation,
-			FXMVECTOR scale) noexcept
+		explicit LocalTransform(FXMVECTOR translation,
+			                    FXMVECTOR rotation,
+			                    FXMVECTOR scale) noexcept
 			: m_translation(),
 			m_padding0(0),
 			m_rotation(),
@@ -537,7 +535,9 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, min_angle, max_angle);
+			m_rotation.m_x = ClampAngleRadians(m_rotation.m_x + x, 
+				                               min_angle, 
+				                               max_angle);
 		}
 
 		/**
@@ -556,7 +556,9 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, min_angle, max_angle);
+			m_rotation.m_y = ClampAngleRadians(m_rotation.m_y + y, 
+				                               min_angle, 
+				                               max_angle);
 		}
 
 		/**
@@ -575,7 +577,9 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, min_angle, max_angle);
+			m_rotation.m_z = ClampAngleRadians(m_rotation.m_z + z, 
+				                               min_angle, 
+				                               max_angle);
 		}
 
 		/**
@@ -625,7 +629,11 @@ namespace mage {
 			                     F32 min_angle, 
 			                     F32 max_angle) noexcept {
 
-			AddAndClampRotation(rotation.m_x, rotation.m_y, rotation.m_z, min_angle, max_angle);
+			AddAndClampRotation(rotation.m_x, 
+				                rotation.m_y, 
+				                rotation.m_z, 
+				                min_angle, 
+				                max_angle);
 		}
 
 		/**
@@ -650,7 +658,8 @@ namespace mage {
 			AddAndClampRotation(XMVectorGetX(rotation), 
 				                XMVectorGetY(rotation), 
 				                XMVectorGetZ(rotation), 
-				                min_angle, max_angle);
+				                min_angle, 
+				                max_angle);
 		}
 
 		/**

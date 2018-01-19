@@ -10,10 +10,8 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-#pragma region
-
 namespace mage::color {
 
     constexpr SRGB AliceBlue            = { 0.941176534f, 0.972549081f, 1.000000000f };
@@ -157,5 +155,3 @@ namespace mage::color {
     constexpr SRGB Yellow               = { 1.000000000f, 1.000000000f, 0.000000000f };
     constexpr SRGB YellowGreen          = { 0.603921592f, 0.803921640f, 0.196078449f };
 }
-
-#pragma endregion

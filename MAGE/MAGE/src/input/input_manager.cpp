@@ -21,7 +21,10 @@ namespace mage {
 	}
 
 	InputManager::InputManager(HWND window) 
-		: m_window(window), m_di(), m_keyboard(), m_mouse() {
+		: m_window(window), 
+		m_di(), 
+		m_keyboard(), 
+		m_mouse() {
 
 		Assert(m_window);
 

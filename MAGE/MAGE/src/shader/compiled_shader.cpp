@@ -46,7 +46,7 @@ namespace mage {
 	#pragma region
 
 	BufferCompiledShader::BufferCompiledShader(const BYTE *bytecode, 
-		SIZE_T bytecode_size) noexcept
+		                                       SIZE_T bytecode_size) noexcept
 		: CompiledShader(), 
 		m_bytecode(bytecode), 
 		m_bytecode_size(bytecode_size) {
@@ -80,11 +80,10 @@ namespace mage {
 		m_shader_blob() {
 			
 		// Compile/Read the vertex shader.
-		const HRESULT result_shader_blob 
-			= D3DReadFileToBlob(fname.c_str(), 
-				m_shader_blob.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader_blob, 
-			"D3DReadFileToBlob failed: %08X.", result_shader_blob);
+		const HRESULT result = D3DReadFileToBlob(fname.c_str(), 
+				                                 m_shader_blob.ReleaseAndGetAddressOf());
+		ThrowIfFailed(result,
+			"D3DReadFileToBlob failed: %08X.", result);
 	}
 
 	BlobCompiledShader::BlobCompiledShader(

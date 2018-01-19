@@ -41,18 +41,18 @@ namespace mage {
 		/**
 		 Constructs a camera settings from the given camera settings.
 
-		 @param[in]		scene_settings
+		 @param[in]		settings
 						A reference to the camera settings to copy.
 		 */
-		CameraSettings(const CameraSettings &scene_settings) noexcept = default;
+		CameraSettings(const CameraSettings &settings) noexcept = default;
 
 		/**
 		 Constructs a camera settings by moving the given camera settings.
 
-		 @param[in]		scene_settings
+		 @param[in]		settings
 						A reference to the camera settings to move.
 		 */
-		CameraSettings(CameraSettings &&scene_settings) noexcept = default;
+		CameraSettings(CameraSettings &&settings) noexcept = default;
 
 		/**
 		 Destructs this camera settings.
@@ -66,13 +66,13 @@ namespace mage {
 		/**
 		 Copies the given camera settings to this camera settings.
 
-		 @param[in]		scene_settings
+		 @param[in]		settings
 						A reference to the camera settings to copy.
 		 @return		A reference to the copy of the given camera settings 
 						(i.e. this camera settings).
 		 */
 		CameraSettings &operator=(
-			const CameraSettings &scene_settings) noexcept = default;
+			const CameraSettings &settings) noexcept = default;
 
 		/**
 		 Moves the given camera settings to this camera settings.
@@ -83,7 +83,7 @@ namespace mage {
 						camera settings).
 		 */
 		CameraSettings &operator=(
-			CameraSettings &&scene_settings) noexcept = default;
+			CameraSettings &&settings) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -120,13 +120,12 @@ namespace mage {
 		}
 
 		[[nodiscard]] bool ContainsRenderLayers() const noexcept {
-			return m_render_layer_mask 
-				!= static_cast< U32 >(RenderLayer::None);
+			return static_cast< U32 >(RenderLayer::None) != m_render_layer_mask;
 		}
 
 		[[nodiscard]] bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
-			return static_cast< bool >(
-				m_render_layer_mask & static_cast< U32 >(render_layer));
+			return static_cast< bool >(static_cast< U32 >(render_layer)
+				                       & m_render_layer_mask);
 		}
 
 		void AddRenderLayer(RenderLayer render_layer) noexcept {

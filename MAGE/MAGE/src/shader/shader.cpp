@@ -42,7 +42,6 @@ namespace mage {
 		                           const CompiledShader &compiled_shader,
 		                           const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 		                           size_t nb_input_elements) {
-
 		Assert(device);
 
 		// Create the vertex shader.

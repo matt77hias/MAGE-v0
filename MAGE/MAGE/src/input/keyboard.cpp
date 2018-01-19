@@ -21,8 +21,12 @@ namespace mage {
 	}
 
 	Keyboard::Keyboard(HWND window, IDirectInput8 *di) 
-		: m_window(window), m_di(di), m_keyboard(),
-		m_press_stamp(0), m_key_state{}, m_key_press_stamp{} {
+		: m_window(window), 
+		m_di(di), 
+		m_keyboard(),
+		m_press_stamp(0ull), 
+		m_key_state{}, 
+		m_key_press_stamp{} {
 
 		Assert(m_window);
 		Assert(m_di);

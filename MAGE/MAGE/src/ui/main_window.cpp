@@ -81,8 +81,8 @@ namespace mage {
 
 			switch(wParam) {
 
-			case static_cast< int >(HotKey::PrintScreen) :
-			case static_cast< int >(HotKey::AltPrintScreen): {
+			case static_cast< WPARAM >(HotKey::PrintScreen) :
+			case static_cast< WPARAM >(HotKey::AltPrintScreen): {
 				SwapChain::Get()->TakeScreenShot();
 				[[fallthrough]];
 			}
@@ -141,6 +141,7 @@ namespace mage {
 		default: {
 			return DefWindowProc(window, message, wParam, lParam);
 		}
+		
 		}
 
 		return 0;

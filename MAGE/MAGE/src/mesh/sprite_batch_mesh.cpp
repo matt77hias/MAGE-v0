@@ -53,6 +53,7 @@ namespace mage {
 			indices.push_back(i + 3);
 			indices.push_back(i + 2);
 		}
+
 		return indices;
 	}
 }

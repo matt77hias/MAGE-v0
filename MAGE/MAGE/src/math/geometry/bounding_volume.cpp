@@ -4,7 +4,6 @@
 #pragma region
 
 #include "math\geometry\bounding_volume.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -463,7 +462,9 @@ namespace mage {
 	// BoundingFrustum: Operators
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] bool BoundingFrustum::operator==(const BoundingFrustum &frustum) const noexcept {
+	[[nodiscard]] bool BoundingFrustum
+		::operator==(const BoundingFrustum &frustum) const noexcept {
+
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
 			if (XMVector4NotEqual(m_planes[i], frustum.m_planes[i])) {
 				return false;

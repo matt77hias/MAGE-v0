@@ -23,7 +23,7 @@ namespace mage {
 		::GetMaterial(const string &name) const noexcept {
 		
 		for (const auto &material : m_materials) {
-			if (material.GetName() == name) {
+			if (name == material.GetName()) {
 				return &material;
 			}
 		}
@@ -35,7 +35,7 @@ namespace mage {
 		::GetModelPart(const string &name) const noexcept {
 		
 		for (const auto &model_part : m_model_parts) {
-			if (model_part.m_child == name) {
+			if (name == model_part.m_child) {
 				return &model_part;
 			}
 		}

@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
-		ID3D11ShaderResourceView *texture_srv) {
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		GetTexture2DSize(ID3D11ShaderResourceView *texture_srv) {
 		
 		Assert(texture_srv);
 
@@ -23,16 +23,16 @@ namespace mage {
 		texture_srv->GetResource(&resource);
 
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = resource.As(&texture);
-		ThrowIfFailed(result_texture, 
+		const HRESULT result = resource.As(&texture);
+		ThrowIfFailed(result,
 			"Conversion of ID3D11Resource to Texture2D failed: %08X.", 
-			result_texture);
+			result);
 
 		return GetTexture2DSize(texture.Get());
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
-		ID3D11Texture2D *texture) noexcept {
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		GetTexture2DSize(ID3D11Texture2D *texture) noexcept {
 		
 		Assert(texture);
 		
@@ -43,6 +43,6 @@ namespace mage {
 		const XMVECTOR width  = XMLoadInt(&desc.Width);
 		const XMVECTOR height = XMLoadInt(&desc.Height);
 		const XMVECTOR size   = XMVectorMergeXY(width, height);
-		return XMConvertVectorUIntToFloat(size, 0);
+		return XMConvertVectorUIntToFloat(size, 0u);
 	}
 }

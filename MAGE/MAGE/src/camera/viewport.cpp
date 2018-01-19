@@ -21,7 +21,7 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]] const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
-		const DisplayConfiguration * const config = DisplayConfiguration::Get();
+		const auto * const config = DisplayConfiguration::Get();
 		
 		return GetMaxViewport(config->GetDisplayWidth(), 
 			                  config->GetDisplayHeight());

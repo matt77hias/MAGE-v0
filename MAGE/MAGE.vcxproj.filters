@@ -199,6 +199,9 @@
     <Filter Include="Header Files\editor">
       <UniqueIdentifier>{da8f04b2-df39-4183-8245-a2d235c6ca37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\math\sampling">
+      <UniqueIdentifier>{aaa8a40f-8943-4d5d-9783-61dc692e1858}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
@@ -916,6 +919,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\editor\widget.cpp">
       <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\math\sampling\fibonacci.cpp">
+      <Filter>Source Files\math\sampling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

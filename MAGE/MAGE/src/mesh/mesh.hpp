@@ -151,14 +151,16 @@ namespace mage {
 						The primitive topology.
 		 */
 		void BindMesh(ID3D11DeviceContext4 *device_context, 
-			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			Pipeline::IA::BindVertexBuffer(device_context, 
-				0, m_vertex_buffer.Get(), static_cast< U32 >(m_vertex_size));
+				                           0u, 
+				                           m_vertex_buffer.Get(), 
+				                           static_cast< U32 >(m_vertex_size));
 			Pipeline::IA::BindIndexBuffer(device_context, 
-				m_index_buffer.Get(), m_index_format);
-			Pipeline::IA::BindPrimitiveTopology(device_context, 
-				topology);
+				                          m_index_buffer.Get(), 
+				                          m_index_format);
+			Pipeline::IA::BindPrimitiveTopology(device_context, topology);
 		}
 		
 		/**
@@ -169,10 +171,9 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void Draw(ID3D11DeviceContext4 *device_context) const noexcept {
-			
 			Pipeline::DrawIndexed(device_context,
-				static_cast< U32 >(m_nb_indices), 
-				0u);
+				                  static_cast< U32 >(m_nb_indices), 
+				                  0u);
 		}
 		
 		/**
@@ -187,11 +188,12 @@ namespace mage {
 						The number of indices.
 		 */
 		void Draw(ID3D11DeviceContext4 *device_context,
-			size_t start_index, size_t nb_indices) const noexcept {
+			      size_t start_index, 
+			      size_t nb_indices) const noexcept {
 
 			Pipeline::DrawIndexed(device_context,
-				static_cast< U32 >(nb_indices), 
-				static_cast< U32 >(start_index));
+				                  static_cast< U32 >(nb_indices), 
+				                  static_cast< U32 >(start_index));
 		}
 
 	protected:
@@ -210,8 +212,9 @@ namespace mage {
 		 @param[in]		primitive_topology
 						The primitive topology.
 		 */
-		explicit Mesh(size_t vertex_size, DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
+		explicit Mesh(size_t vertex_size, 
+			          DXGI_FORMAT index_format, 
+			          D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
 		/**
 		 Constructs a mesh from the given mesh.

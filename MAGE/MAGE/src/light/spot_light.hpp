@@ -412,7 +412,9 @@ namespace mage {
 		 @return		The view-to-projection matrix of the light camera of 
 						this spot light.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
+		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+			GetViewToProjectionMatrix() const noexcept {
+
 			static const F32 near_plane = 0.1f;
 			const F32 fov = 2.0f * GetUmbraAngle();
 

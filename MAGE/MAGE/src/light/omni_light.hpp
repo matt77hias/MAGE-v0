@@ -272,7 +272,9 @@ namespace mage {
 		 @return		The view-to-projection matrix of the (forward) light 
 						camera of this omni light.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewToProjectionMatrix() const noexcept {
+		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+			GetViewToProjectionMatrix() const noexcept {
+
 			static constexpr F32 near_plane = 0.1f;
 
 			#ifdef DISSABLE_INVERTED_Z_BUFFER

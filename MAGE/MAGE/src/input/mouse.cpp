@@ -21,9 +21,13 @@ namespace mage {
 	}
 
 	Mouse::Mouse(HWND window, IDirectInput8 *di) 
-		: m_window(window), m_di(di), m_mouse(),
-		m_press_stamp(0), m_button_state{}, 
-		m_button_press_stamp(), m_position{} {
+		: m_window(window), 
+		m_di(di), 
+		m_mouse(),
+		m_press_stamp(0ull), 
+		m_button_state{}, 
+		m_button_press_stamp(), 
+		m_position{} {
 
 		Assert(m_window);
 		Assert(m_di);

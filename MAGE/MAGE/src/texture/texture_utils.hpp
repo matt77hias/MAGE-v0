@@ -11,7 +11,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -210,8 +210,8 @@ namespace mage {
 					The resource of the given shader resource view must be 
 					convertible to a @c ID3D11Texture2D.
 	 */
-	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
-		ID3D11ShaderResourceView *texture_srv);
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		GetTexture2DSize(ID3D11ShaderResourceView *texture_srv);
 
 	/**
 	 Returns the size of the given 2D texture.
@@ -222,6 +222,6 @@ namespace mage {
 	 @return		The size of the given 2D texture as a @c XMVECTOR 
 					(width, height, width, height).
 	 */
-	[[nodiscard]] const XMVECTOR XM_CALLCONV GetTexture2DSize(
-		ID3D11Texture2D *texture) noexcept;
+	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		GetTexture2DSize(ID3D11Texture2D *texture) noexcept;
 }

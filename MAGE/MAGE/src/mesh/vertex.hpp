@@ -12,18 +12,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_VERTEX_SEMANTIC_NAME_POSITION "POSITION"
-#define MAGE_VERTEX_SEMANTIC_NAME_NORMAL   "NORMAL"
-#define MAGE_VERTEX_SEMANTIC_NAME_COLOR    "COLOR"
-#define MAGE_VERTEX_SEMANTIC_NAME_TEXTURE  "TEXCOORD"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -227,8 +215,8 @@ namespace mage {
 		 @param[in]		n
 						A reference to the normal of the vertex.
 		 */
-		constexpr explicit VertexPositionNormal(
-			const Point3 &p, const Normal3 &n) noexcept
+		constexpr explicit VertexPositionNormal(const Point3 &p, 
+			                                    const Normal3 &n) noexcept
 			: m_p(p), m_n(n) {}
 
 		/**
@@ -372,8 +360,8 @@ namespace mage {
 		 @param[in]		c
 						A reference to the sRGB color of the vertex.
 		 */
-		constexpr explicit VertexPositionColor(
-			const Point3 &p, const SRGBA &c) noexcept
+		constexpr explicit VertexPositionColor(const Point3 &p, 
+			                                   const SRGBA &c) noexcept
 			: m_p(p), m_c(c) {}
 
 		/**
@@ -517,8 +505,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionTexture(
-			const Point3 &p, const UV &tex) noexcept
+		constexpr explicit VertexPositionTexture(const Point3 &p, 
+			                                     const UV &tex) noexcept
 			: m_p(p), m_tex(tex) {}
 
 		/**
@@ -665,8 +653,9 @@ namespace mage {
 		 @param[in]		c
 						A reference to the sRGB color of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalColor(
-			const Point3 &p, const Normal3 &n, const SRGBA &c) noexcept
+		constexpr explicit VertexPositionNormalColor(const Point3 &p, 
+			                                         const Normal3 &n, 
+			                                         const SRGBA &c) noexcept
 			: m_p(p), m_n(n), m_c(c) {}
 
 		/**
@@ -817,8 +806,9 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalTexture(
-			const Point3 &p, const Normal3 &n, const UV &tex) noexcept
+		constexpr explicit VertexPositionNormalTexture(const Point3 &p, 
+			                                           const Normal3 &n, 
+			                                           const UV &tex) noexcept
 			: m_p(p), m_n(n), m_tex(tex) {}
 
 		/**
@@ -970,8 +960,9 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionColorTexture(
-			const Point3 &p, const SRGBA &c, const UV &tex) noexcept
+		constexpr explicit VertexPositionColorTexture(const Point3 &p, 
+			                                          const SRGBA &c, 
+			                                          const UV &tex) noexcept
 			: m_p(p), m_c(c), m_tex(tex) {}
 
 		/**
@@ -1125,8 +1116,10 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalColorTexture(
-			const Point3 &p, const Normal3 &n, const SRGBA &c, const UV &tex) noexcept
+		constexpr explicit VertexPositionNormalColorTexture(const Point3 &p, 
+			                                                const Normal3 &n, 
+			                                                const SRGBA &c, 
+			                                                const UV &tex) noexcept
 			: m_p(p), m_n(n), m_c(c), m_tex(tex) {}
 
 		/**

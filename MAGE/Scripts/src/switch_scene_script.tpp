@@ -31,7 +31,7 @@ namespace mage::script {
 	
 	template< typename SceneT >
 	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] F64 delta_time) {
-		if (Keyboard::Get()->GetKeyPress(DIK_C)) {
+		if (Keyboard::Get()->GetKeyPress(DIK_F3)) {
 			SceneManager::Get()->SetScene(MakeUnique< SceneT >());
 		}
 	}

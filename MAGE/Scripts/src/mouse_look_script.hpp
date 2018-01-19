@@ -146,6 +146,7 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		bool m_locked;
 		RotationAxes m_axes;
 		F32x2 m_sensitivity;
 		F32x2 m_minimum_rotation;

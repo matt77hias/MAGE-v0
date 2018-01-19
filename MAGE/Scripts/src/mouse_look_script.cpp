@@ -5,6 +5,7 @@
 
 #include "mouse_look_script.hpp"
 #include "scene\scene.hpp"
+#include "input\keyboard.hpp"
 #include "input\mouse.hpp"
 #include "exception\exception.hpp"
 
@@ -17,6 +18,7 @@ namespace mage::script {
 
 	MouseLookScript::MouseLookScript()
 		: BehaviorScript(),
+		m_locked(false),
 		m_axes(RotationAxes::MouseXAndY),
 		m_sensitivity(F32x2(1.8f, 1.8f)),
 		m_minimum_rotation(F32x2(-XM_PI / 3.0f, -XM_PI)),
@@ -37,6 +39,13 @@ namespace mage::script {
 	}
 
 	void MouseLookScript::Update([[maybe_unused]] F64 delta_time)	 {
+		if (Keyboard::Get()->GetKeyPress(DIK_F2, true)) {
+			m_locked = !m_locked;
+		}
+		if (m_locked) {
+			return;
+		}
+		
 		const Mouse * const mouse = Mouse::Get();
 		Transform &transform = GetOwner()->GetTransform();
 

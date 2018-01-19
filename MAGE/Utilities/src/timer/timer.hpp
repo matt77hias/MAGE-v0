@@ -149,7 +149,7 @@ namespace mage {
 		void UpdateDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Type Declarations and Definitions
 		//---------------------------------------------------------------------
 
 		/**
@@ -167,6 +167,10 @@ namespace mage {
 		 of timers.
 		 */
 		using TimeInterval = Clock::duration;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The clock of this timer.

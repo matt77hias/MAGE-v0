@@ -43,6 +43,20 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Type Declarations and Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 The key type of resource pools.
+		 */
+		using key_type = KeyT;
+
+		/**
+		 The value type of resource pools.
+		 */
+		using value_type = ResourceT;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -349,6 +363,20 @@ namespace mage {
 	class PersistentResourcePool final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Type Declarations and Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 The key type of persistent resource pools.
+		 */
+		using key_type = KeyT;
+
+		/**
+		 The value type of persistent resource pools.
+		 */
+		using value_type = ResourceT;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

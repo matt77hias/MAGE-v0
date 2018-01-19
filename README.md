@@ -41,7 +41,7 @@
   * dinput8.lib
   * dxguid.lib
   * (d3dcompiler.lib)
-* **Compiler**: MSVC++ 15.5.2
+* **Compiler**: MSVC++ 15.5.4
 * **IDE**: Visual Studio 2017
 
 ## Use
@@ -58,8 +58,9 @@ Sample scene - buttons:
   * arrows (or WASD): movement
   * left shift: vertical down movement
   * right shift: vertical up movement
-  * c: switch scene
   * F1: terminate
+  * F2: toggle freezing camera orientation
+  * F3: switch scene
 
 ## Index
 * [Code Guidelines](meta/code-guidelines.md)

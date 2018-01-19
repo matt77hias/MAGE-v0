@@ -407,11 +407,15 @@ namespace mage {
 		}
 
 		if constexpr (std::is_same_v< Component, ElementT >) {
-			ForEach< Camera >(ActionT action);
-			ForEach< Light >(ActionT action);
-			ForEach< Model >(ActionT action);
-			ForEach< Sprite >(ActionT action);
-			ForEach< BehaviorScript >(ActionT action);
+			ForEach< Camera >(action);
+			ForEach< AmbientLight >(action);
+			ForEach< DirectionalLight >(action);
+			ForEach< OmniLight >(action);
+			ForEach< SpotLight >(action);
+			ForEach< Model >(action);
+			ForEach< SpriteImage >(action);
+			ForEach< SpriteText >(action);
+			ForEach< BehaviorScript >(action);
 		}
 	}
 
@@ -512,11 +516,15 @@ namespace mage {
 		}
 
 		if constexpr (std::is_same_v< Component, ElementT >) {
-			ForEach< Camera >(ActionT action);
-			ForEach< Light >(ActionT action);
-			ForEach< Model >(ActionT action);
-			ForEach< Sprite >(ActionT action);
-			ForEach< BehaviorScript >(ActionT action);
+			ForEach< Camera >(action);
+			ForEach< AmbientLight >(action);
+			ForEach< DirectionalLight >(action);
+			ForEach< OmniLight >(action);
+			ForEach< SpotLight >(action);
+			ForEach< Model >(action);
+			ForEach< SpriteImage >(action);
+			ForEach< SpriteText >(action);
+			ForEach< BehaviorScript >(action);
 		}
 	}
 

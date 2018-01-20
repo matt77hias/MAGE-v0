@@ -30,7 +30,9 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the sprite font from file.
 	 */
-	void ImportFontFromFile(const wstring &fname, ID3D11Device5 *device, 
-		SpriteFontOutput &output, 
-		const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+	void ImportFontFromFile(const wstring &fname, 
+		                    ID3D11Device5 *device, 
+		                    SpriteFontOutput &output, 
+		                    const SpriteFontDescriptor &desc 
+		                        = SpriteFontDescriptor());
 }

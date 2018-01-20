@@ -17,7 +17,8 @@
 namespace mage::loader {
 
 	SpriteFontReader::SpriteFontReader(ID3D11Device5 *device, 
-		SpriteFontOutput &output, const SpriteFontDescriptor &desc)
+		                               SpriteFontOutput &output, 
+		                               const SpriteFontDescriptor &desc)
 		: BigEndianBinaryReader(), 
 		m_device(device), 
 		m_output(output), 
@@ -80,9 +81,13 @@ namespace mage::loader {
 		const U8 *texture_data      = ReadArray< U8 >(texture_stride * texture_rows);
 
 		// Create the texture descriptor.
-		CD3D11_TEXTURE2D_DESC texture_desc(
-			texture_format, texture_width, texture_height, 
-			1u, 1u, D3D11_BIND_SHADER_RESOURCE, D3D11_USAGE_IMMUTABLE);
+		CD3D11_TEXTURE2D_DESC texture_desc(texture_format, 
+			                               texture_width, 
+			                               texture_height, 
+			                               1u, 
+			                               1u, 
+			                               D3D11_BIND_SHADER_RESOURCE, 
+			                               D3D11_USAGE_IMMUTABLE);
 		
 		// Create the texture data.
 		D3D11_SUBRESOURCE_DATA init_data = {};

@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 A struct of mesh descriptors.
+	 A class of mesh descriptors.
 
 	 @tparam		VertexT
 					The vertex type.

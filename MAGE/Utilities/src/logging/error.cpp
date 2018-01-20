@@ -32,7 +32,7 @@ namespace mage {
 	 @c Continue and 
 	 @c Abort.
 	 */
-	enum struct [[nodiscard]] ErrorDisposition {
+	enum class [[nodiscard]] ErrorDisposition : U8 {
 		Ignore,	  // Ignore and continue execution.
 		Continue, // Report and continue execution.
 		Abort     // Report and abort exceution.

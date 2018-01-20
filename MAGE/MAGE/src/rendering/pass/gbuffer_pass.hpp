@@ -142,7 +142,7 @@ namespace mage {
 		 @c Default and
 		 @c TSNM.
 		 */
-		enum struct PSIndex {
+		enum class PSIndex : U8 {
 			Default = 0,
 			TSNM    = 1,
 			Count   = 2

@@ -19,7 +19,7 @@ namespace mage::script {
 
 	public:
 
-		enum struct RotationAxes {
+		enum class RotationAxes : U8 {
 			MouseX = 1,
 			MouseY = 2,
 			MouseXAndY = MouseX | MouseY

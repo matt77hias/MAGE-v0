@@ -37,7 +37,7 @@ namespace mage {
 						The resource type.
 		 */
 		template< typename ResourceT >
-		struct ResourceRecord { 
+		struct ResourceRecord final { 
 
 		public:
 
@@ -50,21 +50,13 @@ namespace mage {
 			 type.
 			 */
 			using pool_type = ResourcePool< wstring, const ResourceT >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 		
 		/**
 		 A struct of vertex shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< VertexShader > {
+		struct ResourceRecord< VertexShader > final {
 
 		public:
 
@@ -76,21 +68,13 @@ namespace mage {
 			 The pool type of resource pools containing vertex shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const VertexShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of hull shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< HullShader > {
+		struct ResourceRecord< HullShader > final {
 			
 		public:
 
@@ -102,21 +86,13 @@ namespace mage {
 			 The pool type of resource pools containing hull shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const HullShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of domain shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< DomainShader > {
+		struct ResourceRecord< DomainShader > final {
 		
 		public:
 
@@ -128,21 +104,13 @@ namespace mage {
 			 The pool type of resource pools containing domain shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const DomainShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of geometry shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< GeometryShader > {
+		struct ResourceRecord< GeometryShader > final {
 			
 		public:
 
@@ -154,21 +122,13 @@ namespace mage {
 			 The pool type of resource pools containing geometry shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const GeometryShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of pixel shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< PixelShader > {
+		struct ResourceRecord< PixelShader > final {
 			
 		public:
 
@@ -180,21 +140,13 @@ namespace mage {
 			 The pool type of resource pools containing pixel shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const PixelShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of compute shader resource records.
 		 */
 		template<>
-		struct ResourceRecord< ComputeShader > {
+		struct ResourceRecord< ComputeShader > final {
 
 		public:
 
@@ -206,21 +158,13 @@ namespace mage {
 			 The pool type of resource pools containing compute shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const ComputeShader >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of variable script resource records.
 		 */
 		template<>
-		struct ResourceRecord< VariableScript > {
+		struct ResourceRecord< VariableScript > final {
 			
 		public:
 
@@ -232,14 +176,6 @@ namespace mage {
 			 The pool type of resource pools containing variable scripts.
 			 */
 			using pool_type  = ResourcePool< wstring, VariableScript >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			ResourceRecord() = delete;
 		};
 
 		/**

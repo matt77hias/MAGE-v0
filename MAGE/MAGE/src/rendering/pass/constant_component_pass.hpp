@@ -153,7 +153,7 @@ namespace mage {
 		 @c UVTexture and
 		 @c Distance.
 		 */
-		enum struct PSIndex {
+		enum class PSIndex : U8 {
 			UVTexture = 0,
 			Distance  = 1,
 			Count     = 2

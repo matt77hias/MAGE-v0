@@ -1372,7 +1372,7 @@ namespace mage {
 	 @c PartialCoverage and
 	 @c FullCoverage.
 	 */
-	enum struct [[nodiscard]] Coverage {
+	enum class [[nodiscard]] Coverage : U8 {
 		NoCoverage,		 // No coverage      (i.e. no overlap)
 		PartialCoverage, // Partial coverage (i.e. overlap + not enclosing)
 		FullCoverage	 // Full coverage    (i.e. overlap + enclosing)

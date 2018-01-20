@@ -1,11 +1,20 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\scalar_types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	enum struct AADescriptor {
+	enum class AADescriptor : U8 {
 		None = 0,
 		FXAA,
 		MSAA_2x,

@@ -180,13 +180,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A struct of allocators for memory arenas.
+		 A class of allocators for memory arenas.
 
 		 @tparam		DataT
 						The data type.
 		 */
 		template< typename DataT >
-		struct Allocator final {
+		class Allocator final {
 		
 		public:
 

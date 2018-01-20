@@ -33,11 +33,10 @@ namespace mage {
 	 @c None and 
 	 @c Invalid.
 	 */
-	enum struct [[nodiscard]] TokenResult {
-		Valid,	// The parsed token is valid (matches the expected token type).
-		None,	// No token can be parsed (independent of the token type).
-		Invalid	// The parsed token is invalid (matches the expected token 
-		        // type).
+	enum class [[nodiscard]] TokenResult : U8 {
+		Valid = 0,	// The parsed token is valid (matches the expected token type).
+		None,	    // No token can be parsed (independent of the token type).
+		Invalid     // The parsed token is invalid (matches the expected token type).
 	};
 
 	//-------------------------------------------------------------------------

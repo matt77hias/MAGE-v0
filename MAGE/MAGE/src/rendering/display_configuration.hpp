@@ -16,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A struct of display configurations.
+	 A class of display configurations.
 	 */
-	struct DisplayConfiguration final {
+	class DisplayConfiguration final {
 
 	public:
 

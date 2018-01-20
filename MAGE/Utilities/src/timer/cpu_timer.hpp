@@ -235,7 +235,7 @@ namespace mage {
 		/**
 		 An enumeration of the different modes of this CPU timer.
 		 */
-		enum struct ModeIndex { 
+		enum class ModeIndex : U8 { 
 			Kernel = 0,
 			User   = 1,
 			Count  = 2

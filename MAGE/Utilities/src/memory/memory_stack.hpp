@@ -204,13 +204,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A struct of allocators for single-ended memory stacks.
+		 A class of allocators for single-ended memory stacks.
 
 		 @tparam		DataT
 						The data type.
 		 */
 		template< typename DataT >
-		struct Allocator final {
+		class Allocator final {
 		
 		public:
 
@@ -738,13 +738,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A struct of low allocators for double-ended memory stacks.
+		 A class of low allocators for double-ended memory stacks.
 
 		 @tparam		DataT
 						The data type.
 		 */
 		template< typename DataT >
-		struct LowAllocator final {
+		class LowAllocator final {
 		
 		public:
 
@@ -971,13 +971,13 @@ namespace mage {
 		};
 
 		/**
-		 A struct of high allocators for double-ended memory stacks.
+		 A class of high allocators for double-ended memory stacks.
 
 		 @tparam		DataT
 						The data type.
 		 */
 		template< typename DataT >
-		struct HighAllocator final {
+		class HighAllocator final {
 		
 		public:
 

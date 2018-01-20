@@ -38,7 +38,7 @@ namespace mage {
 		 @c DropShadow and
 		 @c Outline.
 		 */
-		enum struct TextEffect {
+		enum class TextEffect : U8 {
 			None = 0,
 			DropShadow,
 			Outline

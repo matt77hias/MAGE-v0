@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\scalar_types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -17,12 +26,12 @@ namespace mage {
 	 @c Frostbite, and
 	 @c WardDuer.
 	 */
-	enum struct BRDFType {
-		Unknown = 0,
-		Lambertian,
-		BlinnPhong,
-		CookTorrance,
-		Frostbite,
-		WardDuer
+	enum class BRDFType : U8 {
+		Unknown      = 0,
+		Lambertian   = 1,
+		BlinnPhong   = 2,
+		CookTorrance = 3,
+		Frostbite    = 4,
+		WardDuer     = 5
 	};
 }

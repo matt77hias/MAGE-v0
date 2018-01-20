@@ -6,7 +6,7 @@
 namespace mage {
 
 	/**
-	 A struct of sprite font descriptors.
+	 A class of sprite font descriptors.
 	 */
 	class SpriteFontDescriptor final {
 

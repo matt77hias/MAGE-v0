@@ -720,7 +720,7 @@ namespace mage {
 		 @c Transparency and
 		 @c AlphaToCoverage.
 		 */
-		enum struct BlendStateIndex {
+		enum class BlendStateIndex : U8 {
 			Opaque           = 0,
 			Alpha            = 1,
 			Additive         = 2,
@@ -742,7 +742,7 @@ namespace mage {
 		 @c GreaterDepthReadWrite and
 		 @c GreaterDepthRead.
 		 */
-		enum struct DepthStencilStateIndex {
+		enum class DepthStencilStateIndex : U8 {
 			DepthNone                  = 0,
 			#ifdef DISSABLE_INVERTED_Z_BUFFER
 			LessEqualDepthReadWrite    = 1,
@@ -768,7 +768,7 @@ namespace mage {
 		 @c CounterClockwiseCulling and
 		 @c Wireframe.
 		 */
-		enum struct RasterizerStateIndex {
+		enum class RasterizerStateIndex : U8 {
 			NoCulling               = 0,
 			ClockwiseCulling        = 1,
 			CounterClockwiseCulling = 2,
@@ -792,7 +792,7 @@ namespace mage {
 		 @c AnisotropicMirror and.
 		 @c PCF.
 		 */
-		enum struct SamplerStateIndex {
+		enum class SamplerStateIndex : U8 {
 			PointWrap         = 0,
 			PointClamp        = 1,
 			PointMirror       = 2,

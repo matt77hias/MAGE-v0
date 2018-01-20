@@ -41,7 +41,7 @@ namespace mage {
 	// DepthFormat
 	//-------------------------------------------------------------------------
 
-	enum struct DepthFormat {
+	enum class DepthFormat : U8 {
 		D16,
 		D32
 	};

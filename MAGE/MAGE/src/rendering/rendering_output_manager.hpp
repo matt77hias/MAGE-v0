@@ -134,7 +134,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		enum struct SRVIndex {
+		enum class SRVIndex : U8 {
 			HDR                   = 0,
 			GBuffer_BaseColor     = 1,
 			GBuffer_Material      = 2,
@@ -147,7 +147,7 @@ namespace mage {
 			Count                 = 9
 		};
 
-		enum struct RTVIndex {
+		enum class RTVIndex : U8 {
 			HDR                 = 0,
 			GBuffer_BaseColor   = 1,
 			GBuffer_Material    = 2,
@@ -157,7 +157,7 @@ namespace mage {
 			Count               = 6
 		};
 
-		enum struct UAVIndex {
+		enum class UAVIndex : U8 {
 			HDR                   = 0,
 			PostProcessing_HDR0   = 1,
 			PostProcessing_HDR1   = 2,

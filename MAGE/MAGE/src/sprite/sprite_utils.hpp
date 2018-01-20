@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\scalar_types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -14,7 +23,7 @@ namespace mage {
 	 @c FlipVertically and
 	 @c FlipBoth.
 	 */
-	enum struct SpriteEffect {
+	enum class SpriteEffect : U8 {
 		None             = 0, // No sprite effects.
 		FlipHorizontally = 1, // Flip sprites horizontally.
 		FlipVertically   = 2, // Flip sprites vertically.
@@ -32,7 +41,7 @@ namespace mage {
 	 @c BackToFront and
 	 @c FrontToBack.
 	 */
-	enum struct SpriteSortMode {
+	enum class SpriteSortMode : U8 {
 		Deferred,	 // Deferred, FIFO order of the sprites.
 		Immediate,   // Immediate, FIFO order of the sprites.
 		Texture,     // Deferred sorting based on the texture of the sprites.

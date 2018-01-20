@@ -21,7 +21,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of compiled shaders.
+	 A class of compiled shaders.
 	 */
 	class CompiledShader {
 
@@ -117,7 +117,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of buffer compiled shaders.
+	 A class of buffer compiled shaders.
 	 */
 	class BufferCompiledShader : public CompiledShader {
 
@@ -241,7 +241,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of blob compiled shaders.
+	 A class of blob compiled shaders.
 	 */
 	class BlobCompiledShader : public CompiledShader {
 

@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\scalar_types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -13,7 +22,7 @@ namespace mage {
 	 @c Passive and
 	 @c Terminated.
 	 */
-	enum struct State {
+	enum class State : U8 {
 		Active,
 		Passive,
 		Terminated

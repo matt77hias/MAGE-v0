@@ -195,7 +195,7 @@ namespace mage {
 		 @c PrintScreen, and
 		 @c AltPrintScreen.
 		 */
-		enum struct HotKey {
+		enum class HotKey : U8 {
 			Unused         = 0,
 			PrintScreen    = 1,
 			AltPrintScreen = 2,

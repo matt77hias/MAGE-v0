@@ -189,7 +189,7 @@ namespace mage {
 		 @c BRDF and
 		 @c BRDF_TSNM.
 		 */
-		enum struct PSIndex {
+		enum class PSIndex : U8 {
 			Emissive              = 0,
 			BRDF                  = 1,
 			BRDF_TSNM             = 2,

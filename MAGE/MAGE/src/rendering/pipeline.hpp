@@ -435,14 +435,6 @@ namespace mage {
 
 				device_context->IASetInputLayout(input_layout);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			IA() = delete;
 		};
 
 		#pragma endregion
@@ -657,14 +649,6 @@ namespace mage {
 					
 				device_context->VSSetSamplers(slot, nb_samplers, samplers);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			VS() = delete;
 		};
 
 		#pragma endregion
@@ -899,16 +883,7 @@ namespace mage {
 		/**
 		 The tesselator stage.
 		 */
-		struct TS final {
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			TS() = delete;
-		};
+		struct TS final {};
 
 		#pragma endregion
 
@@ -1122,14 +1097,6 @@ namespace mage {
 					
 				device_context->DSSetSamplers(slot, nb_samplers, samplers);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			DS() = delete;
 		};
 
 		#pragma endregion
@@ -1344,14 +1311,6 @@ namespace mage {
 					
 				device_context->GSSetSamplers(slot, nb_samplers, samplers);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			GS() = delete;
 		};
 
 		#pragma endregion
@@ -1364,16 +1323,7 @@ namespace mage {
 		/**
 		 The stream output stage.
 		 */
-		struct SO final {
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			SO() = delete;
-		};
+		struct SO final {};
 
 		#pragma endregion
 
@@ -1431,14 +1381,6 @@ namespace mage {
 
 				device_context->RSSetViewports(nb_viewports, viewports);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			RS() = delete;
 		};
 
 		#pragma endregion
@@ -1653,14 +1595,6 @@ namespace mage {
 					
 				device_context->PSSetSamplers(slot, nb_samplers, samplers);
 			}
-		
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			PS() = delete;
 		};
 
 		#pragma endregion
@@ -1841,14 +1775,6 @@ namespace mage {
 			#else  // DISSABLE_INVERTED_Z_BUFFER
 			static constexpr F32 s_clear_depth = 0.0f;
 			#endif // DISSABLE_INVERTED_Z_BUFFER
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			OM() = delete;
 		};
 
 		#pragma endregion
@@ -2126,13 +2052,6 @@ namespace mage {
 					
 				device_context->CSSetSamplers(slot, nb_samplers, samplers);
 			}
-		private:
-			
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			CS() = delete;
 		};
 
 		#pragma endregion
@@ -2150,12 +2069,6 @@ namespace mage {
 		};
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Constructors
-		//---------------------------------------------------------------------
-
-		Pipeline() = delete;
 
 		//---------------------------------------------------------------------
 		// Class Member Methods

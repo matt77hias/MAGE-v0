@@ -18,7 +18,7 @@ namespace mage::script {
 
 	public:
 
-		enum struct RotationAxis {
+		enum class RotationAxis : U8 {
 			X = 0,
 			Y = 1,
 			Z = 2,

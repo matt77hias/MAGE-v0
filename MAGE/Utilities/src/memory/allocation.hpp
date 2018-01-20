@@ -80,7 +80,7 @@ namespace mage {
 	}
 
 	/**
-	 A struct of aligned allocators.
+	 A class of aligned allocators.
 
 	 @tparam		DataT
 					The data type.
@@ -126,14 +126,6 @@ namespace mage {
 			 @c DataT.
 			 */
 			using other = AlignedAllocator< DataU, AlignmentS >;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			rebind() = delete;
 		};
 
 		//---------------------------------------------------------------------

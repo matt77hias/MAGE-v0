@@ -25,26 +25,26 @@ namespace mage {
 	 @c ShadingNormal, and
 	 @c TSNMShadingNormal.
 	 */
-	enum struct RenderMode {
+	enum class RenderMode : U8 {
 		// Rendering
-		None = 0,                    // No shading.
-		Forward,                     // Forward shading.
-		Deferred,					 // Deferred shading.
-		Solid,                       // Solid shading.             
+		None                 = 0,  // No shading.
+		Forward              = 1,  // Forward shading.
+		Deferred             = 2,  // Deferred shading.
+		Solid                = 3,  // Solid shading.             
 		
 		// Material
-		BaseColor,					 // Base Color (coefficient + texture).
-		BaseColorCoefficient,        // Base Color coefficient.
-		BaseColorTexture,            // Base Color texture.
-		Material,                    // Material (coefficient + texture).
-		MaterialCoefficient,         // Material coefficient.
-		MaterialTexture,             // Material texture.
-		NormalTexture,               // Normal texture.
+		BaseColor            = 4,  // Base Color (coefficient + texture).
+		BaseColorCoefficient = 5,  // Base Color coefficient.
+		BaseColorTexture     = 6,  // Base Color texture.
+		Material             = 7,  // Material (coefficient + texture).
+		MaterialCoefficient  = 8,  // Material coefficient.
+		MaterialTexture      = 9,  // Material texture.
+		NormalTexture        = 10, // Normal texture.
 		
-		UVTexture,                   // UV parametrization texture.
-		Distance,                    // The distance towards the eye.
-		ShadingNormal,               // The shading normal.
-		TSNMShadingNormal            // The TSNM shading normal.
+		UVTexture            = 11, // UV parametrization texture.
+		Distance             = 12, // The distance towards the eye.
+		ShadingNormal        = 13, // The shading normal.
+		TSNMShadingNormal    = 14  // The TSNM shading normal.
 	};
 
 	/**
@@ -55,9 +55,9 @@ namespace mage {
 	 @c Wireframe, and
 	 @c AABB.
 	 */
-	enum struct RenderLayer {
-		None      = 0,		// No layer.
-		Wireframe = 1,		// Wirframe layer.
-		AABB      = 2,		// AABB layer.
+	enum class RenderLayer : U32 {
+		None      = 0, // No layer.
+		Wireframe = 1, // Wirframe layer.
+		AABB      = 2, // AABB layer.
 	};
 }

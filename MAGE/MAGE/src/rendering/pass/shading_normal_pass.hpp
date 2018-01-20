@@ -146,7 +146,7 @@ namespace mage {
 		 @c ShadingNormal and
 		 @c TSNMShadingNormal.
 		 */
-		enum struct PSIndex {
+		enum class PSIndex : U8 {
 			Default = 0,
 			TSNM    = 1,
 			Count   = 2

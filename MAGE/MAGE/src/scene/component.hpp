@@ -210,15 +210,6 @@ namespace mage {
 	 */
 	class ComponentClient final {
 
-	public:
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		ComponentClient &operator=(const ComponentClient &client) = delete;
-		ComponentClient &operator=(ComponentClient &&client) = delete;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -226,6 +217,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a component client.
+		 */
+		ComponentClient() = delete;
 
 		//---------------------------------------------------------------------
 		// Static Member Methods
@@ -242,15 +242,6 @@ namespace mage {
 		static void SetOwner(Component &component, ProxyPtr< Node > owner) noexcept {
 			component.SetOwner(std::move(owner));
 		}
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		ComponentClient() = delete;
-		ComponentClient(const ComponentClient &client) = delete;
-		ComponentClient(ComponentClient &&client) = delete;
-		~ComponentClient() = delete;
 	};
 
 	#pragma endregion

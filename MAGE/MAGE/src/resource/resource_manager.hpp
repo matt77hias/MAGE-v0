@@ -28,6 +28,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Type Declarations and Definitions
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 A struct of resource records.
@@ -38,23 +39,25 @@ namespace mage {
 		template< typename ResourceT >
 		struct ResourceRecord { 
 
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing resources of the given
 			 type.
 			 */
 			using pool_type = ResourcePool< wstring, const ResourceT >;
 
-			/**
-			 The key type of resource pools containing resources of the given 
-			 type.
-			 */
-			using key_type   = typename pool_type::key_type;
+		private:
 
-			/**
-			 The value type of resource pools containing resources of the given 
-			 type.
-			 */
-			using value_type = typename pool_type::value_type;
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 		
 		/**
@@ -63,20 +66,24 @@ namespace mage {
 		template<>
 		struct ResourceRecord< VertexShader > {
 
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing vertex shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const VertexShader >;
-			
-			/**
-			 The key type of resource pools containing vertex shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing vertex shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -85,20 +92,24 @@ namespace mage {
 		template<>
 		struct ResourceRecord< HullShader > {
 			
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing hull shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const HullShader >;
-			
-			/**
-			 The key type of resource pools containing hull shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing hull shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -106,21 +117,25 @@ namespace mage {
 		 */
 		template<>
 		struct ResourceRecord< DomainShader > {
-			
+		
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing domain shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const DomainShader >;
-			
-			/**
-			 The key type of resource pools containing domain shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing domain shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -129,20 +144,24 @@ namespace mage {
 		template<>
 		struct ResourceRecord< GeometryShader > {
 			
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing geometry shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const GeometryShader >;
-			
-			/**
-			 The key type of resource pools containing geometry shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing geometry shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -151,20 +170,24 @@ namespace mage {
 		template<>
 		struct ResourceRecord< PixelShader > {
 			
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing pixel shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const PixelShader >;
-			
-			/**
-			 The key type of resource pools containing pixel shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
 
-			/**
-			 The value type of resource pools containing pixel shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -173,42 +196,50 @@ namespace mage {
 		template<>
 		struct ResourceRecord< ComputeShader > {
 
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing compute shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const ComputeShader >;
-			
-			/**
-			 The key type of resource pools containing compute shaders.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing compute shaders.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
 		 A struct of variable script resource records.
 		 */
 		template<>
-		struct ResourceRecord< VariableScript >{
+		struct ResourceRecord< VariableScript > {
 			
+		public:
+
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The pool type of resource pools containing variable scripts.
 			 */
 			using pool_type  = ResourcePool< wstring, VariableScript >;
-			
-			/**
-			 The key type of resource pools containing variable scripts.
-			 */
-			using key_type   = typename pool_type::key_type;
-			
-			/**
-			 The value type of resource pools containing variable scripts.
-			 */
-			using value_type = typename pool_type::value_type;
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
+			ResourceRecord() = delete;
 		};
 
 		/**
@@ -229,7 +260,7 @@ namespace mage {
 						The resource type.
 		 */
 		template< typename ResourceT >
-		using key_type = typename ResourceRecord< ResourceT >::key_type;
+		using key_type = typename ResourceRecord< ResourceT >::pool_type::key_type;
 		
 		/**
 		 The value type of resource pools containing resources of the given 
@@ -239,7 +270,9 @@ namespace mage {
 						The resource type.
 		 */
 		template< typename ResourceT >
-		using value_type = typename ResourceRecord< ResourceT >::value_type;
+		using value_type = typename ResourceRecord< ResourceT >::pool_type::value_type;
+
+		#pragma endregion
 
 		//---------------------------------------------------------------------
 		// Class Member Methods

@@ -116,6 +116,10 @@ namespace mage {
 
 		public:
 
+			//-----------------------------------------------------------------
+			// Type Declarations and Definitions
+			//-----------------------------------------------------------------
+
 			/**
 			 The equivalent aligned allocator for elements of type @c DataU with 
 			 the same alignment as the aligned allocator for elements of type 
@@ -123,54 +127,13 @@ namespace mage {
 			 */
 			using other = AlignedAllocator< DataU, AlignmentS >;
 
-			/**
-			 Copies the given aligned allocator to this aligned allocator.
-
-			 @param[in]		r
-							A reference to the aligned allocator to copy.
-			 @return		A reference to the copy of the given aligned 
-							allocator (i.e. this aligned allocator).
-			 */
-			rebind &operator=(const rebind &r) = delete;
-
-			/**
-			 Moves the given aligned allocator to this aligned allocator.
-
-			 @param[in]		r
-							A reference to the aligned allocator to move.
-			 @return		A reference to the moved aligned allocator (i.e. 
-							this aligned allocator).
-			 */
-			rebind &operator=(rebind &&r) = delete;
-
 		private:
 
-			/**
-			 Constructs an aligned allocator.
-			 */
+			//-----------------------------------------------------------------
+			// Constructors
+			//-----------------------------------------------------------------
+
 			rebind() = delete;
-
-			/**
-			 Constructs an aligned allocator from the given aligned allocator.
-
-			 @param[in]		r
-							A reference to the aligned allocator to copy.
-			 */
-			rebind(const rebind &r) = delete;
-
-			/**
-			 Constructs an aligned allocator by moving the given aligned 
-			 allocator.
-
-			 @param[in]		r
-							A reference to the aligned allocator to move.
-			 */
-			rebind(rebind &&r) = delete;
-
-			/**
-			 Destructs this aligned allocator.
-			 */
-			~rebind() = delete;
 		};
 
 		//---------------------------------------------------------------------

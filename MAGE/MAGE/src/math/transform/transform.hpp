@@ -1623,15 +1623,6 @@ namespace mage {
 	 */
 	class TransformClient final {
 	
-	public:
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		TransformClient &operator=(const TransformClient &client) = delete;
-		TransformClient &operator=(TransformClient &&client) = delete;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -1639,6 +1630,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a transform client.
+		 */
+		TransformClient() = delete;
 
 		//---------------------------------------------------------------------
 		// Static Member Methods
@@ -1655,15 +1655,6 @@ namespace mage {
 		static void SetOwner(Transform &transform, ProxyPtr< Node > owner) noexcept {
 			transform.SetOwner(std::move(owner));
 		}
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		TransformClient() = delete;
-		TransformClient(const TransformClient &client) = delete;
-		TransformClient(TransformClient &&client) = delete;
-		~TransformClient() = delete;
 	};
 
 	#pragma endregion

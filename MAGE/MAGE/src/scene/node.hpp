@@ -542,15 +542,6 @@ namespace mage {
 	 */
 	class NodeClient final {
 	
-	public:
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		NodeClient &operator=(const NodeClient &client) = delete;
-		NodeClient &operator=(NodeClient &&client) = delete;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -558,6 +549,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		friend class Scene;
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a node client.
+		 */
+		NodeClient() = delete;
 
 		//---------------------------------------------------------------------
 		// Static Member Methods
@@ -574,15 +574,6 @@ namespace mage {
 		static void Set(Node &node, ProxyPtr< Node > ptr) noexcept {
 			node.Set(std::move(ptr));
 		}
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		NodeClient() = delete;
-		NodeClient(const NodeClient &client) = delete;
-		NodeClient(NodeClient &&client) = delete;
-		~NodeClient() = delete;
 	};
 
 	#pragma endregion

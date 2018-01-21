@@ -34,9 +34,11 @@ namespace mage {
 		m_transform(XMMatrixIdentity()),
 		m_transform_buffer(device),
 		m_sprites(),
-		m_nb_sprites(0u),
-		m_nb_sprites_max(0u),
-		m_sorted_sprites() {}
+		m_sorted_sprites() {
+
+		m_sprites.reserve(s_initial_capacity);
+		m_sorted_sprites.reserve(m_sprites.capacity());
+	}
 
 	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
 
@@ -47,6 +49,9 @@ namespace mage {
 		
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
+
+		m_sprites.clear();
+		m_sorted_sprites.clear();
 
 		m_sort_mode = sort_mode;
 		m_transform = transform;
@@ -69,11 +74,13 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 		Assert(texture);
 
-		if (m_nb_sprites >= m_nb_sprites_max) {
-			GrowSpriteQueue();
+		if (m_sprites.size() == m_sprites.capacity()) {
+			m_sprites.reserve(2 * m_sprites.capacity());
+			m_sorted_sprites.clear();
+			m_sorted_sprites.reserve(m_sprites.capacity());
 		}
 		
-		auto sprite = &m_sprites[m_nb_sprites];
+		auto sprite = &m_sprites.emplace_back();
 
 		auto flags = static_cast< U32 >(effects);
 		// destination: Tx Ty Sx Sy
@@ -118,8 +125,7 @@ namespace mage {
 			RenderBatch(texture, &sprite, 1);
 		}
 		else {
-			// Queue this sprite for later sorting and batched rendering.
-			++m_nb_sprites;
+			m_sorted_sprites.push_back(sprite);
 		}
 	}
 
@@ -135,20 +141,6 @@ namespace mage {
 
 		// Untoggle the begin/end pair.
 		m_in_begin_end_pair = false;
-	}
-
-	void SpriteBatch::GrowSpriteQueue() {
-		m_nb_sprites_max = std::max(SpriteBatch::s_initial_queue_size,
-			                        2 * m_nb_sprites_max);
-		
-		auto sprites = MakeUnique< SpriteInfo[] >(m_nb_sprites_max);
-		for (size_t i = 0; i < m_nb_sprites; ++i) {
-			sprites[i] = m_sprites[i];
-		}
-		m_sprites = std::move(sprites);
-
-		// Clear any dangling SpriteInfo pointers left over from previous rendering.
-		m_sorted_sprites.clear();
 	}
 
 	void SpriteBatch::BindSpriteBatch() {
@@ -176,7 +168,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::FlushBatch() {
-		if (0u == m_nb_sprites) {
+		if (0u == m_sprites.size()) {
 			return;
 		}
 		
@@ -187,7 +179,7 @@ namespace mage {
 		// sprites sharing a texture.
 		ID3D11ShaderResourceView *batch_texture = nullptr;
 		size_t batch_start = 0u;
-		for (size_t i = 0; i < m_nb_sprites; ++i) {
+		for (size_t i = 0; i < m_sprites.size(); ++i) {
 			
 			auto sprite_texture = m_sorted_sprites[i]->m_texture;
 			Assert(sprite_texture);
@@ -205,29 +197,17 @@ namespace mage {
 			}
 		}
 		// Flush the final subbatch.
-		const auto nb_sprites_batch = m_nb_sprites - batch_start;
+		const auto nb_sprites_batch = m_sprites.size() - batch_start;
 		RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
-
-		// Reset the sprite queue.
-		m_nb_sprites = 0;
-
-		// The original ordering will always be re-sorted.
-		if (SpriteSortMode::Deferred != m_sort_mode) {
-			m_sorted_sprites.clear();
-		}
 	}
 
 	void SpriteBatch::SortSprites() {
-		if (m_sorted_sprites.size() < m_nb_sprites) {
-			GrowSortedSprites();
-		}
-
 		switch (m_sort_mode) {
 
 		case SpriteSortMode::Texture: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				      m_sorted_sprites.begin() + m_nb_sprites, 
+				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
 						 const SpriteInfo *rhs) noexcept -> bool {
 					     return lhs->m_texture < rhs->m_texture;
@@ -238,7 +218,7 @@ namespace mage {
 		case SpriteSortMode::BackToFront: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				      m_sorted_sprites.begin() + m_nb_sprites, 
+				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
 						 const SpriteInfo *rhs) noexcept -> bool {
 					     return lhs->m_origin_rotation_depth.m_w 
@@ -250,7 +230,7 @@ namespace mage {
 		case SpriteSortMode::FrontToBack: {
 			
 			std::sort(m_sorted_sprites.begin(), 
-				      m_sorted_sprites.begin() + m_nb_sprites, 
+				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
 						 const SpriteInfo *rhs) noexcept -> bool {
 					     return lhs->m_origin_rotation_depth.m_w 
@@ -258,17 +238,6 @@ namespace mage {
 				      });
 			break;
 		}
-		}
-	}
-
-	void SpriteBatch::GrowSortedSprites() {
-		// Retrieve the old size of the sorted sprites collection.
-		const auto old_size = m_sorted_sprites.size();
-		// Resize the sorted sprites collection.
-		m_sorted_sprites.resize(m_nb_sprites);
-		// Transfer the remaining sprites. 
-		for (auto i = old_size; i < m_nb_sprites; ++i) {
-			m_sorted_sprites[i] = &m_sprites[i];
 		}
 	}
 

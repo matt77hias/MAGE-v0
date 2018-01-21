@@ -6,6 +6,7 @@
 #pragma region
 
 #include "camera\viewport.hpp"
+#include "collection\vector.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
@@ -335,15 +336,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Grows the sprite queue of this sprite batch. 
-		 
-		 This effectively replaces the current sprite queue with a new sprite 
-		 queue having a capacity equal to two times the capacity of the current 
-		 sprite queue of this sprite batch.
-		 */
-		void GrowSpriteQueue();
-		
-		/**
 		 Binds this sprite batch.
 		 */
 		void BindSpriteBatch();
@@ -369,18 +361,6 @@ namespace mage {
 					is required.
 		 */
 		void SortSprites();
-		
-		/**
-		 Grows the vector of sorted sprites of this sprite batch.
-
-		 This effectively replaces the current vector of sorted sprites with a 
-		 new vector of sorted sprites having a capacity equal to the number of 
-		 sprites waiting to be drawn in the sprite queue of this sprite batch.
-
-		 @note		This functionality is only used if non-immediate rendering 
-					is required.
-		 */
-		void GrowSortedSprites();
 		
 		/**
 		 Draws a subbatch of sprites of the current batch of sprites
@@ -430,10 +410,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The initial size of the queue containing the sprites waiting to be 
-		 drawn by a sprite batch.
+		 The initial capacity of the vector containing the sprites waiting to 
+		 be drawn by a sprite batch.
 		 */
-		static const size_t s_initial_queue_size = 64u;
+		static const size_t s_initial_capacity = 64u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Rendering
@@ -511,26 +491,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the queue containing the sprites waiting to be drawn by 
-		 this sprite batch.
+		 A vector containing the sprites waiting to be drawn by this sprite 
+		 batch.
 		 */
-		UniquePtr< SpriteInfo[] > m_sprites;
+		AlignedVector< SpriteInfo > m_sprites;
 		
 		/**
-		 The number of sprites waiting to be drawn by this sprite batch.
-		 */
-		size_t m_nb_sprites;
-		
-		/**
-		 The number of sprites that could potentially be waiting to be drawn by 
-		 this sprite batch. If the demand exceeds this number, the queue will
-		 be enlarged appropriately.
-		 */
-		size_t m_nb_sprites_max;
-		
-		/**
-		 A vector containing the pointer to the sorted sprites in the queue of 
-		 this sprite batch.
+		 A vector containing the pointers to the sorted sprites of this sprite 
+		 batch.
 		 */
 		std::vector< const SpriteInfo * > m_sorted_sprites;
 	};

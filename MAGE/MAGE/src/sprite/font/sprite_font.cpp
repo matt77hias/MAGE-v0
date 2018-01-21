@@ -239,7 +239,7 @@ namespace mage {
 				switch (character) {
 
 				case L'\r': {
-					continue;
+					break;
 				}
 
 				case L'\n': {
@@ -250,7 +250,7 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::min(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset_x);
 
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
@@ -300,7 +300,7 @@ namespace mage {
 				switch (character) {
 
 				case L'\r': {
-					continue;
+					break;
 				}
 
 				case L'\n': {
@@ -311,7 +311,7 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::min(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset_x);
 
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
@@ -353,7 +353,7 @@ namespace mage {
 				switch (character) {
 
 				case L'\r': {
-					continue;
+					break;
 				}
 
 				case L'\n': {
@@ -364,7 +364,7 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::min(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset_x);
 					
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());

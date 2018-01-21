@@ -14,15 +14,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <vector>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -442,7 +433,7 @@ namespace mage {
 		 The initial size of the queue containing the sprites waiting to be 
 		 drawn by a sprite batch.
 		 */
-		static const size_t s_initial_queue_size = 64;
+		static const size_t s_initial_queue_size = 64u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Rendering
@@ -523,36 +514,24 @@ namespace mage {
 		 A pointer to the queue containing the sprites waiting to be drawn by 
 		 this sprite batch.
 		 */
-		UniquePtr< SpriteInfo[] > m_sprite_queue;
+		UniquePtr< SpriteInfo[] > m_sprites;
 		
 		/**
 		 The number of sprites waiting to be drawn by this sprite batch.
 		 */
-		size_t m_sprite_queue_size;
+		size_t m_nb_sprites;
 		
 		/**
 		 The number of sprites that could potentially be waiting to be drawn by 
 		 this sprite batch. If the demand exceeds this number, the queue will
 		 be enlarged appropriately.
 		 */
-		size_t m_sprite_queue_array_size;
+		size_t m_nb_sprites_max;
 		
 		/**
 		 A vector containing the pointer to the sorted sprites in the queue of 
 		 this sprite batch.
 		 */
 		std::vector< const SpriteInfo * > m_sorted_sprites;
-		
-		/**
-		 A vector containing the smart pointers of the texture shader resource 
-		 views.
-
-		 If each {@link mage::SpriteInfo} instance held a refcount on its 
-		 texture, this could end up with many redundant @c AddRef and
-		 @c Release calls on the same object, so instead this separate 
-		 collection is used to hold just a single refcount each time the 
-		 associated texture is changed.
-		 */
-		std::vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_srvs;
 	};
 }

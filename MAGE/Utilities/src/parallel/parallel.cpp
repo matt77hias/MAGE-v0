@@ -26,8 +26,8 @@ namespace mage {
 			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER != GetLastError()),
 				"Retrieving processor information failed.");
 		}
-		
-		UniquePtr< U8[] > buffer(MakeUnique< U8[] >(length));
+
+		auto buffer = MakeUnique< U8[] >(length);
 		
 		// Populate the buffer.
 		{

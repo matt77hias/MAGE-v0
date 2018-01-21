@@ -37,7 +37,7 @@ namespace mage {
 	void CreateMiniDump(EXCEPTION_POINTERS *exception_record) noexcept {
 		Info("Start creating a mini dump file.");
 
-		UniqueHandle file_handle = CreateUniqueHandle(
+		auto file_handle = CreateUniqueHandle(
 			CreateFile(L"MiniDump.dmp", GENERIC_READ | GENERIC_WRITE,
 			0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr));
 

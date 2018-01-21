@@ -73,7 +73,7 @@ namespace mage {
 			m_color{}, 
 			m_origin_rotation_depth{},
 			m_texture(nullptr), 
-			m_flags(0) {}
+			m_flags(0u) {}
 
 		/**
 		 Constructs a sprite info from the given sprite info.

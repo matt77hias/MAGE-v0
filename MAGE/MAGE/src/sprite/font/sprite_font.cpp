@@ -201,7 +201,7 @@ namespace mage {
 		                      const ColorString *strings,
 		                      size_t nb_strings,
 		                      const SpriteTransform &transform,
-		                      SpriteEffect effects = SpriteEffect::None,
+		                      SpriteEffect effects,
 		                      const SRGBA *color) const {
 		
 		static_assert(

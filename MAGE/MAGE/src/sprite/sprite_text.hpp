@@ -171,7 +171,6 @@ namespace mage {
 		 */
 		void ClearText() noexcept {
 			m_strings.clear();
-			m_text.clear();
 		}
 
 		/**
@@ -192,7 +191,6 @@ namespace mage {
 		 */
 		void SetText(ColorString text) {
 			ClearText();
-			m_text = text.GetString();
 			m_strings.push_back(std::move(text));
 		}
 		
@@ -203,7 +201,6 @@ namespace mage {
 						The text.
 		 */
 		void AppendText(ColorString text) {
-			m_text += text.c_str();
 			m_strings.push_back(std::move(text));
 		}
 
@@ -325,11 +322,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables: Text
 		//---------------------------------------------------------------------
-
-		/**
-		 The text of this sprite text.
-		 */
-		wstring m_text;
 
 		/**
 		 A vector with the color strings of this sprite text.

@@ -82,6 +82,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the width of this glyph.
+
+		 @return		The width of this glyph.
+		 */
+		U32 GetWidth() const noexcept {
+			return m_sub_rectangle.right - m_sub_rectangle.left;
+		}
+
+		/**
+		 Returns the height of this glyph.
+
+		 @return		The height of this glyph.
+		 */
+		U32 GetHeight() const noexcept {
+			return m_sub_rectangle.bottom - m_sub_rectangle.top;
+		}
+
+		/**
 		 Checks whether this glyph's character is smaller than the given 
 		 glyph's character.
 

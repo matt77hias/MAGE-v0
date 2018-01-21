@@ -115,102 +115,72 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Draws the given string with this sprite font using the given sprite 
-		 batch.
-
-		 @pre			@a str string is not equal to @c nullptr.
-		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering the 
-						given string with this sprite font.
-		 @param[in]		str
-						A pointer to the first null-terminated byte string.
-		 @param[in]		transform
-						A reference to the sprite transform.
-		 @param[in]		color
-						The sRGB color of the sprite.
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		void XM_CALLCONV DrawString(SpriteBatch &sprite_batch,
-			                        const wchar_t *str,
-			                        const SpriteTransform &transform,
-			                        FXMVECTOR color, 
-			                        SpriteEffect effects = SpriteEffect::None) const;
-
-		/**
 		 Draws the given text with this sprite font using the given sprite 
 		 batch.
 
+		 @pre			@a strings is not equal to @c nullptr.
+		 @pre			@a strings points to an array containing at least
+						@a nb_strings elements.
 		 @param[in]		sprite_batch
 						A reference to the sprite batch used for rendering
 						the given text with this sprite font.
-		 @param[in]		text
-						A reference to a vector containing color strings.
+		 @param[in]		strings
+						A pointer to the strings of the text.
+		 @param[in]		nb_strings
+						The number of strings in the text.
 		 @param[in]		transform
 						A reference to the sprite transform.
 		 @param[in]		effects
 						The sprite effects to apply.
+		 @param[in]		color
+						A pointer to the color. If this pointer is equal to 
+						@c nullptr, each string will be drawn in its own color.
+						Otherwise, each string is drawn in this color.
 		 */
-		void DrawString(SpriteBatch &sprite_batch, 
-			            const std::vector< ColorString > &text,
-			            const SpriteTransform &transform,
-			            SpriteEffect effects = SpriteEffect::None) const;
+		void DrawText(SpriteBatch &sprite_batch, 
+			          const ColorString *strings,
+				      size_t nb_strings,
+			          const SpriteTransform &transform,
+			          SpriteEffect effects = SpriteEffect::None,
+		              const SRGBA *color = nullptr) const;
 		
 		/**
-		 Returns the size of the given string with this sprite font in pixels.
+		 Returns the size of the given text with this sprite font (in pixels).
 
-		 @pre			@a str is not equal to @c nullptr.
-		 @param[in]		str
-						A pointer to the first null-terminated byte string.
-		 @return		A @a XMVECTOR containing the pixel width as first
-						coordinate and pixel height as second coordinate.
-		 @note			The string size is computed from the origin to the 
-						rightmost pixel rendered by any character glyph. This 
-						has the effect of ignoring 'trailing spaces'.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
-			MeasureString(const wchar_t *str) const;
-
-		/**
-		 Returns the size of the given text with this sprite font in pixels.
-
-		 @param[in]		text
-						A reference to a vector containing color strings.
+		 @pre			@a strings is not equal to @c nullptr.
+		 @pre			@a strings points to an array containing at least
+						@a nb_strings elements.
+		 @param[in]		strings
+						A pointer to the strings of the text.
+		 @param[in]		nb_strings
+						The number of strings in the text.
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
 		 @note			The text size is computed from the origin to the
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
-			MeasureString(const std::vector< ColorString > &text) const;
+		[[nodiscard]] const XMVECTOR XM_CALLCONV
+			MeasureText(const ColorString *strings, size_t nb_strings) const;
 		
-		/**
-		 Returns a rectangle bounding the given string with this sprite font.
-
-		 @pre			@a str string is not equal to @c nullptr.
-		 @param[in]		str
-						A pointer to the first null-terminated byte string.
-		 @param[in]		position
-						The top-left position of the string.
-		 @return		A @c RECT bounding the given string with this sprite 
-						font.
-		 */
-		[[nodiscard]] const RECT MeasureDrawBounds(const wchar_t *str, 
-			                                       const F32x2 &position) const;
-
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
 
-		 @param[in]		text
-						A reference to a vector containing color strings.
+		 @pre			@a strings is not equal to @c nullptr.
+		 @pre			@a strings points to an array containing at least
+						@a nb_strings elements.
+		 @param[in]		strings
+						A pointer to the strings of the text.
+		 @param[in]		nb_strings
+						The number of strings in the text.
 		 @param[in]		position
 						The top-left position of the text.
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.
 		 */
-		[[nodiscard]] const RECT MeasureDrawBounds(const std::vector< ColorString > &text, 
-			                                       const F32x2 &position) const;
+		[[nodiscard]] const RECT MeasureDrawBounds(const ColorString *strings, 
+			                                       size_t nb_strings,
+			                                       const F32x2 &top_left) const;
 		
 		/**
 		 Checks whether this sprite font is empty.

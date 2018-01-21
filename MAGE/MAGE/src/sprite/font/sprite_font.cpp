@@ -16,6 +16,7 @@
 #pragma region
 
 #include <algorithm>
+#include <limits>
 
 #pragma endregion
 
@@ -32,7 +33,7 @@ namespace mage {
 	/**
 	 A struct of glyph "less than" comparators.
 	 */
-	struct GlyphLessThan final {
+	class GlyphLessThan final {
 
 	public:
 
@@ -196,147 +197,45 @@ namespace mage {
 		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
-	void XM_CALLCONV SpriteFont::DrawString(SpriteBatch &sprite_batch, 
-		                                    const wchar_t *str, 
-		                                    const SpriteTransform &transform, 
-		                                    FXMVECTOR color, 
-		                                    SpriteEffect effects) const {
-		Assert(str);
-
-		static_assert(
-			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u && 
-			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2u,
-			"The following tables must be updated to match");
-		// Lookup table indicates which way to move along each axes for each 
-		// SpriteEffect.
-		static const XMVECTORF32 axis_direction_table[4] = {
-			{-1.0f, -1.0f}, //SpriteEffect::None
-			{ 1.0f, -1.0f}, //SpriteEffect::FlipHorizontally
-			{-1.0f,  1.0f}, //SpriteEffect::FlipVertically
-			{ 1.0f,  1.0f}  //SpriteEffect::FlipBoth
-		};
-		// Lookup table indiucates which axes are mirrored for each 
-		// SpriteEffect.
-		static const XMVECTORF32 axis_is_mirrored_table[4] = {
-			{ 0.0f, 0.0f }, //SpriteEffect::None
-			{ 1.0f, 0.0f }, //SpriteEffect::FlipHorizontally
-			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
-			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
-		};
-		const auto index = static_cast< size_t >(effects) & 3;
-
-		const auto rotation_origin = transform.GetRotationOrigin();
-		auto base_offset = XMLoadFloat2(&rotation_origin);
-		if (SpriteEffect::None != effects) {
-			base_offset -= MeasureString(str) * axis_is_mirrored_table[index];
-		}
-
-		auto x = 0.0f;
-		auto y = 0.0f;
-		SpriteTransform sprite_transform(transform);
-
-		for (auto s = str; *s != L'\0'; ++s) {
-			const auto character = *s;
-			
-			switch (character) {
-
-			case L'\r': {
-				continue;
-			}
-
-			case L'\n': {
-				x = 0.0f;
-				y += m_line_spacing;
-				break;
-			}
-
-			default: {
-				const auto glyph = GetGlyph(character);
-
-				x += glyph->m_offset_x;
-				if (x < 0.0f) {
-					x = 0.0f;
-				}
-
-				const auto width  = static_cast< F32 >(
-					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const auto height = static_cast< F32 >(
-					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const auto advance = width + glyph->m_advance_x;
-
-				if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-					const auto top_left
-						= XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-					const auto &flip
-						= axis_direction_table[index];
-					auto offset
-						= XMVectorMultiplyAdd(top_left, flip, base_offset);
-
-					if (SpriteEffect::None != effects) {
-						const auto rect 
-							= XMLoadInt4(reinterpret_cast< const U32 * >(
-								         &(glyph->m_sub_rectangle)));
-						auto glyph_rect
-							= XMConvertVectorIntToFloat(rect, 0);
-						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-						const auto &mirror
-							= axis_is_mirrored_table[index];
-						offset 
-							= XMVectorMultiplyAdd(glyph_rect, mirror, offset);
-					}
-
-					sprite_transform.SetRotationOrigin(offset);
-					sprite_batch.Draw(
-						m_texture_srv.Get(), color, effects, 
-						sprite_transform, &glyph->m_sub_rectangle);
-				}
-
-				x += advance;
-				break;
-			}
-			}
-		}
-	}
-	
-	void SpriteFont::DrawString(SpriteBatch &sprite_batch, 
-		                        const std::vector< ColorString > &text, 
-		                        const SpriteTransform &transform, 
-		                        SpriteEffect effects) const {
+	void SpriteFont::DrawText(SpriteBatch &sprite_batch,
+		                      const ColorString *strings,
+		                      size_t nb_strings,
+		                      const SpriteTransform &transform,
+		                      SpriteEffect effects = SpriteEffect::None,
+		                      const SRGBA *color = nullptr) const {
 		
 		static_assert(
 			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u &&
 			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2u,
 			"The following tables must be updated to match");
 		// Lookup table indicates which way to move along each axes for each SpriteEffect.
-		static const XMVECTORF32 axis_direction_table[4] = {
+		static const XMVECTORF32 axis_direction_table[] = {
 			{ -1.0f, -1.0f }, //SpriteEffect::None
 			{  1.0f, -1.0f }, //SpriteEffect::FlipHorizontally
 			{ -1.0f,  1.0f }, //SpriteEffect::FlipVertically
 			{  1.0f,  1.0f }  //SpriteEffect::FlipBoth
 		};
 		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
-		static const XMVECTORF32 axis_is_mirrored_table[4] = {
+		static const XMVECTORF32 axis_is_mirrored_table[] = {
 			{ 0.0f, 0.0f }, //SpriteEffect::None
 			{ 1.0f, 0.0f }, //SpriteEffect::FlipHorizontally
 			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
 			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
 		};
+		
 		const auto index = static_cast< size_t >(effects) & 3;
 
 		const auto rotation_origin = transform.GetRotationOrigin();
-		auto base_offset = XMLoadFloat2(&rotation_origin);
-		if (SpriteEffect::None != effects) {
-			base_offset -= MeasureString(text) * axis_is_mirrored_table[index];
-		}
+		const auto base_offset = (SpriteEffect::None == effects) 
+			? XMLoadFloat2(&rotation_origin) : XMLoadFloat2(&rotation_origin) 
+			- MeasureText(strings, nb_strings) * axis_is_mirrored_table[index];
 
 		auto x = 0.0f;
 		auto y = 0.0f;
 		SpriteTransform sprite_transform(transform);
 
-		for (const auto &str : text) {
-			for (auto s = str.c_str(); *s != L'\0'; ++s) {
-				const auto character = *s;
-				
+		for (auto str = strings; str != strings + nb_strings; ++str) {
+			for (char character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -351,122 +250,53 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
+					x = std::min(0.0f, x + glyph->m_offset_x);
 
-					x += glyph->m_offset_x;
-					if (x < 0.0f) {
-						x = 0.0f;
-					}
-
-					const auto width   = static_cast< F32 >(
-						glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
-					const auto height  = static_cast< F32 >(
-						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const auto advance = width + glyph->m_advance_x;
-
+					const auto width  = static_cast< F32 >(glyph->GetWidth());
+					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-						const auto top_left
-							= XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-						const auto &flip
-							= axis_direction_table[index];
-						auto offset
-							= XMVectorMultiplyAdd(top_left, flip, base_offset);
+						const auto top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
+						const auto &flip    = axis_direction_table[index];
+						auto offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 						if (SpriteEffect::None != effects) {
-							const auto rect
-								= XMLoadInt4(reinterpret_cast<const U32 *>(
-									         &(glyph->m_sub_rectangle)));
-							auto glyph_rect
-								= XMConvertVectorIntToFloat(rect, 0);
-							glyph_rect 
-								= XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-							const auto &mirror
-								= axis_is_mirrored_table[index];
-							offset 
-								= XMVectorMultiplyAdd(glyph_rect, mirror, offset);
+							// Left Top Right Bottom
+							auto glyph_rect = XMVectorLeftTopRightBottom(glyph->m_sub_rectangle);
+							// Width Height -Width -Height
+							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
+							const auto &mirror = axis_is_mirrored_table[index];
+							offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 						}
 
 						sprite_transform.SetRotationOrigin(offset);
-						const auto color = str.GetColor();
-						sprite_batch.Draw(
-							m_texture_srv.Get(), XMLoadFloat4(&color), effects, 
-							sprite_transform, &glyph->m_sub_rectangle);
+						
+						const auto srgba = (color) ? *color : str->GetColor();
+						
+						sprite_batch.Draw(m_texture_srv.Get(), 
+							              XMLoadFloat4(&srgba), 
+							              effects,
+							              sprite_transform, 
+							              &glyph->m_sub_rectangle);
 					}
 
-					x += advance;
+					x += width + glyph->m_advance_x;
 					break;
 				}
+
 				}
 			}
 		}
 	}
 
 	[[nodiscard]] const XMVECTOR XM_CALLCONV 
-		SpriteFont::MeasureString(const wchar_t *str) const {
-		
-		Assert(str);
-
-		auto result = XMVectorZero();
-		auto x = 0.0f;
-		auto y = 0.0f;
-
-		for (auto s = str; *s != L'\0'; ++s) {
-			const auto character = *s;
-
-			switch (character) {
-
-			case L'\r': {
-				continue;
-			}
-
-			case L'\n': {
-				x = 0.0f;
-				y += m_line_spacing;
-				break;
-			}
-
-			default: {
-				const auto glyph = GetGlyph(character);
-
-				x += glyph->m_offset_x;
-				if (x < 0.0f) {
-					x = 0.0f;
-				}
-
-				const auto width  = static_cast< F32 >(
-					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const auto height = static_cast< F32 >(
-					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const auto advance = width + glyph->m_advance_x;
-
-				if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-					result = XMVectorMax(result, 
-						XMVectorSet(
-							x + width, 
-							y + std::max(m_line_spacing, height + glyph->m_offset_y), 
-							0.0f, 
-							0.0f));
-				}
-
-				x += advance;
-				break;
-			}
-			}
-		}
-
-		return result;
-	}
-	
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
-		SpriteFont::MeasureString(const std::vector< ColorString > &text) const {
+		SpriteFont::MeasureText(const ColorString *strings, size_t nb_strings) const {
 		
 		auto result = XMVectorZero();
 		auto x = 0.0f;
 		auto y = 0.0f;
 
-		for (const auto &str : text) {
-			for (auto s = str.c_str(); *s != L'\0'; ++s) {
-				const auto character = *s;
-				
+		for (auto str = strings; str != strings + nb_strings; ++str) {
+			for (char character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -481,30 +311,22 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
+					x = std::min(0.0f, x + glyph->m_offset_x);
 
-					x += glyph->m_offset_x;
-					if (x < 0.0f) {
-						x = 0.0f;
-					}
-
-					const auto width   = static_cast< F32 >(
-						glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
-					const auto height  = static_cast< F32 >(
-						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const auto advance = width + glyph->m_advance_x;
-
+					const auto width  = static_cast< F32 >(glyph->GetWidth());
+					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
 						result = XMVectorMax(result, 
-							XMVectorSet(
-								x + width, 
-								y + std::max(m_line_spacing, height + glyph->m_offset_y), 
-								0.0f, 
-								0.0f));
+							XMVectorSet(x + width, 
+								        y + std::max(m_line_spacing, height + glyph->m_offset_y), 
+								        0.0f, 
+								        0.0f));
 					}
 
-					x += advance;
+					x += width + glyph->m_advance_x;
 					break;
 				}
+
 				}
 			}
 		}
@@ -513,82 +335,21 @@ namespace mage {
 	}
 
 	[[nodiscard]] const RECT 
-		SpriteFont::MeasureDrawBounds(const wchar_t *str, 
-		                              const F32x2 &position) const {
-		Assert(str);
-
-		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
+		SpriteFont::MeasureDrawBounds(const ColorString *strings,
+			                          size_t nb_strings,
+			                          const F32x2 &top_left) const {
+		
+		RECT result = { 
+			std::numeric_limits< LONG >::max(), 
+			std::numeric_limits< LONG >::max(), 
+			0, 
+			0 
+		};
 		auto x = 0.0f;
 		auto y = 0.0f;
 
-		for (auto s = str; *s != L'\0'; ++s) {
-			const auto character = *s;
-			
-			switch (character) {
-			
-			case L'\r': {
-				continue;
-			}
-
-			case L'\n': {
-				x = 0.0f;
-				y += m_line_spacing;
-				break;
-			}
-
-			default: {
-				const auto glyph = GetGlyph(character);
-
-				x += glyph->m_offset_x;
-				if (x < 0.0f) {
-					x = 0.0f;
-				}
-
-				const auto width  = static_cast< F32 >(
-					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const auto height = static_cast< F32 >(
-					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const auto advance = width + glyph->m_advance_x;
-
-				if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-
-					const auto min_x = position.m_x + x;
-					const auto min_y = position.m_y + y + glyph->m_offset_y;
-					const auto max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
-					const auto max_y = min_y + height;
-
-					result.left   = std::min(result.left,   static_cast< LONG >(min_x));
-					result.top    = std::min(result.top,    static_cast< LONG >(min_y));
-					result.right  = std::max(result.right,  static_cast< LONG >(max_x));
-					result.bottom = std::max(result.bottom, static_cast< LONG >(max_y));
-				}
-
-				x += advance;
-				break;
-			}
-			}
-		}
-		
-		if (result.left == LONG_MAX) {
-			result.left = 0;
-			result.top = 0;
-		}
-
-		return result;
-	}
-
-	[[nodiscard]] const RECT 
-		SpriteFont::MeasureDrawBounds(const std::vector< ColorString > &text, 
-			                          const F32x2 &position) const {
-		
-		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
-		auto x = 0.0f;
-		auto y = 0.0f;
-
-		for (const auto &str : text) {
-			for (auto s = str.c_str(); *s != L'\0'; ++s) {
-				const auto character = *s;
-
+		for (auto str = strings; str != strings + nb_strings; ++str) {
+			for (char character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -603,22 +364,13 @@ namespace mage {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-
-					x += glyph->m_offset_x;
-					if (x < 0.0f) {
-						x = 0.0f;
-					}
-
-					const auto width   = static_cast< F32 >(
-						glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-					const auto height  = static_cast< F32 >(
-						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const auto advance = width + glyph->m_advance_x;
-
+					x = std::min(0.0f, x + glyph->m_offset_x);
+					
+					const auto width  = static_cast< F32 >(glyph->GetWidth());
+					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-
-						const auto min_x = position.m_x + x;
-						const auto min_y = position.m_y + y + glyph->m_offset_y;
+						const auto min_x = top_left.m_x + x;
+						const auto min_y = top_left.m_y + y + glyph->m_offset_y;
 						const auto max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
 						const auto max_y = min_y + height;
 
@@ -628,16 +380,17 @@ namespace mage {
 						result.bottom = std::max(result.bottom, static_cast< LONG >(max_y));
 					}
 
-					x += advance;
+					x += width + glyph->m_advance_x;
 					break;
 				}
+
 				}
 			}
 		}
 
-		if (result.left == LONG_MAX) {
+		if (result.left == std::numeric_limits< LONG >::max()) {
 			result.left = 0;
-			result.top = 0;
+			result.top  = 0;
 		}
 
 		return result;
@@ -660,8 +413,8 @@ namespace mage {
 			return &(*it);
 		}
 
-		ThrowIfFailed((nullptr != m_default_glyph),
-			"Character not found in sprite font.");
+		ThrowIfFailed((nullptr != m_default_glyph), 
+			          "Character not found in sprite font.");
 
 		return m_default_glyph;
 	}

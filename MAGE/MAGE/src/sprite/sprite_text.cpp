@@ -26,7 +26,6 @@ namespace mage {
 		: Component(),
 		m_sprite_transform(),
 		m_sprite_effects(SpriteEffect::None),
-		m_text(),
 		m_strings(),
 		m_text_effect_color(SRGB(MAGE_DEFAULT_TEXT_EFFECT_COLOR)),
 		m_text_effect(TextEffect::None),
@@ -44,8 +43,6 @@ namespace mage {
 	SpriteText &SpriteText::operator=(SpriteText &&sprite) noexcept = default;
 
 	void SpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const auto text = m_text.c_str();
-		const auto effect_color = XMLoadFloat4(&m_text_effect_color);
 		SpriteTransform effect_transform(m_sprite_transform);
 		
 		switch (m_text_effect) {
@@ -53,18 +50,12 @@ namespace mage {
 		case TextEffect::Outline: {
 			// -1, -1
 			effect_transform.AddTranslation(-1.0f, -1.0f);
-			m_font->DrawString(sprite_batch, 
-				               text, 
-				               effect_transform, 
-				               effect_color, 
-				               m_sprite_effects);
+			m_font->DrawText(sprite_batch, m_strings.data(), m_strings.size(),
+				             effect_transform, m_sprite_effects, &m_text_effect_color);
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
-			m_font->DrawString(sprite_batch, 
-				               text, 
-				               effect_transform, 
-				               effect_color, 
-				               m_sprite_effects);
+			m_font->DrawText(sprite_batch, m_strings.data(), m_strings.size(),
+				             effect_transform, m_sprite_effects, &m_text_effect_color);
 			
 			[[fallthrough]];
 		}
@@ -72,27 +63,19 @@ namespace mage {
 		case TextEffect::DropShadow: {
 			// +1, +1
 			effect_transform.AddTranslationY(2.0f);
-			m_font->DrawString(sprite_batch, 
-				               text, 
-				               effect_transform, 
-				               effect_color, 
-				               m_sprite_effects);
+			m_font->DrawText(sprite_batch, m_strings.data(), m_strings.size(),
+				             effect_transform, m_sprite_effects, &m_text_effect_color);
 			// -1, +1
 			effect_transform.AddTranslationX(-2.0f);
-			m_font->DrawString(sprite_batch, 
-				               text, 
-				               effect_transform, 
-				               effect_color, 
-				               m_sprite_effects);
+			m_font->DrawText(sprite_batch, m_strings.data(), m_strings.size(), 
+				             effect_transform, m_sprite_effects, &m_text_effect_color);
 
 			[[fallthrough]];
 		}
 
 		default: {
-			m_font->DrawString(sprite_batch, 
-				               m_strings, 
-				               m_sprite_transform, 
-				               m_sprite_effects);
+			m_font->DrawText(sprite_batch, m_strings.data(), m_strings.size(), 
+				             m_sprite_transform, m_sprite_effects);
 		}
 
 		}

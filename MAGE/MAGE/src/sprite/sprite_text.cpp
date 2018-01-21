@@ -44,7 +44,7 @@ namespace mage {
 	SpriteText &SpriteText::operator=(SpriteText &&sprite) noexcept = default;
 
 	void SpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const auto * const text  = m_text.c_str();
+		const auto text = m_text.c_str();
 		const auto effect_color = XMLoadFloat4(&m_text_effect_color);
 		SpriteTransform effect_transform(m_sprite_transform);
 		

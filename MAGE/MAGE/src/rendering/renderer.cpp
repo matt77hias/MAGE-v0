@@ -52,7 +52,7 @@ namespace mage {
 	Renderer::~Renderer() = default;
 
 	void Renderer::BindPersistentState() {
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		
 		GameBuffer game_buffer;
 		game_buffer.m_display_width                = config->GetDisplayWidth();
@@ -112,7 +112,7 @@ namespace mage {
 	}
 
 	void Renderer::Render(const Scene &scene) {
-		const auto * const output_manager = RenderingOutputManager::Get();
+		const auto output_manager = RenderingOutputManager::Get();
 
 		scene.ForEach< Camera >([this, &scene, output_manager](const Camera &camera) {
 			if (State::Active != camera.GetState()) {
@@ -285,7 +285,7 @@ namespace mage {
 		                              CXMMATRIX world_to_view,
 		                              CXMMATRIX view_to_world) {
 		
-		const auto * const output_manager = RenderingOutputManager::Get();
+		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 
 		// Perform a LBuffer pass.
@@ -316,8 +316,7 @@ namespace mage {
 		                         CXMMATRIX world_to_view,
 		                         CXMMATRIX view_to_world) {
 
-		const auto * const output_manager = RenderingOutputManager::Get();
-		
+		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		
 		// Perform a LBuffer pass.
@@ -360,8 +359,7 @@ namespace mage {
 		                          CXMMATRIX world_to_view,
 		                          CXMMATRIX view_to_world) {
 
-		const auto * const output_manager = RenderingOutputManager::Get();
-
+		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 
 		// Perform a LBuffer pass.
@@ -423,11 +421,8 @@ namespace mage {
 	}
 
 	void Renderer::ExecuteAAPipeline(const Camera &camera) {
-		const auto * const output_manager
-			= RenderingOutputManager::Get();
-		const auto desc
-			= DisplayConfiguration::Get()->GetAADescriptor();
-
+		const auto output_manager = RenderingOutputManager::Get();
+		const auto desc = DisplayConfiguration::Get()->GetAADescriptor();
 		const auto viewport = camera.GetSSViewport();
 
 		switch (desc) {

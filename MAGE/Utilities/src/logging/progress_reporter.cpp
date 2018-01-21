@@ -55,7 +55,7 @@ namespace mage {
 		
 		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
 		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
-		auto *s = m_current_pos;
+		auto s = m_current_pos;
 		for (U16 i = 0; i < m_nb_progress_total; ++i) {
 			*s++ = ' ';
 		}

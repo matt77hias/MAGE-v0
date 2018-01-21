@@ -19,8 +19,8 @@ namespace mage {
 				GetWindowLongPtr(window, GWLP_USERDATA));
 		}
 
-		auto * const caller = reinterpret_cast< CallerT * >(
-			reinterpret_cast< CREATESTRUCT * >(lParam)->lpCreateParams);
+		const auto caller = reinterpret_cast< CallerT * >(
+			                reinterpret_cast< CREATESTRUCT * >(lParam)->lpCreateParams);
 
 		// Changes an attribute of the specified window.
 		// 1. A handle to the window and, indirectly, the class to which the 
@@ -49,7 +49,7 @@ namespace mage {
 				GetWindowLongPtr(dialog, GWLP_USERDATA));
 		}
 
-		auto * const caller = reinterpret_cast< CallerT * >(lParam);
+		const auto caller = reinterpret_cast< CallerT * >(lParam);
 
 		// Changes an attribute of the specified window.
 		// 1. A handle to the window and, indirectly, the class to which the 

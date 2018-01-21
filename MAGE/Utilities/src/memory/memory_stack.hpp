@@ -304,7 +304,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count) const {
-				auto * const data = m_memory_stack->AllocData< DataT >(count);
+				const auto data = m_memory_stack->AllocData< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
 				}
@@ -840,7 +840,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count) const {
-				auto * const data = m_memory_stack->AllocDataLow< DataT >(count);
+				const auto data = m_memory_stack->AllocDataLow< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
 				}
@@ -1073,7 +1073,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count) const {
-				auto * const data = m_memory_stack->AllocDataHigh< DataT >(count);
+				const auto data = m_memory_stack->AllocDataHigh< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
 				}

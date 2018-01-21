@@ -20,10 +20,12 @@ namespace mage {
 
 	SingleEndedMemoryStack
 		::SingleEndedMemoryStack(size_t size, size_t alignment)
-		: m_alignment(alignment), m_size(size), 
-		m_begin(), m_current() {
+		: m_alignment(alignment), 
+		m_size(size), 
+		m_begin(), 
+		m_current() {
 
-		auto * const ptr = AllocAligned(m_size, m_alignment);
+		const auto ptr = AllocAligned(m_size, m_alignment);
 		if (!ptr) {
 			throw std::bad_alloc();
 		}
@@ -69,10 +71,13 @@ namespace mage {
 
 	DoubleEndedMemoryStack
 		::DoubleEndedMemoryStack(size_t size, size_t alignment)
-		: m_alignment(alignment), m_size(size),
-		m_begin(), m_current_low(), m_current_high() {
+		: m_alignment(alignment), 
+		m_size(size),
+		m_begin(),
+		m_current_low(), 
+		m_current_high() {
 
-		auto * const ptr = AllocAligned(m_size, m_alignment);
+		const auto ptr = AllocAligned(m_size, m_alignment);
 		if (!ptr) {
 			throw std::bad_alloc();
 		}
@@ -111,7 +116,7 @@ namespace mage {
 			return nullptr;
 		}
 
-		auto * const ptr = (void *)(m_current_low);
+		const auto ptr = (void *)(m_current_low);
 		m_current_low += size;
 		return ptr;
 	}
@@ -122,7 +127,7 @@ namespace mage {
 			return nullptr;
 		}
 
-		auto * const ptr = (void *)(m_current_high);
+		const auto ptr = (void *)(m_current_high);
 		m_current_high -= size;
 		return ptr;
 	}

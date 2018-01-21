@@ -33,7 +33,7 @@ namespace mage::script {
 	}
 
 	void ManhattanMotorScript::Update([[maybe_unused]] F64 delta_time) {
-		const auto * const keyboard = Keyboard::Get();
+		const auto keyboard = Keyboard::Get();
 		auto &transform = GetOwner()->GetTransform();
 
 		const auto movement_magnitude 

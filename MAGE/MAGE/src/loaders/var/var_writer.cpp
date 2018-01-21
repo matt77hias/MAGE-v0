@@ -39,7 +39,7 @@ namespace mage::loader {
 				
 			// bool
 			{
-				const auto *v = std::get_if< bool >(&value);
+				const auto v = std::get_if< bool >(&value);
 				if (nullptr != v) {
 					if (*v) {
 						sprintf_s(output, 
@@ -62,7 +62,7 @@ namespace mage::loader {
 
 			// int
 			{
-				const auto *v = std::get_if< S32 >(&value);
+				const auto v = std::get_if< S32 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -77,7 +77,7 @@ namespace mage::loader {
 
 			// int2
 			{
-				const auto *v = std::get_if< S32x2 >(&value);
+				const auto v = std::get_if< S32x2 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -93,7 +93,7 @@ namespace mage::loader {
 
 			// int3
 			{
-				const auto *v = std::get_if< S32x3 >(&value);
+				const auto v = std::get_if< S32x3 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -110,7 +110,7 @@ namespace mage::loader {
 
 			// float
 			{
-				const auto *v = std::get_if< F32 >(&value);
+				const auto v = std::get_if< F32 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -125,7 +125,7 @@ namespace mage::loader {
 
 			// float2
 			{
-				const auto *v = std::get_if< F32x2 >(&value);
+				const auto v = std::get_if< F32x2 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -141,7 +141,7 @@ namespace mage::loader {
 
 			// float3
 			{
-				const auto *v = std::get_if< F32x3 >(&value);
+				const auto v = std::get_if< F32x3 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -158,7 +158,7 @@ namespace mage::loader {
 
 			// float4
 			{
-				const auto *v = std::get_if< F32x4 >(&value);
+				const auto v = std::get_if< F32x4 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output),
@@ -176,7 +176,7 @@ namespace mage::loader {
 
 			// string
 			{
-				const auto *v = std::get_if< string >(&value);
+				const auto v = std::get_if< string >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, 
 						      std::size(output), 

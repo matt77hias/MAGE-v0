@@ -113,7 +113,7 @@ namespace mage {
 
 			// false == isspace(*msg_pos)
 
-			const auto * const word_end  = FindWordEnd(msg_pos);
+			const auto word_end  = FindWordEnd(msg_pos);
 			if (const auto word_length 
 				= static_cast< size_t >(word_end - msg_pos);
 				width < error_pos + word_length) {

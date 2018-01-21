@@ -251,7 +251,7 @@ namespace mage {
 			}
 
 			default: {
-				const auto *glyph = GetGlyph(character);
+				const auto glyph = GetGlyph(character);
 
 				x += glyph->m_offset_x;
 				if (x < 0.0f) {
@@ -350,7 +350,7 @@ namespace mage {
 				}
 
 				default: {
-					const auto *glyph = GetGlyph(character);
+					const auto glyph = GetGlyph(character);
 
 					x += glyph->m_offset_x;
 					if (x < 0.0f) {
@@ -425,7 +425,7 @@ namespace mage {
 			}
 
 			default: {
-				const auto *glyph = GetGlyph(character);
+				const auto glyph = GetGlyph(character);
 
 				x += glyph->m_offset_x;
 				if (x < 0.0f) {
@@ -480,7 +480,7 @@ namespace mage {
 				}
 
 				default: {
-					const auto *glyph = GetGlyph(character);
+					const auto glyph = GetGlyph(character);
 
 					x += glyph->m_offset_x;
 					if (x < 0.0f) {
@@ -537,7 +537,7 @@ namespace mage {
 			}
 
 			default: {
-				const auto *glyph = GetGlyph(character);
+				const auto glyph = GetGlyph(character);
 
 				x += glyph->m_offset_x;
 				if (x < 0.0f) {
@@ -602,7 +602,7 @@ namespace mage {
 				}
 
 				default: {
-					const auto *glyph = GetGlyph(character);
+					const auto glyph = GetGlyph(character);
 
 					x += glyph->m_offset_x;
 					if (x < 0.0f) {

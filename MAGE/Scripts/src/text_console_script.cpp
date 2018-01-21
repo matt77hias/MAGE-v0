@@ -117,7 +117,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::ProcessString(const wchar_t *str) {
-		for (const auto *character = str; 
+		for (auto character = str; 
 			*character != L'\0'; ++character, ++m_current_column) {
 			
 			if (L'\n' == *character) {

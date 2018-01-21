@@ -23,17 +23,17 @@ namespace mage {
 		Assert(str || context);
 		Assert(delimiters);
 		
-		auto * const start = (str) ?
-			SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
+		const auto start = (str) ? SkipDelimiters(str, delimiters) 
+			                     : SkipDelimiters(*context, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
 
-		auto * const first_quote = str_escape_first(start, '"');
+		const auto first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
-		auto * const last_quote = str_escape_first(first_quote + 1, '"');
+		const auto last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
 			return TokenResult::Invalid;
 		}
@@ -59,16 +59,16 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 		
-		const auto * const start = SkipDelimiters(str, delimiters);
+		const auto start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
 		
-		const auto * const first_quote = str_escape_first(start, '"');
+		const auto first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
-		const auto * const last_quote = str_escape_first(first_quote + 1, '"');
+		const auto last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
 			return TokenResult::Invalid;
 		}

@@ -88,10 +88,8 @@ namespace mage {
 
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
-				const auto alloc_size
-					= std::max(size, GetMaximumBlockSize());
-				auto * const alloc_ptr
-					= AllocAlignedData< U8 >(alloc_size, m_alignment);
+				const auto alloc_size = std::max(size, GetMaximumBlockSize());
+				const auto alloc_ptr = AllocAlignedData< U8 >(alloc_size, m_alignment);
 
 				if (!alloc_ptr) {
 					// The allocation failed.
@@ -104,8 +102,7 @@ namespace mage {
 			m_current_block_pos = 0;
 		}
 
-		auto * const ptr =
-			(void *)(m_current_block.second + m_current_block_pos);
+		const auto ptr = (void *)(m_current_block.second + m_current_block_pos);
 		
 		m_current_block_pos += size;
 		

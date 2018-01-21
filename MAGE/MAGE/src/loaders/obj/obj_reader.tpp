@@ -246,7 +246,7 @@ namespace mage::loader {
 	[[nodiscard]] const typename OBJReader< VertexT, IndexT >::Index3
 		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
 
-		const auto *token = ReadChars();
+		const auto token = ReadChars();
 
 		IndexT vertex_index  = 0;
 		IndexT texture_index = 0;
@@ -254,50 +254,43 @@ namespace mage::loader {
 
 		if (str_contains(token, "//")) {
 			// v1//vn1
-			const char *index_end = strchr(token, '/');
+			const auto index_end = strchr(token, '/');
 			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw Exception(
-					"%ls: line %u: invalid vertex index value found in %s.", 
-					GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			if (StringTo< IndexT >(index_end + 2, normal_index) == TokenResult::Invalid) {
-				throw Exception(
-					"%ls: line %u: invalid normal index value found in %s.", 
-					GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw Exception("%ls: line %u: invalid normal index value found in %s.", 
+					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (str_contains(token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
-			const char *index_end = strchr(token, '/');
+			const auto index_end = strchr(token, '/');
 			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw Exception(
-					"%ls: line %u: invalid vertex index value found in %s.", 
-					GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			
 			if (str_contains(index_end + 1, '/')) {
-				const char *texture_end = strchr(index_end + 1, '/');
+				const auto texture_end = strchr(index_end + 1, '/');
 				if (StringTo< IndexT >(index_end + 1, texture_end, texture_index) == TokenResult::Invalid) {
-					throw Exception(
-						"%ls: line %u: invalid texture index value found in %s.", 
-						GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw Exception("%ls: line %u: invalid texture index value found in %s.", 
+						            GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 				if (StringTo< IndexT >(texture_end + 1, normal_index) == TokenResult::Invalid) {
-					throw Exception(
-						"%ls: line %u: invalid normal index value found in %s.", 
-						GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw Exception("%ls: line %u: invalid normal index value found in %s.", 
+						            GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
 			else if (StringTo< IndexT >(index_end + 1, texture_index) == TokenResult::Invalid) {
-				throw Exception(
-					"%ls: line %u: invalid texture index value found in %s.", 
-					GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw Exception("%ls: line %u: invalid texture index value found in %s.", 
+					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (StringTo< IndexT >(token, vertex_index) == TokenResult::Invalid) {
-			throw Exception(
-				"%ls: line %u: invalid vertex index value found in %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), token);
+			throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+				            GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
 		return Index3(vertex_index, texture_index, normal_index);

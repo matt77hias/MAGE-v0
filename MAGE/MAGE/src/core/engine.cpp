@@ -141,7 +141,7 @@ namespace mage {
 		m_main_window->Show(nCmdShow);
 		
 		// Handle startup in fullscreen mode.
-		auto * const swap_chain = m_rendering_manager->GetSwapChain();
+		const auto swap_chain = m_rendering_manager->GetSwapChain();
 		swap_chain->SetInitialMode();
 
 		// Restart the timer.

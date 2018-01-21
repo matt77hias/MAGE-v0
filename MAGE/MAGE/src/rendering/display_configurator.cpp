@@ -69,12 +69,10 @@ namespace mage {
 			                        WPARAM wParam, 
 			                        LPARAM lParam) {
 
-		auto * const display_configurator 
-			= GetDialogCaller< DisplayConfigurator >(
-				dialog, message, wParam, lParam);
-		
-		return display_configurator
-			->DisplayDialogProc(dialog, message, wParam, lParam);
+		const auto configurator 
+			= GetDialogCaller< DisplayConfigurator >(dialog, message, wParam, lParam);
+
+		return configurator->DisplayDialogProc(dialog, message, wParam, lParam);
 	}
 
 	DisplayConfigurator::DisplayConfigurator(DXGI_FORMAT pixel_format)

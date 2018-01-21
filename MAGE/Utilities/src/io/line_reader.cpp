@@ -94,10 +94,10 @@ namespace mage {
 	}
 
 	void LineReader::ReadLineRemaining() {
-		auto *next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
+		auto next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		while (next_token) {
 			Warning("%ls: line %u: unused token: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), next_token);
+				    GetFilename().c_str(), GetCurrentLineNumber(), next_token);
 			next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		}
 	}

@@ -15,14 +15,14 @@
 namespace mage {
 
 	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenX(F32 x) {
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return x * static_cast< F32 >(config->GetDisplayWidth());
 	}
 
 	[[nodiscard]] F32 ConvertNormalizedToAbsoluteScreenY(F32 y) {
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return y * static_cast< F32 >(config->GetDisplayHeight());
@@ -31,7 +31,7 @@ namespace mage {
 	[[nodiscard]] const XMVECTOR XM_CALLCONV 
 		ConvertNormalizedToAbsoluteScreen(FXMVECTOR position) {
 		
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		const auto multiplier = XMVectorSet(
@@ -43,14 +43,14 @@ namespace mage {
 	}
 
 	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenX(F32 x) {
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return x / static_cast< F32 >(config->GetDisplayWidth());
 	}
 
 	[[nodiscard]] F32 ConvertAbsoluteToNormalizedScreenY(F32 y) {
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		return y / static_cast< F32 >(config->GetDisplayHeight());
@@ -59,7 +59,7 @@ namespace mage {
 	[[nodiscard]] const XMVECTOR XM_CALLCONV 
 		ConvertAbsoluteToNormalizedScreen(FXMVECTOR position) {
 		
-		const auto * const config = DisplayConfiguration::Get();
+		const auto config = DisplayConfiguration::Get();
 		Assert(config);
 
 		const auto multiplier = XMVectorSet(

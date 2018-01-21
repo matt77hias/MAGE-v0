@@ -43,16 +43,16 @@ namespace mage::loader {
 		const auto nb_vertices = Read< U32 >();
 		const auto nb_indices  = Read< U32 >();
 		
-		const auto *vertices = ReadArray< VertexT >(nb_vertices);
+		const auto vertices = ReadArray< VertexT >(nb_vertices);
 		m_vertices.assign(vertices, vertices + nb_vertices);
 
-		const auto *indices   = ReadArray< IndexT >(nb_indices);
+		const auto indices   = ReadArray< IndexT >(nb_indices);
 		m_indices.assign(indices, indices + nb_indices);
 	}
 
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]] bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
-		const auto *magic = g_msh_token_magic;
+		auto magic = g_msh_token_magic;
 		
 		while (*magic != L'\0') {
 			if (Read< U8 >() != *magic) {

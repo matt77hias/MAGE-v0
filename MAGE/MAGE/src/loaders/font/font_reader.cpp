@@ -43,7 +43,7 @@ namespace mage::loader {
 
 		// Read glyphs.
 		const auto glyph_count = Read< U32 >();
-		const auto *glyph_data = ReadArray< Glyph >(glyph_count);
+		const auto glyph_data  = ReadArray< Glyph >(glyph_count);
 		m_output.m_glyphs.assign(glyph_data, glyph_data + glyph_count);
 
 		// Read font properties.
@@ -57,7 +57,7 @@ namespace mage::loader {
 	}
 
 	[[nodiscard]] bool SpriteFontReader::IsHeaderValid() {
-		const auto *magic = g_font_token_magic;
+		auto magic = g_font_token_magic;
 		
 		while (*magic != L'\0') {
 			if (Read< U8 >() != *magic) {
@@ -78,7 +78,7 @@ namespace mage::loader {
 			                            ConvertToSRGB(format) : format;
 		const auto texture_stride = Read< U32 >();
 		const auto texture_rows   = Read< U32 >();
-		const auto *texture_data  = ReadArray< U8 >(texture_stride * texture_rows);
+		const auto texture_data   = ReadArray< U8 >(texture_stride * texture_rows);
 
 		// Create the texture descriptor.
 		CD3D11_TEXTURE2D_DESC texture_desc(texture_format, 

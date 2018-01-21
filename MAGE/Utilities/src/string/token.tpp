@@ -646,7 +646,7 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 		
-		const auto * const start = SkipDelimiters(str, delimiters);
+		const auto start = SkipDelimiters(str, delimiters);
 		return (start) ? TokenResult::Valid : TokenResult::None;
 	}
 	
@@ -655,11 +655,11 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 		
-		const auto * const start = SkipDelimiters(str, delimiters);
+		const auto start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
-		const auto * const end = GotoDelimiters(start, delimiters);
+		const auto end = GotoDelimiters(start, delimiters);
 
 		DataT result;
 		return StringTo< DataT >(start, end, result);

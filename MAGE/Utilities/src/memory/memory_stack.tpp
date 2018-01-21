@@ -10,8 +10,7 @@ namespace mage {
 		::AllocData(size_t count, bool initialization) noexcept {
 		
 		// Allocation
-		auto * const ptr
-			= static_cast< DataT * >(Alloc(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT * >(Alloc(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.
@@ -33,8 +32,7 @@ namespace mage {
 		::AllocDataLow(size_t count, bool initialization) noexcept {
 		
 		// Allocation
-		auto * const ptr
-			= static_cast< DataT * >(AllocLow(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT * >(AllocLow(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.
@@ -56,8 +54,7 @@ namespace mage {
 		::AllocDataHigh(size_t count, bool initialization) noexcept {
 		
 		// Allocation
-		auto * const ptr
-			= static_cast< DataT * >(AllocHigh(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT * >(AllocHigh(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.

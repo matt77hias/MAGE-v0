@@ -27,9 +27,9 @@ namespace mage {
 		
 		Assert(str);
 		
-		auto *input = str;
+		auto input = str;
 		while (true) {
-			auto *result = strchr(input, static_cast< int >(c));
+			auto result = strchr(input, static_cast< int >(c));
 			
 			if (nullptr == result) {
 				// No match found.
@@ -54,9 +54,9 @@ namespace mage {
 		
 		Assert(str);
 		
-		const auto *input = str;
+		auto input = str;
 		while (true) {
-			const auto *result = strchr(input, static_cast< int >(c));
+			const auto result = strchr(input, static_cast< int >(c));
 
 			if (nullptr == result) {
 				// No match found.
@@ -81,9 +81,9 @@ namespace mage {
 		
 		Assert(str);
 		
-		auto *input = str;
+		auto input = str;
 		while (true) {
-			auto *result = wcschr(input, c);
+			auto result = wcschr(input, c);
 
 			if (nullptr == result) {
 				// No match found.
@@ -108,9 +108,9 @@ namespace mage {
 		
 		Assert(str);
 		
-		const auto *input = str;
+		auto input = str;
 		while (true) {
-			const auto *result = wcschr(input, c);
+			const auto result = wcschr(input, c);
 
 			if (nullptr == result) {
 				// No match found.
@@ -135,12 +135,12 @@ namespace mage {
 		
 		Assert(str);
 		Assert(input);
-		
-		const auto *next = *input;
+
+		auto next = *input;
 		size_t num_read = 0u;
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
-			const bool is_new_line = ('\n' == *next);
+			const auto is_new_line = ('\n' == *next);
 
 			*str++ = *next++;
 			++num_read;
@@ -166,11 +166,11 @@ namespace mage {
 		Assert(str);
 		Assert(input);
 		
-		const auto *next = *input;
+		auto next = *input;
 		size_t num_read = 0u;
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
-			const bool is_new_line = (L'\n' == *next);
+			const auto is_new_line = (L'\n' == *next);
 
 			*str++ = *next++;
 			++num_read;

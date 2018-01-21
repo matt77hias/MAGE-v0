@@ -46,7 +46,7 @@ namespace mage::script {
 			return;
 		}
 		
-		const auto * const mouse = Mouse::Get();
+		const auto mouse = Mouse::Get();
 		auto &transform = GetOwner()->GetTransform();
 
 		switch (m_axes) {

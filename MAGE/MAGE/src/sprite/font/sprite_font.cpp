@@ -33,71 +33,9 @@ namespace mage {
 	/**
 	 A struct of glyph "less than" comparators.
 	 */
-	class GlyphLessThan final {
+	struct GlyphLessThan final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a glyph "less than" comparator.
-		 */
-		GlyphLessThan() = default;
-
-		/**
-		 Constructs a glyph "less than" comparator from the given glyph 
-		 "less than" comparator.
-
-		 @param[in]		comparator
-						A reference to the glyph "less than" comparator to 
-						copy.
-		 */
-		GlyphLessThan(const GlyphLessThan &comparator) = default;
-
-		/**
-		 Constructs a glyph "less than" comparator by moving the given glyph 
-		 "less than" comparator.
-
-		 @param[in]		comparator
-						A reference to the glyph "less than" comparator to 
-						move.
-		 */
-		GlyphLessThan(GlyphLessThan &&comparator) = default;
-
-		/**
-		 Destructs this glyph "less than" comparator.
-		 */
-		~GlyphLessThan() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given glyph "less than" comparator to this glyph 
-		 "less than" comparator.
-
-		 @param[in]		comparator
-						A reference to the glyph "less than" comparator to 
-						copy.
-		 @return		A reference to the copy of the given "less than" 
-						comparator (i.e. this "less than" comparator).
-		 */
-		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
-
-		/**
-		 Moves the given glyph "less than" comparator to this glyph "less than" 
-		 comparator.
-
-		 @param[in]		comparator
-						A reference to the glyph "less than" comparator to 
-						move.
-		 @return		A reference to the moved "less than" comparator (i.e. 
-						this "less than" comparator).
-		 */
-		GlyphLessThan &operator=(GlyphLessThan &&comparator) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

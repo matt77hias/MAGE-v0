@@ -202,7 +202,7 @@ namespace mage {
 		                      size_t nb_strings,
 		                      const SpriteTransform &transform,
 		                      SpriteEffect effects = SpriteEffect::None,
-		                      const SRGBA *color = nullptr) const {
+		                      const SRGBA *color) const {
 		
 		static_assert(
 			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u &&

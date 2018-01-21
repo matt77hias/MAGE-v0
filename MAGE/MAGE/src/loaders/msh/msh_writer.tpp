@@ -34,9 +34,9 @@ namespace mage::loader {
 
 		WriteString(g_msh_token_magic);
 
-		const U32 nb_vertices = static_cast< U32 >(m_vertices.size());
+		const auto nb_vertices = static_cast< U32 >(m_vertices.size());
 		Write< U32 >(nb_vertices);
-		const U32 nb_indices  = static_cast< U32 >(m_indices.size());
+		const auto nb_indices  = static_cast< U32 >(m_indices.size());
 		Write< U32 >(nb_indices);
 		
 		WriteArray(m_vertices.data(), m_vertices.size());

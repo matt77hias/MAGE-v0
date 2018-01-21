@@ -295,12 +295,12 @@ namespace mage {
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToViewMatrix() const noexcept override {
 
-			const XMMATRIX view_to_projection = GetViewToProjectionMatrix();
+			const auto view_to_projection = GetViewToProjectionMatrix();
 
-			const F32 m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
-			const F32 m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
-			const F32 m23 = 1.0f / XMVectorGetZ(view_to_projection.r[3]);
-			const F32 m33 = -XMVectorGetZ(view_to_projection.r[2]) * m23;
+			const auto m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
+			const auto m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
+			const auto m23 = 1.0f / XMVectorGetZ(view_to_projection.r[3]);
+			const auto m33 = -XMVectorGetZ(view_to_projection.r[2]) * m23;
 
 			return XMMATRIX {
 				 m00, 0.0f, 0.0f, 0.0f,

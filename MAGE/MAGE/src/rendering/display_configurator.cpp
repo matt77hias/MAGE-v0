@@ -69,16 +69,12 @@ namespace mage {
 			                        WPARAM wParam, 
 			                        LPARAM lParam) {
 
-		DisplayConfigurator * const display_configurator
-			= GetDialogCaller< DisplayConfigurator >(dialog, 
-				                                     message, 
-				                                     wParam, 
-				                                     lParam);
+		auto * const display_configurator 
+			= GetDialogCaller< DisplayConfigurator >(
+				dialog, message, wParam, lParam);
 		
-		return display_configurator->DisplayDialogProc(dialog, 
-			                                           message, 
-			                                           wParam, 
-			                                           lParam);
+		return display_configurator
+			->DisplayDialogProc(dialog, message, wParam, lParam);
 	}
 
 	DisplayConfigurator::DisplayConfigurator(DXGI_FORMAT pixel_format)
@@ -89,7 +85,7 @@ namespace mage {
 		m_display_modes() {
 
 		// Load the settings script.
-		const bool file_exists 
+		const auto file_exists 
 			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
 		m_display_configuration_script 
 			= MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, 
@@ -113,7 +109,7 @@ namespace mage {
 		m_display_modes() {
 
 		// Load the settings script.
-		const bool file_exists 
+		const auto file_exists 
 			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
 		m_display_configuration_script 
 			= MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, 
@@ -173,7 +169,8 @@ namespace mage {
 
 			// Get the primary IDXGIOutput.
 			{
-				const HRESULT result = adapter4->EnumOutputs(0, output.GetAddressOf());
+				const HRESULT result 
+					= adapter4->EnumOutputs(0u, output.GetAddressOf());
 				if (FAILED(result)) {
 					continue;
 				}
@@ -195,7 +192,7 @@ namespace mage {
 					"DXGI_ADAPTER_DESC3 retrieval failed: %08X.", result);
 			}
 
-			const SIZE_T vram = desc.DedicatedVideoMemory;
+			const auto vram = desc.DedicatedVideoMemory;
 			if (vram <= max_vram) {
 				continue;
 			}
@@ -213,9 +210,10 @@ namespace mage {
 		// and other input options.
 		U32 nb_display_modes;
 		{
-			const HRESULT result 
-				= m_output->GetDisplayModeList1(m_pixel_format, flags, 
-					                            &nb_display_modes, nullptr);
+			const HRESULT result = m_output->GetDisplayModeList1(m_pixel_format, 
+					                                             flags, 
+					                                             &nb_display_modes, 
+					                                             nullptr);
 			ThrowIfFailed(result,
 				"Failed to get the number of display modes: %08X.", result);
 		}
@@ -225,9 +223,10 @@ namespace mage {
 		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(
 			MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
 		{
-			const HRESULT result
-				= m_output->GetDisplayModeList1(
-					m_pixel_format, flags, &nb_display_modes, dxgi_mode_descs.get());
+			const HRESULT result = m_output->GetDisplayModeList1(m_pixel_format, 
+				                                                 flags, 
+				                                                 &nb_display_modes, 
+				                                                 dxgi_mode_descs.get());
 			ThrowIfFailed(result,
 				"Failed to get the display modes: %08X.", result);
 		}
@@ -335,8 +334,8 @@ namespace mage {
 			// Windowed state
 			{
 				// Load the windowed state.
-				const bool windowed = *m_display_configuration_script->
-					GetValue< bool >(MAGE_DISPLAY_VARIABLE_WINDOWED);
+				const auto windowed = *m_display_configuration_script
+					->GetValue< bool >(MAGE_DISPLAY_VARIABLE_WINDOWED);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
@@ -349,8 +348,8 @@ namespace mage {
 			// Vsync state
 			{
 				// Load the vsync state.
-				const bool vsync = *m_display_configuration_script->
-					GetValue< bool >(MAGE_DISPLAY_VARIABLE_VSYNC);
+				const auto vsync = *m_display_configuration_script
+					->GetValue< bool >(MAGE_DISPLAY_VARIABLE_VSYNC);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
@@ -366,25 +365,25 @@ namespace mage {
 				
 				// Fill in the anti-aliasing combo box.
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::None),     L"None");
+					static_cast< size_t >(AADescriptor::None),     L"None");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::FXAA),     L"FXAA");
+					static_cast< size_t >(AADescriptor::FXAA),     L"FXAA");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::MSAA_2x),  L"MSAA 2x");
+					static_cast< size_t >(AADescriptor::MSAA_2x),  L"MSAA 2x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::MSAA_4x),  L"MSAA 4x");
+					static_cast< size_t >(AADescriptor::MSAA_4x),  L"MSAA 4x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::MSAA_8x),  L"MSAA 8x");
+					static_cast< size_t >(AADescriptor::MSAA_8x),  L"MSAA 8x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::SSAA_2x),  L"SSAA 2x");
+					static_cast< size_t >(AADescriptor::SSAA_2x),  L"SSAA 2x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::SSAA_3x),  L"SSAA 3x");
+					static_cast< size_t >(AADescriptor::SSAA_3x),  L"SSAA 3x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast<size_t>(AADescriptor::SSAA_4x),  L"SSAA 4x");
+					static_cast< size_t >(AADescriptor::SSAA_4x),  L"SSAA 4x");
 				
-				const int aa_index = *m_display_configuration_script->
-					GetValue< int >(MAGE_DISPLAY_VARIABLE_AA);
-				ComboBoxSelect(dialog, IDC_AA, aa_index);
+				const auto index = *m_display_configuration_script
+					->GetValue< int >(MAGE_DISPLAY_VARIABLE_AA);
+				ComboBoxSelect(dialog, IDC_AA, index);
 			}
 			
 			// Resolution state
@@ -394,34 +393,41 @@ namespace mage {
 
 				// Fill in the resolutions combo box.
 				for (const auto &mode : m_display_modes) {
-					swprintf_s(buffer, std::size(buffer), L"%u x %u", mode.Width, mode.Height);
+					swprintf_s(buffer, 
+						       std::size(buffer), 
+						       L"%u x %u", 
+						       mode.Width, 
+						       mode.Height);
 
 					if (!ComboBoxContains(dialog, IDC_RESOLUTION, buffer)) {
-						const size_t resolution = ConvertResolution(mode);
+						const auto resolution = ConvertResolution(mode);
 						ComboBoxAddValue(dialog, IDC_RESOLUTION, resolution, buffer);
 					}
 				}
 
-				const int resolution_index = *m_display_configuration_script->
-					GetValue< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
-				ComboBoxSelect(dialog, IDC_RESOLUTION, resolution_index);
+				const auto index = *m_display_configuration_script
+					->GetValue< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
+				ComboBoxSelect(dialog, IDC_RESOLUTION, index);
 			}
 
 			// Refresh rate state
 			{
-				const size_t selected_resolution = ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
+				const auto selected_resolution 
+					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 
 				// Remove all items from the list box and edit control of a combo box.
 				ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
 
 				// Fill in the refresh rates combo box associated with the current resolution.
 				for (const auto &mode : m_display_modes) {
-					const size_t resolution = ConvertResolution(mode);
+					const auto resolution = ConvertResolution(mode);
 					if (selected_resolution == resolution) {
 
-						const size_t refresh_rate = ConvertRefreshRate(mode);
-						swprintf_s(buffer, std::size(buffer), L"%u Hz",
-							static_cast< unsigned int >(refresh_rate));
+						const auto refresh_rate = ConvertRefreshRate(mode);
+						swprintf_s(buffer, 
+							       std::size(buffer), 
+							       L"%u Hz",
+							       static_cast< unsigned int >(refresh_rate));
 
 						if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
 							ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
@@ -429,8 +435,8 @@ namespace mage {
 					}
 				}
 
-				const int refresh_rate_index = *m_display_configuration_script->
-					GetValue< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
+				const int refresh_rate_index = *m_display_configuration_script
+					->GetValue< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
 				ComboBoxSelect(dialog, IDC_REFRESH_RATE, refresh_rate_index);
 			}
 
@@ -446,23 +452,23 @@ namespace mage {
 			case IDOK: {
 				
 				// Load all the settings.
-				const AADescriptor selected_aa
+				const auto selected_aa
 					= RetrieveAADescriptor(ComboBoxSelectedValue(dialog, IDC_AA));
-				const size_t selected_refresh_rate 
+				const auto selected_refresh_rate
 					= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
-				const size_t selected_resolution
+				const auto selected_resolution
 					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 				
 				const DXGI_MODE_DESC1 *selected_diplay_mode 
 					= nullptr;
 				for (const auto &display_mode : m_display_modes) {
 					
-					const size_t resolution = ConvertResolution(display_mode);
+					const auto resolution = ConvertResolution(display_mode);
 					if (selected_resolution != resolution) {
 						continue;
 					}
 
-					const size_t refresh_rate = ConvertRefreshRate(display_mode);
+					const auto refresh_rate = ConvertRefreshRate(display_mode);
 					if (selected_refresh_rate != refresh_rate) {
 						continue;
 					}
@@ -479,24 +485,26 @@ namespace mage {
 					return TRUE;
 				}
 				
-				const bool windowed = IsDlgButtonChecked(dialog, IDC_WINDOWED) 
+				const auto windowed = IsDlgButtonChecked(dialog, IDC_WINDOWED)
 									? true : false;
-				const bool vsync	= IsDlgButtonChecked(dialog, IDC_VSYNC)    
+				const auto vsync	= IsDlgButtonChecked(dialog, IDC_VSYNC)
 									? true : false;
 
 				// Store all the settings to the display configuration.
-				m_display_configuration = MakeUnique< DisplayConfiguration >(
-					                      m_adapter, m_output, *selected_diplay_mode);
+				m_display_configuration 
+					= MakeUnique< DisplayConfiguration >(m_adapter, 
+						                                 m_output, 
+						                                 *selected_diplay_mode);
 				m_display_configuration->SetWindowed(windowed);
 				m_display_configuration->SetVSync(vsync);
 				m_display_configuration->SetAADescriptor(selected_aa);
 
 				// Get the selected index from each combo box.
-				const int aa_index 
+				const auto aa_index
 					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_AA));
-				const int refresh_rate_index 
+				const auto refresh_rate_index
 					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_REFRESH_RATE));
-				const int resolution_index
+				const auto resolution_index
 					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_RESOLUTION));
 				
 				// Store all the settings to the display configuration script.
@@ -531,9 +539,9 @@ namespace mage {
 				
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					
-					const size_t selected_resolution 
+					const auto selected_resolution
 						= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
-					const size_t selected_refresh_rate 
+					const auto selected_refresh_rate
 						= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
 
 					// Remove all items from the list box and edit control of a 
@@ -543,13 +551,15 @@ namespace mage {
 					// Update the refresh rate combo box.
 					for (const auto &mode : m_display_modes) {
 						
-						const size_t resolution = ConvertResolution(mode);
+						const auto resolution = ConvertResolution(mode);
 						
 						if (selected_resolution == resolution) {
 							
-							const size_t refresh_rate = ConvertRefreshRate(mode);
-							swprintf_s(buffer, std::size(buffer), L"%u Hz",
-								static_cast< unsigned int >(refresh_rate));
+							const auto refresh_rate = ConvertRefreshRate(mode);
+							swprintf_s(buffer, 
+								       std::size(buffer), 
+								       L"%u Hz",
+								       static_cast< unsigned int >(refresh_rate));
 							
 							if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
 								ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);

@@ -30,7 +30,7 @@ namespace mage {
 		                                                  XMVECTOR &b1, 
 		                                                  XMVECTOR &b2) noexcept {
 
-		const XMVECTOR u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
+		const auto u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
 			: XMVectorSet(0.0f, -XMVectorGetZ(n), XMVectorGetY(n), 0.0f);
 		b2 = XMVector3Normalize(u);
@@ -61,8 +61,8 @@ namespace mage {
 			return;
 		}
 
-		const F32 a = 1.0f / (1.0f + nf.m_z);
-		const F32 b = -nf.m_x * nf.m_y * a;
+		const auto a = 1.0f / (1.0f + nf.m_z);
+		const auto b = -nf.m_x * nf.m_y * a;
 		b1 = XMVectorSet(1.0f - nf.m_x * nf.m_x * a, 
 			             b, 
 			             -nf.m_x, 0.0f);
@@ -89,9 +89,9 @@ namespace mage {
 		F32x3 nf;
 		XMStoreFloat3(&nf, n);
 
-		const F32 sign = copysignf(1.0f, nf.m_z);
-		const F32 a = -1.0f / (sign + nf.m_z);
-		const F32 b = nf.m_x * nf.m_y * a;
+		const auto sign = copysignf(1.0f, nf.m_z);
+		const auto a = -1.0f / (sign + nf.m_z);
+		const auto b = nf.m_x * nf.m_y * a;
 		b1 = XMVectorSet(1.0f + sign * nf.m_x * nf.m_x * a, 
 			             sign * b, 
 			             -sign * nf.m_x, 0.0f);

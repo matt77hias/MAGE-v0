@@ -40,9 +40,9 @@ namespace mage {
 		D3D11_TEXTURE2D_DESC desc;
 		texture->GetDesc(&desc);
 
-		const XMVECTOR width  = XMLoadInt(&desc.Width);
-		const XMVECTOR height = XMLoadInt(&desc.Height);
-		const XMVECTOR size   = XMVectorMergeXY(width, height);
+		const auto width  = XMLoadInt(&desc.Width);
+		const auto height = XMLoadInt(&desc.Height);
+		const auto size   = XMVectorMergeXY(width, height);
 		return XMConvertVectorUIntToFloat(size, 0u);
 	}
 }

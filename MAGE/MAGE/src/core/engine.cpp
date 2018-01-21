@@ -65,8 +65,8 @@ namespace mage {
 		// Initialize the resource system.
 		m_resource_manager    = MakeUnique< ResourceManager >();
 		// Initialize the window system.
-		const U32 width  = display_configuration->GetDisplayWidth();
-		const U32 height = display_configuration->GetDisplayHeight();
+		const auto width  = display_configuration->GetDisplayWidth();
+		const auto height = display_configuration->GetDisplayHeight();
 		m_main_window         = MakeUnique< MainWindow >(
 									setup.GetApplicationInstance(), 
 									setup.GetApplicationName(), 
@@ -141,12 +141,12 @@ namespace mage {
 		m_main_window->Show(nCmdShow);
 		
 		// Handle startup in fullscreen mode.
-		SwapChain * const swap_chain = m_rendering_manager->GetSwapChain();
+		auto * const swap_chain = m_rendering_manager->GetSwapChain();
 		swap_chain->SetInitialMode();
 
 		// Restart the timer.
 		m_timer.Restart();
-		F64 fixed_time_budget = 0.0f;
+		F64 fixed_time_budget = 0.0;
 
 		// Enter the message loop.
 		MSG msg;
@@ -178,7 +178,7 @@ namespace mage {
 			}
 
 			// Handle switch between full screen and windowed mode.
-			const bool lost_mode = swap_chain->LostMode();
+			const auto lost_mode = swap_chain->LostMode();
 			if (m_mode_switch || lost_mode) {
 				swap_chain->SwitchMode(!lost_mode);
 				m_mode_switch = false;
@@ -188,7 +188,7 @@ namespace mage {
 			m_rendering_manager->BeginFrame();
 
 			// Calculate the elapsed time.
-			const F64 delta_time = m_timer.GetDeltaTime();
+			const auto delta_time = m_timer.GetDeltaTime();
 			// Perform the fixed delta time updates of the current scene.
 			if (m_fixed_delta_time) {
 				fixed_time_budget += delta_time;

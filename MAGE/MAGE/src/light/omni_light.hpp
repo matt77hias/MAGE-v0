@@ -128,8 +128,8 @@ namespace mage {
 		 @return		The power spectrum of this omni light.
 		 */
 		[[nodiscard]] const RGB GetPowerSpectrum() const noexcept {
-			const XMVECTOR P_v = GetPower()
-				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
+			const auto P_v = GetPower()
+				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB P;
 			XMStoreFloat3(&P, P_v);
 			return P;
@@ -162,8 +162,8 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this omni light.
 		 */
 		[[nodiscard]] const RGB GetIntensitySpectrum() const noexcept {
-			const XMVECTOR I_v = GetIntensity()
-				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
+			const auto I_v = GetIntensity()
+				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB I;
 			XMStoreFloat3(&I, I_v);
 			return I;
@@ -275,14 +275,14 @@ namespace mage {
 		[[nodiscard]] const XMMATRIX XM_CALLCONV 
 			GetViewToProjectionMatrix() const noexcept {
 
-			static constexpr F32 near_plane = 0.1f;
+			static constexpr auto near_plane = 0.1f;
 
 			#ifdef DISSABLE_INVERTED_Z_BUFFER
-			const F32 m22 = m_range / (m_range - near_plane);
-			const F32 m32 = -near_plane * m22;
+			const auto m22 = m_range / (m_range - near_plane);
+			const auto m32 = -near_plane * m22;
 			#else  // DISSABLE_INVERTED_Z_BUFFER
-			const F32 m22 = near_plane / (near_plane - m_range);
-			const F32 m32 = -m_range * m22;
+			const auto m22 = near_plane / (near_plane - m_range);
+			const auto m32 = -m_range * m22;
 			#endif // DISSABLE_INVERTED_Z_BUFFER
 			
 			return XMMATRIX {

@@ -58,7 +58,9 @@ namespace mage {
 						output manager.
 		 */
 		explicit RenderingOutputManager(ID3D11Device5 *device, 
-			U32 width, U32 height, AADescriptor desc);
+			                            U32 width, 
+			                            U32 height, 
+			                            AADescriptor desc);
 
 		/**
 		 Constructs a rendering output manager from the given rendering output 
@@ -166,40 +168,60 @@ namespace mage {
 			Count                 = 5
 		};
 
-		ID3D11ShaderResourceView *GetSRV(SRVIndex index) const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *
+			GetSRV(SRVIndex index) const noexcept {
+
 			return m_srvs[static_cast< size_t >(index)].Get();
 		}
 		
-		ID3D11ShaderResourceView **ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView **
+			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
+
 			return m_srvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		ID3D11RenderTargetView *GetRTV(RTVIndex index) const noexcept {
+		[[nodiscard]] ID3D11RenderTargetView *
+			GetRTV(RTVIndex index) const noexcept {
+
 			return m_rtvs[static_cast< size_t >(index)].Get();
 		}
 		
-		ID3D11RenderTargetView **ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
+		[[nodiscard]] ID3D11RenderTargetView **
+			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
+
 			return m_rtvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		ID3D11UnorderedAccessView *GetUAV(UAVIndex index) const noexcept {
+		[[nodiscard]] ID3D11UnorderedAccessView *
+			GetUAV(UAVIndex index) const noexcept {
+
 			return m_uavs[static_cast< size_t >(index)].Get();
 		}
 		
-		ID3D11UnorderedAccessView **ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
+		[[nodiscard]] ID3D11UnorderedAccessView **
+			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
+
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 
 		void SetupBuffers(ID3D11Device5 *device, 
-			U32 width, U32 height, AADescriptor desc);
+			              U32 width, 
+			              U32 height, 
+			              AADescriptor desc);
 
 		void SetupBuffer(ID3D11Device5 *device, 
-			U32 width, U32 height, U32 nb_samples, DXGI_FORMAT format,
-			ID3D11ShaderResourceView **srv, ID3D11RenderTargetView **rtv, 
-			ID3D11UnorderedAccessView **uav);
+			             U32 width, 
+			             U32 height, 
+			             U32 nb_samples, 
+			             DXGI_FORMAT format,
+			             ID3D11ShaderResourceView **srv, 
+			             ID3D11RenderTargetView **rtv, 
+			             ID3D11UnorderedAccessView **uav);
 
 		void SetupDepthBuffer(ID3D11Device5 *device, 
-			U32 width, U32 height, U32 nb_samples);
+			                  U32 width, 
+			                  U32 height, 
+			                  U32 nb_samples);
 
 		//---------------------------------------------------------------------
 		// Member Variables

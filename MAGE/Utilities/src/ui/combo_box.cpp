@@ -32,11 +32,11 @@ namespace mage {
 		
 		// Add a string to a list in a combo box and
 		// return the index of the string in the list.
-		const int i = ComboBox_AddString(control, desc);
+		const auto index = ComboBox_AddString(control, desc);
 		
 		// Set the application-defined value associated with the specified list 
 		// item in a combo box. 
-		ComboBox_SetItemData(control, i, data);
+		ComboBox_SetItemData(control, index, data);
 	}
 
 	void ComboBoxSelect(HWND dialog, int id, int index) noexcept {
@@ -68,14 +68,14 @@ namespace mage {
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		
-		for (int i = 0; i < ComboBoxCount(dialog, id); ++i) {
+		for (int index = 0; index < ComboBoxCount(dialog, id); ++index) {
 			
 			// Get the application-defined value associated with the specified 
 			// list item in a combo box. 
-			if (data == (void *)ComboBox_GetItemData(control, i)) {
+			if (data == (void *)ComboBox_GetItemData(control, index)) {
 				
 				// Set the currently selected item in a combo box.
-				ComboBox_SetCurSel(control, i);
+				ComboBox_SetCurSel(control, index);
 				
 				// Place (posts) a message in the message queue associated with 
 				// the thread that created the specified window and returns without 
@@ -102,7 +102,7 @@ namespace mage {
 		HWND control = GetDlgItem(dialog, id);
 		
 		// Get the currently selected item in a combo box.
-		const int index = ComboBox_GetCurSel(control);
+		const auto index = ComboBox_GetCurSel(control);
 
 		// Get the application-defined value associated with the specified list 
 		// item in a combo box. 
@@ -117,7 +117,7 @@ namespace mage {
 		HWND control = GetDlgItem(dialog, id);
 		
 		// Get the currently selected item in a combo box.
-		const int index = ComboBox_GetCurSel(control);
+		const auto index = ComboBox_GetCurSel(control);
 		
 		return (index >= 0);
 	}
@@ -140,10 +140,10 @@ namespace mage {
 		HWND control = GetDlgItem(dialog, id);
 		
 		wchar_t item[MAX_PATH];
-		for (int i = 0; i < ComboBoxCount(dialog, id); ++i) {
+		for (int index = 0; index < ComboBoxCount(dialog, id); ++index) {
 			
 			// Gets a string from a list in a combo box.
-			ComboBox_GetLBText(control, i, item);
+			ComboBox_GetLBText(control, index, item);
 			
 			// Compares (case-sensitive) two character strings.
 			if (0 == lstrcmp(item, desc)) {

@@ -62,7 +62,7 @@ namespace mage {
 		[[nodiscard]] static const D3D11_VIEWPORT 
 			GetMaxViewport(F32 width, F32 height, AADescriptor desc) noexcept {
 			
-			const U32 multiplier = GetResolutionMultiplier(desc);
+			const auto multiplier = GetResolutionMultiplier(desc);
 
 			D3D11_VIEWPORT viewport = {};
 			viewport.Width    = multiplier * width;
@@ -100,7 +100,7 @@ namespace mage {
 		explicit Viewport(Viewport viewport, AADescriptor desc) noexcept
 			: Viewport(std::move(viewport)) {
 
-			const U32 multiplier = GetResolutionMultiplier(desc);
+			const auto multiplier = GetResolutionMultiplier(desc);
 			m_viewport.TopLeftX *= multiplier;
 			m_viewport.TopLeftY *= multiplier;
 			m_viewport.Width    *= multiplier;

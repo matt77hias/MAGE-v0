@@ -31,6 +31,15 @@ namespace mage {
 		CPUTimer() noexcept;
 
 		/**
+		 Constructs a CPU timer.
+
+		 @pre			@a process is not equal to @c nullptr.
+		 @param[in]		process
+						The process handle.
+		 */
+		explicit CPUTimer(HANDLE process) noexcept;
+
+		/**
 		 Constructs a CPU timer from the given CPU timer.
 
 		 @param[in]		timer
@@ -111,7 +120,7 @@ namespace mage {
 						of this CPU timer's process.
 		 */
 		F64 GetCoreDeltaTimePerCore() const noexcept {
-			return GetCoreDeltaTime() / m_nb_processor_cores;
+			return GetCoreDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -130,7 +139,7 @@ namespace mage {
 						core of this CPU timer's process.
 		 */
 		F64 GetKernelModeDeltaTimePerCore() const noexcept {
-			return GetKernelModeDeltaTime() / m_nb_processor_cores;
+			return GetKernelModeDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -150,7 +159,7 @@ namespace mage {
 						core of this CPU timer's process.
 		 */
 		F64 GetUserModeDeltaTimePerCore() const noexcept {
-			return GetUserModeDeltaTime() / m_nb_processor_cores;
+			return GetUserModeDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -174,7 +183,7 @@ namespace mage {
 						core of this CPU timer's process.
 		 */
 		F64 GetTotalCoreDeltaTimePerCore() const noexcept {
-			return GetTotalCoreDeltaTime() / m_nb_processor_cores;
+			return GetTotalCoreDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -194,7 +203,7 @@ namespace mage {
 						processing core of this CPU timer's process.
 		 */
 		F64 GetTotalKernelModeDeltaTimePerCore() const noexcept {
-			return GetTotalKernelModeDeltaTime() / m_nb_processor_cores;
+			return GetTotalKernelModeDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -214,7 +223,7 @@ namespace mage {
 						processing core of this CPU timer's process.
 		 */
 		F64 GetTotalUserModeDeltaTimePerCore() const noexcept {
-			return GetTotalUserModeDeltaTime() / m_nb_processor_cores;
+			return GetTotalUserModeDeltaTime() / s_nb_processor_cores;
 		}
 
 		/**
@@ -286,15 +295,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The process handle.
+		 The process handle of this CPU timer.
 		 */
-		HANDLE m_handle;
+		HANDLE m_process;
 
-		/**
-		 The number of processor cores.
-		 */
-		size_t m_nb_processor_cores;
-		
 		/**
 		 The modes' last timestamps of this CPU timer's process.
 		 */
@@ -323,5 +327,10 @@ namespace mage {
 		 The time period of CPU timers.
 		 */
 		static constexpr F64 s_time_period = 0.0000001;
+
+		/**
+		 The number of processor cores.
+		 */
+		static const U16 s_nb_processor_cores;
 	};
 }

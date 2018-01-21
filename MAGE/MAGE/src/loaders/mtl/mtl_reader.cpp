@@ -25,7 +25,7 @@ namespace mage::loader {
 
 	void MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
-		const char * const token 
+		const auto * const token
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_mtl_token_comment == token[0]) {
@@ -64,7 +64,7 @@ namespace mage::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -80,12 +80,12 @@ namespace mage::loader {
 	}
 
 	void MTLReader::ReadMTLRoughness() {
-		const F32 roughness = Read< F32 >();
+		const auto roughness = Read< F32 >();
 		m_material_buffer.back().SetRoughness(roughness);
 	}
 
 	void MTLReader::ReadMTLMetalness() {
-		const F32 metalness = Read< F32 >();
+		const auto metalness = Read< F32 >();
 		m_material_buffer.back().SetMetalness(metalness);
 	}
 
@@ -103,7 +103,7 @@ namespace mage::loader {
 
 	[[nodiscard]] const SRGB MTLReader::ReadMTLSRGB() {
 
-		const F32 red = Read< F32 >();
+		const auto red = Read< F32 >();
 
 		F32 green = red;
 		F32 blue  = red;
@@ -117,7 +117,7 @@ namespace mage::loader {
 
 	[[nodiscard]] const SRGBA MTLReader::ReadMTLSRGBA() {
 		
-		const F32 red = Read< F32 >();
+		const auto red = Read< F32 >();
 
 		F32 green = red;
 		F32 blue  = red;
@@ -126,16 +126,16 @@ namespace mage::loader {
 			blue  = Read< F32 >();
 		}
 
-		const F32 alpha = Contains< F32 >() ? Read< F32 >() : 1.0f;
+		const auto alpha = Contains< F32 >() ? Read< F32 >() : 1.0f;
 		
 		return SRGBA(red, green, blue, alpha);
 	}
 
 	[[nodiscard]] SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const wstring texture_path  = mage::GetPathName(GetFilename());
-		const wstring texture_name  = str_convert(Read< string >());
-		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
+		const auto texture_path  = mage::GetPathName(GetFilename());
+		const auto texture_name  = str_convert(Read< string >());
+		const auto texture_fname = mage::GetFilename(texture_path, texture_name);
 		return ResourceManager::Get()->GetOrCreate< Texture >(texture_fname);
 	}
 }

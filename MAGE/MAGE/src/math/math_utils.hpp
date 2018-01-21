@@ -122,7 +122,7 @@ namespace mage {
 	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
 		XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
 		
-		const XMVECTOR v = XMLoadInt4(reinterpret_cast< const U32 * >(&rect));
+		const auto v = XMLoadInt4(reinterpret_cast< const U32 * >(&rect));
 		return XMConvertVectorIntToFloat(v, 0);
 	}
 
@@ -138,7 +138,7 @@ namespace mage {
 	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
 		XMVectorLeftTopWidthHeight(const RECT &rect) noexcept {
 
-		const XMVECTOR v = XMVectorLeftTopRightBottom(rect);
+		const auto v = XMVectorLeftTopRightBottom(rect);
 		return v - XMVectorPermute< 0, 1, 4, 5 >(XMVectorZero(), v);
 
 	}
@@ -164,8 +164,8 @@ namespace mage {
 		// Construction of p_ndc.z from p_view and projection values
 		// p_ndc.z = X + Y/p_view.z
 
-		const F32 x = XMVectorGetZ(projection_matrix.r[2]);
-		const F32 y = XMVectorGetZ(projection_matrix.r[3]);
+		const auto x = XMVectorGetZ(projection_matrix.r[2]);
+		const auto y = XMVectorGetZ(projection_matrix.r[3]);
 		
 		return XMVectorSet(x, y, 0.0f, 0.0f);
 	}

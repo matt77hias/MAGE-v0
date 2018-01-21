@@ -56,7 +56,7 @@ namespace mage::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadLine(char *line) {
 		m_context = nullptr;
-		const char * const token 
+		const auto * const token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_obj_token_comment == token[0]) {
@@ -91,9 +91,8 @@ namespace mage::loader {
 			ReadOBJSmoothingGroup();
 		}
 		else {
-			Warning(
-				"%ls: line %u: unsupported keyword token: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.", 
+				    GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -102,9 +101,9 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const wstring mtl_path  = mage::GetPathName(GetFilename());
-		const wstring mtl_name  = str_convert(Read< string >());
-		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
+		const auto mtl_path  = mage::GetPathName(GetFilename());
+		const auto mtl_name  = str_convert(Read< string >());
+		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
 	}
@@ -126,7 +125,7 @@ namespace mage::loader {
 				model_part.m_parent  = Read< string >();
 			}
 			
-			F32x3 translation = InvertHandness(Point3(Read< F32x3 >()));
+			auto translation = InvertHandness(Point3(Read< F32x3 >()));
 			model_part.m_transform.SetTranslation(std::move(translation));
 			model_part.m_transform.SetRotation(Read< F32x3 >());
 			model_part.m_transform.SetScale(   Read< F32x3 >());
@@ -149,8 +148,8 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertex() {
-		const Point3 read_vertex = ReadOBJVertexCoordinates();
-		Point3 vertex = m_mesh_desc.InvertHandness() ? 
+		const auto read_vertex = ReadOBJVertexCoordinates();
+		auto vertex = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_vertex) : read_vertex;
 
 		m_vertex_coordinates.push_back(std::move(vertex));
@@ -158,8 +157,8 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexTexture() {
-		const UV read_texture = ReadOBJVertexTextureCoordinates();
-		UV texture = m_mesh_desc.InvertHandness() ? 
+		const auto read_texture = ReadOBJVertexTextureCoordinates();
+		auto texture = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_texture) : read_texture;
 
 		m_vertex_texture_coordinates.push_back(std::move(texture));
@@ -167,11 +166,11 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexNormal() {
-		const Normal3 read_normal = ReadOBJVertexNormalCoordinates();
-		Normal3 normal = m_mesh_desc.InvertHandness() ?
+		const auto read_normal = ReadOBJVertexNormalCoordinates();
+		auto normal = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_normal) : read_normal;
 
-		const XMVECTOR normal_v = XMVector3Normalize(XMLoadFloat3(&normal));
+		const auto normal_v = XMVector3Normalize(XMLoadFloat3(&normal));
 		XMStoreFloat3(&normal, normal_v);
 
 		m_vertex_normal_coordinates.push_back(std::move(normal));
@@ -182,7 +181,7 @@ namespace mage::loader {
 		
 		std::vector< IndexT > indices;
 		while (indices.size() < 3 || ContainsChars()) {
-			const Index3 vertex_indices = ReadOBJVertexIndices();
+			const auto vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 
 				it != m_mapping.cend()) {
@@ -190,10 +189,11 @@ namespace mage::loader {
 				indices.push_back(it->second);
 			}
 			else {
-				const IndexT index 
+				const auto index
 					= static_cast< IndexT >(m_model_output.m_vertex_buffer.size());
 				indices.push_back(index);
-				m_model_output.m_vertex_buffer.push_back(ConstructVertex(vertex_indices));
+				m_model_output.m_vertex_buffer.push_back(
+					ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;
 			}
 		}
@@ -246,7 +246,7 @@ namespace mage::loader {
 	[[nodiscard]] const typename OBJReader< VertexT, IndexT >::Index3
 		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
 
-		const char *token = ReadChars();
+		const auto *token = ReadChars();
 
 		IndexT vertex_index  = 0;
 		IndexT texture_index = 0;

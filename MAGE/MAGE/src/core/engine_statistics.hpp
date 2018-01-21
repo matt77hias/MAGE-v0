@@ -102,7 +102,7 @@ namespace mage {
 		 Prepares this engine statistics for rendering.
 		 */
 		constexpr void PrepareRendering() noexcept {
-			m_nb_draw_calls = 0;
+			m_nb_draw_calls = 0u;
 		}
 
 		/**

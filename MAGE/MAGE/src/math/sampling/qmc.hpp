@@ -25,8 +25,8 @@
 namespace mage {
 
 	[[nodiscard]] inline F32 RadicalInverse(size_t index, F32 base) noexcept {
-		F32 result = 0.0f;
-		F32 denom  = 1.0f;
+		auto result = 0.0f;
+		auto denom  = 1.0f;
 
 		while (index) {
 			denom  *= base;
@@ -51,25 +51,25 @@ namespace mage {
 	}
 
 	[[nodiscard]] inline const F32x2 Halton2D(size_t index) noexcept {
-		const F32 x = RadicalInverse(index, 2.0f);
-		const F32 y = RadicalInverse(index, 3.0f);
+		const auto x = RadicalInverse(index, 2.0f);
+		const auto y = RadicalInverse(index, 3.0f);
 		
 		return F32x2(x, y);
 	}
 
 	[[nodiscard]] inline const F32x3 Halton3D(size_t index) noexcept {
-		const F32 x = RadicalInverse(index, 2.0f);
-		const F32 y = RadicalInverse(index, 3.0f);
-		const F32 z = RadicalInverse(index, 5.0f);
+		const auto x = RadicalInverse(index, 2.0f);
+		const auto y = RadicalInverse(index, 3.0f);
+		const auto z = RadicalInverse(index, 5.0f);
 		
 		return F32x3(x, y, z);
 	}
 
 	[[nodiscard]] inline const F32x4 Halton4D(size_t index) noexcept {
-		const F32 x = RadicalInverse(index, 2.0f);
-		const F32 y = RadicalInverse(index, 3.0f);
-		const F32 z = RadicalInverse(index, 5.0f);
-		const F32 w = RadicalInverse(index, 7.0f);
+		const auto x = RadicalInverse(index, 2.0f);
+		const auto y = RadicalInverse(index, 3.0f);
+		const auto z = RadicalInverse(index, 5.0f);
+		const auto w = RadicalInverse(index, 7.0f);
 		
 		return F32x4(x, y, z, w);
 	}
@@ -93,8 +93,8 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const F32 x = index / F32(nb_samples);
-		const F32 y = RadicalInverse(index, 2.0f);
+		const auto x = index / F32(nb_samples);
+		const auto y = RadicalInverse(index, 2.0f);
 		
 		return F32x2(x, y);
 	}
@@ -104,9 +104,9 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const F32 x = index / F32(nb_samples);
-		const F32 y = RadicalInverse(index, 2.0f);
-		const F32 z = RadicalInverse(index, 3.0f);
+		const auto x = index / F32(nb_samples);
+		const auto y = RadicalInverse(index, 2.0f);
+		const auto z = RadicalInverse(index, 3.0f);
 		
 		return F32x3(x, y, z);
 	}
@@ -116,10 +116,10 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const F32 x = index / F32(nb_samples);
-		const F32 y = RadicalInverse(index, 2.0f);
-		const F32 z = RadicalInverse(index, 3.0f);
-		const F32 w = RadicalInverse(index, 5.0f);
+		const auto x = index / F32(nb_samples);
+		const auto y = RadicalInverse(index, 2.0f);
+		const auto z = RadicalInverse(index, 3.0f);
+		const auto w = RadicalInverse(index, 5.0f);
 		
 		return F32x4(x, y, z, w);
 	}

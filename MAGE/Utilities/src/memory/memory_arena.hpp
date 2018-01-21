@@ -280,7 +280,7 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			DataT *allocate(size_t count) const {
-				DataT * const data = m_memory_stack->AllocData(count);
+				auto * const data = m_memory_stack->AllocData< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
 				}

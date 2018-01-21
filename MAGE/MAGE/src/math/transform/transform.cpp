@@ -28,9 +28,9 @@ namespace mage {
 			m_dirty_object_to_world = false;
 
 			Assert(HasOwner());
-			const ProxyPtr< Node > parent = m_owner->GetParent();
+			const auto parent = m_owner->GetParent();
 			
-			if (parent != nullptr) {
+			if (nullptr != parent) {
 				m_object_to_world = GetObjectToParentMatrix() 
 					              * parent->GetTransform().GetObjectToWorldMatrix();
 			}
@@ -45,9 +45,9 @@ namespace mage {
 			m_dirty_world_to_object = false;
 
 			Assert(HasOwner());
-			const ProxyPtr< Node > parent = m_owner->GetParent();
+			const auto parent = m_owner->GetParent();
 			
-			if (parent != nullptr) {
+			if (nullptr != parent) {
 				m_world_to_object = parent->GetTransform().GetWorldToObjectMatrix() 
 					              * GetParentToObjectMatrix();
 			}

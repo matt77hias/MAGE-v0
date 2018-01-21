@@ -17,10 +17,10 @@ namespace mage {
 	template< typename DataT >
 	inline const DataT LineReader::Read() {
 		DataT result;
-		const TokenResult token_result = mage::Read< DataT >(nullptr, 
-			                                                 &m_context, 
-			                                                 result, 
-				                                             GetDelimiters().c_str());
+		const auto token_result = mage::Read< DataT >(nullptr, 
+			                                          &m_context, 
+			                                          result, 
+				                                      GetDelimiters().c_str());
 
 		switch (token_result) {
 

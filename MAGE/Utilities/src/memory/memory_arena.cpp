@@ -45,7 +45,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] size_t MemoryArena::GetTotalBlockSize() const noexcept {
-		size_t size = GetCurrentBlockSize();
+		auto size = GetCurrentBlockSize();
 		
 		for (const auto &block : m_used_blocks) {
 			size += block.first;
@@ -88,9 +88,9 @@ namespace mage {
 
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
-				const size_t alloc_size 
+				const auto alloc_size
 					= std::max(size, GetMaximumBlockSize());
-				U8 * const alloc_ptr 
+				auto * const alloc_ptr
 					= AllocAlignedData< U8 >(alloc_size, m_alignment);
 
 				if (!alloc_ptr) {
@@ -104,7 +104,7 @@ namespace mage {
 			m_current_block_pos = 0;
 		}
 
-		void * const ptr = 
+		auto * const ptr =
 			(void *)(m_current_block.second + m_current_block_pos);
 		
 		m_current_block_pos += size;

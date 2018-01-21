@@ -55,7 +55,7 @@ namespace mage {
 		
 		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
 		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
-		char *s = m_current_pos;
+		auto *s = m_current_pos;
 		for (U16 i = 0; i < m_nb_progress_total; ++i) {
 			*s++ = ' ';
 		}
@@ -85,10 +85,10 @@ namespace mage {
 		const std::lock_guard< std::mutex > lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
-		const F32 fraction = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
-		const U16 nb_progress_total = std::min(static_cast< U16 >(
-			                                   round(fraction * m_nb_progress_total)),
-					                           m_nb_progress_total);
+		const auto fraction = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
+		const auto nb_progress_total = std::min(static_cast< U16 >(
+			                                    round(fraction * m_nb_progress_total)),
+					                            m_nb_progress_total);
 		
 		while (m_nb_progress_printed < nb_progress_total) {
 			*m_current_pos = m_progress_char;
@@ -100,13 +100,13 @@ namespace mage {
 		fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time and estimated time to completion
-		const F32 time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
 		if (1.0f == fraction) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", time);
 		}
 		else {
-			const F32 remaining_time = std::max(0.0f, time / fraction - time);
+			const auto remaining_time = std::max(0.0f, time / fraction - time);
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs|%.1fs)  ", time, remaining_time);
 		}
@@ -132,7 +132,7 @@ namespace mage {
 		fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time
-		const F32 time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", time);
 	

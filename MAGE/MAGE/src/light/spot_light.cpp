@@ -51,11 +51,11 @@ namespace mage {
 	SpotLight &SpotLight::operator=(SpotLight &&light) noexcept = default;
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
-		const F32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);
-		const F32 tan_umbra = sqrt(a - 1.0f);
-		const F32 rxy       = m_range * tan_umbra;
-		const F32 rz        = m_range * 0.5f;
-		const F32 r         = sqrt(rxy * rxy + rz * rz);
+		const auto a         = 1.0f / (m_cos_umbra * m_cos_umbra);
+		const auto tan_umbra = sqrt(a - 1.0f);
+		const auto rxy       = m_range * tan_umbra;
+		const auto rz        = m_range * 0.5f;
+		const auto r         = sqrt(rxy * rxy + rz * rz);
 
 		m_aabb   = AABB(Point3(-rxy, -rxy, 0.0f),
 				        Point3( rxy,  rxy, m_range));

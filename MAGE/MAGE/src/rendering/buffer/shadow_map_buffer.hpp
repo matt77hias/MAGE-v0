@@ -59,16 +59,15 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ShadowMapBuffer(
-			size_t nb_shadow_maps = 1, 
-			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			DepthFormat format = DepthFormat::D16);
+		explicit ShadowMapBuffer(size_t nb_shadow_maps = 1u, 
+			                     U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     DepthFormat format = DepthFormat::D16);
 		explicit ShadowMapBuffer(ID3D11Device5 *device,
-			size_t nb_shadow_maps = 1, 
-			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			DepthFormat format = DepthFormat::D16);
+			                     size_t nb_shadow_maps = 1u, 
+			                     U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer &buffer) = delete;
 		ShadowMapBuffer(ShadowMapBuffer &&buffer) noexcept = default;
 		~ShadowMapBuffer() = default;
@@ -84,7 +83,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		size_t GetNumberOfShadowMaps() const noexcept {
+		[[nodiscard]] size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
 		}
 
@@ -101,14 +100,14 @@ namespace mage {
 			}
 		}
 		void BindDSV(ID3D11DeviceContext4 *device_context, 
-			size_t dsv_index) const noexcept {
+			         size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+		[[nodiscard]] ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
-		ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_srv.Get();
 		}
 
@@ -122,10 +121,12 @@ namespace mage {
 		void SetupRasterizerState(ID3D11Device5 *device);
 
 		void SetupShadowMapBuffer(ID3D11Device5 *device,
-			size_t nb_shadow_maps);
+			                      size_t nb_shadow_maps);
 		void SetupShadowMapArray(ID3D11Device5 *device,
-			size_t nb_shadow_maps, DXGI_FORMAT texture_format,
-			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
+			                     size_t nb_shadow_maps, 
+			                     DXGI_FORMAT texture_format,
+			                     DXGI_FORMAT dsv_format, 
+			                     DXGI_FORMAT srv_format);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -157,16 +158,15 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ShadowCubeMapBuffer(
-			size_t nb_shadow_cube_maps = 1, 
-			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			DepthFormat format = DepthFormat::D16);
+		explicit ShadowCubeMapBuffer(size_t nb_shadow_cube_maps = 1u, 
+			                         U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         DepthFormat format = DepthFormat::D16);
 		explicit ShadowCubeMapBuffer(ID3D11Device5 *device,
-			size_t nb_shadow_cube_maps = 1,
-			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			DepthFormat format = DepthFormat::D16);
+			                         size_t nb_shadow_cube_maps = 1u,
+			                         U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer &buffer) = delete;
 		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) noexcept = default;
 		~ShadowCubeMapBuffer() = default;
@@ -182,10 +182,10 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		size_t GetNumberOfShadowMaps() const noexcept {
+		[[nodiscard]] size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
 		}
-		size_t GetNumberOfShadowCubeMaps() const noexcept {
+		[[nodiscard]] size_t GetNumberOfShadowCubeMaps() const noexcept {
 			return m_dsvs.size() / 6u;
 		}
 
@@ -202,14 +202,14 @@ namespace mage {
 			}
 		}
 		void BindDSV(ID3D11DeviceContext4 *device_context, 
-			size_t dsv_index) const noexcept {
+			         size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+		[[nodiscard]] ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
-		ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]] ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_srv.Get();
 		}
 
@@ -223,10 +223,12 @@ namespace mage {
 		void SetupRasterizerState(ID3D11Device5 *device);
 
 		void SetupShadowCubeMapBuffer(ID3D11Device5 *device,
-			size_t nb_shadow_cube_maps);
+			                          size_t nb_shadow_cube_maps);
 		void SetupShadowCubeMapArray(ID3D11Device5 *device,
-			size_t nb_shadow_cube_maps, DXGI_FORMAT texture_format,
-			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
+			                         size_t nb_shadow_cube_maps, 
+			                         DXGI_FORMAT texture_format,
+			                         DXGI_FORMAT dsv_format, 
+			                         DXGI_FORMAT srv_format);
 
 		//---------------------------------------------------------------------
 		// Member Variables

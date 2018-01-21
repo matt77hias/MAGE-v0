@@ -18,15 +18,15 @@ namespace mage::loader {
 	void ImportMaterialFromFile(const wstring &fname, 
 		                        std::vector< Material > &materials) {
 		
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"mtl" || extension == L"MTL") {
 			ImportMTLMaterialFromFile(fname, materials);
 			return;
 		}
 		else {
-			throw Exception(
-				"Unknown material file extension: %ls", fname.c_str());
+			throw Exception("Unknown material file extension: %ls", 
+				            fname.c_str());
 		}
 	}
 }

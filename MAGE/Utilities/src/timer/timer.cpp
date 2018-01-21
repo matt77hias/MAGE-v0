@@ -80,7 +80,7 @@ namespace mage {
 
 	void Timer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer.
-		const TimeStamp current_timestamp = m_clock.now();
+		const auto current_timestamp = m_clock.now();
 
 		// Updates the delta time of this timer.
 		m_delta_time        = current_timestamp - m_last_timestamp;

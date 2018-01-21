@@ -22,43 +22,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] const char *
-		str_escape_first(const char *str, char c) noexcept {
-		
-		Assert(str);
-		
-		const char *input = str;
-		while (true) {
-			const char *result = strchr(input, static_cast< int >(c));
-
-			if (!result) {
-				// No match found.
-				return nullptr;
-			}
-			if (str == result) {
-				// Current match is not escaped (first character).
-				return result;
-			}
-			if ('\\' != *(result - 1)) {
-				// Current match is not escaped.
-				return result;
-			}
-
-			// Continue search (current match is escaped).
-			input = result + 1;
-		}
-	}
-
 	[[nodiscard]] char *
 		str_escape_first(char *str, char c) noexcept {
 		
 		Assert(str);
 		
-		char *input = str;
+		auto *input = str;
 		while (true) {
-			char *result = strchr(input, static_cast< int >(c));
+			auto *result = strchr(input, static_cast< int >(c));
 			
-			if (!result) {
+			if (nullptr == result) {
 				// No match found.
 				return nullptr;
 			}
@@ -76,16 +49,43 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const wchar_t *
-		str_escape_first(const wchar_t *str, wchar_t c) noexcept {
+	[[nodiscard]] const char *
+		str_escape_first(const char *str, char c) noexcept {
 		
 		Assert(str);
 		
-		const wchar_t *input = str;
+		const auto *input = str;
 		while (true) {
-			const wchar_t *result = wcschr(input, c);
+			const auto *result = strchr(input, static_cast< int >(c));
 
-			if (!result) {
+			if (nullptr == result) {
+				// No match found.
+				return nullptr;
+			}
+			if (str == result) {
+				// Current match is not escaped (first character).
+				return result;
+			}
+			if ('\\' != *(result - 1)) {
+				// Current match is not escaped.
+				return result;
+			}
+
+			// Continue search (current match is escaped).
+			input = result + 1;
+		}
+	}
+
+	[[nodiscard]] wchar_t *
+		str_escape_first(wchar_t *str, wchar_t c) noexcept {
+		
+		Assert(str);
+		
+		auto *input = str;
+		while (true) {
+			auto *result = wcschr(input, c);
+
+			if (nullptr == result) {
 				// No match found.
 				return nullptr;
 			}
@@ -103,16 +103,16 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] wchar_t *
-		str_escape_first(wchar_t *str, wchar_t c) noexcept {
+	[[nodiscard]] const wchar_t *
+		str_escape_first(const wchar_t *str, wchar_t c) noexcept {
 		
 		Assert(str);
 		
-		wchar_t *input = str;
+		const auto *input = str;
 		while (true) {
-			wchar_t *result = wcschr(input, c);
+			const auto *result = wcschr(input, c);
 
-			if (!result) {
+			if (nullptr == result) {
 				// No match found.
 				return nullptr;
 			}
@@ -136,11 +136,11 @@ namespace mage {
 		Assert(str);
 		Assert(input);
 		
-		const char *next = *input;
+		const auto *next = *input;
 		size_t num_read = 0u;
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
-			const bool is_new_line = (*next == '\n');
+			const bool is_new_line = ('\n' == *next);
 
 			*str++ = *next++;
 			++num_read;
@@ -166,11 +166,11 @@ namespace mage {
 		Assert(str);
 		Assert(input);
 		
-		const wchar_t *next = *input;
+		const auto *next = *input;
 		size_t num_read = 0u;
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
-			const bool is_new_line = (*next == L'\n');
+			const bool is_new_line = (L'\n' == *next);
 
 			*str++ = *next++;
 			++num_read;

@@ -21,7 +21,7 @@ namespace mage::loader {
 		ModelOutput< VertexT, IndexT > &model_output,
 		const MeshDescriptor< VertexT, IndexT > &mesh_desc) {
 
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"mdl" || extension == L"MDL") {
 			ImportMDLModelFromFile(fname, model_output);
@@ -30,8 +30,7 @@ namespace mage::loader {
 			ImportOBJMeshFromFile(fname, model_output, mesh_desc);
 		}
 		else {
-			throw Exception(
-				"Unknown model file extension: %ls", fname.c_str());
+			throw Exception("Unknown model file extension: %ls", fname.c_str());
 		}
 	}
 
@@ -39,14 +38,13 @@ namespace mage::loader {
 	void ExportModelToFile(const wstring &fname, 
 		const ModelOutput< VertexT, IndexT > &model_output) {
 
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"mdl" || extension == L"MDL") {
 			ExportMDLModelToFile(fname, model_output);
 		}
 		else {
-			throw Exception(
-				"Unknown model file extension: %ls", fname.c_str());
+			throw Exception("Unknown model file extension: %ls", fname.c_str());
 		}
 	}
 }

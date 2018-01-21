@@ -25,8 +25,8 @@ namespace mage {
 		                                          size_t count) {
 		Assert(data);
 		
-		const size_t count_written = fwrite(
-			data, sizeof(DataT), count, m_file_stream.get());
+		const size_t count_written 
+			= fwrite(data, sizeof(DataT), count, m_file_stream.get());
 		ThrowIfFailed((count_written == count),
 			"%ls: could not write all data to file.", GetFilename().c_str());
 	}

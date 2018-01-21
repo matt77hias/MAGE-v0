@@ -33,7 +33,9 @@ namespace mage {
 	}
 
 	RenderingOutputManager::RenderingOutputManager(ID3D11Device5 *device, 
-		U32 width, U32 height, AADescriptor desc)
+		                                           U32 width, 
+		                                           U32 height, 
+		                                           AADescriptor desc)
 		: m_srvs{}, 
 		m_rtvs{}, 
 		m_uavs{}, 
@@ -50,16 +52,16 @@ namespace mage {
 
 	RenderingOutputManager::~RenderingOutputManager() = default;
 
-	void RenderingOutputManager::SetupBuffers(
-		ID3D11Device5 *device, 
-		U32 width, U32 height, AADescriptor desc) {
-
+	void RenderingOutputManager::SetupBuffers(ID3D11Device5 *device, 
+		                                      U32 width, 
+		                                      U32 height, 
+		                                      AADescriptor desc) {
 		Assert(device);
 
 		U32 nb_samples = 1u;
-		U32 ss_width   = width;
-		U32 ss_height  = height;
-		bool aa        = true;
+		auto ss_width   = width;
+		auto ss_height  = height;
+		auto aa        = true;
 		
 		switch (desc) {
 
@@ -106,48 +108,67 @@ namespace mage {
 		}
 
 		// Setup the depth buffer.
-		SetupDepthBuffer(device, ss_width, ss_height,
-			nb_samples);
+		SetupDepthBuffer(device, 
+			             ss_width, 
+			             ss_height,
+			             nb_samples);
 
 		// Setup the GBuffer buffers.
-		SetupBuffer(device, ss_width, ss_height,
-			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
-			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
-			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
-			nullptr);
-		SetupBuffer(device, ss_width, ss_height,
-			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM,
-			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
-			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
-			nullptr);
-		SetupBuffer(device, ss_width, ss_height,
-			nb_samples, DXGI_FORMAT_R11G11B10_FLOAT,
-			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
-			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
-			nullptr);
+		SetupBuffer(device, 
+			        ss_width, 
+			        ss_height,
+			        nb_samples, 
+			        DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
+			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
+			        nullptr);
+		SetupBuffer(device, 
+			        ss_width, 
+			        ss_height,
+			        nb_samples, 
+			        DXGI_FORMAT_R8G8B8A8_UNORM,
+			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
+			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
+			        nullptr);
+		SetupBuffer(device, 
+			        ss_width, 
+			        ss_height,
+			        nb_samples, DXGI_FORMAT_R11G11B10_FLOAT,
+			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
+			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
+			        nullptr);
 
 		// Setup the HDR buffer.
 		if (m_msaa) {
-			SetupBuffer(device, ss_width, ss_height,
-				nb_samples, DXGI_FORMAT_R16G16B16A16_FLOAT,
-				ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
-				ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
-				nullptr);
+			SetupBuffer(device, 
+				        ss_width,
+				        ss_height,
+				        nb_samples, 
+				        DXGI_FORMAT_R16G16B16A16_FLOAT,
+				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
+				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
+				        nullptr);
 		}
 		else {
-			SetupBuffer(device, ss_width, ss_height,
-				1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
-				ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
-				ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
-				ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
+			SetupBuffer(device, 
+				        ss_width, 
+				        ss_height,
+				        1u, 
+				        DXGI_FORMAT_R16G16B16A16_FLOAT,
+				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
+				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
+				        ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
 		}
 		
 		if (aa) {
-			SetupBuffer(device, width, height,
-				1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
-				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
-				ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
-				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR0));
+			SetupBuffer(device, 
+				        width, 
+				        height,
+				        1u, 
+				        DXGI_FORMAT_R16G16B16A16_FLOAT,
+				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
+				        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
+				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR0));
 		}
 		else {
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_HDR0)]
@@ -158,24 +179,33 @@ namespace mage {
 				= m_uavs[static_cast< size_t >(UAVIndex::HDR)];
 		}
 
-		SetupBuffer(device, width, height, 
-			1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
-			ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR1),
-			ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR1),
-			ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR1));
+		SetupBuffer(device, 
+			        width, 
+			        height, 
+			        1u, 
+			        DXGI_FORMAT_R16G16B16A16_FLOAT,
+			        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR1),
+			        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR1),
+			        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR1));
 
 		if (m_msaa || m_ssaa) {
-			SetupBuffer(device, width, height,
-				1u, DXGI_FORMAT_R32_FLOAT,
-				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
-				nullptr,
-				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
+			SetupBuffer(device, 
+				        width, 
+				        height,
+				        1u,
+				        DXGI_FORMAT_R32_FLOAT,
+				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
+				        nullptr,
+				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
 			
-			SetupBuffer(device, width, height,
-				1u, DXGI_FORMAT_R11G11B10_FLOAT,
-				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
-				nullptr,
-				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Normal));
+			SetupBuffer(device, 
+				        width, 
+				        height,
+				        1u, 
+				        DXGI_FORMAT_R11G11B10_FLOAT,
+				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
+				        nullptr,
+				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Normal));
 		}
 		else {
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Depth)]
@@ -185,11 +215,14 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupBuffer(
-		ID3D11Device5 *device, 
-		U32 width, U32 height, U32 nb_samples, DXGI_FORMAT format, 
-		ID3D11ShaderResourceView **srv, ID3D11RenderTargetView **rtv, 
-		ID3D11UnorderedAccessView **uav) {
+	void RenderingOutputManager::SetupBuffer(ID3D11Device5 *device, 
+		                                     U32 width, 
+		                                     U32 height, 
+		                                     U32 nb_samples, 
+		                                     DXGI_FORMAT format, 
+		                                     ID3D11ShaderResourceView **srv, 
+		                                     ID3D11RenderTargetView **rtv, 
+		                                     ID3D11UnorderedAccessView **uav) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
@@ -254,10 +287,10 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupDepthBuffer(
-		ID3D11Device5 *device, 
-		U32 width, U32 height, U32 nb_samples) {
-
+	void RenderingOutputManager::SetupDepthBuffer(ID3D11Device5 *device, 
+		                                          U32 width, 
+		                                          U32 height, 
+		                                          U32 nb_samples) {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = width;
@@ -267,7 +300,8 @@ namespace mage {
 		texture_desc.Format           = DXGI_FORMAT_R32_TYPELESS;
 		texture_desc.SampleDesc.Count = nb_samples;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
+		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE 
+			                          | D3D11_BIND_DEPTH_STENCIL;
 
 		// Sample quality
 		if (1u != nb_samples) {

@@ -33,13 +33,13 @@ namespace mage::script {
 	}
 
 	void CharacterMotorScript::Update([[maybe_unused]] F64 delta_time) {
-		const Keyboard * const keyboard = Keyboard::Get();
-		Transform &transform = GetOwner()->GetTransform();
+		const auto * const keyboard = Keyboard::Get();
+		auto &transform = GetOwner()->GetTransform();
 
-		const F64 movement_magnitude = delta_time * m_velocity;
-		const F64 movement_cos 
+		const auto movement_magnitude = delta_time * m_velocity;
+		const auto movement_cos 
 			= cos(transform.GetRotationY()) * movement_magnitude;
-		const F64 movement_sin 
+		const auto movement_sin 
 			= sin(transform.GetRotationY()) * movement_magnitude;
 		
 		if (     keyboard->GetKeyPress(DIK_UP,     true) 

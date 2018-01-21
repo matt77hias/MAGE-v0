@@ -24,7 +24,7 @@ namespace mage::loader {
 
 	void VARReader::ReadLine(char *line) {
 		m_context = nullptr;
-		const char * const token 
+		const auto * const token
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_var_token_comment == token[0]) {
@@ -60,7 +60,7 @@ namespace mage::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -68,86 +68,86 @@ namespace mage::loader {
 	}
 
 	void VARReader::ReadVARBool() {
-		const string name = Read< string >();
-		const bool value  = Read< bool >();
+		const auto name  = Read< string >();
+		const auto value = Read< bool >();
 		
 		m_variable_buffer.insert_or_assign(std::move(name), 
 			                               Value(value));
 	}
 
 	void VARReader::ReadVARInt() {
-		const string name = Read< string >();
-		const S32 value   = Read< S32 >();
+		const auto name  = Read< string >();
+		const auto value = Read< S32 >();
 		
 		m_variable_buffer.insert_or_assign(std::move(name), 
 			                               Value(value));
 	}
 
 	void VARReader::ReadVARInt2() {
-		const string name = Read< string >();
-		const S32 x       = Read< S32 >();
-		const S32 y       = Read< S32 >();
-		const S32x2 value(x, y);
+		const auto name = Read< string >();
+		const auto x    = Read< S32 >();
+		const auto y    = Read< S32 >();
+		S32x2 value(x, y);
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARInt3() {
-		const string name = Read< string >();
-		const S32 x       = Read< S32 >();
-		const S32 y       = Read< S32 >();
-		const S32 z       = Read< S32 >();
-		const S32x3 value(x, y, z);
+		const auto name = Read< string >();
+		const auto x    = Read< S32 >();
+		const auto y    = Read< S32 >();
+		const auto z    = Read< S32 >();
+		S32x3 value(x, y, z);
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARFloat() {
-		const string name = Read< string >();
-		const F32 value   = Read< F32 >();
+		const auto name  = Read< string >();
+		const auto value = Read< F32 >();
 	
 		m_variable_buffer.insert_or_assign(std::move(name), 
 			                               Value(value));
 	}
 
 	void VARReader::ReadVARFloat2() {
-		const string name = Read< string >();
-		const F32 x       = Read< F32 >();
-		const F32 y       = Read< F32 >();
-		const F32x2 value(x, y);
+		const auto name = Read< string >();
+		const auto x    = Read< F32 >();
+		const auto y    = Read< F32 >();
+		F32x2 value(x, y);
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));
 	}
 	
 	void VARReader::ReadVARFloat3() {
-		const string name = Read< string >();
-		const F32 x       = Read< F32 >();
-		const F32 y       = Read< F32 >();
-		const F32 z       = Read< F32 >();
-		const F32x3 value(x, y, z);
+		const auto name = Read< string >();
+		const auto x    = Read< F32 >();
+		const auto y    = Read< F32 >();
+		const auto z    = Read< F32 >();
+		F32x3 value(x, y, z);
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARFloat4() {
-		const string name = Read< string >();
-		const F32 x       = Read< F32 >();
-		const F32 y       = Read< F32 >();
-		const F32 z       = Read< F32 >();
-		const F32 w       = Read< F32 >();
-		const F32x4 value(x, y, z, w);
+		const auto name = Read< string >();
+		const auto x    = Read< F32 >();
+		const auto y    = Read< F32 >();
+		const auto z    = Read< F32 >();
+		const auto w    = Read< F32 >();
+		F32x4 value(x, y, z, w);
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));
 	}
 
 	void VARReader::ReadVARString() {
-		const string name  = Read< string >();
-		const string value = ReadQuotedString();
+		const auto name  = Read< string >();
+		const auto value = ReadQuotedString();
 		
 		m_variable_buffer.insert_or_assign(std::move(name),
 			                               Value(std::move(value)));

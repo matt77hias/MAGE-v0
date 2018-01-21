@@ -90,8 +90,8 @@ namespace mage {
 			return false;
 		}
 
-		const U64 prev_press_stamp = m_press_stamp - 1;
-		const bool pressed = (!ignore_press_stamp 
+		const auto prev_press_stamp = m_press_stamp - 1;
+		const auto pressed = (!ignore_press_stamp
 			                  && 
 			                 (prev_press_stamp == m_button_press_stamp[button]))
 			                 ? false : true;

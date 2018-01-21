@@ -14,9 +14,9 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]] inline const StringT GetFileExtension(const StringT &fname) {
-		static const StringT str = StringT(1, StringT::value_type('.'));
+		static const StringT str(1, StringT::value_type('.'));
 		
-		const size_t begin_pos = fname.find_last_of(str);
+		const auto begin_pos = fname.find_last_of(str);
 		ThrowIfFailed((StringT::npos != begin_pos),
 			"The filename does not have a file extension.");
 
@@ -25,9 +25,9 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]] inline const StringT GetFileName(const StringT &fname) {
-		static const StringT str = StringT(1, StringT::value_type('/'));
+		static const StringT str(1, StringT::value_type('/'));
 		
-		const size_t begin_pos = fname.find_last_of(str);
+		const auto begin_pos = fname.find_last_of(str);
 		ThrowIfFailed((StringT::npos != begin_pos),
 			"The filename does not have a file path.");
 
@@ -36,9 +36,9 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]] inline const StringT GetPathName(const StringT &fname) {
-		static const StringT str = StringT(1, StringT::value_type('/'));
+		static const StringT str(1, StringT::value_type('/'));
 		
-		const size_t end_pos = fname.find_last_of(str);
+		const auto end_pos = fname.find_last_of(str);
 		ThrowIfFailed((string::npos != end_pos),
 			"The filename does not have a file path.");
 
@@ -49,9 +49,9 @@ namespace mage {
 	[[nodiscard]] inline const StringT 
 		GetFilenameWithoutFileExtension(const StringT &fname) {
 		
-		static const StringT str = StringT(1, StringT::value_type('.'));
+		static const StringT str(1, StringT::value_type('.'));
 		
-		const size_t end_pos = fname.find_last_of(str);
+		const auto end_pos = fname.find_last_of(str);
 		ThrowIfFailed((StringT::npos != end_pos),
 			"The filename does not have a file extension.");
 

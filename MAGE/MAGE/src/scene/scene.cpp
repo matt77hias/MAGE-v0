@@ -109,14 +109,14 @@ namespace mage {
 		// Create the nodes with their model components.
 		desc.ForEachModelPart([&](const ModelPart &model_part) {
 			// Create the node.
-			NodePtr node = Create< Node >(model_part.m_child);
+			auto node = Create< Node >(model_part.m_child);
 			
 			// Create the model component.
-			const ModelPtr model = Create< Model >(desc.GetMesh(),
-				                                   model_part.m_start_index,
-				                                   model_part.m_nb_indices,
-				                                   model_part.m_aabb,
-				                                   model_part.m_sphere);
+			const auto model = Create< Model >(desc.GetMesh(),
+				                               model_part.m_start_index,
+				                               model_part.m_nb_indices,
+				                               model_part.m_aabb,
+				                               model_part.m_sphere);
 			
 			// Set the material of the model component.
 			if (!model_part.HasDefaultMaterial()) {
@@ -130,7 +130,7 @@ namespace mage {
 			}
 
 			// Set the transform of the node.
-			Transform &transform = node->GetTransform();
+			auto &transform = node->GetTransform();
 			transform.SetLocalTransform(model_part.m_transform);
 
 			// Add the model component to the node.
@@ -151,8 +151,7 @@ namespace mage {
 
 		// There must be at least one root node.
 		ThrowIfFailed((0 != nb_root_childs),
-			"%ls: no root node fount.",
-			desc.GetGuid().c_str());
+			"%ls: no root node fount.", desc.GetGuid().c_str());
 
 		// An additional root node needs to be created if multiple root nodes 
 		// are present.

@@ -18,28 +18,28 @@ namespace mage::loader {
 	void ImportVariableScriptFromFile(const wstring &fname, 
 		std::map< string, Value > &variable_buffer) {
 		
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"var" || extension == L"VAR") {
 			ImportVARFromFile(fname, variable_buffer);
 		}
 		else {
-			throw Exception(
-				"Unknown variable script file extension: %ls", fname.c_str());
+			throw Exception("Unknown variable script file extension: %ls", 
+				            fname.c_str());
 		}
 	}
 
 	void ExportVariableScriptToFile(const wstring &fname, 
 		const std::map< string, Value > &variable_buffer) {
 		
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"var" || extension == L"VAR") {
 			ExportVARToFile(fname, variable_buffer);
 		}
 		else {
-			throw Exception(
-				"Unknown variable script file extension: %ls", fname.c_str());
+			throw Exception("Unknown variable script file extension: %ls", 
+				            fname.c_str());
 		}
 	}
 }

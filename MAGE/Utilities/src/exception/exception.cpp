@@ -28,7 +28,8 @@ namespace mage {
 	#pragma region
 
 	Exception::Exception()
-		: exception(), m_text{} {}
+		: std::exception(), 
+		m_text{} {}
 
 	Exception::Exception(const char *format, ...)
 		: Exception() {
@@ -49,7 +50,8 @@ namespace mage {
 	}
 
 	Exception::Exception(const char *format, va_list args) 
-		: exception(), m_text{} {
+		: std::exception(), 
+		m_text{} {
 
 		Assert(format);
 

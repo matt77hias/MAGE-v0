@@ -112,7 +112,7 @@ namespace mage {
 						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext4 *device_context, 
-			const DataT &data);
+			            const DataT &data);
 		
 		/**
 		 Returns the buffer resource of this constant buffer.
@@ -120,7 +120,7 @@ namespace mage {
 		 @return		A pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		ID3D11Buffer *Get() const noexcept {
+		[[nodiscard]] ID3D11Buffer *Get() const noexcept {
 			return m_buffer.Get();
 		}
 		
@@ -142,7 +142,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void Bind(ID3D11DeviceContext4 *device_context, 
-			U32 slot) const noexcept;
+			      U32 slot) const noexcept;
 
 	private:
 

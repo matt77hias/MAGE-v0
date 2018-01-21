@@ -22,7 +22,6 @@
 namespace mage {
 
 	void PrintConsoleHeader() noexcept {
-		
 		printf("Engine version %u.%u.%u of %s at %s\n", 
 			GetVersionMajor(), GetVersionMinor(), GetVersionPatch(),
 			__DATE__, __TIME__);

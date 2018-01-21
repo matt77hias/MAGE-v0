@@ -91,8 +91,8 @@ namespace mage {
 		[[nodiscard]] static const BoundingSphere XM_CALLCONV 
 			Union(const BoundingSphere &sphere, FXMVECTOR point) noexcept {
 
-			const XMVECTOR length = XMVector3Length(point - sphere.m_pr);
-			const F32 radius = std::max(sphere.Radius(), XMVectorGetX(length));
+			const auto length = XMVector3Length(point - sphere.m_pr);
+			const auto radius = std::max(sphere.Radius(), XMVectorGetX(length));
 			return BoundingSphere(sphere.m_pr, radius);
 		}
 
@@ -278,7 +278,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept {
-			const XMVECTOR length = XMVector3Length(point - m_pr);
+			const auto length = XMVector3Length(point - m_pr);
 			return XMVectorGetX(length) <= Radius();
 		}
 
@@ -294,7 +294,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept {
-			const XMVECTOR length = XMVector3Length(point - m_pr);
+			const auto length = XMVector3Length(point - m_pr);
 			return XMVectorGetX(length) < Radius();
 		}
 
@@ -472,8 +472,8 @@ namespace mage {
 		[[nodiscard]] static const AABB XM_CALLCONV 
 			Union(const AABB &aabb1, const AABB &aabb2) noexcept {
 
-			const XMVECTOR p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
-			const XMVECTOR p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
+			const auto p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
+			const auto p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
 			return AABB(p_min, p_max);
 		}
 	
@@ -490,8 +490,8 @@ namespace mage {
 		[[nodiscard]] static const AABB XM_CALLCONV 
 			Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
 
-			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
-			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
+			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
+			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.Overlaps(aabb2) ? AABB(p_min, p_max) : AABB();
 		}
 	
@@ -508,8 +508,8 @@ namespace mage {
 		[[nodiscard]] static const AABB XM_CALLCONV 
 			OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
 
-			const XMVECTOR p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
-			const XMVECTOR p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
+			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
+			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.OverlapsStrict(aabb2) ? AABB(p_min, p_max) : AABB();
 		}
 	
@@ -672,7 +672,7 @@ namespace mage {
 			                                       XMVECTOR &pmin, 
 			                                       XMVECTOR &pmax) const noexcept {
 			
-			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			pmin = XMVectorSelect(m_max, m_min, control);
 			pmax = XMVectorSelect(m_min, m_max, control);
 		}
@@ -687,7 +687,7 @@ namespace mage {
 		[[nodiscard]] const XMVECTOR XM_CALLCONV 
 			MinPointAlongNormal(FXMVECTOR n) const noexcept {
 
-			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			return XMVectorSelect(m_max, m_min, control);
 		}
 
@@ -701,7 +701,7 @@ namespace mage {
 		[[nodiscard]] const XMVECTOR XM_CALLCONV 
 			MaxPointAlongNormal(FXMVECTOR n) const noexcept {
 
-			const XMVECTOR control = XMVectorGreaterOrEqual(n, XMVectorZero());
+			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			return XMVectorSelect(m_min, m_max, control);
 		}
 

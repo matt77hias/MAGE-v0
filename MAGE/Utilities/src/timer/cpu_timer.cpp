@@ -6,6 +6,7 @@
 #include "timer\cpu_timer.hpp"
 #include "parallel\parallel.hpp"
 #include "system\system_time.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -14,13 +15,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	const U16 CPUTimer::s_nb_processor_cores = NumberOfSystemCores();
+
 	CPUTimer::CPUTimer() noexcept
-		: m_handle(GetCurrentProcess()), 
-		m_nb_processor_cores(NumberOfSystemCores()),
-		m_last_timestamp{}, 
-		m_delta_time{}, 
-		m_total_delta_time{}, 
-		m_running(false) {}
+		: CPUTimer(GetCurrentProcess()) {}
+
+	CPUTimer::CPUTimer(HANDLE process) noexcept
+		: m_process(process),
+		m_last_timestamp{},
+		m_delta_time{},
+		m_total_delta_time{},
+		m_running(false) {
+
+		Assert(m_process);
+	}
 
 	void CPUTimer::Start() noexcept {
 		if (m_running) {
@@ -112,18 +120,18 @@ namespace mage {
 
 	void CPUTimer::UpdateLastTimestamp() const noexcept {
 		// Get the current timestamp of this timer's process.
-		GetCurrentCoreTimestamp(m_handle,
+		GetCurrentCoreTimestamp(m_process,
 			                    m_last_timestamp[GetKernelModeIndex()],
 			                    m_last_timestamp[GetUserModeIndex()]);
 	}
 
 	void CPUTimer::ResetDeltaTime() const noexcept {
 		// Resets the modes' delta times of this timer's process.
-		m_delta_time[GetKernelModeIndex()]       = 0;
-		m_delta_time[GetUserModeIndex()]         = 0;
+		m_delta_time[GetKernelModeIndex()]       = 0ull;
+		m_delta_time[GetUserModeIndex()]         = 0ull;
 		// Resets the modes' total delta times of this timer's process.
-		m_total_delta_time[GetKernelModeIndex()] = 0;
-		m_total_delta_time[GetUserModeIndex()]   = 0;
+		m_total_delta_time[GetKernelModeIndex()] = 0ull;
+		m_total_delta_time[GetUserModeIndex()]   = 0ull;
 		// Resets the modes' last timestamps of this timer's process.
 		UpdateLastTimestamp();
 	}
@@ -131,7 +139,7 @@ namespace mage {
 	void CPUTimer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer's process.
 		U64 current_timestamp[2];
-		GetCurrentCoreTimestamp(m_handle,
+		GetCurrentCoreTimestamp(m_process,
 			                    current_timestamp[GetKernelModeIndex()],
 			                    current_timestamp[GetUserModeIndex()]);
 		

@@ -199,8 +199,8 @@ namespace mage {
 						configuration.
 		 */
 		[[nodiscard]] U32 GetDisplayRoundedRefreshRate() const noexcept {
-			const F32 n = static_cast< F32 >(m_display_mode.RefreshRate.Numerator);
-			const F32 d = static_cast< F32 >(m_display_mode.RefreshRate.Denominator);
+			const auto n = static_cast< F32 >(m_display_mode.RefreshRate.Numerator);
+			const auto d = static_cast< F32 >(m_display_mode.RefreshRate.Denominator);
 			return static_cast< U32 >(round(n / d));
 		}
 		

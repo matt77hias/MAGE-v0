@@ -23,7 +23,7 @@ namespace mage {
 		3. end of line (EOL) character;
 		4. carriage return (CR) character.
 	 */
-	const char * const g_default_delimiters = " \t\n\r";
+	constexpr const char *g_default_delimiters = " \t\n\r";
 
 	/**
 	 An enumeration of the different token results.

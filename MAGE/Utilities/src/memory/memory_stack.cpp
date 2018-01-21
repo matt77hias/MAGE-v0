@@ -23,7 +23,7 @@ namespace mage {
 		: m_alignment(alignment), m_size(size), 
 		m_begin(), m_current() {
 
-		void * const ptr = AllocAligned(m_size, m_alignment);
+		auto * const ptr = AllocAligned(m_size, m_alignment);
 		if (!ptr) {
 			throw std::bad_alloc();
 		}
@@ -36,7 +36,7 @@ namespace mage {
 		::SingleEndedMemoryStack(SingleEndedMemoryStack &&stack) noexcept = default;
 
 	SingleEndedMemoryStack::~SingleEndedMemoryStack() {
-		FreeAligned(reinterpret_cast< void * >(m_begin));
+		FreeAligned((void *)(m_begin));
 	}
 
 	void SingleEndedMemoryStack::Reset() noexcept {
@@ -55,7 +55,7 @@ namespace mage {
 			return nullptr;
 		}
 		
-		void * const ptr = reinterpret_cast< void * >(m_current);
+		void * const ptr = (void *)(m_current);
 		m_current += size;
 		return ptr;
 	}
@@ -72,7 +72,7 @@ namespace mage {
 		: m_alignment(alignment), m_size(size),
 		m_begin(), m_current_low(), m_current_high() {
 
-		void * const ptr = AllocAligned(m_size, m_alignment);
+		auto * const ptr = AllocAligned(m_size, m_alignment);
 		if (!ptr) {
 			throw std::bad_alloc();
 		}
@@ -85,7 +85,7 @@ namespace mage {
 		::DoubleEndedMemoryStack(DoubleEndedMemoryStack &&stack) noexcept = default;
 
 	DoubleEndedMemoryStack::~DoubleEndedMemoryStack() {
-		FreeAligned(reinterpret_cast< void * >(m_begin));
+		FreeAligned((void *)(m_begin));
 	}
 
 	void DoubleEndedMemoryStack::Reset() noexcept {
@@ -111,7 +111,7 @@ namespace mage {
 			return nullptr;
 		}
 
-		void * const ptr = reinterpret_cast< void * >(m_current_low);
+		auto * const ptr = (void *)(m_current_low);
 		m_current_low += size;
 		return ptr;
 	}
@@ -122,7 +122,7 @@ namespace mage {
 			return nullptr;
 		}
 
-		void * const ptr = reinterpret_cast< void * >(m_current_high);
+		auto * const ptr = (void *)(m_current_high);
 		m_current_high -= size;
 		return ptr;
 	}

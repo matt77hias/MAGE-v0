@@ -61,9 +61,9 @@ namespace mage {
 		SetupDevice();
 		
 		// Setup the swap chain.
-		m_swap_chain 
-			= MakeUnique< SwapChain >(m_device.Get(), m_window, 
-			                          m_display_configuration.get());
+		m_swap_chain = MakeUnique< SwapChain >(m_device.Get(), 
+				                               m_window, 
+			                                   m_display_configuration.get());
 
 		// Setup the rendering output manager.
 		m_rendering_output_manager 
@@ -73,8 +73,7 @@ namespace mage {
 									               m_display_configuration->GetAADescriptor());
 		
 		// Setup the rendering state manager.
-		m_rendering_state_manager 
-			= MakeUnique< RenderingStateManager >(m_device.Get());
+		m_rendering_state_manager = MakeUnique< RenderingStateManager >(m_device.Get());
 		
 		// Setup the renderer.
 		m_renderer = MakeUnique< Renderer >(m_device.Get(), 

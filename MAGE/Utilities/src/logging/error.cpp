@@ -97,13 +97,13 @@ namespace mage {
 		// Print formatted error message
 		const size_t width  = std::max(20, ConsoleWidth() - 2);
 		string error_string = error_type + ": ";
-		size_t error_pos    = error_string.size();
+		auto error_pos    = error_string.size();
 
 		char error_buffer[2048];
 		vsnprintf_s(error_buffer, std::size(error_buffer), 
 			        _TRUNCATE, format, args);
 
-		const char *msg_pos = error_buffer;
+		const auto *msg_pos = error_buffer;
 		while (true) {
 			msg_pos = FindWordStart(msg_pos);
 
@@ -113,8 +113,8 @@ namespace mage {
 
 			// false == isspace(*msg_pos)
 
-			const char * const word_end  = FindWordEnd(msg_pos);
-			if (const size_t word_length 
+			const auto * const word_end  = FindWordEnd(msg_pos);
+			if (const auto word_length 
 				= static_cast< size_t >(word_end - msg_pos);
 				width < error_pos + word_length) {
 

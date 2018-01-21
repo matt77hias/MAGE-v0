@@ -55,57 +55,50 @@ namespace mage {
 		{
 			const HRESULT result = CreateOpaqueBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Opaque));
-			ThrowIfFailed(result,
-				"Opaque blend state creation failed: %08X.", 
-				result);
+			ThrowIfFailed(result, 
+				"Opaque blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateAlphaBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Alpha));
 			ThrowIfFailed(result,
-				"Alpha blend state creation failed: %08X.", 
-				result);
+				"Alpha blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateAdditiveBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Additive));
 			ThrowIfFailed(result,
-				"Additive blend state creation failed: %08X.", 
-				result);
+				"Additive blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateMultiplicativeBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Multiplicative));
 			ThrowIfFailed(result,
-				"Multiplicative blend state creation failed: %08X.", 
-				result);
+				"Multiplicative blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateBiMultiplicativeBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::BiMultiplicative));
 			ThrowIfFailed(result,
-				"Bi-multiplicative blend state creation failed: %08X.",
-				result);
+				"Bi-multiplicative blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateTransparencyBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Transparency));
 			ThrowIfFailed(result,
-				"Transparency blend state creation failed: %08X.",
-				result);
+				"Transparency blend state creation failed: %08X.", result);
 		}
 
 		{
 			const HRESULT result = CreateAlphaToCoverageBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::AlphaToCoverage));
 			ThrowIfFailed(result,
-				"Alpha-to-coverage blend state creation failed: %08X.",
-				result);
+				"Alpha-to-coverage blend state creation failed: %08X.", result);
 		}
 	}
 
@@ -194,7 +187,7 @@ namespace mage {
 				result);
 		}
 
-#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISSABLE_INVERTED_Z_BUFFER
 	}
 
 	void RenderingStateManager::SetupRasterizerStates(ID3D11Device5 *device) {
@@ -330,10 +323,9 @@ namespace mage {
 		};
 
 		// Bind the samplers.
-		Pipeline::BindSamplers(
-			Pipeline::GetImmediateDeviceContext(),
-			SLOT_SAMPLER_PERSISTENT_START,
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
+		Pipeline::BindSamplers(Pipeline::GetImmediateDeviceContext(),
+			                   SLOT_SAMPLER_PERSISTENT_START,
+			                   SLOT_SAMPLER_PERSISTENT_COUNT,
+			                   samplers);
 	}
 }

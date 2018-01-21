@@ -57,7 +57,7 @@ namespace mage {
 			// activated and to the application whose window is being 
 			// deactivated.
 
-			const bool deactive = static_cast< bool >(!wParam);
+			const auto deactive = static_cast< bool >(!wParam);
 			Engine::Get()->OnActiveChange(deactive);
 			
 			break;
@@ -172,7 +172,7 @@ namespace mage {
 			                             text, 
 			                             static_cast< int >(std::size(text)));
 		
-		return result ? text : L"";
+		return 0 == result ? L"" : text;
 	}
 
 	void MainWindow::SetTitleText(const wstring &title_text) {
@@ -254,7 +254,7 @@ namespace mage {
 		// 2. The window style of the window.
 		// 3. Flag indicating whether the window has a menu.
 		const DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		RECT adjusted_rectangle = rectangle;
+		auto adjusted_rectangle = rectangle;
 		AdjustWindowRect(&adjusted_rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.

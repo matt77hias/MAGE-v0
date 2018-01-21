@@ -33,10 +33,10 @@ namespace mage::script {
 	}
 
 	void ManhattanMotorScript::Update([[maybe_unused]] F64 delta_time) {
-		const Keyboard * const keyboard = Keyboard::Get();
-		Transform &transform = GetOwner()->GetTransform();
+		const auto * const keyboard = Keyboard::Get();
+		auto &transform = GetOwner()->GetTransform();
 
-		const F32 movement_magnitude 
+		const auto movement_magnitude 
 			= static_cast< F32 >(delta_time * m_velocity);
 
 		if (     keyboard->GetKeyPress(DIK_UP,     true) 

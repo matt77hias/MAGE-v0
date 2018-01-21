@@ -179,9 +179,9 @@ namespace mage {
 				"Back buffer texture creation failed: %08X.", result);
 		}
 		
-		const wstring fname = L"screenshot-" 
-			                + GetCurrentLocalSystemDateAndTimeAsString() 
-			                + L".png";
+		const auto fname = L"screenshot-" 
+			             + GetCurrentLocalSystemDateAndTimeAsString() 
+			             + L".png";
 		
 		loader::ExportTextureToFile(fname,
 			                        Pipeline::GetImmediateDeviceContext(), 
@@ -196,7 +196,7 @@ namespace mage {
 		// Release the swap chain buffers.
 		m_rtv.Reset();
 
-		BOOL current = false;
+		BOOL current = FALSE;
 		if (toggle) {
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			current = !current;
@@ -206,7 +206,7 @@ namespace mage {
 		ResetSwapChain();
 
 		m_swap_chain->GetFullscreenState(&current, nullptr);
-		const bool fullscreen = (current == TRUE);
+		const auto fullscreen = (current == TRUE);
 		SetTrackedFullScreen(fullscreen);
 	}
 }

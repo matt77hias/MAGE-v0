@@ -51,12 +51,12 @@ namespace mage {
 		info.ExceptionPointers = exception_record;
 		info.ClientPointers    = FALSE;
 
-		const MINIDUMP_TYPE type = static_cast< MINIDUMP_TYPE >(
-										MiniDumpWithFullMemory |
-										MiniDumpWithFullMemoryInfo |
-										MiniDumpWithHandleData |
-										MiniDumpWithThreadInfo |
-										MiniDumpWithUnloadedModules);
+		const auto type = static_cast< MINIDUMP_TYPE >(
+			                  MiniDumpWithFullMemory |
+			                  MiniDumpWithFullMemoryInfo |
+			                  MiniDumpWithHandleData |
+			                  MiniDumpWithThreadInfo |
+			                  MiniDumpWithUnloadedModules);
 
 		const BOOL result = MiniDumpWriteDump(
 			GetCurrentProcess(), GetCurrentProcessId(), file_handle.get(), 

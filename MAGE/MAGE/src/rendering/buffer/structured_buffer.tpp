@@ -95,7 +95,8 @@ namespace mage {
 			BufferLock(device_context, m_buffer.Get(), 
 			           D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
 			
-			memcpy(mapped_buffer.pData, data.data(),
+			memcpy(mapped_buffer.pData, 
+				   data.data(),
 				   m_nb_used_data_elements * sizeof(DataT));
 		}
 	}

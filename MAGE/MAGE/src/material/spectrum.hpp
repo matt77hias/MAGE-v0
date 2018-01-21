@@ -724,12 +724,12 @@ namespace mage {
 		RGBtoSRGB(FXMVECTOR rgb) noexcept {
 
 		// Frostbite's conversion
-		static constexpr float exp = 1.0f / 2.4f;
+		static constexpr auto exp = 1.0f / 2.4f;
 		
-		const XMVECTOR low  = rgb * 12.92f;
-		const XMVECTOR high = 1.055f * XMVectorPow(rgb, XMVectorReplicate(exp))
-			                - XMVectorReplicate(0.055f);
-		const XMVECTOR comp = XMVectorLessOrEqual(rgb, XMVectorReplicate(0.0031308f));
+		const auto low  = rgb * 12.92f;
+		const auto high = 1.055f * XMVectorPow(rgb, XMVectorReplicate(exp))
+			            - XMVectorReplicate(0.055f);
+		const auto comp = XMVectorLessOrEqual(rgb, XMVectorReplicate(0.0031308f));
 		
 		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(rgb));
 	}
@@ -746,14 +746,13 @@ namespace mage {
 		SRGBtoRGB(FXMVECTOR srgb) noexcept {
 
 		// Frostbite's conversion
-		static constexpr float mlow  = 1.0f / 12.92f;
-		static constexpr float mhigh = 1.0f / 1.055f;
+		static constexpr auto mlow  = 1.0f / 12.92f;
+		static constexpr auto mhigh = 1.0f / 1.055f;
 
-		const XMVECTOR low  = srgb * mlow;
-		const XMVECTOR high = XMVectorPow(
-			                      mhigh * (srgb + XMVectorReplicate(0.055f)),
-			                      XMVectorReplicate(2.4f));
-		const XMVECTOR comp = XMVectorLessOrEqual(srgb, XMVectorReplicate(0.04045f));
+		const auto low  = srgb * mlow;
+		const auto high = XMVectorPow(mhigh * (srgb + XMVectorReplicate(0.055f)),
+			                          XMVectorReplicate(2.4f));
+		const auto comp = XMVectorLessOrEqual(srgb, XMVectorReplicate(0.04045f));
 
 		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(srgb));
 	}

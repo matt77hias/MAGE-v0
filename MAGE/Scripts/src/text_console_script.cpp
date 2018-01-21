@@ -101,7 +101,7 @@ namespace mage::script {
 		// Retrieve the additional arguments after format
 		va_start(args, format);
 
-		const size_t nb_characters 
+		const auto nb_characters 
 			= static_cast< size_t >(_vscwprintf(format, args) + 1);
 		if (m_temp_buffer.size() < nb_characters) {
 			m_temp_buffer.resize(nb_characters);
@@ -117,7 +117,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::ProcessString(const wchar_t *str) {
-		for (const wchar_t *character = str; 
+		for (const auto *character = str; 
 			*character != L'\0'; ++character, ++m_current_column) {
 			
 			if (L'\n' == *character) {

@@ -44,8 +44,8 @@ namespace mage {
 	SpriteText &SpriteText::operator=(SpriteText &&sprite) noexcept = default;
 
 	void SpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const wchar_t * const text  = m_text.c_str();
-		const XMVECTOR effect_color = XMLoadFloat4(&m_text_effect_color);
+		const auto * const text  = m_text.c_str();
+		const auto effect_color = XMLoadFloat4(&m_text_effect_color);
 		SpriteTransform effect_transform(m_sprite_transform);
 		
 		switch (m_text_effect) {
@@ -53,12 +53,18 @@ namespace mage {
 		case TextEffect::Outline: {
 			// -1, -1
 			effect_transform.AddTranslation(-1.0f, -1.0f);
-			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, m_sprite_effects);
+			m_font->DrawString(sprite_batch, 
+				               text, 
+				               effect_transform, 
+				               effect_color, 
+				               m_sprite_effects);
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
-			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, m_sprite_effects);
+			m_font->DrawString(sprite_batch, 
+				               text, 
+				               effect_transform, 
+				               effect_color, 
+				               m_sprite_effects);
 			
 			[[fallthrough]];
 		}
@@ -66,19 +72,27 @@ namespace mage {
 		case TextEffect::DropShadow: {
 			// +1, +1
 			effect_transform.AddTranslationY(2.0f);
-			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, m_sprite_effects);
+			m_font->DrawString(sprite_batch, 
+				               text, 
+				               effect_transform, 
+				               effect_color, 
+				               m_sprite_effects);
 			// -1, +1
 			effect_transform.AddTranslationX(-2.0f);
-			m_font->DrawString(sprite_batch, text, 
-				effect_transform, effect_color, m_sprite_effects);
+			m_font->DrawString(sprite_batch, 
+				               text, 
+				               effect_transform, 
+				               effect_color, 
+				               m_sprite_effects);
 
 			[[fallthrough]];
 		}
 
 		default: {
-			m_font->DrawString(sprite_batch, m_strings, 
-				m_sprite_transform, m_sprite_effects);
+			m_font->DrawString(sprite_batch, 
+				               m_strings, 
+				               m_sprite_transform, 
+				               m_sprite_effects);
 		}
 
 		}

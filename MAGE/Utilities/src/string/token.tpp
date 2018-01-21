@@ -208,7 +208,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S8 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -223,7 +224,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U8 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -238,7 +240,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S16 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -253,7 +256,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U16 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -268,7 +272,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S32 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -283,7 +288,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U32 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -298,7 +304,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S64 >(strtoll(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -313,7 +320,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U64 >(strtoull(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -328,7 +336,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtof(begin, &inner_context);
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -343,7 +352,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(begin, &inner_context);
-		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 
 	#pragma endregion
@@ -502,7 +512,7 @@ namespace mage {
 		Assert(str || context);
 		Assert(delimiters);
 		
-		const char * const token = strtok_s(str, delimiters, context);
+		const auto * const token = strtok_s(str, delimiters, context);
 		return StringTo< DataT >(token, result);
 	}
 
@@ -513,7 +523,7 @@ namespace mage {
 		Assert(str || context);
 		Assert(delimiters);
 
-		const char * const token = strtok_s(str, delimiters, context);
+		const auto * const token = strtok_s(str, delimiters, context);
 		if (!token) {
 			return TokenResult::None;
 		}
@@ -532,19 +542,17 @@ namespace mage {
 		
 		// read the x component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_x, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the y component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_y, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
@@ -560,28 +568,25 @@ namespace mage {
 		
 		// read the x component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_x, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the y component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_y, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the z component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_z, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
@@ -597,37 +602,33 @@ namespace mage {
 		
 		// read the x component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_x, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the y component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_y, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the z component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_z, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
 		// read the w component.
 		{
-			const TokenResult token = Read< F32 >(str, context, result.m_w, 
-				                                  delimiters);
-			if (TokenResult::Valid != token) {
-				return token;
+			const auto tr = Read< F32 >(str, context, result.m_w, delimiters);
+			if (TokenResult::Valid != tr) {
+				return tr;
 			}
 		}
 
@@ -645,7 +646,7 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 		
-		const char * const start = SkipDelimiters(str, delimiters);
+		const auto * const start = SkipDelimiters(str, delimiters);
 		return (start) ? TokenResult::Valid : TokenResult::None;
 	}
 	
@@ -654,11 +655,11 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 		
-		const char * const start = SkipDelimiters(str, delimiters);
+		const auto * const start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
-		const char * const end = GotoDelimiters(start, delimiters);
+		const auto * const end = GotoDelimiters(start, delimiters);
 
 		DataT result;
 		return StringTo< DataT >(start, end, result);

@@ -132,8 +132,8 @@ namespace mage {
 		 @return		The radiance spectrum of this ambient light.
 		 */
 		[[nodiscard]] const RGB GetRadianceSpectrum() const noexcept {
-			const XMVECTOR L_v = m_radiance 
-				               * SRGBtoRGB(XMLoadFloat3(&m_base_color));
+			const auto L_v = m_radiance
+				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
 			RGB L;
 			XMStoreFloat3(&L, L_v);
 			return L;

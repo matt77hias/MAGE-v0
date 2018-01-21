@@ -71,10 +71,10 @@ namespace mage {
 		GetViewportTransform(const D3D11_VIEWPORT &viewport,
 		                     DXGI_MODE_ROTATION rotation_mode) noexcept {
 		
-		const F32 scale_x = (viewport.Width  > 0.0f) ? 
-							2.0f / viewport.Width  : 0.0f;
-		const F32 scale_y = (viewport.Height > 0.0f) ? 
-							2.0f / viewport.Height : 0.0f;
+		const auto scale_x = (viewport.Width  > 0.0f) ?
+							 2.0f / viewport.Width  : 0.0f;
+		const auto scale_y = (viewport.Height > 0.0f) ?
+							 2.0f / viewport.Height : 0.0f;
 		
 		switch (rotation_mode) {
 		

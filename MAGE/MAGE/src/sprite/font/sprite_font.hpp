@@ -42,7 +42,8 @@ namespace mage {
 						Failed to initialize the sprite font.
 		 */
 		explicit SpriteFont(wstring fname,
-			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+			                const SpriteFontDescriptor &desc 
+			                    = SpriteFontDescriptor());
 
 		/**
 		 Constructs a sprite font.
@@ -59,8 +60,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(wstring fname, ID3D11Device5 *device,
-			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+		explicit SpriteFont(wstring fname, 
+			                ID3D11Device5 *device,
+			                const SpriteFontDescriptor &desc 
+			                    = SpriteFontDescriptor());
 
 		/**
 		 Constructs a sprite font from the given sprite font.
@@ -165,8 +168,8 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV MeasureString(
-			const wchar_t *str) const;
+		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+			MeasureString(const wchar_t *str) const;
 
 		/**
 		 Returns the size of the given text with this sprite font in pixels.
@@ -179,8 +182,8 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV MeasureString(
-			const std::vector< ColorString > &text) const;
+		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+			MeasureString(const std::vector< ColorString > &text) const;
 		
 		/**
 		 Returns a rectangle bounding the given string with this sprite font.
@@ -193,8 +196,8 @@ namespace mage {
 		 @return		A @c RECT bounding the given string with this sprite 
 						font.
 		 */
-		[[nodiscard]] const RECT MeasureDrawBounds(
-			const wchar_t *str, const F32x2 &position) const;
+		[[nodiscard]] const RECT MeasureDrawBounds(const wchar_t *str, 
+			                                       const F32x2 &position) const;
 
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
@@ -206,8 +209,8 @@ namespace mage {
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.
 		 */
-		[[nodiscard]] const RECT MeasureDrawBounds(
-			const std::vector< ColorString > &text, const F32x2 &position) const;
+		[[nodiscard]] const RECT MeasureDrawBounds(const std::vector< ColorString > &text, 
+			                                       const F32x2 &position) const;
 		
 		/**
 		 Checks whether this sprite font is empty.

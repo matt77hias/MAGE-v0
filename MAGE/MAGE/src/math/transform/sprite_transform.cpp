@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------F32
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -34,7 +34,7 @@ namespace mage {
 		const auto * const config = DisplayConfiguration::Get();
 		Assert(config);
 
-		const XMVECTOR multiplier = XMVectorSet(
+		const auto multiplier = XMVectorSet(
 			static_cast< F32 >(config->GetDisplayWidth()),
 			static_cast< F32 >(config->GetDisplayHeight()),
 			0.0f,
@@ -62,7 +62,7 @@ namespace mage {
 		const auto * const config = DisplayConfiguration::Get();
 		Assert(config);
 
-		const XMVECTOR multiplier = XMVectorSet(
+		const auto multiplier = XMVectorSet(
 			1.0f / static_cast< F32 >(config->GetDisplayWidth()),
 			1.0f / static_cast< F32 >(config->GetDisplayHeight()),
 			0.0f,

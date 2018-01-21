@@ -34,7 +34,7 @@ namespace mage::loader {
 		Assert(device);
 		Assert(texture_srv);
 		
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
@@ -101,7 +101,7 @@ namespace mage::loader {
 		Assert(device_context);
 		Assert(texture);
 
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
@@ -110,7 +110,7 @@ namespace mage::loader {
 		}
 		else {
 
-			const GUID format = GetGUIDContainerFormat(extension);
+			const auto format = GetGUIDContainerFormat(extension);
 			ThrowIfFailed((GUID_NULL != format), 
 				"Unknown image file extension: %ls", fname.c_str());
 

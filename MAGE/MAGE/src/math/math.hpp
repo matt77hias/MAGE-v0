@@ -85,11 +85,11 @@ namespace mage {
 			                         FXMVECTOR translation) noexcept {
 
 		// Scale . Rotation . Translation
-		XMMATRIX transformation = XMMatrixRotationRollPitchYaw(rotation);
-		transformation.r[0]    *= XMVectorGetX(scale);
-		transformation.r[1]    *= XMVectorGetY(scale);
-		transformation.r[2]    *= XMVectorGetZ(scale);
-		transformation.r[3]     = XMVectorSetW(translation, 1.0f);
+		auto transformation  = XMMatrixRotationRollPitchYaw(rotation);
+		transformation.r[0] *= XMVectorGetX(scale);
+		transformation.r[1] *= XMVectorGetY(scale);
+		transformation.r[2] *= XMVectorGetZ(scale);
+		transformation.r[3]  = XMVectorSetW(translation, 1.0f);
 		return transformation;
 	}
 
@@ -99,13 +99,13 @@ namespace mage {
 			                                FXMVECTOR translation) noexcept {
 
 		// Translation . Rotation . Scale
-		XMMATRIX transformation = XMMatrixInverseRotationRollPitchYaw(rotation);
-		const XMVECTOR t        = XMVector3TransformCoord(-translation, transformation);
-		const XMVECTOR s        = XMVectorSetW(XMVectorReciprocal(scale), 1.0f);
-		transformation.r[0]    *= s;
-		transformation.r[1]    *= s;
-		transformation.r[2]    *= s;
-		transformation.r[3]     = s * t;
+		auto transformation  = XMMatrixInverseRotationRollPitchYaw(rotation);
+		const auto t         = XMVector3TransformCoord(-translation, transformation);
+		const auto s         = XMVectorSetW(XMVectorReciprocal(scale), 1.0f);
+		transformation.r[0] *= s;
+		transformation.r[1] *= s;
+		transformation.r[2] *= s;
+		transformation.r[3]  = s * t;
 		return transformation;
 	}
 

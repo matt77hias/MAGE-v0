@@ -59,9 +59,8 @@ namespace mage {
 		if (FAILED(result)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.
-				OutputDebugStringA(
-					reinterpret_cast< const char * >(
-						error_blob->GetBufferPointer()));
+				OutputDebugStringA(reinterpret_cast< const char * >(
+					                   error_blob->GetBufferPointer()));
 			}
 			return result;
 		}

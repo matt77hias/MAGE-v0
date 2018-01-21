@@ -33,7 +33,7 @@ namespace mage {
 		}
 		
 		// Allocate buffer.
-		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
+		const auto nb_bytes = file_info.EndOfFile.LowPart;
 		*size = nb_bytes;
 		data = MakeUnique< U8[] >(nb_bytes);
 		ThrowIfFailed((nullptr != data), 

@@ -94,7 +94,7 @@ namespace mage {
 	}
 
 	void LineReader::ReadLineRemaining() {
-		char *next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
+		auto *next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		while (next_token) {
 			Warning("%ls: line %u: unused token: %s.", 
 				GetFilename().c_str(), GetCurrentLineNumber(), next_token);
@@ -104,8 +104,11 @@ namespace mage {
 	
 	const char *LineReader::ReadChars() {
 		char *result;
-		const TokenResult token_result 
-			= mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
+		const auto token_result 
+			= mage::ReadChars(nullptr, 
+				              &m_context, 
+				              &result, 
+				              GetDelimiters().c_str());
 
 		switch (token_result) {
 		
@@ -123,7 +126,7 @@ namespace mage {
 	
 	const string LineReader::ReadQuotedString() {
 		string result;
-		const TokenResult token_result 
+		const auto token_result 
 			= mage::ReadQuotedString(nullptr, 
 				                     &m_context, 
 				                     result, 

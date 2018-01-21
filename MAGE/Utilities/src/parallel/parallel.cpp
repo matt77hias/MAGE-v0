@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
 #include "parallel\parallel.hpp"
 #include "exception\exception.hpp"
 
@@ -14,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] size_t NumberOfPhysicalCores() noexcept {
+	[[nodiscard]] U16 NumberOfPhysicalCores() noexcept {
 
 		DWORD length = 0u;
 		
@@ -41,8 +40,8 @@ namespace mage {
 			ThrowIfFailed(result, "Retrieving processor information failed.");
 		}
 
-		size_t nb_physical_cores = 0;
-		size_t offset = 0;
+		U16 nb_physical_cores = 0;
+		size_t offset = 0u;
 		do {
 			const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX current_info =
 				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
@@ -56,13 +55,13 @@ namespace mage {
 		return nb_physical_cores;
 	}
 
-	[[nodiscard]] size_t NumberOfSystemCores() noexcept {
+	[[nodiscard]] U16 NumberOfSystemCores() noexcept {
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info = {};
 		// Retrieve information about the current system.
 		GetSystemInfo(&system_info);
 		// dwNumberOfProcessors:	The number of logical processors in the 
 		//                          current group.
-		return static_cast< size_t >(system_info.dwNumberOfProcessors);
+		return static_cast< U16 >(system_info.dwNumberOfProcessors);
 	}
 }

@@ -24,19 +24,19 @@ namespace mage::editor {
 		ImGui::Text("Lens:");
 		
 		// Lens radius
-		F32 radius = lens.GetLensRadius();
+		auto radius = lens.GetLensRadius();
 		ImGui::InputFloat("Radius", &radius);
 		lens.SetLensRadius(radius);
 
 		// Focal length
-		F32 focal_length = lens.GetFocalLength();
+		auto focal_length = lens.GetFocalLength();
 		ImGui::SliderFloat("Focal Length", &focal_length, 
 			               clipping_planes.m_x, 
 			               clipping_planes.m_y);
 		lens.SetFocalLength(focal_length);
 
 		// Maximum radius of the circle-of-confusion
-		F32 coc = lens.GetMaximumCoCRadius();
+		auto coc = lens.GetMaximumCoCRadius();
 		ImGui::SliderFloat("CoC", &coc, 0.0f, 10.0f);
 		lens.SetMaximumCoCRadius(coc);
 	}
@@ -48,7 +48,7 @@ namespace mage::editor {
 		ImGui::ColorEdit3("Base Color", fog.GetBaseColor().GetData());
 
 		// Radiance
-		F32 density = fog.GetDensity();
+		auto density = fog.GetDensity();
 		ImGui::DragFloat("Density", &density, 0.00001f, 0.0f, 1.0f, "%.5f");
 		fog.SetDensity(density);
 	}
@@ -56,7 +56,7 @@ namespace mage::editor {
 	static void DrawWidget(Sky &sky) {
 		ImGui::Text("Sky:");
 
-		const wstring guid = sky.GetTexture()->GetGuid();
+		const auto guid = sky.GetTexture()->GetGuid();
 		ImGui::LabelText("Sky Texture", str_convert(guid).c_str());
 	}
 
@@ -100,7 +100,7 @@ namespace mage::editor {
 		};
 		static_assert(std::size(render_mode_names) == std::size(render_modes));
 
-		int render_mode_index = static_cast< int >(settings.GetRenderMode());
+		auto render_mode_index = static_cast< int >(settings.GetRenderMode());
 		ImGui::Combo("Render Mode", &render_mode_index, render_mode_names,
 			         static_cast<int>(std::size(render_mode_names)));
 		settings.SetRenderMode(render_modes[render_mode_index]);
@@ -124,7 +124,7 @@ namespace mage::editor {
 		};
 		static_assert(std::size(brdf_names) == std::size(brdfs));
 		
-		int brdf_index = static_cast< int >(settings.GetBRDF());
+		auto brdf_index = static_cast< int >(settings.GetBRDF());
 		ImGui::Combo("BRDF", &brdf_index, brdf_names,
 			         static_cast<int>(std::size(brdf_names)));
 		settings.SetBRDF(brdfs[brdf_index]);
@@ -135,13 +135,13 @@ namespace mage::editor {
 		}
 		if (ImGui::BeginPopup("Render Layers")) {
 			
-			if (bool wireframe = settings.ContainsRenderLayer(RenderLayer::Wireframe);
+			if (auto wireframe = settings.ContainsRenderLayer(RenderLayer::Wireframe);
 				ImGui::Checkbox("Wireframe", &wireframe)) {
 
 				settings.ToggleRenderLayer(RenderLayer::Wireframe);
 			}
 
-			if (bool aabb = settings.ContainsRenderLayer(RenderLayer::AABB);
+			if (auto aabb = settings.ContainsRenderLayer(RenderLayer::AABB);
 				ImGui::Checkbox("AABB", &aabb)) {
 
 				settings.ToggleRenderLayer(RenderLayer::AABB);
@@ -168,23 +168,23 @@ namespace mage::editor {
 
 		if (normalization) {
 			// Top left
-			F32x2 top_left = viewport.GetNormalizedTopLeft();
+			auto top_left = viewport.GetNormalizedTopLeft();
 			ImGui::InputFloat2("Top Left", top_left.GetData());
 			viewport.SetNormalizedTopLeft(top_left);
 
 			// Width and height
-			F32x2 resolution = viewport.GetNormalizedWidthAndHeight();
+			auto resolution = viewport.GetNormalizedWidthAndHeight();
 			ImGui::InputFloat2("Resolution", resolution.GetData());
 			viewport.SetNormalizedWidthAndHeight(resolution);
 		}
 		else {
 			// Top left
-			F32x2 top_left = viewport.GetTopLeft();
+			auto top_left = viewport.GetTopLeft();
 			ImGui::InputFloat2("Top Left", top_left.GetData());
 			viewport.SetTopLeft(top_left);
 
 			// Width and height
-			F32x2 resolution = viewport.GetWidthAndHeight();
+			auto resolution = viewport.GetWidthAndHeight();
 			ImGui::InputFloat2("Resolution", resolution.GetData());
 			viewport.SetWidthAndHeight(resolution);
 		}
@@ -216,9 +216,9 @@ namespace mage::editor {
 
 	static void DrawWidget(OrthographicCamera &camera) {
 		// Width and height
-		F32 width = camera.GetWidth();
+		auto width = camera.GetWidth();
 		ImGui::InputFloat("Width", &width);
-		F32 height = camera.GetHeight();
+		auto height = camera.GetHeight();
 		ImGui::InputFloat("Height", &height);
 		camera.SetWidthAndHeight(width, height);
 
@@ -228,12 +228,12 @@ namespace mage::editor {
 	
 	static void DrawWidget(PerspectiveCamera &camera) {
 		// Aspect ratio
-		F32 aspect_ratio = camera.GetAspectRatio();
+		auto aspect_ratio = camera.GetAspectRatio();
 		ImGui::InputFloat("Aspect Ratio", &aspect_ratio);
 		camera.SetAspectRatio(aspect_ratio);
 
 		// Vertical field-of-view
-		F32 fov_y = camera.GetFOVY();
+		auto fov_y = camera.GetFOVY();
 		ImGui::InputFloat("Vertical FOV", &fov_y);
 		camera.SetFOVY(fov_y);
 
@@ -246,7 +246,7 @@ namespace mage::editor {
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
 		// Radiance
-		F32 radiance = light.GetRadiance();
+		auto radiance = light.GetRadiance();
 		ImGui::InputFloat("Radiance", &radiance);
 		light.SetRadiance(radiance);
 	}
@@ -256,7 +256,7 @@ namespace mage::editor {
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
 		// Radiance
-		F32 radiance = light.GetRadiance();
+		auto radiance = light.GetRadiance();
 		ImGui::InputFloat("Radiance", &radiance);
 		light.SetRadiance(radiance);
 	}
@@ -266,22 +266,22 @@ namespace mage::editor {
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
 		// Intensity
-		F32 intensity = light.GetIntensity();
+		auto intensity = light.GetIntensity();
 		ImGui::InputFloat("Intensity", &intensity);
 		light.SetIntensity(intensity);
 
 		// Power
-		F32 power = light.GetPower();
+		auto power = light.GetPower();
 		ImGui::InputFloat("Power", &power);
 		light.SetPower(power);
 
 		// Range
-		F32 range = light.GetRange();
+		auto range = light.GetRange();
 		ImGui::InputFloat("Range", &range);
 		light.SetRange(range);
 
 		// Shadows
-		bool shadows = light.UseShadows();
+		auto shadows = light.UseShadows();
 		ImGui::Checkbox("Shadows", &shadows);
 		light.SetShadows(shadows);
 	}
@@ -291,29 +291,29 @@ namespace mage::editor {
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
 		// Intensity
-		F32 intensity = light.GetIntensity();
+		auto intensity = light.GetIntensity();
 		ImGui::InputFloat("Intensity", &intensity);
 		light.SetIntensity(intensity);
 
 		// Power
-		F32 power = light.GetPower();
+		auto power = light.GetPower();
 		ImGui::InputFloat("Power", &power);
 		light.SetPower(power);
 
 		// Range
-		F32 range = light.GetRange();
+		auto range = light.GetRange();
 		ImGui::InputFloat("Range", &range);
 		light.SetRange(range);
 
 		// Cosine penumbra and umbra
-		F32 cos_penumbra = light.GetStartAngularCutoff();
+		auto cos_penumbra = light.GetStartAngularCutoff();
 		ImGui::InputFloat("Cosine penumbra", &cos_penumbra);
-		F32 cos_umbra = light.GetEndAngularCutoff();
+		auto cos_umbra = light.GetEndAngularCutoff();
 		ImGui::InputFloat("Cosine umbra", &cos_umbra);
 		light.SetAngularCutoff(cos_penumbra, cos_umbra);
 
 		// Shadows
-		bool shadows = light.UseShadows();
+		auto shadows = light.UseShadows();
 		ImGui::Checkbox("Shadows", &shadows);
 		light.SetShadows(shadows);
 	}
@@ -322,22 +322,22 @@ namespace mage::editor {
 		ImGui::Text("Texture Transform:");
 
 		// Translation
-		F32x2 translation = transform.GetTranslation();
+		auto translation = transform.GetTranslation();
 		ImGui::InputFloat2("Translation", translation.GetData());
 		transform.SetTranslation(translation);
 
 		// Rotation Origin
-		F32x2 rotation_origin = transform.GetRotationOrigin();
+		auto rotation_origin = transform.GetRotationOrigin();
 		ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
 		transform.SetRotationOrigin(rotation_origin);
 
 		// Rotation
-		F32 rotation = transform.GetRotation();
+		auto rotation = transform.GetRotation();
 		ImGui::InputFloat("Rotation", &rotation);
 		transform.SetRotation(rotation);
 
 		// Scale
-		F32x2 scale = transform.GetScale();
+		auto scale = transform.GetScale();
 		ImGui::InputFloat2("Scale", scale.GetData());
 		transform.SetScale(scale);
 	}
@@ -349,36 +349,36 @@ namespace mage::editor {
 		ImGui::ColorEdit4("Base Color", material.GetBaseColor().GetData());
 
 		// Base Color Texture
-		const wstring base_color_guid = material.GetBaseColorTexture()->GetGuid();
+		const auto base_color_guid = material.GetBaseColorTexture()->GetGuid();
 		ImGui::Text(str_convert(base_color_guid).c_str());
 
 		// Transparency
-		bool transparency = material.IsTransparant();
+		auto transparency = material.IsTransparant();
 		ImGui::Checkbox("Transparency", &transparency);
 		material.SetTransparent(transparency);
 
 		// Roughness
-		F32 roughness = material.GetRoughness();
+		auto roughness = material.GetRoughness();
 		ImGui::SliderFloat("Roughness", &roughness, 0.0f, 1.0f);
 		material.SetRoughness(roughness);
 
 		// Metalness
-		F32 metalness = material.GetMetalness();
+		auto metalness = material.GetMetalness();
 		ImGui::SliderFloat("Metalness", &metalness, 0.0f, 1.0f);
 		material.SetMetalness(metalness);
 
 		// Material Texture
-		const wstring material_guid = material.GetMaterialTexture()->GetGuid();
+		const auto material_guid = material.GetMaterialTexture()->GetGuid();
 		ImGui::Text(str_convert(material_guid).c_str());
 
 		// Normal Texture
 		if (material.GetNormalTexture()) {
-			const wstring normal_guid = material.GetNormalTexture()->GetGuid();
+			const auto normal_guid = material.GetNormalTexture()->GetGuid();
 			ImGui::LabelText("Normals", str_convert(normal_guid).c_str());
 		}
 
 		// Light Interaction
-		bool light_interaction = material.InteractsWithLight();
+		auto light_interaction = material.InteractsWithLight();
 		ImGui::Checkbox("Interacts with Light", &light_interaction);
 		material.SetLightInteraction(light_interaction);
 	}
@@ -393,7 +393,7 @@ namespace mage::editor {
 		DrawWidget(model.GetMaterial());
 
 		// Occlusion
-		bool light_occlusion = model.OccludesLight();
+		auto light_occlusion = model.OccludesLight();
 		ImGui::Checkbox("Occludes Light", &light_occlusion);
 		model.SetLightOcclusion(light_occlusion);
 	}
@@ -405,40 +405,40 @@ namespace mage::editor {
 
 		// Translation
 		if (normalization) {
-			F32x2 translation = transform.GetNormalizedTranslation();
+			auto translation = transform.GetNormalizedTranslation();
 			ImGui::InputFloat2("Translation", translation.GetData());
 			transform.SetNormalizedTranslation(translation);
 		}
 		else {
-			F32x2 translation = transform.GetTranslation();
+			auto translation = transform.GetTranslation();
 			ImGui::InputFloat2("Translation", translation.GetData());
 			transform.SetTranslation(translation);
 		}
 
 		// Depth
-		F32 depth = transform.GetDepth();
+		auto depth = transform.GetDepth();
 		ImGui::InputFloat("Depth", &depth);
 		transform.SetDepth(depth);
 
 		// Rotation Origin
 		if (normalization) {
-			F32x2 rotation_origin = transform.GetNormalizedRotationOrigin();
+			auto rotation_origin = transform.GetNormalizedRotationOrigin();
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
 			transform.SetNormalizedRotationOrigin(rotation_origin);
 		}
 		else {
-			F32x2 rotation_origin = transform.GetRotationOrigin();
+			auto rotation_origin = transform.GetRotationOrigin();
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
 			transform.SetRotationOrigin(rotation_origin);
 		}
 
 		// Rotation
-		F32 rotation = transform.GetRotation();
+		auto rotation = transform.GetRotation();
 		ImGui::InputFloat("Rotation", &rotation);
 		transform.SetRotation(rotation);
 
 		// Scale
-		F32x2 scale = transform.GetScale();
+		auto scale = transform.GetScale();
 		ImGui::InputFloat2("Scale", scale.GetData());
 		transform.SetScale(scale);
 
@@ -455,7 +455,7 @@ namespace mage::editor {
 		ImGui::ColorEdit4("Base Color", sprite.GetBaseColor().GetData());
 
 		// Base color texture
-		const wstring base_color_guid = sprite.GetBaseColorTexture()->GetGuid();
+		const auto base_color_guid = sprite.GetBaseColorTexture()->GetGuid();
 		ImGui::LabelText("Base Color Texture", str_convert(base_color_guid).c_str());
 
 		// Sprite effects
@@ -473,7 +473,7 @@ namespace mage::editor {
 		};
 		static_assert(std::size(sprite_effect_names) == std::size(sprite_effects));
 
-		int sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
+		auto sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
 		ImGui::Combo("Sprite Effects", &sprite_effect_index, sprite_effect_names,
 			         static_cast<int>(std::size(sprite_effect_names)));
 		sprite.SetSpriteEffects(sprite_effects[sprite_effect_index]);
@@ -486,7 +486,7 @@ namespace mage::editor {
 		ImGui::Separator();
 
 		// Sprite font
-		const wstring font_guid = sprite.GetFont()->GetGuid();
+		const auto font_guid = sprite.GetFont()->GetGuid();
 		ImGui::LabelText("Font", str_convert(font_guid).c_str());
 
 		// Sprite effects
@@ -504,7 +504,7 @@ namespace mage::editor {
 		};
 		static_assert(std::size(sprite_effect_names) == std::size(sprite_effects));
 
-		int sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
+		auto sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
 		ImGui::Combo("Sprite Effects", &sprite_effect_index, sprite_effect_names,
 			         static_cast<int>(std::size(sprite_effect_names)));
 		sprite.SetSpriteEffects(sprite_effects[sprite_effect_index]);
@@ -525,7 +525,7 @@ namespace mage::editor {
 		};
 		static_assert(std::size(text_effect_names) == std::size(text_effects));
 
-		int text_effect_index = static_cast< int >(sprite.GetTextEffect());
+		auto text_effect_index = static_cast< int >(sprite.GetTextEffect());
 		ImGui::Combo("Text Effect", &text_effect_index, text_effect_names,
 			         static_cast<int>(std::size(text_effect_names)));
 		sprite.SetTextEffect(text_effects[text_effect_index]);
@@ -533,21 +533,21 @@ namespace mage::editor {
 
 	static void DrawWidget(Transform &transform) {
 		// Translation
-		if (F32x3 translation = transform.GetTranslation(); 
+		if (auto translation = transform.GetTranslation();
 			ImGui::InputFloat3("Translation", translation.GetData())) {
 
 			transform.SetTranslation(translation);
 		}
 		
 		// Rotation
-		if (F32x3 rotation = transform.GetRotation(); 
+		if (auto rotation = transform.GetRotation();
 			ImGui::InputFloat3("Rotation", rotation.GetData())) {
 
 			transform.SetRotation(rotation);
 		}
 		
 		// Scale
-		if (F32x3 scale = transform.GetScale(); 
+		if (auto scale = transform.GetScale();
 			ImGui::InputFloat3("Scale", scale.GetData())) {
 
 			transform.SetScale(scale);
@@ -555,7 +555,7 @@ namespace mage::editor {
 	}
 
 	static void DrawWidget(Node &node) {
-		static char buffer[128];
+		char buffer[128];
 		sprintf_s(buffer, std::size(buffer), "%s", node.GetName().c_str());
 		if (ImGui::InputText("", buffer, std::size(buffer))) {
 			node.SetName(string(buffer));
@@ -563,7 +563,7 @@ namespace mage::editor {
 
 		ImGui::SameLine();
 		
-		if (bool active = (State::Active == node.GetState());
+		if (auto active = (State::Active == node.GetState());
 			ImGui::Checkbox("Active", &active)) {
 			node.SetState(active ? State::Active : State::Passive);
 		}
@@ -576,7 +576,7 @@ namespace mage::editor {
 		}
 
 		node.ForEach< OrthographicCamera >([](OrthographicCamera &camera) {
-			if (const string id = std::to_string(camera.GetGuid()); 
+			if (const auto id = std::to_string(camera.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Orthographic Camera")) {
 				
 				DrawWidget(camera);
@@ -586,7 +586,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< PerspectiveCamera >([](PerspectiveCamera &camera) {
-			if (const string id = std::to_string(camera.GetGuid()); 
+			if (const auto id = std::to_string(camera.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Perspective Camera")) {
 				
 				DrawWidget(camera);
@@ -596,7 +596,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< AmbientLight >([](AmbientLight &light) {
-			if (const string id = std::to_string(light.GetGuid()); 
+			if (const auto id = std::to_string(light.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Ambient Light")) {
 
 				DrawWidget(light);
@@ -606,7 +606,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< DirectionalLight >([](DirectionalLight &light) {
-			if (const string id = std::to_string(light.GetGuid()); 
+			if (const auto id = std::to_string(light.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Directional Light")) {
 
 				DrawWidget(light);
@@ -616,7 +616,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< OmniLight >([](OmniLight &light) {
-			if (const string id = std::to_string(light.GetGuid()); 
+			if (const auto id = std::to_string(light.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Omni Light")) {
 
 				DrawWidget(light);
@@ -626,7 +626,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< SpotLight >([](SpotLight &light) {
-			if (const string id = std::to_string(light.GetGuid()); 
+			if (const auto id = std::to_string(light.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Spotlight")) {
 
 				DrawWidget(light);
@@ -636,7 +636,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< Model >([](Model &model) {
-			if (const string id = std::to_string(model.GetGuid());
+			if (const auto id = std::to_string(model.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Model")) {
 				
 				DrawWidget(model);
@@ -646,7 +646,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< SpriteImage >([](SpriteImage &sprite) {
-			if (const string id = std::to_string(sprite.GetGuid());
+			if (const auto id = std::to_string(sprite.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Sprite Image")) {
 
 				DrawWidget(sprite);
@@ -656,7 +656,7 @@ namespace mage::editor {
 		});
 
 		node.ForEach< SpriteText >([](SpriteText &sprite) {
-			if (const string id = std::to_string(sprite.GetGuid());
+			if (const auto id = std::to_string(sprite.GetGuid());
 				ImGui::TreeNode(id.c_str(), "Sprite Text")) {
 
 				DrawWidget(sprite);
@@ -667,15 +667,15 @@ namespace mage::editor {
 	}
 
 	static void DrawGraph(Node &node) {
-		const string id = std::to_string(node.GetGuid());
-		const string &name = node.GetName();
+		const auto id = std::to_string(node.GetGuid());
+		const auto &name = node.GetName();
 		
 		if (node.ContainsChilds()) {
 			static constexpr ImGuiTreeNodeFlags node_flags
 				= ImGuiTreeNodeFlags_OpenOnArrow
 				| ImGuiTreeNodeFlags_OpenOnDoubleClick;
 			
-			const ImGuiTreeNodeFlags flags = (node.Get() == g_selected) 
+			const ImGuiTreeNodeFlags flags = (node.Get() == g_selected)
 				? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 			if (ImGui::TreeNodeEx(id.c_str(), flags, name.c_str())) {

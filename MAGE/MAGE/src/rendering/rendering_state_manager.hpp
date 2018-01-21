@@ -131,7 +131,7 @@ namespace mage {
 		void BindOpaqueBlendState(
 			ID3D11DeviceContext4 *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context, 
 				GetBlendState(BlendStateIndex::Opaque));
 		}
 
@@ -145,7 +145,7 @@ namespace mage {
 		void BindAlphaBlendState(
 			ID3D11DeviceContext4 *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context, 
 				GetBlendState(BlendStateIndex::Alpha));
 		}
 
@@ -159,7 +159,7 @@ namespace mage {
 		void BindAdditiveBlendState(
 			ID3D11DeviceContext4 *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context, 
 				GetBlendState(BlendStateIndex::Additive));
 		}
 		
@@ -173,7 +173,7 @@ namespace mage {
 		void BindMultiplicativeBlendState(
 			ID3D11DeviceContext4 *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context, 
 				GetBlendState(BlendStateIndex::Multiplicative));
 		}
 
@@ -456,8 +456,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointWrapSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindPointWrapSamplerState(ID3D11DeviceContext4 *device_context, 
+			                           U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with clamping of this rendering state 
@@ -476,8 +476,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointClampSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindPointClampSamplerState(ID3D11DeviceContext4 *device_context, 
+			                            U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with mirroring of this rendering state 
@@ -496,8 +496,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointMirrorSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindPointMirrorSamplerState(ID3D11DeviceContext4 *device_context, 
+			                             U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with wrapping of this rendering state 
@@ -516,8 +516,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearWrapSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindLinearWrapSamplerState(ID3D11DeviceContext4 *device_context, 
+			                            U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with clamping of this rendering state 
@@ -536,8 +536,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearClampSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindLinearClampSamplerState(ID3D11DeviceContext4 *device_context, 
+			                             U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with mirroring of this rendering state 
@@ -556,8 +556,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearMirrorSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindLinearMirrorSamplerState(ID3D11DeviceContext4 *device_context, 
+			                              U32 slot) const noexcept;
 
 		/**
 		 Binds the anisotropic sampler state with wrapping of this rendering 
@@ -576,8 +576,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicWrapSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindAnisotropicWrapSamplerState(ID3D11DeviceContext4 *device_context, 
+			                                 U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with clamping of this rendering 
@@ -596,8 +596,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicClampSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindAnisotropicClampSamplerState(ID3D11DeviceContext4 *device_context, 
+			                                  U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with mirroring of this rendering 
@@ -616,8 +616,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicMirrorSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindAnisotropicMirrorSamplerState(ID3D11DeviceContext4 *device_context, 
+			                                   U32 slot) const noexcept;
 
 		/**
 		 Binds the PCF sampler state of this rendering state manager.
@@ -635,8 +635,8 @@ namespace mage {
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPCFSamplerState(
-			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
+		void BindPCFSamplerState(ID3D11DeviceContext4 *device_context, 
+			                     U32 slot) const noexcept;
 		
 		#pragma endregion
 
@@ -815,8 +815,8 @@ namespace mage {
 		 @return		A pointer to the blend state of this rendering state 
 						manager associated to the given index.
 		 */
-		ID3D11BlendState *GetBlendState(
-			BlendStateIndex index) const noexcept {
+		[[nodiscard]] ID3D11BlendState *
+			GetBlendState(BlendStateIndex index) const noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].Get();
 		}
@@ -830,8 +830,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the blend state of this 
 						rendering state manager associated to the given index.
 		 */
-		ID3D11BlendState **ReleaseAndGetAddressOfBlendState(
-			BlendStateIndex index) noexcept {
+		[[nodiscard]] ID3D11BlendState **
+			ReleaseAndGetAddressOfBlendState(BlendStateIndex index) noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -845,8 +845,8 @@ namespace mage {
 		 @return		A pointer to the depth stencil state of this rendering 
 						state manager associated to the given index.
 		 */
-		ID3D11DepthStencilState *GetDepthStencilState(
-			DepthStencilStateIndex index) const noexcept {
+		[[nodiscard]] ID3D11DepthStencilState *
+			GetDepthStencilState(DepthStencilStateIndex index) const noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
 		}
@@ -860,8 +860,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the depth stencil state of 
 						this rendering state manager associated to the given index.
 		 */
-		ID3D11DepthStencilState **ReleaseAndGetAddressOfDepthStencilState(
-			DepthStencilStateIndex index) noexcept {
+		[[nodiscard]] ID3D11DepthStencilState **
+			ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex index) noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -875,8 +875,8 @@ namespace mage {
 		 @return		A pointer to the rasterizer state of this rendering 
 						state manager associated to the given index.
 		 */
-		ID3D11RasterizerState *GetRasterizerState(
-			RasterizerStateIndex index) const noexcept {
+		[[nodiscard]] ID3D11RasterizerState *
+			GetRasterizerState(RasterizerStateIndex index) const noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].Get();
 		}
@@ -890,8 +890,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the rasterizer state of this 
 						rendering state manager associated to the given index.
 		 */
-		ID3D11RasterizerState **ReleaseAndGetAddressOfRasterizerState(
-			RasterizerStateIndex index) noexcept {
+		[[nodiscard]] ID3D11RasterizerState **
+			ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex index) noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -905,8 +905,8 @@ namespace mage {
 		 @return		A pointer to the sampler state of this rendering state 
 						manager associated to the given index.
 		 */
-		ID3D11SamplerState *GetSamplerState(
-			SamplerStateIndex index) const noexcept {
+		[[nodiscard]] ID3D11SamplerState *
+			GetSamplerState(SamplerStateIndex index) const noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].Get();
 		}
@@ -920,8 +920,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the sampler state of this 
 						rendering state manager associated to the given index.
 		 */
-		ID3D11SamplerState **ReleaseAndGetAddressOfSamplerState(
-			SamplerStateIndex index) noexcept {
+		[[nodiscard]] ID3D11SamplerState **
+			ReleaseAndGetAddressOfSamplerState(SamplerStateIndex index) noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}

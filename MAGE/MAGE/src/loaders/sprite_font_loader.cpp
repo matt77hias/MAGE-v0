@@ -23,14 +23,14 @@ namespace mage::loader {
 		
 		Assert(device);
 
-		const wstring extension = GetFileExtension(fname);
+		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"font" || extension == L"FONT") {
 			ImportFontFromFile(fname, device, output, desc);
 		}
 		else {
-			throw Exception(
-				"Unknown sprite font file extension: %ls", fname.c_str());
+			throw Exception("Unknown sprite font file extension: %ls", 
+				            fname.c_str());
 		}
 	}
 }

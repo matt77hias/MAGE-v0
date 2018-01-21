@@ -11,7 +11,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -47,70 +47,65 @@ namespace mage {
 	}
 
 	SharedPtr< const Texture > CreateBlackTexture() {
-		const D3D11_TEXTURE2D_DESC texture_desc 
-			= CreateSingleColorTexture2DDesc();
+		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(U32);
+		texture_data.SysMemPitch = sizeof(color);
 		
 		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< const Texture > CreateWhiteTexture() {
-		const D3D11_TEXTURE2D_DESC texture_desc 
-			= CreateSingleColorTexture2DDesc();
+		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFFFFFFFF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(U32);
+		texture_data.SysMemPitch = sizeof(color);
 
 		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< const Texture > CreateRedTexture() {
-		const D3D11_TEXTURE2D_DESC texture_desc 
-			= CreateSingleColorTexture2DDesc();
+		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(U32);
+		texture_data.SysMemPitch = sizeof(color);
 
 		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< const Texture > CreateGreenTexture() {
-		const D3D11_TEXTURE2D_DESC texture_desc 
-			= CreateSingleColorTexture2DDesc();
+		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF00FF00;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(U32);
+		texture_data.SysMemPitch = sizeof(color);
 
 		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< const Texture > CreateBlueTexture() {
-		const D3D11_TEXTURE2D_DESC texture_desc 
-			= CreateSingleColorTexture2DDesc();
+		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF0000FF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(U32);
+		texture_data.SysMemPitch = sizeof(color);
 
 		return ResourceManager::Get()->GetOrCreate< Texture >(
 			MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);

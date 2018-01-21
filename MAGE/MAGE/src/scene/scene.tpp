@@ -76,7 +76,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_perspective_cameras, 
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -84,7 +84,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_orthographic_cameras,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -92,7 +92,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_ambient_lights,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -100,7 +100,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_directional_lights,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -108,7 +108,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_omni_lights,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -116,7 +116,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_spot_lights,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -124,7 +124,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_models,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -132,7 +132,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_sprite_images,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -140,7 +140,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElement(m_sprite_texts,
-			std::forward< ConstructorArgsT >(args)...);
+			              std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ElementT, typename... ConstructorArgsT >
@@ -148,7 +148,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		return AddElementPtr< ElementT >(m_scripts,
-			std::forward< ConstructorArgsT >(args)...);
+			                             std::forward< ConstructorArgsT >(args)...);
 	}
 
 	#pragma endregion

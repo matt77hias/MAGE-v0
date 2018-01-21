@@ -144,7 +144,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		[[nodiscard]] bool IsFullScreen() const noexcept {
-			BOOL current = false;
+			BOOL current = FALSE;
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return current == TRUE;
 		}
@@ -199,7 +199,7 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		ID3D11RenderTargetView *GetRTV() const noexcept {
+		[[nodiscard]] ID3D11RenderTargetView *GetRTV() const noexcept {
 			return m_rtv.Get();
 		}
 

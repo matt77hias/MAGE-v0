@@ -235,7 +235,7 @@ namespace mage {
 		SpriteTransform sprite_transform(transform);
 
 		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (char character : str->GetString()) {
+			for (auto character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -296,7 +296,7 @@ namespace mage {
 		auto y = 0.0f;
 
 		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (char character : str->GetString()) {
+			for (auto character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -349,7 +349,7 @@ namespace mage {
 		auto y = 0.0f;
 
 		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (char character : str->GetString()) {
+			for (auto character : str->GetString()) {
 				switch (character) {
 
 				case L'\r': {

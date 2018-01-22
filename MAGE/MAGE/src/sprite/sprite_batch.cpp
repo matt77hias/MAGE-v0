@@ -151,7 +151,7 @@ namespace mage {
 			m_mesh_position = 0;
 		}
 
-		m_transform *= GetViewportTransform(m_device_context);
+		m_transform *= GetViewportTransform();
 
 		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
@@ -218,14 +218,8 @@ namespace mage {
 				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
 						 const SpriteInfo *rhs) noexcept {
-
-						 #ifdef DISSABLE_INVERTED_Z_BUFFER
 					     return lhs->m_origin_rotation_depth.m_w 
 							  > rhs->m_origin_rotation_depth.m_w;
-						 #else  // DISSABLE_INVERTED_Z_BUFFER
-						 return lhs->m_origin_rotation_depth.m_w
-							  < rhs->m_origin_rotation_depth.m_w;
-						 #endif // DISSABLE_INVERTED_Z_BUFFER
 				      });
 			break;
 		}
@@ -236,14 +230,8 @@ namespace mage {
 				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
 						 const SpriteInfo *rhs) noexcept {
-
-						 #ifdef DISSABLE_INVERTED_Z_BUFFER
 					     return lhs->m_origin_rotation_depth.m_w 
 							  < rhs->m_origin_rotation_depth.m_w;
-						 #else  // DISSABLE_INVERTED_Z_BUFFER
-						 return lhs->m_origin_rotation_depth.m_w 
-							  > rhs->m_origin_rotation_depth.m_w;
-						 #endif // DISSABLE_INVERTED_Z_BUFFER
 				      });
 			break;
 		}
@@ -380,10 +368,9 @@ namespace mage {
 		//    position = corner_offsets[i]
 		//    uv       = corner_offsets[i ^ SpriteEffect]
 
-		static_assert(
-			static_cast< U32 >(SpriteEffect::FlipHorizontally) == 1u && 
-			static_cast< U32 >(SpriteEffect::FlipVertically)   == 2u,
-			"The mirroring implementation must be updated to match");
+		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 && 
+			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
+			          "The mirroring implementation must be updated to match");
 
 		const U32 mirror_bits = flags & 3;
 

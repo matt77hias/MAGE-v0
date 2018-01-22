@@ -34,82 +34,39 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-		                     DXGI_MODE_ROTATION rotation_mode) {
+	[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept {
+		const auto config  = DisplayConfiguration::Get();
+		const auto scale_x = 2.0f / config->GetDisplayWidth();
+		const auto scale_y = 2.0f / config->GetDisplayHeight();
 		
-		Assert(device_context);
-		
-		U32 nb_of_viewports = 1u;
-		D3D11_VIEWPORT viewport;
-		Pipeline::RS::GetBoundViewports(device_context, 
-			                            &nb_of_viewports, 
-			                            &viewport);
-		ThrowIfFailed((1u == nb_of_viewports), "No viewport is set.");
+		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
+		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
 
-		return GetViewportTransform(viewport, rotation_mode);
+		return XMMATRIX {
+			scale_x,     0.0f, 0.0f, 0.0f,
+			   0.0f, -scale_y, 0.0f, 0.0f,
+			   0.0f,     0.0f, 1.0f, 0.0f,
+			  -1.0f,     1.0f, 0.0f, 1.0f
+		};
 	}
 
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-			                 D3D11_VIEWPORT *viewport,
-		                     DXGI_MODE_ROTATION rotation_mode) {
-		
-		Assert(device_context);
-		Assert(viewport);
-		
-		U32 nb_of_viewports = 1u;
-		Pipeline::RS::GetBoundViewports(device_context, 
-			                            &nb_of_viewports, 
-			                            viewport);
-		ThrowIfFailed((1u == nb_of_viewports), "No viewport is set.");
-
-		return GetViewportTransform(*viewport, rotation_mode);
-	}
-	
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(const D3D11_VIEWPORT &viewport,
-		                     DXGI_MODE_ROTATION rotation_mode) noexcept {
+		GetViewportTransform(const D3D11_VIEWPORT &viewport) noexcept {
 		
 		const auto scale_x = (viewport.Width  > 0.0f) ?
 							 2.0f / viewport.Width  : 0.0f;
 		const auto scale_y = (viewport.Height > 0.0f) ?
 							 2.0f / viewport.Height : 0.0f;
+
+		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
+		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
 		
-		switch (rotation_mode) {
-		
-		case DXGI_MODE_ROTATION_ROTATE90:
-			return XMMATRIX {
-				 0.0f,    -scale_y, 0.0f, 0.0f,
-				-scale_x,  0.0f,    0.0f, 0.0f,
-				 0.0f,     0.0f,    1.0f, 0.0f,
-				 1.0f,     1.0f,    0.0f, 1.0f
-			};
-		
-		case DXGI_MODE_ROTATION_ROTATE180:
-			return XMMATRIX {
-				-scale_x,  0.0f,    0.0f, 0.0f,
-				 0.0f,     scale_y, 0.0f, 0.0f,
-				 0.0f,     0.0f,    1.0f, 0.0f,
-				 1.0f,    -1.0f,    0.0f, 1.0f
-			};
-		
-		case DXGI_MODE_ROTATION_ROTATE270:
-			return XMMATRIX {
-				 0.0f,     scale_y, 0.0f, 0.0f,
-				 scale_x,  0.0f,    0.0f, 0.0f,
-				 0.0f,     0.0f,    1.0f, 0.0f,
-				-1.0f,    -1.0f,    0.0f, 1.0f
-			};
-		
-		default:
-			return XMMATRIX {
-				 scale_x,  0.0f,    0.0f, 0.0f,
-				 0.0f,    -scale_y, 0.0f, 0.0f,
-				 0.0f,     0.0f,    1.0f, 0.0f,
-				-1.0f,     1.0f,    0.0f, 1.0f
-			};
-		}
+		return XMMATRIX {
+			scale_x,     0.0f, 0.0f, 0.0f,
+			   0.0f, -scale_y, 0.0f, 0.0f,
+			   0.0f,     0.0f, 1.0f, 0.0f,
+			  -1.0f,     1.0f, 0.0f, 1.0f
+		};
 	}
 
 	#pragma endregion

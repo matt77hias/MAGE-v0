@@ -19,16 +19,15 @@ namespace mage {
 
 	 This contains:
 	 @c None,
-	 @c FlipHorizontally,
-	 @c FlipVertically and
-	 @c FlipBoth.
+	 @c MirrorX,
+	 @c MirrorY and
+	 @c MirrorXY.
 	 */
 	enum class SpriteEffect : U8 {
-		None             = 0, // No sprite effects.
-		FlipHorizontally = 1, // Flip sprites horizontally.
-		FlipVertically   = 2, // Flip sprites vertically.
-		FlipBoth         = FlipHorizontally | FlipVertically 
-							  // Flip sprites both horizontally and vertically.
+		None     = 0,                 // No sprite effects.
+		MirrorX  = 1,                 // Mirror sprites along the x-axis.
+		MirrorY  = 2,                 // Mirror sprites along the y-axis.
+		MirrorXY = MirrorX | MirrorY  // Mirror sprites along the x- and y-axis.
 	};
 
 	/**

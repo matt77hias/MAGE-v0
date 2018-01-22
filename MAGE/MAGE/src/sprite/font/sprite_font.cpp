@@ -142,23 +142,22 @@ namespace mage {
 		                      SpriteEffect effects,
 		                      const SRGBA *color) const {
 		
-		static_assert(
-			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u &&
-			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2u,
-			"The following tables must be updated to match");
+		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
+			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
+			          "The following tables must be updated to match");
 		// Lookup table indicates which way to move along each axes for each SpriteEffect.
 		static const XMVECTORF32 axis_direction_table[] = {
 			{ -1.0f, -1.0f }, //SpriteEffect::None
-			{  1.0f, -1.0f }, //SpriteEffect::FlipHorizontally
-			{ -1.0f,  1.0f }, //SpriteEffect::FlipVertically
-			{  1.0f,  1.0f }  //SpriteEffect::FlipBoth
+			{  1.0f, -1.0f }, //SpriteEffect::MirrorX
+			{ -1.0f,  1.0f }, //SpriteEffect::MirrorY
+			{  1.0f,  1.0f }  //SpriteEffect::MirrorXY
 		};
 		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
 		static const XMVECTORF32 axis_is_mirrored_table[] = {
 			{ 0.0f, 0.0f }, //SpriteEffect::None
-			{ 1.0f, 0.0f }, //SpriteEffect::FlipHorizontally
-			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
-			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
+			{ 1.0f, 0.0f }, //SpriteEffect::MirrorX
+			{ 0.0f, 1.0f }, //SpriteEffect::MirrorY
+			{ 1.0f, 1.0f }  //SpriteEffect::MirrorXY
 		};
 		
 		const auto index = static_cast< size_t >(effects) & 3;

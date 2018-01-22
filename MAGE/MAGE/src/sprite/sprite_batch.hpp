@@ -48,7 +48,7 @@ namespace mage {
 		 */
 		static constexpr U32 s_destination_size_in_pixels = 8u;
 
-		static_assert((static_cast< U32 >(SpriteEffect::FlipBoth)
+		static_assert((static_cast< U32 >(SpriteEffect::MirrorXY)
 			& (s_source_in_texels | s_destination_size_in_pixels)) == 0u, 
 			"Flag bits must not overlap");
 		

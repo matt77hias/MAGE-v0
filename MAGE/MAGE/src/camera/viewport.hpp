@@ -384,61 +384,21 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Returns the viewport transform for the given device context and rotation 
-	 mode.
+	 Returns the viewport transform for the maximum viewport.
 
-	 @pre			@a device_context is not equal to @c nullptr.
-	 @param[in]		device_context
-					A pointer to the device context.
-	 @param[in]		rotation_mode
-					The rotation mode.
-	 @return		The viewport transform for 
-					the given device context and rotation mode.
-	 @throws		Exception
-					A viewport needs to be set.
+	 @return		The viewport transform for the maximum viewport.
 	 */
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-		                     DXGI_MODE_ROTATION rotation_mode 
-			                 = DXGI_MODE_ROTATION_IDENTITY);
+	[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept;
 
 	/**
-	 Returns the viewport transform for the given device context and rotation 
-	 mode.
-
-	 @pre			@a device_context is not equal to @c nullptr.
-	 @pre			@a viewport is not equal to @c nullptr.
-	 @param[in]		device_context
-					A pointer to the device context.
-	 @param[in]		rotation_mode
-					The rotation mode.
-	 @param[out]	viewport
-					A pointer to the viewport.
-	 @return		The viewport transform for
-					the given device context and rotation mode.
-	 @throws		Exception
-					A viewport needs to be set.
-	 */
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-			                 D3D11_VIEWPORT *viewport,
-		                     DXGI_MODE_ROTATION rotation_mode
-			                 = DXGI_MODE_ROTATION_IDENTITY);
-	
-	/**
-	 Returns the viewport transform for the viewport and rotation mode.
+	 Returns the viewport transform for the given viewport.
 
 	 @param[in]		viewport
 					A reference to the viewport.
-	 @param[in]		rotation_mode
-					The rotation mode.
-	 @return		The viewport transform for
-					the given viewport and rotation mode.
+	 @return		The viewport transform for the given viewport.
 	 */
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(const D3D11_VIEWPORT &viewport, 
-		                     DXGI_MODE_ROTATION rotation_mode 
-			                 = DXGI_MODE_ROTATION_IDENTITY) noexcept;
+		GetViewportTransform(const D3D11_VIEWPORT &viewport) noexcept;
 
 	#pragma endregion
 }

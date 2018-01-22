@@ -105,6 +105,8 @@ namespace mage {
 		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform().SetNormalizedTranslation(0.90f, 0.88f);
 
+		camera_node->Add(logo);
+
 		auto text = Create< SpriteText >();
 
 		camera_node->Add(text);

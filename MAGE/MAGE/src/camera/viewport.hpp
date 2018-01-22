@@ -399,7 +399,8 @@ namespace mage {
 	 */
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-		                     DXGI_MODE_ROTATION rotation_mode);
+		                     DXGI_MODE_ROTATION rotation_mode 
+			                 = DXGI_MODE_ROTATION_IDENTITY);
 
 	/**
 	 Returns the viewport transform for the given device context and rotation 
@@ -420,8 +421,9 @@ namespace mage {
 	 */
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-		                     DXGI_MODE_ROTATION rotation_mode, 
-		                     D3D11_VIEWPORT *viewport);
+			                 D3D11_VIEWPORT *viewport,
+		                     DXGI_MODE_ROTATION rotation_mode
+			                 = DXGI_MODE_ROTATION_IDENTITY);
 	
 	/**
 	 Returns the viewport transform for the viewport and rotation mode.
@@ -435,7 +437,8 @@ namespace mage {
 	 */
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(const D3D11_VIEWPORT &viewport, 
-		                     DXGI_MODE_ROTATION rotation_mode) noexcept;
+		                     DXGI_MODE_ROTATION rotation_mode 
+			                 = DXGI_MODE_ROTATION_IDENTITY) noexcept;
 
 	#pragma endregion
 }

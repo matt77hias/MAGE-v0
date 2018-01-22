@@ -151,6 +151,8 @@ namespace mage {
 			m_mesh_position = 0;
 		}
 
+		m_transform *= GetViewportTransform(m_device_context);
+
 		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.

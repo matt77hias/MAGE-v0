@@ -52,8 +52,8 @@ namespace mage {
 
 	[[nodiscard]] const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(ID3D11DeviceContext4 *device_context,
-		                     DXGI_MODE_ROTATION rotation_mode, 
-		                     D3D11_VIEWPORT *viewport) {
+			                 D3D11_VIEWPORT *viewport,
+		                     DXGI_MODE_ROTATION rotation_mode) {
 		
 		Assert(device_context);
 		Assert(viewport);

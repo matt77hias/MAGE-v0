@@ -92,6 +92,20 @@ namespace mage {
 		return components;
 	}
 
+	template< typename ComponentT >
+	void Node::Add(ProxyPtr< ComponentT > component) {
+		if (nullptr == component
+			|| component->HasOwner()
+			|| State::Terminated == m_state
+			|| State::Terminated == component->GetState()) {
+			return;
+		}
+
+		ComponentClient::SetOwner(*component, m_this);
+
+		m_components.emplace(typeid(*component), std::move(component));
+	}
+
 	template< typename ComponentT, typename ActionT >
 	inline void Node::ForEach(ActionT action) {
 		const auto range = m_components.equal_range(typeid(ComponentT));

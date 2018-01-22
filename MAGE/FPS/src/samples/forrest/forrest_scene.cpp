@@ -82,7 +82,7 @@ namespace mage {
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 
 		auto camera_node = Create< Node >("Player");
-		camera_node->AddComponent(camera);
+		camera_node->Add(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
@@ -131,7 +131,7 @@ namespace mage {
 		light->EnableShadows();
 
 		auto light_node = Create< Node >("Spotlight");
-		light_node->AddComponent(light);
+		light_node->Add(light);
 		light_node->GetTransform().SetTranslationY(15.0f);
 		light_node->GetTransform().SetRotationX(XM_PIDIV2);
 
@@ -139,13 +139,13 @@ namespace mage {
 		spot_light->SetRange(5.0f);
 		spot_light->SetAngularCutoff(1.0f, 0.5f);
 
-		camera_node->AddComponent(spot_light);
+		camera_node->Add(spot_light);
 
 		auto directional_light = Create< DirectionalLight >();
 		directional_light->SetRadiance(4.0f);
 		
 		auto directional_light_node = Create< Node >("Directional Light");
-		directional_light_node->AddComponent(directional_light);
+		directional_light_node->Add(directional_light);
 		directional_light_node->GetTransform().SetTranslation(20.0f, 20.0f, 0.0f);
 		directional_light_node->GetTransform().SetRotationZ(XM_PIDIV4);
 		
@@ -159,7 +159,7 @@ namespace mage {
 
 		auto text = Create< SpriteText >();
 
-		camera_node->AddComponent(text);
+		camera_node->Add(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
@@ -167,13 +167,13 @@ namespace mage {
 		Create< script::SwitchSceneScript< BRDFScene > >();
 		Create< script::EditorScript >();
 
-		camera_node->AddComponent(Create< script::StatsScript >());
-		camera_node->AddComponent(Create< script::MouseLookScript >());
-		camera_node->AddComponent(Create< script::CharacterMotorScript >());
+		camera_node->Add(Create< script::StatsScript >());
+		camera_node->Add(Create< script::MouseLookScript >());
+		camera_node->Add(Create< script::CharacterMotorScript >());
 
 		auto script = Create< script::RotationScript >();
 		script->SetRotationAxis(script::RotationScript::RotationAxis::X);
 		
-		windmill_nodes[0]->AddComponent(script);
+		windmill_nodes[0]->Add(script);
 	}
 }

@@ -67,7 +67,7 @@ namespace mage {
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 
 		auto camera_node = Create< Node >("Player");
-		camera_node->AddComponent(camera);
+		camera_node->Add(camera);
 		camera_node->GetTransform().SetTranslation(-0.66f, 20.0f, -15.23f);
 		camera_node->GetTransform().SetRotationX(0.54f);
 
@@ -115,7 +115,7 @@ namespace mage {
 		omni_light->SetIntensity(50.0f);
 
 		auto omni_light_node = Create< Node >("Omni Light");
-		omni_light_node->AddComponent(omni_light);
+		omni_light_node->Add(omni_light);
 		omni_light_node->GetTransform().SetTranslation(0.0f, 20.0f, -15.0f);
 		
 		//---------------------------------------------------------------------
@@ -128,7 +128,7 @@ namespace mage {
 
 		auto text = Create< SpriteText >();
 
-		camera_node->AddComponent(text);
+		camera_node->Add(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
@@ -136,6 +136,6 @@ namespace mage {
 		Create< script::SwitchSceneScript< SponzaScene > >();
 		Create< script::EditorScript >();
 
-		camera_node->AddComponent(Create< script::StatsScript >());
+		camera_node->Add(Create< script::StatsScript >());
 	}
 }

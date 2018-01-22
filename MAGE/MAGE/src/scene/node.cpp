@@ -113,23 +113,6 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Member Methods: Components
-	//-------------------------------------------------------------------------
-
-	void Node::AddComponent(ComponentPtr component) {
-		if (nullptr == component
-			|| component->HasOwner()
-			|| State::Terminated == m_state
-			|| State::Terminated == component->GetState()) {
-			return;
-		}
-
-		ComponentClient::SetOwner(*component, m_this);
-
-		m_components.emplace(typeid(*component), std::move(component));
-	}
-
-	//-------------------------------------------------------------------------
 	// Member Methods: State
 	//-------------------------------------------------------------------------
 

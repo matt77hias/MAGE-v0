@@ -66,7 +66,7 @@ namespace mage {
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 		
 		auto camera_node = Create< Node >("Player");
-		camera_node->AddComponent(camera);
+		camera_node->Add(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
@@ -88,14 +88,14 @@ namespace mage {
 		omni_light->EnableShadows();
 		
 		auto omni_light_node = Create< Node >("Omni Light");
-		omni_light_node->AddComponent(omni_light);
+		omni_light_node->Add(omni_light);
 		omni_light_node->GetTransform().SetTranslationY(2.0f);
 		
 		auto spot_light = Create< SpotLight >();
 		spot_light->SetRange(5.0f);
 		spot_light->SetAngularCutoff(1.0f, 0.5f);
 
-		camera_node->AddComponent(spot_light);
+		camera_node->Add(spot_light);
 
 		//---------------------------------------------------------------------
 		// Sprites
@@ -107,7 +107,7 @@ namespace mage {
 
 		auto text = Create< SpriteText >();
 
-		camera_node->AddComponent(text);
+		camera_node->Add(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
@@ -115,9 +115,9 @@ namespace mage {
 		Create< script::SwitchSceneScript< SibenikScene > >();
 		Create< script::EditorScript >();
 		
-		camera_node->AddComponent(Create< script::StatsScript >());
-		camera_node->AddComponent(Create< script::MouseLookScript >());
-		camera_node->AddComponent(Create< script::CharacterMotorScript >());
-		tree_node->AddComponent(Create< script::RotationScript >());
+		camera_node->Add(Create< script::StatsScript >());
+		camera_node->Add(Create< script::MouseLookScript >());
+		camera_node->Add(Create< script::CharacterMotorScript >());
+		tree_node->Add(Create< script::RotationScript >());
 	}
 }

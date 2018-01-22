@@ -134,7 +134,7 @@ namespace mage {
 			transform.SetLocalTransform(model_part.m_transform);
 
 			// Add the model component to the node.
-			node->AddComponent(model);
+			node->Add(model);
 
 			if (model_part.HasDefaultParent()) {
 				root = node;

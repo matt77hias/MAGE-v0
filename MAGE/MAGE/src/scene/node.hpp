@@ -327,10 +327,13 @@ namespace mage {
 		/**
 		 Adds the given component to this node.
 
+		 @tparam		ComponentT
+						The component type.
 		 @param[in]		component
 						A pointer to the component.
 		 */
-		void AddComponent(ComponentPtr component);
+		template< typename ComponentT >
+		void Add(ProxyPtr< ComponentT > component);
 
 		/**
 		 Traverses all components of the given type of this node.

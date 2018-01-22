@@ -679,9 +679,11 @@ namespace mage::editor {
 				? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 			const auto node_open = ImGui::TreeNodeEx(id.c_str(), flags, name.c_str());
+			
 			if (ImGui::IsItemClicked()) {
 				SetSelected(node.Get());
 			}
+			
 			if (node_open) {
 				node.ForEachChild([](Node &child) {
 					DrawGraph(child);

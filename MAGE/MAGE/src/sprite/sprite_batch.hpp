@@ -284,51 +284,6 @@ namespace mage {
 		 */
 		void End();
 
-		//---------------------------------------------------------------------
-		// Member Methods: Batch-Independent Data
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the rotation mode of this sprite batch to fit the physical 
-		 rotation of a monitor.
-
-		 @return		The rotation mode of this sprite batch .
-		 */
-		[[nodiscard]] DXGI_MODE_ROTATION GetRotationMode() const noexcept {
-			return m_rotation_mode;
-		}
-
-		/**
-		 Sets the rotation mode of this sprite batch to fit the physical 
-		 rotation of a monitor to the given rotation mode.
-
-		 @param[in]		rotation_mode
-						The rotation mode.
-		 */
-		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) noexcept {
-			m_rotation_mode = rotation_mode;
-		}
-
-		/**
-		 Returns the viewport of this sprite batch.
-
-		 @return		A reference to the viewport of this sprite batch.
-		 */
-		[[nodiscard]] const D3D11_VIEWPORT &GetViewport() const noexcept {
-			return m_viewport;
-		}
-
-		/**
-		 Sets the viewport of this sprite batch to the given viewport.
-
-		 @param[in]		viewport
-						The viewport.
-		 */
-		[[nodiscard]] void SetViewport(D3D11_VIEWPORT viewport) noexcept {
-			m_viewport_set = true;
-			m_viewport     = std::move(viewport);
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -336,9 +291,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds this sprite batch.
+		 Binds the fixed state of this sprite batch.
 		 */
-		void BindSpriteBatch();
+		void BindFixedState();
 		
 		/**
 		 Flushes a batch of sprites for rendering if non-immediate rendering is 
@@ -348,17 +303,17 @@ namespace mage {
 		 Sprites are sorted based on the sprite sorting mode and adjacent 
 		 sprites are grouped for rendering if sharing the same texture.
 
-		 @note		This functionality is only used if non-immediate rendering 
-					is required.
+		 @note		This functionality is only used in case of non-immediate 
+					rendering.
 		 */
 		void FlushBatch();
 
 		/**
 		 Sorts the sprites of the current batch according to the sprite sorting 
-		 mode of the current batch of this sprite batch.
+		 mode of this sprite batch.
 
-		 @note		This functionality is only used if non-immediate rendering 
-					is required.
+		 @note		This functionality is only used in case of non-immediate 
+					rendering.
 		 */
 		void SortSprites();
 		
@@ -368,9 +323,9 @@ namespace mage {
 
 		 @pre			@a texture is not equal to @c nullptr.
 		 @pre			@a sprites is not equal to @c nullptr.
-		 @pre			@a sprites points to an array containing
-						at least @a nb_sprites sprite info data 
-						pointers which are not equal to @c nullptr.
+		 @pre			@a sprites points to an array containing at least 
+						@a nb_sprites sprite info data pointers which are not 
+						equal to @c nullptr.
 		 @param[in]		texture
 						A pointer to the shader resource view of the texture
 						that needs to be rendered.
@@ -380,9 +335,9 @@ namespace mage {
 		 @param[in]		nb_sprites
 						The number of sprites which need to be rendered.
 		 */
-		void RenderBatch(ID3D11ShaderResourceView *texture,
-			             const SpriteInfo * const *sprites, 
-			             size_t nb_sprites);
+		void Render(ID3D11ShaderResourceView *texture,
+			        const SpriteInfo * const *sprites, 
+			        size_t nb_sprites);
 		
 		/**
 		 Prepares a single sprite for rendering.
@@ -431,31 +386,10 @@ namespace mage {
 		UniquePtr< SpriteBatchMesh > m_mesh;
 
 		/**
-		 The current position in the vertex buffer of the mesh of this sprite 
-		 batch for adding sprite vertices.
+		 The current position in the mesh of this sprite batch for adding sprite 
+		 vertices.
 		 */
-		size_t m_vertex_buffer_position;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Batch-Independent Data
-		//---------------------------------------------------------------------
-
-		/**
-		 A flag indicating how the back buffers should be rotated to fit the 
-		 physical rotation of a monitor for this sprite batch.
-		 */
-		DXGI_MODE_ROTATION m_rotation_mode;
-
-		/**
-		 A flag (indicating whether the viewport of this sprite batch has been 
-		 set.
-		 */
-		bool m_viewport_set;
-
-		/**
-		 The viewport of this sprite batch.
-		 */
-		D3D11_VIEWPORT m_viewport;
+		size_t m_mesh_position;
 
 		/**
 		 A flag indicating whether this sprite batch is in a begin/end pair 
@@ -487,7 +421,7 @@ namespace mage {
 		ConstantBuffer< XMMATRIX > m_transform_buffer;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Queuing Data
+		// Member Variables: Sprites
 		//---------------------------------------------------------------------
 
 		/**

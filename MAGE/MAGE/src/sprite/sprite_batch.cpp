@@ -25,10 +25,7 @@ namespace mage {
 		                     ID3D11DeviceContext4 *device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
-		m_vertex_buffer_position(0u),
-		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY),
-		m_viewport_set(false),
-		m_viewport{},
+		m_mesh_position(0u),
 		m_in_begin_end_pair(false),
 		m_sort_mode(SpriteSortMode::Deferred),
 		m_transform(XMMatrixIdentity()),
@@ -57,7 +54,7 @@ namespace mage {
 		m_transform = transform;
 
 		if (SpriteSortMode::Immediate == m_sort_mode) {
-			BindSpriteBatch();
+			BindFixedState();
 		}
 
 		// Toggle the begin/end pair.
@@ -80,37 +77,43 @@ namespace mage {
 			m_sorted_sprites.reserve(m_sprites.capacity());
 		}
 		
+		// Create a sprite.
 		auto sprite = &m_sprites.emplace_back();
 
-		auto flags = static_cast< U32 >(effects);
-		// destination: Tx Ty Sx Sy
+		// destination: [Tx Ty Sx Sy]
 		const auto destination = XMVectorSet(transform.GetTranslation().m_x,
 										     transform.GetTranslation().m_y,
 										     transform.GetScale().m_x,
 										     transform.GetScale().m_y);
-		// origin_rotation_depth: ROx ROy R D
+		// origin_rotation_depth: [ROx ROy R D]
 		const auto origin_rotation_depth = XMVectorSet(transform.GetRotationOrigin().m_x, 
 										               transform.GetRotationOrigin().m_y, 
 										               transform.GetRotation(), 
 										               transform.GetDepth());
-
+		
+		auto flags = static_cast< U32 >(effects);
 		auto dst = destination;
+		
 		if (source) {
+			// src = [TLx TLy W H]
 			const auto src = XMVectorLeftTopWidthHeight(*source);
 			XMStoreFloat4A(&sprite->m_source, src);
 
-			// If the destination size is relative to the source region, 
-			// convert it to pixels.
-			if (!(flags & SpriteInfo::s_destination_size_in_pixels)) {
+			// If the destination size is represented in texels 
+			// (i.e. relative to the source region), convert it to pixels.
+			if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
+				// dst: [Tx Ty Sx*W Sy*H]
 				dst = XMVectorPermute< 0, 1, 6, 7 >(dst, dst * src);
 			}
+
+			// The destination size is represented in pixels.
 
 			flags |= SpriteInfo::s_source_in_texels 
 				   | SpriteInfo::s_destination_size_in_pixels;
 		}
 		else {
 			// No explicit source region, so use the entire texture.
-			static const XMVECTORF32 max_texture_region = { 0, 0, 1, 1 };
+			static const XMVECTORF32 max_texture_region = { 0.0f, 0.0f, 1.0f, 1.0f };
 			XMStoreFloat4A(&sprite->m_source, max_texture_region);
 		}
 
@@ -122,7 +125,7 @@ namespace mage {
 		sprite->m_flags = flags;
 
 		if (SpriteSortMode::Immediate == m_sort_mode) {
-			RenderBatch(texture, &sprite, 1);
+			Render(texture, &sprite, 1);
 		}
 		else {
 			m_sorted_sprites.push_back(sprite);
@@ -135,7 +138,7 @@ namespace mage {
 
 		if (SpriteSortMode::Immediate != m_sort_mode) {
 			// Draw the queued sprites.
-			BindSpriteBatch();
+			BindFixedState();
 			FlushBatch();
 		}
 
@@ -143,26 +146,17 @@ namespace mage {
 		m_in_begin_end_pair = false;
 	}
 
-	void SpriteBatch::BindSpriteBatch() {
+	void SpriteBatch::BindFixedState() {
 		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context->GetType()) {
-			m_vertex_buffer_position = 0;
-		}
-
-		// Apply the rotation mode to the transform of this sprite batch.
-		if (DXGI_MODE_ROTATION_UNSPECIFIED != m_rotation_mode) {
-			if (m_viewport_set) {
-				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
-			}
-			else {
-				m_transform *= GetViewportTransform(m_device_context, m_rotation_mode);
-			}
+			m_mesh_position = 0;
 		}
 
 		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.
 		m_transform_buffer.Bind< Pipeline::VS >(m_device_context, 
-			SLOT_CBUFFER_SECONDARY_CAMERA);
+			                                    SLOT_CBUFFER_SECONDARY_CAMERA);
+		
 		// Binds the mesh.
 		m_mesh->BindMesh(m_device_context);
 	}
@@ -175,7 +169,7 @@ namespace mage {
 		// Sort the sprites of this sprite batch.
 		SortSprites();
 
-		// Walk the sorted sprites of this sprite batch, looking for adjacent 
+		// Iterate the sorted sprites of this sprite batch, looking for adjacent 
 		// sprites sharing a texture.
 		ID3D11ShaderResourceView *batch_texture = nullptr;
 		size_t batch_start = 0u;
@@ -189,16 +183,17 @@ namespace mage {
 				if (i > batch_start) {
 					// Flush the current subbatch.
 					const auto nb_sprites_batch = i - batch_start;
-					RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
+					Render(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
 				}
 				
 				batch_texture = sprite_texture;
 				batch_start   = i;
 			}
 		}
+		
 		// Flush the final subbatch.
 		const auto nb_sprites_batch = m_sprites.size() - batch_start;
-		RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
+		Render(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
 	}
 
 	void SpriteBatch::SortSprites() {
@@ -209,7 +204,7 @@ namespace mage {
 			std::sort(m_sorted_sprites.begin(), 
 				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept -> bool {
+						 const SpriteInfo *rhs) noexcept {
 					     return lhs->m_texture < rhs->m_texture;
 				      });
 			break;
@@ -220,9 +215,15 @@ namespace mage {
 			std::sort(m_sorted_sprites.begin(), 
 				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept -> bool {
+						 const SpriteInfo *rhs) noexcept {
+
+						 #ifdef DISSABLE_INVERTED_Z_BUFFER
 					     return lhs->m_origin_rotation_depth.m_w 
 							  > rhs->m_origin_rotation_depth.m_w;
+						 #else  // DISSABLE_INVERTED_Z_BUFFER
+						 return lhs->m_origin_rotation_depth.m_w
+							  < rhs->m_origin_rotation_depth.m_w;
+						 #endif // DISSABLE_INVERTED_Z_BUFFER
 				      });
 			break;
 		}
@@ -232,23 +233,29 @@ namespace mage {
 			std::sort(m_sorted_sprites.begin(), 
 				      m_sorted_sprites.end(), 
 				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept -> bool {
+						 const SpriteInfo *rhs) noexcept {
+
+						 #ifdef DISSABLE_INVERTED_Z_BUFFER
 					     return lhs->m_origin_rotation_depth.m_w 
 							  < rhs->m_origin_rotation_depth.m_w;
+						 #else  // DISSABLE_INVERTED_Z_BUFFER
+						 return lhs->m_origin_rotation_depth.m_w 
+							  > rhs->m_origin_rotation_depth.m_w;
+						 #endif // DISSABLE_INVERTED_Z_BUFFER
 				      });
 			break;
 		}
 		}
 	}
 
-	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
-		                          const SpriteInfo * const *sprites, 
-		                          size_t nb_sprites) {
+	void SpriteBatch::Render(ID3D11ShaderResourceView *texture,
+		                     const SpriteInfo * const *sprites, 
+		                     size_t nb_sprites) {
 
 		// Binds the texture.
 		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_SPRITE, texture);
 
-		const auto texture_size = GetTexture2DSize(texture);
+		const auto texture_size         = GetTexture2DSize(texture);
 		const auto inverse_texture_size = XMVectorReciprocal(texture_size);
 
 		while (nb_sprites > 0u) {
@@ -256,12 +263,14 @@ namespace mage {
 			auto nb_sprites_to_render = nb_sprites;
 			// Number of sprites that can fit in the vertex buffer.
 			const auto nb_sprites_available = SpriteBatchMesh::s_max_sprites_per_batch
-				                            - m_vertex_buffer_position;
+				                            - m_mesh_position;
+			
 			if (nb_sprites_to_render > nb_sprites_available) {
 				// Not all sprites fit in the vertex buffer.
 				if (nb_sprites_available < SpriteBatchMesh::s_min_sprites_per_batch) {
-					// Wrap back to the start of the vertex buffer in case of a excessively small batch.
-					m_vertex_buffer_position = 0;
+					// Wrap back to the start of the vertex buffer in case of a 
+					// excessively small batch.
+					m_mesh_position = 0;
 					nb_sprites_to_render = std::min(nb_sprites, 
 						                            SpriteBatchMesh::s_max_sprites_per_batch);
 				}
@@ -273,16 +282,16 @@ namespace mage {
 			// Update the vertex buffer.
 			{
 				// Map the vertex buffer.
-				const D3D11_MAP map_type = (0 == m_vertex_buffer_position)
+				const D3D11_MAP map_type = (0 == m_mesh_position)
 					                       ? D3D11_MAP_WRITE_DISCARD 
 					                       : D3D11_MAP_WRITE_NO_OVERWRITE;
 				D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-				const auto lock = m_mesh->Lock(m_device_context,
-					                           map_type, &mapped_buffer);
+				const auto lock = m_mesh->Lock(m_device_context, map_type, &mapped_buffer);
 
 				// Update the data.
 				auto vertices = static_cast< VertexPositionColorTexture * >(mapped_buffer.pData)
-					+ m_vertex_buffer_position * SpriteBatchMesh::s_vertices_per_sprite;
+					+ m_mesh_position * SpriteBatchMesh::s_vertices_per_sprite;
+				
 				for (size_t i = 0; i < nb_sprites_to_render; ++i) {
 					PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
 					vertices += SpriteBatchMesh::s_vertices_per_sprite;
@@ -290,14 +299,14 @@ namespace mage {
 			}
 
 			// Draw the mesh.
-			const auto start_index = m_vertex_buffer_position
+			const auto start_index = m_mesh_position
 				                   * SpriteBatchMesh::s_indices_per_sprite;
 			const auto nb_indices  = nb_sprites_to_render
 				                   * SpriteBatchMesh::s_indices_per_sprite;
 			m_mesh->Draw(m_device_context, start_index, nb_indices);
 
 			// Update the workload.
-			m_vertex_buffer_position += nb_sprites_to_render;
+			m_mesh_position += nb_sprites_to_render;
 			sprites += nb_sprites_to_render;
 			nb_sprites -= nb_sprites_to_render;
 		}
@@ -319,7 +328,7 @@ namespace mage {
 		auto destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
 		
 		// Scale the origin offset by source size, taking care to avoid overflow if 
-		// the source region is zero
+		// the source region is zero.
 		const auto is_zero_mask          = XMVectorEqual(source_size, XMVectorZero());
 		const auto non_zero_source_size  = XMVectorSelect(source_size, g_XMEpsilon, is_zero_mask);
 		auto origin                      = XMVectorDivide(origin_rotation_depth, non_zero_source_size);
@@ -332,8 +341,9 @@ namespace mage {
 		else {
 			origin      *= inverse_texture_size;
 		}
+
 		// If the destination size is relative to the source region, convert it to pixels.
-		if (!(flags & SpriteInfo::s_destination_size_in_pixels)) {
+		if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
 			destination_size *= texture_size;
 		}
 
@@ -345,28 +355,28 @@ namespace mage {
 			XMScalarSinCos(&sin, &cos, rotation);
 			const auto sin_v = XMLoadFloat(&sin);
 			const auto cos_v = XMLoadFloat(&cos);
-			rotation_matrix1     = XMVectorMergeXY( cos_v, sin_v);
-			rotation_matrix2     = XMVectorMergeXY(-sin_v, cos_v);
+			rotation_matrix1 = XMVectorMergeXY( cos_v, sin_v);
+			rotation_matrix2 = XMVectorMergeXY(-sin_v, cos_v);
 		}
 		else {
-			rotation_matrix1     = g_XMIdentityR0;
-			rotation_matrix2     = g_XMIdentityR1;
+			rotation_matrix1 = g_XMIdentityR0;
+			rotation_matrix2 = g_XMIdentityR1;
 		}
 		
 		// The four corner vertices are computed by transforming these unit-square positions.
-		static XMVECTORF32 corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
-			{ 0, 0 },
-			{ 1, 0 },
-			{ 0, 1 },
-			{ 1, 1 },
+		static const XMVECTORF32 corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
+			{ 0.0f, 0.0f },
+			{ 1.0f, 0.0f },
+			{ 0.0f, 1.0f },
+			{ 1.0f, 1.0f },
 		};
 		
 		// Texture coordinates are computed from the same corner_offsets table as 
 		// vertex positions, but if the sprite is mirrored, this table must be indexed 
 		// in a different order. This is done as follows:
 		//
-		//    position = cornerOffsets[i]
-		//    texcoord = cornerOffsets[i ^ SpriteEffect]
+		//    position = corner_offsets[i]
+		//    uv       = corner_offsets[i ^ SpriteEffect]
 
 		static_assert(
 			static_cast< U32 >(SpriteEffect::FlipHorizontally) == 1u && 
@@ -378,29 +388,26 @@ namespace mage {
 		// Generate the four output vertices.
 		for (size_t i = 0; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {
 			// Calculate position.
-			const auto corner_offset
-				= (corner_offsets[i] - origin) * destination_size;
+			const auto corner_offset = (corner_offsets[i] - origin) * destination_size;
 			// Apply 2x2 rotation matrix.
 			const auto position1
 				= XMVectorMultiplyAdd(XMVectorSplatX(corner_offset), rotation_matrix1, destination);
 			const auto position2
 				= XMVectorMultiplyAdd(XMVectorSplatY(corner_offset), rotation_matrix2, position1);
 			// Set z = depth.
-			const auto position
-				= XMVectorPermute< 0, 1, 7, 6 >(position2, origin_rotation_depth);
-			// Write the position as a F32x4, even though VertexPositionColorTexture::p 
-			// is an F32x3. This is faster, and harmless as we are just clobbering the 
-			// first element of the following color field, which will immediately be 
-			// overwritten with its correct value.
+			const auto position = XMVectorPermute< 0, 1, 7, 6 >(position2, origin_rotation_depth);
+			
+			// Write the position as a F32x4, even though VertexPositionColorTexture::m_p 
+			// is an F32x3.
 			XMStoreFloat4(reinterpret_cast< F32x4 * >(&vertices[i].m_p), position);
 
 			// Write the color.
 			XMStoreFloat4(&vertices[i].m_c, color);
 
-			// Compute and write the texture coordinate.
-			const auto texture_coordinate
+			// Compute and write the texture coordinates.
+			const auto uv
 				= XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
-			XMStoreFloat2(&vertices[i].m_tex, texture_coordinate);
+			XMStoreFloat2(&vertices[i].m_tex, uv);
 		}
 	}
 }

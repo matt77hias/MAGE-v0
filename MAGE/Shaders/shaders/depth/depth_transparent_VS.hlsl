@@ -26,6 +26,6 @@ PSInputTexture VS(VSInputPositionNormalTexture input) {
 	// g_object_to_view * g_view_to_projection: eliminates Z-fighting
 	output.p   = mul(mul(float4(input.p, 1.0f), 
 		             g_object_to_view2), g_view2_to_projection2);
-	output.tex = mul(float3(input.tex, 1.0f), (float3x3)g_texture_transform).xy;
+	output.tex = mul(float4(input.tex, 0.0f, 1.0f), g_texture_transform).xy;
 	return output;
 }

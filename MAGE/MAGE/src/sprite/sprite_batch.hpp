@@ -37,20 +37,20 @@ namespace mage {
 		// Combine values from SpriteEffect with these internal-only flags.
 
 		/**
-		 Mask indicating whether the source region of sprite info structures is 
-		 expressed in texels.
+		 Mask indicating whether the source region (top left, width and height) 
+		 of sprite info structures is expressed in texels.
 		 */
 		static constexpr U32 s_source_in_texels = 4u;
 
 		/**
-		 Mask indicating whether the destination of sprite info structures is 
-		 expressed in pixels.
+		 Mask indicating whether the destination size (width and height) of 
+		 sprite info structures is expressed in pixels.
 		 */
 		static constexpr U32 s_destination_size_in_pixels = 8u;
 
-		static_assert((static_cast< U32 >(SpriteEffect::MirrorXY)
-			& (s_source_in_texels | s_destination_size_in_pixels)) == 0u, 
-			"Flag bits must not overlap");
+		static_assert(((s_source_in_texels | s_destination_size_in_pixels)
+			          & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
+			          "Flag bits must not overlap");
 		
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -351,9 +351,9 @@ namespace mage {
 		 @param[in]		vertices
 						A pointer to the vertices for the sprite.
 		 @param[in]		texture_size
-						The size of the texture.
+						The size of the texture (in the number of texels).
 		 @param[in]		inverse_texture_size
-						The inverse size of the texture.
+						The inverse of @a texture_size.
 		 */
 		void XM_CALLCONV PrepareSprite(const SpriteInfo *sprite, 
 			                           VertexPositionColorTexture *vertices,

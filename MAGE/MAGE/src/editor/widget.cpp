@@ -333,8 +333,8 @@ namespace mage::editor {
 
 		// Rotation
 		auto rotation = transform.GetRotation();
-		ImGui::InputFloat("Rotation", &rotation);
-		transform.SetRotation(rotation);
+		ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
+		transform.SetRotation(ClampAngleRadians(rotation));
 
 		// Scale
 		auto scale = transform.GetScale();
@@ -434,8 +434,8 @@ namespace mage::editor {
 
 		// Rotation
 		auto rotation = transform.GetRotation();
-		ImGui::InputFloat("Rotation", &rotation);
-		transform.SetRotation(rotation);
+		ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
+		transform.SetRotation(ClampAngleRadians(rotation));
 
 		// Scale
 		auto scale = transform.GetScale();
@@ -461,9 +461,9 @@ namespace mage::editor {
 		// Sprite effects
 		static constexpr const char *sprite_effect_names[] = {
 			{ "None"              },
-			{ "Flip Horizontally" },
-			{ "Flip Vertically"   },
-			{ "Flip Both"         }
+			{ "Mirror X" },
+			{ "Mirror Y"   },
+			{ "Mirror XY"         }
 		};
 		static constexpr SpriteEffect sprite_effects[] = {
 			{ SpriteEffect::None             },

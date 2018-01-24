@@ -1261,7 +1261,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The translation component of this sprite transform.
+		 The translation component (in pixels) of this sprite transform.
 		 */
 		F32x2 m_translation;
 
@@ -1276,7 +1276,7 @@ namespace mage {
 		F32 m_rotation;
 
 		/**
-		 The rotation origin of this sprite transform.
+		 The rotation origin (in texels) of this sprite transform.
 		 */
 		F32x2 m_rotation_origin;
 

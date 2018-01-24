@@ -32,7 +32,6 @@ namespace mage {
 
 		/**
 		 An enumeration of the different text effects.
-
 		 This contains:
 		 @c None,
 		 @c DropShadow and
@@ -50,7 +49,6 @@ namespace mage {
 
 		/**
 		 Constructs a sprite text.
-
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 */
@@ -58,7 +56,6 @@ namespace mage {
 
 		/**
 		 Constructs a sprite text from the given sprite text.
-
 		 @param[in]		sprite
 						A reference to the sprite text to copy.
 		 */
@@ -66,7 +63,6 @@ namespace mage {
 
 		/**
 		 Constructs a sprite text by moving the given sprite text.
-
 		 @param[in]		sprite
 						A reference to the sprite text to move.
 		 */
@@ -83,7 +79,6 @@ namespace mage {
 
 		/**
 		 Copies the given sprite text to this sprite text.
-
 		 @param[in]		sprite
 						A reference to the sprite text to copy.
 		 @return		A reference to the copy of the given sprite text (i.e. 
@@ -93,7 +88,6 @@ namespace mage {
 
 		/**
 		 Moves the given sprite text to this sprite text.
-
 		 @param[in]		sprite
 						A reference to the sprite text to move.
 		 @return		A reference to the moved sprite text (i.e. this sprite 
@@ -107,7 +101,6 @@ namespace mage {
 
 		/**
 		 Draws this sprite text.
-
 		 @param[in]		sprite_batch
 						A reference to the sprite batch used for rendering this 
 						sprite text.
@@ -120,7 +113,6 @@ namespace mage {
 
 		/**
 		 Returns the sprite transform of this sprite text.
-
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
@@ -130,7 +122,6 @@ namespace mage {
 
 		/**
 		 Returns the sprite transform of this sprite text.
-
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
@@ -144,7 +135,6 @@ namespace mage {
 
 		/**
 		 Returns the sprite effects of this sprite text.
-
 		 @return		The sprite effects of this sprite text.
 		 */
 		[[nodiscard]] SpriteEffect GetSpriteEffects() const noexcept {
@@ -154,7 +144,6 @@ namespace mage {
 		/**
 		 Sets the sprite effects of this sprite text to the given sprite 
 		 effects.
-
 		 @param[in]		sprite_effects
 						The sprite effects.
 		 */
@@ -175,7 +164,6 @@ namespace mage {
 
 		/**
 		 Returns the text of this sprite text.
-
 		 @return		A reference to a vector containing the color strings 
 						of this sprite text.
 		 */
@@ -185,7 +173,6 @@ namespace mage {
 
 		/**
 		 Sets the text of this sprite text to the given text.
-
 		 @param[in]		text
 						The text.
 		 */
@@ -196,7 +183,6 @@ namespace mage {
 		
 		/**
 		 Appends the given text to the end of the text of this sprite text.
-
 		 @param[in]		text
 						The text.
 		 */
@@ -206,7 +192,6 @@ namespace mage {
 
 		/**
 		 Traverses all color strings of this sprite text.
-
 		 @tparam		ActionT
 						An action to perform on all color strings of this 
 						sprite text. The action must accept @c ColorString& 
@@ -219,7 +204,6 @@ namespace mage {
 
 		/**
 		 Traverses all color strings of this sprite text.
-
 		 @tparam		ActionT
 						An action to perform on all color strings of this 
 						sprite text. The action must accept @c const 
@@ -236,7 +220,6 @@ namespace mage {
 
 		/**
 		 Returns the sRGB text effect color of this sprite text.
-
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
@@ -246,7 +229,6 @@ namespace mage {
 
 		/**
 		 Returns the sRGB text effect color of this sprite text.
-
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
@@ -256,7 +238,6 @@ namespace mage {
 
 		/**
 		 Returns the text effect of this sprite text.
-
 		 @return		The text effect of this sprite text.
 		 */
 		[[nodiscard]] TextEffect GetTextEffect() const noexcept {
@@ -265,7 +246,6 @@ namespace mage {
 
 		/**
 		 Sets the text effect of this sprite text to the given text effect.
-
 		 @param[in]		text_effect
 						The text effect.
 		 */
@@ -279,7 +259,6 @@ namespace mage {
 
 		/**
 		 Returns the font of this sprite text.
-
 		 @return		A pointer to the font of this sprite text.
 		 */
 		[[nodiscard]] SharedPtr< const SpriteFont > GetFont() const noexcept {
@@ -288,7 +267,6 @@ namespace mage {
 		
 		/**
 		 Sets the font of this sprite text to the given font.
-
 		 @pre			@c font.get() is not equal to @c nullptr.		
 		 @param[in]		font
 						A pointer to the font of this sprite text.

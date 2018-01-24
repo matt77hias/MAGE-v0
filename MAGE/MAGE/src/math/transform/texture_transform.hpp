@@ -718,7 +718,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The translation component of this texture transform.
+		 The translation component (in UV coordinates) of this texture 
+		 transform.
 		 */
 		F32x2 m_translation;
 
@@ -733,7 +734,7 @@ namespace mage {
 		F32 m_rotation;
 
 		/**
-		 The rotation origin of this texture transform.
+		 The rotation origin (in UV coordinates) of this texture transform.
 		 */
 		F32x2 m_rotation_origin;
 

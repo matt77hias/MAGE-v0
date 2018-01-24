@@ -160,7 +160,7 @@ namespace mage {
 			{ 1.0f, 1.0f }  //SpriteEffect::MirrorXY
 		};
 		
-		const auto index = static_cast< size_t >(effects) & 3;
+		const auto index = static_cast< size_t >(effects) & 3u;
 
 		const auto rotation_origin = transform.GetRotationOrigin();
 		const auto base_offset = (SpriteEffect::None == effects) 
@@ -325,7 +325,7 @@ namespace mage {
 			}
 		}
 
-		if (result.left == std::numeric_limits< LONG >::max()) {
+		if (std::numeric_limits< LONG >::max() == result.left) {
 			result.left = 0;
 			result.top  = 0;
 		}

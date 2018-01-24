@@ -22,9 +22,6 @@
     <Filter Include="Header Files\resource">
       <UniqueIdentifier>{427e1973-185c-4785-9390-9367c18ac5e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\math">
-      <UniqueIdentifier>{b866cf2d-cb32-483b-991a-692ac79b84fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scripting">
       <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
     </Filter>
@@ -69,9 +66,6 @@
     </Filter>
     <Filter Include="Header Files\material">
       <UniqueIdentifier>{952e5625-967e-4083-9d50-1edbc82454c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\math">
-      <UniqueIdentifier>{bbd248c9-b157-44c4-a8ef-94435c108be9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\material">
       <UniqueIdentifier>{04ea3622-d17f-443d-825c-966e53b30806}</UniqueIdentifier>
@@ -154,9 +148,6 @@
     <Filter Include="Source Files\rendering\pass">
       <UniqueIdentifier>{88555923-d4c3-4d24-8c8d-8f000bb4d0b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\math\sampling">
-      <UniqueIdentifier>{b8b71cc2-cafc-4e06-b512-e0d87fa3fa95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\sprite\font">
       <UniqueIdentifier>{bc8d1822-4e5f-4197-9e6b-0a74713bc504}</UniqueIdentifier>
     </Filter>
@@ -181,26 +172,11 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{996cd547-40a5-4a11-a96a-6dae30f2a143}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\math\transform">
-      <UniqueIdentifier>{e0644fad-9187-4ba9-8f86-b3d3b42e600c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\math\geometry">
-      <UniqueIdentifier>{a03fa260-b572-4e33-a447-4017d2f13042}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\math\geometry">
-      <UniqueIdentifier>{049f74a5-8f82-42fc-96c8-089486e4696b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\math\transform">
-      <UniqueIdentifier>{0bfcf05f-e04f-462f-8923-ea8a1551200e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\editor">
       <UniqueIdentifier>{f8427fd3-9d1c-484b-9b1e-581a9e67c7f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\editor">
       <UniqueIdentifier>{da8f04b2-df39-4183-8245-a2d235c6ca37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\math\sampling">
-      <UniqueIdentifier>{aaa8a40f-8943-4d5d-9783-61dc692e1858}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +305,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
       <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\texture\texture_utils.hpp">
-      <Filter>Header Files\texture</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\core\engine_statistics.hpp">
       <Filter>Header Files\core</Filter>
@@ -525,21 +498,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\sampling\fibonacci.hpp">
-      <Filter>Header Files\math\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\sampling\primes.hpp">
-      <Filter>Header Files\math\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\sampling\qmc.hpp">
-      <Filter>Header Files\math\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\sampling\rng.hpp">
-      <Filter>Header Files\math\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\sampling\sampling.hpp">
-      <Filter>Header Files\math\sampling</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\font\sprite_font_descriptor.hpp">
       <Filter>Header Files\sprite\font</Filter>
     </ClInclude>
@@ -597,35 +555,8 @@
     <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\math.hpp">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\math_utils.hpp">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\geometry\bounding_volume.hpp">
-      <Filter>Header Files\math\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\geometry\geometry.hpp">
-      <Filter>Header Files\math\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\texture_transform.hpp">
-      <Filter>Header Files\math\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\sprite_transform.hpp">
-      <Filter>Header Files\math\transform</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable.hpp">
       <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\basis.hpp">
-      <Filter>Header Files\math\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\local_transform.hpp">
-      <Filter>Header Files\math\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform\transform.hpp">
-      <Filter>Header Files\math\transform</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\component.hpp">
       <Filter>Header Files\scene</Filter>
@@ -656,6 +587,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\editor\widget.hpp">
       <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\transform.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\conversion.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -736,9 +673,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
       <Filter>Source Files\resource</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\texture\texture_utils.cpp">
-      <Filter>Source Files\texture</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
@@ -893,12 +827,6 @@
     <ClCompile Include="MAGE\src\imgui\imgui.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\math\transform\sprite_transform.cpp">
-      <Filter>Source Files\math\transform</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\math\transform\transform.cpp">
-      <Filter>Source Files\math\transform</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\node.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -914,14 +842,14 @@
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp">
-      <Filter>Source Files\math\geometry</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\editor\widget.cpp">
       <Filter>Source Files\editor</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\math\sampling\fibonacci.cpp">
-      <Filter>Source Files\math\sampling</Filter>
+    <ClCompile Include="MAGE\src\scene\transform.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\conversion.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

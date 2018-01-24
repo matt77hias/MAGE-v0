@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;tpp;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\transform">
+      <UniqueIdentifier>{14918d2f-0d67-4400-a889-2654f2b74772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sampling">
+      <UniqueIdentifier>{c069aae1-3e37-48f1-8fc9-1f22d0ea8418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\geometry">
+      <UniqueIdentifier>{c8b7f65c-56e1-41a4-9093-067111063f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\geometry">
+      <UniqueIdentifier>{14ec8e40-7c5b-4ca5-b723-71ffd743eb92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sampling">
+      <UniqueIdentifier>{00d6383b-4460-493f-9a1f-30c5486ff3a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Math\src\geometry\bounding_volume.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\src\sampling\fibonacci.cpp">
+      <Filter>Source Files\sampling</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\src\geometry\bounding_volume.hpp">
+      <Filter>Header Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\geometry\geometry.hpp">
+      <Filter>Header Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\sampling\fibonacci.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\sampling\primes.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\sampling\qmc.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\sampling\rng.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\sampling\sampling.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\local_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\sprite_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\texture_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\basis.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\math_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

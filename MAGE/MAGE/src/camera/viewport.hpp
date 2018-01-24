@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
+#include "rendering\conversion.hpp"
 #include "rendering\aa_descriptor.hpp"
-#include "math\transform\sprite_transform.hpp"
 
 #pragma endregion
 
@@ -200,15 +199,15 @@ namespace mage {
 		}
 
 		[[nodiscard]] F32 GetNormalizedTopLeftX() const noexcept {
-			return ConvertAbsoluteToNormalizedScreenX(GetTopLeftX());
+			return AbsoluteToNormalizedPixelX(GetTopLeftX());
 		}
 
 		[[nodiscard]] F32 GetNormalizedTopLeftY() const noexcept {
-			return ConvertAbsoluteToNormalizedScreenY(GetTopLeftY());
+			return AbsoluteToNormalizedPixelY(GetTopLeftY());
 		}
 
 		[[nodiscard]] const F32x2 GetNormalizedTopLeft() const noexcept {
-			return ConvertAbsoluteToNormalizedScreen(GetTopLeft());
+			return AbsoluteToNormalizedPixel(GetTopLeft());
 		}
 
 		void SetNormalizedTopLeftX(U32 x) noexcept {
@@ -216,7 +215,7 @@ namespace mage {
 		}
 
 		void SetNormalizedTopLeftX(F32 x) noexcept {
-			SetTopLeftX(ConvertNormalizedToAbsoluteScreenX(x));
+			SetTopLeftX(NormalizedToAbsolutePixelX(x));
 		}
 
 		void SetNormalizedTopLeftY(U32 y) noexcept {
@@ -224,7 +223,7 @@ namespace mage {
 		}
 
 		void SetNormalizedTopLeftY(F32 y) noexcept {
-			SetTopLeftY(ConvertNormalizedToAbsoluteScreenY(y));
+			SetTopLeftY(NormalizedToAbsolutePixelY(y));
 		}
 
 		void SetNormalizedTopLeft(U32 x, U32 y) noexcept {
@@ -296,15 +295,15 @@ namespace mage {
 		}
 
 		[[nodiscard]] F32 GetNormalizedWidth() const noexcept {
-			return ConvertAbsoluteToNormalizedScreenX(GetWidth());
+			return AbsoluteToNormalizedPixelX(GetWidth());
 		}
 
 		[[nodiscard]] F32 GetNormalizedHeight() const noexcept {
-			return ConvertAbsoluteToNormalizedScreenY(GetHeight());
+			return AbsoluteToNormalizedPixelY(GetHeight());
 		}
 
 		[[nodiscard]] const F32x2 GetNormalizedWidthAndHeight() const noexcept {
-			return ConvertAbsoluteToNormalizedScreen(GetWidthAndHeight());
+			return AbsoluteToNormalizedPixel(GetWidthAndHeight());
 		}
 
 		void SetNormalizedWidth(U32 width) noexcept {
@@ -312,7 +311,7 @@ namespace mage {
 		}
 
 		void SetNormalizedWidth(F32 width) noexcept {
-			SetWidth(ConvertNormalizedToAbsoluteScreenX(width));
+			SetWidth(NormalizedToAbsolutePixelX(width));
 		}
 
 		void SetNormalizedHeight(U32 height) noexcept {
@@ -320,7 +319,7 @@ namespace mage {
 		}
 
 		void SetNormalizedHeight(F32 height) noexcept {
-			SetHeight(ConvertNormalizedToAbsoluteScreenY(height));
+			SetHeight(NormalizedToAbsolutePixelY(height));
 		}
 
 		void SetNormalizedWidthAndHeight(U32 width, U32 height) noexcept {

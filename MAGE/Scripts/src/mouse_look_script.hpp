@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\math.hpp"
+#include "math.hpp"
 
 #pragma endregion
 

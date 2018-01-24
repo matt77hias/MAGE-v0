@@ -7,7 +7,7 @@
 
 #include "scene\component.hpp"
 #include "material\spectrum.hpp"
-#include "math\geometry\bounding_volume.hpp"
+#include "geometry\bounding_volume.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

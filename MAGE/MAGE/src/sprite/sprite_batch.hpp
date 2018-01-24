@@ -11,6 +11,7 @@
 #include "mesh\vertex.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "sprite\sprite_utils.hpp"
+#include "transform\sprite_transform.hpp"
 
 #pragma endregion
 

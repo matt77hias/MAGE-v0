@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\geometry\geometry.hpp"
+#include "geometry\geometry.hpp"
 
 #pragma endregion
 

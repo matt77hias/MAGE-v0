@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "math\transform\transform.hpp"
+#include "scene\transform.hpp"
 
 #pragma endregion
 

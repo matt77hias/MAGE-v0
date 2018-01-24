@@ -291,6 +291,26 @@ namespace mage {
 			return m_texture_srv.Get();
 		}
 
+		/**
+		 Returns the texture size (in texels) of this sprite font.
+
+		 @return		The texture size (in texels) of this sprite font.
+		 */
+		const F32x2 GetTextureSize() const noexcept {
+			F32x2 size;
+			XMStoreFloat2(&size, GetTextureSizeV());
+			return size;
+		}
+
+		/**
+		 Returns the texture size (in texels) of this sprite font.
+
+		 @return		The texture size (in texels) of this sprite font.
+		 */
+		const XMVECTOR XM_CALLCONV GetTextureSizeV() const noexcept {
+			return GetTexture2DSize(Get());
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

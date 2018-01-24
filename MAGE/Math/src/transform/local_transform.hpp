@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math_utils.hpp"
+#include "math_utils.hpp"
 
 #pragma endregion
 

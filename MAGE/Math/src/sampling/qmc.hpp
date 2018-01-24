@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\sampling\primes.hpp"
+#include "sampling\primes.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -79,7 +79,7 @@ namespace mage {
 		Assert(index < nb_samples);
 		Assert(nb_dims <= std::size(g_primes));
 		
-		*sample = index / F32(nb_samples);
+		*sample = index / static_cast< F32 >(nb_samples);
 		++sample;
 
 		for (size_t i = 0; i < nb_dims - 1; ++i, ++sample) {
@@ -93,7 +93,7 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const auto x = index / F32(nb_samples);
+		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
 		
 		return F32x2(x, y);
@@ -104,7 +104,7 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const auto x = index / F32(nb_samples);
+		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
 		const auto z = RadicalInverse(index, 3.0f);
 		
@@ -116,7 +116,7 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 
-		const auto x = index / F32(nb_samples);
+		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
 		const auto z = RadicalInverse(index, 3.0f);
 		const auto w = RadicalInverse(index, 5.0f);

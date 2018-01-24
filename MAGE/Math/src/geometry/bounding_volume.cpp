@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\geometry\bounding_volume.hpp"
+#include "geometry\bounding_volume.hpp"
 
 #pragma endregion
 

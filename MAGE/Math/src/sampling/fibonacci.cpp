@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\sampling\fibonacci.hpp"
-#include "math\sampling\rng.hpp"
+#include "sampling\fibonacci.hpp"
+#include "sampling\rng.hpp"
 
 #pragma endregion
 

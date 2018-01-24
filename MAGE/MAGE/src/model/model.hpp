@@ -7,8 +7,8 @@
 
 #include "scene\component.hpp"
 #include "mesh\mesh.hpp"
-#include "math\geometry\bounding_volume.hpp"
-#include "math\transform\texture_transform.hpp"
+#include "geometry\bounding_volume.hpp"
+#include "transform\texture_transform.hpp"
 #include "material\material.hpp"
 
 #pragma endregion

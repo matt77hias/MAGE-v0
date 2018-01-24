@@ -19,32 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scripts\src\character_motor_script.hpp" />
-    <ClInclude Include="Scripts\src\manhattan_motor_script.hpp" />
-    <ClInclude Include="Scripts\src\mouse_look_script.hpp" />
-    <ClInclude Include="Scripts\src\editor_script.hpp" />
-    <ClInclude Include="Scripts\src\rotation_script.hpp" />
-    <ClInclude Include="Scripts\src\stats_script.hpp" />
-    <ClInclude Include="Scripts\src\switch_scene_script.hpp" />
-    <ClInclude Include="Scripts\src\text_console_script.hpp" />
+    <ClCompile Include="Math\src\geometry\bounding_volume.cpp" />
+    <ClCompile Include="Math\src\sampling\fibonacci.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\src\switch_scene_script.tpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Scripts\src\character_motor_script.cpp" />
-    <ClCompile Include="Scripts\src\manhattan_motor_script.cpp" />
-    <ClCompile Include="Scripts\src\mouse_look_script.cpp" />
-    <ClCompile Include="Scripts\src\editor_script.cpp" />
-    <ClCompile Include="Scripts\src\rotation_script.cpp" />
-    <ClCompile Include="Scripts\src\stats_script.cpp" />
-    <ClCompile Include="Scripts\src\text_console_script.cpp" />
+    <ClInclude Include="Math\src\geometry\bounding_volume.hpp" />
+    <ClInclude Include="Math\src\geometry\geometry.hpp" />
+    <ClInclude Include="Math\src\math.hpp" />
+    <ClInclude Include="Math\src\math_utils.hpp" />
+    <ClInclude Include="Math\src\sampling\fibonacci.hpp" />
+    <ClInclude Include="Math\src\sampling\primes.hpp" />
+    <ClInclude Include="Math\src\sampling\qmc.hpp" />
+    <ClInclude Include="Math\src\sampling\rng.hpp" />
+    <ClInclude Include="Math\src\sampling\sampling.hpp" />
+    <ClInclude Include="Math\src\transform\basis.hpp" />
+    <ClInclude Include="Math\src\transform\local_transform.hpp" />
+    <ClInclude Include="Math\src\transform\sprite_transform.hpp" />
+    <ClInclude Include="Math\src\transform\texture_transform.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{61311FE7-441D-4FF2-B861-E312A1569899}</ProjectGuid>
+    <ProjectGuid>{B6FAB106-B50E-4340-9458-146E624420DF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Scripts</RootNamespace>
+    <RootNamespace>Math</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -97,20 +94,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

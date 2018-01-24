@@ -1248,10 +1248,10 @@ namespace mage {
 		[[nodiscard]] const XMMATRIX XM_CALLCONV 
 			GetTransformMatrix() const noexcept {
 
-			return XMMatrixAffineTransformation2D(GetScaleV(),
-				                                  GetRotationOriginV(),
-				                                  GetRotation(),
-				                                  GetTranslationV());
+			auto transformation = XMMatrixOffsetAffineTransformation2D(
+				GetRotationOriginV(), GetScaleV(), GetRotation(), GetTranslationV());
+			transformation.r[3] = XMVectorSetZ(transformation.r[3], GetDepth());
+			return transformation;
 		}
 
 	private:

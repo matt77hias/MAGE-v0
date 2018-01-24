@@ -705,10 +705,10 @@ namespace mage {
 		[[nodiscard]] const XMMATRIX XM_CALLCONV 
 			GetTransformMatrix() const noexcept {
 
-			return XMMatrixAffineTransformation2D(GetScaleV(),
-				                                  GetRotationOriginV(),
-				                                  GetRotation(),
-				                                  GetTranslationV());
+			return DirectX::XMMatrixAffineTransformation2D(GetScaleV(),
+				                                           GetRotationOriginV(),
+				                                           GetRotation(), 
+				                                           GetTranslationV());
 		}
 
 	private:

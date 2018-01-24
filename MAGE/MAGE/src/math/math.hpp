@@ -109,6 +109,33 @@ namespace mage {
 		return transformation;
 	}
 
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixAffineTransformation2D(FXMVECTOR scale, 
+			                           float     rotation, 
+			                           FXMVECTOR translation) noexcept {
+
+		// Scale . Rotation . Translation
+		auto transformation  = XMMatrixRotationZ(rotation);
+		transformation.r[0] *= XMVectorGetX(scale);
+		transformation.r[1] *= XMVectorGetY(scale);
+		transformation.r[3]  = XMVectorSetW(translation, 1.0f);
+		return transformation;
+	}
+
+	[[nodiscard]] inline const XMMATRIX XM_CALLCONV 
+		XMMatrixOffsetAffineTransformation2D(FXMVECTOR offset,
+			                                 FXMVECTOR scale, 
+			                                 float     rotation, 
+			                                 FXMVECTOR translation) noexcept {
+
+		// Inverse Offset Translation . Scale . Rotation . Translation
+		auto transformation = XMMatrixAffineTransformation2D(scale,
+			                                                 rotation, 
+			                                                 translation);
+		transformation.r[3] = XMVector3TransformCoord(-offset, transformation);
+		return transformation;
+	}
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

@@ -52,8 +52,7 @@ namespace mage {
 	inline void XM_CALLCONV OrthonormalBasis_Frisvad(FXMVECTOR n, 
 		                                             XMVECTOR &b1, 
 		                                             XMVECTOR &b2) noexcept {
-		F32x3 nf;
-		XMStoreFloat3(&nf, n);
+		const F32x3 nf = XMStore< F32x3 >(n);
 
 		if (nf.m_z < -0.9999999f) {
 			b1 = XMVectorSet( 0.0f, -1.0f, 0.0f, 0.0f);
@@ -86,8 +85,7 @@ namespace mage {
 	inline void XM_CALLCONV OrthonormalBasis_Duff(FXMVECTOR n, 
 		                                          XMVECTOR &b1, 
 		                                          XMVECTOR &b2) noexcept {
-		F32x3 nf;
-		XMStoreFloat3(&nf, n);
+		const F32x3 nf = XMStore< F32x3 >(n);
 
 		const auto sign = copysignf(1.0f, nf.m_z);
 		const auto a = -1.0f / (sign + nf.m_z);

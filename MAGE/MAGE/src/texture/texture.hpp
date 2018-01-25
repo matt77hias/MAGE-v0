@@ -6,7 +6,7 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "rendering\conversion.hpp"
+#include "rendering\pipeline.hpp"
 
 #pragma endregion
 
@@ -152,26 +152,6 @@ namespace mage {
 			return m_texture_srv.Get();
 		}
 		
-		/**
-		 Returns the texture size (in texels) of this texture.
-
-		 @return		The texture size (in texels) of this texture.
-		 */
-		const F32x2 GetTextureSize() const noexcept {
-			F32x2 size;
-			XMStoreFloat2(&size, GetTextureSizeV());
-			return size;
-		}
-
-		/**
-		 Returns the texture size (in texels) of this texture.
-
-		 @return		The texture size (in texels) of this texture.
-		 */
-		const XMVECTOR XM_CALLCONV GetTextureSizeV() const noexcept {
-			return GetTexture2DSize(Get());
-		}
-
 		/**
 		 Binds this texture.
 

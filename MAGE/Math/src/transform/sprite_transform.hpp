@@ -187,7 +187,7 @@ namespace mage {
 						The translation component.
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
-			XMStoreFloat2(&m_translation, translation);
+			m_translation = XMStore< F32x2 >(translation);
 		}
 
 		/**
@@ -286,7 +286,7 @@ namespace mage {
 		 @return		The translation component of this sprite transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
-			return XMLoadFloat2(&m_translation);
+			return XMLoad(m_translation);
 		}
 
 		#pragma endregion
@@ -451,7 +451,7 @@ namespace mage {
 						The rotation origin.
 		 */
 		void XM_CALLCONV SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
-			XMStoreFloat2(&m_rotation_origin, rotation_origin);
+			m_rotation_origin = XMStore< F32x2 >(rotation_origin);
 		}
 
 		/**
@@ -548,7 +548,7 @@ namespace mage {
 		 @return		The rotation origin of this sprite transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
-			return XMLoadFloat2(&m_rotation_origin);
+			return XMLoad(m_rotation_origin);
 		}
 
 		#pragma endregion
@@ -624,7 +624,7 @@ namespace mage {
 						The scale component.
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
-			XMStoreFloat2(&m_scale, scale);
+			m_scale = XMStore< F32x2 >(scale);
 		}
 
 		/**
@@ -732,7 +732,7 @@ namespace mage {
 		 @return		The scale component of this sprite transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
-			return XMLoadFloat2(&m_scale);
+			return XMLoad(m_scale);
 		}
 
 		#pragma endregion

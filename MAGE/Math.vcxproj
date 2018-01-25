@@ -23,6 +23,8 @@
     <ClCompile Include="Math\src\sampling\fibonacci.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Math\src\directxmath\extensions.hpp" />
+    <ClInclude Include="Math\src\directxmath\facade.hpp" />
     <ClInclude Include="Math\src\geometry\bounding_volume.hpp" />
     <ClInclude Include="Math\src\geometry\geometry.hpp" />
     <ClInclude Include="Math\src\math.hpp" />

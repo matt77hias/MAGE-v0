@@ -24,6 +24,9 @@
     <Filter Include="Source Files\sampling">
       <UniqueIdentifier>{00d6383b-4460-493f-9a1f-30c5486ff3a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\directxmath">
+      <UniqueIdentifier>{772a050f-175c-4add-9a12-023affa5d368}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\src\geometry\bounding_volume.cpp">
@@ -72,6 +75,12 @@
     </ClInclude>
     <ClInclude Include="Math\src\math_utils.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\directxmath\extensions.hpp">
+      <Filter>Header Files\directxmath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\directxmath\facade.hpp">
+      <Filter>Header Files\directxmath</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

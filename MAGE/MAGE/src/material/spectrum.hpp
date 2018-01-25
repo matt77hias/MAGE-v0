@@ -757,21 +757,17 @@ namespace mage {
 		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(srgb));
 	}
 
-	inline RGB::RGB(const SRGB &srgb) noexcept {
-		XMStoreFloat3(this, SRGBtoRGB(XMLoadFloat3(&srgb)));
-	}
+	inline RGB::RGB(const SRGB &srgb) noexcept
+		: RGB(XMStore< F32x3 >(SRGBtoRGB(XMLoad(srgb)))) {}
 
-	inline SRGB::SRGB(const RGB &rgb) noexcept {
-		XMStoreFloat3(this, RGBtoSRGB(XMLoadFloat3(&rgb)));
-	}
+	inline SRGB::SRGB(const RGB &rgb) noexcept
+		: SRGB(XMStore< F32x3 >(RGBtoSRGB(XMLoad(rgb)))) {}
 
-	inline RGBA::RGBA(const SRGBA &srgba) noexcept {
-		XMStoreFloat4(this, SRGBtoRGB(XMLoadFloat4(&srgba)));
-	}
+	inline RGBA::RGBA(const SRGBA &srgba) noexcept
+		: RGBA(XMStore< F32x4 >(SRGBtoRGB(XMLoad(srgba)))) {}
 
-	inline SRGBA::SRGBA(const RGBA &rgba) noexcept {
-		XMStoreFloat4(this, RGBtoSRGB(XMLoadFloat4(&rgba)));
-	}
+	inline SRGBA::SRGBA(const RGBA &rgba) noexcept
+		: SRGBA(XMStore< F32x4 >(RGBtoSRGB(XMLoad(rgba)))) {}
 
 	#pragma endregion
 
@@ -822,21 +818,17 @@ namespace mage {
 		return XMVector4Transform(xyz, transform);
 	}
 
-	inline RGB::RGB(const XYZ &xyz) noexcept {
-		XMStoreFloat3(this, XYZtoRGB(XMLoadFloat3(&xyz)));
-	}
+	inline RGB::RGB(const XYZ &xyz) noexcept
+		: RGB(XMStore< F32x3 >(XYZtoRGB(XMLoad(xyz)))) {}
 
-	inline XYZ::XYZ(const RGB &rgb) noexcept {
-		XMStoreFloat3(this, RGBtoXYZ(XMLoadFloat3(&rgb)));
-	}
+	inline XYZ::XYZ(const RGB &rgb) noexcept
+		: XYZ(XMStore< F32x3 >(RGBtoXYZ(XMLoad(rgb)))) {}
 
-	inline RGBA::RGBA(const XYZA &xyza) noexcept {
-		XMStoreFloat4(this, XYZtoRGB(XMLoadFloat4(&xyza)));
-	}
+	inline RGBA::RGBA(const XYZA &xyza) noexcept
+		: RGBA(XMStore< F32x4 >(XYZtoRGB(XMLoad(xyza)))) {}
 
-	inline XYZA::XYZA(const RGBA &rgba) noexcept {
-		XMStoreFloat4(this, RGBtoXYZ(XMLoadFloat4(&rgba)));
-	}
+	inline XYZA::XYZA(const RGBA &rgba) noexcept
+		: XYZA(XMStore< F32x4 >(RGBtoXYZ(XMLoad(rgba)))) {}
 
 	#pragma endregion
 }

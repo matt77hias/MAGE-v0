@@ -44,14 +44,14 @@ namespace mage {
 	void SpriteImage::Draw(SpriteBatch &sprite_batch) const {
 		if (HasMaximumBaseColorTextureRegion()) {
 			sprite_batch.Draw(GetBaseColorSRV(), 
-				              XMLoadFloat4(&m_base_color),
+				              XMLoad(m_base_color),
 				              m_sprite_effects, 
 				              m_sprite_transform,
 				              nullptr);
 		}
 		else {
 			sprite_batch.Draw(GetBaseColorSRV(), 
-				              XMLoadFloat4(&m_base_color),
+				              XMLoad(m_base_color),
 				              m_sprite_effects, 
 				              m_sprite_transform,
 				              &m_base_color_texture_region);

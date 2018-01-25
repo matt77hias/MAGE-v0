@@ -162,10 +162,11 @@ namespace mage {
 		
 		const auto index = static_cast< size_t >(effects) & 3u;
 
-		const auto rotation_origin = transform.GetRotationOrigin();
 		const auto base_offset = (SpriteEffect::None == effects) 
-			? XMLoadFloat2(&rotation_origin) : XMLoadFloat2(&rotation_origin) 
-			- MeasureText(strings, nb_strings) * axis_is_mirrored_table[index];
+			                   ? transform.GetRotationOriginV() 
+			                   : transform.GetRotationOriginV()
+			                     - MeasureText(strings, nb_strings) 
+			                     * axis_is_mirrored_table[index];
 
 		auto x = 0.0f;
 		auto y = 0.0f;
@@ -207,10 +208,11 @@ namespace mage {
 
 						sprite_transform.SetRotationOrigin(offset);
 						
-						const auto srgba = (color) ? *color : str->GetColor();
+						const auto srgba = (color) ? XMLoad(*color) 
+							                       : XMLoad(str->GetColor());
 						
 						sprite_batch.Draw(m_texture_srv.Get(), 
-							              XMLoadFloat4(&srgba), 
+							              srgba, 
 							              effects,
 							              sprite_transform, 
 							              &glyph->m_sub_rectangle);

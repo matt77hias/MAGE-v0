@@ -351,7 +351,8 @@ namespace mage::editor {
 		// Base Color Texture
 		const auto base_color_guid = material.GetBaseColorTexture()->GetGuid();
 		ImGui::Text(str_convert(base_color_guid).c_str());
-		const auto base_color_size = material.GetBaseColorTexture()->GetTextureSize();
+		const auto base_color_size 
+			= XMStore< F32x2 >(GetTexture2DSize(material.GetBaseColorSRV()));
 		ImGui::Text("%.f x %.f texels", base_color_size.m_x, base_color_size.m_y);
 
 		// Transparency
@@ -372,14 +373,16 @@ namespace mage::editor {
 		// Material Texture
 		const auto material_guid = material.GetMaterialTexture()->GetGuid();
 		ImGui::Text(str_convert(material_guid).c_str());
-		const auto material_size = material.GetMaterialTexture()->GetTextureSize();
+		const auto material_size 
+			= XMStore< F32x2 >(GetTexture2DSize(material.GetMaterialSRV()));
 		ImGui::Text("%.f x %.f texels", material_size.m_x, material_size.m_y);
 
 		// Normal Texture
 		if (material.GetNormalTexture()) {
 			const auto normal_guid = material.GetNormalTexture()->GetGuid();
 			ImGui::LabelText("Normals", str_convert(normal_guid).c_str());
-			const auto normal_size = material.GetNormalTexture()->GetTextureSize();
+			const auto normal_size 
+				= XMStore< F32x2 >(GetTexture2DSize(material.GetNormalSRV()));
 			ImGui::Text("%.f x %.f texels", normal_size.m_x, normal_size.m_y);
 		}
 
@@ -466,7 +469,8 @@ namespace mage::editor {
 		// Base color texture
 		const auto base_color_guid = sprite.GetBaseColorTexture()->GetGuid();
 		ImGui::LabelText("Base Color Texture", str_convert(base_color_guid).c_str());
-		const auto base_color_size = sprite.GetBaseColorTexture()->GetTextureSize();
+		const auto base_color_size 
+			= XMStore< F32x2 >(GetTexture2DSize(sprite.GetBaseColorSRV()));
 		ImGui::Text("%.f x %.f texels", base_color_size.m_x, base_color_size.m_y);
 
 		// Sprite effects
@@ -499,7 +503,8 @@ namespace mage::editor {
 		// Sprite font
 		const auto font_guid = sprite.GetFont()->GetGuid();
 		ImGui::LabelText("Font", str_convert(font_guid).c_str());
-		const auto font_size = sprite.GetFont()->GetTextureSize();
+		const auto font_size 
+			= XMStore< F32x2 >(GetTexture2DSize(sprite.GetFontSRV()));
 		ImGui::Text("%.f x %.f texels", font_size.m_x, font_size.m_y);
 
 		// Sprite effects

@@ -191,7 +191,7 @@ namespace mage {
 						The translation component.
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
-			XMStoreFloat3(&m_translation, translation);
+			m_translation = XMStore< F32x3 >(translation);
 		}
 
 		/**
@@ -314,7 +314,7 @@ namespace mage {
 		 @return		The translation component of this local transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
-			return XMLoadFloat3(&m_translation);
+			return XMLoad(m_translation);
 		}
 
 		/**
@@ -419,7 +419,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			XMStoreFloat3(&m_rotation, rotation);
+			m_rotation = XMStore< F32x3 >(rotation);
 		}
 		
 		/**
@@ -707,7 +707,7 @@ namespace mage {
 		 @return		The rotation component of this local transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
-			return XMLoadFloat3(&m_rotation);
+			return XMLoad(m_rotation);
 		}
 
 		/**
@@ -849,7 +849,7 @@ namespace mage {
 						The scale component.
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
-			XMStoreFloat3(&m_scale, scale);
+			m_scale = XMStore< F32x3 >(scale);
 		}
 
 		/**
@@ -979,7 +979,7 @@ namespace mage {
 		 @return		The scale component of this local transform.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
-			return XMLoadFloat3(&m_scale);
+			return XMLoad(m_scale);
 		}
 
 		/**
@@ -1072,7 +1072,7 @@ namespace mage {
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return XMLoadFloat3(&m_translation);
+			return GetTranslationV();
 		}
 
 		/**

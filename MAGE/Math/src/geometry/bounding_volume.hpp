@@ -56,7 +56,7 @@ namespace mage {
 		[[nodiscard]] static const BoundingSphere XM_CALLCONV 
 			Union(const BoundingSphere &sphere, const Point3 &point) noexcept {
 
-			return Union(sphere, XMLoadFloat3(&point));
+			return Union(sphere, XMLoad(point));
 		}
 
 		/**
@@ -144,7 +144,7 @@ namespace mage {
 						The radius.
 		 */
 		BoundingSphere(const Point3 &p, F32 r) noexcept
-			: BoundingSphere(XMLoadFloat3(&p), r) {}
+			: BoundingSphere(XMLoad(p), r) {}
 
 		/**
 		 Constructs a bounding sphere.
@@ -248,7 +248,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool Encloses(const Point3 &point) const noexcept {
-			return Encloses(XMLoadFloat3(&point));
+			return Encloses(XMLoad(point));
 		}
 
 		/**
@@ -263,7 +263,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool EnclosesStrict(const Point3 &point) const noexcept {
-			return EnclosesStrict(XMLoadFloat3(&point));
+			return EnclosesStrict(XMLoad(point));
 		}
 
 		/**
@@ -424,7 +424,7 @@ namespace mage {
 		[[nodiscard]] static const AABB XM_CALLCONV 
 			Union(const AABB &aabb, const Point3 &point) noexcept {
 
-			return Union(aabb, XMLoadFloat3(&point));
+			return Union(aabb, XMLoad(point));
 		}
 
 		/**
@@ -550,7 +550,7 @@ namespace mage {
 						A reference to the point.
 		 */
 		explicit AABB(const Point3 &p) noexcept
-			: AABB(XMLoadFloat3(&p)) {}
+			: AABB(XMLoad(p)) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -570,7 +570,7 @@ namespace mage {
 						A reference to the maximum extents.
 		 */
 		AABB(const Point3 &p_min, const Point3 &p_max) noexcept
-			: AABB(XMLoadFloat3(&p_min), XMLoadFloat3(&p_max)) {}
+			: AABB(XMLoad(p_min), XMLoad(p_max)) {}
 
 		/**
 		 Constructs an AABB of the given extents.
@@ -747,7 +747,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]] bool Encloses(const Point3 &point) const noexcept {
-			return Encloses(XMLoadFloat3(&point));
+			return Encloses(XMLoad(point));
 		}
 
 		/**
@@ -761,7 +761,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]] bool EnclosesStrict(const Point3 &point) const noexcept {
-			return EnclosesStrict(XMLoadFloat3(&point));
+			return EnclosesStrict(XMLoad(point));
 		}
 
 		/**
@@ -1125,7 +1125,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]] bool Encloses(const Point3 &point) const noexcept {
-			return Encloses(XMLoadFloat3(&point));
+			return Encloses(XMLoad(point));
 		}
 
 		/**
@@ -1140,7 +1140,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]] bool EnclosesStrict(const Point3 &point) const noexcept {
-			return EnclosesStrict(XMLoadFloat3(&point));
+			return EnclosesStrict(XMLoad(point));
 		}
 
 		/**
@@ -1440,7 +1440,7 @@ namespace mage {
 		                     const Point3 &point,
 		                     F32 epsilon) noexcept {
 
-		return Classify(volume, XMLoadFloat3(&point), epsilon);
+		return Classify(volume, XMLoad(point), epsilon);
 	}
 
 	#pragma endregion

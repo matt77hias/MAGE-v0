@@ -172,8 +172,8 @@ namespace mage {
 			if (light.UseShadows()) {
 				// Create a directional light buffer.
 				DirectionalLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_neg_d, -d);
-				light_buffer.m_light.m_L = light.GetRadianceSpectrum();
+				light_buffer.m_light.m_neg_d = Direction3(XMStore< F32x3 >(-d));
+				light_buffer.m_light.m_L     = light.GetRadianceSpectrum();
 
 				// Add directional light buffer to directional light buffers.
 				buffer_sm.push_back(std::move(light_buffer));
@@ -181,8 +181,8 @@ namespace mage {
 			else {
 				// Create a directional light buffer.
 				DirectionalLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_neg_d, -d);
-				light_buffer.m_L = light.GetRadianceSpectrum();
+				light_buffer.m_neg_d = Direction3(XMStore< F32x3 >(-d));
+				light_buffer.m_L     = light.GetRadianceSpectrum();
 
 				// Add directional light buffer to directional light buffers.
 				buffer.push_back(std::move(light_buffer));
@@ -253,12 +253,12 @@ namespace mage {
 
 				// Create an omni light buffer.
 				OmniLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_p, p);
+				light_buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
 				light_buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
 				light_buffer.m_light.m_I             = light.GetIntensitySpectrum();
 				light_buffer.m_cview_to_lview        = XMMatrixTranspose(cview_to_lview);
-				XMStoreFloat2(&light_buffer.m_projection_values, 
-					GetNDCZConstructionValues(lview_to_lprojection));
+				light_buffer.m_projection_values     = XMStore< F32x2 >(GetNDCZConstructionValues(
+					                                                        lview_to_lprojection));
 
 				// Add omni light buffer to omni light buffers.
 				buffer_sm.push_back(std::move(light_buffer));
@@ -266,7 +266,7 @@ namespace mage {
 			else {
 				// Create an omni light buffer.
 				OmniLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_p, p);
+				light_buffer.m_p             = Point3(XMStore< F32x3 >(p));
 				light_buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
 				light_buffer.m_I             = light.GetIntensitySpectrum();
 
@@ -331,8 +331,8 @@ namespace mage {
 
 				// Create a spotlight buffer.
 				SpotLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_p, p);
-				XMStoreFloat3(&light_buffer.m_light.m_neg_d, -d);
+				light_buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
+				light_buffer.m_light.m_neg_d         = Direction3(XMStore< F32x3 >(-d));
 				light_buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
 				light_buffer.m_light.m_I             = light.GetIntensitySpectrum();
 				light_buffer.m_light.m_cos_umbra     = light.GetEndAngularCutoff();
@@ -345,8 +345,8 @@ namespace mage {
 			else {
 				// Create an omni light buffer.
 				SpotLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_p, p);
-				XMStoreFloat3(&light_buffer.m_neg_d, -d);
+				light_buffer.m_p             = Point3(XMStore< F32x3 >(p));
+				light_buffer.m_neg_d         = Direction3(XMStore< F32x3 >(-d));
 				light_buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
 				light_buffer.m_I             = light.GetIntensitySpectrum();
 				light_buffer.m_cos_umbra     = light.GetEndAngularCutoff();

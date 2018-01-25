@@ -122,8 +122,7 @@ namespace mage {
 	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
 		XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
 		
-		const auto v = XMLoadInt4(reinterpret_cast< const U32 * >(&rect));
-		return XMConvertVectorIntToFloat(v, 0);
+		return XMLoad(rect);
 	}
 
 	/**

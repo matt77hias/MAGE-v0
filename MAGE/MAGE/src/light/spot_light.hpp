@@ -130,11 +130,8 @@ namespace mage {
 		 @return		The power spectrum of this spotlight.
 		 */
 		[[nodiscard]] const RGB GetPowerSpectrum() const noexcept {
-			const auto P_v = GetPower()
-				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
-			RGB P;
-			XMStoreFloat3(&P, P_v);
-			return P;
+			const auto P = GetPower() * SRGBtoRGB(XMLoad(m_base_color));
+			return RGB(XMStore< F32x3 >(P));
 		}
 
 		/**
@@ -164,11 +161,8 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this spotlight.
 		 */
 		[[nodiscard]] const RGB GetIntensitySpectrum() const noexcept {
-			const auto I_v = GetIntensity()
-				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
-			RGB I;
-			XMStoreFloat3(&I, I_v);
-			return I;
+			const auto I = GetIntensity() * SRGBtoRGB(XMLoad(m_base_color));
+			return RGB(XMStore< F32x3 >(I));
 		}
 
 		//---------------------------------------------------------------------

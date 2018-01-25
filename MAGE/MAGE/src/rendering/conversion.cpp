@@ -121,8 +121,8 @@ namespace mage {
 		D3D11_TEXTURE2D_DESC desc;
 		texture->GetDesc(&desc);
 
-		const auto width  = XMLoadInt(&desc.Width);
-		const auto height = XMLoadInt(&desc.Height);
+		const auto width  = XMLoad(desc.Width);
+		const auto height = XMLoad(desc.Height);
 		const auto size   = XMVectorMergeXY(width, height);
 		return XMConvertVectorUIntToFloat(size, 0u);
 	}

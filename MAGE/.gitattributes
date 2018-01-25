@@ -23,6 +23,9 @@
 *.hlsl		text eol=crlf
 *.hlsli		text eol=crlf
 
+# Resource Files
+*.rc        text eol=crlf
+
 # Visual Studio
 *.filters	text eol=crlf
 *.props		text eol=crlf

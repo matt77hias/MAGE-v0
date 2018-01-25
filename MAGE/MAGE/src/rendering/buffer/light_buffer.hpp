@@ -6,7 +6,7 @@
 #pragma region
 
 #include "geometry\geometry.hpp"
-#include "material\spectrum.hpp"
+#include "spectrum\spectrum.hpp"
 
 #pragma endregion
 

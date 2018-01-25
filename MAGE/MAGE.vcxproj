@@ -77,9 +77,7 @@
     <ClInclude Include="MAGE\src\loaders\var\var_writer.hpp" />
     <ClInclude Include="MAGE\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="MAGE\src\material\brdf.hpp" />
-    <ClInclude Include="MAGE\src\material\color.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
-    <ClInclude Include="MAGE\src\material\spectrum.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\static_mesh.hpp" />

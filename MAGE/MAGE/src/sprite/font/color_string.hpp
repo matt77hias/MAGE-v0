@@ -6,7 +6,7 @@
 #pragma region
 
 #include "math.hpp"
-#include "material\color.hpp"
+#include "spectrum\color.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

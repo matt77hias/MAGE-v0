@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\spectrum.hpp"
+#include "spectrum\spectrum.hpp"
 #include "texture\texture.hpp"
 #include "logging\error.hpp"
 

@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "material\spectrum.hpp"
+#include "spectrum\spectrum.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

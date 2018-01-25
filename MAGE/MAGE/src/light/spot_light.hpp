@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "material\spectrum.hpp"
+#include "spectrum\spectrum.hpp"
 #include "geometry\bounding_volume.hpp"
 #include "logging\error.hpp"
 

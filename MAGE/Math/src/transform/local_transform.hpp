@@ -1111,7 +1111,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// Member Methods: LocalTransformation
+		// Member Methods: Transformation
 		//---------------------------------------------------------------------
 		#pragma region
 

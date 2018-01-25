@@ -27,6 +27,9 @@
     <Filter Include="Header Files\directxmath">
       <UniqueIdentifier>{772a050f-175c-4add-9a12-023affa5d368}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\spectrum">
+      <UniqueIdentifier>{bb9414d7-cb39-4534-86d6-6a6d72952bee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\src\geometry\bounding_volume.cpp">
@@ -81,6 +84,12 @@
     </ClInclude>
     <ClInclude Include="Math\src\directxmath\facade.hpp">
       <Filter>Header Files\directxmath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\spectrum\spectrum.hpp">
+      <Filter>Header Files\spectrum</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\spectrum\color.hpp">
+      <Filter>Header Files\spectrum</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

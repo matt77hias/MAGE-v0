@@ -34,6 +34,8 @@
     <ClInclude Include="Math\src\sampling\qmc.hpp" />
     <ClInclude Include="Math\src\sampling\rng.hpp" />
     <ClInclude Include="Math\src\sampling\sampling.hpp" />
+    <ClInclude Include="Math\src\spectrum\color.hpp" />
+    <ClInclude Include="Math\src\spectrum\spectrum.hpp" />
     <ClInclude Include="Math\src\transform\basis.hpp" />
     <ClInclude Include="Math\src\transform\local_transform.hpp" />
     <ClInclude Include="Math\src\transform\sprite_transform.hpp" />

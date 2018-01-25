@@ -234,9 +234,6 @@
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\material\spectrum.hpp">
-      <Filter>Header Files\material</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -338,9 +335,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\material\color.hpp">
-      <Filter>Header Files\material</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
       <Filter>Header Files\rendering</Filter>

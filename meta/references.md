@@ -62,6 +62,10 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 MÜLLER J.: [Lazy evaluation of function arguments in C++](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
+PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
+
+PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
+
 WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
 ### Color Spaces

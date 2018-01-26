@@ -7,7 +7,6 @@
 #include "lighting.hlsli"
 
 //TODO move to buffer
-static const float3 g_voxel_grid_center = 0.0f;
 static const float  g_voxel_grid_size = 1.0f;
 static const float  g_voxel_grid_inv_size = 1.0f;
 static const uint   g_voxel_grid_resolution = 256u;
@@ -24,8 +23,8 @@ RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_IMAGE);
 void PS(PSInputPositionNormalTexture input) {
 	
 	// [m] * [voxels/m] * [1/voxels]
-	const int3 relative = (input.p_view - g_voxel_grid_center) 
-		                  * g_voxel_grid_inv_size * g_voxel_grid_inv_resolution;
+	const float3 relative = input.p_view * g_voxel_grid_inv_size 
+		                                 * g_voxel_grid_inv_resolution;
 	// [-1,1]^3 -> [0,1]x[1,0]x[0,1]
 	const float3 uvw    = relative * float3(0.5f, -0.5f, 0.5f) + 0.5f;
 	// [0,R)x(R,0]x[0,R)
@@ -51,12 +50,10 @@ void PS(PSInputPositionNormalTexture input) {
 	const float3 L = BRDFShading(input.p_view, n_view, 
 		                         base_color.xyz, material.x, material.y);
 
-	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
+	const uint flat_index = FlattenIndex(index, uint2(g_voxel_grid_resolution, 
+		                                              g_voxel_grid_resolution));
 
-	//TODO: encoding
-	const uint color_mask  = 0;
-	const uint normal_mask = 0;
-
-	InterlockedMax(output[flat_index].color_mask,  color_mask);
-	InterlockedMax(output[flat_index].normal_mask, normal_mask);
+	// Store the encoded radiance and normal.
+	InterlockedMax(output[flat_index].encoded_L, EncodeRadiance(L));
+	InterlockedMax(output[flat_index].encoded_n, EncodeNormal(n_view));
 }

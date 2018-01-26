@@ -4,7 +4,6 @@
 #include "global.hlsli"
 
 //TODO move to buffer
-static const float3 g_voxel_grid_center         = 0.0f;
 static const float  g_voxel_grid_size           = 1.0f;
 static const float  g_voxel_grid_inv_size       = 1.0f;
 static const uint   g_voxel_grid_resolution     = 256u;
@@ -15,7 +14,7 @@ static const float  g_voxel_grid_inv_resolution = 1.0f / 256.0f; // pixel/texel 
 //-----------------------------------------------------------------------------
 [maxvertexcount(3)]
 void GS(triangle PSInputPositionNormalTexture input[3],
-	inout TriangleStream< PSInputPositionNormalTexture > output_stream) {
+	    inout TriangleStream< PSInputPositionNormalTexture > output_stream) {
 
 	// Calculate the dominant direction of the surface normal.
 	// 
@@ -34,17 +33,16 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 	// but not for lighting (p_view).
 	[unroll]
 	for (uint i = 0u; i < 3u; ++i) {
-		const float3 p_voxel = input[i].p_view - g_voxel_grid_center;
-	
+
 		[flatten]
 		if (0u == dir) {
-			output[i].p.xy = p_voxel.yz;
+			output[i].p.xy = input[i].p_view.yz;
 		} 
 		else if (1u == dir) {
-			output[i].p.xy = p_voxel.zx;
+			output[i].p.xy = input[i].p_view.zx;
 		}
 		else {
-			output[i].p.xy = p_voxel.xy;
+			output[i].p.xy = input[i].p_view.xy;
 		}
 
 		// [m] * [voxels/m] * [1/voxels]

@@ -406,7 +406,7 @@ namespace mage {
 		 */
 		template< typename U >
 		ProxyPtr(const ProxyPtr< U > &ptr) noexcept
-			: ProxyPtr(ptr) {}
+			: ProxyPtr(ptr.m_getter) {}
 
 		/**
 		 Constructs a proxy pointer by moving the given proxy pointer.
@@ -418,7 +418,7 @@ namespace mage {
 		 */
 		template< typename U >
 		ProxyPtr(ProxyPtr< U > &&ptr) noexcept
-			: ProxyPtr(std::move(ptr)) {}
+			: ProxyPtr(std::move(ptr.m_getter)) {}
 	
 		/**
 		 Destructs this proxy pointer.

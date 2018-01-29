@@ -77,14 +77,14 @@ namespace mage {
 		Assert(device_context);
 		Assert(m_buffer);
 
-		if (data.empty()) {
+		m_size = data.size();
+
+		if (0u == m_size) {
 			return;
 		}
-		if (m_capacity < data.size()) {
+		if (m_capacity < m_size) {
 			SetupStructuredBuffer(device, m_size);
 		}
-
-		m_size = data.size();
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;

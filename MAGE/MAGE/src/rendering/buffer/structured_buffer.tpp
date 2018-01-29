@@ -16,51 +16,47 @@ namespace mage {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(size_t nb_initial_data_elements)
-		: StructuredBuffer(Pipeline::GetDevice(), nb_initial_data_elements) {}
+		::StructuredBuffer(size_t capacity)
+		: StructuredBuffer(Pipeline::GetDevice(), capacity) {}
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(ID3D11Device5 *device, 
-			               size_t nb_initial_data_elements)
+		::StructuredBuffer(ID3D11Device5 *device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
-		m_nb_data_elements(0), 
-		m_nb_used_data_elements(0) {
+		m_capacity(0), 
+		m_size(0) {
 
-		SetupStructuredBuffer(device, nb_initial_data_elements);
+		SetupStructuredBuffer(device, capacity);
 	}
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::SetupStructuredBuffer(ID3D11Device5 *device, 
-			                    size_t nb_data_elements) {
+		::SetupStructuredBuffer(ID3D11Device5 *device, size_t capacity) {
 		
 		Assert(device);
 
 		// Create the buffer resource.
 		{
 			const HRESULT result = CreateDynamicStructuredBuffer< DataT >(
-				device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
-			ThrowIfFailed(result,
-				"Structured buffer creation failed: %08X.", result);
+				device, m_buffer.ReleaseAndGetAddressOf(), nullptr, capacity);
+			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
 		}
 
-		m_nb_data_elements = nb_data_elements;
-
-		D3D11_SHADER_RESOURCE_VIEW_DESC resource_view_desc = {};
-		resource_view_desc.Format              = DXGI_FORMAT_UNKNOWN;
-		resource_view_desc.ViewDimension       = D3D11_SRV_DIMENSION_BUFFER;
-		resource_view_desc.Buffer.FirstElement = 0;
-		resource_view_desc.Buffer.NumElements  = static_cast< U32 >(m_nb_data_elements);
+		m_capacity = capacity;
 
 		// Create the SRV.
 		{
+			// Create the SRV descriptor.
+			D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
+			srv_desc.Format              = DXGI_FORMAT_UNKNOWN;
+			srv_desc.ViewDimension       = D3D11_SRV_DIMENSION_BUFFER;
+			srv_desc.Buffer.FirstElement = 0u;
+			srv_desc.Buffer.NumElements  = static_cast< U32 >(m_capacity);
+			
 			const HRESULT result = device->CreateShaderResourceView(
-				m_buffer.Get(), &resource_view_desc,
-				m_buffer_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result,
-				"SRV creation failed: %08X.", result);
+				m_buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
 	}
 
@@ -81,24 +77,21 @@ namespace mage {
 		Assert(device_context);
 		Assert(m_buffer);
 
-		m_nb_used_data_elements = data.size();
-		if (0 == m_nb_used_data_elements) {
+		if (data.empty()) {
 			return;
 		}
-		if (m_nb_data_elements < m_nb_used_data_elements) {
-			SetupStructuredBuffer(device, m_nb_used_data_elements);
+		if (m_capacity < data.size()) {
+			SetupStructuredBuffer(device, m_size);
 		}
 
+		m_size = data.size();
+
 		// Map the buffer.
-		{ 
-			D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-			BufferLock(device_context, m_buffer.Get(), 
-			           D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
+		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
+		BufferLock(device_context, m_buffer.Get(), 
+			       D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
 			
-			memcpy(mapped_buffer.pData, 
-				   data.data(),
-				   m_nb_used_data_elements * sizeof(DataT));
-		}
+		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(DataT));
 	}
 
 	template< typename DataT >

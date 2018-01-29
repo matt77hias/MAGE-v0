@@ -96,6 +96,7 @@
     <ClInclude Include="MAGE\src\rendering\buffer\model_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\shadow_map_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\structured_buffer.hpp" />
+    <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp" />
     <ClInclude Include="MAGE\src\rendering\conversion.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
     <ClCompile Include="MAGE\src\rendering\buffer\shadow_map_buffer.cpp" />
+    <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp" />
     <ClCompile Include="MAGE\src\rendering\conversion.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />

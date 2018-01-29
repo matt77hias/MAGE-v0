@@ -588,6 +588,9 @@
     <ClInclude Include="MAGE\src\rendering\conversion.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp">
+      <Filter>Header Files\rendering\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -844,6 +847,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\conversion.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp">
+      <Filter>Source Files\rendering\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

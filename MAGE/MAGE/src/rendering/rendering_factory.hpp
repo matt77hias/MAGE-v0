@@ -193,7 +193,7 @@ namespace mage {
 	[[nodiscard]] HRESULT CreateDynamicStructuredBuffer(ID3D11Device5 *device, 
 		                                                ID3D11Buffer **buffer, 
 		                                                const DataT *data, 
-		                                                size_t count = 1) noexcept;
+		                                                size_t count = 1u) noexcept;
 
 	#pragma endregion
 
@@ -225,8 +225,8 @@ namespace mage {
 	 Creates an alpha blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb × source.alpha)      + (destination.rgb × (1-source.alpha))
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgb ×  source.alpha    ) + (destination.rgb × (1-source.alpha))
+	 (source.a   × (1-destination.a)) + (destination.a   ×  1              ).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
@@ -244,7 +244,7 @@ namespace mage {
 	 Creates an additive blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb × 1)                 + (destination.rgb × 1)
+	 (source.rgb ×  1               ) + (destination.rgb × 1)
 	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 
 	 @pre			@a device is not equal to @c nullptr.
@@ -263,8 +263,8 @@ namespace mage {
 	 Creates a multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb × 0)                 + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgb ×  0               ) + (destination.rgb × source.rgb)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
@@ -282,8 +282,8 @@ namespace mage {
 	 Creates a bi-multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb × destination.rgb)   + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
@@ -301,7 +301,7 @@ namespace mage {
 	 Creates an transparency blend state.
 
 	 The blend formula for the first RTV is defined as:
-	 (source.rgb × 1)                 + (destination.rgb × 1)
+	 (source.rgb ×  1               ) + (destination.rgb × 1)
 	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 	 The blend formula (i.e. no blending) for the remaining RTVs is defined as:
 	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb

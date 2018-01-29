@@ -16,8 +16,7 @@
 namespace mage {
 
 	/**
-	 A class of structured buffers (for binding arrays of buffers to the 
-	 rendering pipeline).
+	 A class of structured buffers.
 
 	 @tparam		DataT
 					The data type.
@@ -36,13 +35,12 @@ namespace mage {
 
 		 @pre			The device associated of the rendering manager 
 						associated with the current engine must be loaded.
-		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing data elements 
-						to provide.
+		 @param[in]		capacity
+						The initial capacity.
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(size_t nb_initial_data_elements);
+		explicit StructuredBuffer(size_t capacity);
 		
 		/**
 		 Constructs a structured buffer.
@@ -50,14 +48,12 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing data elements 
-						to provide.
+		 @param[in]		capacity
+						The initial capacity.
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device5 *device, 
-			                      size_t nb_initial_data_elements);
+		explicit StructuredBuffer(ID3D11Device5 *device, size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -109,13 +105,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the size of this structured buffer (i.e. the used number of 
-		 data elements).
+		 Returns the size of this structured buffer.
 
 		 @return		The size of this structured buffer.
 		 */
 		[[nodiscard]] size_t size() const noexcept {
-			return m_nb_used_data_elements;
+			return m_size;
+		}
+
+		/**
+		 Returns the capacity of this structured buffer.
+
+		 @return		The capacity of this structured buffer.
+		 */
+		[[nodiscard]] size_t capacity() const noexcept {
+			return m_capacity;
 		}
 
 		/**
@@ -127,7 +131,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		data
-						A reference to a vector with the data elements.
+						A reference to a vector containing the data elements.
 		  @throws		Exception
 						Failed to update the data.
 		 */
@@ -144,7 +148,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		data
-						A reference to a vector with the data elements.
+						A reference to a vector containing the data elements.
 	     @throws		Exception
 						Failed to update the data.
 		 */
@@ -194,14 +198,12 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		nb_data_elements
-						The number of slots for storing data elements to 
-						provide.
+		 @param[in]		capacity
+						The capacity.
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device5 *device, 
-			                       size_t nb_data_elements);
+		void SetupStructuredBuffer(ID3D11Device5 *device, size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -218,16 +220,16 @@ namespace mage {
 		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 
 		/**
-		 The number of slots available for storing data elements in the current 
-		 buffer resource of this structured buffer.
+		 The number of available slots for storing data elements in the current 
+		 buffer resource of this structured buffer (i.e. the capacity).
 		 */
-		size_t m_nb_data_elements;
+		size_t m_capacity;
 
 		/**
-		 The number of used slots in the current buffer resource of this 
-		 structured buffer.
+		 The number of used slots for storing data elements in the current buffer 
+		 resource of this structured buffer (i.e. the size).
 		 */
-		size_t m_nb_used_data_elements;
+		size_t m_size;
 	};
 }
 

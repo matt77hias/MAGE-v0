@@ -80,17 +80,29 @@ namespace mage {
 	}
 
 	void LBufferPass::UnbindShadowMaps() const noexcept {
+		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 1);
+		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 2);
+		
 		ID3D11ShaderResourceView * const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_SHADOW_MAPS_START,
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_SHADOW_MAPS_START,
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
 	void LBufferPass::BindLBuffer() const noexcept {
-		ID3D11ShaderResourceView * const srvs[9] = {
+		static_assert(SLOT_SRV_OMNI_LIGHTS                   == SLOT_SRV_DIRECTIONAL_LIGHTS + 1);
+		static_assert(SLOT_SRV_SPOT_LIGHTS                   == SLOT_SRV_DIRECTIONAL_LIGHTS + 2);
+		static_assert(SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS == SLOT_SRV_DIRECTIONAL_LIGHTS + 3);
+		static_assert(SLOT_SRV_SHADOW_MAP_OMNI_LIGHTS        == SLOT_SRV_DIRECTIONAL_LIGHTS + 4);
+		static_assert(SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS        == SLOT_SRV_DIRECTIONAL_LIGHTS + 5);
+		static_assert(SLOT_SRV_DIRECTIONAL_SHADOW_MAPS       == SLOT_SRV_DIRECTIONAL_LIGHTS + 6);
+		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS              == SLOT_SRV_DIRECTIONAL_LIGHTS + 7);
+		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS              == SLOT_SRV_DIRECTIONAL_LIGHTS + 8);
+		
+		ID3D11ShaderResourceView * const srvs[] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
 			m_spot_lights.Get(),
@@ -112,9 +124,9 @@ namespace mage {
 			SLOT_CBUFFER_LIGHTING, m_light_buffer.Get());
 		
 		// Bind the SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_LIGHTS_START,
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_LIGHTS_START,
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 

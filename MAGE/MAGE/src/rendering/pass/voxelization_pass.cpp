@@ -56,8 +56,7 @@ namespace mage {
 		}
 	}
 
-	void VoxelizationPass::BindPS(const Material &material, 
-								  bool transparency) noexcept {
+	void VoxelizationPass::BindPS(const Material &material) noexcept {
 		
 		if (material.GetNormalSRV()) {
 			BindPS(PSIndex::BRDF_TSNM);
@@ -154,7 +153,7 @@ namespace mage {
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
-			BindPS(model.GetMaterial(), false);
+			BindPS(model.GetMaterial());
 			// Bind the model mesh.
 			model.BindMesh(m_device_context);
 			// Draw the model.

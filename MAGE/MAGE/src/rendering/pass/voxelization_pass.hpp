@@ -186,11 +186,8 @@ namespace mage {
 
 		 @param[in]		material
 						A reference to the material.
-		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
-						otherwise.
 		 */
-		void BindPS(const Material &material, bool transparency) noexcept;
+		void BindPS(const Material &material) noexcept;
 		
 		/**
 		 Binds the model data of this voxelization pass.

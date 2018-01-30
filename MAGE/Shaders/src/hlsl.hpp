@@ -32,12 +32,12 @@
 #define MAGE_AMD_WAFEFRONT_SIZE 64
 #define GROUP_SIZE_DEFAULT      16
 
-#define GROUP_SIZE_MSAA_2X      16
-#define GROUP_SIZE_MSAA_4X      16
-#define GROUP_SIZE_MSAA_8X       8
-#define GROUP_SIZE_SSAA_2X      16
-#define GROUP_SIZE_SSAA_3X       8
-#define GROUP_SIZE_SSAA_4X       8
+#define GROUP_SIZE_MSAA_2X      16	// [numthreads( 2, 16, 16)] =  512
+#define GROUP_SIZE_MSAA_4X      16	// [numthreads( 4, 16, 16)] = 1024
+#define GROUP_SIZE_MSAA_8X       8	// [numthreads( 8,  8,  8)] =  512
+#define GROUP_SIZE_SSAA_2X      16	// [numthreads( 4, 16, 16)] = 1024
+#define GROUP_SIZE_SSAA_3X       8	// [numthreads( 9,  8,  8)] =  576
+#define GROUP_SIZE_SSAA_4X       8	// [numthreads(16,  8,  8)] = 1024
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Samplers
@@ -47,10 +47,6 @@
 #define SLOT_SAMPLER_VARIABLE_1                 1
 #define SLOT_SAMPLER_VARIABLE_2                 2
 #define SLOT_SAMPLER_VARIABLE_3                 3
-#define SLOT_SAMPLER_VARIABLE_START             SLOT_SAMPLER_VARIABLE_0
-#define SLOT_SAMPLER_VARIABLE_END               SLOT_SAMPLER_VARIABLE_3
-#define SLOT_SAMPLER_VARIABLE_COUNT             (SLOT_SAMPLER_VARIABLE_END + 1 \
-													- SLOT_SAMPLER_VARIABLE_START)
 
 #define SLOT_SAMPLER_POINT_WRAP                 4
 #define SLOT_SAMPLER_POINT_CLAMP                5
@@ -62,10 +58,6 @@
 #define SLOT_SAMPLER_ANISOTROPIC_CLAMP          11
 #define SLOT_SAMPLER_ANISOTROPIC_MIRROR         12
 #define SLOT_SAMPLER_PCF                        13
-#define SLOT_SAMPLER_PERSISTENT_START           SLOT_SAMPLER_POINT_WRAP
-#define SLOT_SAMPLER_PERSISTENT_END             SLOT_SAMPLER_PCF
-#define SLOT_SAMPLER_PERSISTENT_COUNT           (SLOT_SAMPLER_PERSISTENT_END + 1 \
-													- SLOT_SAMPLER_PERSISTENT_START)
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Constant Buffers 
@@ -87,31 +79,12 @@
 #define SLOT_SRV_DIRECTIONAL_LIGHTS             1
 #define SLOT_SRV_OMNI_LIGHTS                    2
 #define SLOT_SRV_SPOT_LIGHTS                    3
-#define SLOT_SRV_LIGHTS_START                   SLOT_SRV_DIRECTIONAL_LIGHTS
-#define SLOT_SRV_LIGHTS_END                     SLOT_SRV_SPOT_LIGHTS
-#define SLOT_SRV_LIGHTS_COUNT                   (SLOT_SRV_LIGHTS_END + 1 \
-													- SLOT_SRV_LIGHTS_START)
-
 #define SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS  4
 #define SLOT_SRV_SHADOW_MAP_OMNI_LIGHTS         5
 #define SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS         6
-#define SLOT_SRV_SHADOW_MAP_LIGHTS_START        SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS
-#define SLOT_SRV_SHADOW_MAP_LIGHTS_END          SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS
-#define SLOT_SRV_SHADOW_MAP_LIGHTS_COUNT        (SLOT_SRV_SHADOW_MAP_LIGHTS_END + 1 \
-													- SLOT_SRV_SHADOW_MAP_LIGHTS_START)
-
 #define SLOT_SRV_DIRECTIONAL_SHADOW_MAPS        7
 #define SLOT_SRV_OMNI_SHADOW_MAPS               8
 #define SLOT_SRV_SPOT_SHADOW_MAPS               9
-#define SLOT_SRV_SHADOW_MAPS_START              SLOT_SRV_DIRECTIONAL_SHADOW_MAPS
-#define SLOT_SRV_SHADOW_MAPS_END                SLOT_SRV_SPOT_SHADOW_MAPS
-#define SLOT_SRV_SHADOW_MAPS_COUNT              (SLOT_SRV_SHADOW_MAPS_END + 1 \
-													- SLOT_SRV_SHADOW_MAPS_START)
-
-#define SLOT_SRV_LIGHTING_START                 SLOT_SRV_LIGHTS_START
-#define SLOT_SRV_LIGHTING_END                   SLOT_SRV_SHADOW_MAPS_END
-#define SLOT_SRV_LIGHTING_COUNT                 (SLOT_SRV_LIGHTING_END + 1 \
-													- SLOT_SRV_LIGHTING_START)
 
 //-----------------------------------------------------------------------------
 // Engine Includes: GBuffer SRVs
@@ -121,10 +94,6 @@
 #define SLOT_SRV_MATERIAL                       11
 #define SLOT_SRV_NORMAL                         12
 #define SLOT_SRV_DEPTH                          13
-#define SLOT_SRV_GBUFFER_START                  SLOT_SRV_BASE_COLOR
-#define SLOT_SRV_GBUFFER_END                    SLOT_SRV_DEPTH
-#define SLOT_SRV_GBUFFER_COUNT                  (SLOT_SRV_GBUFFER_END + 1 \
-													- SLOT_SRV_GBUFFER_START)
 
 //-----------------------------------------------------------------------------
 // Engine Includes: General SRVs
@@ -141,9 +110,5 @@
 #define SLOT_UAV_IMAGE                          0
 #define SLOT_UAV_NORMAL                         1
 #define SLOT_UAV_DEPTH                          2
-#define SLOT_UAV_RESOLVE_START                  SLOT_UAV_IMAGE
-#define SLOT_UAV_RESOLVE_END                    SLOT_UAV_DEPTH
-#define SLOT_UAV_RESOLVE_COUNT                  (SLOT_UAV_RESOLVE_END + 1 \
-													- SLOT_UAV_RESOLVE_START)
 
 #endif // MAGE_HEADER_HLSL

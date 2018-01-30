@@ -215,19 +215,19 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this depth pass.
 		 */
-		const SharedPtr< const VertexShader > m_opaque_vs;
+		const VertexShaderPtr m_opaque_vs;
 
 		/**
 		 A pointer to the vertex shader for transparent models
 		 of this depth pass.
 		 */
-		const SharedPtr< const VertexShader > m_transparent_vs;
+		const VertexShaderPtr m_transparent_vs;
 
 		/**
 		 A pointer to the pixel shader for transparent models
 		 of this depth pass.
 		 */
-		const SharedPtr< const PixelShader > m_transparent_ps;
+		const PixelShaderPtr m_transparent_ps;
 
 		/**
 		 The projection buffer of this depth pass.

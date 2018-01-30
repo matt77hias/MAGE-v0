@@ -172,12 +172,12 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this constant shading pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 		
 		/**
 		 A pointer to the pixel shader of this constant shading pass.
 		 */
-		const SharedPtr< const PixelShader > m_ps;
+		const PixelShaderPtr m_ps;
 
 		/**
 		 The model buffer of this constant shading pass.

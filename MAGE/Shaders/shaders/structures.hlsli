@@ -6,14 +6,15 @@
 //-----------------------------------------------------------------------------
 
 /**
- A vertex shader input struct of vertices having a position.
+ A vertex shader input struct of vertices having a position component.
  */
 struct VSInputPosition {
 	float3 p      : POSITION0;
 };
 
 /**
- A vertex shader input struct of vertices having a position and normal.
+ A vertex shader input struct of vertices having a position and normal 
+ component.
  */
 struct VSInputPositionNormal {
 	float3 p      : POSITION0;
@@ -21,7 +22,7 @@ struct VSInputPositionNormal {
 };
 
 /**
- A vertex shader input struct of vertices having a position and color.
+ A vertex shader input struct of vertices having a position and color component.
  */
 struct VSInputPositionColor {
 	float3 p      : POSITION0;
@@ -30,7 +31,7 @@ struct VSInputPositionColor {
 
 /**
  A vertex shader input struct of vertices having a position and a pair of 
- texture coordinates.
+ texture coordinates component.
  */
 struct VSInputPositionTexture {
 	float3 p      : POSITION0;
@@ -38,7 +39,8 @@ struct VSInputPositionTexture {
 };
 
 /**
- A vertex shader input struct of vertices having a position, normal and color.
+ A vertex shader input struct of vertices having a position, normal and color
+ component.
  */
 struct VSInputPositionNormalColor {
 	float3 p      : POSITION0;
@@ -48,7 +50,7 @@ struct VSInputPositionNormalColor {
 
 /**
  A vertex shader input struct of vertices having a position, normal and a pair 
- of texture coordinates.
+ of texture coordinates component.
  */
 struct VSInputPositionNormalTexture {
 	float3 p      : POSITION0;
@@ -58,7 +60,7 @@ struct VSInputPositionNormalTexture {
 
 /**
  A vertex shader input struct of vertices having a position, color and a pair 
- of texture coordinates.
+ of texture coordinates component.
  */
 struct VSInputPositionColorTexture {
 	float3 p      : POSITION0;
@@ -68,7 +70,7 @@ struct VSInputPositionColorTexture {
 
 /**
  A vertex shader input struct of vertices having a position, normal, color and 
- a pair of texture coordinates.
+ a pair of texture coordinates component.
  */
 struct VSInputPositionNormalColorTexture {
 	float3 p      : POSITION0;
@@ -81,12 +83,12 @@ struct VSInputPositionNormalColorTexture {
 // PS Input Structures
 //-----------------------------------------------------------------------------
 
-// SV_POSITION is always included. 
-// Therefore, it is not reflected in the struct naming.
+// The semantic SV_POSITION is always included. 
+// Therefore, it is not reflected in the naming of the struct identifier.
 
 /**
  A pixel shader input struct of fragments having a position and NDC space 
- position.
+ position component.
  */
 struct PSInputNDCPosition {
 	float4 p       : SV_POSITION;
@@ -95,7 +97,7 @@ struct PSInputNDCPosition {
 
 /**
  A pixel shader input struct of fragments having a position and a world space 
- position.
+ position component.
  */
 struct PSInputWorldPosition {
 	float4 p       : SV_POSITION;
@@ -103,7 +105,8 @@ struct PSInputWorldPosition {
 };
 
 /**
- A pixel shader input struct of fragments having a pair of texture coordinates.
+ A pixel shader input struct of fragments having a pair of texture coordinates 
+ component.
  */
 struct PSInputTexture {
 	float4 p       : SV_POSITION;
@@ -112,7 +115,7 @@ struct PSInputTexture {
 
 /**
  A pixel shader input struct of fragments having a position, color and a pair 
- of texture coordinates.
+ of texture coordinates component.
  */
 struct PSInputColorTexture {
 	float4 p       : SV_POSITION;
@@ -122,8 +125,8 @@ struct PSInputColorTexture {
 
 /**
  A pixel shader input struct of fragments having a position, view space 
- position and view-space normal, a pair of material and a pair of geometry 
- texture coordinates.
+ position and view space normal, a pair of material and a pair of geometry 
+ texture coordinates component.
  */
 struct PSInputPositionNormalTexture {
 	float4 p       : SV_POSITION;

@@ -39,7 +39,8 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-OMInputForward PS(PSInputPositionNormalTexture input, uint index : SV_SampleIndex) {
+OMInputForward PS(PSInputPositionNormalTexture input, 
+				  uint index : SV_SampleIndex) {
 #else  // MSAA_AS_SSAA
 OMInputForward PS(PSInputPositionNormalTexture input) {
 #endif // MSAA_AS_SSAA

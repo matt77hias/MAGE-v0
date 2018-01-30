@@ -42,8 +42,8 @@ groupshared Data data[MSAA * GROUP_SIZE * GROUP_SIZE];
 
 [numthreads(MSAA, GROUP_SIZE, GROUP_SIZE)]
 void CS(uint3 thread_id : SV_DispatchThreadID, 
-	uint3 group_thread_id : SV_GroupThreadID,
-	uint  group_index : SV_GroupIndex) {
+		uint3 group_thread_id : SV_GroupThreadID, 
+		uint  group_index : SV_GroupIndex) {
 
 	static const float weight = 1.0f / MSAA;
 
@@ -105,9 +105,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 
 #else  // MSAA && GROUP_SIZE
 
-	#ifndef GROUP_SIZE
-		#define GROUP_SIZE GROUP_SIZE_DEFAULT
-	#endif
+#ifndef GROUP_SIZE
+	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+#endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {

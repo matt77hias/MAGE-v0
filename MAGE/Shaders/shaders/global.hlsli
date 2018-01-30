@@ -59,6 +59,12 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	float g_inv_gamma                            : packoffset(c2.y);
 };
 
+//TODO move to buffer
+static const float  g_voxel_grid_size           = 1.0f;
+static const float  g_voxel_grid_inv_size       = 1.0f;
+static const uint   g_voxel_grid_resolution     = 256u;
+static const float  g_voxel_grid_inv_resolution = 1.0f / 256.0f; // pixel/texel size
+
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// The camera-view-to-camera-projection transformation matrix.
 	float4x4 g_view_to_projection                : packoffset(c0);

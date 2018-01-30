@@ -45,6 +45,7 @@ namespace mage {
 		m_sprite_pass(),
 		m_variable_component_pass(),
 		m_variable_shading_pass(),
+		m_voxelization_pass(),
 		m_wireframe_pass() {}
 	
 	Renderer::Renderer(Renderer &&scene_renderer) noexcept = default;

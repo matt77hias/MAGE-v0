@@ -67,50 +67,41 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 #ifdef BRDFxCOS
 
 #ifndef DISSABLE_DIRECTIONAL_LIGHTS
-STRUCTURED_BUFFER(
-	g_directional_lights, DirectionalLight, 
-	SLOT_SRV_DIRECTIONAL_LIGHTS);
+STRUCTURED_BUFFER(g_directional_lights, DirectionalLight, 
+				  SLOT_SRV_DIRECTIONAL_LIGHTS);
 #endif // DISSABLE_DIRECTIONAL_LIGHTS
 
 #ifndef DISSABLE_OMNI_LIGHTS
-STRUCTURED_BUFFER(
-	g_omni_lights, OmniLight, 
-	SLOT_SRV_OMNI_LIGHTS);
+STRUCTURED_BUFFER(g_omni_lights, OmniLight, 
+				  SLOT_SRV_OMNI_LIGHTS);
 #endif // DISSABLE_OMNI_LIGHTS
 
 #ifndef DISSABLE_SPOT_LIGHTS
-STRUCTURED_BUFFER(
-	g_spot_lights, SpotLight, 
-	SLOT_SRV_SPOT_LIGHTS);
+STRUCTURED_BUFFER(g_spot_lights, SpotLight, 
+				  SLOT_SRV_SPOT_LIGHTS);
 #endif // DISSABLE_SPOT_LIGHTS
 
 #ifndef DISSABLE_SHADOW_MAPPING
 
 #ifndef DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
-STRUCTURED_BUFFER(
-	g_sm_directional_lights, DirectionalLightWithShadowMapping, 
-	SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS);
-TEXTURE_2D_ARRAY(
-	g_directional_sms, float, 
-	SLOT_SRV_DIRECTIONAL_SHADOW_MAPS);
+STRUCTURED_BUFFER(g_sm_directional_lights, DirectionalLightWithShadowMapping, 
+				  SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS);
+TEXTURE_2D_ARRAY(g_directional_sms, float, 
+				 SLOT_SRV_DIRECTIONAL_SHADOW_MAPS);
 #endif // DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 
 #ifndef DISSABLE_SHADOW_MAP_OMNI_LIGHTS
-STRUCTURED_BUFFER(
-	g_sm_omni_lights, OmniLightWithShadowMapping, 
-	SLOT_SRV_SHADOW_MAP_OMNI_LIGHTS);
-TEXTURE_CUBE_ARRAY(
-	g_omni_sms, float, 
-	SLOT_SRV_OMNI_SHADOW_MAPS);
+STRUCTURED_BUFFER(g_sm_omni_lights, OmniLightWithShadowMapping, 
+				  SLOT_SRV_SHADOW_MAP_OMNI_LIGHTS);
+TEXTURE_CUBE_ARRAY(g_omni_sms, float, 
+				   SLOT_SRV_OMNI_SHADOW_MAPS);
 #endif // DISSABLE_SHADOW_MAP_OMNI_LIGHTS
 
 #ifndef DISSABLE_SHADOW_MAP_SPOT_LIGHTS
-STRUCTURED_BUFFER(
-	g_sm_spot_lights, SpotLightWithShadowMapping, 
-	SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS);
-TEXTURE_2D_ARRAY(
-	g_spot_sms, float, 
-	SLOT_SRV_SPOT_SHADOW_MAPS);
+STRUCTURED_BUFFER(g_sm_spot_lights, SpotLightWithShadowMapping, 
+				  SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS);
+TEXTURE_2D_ARRAY(g_spot_sms, float, 
+				 SLOT_SRV_SPOT_SHADOW_MAPS);
 #endif // DISSABLE_SHADOW_MAP_SPOT_LIGHTS
 
 #endif // DISSABLE_SHADOW_MAPPING
@@ -123,7 +114,9 @@ TEXTURE_2D_ARRAY(
 
 // Calculates the BRDF shading.
 float3 BRDFShading(float3 p, float3 n, 
-	float3 base_color, float roughness, float metalness) {
+				   float3 base_color, 
+				   float roughness, 
+				   float metalness) {
 
 	const float r_eye = length(p);
 

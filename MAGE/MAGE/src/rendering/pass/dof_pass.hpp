@@ -122,6 +122,6 @@ namespace mage {
 		/**
 		 A pointer to the compute shader of this DOF pass.
 		 */
-		SharedPtr< const ComputeShader > m_cs;
+		ComputeShaderPtr m_cs;
 	};
 }

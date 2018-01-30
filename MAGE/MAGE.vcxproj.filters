@@ -591,6 +591,9 @@
     <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp">
       <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp">
+      <Filter>Header Files\rendering\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -850,6 +853,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp">
       <Filter>Source Files\rendering\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp">
+      <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

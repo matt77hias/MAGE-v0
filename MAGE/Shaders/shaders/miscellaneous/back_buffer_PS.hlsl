@@ -21,7 +21,8 @@ TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
+float4 PS(PSInputNDCPosition input, 
+		  uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
 float4 PS(PSInputNDCPosition input) : SV_Target {
 #endif // MSAA_AS_SSAA

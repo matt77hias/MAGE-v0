@@ -125,11 +125,11 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this sky pass.
 		 */
-		const SharedPtr< const VertexShader > m_sky_vs;
+		const VertexShaderPtr m_sky_vs;
 
 		/**
 		 A pointer to the pixel shader of this sky pass.
 		 */
-		const SharedPtr< const PixelShader > m_sky_ps;
+		const PixelShaderPtr m_sky_ps;
 	};
 }

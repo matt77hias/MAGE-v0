@@ -203,13 +203,13 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this constant component pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 
 		/**
 		 An array containing pointers to the pixel shaders of this constant 
 		 component pass.
 		 */
-		const SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
+		const PixelShaderPtr m_ps[static_cast< size_t >(PSIndex::Count)];
 
 		/**
 		 The color buffer of this constant component pass.

@@ -155,12 +155,12 @@ namespace mage {
 		/**
 		 A pointer to the AA preprocess compute shader of this AA pass.
 		 */
-		SharedPtr< const ComputeShader > m_preprocess_cs;
+		ComputeShaderPtr m_preprocess_cs;
 
 		/**
 		 A pointer to the AA compute shader of this AA pass.
 		 */
-		SharedPtr< const ComputeShader > m_cs;
+		ComputeShaderPtr m_cs;
 
 		/**
 		 The current BRDF of this variable shading pass.

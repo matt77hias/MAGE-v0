@@ -167,17 +167,17 @@ namespace mage {
 		/**
 		 A pointer to the compute shader of this deferred shading pass.
 		 */
-		SharedPtr< const ComputeShader > m_cs;
+		ComputeShaderPtr m_cs;
 
 		/**
 		 A pointer to the vertex shader of this deferred shading pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this deferred shading pass.
 		 */
-		SharedPtr< const PixelShader > m_msaa_ps;
+		PixelShaderPtr m_msaa_ps;
 		
 		/**
 		 The current BRDF of this deferred shading pass.

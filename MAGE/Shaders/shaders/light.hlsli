@@ -213,9 +213,7 @@ float3 MaxContribution(SpotLight light, float distance, float3 l) {
  @param[out]	L
 				The radiance contribution of the given directional light.
  */
-void Contribution(DirectionalLight light, 
-	out float3 l, out float3 L) {
-
+void Contribution(DirectionalLight light, out float3 l, out float3 L) {
 	l = light.neg_d;
 	L = light.L;
 }
@@ -232,9 +230,7 @@ void Contribution(DirectionalLight light,
  @param[out]	I
 				The intensity contribution of the given omni light.
  */
-void Contribution(OmniLight light, 
-	float3 p, out float3 l, out float3 I) {
-
+void Contribution(OmniLight light, float3 p, out float3 l, out float3 I) {
 	const float3 d_light     = light.p - p;
 	const float  r_light     = length(d_light);
 	const float  inv_r_light = 1.0f / r_light;
@@ -254,9 +250,7 @@ void Contribution(OmniLight light,
  @param[out]	I
 				The intensity contribution of the given spotlight.
  */
-void Contribution(SpotLight light, 
-	float3 p, out float3 l, out float3 I) {
-
+void Contribution(SpotLight light, float3 p, out float3 l, out float3 I) {
 	const float3 d_light     = light.p - p;
 	const float  r_light     = length(d_light);
 	const float  inv_r_light = 1.0f / r_light;
@@ -277,9 +271,10 @@ void Contribution(SpotLight light,
  @param[in]		p_proj
 				The hit position in light projection space coordinates.
  */
-float ShadowFactor(SamplerComparisonState pcf_sampler,
-	Texture2DArray< float > shadow_maps, uint index,
-	float4 p_proj) {
+float ShadowFactor(SamplerComparisonState pcf_sampler, 
+				   Texture2DArray< float > shadow_maps, 
+				   uint index, 
+				   float4 p_proj) {
 
 	const float  inv_w  = 1.0f / p_proj.w;
 	const float3 p_ndc  = p_proj.xyz * inv_w;
@@ -304,8 +299,8 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 				The projection values [view_projection22, view_projection32].
  */
 float ShadowFactor(SamplerComparisonState pcf_sampler, 
-	TextureCubeArray< float > shadow_maps, uint index,
-	float3 p_view, float2 projection_values) {
+				   TextureCubeArray< float > shadow_maps, uint index, 
+				   float3 p_view, float2 projection_values) {
 
 	const float  p_view_z = Max(abs(p_view));
 	const float  p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
@@ -331,10 +326,10 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
  @param[out]	L
 				The radiance contribution.
  */
-void Contribution(DirectionalLightWithShadowMapping light,
-	SamplerComparisonState pcf_sampler, 
-	Texture2DArray< float > shadow_maps, uint index,
-	float3 p, out float3 l, out float3 L) {
+void Contribution(DirectionalLightWithShadowMapping light, 
+				  SamplerComparisonState pcf_sampler, 
+				  Texture2DArray< float > shadow_maps, uint index, 
+				  float3 p, out float3 l, out float3 L) {
 
 	float3 l0, L0;
 	Contribution(light.light, l0, L0);
@@ -363,10 +358,10 @@ void Contribution(DirectionalLightWithShadowMapping light,
  @param[out]	I
 				The intensity contribution.
  */
-void Contribution(OmniLightWithShadowMapping light,
-	SamplerComparisonState pcf_sampler, 
-	TextureCubeArray< float > shadow_maps, uint index,
-	float3 p, out float3 l, out float3 I) {
+void Contribution(OmniLightWithShadowMapping light, 
+				  SamplerComparisonState pcf_sampler, 
+				  TextureCubeArray< float > shadow_maps, uint index, 
+				  float3 p, out float3 l, out float3 I) {
 
 	float3 l0, I0;
 	Contribution(light.light, p, l0, I0);
@@ -395,10 +390,10 @@ void Contribution(OmniLightWithShadowMapping light,
  @param[out]	I
 				The intensity contribution.
  */
-void Contribution(SpotLightWithShadowMapping light,
-	SamplerComparisonState pcf_sampler,
-	Texture2DArray< float > shadow_maps, uint index,
-	float3 p, out float3 l, out float3 I) {
+void Contribution(SpotLightWithShadowMapping light, 
+				  SamplerComparisonState pcf_sampler, 
+				  Texture2DArray< float > shadow_maps, uint index, 
+				  float3 p, out float3 l, out float3 I) {
 
 	float3 l0, I0;
 	Contribution(light.light, p, l0, I0);

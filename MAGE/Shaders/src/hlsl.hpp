@@ -75,13 +75,14 @@
 //-----------------------------------------------------------------------------
 
 #define SLOT_SRV_LIGHT_INDEX_LIST               0
-
+// Lights
 #define SLOT_SRV_DIRECTIONAL_LIGHTS             1
 #define SLOT_SRV_OMNI_LIGHTS                    2
 #define SLOT_SRV_SPOT_LIGHTS                    3
 #define SLOT_SRV_SHADOW_MAP_DIRECTIONAL_LIGHTS  4
 #define SLOT_SRV_SHADOW_MAP_OMNI_LIGHTS         5
 #define SLOT_SRV_SHADOW_MAP_SPOT_LIGHTS         6
+// Shadow (Cube) Maps
 #define SLOT_SRV_DIRECTIONAL_SHADOW_MAPS        7
 #define SLOT_SRV_OMNI_SHADOW_MAPS               8
 #define SLOT_SRV_SPOT_SHADOW_MAPS               9

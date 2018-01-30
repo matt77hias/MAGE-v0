@@ -342,8 +342,8 @@ namespace mage {
 
 		// Bind the samplers.
 		Pipeline::BindSamplers(Pipeline::GetImmediateDeviceContext(),
-							   SLOT_SAMPLER_POINT_CLAMP,
-			                   std::size(samplers),
+							   SLOT_SAMPLER_POINT_WRAP,
+			                   static_cast< U32 >(std::size(samplers)),
 			                   samplers);
 	}
 }

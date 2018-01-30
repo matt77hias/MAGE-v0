@@ -49,9 +49,9 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 
 	#ifdef ENABLE_TRANSPARENCY
 	clip(base_color.w - TRANSPARENCY_SKIP_THRESHOLD);
-	#else
+	#else  // ENABLE_TRANSPARENCY
 	clip(base_color.w - TRANSPARENCY_THRESHOLD);
-	#endif
+	#endif // ENABLE_TRANSPARENCY
 
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material   = GetMaterialParameters(input.tex);

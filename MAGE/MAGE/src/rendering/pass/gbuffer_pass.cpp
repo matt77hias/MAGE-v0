@@ -117,8 +117,11 @@ namespace mage {
 
 		// Process the models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
+			const Material &material            = model.GetMaterial();
+			
 			if (State::Active != model.GetState()
-				|| !model.GetMaterial().InteractsWithLight()) {
+				|| !material.InteractsWithLight()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
 			}
 			
@@ -137,7 +140,7 @@ namespace mage {
 			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
-			BindModelData(object_to_view, view_to_object, texture_transform, model.GetMaterial());
+			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
 			BindPS(model.GetMaterial());
 			// Bind the model mesh.

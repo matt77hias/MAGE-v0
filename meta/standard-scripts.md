@@ -25,12 +25,10 @@ A script handling a `NodeTransform`'s rotation based on the mouse's input.
 ### `RotationScript`
 A script rotating a `NodeTransform`'s around one of its principal axes.
 
-## Rendering
-
-### `RenderModeScript`
-A script for switching between different rendering modes and layers.
-
 ## Scene
+
+### `EditorScript`
+A script for enabling the in-game editor.
 
 ### `SwitchSceneScript`
 A script for switching the current scene.

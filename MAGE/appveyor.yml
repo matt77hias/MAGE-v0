@@ -19,5 +19,5 @@ platform:
 #       Build Configuration       #
 #---------------------------------#
 build:
-  parallel: false
+  parallel: true
   verbosity: normal

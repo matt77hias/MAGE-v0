@@ -55,22 +55,22 @@ namespace mage {
 	void Renderer::BindPersistentState() {
 		const auto config = DisplayConfiguration::Get();
 		
-		GameBuffer game_buffer;
-		game_buffer.m_display_width                = config->GetDisplayWidth();
-		game_buffer.m_display_height               = config->GetDisplayHeight();
-		game_buffer.m_display_inv_width_minus1     = 1.0f / (game_buffer.m_display_width  - 1.0f);
-		game_buffer.m_display_inv_height_minus1    = 1.0f / (game_buffer.m_display_height - 1.0f);
+		GameBuffer buffer;
+		buffer.m_display_width                = config->GetDisplayWidth();
+		buffer.m_display_height               = config->GetDisplayHeight();
+		buffer.m_display_inv_width_minus1     = 1.0f / (buffer.m_display_width  - 1.0f);
+		buffer.m_display_inv_height_minus1    = 1.0f / (buffer.m_display_height - 1.0f);
 		
-		game_buffer.m_ss_display_width             = config->GetSSDisplayWidth();
-		game_buffer.m_ss_display_height            = config->GetSSDisplayHeight();
-		game_buffer.m_ss_display_inv_width_minus1  = 1.0f / (game_buffer.m_ss_display_width  - 1.0f);
-		game_buffer.m_ss_display_inv_height_minus1 = 1.0f / (game_buffer.m_ss_display_height - 1.0f);
+		buffer.m_ss_display_width             = config->GetSSDisplayWidth();
+		buffer.m_ss_display_height            = config->GetSSDisplayHeight();
+		buffer.m_ss_display_inv_width_minus1  = 1.0f / (buffer.m_ss_display_width  - 1.0f);
+		buffer.m_ss_display_inv_height_minus1 = 1.0f / (buffer.m_ss_display_height - 1.0f);
 		
-		game_buffer.m_gamma                        = config->GetGamma();
-		game_buffer.m_inv_gamma                    = 1.0f / game_buffer.m_gamma;
+		buffer.m_gamma                        = config->GetGamma();
+		buffer.m_inv_gamma                    = 1.0f / buffer.m_gamma;
 
 		// Update the game buffer.
-		m_game_buffer.UpdateData(m_device_context, game_buffer);
+		m_game_buffer.UpdateData(m_device_context, buffer);
 		// Bind the game buffer.
 		m_game_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_GAME);
 	}
@@ -80,34 +80,50 @@ namespace mage {
 		                                        CXMMATRIX projection_to_view,
 		                                        CXMMATRIX world_to_view,
 		                                        CXMMATRIX view_to_world) {
-		CameraBuffer camera_buffer;
-		camera_buffer.m_view_to_projection            = XMMatrixTranspose(view_to_projection);
-		camera_buffer.m_projection_to_view            = XMMatrixTranspose(projection_to_view);
-		camera_buffer.m_world_to_view                 = XMMatrixTranspose(world_to_view);
-		camera_buffer.m_view_to_world                 = XMMatrixTranspose(view_to_world);
+		CameraBuffer buffer;
+		buffer.m_view_to_projection            = XMMatrixTranspose(view_to_projection);
+		buffer.m_projection_to_view            = XMMatrixTranspose(projection_to_view);
+		buffer.m_world_to_view                 = XMMatrixTranspose(world_to_view);
+		buffer.m_view_to_world                 = XMMatrixTranspose(view_to_world);
 		
-		const auto &viewport                          = camera.GetViewport();
-		camera_buffer.m_viewport_top_left_x           = static_cast< U32 >(viewport.GetTopLeftX());
-		camera_buffer.m_viewport_top_left_y           = static_cast< U32 >(viewport.GetTopLeftY());
-		camera_buffer.m_viewport_width                = static_cast< U32 >(viewport.GetWidth());
-		camera_buffer.m_viewport_height               = static_cast< U32 >(viewport.GetHeight());
-		camera_buffer.m_viewport_inv_width_minus1     = 1.0f / (viewport.GetWidth()  - 1.0f);
-		camera_buffer.m_viewport_inv_height_minus1    = 1.0f / (viewport.GetHeight() - 1.0f);
+		const auto &viewport                   = camera.GetViewport();
+		buffer.m_viewport_top_left_x           = static_cast< U32 >(viewport.GetTopLeftX());
+		buffer.m_viewport_top_left_y           = static_cast< U32 >(viewport.GetTopLeftY());
+		buffer.m_viewport_width                = static_cast< U32 >(viewport.GetWidth());
+		buffer.m_viewport_height               = static_cast< U32 >(viewport.GetHeight());
+		buffer.m_viewport_inv_width_minus1     = 1.0f / (viewport.GetWidth()  - 1.0f);
+		buffer.m_viewport_inv_height_minus1    = 1.0f / (viewport.GetHeight() - 1.0f);
 
-		const auto ss_viewport                        = camera.GetSSViewport();
-		camera_buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
-		camera_buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
-		camera_buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());
-		camera_buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
-		camera_buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
-		camera_buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
+		const auto ss_viewport                 = camera.GetSSViewport();
+		buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
+		buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
+		buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());
+		buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
+		buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
+		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
-		camera_buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
-		camera_buffer.m_focal_length                  = camera.GetLens().GetFocalLength();
-		camera_buffer.m_max_coc_radius                = camera.GetLens().GetMaximumCoCRadius();
+		buffer.m_voxel_size                    = 1.0f;
+		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
+		buffer.m_voxel_grid_resolution         = 256u;
+		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
+
+		const float radius = buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius, 
+																 -radius, radius, 
+																 -radius, radius);
+		#else  // DISSABLE_INVERTED_Z_BUFFER
+		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius,
+																 -radius, radius,
+																 radius, -radius);
+		#endif // DISSABLE_INVERTED_Z_BUFFER
+
+		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
+		buffer.m_focal_length                  = camera.GetLens().GetFocalLength();
+		buffer.m_max_coc_radius                = camera.GetLens().GetMaximumCoCRadius();
 
 		// Update the camera buffer.
-		m_camera_buffer.UpdateData(m_device_context, camera_buffer);
+		m_camera_buffer.UpdateData(m_device_context, buffer);
 		// Bind the game buffer.
 		m_camera_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_PRIMARY_CAMERA);
 	}

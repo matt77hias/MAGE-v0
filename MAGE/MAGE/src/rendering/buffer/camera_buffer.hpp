@@ -28,27 +28,31 @@ namespace mage {
 		/**
 		 Constructs a camera buffer.
 		 */
-		CameraBuffer() noexcept
+		CameraBuffer() noexcept 
 			: m_view_to_projection{}, 
-			m_projection_to_view{},
+			m_projection_to_view{}, 
 			m_world_to_view{}, 
-			m_view_to_world{},
-			m_viewport_top_left_x(0), 
-			m_viewport_top_left_y(0),
-			m_viewport_width(0),
-			m_viewport_height(0),
-			m_ss_viewport_top_left_x(0),
-			m_ss_viewport_top_left_y(0),
-			m_ss_viewport_width(0),
-			m_ss_viewport_height(0),
-			m_viewport_inv_width_minus1(0.0f),
-			m_viewport_inv_height_minus1(0.0f),
-			m_ss_viewport_inv_width_minus1(0.0f),
-			m_ss_viewport_inv_height_minus1(0.0f),
-			m_lens_radius(0.0f),
-			m_focal_length(0.0f),
-			m_max_coc_radius(0.0f),
-			m_padding0(0) {}
+			m_view_to_world{}, 
+			m_viewport_top_left_x(0u), 
+			m_viewport_top_left_y(0u), 
+			m_viewport_width(0u), 
+			m_viewport_height(0u), 
+			m_ss_viewport_top_left_x(0u), 
+			m_ss_viewport_top_left_y(0u), 
+			m_ss_viewport_width(0u), 
+			m_ss_viewport_height(0u), 
+			m_viewport_inv_width_minus1(0.0f), 
+			m_viewport_inv_height_minus1(0.0f), 
+			m_ss_viewport_inv_width_minus1(0.0f), 
+			m_ss_viewport_inv_height_minus1(0.0f), 
+			m_view_to_voxel{}, m_voxel_size(0.0f), 
+			m_voxel_inv_size(0.0f), 
+			m_voxel_grid_resolution(0u), 
+			m_voxel_grid_inv_resolution(0.0f), 
+			m_lens_radius(0.0f), 
+			m_focal_length(0.0f), 
+			m_max_coc_radius(0.0f), 
+			m_padding0(0u) {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -96,7 +100,7 @@ namespace mage {
 		CameraBuffer &operator=(CameraBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Transforms
+		// Member Variables: Transformations
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
@@ -127,7 +131,7 @@ namespace mage {
 		XMMATRIX m_view_to_world;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Viewport
+		// Member Variables: Viewports
 		//---------------------------------------------------------------------
 
 		/**
@@ -197,7 +201,39 @@ namespace mage {
 		F32 m_ss_viewport_inv_height_minus1;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Lens
+		// Member Variables: Voxelization
+		//---------------------------------------------------------------------
+
+		/**
+		 The camera-view-to-voxel-grid transformation matrix of this camera 
+		 buffer. 
+		 */
+		XMMATRIX m_view_to_voxel;
+
+		/**
+		 The size of a voxel for all dimensions of this camera buffer. 
+		 */
+		F32 m_voxel_size;
+		
+		/**
+		 The inverse size of a voxel for all dimensions of this camera buffer. 
+		 */
+		F32 m_voxel_inv_size;
+
+		/**
+		 The resolution of the voxel grid for all dimensions of this camera 
+		 buffer. 
+		 */
+		U32 m_voxel_grid_resolution;
+
+		/**
+		 The inverse resolution of the voxel grid for all dimensions of this 
+		 camera buffer. 
+		 */
+		F32 m_voxel_grid_inv_resolution;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Post-processing
 		//---------------------------------------------------------------------
 
 		/**
@@ -222,5 +258,5 @@ namespace mage {
 		U32 m_padding0;
 	};
 
-	static_assert(320 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
+	static_assert(400 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
 }

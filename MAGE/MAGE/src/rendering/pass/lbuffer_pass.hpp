@@ -123,11 +123,11 @@ namespace mage {
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights;
-		StructuredBuffer< DirectionalLightWithShadowMappingBuffer > 
+		StructuredBuffer< ShadowMappedDirectionalLightBuffer > 
 			m_sm_directional_lights;
-		StructuredBuffer< OmniLightWithShadowMappingBuffer > 
+		StructuredBuffer< ShadowMappedOmniLightBuffer > 
 			m_sm_omni_lights;
-		StructuredBuffer< SpotLightWithShadowMappingBuffer > 
+		StructuredBuffer< ShadowMappedSpotLightBuffer > 
 			m_sm_spot_lights;
 
 		UniquePtr< ShadowMapBuffer > m_directional_sms;

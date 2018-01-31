@@ -6,15 +6,15 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                         | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_DIFFUSE_BRDF                  | not defined
-// DISSABLE_SPECULAR_BRDF                 | not defined
-// BRDF_F_COMPONENT                       | F_Schlick
-// BRDF_D_COMPONENT                       | D_GGX
-// BRDF_G_COMPONENT                       | G_GXX
-// BRDF_MINIMUM_ALPHA                     | 0.1f
-// BRDF_DOT_EPSILON                       | 0.00001f
+// DISSABLE_DIFFUSE_BRDF                     | not defined
+// DISSABLE_SPECULAR_BRDF                    | not defined
+// BRDF_F_COMPONENT                          | F_Schlick
+// BRDF_D_COMPONENT                          | D_GGX
+// BRDF_G_COMPONENT                          | G_GXX
+// BRDF_MINIMUM_ALPHA                        | 0.1f
+// BRDF_DOT_EPSILON                          | 0.00001f
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants

@@ -1,11 +1,11 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                         | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_BASE_COLOR_TEXTURE            | not defined
-// DISSABLE_MATERIAL_TEXTURE              | not defined
-// TSNM                                   | not defined
+// DISSABLE_BASE_COLOR_TEXTURE               | not defined
+// DISSABLE_MATERIAL_TEXTURE                 | not defined
+// TSNM                                      | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes

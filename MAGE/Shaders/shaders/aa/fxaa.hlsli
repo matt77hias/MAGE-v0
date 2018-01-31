@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                         | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                             | GROUP_SIZE_DEFAULT
-// FXAA_GREEN_AS_LUMA                     | not defined
+// GROUP_SIZE                                | GROUP_SIZE_DEFAULT
+// FXAA_GREEN_AS_LUMA                        | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes

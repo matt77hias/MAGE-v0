@@ -4,11 +4,11 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                         | Default
 //-----------------------------------------------------------------------------
-// LIGHT_DISTANCE_ATTENUATION_COMPONENT   | DistanceAttenuation
-// LIGHT_ANGULAR_ATTENUATION_COMPONENT    | AngularAttenuation
-// FOG_FACTOR_COMPONENT                   | FogFactor_Exponential
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT      | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT       | AngularAttenuation
+// FOG_FACTOR_COMPONENT                      | FogFactor_Exponential
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -66,9 +66,9 @@ struct SpotLight {
 };
 
 /**
- A struct of directional lights with shadow mapping.
+ A struct of shadow mapped directional lights.
  */
-struct DirectionalLightWithShadowMapping {
+struct ShadowMappedDirectionalLight {
 	// The directional light of this directional light with shadow mapping.
 	DirectionalLight light;
 	// The camera-view-to-light-projection transformation matrix.
@@ -76,9 +76,9 @@ struct DirectionalLightWithShadowMapping {
 };
 
 /**
- A struct of omni lights with shadow mapping.
+ A struct of shadow mapped omni lights.
  */
-struct OmniLightWithShadowMapping {
+struct ShadowMappedOmniLight {
 	// The omni light of this omni light with shadow mapping.
 	OmniLight light;
 	// The camera-view-to-light-view transformation matrix.
@@ -92,9 +92,9 @@ struct OmniLightWithShadowMapping {
 };
 
 /**
- A struct of spotlights with shadow mapping.
+ A struct of shadow mapped spotlights.
  */
-struct SpotLightWithShadowMapping {
+struct ShadowMappedSpotLight {
 	// The spotlight of this spotlight with shadow mapping.
 	SpotLight light;
 	// The camera-view-to-light-projection transformation matrix.
@@ -326,7 +326,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
  @param[out]	L
 				The radiance contribution.
  */
-void Contribution(DirectionalLightWithShadowMapping light, 
+void Contribution(ShadowMappedDirectionalLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  Texture2DArray< float > shadow_maps, uint index, 
 				  float3 p, out float3 l, out float3 L) {
@@ -358,7 +358,7 @@ void Contribution(DirectionalLightWithShadowMapping light,
  @param[out]	I
 				The intensity contribution.
  */
-void Contribution(OmniLightWithShadowMapping light, 
+void Contribution(ShadowMappedOmniLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  TextureCubeArray< float > shadow_maps, uint index, 
 				  float3 p, out float3 l, out float3 I) {
@@ -390,7 +390,7 @@ void Contribution(OmniLightWithShadowMapping light,
  @param[out]	I
 				The intensity contribution.
  */
-void Contribution(SpotLightWithShadowMapping light, 
+void Contribution(ShadowMappedSpotLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  Texture2DArray< float > shadow_maps, uint index, 
 				  float3 p, out float3 l, out float3 I) {

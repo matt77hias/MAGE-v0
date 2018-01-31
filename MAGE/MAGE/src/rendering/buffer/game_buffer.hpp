@@ -29,12 +29,12 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		GameBuffer() noexcept
-			: m_display_width(0), 
-			m_display_height(0),
+			: m_display_width(0u), 
+			m_display_height(0u),
 			m_display_inv_width_minus1(0.0f),
 			m_display_inv_height_minus1(0.0f),
-			m_ss_display_width(0),
-			m_ss_display_height(0),
+			m_ss_display_width(0u),
+			m_ss_display_height(0u),
 			m_ss_display_inv_width_minus1(0.0f),
 			m_ss_display_inv_height_minus1(0.0f),
 			m_gamma(0.0f), 
@@ -87,7 +87,7 @@ namespace mage {
 		GameBuffer &operator=(GameBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Material
+		// Member Variables: Display Resolution
 		//---------------------------------------------------------------------
 
 		/**
@@ -131,6 +131,10 @@ namespace mage {
 		 buffer.
 		 */
 		F32 m_ss_display_inv_height_minus1;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Gamma Correction
+		//---------------------------------------------------------------------
 
 		/**
 		 The gamma exponent of this game buffer.

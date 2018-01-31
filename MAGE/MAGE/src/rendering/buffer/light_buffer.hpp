@@ -36,17 +36,17 @@ namespace mage {
 		 */
 		LightBuffer() noexcept
 			: m_La(), 
-			m_padding0(0),
+			m_padding0(0.0f),
 			m_fog_color(), 
 			m_fog_density(0.0f),
-			m_nb_directional_lights(0), 
-			m_nb_omni_lights(0), 
-			m_nb_spot_lights(0), 
-			m_padding1(0),
-			m_nb_sm_directional_lights(0), 
-			m_nb_sm_omni_lights(0), 
-			m_nb_sm_spot_lights(0), 
-			m_padding2(0) {}
+			m_nb_directional_lights(0u), 
+			m_nb_omni_lights(0u), 
+			m_nb_spot_lights(0u), 
+			m_padding1(0u),
+			m_nb_sm_directional_lights(0u), 
+			m_nb_sm_omni_lights(0u), 
+			m_nb_sm_spot_lights(0u), 
+			m_padding2(0u) {}
 		
 		/**
 		 Constructs a light buffer from the given light buffer.
@@ -94,7 +94,7 @@ namespace mage {
 		LightBuffer &operator=(LightBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Lights
+		// Member Variables: Ambient Light
 		//---------------------------------------------------------------------
 
 		/**
@@ -107,6 +107,10 @@ namespace mage {
 		 The padding of this light buffer.
 		 */
 		F32 m_padding0;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Fog
+		//---------------------------------------------------------------------
 	
 		/**
 		 The linear color of the fog of this light buffer.
@@ -117,6 +121,10 @@ namespace mage {
 		 The density of the fog of this light buffer.
 		 */
 		F32 m_fog_density;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Lights without Shadow Mapping
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of directional lights of this light buffer.
@@ -138,19 +146,22 @@ namespace mage {
 		 */
 		U32 m_padding1;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Lights with Shadow Mapping
+		//---------------------------------------------------------------------
+
 		/**
-		 The number of directional lights with shadow mapping of this light 
-		 buffer.
+		 The number of shadow mapped directional lights of this light buffer.
 		 */
 		U32 m_nb_sm_directional_lights;
 
 		/**
-		 The number of omni lights with shadow mapping of this light buffer.
+		 The number of shadow mapped omni lights of this light buffer.
 		 */
 		U32 m_nb_sm_omni_lights;
 
 		/**
-		 The number of spotlights with shadow mapping of this light buffer.
+		 The number of shadow mapped spotlights of this light buffer.
 		 */
 		U32 m_nb_sm_spot_lights;
 
@@ -186,9 +197,9 @@ namespace mage {
 		 */
 		DirectionalLightBuffer() noexcept
 			: m_L(), 
-			m_padding0(0),
+			m_padding0(0u),
 			m_neg_d(), 
-			m_padding1(0) {}
+			m_padding1(0u) {}
 		
 		/**
 		 Constructs an directional light buffer from the given directional 
@@ -298,7 +309,7 @@ namespace mage {
 			: m_p(), 
 			m_inv_sqr_range(0.0f),
 			m_I(), 
-			m_padding0(0) {}
+			m_padding0(0u) {}
 		
 		/**
 		 Constructs an omni light buffer from the given omni light buffer.
@@ -498,14 +509,14 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// DirectionalLightWithShadowMappingBuffer
+	// ShadowMappedDirectionalLightBuffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	/**
 	 A struct of directional light with shadow mapping buffers used by shaders.
 	 */
-	struct alignas(16) DirectionalLightWithShadowMappingBuffer final {
+	struct alignas(16) ShadowMappedDirectionalLightBuffer final {
 
 	public:
 
@@ -516,7 +527,7 @@ namespace mage {
 		/**
 		 Constructs an directional light with shadow mapping buffer.
 		 */
-		DirectionalLightWithShadowMappingBuffer() noexcept
+		ShadowMappedDirectionalLightBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lprojection() {}
 		
@@ -528,8 +539,8 @@ namespace mage {
 						A reference to the directional light with shadow 
 						mapping buffer to copy.
 		 */
-		DirectionalLightWithShadowMappingBuffer(
-			const DirectionalLightWithShadowMappingBuffer &buffer) noexcept = default;
+		ShadowMappedDirectionalLightBuffer(
+			const ShadowMappedDirectionalLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an directional light with shadow mapping buffer by moving 
@@ -539,13 +550,13 @@ namespace mage {
 						A reference to the directional light with shadow 
 						mapping buffer to move.
 		 */
-		DirectionalLightWithShadowMappingBuffer(
-			DirectionalLightWithShadowMappingBuffer &&buffer) noexcept = default;
+		ShadowMappedDirectionalLightBuffer(
+			ShadowMappedDirectionalLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this directional light with shadow mapping buffer.
 		 */
-		~DirectionalLightWithShadowMappingBuffer() = default;
+		~ShadowMappedDirectionalLightBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -562,8 +573,8 @@ namespace mage {
 						with shadow mapping buffer (i.e. this directional light 
 						with shadow mapping buffer).
 		 */
-		DirectionalLightWithShadowMappingBuffer &operator=(
-			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
+		ShadowMappedDirectionalLightBuffer &operator=(
+			const ShadowMappedDirectionalLightBuffer &buffer) = default;
 
 		/**
 		 Moves the given directional light with shadow mapping buffer to this 
@@ -576,8 +587,8 @@ namespace mage {
 						mapping buffer (i.e. this directional light with shadow 
 						mapping buffer).
 		 */
-		DirectionalLightWithShadowMappingBuffer &operator=(
-			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
+		ShadowMappedDirectionalLightBuffer &operator=(
+			ShadowMappedDirectionalLightBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Light
@@ -604,20 +615,20 @@ namespace mage {
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(96 == sizeof(DirectionalLightWithShadowMappingBuffer), 
+	static_assert(96 == sizeof(ShadowMappedDirectionalLightBuffer), 
 		"CPU/GPU struct mismatch");
 
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// OmniLightWithShadowMappingBuffer
+	// ShadowMappedOmniLightBuffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	/**
 	 A struct of omni light with shadow mapping buffers used by shaders.
 	 */
-	struct alignas(16) OmniLightWithShadowMappingBuffer final {
+	struct alignas(16) ShadowMappedOmniLightBuffer final {
 
 	public:
 
@@ -628,7 +639,7 @@ namespace mage {
 		/**
 		 Constructs an omni light with shadow mapping buffer.
 		 */
-		OmniLightWithShadowMappingBuffer() noexcept
+		ShadowMappedOmniLightBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lview(),
 			m_projection_values(), 
@@ -642,8 +653,8 @@ namespace mage {
 						A reference to the omni light with shadow mapping 
 						buffer to copy.
 		 */
-		OmniLightWithShadowMappingBuffer(
-			const OmniLightWithShadowMappingBuffer &buffer) noexcept = default;
+		ShadowMappedOmniLightBuffer(
+			const ShadowMappedOmniLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs an omni light with shadow mapping buffer by moving the given 
@@ -653,13 +664,13 @@ namespace mage {
 						A reference to the omni light with shadow mapping 
 						buffer to move.
 		 */
-		OmniLightWithShadowMappingBuffer(
-			OmniLightWithShadowMappingBuffer &&buffer) noexcept = default;
+		ShadowMappedOmniLightBuffer(
+			ShadowMappedOmniLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this omni light with shadow mapping buffer.
 		 */
-		~OmniLightWithShadowMappingBuffer() = default;
+		~ShadowMappedOmniLightBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -676,8 +687,8 @@ namespace mage {
 						shadow mapping buffer (i.e. this omni light with shadow 
 						mapping buffer).
 		 */
-		OmniLightWithShadowMappingBuffer &operator=(
-			const OmniLightWithShadowMappingBuffer &buffer) = default;
+		ShadowMappedOmniLightBuffer &operator=(
+			const ShadowMappedOmniLightBuffer &buffer) = default;
 
 		/**
 		 Moves the given omni light with shadow mapping buffer to this omni 
@@ -690,8 +701,8 @@ namespace mage {
 						mapping buffer (i.e. this omni light with shadow 
 						mapping buffer).
 		 */
-		OmniLightWithShadowMappingBuffer &operator=(
-			OmniLightWithShadowMappingBuffer &&buffer) = default;
+		ShadowMappedOmniLightBuffer &operator=(
+			ShadowMappedOmniLightBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Light
@@ -727,20 +738,20 @@ namespace mage {
 		U32 m_padding0[2];
 	};
 
-	static_assert(112 == sizeof(OmniLightWithShadowMappingBuffer), 
+	static_assert(112 == sizeof(ShadowMappedOmniLightBuffer), 
 		"CPU/GPU struct mismatch");
 
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// SpotLightWithShadowMappingBuffer
+	// ShadowMappedSpotLightBuffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	/**
 	 A struct of spotlight with shadow mapping buffers used by shaders.
 	 */
-	struct alignas(16) SpotLightWithShadowMappingBuffer final {
+	struct alignas(16) ShadowMappedSpotLightBuffer final {
 
 	public:
 
@@ -751,7 +762,7 @@ namespace mage {
 		/**
 		 Constructs a spotlight with shadow mapping buffer.
 		 */
-		SpotLightWithShadowMappingBuffer() noexcept
+		ShadowMappedSpotLightBuffer() noexcept
 			: m_light(), 
 			m_cview_to_lprojection() {}
 		
@@ -763,8 +774,8 @@ namespace mage {
 						A reference to the spotlight with shadow mapping buffer 
 						to copy.
 		 */
-		SpotLightWithShadowMappingBuffer(
-			const SpotLightWithShadowMappingBuffer &buffer) noexcept = default;
+		ShadowMappedSpotLightBuffer(
+			const ShadowMappedSpotLightBuffer &buffer) noexcept = default;
 
 		/**
 		 Constructs a spotlight with shadow mapping buffer by moving the given 
@@ -774,13 +785,13 @@ namespace mage {
 						A reference to the spotlight with shadow mapping buffer 
 						to move.
 		 */
-		SpotLightWithShadowMappingBuffer(
-			SpotLightWithShadowMappingBuffer &&buffer) noexcept = default;
+		ShadowMappedSpotLightBuffer(
+			ShadowMappedSpotLightBuffer &&buffer) noexcept = default;
 		
 		/**
 		 Destructs this spotlight with shadow mapping buffer.
 		 */
-		~SpotLightWithShadowMappingBuffer() = default;
+		~ShadowMappedSpotLightBuffer() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -797,8 +808,8 @@ namespace mage {
 						shadow mapping buffer (i.e. this spotlight with shadow 
 						mapping buffer).
 		 */
-		SpotLightWithShadowMappingBuffer &operator=(
-			const SpotLightWithShadowMappingBuffer &buffer) = default;
+		ShadowMappedSpotLightBuffer &operator=(
+			const ShadowMappedSpotLightBuffer &buffer) = default;
 
 		/**
 		 Moves the given spotlight with shadow mapping buffer 
@@ -811,8 +822,8 @@ namespace mage {
 						buffer (i.e. this spotlight with shadow mapping 
 						buffer).
 		 */
-		SpotLightWithShadowMappingBuffer &operator=(
-			SpotLightWithShadowMappingBuffer &&buffer) = default;
+		ShadowMappedSpotLightBuffer &operator=(
+			ShadowMappedSpotLightBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Light
@@ -838,7 +849,7 @@ namespace mage {
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(112 == sizeof(SpotLightWithShadowMappingBuffer), 
+	static_assert(112 == sizeof(ShadowMappedSpotLightBuffer), 
 		"CPU/GPU struct mismatch");
 
 	#pragma endregion

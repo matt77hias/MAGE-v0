@@ -40,7 +40,7 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 		}
 
 		// [m] * [voxels/m] * [1/voxels]
-		output[i].p.xy  *= (g_voxel_grid_inv_size * g_voxel_grid_inv_resolution);
+		output[i].p.xy  *= (g_voxel_inv_size * g_voxel_grid_inv_resolution);
 		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		output[i].p.zw   = float2(0.0f, 1.0f);
 		#else  // DISSABLE_INVERTED_Z_BUFFER

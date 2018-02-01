@@ -23,12 +23,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION   512
+#define MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION 512
 
 //TODO: make configurable
-#define MAGE_DEFAULT_DEPTH_BIAS              100
-#define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS 1.0f
-#define MAGE_DEFAULT_DEPTH_BIAS_CLAMP        0.0f
+#define MAGE_DEFAULT_DEPTH_BIAS               100
+#define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS  1.0f
+#define MAGE_DEFAULT_DEPTH_BIAS_CLAMP         0.0f
 
 #pragma endregion
 

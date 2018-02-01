@@ -137,6 +137,11 @@ namespace mage {
 			                    CXMMATRIX world_to_view,
 			                    CXMMATRIX view_to_world);
 
+		/**
+		 Dispatches the voxelization pass.
+		 */
+		void Dispatch();
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -215,6 +220,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		 The voxel grid of this voxelization pass. 
+		 */
+		VoxelGrid m_voxel_grid;
 
 		/**
 		 A pointer to the device context of this voxelization pass. 

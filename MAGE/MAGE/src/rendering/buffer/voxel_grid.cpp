@@ -5,7 +5,11 @@
 
 #include "rendering\buffer\voxel_grid.hpp"
 #include "rendering\rendering_factory.hpp"
+#include "camera\viewport.hpp"
 #include "exception\exception.hpp"
+
+// Include HLSL bindings.
+#include "hlsl.hpp"
 
 #pragma endregion
 
@@ -26,11 +30,11 @@ namespace mage {
 	void VoxelGrid::SetupVoxelGrid(ID3D11Device5 *device) {
 		Assert(device);
 
-		SetupVoxelGridStructuredBuffer(device);
-		SetupVoxelGridTexture(device);
+		SetupStructuredBuffer(device);
+		SetupTexture(device);
 	}
 
-	void VoxelGrid::SetupVoxelGridStructuredBuffer(ID3D11Device5 *device) {
+	void VoxelGrid::SetupStructuredBuffer(ID3D11Device5 *device) {
 		Assert(device);
 
 		const size_t nb_voxels = m_resolution * m_resolution * m_resolution;
@@ -50,8 +54,14 @@ namespace mage {
 			// CPU: no read + no write
 			buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
 			
+			UniquePtr< U8[] > data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
+			memset(data.get(), 0, buffer_desc.ByteWidth);
+
+			D3D11_SUBRESOURCE_DATA init_data = {};
+			init_data.pSysMem = data.get();
+
 			const HRESULT result = device->CreateBuffer(
-				&buffer_desc, nullptr, buffer.ReleaseAndGetAddressOf());
+				&buffer_desc, &init_data, buffer.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
 		}
 
@@ -65,7 +75,7 @@ namespace mage {
 			srv_desc.Buffer.NumElements  = static_cast< U32 >(nb_voxels);
 			
 			const HRESULT result = device->CreateShaderResourceView(
-				buffer.Get(), &srv_desc, m_grid_srv.ReleaseAndGetAddressOf());
+				buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
 
@@ -79,12 +89,12 @@ namespace mage {
 			uav_desc.Buffer.NumElements  = static_cast< U32 >(nb_voxels);
 
 			const HRESULT result = device->CreateUnorderedAccessView(
-				buffer.Get(), &uav_desc, m_grid_uav.ReleaseAndGetAddressOf());
+				buffer.Get(), &uav_desc, m_buffer_uav.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
 	}
 
-	void VoxelGrid::SetupVoxelGridTexture(ID3D11Device5 *device) {
+	void VoxelGrid::SetupTexture(ID3D11Device5 *device) {
 		Assert(device);
 
 		ComPtr< ID3D11Texture3D > texture;
@@ -122,5 +132,53 @@ namespace mage {
 				texture.Get(), nullptr, m_texture_uav.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
+	}
+
+	void VoxelGrid::BindBeginVoxelizationBuffer(
+		ID3D11DeviceContext4 *device_context) const noexcept {
+		
+		Pipeline::OM::BindRTVAndDSVAndUAV(device_context,
+			nullptr, nullptr, SLOT_UAV_VOXEL_BUFFER, m_buffer_uav.Get());
+
+		const auto resolution = static_cast< F32 >(m_resolution);
+		const Viewport viewport(resolution, resolution);
+		viewport.BindViewport(device_context);
+	}
+
+	void VoxelGrid::BindEndVoxelizationBuffer(
+		ID3D11DeviceContext4 *device_context) const noexcept {
+
+		Pipeline::OM::BindRTVAndDSVAndUAV(device_context,
+			nullptr, nullptr, SLOT_UAV_VOXEL_BUFFER, nullptr);
+	}
+
+	void VoxelGrid::BindBeginVoxelizationTexture(
+		ID3D11DeviceContext4 *device_context) const noexcept {
+
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			nullptr);
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			nullptr);
+
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER,
+			m_buffer_uav.Get());
+		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			m_texture_uav.Get());
+	}
+
+	void VoxelGrid::BindEndVoxelizationTexture(
+		ID3D11DeviceContext4 *device_context) const noexcept {
+
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER,
+			nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			nullptr);
+
+		device_context->GenerateMips(m_texture_srv.Get());
+
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			m_texture_srv.Get());
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+			m_texture_srv.Get());
 	}
 }

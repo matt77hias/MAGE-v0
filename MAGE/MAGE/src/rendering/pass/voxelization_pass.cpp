@@ -24,12 +24,15 @@ namespace mage {
 	}
 
 	VoxelizationPass::VoxelizationPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(),
+		: m_voxel_grid(),
+		m_device_context(Pipeline::GetImmediateDeviceContext()),
+		m_vs(CreateVoxelizationVS()),
+		m_gs(CreateVoxelizationGS()),
 		m_ps{ 
 			CreateVoxelizationPS(BRDFType::Unknown, false), 
 			CreateVoxelizationPS(BRDFType::Unknown, true)
 		},
+		m_cs(CreateVoxelizationCS()),
 		m_bound_ps(PSIndex::Count), 
 		m_brdf(BRDFType::Unknown),
 		m_model_buffer() {}
@@ -57,7 +60,6 @@ namespace mage {
 	}
 
 	void VoxelizationPass::BindPS(const Material &material) noexcept {
-		
 		if (material.GetNormalSRV()) {
 			BindPS(PSIndex::BRDF_TSNM);
 		}
@@ -81,13 +83,10 @@ namespace mage {
 		buffer.m_metalness  = material.GetMetalness();
 		
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, 
-			buffer);
+		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
-		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
-		m_model_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Bind the base color SRV.
 		Pipeline::PS::BindSRV(m_device_context,
@@ -159,5 +158,14 @@ namespace mage {
 			// Draw the model.
 			model.Draw(m_device_context);
 		});
+	}
+	
+	void VoxelizationPass::Dispatch() {
+		// CS: Bind the compute shader.
+		m_cs->BindShader(m_device_context);
+
+		// Dispatch.
+		const auto nb_groups = static_cast< U32 >(ceil(0.25f * m_voxel_grid.GetResolution()));
+		Pipeline::Dispatch(m_device_context, nb_groups, nb_groups, nb_groups);
 	}
 }

@@ -88,13 +88,19 @@
 #define SLOT_SRV_SPOT_SHADOW_MAPS                  9
 
 //-----------------------------------------------------------------------------
+// Engine Includes: Voxelization
+//-----------------------------------------------------------------------------
+
+#define SLOT_SRV_VOXEL_TEXTURE                    10
+
+//-----------------------------------------------------------------------------
 // Engine Includes: GBuffer SRVs
 //-----------------------------------------------------------------------------
 
-#define SLOT_SRV_BASE_COLOR                       10
-#define SLOT_SRV_MATERIAL                         11
-#define SLOT_SRV_NORMAL                           12
-#define SLOT_SRV_DEPTH                            13
+#define SLOT_SRV_BASE_COLOR                       11
+#define SLOT_SRV_MATERIAL                         12
+#define SLOT_SRV_NORMAL                           13
+#define SLOT_SRV_DEPTH                            14
 
 //-----------------------------------------------------------------------------
 // Engine Includes: General SRVs

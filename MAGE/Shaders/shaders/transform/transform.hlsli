@@ -1,20 +1,67 @@
 //-----------------------------------------------------------------------------
-// Requires global variable: g_object_to_view
-// Requires global variable: g_view_to_projection
-// Requires global variable: g_normal_to_view
-// Requires global variable: g_texture_transform
+// Engine Includes
 //-----------------------------------------------------------------------------
+#include "structures.hlsli"
 
 //-----------------------------------------------------------------------------
-// Vertex Shader
+// Engine Declarations and Definitions 
 //-----------------------------------------------------------------------------
-PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
+
+/**
+ Transform the given vertex input structure.
+
+ @param[in]		input
+				The vertex input structure.
+ @param[in]		object_to_view
+				The object-to-view transformation matrix.
+ @param[in]		view_to_projection
+				The view-to-projection transformation matrix.
+ @param[in]		normal_to_view
+				The normal-to-view transformation matrix.
+ @return		The pixel shader input structure. 
+ */
+PSInputPositionNormalTexture Transform(VSInputPositionNormalTexture input,
+	                                   float4x4 object_to_view, 
+	                                   float4x4 view_to_projection, 
+	                                   float3x3 normal_to_view) {
+
 	PSInputPositionNormalTexture output;
-	output.p      = mul(float4(input.p, 1.0f), g_object_to_view);
+	output.p      = mul(float4(input.p, 1.0f), object_to_view);
 	output.p_view = output.p.xyz;
-	output.p      = mul(output.p, g_view_to_projection);
-	output.n_view = normalize(mul(input.n, (float3x3)g_normal_to_view));
-	output.tex    = mul(float4(input.tex, 0.0f, 1.0f), g_texture_transform).xy;
+	output.p      = mul(output.p, view_to_projection);
+	output.n_view = normalize(mul(input.n, normal_to_view));
+	output.tex    = input.tex;
+	output.tex2   = input.tex;
+	return output;
+}
+
+/**
+ Transform the given vertex input structure.
+
+ @param[in]		input
+				The vertex input structure.
+ @param[in]		object_to_view
+				The object-to-view transformation matrix.
+ @param[in]		view_to_projection
+				The view-to-projection transformation matrix.
+ @param[in]		normal_to_view
+				The normal-to-view transformation matrix.
+ @param[in]		texture_transform
+				The texture transformation matrix.
+ @return		The pixel shader input structure. 
+ */
+PSInputPositionNormalTexture Transform(VSInputPositionNormalTexture input,
+	                                   float4x4 object_to_view, 
+	                                   float4x4 view_to_projection, 
+	                                   float3x3 normal_to_view, 
+	                                   float4x4 texture_transform) {
+
+	PSInputPositionNormalTexture output;
+	output.p      = mul(float4(input.p, 1.0f), object_to_view);
+	output.p_view = output.p.xyz;
+	output.p      = mul(output.p, view_to_projection);
+	output.n_view = normalize(mul(input.n, normal_to_view));
+	output.tex    = mul(float4(input.tex, 0.0f, 1.0f), texture_transform).xy;
 	output.tex2   = input.tex;
 	return output;
 }

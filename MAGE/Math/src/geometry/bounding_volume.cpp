@@ -125,7 +125,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Axis-Aligned Bounding Box: Enclosing = Full Coverage
+	// Bounding Sphere: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
 	[[nodiscard]] bool BoundingSphere

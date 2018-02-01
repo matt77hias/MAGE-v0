@@ -278,8 +278,9 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept {
-			const auto length = XMVector3Length(point - m_pr);
-			return XMVectorGetX(length) <= Radius();
+			const auto length2 = XMVector3LengthSq(point - m_pr);
+			const auto radius  = Radius();
+			return XMVectorGetX(length2) <= radius * radius;
 		}
 
 		/**
@@ -294,8 +295,9 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]] bool XM_CALLCONV EnclosesStrict(FXMVECTOR point) const noexcept {
-			const auto length = XMVector3Length(point - m_pr);
-			return XMVectorGetX(length) < Radius();
+			const auto length2 = XMVector3LengthSq(point - m_pr);
+			const auto radius  = Radius();
+			return XMVectorGetX(length2) < radius * radius;
 		}
 
 		/**
@@ -349,6 +351,46 @@ namespace mage {
 						regard to a bounding sphere.
 		 */
 		[[nodiscard]] bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Overlapping = Partial | Full Coverage
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this bounding sphere overlaps the given bounding 
+		 sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding sphere overlaps @a sphere.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to an bounding sphere.
+		 */
+		[[nodiscard]] bool Overlaps(const BoundingSphere &sphere) const noexcept {
+			const auto length2  = XMVector3LengthSq(sphere.m_pr - m_pr);
+			const auto radius_1 = Radius();
+			const auto radius_2 = sphere.Radius();
+			return XMVectorGetX(length2) <= radius_1 * radius_1 + radius_2 * radius_2;
+		}
+
+		/**
+		 Checks whether this bounding sphere strictly overlaps the given 
+		 bounding sphere.
+
+		 @param[in]		sphere
+						A reference to the bounding sphere.
+		 @return		@c true if this bounding sphere strictly overlaps 
+						@a sphere. @c false otherwise.
+		 @note			This is a (partial or full) coverage test of a bounding 
+						sphere with regard to an bounding sphere.
+		 */
+		[[nodiscard]] bool OverlapsStrict(const BoundingSphere &sphere) const noexcept {
+			const auto length2  = XMVector3LengthSq(sphere.m_pr - m_pr);
+			const auto radius_1 = Radius();
+			const auto radius_2 = sphere.Radius();
+			return XMVectorGetX(length2) < radius_1 * radius_1 + radius_2 * radius_2;
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Operators

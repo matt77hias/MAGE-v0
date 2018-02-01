@@ -322,6 +322,9 @@
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_ward_duer_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_VS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shaders\brdf.hlsli">

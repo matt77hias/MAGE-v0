@@ -29,10 +29,10 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define DISSABLE_DIFFUSE_BRDF
-#include "forward\forward_input.hlsli"
-#include "lighting.hlsli"
 #include "voxelization\voxel.hlsli"
+#include "forward\forward_input.hlsli"
+#define DISSABLE_DIFFUSE_BRDF
+#include "lighting.hlsli"
 
 //-----------------------------------------------------------------------------
 // UAV

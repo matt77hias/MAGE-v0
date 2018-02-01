@@ -1041,12 +1041,12 @@ float2 LocationToUV(float2 location, float2 inv_resolution_minus1) {
  @param[in]		index
 				The 2D index.
  @param[in]		count
-				The number of y elements per x element.
+				The number of elements in each dimension.
  @return		The flattened 1D index corresponding to the given 2D index
-				using x->y ordering.
+				using y->x ordering.
  */
-uint FlattenIndex(uint2 index, uint count) {
-	return index.x * count + index.y;
+uint FlattenIndex(uint2 index, uint2 count) {
+	return index.y * count.x + index.x;
 }
 
 /**
@@ -1055,13 +1055,41 @@ uint FlattenIndex(uint2 index, uint count) {
  @param[in]		index
 				The 3D index.
  @param[in]		count
-				The number of y elements per x element.
-				The number of z elements per y element.
+				The number of elements in each dimension.
  @return		The flattened 1D index corresponding to the given 3D index
-				using x->y->z ordering.
+				using z->y->x ordering.
  */
-uint FlattenIndex(uint3 index, uint2 count) {
-	return FlattenIndex(index.xy, count.x) * count.y + index.z;
+uint FlattenIndex(uint3 index, uint3 count) {
+	return FlattenIndex(index.xy, count.xy) * count.y + index.z;
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 2D index corresponding to the given flattened 1D index
+				using y->x ordering.
+ */
+uint2 UnflattenIndex(uint index, uint2 count) {
+	return uint2(index % count.x, index / count.x);
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 3D index corresponding to the given flattened 1D index
+				using z->y->x ordering.
+ */
+uint3 UnflattenIndex(uint index, uint3 count) {
+	const uint slice_z = count.x * count.y;
+	return uint3(UnflattenIndex(index % slice_z, count.xy), index / slice_z);
 }
 
 //-----------------------------------------------------------------------------

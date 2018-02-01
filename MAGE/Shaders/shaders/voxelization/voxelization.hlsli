@@ -37,7 +37,7 @@
 //-----------------------------------------------------------------------------
 // UAV
 //-----------------------------------------------------------------------------
-RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_IMAGE);
+RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_VOXEL_BUFFER);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
@@ -71,8 +71,7 @@ void PS(PSInputPositionNormalTexture input) {
 	const float3 L = BRDFShading(input.p_view, n_view, 
 		                         base_color.xyz, material.x, material.y);
 
-	const uint flat_index = FlattenIndex(index, uint2(g_voxel_grid_resolution, 
-		                                              g_voxel_grid_resolution));
+	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	// Store the encoded radiance and normal.
 	InterlockedMax(output[flat_index].encoded_L, EncodeRadiance(L));

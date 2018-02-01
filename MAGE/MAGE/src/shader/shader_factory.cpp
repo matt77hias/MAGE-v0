@@ -95,6 +95,8 @@
 #include "transform\transform_VS.hpp"
 
 // Voxelization
+#include "voxelization\voxelization_CS.hpp"
+#include "voxelization\voxelization_VS.hpp"
 #include "voxelization\voxelization_GS.hpp"
 #include "voxelization\voxelization_blinn_phong_PS.hpp"
 #include "voxelization\voxelization_cook_torrance_PS.hpp"
@@ -528,6 +530,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
+	VertexShaderPtr CreateVoxelizationVS() {
+		using vertex_t = VertexPositionNormalTexture;
+		return Create< VertexShader >(MAGE_SHADER_ARGS(g_voxelization_VS), 
+			                          vertex_t::s_input_element_desc,
+			                          vertex_t::s_nb_input_elements);
+	}
+
 	GeometryShaderPtr CreateVoxelizationGS() {
 		return Create< GeometryShader >(MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
@@ -571,6 +580,10 @@ namespace mage {
 		default:
 			return CreateVoxelizationFrostbitePS(tsnm);
 		}
+	}
+
+	ComputeShaderPtr CreateVoxelizationCS() {
+		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_voxelization_CS));
 	}
 
 	#pragma endregion

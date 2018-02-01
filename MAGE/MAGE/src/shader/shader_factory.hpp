@@ -757,6 +757,19 @@ namespace mage {
 	#pragma region
 
 	/**
+	 Creates a voxelization vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the vertex shader.
+	 */
+	VertexShaderPtr CreateVoxelizationVS();
+
+	/**
 	 Creates a voxelization geometry shader.
 
 	 @pre			The resource manager associated with the current engine 
@@ -867,6 +880,19 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateVoxelizationPS(BRDFType brdf, bool tsnm = false);
+
+	/**
+	 Creates a voxelization compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the compute shader.
+	 */
+	ComputeShaderPtr CreateVoxelizationCS();
 
 	#pragma endregion
 }

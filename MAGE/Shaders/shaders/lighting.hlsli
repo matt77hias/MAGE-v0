@@ -126,6 +126,8 @@ TEXTURE_2D_ARRAY(g_spot_sms, float,
 
 #endif // BRDFxCOS
 
+//TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -135,6 +137,8 @@ float3 BRDFShading(float3 p, float3 n,
 				   float3 base_color, 
 				   float roughness, 
 				   float metalness) {
+
+	//return g_voxel_texture[p * g_voxel_inv_size * g_voxel_grid_inv_resolution];
 
 	const float r_eye = length(p);
 

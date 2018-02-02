@@ -102,12 +102,12 @@ namespace mage {
 		buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
 		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
-		buffer.m_voxel_size                    = 1.0f;
-		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
 		buffer.m_voxel_grid_resolution         = 256u;
 		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
-
-		const float radius = buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
+		buffer.m_voxel_size                    = 256.0f * buffer.m_voxel_grid_inv_resolution;
+		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
+		
+		const float radius = 0.5f * buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
 		#ifdef DISSABLE_INVERTED_Z_BUFFER
 		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius, 
 																 -radius, radius, 
@@ -317,6 +317,9 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
+
+		//GetVoxelizationPass()->Render(scene, world_to_projection,
+		//							  world_to_view, view_to_world, brdf, 128u);
 		
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.

@@ -43,7 +43,6 @@ RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_VOXEL_BUFFER);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputPositionNormalTexture input) {
-	
 	// [m] * [voxels/m] * [1/voxels]
 	const float3 relative = input.p_view * g_voxel_inv_size 
 		                                 * g_voxel_grid_inv_resolution;

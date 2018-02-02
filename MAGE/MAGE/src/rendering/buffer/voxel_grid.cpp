@@ -5,7 +5,6 @@
 
 #include "rendering\buffer\voxel_grid.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "camera\viewport.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -163,7 +162,7 @@ namespace mage {
 
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
 							  m_buffer_uav.Get());
-		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_TEXTURE, 
 							  m_texture_uav.Get());
 	}
 
@@ -172,7 +171,7 @@ namespace mage {
 
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
 							  nullptr);
-		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_TEXTURE, 
 							  nullptr);
 
 		device_context->GenerateMips(m_texture_srv.Get());

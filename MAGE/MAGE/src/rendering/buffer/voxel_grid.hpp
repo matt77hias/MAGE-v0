@@ -10,15 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_VOXEL_GRID_RESOLUTION 64
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -27,10 +18,8 @@ namespace mage {
 
 	public:
 
-		explicit VoxelGrid(size_t resolution 
-			               = MAGE_DEFAULT_VOXEL_GRID_RESOLUTION);
-		explicit VoxelGrid(ID3D11Device5 *device, size_t resolution 
-			               = MAGE_DEFAULT_VOXEL_GRID_RESOLUTION);
+		explicit VoxelGrid(size_t resolution);
+		explicit VoxelGrid(ID3D11Device5 *device, size_t resolution);
 		VoxelGrid(const VoxelGrid &voxel_grid) = delete;
 		VoxelGrid(VoxelGrid &&voxel_grid) = default;
 		~VoxelGrid() = default;

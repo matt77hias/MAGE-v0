@@ -137,48 +137,49 @@ namespace mage {
 	void VoxelGrid::BindBeginVoxelizationBuffer(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 		
-		Pipeline::OM::BindRTVAndDSVAndUAV(device_context,
-			nullptr, nullptr, SLOT_UAV_VOXEL_BUFFER, m_buffer_uav.Get());
+		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
+										  SLOT_UAV_VOXEL_BUFFER, 
+										  m_buffer_uav.Get());
 
-		const auto resolution = static_cast< F32 >(m_resolution);
-		const Viewport viewport(resolution, resolution);
-		viewport.BindViewport(device_context);
+		// No viewport needs to be bound, since the viewport will not be used 
+		// explicitly.
 	}
 
 	void VoxelGrid::BindEndVoxelizationBuffer(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
-		Pipeline::OM::BindRTVAndDSVAndUAV(device_context,
-			nullptr, nullptr, SLOT_UAV_VOXEL_BUFFER, nullptr);
+		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
+										  SLOT_UAV_VOXEL_BUFFER, 
+										  nullptr);
 	}
 
 	void VoxelGrid::BindBeginVoxelizationTexture(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			nullptr);
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  nullptr);
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  nullptr);
 
-		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER,
-			m_buffer_uav.Get());
-		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			m_texture_uav.Get());
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
+							  m_buffer_uav.Get());
+		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  m_texture_uav.Get());
 	}
 
 	void VoxelGrid::BindEndVoxelizationTexture(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
-		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER,
-			nullptr);
-		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
+							  nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  nullptr);
 
 		device_context->GenerateMips(m_texture_srv.Get());
 
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			m_texture_srv.Get());
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
-			m_texture_srv.Get());
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  m_texture_srv.Get());
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  m_texture_srv.Get());
 	}
 }

@@ -89,8 +89,7 @@ namespace mage {
 		 @return		A reference to the copy of the given voxelization 
 						pass (i.e. this voxelization pass).
 		 */
-		VoxelizationPass &operator=(
-			const VoxelizationPass &pass) = delete;
+		VoxelizationPass &operator=(const VoxelizationPass &pass) = delete;
 
 		/**
 		 Moves the given voxelization pass to this voxelization pass.
@@ -100,23 +99,11 @@ namespace mage {
 		 @return		A reference to the moved voxelization pass (i.e. 
 						this voxelization pass).
 		 */
-		VoxelizationPass &operator=(
-			VoxelizationPass &&pass) = delete;
+		VoxelizationPass &operator=(VoxelizationPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this voxelization pass.
-
-		 @param[in]		brdf
-						The BRDF.
-		 @throws		Exception
-						Failed to bind the fixed state of this voxelization 
-						pass.
-		 */
-		void BindFixedState(BRDFType brdf);
 
 		/**
 		 Renders the scene.
@@ -129,24 +116,40 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
+		 @param[in]		brdf
+						The BRDF.
+		 @param[in]		resolution
+						The resolution of the regular voxel grid.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world);
-
-		/**
-		 Dispatches the voxelization pass.
-		 */
-		void Dispatch();
+			                    CXMMATRIX view_to_world, 
+								BRDFType brdf,
+								size_t resolution);
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Sets up the voxel grid of this voxelization pass.
+
+		 @param[in]		resolution
+						The resolution of the regular voxel grid.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void SetupVoxelGrid(size_t resolution);
+
+		/**
+		 Binds the fixed state of this voxelization pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for variable 
@@ -217,14 +220,36 @@ namespace mage {
 			                           CXMMATRIX texture_transform,
 			                           const Material &material);
 
+		/**
+		 Renders the scene.
+
+		 @param[in]		scene
+						A reference to the scene.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_world
+						The view-to-world transformation matrix.
+		 @param[in]		brdf
+						The BRDF.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV Render(const Scene &scene,
+			                    FXMMATRIX world_to_projection,
+			                    CXMMATRIX world_to_view,
+			                    CXMMATRIX view_to_world, 
+								BRDFType brdf);
+
+		/**
+		 Dispatches this voxelization pass.
+		 */
+		void Dispatch() const noexcept;
+			
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-
-		/**
-		 The voxel grid of this voxelization pass. 
-		 */
-		VoxelGrid m_voxel_grid;
 
 		/**
 		 A pointer to the device context of this voxelization pass. 
@@ -267,5 +292,10 @@ namespace mage {
 		 The model buffer of this voxelization pass.
 		 */
 		ConstantBuffer< ModelBuffer > m_model_buffer;
+
+		/**
+		 The voxel grid of this voxelization pass. 
+		 */
+		UniquePtr< VoxelGrid > m_voxel_grid;
 	};
 }

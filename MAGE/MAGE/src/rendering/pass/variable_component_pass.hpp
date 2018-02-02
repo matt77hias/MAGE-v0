@@ -58,21 +58,19 @@ namespace mage {
 		 Constructs a variable component pass from the given variable component 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable component pass to copy.
 		 */
-		VariableComponentPass(
-			const VariableComponentPass &render_pass) = delete;
+		VariableComponentPass(const VariableComponentPass &pass) = delete;
 
 		/**
 		 Constructs a variable component pass by moving the given variable 
 		 component pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable component pass to move.
 		 */
-		VariableComponentPass(
-			VariableComponentPass &&render_pass) noexcept;
+		VariableComponentPass(VariableComponentPass &&pass) noexcept;
 
 		/**
 		 Destructs this variable component pass.
@@ -87,40 +85,27 @@ namespace mage {
 		 Copies the given variable component pass to this variable component 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable component pass to copy.
 		 @return		A reference to the copy of the given variable component 
 						pass (i.e. this variable component pass).
 		 */
-		VariableComponentPass &operator=(
-			const VariableComponentPass &render_pass) = delete;
+		VariableComponentPass &operator=(const VariableComponentPass &pass) = delete;
 
 		/**
 		 Moves the given variable component pass to this variable component 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable component pass to move.
 		 @return		A reference to the moved variable component pass (i.e. 
 						this variable component pass).
 		 */
-		VariableComponentPass &operator=(
-			VariableComponentPass &&render_pass) = delete;
+		VariableComponentPass &operator=(VariableComponentPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this variable component pass.
-
-		 @param[in]		render_mode
-						The render mode.
-		 @throws		Exception
-						Failed to bind the fixed state of this variable 
-						component pass.
-		 */
-		void BindFixedState(RenderMode render_mode);
 
 		/**
 		 Renders the scene.
@@ -133,19 +118,27 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
+		 @param[in]		render_mode
+						The render mode.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world);
+			                    CXMMATRIX view_to_world,
+								RenderMode render_mode);
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this variable component pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 Binds the model data of this variable component pass.

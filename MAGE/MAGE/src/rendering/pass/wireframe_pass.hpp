@@ -55,18 +55,18 @@ namespace mage {
 		/**
 		 Constructs a wireframe pass from the given wireframe pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the wireframe pass to copy.
 		 */
-		WireframePass(const WireframePass &render_pass) = delete;
+		WireframePass(const WireframePass &pass) = delete;
 
 		/**
 		 Constructs a wireframe pass by moving the given wireframe pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the wireframe pass to move.
 		 */
-		WireframePass(WireframePass &&render_pass) noexcept;
+		WireframePass(WireframePass &&pass) noexcept;
 
 		/**
 		 Destructs this wireframe pass.
@@ -80,35 +80,27 @@ namespace mage {
 		/**
 		 Copies the given wireframe pass to this wireframe pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the wireframe pass to copy.
 		 @return		A reference to the copy of the given wireframe pass 
 						(i.e. this wireframe pass).
 		 */
-		WireframePass &operator=(const WireframePass &render_pass) = delete;
+		WireframePass &operator=(const WireframePass &pass) = delete;
 
 		/**
 		 Moves the given wireframe pass to this wireframe pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the wireframe pass to move.
 		 @return		A reference to the moved wireframe pass (i.e. this 
 						wireframe pass).
 		 */
-		WireframePass &operator=(WireframePass &&render_pass) = delete;
+		WireframePass &operator=(WireframePass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		/**
-		 Binds the fixed state of this wireframe pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this wireframe pass.
-		 */
-		void BindFixedState();
-		
 		/**
 		 Renders the scene.
 
@@ -118,12 +110,15 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
+		 @param[in]		color
+						A reference to the color (in in linear space).
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view);
+			                    CXMMATRIX world_to_view,
+								const RGBA &color = { 0.0f, 0.0f, 1.0f, 1.0f });
 
 	private:
 
@@ -132,12 +127,19 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Binds the fixed state of this wireframe pass.
+		 */
+		void BindFixedState() const noexcept;
+
+		/**
 		 Binds the color data of this wireframe pass.
 
+		 @param[in]		color
+						A reference to the color (in in linear space).
 		 @throws		Exception
 						Failed to bind the color data of this wireframe pass.
 		 */
-		void BindColorData();
+		void BindColorData(const RGBA &color);
 
 		/**
 		 Binds the model data of this wireframe pass.

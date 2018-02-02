@@ -147,13 +147,13 @@ namespace mage {
 
 			// Bind the camera buffer.
 			BindCameraBuffer(camera, 
-				             view_to_projection, 
-				             projection_to_view,
-				             world_to_view, 
-				             view_to_world);
+							 view_to_projection, projection_to_view, 
+							 world_to_view, view_to_world);
+
+			const auto render_mode = camera.GetSettings().GetRenderMode();
 
 			// RenderMode
-			switch (camera.GetSettings().GetRenderMode()) {
+			switch (render_mode) {
 
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(scene, 
@@ -190,60 +190,50 @@ namespace mage {
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetVariableComponentPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene, 
-					         world_to_projection, 
-					         world_to_view, 
-					         view_to_world);
-
+				GetVariableComponentPass()->Render(scene, 
+												   world_to_projection, 
+												   world_to_view, 
+												   view_to_world, 
+												   render_mode);
 				break;
 			}
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetConstantComponentPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene,
-					         world_to_projection, 
-					         world_to_view, 
-					         view_to_world);
-
+				GetConstantComponentPass()->Render(scene, 
+												   world_to_projection, 
+												   world_to_view, 
+												   view_to_world,
+												   render_mode);
 				break;
 			}
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetShadingNormalPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene,
-					         world_to_projection, 
-					         world_to_view);
-
+				GetShadingNormalPass()->Render(scene,
+											   world_to_projection, 
+											   world_to_view, 
+											   render_mode);
 				break;
 			}
 
-			case RenderMode::None: {
+			default: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 				break;
@@ -252,15 +242,16 @@ namespace mage {
 			}
 
 			// RenderLayer
-			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::Wireframe)) {
-				const auto pass = GetWireframePass();
-				pass->BindFixedState();
-				pass->Render(scene, world_to_projection, world_to_view);
+			const auto &settings = camera.GetSettings();
+			if (settings.ContainsRenderLayer(RenderLayer::Wireframe)) {
+				GetWireframePass()->Render(scene, 
+										   world_to_projection, 
+										   world_to_view);
 			}
-			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::AABB)) {
-				const auto pass = GetBoundingVolumePass();
-				pass->BindFixedState();
-				pass->Render(scene, world_to_projection, world_to_view);
+			if (settings.ContainsRenderLayer(RenderLayer::AABB)) {
+				GetBoundingVolumePass()->Render(scene, 
+												world_to_projection, 
+												world_to_view);
 			}
 			
 			output_manager->BindEndForward(m_device_context);
@@ -270,29 +261,24 @@ namespace mage {
 			output_manager->BindBeginPostProcessing(m_device_context);
 
 			// Bind the viewport.
-			const auto &viewport = camera.GetViewport();
-			viewport.BindViewport(m_device_context);
+			camera.BindViewport(m_device_context);
 			
 			if (camera.GetLens().HasFiniteAperture()) {
 				output_manager->BindPingPong(m_device_context);
-				GetDOFPass()->Dispatch(viewport);
+				GetDOFPass()->Dispatch(camera.GetViewport());
 			}
 
 			output_manager->BindEnd(m_device_context);
 
 			// Perform a back buffer pass.
-			const auto back_buffer_pass = GetBackBufferPass();
-			back_buffer_pass->BindFixedState();
-			back_buffer_pass->Render();
+			GetBackBufferPass()->Render();
 		});
 		
 		// Bind the maximum viewport.
 		m_maximum_viewport.BindViewport(m_device_context);
 		
 		// Perform a sprite pass.
-		const auto * const sprite_pass = GetSpritePass();
-		sprite_pass->BindFixedState();
-		sprite_pass->Render(scene);
+		GetSpritePass()->Render(scene);
 	}
 
 	void XM_CALLCONV Renderer
@@ -302,28 +288,23 @@ namespace mage {
 		                              CXMMATRIX world_to_view,
 		                              CXMMATRIX view_to_world) {
 		
-		const auto output_manager = RenderingOutputManager::Get();
-		const auto viewport = camera.GetSSViewport();
-
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection, 
+								 world_to_view, view_to_world, 
+								 camera.GetSettings().GetFog());
+		
 		// Restore the viewport.
-		viewport.BindViewport(m_device_context);
+		camera.BindSSViewport(m_device_context);
 		
-		output_manager->BindBeginForward(m_device_context);
+		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
 		
+		//---------------------------------------------------------------------
 		// Perform a forward pass.
-		const auto forward_pass = GetConstantShadingPass();
-		forward_pass->BindFixedState();
-		forward_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetConstantShadingPass()->Render(scene, world_to_projection, 
+										 world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV Renderer
@@ -335,38 +316,37 @@ namespace mage {
 
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
+		const auto brdf = camera.GetSettings().GetBRDF();
 		
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection,
+								 world_to_view, view_to_world,
+								 camera.GetSettings().GetFog());
+
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		
 		output_manager->BindBeginForward(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: opaque fragments.
-		const auto forward_pass = GetVariableShadingPass();
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->Render(scene, world_to_projection, 
+										 world_to_view, view_to_world, brdf);
 
+		//---------------------------------------------------------------------
 		// Perform a sky pass.
-		const auto * const sky_pass = GetSkyPass();
-		sky_pass->BindFixedState();
-		sky_pass->Render(camera.GetSettings().GetSky());
+		//---------------------------------------------------------------------
+		GetSkyPass()->Render(camera.GetSettings().GetSky());
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: transparent fragments.
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderTransparent(scene, 
-			                            world_to_projection, 
-			                            world_to_view, 
-			                            view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
+													world_to_view, view_to_world, 
+													brdf);
 	}
 
 	void XM_CALLCONV Renderer
@@ -378,63 +358,59 @@ namespace mage {
 
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
+		const auto brdf = camera.GetSettings().GetBRDF();
 
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection,
+								 world_to_view, view_to_world,
+								 camera.GetSettings().GetFog());
+
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 
 		output_manager->BindBeginGBuffer(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a GBuffer pass: opaque fragments.
-		const auto gbuffer_pass = GetGBufferPass();
-		gbuffer_pass->BindFixedState();
-		gbuffer_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetGBufferPass()->Render(scene, world_to_projection, 
+								 world_to_view, view_to_world);
 
 		output_manager->BindEndGBuffer(m_device_context);
 		output_manager->BindBeginDeferred(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a deferred pass.
-		const auto deferred_pass = GetDeferredShadingPass();
+		//---------------------------------------------------------------------
 		if (DisplayConfiguration::Get()->UsesMSAA()) {
-			deferred_pass->BindFixedState(camera.GetSettings().GetBRDF(), false);
-			deferred_pass->Render();
+			GetDeferredShadingPass()->Render(brdf);
 		}
 		else {
-			deferred_pass->BindFixedState(camera.GetSettings().GetBRDF(), true);
-			deferred_pass->Dispatch(viewport);
+			GetDeferredShadingPass()->Dispatch(viewport, brdf);
 		}
 
 		output_manager->BindEndDeferred(m_device_context);
 		output_manager->BindBeginForward(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: emissive fragments.
-		const auto forward_pass = GetVariableShadingPass();
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderEmissive(scene, 
-			                         world_to_projection, 
-			                         world_to_view, 
-			                         view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderEmissive(scene, world_to_projection, 
+												 world_to_view, view_to_world);
 
+		//---------------------------------------------------------------------
 		// Perform a sky pass.
-		const auto * const sky_pass = GetSkyPass();
-		sky_pass->BindFixedState();
-		sky_pass->Render(camera.GetSettings().GetSky());
+		//---------------------------------------------------------------------
+		GetSkyPass()->Render(camera.GetSettings().GetSky());
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: transparent fragments.
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderTransparent(scene, 
-			                            world_to_projection, 
-			                            world_to_view, 
-			                            view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
+													world_to_view, view_to_world, 
+													brdf);
 	}
 
 	void Renderer::ExecuteAAPipeline(const Camera &camera) {
@@ -445,18 +421,16 @@ namespace mage {
 		switch (desc) {
 
 		case AADescriptor::FXAA: {
-
 			output_manager->BindBeginResolve(m_device_context);
 
 			// Perform an AA pass.
-			const auto aa_pass = GetAAPass();
-			aa_pass->DispatchAAPreprocess(viewport, AADescriptor::FXAA);
+			GetAAPass()->DispatchPreprocess(viewport, AADescriptor::FXAA);
 
 			output_manager->BindEndResolve(m_device_context);
 			output_manager->BindPingPong(m_device_context);
 
 			// Perform a FXAA pass.
-			aa_pass->DispatchAA(viewport, AADescriptor::FXAA);
+			GetAAPass()->Dispatch(viewport, AADescriptor::FXAA);
 
 			break;
 		}
@@ -467,12 +441,10 @@ namespace mage {
 		case AADescriptor::SSAA_2x:
 		case AADescriptor::SSAA_3x:
 		case AADescriptor::SSAA_4x: {
-			
 			output_manager->BindBeginResolve(m_device_context);
 
 			// Perform an AA pass.
-			const auto aa_pass = GetAAPass();
-			aa_pass->DispatchAA(viewport, desc);
+			GetAAPass()->Dispatch(viewport, desc);
 
 			output_manager->BindEndResolve(m_device_context);
 			break;

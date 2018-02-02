@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -27,7 +27,7 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDepthOfFieldCS()) {}
 
-	DOFPass::DOFPass(DOFPass &&render_pass) noexcept = default;
+	DOFPass::DOFPass(DOFPass &&pass) noexcept = default;
 
 	DOFPass::~DOFPass() = default;
 
@@ -35,11 +35,11 @@ namespace mage {
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 
-		// Dispatch.
-		const auto nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-				               / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const auto nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
-				               / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		// Dispatch the pass.
+		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),  
+			                                       GROUP_SIZE_DEFAULT);
+		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(), 
+			                                       GROUP_SIZE_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

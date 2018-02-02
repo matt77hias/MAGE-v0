@@ -57,19 +57,19 @@ namespace mage {
 		 Constructs a variable shading pass from the given variable shading 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable shading pass to copy.
 		 */
-		VariableShadingPass(const VariableShadingPass &render_pass) = delete;
+		VariableShadingPass(const VariableShadingPass &pass) = delete;
 
 		/**
 		 Constructs a variable shading pass by moving the given variable 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable shading pass to move.
 		 */
-		VariableShadingPass(VariableShadingPass &&render_pass) noexcept;
+		VariableShadingPass(VariableShadingPass &&pass) noexcept;
 
 		/**
 		 Destructs this variable shading pass.
@@ -83,39 +83,26 @@ namespace mage {
 		/**
 		 Copies the given variable shading pass to this variable shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable shading pass to copy.
 		 @return		A reference to the copy of the given variable shading 
 						pass (i.e. this variable shading pass).
 		 */
-		VariableShadingPass &operator=(
-			const VariableShadingPass &render_pass) = delete;
+		VariableShadingPass &operator=(const VariableShadingPass &pass) = delete;
 
 		/**
 		 Moves the given variable shading pass to this variable shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the variable shading pass to move.
 		 @return		A reference to the moved variable shading pass (i.e. 
 						this variable shading pass).
 		 */
-		VariableShadingPass &operator=(
-			VariableShadingPass &&render_pass) = delete;
+		VariableShadingPass &operator=(VariableShadingPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this variable shading pass.
-
-		 @param[in]		brdf
-						The BRDF.
-		 @throws		Exception
-						Failed to bind the fixed state of this variable shading 
-						pass.
-		 */
-		void BindFixedState(BRDFType brdf);
 
 		/**
 		 Renders the scene.
@@ -128,13 +115,16 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
+		 @param[in]		brdf
+						The BRDF.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world);
+			                    CXMMATRIX view_to_world, 
+								BRDFType brdf);
 
 		/**
 		 Renders the scene (only the emissive models).
@@ -166,19 +156,32 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
+		 @param[in]		brdf
+						The BRDF.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderTransparent(const Scene &scene,
 			                               FXMMATRIX world_to_projection,
 			                               CXMMATRIX world_to_view,
-			                               CXMMATRIX view_to_world);
+			                               CXMMATRIX view_to_world, 
+										   BRDFType brdf);
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed opaque state of this variable shading pass.
+		 */
+		void BindFixedOpaqueState() const noexcept;
+
+		/**
+		 Binds the fixed transparent state of this variable shading pass.
+		 */
+		void BindFixedTransparentState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for variable 
@@ -226,16 +229,22 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		
 		/**
-		 Binds the pixel shader of this variable shading pass associated with 
-		 the given material.
+		 Binds the opaque pixel shader of this variable shading pass associated 
+		 with the given material.
 
 		 @param[in]		material
 						A reference to the material.
-		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
-						otherwise.
 		 */
-		void BindPS(const Material &material, bool transparency) noexcept;
+		void BindOpaquePS(const Material &material) noexcept;
+
+		/**
+		 Binds the transparent pixel shader of this variable shading pass 
+		 associated with the given material.
+
+		 @param[in]		material
+						A reference to the material.
+		 */
+		void BindTransparentPS(const Material &material) noexcept;
 		
 		/**
 		 Binds the model data of this variable shading pass.

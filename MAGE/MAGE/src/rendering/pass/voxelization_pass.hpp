@@ -58,19 +58,19 @@ namespace mage {
 		 Constructs a voxelization pass from the given voxelization 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the voxelization pass to copy.
 		 */
-		VoxelizationPass(const VoxelizationPass &render_pass) = delete;
+		VoxelizationPass(const VoxelizationPass &pass) = delete;
 
 		/**
 		 Constructs a voxelization pass by moving the given variable 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the voxelization pass to move.
 		 */
-		VoxelizationPass(VoxelizationPass &&render_pass) noexcept;
+		VoxelizationPass(VoxelizationPass &&pass) noexcept;
 
 		/**
 		 Destructs this voxelization pass.
@@ -84,24 +84,24 @@ namespace mage {
 		/**
 		 Copies the given voxelization pass to this voxelization pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the voxelization pass to copy.
 		 @return		A reference to the copy of the given voxelization 
 						pass (i.e. this voxelization pass).
 		 */
 		VoxelizationPass &operator=(
-			const VoxelizationPass &render_pass) = delete;
+			const VoxelizationPass &pass) = delete;
 
 		/**
 		 Moves the given voxelization pass to this voxelization pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the voxelization pass to move.
 		 @return		A reference to the moved voxelization pass (i.e. 
 						this voxelization pass).
 		 */
 		VoxelizationPass &operator=(
-			VoxelizationPass &&render_pass) = delete;
+			VoxelizationPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

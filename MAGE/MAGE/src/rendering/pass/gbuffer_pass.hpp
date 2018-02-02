@@ -55,18 +55,18 @@ namespace mage {
 		/**
 		 Constructs a GBuffer pass from the given GBuffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the GBuffer pass to copy.
 		 */
-		GBufferPass(const GBufferPass &render_pass) = delete;
+		GBufferPass(const GBufferPass &pass) = delete;
 
 		/**
 		 Constructs a GBuffer pass by moving the given GBuffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the GBuffer pass to move.
 		 */
-		GBufferPass(GBufferPass &&render_pass) noexcept;
+		GBufferPass(GBufferPass &&pass) noexcept;
 
 		/**
 		 Destructs this GBuffer pass.
@@ -80,34 +80,26 @@ namespace mage {
 		/**
 		 Copies the given GBuffer pass to this GBuffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the GBuffer pass to copy.
 		 @return		A reference to the copy of the given GBuffer pass (i.e. 
 						this GBuffer pass).
 		 */
-		GBufferPass &operator=(const GBufferPass &render_pass) = delete;
+		GBufferPass &operator=(const GBufferPass &pass) = delete;
 
 		/**
 		 Moves the given GBuffer pass to this GBuffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the GBuffer pass to move.
 		 @return		A reference to the moved GBuffer pass (i.e. this 
 						GBuffer pass).
 		 */
-		GBufferPass &operator=(GBufferPass &&render_pass) = delete;
+		GBufferPass &operator=(GBufferPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this GBuffer pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this GBuffer pass.
-		 */
-		void BindFixedState();
 
 		/**
 		 Renders the scene.
@@ -133,6 +125,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this GBuffer pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for GBuffer 

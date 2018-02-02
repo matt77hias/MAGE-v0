@@ -57,19 +57,19 @@ namespace mage {
 		 Constructs a constant shading pass from the given constant shading 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant shading pass to copy.
 		 */
-		ConstantShadingPass(const ConstantShadingPass &render_pass) = delete;
+		ConstantShadingPass(const ConstantShadingPass &pass) = delete;
 
 		/**
 		 Constructs a constant shading pass by moving the given constant 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant shading pass to move.
 		 */
-		ConstantShadingPass(ConstantShadingPass &&render_pass) noexcept;
+		ConstantShadingPass(ConstantShadingPass &&pass) noexcept;
 
 		/**
 		 Destructs this constant shading pass.
@@ -83,37 +83,26 @@ namespace mage {
 		/**
 		 Copies the given constant shading pass to this constant shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant shading pass to copy.
 		 @return		A reference to the copy of the given constant shading 
 						pass (i.e. this constant shading pass).
 		 */
-		ConstantShadingPass &operator=(
-			const ConstantShadingPass &render_pass) = delete;
+		ConstantShadingPass &operator=(const ConstantShadingPass &pass) = delete;
 
 		/**
 		 Moves the given constant shading pass to this constant shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant shading pass to move.
 		 @return		A reference to the moved constant shading pass (i.e. 
 						this constant shading pass).
 		 */
-		ConstantShadingPass &operator=(
-			ConstantShadingPass &&render_pass) = delete;
+		ConstantShadingPass &operator=(ConstantShadingPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this constant shading pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this constant shading 
-						pass.
-		 */
-		void BindFixedState();
 
 		/**
 		 Renders the scene.
@@ -139,6 +128,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this constant shading pass.
+
+		 @throws		Exception
+						Failed to bind the fixed state of this constant shading 
+						pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 Binds the model data of this constant shading pass.

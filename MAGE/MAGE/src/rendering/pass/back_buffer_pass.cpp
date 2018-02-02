@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -25,11 +25,11 @@ namespace mage {
 		m_vs(CreateNearFullscreenTriangleVS()), 
 		m_ps(CreateBackBufferPS()) {}
 
-	BackBufferPass::BackBufferPass(BackBufferPass &&render_pass) noexcept = default;
+	BackBufferPass::BackBufferPass(BackBufferPass &&pass) noexcept = default;
 
 	BackBufferPass::~BackBufferPass() = default;
 
-	void BackBufferPass::BindFixedState() {
+	void BackBufferPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
 			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -52,6 +52,9 @@ namespace mage {
 	}
 
 	void BackBufferPass::Render() const noexcept {
+		// Bind the fixed state.
+		BindFixedState();
+
 		// Draw the fullscreen triangle.
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}

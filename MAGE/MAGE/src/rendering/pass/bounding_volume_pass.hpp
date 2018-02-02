@@ -55,19 +55,19 @@ namespace mage {
 		/**
 		 Constructs a bounding volume pass from the given bounding volume pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the bounding volume pass to copy.
 		 */
-		BoundingVolumePass(const BoundingVolumePass &render_pass) = delete;
+		BoundingVolumePass(const BoundingVolumePass &pass) = delete;
 
 		/**
 		 Constructs a bounding volume pass by moving the given bounding volume 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the bounding volume pass to move.
 		 */
-		BoundingVolumePass(BoundingVolumePass &&render_pass) noexcept;
+		BoundingVolumePass(BoundingVolumePass &&pass) noexcept;
 
 		/**
 		 Destructs this bounding volume pass.
@@ -81,33 +81,26 @@ namespace mage {
 		/**
 		 Copies the given bounding volume pass to this bounding volume pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the bounding volume pass to copy.
 		 @return		A reference to the copy of the given bounding volume 
 						pass (i.e. this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(
-			const BoundingVolumePass &render_pass) = delete;
+		BoundingVolumePass &operator=(const BoundingVolumePass &pass) = delete;
 
 		/**
 		 Moves the given bounding volume pass to this bounding volume pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the bounding volume pass to move.
 		 @return		A reference to the moved bounding volume pass (i.e. 
 						this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(
-			BoundingVolumePass &&render_pass) = delete;
+		BoundingVolumePass &operator=(BoundingVolumePass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this bounding volume pass.
-		 */
-		void BindFixedState() const noexcept;
 
 		/**
 		 Renders the scene.
@@ -132,15 +125,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the color data of this bounding volume pass.
-
-		 @param[in]		color
-						A reference to the color.
-		 @throws		Exception
-						Failed to bind the light color data of this bounding 
-						volume pass.
+		 Binds the fixed state of this bounding volume pass.
 		 */
-		void BindColorData(const RGBA &color);
+		void BindFixedState() const noexcept;
 
 		/**
 		 Binds the light color data of this bounding volume pass.
@@ -159,6 +146,17 @@ namespace mage {
 						volume pass.
 		 */
 		void BindModelColorData();
+
+		/**
+		 Binds the color data of this bounding volume pass.
+
+		 @param[in]		color
+						A reference to the color.
+		 @throws		Exception
+						Failed to bind the light color data of this bounding 
+						volume pass.
+		 */
+		void BindColorData(const RGBA &color);
 
 		/**
 		 Binds the model data of this bounding volume pass.

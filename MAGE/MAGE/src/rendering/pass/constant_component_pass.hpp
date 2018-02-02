@@ -57,21 +57,19 @@ namespace mage {
 		 Constructs a constant component pass from the given constant component 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant component pass to copy.
 		 */
-		ConstantComponentPass(
-			const ConstantComponentPass &render_pass) = delete;
+		ConstantComponentPass(const ConstantComponentPass &pass) = delete;
 		
 		/**
 		 Constructs a constant component pass by moving the given constant 
 		 component pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant component pass to move.
 		 */
-		ConstantComponentPass(
-			ConstantComponentPass &&render_pass) noexcept;
+		ConstantComponentPass(ConstantComponentPass &&pass) noexcept;
 		
 		/**
 		 Destructs this constant component pass.
@@ -86,39 +84,26 @@ namespace mage {
 		 Copies the given constant component pass to this constant component 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant component pass to copy.
 		 @return		A reference to the copy of the given constant component 
 						pass (i.e. this constant component pass).
 		 */
-		ConstantComponentPass &operator=(
-			const ConstantComponentPass &render_pass) = delete;
+		ConstantComponentPass &operator=(const ConstantComponentPass &pass) = delete;
 		
 		/**
 		 Moves the given constant component pass to this constant component pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the constant component pass to move.
 		 @return		A reference to the moved constant component pass (i.e. 
 						this constant component pass).
 		 */
-		ConstantComponentPass &operator=(
-			ConstantComponentPass &&render_pass) = delete;
+		ConstantComponentPass &operator=(ConstantComponentPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this constant component pass.
-
-		 @param[in]		render_mode
-						The render mode.
-		 @throws		Exception
-						Failed to bind the fixed state of this constant 
-						component pass.
-		 */
-		void BindFixedState(RenderMode render_mode);
 
 		/**
 		 Renders the scene.
@@ -137,13 +122,19 @@ namespace mage {
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world);
+			                    CXMMATRIX view_to_world,
+								RenderMode render_mode);
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this constant component pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for constant 

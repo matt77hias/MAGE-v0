@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -31,49 +31,14 @@ namespace mage {
 		m_model_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
-		BoundingVolumePass &&render_pass) noexcept = default;
+		BoundingVolumePass &&pass) noexcept = default;
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
-	void BoundingVolumePass::BindColorData(const RGBA &color) {
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, color);
-		// Bind the color buffer.
-		m_color_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_COLOR);
-	}
-
-	void BoundingVolumePass::BindLightColorData() {
-		// The color in linear space.
-		static constexpr RGBA color(1.0f, 0.0f, 0.0f, 1.0f);
-
-		// Bind the color data.
-		BindColorData(color);
-	}
-
-	void BoundingVolumePass::BindModelColorData() {
-		// The color in linear space.
-		static constexpr RGBA color(0.0f, 1.0f, 0.0f, 1.0f);
-
-		// Bind the color data.
-		BindColorData(color);
-	}
-
-	void XM_CALLCONV BoundingVolumePass::BindModelData(
-		FXMMATRIX box_to_view) {
-
-		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, 
-			XMMatrixTranspose(box_to_view));
-		// Bind the model buffer.
-		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
-	}
-
 	void BoundingVolumePass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
-		Pipeline::IA::BindPrimitiveTopology(m_device_context,
-			D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+		Pipeline::IA::BindPrimitiveTopology(m_device_context, 
+											D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -96,37 +61,66 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void XM_CALLCONV BoundingVolumePass::Render(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view) {
+	void BoundingVolumePass::BindLightColorData() {
+		// The color in linear space.
+		static constexpr RGBA color(1.0f, 0.0f, 0.0f, 1.0f);
 
+		// Bind the color data.
+		BindColorData(color);
+	}
+
+	void BoundingVolumePass::BindModelColorData() {
+		// The color in linear space.
+		static constexpr RGBA color(0.0f, 1.0f, 0.0f, 1.0f);
+
+		// Bind the color data.
+		BindColorData(color);
+	}
+
+	void BoundingVolumePass::BindColorData(const RGBA &color) {
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, color);
+		// Bind the color buffer.
+		m_color_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_COLOR);
+	}
+
+	void XM_CALLCONV BoundingVolumePass::BindModelData(FXMMATRIX box_to_view) {
+		// Update the model buffer.
+		m_model_buffer.UpdateData(m_device_context, XMMatrixTranspose(box_to_view));
+		// Bind the model buffer.
+		m_model_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+	}
+
+	void XM_CALLCONV BoundingVolumePass::Render(const Scene &scene, 
+												FXMMATRIX world_to_projection, 
+												CXMMATRIX world_to_view) {
+		// Bind the fixed state.
+		BindFixedState();
+		
 		// Bind the light color data.
 		BindLightColorData();
 		
-		// Process the lights.
+		// Process the omni lights.
 		scene.ForEach< OmniLight >([this, world_to_projection, world_to_view](const OmniLight &light) {
 			if (State::Active != light.GetState()) {
 				return;
 			}
 			
-			const Transform &transform          = light.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, light.GetBoundingSphere())) {
 				return;
 			}
 
-			const AABB &aabb                    = light.GetAABB();
+			const auto &aabb                = light.GetAABB();
+			
+			const LocalTransform box_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());
 
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
-
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
 			BindModelData(box_to_view);
@@ -134,27 +128,26 @@ namespace mage {
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		});
 
+		// Process the spot lights.
 		scene.ForEach< SpotLight >([this, world_to_projection, world_to_view](const SpotLight &light) {
 			if (State::Active != light.GetState()) {
 				return;
 			}
 			
-			const Transform &transform          = light.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
-			const AABB &aabb                    = light.GetAABB();
+			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
+			const auto &aabb                = light.GetAABB();
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
 				return;
 			}
 
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
+			const LocalTransform box_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
 			BindModelData(box_to_view);
@@ -171,22 +164,20 @@ namespace mage {
 				return;
 			}
 			
-			const Transform &transform          = model.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
-			const AABB &aabb                    = model.GetAABB();
+			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
+			const auto &aabb                = model.GetAABB();
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
 				return;
 			}
 
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
+			const LocalTransform box_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto box_to_view          = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
 			BindModelData(box_to_view);

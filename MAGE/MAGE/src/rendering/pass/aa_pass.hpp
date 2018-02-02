@@ -55,19 +55,19 @@ namespace mage {
 		 Constructs a AA pass from the given AA 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the AA pass to copy.
 		 */
-		AAPass(const AAPass &render_pass) = delete;
+		AAPass(const AAPass &pass) = delete;
 
 		/**
 		 Constructs a AA pass by moving the given AA 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the AA pass to move.
 		 */
-		AAPass(AAPass &&render_pass) noexcept;
+		AAPass(AAPass &&pass) noexcept;
 
 		/**
 		 Destructs this AA pass.
@@ -81,21 +81,21 @@ namespace mage {
 		/**
 		 Copies the given AA pass to this AA pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the AA pass to copy.
 		 @return		A reference to the copy of the given AA pass (i.e. 
 						this AA pass).
 		 */
-		AAPass &operator=(const AAPass &render_pass) = delete;
+		AAPass &operator=(const AAPass &pass) = delete;
 
 		/**
 		 Moves the given AA pass to this AA pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the AA pass to move.
 		 @return		A reference to the moved AA pass (i.e. this AA pass).
 		 */
-		AAPass &operator=(AAPass &&render_pass) = delete;
+		AAPass &operator=(AAPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -111,7 +111,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void DispatchAAPreprocess(const Viewport &viewport, AADescriptor desc);
+		void DispatchPreprocess(const Viewport &viewport, AADescriptor desc);
 
 		/**
 		 Dispatches an AA pass.
@@ -123,7 +123,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void DispatchAA(const Viewport &viewport, AADescriptor desc);
+		void Dispatch(const Viewport &viewport, AADescriptor desc);
 
 	private:
 

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -29,19 +29,61 @@ namespace mage {
 		m_ps{ 
 			CreateForwardEmissivePS(false), 
 			CreateForwardPS(BRDFType::Unknown, false, false), 
-			CreateForwardPS(BRDFType::Unknown, true, false),
+			CreateForwardPS(BRDFType::Unknown, true,  false),
 			CreateForwardEmissivePS(true),
 			CreateForwardPS(BRDFType::Unknown, false, true),
-			CreateForwardPS(BRDFType::Unknown, true, true),
+			CreateForwardPS(BRDFType::Unknown, true,  true),
 		},
 		m_bound_ps(PSIndex::Count), 
 		m_brdf(BRDFType::Unknown),
 		m_model_buffer() {}
 
 	VariableShadingPass::VariableShadingPass(
-		VariableShadingPass &&render_pass) noexcept = default;
+		VariableShadingPass &&pass) noexcept = default;
 
 	VariableShadingPass::~VariableShadingPass() = default;
+
+	void VariableShadingPass::BindFixedOpaqueState() const noexcept {
+		// VS: Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// OM: Bind the depth-stencil state.
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		#else  // DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		#endif // DISSABLE_INVERTED_Z_BUFFER
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+	}
+
+	void VariableShadingPass::BindFixedTransparentState() const noexcept {
+		// VS: Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// OM: Bind the depth-stencil state.
+		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+		#else  // DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		#endif // DISSABLE_INVERTED_Z_BUFFER
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
+	}
 
 	void VariableShadingPass::UpdatePSs(BRDFType brdf) {
 		if (m_brdf != brdf) {
@@ -49,11 +91,11 @@ namespace mage {
 			m_ps[static_cast< size_t >(PSIndex::BRDF)] 
 				= CreateForwardPS(brdf, false, false);
 			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] 
-				= CreateForwardPS(brdf, true, false);
+				= CreateForwardPS(brdf, true,  false);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF)] 
 				= CreateForwardPS(brdf, false, true);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF_TSNM)] 
-				= CreateForwardPS(brdf, true, true);
+				= CreateForwardPS(brdf, true,  true);
 		}
 	}
 
@@ -64,42 +106,39 @@ namespace mage {
 		}
 	}
 
-	void VariableShadingPass::BindPS(
-		const Material &material, bool transparency) noexcept {
-		
-		if (transparency) {
-			if (!material.InteractsWithLight()) {
-				BindPS(PSIndex::Transparent_Emissive);
-				return;
-			}
+	void VariableShadingPass::BindOpaquePS(const Material &material) noexcept {
+		if (!material.InteractsWithLight()) {
+			BindPS(PSIndex::Emissive);
+			return;
+		}
 
-			if (material.GetNormalSRV()) {
-				BindPS(PSIndex::Transparent_BRDF_TSNM);
-			}
-			else {
-				BindPS(PSIndex::Transparent_BRDF);
-			}
+		if (material.GetNormalSRV()) {
+			BindPS(PSIndex::BRDF_TSNM);
 		}
 		else {
-			if (!material.InteractsWithLight()) {
-				BindPS(PSIndex::Emissive);
-				return;
-			}
-
-			if (material.GetNormalSRV()) {
-				BindPS(PSIndex::BRDF_TSNM);
-			}
-			else {
-				BindPS(PSIndex::BRDF);
-			}
+			BindPS(PSIndex::BRDF);
 		}
 	}
 
-	void XM_CALLCONV VariableShadingPass::BindModelData(
-		FXMMATRIX object_to_view, 
-		CXMMATRIX view_to_object,
-		CXMMATRIX texture_transform,
-		const Material &material) {
+	void VariableShadingPass::BindTransparentPS(const Material &material) noexcept {
+		if (!material.InteractsWithLight()) {
+			BindPS(PSIndex::Transparent_Emissive);
+			return;
+		}
+
+		if (material.GetNormalSRV()) {
+			BindPS(PSIndex::Transparent_BRDF_TSNM);
+		}
+		else {
+			BindPS(PSIndex::Transparent_BRDF);
+		}
+	}
+
+	void XM_CALLCONV VariableShadingPass
+		::BindModelData(FXMMATRIX object_to_view, 
+						CXMMATRIX view_to_object, 
+						CXMMATRIX texture_transform, 
+						const Material &material) {
 
 		ModelBuffer buffer;
 		// Transforms
@@ -112,85 +151,64 @@ namespace mage {
 		buffer.m_metalness  = material.GetMetalness();
 		
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, 
-			buffer);
+		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
-		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
-		m_model_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Bind the base color SRV.
-		Pipeline::PS::BindSRV(m_device_context,
-			SLOT_SRV_BASE_COLOR, material.GetBaseColorSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, 
+							  material.GetBaseColorSRV());
 		// Bind the material SRV.
-		Pipeline::PS::BindSRV(m_device_context,
-			SLOT_SRV_MATERIAL, material.GetMaterialSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_MATERIAL, 
+							  material.GetMaterialSRV());
 		// Bind the normal SRV.
-		Pipeline::PS::BindSRV(m_device_context,
-			SLOT_SRV_NORMAL, material.GetNormalSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_NORMAL, 
+							  material.GetNormalSRV());
 	}
 
-	void VariableShadingPass::BindFixedState(BRDFType brdf) {
+	void XM_CALLCONV VariableShadingPass
+		::Render(const Scene &scene, 
+				 FXMMATRIX world_to_projection, 
+				 CXMMATRIX world_to_view, 
+				 CXMMATRIX view_to_world, 
+				 BRDFType brdf) {
+
+		// Bind the fixed opaque state.
+		BindFixedOpaqueState();
+
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
 		// Update the pixel shaders.
 		UpdatePSs(brdf);
 
-		// VS: Bind the vertex shader.
-		m_vs->BindShader(m_device_context);
-		// HS: Bind the hull shader.
-		Pipeline::HS::BindShader(m_device_context, nullptr);
-		// DS: Bind the domain shader.
-		Pipeline::DS::BindShader(m_device_context, nullptr);
-		// GS: Bind the geometry shader.
-		Pipeline::GS::BindShader(m_device_context, nullptr);
-		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-	}
-
-	void XM_CALLCONV VariableShadingPass::Render(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
-
-		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
-		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
-		
 		// Process the models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
-			const Material &material            = model.GetMaterial();
+			const auto &material            = model.GetMaterial();
 			
 			if (State::Active != model.GetState()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
 			}
 			
-			const Transform &transform          = model.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 				return;
 			}
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object       = view_to_world * world_to_object;
-			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto world_to_object      = transform.GetWorldToObjectMatrix();
+			const auto view_to_object       = view_to_world * world_to_object;
+			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
-			BindPS(model.GetMaterial(), false);
+			BindOpaquePS(model.GetMaterial());
 			// Bind the model mesh.
 			model.BindMesh(m_device_context);
 			// Draw the model.
@@ -198,24 +216,21 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV VariableShadingPass::RenderEmissive(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
+	void XM_CALLCONV VariableShadingPass
+		::RenderEmissive(const Scene &scene, 
+						 FXMMATRIX world_to_projection, 
+						 CXMMATRIX world_to_view, 
+						 CXMMATRIX view_to_world) {
 
-		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
-		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
-		
+		// Bind the fixed opaque state.
+		BindFixedOpaqueState();
+
+		// Reset the bound pixel shader index.
+		m_bound_ps = PSIndex::Count;
+
 		// Process the emissive models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
-			const Material &material            = model.GetMaterial();
+			const auto &material            = model.GetMaterial();
 			
 			if (State::Active != model.GetState()
 				|| material.InteractsWithLight()
@@ -223,24 +238,24 @@ namespace mage {
 				return;
 			}
 			
-			const Transform &transform          = model.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 				return;
 			}
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object       = view_to_world * world_to_object;
-			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto world_to_object      = transform.GetWorldToObjectMatrix();
+			const auto view_to_object       = view_to_world * world_to_object;
+			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
-			BindPS(model.GetMaterial(), false);
+			BindOpaquePS(model.GetMaterial());
 			// Bind the model mesh.
 			model.BindMesh(m_device_context);
 			// Draw the model.
@@ -248,48 +263,48 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV VariableShadingPass::RenderTransparent(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
+	void XM_CALLCONV VariableShadingPass
+		::RenderTransparent(const Scene &scene, 
+							FXMMATRIX world_to_projection, 
+							CXMMATRIX world_to_view, 
+							CXMMATRIX view_to_world, 
+							BRDFType brdf) {
 
-		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
-		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
+		// Bind the fixed transparent state.
+		BindFixedTransparentState();
+
+		// Reset the bound pixel shader index.
+		m_bound_ps = PSIndex::Count;
+		// Update the pixel shaders.
+		UpdatePSs(brdf);
 
 		// Process the transparent models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
-			const Material &material            = model.GetMaterial();
+			const auto &material            = model.GetMaterial();
 			
 			if (State::Active != model.GetState()
 				|| !material.IsTransparant()) {
 				return;
 			}
 			
-			const Transform &transform          = model.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 				return;
 			}
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object       = view_to_world * world_to_object;
-			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto world_to_object      = transform.GetWorldToObjectMatrix();
+			const auto view_to_object       = view_to_world * world_to_object;
+			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
-			BindPS(model.GetMaterial(), true);
+			BindTransparentPS(model.GetMaterial());
 			// Bind the model mesh.
 			model.BindMesh(m_device_context);
 			// Draw the model.

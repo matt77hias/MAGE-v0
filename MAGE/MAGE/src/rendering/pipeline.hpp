@@ -371,7 +371,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// IA
+		// IA: Input Assembler
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -440,7 +440,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// VS
+		// VS: Vertex Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -654,7 +654,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// HS
+		// HS: Hull Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -876,7 +876,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// TS
+		// TS: Tesselation Stage
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -888,7 +888,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// DS
+		// DS: Domain Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1102,7 +1102,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// GS
+		// GS: Geometry Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1316,7 +1316,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// SO
+		// SO: Stream Output
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1328,7 +1328,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// RS
+		// RS: Rasterizer Stage
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1386,7 +1386,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// PS
+		// PS: Pixel Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1600,7 +1600,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// OM
+		// OM: Output Merger
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1780,7 +1780,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// CS
+		// CS: Compute Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -2076,4 +2076,19 @@ namespace mage {
 
 		static void OnDraw() noexcept;
 	};
+
+	/**
+	 Returns the number of required groups given the number of threads and the 
+	 number of threads per group.
+
+	 @param[in]		nb_threads
+					The total minimal number of threads.
+	 @param[in]		nb_group_threads
+					The number of threads per group.
+	 @return		The number of required groups given the number of threads 
+					and the number of threads per group.
+	 */
+	inline U32 GetNumberOfGroups(F32 nb_threads, U32 nb_group_threads) noexcept {
+		return static_cast< U32 >(ceil(nb_threads / nb_group_threads));
+	}
 }

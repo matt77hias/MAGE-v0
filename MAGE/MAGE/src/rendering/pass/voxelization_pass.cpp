@@ -38,7 +38,7 @@ namespace mage {
 		m_model_buffer() {}
 
 	VoxelizationPass::VoxelizationPass(
-		VoxelizationPass &&render_pass) noexcept = default;
+		VoxelizationPass &&pass) noexcept = default;
 
 	VoxelizationPass::~VoxelizationPass() = default;
 

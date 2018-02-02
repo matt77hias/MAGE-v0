@@ -54,19 +54,19 @@ namespace mage {
 		 Constructs a DOF pass from the given DOF 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the DOF pass to copy.
 		 */
-		DOFPass(const DOFPass &render_pass) = delete;
+		DOFPass(const DOFPass &pass) = delete;
 
 		/**
 		 Constructs a DOF pass by moving the given DOF 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the DOF pass to move.
 		 */
-		DOFPass(DOFPass &&render_pass) noexcept;
+		DOFPass(DOFPass &&pass) noexcept;
 
 		/**
 		 Destructs this DOF pass.
@@ -80,21 +80,21 @@ namespace mage {
 		/**
 		 Copies the given DOF pass to this DOF pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the DOF pass to copy.
 		 @return		A reference to the copy of the given DOF pass (i.e. 
 						this DOF pass).
 		 */
-		DOFPass &operator=(const DOFPass &render_pass) = delete;
+		DOFPass &operator=(const DOFPass &pass) = delete;
 
 		/**
 		 Moves the given DOF pass to this DOF pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the DOF pass to move.
 		 @return		A reference to the moved DOF pass (i.e. this DOF pass).
 		 */
-		DOFPass &operator=(DOFPass &&render_pass) = delete;
+		DOFPass &operator=(DOFPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -122,6 +122,6 @@ namespace mage {
 		/**
 		 A pointer to the compute shader of this DOF pass.
 		 */
-		ComputeShaderPtr m_cs;
+		const ComputeShaderPtr m_cs;
 	};
 }

@@ -1,30 +1,32 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                                | GROUP_SIZE_2D_DEFAULT (CS only)
-// DISSABLE_DIFFUSE_BRDF                     | not defined
-// DISSABLE_SPECULAR_BRDF                    | not defined
-// BRDF_F_COMPONENT                          | F_Schlick
-// BRDF_D_COMPONENT                          | D_GGX
-// BRDF_G_COMPONENT                          | G_GXX
-// BRDF_MINIMUM_ALPHA                        | 0.1f
-// BRDF_DOT_EPSILON                          | 0.00001f
-// LIGHT_DISTANCE_ATTENUATION_COMPONENT      | DistanceAttenuation
-// LIGHT_ANGULAR_ATTENUATION_COMPONENT       | AngularAttenuation
-// FOG_FACTOR_COMPONENT                      | FogFactor_Exponential
-// BRDFxCOS                                  | not defined
-// DISSABLE_AMBIENT_LIGHT                    | not defined
-// DISSABLE_DIRECTIONAL_LIGHTS               | not defined
-// DISSABLE_OMNI_LIGHTS                      | not defined
-// DISSABLE_SPOT_LIGHTS                      | not defined
-// DISSABLE_SHADOW_MAPPING                   | not defined
-// DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS | not defined
-// DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS        | not defined
-// DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS        | not defined
-// DISSABLE_FOG                              | not defined
-// MSAA                                      | not defined (PS only)
+// GROUP_SIZE                               | GROUP_SIZE_2D_DEFAULT (CS only)
+// ENABLE_TRANSPARENCY                      | not defined
+// DISABLE_DIFFUSE_BRDF                     | not defined
+// DISABLE_SPECULAR_BRDF                    | not defined
+// BRDF_F_COMPONENT                         | F_Schlick
+// BRDF_D_COMPONENT                         | D_GGX
+// BRDF_G_COMPONENT                         | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_DOT_EPSILON                         | 0.00001f
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT     | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT      | AngularAttenuation
+// FOG_FACTOR_COMPONENT                     | FogFactor_Exponential
+// BRDFxCOS_COMPONENT                       | not defined
+// DISABLE_AMBIENT_LIGHT                    | not defined
+// DISABLE_DIRECTIONAL_LIGHTS               | not defined
+// DISABLE_OMNI_LIGHTS                      | not defined
+// DISABLE_SPOT_LIGHTS                      | not defined
+// DISABLE_SHADOW_MAPPING                   | not defined
+// DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS | not defined
+// DISABLE_SHADOW_MAPPED_OMNI_LIGHTS        | not defined
+// DISABLE_SHADOW_MAPPED_SPOT_LIGHTS        | not defined
+// DISABLE_FOG                              | not defined
+// DISABLE_VCT                              | not defined
+// MSAA                                     | not defined (PS only)
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -39,7 +41,6 @@
 //-----------------------------------------------------------------------------
 
 float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
-
 	const uint2 location = input.p.xy;
 
 	// Obtain the base color of the material.
@@ -52,9 +53,9 @@ float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
 	const float3 p_view     = GetGBufferPosition(location, index, input.p_ndc.xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = BRDFShading(p_view, n_view, 
+	const float3 L = GetRadiance(p_view, n_view,
 		                         base_color, material.x, material.y);
-
+	
 	return float4(L, 1.0f);
 }
 
@@ -65,7 +66,6 @@ float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
 //-----------------------------------------------------------------------------
 
 float4 PS(PSInputNDCPosition input) : SV_Target {
-
 	const uint2 location = input.p.xy;
 
 	// Obtain the base color of the material.
@@ -78,9 +78,9 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	const float3 p_view     = GetGBufferPosition(location, input.p_ndc.xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = BRDFShading(p_view, n_view, 
+	const float3 L = GetRadiance(p_view, n_view,
 		                         base_color, material.x, material.y);
-
+	
 	return float4(L, 1.0f);
 }
 
@@ -114,7 +114,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const float3 p_view     = GetGBufferPosition(location, p_ndc_xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = BRDFShading(p_view, n_view, 
+	const float3 L = GetRadiance(p_view, n_view,
 		                         base_color, material.x, material.y);
 
 	// Store the pixel color.

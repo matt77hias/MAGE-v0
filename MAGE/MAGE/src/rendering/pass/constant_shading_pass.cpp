@@ -26,7 +26,7 @@ namespace mage {
 	ConstantShadingPass::ConstantShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
-		m_ps(CreateForwardLambertianPS()),
+		m_ps(CreateForwardLambertianPS(false, false, false)),
 		m_model_buffer(),
 		m_white(CreateWhiteTexture()) {}
 
@@ -51,11 +51,11 @@ namespace mage {
 		// PS: Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, m_white->Get());
 		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}

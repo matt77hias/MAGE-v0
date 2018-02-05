@@ -188,8 +188,9 @@ namespace mage {
 		m_cs->BindShader(m_device_context);
 
 		// Dispatch.
-		const auto nb_groups = GetNumberOfGroups(m_voxel_grid->GetResolution(), 
-												 GROUP_SIZE_3D_DEFAULT);
+		const auto nb_groups = GetNumberOfGroups(
+			static_cast< U32 >(m_voxel_grid->GetResolution()), 
+			GROUP_SIZE_3D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups, nb_groups, nb_groups);
 	}
 

@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                                | 4
+// GROUP_SIZE                               | GROUP_SIZE_3D_DEFAULT
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 // UAV
 //-----------------------------------------------------------------------------
-RW_STRUCTURED_BUFFER(voxel_grid, Voxel, SLOT_UAV_VOXEL_BUFFER);
-RW_TEXTURE_3D(voxel_texture, float4, SLOT_UAV_VOXEL_TEXTURE);
+RW_STRUCTURED_BUFFER(voxel_grid, Voxel,  SLOT_UAV_VOXEL_BUFFER);
+RW_TEXTURE_3D(voxel_texture,     float4, SLOT_UAV_VOXEL_TEXTURE);
 
 //-----------------------------------------------------------------------------
 // Compute Shader

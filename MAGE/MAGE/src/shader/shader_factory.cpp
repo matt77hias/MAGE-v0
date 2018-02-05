@@ -7,44 +7,72 @@
 #include "resource\resource_manager.hpp"
 #include "mesh\vertex.hpp"
 
-// AA
+// FXAA
 #include "aa\aa_preprocess_CS.hpp"
 #include "aa\fxaa_CS.hpp"
+// MSAA
 #include "aa\msaa_resolve_CS.hpp"
+// SSAA
 #include "aa\ssaa_resolve_CS.hpp"
 
-// Deferred
+// Deferred: Opaque
 #include "deferred\deferred_blinn_phong_CS.hpp"
 #include "deferred\deferred_cook_torrance_CS.hpp"
 #include "deferred\deferred_emissive_CS.hpp"
 #include "deferred\deferred_frostbite_CS.hpp"
 #include "deferred\deferred_lambertian_CS.hpp"
 #include "deferred\deferred_ward_duer_CS.hpp"
+// Deferred: Opaque + VCT
+#include "deferred\deferred_vct_blinn_phong_CS.hpp"
+#include "deferred\deferred_vct_cook_torrance_CS.hpp"
+#include "deferred\deferred_vct_frostbite_CS.hpp"
+#include "deferred\deferred_vct_lambertian_CS.hpp"
+#include "deferred\deferred_vct_ward_duer_CS.hpp"
+// Deferred MSAA: Opaque
 #include "deferred\deferred_msaa_blinn_phong_PS.hpp"
 #include "deferred\deferred_msaa_cook_torrance_PS.hpp"
 #include "deferred\deferred_msaa_emissive_PS.hpp"
 #include "deferred\deferred_msaa_frostbite_PS.hpp"
 #include "deferred\deferred_msaa_lambertian_PS.hpp"
 #include "deferred\deferred_msaa_ward_duer_PS.hpp"
+// Deferred MSAA: Opaque + VCT
+#include "deferred\deferred_msaa_vct_blinn_phong_PS.hpp"
+#include "deferred\deferred_msaa_vct_cook_torrance_PS.hpp"
+#include "deferred\deferred_msaa_vct_frostbite_PS.hpp"
+#include "deferred\deferred_msaa_vct_lambertian_PS.hpp"
+#include "deferred\deferred_msaa_vct_ward_duer_PS.hpp"
 
-// Depth
+// Depth: Opaque
 #include "depth\depth_VS.hpp"
+// Depth: Transparent
 #include "depth\depth_transparent_VS.hpp"
 #include "depth\depth_transparent_PS.hpp"
 
-// Forward
+// Forward: Opaque
 #include "forward\forward_blinn_phong_PS.hpp"
 #include "forward\forward_cook_torrance_PS.hpp"
 #include "forward\forward_emissive_PS.hpp"
 #include "forward\forward_frostbite_PS.hpp"
 #include "forward\forward_lambertian_PS.hpp"
 #include "forward\forward_ward_duer_PS.hpp"
-// Forward: TSNM
+// Forward: Opaque + VCT
+#include "forward\forward_vct_blinn_phong_PS.hpp"
+#include "forward\forward_vct_cook_torrance_PS.hpp"
+#include "forward\forward_vct_frostbite_PS.hpp"
+#include "forward\forward_vct_lambertian_PS.hpp"
+#include "forward\forward_vct_ward_duer_PS.hpp"
+// Forward: Opaque + TSNM
 #include "forward\forward_tsnm_blinn_phong_PS.hpp"
 #include "forward\forward_tsnm_cook_torrance_PS.hpp"
 #include "forward\forward_tsnm_frostbite_PS.hpp"
 #include "forward\forward_tsnm_lambertian_PS.hpp"
 #include "forward\forward_tsnm_ward_duer_PS.hpp"
+// Forward: Opaque + VCT + TSNM
+#include "forward\forward_vct_tsnm_blinn_phong_PS.hpp"
+#include "forward\forward_vct_tsnm_cook_torrance_PS.hpp"
+#include "forward\forward_vct_tsnm_frostbite_PS.hpp"
+#include "forward\forward_vct_tsnm_lambertian_PS.hpp"
+#include "forward\forward_vct_tsnm_ward_duer_PS.hpp"
 // Forward: Transparent
 #include "forward\forward_transparent_blinn_phong_PS.hpp"
 #include "forward\forward_transparent_cook_torrance_PS.hpp"
@@ -52,16 +80,28 @@
 #include "forward\forward_transparent_frostbite_PS.hpp"
 #include "forward\forward_transparent_lambertian_PS.hpp"
 #include "forward\forward_transparent_ward_duer_PS.hpp"
+// Forward: Transparent + VCT
+#include "forward\forward_transparent_vct_blinn_phong_PS.hpp"
+#include "forward\forward_transparent_vct_cook_torrance_PS.hpp"
+#include "forward\forward_transparent_vct_frostbite_PS.hpp"
+#include "forward\forward_transparent_vct_lambertian_PS.hpp"
+#include "forward\forward_transparent_vct_ward_duer_PS.hpp"
 // Forward: Transparent + TSNM
 #include "forward\forward_transparent_tsnm_blinn_phong_PS.hpp"
 #include "forward\forward_transparent_tsnm_cook_torrance_PS.hpp"
 #include "forward\forward_transparent_tsnm_frostbite_PS.hpp"
 #include "forward\forward_transparent_tsnm_lambertian_PS.hpp"
 #include "forward\forward_transparent_tsnm_ward_duer_PS.hpp"
+// Forward: Transparent + VCT + TSNM
+#include "forward\forward_transparent_vct_tsnm_blinn_phong_PS.hpp"
+#include "forward\forward_transparent_vct_tsnm_cook_torrance_PS.hpp"
+#include "forward\forward_transparent_vct_tsnm_frostbite_PS.hpp"
+#include "forward\forward_transparent_vct_tsnm_lambertian_PS.hpp"
+#include "forward\forward_transparent_vct_tsnm_ward_duer_PS.hpp"
 
-// GBuffer
+// GBuffer: Opaque
 #include "gbuffer\gbuffer_PS.hpp"
-// GBuffer: TSNM
+// GBuffer: Opaque + TSNM
 #include "gbuffer\gbuffer_tsnm_PS.hpp"
 
 // Miscellaneous
@@ -98,12 +138,13 @@
 #include "voxelization\voxelization_CS.hpp"
 #include "voxelization\voxelization_VS.hpp"
 #include "voxelization\voxelization_GS.hpp"
+// Voxelization: Opaque
 #include "voxelization\voxelization_blinn_phong_PS.hpp"
 #include "voxelization\voxelization_cook_torrance_PS.hpp"
 #include "voxelization\voxelization_frostbite_PS.hpp"
 #include "voxelization\voxelization_lambertian_PS.hpp"
 #include "voxelization\voxelization_ward_duer_PS.hpp"
-// Voxelization: TSNM
+// Voxelization: Opaque + TSNM
 #include "voxelization\voxelization_tsnm_blinn_phong_PS.hpp"
 #include "voxelization\voxelization_tsnm_cook_torrance_PS.hpp"
 #include "voxelization\voxelization_tsnm_frostbite_PS.hpp"
@@ -184,83 +225,93 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ComputeShaderPtr CreateDeferredBlinnPhongCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
+	ComputeShaderPtr CreateDeferredBlinnPhongCS(bool vct) {
+		return vct ? Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_vct_blinn_phong_CS))
+			       : Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredCookTorranceCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
+	ComputeShaderPtr CreateDeferredCookTorranceCS(bool vct) {
+		return vct ? Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_vct_cook_torrance_CS))
+			       : Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
 	}
 
 	ComputeShaderPtr CreateDeferredEmissiveCS() {
 		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredFrostbiteCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
+	ComputeShaderPtr CreateDeferredFrostbiteCS(bool vct) {
+		return vct ? Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_vct_frostbite_CS))
+			       : Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredLambertianCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
+	ComputeShaderPtr CreateDeferredLambertianCS(bool vct) {
+		return vct ? Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_vct_lambertian_CS))
+			       : Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredWardDuerCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
+	ComputeShaderPtr CreateDeferredWardDuerCS(bool vct) {
+		return vct ? Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_vct_ward_duer_CS))
+			       : Create< ComputeShader >(MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredCS(BRDFType brdf) {
+	ComputeShaderPtr CreateDeferredCS(BRDFType brdf, bool vct) {
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
-			return CreateDeferredBlinnPhongCS();
+			return CreateDeferredBlinnPhongCS(vct);
 		case BRDFType::CookTorrance:
-			return CreateDeferredCookTorranceCS();
+			return CreateDeferredCookTorranceCS(vct);
 		case BRDFType::Lambertian:
-			return CreateDeferredLambertianCS();
+			return CreateDeferredLambertianCS(vct);
 		case BRDFType::WardDuer:
-			return CreateDeferredWardDuerCS();
+			return CreateDeferredWardDuerCS(vct);
 		default:
-			return CreateDeferredFrostbiteCS();
+			return CreateDeferredFrostbiteCS(vct);
 		}
 	}
 
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
+	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(bool vct) {
+		return vct ? Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_vct_blinn_phong_PS))
+			       : Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
+	PixelShaderPtr CreateDeferredMSAACookTorrancePS(bool vct) {
+		return vct ? Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_vct_cook_torrance_PS))
+		           : Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 	}
 
 	PixelShaderPtr CreateDeferredMSAAEmissivePS() {
 		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
+	PixelShaderPtr CreateDeferredMSAAFrostbitePS(bool vct) {
+		return vct ? Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_vct_frostbite_PS))
+		           : Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAALambertianPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
+	PixelShaderPtr CreateDeferredMSAALambertianPS(bool vct) {
+		return vct ? Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_vct_lambertian_PS))
+		           : Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
+	PixelShaderPtr CreateDeferredMSAAWardDuerPS(bool vct) {
+		return vct ? Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_vct_ward_duer_PS))
+		           : Create< PixelShader >(MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAPS(BRDFType brdf) {
+	PixelShaderPtr CreateDeferredMSAAPS(BRDFType brdf, bool vct) {
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
-			return CreateDeferredMSAABlinnPhongPS();
+			return CreateDeferredMSAABlinnPhongPS(vct);
 		case BRDFType::CookTorrance:
-			return CreateDeferredMSAACookTorrancePS();
+			return CreateDeferredMSAACookTorrancePS(vct);
 		case BRDFType::Lambertian:
-			return CreateDeferredMSAALambertianPS();
+			return CreateDeferredMSAALambertianPS(vct);
 		case BRDFType::WardDuer:
-			return CreateDeferredMSAAWardDuerPS();
+			return CreateDeferredMSAAWardDuerPS(vct);
 		default:
-			return CreateDeferredMSAAFrostbitePS();
+			return CreateDeferredMSAAFrostbitePS(vct);
 		}
 	}
 
@@ -296,91 +347,164 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardBlinnPhongPS(bool tsnm, bool transparency) {
-		return tsnm ?
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS)))
-			:
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_blinn_phong_PS)));
+	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, bool vct, bool tsnm) {
+		const auto config = static_cast< U32 >(transparency) << 2u
+		                  | static_cast< U32 >(vct)          << 1u
+						  | static_cast< U32 >(tsnm);
+		
+		switch(config) {
+			
+		case 0u: // 000
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_blinn_phong_PS));
+		case 1u: // 001
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS));
+		case 2u: // 010
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_blinn_phong_PS));
+		case 3u: // 011
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_blinn_phong_PS));
+		case 4u: // 100
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS));			
+		case 5u: // 101
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS));
+		case 6u: // 110
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_blinn_phong_PS));
+		case 7u: // 111
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_blinn_phong_PS));
+		default:
+			return nullptr;
+		}
 	}
 
-	PixelShaderPtr CreateForwardCookTorrancePS(bool tsnm, bool transparency) {
-		return tsnm ?
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS)))
-			:
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_cook_torrance_PS)));
+	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency, bool vct, bool tsnm) {
+		const auto config = static_cast< U32 >(transparency) << 2u
+		                  | static_cast< U32 >(vct)          << 1u
+						  | static_cast< U32 >(tsnm);
+		
+		switch(config) {
+			
+		case 0u: // 000
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_cook_torrance_PS));
+		case 1u: // 001
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS));
+		case 2u: // 010
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_cook_torrance_PS));
+		case 3u: // 011
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_cook_torrance_PS));
+		case 4u: // 100
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS));			
+		case 5u: // 101
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS));
+		case 6u: // 110
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_cook_torrance_PS));
+		case 7u: // 111
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_cook_torrance_PS));
+		default:
+			return nullptr;
+		}
 	}
 
 	PixelShaderPtr CreateForwardEmissivePS(bool transparency) {
-		return transparency ?
-			Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_emissive_PS))
-			:
-			Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_emissive_PS));
+		return transparency ? Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_emissive_PS))
+		                    : Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
-	PixelShaderPtr CreateForwardFrostbitePS(bool tsnm, bool transparency) {
-		return tsnm ?
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS)))
-			:
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_frostbite_PS)));
+	PixelShaderPtr CreateForwardFrostbitePS(bool transparency, bool vct, bool tsnm) {
+		const auto config = static_cast< U32 >(transparency) << 2u
+		                  | static_cast< U32 >(vct)          << 1u
+						  | static_cast< U32 >(tsnm);
+		
+		switch(config) {
+			
+		case 0u: // 000
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_frostbite_PS));
+		case 1u: // 001
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS));
+		case 2u: // 010
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_frostbite_PS));
+		case 3u: // 011
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_frostbite_PS));
+		case 4u: // 100
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS));			
+		case 5u: // 101
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS));
+		case 6u: // 110
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_frostbite_PS));
+		case 7u: // 111
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_frostbite_PS));
+		default:
+			return nullptr;
+		}
 	}
 
-	PixelShaderPtr CreateForwardLambertianPS(bool tsnm, bool transparency) {
-		return tsnm ?
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS)))
-			:
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_lambertian_PS)));
+	PixelShaderPtr CreateForwardLambertianPS(bool transparency, bool vct, bool tsnm) {
+		const auto config = static_cast< U32 >(transparency) << 2u
+		                  | static_cast< U32 >(vct)          << 1u
+						  | static_cast< U32 >(tsnm);
+		
+		switch(config) {
+			
+		case 0u: // 000
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_lambertian_PS));
+		case 1u: // 001
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS));
+		case 2u: // 010
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_lambertian_PS));
+		case 3u: // 011
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_lambertian_PS));
+		case 4u: // 100
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS));			
+		case 5u: // 101
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS));
+		case 6u: // 110
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_lambertian_PS));
+		case 7u: // 111
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_lambertian_PS));
+		default:
+			return nullptr;
+		}
 	}
 
-	PixelShaderPtr CreateForwardWardDuerPS(bool tsnm, bool transparency) {
-		return tsnm ?
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS)))
-			:
-			(transparency ?
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS))
-				:
-				Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_ward_duer_PS)));
+	PixelShaderPtr CreateForwardWardDuerPS(bool transparency, bool vct, bool tsnm) {
+		const auto config = static_cast< U32 >(transparency) << 2u
+		                  | static_cast< U32 >(vct)          << 1u
+						  | static_cast< U32 >(tsnm);
+		
+		switch(config) {
+			
+		case 0u: // 000
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_ward_duer_PS));
+		case 1u: // 001
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS));
+		case 2u: // 010
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_ward_duer_PS));
+		case 3u: // 011
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_ward_duer_PS));
+		case 4u: // 100
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS));			
+		case 5u: // 101
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS));
+		case 6u: // 110
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_ward_duer_PS));
+		case 7u: // 111
+			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_ward_duer_PS));
+		default:
+			return nullptr;
+		}
 	}
 
-	PixelShaderPtr CreateForwardPS(BRDFType brdf, bool tsnm, bool transparency) {
+	PixelShaderPtr CreateForwardPS(BRDFType brdf, bool transparency, bool vct, bool tsnm) {
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
-			return CreateForwardBlinnPhongPS(tsnm, transparency);
+			return CreateForwardBlinnPhongPS(  transparency, vct, tsnm);
 		case BRDFType::CookTorrance:
-			return CreateForwardCookTorrancePS(tsnm, transparency);
+			return CreateForwardCookTorrancePS(transparency, vct, tsnm);
 		case BRDFType::Lambertian:
-			return CreateForwardLambertianPS(tsnm, transparency);
+			return CreateForwardLambertianPS(  transparency, vct, tsnm);
 		case BRDFType::WardDuer:
-			return CreateForwardWardDuerPS(tsnm, transparency);
+			return CreateForwardWardDuerPS(    transparency, vct, tsnm);
 		default:
-			return CreateForwardFrostbitePS(tsnm, transparency);
+			return CreateForwardFrostbitePS(   transparency, vct, tsnm);
 		}
 	}
 

@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_BASE_COLOR_TEXTURE               | not defined
-// DISSABLE_MATERIAL_TEXTURE                 | not defined
-// TSNM                                      | not defined
-// MSAA_AS_SSAA                              | not defined
+// DISABLE_BASE_COLOR_TEXTURE               | not defined
+// DISABLE_MATERIAL_TEXTURE                 | not defined
+// DISABLE_TSNM                             | not defined
+// MSAA_AS_SSAA                             | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -36,8 +36,10 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 	// Store the material parameters [roughness, metalness] of the material.
 	output.material.xy    = GetMaterialParameters(input.tex);
 	// Pack and store the view-space normal.
-	output.normal.xyz     = PackNormal(
-								GetNormal(input.p_view, input.n_view, input.tex2));
+	output.normal.xyz     = PackNormal(GetNormal(input.p_view, 
+												 input.n_view, 
+												 input.tex2));
 	#pragma warning( pop )
+	
 	return output;
 }

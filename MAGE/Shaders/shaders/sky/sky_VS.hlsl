@@ -38,11 +38,11 @@ PSInputWorldPosition VS(uint vertex_id : SV_VertexID) {
 		                              1.0f), 
 		                       g_view_to_projection);
 
-	#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISABLE_INVERTED_Z_BUFFER
 	output.p = p_proj.xyww;
-	#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISABLE_INVERTED_Z_BUFFER
 	output.p = float4(p_proj.xy, 0.0f, p_proj.w);
-	#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISABLE_INVERTED_Z_BUFFER
 
 	return output;
 }

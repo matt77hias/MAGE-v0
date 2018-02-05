@@ -120,7 +120,7 @@ namespace mage {
 				result);
 		}
 
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
@@ -158,7 +158,7 @@ namespace mage {
 				result);
 		}
 
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
@@ -196,7 +196,7 @@ namespace mage {
 				result);
 		}
 
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
 	void RenderingStateManager::SetupRasterizerStates(ID3D11Device5 *device) {

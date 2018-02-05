@@ -181,13 +181,13 @@ namespace mage {
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
 			GetViewToProjectionMatrix() const noexcept override {
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
 				GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
 				GetWidth(), GetHeight(), GetFarZ(), GetNearZ());
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 
 		/**

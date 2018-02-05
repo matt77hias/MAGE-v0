@@ -255,15 +255,15 @@ namespace mage {
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = fill_mode;
 		
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = depth_bias;
 		desc.SlopeScaledDepthBias = slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = depth_bias_clamp;
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = -depth_bias;
 		desc.SlopeScaledDepthBias = -slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = -depth_bias_clamp;
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		
 		desc.DepthClipEnable      = TRUE;
 		desc.MultisampleEnable    = TRUE;
@@ -493,11 +493,11 @@ namespace mage {
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
 			                  ? D3D11_MAX_MAXANISOTROPY : 2u;
 		
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 

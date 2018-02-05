@@ -271,13 +271,13 @@ namespace mage {
 
 			static constexpr auto near_plane = 0.1f;
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			const auto m22 = m_range / (m_range - near_plane);
 			const auto m32 = -near_plane * m22;
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			const auto m22 = near_plane / (near_plane - m_range);
 			const auto m32 = -m_range * m22;
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 			
 			return XMMATRIX {
 				1.0f, 0.0f, 0.0f, 0.0f,

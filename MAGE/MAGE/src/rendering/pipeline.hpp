@@ -1770,11 +1770,11 @@ namespace mage {
 			// Class Member Variables
 			//-----------------------------------------------------------------
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			static constexpr F32 s_clear_depth = 1.0f;
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			static constexpr F32 s_clear_depth = 0.0f;
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 		};
 
 		#pragma endregion
@@ -2090,5 +2090,20 @@ namespace mage {
 	 */
 	inline U32 GetNumberOfGroups(F32 nb_threads, U32 nb_group_threads) noexcept {
 		return static_cast< U32 >(ceil(nb_threads / nb_group_threads));
+	}
+
+	/**
+	 Returns the number of required groups given the number of threads and the 
+	 number of threads per group.
+
+	 @param[in]		nb_threads
+					The total minimal number of threads.
+	 @param[in]		nb_group_threads
+					The number of threads per group.
+	 @return		The number of required groups given the number of threads 
+					and the number of threads per group.
+	 */
+	inline U32 GetNumberOfGroups(U32 nb_threads, U32 nb_group_threads) noexcept {
+		return GetNumberOfGroups(static_cast< F32 >(nb_threads), nb_group_threads);
 	}
 }

@@ -108,15 +108,15 @@ namespace mage {
 		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
 		
 		const float radius = 0.5f * buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius, 
 																 -radius, radius, 
 																 -radius, radius);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius,
 																 -radius, radius,
 																 radius, -radius);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 
 		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
 		buffer.m_focal_length                  = camera.GetLens().GetFocalLength();

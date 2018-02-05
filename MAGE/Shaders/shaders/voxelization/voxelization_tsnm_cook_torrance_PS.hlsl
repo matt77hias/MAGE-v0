@@ -1,6 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define TSNM
-#define BRDFxCOS CookTorranceBRDFxCos
+#define BRDFxCOS_COMPONENT CookTorranceBRDFxCos
 #include "voxelization\voxelization.hlsli"

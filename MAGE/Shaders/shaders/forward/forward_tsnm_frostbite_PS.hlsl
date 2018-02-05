@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define TSNM
-#define BRDFxCOS FrostbiteBRDFxCos
+#define BRDFxCOS_COMPONENT FrostbiteBRDFxCos
+#define DISABLE_VCT
 #include "forward\forward.hlsli"

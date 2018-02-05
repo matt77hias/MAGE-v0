@@ -412,11 +412,11 @@ namespace mage {
 			static const auto near_plane = 0.1f;
 			const auto fov = 2.0f * GetUmbraAngle();
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixPerspectiveFovLH(fov, 1.0f, near_plane, m_range);
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixPerspectiveFovLH(fov, 1.0f, m_range, near_plane);
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 
 	private:

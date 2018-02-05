@@ -4,34 +4,39 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_DIFFUSE_BRDF                     | not defined
-// DISSABLE_SPECULAR_BRDF                    | not defined
-// BRDF_F_COMPONENT                          | F_Schlick
-// BRDF_D_COMPONENT                          | D_GGX
-// BRDF_G_COMPONENT                          | G_GXX
-// BRDF_MINIMUM_ALPHA                        | 0.1f
-// BRDF_DOT_EPSILON                          | 0.00001f
-// LIGHT_DISTANCE_ATTENUATION_COMPONENT      | DistanceAttenuation
-// LIGHT_ANGULAR_ATTENUATION_COMPONENT       | AngularAttenuation
-// FOG_FACTOR_COMPONENT                      | FogFactor_Exponential
-// BRDFxCOS                                  | not defined
-// DISSABLE_AMBIENT_LIGHT                    | not defined
-// DISSABLE_DIRECTIONAL_LIGHTS               | not defined
-// DISSABLE_OMNI_LIGHTS                      | not defined
-// DISSABLE_SPOT_LIGHTS                      | not defined
-// DISSABLE_SHADOW_MAPPING                   | not defined
-// DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS | not defined
-// DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS        | not defined
-// DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS        | not defined
-// DISSABLE_FOG                              | not defined
+// DISABLE_DIFFUSE_BRDF                     | not defined
+// DISABLE_SPECULAR_BRDF                    | not defined
+// BRDF_F_COMPONENT                         | F_Schlick
+// BRDF_D_COMPONENT                         | D_GGX
+// BRDF_G_COMPONENT                         | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_DOT_EPSILON                         | 0.00001f
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT     | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT      | AngularAttenuation
+// FOG_FACTOR_COMPONENT                     | FogFactor_Exponential
+// BRDFxCOS_COMPONENT                       | not defined
+// DISABLE_AMBIENT_LIGHT                    | not defined
+// DISABLE_DIRECTIONAL_LIGHTS               | not defined
+// DISABLE_OMNI_LIGHTS                      | not defined
+// DISABLE_SPOT_LIGHTS                      | not defined
+// DISABLE_SHADOW_MAPPING                   | not defined
+// DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS | not defined
+// DISABLE_SHADOW_MAPPED_OMNI_LIGHTS        | not defined
+// DISABLE_SHADOW_MAPPED_SPOT_LIGHTS        | not defined
+// DISABLE_FOG                              | not defined
+// DISABLE_VCT                              | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "brdf.hlsli"
+
+#ifdef BRDFxCOS_COMPONENT
+	#include "brdf.hlsli"
+#endif // BRDFxCOS_COMPONENT
+
 #include "light.hlsli"
 
 //-----------------------------------------------------------------------------
@@ -82,79 +87,76 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-#ifdef BRDFxCOS
+#ifdef BRDFxCOS_COMPONENT
 
-#ifndef DISSABLE_DIRECTIONAL_LIGHTS
+#ifndef DISABLE_DIRECTIONAL_LIGHTS
 STRUCTURED_BUFFER(g_directional_lights, DirectionalLight, 
 				  SLOT_SRV_DIRECTIONAL_LIGHTS);
-#endif // DISSABLE_DIRECTIONAL_LIGHTS
+#endif // DISABLE_DIRECTIONAL_LIGHTS
 
-#ifndef DISSABLE_OMNI_LIGHTS
+#ifndef DISABLE_OMNI_LIGHTS
 STRUCTURED_BUFFER(g_omni_lights, OmniLight, 
 				  SLOT_SRV_OMNI_LIGHTS);
-#endif // DISSABLE_OMNI_LIGHTS
+#endif // DISABLE_OMNI_LIGHTS
 
-#ifndef DISSABLE_SPOT_LIGHTS
+#ifndef DISABLE_SPOT_LIGHTS
 STRUCTURED_BUFFER(g_spot_lights, SpotLight, 
 				  SLOT_SRV_SPOT_LIGHTS);
-#endif // DISSABLE_SPOT_LIGHTS
+#endif // DISABLE_SPOT_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAPPING
+#ifndef DISABLE_SHADOW_MAPPING
 
-#ifndef DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
+#ifndef DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
 STRUCTURED_BUFFER(g_sm_directional_lights, ShadowMappedDirectionalLight, 
 				  SLOT_SRV_SHADOW_MAPPED_DIRECTIONAL_LIGHTS);
 TEXTURE_2D_ARRAY(g_directional_sms, float, 
 				 SLOT_SRV_DIRECTIONAL_SHADOW_MAPS);
-#endif // DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
+#endif // DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS
+#ifndef DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
 STRUCTURED_BUFFER(g_sm_omni_lights, ShadowMappedOmniLight, 
 				  SLOT_SRV_SHADOW_MAPPED_OMNI_LIGHTS);
 TEXTURE_CUBE_ARRAY(g_omni_sms, float, 
 				   SLOT_SRV_OMNI_SHADOW_MAPS);
-#endif // DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS
+#endif // DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
 
-#ifndef DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS
+#ifndef DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
 STRUCTURED_BUFFER(g_sm_spot_lights, ShadowMappedSpotLight, 
 				  SLOT_SRV_SHADOW_MAPPED_SPOT_LIGHTS);
 TEXTURE_2D_ARRAY(g_spot_sms, float, 
 				 SLOT_SRV_SPOT_SHADOW_MAPS);
-#endif // DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS
+#endif // DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
 
-#endif // DISSABLE_SHADOW_MAPPING
+#endif // DISABLE_SHADOW_MAPPING
 
-#endif // BRDFxCOS
+#ifndef DISABLE_VCT
+TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
+#endif // DISABLE_VCT
 
-//TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
+#endif // BRDFxCOS_COMPONENT
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-// Calculates the BRDF shading.
-float3 BRDFShading(float3 p, float3 n, 
-				   float3 base_color, 
-				   float roughness, 
-				   float metalness) {
-
-	//return g_voxel_texture[p * g_voxel_inv_size * g_voxel_grid_inv_resolution];
+float3 GetDirectRadiance(float3 p, float3 n, 
+						 float3 base_color, float roughness, float metalness) {
 
 	const float r_eye = length(p);
 
-	#ifndef BRDFxCOS
+	#ifndef BRDFxCOS_COMPONENT
 	float3 L = base_color;
-	#else // BRDFxCOS
+	#else // BRDFxCOS_COMPONENT
 	float3 L = float3(0.0f, 0.0f, 0.0f);
 
-	#ifndef DISSABLE_AMBIENT_LIGHT
+	#ifndef DISABLE_AMBIENT_LIGHT
 	// Ambient light contribution
 	L += g_La;
-	#endif // DISSABLE_AMBIENT_LIGHT
+	#endif // DISABLE_AMBIENT_LIGHT
 
 	const float3 v = -p / r_eye;
 
-	#ifndef DISSABLE_DIRECTIONAL_LIGHTS
+	#ifndef DISABLE_DIRECTIONAL_LIGHTS
 	// Directional lights contribution
 	for (uint i0 = 0u; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
@@ -162,11 +164,12 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, L_light;
 		Contribution(light, l, L_light);
 
-		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_DIRECTIONAL_LIGHTS
+	#endif // DISABLE_DIRECTIONAL_LIGHTS
 
-	#ifndef DISSABLE_OMNI_LIGHTS
+	#ifndef DISABLE_OMNI_LIGHTS
 	// Omni lights contribution
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
@@ -174,11 +177,12 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_OMNI_LIGHTS
+	#endif // DISABLE_OMNI_LIGHTS
 
-	#ifndef DISSABLE_SPOT_LIGHTS
+	#ifndef DISABLE_SPOT_LIGHTS
 	// Spotlights contribution
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
@@ -186,13 +190,14 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_SPOT_LIGHTS
+	#endif // DISABLE_SPOT_LIGHTS
 
-	#ifndef DISSABLE_SHADOW_MAPPING
+	#ifndef DISABLE_SHADOW_MAPPING
 
-	#ifndef DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
+	#ifndef DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
 	// Directional lights with shadow mapping contribution
 	for (uint i3 = 0u; i3 < g_nb_sm_directional_lights; ++i3) {
 		const ShadowMappedDirectionalLight light = g_sm_directional_lights[i3];
@@ -200,11 +205,12 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, L_light;
 		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, L_light);
 
-		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
+	#endif // DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
 
-	#ifndef DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS
+	#ifndef DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
 	// Omni lights with shadow mapping contribution
 	for (uint i4 = 0u; i4 < g_nb_sm_omni_lights; ++i4) {
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
@@ -212,11 +218,12 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, I_light);
 		
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_SHADOW_MAPPED_OMNI_LIGHTS
+	#endif // DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
 
-	#ifndef DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS
+	#ifndef DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
 	// Spotlights with shadow mapping contribution
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
@@ -224,20 +231,45 @@ float3 BRDFShading(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, I_light);
 
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+										  roughness, metalness);
 	}
-	#endif // DISSABLE_SHADOW_MAPPED_SPOT_LIGHTS
+	#endif // DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
 
-	#endif // DISSABLE_SHADOW_MAPPING
+	#endif // DISABLE_SHADOW_MAPPING
 
-	#endif // BRDFxCOS
+	#endif // BRDFxCOS_COMPONENT
 
-	#ifndef DISSABLE_FOG
+	#ifndef DISABLE_FOG
 	const float fog_factor = FOG_FACTOR_COMPONENT(r_eye, g_fog_density);
 	L = lerp(g_fog_color, L, fog_factor);
-	#endif // DISSABLE_FOG
+	#endif // DISABLE_FOG
 	
 	return L;
+}
+
+float3 GetIndirectRadiance(float3 p) {
+	#ifndef BRDFxCOS_COMPONENT
+	return float3(0.0f, 0.0f, 0.0f);
+	#else  // BRDFxCOS_COMPONENT
+
+	#ifdef DISABLE_VCT
+	return float3(0.0f, 0.0f, 0.0f);
+	#else  // DISABLE_VCT
+	const float3 L = g_voxel_texture[p * g_voxel_inv_size * g_voxel_grid_inv_resolution].xyz;
+	return L;
+	#endif // DISABLE_VCT
+
+	#endif // BRDFxCOS_COMPONENT
+}
+
+float3 GetRadiance(float3 p, float3 n,
+				   float3 base_color, float roughness, float metalness) {
+
+	const float3 L_direct = GetDirectRadiance(p, n, base_color, roughness, metalness);
+	const float3 L_indirect = GetIndirectRadiance(p);
+	
+	return L_direct + L_indirect;
 }
 
 #endif //MAGE_HEADER_LIGHTING

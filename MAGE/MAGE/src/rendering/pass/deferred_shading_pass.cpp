@@ -25,9 +25,9 @@ namespace mage {
 
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_cs(CreateDeferredCS(BRDFType::Unknown)),
+		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
 		m_vs(CreateNearFullscreenTriangleVS()),
-		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown)),
+		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown, false)),
 		m_brdf(BRDFType::Unknown) {}
 
 	DeferredShadingPass::DeferredShadingPass(
@@ -60,8 +60,8 @@ namespace mage {
 	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
 		if (m_brdf != brdf) {
 			m_brdf    = brdf;
-			m_cs      = CreateDeferredCS(brdf);
-			m_msaa_ps = CreateDeferredMSAAPS(brdf);
+			m_cs      = CreateDeferredCS(brdf, false);
+			m_msaa_ps = CreateDeferredMSAAPS(brdf, false);
 		}
 	}
 

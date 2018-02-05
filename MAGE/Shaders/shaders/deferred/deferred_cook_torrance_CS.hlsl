@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDFxCOS CookTorranceBRDFxCos
+#define BRDFxCOS_COMPONENT CookTorranceBRDFxCos
+#define DISABLE_VCT
 #include "deferred\deferred.hlsli"

@@ -25,11 +25,11 @@ float4 NearFullScreenTriangleNDC(uint vertex_id) {
 	// v2 = ( 3,-1, 0)
 	const float x = (vertex_id / 2) * 4.0f - 1.0f;
 	const float y = (vertex_id % 2) * 4.0f - 1.0f;
-	#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISABLE_INVERTED_Z_BUFFER
 	return float4(x, y, 0.0f, 1.0f);
-	#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISABLE_INVERTED_Z_BUFFER
 	return float4(x, y, 1.0f, 1.0f);
-	#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISABLE_INVERTED_Z_BUFFER
 }
 
 /**
@@ -47,11 +47,11 @@ float4 FarFullScreenTriangleNDC(uint vertex_id) {
 	// v2 = ( 3,-1, 0)
 	const float x = (vertex_id / 2) * 4.0f - 1.0f;
 	const float y = (vertex_id % 2) * 4.0f - 1.0f;
-	#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISABLE_INVERTED_Z_BUFFER
 	return float4(x, y, 1.0f, 1.0f);
-	#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISABLE_INVERTED_Z_BUFFER
 	return float4(x, y, 0.0f, 1.0f);
-	#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISABLE_INVERTED_Z_BUFFER
 }
 
 /**

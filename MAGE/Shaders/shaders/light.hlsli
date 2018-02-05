@@ -4,11 +4,11 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// LIGHT_DISTANCE_ATTENUATION_COMPONENT      | DistanceAttenuation
-// LIGHT_ANGULAR_ATTENUATION_COMPONENT       | AngularAttenuation
-// FOG_FACTOR_COMPONENT                      | FogFactor_Exponential
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT     | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT      | AngularAttenuation
+// FOG_FACTOR_COMPONENT                     | FogFactor_Exponential
 
 //-----------------------------------------------------------------------------
 // Engine Includes

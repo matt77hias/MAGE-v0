@@ -1,20 +1,23 @@
 #ifndef MAGE_HEADER_BRDF
 #define MAGE_HEADER_BRDF
 
-#include "math.hlsli"
-
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                         | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_DIFFUSE_BRDF                     | not defined
-// DISSABLE_SPECULAR_BRDF                    | not defined
-// BRDF_F_COMPONENT                          | F_Schlick
-// BRDF_D_COMPONENT                          | D_GGX
-// BRDF_G_COMPONENT                          | G_GXX
-// BRDF_MINIMUM_ALPHA                        | 0.1f
-// BRDF_DOT_EPSILON                          | 0.00001f
+// DISABLE_DIFFUSE_BRDF                     | not defined
+// DISABLE_SPECULAR_BRDF                    | not defined
+// BRDF_F_COMPONENT                         | F_Schlick
+// BRDF_D_COMPONENT                         | D_GGX
+// BRDF_G_COMPONENT                         | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_DOT_EPSILON                         | 0.00001f
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "math.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants
@@ -1412,7 +1415,8 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 	const float3 g1       = g + v_dot_h;
 	const float3 g2       = g - v_dot_h;
 
-	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) / (g2 * (v_dot_h + 1.0f))));
+	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) 
+										   / (g2 * (v_dot_h + 1.0f))));
 }
 
 //-----------------------------------------------------------------------------
@@ -1444,12 +1448,12 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 	                      float roughness, 
 	                      float metalness) {
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	return 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float n_dot_l = sat_dot(n, l);
 	return base_color * g_inv_pi * n_dot_l;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 }
 
 #ifndef BRDF_F_COMPONENT
@@ -1521,23 +1525,23 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
 	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	#ifdef DISSABLE_SPECULAR_BRDF
+	#ifdef DISABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
-	#else // DISSABLE_SPECULAR_BRDF
+	#else // DISABLE_SPECULAR_BRDF
 	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
 	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISSABLE_SPECULAR_BRDF
+	#endif // DISABLE_SPECULAR_BRDF
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	const float3 Fd      = 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float  F_diff  = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, roughness) 
 		                 * (1.0f - metalness);
 	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 
 	return (Fd + Fs) * n_dot_l;
 }
@@ -1574,22 +1578,22 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
 	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	#ifdef DISSABLE_SPECULAR_BRDF
+	#ifdef DISABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
-	#else // DISSABLE_SPECULAR_BRDF
+	#else // DISABLE_SPECULAR_BRDF
 	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
 	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISSABLE_SPECULAR_BRDF
+	#endif // DISABLE_SPECULAR_BRDF
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	const float3 Fd      = 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float3 F_diff  = (1.0f - F_spec) * (1.0f - metalness);
 	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 
 	return (Fd + Fs) * n_dot_l;
 }

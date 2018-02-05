@@ -28,11 +28,11 @@ namespace mage {
 		m_vs(CreateTransformVS()),
 		m_ps{ 
 			CreateForwardEmissivePS(false), 
-			CreateForwardPS(BRDFType::Unknown, false, false), 
-			CreateForwardPS(BRDFType::Unknown, true,  false),
+			CreateForwardPS(BRDFType::Unknown, false, false, false), 
+			CreateForwardPS(BRDFType::Unknown, false, false, true),
 			CreateForwardEmissivePS(true),
-			CreateForwardPS(BRDFType::Unknown, false, true),
-			CreateForwardPS(BRDFType::Unknown, true,  true),
+			CreateForwardPS(BRDFType::Unknown, true, false, false),
+			CreateForwardPS(BRDFType::Unknown, true, false, true),
 		},
 		m_bound_ps(PSIndex::Count), 
 		m_brdf(BRDFType::Unknown),
@@ -55,11 +55,11 @@ namespace mage {
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
@@ -76,11 +76,11 @@ namespace mage {
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
 	}
@@ -89,13 +89,13 @@ namespace mage {
 		if (m_brdf != brdf) {
 			m_brdf = brdf;
 			m_ps[static_cast< size_t >(PSIndex::BRDF)] 
-				= CreateForwardPS(brdf, false, false);
+				= CreateForwardPS(brdf, false, false, false);
 			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] 
-				= CreateForwardPS(brdf, true,  false);
+				= CreateForwardPS(brdf, false, false, true);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF)] 
-				= CreateForwardPS(brdf, false, true);
+				= CreateForwardPS(brdf, true, false, false);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF_TSNM)] 
-				= CreateForwardPS(brdf, true,  true);
+				= CreateForwardPS(brdf, true, false, true);
 		}
 	}
 

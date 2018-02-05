@@ -1,6 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define TSNM
-#define BRDFxCOS LambertianBRDFxCos
+#define BRDFxCOS_COMPONENT LambertianBRDFxCos
 #include "voxelization\voxelization.hlsli"

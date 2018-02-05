@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDFxCOS FrostbiteBRDFxCos
+#define BRDFxCOS_COMPONENT FrostbiteBRDFxCos
 #include "deferred\deferred.hlsli"

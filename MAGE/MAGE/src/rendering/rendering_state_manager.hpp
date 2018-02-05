@@ -241,7 +241,7 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
 		}
 
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 
 		/**
 		 Binds the less-equal, read-write depth stencil state of this rendering
@@ -303,7 +303,7 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
 		}
 
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 
 		/**
 		 Binds the greater-equal, read-write depth stencil state of this rendering
@@ -365,7 +365,7 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
 		}
 
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 
 		#pragma endregion
 
@@ -744,17 +744,17 @@ namespace mage {
 		 */
 		enum class DepthStencilStateIndex : U8 {
 			DepthNone                  = 0,
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			LessEqualDepthReadWrite    = 1,
 			LessEqualDepthRead         = 2,
 			LessDepthReadWrite         = 3,
 			LessDepthRead              = 4,
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			GreaterEqualDepthReadWrite = 1,
 			GreaterEqualDepthRead      = 2,
 			GreaterDepthReadWrite      = 3,
 			GreaterDepthRead           = 4,
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 			Count                      = 5
 		};
 		

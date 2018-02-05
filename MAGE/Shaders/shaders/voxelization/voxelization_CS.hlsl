@@ -22,7 +22,7 @@ RW_TEXTURE_3D(voxel_texture, float4, SLOT_UAV_VOXEL_TEXTURE);
 //-----------------------------------------------------------------------------
 
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE 4
+	#define GROUP_SIZE GROUP_SIZE_3D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, GROUP_SIZE)]
@@ -33,10 +33,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	}
 
 	const uint flat_index = FlattenIndex(thread_id, g_voxel_grid_resolution);
-
-	const float3 L = DecodeRadiance(voxel_grid[flat_index].encoded_L);
+	const uint encoded_L  = voxel_grid[flat_index].encoded_L;
 	voxel_grid[flat_index].encoded_L = 0u;
 	voxel_grid[flat_index].encoded_n = 0u;
 
-	voxel_texture[thread_id] = float4(L, 1.0f);
+	const float3 L    = DecodeRadiance(encoded_L);
+	const float alpha = (0u != encoded_L) ? 1.0f : 0.0f;
+	voxel_texture[thread_id] = float4(L, alpha);
 }

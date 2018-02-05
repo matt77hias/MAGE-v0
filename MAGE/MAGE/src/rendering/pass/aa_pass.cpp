@@ -83,9 +83,9 @@ namespace mage {
 
 		// Dispatch the pass.
 		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
-												   GROUP_SIZE_DEFAULT);
+												   GROUP_SIZE_2D_DEFAULT);
 		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
-												   GROUP_SIZE_DEFAULT);
+												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 
@@ -101,9 +101,9 @@ namespace mage {
 
 		// Dispatch the pass.
 		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
-												   GROUP_SIZE_DEFAULT);
+												   GROUP_SIZE_2D_DEFAULT);
 		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
-												   GROUP_SIZE_DEFAULT);
+												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

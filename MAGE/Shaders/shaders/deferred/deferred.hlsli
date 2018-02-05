@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                         | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                                | GROUP_SIZE_DEFAULT (CS only)
+// GROUP_SIZE                                | GROUP_SIZE_2D_DEFAULT (CS only)
 // DISSABLE_DIFFUSE_BRDF                     | not defined
 // DISSABLE_SPECULAR_BRDF                    | not defined
 // BRDF_F_COMPONENT                          | F_Schlick
@@ -92,7 +92,7 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 // without knowing the positioning of the subpixels inside the pixel.
 
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

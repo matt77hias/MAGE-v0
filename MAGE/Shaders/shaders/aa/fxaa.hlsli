@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                         | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                                | GROUP_SIZE_DEFAULT
+// GROUP_SIZE                                | GROUP_SIZE_2D_DEFAULT
 // FXAA_GREEN_AS_LUMA                        | not defined
 
 //-----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ RW_TEXTURE_2D(g_output_image_texture,  float4, SLOT_UAV_IMAGE);
 // Compute Shader
 //-----------------------------------------------------------------------------
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

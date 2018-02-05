@@ -30,7 +30,8 @@
 
 #define MAGE_NVIDIA_WARP_SIZE   32
 #define MAGE_AMD_WAFEFRONT_SIZE 64
-#define GROUP_SIZE_DEFAULT      16
+#define GROUP_SIZE_2D_DEFAULT   16  // 16^2 = 256, 256/64 = 4
+#define GROUP_SIZE_3D_DEFAULT    8  //  8^3 = 512, 512/64 = 8
 
 #define GROUP_SIZE_MSAA_2X      16	// [numthreads( 2, 16, 16)] =  512
 #define GROUP_SIZE_MSAA_4X      16	// [numthreads( 4, 16, 16)] = 1024

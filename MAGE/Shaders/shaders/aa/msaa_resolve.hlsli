@@ -4,7 +4,7 @@
 // Defines			                         | Default
 //-----------------------------------------------------------------------------
 // MSAA                                      | not defined
-// GROUP_SIZE                                | GROUP_SIZE_DEFAULT
+// GROUP_SIZE                                | GROUP_SIZE_2D_DEFAULT
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -106,7 +106,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 #else  // MSAA && GROUP_SIZE
 
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

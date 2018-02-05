@@ -26,7 +26,7 @@ RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 //-----------------------------------------------------------------------------
 
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

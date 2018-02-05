@@ -354,21 +354,21 @@ namespace mage {
 		
 		switch(config) {
 			
-		case 0u: // 000
+		case 0b000:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_blinn_phong_PS));
-		case 1u: // 001
+		case 0b001:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS));
-		case 2u: // 010
+		case 0b010:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_blinn_phong_PS));
-		case 3u: // 011
+		case 0b011:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_blinn_phong_PS));
-		case 4u: // 100
+		case 0b100:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS));			
-		case 5u: // 101
+		case 0b101:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS));
-		case 6u: // 110
+		case 0b110:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_blinn_phong_PS));
-		case 7u: // 111
+		case 0b111:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_blinn_phong_PS));
 		default:
 			return nullptr;
@@ -382,21 +382,21 @@ namespace mage {
 		
 		switch(config) {
 			
-		case 0u: // 000
+		case 0b000:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_cook_torrance_PS));
-		case 1u: // 001
+		case 0b001:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS));
-		case 2u: // 010
+		case 0b010:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_cook_torrance_PS));
-		case 3u: // 011
+		case 0b011:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_cook_torrance_PS));
-		case 4u: // 100
+		case 0b100:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS));			
-		case 5u: // 101
+		case 0b101:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS));
-		case 6u: // 110
+		case 0b110:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_cook_torrance_PS));
-		case 7u: // 111
+		case 0b111:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_cook_torrance_PS));
 		default:
 			return nullptr;
@@ -415,21 +415,21 @@ namespace mage {
 		
 		switch(config) {
 			
-		case 0u: // 000
+		case 0b000:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_frostbite_PS));
-		case 1u: // 001
+		case 0b001:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS));
-		case 2u: // 010
+		case 0b010:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_frostbite_PS));
-		case 3u: // 011
+		case 0b011:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_frostbite_PS));
-		case 4u: // 100
+		case 0b100:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS));			
-		case 5u: // 101
+		case 0b101:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS));
-		case 6u: // 110
+		case 0b110:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_frostbite_PS));
-		case 7u: // 111
+		case 0b111:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_frostbite_PS));
 		default:
 			return nullptr;
@@ -443,21 +443,21 @@ namespace mage {
 		
 		switch(config) {
 			
-		case 0u: // 000
+		case 0b000:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_lambertian_PS));
-		case 1u: // 001
+		case 0b001:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS));
-		case 2u: // 010
+		case 0b010:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_lambertian_PS));
-		case 3u: // 011
+		case 0b011:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_lambertian_PS));
-		case 4u: // 100
+		case 0b100:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS));			
-		case 5u: // 101
+		case 0b101:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS));
-		case 6u: // 110
+		case 0b110:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_lambertian_PS));
-		case 7u: // 111
+		case 0b111:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_lambertian_PS));
 		default:
 			return nullptr;
@@ -471,21 +471,21 @@ namespace mage {
 		
 		switch(config) {
 			
-		case 0u: // 000
+		case 0b000:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_ward_duer_PS));
-		case 1u: // 001
+		case 0b001:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS));
-		case 2u: // 010
+		case 0b010:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_ward_duer_PS));
-		case 3u: // 011
+		case 0b011:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_vct_tsnm_ward_duer_PS));
-		case 4u: // 100
+		case 0b100:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS));			
-		case 5u: // 101
+		case 0b101:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS));
-		case 6u: // 110
+		case 0b110:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_ward_duer_PS));
-		case 7u: // 111
+		case 0b111:
 			return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_ward_duer_PS));
 		default:
 			return nullptr;

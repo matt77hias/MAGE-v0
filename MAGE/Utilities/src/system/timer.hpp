@@ -5,16 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <chrono>
+#include "system\system_time.hpp"
 
 #pragma endregion
 
@@ -23,9 +14,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Timer
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
-	 A class of (high precision) wall clock timers.
+	 A class of timers.
+
+	 @tparam		ClockT
+					The clock type.
 	 */
+	template< typename ClockT >
 	class Timer final {
 
 	public:
@@ -153,20 +153,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The clock type of timers.
-		 */
-		using Clock = std::chrono::high_resolution_clock;
-		
-		/**
 		 The time stamp type representing the time points of timers.
 		 */
-		using TimeStamp = Clock::time_point;
+		using TimeStamp = typename ClockT::time_point;
 
 		/**
 		 The time interval type representing the interval between time points 
 		 of timers.
 		 */
-		using TimeInterval = Clock::duration;
+		using TimeInterval = typename ClockT::duration;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -175,7 +170,7 @@ namespace mage {
 		/**
 		 The clock of this timer.
 		 */
-		Clock m_clock;
+		ClockT m_clock;
 
 		/**
 		 The last timestamp of this timer.
@@ -197,4 +192,32 @@ namespace mage {
 		 */
 		bool m_running;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of wall clock timers.
+	 */
+	using WallClockTimer = Timer< std::chrono::high_resolution_clock >;
+
+	/**
+	 A class of CPU (i.e. core clock per core) timers.
+	 */
+	using CPUTimer = Timer< CoreClockPerCore >;
+
+	#pragma endregion
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "system\timer.tpp"
+
+#pragma endregion

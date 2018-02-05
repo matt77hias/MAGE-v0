@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "timer\timer.hpp"
-#include "timer\cpu_timer.hpp"
+#include "system\timer.hpp"
 
 #pragma endregion
 
@@ -84,32 +83,32 @@ namespace mage {
 		 Starts this CPU monitor.
 		 */
 		void Start() noexcept {
-			m_timer.Start();
-			m_cpu_timer.Start();
+			m_wall_timer.Start();
+			m_core_timer.Start();
 		}
 
 		/**
 		 Stops this CPU monitor.
 		 */
 		void Stop() noexcept {
-			m_timer.Stop();
-			m_cpu_timer.Stop();
+			m_wall_timer.Stop();
+			m_core_timer.Stop();
 		}
 
 		/**
 		 Restarts this CPU monitor.
 		 */
 		void Restart() noexcept {
-			m_timer.Restart();
-			m_cpu_timer.Restart();
+			m_wall_timer.Restart();
+			m_core_timer.Restart();
 		}
 
 		/**
 		 Resumes this CPU monitor.
 		 */
 		void Resume() noexcept {
-			m_timer.Resume();
-			m_cpu_timer.Resume();
+			m_wall_timer.Resume();
+			m_core_timer.Resume();
 		}
 
 		/**
@@ -118,9 +117,9 @@ namespace mage {
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
 		F64 GetCPUDeltaPercentage() const noexcept {
-			const F64 time     = m_timer.GetDeltaTime();
-			const F64 cpu_time = m_cpu_timer.GetCoreDeltaTimePerCore();
-			return 100.0 * (cpu_time / time);
+			const auto wall_time = m_wall_timer.GetDeltaTime();
+			const auto core_time = m_core_timer.GetDeltaTime();
+			return 100.0 * (core_time / wall_time);
 		}
 
 		/**
@@ -130,9 +129,9 @@ namespace mage {
 						process.
 		 */
 		F64 GetTotalCPUDeltaPercentage() const noexcept {
-			const F64 time     = m_timer.GetTotalDeltaTime();
-			const F64 cpu_time = m_cpu_timer.GetTotalCoreDeltaTimePerCore();
-			return 100.0 * (cpu_time / time);
+			const auto wall_time = m_wall_timer.GetTotalDeltaTime();
+			const auto core_time = m_core_timer.GetTotalDeltaTime();
+			return 100.0 * (core_time / wall_time);
 		}
 
 	private:
@@ -142,13 +141,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The wallclock timer of this CPU monitor.
+		 The wall clock timer of this CPU monitor.
 		 */
-		Timer m_timer;
+		WallClockTimer m_wall_timer;
 
 		/**
-		 The CPU core timer of this CPU monitor.
+		 The core clock per core timer of this CPU monitor.
 		 */
-		CPUTimer m_cpu_timer;
+		CPUTimer m_core_timer;
 	};
 }

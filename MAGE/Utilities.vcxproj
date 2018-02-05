@@ -72,8 +72,7 @@
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
     <ClInclude Include="Utilities\src\system\system_time.hpp" />
     <ClInclude Include="Utilities\src\system\system_usage.hpp" />
-    <ClInclude Include="Utilities\src\timer\cpu_timer.hpp" />
-    <ClInclude Include="Utilities\src\timer\timer.hpp" />
+    <ClInclude Include="Utilities\src\system\timer.hpp" />
     <ClInclude Include="Utilities\src\type\scalar_types.hpp" />
     <ClInclude Include="Utilities\src\type\types.hpp" />
     <ClInclude Include="Utilities\src\type\vector_types.hpp" />
@@ -98,8 +97,6 @@
     <ClCompile Include="Utilities\src\string\token.cpp" />
     <ClCompile Include="Utilities\src\system\system_time.cpp" />
     <ClCompile Include="Utilities\src\system\system_usage.cpp" />
-    <ClCompile Include="Utilities\src\timer\cpu_timer.cpp" />
-    <ClCompile Include="Utilities\src\timer\timer.cpp" />
     <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +112,7 @@
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
     <None Include="Utilities\src\string\token.tpp" />
+    <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

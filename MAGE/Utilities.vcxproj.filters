@@ -42,9 +42,6 @@
     <Filter Include="Header Files\system">
       <UniqueIdentifier>{a0f03cb5-54cc-4cb4-a839-956d51c3b5e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\timer">
-      <UniqueIdentifier>{1b7808ff-87b6-4ef2-95ec-5cb5f470fa0d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\type">
       <UniqueIdentifier>{f6613fd5-3caa-42d8-b82a-b8226a423fee}</UniqueIdentifier>
     </Filter>
@@ -68,9 +65,6 @@
     </Filter>
     <Filter Include="Source Files\system">
       <UniqueIdentifier>{4c78bd7f-6f11-4827-801e-b6d0d0bbeff8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\timer">
-      <UniqueIdentifier>{82ed82d8-4163-4177-82b9-8d92c56c87b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{f7ea1007-c471-417d-b7f5-7da347bdd5fa}</UniqueIdentifier>
@@ -170,12 +164,6 @@
     <ClInclude Include="Utilities\src\system\system_usage.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\timer\cpu_timer.hpp">
-      <Filter>Header Files\timer</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\timer\timer.hpp">
-      <Filter>Header Files\timer</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\type\scalar_types.hpp">
       <Filter>Header Files\type</Filter>
     </ClInclude>
@@ -187,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\ui\combo_box.hpp">
       <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\system\timer.hpp">
+      <Filter>Header Files\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,12 +235,6 @@
     <ClCompile Include="Utilities\src\system\system_usage.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\src\timer\cpu_timer.cpp">
-      <Filter>Source Files\timer</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\timer\timer.cpp">
-      <Filter>Source Files\timer</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities\src\ui\combo_box.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
@@ -290,6 +275,9 @@
     </None>
     <None Include="Utilities\src\file\file_utils.tpp">
       <Filter>Header Files\file</Filter>
+    </None>
+    <None Include="Utilities\src\system\timer.tpp">
+      <Filter>Header Files\system</Filter>
     </None>
   </ItemGroup>
 </Project>

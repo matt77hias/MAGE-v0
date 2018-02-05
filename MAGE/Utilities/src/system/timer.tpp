@@ -1,25 +1,20 @@
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "timer\timer.hpp"
-
-#pragma endregion
+#pragma once
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Timer::Timer() noexcept
+	template< typename ClockT >
+	Timer< ClockT >::Timer() noexcept
 		: m_clock(),
 		m_last_timestamp(TimeStamp::min()),
 		m_delta_time(TimeInterval::min()),
 		m_total_delta_time(TimeInterval::min()),
 		m_running(false) {}
 
-	void Timer::Start() noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::Start() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -28,7 +23,8 @@ namespace mage {
 		ResetDeltaTime();
 	}
 
-	void Timer::Stop() noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::Stop() noexcept {
 		if (!m_running) {
 			return;
 		}
@@ -37,12 +33,14 @@ namespace mage {
 		UpdateDeltaTime();
 	}
 
-	void Timer::Restart() noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::Restart() noexcept {
 		m_running = false;
 		Start();
 	}
 
-	void Timer::Resume() noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::Resume() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -51,7 +49,8 @@ namespace mage {
 		m_last_timestamp = m_clock.now();
 	}
 
-	F64 Timer::GetDeltaTime() const noexcept {
+	template< typename ClockT >
+	inline F64 Timer< ClockT >::GetDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -60,7 +59,8 @@ namespace mage {
 		return std::chrono::duration_cast< Seconds >(m_delta_time).count();
 	}
 
-	F64 Timer::GetTotalDeltaTime() const noexcept {
+	template< typename ClockT >
+	inline F64 Timer< ClockT >::GetTotalDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -69,7 +69,8 @@ namespace mage {
 		return std::chrono::duration_cast< Seconds >(m_total_delta_time).count();
 	}
 
-	void Timer::ResetDeltaTime() const noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::ResetDeltaTime() const noexcept {
 		// Resets the delta time of this timer.
 		m_delta_time       = TimeInterval::min();
 		// Resets the total delta time of this timer.
@@ -78,7 +79,8 @@ namespace mage {
 		m_last_timestamp   = m_clock.now();
 	}
 
-	void Timer::UpdateDeltaTime() const noexcept {
+	template< typename ClockT >
+	inline void Timer< ClockT >::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer.
 		const auto current_timestamp = m_clock.now();
 

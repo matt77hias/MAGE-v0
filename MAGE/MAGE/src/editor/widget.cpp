@@ -475,7 +475,6 @@ namespace mage::editor {
 
 		// Sprite effects
 		static constexpr const char *sprite_effect_names[] = {
-<<<<<<< HEAD
 			"None",
 			"Mirror X",
 			"Mirror Y",
@@ -486,25 +485,6 @@ namespace mage::editor {
 			SpriteEffect::MirrorX,
 			SpriteEffect::MirrorY,
 			SpriteEffect::MirrorXY
-=======
-<<<<<<< HEAD
-			{ "None"    },
-			{ "Flip X"  },
-			{ "Flip Y"  },
-			{ "Flip XY" }
-=======
-			{ "None"              },
-			{ "Mirror X" },
-			{ "Mirror Y"   },
-			{ "Mirror XY"         }
->>>>>>> f39c83029eed66f8d66520ed5f0668dd111f009b
-		};
-		static constexpr SpriteEffect sprite_effects[] = {
-			{ SpriteEffect::None     },
-			{ SpriteEffect::MirrorX  },
-			{ SpriteEffect::MirrorY  },
-			{ SpriteEffect::MirrorXY }
->>>>>>> bace09cbb73ad58602fcddb5deecf2c4c9295504
 		};
 		static_assert(std::size(sprite_effect_names) == std::size(sprite_effects));
 

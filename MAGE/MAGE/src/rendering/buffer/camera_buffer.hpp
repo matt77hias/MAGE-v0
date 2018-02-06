@@ -45,7 +45,7 @@ namespace mage {
 			m_viewport_inv_height_minus1(0.0f), 
 			m_ss_viewport_inv_width_minus1(0.0f), 
 			m_ss_viewport_inv_height_minus1(0.0f), 
-			m_view_to_voxel{}, m_voxel_size(0.0f), 
+			m_voxel_size(0.0f), 
 			m_voxel_inv_size(0.0f), 
 			m_voxel_grid_resolution(0u), 
 			m_voxel_grid_inv_resolution(0.0f), 
@@ -205,12 +205,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The camera-view-to-voxel-grid transformation matrix of this camera 
-		 buffer. 
-		 */
-		XMMATRIX m_view_to_voxel;
-
-		/**
 		 The size of a voxel for all dimensions of this camera buffer. 
 		 */
 		F32 m_voxel_size;
@@ -258,5 +252,5 @@ namespace mage {
 		U32 m_padding0;
 	};
 
-	static_assert(400 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
+	static_assert(336 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
 }

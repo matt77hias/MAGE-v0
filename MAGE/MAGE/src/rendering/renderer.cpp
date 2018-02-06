@@ -104,20 +104,9 @@ namespace mage {
 
 		buffer.m_voxel_grid_resolution         = 256u;
 		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
-		buffer.m_voxel_size                    = 256.0f * buffer.m_voxel_grid_inv_resolution;
+		buffer.m_voxel_size                    = 1.0f;
 		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
 		
-		const float radius = 0.5f * buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
-		#ifdef DISABLE_INVERTED_Z_BUFFER
-		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius, 
-																 -radius, radius, 
-																 -radius, radius);
-		#else  // DISABLE_INVERTED_Z_BUFFER
-		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius,
-																 -radius, radius,
-																 radius, -radius);
-		#endif // DISABLE_INVERTED_Z_BUFFER
-
 		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
 		buffer.m_focal_length                  = camera.GetLens().GetFocalLength();
 		buffer.m_max_coc_radius                = camera.GetLens().GetMaximumCoCRadius();
@@ -317,16 +306,23 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
+		const auto vct = true;
 
-		//GetVoxelizationPass()->Render(scene, world_to_projection,
-		//							  world_to_view, view_to_world, brdf, 128u);
-		
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
 		//---------------------------------------------------------------------
 		GetLBufferPass()->Render(scene, world_to_projection,
 								 world_to_view, view_to_world,
 								 camera.GetSettings().GetFog());
+
+		//---------------------------------------------------------------------
+		// Perform a voxelization pass.
+		//---------------------------------------------------------------------
+		if (vct) {
+			GetVoxelizationPass()->Render(scene, world_to_projection,
+										  world_to_view, view_to_world,
+										  brdf, 128u);
+		}
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
@@ -337,7 +333,8 @@ namespace mage {
 		// Perform a forward pass: opaque fragments.
 		//---------------------------------------------------------------------
 		GetVariableShadingPass()->Render(scene, world_to_projection, 
-										 world_to_view, view_to_world, brdf);
+										 world_to_view, view_to_world, 
+										 brdf, vct);
 
 		//---------------------------------------------------------------------
 		// Perform a sky pass.
@@ -349,7 +346,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
 													world_to_view, view_to_world, 
-													brdf);
+													brdf, vct);
 	}
 
 	void XM_CALLCONV Renderer
@@ -362,6 +359,7 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
+		const auto vct = true;
 
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
@@ -369,6 +367,16 @@ namespace mage {
 		GetLBufferPass()->Render(scene, world_to_projection,
 								 world_to_view, view_to_world,
 								 camera.GetSettings().GetFog());
+
+		//---------------------------------------------------------------------
+		// Perform a voxelization pass.
+		//---------------------------------------------------------------------
+		if (vct) {
+			GetVoxelizationPass()->Render(scene, world_to_projection,
+										  world_to_view, view_to_world,
+										  brdf, 128u);
+		}
+
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
@@ -388,10 +396,10 @@ namespace mage {
 		// Perform a deferred pass.
 		//---------------------------------------------------------------------
 		if (DisplayConfiguration::Get()->UsesMSAA()) {
-			GetDeferredShadingPass()->Render(brdf);
+			GetDeferredShadingPass()->Render(brdf, vct);
 		}
 		else {
-			GetDeferredShadingPass()->Dispatch(viewport, brdf);
+			GetDeferredShadingPass()->Dispatch(viewport, brdf, vct);
 		}
 
 		output_manager->BindEndDeferred(m_device_context);
@@ -413,7 +421,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
 													world_to_view, view_to_world, 
-													brdf);
+													brdf, vct);
 	}
 
 	void Renderer::ExecuteAAPipeline(const Camera &camera) {

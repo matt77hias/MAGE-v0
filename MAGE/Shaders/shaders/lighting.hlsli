@@ -256,7 +256,7 @@ float3 GetIndirectRadiance(float3 p) {
 	#ifdef DISABLE_VCT
 	return float3(0.0f, 0.0f, 0.0f);
 	#else  // DISABLE_VCT
-	const float3 L = g_voxel_texture[p * g_voxel_inv_size * g_voxel_grid_inv_resolution].xyz;
+	const float3 L = g_voxel_texture[p * g_voxel_inv_size * 2.0f * g_voxel_grid_inv_resolution].xyz;
 	return L;
 	#endif // DISABLE_VCT
 
@@ -266,10 +266,14 @@ float3 GetIndirectRadiance(float3 p) {
 float3 GetRadiance(float3 p, float3 n,
 				   float3 base_color, float roughness, float metalness) {
 
+	#ifdef DISABLE_VCT
 	const float3 L_direct = GetDirectRadiance(p, n, base_color, roughness, metalness);
 	const float3 L_indirect = GetIndirectRadiance(p);
 	
 	return L_direct + L_indirect;
+	#else  // DISABLE_VCT
+	return GetIndirectRadiance(p); // debugging
+	#endif // DISABLE_VCT
 }
 
 #endif //MAGE_HEADER_LIGHTING

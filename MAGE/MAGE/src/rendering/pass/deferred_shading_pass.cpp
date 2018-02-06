@@ -26,9 +26,10 @@ namespace mage {
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
-		m_vs(CreateNearFullscreenTriangleVS()),
+		m_msaa_vs(CreateNearFullscreenTriangleVS()),
 		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown, false)),
-		m_brdf(BRDFType::Unknown) {}
+		m_brdf(BRDFType::Unknown), 
+		m_vct(false) {}
 
 	DeferredShadingPass::DeferredShadingPass(
 		DeferredShadingPass &&pass) noexcept = default;
@@ -40,7 +41,7 @@ namespace mage {
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
 											D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		// VS: Bind the vertex shader.
-		m_vs->BindShader(m_device_context);
+		m_msaa_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
 		Pipeline::HS::BindShader(m_device_context, nullptr);
 		// DS: Bind the domain shader.
@@ -57,17 +58,18 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
-		if (m_brdf != brdf) {
+	void DeferredShadingPass::UpdateShaders(BRDFType brdf, bool vct) {
+		if (m_brdf != brdf || m_vct != vct) {
 			m_brdf    = brdf;
-			m_cs      = CreateDeferredCS(brdf, false);
-			m_msaa_ps = CreateDeferredMSAAPS(brdf, false);
+			m_vct     = vct;
+			m_cs      = CreateDeferredCS(brdf, m_vct);
+			m_msaa_ps = CreateDeferredMSAAPS(brdf, m_vct);
 		}
 	}
 
-	void DeferredShadingPass::Render(BRDFType brdf) {
+	void DeferredShadingPass::Render(BRDFType brdf, bool vct) {
 		// Update the compute and pixel shader.
-		UpdateShaders(brdf);
+		UpdateShaders(brdf, vct);
 		// Binds the fixed state.
 		BindFixedState();
 		
@@ -75,9 +77,10 @@ namespace mage {
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}
 
-	void DeferredShadingPass::Dispatch(const Viewport &viewport, BRDFType brdf) {
+	void DeferredShadingPass::Dispatch(const Viewport &viewport, 
+									   BRDFType brdf, bool vct) {
 		// Update the compute and pixel shader.
-		UpdateShaders(brdf);
+		UpdateShaders(brdf, vct);
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 		

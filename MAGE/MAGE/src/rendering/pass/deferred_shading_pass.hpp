@@ -108,8 +108,13 @@ namespace mage {
 
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
+		 @throws		Exception
+						Failed to render the scene.
 		 */
-		void Render(BRDFType brdf);
+		void Render(BRDFType brdf, bool vct);
 
 		/**
 		 Dispatches.
@@ -118,8 +123,13 @@ namespace mage {
 						A reference to the viewport.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
+		 @throws		Exception
+						Failed to dispatch.
 		 */
-		void Dispatch(const Viewport &viewport, BRDFType brdf);
+		void Dispatch(const Viewport &viewport, BRDFType brdf, bool vct);
 		
 	private:
 
@@ -140,6 +150,9 @@ namespace mage {
 						must be loaded.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
 		 @throws		Exception
 						Failed to update the compute shader of this deferred 
 						shading pass.
@@ -147,7 +160,7 @@ namespace mage {
 						Failed to update the pixel shader of this deferred 
 						shading pass.
 		 */
-		void UpdateShaders(BRDFType brdf);
+		void UpdateShaders(BRDFType brdf, bool vct);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -166,7 +179,7 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this deferred shading pass.
 		 */
-		const VertexShaderPtr m_vs;
+		const VertexShaderPtr m_msaa_vs;
 
 		/**
 		 A pointer to the pixel shader of this deferred shading pass.
@@ -177,5 +190,11 @@ namespace mage {
 		 The current BRDF of this deferred shading pass.
 		 */
 		BRDFType m_brdf;
+
+		/**
+		 A flag indicating whether or not voxel cone tracing should be enabled 
+		 for this deferred shading pass.
+		 */
+		bool m_vct;
 	};
 }

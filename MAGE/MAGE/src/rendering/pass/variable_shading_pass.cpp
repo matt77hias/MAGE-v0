@@ -35,7 +35,8 @@ namespace mage {
 			CreateForwardPS(BRDFType::Unknown, true, false, true),
 		},
 		m_bound_ps(PSIndex::Count), 
-		m_brdf(BRDFType::Unknown),
+		m_brdf(BRDFType::Unknown), 
+		m_vct(false), 
 		m_model_buffer() {}
 
 	VariableShadingPass::VariableShadingPass(
@@ -85,17 +86,18 @@ namespace mage {
 		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
 	}
 
-	void VariableShadingPass::UpdatePSs(BRDFType brdf) {
-		if (m_brdf != brdf) {
+	void VariableShadingPass::UpdatePSs(BRDFType brdf, bool vct) {
+		if (m_brdf != brdf || m_vct != vct) {
 			m_brdf = brdf;
+			m_vct  = vct;
 			m_ps[static_cast< size_t >(PSIndex::BRDF)] 
-				= CreateForwardPS(brdf, false, false, false);
+				= CreateForwardPS(brdf, false, m_vct, false);
 			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] 
-				= CreateForwardPS(brdf, false, false, true);
+				= CreateForwardPS(brdf, false, m_vct, true);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF)] 
-				= CreateForwardPS(brdf, true, false, false);
+				= CreateForwardPS(brdf, true,  m_vct, false);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF_TSNM)] 
-				= CreateForwardPS(brdf, true, false, true);
+				= CreateForwardPS(brdf, true,  m_vct, true);
 		}
 	}
 
@@ -172,7 +174,8 @@ namespace mage {
 				 FXMMATRIX world_to_projection, 
 				 CXMMATRIX world_to_view, 
 				 CXMMATRIX view_to_world, 
-				 BRDFType brdf) {
+				 BRDFType brdf, 
+				 bool vct) {
 
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
@@ -180,7 +183,7 @@ namespace mage {
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
 		// Update the pixel shaders.
-		UpdatePSs(brdf);
+		UpdatePSs(brdf, vct);
 
 		// Process the models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
@@ -268,7 +271,8 @@ namespace mage {
 							FXMMATRIX world_to_projection, 
 							CXMMATRIX world_to_view, 
 							CXMMATRIX view_to_world, 
-							BRDFType brdf) {
+							BRDFType brdf, 
+							bool vct) {
 
 		// Bind the fixed transparent state.
 		BindFixedTransparentState();
@@ -276,7 +280,7 @@ namespace mage {
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
 		// Update the pixel shaders.
-		UpdatePSs(brdf);
+		UpdatePSs(brdf, vct);
 
 		// Process the transparent models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {

@@ -17,7 +17,6 @@
 // LIGHT_ANGULAR_ATTENUATION_COMPONENT      | AngularAttenuation
 // FOG_FACTOR_COMPONENT                     | FogFactor_Exponential
 // BRDFxCOS_COMPONENT                       | not defined
-// DISABLE_AMBIENT_LIGHT                    | not defined
 // DISABLE_DIRECTIONAL_LIGHTS               | not defined
 // DISABLE_OMNI_LIGHTS                      | not defined
 // DISABLE_SPOT_LIGHTS                      | not defined
@@ -32,7 +31,7 @@
 //-----------------------------------------------------------------------------
 #include "forward\forward_input.hlsli"
 
-#define DISABLE_DIFFUSE_BRDF
+#define DISABLE_AMBIENT_LIGHT
 #define DISABLE_VCT  
 #include "lighting.hlsli"
 
@@ -47,16 +46,15 @@ RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_VOXEL_BUFFER);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputPositionNormalTexture input) {
-	// [m] * [voxels/m] * [1/voxels]
-	const float3 relative = input.p_view * g_voxel_inv_size 
-		                                 * g_voxel_grid_inv_resolution;
-	// [-1,1]^3 -> [0,1]x[1,0]x[0,1]
-	const float3 uvw  = relative * float3(0.5f, -0.5f, 0.5f) + 0.5f;
+	// [0,R/2]x[R/2,0]x[0,R/2]
+	const float3 voxel  = input.p_view * g_voxel_inv_size 
+		                               * float3(1.0f, -1.0f, 1.0f);
 	// [0,R)x(R,0]x[0,R)
-	const uint3 index = floor(uvw * g_voxel_grid_resolution);
+	const  int3 s_index = floor(voxel + 0.5f * g_voxel_grid_resolution);
+	const uint3   index = (uint3)s_index;
 
 	[branch]
-	if (any(index < 0u || index > g_voxel_grid_resolution)) {
+	if (any(s_index < 0 || index >= g_voxel_grid_resolution)) {
 		return;
 	}
 
@@ -77,6 +75,7 @@ void PS(PSInputPositionNormalTexture input) {
 	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	// Store the encoded radiance and normal.
+
 	InterlockedMax(output[flat_index].encoded_L, EncodeRadiance(L));
 	InterlockedMax(output[flat_index].encoded_n, EncodeNormal(n_view));
 }

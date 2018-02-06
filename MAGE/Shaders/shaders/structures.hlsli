@@ -80,6 +80,22 @@ struct VSInputPositionNormalColorTexture {
 };
 
 //-----------------------------------------------------------------------------
+// GS Input Structures
+//-----------------------------------------------------------------------------
+
+/**
+ A geometry shader input struct of fragments having a view space position and 
+ view space normal, a pair of material and a pair of geometry texture 
+ coordinates component.
+ */
+struct GSInputPositionNormalTexture {
+	float3 p_view  : POSITION0;
+	float3 n_view  : NORMAL0;
+	float2 tex     : TEXCOORD0;
+	float2 tex2    : TEXCOORD1;
+};
+
+//-----------------------------------------------------------------------------
 // PS Input Structures
 //-----------------------------------------------------------------------------
 

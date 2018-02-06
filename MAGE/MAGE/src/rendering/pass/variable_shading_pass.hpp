@@ -117,6 +117,9 @@ namespace mage {
 						The view-to-world transformation matrix.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
@@ -124,7 +127,8 @@ namespace mage {
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
 			                    CXMMATRIX view_to_world, 
-								BRDFType brdf);
+								BRDFType brdf, 
+								bool vct);
 
 		/**
 		 Renders the scene (only the emissive models).
@@ -158,6 +162,9 @@ namespace mage {
 						The view-to-world transformation matrix.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
@@ -165,7 +172,8 @@ namespace mage {
 			                               FXMMATRIX world_to_projection,
 			                               CXMMATRIX world_to_view,
 			                               CXMMATRIX view_to_world, 
-										   BRDFType brdf);
+										   BRDFType brdf, 
+										   bool vct);
 
 	private:
 
@@ -213,11 +221,14 @@ namespace mage {
 						engine must be loaded.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
 		 @throws		Exception
 						Failed to update the pixel shaders of this variable 
 						shading pass.
 		 */
-		void UpdatePSs(BRDFType brdf);
+		void UpdatePSs(BRDFType brdf, bool vct);
 		
 		/**
 		 Binds the pixel shader of this variable shading pass associated with 
@@ -299,6 +310,12 @@ namespace mage {
 		 The current BRDF of this variable shading pass.
 		 */
 		BRDFType m_brdf;
+
+		/**
+		 A flag indicating whether or not voxel cone tracing should be enabled 
+		 for this variable shading pass.
+		 */
+		bool m_vct;
 
 		/**
 		 The model buffer of this variable shading pass.

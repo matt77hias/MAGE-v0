@@ -5,6 +5,7 @@
 
 #include "rendering\buffer\voxel_grid.hpp"
 #include "rendering\rendering_factory.hpp"
+#include "camera\viewport.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -136,12 +137,18 @@ namespace mage {
 	void VoxelGrid::BindBeginVoxelizationBuffer(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 		
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+							  nullptr);
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+							  nullptr);
+
 		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
 										  SLOT_UAV_VOXEL_BUFFER, 
 										  m_buffer_uav.Get());
 
-		// No viewport needs to be bound, since the viewport will not be used 
-		// explicitly.
+		const Viewport viewport(static_cast< F32 >(m_resolution), 
+								static_cast< F32 >(m_resolution));
+		viewport.BindViewport(device_context);
 	}
 
 	void VoxelGrid::BindEndVoxelizationBuffer(
@@ -154,11 +161,6 @@ namespace mage {
 
 	void VoxelGrid::BindBeginVoxelizationTexture(
 		ID3D11DeviceContext4 *device_context) const noexcept {
-
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
-							  nullptr);
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
-							  nullptr);
 
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
 							  m_buffer_uav.Get());

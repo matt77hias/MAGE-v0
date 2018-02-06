@@ -65,38 +65,38 @@ namespace mage::editor {
 		
 		// Render Mode
 		static constexpr const char *render_mode_names[] = {
-			{ "None"                   },
-			{ "Forward"                },
-			{ "Deferred"               },
-			{ "Solid"                  },
-			{ "Base Color"             },
-			{ "Base Color Coefficient" },
-			{ "Base Color Texture"     },
-			{ "Material"               },
-			{ "Material Coefficient"   },
-			{ "Material Texture"       },
-			{ "Normal Texture"         },
-			{ "UV Texture"             },
-			{ "Distance"               },
-			{ "Shading Normal"         },
-			{ "TSNM Shading Normal"    } 
+			"None",
+			"Forward",
+			"Deferred",
+			"Solid",
+			"Base Color",
+			"Base Color Coefficient",
+			"Base Color Texture",
+			"Material",
+			"Material Coefficient",
+			"Material Texture",
+			"Normal Texture",
+			"UV Texture",
+			"Distance",
+			"Shading Normal",
+			"TSNM Shading Normal" 
 		};
 		static constexpr RenderMode render_modes[] = {
-			{ RenderMode::None                 },
-			{ RenderMode::Forward              },
-			{ RenderMode::Deferred             },
-			{ RenderMode::Solid                },
-			{ RenderMode::BaseColor            },
-			{ RenderMode::BaseColorCoefficient },
-			{ RenderMode::BaseColorTexture     },
-			{ RenderMode::Material             },
-			{ RenderMode::MaterialCoefficient  },
-			{ RenderMode::MaterialTexture      },
-			{ RenderMode::NormalTexture        },
-			{ RenderMode::UVTexture            },
-			{ RenderMode::Distance             },
-			{ RenderMode::ShadingNormal        },
-			{ RenderMode::TSNMShadingNormal    } 
+			RenderMode::None,
+			RenderMode::Forward,
+			RenderMode::Deferred,
+			RenderMode::Solid,
+			RenderMode::BaseColor,
+			RenderMode::BaseColorCoefficient,
+			RenderMode::BaseColorTexture,
+			RenderMode::Material,
+			RenderMode::MaterialCoefficient,
+			RenderMode::MaterialTexture,
+			RenderMode::NormalTexture,
+			RenderMode::UVTexture,
+			RenderMode::Distance,
+			RenderMode::ShadingNormal,
+			RenderMode::TSNMShadingNormal 
 		};
 		static_assert(std::size(render_mode_names) == std::size(render_modes));
 
@@ -107,20 +107,20 @@ namespace mage::editor {
 
 		// BRDF
 		static constexpr const char *brdf_names[] = {
-			{ "Default"       },
-			{ "Lambertian"    },
-			{ "Blinn-Phong"   },
-			{ "Cook-Torrance" },
-			{ "Frostbite"     },
-			{ "Ward-Duer"     }
+			"Default",
+			"Lambertian",
+			"Blinn-Phong",
+			"Cook-Torrance",
+			"Frostbite",
+			"Ward-Duer"
 		};
 		static constexpr BRDFType brdfs[] = {
-			{ BRDFType::Unknown      },
-			{ BRDFType::Lambertian   },
-			{ BRDFType::BlinnPhong   },
-			{ BRDFType::CookTorrance },
-			{ BRDFType::Frostbite    },
-			{ BRDFType::WardDuer     }
+			BRDFType::Unknown,
+			BRDFType::Lambertian,
+			BRDFType::BlinnPhong,
+			BRDFType::CookTorrance,
+			BRDFType::Frostbite,
+			BRDFType::WardDuer
 		};
 		static_assert(std::size(brdf_names) == std::size(brdfs));
 		
@@ -475,16 +475,16 @@ namespace mage::editor {
 
 		// Sprite effects
 		static constexpr const char *sprite_effect_names[] = {
-			{ "None"              },
-			{ "Mirror X" },
-			{ "Mirror Y"   },
-			{ "Mirror XY"         }
+			"None",
+			"Mirror X",
+			"Mirror Y",
+			"Mirror XY"
 		};
 		static constexpr SpriteEffect sprite_effects[] = {
-			{ SpriteEffect::None             },
-			{ SpriteEffect::MirrorX },
-			{ SpriteEffect::MirrorY   },
-			{ SpriteEffect::MirrorXY         }
+			SpriteEffect::None,
+			SpriteEffect::MirrorX,
+			SpriteEffect::MirrorY,
+			SpriteEffect::MirrorXY
 		};
 		static_assert(std::size(sprite_effect_names) == std::size(sprite_effects));
 
@@ -532,14 +532,14 @@ namespace mage::editor {
 
 		// Text effects
 		static constexpr const char *text_effect_names[] = {
-			{ "None"       },
-			{ "DropShadow" },
-			{ "Outline"    }
+			"None",
+			"Drop Shadow",
+			"Outline"
 		};
 		static constexpr SpriteText::TextEffect text_effects[] = {
-			{ SpriteText::TextEffect::None       },
-			{ SpriteText::TextEffect::DropShadow },
-			{ SpriteText::TextEffect::Outline    }
+			SpriteText::TextEffect::None,
+			SpriteText::TextEffect::DropShadow,
+			SpriteText::TextEffect::Outline
 		};
 		static_assert(std::size(text_effect_names) == std::size(text_effects));
 

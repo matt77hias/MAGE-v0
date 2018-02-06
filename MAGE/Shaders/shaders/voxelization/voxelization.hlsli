@@ -46,10 +46,10 @@ RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_VOXEL_BUFFER);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputPositionNormalTexture input) {
-	// [0,R/2]x[R/2,0]x[0,R/2]
+	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
 	const float3 voxel  = input.p_view * g_voxel_inv_size 
 		                               * float3(1.0f, -1.0f, 1.0f);
-	// [0,R)x(R,0]x[0,R)
+	// Valid range: [0,R)x(R,0]x[0,R)
 	const  int3 s_index = floor(voxel + 0.5f * g_voxel_grid_resolution);
 	const uint3   index = (uint3)s_index;
 
@@ -75,7 +75,6 @@ void PS(PSInputPositionNormalTexture input) {
 	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	// Store the encoded radiance and normal.
-
 	InterlockedMax(output[flat_index].encoded_L, EncodeRadiance(L));
 	InterlockedMax(output[flat_index].encoded_n, EncodeNormal(n_view));
 }

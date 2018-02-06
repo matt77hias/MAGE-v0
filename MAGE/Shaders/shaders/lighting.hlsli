@@ -256,8 +256,11 @@ float3 GetIndirectRadiance(float3 p) {
 	#ifdef DISABLE_VCT
 	return float3(0.0f, 0.0f, 0.0f);
 	#else  // DISABLE_VCT
-	const float3 L = g_voxel_texture[p * g_voxel_inv_size * 2.0f * g_voxel_grid_inv_resolution].xyz;
-	return L;
+	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
+	const float3 voxel = p * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
+	// Valid range: [0,1]x[1,0]x[0,1]
+	const float3 uvw  = voxel * g_voxel_grid_inv_resolution + 0.5f;
+	return g_voxel_texture[uvw].xyz;
 	#endif // DISABLE_VCT
 
 	#endif // BRDFxCOS_COMPONENT

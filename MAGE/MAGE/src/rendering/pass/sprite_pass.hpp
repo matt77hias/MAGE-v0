@@ -6,7 +6,6 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "sprite\sprite_batch.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -54,18 +53,18 @@ namespace mage {
 		/**
 		 Constructs a sprite pass from the given sprite pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sprite pass to copy.
 		 */
-		SpritePass(const SpritePass &render_pass) = delete;
+		SpritePass(const SpritePass &pass) = delete;
 
 		/**
 		 Constructs a sprite pass by moving the given sprite pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sprite pass to move.
 		 */
-		SpritePass(SpritePass &&render_pass) noexcept;
+		SpritePass(SpritePass &&pass) noexcept;
 
 		/**
 		 Destructs this sprite pass.
@@ -79,34 +78,26 @@ namespace mage {
 		/**
 		 Copies the given sprite pass to this sprite pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sprite pass to copy.
 		 @return		A reference to the copy of the given sprite pass (i.e. 
 						this sprite pass).
 		 */
-		SpritePass &operator=(const SpritePass &render_pass) = delete;
+		SpritePass &operator=(const SpritePass &pass) = delete;
 
 		/**
 		 Moves the given sprite pass to this sprite pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sprite pass to move.
 		 @return		A reference to the moved sprite pass (i.e. this sprite 
 						pass).
 		 */
-		SpritePass &operator=(SpritePass &&render_pass) = delete;
+		SpritePass &operator=(SpritePass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this sprite pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this sprite pass.
-		 */
-		void BindFixedState() const noexcept;
 
 		/**
 		 Renders the scene.
@@ -116,9 +107,18 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene) const;
+		void Render(const Scene &scene);
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this sprite pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -132,12 +132,12 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this sprite pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this sprite pass.
 		 */
-		const SharedPtr< const PixelShader > m_ps;
+		const PixelShaderPtr m_ps;
 
 		/**
 		 A pointer to the sprite batch.

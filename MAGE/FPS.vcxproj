@@ -35,6 +35,9 @@
     <ProjectReference Include="MAGE.vcxproj">
       <Project>{28dc5fac-c856-43e1-828e-beaa8a0e2ce4}</Project>
     </ProjectReference>
+    <ProjectReference Include="Math.vcxproj">
+      <Project>{b6fab106-b50e-4340-9458-146e624420df}</Project>
+    </ProjectReference>
     <ProjectReference Include="Scripts.vcxproj">
       <Project>{61311fe7-441d-4ff2-b861-e312a1569899}</Project>
     </ProjectReference>
@@ -89,36 +92,36 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Debug.props" />
+    <Import Project="Properties\x86_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Release.props" />
+    <Import Project="Properties\x86_Release.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Debug.props" />
+    <Import Project="Properties\x64_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Release.props" />
+    <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src\;Utilities\src\;Scripts\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src\;Utilities\src\;Scripts\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src\;Utilities\src\;Scripts\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src\;Utilities\src\;Scripts\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);MAGE\src\;Math\src\;Utilities\src\;Scripts\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

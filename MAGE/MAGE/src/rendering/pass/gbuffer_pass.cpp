@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -30,9 +30,30 @@ namespace mage {
 		m_bound_ps(PSIndex::Count),
 		m_model_buffer() {}
 
-	GBufferPass::GBufferPass(GBufferPass &&render_pass) noexcept = default;
+	GBufferPass::GBufferPass(GBufferPass &&pass) noexcept = default;
 
 	GBufferPass::~GBufferPass() = default;
+
+	void GBufferPass::BindFixedState() const noexcept {
+		// VS: Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// OM: Bind the depth-stencil state.
+		#ifdef DISABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		#else  // DISABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		#endif // DISABLE_INVERTED_Z_BUFFER
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+	}
 
 	void GBufferPass::BindPS(PSIndex index) noexcept {
 		if (m_bound_ps != index) {
@@ -50,11 +71,10 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV GBufferPass::BindModelData(
-		FXMMATRIX object_to_view, 
-		CXMMATRIX view_to_object,
-		CXMMATRIX texture_transform,
-		const Material &material) {
+	void XM_CALLCONV GBufferPass ::BindModelData(FXMMATRIX object_to_view, 
+												 CXMMATRIX view_to_object, 
+												 CXMMATRIX texture_transform, 
+												 const Material &material) {
 
 		ModelBuffer buffer;
 		// Transforms
@@ -69,75 +89,57 @@ namespace mage {
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
-		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
-		m_model_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+		m_model_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Bind the base color SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_BASE_COLOR, material.GetBaseColorSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, 
+							  material.GetBaseColorSRV());
 		// Bind the material SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_MATERIAL, material.GetMaterialSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_MATERIAL, 
+							  material.GetMaterialSRV());
 		// Bind the normal SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_NORMAL, material.GetNormalSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_NORMAL, 
+							  material.GetNormalSRV());
 	}
 
-	void GBufferPass::BindFixedState() {
+	void XM_CALLCONV GBufferPass::Render(const Scene &scene, 
+										 FXMMATRIX world_to_projection, 
+										 CXMMATRIX world_to_view, 
+										 CXMMATRIX view_to_world) {
+
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
 
-		// VS: Bind the vertex shader.
-		m_vs->BindShader(m_device_context);
-		// HS: Bind the hull shader.
-		Pipeline::HS::BindShader(m_device_context, nullptr);
-		// DS: Bind the domain shader.
-		Pipeline::DS::BindShader(m_device_context, nullptr);
-		// GS: Bind the geometry shader.
-		Pipeline::GS::BindShader(m_device_context, nullptr);
-		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// OM: Bind the depth-stencil state.
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
-		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
-	}
-
-	void XM_CALLCONV GBufferPass::Render(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
+		// Bind the fixed state.
+		BindFixedState();
 
 		// Process the models.
 		scene.ForEach< Model >([this, world_to_projection, world_to_view, view_to_world](const Model &model) {
+			const auto &material            = model.GetMaterial();
+			
 			if (State::Active != model.GetState()
-				|| !model.GetMaterial().InteractsWithLight()) {
+				|| !material.InteractsWithLight()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
 			}
 			
-			const Transform &transform          = model.GetOwner()->GetTransform();
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 				return;
 			}
 
-			const XMMATRIX object_to_view       = object_to_world * world_to_view;
-			const XMMATRIX world_to_object      = transform.GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object       = view_to_world * world_to_object;
-			const XMMATRIX texture_transform    = model.GetTextureTransform().GetTransformMatrix();
+			const auto object_to_view       = object_to_world * world_to_view;
+			const auto world_to_object      = transform.GetWorldToObjectMatrix();
+			const auto view_to_object       = view_to_world * world_to_object;
+			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
 
 			// Bind the model data.
-			BindModelData(object_to_view, view_to_object, texture_transform, model.GetMaterial());
+			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
 			BindPS(model.GetMaterial());
 			// Bind the model mesh.

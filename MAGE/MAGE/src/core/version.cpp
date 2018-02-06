@@ -25,7 +25,7 @@ namespace mage {
 		printf("Engine version %u.%u.%u of %s at %s\n", 
 			GetVersionMajor(), GetVersionMinor(), GetVersionPatch(),
 			__DATE__, __TIME__);
-		printf("Copyright (c) 2016-2017 Matthias Moulin.\n");
+		printf("Copyright (c) 2016-2018 Matthias Moulin.\n");
 		
 		fflush(stdout);
 	}

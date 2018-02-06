@@ -96,22 +96,22 @@ namespace mage {
 		                                      DXGI_FORMAT srv_format) {
 		Assert(device);
 
-		// Clear the DSV vector (i.e. reset the DSVs).
+		// Clear the DSV vector.
 		m_dsvs.clear();
-		// Reset the SRV.
-		m_srv.Reset();
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
+		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
+			                          | D3D11_BIND_SHADER_RESOURCE;
 		texture_desc.Width            = m_width;
 		texture_desc.Height           = m_height;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = static_cast< U32 >(nb_shadow_maps);
 		texture_desc.Format           = texture_format;
 		texture_desc.SampleDesc.Count = 1u;
+		// GPU:    read +    write
+		// CPU: no read + no write
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
-			                          | D3D11_BIND_SHADER_RESOURCE;
 		
 		ComPtr< ID3D11Texture2D > texture;
 
@@ -242,23 +242,23 @@ namespace mage {
 		                                              DXGI_FORMAT srv_format) {
 		Assert(device);
 
-		// Clear the DSV vector (i.e. reset the DSVs).
+		// Clear the DSV vector.
 		m_dsvs.clear();
-		// Reset the SRV.
-		m_srv.Reset();
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
+		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
+			                          | D3D11_BIND_SHADER_RESOURCE;
+		texture_desc.MiscFlags        = D3D11_RESOURCE_MISC_TEXTURECUBE;
 		texture_desc.Width            = m_width;
 		texture_desc.Height           = m_height;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 6u * static_cast< U32 >(nb_shadow_cube_maps);
 		texture_desc.Format           = texture_format;
 		texture_desc.SampleDesc.Count = 1u;
+		// GPU:    read +    write
+		// CPU: no read + no write
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
-			                          | D3D11_BIND_SHADER_RESOURCE;
-		texture_desc.MiscFlags        = D3D11_RESOURCE_MISC_TEXTURECUBE;
 
 		ComPtr< ID3D11Texture2D > texture;
 		

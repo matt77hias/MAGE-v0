@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math.hpp"
-#include "material\color.hpp"
+#include "math.hpp"
+#include "spectrum\color.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

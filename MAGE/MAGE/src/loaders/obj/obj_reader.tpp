@@ -170,9 +170,6 @@ namespace mage::loader {
 		auto normal = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_normal) : read_normal;
 
-		const auto normal_v = XMVector3Normalize(XMLoadFloat3(&normal));
-		XMStoreFloat3(&normal, normal_v);
-
 		m_vertex_normal_coordinates.push_back(std::move(normal));
 	}
 

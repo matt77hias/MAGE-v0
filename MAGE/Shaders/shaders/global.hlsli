@@ -34,6 +34,11 @@ SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
 //-----------------------------------------------------------------------------
 
 CBUFFER(Game, SLOT_CBUFFER_GAME) {
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Display Resolution
+	//-------------------------------------------------------------------------
+
 	// The resolution of the display.
 	// g_display_resolution.x = the display width
 	// g_display_resolution.y = the display height
@@ -51,6 +56,10 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
 	float2 g_ss_display_inv_resolution_minus1    : packoffset(c1.z);
 
+	//-------------------------------------------------------------------------
+	// Member Variables: Gamma Correction
+	//-------------------------------------------------------------------------
+
 	// The gamma exponent used for gamma recovery.
 	// C  = pow(C', g_gamma)
 	float g_gamma                                : packoffset(c2);
@@ -60,6 +69,11 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
+	
+	//-------------------------------------------------------------------------
+	// Member Variables: Transformations
+	//-------------------------------------------------------------------------
+	
 	// The camera-view-to-camera-projection transformation matrix.
 	float4x4 g_view_to_projection                : packoffset(c0);
 	// The camera-projection-to-camera-view transformation matrix.
@@ -69,6 +83,10 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// The camera-view-to-world transformation matrix.
 	float4x4 g_view_to_world                     : packoffset(c12);
 	
+	//-------------------------------------------------------------------------
+	// Member Variables: Viewports
+	//-------------------------------------------------------------------------
+
 	// The top left corner of the camera viewport.
 	uint2    g_viewport_top_left                 : packoffset(c16);
 	// The resolution of the camera viewport.
@@ -90,12 +108,31 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// g_ss_viewport_inv_resolution_minus1.y = 1 / (g_ss_viewport_resolution.y - 1)
 	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
 	
+	//-------------------------------------------------------------------------
+	// Member Variables: Voxelization
+	//-------------------------------------------------------------------------
+
+	// The camera-view-to-voxel-grid transformation matrix.
+	float4x4 g_view_to_voxel                     : packoffset(c19);
+	// The size of a voxel for all dimensions. [m/voxel]
+	float    g_voxel_size                        : packoffset(c23.x);
+	// The inverse size of a voxel for all dimensions. [voxels/m]
+	float    g_voxel_inv_size                    : packoffset(c23.y);
+	// The resolution of the voxel grid for all dimensions.
+	uint     g_voxel_grid_resolution             : packoffset(c23.z);
+	// The inverse resolution of the voxel grid for all dimensions.
+	float    g_voxel_grid_inv_resolution         : packoffset(c23.w);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Post-processing
+	//-------------------------------------------------------------------------
+
 	// The lens radius of this camera.
-	float   g_lens_radius                        : packoffset(c19.x);
+	float   g_lens_radius                        : packoffset(c24.x);
 	// The focal length of this camera.
-	float   g_focal_length                       : packoffset(c19.y);
+	float   g_focal_length                       : packoffset(c24.y);
 	// The maximum circle-of-confusion radius of this camera.
-	float   g_max_coc_radius                     : packoffset(c19.z);
+	float   g_max_coc_radius                     : packoffset(c24.z);
 }
 
 //-----------------------------------------------------------------------------

@@ -20,6 +20,7 @@
 #include "rendering\pass\sprite_pass.hpp"
 #include "rendering\pass\variable_component_pass.hpp"
 #include "rendering\pass\variable_shading_pass.hpp"
+#include "rendering\pass\voxelization_pass.hpp"
 #include "rendering\pass\wireframe_pass.hpp"
 
 #include "rendering\buffer\game_buffer.hpp"
@@ -394,6 +395,22 @@ namespace mage {
 		}
 
 		/**
+		 Returns the voxelization pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the voxelization pass of this renderer.
+		 */
+		VoxelizationPass *GetVoxelizationPass() {
+			if (!m_voxelization_pass) {
+				m_voxelization_pass = MakeUnique< VoxelizationPass >();
+			}
+			return m_voxelization_pass.get();
+		}
+
+		/**
 		 Returns the wireframe pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -559,6 +576,11 @@ namespace mage {
 		 A pointer to the variable shading pass of this renderer.
 		 */
 		UniquePtr< VariableShadingPass > m_variable_shading_pass;
+
+		/**
+		 A pointer to the voxelization pass of this renderer.
+		 */
+		UniquePtr< VoxelizationPass > m_voxelization_pass;
 
 		/**
 		 A pointer to the wireframe pass of this renderer.

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "system\system_time.hpp"
+#include "parallel\parallel.hpp"
 
 #pragma endregion
 
@@ -21,34 +22,50 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// File Time
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 Converts the given file time to an @c U64 (in 100 ns).
 
 	 @param[in]		ftime
 					A reference to the file time.
-	 @return		A @c U64 (in 100 ns) representing the given file time 
-					@a ftime.
+	 @return		A @c U64 (in 100 ns) representing the given file time.
 	 */
 	[[nodiscard]] static inline U64 
 		ConvertTimestamp(const FILETIME &ftime) noexcept {
 		
-		return static_cast< U64 >(ftime.dwLowDateTime) 
-			 | static_cast< U64 >(ftime.dwHighDateTime) << 32;
+		return static_cast< U64 >(ftime.dwLowDateTime)
+			 | static_cast< U64 >(ftime.dwHighDateTime) << 32u;
 	}
 
-	[[nodiscard]] U64 GetCurrentSystemTimestamp() noexcept {
-		FILETIME ftime;
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// System Time
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Returns the current system timestamp (in 100 ns).
+
+	 @return		The current system timestamp (in 100 ns).
+	 */
+	[[nodiscard]] static U64 GetSystemTimestamp() noexcept {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
+		FILETIME ftime;
 		GetSystemTimeAsFileTime(&ftime);
 
-		return ConvertTimestamp(ftime);
+		FILETIME local_ftime;
+		return (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) 
+			   ? 0ull : ConvertTimestamp(local_ftime);
 	}
 
-	[[nodiscard]] const wstring GetCurrentLocalSystemDateAsString() {
+	[[nodiscard]] const wstring GetLocalSystemDateAsString() {
 		FILETIME ftime;
-		// Retrieves the current system date and time.
-		// The information is in Coordinated Universal Time (UTC) format.
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
@@ -73,10 +90,10 @@ namespace mage {
 		return (result) ? wstring(str_date) : wstring();
 	}
 
-	[[nodiscard]] const wstring GetCurrentLocalSystemTimeAsString() {
-		FILETIME ftime;
+	[[nodiscard]] const wstring GetLocalSystemTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
+		FILETIME ftime;
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
@@ -101,10 +118,10 @@ namespace mage {
 		return (result) ? wstring(str_time) : wstring();
 	}
 
-	[[nodiscard]] const wstring GetCurrentLocalSystemDateAndTimeAsString() {
-		FILETIME ftime;
+	[[nodiscard]] const wstring GetLocalSystemDateAndTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
+		FILETIME ftime;
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
@@ -143,8 +160,36 @@ namespace mage {
 		return wstring(str_date) + L'-' + wstring(str_time);
 	}
 
-	void GetCurrentCoreTimestamp(HANDLE handle_process,
-		                         U64 &kernel_mode_timestamp, 
+	[[nodiscard]] typename SystemClock::time_point SystemClock::now() noexcept {
+		return time_point(duration(GetSystemTimestamp()));
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Core Time
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 The number of system cores.
+	 */
+	static const U16 g_nb_system_cores = NumberOfSystemCores();
+
+	/**
+	 Returns the current core timestamp (in 100 ns).
+
+	 @param[out]	kernel_mode_timestamp
+					A reference to the current kernel mode timestamp of the 
+					calling process.
+	 @param[out]	user_mode_timestamp
+					A reference to the current user mode timestamp of the 
+					calling process.
+	 @note			If the retrieval fails, both @a kernel_mode_timestamp and 
+					@a user_mode_timestamp point are zero. To get extended 
+					error information, call @c GetLastError.
+	 */
+	void static GetCoreTimestamp(U64 &kernel_mode_timestamp, 
 		                         U64 &user_mode_timestamp) noexcept {
 		
 		FILETIME ftime;
@@ -160,7 +205,7 @@ namespace mage {
 		//    that the process has executed in kernel mode.
 		// 5. A pointer to a FILETIME structure that receives the amount of time 
 		//    that the process has executed in user mode.
-		const BOOL result = GetProcessTimes(handle_process, 
+		const BOOL result = GetProcessTimes(GetCurrentProcess(),
 			                                &ftime, 
 			                                &ftime, 
 			                                &kernel_mode_ftime, 
@@ -175,4 +220,113 @@ namespace mage {
 			user_mode_timestamp   = 0ull;
 		}
 	}
+
+	/**
+	 Returns the current core timestamp (in 100 ns).
+	 
+	 @return		The current core timestamp of the calling process.
+	 */
+	[[nodiscard]] static inline U64 GetCoreTimestamp() noexcept {
+		U64 kernel_mode_timestamp = 0ull;
+		U64 user_mode_timestamp   = 0ull;
+		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
+		
+		return kernel_mode_timestamp + user_mode_timestamp;
+	}
+
+	/**
+	 Returns the current kernel mode core timestamp (in 100 ns).
+	 
+	 @return		The current kernel mode core timestamp of the calling 
+					process.
+	 */
+	[[nodiscard]] static inline U64 GetKernelModeCoreTimestamp() noexcept {
+		U64 kernel_mode_timestamp = 0ull;
+		U64 user_mode_timestamp   = 0ull;
+		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
+		
+		return kernel_mode_timestamp;
+	}
+
+	/**
+	 Returns the current user mode core timestamp (in 100 ns).
+	 
+	 @return		The current user mode core timestamp of the calling 
+					process.
+	 */
+	[[nodiscard]] static inline U64 GetUserModeCoreTimestamp() noexcept {
+		U64 kernel_mode_timestamp = 0ull;
+		U64 user_mode_timestamp   = 0ull;
+		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
+		
+		return user_mode_timestamp;
+	}
+
+	/**
+	 Returns the current core timestamp per system core (in 100 ns).
+	 
+	 @return		The current core timestamp of the calling process per 
+					system core.
+	 */
+	[[nodiscard]] static inline U64 GetCoreTimestampPerCore() noexcept {
+		return GetCoreTimestamp() / g_nb_system_cores;
+	}
+
+	/**
+	 Returns the current kernel mode core timestamp per system core (in 100 ns).
+	 
+	 @return		The current kernel mode core timestamp of the calling 
+					process per system core.
+	 */
+	[[nodiscard]] static inline U64 GetKernelModeCoreTimestampPerCore() noexcept {
+		return GetKernelModeCoreTimestamp() / g_nb_system_cores;
+	}
+
+	/**
+	 Returns the current user mode core timestamp per system core (in 100 ns).
+	 
+	 @return		The current user mode core timestamp of the calling 
+					process per system core.
+	 */
+	[[nodiscard]] static inline U64 GetUserModeCoreTimestampPerCore() noexcept {
+		return GetUserModeCoreTimestamp() / g_nb_system_cores;
+	}
+
+	[[nodiscard]] typename CoreClock::time_point 
+		CoreClock::now() noexcept {
+
+		return time_point(duration(GetCoreTimestamp()));
+	}
+
+	[[nodiscard]] typename KernelModeCoreClock::time_point 
+		KernelModeCoreClock::now() noexcept {
+
+		return time_point(duration(GetKernelModeCoreTimestamp()));
+	}
+
+	[[nodiscard]] typename UserModeCoreClock::time_point 
+		UserModeCoreClock::now() noexcept {
+
+		return time_point(duration(GetUserModeCoreTimestamp()));
+	}
+
+	[[nodiscard]] typename CoreClockPerCore::time_point 
+		CoreClockPerCore::now() noexcept {
+
+		return time_point(duration(GetCoreTimestampPerCore()));
+	}
+
+	[[nodiscard]] typename KernelModeCoreClockPerCore::time_point 
+		KernelModeCoreClockPerCore::now() noexcept {
+
+		return time_point(duration(GetKernelModeCoreTimestampPerCore()));
+	}
+
+	[[nodiscard]] typename UserModeCoreClockPerCore::time_point 
+		UserModeCoreClockPerCore::now() noexcept {
+
+		return time_point(duration(GetUserModeCoreTimestampPerCore()));
+	}
+
+	#pragma endregion
 }

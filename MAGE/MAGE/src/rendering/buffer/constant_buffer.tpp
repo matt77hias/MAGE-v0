@@ -29,10 +29,9 @@ namespace mage {
 	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device5 *device) {
 		Assert(device);
 
-		const HRESULT result_buffer = CreateDynamicConstantBuffer< DataT >(
+		const HRESULT result = CreateDynamicConstantBuffer< DataT >(
 			device, m_buffer.ReleaseAndGetAddressOf(), nullptr);
-		ThrowIfFailed(result_buffer, 
-			"Constant buffer creation failed: %08X.", result_buffer);
+		ThrowIfFailed(result, "Constant buffer creation failed: %08X.", result);
 	}
 
 	template< typename DataT >
@@ -43,13 +42,11 @@ namespace mage {
 		Assert(m_buffer);
 
 		// Map the buffer.
-		{
-			D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-			BufferLock(device_context, m_buffer.Get(),
-				       D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
+		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
+		BufferLock(device_context, m_buffer.Get(),
+				   D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
 
-			memcpy(mapped_buffer.pData, &data, sizeof(DataT));
-		}
+		memcpy(mapped_buffer.pData, &data, sizeof(DataT));
 	}
 
 	template< typename DataT >

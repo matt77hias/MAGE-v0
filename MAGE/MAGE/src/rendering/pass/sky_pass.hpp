@@ -53,18 +53,18 @@ namespace mage {
 		/**
 		 Constructs a sky pass from the given sky pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sky pass to copy.
 		 */
-		SkyPass(const SkyPass &render_pass) = delete;
+		SkyPass(const SkyPass &pass) = delete;
 
 		/**
 		 Constructs a sky pass by moving the given sky pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sky pass to move.
 		 */
-		SkyPass(SkyPass &&render_pass) noexcept;
+		SkyPass(SkyPass &&pass) noexcept;
 
 		/**
 		 Destructs this sky pass.
@@ -78,30 +78,25 @@ namespace mage {
 		/**
 		 Copies the given sky pass to this sky pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sky pass to copy.
 		 @return		A reference to the copy of the given sky pass (i.e. 
 						this sky pass).
 		 */
-		SkyPass &operator=(const SkyPass &render_pass) = delete;
+		SkyPass &operator=(const SkyPass &pass) = delete;
 
 		/**
 		 Moves the given sky pass to this sky pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the sky pass to move.
 		 @return		A reference to the moved sky pass (i.e. this sky pass).
 		 */
-		SkyPass &operator=(SkyPass &&render_pass) = delete;
+		SkyPass &operator=(SkyPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this sky pass.
-		 */
-		void BindFixedState() const noexcept;
 
 		/**
 		 Renders the given scene.
@@ -112,6 +107,15 @@ namespace mage {
 		void Render(const Sky &sky) const noexcept;
 		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this sky pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -125,11 +129,11 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this sky pass.
 		 */
-		const SharedPtr< const VertexShader > m_sky_vs;
+		const VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this sky pass.
 		 */
-		const SharedPtr< const PixelShader > m_sky_ps;
+		const PixelShaderPtr m_ps;
 	};
 }

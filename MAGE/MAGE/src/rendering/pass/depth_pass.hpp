@@ -55,18 +55,18 @@ namespace mage {
 		/**
 		 Constructs a depth pass from the given depth pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the depth pass to copy.
 		 */
-		DepthPass(const DepthPass &render_pass) = delete;
+		DepthPass(const DepthPass &pass) = delete;
 
 		/**
 		 Constructs a depth pass by moving the given depth pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the depth pass to move.
 		 */
-		DepthPass(DepthPass &&render_pass) noexcept;
+		DepthPass(DepthPass &&pass) noexcept;
 
 		/**
 		 Destructs this depth pass.
@@ -80,22 +80,22 @@ namespace mage {
 		/**
 		 Copies the given depth pass to this depth pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the depth pass to copy.
 		 @return		A reference to the copy of the given depth pass (i.e. 
 						this depth pass).
 		 */
-		DepthPass &operator=(const DepthPass &render_pass) = delete;
+		DepthPass &operator=(const DepthPass &pass) = delete;
 
 		/**
 		 Moves the given depth pass to this depth pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the depth pass to move.
 		 @return		A reference to the moved depth pass (i.e. this depth 
 						pass).
 		 */
-		DepthPass &operator=(DepthPass &&render_pass) = delete;
+		DepthPass &operator=(DepthPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -156,12 +156,12 @@ namespace mage {
 		/**
 		 Binds the shaders for opaque models.
 		 */
-		void BindOpaqueModelShaders() const noexcept;
+		void BindOpaqueShaders() const noexcept;
 		
 		/**
 		 Binds the shaders for transparent models.
 		 */
-		void BindTransparentModelShaders() const noexcept;
+		void BindTransparentShaders() const noexcept;
 
 		/**
 		 Binds the projection data of this depth pass.
@@ -215,19 +215,19 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this depth pass.
 		 */
-		const SharedPtr< const VertexShader > m_opaque_vs;
+		const VertexShaderPtr m_opaque_vs;
 
 		/**
 		 A pointer to the vertex shader for transparent models
 		 of this depth pass.
 		 */
-		const SharedPtr< const VertexShader > m_transparent_vs;
+		const VertexShaderPtr m_transparent_vs;
 
 		/**
 		 A pointer to the pixel shader for transparent models
 		 of this depth pass.
 		 */
-		const SharedPtr< const PixelShader > m_transparent_ps;
+		const PixelShaderPtr m_transparent_ps;
 
 		/**
 		 The projection buffer of this depth pass.

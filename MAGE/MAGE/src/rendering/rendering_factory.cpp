@@ -32,6 +32,10 @@ namespace mage {
 		Assert(device);
 		Assert(state);
 
+		// The blend formula (i.e.no blending) is defined as:
+		// (source.rgb ×  source.alpha      ) + (destination.rgb × (1-source.alpha))
+		// (source.a   × (1 - destination.a)) + (destination.a   ×  1              ).
+
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = FALSE;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
@@ -44,6 +48,10 @@ namespace mage {
 			                  ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
+
+		// The blend formula is defined as:
+		// (source.rgb ×  source.alpha    ) + (destination.rgb × (1-source.alpha))
+		// (source.a   × (1-destination.a)) + (destination.a   ×  1              ).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
@@ -64,6 +72,10 @@ namespace mage {
 		Assert(device);
 		Assert(state);
 
+		// The blend formula is defined as:
+		// (source.rgb ×  1               ) + (destination.rgb × 1)
+		// (source.a   × (1-destination.a)) + (destination.a   × 1).
+
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ONE;
@@ -82,6 +94,10 @@ namespace mage {
 			                           ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
+
+		// The blend formula is defined as:
+		// (source.rgb ×  0               ) + (destination.rgb × source.rgb)
+		// (source.a   × (1-destination.a)) + (destination.a   × 1         ).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
@@ -102,6 +118,10 @@ namespace mage {
 		Assert(device);
 		Assert(state);
 
+		// The blend formula is defined as:
+		// (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
+		// (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_DEST_COLOR;
@@ -121,20 +141,28 @@ namespace mage {
 		Assert(device);
 		Assert(state);
 
+		// The blend formula for the first RTV is defined as:
+		// (source.rgb ×  1               ) + (destination.rgb × 1)
+		// (source.a   × (1-destination.a)) + (destination.a   × 1).
+		// The blend formula (i.e. no blending) for the remaining RTVs is defined as:
+		// (source.rgb × 1) + (destination.rgb × 0) = source.rgb
+		// (source.a   × 1) + (destination.a   × 0) = source.a.
+
 		D3D11_BLEND_DESC desc = {};
-		desc.IndependentBlendEnable                = TRUE;
+		desc.IndependentBlendEnable                    = TRUE;
 		// Blending of the color.
-		desc.RenderTarget[0].BlendEnable           = TRUE;
-		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_SRC_ALPHA;
-		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_INV_SRC_ALPHA;
-		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
-		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		desc.RenderTarget[0].BlendEnable               = TRUE;
+		desc.RenderTarget[0].SrcBlend                  = D3D11_BLEND_SRC_ALPHA;
+		desc.RenderTarget[0].DestBlend                 = D3D11_BLEND_INV_SRC_ALPHA;
+		desc.RenderTarget[0].BlendOp                   = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha             = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha            = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha              = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask     = D3D11_COLOR_WRITE_ENABLE_ALL;
 		// Blending of the normal and the remaining.
 		for (size_t i = 1u; i < std::size(desc.RenderTarget); ++i) {
-			desc.RenderTarget[i].BlendEnable       = FALSE;
+			desc.RenderTarget[i].BlendEnable           = FALSE;
+			desc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		}
 	
 		return device->CreateBlendState(&desc, state);
@@ -227,18 +255,18 @@ namespace mage {
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = fill_mode;
 		
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = depth_bias;
 		desc.SlopeScaledDepthBias = slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = depth_bias_clamp;
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		desc.DepthBias            = -depth_bias;
 		desc.SlopeScaledDepthBias = -slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = -depth_bias_clamp;
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		
-		desc.DepthClipEnable      = true;
-		desc.MultisampleEnable    = true;
+		desc.DepthClipEnable      = TRUE;
+		desc.MultisampleEnable    = TRUE;
 
 		return device->CreateRasterizerState(&desc, state);
 	}
@@ -336,7 +364,7 @@ namespace mage {
 		desc.AddressV       = address_mode;
 		desc.AddressW       = address_mode;
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
-			                  ? D3D11_MAX_MAXANISOTROPY : 2;
+			                  ? D3D11_MAX_MAXANISOTROPY : 2u;
 		desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 
@@ -463,13 +491,13 @@ namespace mage {
 		desc.AddressV       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressW       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
-			                  ? D3D11_MAX_MAXANISOTROPY : 2;
+			                  ? D3D11_MAX_MAXANISOTROPY : 2u;
 		
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 		
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 

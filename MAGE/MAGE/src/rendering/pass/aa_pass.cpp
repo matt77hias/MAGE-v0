@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -25,10 +25,11 @@ namespace mage {
 
 	AAPass::AAPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_preprocess_cs(), m_cs(), 
+		m_preprocess_cs(), 
+		m_cs(), 
 		m_aa_desc(AADescriptor::None) {}
 
-	AAPass::AAPass(AAPass &&render_pass) noexcept = default;
+	AAPass::AAPass(AAPass &&pass) noexcept = default;
 
 	AAPass::~AAPass() = default;
 
@@ -70,11 +71,9 @@ namespace mage {
 		}
 	}
 
-	void AAPass::DispatchAAPreprocess(
-		const Viewport &viewport, AADescriptor desc) {
+	void AAPass::DispatchPreprocess(const Viewport &viewport, AADescriptor desc) {
 		// Update the compute shaders.
 		UpdateCSs(desc);
-
 		if (!m_preprocess_cs) {
 			return;
 		}
@@ -82,19 +81,17 @@ namespace mage {
 		// CS: Bind the compute shader.
 		m_preprocess_cs->BindShader(m_device_context);
 
-		// Dispatch.
-		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		// Dispatch the pass.
+		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
+												   GROUP_SIZE_2D_DEFAULT);
+		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
+												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 
-	void AAPass::DispatchAA(
-		const Viewport &viewport, AADescriptor desc) {
+	void AAPass::Dispatch(const Viewport &viewport, AADescriptor desc) {
 		// Update the compute shaders.
 		UpdateCSs(desc);
-
 		if (!m_cs) {
 			return;
 		}
@@ -102,11 +99,11 @@ namespace mage {
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 
-		// Dispatch.
-		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		// Dispatch the pass.
+		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
+												   GROUP_SIZE_2D_DEFAULT);
+		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
+												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

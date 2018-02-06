@@ -1,0 +1,34 @@
+######################################################################
+# Auto detect text files and perform LF normalization
+######################################################################
+* text=auto
+
+######################################################################
+# Explicitly declare CRLF normalization for the following files
+######################################################################
+
+# Header Files
+*.h			text eol=crlf
+*.hpp		text eol=crlf
+*.tpp		text eol=crlf
+*.inc		text eol=crlf
+*.inl		text eol=crlf
+
+# Source Files
+*.cpp		text eol=crlf
+*.c			text eol=crlf
+*.cc		text eol=crlf
+
+# Shader Files
+*.hlsl		text eol=crlf
+*.hlsli		text eol=crlf
+
+# Resource Files
+*.rc        text eol=crlf
+
+# Visual Studio
+*.filters	text eol=crlf
+*.props		text eol=crlf
+*.sln		text eol=crlf
+*.users		text eol=crlf
+*.vcxproj	text eol=crlf

@@ -333,8 +333,8 @@ namespace mage::editor {
 
 		// Rotation
 		auto rotation = transform.GetRotation();
-		ImGui::InputFloat("Rotation", &rotation);
-		transform.SetRotation(rotation);
+		ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
+		transform.SetRotation(ClampAngleRadians(rotation));
 
 		// Scale
 		auto scale = transform.GetScale();
@@ -351,6 +351,9 @@ namespace mage::editor {
 		// Base Color Texture
 		const auto base_color_guid = material.GetBaseColorTexture()->GetGuid();
 		ImGui::Text(str_convert(base_color_guid).c_str());
+		const auto base_color_size 
+			= XMStore< F32x2 >(GetTexture2DSize(material.GetBaseColorSRV()));
+		ImGui::Text("%.f x %.f texels", base_color_size.m_x, base_color_size.m_y);
 
 		// Transparency
 		auto transparency = material.IsTransparant();
@@ -370,11 +373,17 @@ namespace mage::editor {
 		// Material Texture
 		const auto material_guid = material.GetMaterialTexture()->GetGuid();
 		ImGui::Text(str_convert(material_guid).c_str());
+		const auto material_size 
+			= XMStore< F32x2 >(GetTexture2DSize(material.GetMaterialSRV()));
+		ImGui::Text("%.f x %.f texels", material_size.m_x, material_size.m_y);
 
 		// Normal Texture
 		if (material.GetNormalTexture()) {
 			const auto normal_guid = material.GetNormalTexture()->GetGuid();
 			ImGui::LabelText("Normals", str_convert(normal_guid).c_str());
+			const auto normal_size 
+				= XMStore< F32x2 >(GetTexture2DSize(material.GetNormalSRV()));
+			ImGui::Text("%.f x %.f texels", normal_size.m_x, normal_size.m_y);
 		}
 
 		// Light Interaction
@@ -398,16 +407,17 @@ namespace mage::editor {
 		model.SetLightOcclusion(light_occlusion);
 	}
 
-	static void DrawWidget(SpriteTransform &transform) {
+	static void DrawWidget(SpriteTransform &transform, 
+		                   ID3D11ShaderResourceView *texture) {
 		ImGui::Text("Sprite Transform:");
 
 		static bool normalization = false;
 
 		// Translation
 		if (normalization) {
-			auto translation = transform.GetNormalizedTranslation();
+			auto translation = AbsoluteToNormalizedPixel(transform.GetTranslation());
 			ImGui::InputFloat2("Translation", translation.GetData());
-			transform.SetNormalizedTranslation(translation);
+			transform.SetTranslation(NormalizedToAbsolutePixel(translation));
 		}
 		else {
 			auto translation = transform.GetTranslation();
@@ -422,9 +432,11 @@ namespace mage::editor {
 
 		// Rotation Origin
 		if (normalization) {
-			auto rotation_origin = transform.GetNormalizedRotationOrigin();
+			auto rotation_origin = AbsoluteToNormalizedTexel(
+				transform.GetRotationOrigin(), texture);
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
-			transform.SetNormalizedRotationOrigin(rotation_origin);
+			transform.SetRotationOrigin(NormalizedToAbsoluteTexel(
+				rotation_origin, texture));
 		}
 		else {
 			auto rotation_origin = transform.GetRotationOrigin();
@@ -434,8 +446,8 @@ namespace mage::editor {
 
 		// Rotation
 		auto rotation = transform.GetRotation();
-		ImGui::InputFloat("Rotation", &rotation);
-		transform.SetRotation(rotation);
+		ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
+		transform.SetRotation(ClampAngleRadians(rotation));
 
 		// Scale
 		auto scale = transform.GetScale();
@@ -447,7 +459,7 @@ namespace mage::editor {
 
 	static void DrawWidget(SpriteImage &sprite) {
 		// Sprite transform
-		DrawWidget(sprite.GetSpriteTransform());
+		DrawWidget(sprite.GetSpriteTransform(), sprite.GetBaseColorSRV());
 
 		ImGui::Separator();
 
@@ -457,13 +469,23 @@ namespace mage::editor {
 		// Base color texture
 		const auto base_color_guid = sprite.GetBaseColorTexture()->GetGuid();
 		ImGui::LabelText("Base Color Texture", str_convert(base_color_guid).c_str());
+		const auto base_color_size 
+			= XMStore< F32x2 >(GetTexture2DSize(sprite.GetBaseColorSRV()));
+		ImGui::Text("%.f x %.f texels", base_color_size.m_x, base_color_size.m_y);
 
 		// Sprite effects
 		static constexpr const char *sprite_effect_names[] = {
+<<<<<<< HEAD
 			{ "None"    },
 			{ "Flip X"  },
 			{ "Flip Y"  },
 			{ "Flip XY" }
+=======
+			{ "None"              },
+			{ "Mirror X" },
+			{ "Mirror Y"   },
+			{ "Mirror XY"         }
+>>>>>>> f39c83029eed66f8d66520ed5f0668dd111f009b
 		};
 		static constexpr SpriteEffect sprite_effects[] = {
 			{ SpriteEffect::None     },
@@ -481,13 +503,16 @@ namespace mage::editor {
 	
 	static void DrawWidget(SpriteText &sprite) {
 		// Sprite transform
-		DrawWidget(sprite.GetSpriteTransform());
+		DrawWidget(sprite.GetSpriteTransform(), sprite.GetFontSRV());
 
 		ImGui::Separator();
 
 		// Sprite font
 		const auto font_guid = sprite.GetFont()->GetGuid();
 		ImGui::LabelText("Font", str_convert(font_guid).c_str());
+		const auto font_size 
+			= XMStore< F32x2 >(GetTexture2DSize(sprite.GetFontSRV()));
+		ImGui::Text("%.f x %.f texels", font_size.m_x, font_size.m_y);
 
 		// Sprite effects
 		static constexpr const char *sprite_effect_names[] = {

@@ -124,7 +124,7 @@ namespace mage {
 		auto logo = Create< SpriteImage >();
 		logo->SetBaseColorTexture(CreateMAGETexture());
 		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform().SetNormalizedTranslation(0.90f, 0.88f);
+		logo->GetSpriteTransform().SetTranslation(NormalizedToAbsolutePixel(0.90f, 0.88f));
 
 		auto text = Create< SpriteText >();
 

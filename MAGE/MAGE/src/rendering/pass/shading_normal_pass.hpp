@@ -56,19 +56,19 @@ namespace mage {
 		/**
 		 Constructs a shading normal pass from the given shading normal pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the shading normal pass to copy.
 		 */
-		ShadingNormalPass(const ShadingNormalPass &render_pass) = delete;
+		ShadingNormalPass(const ShadingNormalPass &pass) = delete;
 
 		/**
 		 Constructs a shading normal pass by moving the given shading normal 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the shading normal pass to move.
 		 */
-		ShadingNormalPass(ShadingNormalPass &&render_pass) noexcept;
+		ShadingNormalPass(ShadingNormalPass &&pass) noexcept;
 
 		/**
 		 Destructs this shading normal pass.
@@ -82,39 +82,26 @@ namespace mage {
 		/**
 		 Copies the given shading normal pass to this shading normal pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the shading normal pass to copy.
 		 @return		A reference to the copy of the given shading normal 
 						pass (i.e. this shading normal pass).
 		 */
-		ShadingNormalPass &operator=(
-			const ShadingNormalPass &render_pass) = delete;
+		ShadingNormalPass &operator=(const ShadingNormalPass &pass) = delete;
 
 		/**
 		 Moves the given shading normal pass to this shading normal pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the shading normal pass to move.
 		 @return		A reference to the moved shading normal pass (i.e. 
 						this shading normal pass).
 		 */
-		ShadingNormalPass &operator=(
-			ShadingNormalPass &&render_pass) = delete;
+		ShadingNormalPass &operator=(ShadingNormalPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this shading normal pass.
-
-		 @param[in]		render_mode
-						The render mode.
-		 @throws		Exception
-						Failed to bind the fixed state of this shading normal 
-						pass.
-		 */
-		void BindFixedState(RenderMode render_mode);
 
 		/**
 		 Renders the scene.
@@ -125,18 +112,26 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
+		 @param[in]		render_mode
+						The render mode.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view);
+			                    CXMMATRIX world_to_view,
+								RenderMode render_mode);
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this shading normal pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for shading 
@@ -204,13 +199,13 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this shading normal pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 		
 		/**
 		 An array containing pointers to the pixel shaders of this shading 
 		 normal pass.
 		 */
-		const SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
+		const PixelShaderPtr m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
 		 The pixel shader index of the bound pixel shader of this shading 

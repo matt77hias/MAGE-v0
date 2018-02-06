@@ -32,8 +32,8 @@ namespace mage {
 
 		/**
 		 An enumeration of the different text effects.
-
 		 This contains:
+
 		 @c None,
 		 @c DropShadow and
 		 @c Outline.
@@ -286,6 +286,16 @@ namespace mage {
 			return m_font;
 		}
 		
+		/**
+		 Returns the shader resource view of the font of this sprite text.
+
+		 @return		A pointer to the shader resource view of the font of 
+						this sprite text.
+		 */
+		[[nodiscard]] ID3D11ShaderResourceView *GetFontSRV() const noexcept {
+			return m_font->Get();
+		}
+
 		/**
 		 Sets the font of this sprite text to the given font.
 

@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// GROUP_SIZE                             | GROUP_SIZE_DEFAULT
-// FXAA_GREEN_AS_LUMA                     | not defined
+// GROUP_SIZE                               | GROUP_SIZE_2D_DEFAULT
+// FXAA_GREEN_AS_LUMA                       | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -31,7 +31,7 @@ RW_TEXTURE_2D(g_output_image_texture,  float4, SLOT_UAV_IMAGE);
 // Compute Shader
 //-----------------------------------------------------------------------------
 #ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_DEFAULT
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
@@ -48,22 +48,22 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	};
 
 	const float4 ldr = FxaaPixelShader(
-		LocationToUV(location),                  // FxaaFloat2 pos
-		0.0f,                                    // FxaaFloat4 fxaaConsolePosPos
-		fxaa_tex,                                // FxaaTex tex
-		fxaa_tex,                                // FxaaTex fxaaConsole360TexExpBiasNegOne
-		fxaa_tex,                                // FxaaTex fxaaConsole360TexExpBiasNegTwo
-		1.0f / g_display_resolution,             // FxaaFloat2 fxaaQualityRcpFrame
-		0.0f,                                    // FxaaFloat4 fxaaConsoleRcpFrameOpt
-		0.0f,                                    // FxaaFloat4 fxaaConsoleRcpFrameOpt2
-		0.0f,                                    // FxaaFloat4 fxaaConsole360RcpFrameOpt2
-		0.75f,                                   // FxaaFloat  fxaaQualitySubpix
-		0.166f,                                  // FxaaFloat  fxaaQualityEdgeThreshold
-		0.0833f,                                 // FxaaFloat  fxaaQualityEdgeThresholdMin
-		8.0f,                                    // FxaaFloat  fxaaConsoleEdgeSharpness
-		0.125f,                                  // FxaaFloat  fxaaConsoleEdgeThreshold
-		0.05f,                                   // FxaaFloat  fxaaConsoleEdgeThresholdMin                         
-		0.0f                                     // FxaaFloat4 fxaaConsole360ConstDir
+		LocationToUV(location),      // FxaaFloat2 pos
+		0.0f,                        // FxaaFloat4 fxaaConsolePosPos
+		fxaa_tex,                    // FxaaTex    tex
+		fxaa_tex,                    // FxaaTex    fxaaConsole360TexExpBiasNegOne
+		fxaa_tex,                    // FxaaTex    fxaaConsole360TexExpBiasNegTwo
+		1.0f / g_display_resolution, // FxaaFloat2 fxaaQualityRcpFrame
+		0.0f,                        // FxaaFloat4 fxaaConsoleRcpFrameOpt
+		0.0f,                        // FxaaFloat4 fxaaConsoleRcpFrameOpt2
+		0.0f,                        // FxaaFloat4 fxaaConsole360RcpFrameOpt2
+		0.75f,                       // FxaaFloat  fxaaQualitySubpix
+		0.166f,                      // FxaaFloat  fxaaQualityEdgeThreshold
+		0.0833f,                     // FxaaFloat  fxaaQualityEdgeThresholdMin
+		8.0f,                        // FxaaFloat  fxaaConsoleEdgeSharpness
+		0.125f,                      // FxaaFloat  fxaaConsoleEdgeThreshold
+		0.05f,                       // FxaaFloat  fxaaConsoleEdgeThresholdMin                         
+		0.0f                         // FxaaFloat4 fxaaConsole360ConstDir
 	);
 
 	// Store the resolved radiance.

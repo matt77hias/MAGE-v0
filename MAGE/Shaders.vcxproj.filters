@@ -127,9 +127,6 @@
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_GS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\transform\minimal_transform_VS.hlsl">
       <Filter>Shader Files\transform</Filter>
     </FxCompile>
@@ -291,6 +288,135 @@
     </FxCompile>
     <FxCompile Include="Shaders\shaders\postprocessing\postprocessing_depth_of_field_CS.hlsl">
       <Filter>Shader Files\postprocessing</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization.hlsli">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_frostbite_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_lambertian_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_frostbite_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_lambertian_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_ward_duer_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_VS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxelization_CS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_frostbite_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_lambertian_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_ward_duer_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_blinn_phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_cook_torrance_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_frostbite_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_lambertian_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_ward_duer_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_vct_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -578,7 +704,34 @@
     <ClInclude Include="Shaders\src\voxelization\voxelization_GS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_PS.hpp">
+    <ClInclude Include="Shaders\src\voxelization\voxelization_blinn_phong_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_cook_torrance_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_frostbite_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_lambertian_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_blinn_phong_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_cook_torrance_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_frostbite_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_lambertian_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_ward_duer_PS.hpp">
+      <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\voxelization\voxelization_ward_duer_PS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
   </ItemGroup>

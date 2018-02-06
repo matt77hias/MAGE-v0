@@ -2,6 +2,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
+#include "transform\transform.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -18,12 +19,6 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 // Vertex Shader
 //-----------------------------------------------------------------------------
 PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
-	PSInputPositionNormalTexture output;
-	output.p      = mul(float4(input.p, 1.0f), g_object_to_view);
-	output.p_view = output.p.xyz;
-	output.p      = mul(output.p, g_view_to_projection);
-	output.n_view = normalize(mul(input.n, (float3x3)g_normal_to_world));
-	output.tex    = input.tex;
-	output.tex2   = input.tex;
-	return output;
+	return Transform(input, g_object_to_view, g_view_to_projection, 
+		             (float3x3)g_normal_to_world);
 }

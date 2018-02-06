@@ -23,14 +23,16 @@ namespace mage {
 		Assert(buffer);
 		Assert(vertices);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
-		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
+		// GPU:    read + no write
+		// CPU: no read + no write
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.CPUAccessFlags = 0u;
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = vertices;
 
@@ -46,11 +48,13 @@ namespace mage {
 		Assert(device);
 		Assert(buffer);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
-		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
+		// GPU:    read + no write
+		// CPU: no read +    write
+		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 		if (nullptr == vertices) {
@@ -58,7 +62,7 @@ namespace mage {
 			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = vertices;
 
@@ -75,14 +79,16 @@ namespace mage {
 		Assert(buffer);
 		Assert(indices);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< U32 >(nb_indices * sizeof(IndexT));
-		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_INDEX_BUFFER;
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_indices * sizeof(IndexT));
+		// GPU:    read + no write
+		// CPU: no read + no write
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.CPUAccessFlags = 0u;
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = indices;
 
@@ -99,14 +105,16 @@ namespace mage {
 		Assert(buffer);
 		Assert(data);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
-		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
+		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
+		// GPU:    read + no write
+		// CPU: no read + no write
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.CPUAccessFlags = 0u;
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = data;
 
@@ -122,11 +130,13 @@ namespace mage {
 		Assert(device);
 		Assert(buffer);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
-		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
+		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
+		// GPU:    read + no write
+		// CPU: no read +    write
+		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 		if (nullptr == data) {
@@ -134,7 +144,7 @@ namespace mage {
 			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = data;
 
@@ -151,16 +161,18 @@ namespace mage {
 		Assert(buffer);
 		Assert(data);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth           = static_cast< U32 >(count * sizeof(DataT));
-		buffer_desc.Usage               = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
-		buffer_desc.CPUAccessFlags      = 0u;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		buffer_desc.ByteWidth           = static_cast< U32 >(sizeof(DataT) * count);
 		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
-
-		// Specify data for initializing a subresource.
+		// GPU:    read + no write
+		// CPU: no read + no write
+		buffer_desc.Usage               = D3D11_USAGE_IMMUTABLE;
+		buffer_desc.CPUAccessFlags      = 0u;
+		
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = data;
 
@@ -176,21 +188,23 @@ namespace mage {
 		Assert(device);
 		Assert(buffer);
 		
-		// Describe the buffer resource.
+		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth           = static_cast< U32 >(count * sizeof(DataT));
-		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
-		buffer_desc.CPUAccessFlags      = D3D11_CPU_ACCESS_WRITE;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		buffer_desc.ByteWidth           = static_cast< U32 >(sizeof(DataT) * count);
 		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
-
+		// GPU:    read + no write
+		// CPU: no read +    write
+		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;
+		buffer_desc.CPUAccessFlags      = D3D11_CPU_ACCESS_WRITE;
+		
 		if (nullptr == data) {
 			// Create the structured buffer.
 			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
-		// Specify data for initializing a subresource.
+		// Specify the subresource data.
 		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem = data;
 

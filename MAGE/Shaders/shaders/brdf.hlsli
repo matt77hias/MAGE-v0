@@ -4,15 +4,20 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_DIFFUSE_BRDF                  | not defined
-// DISSABLE_SPECULAR_BRDF                 | not defined
-// BRDF_F_COMPONENT                       | F_Schlick
-// BRDF_D_COMPONENT                       | D_GGX
-// BRDF_G_COMPONENT                       | G_GXX
-// BRDF_MINIMUM_ALPHA                     | 0.1f
-// BRDF_DOT_EPSILON                       | 0.00001f
+// DISABLE_DIFFUSE_BRDF                     | not defined
+// DISABLE_SPECULAR_BRDF                    | not defined
+// BRDF_F_COMPONENT                         | F_Schlick
+// BRDF_D_COMPONENT                         | D_GGX
+// BRDF_G_COMPONENT                         | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_DOT_EPSILON                         | 0.00001f
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "math.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants
@@ -95,6 +100,7 @@ float3 HalfDirection(float3 l, float3 v) {
  @return		The Beckmann Normal Distribution Function component.
  */
 float D_Beckmann(float n_dot_h, float alpha) {
+
 	//               1            [  n_dot_h^2 - 1  ]             1             [tan(theta_h)]^2
 	// D:= -------------------- e^[-----------------] = -------------------- e^-[------------]
 	//     pi alpha^2 n_dot_h^4   [n_dot_h^2 alpha^2]   pi alpha^2 n_dot_h^4    [   alpha    ]
@@ -120,6 +126,7 @@ float D_Beckmann(float n_dot_h, float alpha) {
  @return		The Ward-Duer Normal Distribution Function component.
  */
 float D_WardDuer(float n_dot_h, float alpha) {
+
 	//         1        [  n_dot_h^2 - 1  ]        1        [tan(theta_h)]^2
 	// D:= ---------- e^[-----------------] = ---------- e^-[------------]
 	//     pi alpha^2   [n_dot_h^2 alpha^2]   pi alpha^2    [   alpha    ]
@@ -144,6 +151,7 @@ float D_WardDuer(float n_dot_h, float alpha) {
  @return		The Blinn-Phong Normal Distribution Function component.
  */
 float D_BlinnPhong(float n_dot_h, float alpha) {
+
 	//         1              [   2       ]   Ns + 2
 	// D:= ---------- n_dot_h^[------- - 2] = ------ n_dot_h^Ns
 	//     pi alpha^2         [alpha^2    ]    pi 2
@@ -167,6 +175,7 @@ float D_BlinnPhong(float n_dot_h, float alpha) {
  @return		The Trowbridge-Reitz Normal Distribution Function component.
  */
 float D_TrowbridgeReitz(float n_dot_h, float alpha) {
+
 	//                  alpha^2                                      c
 	// D:= ---------------------------------- = ---------------------------------------------
 	//     pi (n_dot_h^2 (alpha^2 - 1) + 1)^2   (alpha^2 * cos(theta_h)^2 + sin(theta_h)^2)^2
@@ -223,6 +232,7 @@ float D_GTR2(float n_dot_h, float alpha) {
  @return		The Berry Normal Distribution Function component.
  */
 float D_Berry(float n_dot_h, float alpha) {
+
 	//                      alpha^2 - 1                                          c
 	// D:= --------------------------------------------- = -------------------------------------------
 	//     log(alpha^2) pi (n_dot_h^2 (alpha^2 - 1) + 1)   (alpha^2 * cos(theta_h)^2 + sin(theta_h)^2)
@@ -270,6 +280,7 @@ float D_GTR1(float n_dot_h, float alpha) {
  @return		The GGX partial Geometric Schadowing component.
  */
 float G1_GGX(float n_dot_vl, float alpha) {
+
 	//                          2 n_dot_vl                                              2
 	// G1 := --------------------------------------------------- = --------------------------------------------
 	//       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)   1 + sqrt((alpha/n_dot_vl)^2 + (1 - alpha^2))
@@ -295,6 +306,7 @@ float G1_GGX(float n_dot_vl, float alpha) {
  @return		The Schlick-GGX partial Geometric Schadowing component.
  */
 float G1_SchlickGGX(float n_dot_vl, float alpha) {
+
 	//             n_dot_vl                      n_dot_vl
 	// G1 := --------------------- = --------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha/2) + alpha/2
@@ -319,6 +331,7 @@ float G1_SchlickGGX(float n_dot_vl, float alpha) {
  @return		The Beckmann partial Geometric Schadowing component.
  */
 float G1_Beckmann(float n_dot_vl, float alpha) {
+
 	//                n_dot_vl
 	// c  := --------------------------
 	//       alpha sqrt(1 - n_dot_vl^2)
@@ -349,6 +362,7 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
  @return		The Schlick-Beckmann partial Geometric Schadowing component.
  */
 float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
+
 	//             n_dot_vl                               n_dot_vl
 	// G1 := --------------------- = --------------------------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha sqrt(2/pi)) + alpha sqrt(2/pi)
@@ -388,7 +402,8 @@ float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
  @return		The Implicit Geometric Schadowing component.
  */
 float G_Implicit(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	             float n_dot_h, float v_dot_h, float alpha) {
+
 	// G := n_dot_v n_dot_l
 	
 	return n_dot_v * n_dot_l;
@@ -420,7 +435,8 @@ float G_Implicit(float n_dot_v, float n_dot_l,
  @return		The Ward Geometric Schadowing component.
  */
 float G_Ward(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	         float n_dot_h, float v_dot_h, float alpha) {
+
 	// G := 1
 
 	return 1.0f;
@@ -452,7 +468,8 @@ float G_Ward(float n_dot_v, float n_dot_l,
  @return		The Neumann Geometric Schadowing component.
  */
 float G_Neumann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	            float n_dot_h, float v_dot_h, float alpha) {
+
 	//         n_dot_v n_dot_l
 	// G := ---------------------
 	//      max(n_dot_v, n_dot_l)
@@ -486,7 +503,8 @@ float G_Neumann(float n_dot_v, float n_dot_l,
  @return		The Ashikhmin-Premoze Geometric Schadowing component.
  */
 float G_AshikhminPremoze(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                     float n_dot_h, float v_dot_h, float alpha) {
+
 	//                n_dot_v n_dot_l
 	// G := -----------------------------------
 	//      n_dot_v + n_dot_l - n_dot_v n_dot_l
@@ -520,7 +538,8 @@ float G_AshikhminPremoze(float n_dot_v, float n_dot_l,
  @return		The Kelemann Geometric Schadowing component.
  */
 float G_Kelemann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	             float n_dot_h, float v_dot_h, float alpha) {
+
 	//      n_dot_v n_dot_l
 	// G := ---------------
 	//          v_dot_h
@@ -554,7 +573,8 @@ float G_Kelemann(float n_dot_v, float n_dot_l,
  @return		The Cook-Torrance Geometric Schadowing component.
  */
 float G_CookTorrance(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                 float n_dot_h, float v_dot_h, float alpha) {
+
 	//         [   2 n_dot_h n_dot_v  2 n_dot_h n_dot_l]
 	// G := min[1, -----------------, -----------------]
 	//         [        v_dot_h           v_dot_h      ]
@@ -588,7 +608,8 @@ float G_CookTorrance(float n_dot_v, float n_dot_l,
  @return		The (correlated) GGX Geometric Schadowing component.
  */
 float G_GGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	        float n_dot_h, float v_dot_h, float alpha) {
+
 	//                                           2 (n_dot_l) (n_dot_v)
 	// G := -------------------------------------------------------------------------------------------------
 	//      n_dot_v sqrt(alpha^2 + (1 - alpha^2) n_dot_l^2) + n_dot_l sqrt(alpha^2 + (1 - alpha^2) n_dot_v^2)
@@ -634,7 +655,7 @@ float G_GGX(float n_dot_v, float n_dot_l,
  @return		The Smith GGX Geometric Schadowing component.
  */
 float G_Smith_GGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	              float n_dot_h, float v_dot_h, float alpha) {
 
 	return G1_GGX(n_dot_v, alpha) * G1_GGX(n_dot_l, alpha);
 }
@@ -665,7 +686,7 @@ float G_Smith_GGX(float n_dot_v, float n_dot_l,
  @return		The Smith Schlick-GGX Geometric Schadowing component.
  */
 float G_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                     float n_dot_h, float v_dot_h, float alpha) {
 
 	return G1_SchlickGGX(n_dot_v, alpha) * G1_SchlickGGX(n_dot_l, alpha);
 }
@@ -696,7 +717,7 @@ float G_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
  @return		The Smith Beckmann Geometric Schadowing component.
  */
 float G_Smith_Beckmann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                   float n_dot_h, float v_dot_h, float alpha) {
 
 	return G1_Beckmann(n_dot_v, alpha) * G1_Beckmann(n_dot_l, alpha);
 }
@@ -727,7 +748,7 @@ float G_Smith_Beckmann(float n_dot_v, float n_dot_l,
  @return		The Smith Schlick-Beckmann Geometric Schadowing component.
  */
 float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                          float n_dot_h, float v_dot_h, float alpha) {
 
 	return G1_SchlickBeckmann(n_dot_v, alpha) * G1_SchlickBeckmann(n_dot_l, alpha);
 }
@@ -755,6 +776,7 @@ float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
  @return		The GGX partial Visibility component.
  */
 float V1_GGX(float n_dot_vl, float alpha) {
+
 	//                               2                       
 	// V1 := ---------------------------------------------------
 	//       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)
@@ -780,6 +802,7 @@ float V1_GGX(float n_dot_vl, float alpha) {
  @return		The Schlick-GGX partial Visibility component.
  */
 float V1_SchlickGGX(float n_dot_vl, float alpha) {
+
 	//                 1                            1
 	// V1 := --------------------- = --------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha/2) + alpha/2
@@ -804,6 +827,7 @@ float V1_SchlickGGX(float n_dot_vl, float alpha) {
  @return		The Schlick-Beckmann partial Visibility component.
  */
 float V1_SchlickBeckmann(float n_dot_vl, float alpha) {
+
 	//                1                                     1
 	// V1 := --------------------- = --------------------------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha sqrt(2/pi)) + alpha sqrt(2/pi)
@@ -847,7 +871,8 @@ float V1_SchlickBeckmann(float n_dot_vl, float alpha) {
  @return		The Implicit Visibility component.
  */
 float V_Implicit(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	             float n_dot_h, float v_dot_h, float alpha) {
+
 	// V := 1
 	
 	return 1.0f;
@@ -879,7 +904,8 @@ float V_Implicit(float n_dot_v, float n_dot_l,
  @return		The Ward Visibility component.
  */
 float V_Ward(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	         float n_dot_h, float v_dot_h, float alpha) {
+
 	//             1
 	// V := ---------------
 	//      n_dot_v n_dot_l
@@ -913,7 +939,8 @@ float V_Ward(float n_dot_v, float n_dot_l,
  @return		The Neumann Visibility component.
  */
 float V_Neumann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	            float n_dot_h, float v_dot_h, float alpha) {
+
 	//               1
 	// V := ---------------------
 	//      max(n_dot_v, n_dot_l)
@@ -947,7 +974,8 @@ float V_Neumann(float n_dot_v, float n_dot_l,
  @return		The Ashikhmin-Premoze Visibility component.
  */
 float V_AshikhminPremoze(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                     float n_dot_h, float v_dot_h, float alpha) {
+
 	//                      1
 	// V := -----------------------------------
 	//      n_dot_v + n_dot_l - n_dot_v n_dot_l
@@ -981,7 +1009,8 @@ float V_AshikhminPremoze(float n_dot_v, float n_dot_l,
  @return		The Kelemann Visibility component.
  */
 float V_Kelemann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	             float n_dot_h, float v_dot_h, float alpha) {
+
 	//         1
 	// V := -------
 	//      v_dot_h
@@ -1015,7 +1044,8 @@ float V_Kelemann(float n_dot_v, float n_dot_l,
  @return		The Cook-Torrance Visibility component.
  */
 float V_CookTorrance(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                 float n_dot_h, float v_dot_h, float alpha) {
+
 	//         [       1            2 n_dot_h        2 n_dot_h   ]
 	// V := min[---------------, ---------------, ---------------]
 	//         [n_dot_v n_dot_l  v_dot_h n_dot_l  v_dot_h n_dot_v]
@@ -1052,7 +1082,8 @@ float V_CookTorrance(float n_dot_v, float n_dot_l,
  @return		The (correlated) GGX Visibility component.
  */
 float V_GGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	        float n_dot_h, float v_dot_h, float alpha) {
+
 	//                                                      2
 	// V := -------------------------------------------------------------------------------------------------
 	//      n_dot_v sqrt(alpha^2 + (1 - alpha^2) n_dot_l^2) + n_dot_l sqrt(alpha^2 + (1 - alpha^2) n_dot_v^2)
@@ -1090,7 +1121,7 @@ float V_GGX(float n_dot_v, float n_dot_l,
  @return		The Smith GGX Visibility component.
  */
 float V_Smith_GGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	              float n_dot_h, float v_dot_h, float alpha) {
 
 	return V1_GGX(n_dot_v, alpha) * V1_GGX(n_dot_l, alpha);
 }
@@ -1121,7 +1152,7 @@ float V_Smith_GGX(float n_dot_v, float n_dot_l,
  @return		The Smith Schlick-GGX Visibility component.
  */
 float V_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                     float n_dot_h, float v_dot_h, float alpha) {
 
 	return V1_SchlickGGX(n_dot_v, alpha) * V1_SchlickGGX(n_dot_l, alpha);
 }
@@ -1152,7 +1183,7 @@ float V_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
  @return		The Smith Beckmann Visibility component.
  */
 float V_Smith_Beckmann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                   float n_dot_h, float v_dot_h, float alpha) {
 
 	return G_Smith_Beckmann(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha) 
 			/ (n_dot_v * n_dot_l);
@@ -1184,7 +1215,7 @@ float V_Smith_Beckmann(float n_dot_v, float n_dot_l,
  @return		The Smith Schlick-Beckmann Visibility component.
  */
 float V_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
-	float n_dot_h, float v_dot_h, float alpha) {
+	                          float n_dot_h, float v_dot_h, float alpha) {
 
 	return V1_SchlickBeckmann(n_dot_v, alpha) * V1_SchlickBeckmann(n_dot_l, alpha);
 }
@@ -1326,6 +1357,7 @@ float3 F_Schlick(float v_dot_h, float3 F0) {
  @return		The Cook-Torrance Fresnel component.
  */
 float F_CookTorrance(float v_dot_h, float F0) {
+
 	// c   := v_dot_h
 	//
 	//        1 + sqrt(F0)
@@ -1362,6 +1394,7 @@ float F_CookTorrance(float v_dot_h, float F0) {
  @return		The Cook-Torrance Fresnel component.
  */
 float3 F_CookTorrance(float v_dot_h, float3 F0) {
+
 	// c   := v_dot_h
 	//
 	//        1 + sqrt(F0)
@@ -1382,7 +1415,8 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 	const float3 g1       = g + v_dot_h;
 	const float3 g2       = g - v_dot_h;
 
-	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) / (g2 * (v_dot_h + 1.0f))));
+	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) 
+										   / (g2 * (v_dot_h + 1.0f))));
 }
 
 //-----------------------------------------------------------------------------
@@ -1410,14 +1444,16 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
  @return		The Lambertian BRDFxCos.
  */
 float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
-	float3 base_color, float roughness, float metalness) {
+	                      float3 base_color, 
+	                      float roughness, 
+	                      float metalness) {
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	return 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float n_dot_l = sat_dot(n, l);
 	return base_color * g_inv_pi * n_dot_l;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 }
 
 #ifndef BRDF_F_COMPONENT
@@ -1445,7 +1481,7 @@ float RoughnessToAlpha(float roughness) {
 }
 
 float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
-	float v_dot_h, float roughness) {
+	                       float v_dot_h, float roughness) {
 
 	const float energy_factor = lerp(1.0f, 1.0f / 1.51f, roughness);
 
@@ -1478,7 +1514,9 @@ float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
  @return		The Cook-Torrance BRDFxCos.
  */
 float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v, 
-	float3 base_color, float roughness, float metalness) {
+	                     float3 base_color,
+	                     float roughness, 
+	                     float metalness) {
 	
 	const float  alpha   = RoughnessToAlpha(roughness);
 	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
@@ -1487,23 +1525,23 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
 	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	#ifdef DISSABLE_SPECULAR_BRDF
+	#ifdef DISABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
-	#else // DISSABLE_SPECULAR_BRDF
+	#else // DISABLE_SPECULAR_BRDF
 	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
 	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISSABLE_SPECULAR_BRDF
+	#endif // DISABLE_SPECULAR_BRDF
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	const float3 Fd      = 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float  F_diff  = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, roughness) 
 		                 * (1.0f - metalness);
 	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 
 	return (Fd + Fs) * n_dot_l;
 }
@@ -1529,7 +1567,9 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
  @return		The Cook-Torrance BRDFxCos.
  */
 float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v, 
-	float3 base_color, float roughness, float metalness) {
+	                        float3 base_color, 
+	                        float roughness, 
+	                        float metalness) {
 	
 	const float  alpha   = RoughnessToAlpha(roughness);
 	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
@@ -1538,22 +1578,22 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
 	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	#ifdef DISSABLE_SPECULAR_BRDF
+	#ifdef DISABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
-	#else // DISSABLE_SPECULAR_BRDF
+	#else // DISABLE_SPECULAR_BRDF
 	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
 	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISSABLE_SPECULAR_BRDF
+	#endif // DISABLE_SPECULAR_BRDF
 
-	#ifdef DISSABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_DIFFUSE_BRDF
 	const float3 Fd      = 0.0f;
-	#else // DISSABLE_DIFFUSE_BRDF
+	#else // DISABLE_DIFFUSE_BRDF
 	const float3 F_diff  = (1.0f - F_spec) * (1.0f - metalness);
 	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISSABLE_DIFFUSE_BRDF
+	#endif // DISABLE_DIFFUSE_BRDF
 
 	return (Fd + Fs) * n_dot_l;
 }

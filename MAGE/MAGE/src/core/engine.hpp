@@ -11,7 +11,7 @@
 #include "rendering\rendering_manager.hpp"
 #include "resource\resource_manager.hpp"
 #include "scene\scene_manager.hpp"
-#include "timer\timer.hpp"
+#include "system\timer.hpp"
 #include "ui\main_window.hpp"
 
 #include "resource\resource_factory.hpp"
@@ -310,7 +310,7 @@ namespace mage {
 		/**
 		 The timer of this engine.
 		 */
-		Timer m_timer;
+		WallClockTimer m_timer;
 
 		/**
 		 The fixed delta time of this engine.

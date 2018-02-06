@@ -15,8 +15,7 @@
 namespace mage {
 
 	/**
-	 A class of constant buffers (for binding buffers to the rendering 
-	 pipeline).
+	 A class of constant buffers.
 
 	 @tparam		DataT
 					The data type.

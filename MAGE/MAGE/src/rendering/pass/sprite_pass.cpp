@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -29,7 +29,7 @@ namespace mage {
 		m_ps(CreateSpritePS()),
 		m_sprite_batch(MakeUnique< SpriteBatch >()) {}
 
-	SpritePass::SpritePass(SpritePass &&render_pass) noexcept = default;
+	SpritePass::SpritePass(SpritePass &&pass) noexcept = default;
 
 	SpritePass::~SpritePass() = default;
 
@@ -52,10 +52,13 @@ namespace mage {
 		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
 	}
 
-	void SpritePass::Render(const Scene &scene) const {
-		m_sprite_batch->Begin();
+	void SpritePass::Render(const Scene &scene) {
+		// Bind the fixed state.
+		BindFixedState();
 
-		SpriteBatch &sprite_batch = *m_sprite_batch;
+		auto &sprite_batch = *m_sprite_batch;
+		
+		sprite_batch.Begin();
 
 		// Processes the sprite images.
 		scene.ForEach< SpriteImage >([&sprite_batch](const SpriteImage &sprite) {
@@ -77,6 +80,6 @@ namespace mage {
 			sprite.Draw(sprite_batch);
 		});
 
-		m_sprite_batch->End();
+		sprite_batch.End();
 	}
 }

@@ -53,18 +53,18 @@ namespace mage {
 		/**
 		 Constructs an back buffer pass from the given back buffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the back buffer pass to copy.
 		 */
-		BackBufferPass(const BackBufferPass &render_pass) = delete;
+		BackBufferPass(const BackBufferPass &pass) = delete;
 
 		/**
 		 Constructs an back buffer pass by moving the given back buffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the Image pass to move.
 		 */
-		BackBufferPass(BackBufferPass &&render_pass) noexcept;
+		BackBufferPass(BackBufferPass &&pass) noexcept;
 
 		/**
 		 Destructs this back buffer pass.
@@ -78,35 +78,26 @@ namespace mage {
 		/**
 		 Copies the given back buffer pass to this back buffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the back buffer pass to copy.
 		 @return		A reference to the copy of the given back buffer pass 
 						(i.e. this back buffer pass).
 		 */
-		BackBufferPass &operator=(const BackBufferPass &render_pass) = delete;
+		BackBufferPass &operator=(const BackBufferPass &pass) = delete;
 
 		/**
 		 Moves the given back buffer pass to this back buffer pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the back buffer pass to move.
 		 @return		A reference to the moved back buffer pass (i.e. this 
 						back buffer pass).
 		 */
-		BackBufferPass &operator=(BackBufferPass &&render_pass) = delete;
+		BackBufferPass &operator=(BackBufferPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the fixed state of this back buffer pass.
-
-		 @throws		Exception
-						Failed to bind the fixed state of this back buffer 
-						pass.
-		 */
-		void BindFixedState();
 
 		/**
 		 Renders.
@@ -114,6 +105,15 @@ namespace mage {
 		void Render() const noexcept;
 		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this back buffer pass.
+		 */
+		void BindFixedState() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -127,11 +127,11 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this back buffer pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this back buffer pass.
 		 */
-		const SharedPtr< const PixelShader > m_ps;
+		const PixelShaderPtr m_ps;
 	};
 }

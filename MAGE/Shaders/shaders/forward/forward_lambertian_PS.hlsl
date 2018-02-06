@@ -1,5 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDFxCOS LambertianBRDFxCos
+#define BRDFxCOS_COMPONENT LambertianBRDFxCos
+#define DISABLE_TSNM
+#define DISABLE_VCT
 #include "forward\forward.hlsli"

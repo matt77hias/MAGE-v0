@@ -1,17 +1,20 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISSABLE_BASE_COLOR_TEXTURE            | not defined
-// DISSABLE_MATERIAL_TEXTURE              | not defined
-// TSNM                                   | not defined
+// DISABLE_BASE_COLOR_TEXTURE               | not defined
+// DISABLE_MATERIAL_TEXTURE                 | not defined
+// DISABLE_TSNM                             | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "normal_mapping.hlsli"
+
+#ifndef DISABLE_TSNM
+	#include "normal_mapping.hlsli"
+#endif // DISABLE_TSNM
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -38,9 +41,17 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
-TEXTURE_2D(g_material_texture,   float4, SLOT_SRV_MATERIAL);
-TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
+#ifndef DISABLE_BASE_COLOR_TEXTURE
+	TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
+#endif // DISABLE_BASE_COLOR_TEXTURE
+
+#ifndef DISABLE_MATERIAL_TEXTURE
+	TEXTURE_2D(g_material_texture,   float4, SLOT_SRV_MATERIAL);
+#endif // DISABLE_MATERIAL_TEXTURE
+
+#ifndef DISABLE_TSNM
+	TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
+#endif // DISABLE_TSNM
 
 //-----------------------------------------------------------------------------
 // Definitions and Declarations
@@ -55,11 +66,13 @@ TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
  */
 float4 GetMaterialBaseColor(float2 tex) {
 	// Obtain the base color of the material.
-	#ifdef DISSABLE_BASE_COLOR_TEXTURE
+	#ifdef DISABLE_BASE_COLOR_TEXTURE
 	return g_base_color;
-	#else  // DISSABLE_BASE_COLOR_TEXTURE
-	return g_base_color * g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
-	#endif // DISSABLE_BASE_COLOR_TEXTURE
+	#else  // DISABLE_BASE_COLOR_TEXTURE
+	const float4 base_color = g_base_color_texture.Sample(g_linear_wrap_sampler,
+														  tex);
+	return g_base_color * base_color;
+	#endif // DISABLE_BASE_COLOR_TEXTURE
 }
 
 /**
@@ -71,13 +84,13 @@ float4 GetMaterialBaseColor(float2 tex) {
  */
 float2 GetMaterialParameters(float2 tex) {
 	// Obtain the material parameters of the material.
-	#ifdef DISSABLE_MATERIAL_TEXTURE
+	#ifdef DISABLE_MATERIAL_TEXTURE
 	return float2(g_roughness, g_metalness);
-	#else  // DISSABLE_MATERIAL_TEXTURE
-	const float2 material 
-		= g_material_texture.Sample(g_linear_wrap_sampler, tex).xy;
+	#else  // DISABLE_MATERIAL_TEXTURE
+	const float2 material = g_material_texture.Sample(g_linear_wrap_sampler, 
+													  tex).xy;
 	return float2(g_roughness, g_metalness) * material;
-	#endif // DISSABLE_MATERIAL_TEXTURE
+	#endif // DISABLE_MATERIAL_TEXTURE
 }
 
 /**
@@ -93,14 +106,13 @@ float2 GetMaterialParameters(float2 tex) {
  */
 float3 GetNormal(float3 p, float3 n, float2 tex) {
 	// Obtain the view-space normal.
-	#ifdef TSNM
+	#ifdef DISABLE_TSNM
+	return normalize(n);
+	#else  // DISABLE_TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c 
-		= UnpackNormal(g_normal_texture.Sample(g_linear_wrap_sampler, tex));
+	const float3 c = UnpackNormal(g_normal_texture.Sample(g_linear_wrap_sampler,
+														  tex));
 	// Perturb the view-space normal.
 	return PerturbNormal(p, normalize(n), tex, c);
-	#else  // TSNM
-	// Normalize the view-space normal.
-	return normalize(n);
-	#endif // TSNM
+	#endif // DISABLE_TSNM
 }

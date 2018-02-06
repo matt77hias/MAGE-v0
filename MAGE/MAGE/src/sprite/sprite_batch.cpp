@@ -4,7 +4,6 @@
 #pragma region
 
 #include "sprite\sprite_batch.hpp"
-#include "texture\texture_utils.hpp"
 #include "rendering\rendering_state_manager.hpp"
 
 // Include HLSL bindings.
@@ -78,7 +77,7 @@ namespace mage {
 		}
 		
 		// Create a sprite.
-		auto sprite = &m_sprites.emplace_back();
+		auto &sprite = m_sprites.emplace_back();
 
 		// destination: [Tx Ty Sx Sy]
 		const auto destination = XMVectorSet(transform.GetTranslation().m_x,
@@ -90,45 +89,57 @@ namespace mage {
 										               transform.GetRotationOrigin().m_y, 
 										               transform.GetRotation(), 
 										               transform.GetDepth());
-		
 		auto flags = static_cast< U32 >(effects);
-		auto dst = destination;
+		auto dst   = destination;
 		
 		if (source) {
-			// src = [TLx TLy W H]
+			// If a source is given, the source region is represented in 
+			// (absolute) texel coordinates.
 			const auto src = XMVectorLeftTopWidthHeight(*source);
-			XMStoreFloat4A(&sprite->m_source, src);
+			sprite.m_source = XMStore< F32x4A >(src);
 
-			// If the destination size is represented in texels 
-			// (i.e. relative to the source region), convert it to pixels.
+			// If the destination size is relative to the texture region
+			// (i.e. multiplier), the destination size is represented in 
+			// (absolute) pixel coordinates.
 			if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
-				// dst: [Tx Ty Sx*W Sy*H]
 				dst = XMVectorPermute< 0, 1, 6, 7 >(dst, dst * src);
 			}
 
-			// The destination size is represented in pixels.
-
 			flags |= SpriteInfo::s_source_in_texels 
-				   | SpriteInfo::s_destination_size_in_pixels;
+				  |  SpriteInfo::s_destination_size_in_pixels;
+
+			//-----------------------------------------------------------------
+			// Source region    is represented in absolute texel coordinates.
+			// Destination size is represented in absolute pixel coordinates.
+			// E.g. SpriteText
+			//-----------------------------------------------------------------
 		}
 		else {
-			// No explicit source region, so use the entire texture.
-			static const XMVECTORF32 max_texture_region = { 0.0f, 0.0f, 1.0f, 1.0f };
-			XMStoreFloat4A(&sprite->m_source, max_texture_region);
+			// If no source is given, the source region is represented in 
+			// (relative) texel (UV) coordinates.
+			static const XMVECTORF32 src = { 0.0f, 0.0f, 1.0f, 1.0f };
+			sprite.m_source = XMStore< F32x4A >(src);
+
+			//-----------------------------------------------------------------
+			// Source region    is represented in relative texel coordinates.
+			// Destination size is represented in relative pixel coordinates.
+			// E.g. SpriteImage
+			//-----------------------------------------------------------------
 		}
 
 		// Store sprite parameters.
-		XMStoreFloat4A(&sprite->m_destination, dst);
-		XMStoreFloat4A(&sprite->m_color, color);
-		XMStoreFloat4A(&sprite->m_origin_rotation_depth, origin_rotation_depth);
-		sprite->m_texture = texture;
-		sprite->m_flags = flags;
+		sprite.m_destination           = XMStore< F32x4A >(dst);
+		sprite.m_color                 = XMStore< F32x4A >(color);
+		sprite.m_origin_rotation_depth = XMStore< F32x4A >(origin_rotation_depth);
+		sprite.m_texture               = texture;
+		sprite.m_flags                 = flags;
 
 		if (SpriteSortMode::Immediate == m_sort_mode) {
-			Render(texture, &sprite, 1);
+			const auto sprites = &sprite;
+			Render(texture, &sprites, 1u);
 		}
 		else {
-			m_sorted_sprites.push_back(sprite);
+			m_sorted_sprites.push_back(&sprite);
 		}
 	}
 
@@ -308,22 +319,20 @@ namespace mage {
 		                FXMVECTOR texture_size, 
 			            FXMVECTOR inverse_texture_size) noexcept {
 		
-		auto source                      = XMLoadFloat4A(&sprite->m_source);
-		const auto destination           = XMLoadFloat4A(&sprite->m_destination);
-		const auto color                 = XMLoadFloat4A(&sprite->m_color);
-		const auto origin_rotation_depth = XMLoadFloat4A(&sprite->m_origin_rotation_depth);
+		auto source                      = XMLoad(sprite->m_source);
+		const auto destination           = XMLoad(sprite->m_destination);
+		const auto color                 = XMLoad(sprite->m_color);
+		const auto origin_rotation_depth = XMLoad(sprite->m_origin_rotation_depth);
 		const auto rotation              = sprite->m_origin_rotation_depth.m_z;
+		const auto depth                 = sprite->m_origin_rotation_depth.m_w;
 		const auto flags                 = sprite->m_flags;
 		auto source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		auto destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
 		
-		// Scale the origin offset by source size, taking care to avoid overflow if 
-		// the source region is zero.
-		const auto is_zero_mask          = XMVectorEqual(source_size, XMVectorZero());
-		const auto non_zero_source_size  = XMVectorSelect(source_size, g_XMEpsilon, is_zero_mask);
-		auto origin                      = XMVectorDivide(origin_rotation_depth, non_zero_source_size);
+		const auto is_0_mask         = XMVectorEqual(source_size, XMVectorZero());
+		const auto non_0_source_size = XMVectorSelect(source_size, g_XMEpsilon, is_0_mask);
+		auto origin                  = XMVectorDivide(origin_rotation_depth, non_0_source_size);
 
-		// Convert the source region from texels to mod-1 texture coordinate format.
 		if (flags & SpriteInfo::s_source_in_texels) {
 			source      *= inverse_texture_size;
 			source_size *= inverse_texture_size;
@@ -331,72 +340,95 @@ namespace mage {
 		else {
 			origin      *= inverse_texture_size;
 		}
-
-		// If the destination size is relative to the source region, convert it to pixels.
+		
 		if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
+			// The maximum source region is always required in this case.
 			destination_size *= texture_size;
 		}
 
-		// Compute a 2x2 rotation matrix.
-		XMVECTOR rotation_matrix1;
-		XMVECTOR rotation_matrix2;
-		if (0.0f != rotation) {
-			F32 sin, cos;
-			XMScalarSinCos(&sin, &cos, rotation);
-			const auto sin_v = XMLoadFloat(&sin);
-			const auto cos_v = XMLoadFloat(&cos);
-			rotation_matrix1 = XMVectorMergeXY( cos_v, sin_v);
-			rotation_matrix2 = XMVectorMergeXY(-sin_v, cos_v);
-		}
-		else {
-			rotation_matrix1 = g_XMIdentityR0;
-			rotation_matrix2 = g_XMIdentityR1;
-		}
-		
-		// The four corner vertices are computed by transforming these unit-square positions.
-		static const XMVECTORF32 corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
-			{ 0.0f, 0.0f },
-			{ 1.0f, 0.0f },
-			{ 0.0f, 1.0f },
-			{ 1.0f, 1.0f },
+
+		//---------------------------------------------------------------------
+		// Source region    is represented in relative texel coordinates.
+		// Origin           is represented in relative texel coordinates.
+		// Destination size is represented in absolute pixel coordinates.
+		//---------------------------------------------------------------------
+
+
+		// The four normalized corner offsets needed to compute the position 
+		// coordinates and UV coordinates of each vertex.
+		// [x y _ _]
+		static const XMVECTOR 
+			corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
+			XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
+			XMVectorSet(1.0f, 0.0f, 0.0f, 1.0f),
+			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 0.0f, 1.0f)
 		};
 		
-		// Texture coordinates are computed from the same corner_offsets table as 
-		// vertex positions, but if the sprite is mirrored, this table must be indexed 
-		// in a different order. This is done as follows:
-		//
-		//    position = corner_offsets[i]
-		//    uv       = corner_offsets[i ^ SpriteEffect]
 
+		// UV coordinates to vertex mapping:
+		//
+		//   None      MirrorX     MirrorY     MirrorXY
+		// 00 -- 01    01 -- 00    10 -- 11   11 -- 10
+		// |     |     |     |     |     |     |     |
+		// 10 -- 11    11 -- 10    00 -- 01    01 -- 00
+		//
+		//                    XOR Index: 00 01 10 11
+		// SpriteEffect::None      00    00 01 10 11
+		// SpriteEffect::MirrorX   01    01 00 11 10
+		// SpriteEffect::MirrorY   10    10 11 00 01
+		// SpriteEffect::MirrorXY  11    11 10 01 00
 		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 && 
 			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
 			          "The mirroring implementation must be updated to match");
+		// Isolate the mirror bits.
+		const U32 mirror_mask = flags & 3u;
 
-		const U32 mirror_bits = flags & 3;
+
+		// Rotation:
+		// 
+		// [x, y] [ cos -sin ] = [x cos + y sin, x (-sin) + y cos]
+		//		  [ sin  cos ]
+		XMVECTOR rotation_x;
+		XMVECTOR rotation_y;
+		if (0.0f != rotation) {
+			F32 sin, cos;
+			XMScalarSinCos(&sin, &cos, rotation);
+			// [sin _ _ _]
+			const auto sin_v = XMLoad(sin);
+			// [cos _ _ _]
+			const auto cos_v = XMLoad(cos);
+			// [cos -sin _ _]
+			rotation_x = XMVectorMergeXY(cos_v, -sin_v);
+			// [sin cos _ _]
+			rotation_y = XMVectorMergeXY(sin_v, cos_v);
+		}
+		else {
+			// [1 0 _ _]
+			rotation_x = g_XMIdentityR0;
+			// [0 1 _ _]
+			rotation_y = g_XMIdentityR1;
+		}
+
 
 		// Generate the four output vertices.
 		for (size_t i = 0; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {
-			// Calculate position.
-			const auto corner_offset = (corner_offsets[i] - origin) * destination_size;
-			// Apply 2x2 rotation matrix.
-			const auto position1
-				= XMVectorMultiplyAdd(XMVectorSplatX(corner_offset), rotation_matrix1, destination);
-			const auto position2
-				= XMVectorMultiplyAdd(XMVectorSplatY(corner_offset), rotation_matrix2, position1);
-			// Set z = depth.
-			const auto position = XMVectorPermute< 0, 1, 7, 6 >(position2, origin_rotation_depth);
-			
-			// Write the position as a F32x4, even though VertexPositionColorTexture::m_p 
-			// is an F32x3.
-			XMStoreFloat4(reinterpret_cast< F32x4 * >(&vertices[i].m_p), position);
+			// Compute the position coordinates.
+			const auto p0 = (corner_offsets[i] - origin) * destination_size;
+			const auto p1 = XMVectorMultiplyAdd(XMVectorSplatX(p0), rotation_x, destination);
+			const auto p2 = XMVectorMultiplyAdd(XMVectorSplatY(p0), rotation_y, p1);
+			const auto position = XMVectorSetZ(p2, depth);
 
+			// Write the position as a F32x4.
+			vertices[i].m_p = Point3(XMStore< F32x3 >(position));
 			// Write the color.
-			XMStoreFloat4(&vertices[i].m_c, color);
+			vertices[i].m_c = SRGBA(XMStore< F32x4 >(color));
 
-			// Compute and write the texture coordinates.
-			const auto uv
-				= XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
-			XMStoreFloat2(&vertices[i].m_tex, uv);
+			// Compute the texture coordinates.
+			const auto uv = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_mask], source_size, source);
+			
+			// Write the texture coordinates.
+			vertices[i].m_tex = UV(XMStore< F32x2 >(uv));
 		}
 	}
 }

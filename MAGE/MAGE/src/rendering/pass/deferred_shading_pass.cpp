@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "shader\shader_factory.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -25,37 +25,20 @@ namespace mage {
 
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_cs(CreateDeferredCS(BRDFType::Unknown)),
+		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
 		m_vs(CreateNearFullscreenTriangleVS()),
-		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown)),
+		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown, false)),
 		m_brdf(BRDFType::Unknown) {}
 
 	DeferredShadingPass::DeferredShadingPass(
-		DeferredShadingPass &&render_pass) noexcept = default;
+		DeferredShadingPass &&pass) noexcept = default;
 
 	DeferredShadingPass::~DeferredShadingPass() = default;
 
-	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
-		if (m_brdf != brdf) {
-			m_brdf    = brdf;
-			m_cs      = CreateDeferredCS(brdf);
-			m_msaa_ps = CreateDeferredMSAAPS(brdf);
-		}
-	}
-
-	void DeferredShadingPass::BindFixedState(BRDFType brdf, bool use_compute) {
-		// Update the compute and pixel shader.
-		UpdateShaders(brdf);
-		
-		if (use_compute) {
-			// CS: Bind the compute shader.
-			m_cs->BindShader(m_device_context);
-			return;
-		}
-
+	void DeferredShadingPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
-			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+											D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -74,17 +57,35 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void DeferredShadingPass::Render() const noexcept {
+	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
+		if (m_brdf != brdf) {
+			m_brdf    = brdf;
+			m_cs      = CreateDeferredCS(brdf, false);
+			m_msaa_ps = CreateDeferredMSAAPS(brdf, false);
+		}
+	}
+
+	void DeferredShadingPass::Render(BRDFType brdf) {
+		// Update the compute and pixel shader.
+		UpdateShaders(brdf);
+		// Binds the fixed state.
+		BindFixedState();
+		
 		// Draw the fullscreen triangle.
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}
 
-	void DeferredShadingPass::Dispatch(const Viewport &viewport) const noexcept {
-		// Dispatch.
-		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
-				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+	void DeferredShadingPass::Dispatch(const Viewport &viewport, BRDFType brdf) {
+		// Update the compute and pixel shader.
+		UpdateShaders(brdf);
+		// CS: Bind the compute shader.
+		m_cs->BindShader(m_device_context);
+		
+		// Dispatch the pass.
+		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
+												   GROUP_SIZE_2D_DEFAULT);
+		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
+												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

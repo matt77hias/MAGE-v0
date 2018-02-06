@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// MSAA                                   | not defined
-// GROUP_SIZE                             | GROUP_SIZE_DEFAULT
+// MSAA                                     | not defined
+// GROUP_SIZE                               | GROUP_SIZE_2D_DEFAULT
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -41,9 +41,9 @@ struct Data {
 groupshared Data data[MSAA * GROUP_SIZE * GROUP_SIZE];
 
 [numthreads(MSAA, GROUP_SIZE, GROUP_SIZE)]
-void CS(uint3 thread_id : SV_DispatchThreadID, 
-	uint3 group_thread_id : SV_GroupThreadID,
-	uint  group_index : SV_GroupIndex) {
+void CS(uint3 thread_id       : SV_DispatchThreadID, 
+		uint3 group_thread_id : SV_GroupThreadID, 
+		uint  group_index     : SV_GroupIndex) {
 
 	static const float weight = 1.0f / MSAA;
 
@@ -67,7 +67,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 	GroupMemoryBarrierWithGroupSync();
 	
 	// Early termination.
-	if (0 != group_thread_id.x) {
+	if (0u != group_thread_id.x) {
 		return;
 	}
 	if (any(location >= g_display_resolution)) {
@@ -76,11 +76,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 	
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
-	#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISABLE_INVERTED_Z_BUFFER
 	float depth       = 1.0f;
-	#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISABLE_INVERTED_Z_BUFFER
 	float depth       = 0.0f;
-	#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISABLE_INVERTED_Z_BUFFER
 	
 	// Resolve the (multi-sampled) radiance, normal and depth.
 	[unroll]
@@ -88,11 +88,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 		ldr_sum    += data[i].ldr;
 		normal_sum += data[i].normal;
 
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		depth = min(depth, data[i].depth);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		depth = max(depth, data[i].depth);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
 	// Store the resolved radiance.
@@ -105,9 +105,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 
 #else  // MSAA && GROUP_SIZE
 
-	#ifndef GROUP_SIZE
-		#define GROUP_SIZE GROUP_SIZE_DEFAULT
-	#endif
+#ifndef GROUP_SIZE
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
+#endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
@@ -125,24 +125,24 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
-	#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#ifdef DISABLE_INVERTED_Z_BUFFER
 	float depth       = 1.0f;
-	#else  // DISSABLE_INVERTED_Z_BUFFER
+	#else  // DISABLE_INVERTED_Z_BUFFER
 	float depth       = 0.0f;
-	#endif // DISSABLE_INVERTED_Z_BUFFER
+	#endif // DISABLE_INVERTED_Z_BUFFER
 
 	// Resolve the (multi-sampled) radiance, normal and depth.
-	for (uint i = 0; i < nb_samples; ++i) {
+	for (uint i = 0u; i < nb_samples; ++i) {
 		ldr_sum += ToneMap_Max3(g_input_image_texture.sample[i][location], 
 			                    weight);
 
 		normal_sum += g_input_normal_texture.sample[i][location];
 
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 		depth = min(depth, g_input_depth_texture.sample[i][location]);
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 		depth = max(depth, g_input_depth_texture.sample[i][location]);
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
 	// Store the resolved radiance.

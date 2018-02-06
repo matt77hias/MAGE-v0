@@ -365,12 +365,16 @@ namespace mage {
 	void RenderingOutputManager::BindBegin(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
+		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
+		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
+		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
+
 		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
+		ID3D11ShaderResourceView * const srvs[4] = {};
 		// Bind no GBuffer SRVs.
-		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 			static_cast< U32 >(std::size(srvs)), srvs);
 
 		// Clear the GBuffer RTVs.
@@ -400,7 +404,7 @@ namespace mage {
 		ID3D11DeviceContext4 *device_context) const noexcept {
 		
 		// Collect the GBuffer RTVs.
-		ID3D11RenderTargetView * const rtvs[SLOT_SRV_GBUFFER_COUNT - 1u] = {
+		ID3D11RenderTargetView * const rtvs[] = {
 			GetRTV(RTVIndex::GBuffer_BaseColor),
 			GetRTV(RTVIndex::GBuffer_Material),
 			GetRTV(RTVIndex::GBuffer_Normal)
@@ -422,8 +426,12 @@ namespace mage {
 	void RenderingOutputManager::BindBeginDeferred(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
+		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
+		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
+		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
+
 		// Collect the GBuffer SRVs. 
-		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {
+		ID3D11ShaderResourceView * const srvs[] = {
 			GetSRV(SRVIndex::GBuffer_BaseColor),
 			GetSRV(SRVIndex::GBuffer_Material),
 			GetSRV(SRVIndex::GBuffer_Normal),
@@ -432,7 +440,7 @@ namespace mage {
 		
 		if (m_msaa) {
 			// Bind the GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR RTV and no DSV.
@@ -441,7 +449,7 @@ namespace mage {
 		}
 		else {
 			// Bind the GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR UAV.
@@ -453,12 +461,16 @@ namespace mage {
 	void RenderingOutputManager::BindEndDeferred(
 		ID3D11DeviceContext4 *device_context) const noexcept {
 
+		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
+		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
+		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
+
 		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
+		ID3D11ShaderResourceView * const srvs[4] = {};
 
 		if (m_msaa) {
 			// Bind no GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no RTV and no DSV.
@@ -467,7 +479,7 @@ namespace mage {
 		}
 		else {
 			// Bind no GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_GBUFFER_START, 
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
 				static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no HDR UAV.
@@ -509,20 +521,26 @@ namespace mage {
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
 			GetSRV(SRVIndex::GBuffer_Depth));
 
+		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
+		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
+
 		// Collect the SRVs.
-		ID3D11UnorderedAccessView * const uavs[SLOT_UAV_RESOLVE_COUNT] = {
+		ID3D11UnorderedAccessView * const uavs[] = {
 			GetUAV(UAVIndex::PostProcessing_HDR0),
 			GetUAV(UAVIndex::PostProcessing_Normal),
 			GetUAV(UAVIndex::PostProcessing_Depth)
 		};
 
 		// Bind the UAVs.
-		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_RESOLVE_START, 
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE,
 			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
 	void RenderingOutputManager::BindEndResolve(
 		ID3D11DeviceContext4 *device_context) const noexcept {
+
+		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
+		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
 
 		// Bind no SRVs.
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
@@ -533,10 +551,10 @@ namespace mage {
 			nullptr);
 
 		// Collect the SRVs.
-		ID3D11UnorderedAccessView * const uavs[SLOT_UAV_RESOLVE_COUNT] = {};
+		ID3D11UnorderedAccessView * const uavs[3] = {};
 
 		// Bind no UAVs.
-		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_RESOLVE_START, 
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE,
 			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 

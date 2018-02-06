@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "timer\timer.hpp"
+#include "system\timer.hpp"
 
 #pragma endregion
 
@@ -181,7 +181,7 @@ namespace mage {
 		/**
 		 The timer of this progress reporter.
 		 */
-		Timer m_timer;
+		WallClockTimer m_timer;
 
 		/**
 		 The mutex of this progress reporter.

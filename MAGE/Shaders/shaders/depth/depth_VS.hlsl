@@ -21,6 +21,6 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 //-----------------------------------------------------------------------------
 float4 VS(VSInputPositionNormalTexture input) : SV_Position {
     // g_object_to_view * g_view_to_projection: eliminates Z-fighting
-	return mul(mul(float4(input.p, 1.0f), 
-	           g_object_to_view2), g_view2_to_projection2);
+	return mul(mul(float4(input.p, 1.0f), g_object_to_view2), 
+	           g_view2_to_projection2);
 }

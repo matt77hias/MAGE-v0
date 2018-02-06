@@ -77,23 +77,7 @@
     <ClInclude Include="MAGE\src\loaders\var\var_writer.hpp" />
     <ClInclude Include="MAGE\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="MAGE\src\material\brdf.hpp" />
-    <ClInclude Include="MAGE\src\material\color.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
-    <ClInclude Include="MAGE\src\material\spectrum.hpp" />
-    <ClInclude Include="MAGE\src\math\geometry\bounding_volume.hpp" />
-    <ClInclude Include="MAGE\src\math\geometry\geometry.hpp" />
-    <ClInclude Include="MAGE\src\math\math.hpp" />
-    <ClInclude Include="MAGE\src\math\math_utils.hpp" />
-    <ClInclude Include="MAGE\src\math\sampling\fibonacci.hpp" />
-    <ClInclude Include="MAGE\src\math\sampling\primes.hpp" />
-    <ClInclude Include="MAGE\src\math\sampling\qmc.hpp" />
-    <ClInclude Include="MAGE\src\math\sampling\rng.hpp" />
-    <ClInclude Include="MAGE\src\math\sampling\sampling.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\basis.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\sprite_transform.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\texture_transform.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\local_transform.hpp" />
-    <ClInclude Include="MAGE\src\math\transform\transform.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\static_mesh.hpp" />
@@ -112,6 +96,8 @@
     <ClInclude Include="MAGE\src\rendering\buffer\model_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\shadow_map_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\structured_buffer.hpp" />
+    <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp" />
+    <ClInclude Include="MAGE\src\rendering\conversion.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp" />
@@ -131,6 +117,7 @@
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\variable_component_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\variable_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
@@ -147,6 +134,7 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\state.hpp" />
+    <ClInclude Include="MAGE\src\scene\transform.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -167,7 +155,6 @@
     <ClInclude Include="MAGE\src\texture\guids.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
-    <ClInclude Include="MAGE\src\texture\texture_utils.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
   </ItemGroup>
@@ -206,16 +193,14 @@
     <ClCompile Include="MAGE\src\loaders\var\var_writer.cpp" />
     <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp" />
     <ClCompile Include="MAGE\src\material\material.cpp" />
-    <ClCompile Include="MAGE\src\math\geometry\bounding_volume.cpp" />
-    <ClCompile Include="MAGE\src\math\sampling\fibonacci.cpp" />
-    <ClCompile Include="MAGE\src\math\transform\sprite_transform.cpp" />
-    <ClCompile Include="MAGE\src\math\transform\transform.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
     <ClCompile Include="MAGE\src\rendering\buffer\shadow_map_buffer.cpp" />
+    <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp" />
+    <ClCompile Include="MAGE\src\rendering\conversion.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp" />
@@ -233,6 +218,7 @@
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\variable_component_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\variable_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
@@ -246,6 +232,7 @@
     <ClCompile Include="MAGE\src\scene\node.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
+    <ClCompile Include="MAGE\src\scene\transform.cpp" />
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_factory.cpp" />
@@ -258,7 +245,6 @@
     <ClCompile Include="MAGE\src\sprite\sprite_text.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
-    <ClCompile Include="MAGE\src\texture\texture_utils.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -329,36 +315,36 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Debug.props" />
+    <Import Project="Properties\x86_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Release.props" />
+    <Import Project="Properties\x86_Release.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Debug.props" />
+    <Import Project="Properties\x64_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Release.props" />
+    <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

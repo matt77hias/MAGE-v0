@@ -45,13 +45,11 @@ namespace mage {
 	
 	LBufferPass::~LBufferPass() = default;
 
-	void XM_CALLCONV LBufferPass::Render(
-		const Scene &scene, 
-		const Fog &fog, 
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
-		
+	void XM_CALLCONV LBufferPass::Render(const Scene &scene, 
+										 FXMMATRIX world_to_projection, 
+										 CXMMATRIX world_to_view, 
+										 CXMMATRIX view_to_world, 
+										 const Fog &fog) {
 		// Process the lights.
 		ProcessDirectionalLights(scene, world_to_view, view_to_world);
 		ProcessOmniLights(scene, world_to_projection, world_to_view, view_to_world);
@@ -59,18 +57,10 @@ namespace mage {
 		
 		// Unbind the shadow map SRVs.
 		UnbindShadowMaps();
-		
 		// Setup the shadow maps.
-		SetupDirectionalShadowMaps();
-		SetupOmniShadowMaps();
-		SetupSpotShadowMaps();
-		
+		SetupShadowMaps();
 		// Render the shadow maps.
-		DepthPass * const pass = DepthPass::Get();
-		pass->BindFixedState();
-		RenderDirectionalShadowMaps(pass, scene, world_to_view);
-		RenderOmniShadowMaps(pass, scene, world_to_view);
-		RenderSpotShadowMaps(pass, scene, world_to_view);
+		RenderShadowMaps(scene, world_to_view);
 
 		// Process the lights' data.
 		ProcessLightsData(scene, fog);
@@ -80,17 +70,29 @@ namespace mage {
 	}
 
 	void LBufferPass::UnbindShadowMaps() const noexcept {
+		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 1);
+		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 2);
+		
 		ID3D11ShaderResourceView * const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_SHADOW_MAPS_START,
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_SHADOW_MAPS_START,
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
 	void LBufferPass::BindLBuffer() const noexcept {
-		ID3D11ShaderResourceView * const srvs[9] = {
+		static_assert(SLOT_SRV_OMNI_LIGHTS                   == SLOT_SRV_DIRECTIONAL_LIGHTS + 1);
+		static_assert(SLOT_SRV_SPOT_LIGHTS                   == SLOT_SRV_DIRECTIONAL_LIGHTS + 2);
+		static_assert(SLOT_SRV_SHADOW_MAPPED_DIRECTIONAL_LIGHTS == SLOT_SRV_DIRECTIONAL_LIGHTS + 3);
+		static_assert(SLOT_SRV_SHADOW_MAPPED_OMNI_LIGHTS        == SLOT_SRV_DIRECTIONAL_LIGHTS + 4);
+		static_assert(SLOT_SRV_SHADOW_MAPPED_SPOT_LIGHTS        == SLOT_SRV_DIRECTIONAL_LIGHTS + 5);
+		static_assert(SLOT_SRV_DIRECTIONAL_SHADOW_MAPS       == SLOT_SRV_DIRECTIONAL_LIGHTS + 6);
+		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS              == SLOT_SRV_DIRECTIONAL_LIGHTS + 7);
+		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS              == SLOT_SRV_DIRECTIONAL_LIGHTS + 8);
+		
+		ID3D11ShaderResourceView * const srvs[] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
 			m_spot_lights.Get(),
@@ -112,9 +114,9 @@ namespace mage {
 			SLOT_CBUFFER_LIGHTING, m_light_buffer.Get());
 		
 		// Bind the SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_LIGHTS_START,
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_LIGHTS_START,
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
@@ -143,72 +145,72 @@ namespace mage {
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessDirectionalLights(
-		const Scene &scene,
-		FXMMATRIX world_to_view, 
-		CXMMATRIX view_to_world) {
+	void XM_CALLCONV LBufferPass
+		::ProcessDirectionalLights(const Scene &scene, 
+								   FXMMATRIX world_to_view, 
+								   CXMMATRIX view_to_world) {
 
-		AlignedVector< DirectionalLightBuffer > buffer;
-		buffer.reserve(m_directional_lights.size());
+		AlignedVector< DirectionalLightBuffer > lights;
+		lights.reserve(m_directional_lights.size());
 
-		AlignedVector< DirectionalLightWithShadowMappingBuffer > buffer_sm;
-		buffer_sm.reserve(m_sm_directional_lights.size());
+		AlignedVector< ShadowMappedDirectionalLightBuffer > sm_lights;
+		sm_lights.reserve(m_sm_directional_lights.size());
 		m_directional_light_cameras.clear();
 
 		// Process the directional lights.
-		scene.ForEach< DirectionalLight >([this, &buffer, &buffer_sm, 
+		scene.ForEach< DirectionalLight >([this, &lights, &sm_lights,
 			world_to_view, view_to_world](const DirectionalLight &light) {
 
 			if (State::Active != light.GetState()) {
 				return;
 			}
 
-			const Transform &transform = light.GetOwner()->GetTransform();
+			const auto &transform = light.GetOwner()->GetTransform();
 
 			// Transform to view space.
-			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(
+			const auto d = XMVector3Normalize(XMVector3TransformNormal(
 				transform.GetWorldForward(), world_to_view));
 
 			if (light.UseShadows()) {
 				// Create a directional light buffer.
-				DirectionalLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_neg_d, -d);
-				light_buffer.m_light.m_L = light.GetRadianceSpectrum();
+				ShadowMappedDirectionalLightBuffer buffer;
+				buffer.m_light.m_neg_d = Direction3(XMStore< F32x3 >(-d));
+				buffer.m_light.m_L     = light.GetRadianceSpectrum();
 
 				// Add directional light buffer to directional light buffers.
-				buffer_sm.push_back(std::move(light_buffer));
+				sm_lights.push_back(std::move(buffer));
 			}
 			else {
 				// Create a directional light buffer.
-				DirectionalLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_neg_d, -d);
-				light_buffer.m_L = light.GetRadianceSpectrum();
+				DirectionalLightBuffer buffer;
+				buffer.m_neg_d = Direction3(XMStore< F32x3 >(-d));
+				buffer.m_L     = light.GetRadianceSpectrum();
 
 				// Add directional light buffer to directional light buffers.
-				buffer.push_back(std::move(light_buffer));
+				lights.push_back(std::move(buffer));
 			}
 		});
 
 		// Update the buffer for directional lights.
-		m_directional_lights.UpdateData(m_device_context, buffer);
-		m_sm_directional_lights.UpdateData(m_device_context, buffer_sm);
+		m_directional_lights.UpdateData(m_device_context, lights);
+		m_sm_directional_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessOmniLights(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
+	void XM_CALLCONV LBufferPass
+		::ProcessOmniLights(const Scene &scene, 
+							FXMMATRIX world_to_projection, 
+							CXMMATRIX world_to_view, 
+							CXMMATRIX view_to_world) {
 
-		AlignedVector< OmniLightBuffer > buffer;
-		buffer.reserve(m_omni_lights.size());
+		AlignedVector< OmniLightBuffer > lights;
+		lights.reserve(m_omni_lights.size());
 
-		AlignedVector< OmniLightWithShadowMappingBuffer > buffer_sm;
-		buffer_sm.reserve(m_sm_omni_lights.size());
+		AlignedVector< ShadowMappedOmniLightBuffer > sm_lights;
+		sm_lights.reserve(m_sm_omni_lights.size());
 		m_omni_light_cameras.clear();
 
 		// Process the omni lights.
-		scene.ForEach< OmniLight >([this, &buffer, &buffer_sm,
+		scene.ForEach< OmniLight >([this, &lights, &sm_lights,
 			world_to_projection, world_to_view, view_to_world](const OmniLight &light) {
 			
 			static const XMMATRIX rotations[6] = {
@@ -224,10 +226,9 @@ namespace mage {
 				return;
 			}
 
-			const Transform &transform = light.GetOwner()->GetTransform();
-
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Cull the light against the view frustum.
 			if (BoundingFrustum::Cull(object_to_projection, light.GetBoundingSphere())) {
@@ -235,76 +236,75 @@ namespace mage {
 			}
 
 			// Transform to view space.
-			const XMVECTOR p = XMVector3TransformCoord(
-				transform.GetWorldEye(), world_to_view);
+			const auto p = XMVector3TransformCoord(transform.GetWorldEye(), world_to_view);
 
 			if (light.UseShadows()) {
 				// Create six omni light cameras.
-				const XMMATRIX world_to_lview       = transform.GetWorldToViewMatrix();
-				const XMMATRIX lview_to_lprojection = light.GetViewToProjectionMatrix();
+				const auto world_to_lview       = transform.GetWorldToViewMatrix();
+				const auto lview_to_lprojection = light.GetViewToProjectionMatrix();
 				for (size_t i = 0; i < std::size(rotations); ++i) {
 					LightCameraInfo camera;
-					camera.cview_to_lprojection = view_to_world * world_to_lview * rotations[i] * lview_to_lprojection;
+					camera.cview_to_lprojection = view_to_world * world_to_lview 
+						                        * rotations[i] * lview_to_lprojection;
 
 					// Add omni light camera to the omni light cameras.
 					m_omni_light_cameras.push_back(std::move(camera));
 				}
-				const XMMATRIX cview_to_lview = view_to_world * world_to_lview;
+				const auto cview_to_lview = view_to_world * world_to_lview;
 
 				// Create an omni light buffer.
-				OmniLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_p, p);
-				light_buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
-				light_buffer.m_light.m_I             = light.GetIntensitySpectrum();
-				light_buffer.m_cview_to_lview        = XMMatrixTranspose(cview_to_lview);
-				XMStoreFloat2(&light_buffer.m_projection_values, 
-					GetNDCZConstructionValues(lview_to_lprojection));
+				ShadowMappedOmniLightBuffer buffer;
+				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
+				buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_light.m_I             = light.GetIntensitySpectrum();
+				buffer.m_cview_to_lview        = XMMatrixTranspose(cview_to_lview);
+				buffer.m_projection_values     = XMStore< F32x2 >(GetNDCZConstructionValues(
+					                                              lview_to_lprojection));
 
 				// Add omni light buffer to omni light buffers.
-				buffer_sm.push_back(std::move(light_buffer));
+				sm_lights.push_back(std::move(buffer));
 			}
 			else {
 				// Create an omni light buffer.
-				OmniLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_p, p);
-				light_buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
-				light_buffer.m_I             = light.GetIntensitySpectrum();
+				OmniLightBuffer buffer;
+				buffer.m_p             = Point3(XMStore< F32x3 >(p));
+				buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_I             = light.GetIntensitySpectrum();
 
 				// Add omni light buffer to omni light buffers.
-				buffer.push_back(std::move(light_buffer));
+				lights.push_back(std::move(buffer));
 			}
 		});
 
 		// Update the buffer for omni lights.
-		m_omni_lights.UpdateData(m_device_context, buffer);
-		m_sm_omni_lights.UpdateData(m_device_context, buffer_sm);
+		m_omni_lights.UpdateData(m_device_context, lights);
+		m_sm_omni_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessSpotLights(
-		const Scene &scene,
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world) {
+	void XM_CALLCONV LBufferPass
+		::ProcessSpotLights(const Scene &scene, 
+							FXMMATRIX world_to_projection, 
+							CXMMATRIX world_to_view, 
+							CXMMATRIX view_to_world) {
 
-		AlignedVector< SpotLightBuffer > buffer;
-		buffer.reserve(m_spot_lights.size());
+		AlignedVector< SpotLightBuffer > lights;
+		lights.reserve(m_spot_lights.size());
 
-		AlignedVector< SpotLightWithShadowMappingBuffer > buffer_sm;
-		buffer_sm.reserve(m_sm_spot_lights.size());
+		AlignedVector< ShadowMappedSpotLightBuffer > sm_lights;
+		sm_lights.reserve(m_sm_spot_lights.size());
 		m_spot_light_cameras.clear();
 
 		// Process the omni lights.
-		scene.ForEach< SpotLight >([this, &buffer, &buffer_sm,
+		scene.ForEach< SpotLight >([this, &lights, &sm_lights,
 			world_to_projection, world_to_view, view_to_world](const SpotLight &light) {
 			
 			if (State::Active != light.GetState()) {
 				return;
 			}
 
-			const Transform &transform = light.GetOwner()->GetTransform();
-
-			const XMMATRIX object_to_world      = transform.GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto object_to_projection = object_to_world * world_to_projection;
 
 			// Cull the light against the view frustum.
 			if (BoundingFrustum::Cull(object_to_projection, light.GetAABB())) {
@@ -312,15 +312,14 @@ namespace mage {
 			}
 
 			// Transform to view space.
-			const XMVECTOR p = XMVector3TransformCoord(
-				transform.GetWorldEye(), world_to_view);
-			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(
+			const auto p = XMVector3TransformCoord(transform.GetWorldEye(), world_to_view);
+			const auto d = XMVector3Normalize(XMVector3TransformNormal(
 				transform.GetWorldForward(), world_to_view));
 
 			if (light.UseShadows()) {
-				const XMMATRIX world_to_lview       = transform.GetWorldToViewMatrix();
-				const XMMATRIX lview_to_lprojection = light.GetViewToProjectionMatrix();
-				const XMMATRIX cview_to_lprojection = view_to_world * world_to_lview * lview_to_lprojection;
+				const auto world_to_lview       = transform.GetWorldToViewMatrix();
+				const auto lview_to_lprojection = light.GetViewToProjectionMatrix();
+				const auto cview_to_lprojection = view_to_world * world_to_lview * lview_to_lprojection;
 
 				// Create a spotlight camera.
 				LightCameraInfo camera;
@@ -330,143 +329,149 @@ namespace mage {
 				m_spot_light_cameras.push_back(std::move(camera));
 
 				// Create a spotlight buffer.
-				SpotLightWithShadowMappingBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_light.m_p, p);
-				XMStoreFloat3(&light_buffer.m_light.m_neg_d, -d);
-				light_buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
-				light_buffer.m_light.m_I             = light.GetIntensitySpectrum();
-				light_buffer.m_light.m_cos_umbra     = light.GetEndAngularCutoff();
-				light_buffer.m_light.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
-				light_buffer.m_cview_to_lprojection  = XMMatrixTranspose(cview_to_lprojection);
+				ShadowMappedSpotLightBuffer buffer;
+				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
+				buffer.m_light.m_neg_d         = Direction3(XMStore< F32x3 >(-d));
+				buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_light.m_I             = light.GetIntensitySpectrum();
+				buffer.m_light.m_cos_umbra     = light.GetEndAngularCutoff();
+				buffer.m_light.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
+				buffer.m_cview_to_lprojection  = XMMatrixTranspose(cview_to_lprojection);
 
 				// Add omni light buffer to omni light buffers.
-				buffer_sm.push_back(std::move(light_buffer));
+				sm_lights.push_back(std::move(buffer));
 			}
 			else {
 				// Create an omni light buffer.
-				SpotLightBuffer light_buffer;
-				XMStoreFloat3(&light_buffer.m_p, p);
-				XMStoreFloat3(&light_buffer.m_neg_d, -d);
-				light_buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
-				light_buffer.m_I             = light.GetIntensitySpectrum();
-				light_buffer.m_cos_umbra     = light.GetEndAngularCutoff();
-				light_buffer.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
+				SpotLightBuffer buffer;
+				buffer.m_p             = Point3(XMStore< F32x3 >(p));
+				buffer.m_neg_d         = Direction3(XMStore< F32x3 >(-d));
+				buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_I             = light.GetIntensitySpectrum();
+				buffer.m_cos_umbra     = light.GetEndAngularCutoff();
+				buffer.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
 
 				// Add omni light buffer to omni light buffers.
-				buffer.push_back(std::move(light_buffer));
+				lights.push_back(std::move(buffer));
 			}
 		});
 
 		// Update the buffer for omni lights.
-		m_spot_lights.UpdateData(m_device_context, buffer);
-		m_sm_spot_lights.UpdateData(m_device_context, buffer_sm);
+		m_spot_lights.UpdateData(m_device_context, lights);
+		m_sm_spot_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void LBufferPass::SetupDirectionalShadowMaps() {
-		const size_t nb_requested = GetNumberOfDirectionalLightsWithShadowMapping();
-		const size_t nb_available = m_directional_sms->GetNumberOfShadowMaps();
+	void LBufferPass::SetupShadowMaps() {
+		// Setup the shadow maps for the directional lights.
+		{
+			const auto nb_requested = GetNumberOfShadowMappedDirectionalLights();
+			const auto nb_available = m_directional_sms->GetNumberOfShadowMaps();
+
+			if (nb_available < nb_requested) {
+				m_directional_sms = MakeUnique< ShadowMapBuffer >(nb_requested);
+			}
+
+			m_directional_sms->ClearDSVs(m_device_context);
+		}
+
+		// Setup the shadow maps for the omni lights.
+		{
+			const auto nb_requested = GetNumberOfShadowMappedOmniLights();
+			const auto nb_available = m_omni_sms->GetNumberOfShadowCubeMaps();
+
+			if (nb_available < nb_requested) {
+				m_omni_sms = MakeUnique< ShadowCubeMapBuffer >(nb_requested);
+			}
+
+			m_omni_sms->ClearDSVs(m_device_context);
+		}
+
+		// Setup the shadow maps for the spotlights.
+		{
+			const auto nb_requested = GetNumberOfShadowMappedSpotLights();
+			const auto nb_available = m_spot_sms->GetNumberOfShadowMaps();
+
+			if (nb_available < nb_requested) {
+				m_spot_sms = MakeUnique< ShadowMapBuffer >(nb_requested);
+			}
+
+			m_spot_sms->ClearDSVs(m_device_context);
+		}
+	}
+
+	void XM_CALLCONV LBufferPass
+		::RenderShadowMaps(const Scene &scene, 
+						   FXMMATRIX world_to_cview) {
 		
-		if (nb_available < nb_requested) {
-			m_directional_sms = MakeUnique< ShadowMapBuffer >(nb_requested);
-		}
+		const auto pass = DepthPass::Get();
 		
-		m_directional_sms->ClearDSVs(m_device_context);
-	}
-	
-	void LBufferPass::SetupOmniShadowMaps() {
-		const size_t nb_requested = GetNumberOfOmniLightsWithShadowMapping();
-		const size_t nb_available = m_omni_sms->GetNumberOfShadowCubeMaps();
+		// Bind the fixed state.
+		pass->BindFixedState();
 
-		if (nb_available < nb_requested) {
-			m_omni_sms = MakeUnique< ShadowCubeMapBuffer >(nb_requested);
+		// Render the shadow maps of the directional lights.
+		{
+			// Bind the viewport.
+			m_directional_sms->BindViewport(m_device_context);
+			// Bind the rasterizer state.
+			m_directional_sms->BindRasterizerState(m_device_context);
+
+			size_t i = 0;
+			for (const auto &camera : m_directional_light_cameras) {
+				const auto world_to_lprojection = world_to_cview 
+					                            * camera.cview_to_lprojection;
+				// Bind the DSV.
+				m_directional_sms->BindDSV(m_device_context, i++);
+
+				// Perform the depth pass.
+				pass->RenderOccluders(scene, 
+									  world_to_lprojection,
+									  world_to_cview, 
+									  camera.cview_to_lprojection);
+			}
 		}
-		
-		m_omni_sms->ClearDSVs(m_device_context);
-	}
-	
-	void LBufferPass::SetupSpotShadowMaps() {
-		const size_t nb_requested = GetNumberOfSpotLightsWithShadowMapping();
-		const size_t nb_available = m_spot_sms->GetNumberOfShadowMaps();
 
-		if (nb_available < nb_requested) {
-			m_spot_sms = MakeUnique< ShadowMapBuffer >(nb_requested);
+		// Render the shadow maps of the omni lights.
+		{
+			// Bind the viewport.
+			m_omni_sms->BindViewport(m_device_context);
+			// Bind the rasterizer state.
+			m_omni_sms->BindRasterizerState(m_device_context);
+
+			size_t i = 0;
+			for (const auto &camera : m_omni_light_cameras) {
+				const auto world_to_lprojection = world_to_cview 
+					                            * camera.cview_to_lprojection;
+				// Bind the DSV.
+				m_omni_sms->BindDSV(m_device_context, i++);
+
+				// Perform the depth pass.
+				pass->RenderOccluders(scene,
+									  world_to_lprojection,
+									  world_to_cview,
+									  camera.cview_to_lprojection);
+			}
 		}
-		
-		m_spot_sms->ClearDSVs(m_device_context);
-	}
 
-	void XM_CALLCONV LBufferPass::RenderDirectionalShadowMaps(
-		DepthPass *pass, const Scene &scene,
-		FXMMATRIX world_to_cview) {
+		// Render the shadow maps of the spotlights.
+		{
+			// Bind the viewport.
+			m_spot_sms->BindViewport(m_device_context);
+			// Bind the rasterizer state.
+			m_spot_sms->BindRasterizerState(m_device_context);
 
-		// Bind the viewport.
-		m_directional_sms->BindViewport(m_device_context);
-		// Bind the rasterizer state.
-		m_directional_sms->BindRasterizerState(m_device_context);
+			size_t i = 0;
+			for (const auto &camera : m_spot_light_cameras) {
+				const auto world_to_lprojection = world_to_cview 
+					                            * camera.cview_to_lprojection;
+				// Bind the DSV.
+				m_spot_sms->BindDSV(m_device_context, i++);
 
-		size_t i = 0;
-		for (const auto &camera : m_directional_light_cameras) {
-			const XMMATRIX world_to_lprojection
-				= world_to_cview * camera.cview_to_lprojection;
-
-			// Bind the DSV.
-			m_directional_sms->BindDSV(m_device_context, i++);
-
-			// Perform the depth pass.
-			pass->RenderOccluders(scene,
-				                  world_to_lprojection,
-				                  world_to_cview,
-				                  camera.cview_to_lprojection);
-		}
-	}
-
-	void XM_CALLCONV LBufferPass::RenderOmniShadowMaps(
-		DepthPass *pass, const Scene &scene,
-		FXMMATRIX world_to_cview) {
-
-		// Bind the viewport.
-		m_omni_sms->BindViewport(m_device_context);
-		// Bind the rasterizer state.
-		m_omni_sms->BindRasterizerState(m_device_context);
-
-		size_t i = 0;
-		for (const auto &camera : m_omni_light_cameras) {
-			const XMMATRIX world_to_lprojection
-				= world_to_cview * camera.cview_to_lprojection;
-
-			// Bind the DSV.
-			m_omni_sms->BindDSV(m_device_context, i++);
-
-			// Perform the depth pass.
-			pass->RenderOccluders(scene,
-				                  world_to_lprojection,
-				                  world_to_cview,
-				                  camera.cview_to_lprojection);
-		}
-	}
-	
-	void XM_CALLCONV LBufferPass::RenderSpotShadowMaps(
-		DepthPass *pass, const Scene &scene, 
-		FXMMATRIX world_to_cview) {
-
-		// Bind the viewport.
-		m_spot_sms->BindViewport(m_device_context);
-		// Bind the rasterizer state.
-		m_spot_sms->BindRasterizerState(m_device_context);
-
-		size_t i = 0;
-		for (const auto &camera : m_spot_light_cameras) {
-			const XMMATRIX world_to_lprojection 
-				= world_to_cview * camera.cview_to_lprojection;
-
-			// Bind the DSV.
-			m_spot_sms->BindDSV(m_device_context, i++);
-
-			// Perform the depth pass.
-			pass->RenderOccluders(scene,
-				                  world_to_lprojection,
-				                  world_to_cview,
-				                  camera.cview_to_lprojection);
+				// Perform the depth pass.
+				pass->RenderOccluders(scene,
+									  world_to_lprojection,
+									  world_to_cview,
+									  camera.cview_to_lprojection);
+			}
 		}
 	}
 }

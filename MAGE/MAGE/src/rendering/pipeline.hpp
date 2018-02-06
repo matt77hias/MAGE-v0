@@ -140,12 +140,19 @@ namespace mage {
 			device_context->DispatchIndirect(buffer, byte_offset);
 		}
 
-		static HRESULT Map(ID3D11DeviceContext4 *device_context,
-			               ID3D11Resource *resource, 
-			               U32 subresource,
-			               D3D11_MAP map_type, 
-			               U32 map_flags,
-			               D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
+		#pragma endregion
+
+		//---------------------------------------------------------------------
+		// Class Member Methods: Resource Mapping/Updating
+		//---------------------------------------------------------------------
+		#pragma region
+
+		[[nodiscard]] static HRESULT Map(ID3D11DeviceContext4 *device_context, 
+										 ID3D11Resource *resource, 
+										 U32 subresource, 
+										 D3D11_MAP map_type, 
+										 U32 map_flags, 
+										 D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
 
 			return device_context->Map(resource, 
 				                       subresource, 
@@ -371,7 +378,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// IA
+		// IA: Input Assembler
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -400,7 +407,7 @@ namespace mage {
 				                         U32 stride, 
 				                         U32 offset = 0u) noexcept {
 
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 
 				BindVertexBuffers(device_context,
 					              slot, 
@@ -440,7 +447,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// VS
+		// VS: Vertex Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -511,7 +518,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -563,7 +570,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 			
@@ -616,7 +623,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -654,7 +661,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// HS
+		// HS: Hull Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -725,7 +732,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -777,7 +784,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 			
@@ -830,7 +837,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -876,7 +883,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// TS
+		// TS: Tesselation Stage
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -888,7 +895,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// DS
+		// DS: Domain Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -959,7 +966,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -1011,7 +1018,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 
@@ -1064,7 +1071,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -1102,7 +1109,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// GS
+		// GS: Geometry Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1173,7 +1180,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -1225,7 +1232,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 			
@@ -1278,7 +1285,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -1316,7 +1323,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// SO
+		// SO: Stream Output
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1328,7 +1335,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// RS
+		// RS: Rasterizer Stage
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1386,7 +1393,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// PS
+		// PS: Pixel Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1457,7 +1464,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -1509,7 +1516,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 
@@ -1562,7 +1569,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -1600,7 +1607,7 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// OM
+		// OM: Output Merger
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1641,7 +1648,7 @@ namespace mage {
 				                      ID3D11RenderTargetView *rtv, 
 				                      ID3D11DepthStencilView *dsv) noexcept {
 				if (rtv) {
-					ID3D11RenderTargetView * const rtvs[1] = { rtv };
+					ID3D11RenderTargetView * const rtvs[] = { rtv };
 					BindRTVsAndDSV(device_context, 1u, rtvs, dsv);
 				}
 				else {
@@ -1664,11 +1671,11 @@ namespace mage {
 				                            ID3D11UnorderedAccessView *uav,
 				                            U32 initial_count = 0u) noexcept {	
 				if (rtv) {
-					ID3D11RenderTargetView * const rtvs[1] = { rtv };
+					ID3D11RenderTargetView * const rtvs[] = { rtv };
 
 					if (uav) {
-						ID3D11UnorderedAccessView * const uavs[1] = { uav };
-						const U32 initial_counts[1] = { initial_count };
+						ID3D11UnorderedAccessView * const uavs[] = { uav };
+						const U32 initial_counts[] = { initial_count };
 
 						BindRTVsAndDSVAndUAVs(device_context,
 							1u, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1681,8 +1688,8 @@ namespace mage {
 				else {
 
 					if (uav) {
-						ID3D11UnorderedAccessView * const uavs[1] = { uav };
-						const U32 initial_counts[1] = { initial_count };
+						ID3D11UnorderedAccessView * const uavs[] = { uav };
+						const U32 initial_counts[] = { initial_count };
 
 						BindRTVsAndDSVAndUAVs(device_context,
 							0u, nullptr, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1702,8 +1709,8 @@ namespace mage {
 				                             ID3D11UnorderedAccessView *uav, 
 				                             U32 initial_count = 0u) noexcept {
 				if (uav) {
-					ID3D11UnorderedAccessView * const uavs[1] = { uav };
-					const U32 initial_counts[1] = { initial_count };
+					ID3D11UnorderedAccessView * const uavs[] = { uav };
+					const U32 initial_counts[] = { initial_count };
 
 					BindRTVsAndDSVAndUAVs(device_context,
 						nb_views, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1770,17 +1777,17 @@ namespace mage {
 			// Class Member Variables
 			//-----------------------------------------------------------------
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			static constexpr F32 s_clear_depth = 1.0f;
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			static constexpr F32 s_clear_depth = 0.0f;
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 		};
 
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// CS
+		// CS: Compute Shader
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -1851,7 +1858,7 @@ namespace mage {
 				                           U32 slot, 
 				                           ID3D11Buffer *buffer) noexcept {
 					
-				ID3D11Buffer * const buffers[1] = { buffer };
+				ID3D11Buffer * const buffers[] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
 			}
 			
@@ -1903,7 +1910,7 @@ namespace mage {
 				                U32 slot, 
 				                ID3D11ShaderResourceView *srv) noexcept {
 					
-				ID3D11ShaderResourceView * const srvs[1] = { srv };
+				ID3D11ShaderResourceView * const srvs[] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
 			}
 			
@@ -1961,7 +1968,7 @@ namespace mage {
 				                ID3D11UnorderedAccessView *uav, 
 				                U32 initial_count = 0u) noexcept {
 					
-				ID3D11UnorderedAccessView * const uavs[1] = { uav };
+				ID3D11UnorderedAccessView * const uavs[] = { uav };
 				BindUAVs(device_context, slot, 1u, uavs, &initial_count);
 			}
 			
@@ -1997,8 +2004,10 @@ namespace mage {
 				                 ID3D11UnorderedAccessView * const *uavs, 
 				                 const U32 *initial_counts = nullptr) noexcept {
 					
-				device_context->CSSetUnorderedAccessViews(
-					slot, nb_uavs, uavs, initial_counts);
+				device_context->CSSetUnorderedAccessViews(slot, 
+														  nb_uavs, 
+														  uavs, 
+														  initial_counts);
 			}
 			
 			/**
@@ -2019,7 +2028,7 @@ namespace mage {
 				                    U32 slot, 
 				                    ID3D11SamplerState *sampler) noexcept {
 					
-				ID3D11SamplerState * const samplers[1] = { sampler };
+				ID3D11SamplerState * const samplers[] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
 			}
 			
@@ -2076,4 +2085,34 @@ namespace mage {
 
 		static void OnDraw() noexcept;
 	};
+
+	/**
+	 Returns the number of required groups given the number of threads and the 
+	 number of threads per group.
+
+	 @param[in]		nb_threads
+					The total minimal number of threads.
+	 @param[in]		nb_group_threads
+					The number of threads per group.
+	 @return		The number of required groups given the number of threads 
+					and the number of threads per group.
+	 */
+	inline U32 GetNumberOfGroups(F32 nb_threads, U32 nb_group_threads) noexcept {
+		return static_cast< U32 >(ceil(nb_threads / nb_group_threads));
+	}
+
+	/**
+	 Returns the number of required groups given the number of threads and the 
+	 number of threads per group.
+
+	 @param[in]		nb_threads
+					The total minimal number of threads.
+	 @param[in]		nb_group_threads
+					The number of threads per group.
+	 @return		The number of required groups given the number of threads 
+					and the number of threads per group.
+	 */
+	inline U32 GetNumberOfGroups(U32 nb_threads, U32 nb_group_threads) noexcept {
+		return GetNumberOfGroups(static_cast< F32 >(nb_threads), nb_group_threads);
+	}
 }

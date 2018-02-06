@@ -31,7 +31,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateAAPreprocessCS();
+	ComputeShaderPtr CreateAAPreprocessCS();
 
 	/**
 	 Creates a FXAA compute shader.
@@ -44,7 +44,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateFXAACS();
+	ComputeShaderPtr CreateFXAACS();
 
 	/**
 	 Creates a MSAA resolve compute shader.
@@ -57,7 +57,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateMSAAResolveCS();
+	ComputeShaderPtr CreateMSAAResolveCS();
 
 	/**
 	 Creates a SSAA resolve compute shader.
@@ -70,7 +70,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateSSAAResolveCS();
+	ComputeShaderPtr CreateSSAAResolveCS();
 
 	#pragma endregion
 
@@ -86,11 +86,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred Blinn-Phong compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
+	ComputeShaderPtr CreateDeferredBlinnPhongCS(bool vct);
 
 	/**
 	 Creates a deferred Cook-Torrance compute shader.
@@ -99,11 +102,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred Cook-Torrance compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
+	ComputeShaderPtr CreateDeferredCookTorranceCS(bool vct);
 
 	/**
 	 Creates a deferred emissive compute shader.
@@ -116,7 +122,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS();
+	ComputeShaderPtr CreateDeferredEmissiveCS();
 
 	/**
 	 Creates a deferred Frostbite compute shader.
@@ -125,11 +131,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred Frostbite compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS();
+	ComputeShaderPtr CreateDeferredFrostbiteCS(bool vct);
 
 	/**
 	 Creates a deferred Ward-Duer compute shader.
@@ -138,11 +147,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false
+					otherwise.
 	 @return		A pointer to the deferred Ward-Duer compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
+	ComputeShaderPtr CreateDeferredWardDuerCS(bool vct);
 
 	/**
 	 Creates a deferred Lambertian compute shader.
@@ -151,11 +163,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred Lambertian compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
+	ComputeShaderPtr CreateDeferredLambertianCS(bool vct);
 
 	/**
 	 Creates a deferred compute shader matching the given BRDF.
@@ -166,12 +181,15 @@ namespace mage {
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred compute shader matching the given 
 					BRDF.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
+	ComputeShaderPtr CreateDeferredCS(BRDFType brdf, bool vct);
 
 	/**
 	 Creates a deferred MSAA Blinn-Phong pixel shader.
@@ -180,11 +198,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA Blinn-Phong pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAABlinnPhongPS();
+	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(bool vct);
 
 	/**
 	 Creates a deferred MSAA Cook-Torrance pixel shader.
@@ -193,11 +214,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA Cook-Torrance pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAACookTorrancePS();
+	PixelShaderPtr CreateDeferredMSAACookTorrancePS(bool vct);
 
 	/**
 	 Creates a deferred MSAA emissive pixel shader.
@@ -206,11 +230,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA emissive pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAAEmissivePS();
+	PixelShaderPtr CreateDeferredMSAAEmissivePS();
 
 	/**
 	 Creates a deferred MSAA Frostbite pixel shader.
@@ -219,11 +246,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA Frostbite pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAAFrostbitePS();
+	PixelShaderPtr CreateDeferredMSAAFrostbitePS(bool vct);
 
 	/**
 	 Creates a deferred MSAA Ward-Duer pixel shader.
@@ -232,11 +262,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA Ward-Duer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAAWardDuerPS();
+	PixelShaderPtr CreateDeferredMSAAWardDuerPS(bool vct);
 
 	/**
 	 Creates a deferred MSAA Lambertian pixel shader.
@@ -245,11 +278,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA Lambertian pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAALambertianPS();
+	PixelShaderPtr CreateDeferredMSAALambertianPS(bool vct);
 
 	/**
 	 Creates a deferred MSAA pixel shader matching the given BRDF.
@@ -260,12 +296,15 @@ namespace mage {
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
 	 @return		A pointer to the deferred MSAA pixel shader matching the 
 					given BRDF.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredMSAAPS(BRDFType brdf);
+	PixelShaderPtr CreateDeferredMSAAPS(BRDFType brdf, bool vct);
 
 	#pragma endregion
 
@@ -285,7 +324,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateDepthVS();
+	VertexShaderPtr CreateDepthVS();
 
 	/**
 	 Creates a depth transparent vertex shader.
@@ -298,7 +337,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateDepthTransparentVS();
+	VertexShaderPtr CreateDepthTransparentVS();
 
 	/**
 	 Creates a depth transparent pixel shader.
@@ -311,7 +350,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDepthTransparentPS();
+	PixelShaderPtr CreateDepthTransparentPS();
 
 	#pragma endregion
 
@@ -327,18 +366,22 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward Blinn-Phong pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardBlinnPhongPS(
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, 
+											 bool vct, 
+											 bool tsnm);
 
 	/**
 	 Creates a forward Cook-Torrance pixel shader.
@@ -347,18 +390,22 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward Cook-Torrance pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardCookTorrancePS(
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency,
+											   bool vct,
+											   bool tsnm);
 
 	/**
 	 Creates an forward emissive pixel shader.
@@ -368,14 +415,19 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward emissive pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardEmissivePS(
-		bool transparency = false);
+	PixelShaderPtr CreateForwardEmissivePS(bool transparency);
 
 	/**
 	 Creates a forward Frostbite pixel shader.
@@ -384,18 +436,22 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward Frostbite pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardFrostbitePS(
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardFrostbitePS(bool transparency,
+											bool vct,
+											bool tsnm);
 
 	/**
 	 Creates a forward Lambertian pixel shader.
@@ -404,18 +460,22 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward Lambertian pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardLambertianPS(
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardLambertianPS(bool transparency,
+											 bool vct,
+											 bool tsnm);
 
 	/**
 	 Creates a forward Ward-Duer pixel shader.
@@ -424,18 +484,22 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward Ward-Duer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardWardDuerPS(
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardWardDuerPS(bool transparency,
+										   bool vct,
+										   bool tsnm);
 
 	/**
 	 Creates a forward pixel shader matching the given BRDF.
@@ -446,19 +510,24 @@ namespace mage {
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
 	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
+					@c true if transparency should be enabled. @c false 
 					otherwise.
+	 @param[in]		vct
+					@c true if voxel cone tracing should be enabled. @c false 
+					otherwise.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the forward pixel shader matching the given 
 					BRDF.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateForwardPS(BRDFType brdf,
-		bool tsnm = false, bool transparency = false);
+	PixelShaderPtr CreateForwardPS(BRDFType brdf, 
+								   bool transparency, 
+								   bool vct, 
+								   bool tsnm);
 
 	#pragma endregion
 
@@ -475,13 +544,13 @@ namespace mage {
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
 	 @return		A pointer to the GBuffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateGBufferPS(bool tsnm = false);
+	PixelShaderPtr CreateGBufferPS(bool tsnm);
 
 	#pragma endregion
 
@@ -501,7 +570,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateBackBufferPS();
+	PixelShaderPtr CreateBackBufferPS();
 
 	/**
 	 Creates a constant color pixel shader.
@@ -514,7 +583,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateConstantColorPS();
+	PixelShaderPtr CreateConstantColorPS();
 
 	/**
 	 Creates a constant color texture pixel shader.
@@ -527,7 +596,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateConstantColorTexturePS();
+	PixelShaderPtr CreateConstantColorTexturePS();
 
 	/**
 	 Creates a distance pixel shader.
@@ -540,7 +609,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDistancePS();
+	PixelShaderPtr CreateDistancePS();
 
 	/**
 	 Creates a shading normal vertex shader.
@@ -553,7 +622,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateShadingNormalVS();
+	VertexShaderPtr CreateShadingNormalVS();
 
 	/**
 	 Creates a shading normal pixel shader.
@@ -569,8 +638,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateShadingNormalPS(
-		bool tsnm = false);
+	PixelShaderPtr CreateShadingNormalPS(bool tsnm = false);
 
 	#pragma endregion
 
@@ -590,7 +658,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDepthOfFieldCS();
+	ComputeShaderPtr CreateDepthOfFieldCS();
 
 	#pragma endregion
 
@@ -610,7 +678,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateLineCubeVS();
+	VertexShaderPtr CreateLineCubeVS();
 
 	/**
 	 Creates a line cube pixel shader.
@@ -623,7 +691,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateLineCubePS();
+	PixelShaderPtr CreateLineCubePS();
 
 	/**
 	 Creates a far fullscreen triangle vertex shader.
@@ -636,7 +704,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS();
+	VertexShaderPtr CreateFarFullscreenTriangleVS();
 
 	/**
 	 Creates a near fullscreen triangle vertex shader.
@@ -649,7 +717,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS();
+	VertexShaderPtr CreateNearFullscreenTriangleVS();
 
 	#pragma endregion
 
@@ -669,7 +737,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateSkyVS();
+	VertexShaderPtr CreateSkyVS();
 
 	/**
 	 Creates a sky pixel shader.
@@ -682,7 +750,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateSkyPS();
+	PixelShaderPtr CreateSkyPS();
 
 	#pragma endregion
 
@@ -702,7 +770,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateSpriteVS();
+	VertexShaderPtr CreateSpriteVS();
 
 	/**
 	 Creates a sprite pixel shader.
@@ -715,7 +783,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateSpritePS();
+	PixelShaderPtr CreateSpritePS();
 
 	#pragma endregion
 
@@ -735,7 +803,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateTransformVS();
+	VertexShaderPtr CreateTransformVS();
 
 	/**
 	 Creates a minimal transform vertex shader.
@@ -748,7 +816,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateMinimalTransformVS();
+	VertexShaderPtr CreateMinimalTransformVS();
 
 	#pragma endregion
 
@@ -756,6 +824,19 @@ namespace mage {
 	// Factory Methods: Voxelization
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	/**
+	 Creates a voxelization vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the vertex shader.
+	 */
+	VertexShaderPtr CreateVoxelizationVS();
 
 	/**
 	 Creates a voxelization geometry shader.
@@ -768,20 +849,119 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
-	SharedPtr< const GeometryShader > CreateVoxelizationGS();
+	GeometryShaderPtr CreateVoxelizationGS();
 
 	/**
-	 Creates a voxelization pixel shader.
+	 Creates a voxelization Blinn-Phong pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the voxelization pixel shader.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization Blinn-Phong pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateVoxelizationPS();
+	PixelShaderPtr CreateVoxelizationBlinnPhongPS(bool tsnm);
+
+	/**
+	 Creates a voxelization Cook-Torrance pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization Cook-Torrance pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationCookTorrancePS(bool tsnm);
+
+	/**
+	 Creates a voxelization Frostbite pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization Frostbite pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationFrostbitePS(bool tsnm);
+
+	/**
+	 Creates a voxelization Lambertian pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization Lambertian pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationLambertianPS(bool tsnm);
+
+	/**
+	 Creates a voxelization Ward-Duer pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization Ward-Duer pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationWardDuerPS(bool tsnm);
+
+	/**
+	 Creates a voxelization pixel shader matching the given BRDF.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		brdf
+					The BRDF type.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be enabled. 
+					@c false otherwise.
+	 @return		A pointer to the voxelization pixel shader matching the given 
+					BRDF.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationPS(BRDFType brdf, bool tsnm);
+
+	/**
+	 Creates a voxelization compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the compute shader.
+	 */
+	ComputeShaderPtr CreateVoxelizationCS();
 
 	#pragma endregion
 }

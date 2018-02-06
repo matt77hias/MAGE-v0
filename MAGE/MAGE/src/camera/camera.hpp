@@ -358,6 +358,28 @@ namespace mage {
 		 */
 		[[nodiscard]] const Viewport GetSSViewport() const noexcept;
 
+		/**
+		 Binds the viewport of this camera.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindViewport(ID3D11DeviceContext4 *device_context) const noexcept {
+			GetViewport().BindViewport(device_context);
+		}
+
+		/**
+		 Binds the super-sampled viewport of this camera.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindSSViewport(ID3D11DeviceContext4 *device_context) const noexcept {
+			GetSSViewport().BindViewport(device_context);
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Settings
 		//---------------------------------------------------------------------

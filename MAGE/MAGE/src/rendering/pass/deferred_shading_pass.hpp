@@ -56,19 +56,19 @@ namespace mage {
 		 Constructs a deferred shading pass from the given deferred shading 
 		 pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the deferred shading pass to copy.
 		 */
-		DeferredShadingPass(const DeferredShadingPass &render_pass) = delete;
+		DeferredShadingPass(const DeferredShadingPass &pass) = delete;
 
 		/**
 		 Constructs a deferred shading pass by moving the given deferred 
 		 shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the deferred shading pass to move.
 		 */
-		DeferredShadingPass(DeferredShadingPass &&render_pass) noexcept;
+		DeferredShadingPass(DeferredShadingPass &&pass) noexcept;
 
 		/**
 		 Destructs this deferred shading pass.
@@ -82,24 +82,46 @@ namespace mage {
 		/**
 		 Copies the given deferred shading pass to this deferred shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the deferred shading pass to copy.
 		 @return		A reference to the copy of the given deferred shading 
 						pass (i.e. this deferred shading pass).
 		 */
-		DeferredShadingPass &operator=(
-			const DeferredShadingPass &render_pass) = delete;
+		DeferredShadingPass &operator=(const DeferredShadingPass &pass) = delete;
 
 		/**
 		 Moves the given deferred shading pass to this deferred shading pass.
 
-		 @param[in]		render_pass
+		 @param[in]		pass
 						A reference to the deferred shading pass to move.
 		 @return		A reference to the moved deferred shading pass (i.e. 
 						this deferred shading pass).
 		 */
-		DeferredShadingPass &operator=(
-			DeferredShadingPass &&render_pass) = delete;
+		DeferredShadingPass &operator=(DeferredShadingPass &&pass) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Renders.
+
+		 @param[in]		brdf
+						The BRDF.
+		 */
+		void Render(BRDFType brdf);
+
+		/**
+		 Dispatches.
+
+		 @param[in]		viewport
+						A reference to the viewport.
+		 @param[in]		brdf
+						The BRDF.
+		 */
+		void Dispatch(const Viewport &viewport, BRDFType brdf);
+		
+	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -107,36 +129,8 @@ namespace mage {
 
 		/**
 		 Binds the fixed state of this deferred shading pass.
-
-		 @param[in]		brdf
-						The BRDF.
-	     @param[in]		use_compute
-						If @c true, the compute pipeline is used.
-						Otherwise, the rendering pipeline is used.
-		 @throws		Exception
-						Failed to bind the fixed state of this deferred 
-						shading pass.
 		 */
-		void BindFixedState(BRDFType brdf, bool use_compute);
-
-		/**
-		 Renders.
-		 */
-		void Render() const noexcept;
-
-		/**
-		 Dispatches.
-
-		 @param[in]		viewport
-						A reference to the viewport.
-		 */
-		void Dispatch(const Viewport &viewport) const noexcept;
-		
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
+		void BindFixedState() const noexcept;
 
 		/**
 		 Updates the compute and pixel shader of this deferred shading pass for 
@@ -167,17 +161,17 @@ namespace mage {
 		/**
 		 A pointer to the compute shader of this deferred shading pass.
 		 */
-		SharedPtr< const ComputeShader > m_cs;
+		ComputeShaderPtr m_cs;
 
 		/**
 		 A pointer to the vertex shader of this deferred shading pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this deferred shading pass.
 		 */
-		SharedPtr< const PixelShader > m_msaa_ps;
+		PixelShaderPtr m_msaa_ps;
 		
 		/**
 		 The current BRDF of this deferred shading pass.

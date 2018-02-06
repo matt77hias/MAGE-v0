@@ -16,6 +16,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <iterator>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -111,7 +120,7 @@ namespace mage {
 				result);
 		}
 
-		#ifdef DISSABLE_INVERTED_Z_BUFFER
+		#ifdef DISABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
@@ -149,7 +158,7 @@ namespace mage {
 				result);
 		}
 
-		#else  // DISSABLE_INVERTED_Z_BUFFER
+		#else  // DISABLE_INVERTED_Z_BUFFER
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
@@ -187,7 +196,7 @@ namespace mage {
 				result);
 		}
 
-		#endif // DISSABLE_INVERTED_Z_BUFFER
+		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
 	void RenderingStateManager::SetupRasterizerStates(ID3D11Device5 *device) {
@@ -307,9 +316,18 @@ namespace mage {
 	}
 
 	void RenderingStateManager::BindPersistentState() const noexcept {
-		
+		static_assert(SLOT_SAMPLER_POINT_CLAMP        == SLOT_SAMPLER_POINT_WRAP + 1);
+		static_assert(SLOT_SAMPLER_POINT_MIRROR       == SLOT_SAMPLER_POINT_WRAP + 2);
+		static_assert(SLOT_SAMPLER_LINEAR_WRAP        == SLOT_SAMPLER_POINT_WRAP + 3);
+		static_assert(SLOT_SAMPLER_LINEAR_CLAMP       == SLOT_SAMPLER_POINT_WRAP + 4);
+		static_assert(SLOT_SAMPLER_LINEAR_MIRROR      == SLOT_SAMPLER_POINT_WRAP + 5);
+		static_assert(SLOT_SAMPLER_ANISOTROPIC_WRAP   == SLOT_SAMPLER_POINT_WRAP + 6);
+		static_assert(SLOT_SAMPLER_ANISOTROPIC_CLAMP  == SLOT_SAMPLER_POINT_WRAP + 7);
+		static_assert(SLOT_SAMPLER_ANISOTROPIC_MIRROR == SLOT_SAMPLER_POINT_WRAP + 8);
+		static_assert(SLOT_SAMPLER_PCF                == SLOT_SAMPLER_POINT_WRAP + 9);
+
 		// Collect the samplers.
-		ID3D11SamplerState * const samplers[SLOT_SAMPLER_PERSISTENT_COUNT] = {
+		ID3D11SamplerState * const samplers[] = {
 			GetSamplerState(SamplerStateIndex::PointWrap),
 			GetSamplerState(SamplerStateIndex::PointClamp),
 			GetSamplerState(SamplerStateIndex::PointMirror),
@@ -324,8 +342,8 @@ namespace mage {
 
 		// Bind the samplers.
 		Pipeline::BindSamplers(Pipeline::GetImmediateDeviceContext(),
-			                   SLOT_SAMPLER_PERSISTENT_START,
-			                   SLOT_SAMPLER_PERSISTENT_COUNT,
+							   SLOT_SAMPLER_POINT_WRAP,
+			                   static_cast< U32 >(std::size(samplers)),
 			                   samplers);
 	}
 }

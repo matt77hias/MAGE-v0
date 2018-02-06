@@ -335,7 +335,7 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions
+	// Type Declarations and Definitions: Shaders
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -363,6 +363,43 @@ namespace mage {
 	 A class of compute shaders.
 	 */
 	using ComputeShader = Shader< ID3D11ComputeShader, Pipeline::CS >;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions: Shader Pointers
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A pointer to a vertex shader resource.
+	 */
+	using VertexShaderPtr = SharedPtr< const VertexShader >;
+
+	/**
+	 A pointer to a hull shader resource.
+	 */
+	using HullShaderPtr = SharedPtr< const HullShader >;
+
+	/**
+	 A pointer to a domain shader resource.
+	 */
+	using DomainShaderPtr = SharedPtr< const DomainShader >;
+
+	/**
+	 A pointer to a geometry shader resource.
+	 */
+	using GeometryShaderPtr = SharedPtr< const GeometryShader >;
+
+	/**
+	 A pointer to a pixel shader resource.
+	 */
+	using PixelShaderPtr = SharedPtr< const PixelShader >;
+
+	/**
+	 A pointer to a compute shader resource.
+	 */
+	using ComputeShaderPtr = SharedPtr< const ComputeShader >;
 
 	#pragma endregion
 }

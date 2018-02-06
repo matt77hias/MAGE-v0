@@ -6,8 +6,8 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "material\spectrum.hpp"
-#include "math\geometry\bounding_volume.hpp"
+#include "spectrum\spectrum.hpp"
+#include "geometry\bounding_volume.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -128,11 +128,8 @@ namespace mage {
 		 @return		The power spectrum of this omni light.
 		 */
 		[[nodiscard]] const RGB GetPowerSpectrum() const noexcept {
-			const auto P_v = GetPower()
-				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
-			RGB P;
-			XMStoreFloat3(&P, P_v);
-			return P;
+			const auto P = GetPower() * SRGBtoRGB(XMLoad(m_base_color));
+			return RGB(XMStore< F32x3 >(P));
 		}
 
 		/**
@@ -162,11 +159,8 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this omni light.
 		 */
 		[[nodiscard]] const RGB GetIntensitySpectrum() const noexcept {
-			const auto I_v = GetIntensity()
-				           * SRGBtoRGB(XMLoadFloat3(&m_base_color));
-			RGB I;
-			XMStoreFloat3(&I, I_v);
-			return I;
+			const auto I = GetIntensity() * SRGBtoRGB(XMLoad(m_base_color));
+			return RGB(XMStore< F32x3 >(I));
 		}
 
 		//---------------------------------------------------------------------
@@ -277,13 +271,13 @@ namespace mage {
 
 			static constexpr auto near_plane = 0.1f;
 
-			#ifdef DISSABLE_INVERTED_Z_BUFFER
+			#ifdef DISABLE_INVERTED_Z_BUFFER
 			const auto m22 = m_range / (m_range - near_plane);
 			const auto m32 = -near_plane * m22;
-			#else  // DISSABLE_INVERTED_Z_BUFFER
+			#else  // DISABLE_INVERTED_Z_BUFFER
 			const auto m22 = near_plane / (near_plane - m_range);
 			const auto m32 = -m_range * m22;
-			#endif // DISSABLE_INVERTED_Z_BUFFER
+			#endif // DISABLE_INVERTED_Z_BUFFER
 			
 			return XMMATRIX {
 				1.0f, 0.0f, 0.0f, 0.0f,

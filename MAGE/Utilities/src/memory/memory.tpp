@@ -123,15 +123,5 @@ namespace mage {
 		});
 	}
 
-	template< typename T >
-	template< typename U >
-	inline ProxyPtr< T >::ProxyPtr(const ProxyPtr< U > &ptr) noexcept
-		: ProxyPtr(static_pointer_cast< T >(ptr)) {}
-
-	template< typename T >
-	template< typename U >
-	inline ProxyPtr< T >::ProxyPtr(ProxyPtr< U > &&ptr) noexcept
-		: ProxyPtr(static_pointer_cast< T >(std::move(ptr))) {}
-
 	#pragma endregion
 }

@@ -153,8 +153,12 @@ namespace mage {
 
 			Assert(mapped_buffer);
 
-			const HRESULT result = Pipeline::Map(m_device_context, m_buffer,
-				                                 0u, map_type, 0u, mapped_buffer);
+			const HRESULT result = Pipeline::Map(m_device_context, 
+				                                 m_buffer,
+				                                 0u, 
+				                                 map_type, 
+				                                 0u, 
+				                                 mapped_buffer);
 			ThrowIfFailed(result, "Buffer mapping failed: %08X.", result);
 		}
 

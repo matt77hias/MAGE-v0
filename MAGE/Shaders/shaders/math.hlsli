@@ -51,6 +51,50 @@ static const float g_sqrt_2_inv_pi = 0.7978845608f;
 				The value.
  @return		The square of the given value.
  */
+half sqr(half v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+half2 sqr(half2 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+half3 sqr(half3 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+half4 sqr(half4 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
 float sqr(float v) {
 	return v * v;
 }
@@ -95,7 +139,7 @@ float4 sqr(float4 v) {
 				The value.
  @return		The square of the given value.
  */
-uint sqr(uint v) {
+double sqr(double v) {
 	return v * v;
 }
 
@@ -106,7 +150,7 @@ uint sqr(uint v) {
 				The value.
  @return		The square of the given value.
  */
-uint2 sqr(uint2 v) {
+double2 sqr(double2 v) {
 	return v * v;
 }
 
@@ -117,7 +161,7 @@ uint2 sqr(uint2 v) {
 				The value.
  @return		The square of the given value.
  */
-uint3 sqr(uint3 v) {
+double3 sqr(double3 v) {
 	return v * v;
 }
 
@@ -128,7 +172,7 @@ uint3 sqr(uint3 v) {
 				The value.
  @return		The square of the given value.
  */
-uint4 sqr(uint4 v) {
+double4 sqr(double4 v) {
 	return v * v;
 }
 
@@ -176,9 +220,86 @@ int4 sqr(int4 v) {
 	return v * v;
 }
 
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint sqr(uint v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint2 sqr(uint2 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint3 sqr(uint3 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint4 sqr(uint4 v) {
+	return v * v;
+}
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Max
 //-----------------------------------------------------------------------------
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+half Max(half2 v) {
+	return max(v.x, v.y);
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+half Max(half3 v) {
+	return max(v.x, max(v.y, v.z));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+half Max(half4 v) {
+	return max(max(v.x, v.y), max(v.z, v.w));
+}
 
 /**
  Returns the maximum component value of the given value.
@@ -210,6 +331,39 @@ float Max(float3 v) {
  @return		The maximum component value of the given value.
  */
 float Max(float4 v) {
+	return max(max(v.x, v.y), max(v.z, v.w));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+double Max(double2 v) {
+	return max(v.x, v.y);
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+double Max(double3 v) {
+	return max(v.x, max(v.y, v.z));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+double Max(double4 v) {
 	return max(max(v.x, v.y), max(v.z, v.w));
 }
 
@@ -290,6 +444,39 @@ uint Max(uint4 v) {
 				The value.
  @return		The minimum component value of the given value.
  */
+half Min(half2 v) {
+	return min(v.x, v.y);
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+half Min(half3 v) {
+	return min(v.x, min(v.y, v.z));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+half Min(half4 v) {
+	return min(min(v.x, v.y), min(v.z, v.w));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
 float Min(float2 v) {
 	return min(v.x, v.y);
 }
@@ -313,6 +500,39 @@ float Min(float3 v) {
  @return		The minimum component value of the given value.
  */
 float Min(float4 v) {
+	return min(min(v.x, v.y), min(v.z, v.w));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+double Min(double2 v) {
+	return min(v.x, v.y);
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+double Min(double3 v) {
+	return min(v.x, min(v.y, v.z));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+double Min(double4 v) {
 	return min(min(v.x, v.y), min(v.z, v.w));
 }
 
@@ -395,6 +615,58 @@ uint Min(uint4 v) {
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
+half UNORMtoSNORM(half v) {
+	return 2.0h * v - 1.0h;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+half2 UNORMtoSNORM(half2 v) {
+	return 2.0h * v - 1.0h;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+half3 UNORMtoSNORM(half3 v) {
+	return 2.0h * v - 1.0h;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+half4 UNORMtoSNORM(half4 v) {
+	return 2.0h * v - 1.0h;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
 float UNORMtoSNORM(float v) {
 	return 2.0f * v - 1.0f;
 }
@@ -438,9 +710,113 @@ float4 UNORMtoSNORM(float4 v) {
 	return 2.0f * v - 1.0f;
 }
 
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+double UNORMtoSNORM(double v) {
+	return 2.0l * v - 1.0l;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+double2 UNORMtoSNORM(double2 v) {
+	return 2.0l * v - 1.0l;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		v
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+double3 UNORMtoSNORM(double3 v) {
+	return 2.0l * v - 1.0l;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value ([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+double4 UNORMtoSNORM(double4 v) {
+	return 2.0l * v - 1.0l;
+}
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: SNORMtoUNORM
 //-----------------------------------------------------------------------------
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+half SNORMtoUNORM(half v) {
+	return 0.5h * v + 0.5h;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+half2 SNORMtoUNORM(half2 v) {
+	return 0.5h * v + 0.5h;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+half3 SNORMtoUNORM(half3 v) {
+	return 0.5h * v + 0.5h;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+half4 SNORMtoUNORM(half4 v) {
+	return 0.5h * v + 0.5h;
+}
 
 /**
  Converts the given signed normalized value ([-1,1] range) to an unsigned 
@@ -492,6 +868,58 @@ float3 SNORMtoUNORM(float3 v) {
  */
 float4 SNORMtoUNORM(float4 v) {
 	return 0.5f * v + 0.5f;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+double SNORMtoUNORM(double v) {
+	return 0.5l * v + 0.5l;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+double2 SNORMtoUNORM(double2 v) {
+	return 0.5l * v + 0.5l;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+double3 SNORMtoUNORM(double3 v) {
+	return 0.5l * v + 0.5l;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value ([-1,1] range).
+ @param[in]		v
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+double4 SNORMtoUNORM(double4 v) {
+	return 0.5l * v + 0.5l;
 }
 
 //-----------------------------------------------------------------------------
@@ -613,12 +1041,12 @@ float2 LocationToUV(float2 location, float2 inv_resolution_minus1) {
  @param[in]		index
 				The 2D index.
  @param[in]		count
-				The number of y elements per x element.
+				The number of elements in each dimension.
  @return		The flattened 1D index corresponding to the given 2D index
-				using x->y ordering.
+				using y->x ordering.
  */
-uint FlattenIndex(uint2 index, uint count) {
-	return index.x * count + index.y;
+uint FlattenIndex(uint2 index, uint2 count) {
+	return index.y * count.x + index.x;
 }
 
 /**
@@ -627,13 +1055,41 @@ uint FlattenIndex(uint2 index, uint count) {
  @param[in]		index
 				The 3D index.
  @param[in]		count
-				The number of y elements per x element.
-				The number of z elements per y element.
+				The number of elements in each dimension.
  @return		The flattened 1D index corresponding to the given 3D index
-				using x->y->z ordering.
+				using z->y->x ordering.
  */
-uint FlattenIndex(uint3 index, uint2 count) {
-	return FlattenIndex(index.xy, count.x) * count.y + index.z;
+uint FlattenIndex(uint3 index, uint3 count) {
+	return FlattenIndex(index.xy, count.xy) * count.y + index.z;
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 2D index corresponding to the given flattened 1D index
+				using y->x ordering.
+ */
+uint2 UnflattenIndex(uint index, uint2 count) {
+	return uint2(index % count.x, index / count.x);
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 3D index corresponding to the given flattened 1D index
+				using z->y->x ordering.
+ */
+uint3 UnflattenIndex(uint index, uint3 count) {
+	const uint slice_z = count.x * count.y;
+	return uint3(UnflattenIndex(index % slice_z, count.xy), index / slice_z);
 }
 
 //-----------------------------------------------------------------------------

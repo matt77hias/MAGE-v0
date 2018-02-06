@@ -19,21 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog />
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <BuildLog />
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <BuildLog />
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <BuildLog />
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
@@ -68,8 +72,7 @@
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
     <ClInclude Include="Utilities\src\system\system_time.hpp" />
     <ClInclude Include="Utilities\src\system\system_usage.hpp" />
-    <ClInclude Include="Utilities\src\timer\cpu_timer.hpp" />
-    <ClInclude Include="Utilities\src\timer\timer.hpp" />
+    <ClInclude Include="Utilities\src\system\timer.hpp" />
     <ClInclude Include="Utilities\src\type\scalar_types.hpp" />
     <ClInclude Include="Utilities\src\type\types.hpp" />
     <ClInclude Include="Utilities\src\type\vector_types.hpp" />
@@ -94,8 +97,6 @@
     <ClCompile Include="Utilities\src\string\token.cpp" />
     <ClCompile Include="Utilities\src\system\system_time.cpp" />
     <ClCompile Include="Utilities\src\system\system_usage.cpp" />
-    <ClCompile Include="Utilities\src\timer\cpu_timer.cpp" />
-    <ClCompile Include="Utilities\src\timer\timer.cpp" />
     <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +112,7 @@
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
     <None Include="Utilities\src\string\token.tpp" />
+    <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -153,19 +155,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Debug.props" />
+    <Import Project="Properties\x86_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x86_Release.props" />
+    <Import Project="Properties\x86_Release.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Debug.props" />
+    <Import Project="Properties\x64_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="x64_Release.props" />
+    <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

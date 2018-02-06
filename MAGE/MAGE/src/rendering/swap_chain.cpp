@@ -180,7 +180,7 @@ namespace mage {
 		}
 		
 		const auto fname = L"screenshot-" 
-			             + GetCurrentLocalSystemDateAndTimeAsString() 
+			             + GetLocalSystemDateAndTimeAsString() 
 			             + L".png";
 		
 		loader::ExportTextureToFile(fname,

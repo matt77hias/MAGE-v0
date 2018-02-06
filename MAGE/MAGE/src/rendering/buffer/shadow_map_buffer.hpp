@@ -23,12 +23,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_SHADOW_MAP_RESOLUTION   512
+#define MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION 512
 
 //TODO: make configurable
-#define MAGE_DEFAULT_DEPTH_BIAS              100
-#define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS 1.0f
-#define MAGE_DEFAULT_DEPTH_BIAS_CLAMP        0.0f
+#define MAGE_DEFAULT_DEPTH_BIAS               100
+#define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS  1.0f
+#define MAGE_DEFAULT_DEPTH_BIAS_CLAMP         0.0f
 
 #pragma endregion
 
@@ -60,13 +60,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit ShadowMapBuffer(size_t nb_shadow_maps = 1u, 
-			                     U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			                     U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     DepthFormat format = DepthFormat::D16);
 		explicit ShadowMapBuffer(ID3D11Device5 *device,
 			                     size_t nb_shadow_maps = 1u, 
-			                     U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			                     U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer &buffer) = delete;
 		ShadowMapBuffer(ShadowMapBuffer &&buffer) noexcept = default;
@@ -159,13 +159,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit ShadowCubeMapBuffer(size_t nb_shadow_cube_maps = 1u, 
-			                         U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			                         U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         DepthFormat format = DepthFormat::D16);
 		explicit ShadowCubeMapBuffer(ID3D11Device5 *device,
 			                         size_t nb_shadow_cube_maps = 1u,
-			                         U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			                         U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer &buffer) = delete;
 		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) noexcept = default;

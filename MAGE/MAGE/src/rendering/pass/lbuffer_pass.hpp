@@ -18,11 +18,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct alignas(16) LightCameraInfo final {
-		XMMATRIX cview_to_lprojection;
-	};
-
-	struct LBufferPass final {
+	class LBufferPass final {
 
 	public:
 
@@ -55,21 +51,21 @@ namespace mage {
 		size_t GetNumberOfSpotLights() const noexcept {
 			return m_spot_lights.size();
 		}
-		size_t GetNumberOfDirectionalLightsWithShadowMapping() const noexcept {
+		size_t GetNumberOfShadowMappedDirectionalLights() const noexcept {
 			return m_sm_directional_lights.size();
 		}
-		size_t GetNumberOfOmniLightsWithShadowMapping() const noexcept {
+		size_t GetNumberOfShadowMappedOmniLights() const noexcept {
 			return m_sm_omni_lights.size();
 		}
-		size_t GetNumberOfSpotLightsWithShadowMapping() const noexcept {
+		size_t GetNumberOfShadowMappedSpotLights() const noexcept {
 			return m_sm_spot_lights.size();
 		}
 
 		void XM_CALLCONV Render(const Scene &scene,
-								const Fog &fog,
 			                    FXMMATRIX world_to_projection,
 			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world);
+			                    CXMMATRIX view_to_world,
+								const Fog &fog);
 		
 	private:
 
@@ -82,34 +78,22 @@ namespace mage {
 
 		void ProcessLightsData(const Scene &scene, const Fog &fog);
 
-		void XM_CALLCONV ProcessDirectionalLights(
-			const Scene &scene,
-			FXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
-		void XM_CALLCONV ProcessOmniLights(
-			const Scene &scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
-		void XM_CALLCONV ProcessSpotLights(
-			const Scene &scene,
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world);
+		void XM_CALLCONV ProcessDirectionalLights(const Scene &scene, 
+												  FXMMATRIX world_to_view, 
+												  CXMMATRIX view_to_world);
+		void XM_CALLCONV ProcessOmniLights(const Scene &scene, 
+										   FXMMATRIX world_to_projection, 
+										   CXMMATRIX world_to_view, 
+										   CXMMATRIX view_to_world);
+		void XM_CALLCONV ProcessSpotLights(const Scene &scene, 
+										   FXMMATRIX world_to_projection, 
+										   CXMMATRIX world_to_view, 
+										   CXMMATRIX view_to_world);
 
-		void SetupDirectionalShadowMaps();
-		void SetupOmniShadowMaps();
-		void SetupSpotShadowMaps();
+		void SetupShadowMaps();
 
-		void XM_CALLCONV RenderDirectionalShadowMaps(
-			DepthPass *pass, const Scene &scene,
-			FXMMATRIX world_to_cview);
-		void XM_CALLCONV RenderOmniShadowMaps(
-			DepthPass *pass, const Scene &scene,
-			FXMMATRIX world_to_cview);
-		void XM_CALLCONV RenderSpotShadowMaps(
-			DepthPass *pass, const Scene &scene,
-			FXMMATRIX world_to_cview);
+		void XM_CALLCONV RenderShadowMaps(const Scene &scene, 
+										  FXMMATRIX world_to_cview);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -123,16 +107,17 @@ namespace mage {
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights;
-		StructuredBuffer< DirectionalLightWithShadowMappingBuffer > 
-			m_sm_directional_lights;
-		StructuredBuffer< OmniLightWithShadowMappingBuffer > 
-			m_sm_omni_lights;
-		StructuredBuffer< SpotLightWithShadowMappingBuffer > 
-			m_sm_spot_lights;
+		StructuredBuffer< ShadowMappedDirectionalLightBuffer > m_sm_directional_lights;
+		StructuredBuffer< ShadowMappedOmniLightBuffer > m_sm_omni_lights;
+		StructuredBuffer< ShadowMappedSpotLightBuffer > m_sm_spot_lights;
 
 		UniquePtr< ShadowMapBuffer > m_directional_sms;
 		UniquePtr< ShadowCubeMapBuffer > m_omni_sms;
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
+
+		struct alignas(16) LightCameraInfo final {
+			XMMATRIX cview_to_lprojection;
+		};
 
 		AlignedVector< LightCameraInfo > m_directional_light_cameras;
 		AlignedVector< LightCameraInfo > m_omni_light_cameras;

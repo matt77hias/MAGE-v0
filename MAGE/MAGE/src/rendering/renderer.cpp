@@ -45,6 +45,7 @@ namespace mage {
 		m_sprite_pass(),
 		m_variable_component_pass(),
 		m_variable_shading_pass(),
+		m_voxelization_pass(),
 		m_wireframe_pass() {}
 	
 	Renderer::Renderer(Renderer &&scene_renderer) noexcept = default;
@@ -54,22 +55,22 @@ namespace mage {
 	void Renderer::BindPersistentState() {
 		const auto config = DisplayConfiguration::Get();
 		
-		GameBuffer game_buffer;
-		game_buffer.m_display_width                = config->GetDisplayWidth();
-		game_buffer.m_display_height               = config->GetDisplayHeight();
-		game_buffer.m_display_inv_width_minus1     = 1.0f / (game_buffer.m_display_width  - 1.0f);
-		game_buffer.m_display_inv_height_minus1    = 1.0f / (game_buffer.m_display_height - 1.0f);
+		GameBuffer buffer;
+		buffer.m_display_width                = config->GetDisplayWidth();
+		buffer.m_display_height               = config->GetDisplayHeight();
+		buffer.m_display_inv_width_minus1     = 1.0f / (buffer.m_display_width  - 1.0f);
+		buffer.m_display_inv_height_minus1    = 1.0f / (buffer.m_display_height - 1.0f);
 		
-		game_buffer.m_ss_display_width             = config->GetSSDisplayWidth();
-		game_buffer.m_ss_display_height            = config->GetSSDisplayHeight();
-		game_buffer.m_ss_display_inv_width_minus1  = 1.0f / (game_buffer.m_ss_display_width  - 1.0f);
-		game_buffer.m_ss_display_inv_height_minus1 = 1.0f / (game_buffer.m_ss_display_height - 1.0f);
+		buffer.m_ss_display_width             = config->GetSSDisplayWidth();
+		buffer.m_ss_display_height            = config->GetSSDisplayHeight();
+		buffer.m_ss_display_inv_width_minus1  = 1.0f / (buffer.m_ss_display_width  - 1.0f);
+		buffer.m_ss_display_inv_height_minus1 = 1.0f / (buffer.m_ss_display_height - 1.0f);
 		
-		game_buffer.m_gamma                        = config->GetGamma();
-		game_buffer.m_inv_gamma                    = 1.0f / game_buffer.m_gamma;
+		buffer.m_gamma                        = config->GetGamma();
+		buffer.m_inv_gamma                    = 1.0f / buffer.m_gamma;
 
 		// Update the game buffer.
-		m_game_buffer.UpdateData(m_device_context, game_buffer);
+		m_game_buffer.UpdateData(m_device_context, buffer);
 		// Bind the game buffer.
 		m_game_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_GAME);
 	}
@@ -79,34 +80,50 @@ namespace mage {
 		                                        CXMMATRIX projection_to_view,
 		                                        CXMMATRIX world_to_view,
 		                                        CXMMATRIX view_to_world) {
-		CameraBuffer camera_buffer;
-		camera_buffer.m_view_to_projection            = XMMatrixTranspose(view_to_projection);
-		camera_buffer.m_projection_to_view            = XMMatrixTranspose(projection_to_view);
-		camera_buffer.m_world_to_view                 = XMMatrixTranspose(world_to_view);
-		camera_buffer.m_view_to_world                 = XMMatrixTranspose(view_to_world);
+		CameraBuffer buffer;
+		buffer.m_view_to_projection            = XMMatrixTranspose(view_to_projection);
+		buffer.m_projection_to_view            = XMMatrixTranspose(projection_to_view);
+		buffer.m_world_to_view                 = XMMatrixTranspose(world_to_view);
+		buffer.m_view_to_world                 = XMMatrixTranspose(view_to_world);
 		
-		const auto &viewport                          = camera.GetViewport();
-		camera_buffer.m_viewport_top_left_x           = static_cast< U32 >(viewport.GetTopLeftX());
-		camera_buffer.m_viewport_top_left_y           = static_cast< U32 >(viewport.GetTopLeftY());
-		camera_buffer.m_viewport_width                = static_cast< U32 >(viewport.GetWidth());
-		camera_buffer.m_viewport_height               = static_cast< U32 >(viewport.GetHeight());
-		camera_buffer.m_viewport_inv_width_minus1     = 1.0f / (viewport.GetWidth()  - 1.0f);
-		camera_buffer.m_viewport_inv_height_minus1    = 1.0f / (viewport.GetHeight() - 1.0f);
+		const auto &viewport                   = camera.GetViewport();
+		buffer.m_viewport_top_left_x           = static_cast< U32 >(viewport.GetTopLeftX());
+		buffer.m_viewport_top_left_y           = static_cast< U32 >(viewport.GetTopLeftY());
+		buffer.m_viewport_width                = static_cast< U32 >(viewport.GetWidth());
+		buffer.m_viewport_height               = static_cast< U32 >(viewport.GetHeight());
+		buffer.m_viewport_inv_width_minus1     = 1.0f / (viewport.GetWidth()  - 1.0f);
+		buffer.m_viewport_inv_height_minus1    = 1.0f / (viewport.GetHeight() - 1.0f);
 
-		const auto ss_viewport                        = camera.GetSSViewport();
-		camera_buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
-		camera_buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
-		camera_buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());
-		camera_buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
-		camera_buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
-		camera_buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
+		const auto ss_viewport                 = camera.GetSSViewport();
+		buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
+		buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
+		buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());
+		buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
+		buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
+		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
-		camera_buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
-		camera_buffer.m_focal_length                  = camera.GetLens().GetFocalLength();
-		camera_buffer.m_max_coc_radius                = camera.GetLens().GetMaximumCoCRadius();
+		buffer.m_voxel_grid_resolution         = 256u;
+		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
+		buffer.m_voxel_size                    = 256.0f * buffer.m_voxel_grid_inv_resolution;
+		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
+		
+		const float radius = 0.5f * buffer.m_voxel_size * buffer.m_voxel_grid_resolution;
+		#ifdef DISABLE_INVERTED_Z_BUFFER
+		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius, 
+																 -radius, radius, 
+																 -radius, radius);
+		#else  // DISABLE_INVERTED_Z_BUFFER
+		buffer.m_view_to_voxel = XMMatrixOrthographicOffCenterLH(-radius, radius,
+																 -radius, radius,
+																 radius, -radius);
+		#endif // DISABLE_INVERTED_Z_BUFFER
+
+		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
+		buffer.m_focal_length                  = camera.GetLens().GetFocalLength();
+		buffer.m_max_coc_radius                = camera.GetLens().GetMaximumCoCRadius();
 
 		// Update the camera buffer.
-		m_camera_buffer.UpdateData(m_device_context, camera_buffer);
+		m_camera_buffer.UpdateData(m_device_context, buffer);
 		// Bind the game buffer.
 		m_camera_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_PRIMARY_CAMERA);
 	}
@@ -130,13 +147,13 @@ namespace mage {
 
 			// Bind the camera buffer.
 			BindCameraBuffer(camera, 
-				             view_to_projection, 
-				             projection_to_view,
-				             world_to_view, 
-				             view_to_world);
+							 view_to_projection, projection_to_view, 
+							 world_to_view, view_to_world);
+
+			const auto render_mode = camera.GetSettings().GetRenderMode();
 
 			// RenderMode
-			switch (camera.GetSettings().GetRenderMode()) {
+			switch (render_mode) {
 
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(scene, 
@@ -173,60 +190,50 @@ namespace mage {
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetVariableComponentPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene, 
-					         world_to_projection, 
-					         world_to_view, 
-					         view_to_world);
-
+				GetVariableComponentPass()->Render(scene, 
+												   world_to_projection, 
+												   world_to_view, 
+												   view_to_world, 
+												   render_mode);
 				break;
 			}
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetConstantComponentPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene,
-					         world_to_projection, 
-					         world_to_view, 
-					         view_to_world);
-
+				GetConstantComponentPass()->Render(scene, 
+												   world_to_projection, 
+												   world_to_view, 
+												   view_to_world,
+												   render_mode);
 				break;
 			}
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
-				const auto pass = GetShadingNormalPass();
-				pass->BindFixedState(camera.GetSettings().GetRenderMode());
-				pass->Render(scene,
-					         world_to_projection, 
-					         world_to_view);
-
+				GetShadingNormalPass()->Render(scene,
+											   world_to_projection, 
+											   world_to_view, 
+											   render_mode);
 				break;
 			}
 
-			case RenderMode::None: {
+			default: {
 				// Bind the viewport.
-				const auto ss_viewport = camera.GetSSViewport();
-				ss_viewport.BindViewport(m_device_context);
+				camera.BindSSViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 				break;
@@ -235,15 +242,16 @@ namespace mage {
 			}
 
 			// RenderLayer
-			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::Wireframe)) {
-				const auto pass = GetWireframePass();
-				pass->BindFixedState();
-				pass->Render(scene, world_to_projection, world_to_view);
+			const auto &settings = camera.GetSettings();
+			if (settings.ContainsRenderLayer(RenderLayer::Wireframe)) {
+				GetWireframePass()->Render(scene, 
+										   world_to_projection, 
+										   world_to_view);
 			}
-			if (camera.GetSettings().ContainsRenderLayer(RenderLayer::AABB)) {
-				const auto pass = GetBoundingVolumePass();
-				pass->BindFixedState();
-				pass->Render(scene, world_to_projection, world_to_view);
+			if (settings.ContainsRenderLayer(RenderLayer::AABB)) {
+				GetBoundingVolumePass()->Render(scene, 
+												world_to_projection, 
+												world_to_view);
 			}
 			
 			output_manager->BindEndForward(m_device_context);
@@ -253,29 +261,24 @@ namespace mage {
 			output_manager->BindBeginPostProcessing(m_device_context);
 
 			// Bind the viewport.
-			const auto &viewport = camera.GetViewport();
-			viewport.BindViewport(m_device_context);
+			camera.BindViewport(m_device_context);
 			
 			if (camera.GetLens().HasFiniteAperture()) {
 				output_manager->BindPingPong(m_device_context);
-				GetDOFPass()->Dispatch(viewport);
+				GetDOFPass()->Dispatch(camera.GetViewport());
 			}
 
 			output_manager->BindEnd(m_device_context);
 
 			// Perform a back buffer pass.
-			const auto back_buffer_pass = GetBackBufferPass();
-			back_buffer_pass->BindFixedState();
-			back_buffer_pass->Render();
+			GetBackBufferPass()->Render();
 		});
 		
 		// Bind the maximum viewport.
 		m_maximum_viewport.BindViewport(m_device_context);
 		
 		// Perform a sprite pass.
-		const auto * const sprite_pass = GetSpritePass();
-		sprite_pass->BindFixedState();
-		sprite_pass->Render(scene);
+		GetSpritePass()->Render(scene);
 	}
 
 	void XM_CALLCONV Renderer
@@ -285,28 +288,23 @@ namespace mage {
 		                              CXMMATRIX world_to_view,
 		                              CXMMATRIX view_to_world) {
 		
-		const auto output_manager = RenderingOutputManager::Get();
-		const auto viewport = camera.GetSSViewport();
-
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection, 
+								 world_to_view, view_to_world, 
+								 camera.GetSettings().GetFog());
+		
 		// Restore the viewport.
-		viewport.BindViewport(m_device_context);
+		camera.BindSSViewport(m_device_context);
 		
-		output_manager->BindBeginForward(m_device_context);
+		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
 		
+		//---------------------------------------------------------------------
 		// Perform a forward pass.
-		const auto forward_pass = GetConstantShadingPass();
-		forward_pass->BindFixedState();
-		forward_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetConstantShadingPass()->Render(scene, world_to_projection, 
+										 world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV Renderer
@@ -318,38 +316,40 @@ namespace mage {
 
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
+		const auto brdf = camera.GetSettings().GetBRDF();
+
+		//GetVoxelizationPass()->Render(scene, world_to_projection,
+		//							  world_to_view, view_to_world, brdf, 128u);
 		
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection,
+								 world_to_view, view_to_world,
+								 camera.GetSettings().GetFog());
+
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		
 		output_manager->BindBeginForward(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: opaque fragments.
-		const auto forward_pass = GetVariableShadingPass();
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->Render(scene, world_to_projection, 
+										 world_to_view, view_to_world, brdf);
 
+		//---------------------------------------------------------------------
 		// Perform a sky pass.
-		const auto * const sky_pass = GetSkyPass();
-		sky_pass->BindFixedState();
-		sky_pass->Render(camera.GetSettings().GetSky());
+		//---------------------------------------------------------------------
+		GetSkyPass()->Render(camera.GetSettings().GetSky());
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: transparent fragments.
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderTransparent(scene, 
-			                            world_to_projection, 
-			                            world_to_view, 
-			                            view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
+													world_to_view, view_to_world, 
+													brdf);
 	}
 
 	void XM_CALLCONV Renderer
@@ -361,63 +361,59 @@ namespace mage {
 
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
+		const auto brdf = camera.GetSettings().GetBRDF();
 
+		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
-		const auto lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(scene, 
-			                 camera.GetSettings().GetFog(),
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection,
+								 world_to_view, view_to_world,
+								 camera.GetSettings().GetFog());
+
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 
 		output_manager->BindBeginGBuffer(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a GBuffer pass: opaque fragments.
-		const auto gbuffer_pass = GetGBufferPass();
-		gbuffer_pass->BindFixedState();
-		gbuffer_pass->Render(scene, 
-			                 world_to_projection, 
-			                 world_to_view, 
-			                 view_to_world);
+		//---------------------------------------------------------------------
+		GetGBufferPass()->Render(scene, world_to_projection, 
+								 world_to_view, view_to_world);
 
 		output_manager->BindEndGBuffer(m_device_context);
 		output_manager->BindBeginDeferred(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a deferred pass.
-		const auto deferred_pass = GetDeferredShadingPass();
+		//---------------------------------------------------------------------
 		if (DisplayConfiguration::Get()->UsesMSAA()) {
-			deferred_pass->BindFixedState(camera.GetSettings().GetBRDF(), false);
-			deferred_pass->Render();
+			GetDeferredShadingPass()->Render(brdf);
 		}
 		else {
-			deferred_pass->BindFixedState(camera.GetSettings().GetBRDF(), true);
-			deferred_pass->Dispatch(viewport);
+			GetDeferredShadingPass()->Dispatch(viewport, brdf);
 		}
 
 		output_manager->BindEndDeferred(m_device_context);
 		output_manager->BindBeginForward(m_device_context);
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: emissive fragments.
-		const auto forward_pass = GetVariableShadingPass();
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderEmissive(scene, 
-			                         world_to_projection, 
-			                         world_to_view, 
-			                         view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderEmissive(scene, world_to_projection, 
+												 world_to_view, view_to_world);
 
+		//---------------------------------------------------------------------
 		// Perform a sky pass.
-		const auto * const sky_pass = GetSkyPass();
-		sky_pass->BindFixedState();
-		sky_pass->Render(camera.GetSettings().GetSky());
+		//---------------------------------------------------------------------
+		GetSkyPass()->Render(camera.GetSettings().GetSky());
 
+		//---------------------------------------------------------------------
 		// Perform a forward pass: transparent fragments.
-		forward_pass->BindFixedState(camera.GetSettings().GetBRDF());
-		forward_pass->RenderTransparent(scene, 
-			                            world_to_projection, 
-			                            world_to_view, 
-			                            view_to_world);
+		//---------------------------------------------------------------------
+		GetVariableShadingPass()->RenderTransparent(scene, world_to_projection, 
+													world_to_view, view_to_world, 
+													brdf);
 	}
 
 	void Renderer::ExecuteAAPipeline(const Camera &camera) {
@@ -428,18 +424,16 @@ namespace mage {
 		switch (desc) {
 
 		case AADescriptor::FXAA: {
-
 			output_manager->BindBeginResolve(m_device_context);
 
 			// Perform an AA pass.
-			const auto aa_pass = GetAAPass();
-			aa_pass->DispatchAAPreprocess(viewport, AADescriptor::FXAA);
+			GetAAPass()->DispatchPreprocess(viewport, AADescriptor::FXAA);
 
 			output_manager->BindEndResolve(m_device_context);
 			output_manager->BindPingPong(m_device_context);
 
 			// Perform a FXAA pass.
-			aa_pass->DispatchAA(viewport, AADescriptor::FXAA);
+			GetAAPass()->Dispatch(viewport, AADescriptor::FXAA);
 
 			break;
 		}
@@ -450,12 +444,10 @@ namespace mage {
 		case AADescriptor::SSAA_2x:
 		case AADescriptor::SSAA_3x:
 		case AADescriptor::SSAA_4x: {
-			
 			output_manager->BindBeginResolve(m_device_context);
 
 			// Perform an AA pass.
-			const auto aa_pass = GetAAPass();
-			aa_pass->DispatchAA(viewport, desc);
+			GetAAPass()->Dispatch(viewport, desc);
 
 			output_manager->BindEndResolve(m_device_context);
 			break;

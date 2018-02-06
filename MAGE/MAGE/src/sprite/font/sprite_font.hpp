@@ -173,7 +173,7 @@ namespace mage {
 						A pointer to the strings of the text.
 		 @param[in]		nb_strings
 						The number of strings in the text.
-		 @param[in]		position
+		 @param[in]		top_left
 						The top-left position of the text.
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.

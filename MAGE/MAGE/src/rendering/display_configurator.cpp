@@ -307,8 +307,8 @@ namespace mage {
 			// that affect the appearance of the dialog box.
 
 			// Display the adapter details.
-			DXGI_ADAPTER_DESC2 desc;
-			m_adapter->GetDesc2(&desc);
+			DXGI_ADAPTER_DESC desc;
+			m_adapter->GetDesc(&desc);
 			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_display_configuration_script->empty()) {

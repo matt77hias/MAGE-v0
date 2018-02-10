@@ -306,7 +306,7 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
-		const auto vct = true;
+		const auto vct = false;
 
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
@@ -359,7 +359,7 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
-		const auto vct = true;
+		const auto vct = false;
 
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.

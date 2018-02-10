@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <d3d11_3.h>
-#include <DXGI1_5.h>
+#include <d3d11.h>
+#include <DXGI1_2.h>
 
 #pragma endregion
 
@@ -37,25 +37,25 @@ namespace mage {
 	/**
 	 The type of DXGI adapter.
 	 */
-	using DXGIAdapter = IDXGIAdapter3;
+	using DXGIAdapter = IDXGIAdapter;
 
 	/**
 	 The type of DXGI output.
 	 */
-	using DXGIOutput = IDXGIOutput5;
+	using DXGIOutput = IDXGIOutput1;
 
 	/**
 	 The type of DXGI swap chain.
 	 */
-	using DXGISwapChain = IDXGISwapChain4;
+	using DXGISwapChain = IDXGISwapChain;
 
 	/**
 	 The type of D3D11 device.
 	 */
-	using D3D11Device = ID3D11Device3;
+	using D3D11Device = ID3D11Device;
 
 	/**
 	 The type of D3D11 device context.
 	 */
-	using D3D11DeviceContext = ID3D11DeviceContext4;
+	using D3D11DeviceContext = ID3D11DeviceContext;
 }

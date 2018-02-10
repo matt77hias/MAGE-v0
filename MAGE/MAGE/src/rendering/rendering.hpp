@@ -34,10 +34,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 The type of DXGI adapter.
+	 */
 	using DXGIAdapter = IDXGIAdapter3;
+
+	/**
+	 The type of DXGI output.
+	 */
 	using DXGIOutput = IDXGIOutput5;
+
+	/**
+	 The type of DXGI swap chain.
+	 */
 	using DXGISwapChain = IDXGISwapChain4;
 
+	/**
+	 The type of D3D11 device.
+	 */
 	using D3D11Device = ID3D11Device3;
+
+	/**
+	 The type of D3D11 device context.
+	 */
 	using D3D11DeviceContext = ID3D11DeviceContext4;
 }

@@ -13,8 +13,8 @@ static INT64                    g_Time = 0;
 static INT64                    g_TicksPerSecond = 0;
 
 static HWND                     g_hWnd = 0;
-static ID3D11Device3*           g_pd3dDevice = NULL;
-static ID3D11DeviceContext4*    g_pd3dDeviceContext = NULL;
+static ID3D11Device*            g_pd3dDevice = NULL;
+static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static ID3D11Buffer*            g_pVB = NULL;
 static ID3D11Buffer*            g_pIB = NULL;
 static ID3D10Blob *             g_pVertexShaderBlob = NULL;
@@ -40,7 +40,7 @@ struct VERTEX_CONSTANT_BUFFER
 // - in your Render function, try translating your projection matrix by (0.5f,0.5f) or (0.375f,0.375f)
 void ImGui_ImplDX11_RenderDrawLists(ImDrawData* draw_data)
 {
-    ID3D11DeviceContext4* ctx = g_pd3dDeviceContext;
+    ID3D11DeviceContext* ctx = g_pd3dDeviceContext;
 
     // Create and grow vertex/index buffers if needed
     if (!g_pVB || g_VertexBufferSize < draw_data->TotalVtxCount)
@@ -518,7 +518,7 @@ void    ImGui_ImplDX11_InvalidateDeviceObjects()
     if (g_pVertexShaderBlob) { g_pVertexShaderBlob->Release(); g_pVertexShaderBlob = NULL; }
 }
 
-bool    ImGui_ImplDX11_Init(void * hwnd, ID3D11Device3* device, ID3D11DeviceContext4* device_context)
+bool    ImGui_ImplDX11_Init(void * hwnd, ID3D11Device* device, ID3D11DeviceContext* device_context)
 {
     g_hWnd = (HWND)hwnd;
     g_pd3dDevice = device;

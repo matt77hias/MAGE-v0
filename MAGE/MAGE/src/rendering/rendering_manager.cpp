@@ -128,16 +128,16 @@ namespace mage {
 		}
 
 		{
-			// Get the ID3D11Device3.
+			// Get the D3D11Device.
 			const HRESULT result = device.As(&m_device);
 			ThrowIfFailed(result, 
-				"ID3D11Device3 creation failed: %08X.", result);
+				"D3D11Device creation failed: %08X.", result);
 		}
 		{
-			// Get the ID3D11DeviceContext4.
+			// Get the D3D11DeviceContext.
 			const HRESULT result = device_context.As(&m_device_context);
 			ThrowIfFailed(result,
-				"ID3D11DeviceContext4 creation failed: %08X.", result);
+				"D3D11DeviceContext creation failed: %08X.", result);
 		}
 	}
 

@@ -69,7 +69,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to map the buffer.
 		 */
-		explicit BufferLock(ID3D11DeviceContext4 *device_context,
+		explicit BufferLock(ID3D11DeviceContext *device_context,
 			                ID3D11Buffer *buffer,
 			                D3D11_MAP map_type,
 			                D3D11_MAPPED_SUBRESOURCE *mapped_buffer)
@@ -180,7 +180,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this buffer lock.
 		 */
-		ID3D11DeviceContext4 *m_device_context;
+		ID3D11DeviceContext *m_device_context;
 
 		/**
 		 A pointer to the buffer of this lock.

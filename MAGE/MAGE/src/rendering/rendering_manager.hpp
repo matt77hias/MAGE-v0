@@ -124,7 +124,7 @@ namespace mage {
 
 		 @return		A pointer to the device of this rendering manager.
 		 */
-		[[nodiscard]] ID3D11Device3 *GetDevice() const noexcept {
+		[[nodiscard]] D3D11Device *GetDevice() const noexcept {
 			return m_device.Get();
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 		 @return		A pointer to the device context of this rendering 
 						manager.
 		 */
-		[[nodiscard]] ID3D11DeviceContext4 *GetDeviceContext() const noexcept {
+		[[nodiscard]] D3D11DeviceContext *GetDeviceContext() const noexcept {
 			return m_device_context.Get();
 		}
 
@@ -263,12 +263,12 @@ namespace mage {
 		/**
 		 A pointer to the device of this rendering manager.
 		 */
-		ComPtr< ID3D11Device3 >	m_device;
+		ComPtr< D3D11Device >	m_device;
 
 		/**
 		 A pointer to the device context of this rendering manager.
 		 */
-		ComPtr< ID3D11DeviceContext4 > m_device_context;
+		ComPtr< D3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the swap chain of this rendering manager.

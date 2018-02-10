@@ -53,7 +53,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device3 *device, size_t capacity);
+		explicit StructuredBuffer(ID3D11Device *device, size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -135,7 +135,7 @@ namespace mage {
 		  @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext4 *device_context, 
+		void UpdateData(ID3D11DeviceContext *device_context, 
 			            const AlignedVector< DataT > &data);
 
 		/**
@@ -152,8 +152,8 @@ namespace mage {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11Device3 *device, 
-			            ID3D11DeviceContext4 *device_context,
+		void UpdateData(ID3D11Device *device, 
+			            ID3D11DeviceContext *device_context,
 			            const AlignedVector< DataT > &data);
 
 		/**
@@ -182,8 +182,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext4 *device_context, 
-			      U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -203,7 +202,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device3 *device, size_t capacity);
+		void SetupStructuredBuffer(ID3D11Device *device, size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables

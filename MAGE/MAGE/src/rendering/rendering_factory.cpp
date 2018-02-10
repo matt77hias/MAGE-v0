@@ -27,7 +27,7 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]] HRESULT 
-		CreateOpaqueBlendState(ID3D11Device5 *device, 
+		CreateOpaqueBlendState(ID3D11Device3 *device, 
 			                   ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -44,7 +44,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateAlphaBlendState(ID3D11Device5 *device, 
+		CreateAlphaBlendState(ID3D11Device3 *device, 
 			                  ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -67,7 +67,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateAdditiveBlendState(ID3D11Device5 *device, 
+		CreateAdditiveBlendState(ID3D11Device3 *device, 
 			                     ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -90,7 +90,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateMultiplicativeBlendState(ID3D11Device5 *device, 
+		CreateMultiplicativeBlendState(ID3D11Device3 *device, 
 			                           ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -113,7 +113,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateBiMultiplicativeBlendState(ID3D11Device5 *device, 
+		CreateBiMultiplicativeBlendState(ID3D11Device3 *device, 
 			                             ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -136,7 +136,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateTransparencyBlendState(ID3D11Device5 *device, 
+		CreateTransparencyBlendState(ID3D11Device3 *device, 
 			                         ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -169,7 +169,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateAlphaToCoverageBlendState(ID3D11Device5 *device, 
+		CreateAlphaToCoverageBlendState(ID3D11Device3 *device, 
 			                            ID3D11BlendState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -189,7 +189,7 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]] HRESULT 
-		CreateDepthNoneDepthStencilState(ID3D11Device5 *device, 
+		CreateDepthNoneDepthStencilState(ID3D11Device3 *device, 
 			                             ID3D11DepthStencilState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -202,7 +202,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateDepthReadWriteDepthStencilState(ID3D11Device5 *device, 
+		CreateDepthReadWriteDepthStencilState(ID3D11Device3 *device, 
 			                                  ID3D11DepthStencilState **state,
 		                                      D3D11_COMPARISON_FUNC func) noexcept {
 		Assert(device);
@@ -218,7 +218,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateDepthReadDepthStencilState(ID3D11Device5 *device, 
+		CreateDepthReadDepthStencilState(ID3D11Device3 *device, 
 			                             ID3D11DepthStencilState **state,
 		                                 D3D11_COMPARISON_FUNC func) noexcept {
 		Assert(device);
@@ -241,7 +241,7 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]] HRESULT 
-		CreateRasterizerState(ID3D11Device5 *device, 
+		CreateRasterizerState(ID3D11Device3 *device, 
 			                  ID3D11RasterizerState **state, 
 		                      D3D11_CULL_MODE cull_mode, 
 			                  D3D11_FILL_MODE fill_mode,
@@ -272,7 +272,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateCullNoneRasterizerState(ID3D11Device5 *device, 
+		CreateCullNoneRasterizerState(ID3D11Device3 *device, 
 			                          ID3D11RasterizerState **state,
 		                              S32 depth_bias, 
 			                          F32 slope_scaled_depth_bias, 
@@ -290,7 +290,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateCullClockwiseRasterizerState(ID3D11Device5 *device, 
+		CreateCullClockwiseRasterizerState(ID3D11Device3 *device, 
 			                               ID3D11RasterizerState **state,
 		                                   S32 depth_bias, 
 			                               F32 slope_scaled_depth_bias, 
@@ -308,7 +308,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateCullCounterClockwiseRasterizerState(ID3D11Device5 *device, 
+		CreateCullCounterClockwiseRasterizerState(ID3D11Device3 *device, 
 			                                      ID3D11RasterizerState **state,
 		                                          S32 depth_bias, 
 			                                      F32 slope_scaled_depth_bias, 
@@ -326,7 +326,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateWireframeRasterizerState(ID3D11Device5 *device, 
+		CreateWireframeRasterizerState(ID3D11Device3 *device, 
 			                           ID3D11RasterizerState **state,
 		                               S32 depth_bias, 
 			                           F32 slope_scaled_depth_bias, 
@@ -351,7 +351,7 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]] HRESULT 
-		CreateSamplerState(ID3D11Device5 *device, 
+		CreateSamplerState(ID3D11Device3 *device, 
 			               ID3D11SamplerState **state, 
 		                   D3D11_FILTER filter, 
 			               D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept {
@@ -372,7 +372,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreatePointWrapSamplerState(ID3D11Device5 *device, 
+		CreatePointWrapSamplerState(ID3D11Device3 *device, 
 			                        ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -384,7 +384,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreatePointClampSamplerState(ID3D11Device5 *device, 
+		CreatePointClampSamplerState(ID3D11Device3 *device, 
 			                         ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -396,7 +396,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreatePointMirrorSamplerState(ID3D11Device5 *device, 
+		CreatePointMirrorSamplerState(ID3D11Device3 *device, 
 			                          ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -408,7 +408,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateLinearWrapSamplerState(ID3D11Device5 *device, 
+		CreateLinearWrapSamplerState(ID3D11Device3 *device, 
 			                         ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -420,7 +420,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateLinearClampSamplerState(ID3D11Device5 *device, 
+		CreateLinearClampSamplerState(ID3D11Device3 *device, 
 			                          ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -432,7 +432,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateLinearMirrorSamplerState(ID3D11Device5 *device, 
+		CreateLinearMirrorSamplerState(ID3D11Device3 *device, 
 			                           ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -444,7 +444,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateAnisotropicWrapSamplerState(ID3D11Device5 *device, 
+		CreateAnisotropicWrapSamplerState(ID3D11Device3 *device, 
 			                              ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -456,7 +456,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]] HRESULT 
-		CreateAnisotropicClampSamplerState(ID3D11Device5 *device, 
+		CreateAnisotropicClampSamplerState(ID3D11Device3 *device, 
 			                               ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -468,7 +468,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreateAnisotropicMirrorSamplerState(ID3D11Device5 *device, 
+		CreateAnisotropicMirrorSamplerState(ID3D11Device3 *device, 
 			                                ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);
@@ -480,7 +480,7 @@ namespace mage {
 	}
 
 	[[nodiscard]] HRESULT 
-		CreatePCFSamplerState(ID3D11Device5 *device, 
+		CreatePCFSamplerState(ID3D11Device3 *device, 
 			                  ID3D11SamplerState **state) noexcept {
 		Assert(device);
 		Assert(state);

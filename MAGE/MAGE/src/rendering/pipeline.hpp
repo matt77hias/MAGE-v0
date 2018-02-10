@@ -41,7 +41,7 @@ namespace mage {
 						must be loaded.
 		 @return		A pointer to the device.
 		 */
-		[[nodiscard]] static ID3D11Device5 *GetDevice() noexcept;
+		[[nodiscard]] static ID3D11Device3 *GetDevice() noexcept;
 
 		/**
 		 Returns the immediate device context.

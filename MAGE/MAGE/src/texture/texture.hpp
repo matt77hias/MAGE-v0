@@ -51,7 +51,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the texture.
 		 */
-		explicit Texture(wstring fname, ID3D11Device5 *device);
+		explicit Texture(wstring fname, ID3D11Device3 *device);
 
 		/**
 		 Constructs a 2D texture.
@@ -91,7 +91,7 @@ namespace mage {
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring guid, 
-			             ID3D11Device5 *device,
+			             ID3D11Device3 *device,
 			             const D3D11_TEXTURE2D_DESC *desc,
 			             const D3D11_SUBRESOURCE_DATA *initial_data);
 

@@ -28,7 +28,7 @@
 namespace mage::loader {
 
 	void ImportTextureFromFile(const wstring &fname, 
-		                       ID3D11Device5 *device, 
+		                       ID3D11Device3 *device, 
 		                       ID3D11ShaderResourceView **texture_srv) {
 		
 		Assert(device);

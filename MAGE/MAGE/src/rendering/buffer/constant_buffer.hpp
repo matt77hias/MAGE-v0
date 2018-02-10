@@ -48,7 +48,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		explicit ConstantBuffer(ID3D11Device5 *device);
+		explicit ConstantBuffer(ID3D11Device3 *device);
 		
 		/**
 		 Constructs a constant buffer from the given constant buffer.
@@ -158,7 +158,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		void SetupConstantBuffer(ID3D11Device5 *device);
+		void SetupConstantBuffer(ID3D11Device3 *device);
 
 		//---------------------------------------------------------------------
 		// Member Variables

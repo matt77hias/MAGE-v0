@@ -53,7 +53,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device5 *device, size_t capacity);
+		explicit StructuredBuffer(ID3D11Device3 *device, size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -152,7 +152,7 @@ namespace mage {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11Device5 *device, 
+		void UpdateData(ID3D11Device3 *device, 
 			            ID3D11DeviceContext4 *device_context,
 			            const AlignedVector< DataT > &data);
 
@@ -203,7 +203,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device5 *device, size_t capacity);
+		void SetupStructuredBuffer(ID3D11Device3 *device, size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables

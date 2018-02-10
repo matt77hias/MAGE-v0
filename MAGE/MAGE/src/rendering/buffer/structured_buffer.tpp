@@ -21,7 +21,7 @@ namespace mage {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(ID3D11Device5 *device, size_t capacity)
+		::StructuredBuffer(ID3D11Device3 *device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
 		m_capacity(0), 
@@ -32,7 +32,7 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::SetupStructuredBuffer(ID3D11Device5 *device, size_t capacity) {
+		::SetupStructuredBuffer(ID3D11Device3 *device, size_t capacity) {
 		
 		Assert(device);
 
@@ -70,7 +70,7 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::UpdateData(ID3D11Device5 *device, 
+		::UpdateData(ID3D11Device3 *device, 
 		             ID3D11DeviceContext4 *device_context, 
 			         const AlignedVector< DataT > &data) {
 		

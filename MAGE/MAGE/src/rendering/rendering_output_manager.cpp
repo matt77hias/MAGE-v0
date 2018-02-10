@@ -32,7 +32,7 @@ namespace mage {
 		return RenderingManager::Get()->GetRenderingOutputManager();
 	}
 
-	RenderingOutputManager::RenderingOutputManager(ID3D11Device5 *device, 
+	RenderingOutputManager::RenderingOutputManager(ID3D11Device3 *device, 
 		                                           U32 width, 
 		                                           U32 height, 
 		                                           AADescriptor desc)
@@ -52,7 +52,7 @@ namespace mage {
 
 	RenderingOutputManager::~RenderingOutputManager() = default;
 
-	void RenderingOutputManager::SetupBuffers(ID3D11Device5 *device, 
+	void RenderingOutputManager::SetupBuffers(ID3D11Device3 *device, 
 		                                      U32 width, 
 		                                      U32 height, 
 		                                      AADescriptor desc) {
@@ -215,7 +215,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupBuffer(ID3D11Device5 *device, 
+	void RenderingOutputManager::SetupBuffer(ID3D11Device3 *device, 
 		                                     U32 width, 
 		                                     U32 height, 
 		                                     U32 nb_samples, 
@@ -287,7 +287,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupDepthBuffer(ID3D11Device5 *device, 
+	void RenderingOutputManager::SetupDepthBuffer(ID3D11Device3 *device, 
 		                                          U32 width, 
 		                                          U32 height, 
 		                                          U32 nb_samples) {

@@ -19,7 +19,7 @@ namespace mage {
 	public:
 
 		explicit VoxelGrid(size_t resolution);
-		explicit VoxelGrid(ID3D11Device5 *device, size_t resolution);
+		explicit VoxelGrid(ID3D11Device3 *device, size_t resolution);
 		VoxelGrid(const VoxelGrid &voxel_grid) = delete;
 		VoxelGrid(VoxelGrid &&voxel_grid) = default;
 		~VoxelGrid() = default;
@@ -42,10 +42,10 @@ namespace mage {
 
 	private:
 
-		void SetupVoxelGrid(ID3D11Device5 *device);
+		void SetupVoxelGrid(ID3D11Device3 *device);
 
-		void SetupStructuredBuffer(ID3D11Device5 *device);
-		void SetupTexture(ID3D11Device5 *device);
+		void SetupStructuredBuffer(ID3D11Device3 *device);
+		void SetupTexture(ID3D11Device3 *device);
 
 		size_t m_resolution;
 

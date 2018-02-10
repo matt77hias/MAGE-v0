@@ -29,7 +29,7 @@ namespace mage::loader {
 					Failed to import the texture from file.
 	 */
 	void ImportTextureFromFile(const wstring &fname, 
-		                       ID3D11Device5 *device, 
+		                       ID3D11Device3 *device, 
 		                       ID3D11ShaderResourceView **texture_srv);
 
 	/**

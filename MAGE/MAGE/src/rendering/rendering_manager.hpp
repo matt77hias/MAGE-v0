@@ -124,7 +124,7 @@ namespace mage {
 
 		 @return		A pointer to the device of this rendering manager.
 		 */
-		[[nodiscard]] ID3D11Device5 *GetDevice() const noexcept {
+		[[nodiscard]] ID3D11Device3 *GetDevice() const noexcept {
 			return m_device.Get();
 		}
 
@@ -263,7 +263,7 @@ namespace mage {
 		/**
 		 A pointer to the device of this rendering manager.
 		 */
-		ComPtr< ID3D11Device5 >	m_device;
+		ComPtr< ID3D11Device3 >	m_device;
 
 		/**
 		 A pointer to the device context of this rendering manager.

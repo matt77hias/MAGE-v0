@@ -87,7 +87,7 @@ namespace mage {
 						Failed to setup the index buffer of the primitive batch 
 						mesh.
 		 */
-		explicit PrimitiveBatchMesh(ID3D11Device5 *device, 
+		explicit PrimitiveBatchMesh(ID3D11Device3 *device, 
 			                        size_t nb_vertices,
 			                        const std::vector< IndexT > &indices,
 			                        D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
@@ -188,7 +188,7 @@ namespace mage {
 						Failed to setup the vertex buffer of this primitive 
 						batch mesh.
 		 */
-		void SetupVertexBuffer(ID3D11Device5 *device, size_t nb_vertices);
+		void SetupVertexBuffer(ID3D11Device3 *device, size_t nb_vertices);
 
 		/**
 		 Sets up the index buffer of this primitive batch mesh.
@@ -203,7 +203,7 @@ namespace mage {
 						Failed to setup the index buffer of this primitive 
 						batch mesh.
 		 */
-		void SetupIndexBuffer(ID3D11Device5 *device, 
+		void SetupIndexBuffer(ID3D11Device3 *device, 
 			                  const std::vector< IndexT > &indices);
 	};
 }

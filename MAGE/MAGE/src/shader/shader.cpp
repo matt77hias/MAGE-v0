@@ -23,7 +23,7 @@ namespace mage {
 			           nb_input_elements) {}
 
 	VertexShader::VertexShader(wstring guid, 
-		                       ID3D11Device5 *device,
+		                       ID3D11Device3 *device,
 		                       const CompiledShader &compiled_shader, 
 		                       const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 		                       size_t nb_input_elements)
@@ -41,7 +41,7 @@ namespace mage {
 	VertexShader &VertexShader
 		::operator=(VertexShader &&vertex_shader) noexcept = default;
 	
-	void VertexShader::SetupShader(ID3D11Device5 *device, 
+	void VertexShader::SetupShader(ID3D11Device3 *device, 
 		                           const CompiledShader &compiled_shader,
 		                           const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 		                           size_t nb_input_elements) {

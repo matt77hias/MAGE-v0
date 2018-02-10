@@ -13,7 +13,7 @@
 #include "shader\shading.hpp"
 #include "input\input.hpp"
 
-IMGUI_API bool        ImGui_ImplDX11_Init(void * hwnd, ID3D11Device5* device, ID3D11DeviceContext4* device_context);
+IMGUI_API bool        ImGui_ImplDX11_Init(void * hwnd, ID3D11Device3* device, ID3D11DeviceContext4* device_context);
 IMGUI_API void        ImGui_ImplDX11_Shutdown();
 IMGUI_API void        ImGui_ImplDX11_NewFrame();
 

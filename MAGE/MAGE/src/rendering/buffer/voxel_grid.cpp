@@ -21,20 +21,20 @@ namespace mage {
 	VoxelGrid::VoxelGrid(size_t resolution)
 		: VoxelGrid(Pipeline::GetDevice(), resolution) {}
 
-	VoxelGrid::VoxelGrid(ID3D11Device5 *device, size_t resolution)
+	VoxelGrid::VoxelGrid(ID3D11Device3 *device, size_t resolution)
 		: m_resolution(resolution) {
 
 		SetupVoxelGrid(device);
 	}
 
-	void VoxelGrid::SetupVoxelGrid(ID3D11Device5 *device) {
+	void VoxelGrid::SetupVoxelGrid(ID3D11Device3 *device) {
 		Assert(device);
 
 		SetupStructuredBuffer(device);
 		SetupTexture(device);
 	}
 
-	void VoxelGrid::SetupStructuredBuffer(ID3D11Device5 *device) {
+	void VoxelGrid::SetupStructuredBuffer(ID3D11Device3 *device) {
 		Assert(device);
 
 		const size_t nb_voxels = m_resolution * m_resolution * m_resolution;
@@ -94,7 +94,7 @@ namespace mage {
 		}
 	}
 
-	void VoxelGrid::SetupTexture(ID3D11Device5 *device) {
+	void VoxelGrid::SetupTexture(ID3D11Device3 *device) {
 		Assert(device);
 
 		ComPtr< ID3D11Texture3D > texture;

@@ -19,14 +19,14 @@ namespace mage {
 		: ConstantBuffer(Pipeline::GetDevice()) {}
 
 	template< typename DataT >
-	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device5 *device)
+	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device3 *device)
 		: m_buffer() {
 
 		SetupConstantBuffer(device);
 	}
 
 	template< typename DataT >
-	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device5 *device) {
+	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device3 *device) {
 		Assert(device);
 
 		const HRESULT result = CreateDynamicConstantBuffer< DataT >(

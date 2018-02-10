@@ -80,7 +80,7 @@ namespace mage {
 						Failed to initialize the model descriptor.
 		 */
 		template< typename VertexT, typename IndexT >
-		explicit ModelDescriptor(wstring fname, ID3D11Device5 *device,
+		explicit ModelDescriptor(wstring fname, ID3D11Device3 *device,
 			const MeshDescriptor< VertexT, IndexT > &desc 
 			    = MeshDescriptor< VertexT, IndexT >(),
 			bool export_as_MDL = false);

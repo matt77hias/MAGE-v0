@@ -57,7 +57,7 @@ namespace mage {
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
-		explicit RenderingOutputManager(ID3D11Device5 *device, 
+		explicit RenderingOutputManager(ID3D11Device3 *device, 
 			                            U32 width, 
 			                            U32 height, 
 			                            AADescriptor desc);
@@ -204,12 +204,12 @@ namespace mage {
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 
-		void SetupBuffers(ID3D11Device5 *device, 
+		void SetupBuffers(ID3D11Device3 *device, 
 			              U32 width, 
 			              U32 height, 
 			              AADescriptor desc);
 
-		void SetupBuffer(ID3D11Device5 *device, 
+		void SetupBuffer(ID3D11Device3 *device, 
 			             U32 width, 
 			             U32 height, 
 			             U32 nb_samples, 
@@ -218,7 +218,7 @@ namespace mage {
 			             ID3D11RenderTargetView **rtv, 
 			             ID3D11UnorderedAccessView **uav);
 
-		void SetupDepthBuffer(ID3D11Device5 *device, 
+		void SetupDepthBuffer(ID3D11Device3 *device, 
 			                  U32 width, 
 			                  U32 height, 
 			                  U32 nb_samples);

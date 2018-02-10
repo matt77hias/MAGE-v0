@@ -100,7 +100,7 @@ namespace mage {
 		: SpriteFont(std::move(fname), Pipeline::GetDevice(), desc) {}
 
 	SpriteFont::SpriteFont(wstring fname, 
-		                   ID3D11Device5 *device, 
+		                   ID3D11Device3 *device, 
 		                   const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(std::move(fname)), 
 		m_texture_srv(), 

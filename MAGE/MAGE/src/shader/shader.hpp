@@ -78,7 +78,7 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		*/
 		explicit VertexShader(wstring guid, 
-			                  ID3D11Device5 *device, 
+			                  ID3D11Device3 *device, 
 			                  const CompiledShader &compiled_shader, 
 			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			                  size_t nb_input_elements);
@@ -169,7 +169,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(ID3D11Device5 *device,
+		void SetupShader(ID3D11Device3 *device,
 			             const CompiledShader &compiled_shader,
 			             const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			             size_t nb_input_elements);
@@ -242,7 +242,7 @@ namespace mage {
 						Failed to initialize this shader.
 		 */
 		explicit Shader(wstring guid, 
-			            ID3D11Device5 *device,
+			            ID3D11Device3 *device,
 			            const CompiledShader &compiled_shader);
 		
 		/**
@@ -319,7 +319,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this shader.
 		 */
-		void SetupShader(ID3D11Device5 *device, 
+		void SetupShader(ID3D11Device3 *device, 
 			             const CompiledShader &compiled_shader);
 		
 		//---------------------------------------------------------------------

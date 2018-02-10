@@ -298,7 +298,7 @@ namespace
 
 
     //---------------------------------------------------------------------------------
-    HRESULT CreateTextureFromWIC(_In_ ID3D11Device5* d3dDevice,
+    HRESULT CreateTextureFromWIC(_In_ ID3D11Device3* d3dDevice,
         _In_opt_ ID3D11DeviceContext4* d3dContext,
         _In_ IWICBitmapFrameDecode *frame,
         _In_ size_t maxsize,
@@ -676,7 +676,7 @@ namespace
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device3* d3dDevice,
     const uint8_t* wicData,
     size_t wicDataSize,
     ID3D11Resource** texture,
@@ -689,7 +689,7 @@ HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device3* d3dDevice,
     ID3D11DeviceContext4* d3dContext,
     const uint8_t* wicData,
     size_t wicDataSize,
@@ -703,7 +703,7 @@ HRESULT DirectX::CreateWICTextureFromMemory(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device3* d3dDevice,
     const uint8_t* wicData,
     size_t wicDataSize,
     size_t maxsize,
@@ -721,7 +721,7 @@ HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device3* d3dDevice,
     ID3D11DeviceContext4* d3dContext,
     const uint8_t* wicData,
     size_t wicDataSize,
@@ -798,7 +798,7 @@ HRESULT DirectX::CreateWICTextureFromMemoryEx(ID3D11Device5* d3dDevice,
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device3* d3dDevice,
     const wchar_t* fileName,
     ID3D11Resource** texture,
     ID3D11ShaderResourceView** textureView,
@@ -810,7 +810,7 @@ HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device3* d3dDevice,
     ID3D11DeviceContext4* d3dContext,
     const wchar_t* fileName,
     ID3D11Resource** texture,
@@ -823,7 +823,7 @@ HRESULT DirectX::CreateWICTextureFromFile(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromFileEx(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromFileEx(ID3D11Device3* d3dDevice,
     const wchar_t* fileName,
     size_t maxsize,
     D3D11_USAGE usage,
@@ -840,7 +840,7 @@ HRESULT DirectX::CreateWICTextureFromFileEx(ID3D11Device5* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateWICTextureFromFileEx(ID3D11Device5* d3dDevice,
+HRESULT DirectX::CreateWICTextureFromFileEx(ID3D11Device3* d3dDevice,
     ID3D11DeviceContext4* d3dContext,
     const wchar_t* fileName,
     size_t maxsize,

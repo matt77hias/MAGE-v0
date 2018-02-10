@@ -63,7 +63,7 @@ namespace mage {
 			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     DepthFormat format = DepthFormat::D16);
-		explicit ShadowMapBuffer(ID3D11Device5 *device,
+		explicit ShadowMapBuffer(ID3D11Device3 *device,
 			                     size_t nb_shadow_maps = 1u, 
 			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
@@ -118,11 +118,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void SetupViewport();
-		void SetupRasterizerState(ID3D11Device5 *device);
+		void SetupRasterizerState(ID3D11Device3 *device);
 
-		void SetupShadowMapBuffer(ID3D11Device5 *device,
+		void SetupShadowMapBuffer(ID3D11Device3 *device,
 			                      size_t nb_shadow_maps);
-		void SetupShadowMapArray(ID3D11Device5 *device,
+		void SetupShadowMapArray(ID3D11Device3 *device,
 			                     size_t nb_shadow_maps, 
 			                     DXGI_FORMAT texture_format,
 			                     DXGI_FORMAT dsv_format, 
@@ -162,7 +162,7 @@ namespace mage {
 			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         DepthFormat format = DepthFormat::D16);
-		explicit ShadowCubeMapBuffer(ID3D11Device5 *device,
+		explicit ShadowCubeMapBuffer(ID3D11Device3 *device,
 			                         size_t nb_shadow_cube_maps = 1u,
 			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
@@ -220,11 +220,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void SetupViewport();
-		void SetupRasterizerState(ID3D11Device5 *device);
+		void SetupRasterizerState(ID3D11Device3 *device);
 
-		void SetupShadowCubeMapBuffer(ID3D11Device5 *device,
+		void SetupShadowCubeMapBuffer(ID3D11Device3 *device,
 			                          size_t nb_shadow_cube_maps);
-		void SetupShadowCubeMapArray(ID3D11Device5 *device,
+		void SetupShadowCubeMapArray(ID3D11Device3 *device,
 			                         size_t nb_shadow_cube_maps, 
 			                         DXGI_FORMAT texture_format,
 			                         DXGI_FORMAT dsv_format, 

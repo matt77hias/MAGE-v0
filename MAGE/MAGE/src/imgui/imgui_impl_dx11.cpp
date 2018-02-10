@@ -13,7 +13,7 @@ static INT64                    g_Time = 0;
 static INT64                    g_TicksPerSecond = 0;
 
 static HWND                     g_hWnd = 0;
-static ID3D11Device5*           g_pd3dDevice = NULL;
+static ID3D11Device3*           g_pd3dDevice = NULL;
 static ID3D11DeviceContext4*    g_pd3dDeviceContext = NULL;
 static ID3D11Buffer*            g_pVB = NULL;
 static ID3D11Buffer*            g_pIB = NULL;
@@ -518,7 +518,7 @@ void    ImGui_ImplDX11_InvalidateDeviceObjects()
     if (g_pVertexShaderBlob) { g_pVertexShaderBlob->Release(); g_pVertexShaderBlob = NULL; }
 }
 
-bool    ImGui_ImplDX11_Init(void * hwnd, ID3D11Device5* device, ID3D11DeviceContext4* device_context)
+bool    ImGui_ImplDX11_Init(void * hwnd, ID3D11Device3* device, ID3D11DeviceContext4* device_context)
 {
     g_hWnd = (HWND)hwnd;
     g_pd3dDevice = device;

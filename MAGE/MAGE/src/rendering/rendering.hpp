@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <d3d11_4.h>
+#include <d3d11_3.h>
 #include <DXGI1_5.h>
 
 #pragma endregion
@@ -34,7 +34,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	using DXGIAdapter   = IDXGIAdapter3;
-	using DXGIOutput    = IDXGIOutput5;
+	using DXGIAdapter = IDXGIAdapter3;
+	using DXGIOutput = IDXGIOutput5;
 	using DXGISwapChain = IDXGISwapChain4;
+
+	using D3D11Device = ID3D11Device3;
+	using D3D11DeviceContext = ID3D11DeviceContext4;
 }

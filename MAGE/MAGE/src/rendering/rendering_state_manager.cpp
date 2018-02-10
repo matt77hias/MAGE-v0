@@ -35,7 +35,7 @@ namespace mage {
 		return RenderingManager::Get()->GetRenderingStateManager();
 	}
 
-	RenderingStateManager::RenderingStateManager(ID3D11Device5 *device)
+	RenderingStateManager::RenderingStateManager(ID3D11Device3 *device)
 		: m_blend_states{}, m_depth_stencil_states{}, 
 		m_rasterizer_states{}, m_sampler_states{} {
 
@@ -47,7 +47,7 @@ namespace mage {
 
 	RenderingStateManager::~RenderingStateManager() = default;
 
-	void RenderingStateManager::SetupRenderingStates(ID3D11Device5 *device) {
+	void RenderingStateManager::SetupRenderingStates(ID3D11Device3 *device) {
 		Assert(device);
 
 		// Setup the blend states.
@@ -60,7 +60,7 @@ namespace mage {
 		SetupSamplerStates(device);
 	}
 
-	void RenderingStateManager::SetupBlendStates(ID3D11Device5 *device) {
+	void RenderingStateManager::SetupBlendStates(ID3D11Device3 *device) {
 		{
 			const HRESULT result = CreateOpaqueBlendState(
 				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Opaque));
@@ -111,7 +111,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device5 *device) {
+	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device3 *device) {
 		{
 			const HRESULT result = CreateDepthNoneDepthStencilState(
 				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthNone));
@@ -199,7 +199,7 @@ namespace mage {
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
-	void RenderingStateManager::SetupRasterizerStates(ID3D11Device5 *device) {
+	void RenderingStateManager::SetupRasterizerStates(ID3D11Device3 *device) {
 		{
 			const HRESULT result = CreateCullNoneRasterizerState(
 				device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::NoCulling));
@@ -233,7 +233,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupSamplerStates(ID3D11Device5 *device) {
+	void RenderingStateManager::SetupSamplerStates(ID3D11Device3 *device) {
 		{
 			const HRESULT result = CreatePointWrapSamplerState(
 				device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PointWrap));

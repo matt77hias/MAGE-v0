@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] ID3D11Device5 *Pipeline::GetDevice() noexcept {
+	[[nodiscard]] ID3D11Device3 *Pipeline::GetDevice() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDevice();

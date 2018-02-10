@@ -138,19 +138,19 @@ namespace mage {
 	}
 	
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
-		ComPtr< IDXGIFactory1 > factory;
+		ComPtr< IDXGIFactory > factory;
 		{
-			const HRESULT result = CreateDXGIFactory1(
-				__uuidof(IDXGIFactory1), (void **)factory.GetAddressOf());
-			ThrowIfFailed(result, "IDXGIFactory1 creation failed: %08X.", result);
+			const HRESULT result = CreateDXGIFactory(
+				__uuidof(IDXGIFactory), (void **)factory.GetAddressOf());
+			ThrowIfFailed(result, "IDXGIFactory creation failed: %08X.", result);
 		}
 
-		ComPtr< IDXGIAdapter1 > selected_adapter;
-		ComPtr< IDXGIOutput >   selected_output;
-		ComPtr< IDXGIAdapter1 > iterated_adapter;
+		ComPtr< IDXGIAdapter > selected_adapter;
+		ComPtr< IDXGIOutput  > selected_output;
+		ComPtr< IDXGIAdapter > iterated_adapter;
 		SIZE_T max_vram = 0;
 		for (U32 i = 0u; 
-			 factory->EnumAdapters1(i, iterated_adapter.GetAddressOf()) 
+			 factory->EnumAdapters(i, iterated_adapter.GetAddressOf()) 
 			 != DXGI_ERROR_NOT_FOUND; ++i) {
 			
 			// Get the primary IDXGIOutput.
@@ -159,6 +159,10 @@ namespace mage {
 				const HRESULT result = iterated_adapter
 					->EnumOutputs(0u, iterated_output.GetAddressOf());
 				if (FAILED(result)) {
+					// EnumAdapters order:
+					// 1. The adapter with the primary desktop output.
+					// 2. The other adapters with outputs.
+					// 3. The adapters without outputs.
 					break;
 				}
 			}

@@ -314,7 +314,7 @@ namespace mage {
 		/**
 		 A pointer to the swap chain.
 		 */
-		ComPtr< IDXGISwapChain4 > m_swap_chain;
+		ComPtr< DXGISwapChain > m_swap_chain;
 		
 		/**
 		 A pointer to the render target view of the back buffer of this swap 

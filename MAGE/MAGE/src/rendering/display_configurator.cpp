@@ -96,8 +96,8 @@ namespace mage {
 
 	}
 
-	DisplayConfigurator::DisplayConfigurator(ComPtr< IDXGIAdapter4 > adapter, 
-		                                     ComPtr< IDXGIOutput6 > output,
+	DisplayConfigurator::DisplayConfigurator(ComPtr< DXGIAdapter > adapter, 
+		                                     ComPtr< DXGIOutput > output,
 		                                     DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format),
 		m_display_configuration(), 
@@ -138,56 +138,37 @@ namespace mage {
 	}
 	
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
-		// Get the IDXGIFactory5.
-		ComPtr< IDXGIFactory5 > factory;
+		ComPtr< IDXGIFactory1 > factory;
 		{
 			const HRESULT result = CreateDXGIFactory1(
-				__uuidof(IDXGIFactory5), (void **)factory.GetAddressOf());
-			ThrowIfFailed(result, 
-				"IDXGIFactory5 creation failed: %08X.", result);
+				__uuidof(IDXGIFactory1), (void **)factory.GetAddressOf());
+			ThrowIfFailed(result, "IDXGIFactory1 creation failed: %08X.", result);
 		}
 
-		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
-		// The IDXGIAdapter represents a display subsystem (including one or more 
-		// GPUs, DACs and video memory).
-		ComPtr< IDXGIAdapter1 > adapter1;
-		// The IDXGIOutput represents an adapter output (such as a monitor).
-		ComPtr< IDXGIOutput > output;
+		ComPtr< IDXGIAdapter1 > selected_adapter;
+		ComPtr< IDXGIOutput >   selected_output;
+		ComPtr< IDXGIAdapter1 > iterated_adapter;
 		SIZE_T max_vram = 0;
-		for (U32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
-			             != DXGI_ERROR_NOT_FOUND; ++i) {
-
-			// Get the IDXGIAdapter4.
-			ComPtr< IDXGIAdapter4 > adapter4;
-			{
-				const HRESULT result = adapter1.As(&adapter4);
-				ThrowIfFailed(result,
-					"IDXGIAdapter4 creation failed: %08X.", result);
-			}
-
+		for (U32 i = 0u; 
+			 factory->EnumAdapters1(i, iterated_adapter.GetAddressOf()) 
+			 != DXGI_ERROR_NOT_FOUND; ++i) {
+			
 			// Get the primary IDXGIOutput.
+			ComPtr< IDXGIOutput > iterated_output;
 			{
-				const HRESULT result 
-					= adapter4->EnumOutputs(0u, output.GetAddressOf());
+				const HRESULT result = iterated_adapter
+					->EnumOutputs(0u, iterated_output.GetAddressOf());
 				if (FAILED(result)) {
-					continue;
+					break;
 				}
 			}
 
-			// Get the IDXGIOutput6.
-			ComPtr< IDXGIOutput6 > output6;
+			// Get the DXGI_ADAPTER_DESC .
+			DXGI_ADAPTER_DESC desc;
 			{
-				const HRESULT result = output.As(&output6);
+				const HRESULT result = iterated_adapter->GetDesc(&desc);
 				ThrowIfFailed(result,
-					"IDXGIOutput6 creation failed: %08X.", result);
-			}
-
-			// Get the DXGI_ADAPTER_DESC3.
-			DXGI_ADAPTER_DESC3 desc;
-			{
-				const HRESULT result = adapter4->GetDesc3(&desc);
-				ThrowIfFailed(result,
-					"DXGI_ADAPTER_DESC3 retrieval failed: %08X.", result);
+					"DXGI_ADAPTER_DESC retrieval failed: %08X.", result);
 			}
 
 			const auto vram = desc.DedicatedVideoMemory;
@@ -195,9 +176,21 @@ namespace mage {
 				continue;
 			}
 
-			m_adapter = adapter4;
-			m_output  = output6;
-			max_vram  = vram;
+			selected_adapter = iterated_adapter;
+			selected_output  = iterated_output;
+			max_vram         = vram;
+		}
+
+		// Get the DXGIAdapter.
+		{
+			const HRESULT result = selected_adapter.As(&m_adapter);
+			ThrowIfFailed(result, "DXGIAdapter creation failed: %08X.", result);
+		}
+
+		// Get the DXGIOutput.
+		{
+			const HRESULT result = selected_output.As(&m_output);
+			ThrowIfFailed(result, "DXGIOutput creation failed: %08X.", result);
 		}
 	}
 	
@@ -218,15 +211,13 @@ namespace mage {
 		
 		// Get the display modes that match the requested format and other 
 		// input options.
-		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(
-			MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
+		auto dxgi_mode_descs = MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes);
 		{
 			const HRESULT result = m_output->GetDisplayModeList1(m_pixel_format, 
 				                                                 flags, 
 				                                                 &nb_display_modes, 
 				                                                 dxgi_mode_descs.get());
-			ThrowIfFailed(result,
-				"Failed to get the display modes: %08X.", result);
+			ThrowIfFailed(result, "Failed to get the display modes: %08X.", result);
 		}
 
 		// Enumerate the display modes.

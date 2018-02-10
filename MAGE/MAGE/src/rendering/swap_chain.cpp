@@ -71,15 +71,13 @@ namespace mage {
 	}
 
 	void SwapChain::CreateSwapChain() {
-		ComPtr< IDXGIFactory5 > dxgi_factory5;
+		ComPtr< IDXGIFactory2 > dxgi_factory;
 		{
-			// Get the IDXGIFactory5.
 			const HRESULT result 
 				= m_display_configuration->GetAdapter()->GetParent(
-					__uuidof(IDXGIFactory5), 
-					(void **)dxgi_factory5.GetAddressOf());
-			ThrowIfFailed(result, 
-				"IDXGIFactory5 creation failed: %08X.", result);
+					__uuidof(IDXGIFactory2), 
+					(void **)dxgi_factory.GetAddressOf());
+			ThrowIfFailed(result, "IDXGIFactory2 creation failed: %08X.", result);
 		}
 	
 		// DXGI_MWA_NO_WINDOW_CHANGES: 
@@ -91,10 +89,10 @@ namespace mage {
 		//
 		// DXGI_MWA_NO_PRINT_SCREEN: 
 		// Prevent DXGI from responding to a print-screen key.
-		dxgi_factory5->MakeWindowAssociation(m_window, 
-			                                 DXGI_MWA_NO_WINDOW_CHANGES 
-			                               | DXGI_MWA_NO_ALT_ENTER 
-			                               | DXGI_MWA_NO_PRINT_SCREEN);
+		dxgi_factory->MakeWindowAssociation(m_window, 
+			                                DXGI_MWA_NO_WINDOW_CHANGES 
+			                              | DXGI_MWA_NO_ALT_ENTER 
+			                              | DXGI_MWA_NO_PRINT_SCREEN);
 
 		// Create a swap chain descriptor.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
@@ -111,21 +109,18 @@ namespace mage {
 		swap_chain_fullscreen_desc.RefreshRate = m_display_configuration->GetDisplayRefreshRate();
 		swap_chain_fullscreen_desc.Windowed    = TRUE;
 
-		ComPtr< IDXGISwapChain1 > swap_chain1;
+		ComPtr< IDXGISwapChain1 > swap_chain;
 		{
 			// Get the IDXGISwapChain1.
-			const HRESULT result = dxgi_factory5->CreateSwapChainForHwnd(
-				m_device, m_window,
-				&swap_chain_desc, &swap_chain_fullscreen_desc, nullptr,
-				swap_chain1.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, 
-				"IDXGISwapChain1 creation failed: %08X.", result);
+			const HRESULT result = dxgi_factory->CreateSwapChainForHwnd(
+				m_device, m_window, &swap_chain_desc, &swap_chain_fullscreen_desc, 
+				nullptr, swap_chain.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: %08X.", result);
 		}
 		{
-			// Get the IDXGISwapChain4.
-			const HRESULT result = swap_chain1.As(&m_swap_chain);
-			ThrowIfFailed(result,
-				"IDXGISwapChain4 creation failed: %08X.", result);
+			// Get the DXGISwapChain.
+			const HRESULT result = swap_chain.As(&m_swap_chain);
+			ThrowIfFailed(result, "DXGISwapChain creation failed: %08X.", result);
 		}
 
 		// Set to windowed mode.
@@ -172,8 +167,7 @@ namespace mage {
 		{
 			// Access the only back buffer of the swap-chain.
 			const HRESULT result 
-				= m_swap_chain->GetBuffer(0u, 
-				                          __uuidof(ID3D11Texture2D),
+				= m_swap_chain->GetBuffer(0u, __uuidof(ID3D11Texture2D),
 				                          (void **)back_buffer.GetAddressOf());
 			ThrowIfFailed(result,
 				"Back buffer texture creation failed: %08X.", result);

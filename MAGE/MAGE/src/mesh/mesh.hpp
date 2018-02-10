@@ -134,7 +134,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindMesh(ID3D11DeviceContext4 *device_context) const noexcept {
+		void BindMesh(D3D11DeviceContext *device_context) const noexcept {
 			BindMesh(device_context, m_primitive_topology);
 		}
 		
@@ -150,7 +150,7 @@ namespace mage {
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(ID3D11DeviceContext4 *device_context, 
+		void BindMesh(D3D11DeviceContext *device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			Pipeline::IA::BindVertexBuffer(device_context, 
@@ -170,7 +170,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void Draw(ID3D11DeviceContext4 *device_context) const noexcept {
+		void Draw(D3D11DeviceContext *device_context) const noexcept {
 			Pipeline::DrawIndexed(device_context,
 				                  static_cast< U32 >(m_nb_indices), 
 				                  0u);
@@ -187,7 +187,7 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
-		void Draw(ID3D11DeviceContext4 *device_context,
+		void Draw(D3D11DeviceContext *device_context,
 			      size_t start_index, 
 			      size_t nb_indices) const noexcept {
 

@@ -20,8 +20,8 @@ namespace mage {
 		: SpriteBatch(Pipeline::GetDevice(), 
 			          Pipeline::GetImmediateDeviceContext()) {}
 
-	SpriteBatch::SpriteBatch(ID3D11Device3 *device, 
-		                     ID3D11DeviceContext4 *device_context)
+	SpriteBatch::SpriteBatch(D3D11Device *device, 
+		                     D3D11DeviceContext *device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
 		m_mesh_position(0u),

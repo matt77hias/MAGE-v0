@@ -145,7 +145,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindMesh(ID3D11DeviceContext4 *device_context) const noexcept {
+		void BindMesh(D3D11DeviceContext *device_context) const noexcept {
 			m_mesh->BindMesh(device_context);
 		}
 
@@ -158,7 +158,7 @@ namespace mage {
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(ID3D11DeviceContext4 *device_context, 
+		void BindMesh(D3D11DeviceContext *device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			m_mesh->BindMesh(device_context, topology);
@@ -171,7 +171,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void Draw(ID3D11DeviceContext4 *device_context) const noexcept {
+		void Draw(D3D11DeviceContext *device_context) const noexcept {
 			m_mesh->Draw(device_context, m_start_index, m_nb_indices);
 		}
 

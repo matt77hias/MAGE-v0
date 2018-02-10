@@ -78,7 +78,7 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		*/
 		explicit VertexShader(wstring guid, 
-			                  ID3D11Device3 *device, 
+			                  D3D11Device *device, 
 			                  const CompiledShader &compiled_shader, 
 			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			                  size_t nb_input_elements);
@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext4 *device_context) const noexcept {
+		void BindShader(D3D11DeviceContext *device_context) const noexcept {
 			Pipeline::IA::BindInputLayout(device_context, m_vertex_layout.Get());
 			Pipeline::VS::BindShader(device_context, m_vertex_shader.Get());
 		}
@@ -169,7 +169,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(ID3D11Device3 *device,
+		void SetupShader(D3D11Device *device,
 			             const CompiledShader &compiled_shader,
 			             const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			             size_t nb_input_elements);
@@ -242,7 +242,7 @@ namespace mage {
 						Failed to initialize this shader.
 		 */
 		explicit Shader(wstring guid, 
-			            ID3D11Device3 *device,
+			            D3D11Device *device,
 			            const CompiledShader &compiled_shader);
 		
 		/**
@@ -300,7 +300,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindShader(D3D11DeviceContext *device_context) const noexcept;
 
 	private:
 
@@ -319,7 +319,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this shader.
 		 */
-		void SetupShader(ID3D11Device3 *device, 
+		void SetupShader(D3D11Device *device, 
 			             const CompiledShader &compiled_shader);
 		
 		//---------------------------------------------------------------------

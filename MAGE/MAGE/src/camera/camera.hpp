@@ -365,7 +365,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindViewport(ID3D11DeviceContext4 *device_context) const noexcept {
+		void BindViewport(D3D11DeviceContext *device_context) const noexcept {
 			GetViewport().BindViewport(device_context);
 		}
 
@@ -376,7 +376,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindSSViewport(ID3D11DeviceContext4 *device_context) const noexcept {
+		void BindSSViewport(D3D11DeviceContext *device_context) const noexcept {
 			GetSSViewport().BindViewport(device_context);
 		}
 

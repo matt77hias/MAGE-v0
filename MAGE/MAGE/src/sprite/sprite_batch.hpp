@@ -191,7 +191,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		SpriteBatch(ID3D11Device3 *device, ID3D11DeviceContext4 *device_context);
+		SpriteBatch(D3D11Device *device, D3D11DeviceContext *device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -378,7 +378,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this sprite batch.
 		 */
-		ID3D11DeviceContext4 * const m_device_context;
+		D3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch for 

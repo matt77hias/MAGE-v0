@@ -24,7 +24,7 @@ namespace mage {
 	SpriteBatchMesh::SpriteBatchMesh()
 		: SpriteBatchMesh(Pipeline::GetDevice()) {}
 
-	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device3 *device) 
+	SpriteBatchMesh::SpriteBatchMesh(D3D11Device *device) 
 		: PrimitiveBatchMesh(device,
 		                     MaxVerticesPerBatch(),
 		                     GenerateIndices()) {}

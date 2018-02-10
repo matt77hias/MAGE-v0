@@ -210,7 +210,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this depth pass.
 		 */
-		ID3D11DeviceContext4 * const m_device_context;
+		D3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the vertex shader of this depth pass.

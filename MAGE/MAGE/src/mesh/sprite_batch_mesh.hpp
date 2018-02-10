@@ -129,7 +129,7 @@ namespace mage {
 						Failed to setup the index buffer of the sprite batch 
 						mesh.
 		 */
-		explicit SpriteBatchMesh(ID3D11Device3 *device);
+		explicit SpriteBatchMesh(D3D11Device *device);
 
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.

@@ -82,7 +82,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
-		explicit StaticMesh(ID3D11Device3 *device,
+		explicit StaticMesh(D3D11Device *device,
 			                std::vector< VertexT > vertices,
 			                std::vector< IndexT >  indices,
 			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
@@ -148,7 +148,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup the vertex buffer of this static mesh.
 		 */
-		void SetupVertexBuffer(ID3D11Device3 *device);
+		void SetupVertexBuffer(D3D11Device *device);
 
 		/**
 		 Sets up the index buffer of this static mesh.
@@ -159,7 +159,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup the index buffer of this static mesh.
 		 */
-		void SetupIndexBuffer(ID3D11Device3 *device);
+		void SetupIndexBuffer(D3D11Device *device);
 
 		//---------------------------------------------------------------------
 		// Member Variables

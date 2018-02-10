@@ -29,7 +29,7 @@ namespace mage::loader {
 					Failed to import the texture from file.
 	 */
 	void ImportTextureFromFile(const wstring &fname, 
-		                       ID3D11Device3 *device, 
+		                       D3D11Device *device, 
 		                       ID3D11ShaderResourceView **texture_srv);
 
 	/**
@@ -47,6 +47,6 @@ namespace mage::loader {
 					Failed to export the texture to file.
 	 */
 	void ExportTextureToFile(const wstring &fname, 
-		                     ID3D11DeviceContext4 *device_context, 
+		                     D3D11DeviceContext *device_context, 
 		                     ID3D11Resource *texture);
 }

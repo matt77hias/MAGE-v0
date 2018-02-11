@@ -55,7 +55,7 @@ namespace mage {
 		 */
 		explicit DisplayConfiguration(ComPtr< DXGIAdapter > adapter,
 			                          ComPtr< DXGIOutput >  output,
-			                          const DXGI_MODE_DESC1 &display_mode)
+			                          const DXGI_MODE_DESC &display_mode)
 			: m_adapter(std::move(adapter)),
 			m_output(std::move(output)),
 			m_display_mode(display_mode),
@@ -235,7 +235,7 @@ namespace mage {
 
 		 @return		The display mode of this display configuration.
 		 */
-		[[nodiscard]] const DXGI_MODE_DESC1 &GetDisplayMode() const noexcept {
+		[[nodiscard]] const DXGI_MODE_DESC &GetDisplayMode() const noexcept {
 			return m_display_mode;
 		}
 		
@@ -248,7 +248,7 @@ namespace mage {
 		 @param[in]		display_mode
 						A reference to the display mode.
 		 */
-		void SetDisplayMode(const DXGI_MODE_DESC1 &display_mode) noexcept {
+		void SetDisplayMode(const DXGI_MODE_DESC &display_mode) noexcept {
 			m_display_mode = display_mode;
 		}
 
@@ -445,7 +445,7 @@ namespace mage {
 		/**
 		 The display mode of this display configuration.
 		 */
-		DXGI_MODE_DESC1 m_display_mode;
+		DXGI_MODE_DESC m_display_mode;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Anti-Aliasing

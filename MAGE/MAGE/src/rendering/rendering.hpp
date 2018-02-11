@@ -15,7 +15,7 @@
 #pragma region
 
 #include <d3d11.h>
-#include <DXGI1_2.h>
+#include <DXGI.h>
 
 #pragma endregion
 
@@ -42,7 +42,7 @@ namespace mage {
 	/**
 	 The type of DXGI output.
 	 */
-	using DXGIOutput = IDXGIOutput1;
+	using DXGIOutput = IDXGIOutput;
 
 	/**
 	 The type of DXGI swap chain.

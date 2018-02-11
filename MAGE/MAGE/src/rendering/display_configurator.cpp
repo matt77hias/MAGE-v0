@@ -131,7 +131,7 @@ namespace mage {
 					@c false otherwise.
 	 */
 	[[nodiscard]] static inline bool 
-		RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
+		RejectDisplayMode(const DXGI_MODE_DESC &display_mode_desc) noexcept {
 		
 		return (display_mode_desc.Width  < 512u) 
 			|| (display_mode_desc.Height < 512u);
@@ -205,27 +205,27 @@ namespace mage {
 		// and other input options.
 		U32 nb_display_modes;
 		{
-			const HRESULT result = m_output->GetDisplayModeList1(m_pixel_format, 
-					                                             flags, 
-					                                             &nb_display_modes, 
-					                                             nullptr);
+			const HRESULT result = m_output->GetDisplayModeList(m_pixel_format, 
+					                                            flags, 
+					                                            &nb_display_modes, 
+					                                            nullptr);
 			ThrowIfFailed(result,
 				"Failed to get the number of display modes: %08X.", result);
 		}
 		
 		// Get the display modes that match the requested format and other 
 		// input options.
-		auto dxgi_mode_descs = MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes);
+		auto dxgi_mode_descs = MakeUnique< DXGI_MODE_DESC[] >(nb_display_modes);
 		{
-			const HRESULT result = m_output->GetDisplayModeList1(m_pixel_format, 
-				                                                 flags, 
-				                                                 &nb_display_modes, 
-				                                                 dxgi_mode_descs.get());
+			const HRESULT result = m_output->GetDisplayModeList(m_pixel_format, 
+				                                                flags, 
+				                                                &nb_display_modes, 
+				                                                dxgi_mode_descs.get());
 			ThrowIfFailed(result, "Failed to get the display modes: %08X.", result);
 		}
 
 		// Enumerate the display modes.
-		m_display_modes = std::vector< DXGI_MODE_DESC1 >();
+		m_display_modes = std::vector< DXGI_MODE_DESC >();
 		for (U32 mode = 0u; mode < nb_display_modes; ++mode) {
 			
 			// Reject small display modes.
@@ -267,7 +267,7 @@ namespace mage {
 					the given display format descriptor.
 	 */
 	[[nodiscard]] static inline size_t 
-		ConvertResolution(const DXGI_MODE_DESC1 &desc) noexcept {
+		ConvertResolution(const DXGI_MODE_DESC &desc) noexcept {
 
 		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
 	}
@@ -282,7 +282,7 @@ namespace mage {
 					the given display format descriptor.
 	 */
 	[[nodiscard]] static inline size_t 
-		ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
+		ConvertRefreshRate(const DXGI_MODE_DESC &desc) noexcept {
 
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
@@ -452,7 +452,7 @@ namespace mage {
 				const auto selected_resolution
 					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 				
-				const DXGI_MODE_DESC1 *selected_diplay_mode 
+				const DXGI_MODE_DESC *selected_diplay_mode 
 					= nullptr;
 				for (const auto &display_mode : m_display_modes) {
 					

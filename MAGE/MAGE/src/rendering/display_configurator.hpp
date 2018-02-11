@@ -231,6 +231,6 @@ namespace mage {
 		 The enumerated display modes of this display 
 		 configurator.
 		 */
-		std::vector< DXGI_MODE_DESC1 > m_display_modes;
+		std::vector< DXGI_MODE_DESC > m_display_modes;
 	};
 }

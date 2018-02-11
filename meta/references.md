@@ -359,7 +359,9 @@ Uses:
 * [Adam Miles](https://github.com/AdamJMiles)
 * Adam_42
 * Ademola Thompson
+* All8Up
 * AthosVG
+* [Baldur Karlsson](https://github.com/baldurk)
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)

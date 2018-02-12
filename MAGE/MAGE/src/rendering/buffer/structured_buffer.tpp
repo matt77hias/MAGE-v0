@@ -88,8 +88,8 @@ namespace mage {
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-		BufferLock(device_context, m_buffer.Get(), 
-			       D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
+		BufferLock lock(device_context, m_buffer.Get(), 
+						D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
 			
 		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(DataT));
 	}

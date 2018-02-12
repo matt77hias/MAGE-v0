@@ -40,7 +40,7 @@
 //-----------------------------------------------------------------------------
 // UAV
 //-----------------------------------------------------------------------------
-RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_VOXEL_BUFFER);
+RW_STRUCTURED_BUFFER(voxel_grid, Voxel, SLOT_UAV_VOXEL_BUFFER);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
@@ -75,6 +75,6 @@ void PS(PSInputPositionNormalTexture input) {
 	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	// Store the encoded radiance and normal.
-	InterlockedMax(output[flat_index].encoded_L, EncodeRadiance(L));
-	InterlockedMax(output[flat_index].encoded_n, EncodeNormal(n_view));
+	InterlockedMax(voxel_grid[flat_index].encoded_L, EncodeRadiance(L));
+	InterlockedMax(voxel_grid[flat_index].encoded_n, EncodeNormal(n_view));
 }

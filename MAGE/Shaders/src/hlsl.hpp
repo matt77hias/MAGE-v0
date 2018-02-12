@@ -119,7 +119,7 @@
 #define SLOT_UAV_NORMAL                            1
 #define SLOT_UAV_DEPTH                             2
 
-#define SLOT_UAV_VOXEL_BUFFER                      1
-#define SLOT_UAV_VOXEL_TEXTURE                     2
+#define SLOT_UAV_VOXEL_BUFFER                      0
+#define SLOT_UAV_VOXEL_TEXTURE                     1
 
 #endif // MAGE_HEADER_HLSL

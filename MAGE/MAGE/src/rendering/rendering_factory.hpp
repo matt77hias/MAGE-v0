@@ -525,6 +525,20 @@ namespace mage {
 			                           F32 slope_scaled_depth_bias = 0.0f,
 		                               F32 depth_bias_clamp = 0.0f) noexcept;
 
+	/**
+	 Creates a counter-clockwise-culling (solid) voxelization rasterizer state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	state
+					A pointer to a pointer to the rasterizer state.
+	 */
+	[[nodiscard]] HRESULT 
+		CreateVoxelizationRasterizerState(ID3D11Device3 *device, 
+										  ID3D11RasterizerState2 **state) noexcept;
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

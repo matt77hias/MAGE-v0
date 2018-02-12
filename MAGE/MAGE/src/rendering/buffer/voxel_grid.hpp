@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
+#include "camera\viewport.hpp"
 
 #pragma endregion
 
@@ -31,6 +31,9 @@ namespace mage {
 			return m_resolution;
 		}
 
+		void BindViewport(D3D11DeviceContext *device_context) const noexcept {
+			m_viewport.BindViewport(device_context);
+		}
 		void BindBeginVoxelizationBuffer(
 			D3D11DeviceContext *device_context) const noexcept;
 		void BindEndVoxelizationBuffer(
@@ -48,6 +51,7 @@ namespace mage {
 		void SetupTexture(D3D11Device *device);
 
 		size_t m_resolution;
+		Viewport m_viewport;
 
 		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 		ComPtr< ID3D11UnorderedAccessView > m_buffer_uav;

@@ -5,7 +5,6 @@
 
 #include "rendering\buffer\voxel_grid.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "camera\viewport.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -22,7 +21,13 @@ namespace mage {
 		: VoxelGrid(Pipeline::GetDevice(), resolution) {}
 
 	VoxelGrid::VoxelGrid(D3D11Device *device, size_t resolution)
-		: m_resolution(resolution) {
+		: m_resolution(resolution), 
+		m_viewport(static_cast< F32 >(resolution), 
+				   static_cast< F32 >(resolution)),
+		m_buffer_srv(), 
+		m_buffer_uav(), 
+		m_texture_srv(), 
+		m_texture_uav() {
 
 		SetupVoxelGrid(device);
 	}
@@ -37,7 +42,7 @@ namespace mage {
 	void VoxelGrid::SetupStructuredBuffer(D3D11Device *device) {
 		Assert(device);
 
-		const size_t nb_voxels = m_resolution * m_resolution * m_resolution;
+		const auto nb_voxels = m_resolution * m_resolution * m_resolution;
 
 		ComPtr< ID3D11Buffer > buffer;
 		
@@ -54,7 +59,7 @@ namespace mage {
 			// CPU: no read + no write
 			buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
 			
-			UniquePtr< U8[] > data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
+			auto data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
 			memset(data.get(), 0, buffer_desc.ByteWidth);
 
 			D3D11_SUBRESOURCE_DATA init_data = {};
@@ -145,10 +150,6 @@ namespace mage {
 		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
 										  SLOT_UAV_VOXEL_BUFFER, 
 										  m_buffer_uav.Get());
-
-		const Viewport viewport(static_cast< F32 >(m_resolution), 
-								static_cast< F32 >(m_resolution));
-		viewport.BindViewport(device_context);
 	}
 
 	void VoxelGrid::BindEndVoxelizationBuffer(

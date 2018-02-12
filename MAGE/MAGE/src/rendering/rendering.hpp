@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <d3d11.h>
+#include <d3d11_3.h>
 #include <DXGI1_2.h>
 
 #pragma endregion
@@ -52,7 +52,7 @@ namespace mage {
 	/**
 	 The type of D3D11 device.
 	 */
-	using D3D11Device = ID3D11Device;
+	using D3D11Device = ID3D11Device3;
 
 	/**
 	 The type of D3D11 device context.

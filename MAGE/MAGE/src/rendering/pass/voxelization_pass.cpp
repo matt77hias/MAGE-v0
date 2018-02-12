@@ -68,7 +68,7 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateManager::Get()->BindVoxelizationRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
@@ -203,6 +203,7 @@ namespace mage {
 		SetupVoxelGrid(resolution);
 
 		m_voxel_grid->BindBeginVoxelizationBuffer(m_device_context);
+		m_voxel_grid->BindViewport(m_device_context);
 		Render(scene, world_to_projection, world_to_view, view_to_world, brdf);
 		m_voxel_grid->BindEndVoxelizationBuffer(m_device_context);
 

@@ -102,6 +102,7 @@ namespace mage {
 		buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
 		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
+		//TODO
 		buffer.m_voxel_grid_resolution         = 256u;
 		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
 		buffer.m_voxel_size                    = 1.0f;
@@ -319,9 +320,14 @@ namespace mage {
 		// Perform a voxelization pass.
 		//---------------------------------------------------------------------
 		if (vct) {
-			GetVoxelizationPass()->Render(scene, world_to_projection,
+			//TODO
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-128.0f, 128.0f, 
+																	   -128.0f, 128.0f, 
+																	   -128.0f, 128.0f);
+			const auto world_to_voxel = world_to_view * view_to_voxel;
+			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 128u);
+										  brdf, 256u);
 		}
 
 		// Restore the viewport.
@@ -372,11 +378,15 @@ namespace mage {
 		// Perform a voxelization pass.
 		//---------------------------------------------------------------------
 		if (vct) {
-			GetVoxelizationPass()->Render(scene, world_to_projection,
+			//TODO
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-128.0f, 128.0f,
+																	   -128.0f, 128.0f,
+																	   -128.0f, 128.0f);
+			const auto world_to_voxel = world_to_view * view_to_voxel;
+			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 128u);
+										  brdf, 256u);
 		}
-
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);

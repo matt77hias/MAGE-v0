@@ -50,7 +50,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		explicit RenderingStateManager(ID3D11Device *device);
+		explicit RenderingStateManager(D3D11Device *device);
 
 		/**
 		 Constructs a rendering state manager from the given rendering state 
@@ -132,7 +132,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
-				GetBlendState(BlendStateIndex::Opaque));
+										 Get(BlendStateIndex::Opaque));
 		}
 
 		/**
@@ -146,7 +146,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
-				GetBlendState(BlendStateIndex::Alpha));
+										 Get(BlendStateIndex::Alpha));
 		}
 
 		/**
@@ -160,7 +160,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
-				GetBlendState(BlendStateIndex::Additive));
+										 Get(BlendStateIndex::Additive));
 		}
 		
 		/**
@@ -174,7 +174,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
-				GetBlendState(BlendStateIndex::Multiplicative));
+										 Get(BlendStateIndex::Multiplicative));
 		}
 
 		/**
@@ -188,8 +188,8 @@ namespace mage {
 		void BindBiMultiplicativeBlendState(
 			ID3D11DeviceContext *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
-				GetBlendState(BlendStateIndex::BiMultiplicative));
+			Pipeline::OM::BindBlendState(device_context, 
+										 Get(BlendStateIndex::BiMultiplicative));
 		}
 
 		/**
@@ -202,8 +202,8 @@ namespace mage {
 		void BindTransparencyBlendState(
 			ID3D11DeviceContext *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
-				GetBlendState(BlendStateIndex::Transparency));
+			Pipeline::OM::BindBlendState(device_context, 
+										 Get(BlendStateIndex::Transparency));
 		}
 
 		/**
@@ -216,8 +216,8 @@ namespace mage {
 		void BindAlphaToCoverageBlendState(
 			ID3D11DeviceContext *device_context) const noexcept {
 
-			Pipeline::OM::BindBlendState(device_context,
-				GetBlendState(BlendStateIndex::AlphaToCoverage));
+			Pipeline::OM::BindBlendState(device_context, 
+										 Get(BlendStateIndex::AlphaToCoverage));
 		}
 
 		#pragma endregion
@@ -238,7 +238,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
+				Get(DepthStencilStateIndex::DepthNone));
 		}
 
 		#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -255,7 +255,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
+				Get(DepthStencilStateIndex::LessEqualDepthReadWrite));
 		}
 
 		/**
@@ -270,7 +270,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
+				Get(DepthStencilStateIndex::LessEqualDepthRead));
 		}
 
 		/**
@@ -285,7 +285,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
+				Get(DepthStencilStateIndex::LessDepthReadWrite));
 		}
 
 		/**
@@ -300,7 +300,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
+				Get(DepthStencilStateIndex::LessDepthRead));
 		}
 
 		#else  // DISABLE_INVERTED_Z_BUFFER
@@ -317,7 +317,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthReadWrite));
+				Get(DepthStencilStateIndex::GreaterEqualDepthReadWrite));
 		}
 
 		/**
@@ -332,7 +332,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthRead));
+				Get(DepthStencilStateIndex::GreaterEqualDepthRead));
 		}
 
 		/**
@@ -347,7 +347,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthReadWrite));
+				Get(DepthStencilStateIndex::GreaterDepthReadWrite));
 		}
 
 		/**
@@ -362,7 +362,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
+				Get(DepthStencilStateIndex::GreaterDepthRead));
 		}
 
 		#endif // DISABLE_INVERTED_Z_BUFFER
@@ -384,8 +384,8 @@ namespace mage {
 		void BindCullNoneRasterizerState(
 			ID3D11DeviceContext *device_context) const noexcept {
 
-			Pipeline::RS::BindState(device_context,
-				GetRasterizerState(RasterizerStateIndex::NoCulling));
+			Pipeline::RS::BindState(device_context, 
+				Get(RasterizerStateIndex::NoCulling));
 		}
 
 		/**
@@ -399,8 +399,8 @@ namespace mage {
 		void BindCullClockwiseRasterizerState(
 			ID3D11DeviceContext *device_context) const noexcept {
 			
-			Pipeline::RS::BindState(device_context,
-				GetRasterizerState(RasterizerStateIndex::ClockwiseCulling));
+			Pipeline::RS::BindState(device_context, 
+				Get(RasterizerStateIndex::ClockwiseCulling));
 		}
 
 		/**
@@ -415,7 +415,7 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
-				GetRasterizerState(RasterizerStateIndex::CounterClockwiseCulling));
+				Get(RasterizerStateIndex::CounterClockwiseCulling));
 		}
 
 		/**
@@ -429,7 +429,21 @@ namespace mage {
 			ID3D11DeviceContext *device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
-				GetRasterizerState(RasterizerStateIndex::Wireframe));
+				Get(RasterizerStateIndex::Wireframe));
+		}
+
+		/**
+		 Binds the voxelization rasterizer state of this rendering state manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindVoxelizationRasterizerState(
+			ID3D11DeviceContext *device_context) const noexcept {
+
+			Pipeline::RS::BindState(device_context,
+				Get(RasterizerStateIndex::Voxelization));
 		}
 
 		#pragma endregion
@@ -657,7 +671,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		void SetupRenderingStates(ID3D11Device *device);
+		void SetupRenderingStates(D3D11Device *device);
 
 		/**
 		 Setup the blend states of this rendering state manager.
@@ -669,7 +683,7 @@ namespace mage {
 						Failed to setup the blend states of this rendering 
 						state manager.
 		 */
-		void SetupBlendStates(ID3D11Device *device);
+		void SetupBlendStates(D3D11Device *device);
 		
 		/**
 		 Setup the depth stencil states of this rendering state manager.
@@ -681,7 +695,7 @@ namespace mage {
 						Failed to setup the depth stencil states of this 
 						rendering state manager.
 		 */
-		void SetupDepthStencilStates(ID3D11Device *device);
+		void SetupDepthStencilStates(D3D11Device *device);
 		
 		/**
 		 Setup the rasterizer states of this rendering state manager.
@@ -693,7 +707,7 @@ namespace mage {
 						Failed to setup the rasterizer states of this rendering 
 						state manager.
 		 */
-		void SetupRasterizerStates(ID3D11Device *device);
+		void SetupRasterizerStates(D3D11Device *device);
 		
 		/**
 		 Setup the samplers states of this rendering state manager.
@@ -705,7 +719,7 @@ namespace mage {
 						Failed to setup the samplers states of this rendering 
 						state manager.
 		 */
-		void SetupSamplerStates(ID3D11Device *device);
+		void SetupSamplerStates(D3D11Device *device);
 		
 		/**
 		 An enumeration of the different blend state indices for rendering 
@@ -765,15 +779,17 @@ namespace mage {
 		 This contains:
 		 @c NoCulling,
 		 @c ClockwiseCulling,
-		 @c CounterClockwiseCulling and
-		 @c Wireframe.
+		 @c CounterClockwiseCulling,
+		 @c Wireframe and
+		 @c Voxelization.
 		 */
 		enum class RasterizerStateIndex : U8 {
 			NoCulling               = 0,
 			ClockwiseCulling        = 1,
 			CounterClockwiseCulling = 2,
 			Wireframe               = 3,
-			Count                   = 4
+			Voxelization            = 4,
+			Count                   = 5
 		};
 		
 		/**
@@ -816,7 +832,7 @@ namespace mage {
 						manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11BlendState *
-			GetBlendState(BlendStateIndex index) const noexcept {
+			Get(BlendStateIndex index) const noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].Get();
 		}
@@ -831,7 +847,7 @@ namespace mage {
 						rendering state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11BlendState **
-			ReleaseAndGetAddressOfBlendState(BlendStateIndex index) noexcept {
+			ReleaseAndGetAddressOf(BlendStateIndex index) noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -846,7 +862,7 @@ namespace mage {
 						state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11DepthStencilState *
-			GetDepthStencilState(DepthStencilStateIndex index) const noexcept {
+			Get(DepthStencilStateIndex index) const noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
 		}
@@ -861,7 +877,7 @@ namespace mage {
 						this rendering state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11DepthStencilState **
-			ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex index) noexcept {
+			ReleaseAndGetAddressOf(DepthStencilStateIndex index) noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -876,7 +892,7 @@ namespace mage {
 						state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11RasterizerState *
-			GetRasterizerState(RasterizerStateIndex index) const noexcept {
+			Get(RasterizerStateIndex index) const noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].Get();
 		}
@@ -891,7 +907,7 @@ namespace mage {
 						rendering state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11RasterizerState **
-			ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex index) noexcept {
+			ReleaseAndGetAddressOf(RasterizerStateIndex index) noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
@@ -906,7 +922,7 @@ namespace mage {
 						manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11SamplerState *
-			GetSamplerState(SamplerStateIndex index) const noexcept {
+			Get(SamplerStateIndex index) const noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].Get();
 		}
@@ -921,7 +937,7 @@ namespace mage {
 						rendering state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11SamplerState **
-			ReleaseAndGetAddressOfSamplerState(SamplerStateIndex index) noexcept {
+			ReleaseAndGetAddressOf(SamplerStateIndex index) noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}

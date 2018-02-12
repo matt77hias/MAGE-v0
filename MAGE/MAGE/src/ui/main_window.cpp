@@ -281,10 +281,10 @@ namespace mage {
 			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 		{
-			const BOOL result = RegisterHotKey(m_window,
-				                              static_cast< int >(HotKey::PrintScreen),
-				                              MOD_NOREPEAT, 
-				                              VK_SNAPSHOT);
+			const BOOL result = RegisterHotKey(m_window, 
+											   static_cast< int >(HotKey::PrintScreen), 
+											   MOD_NOREPEAT, 
+											   VK_SNAPSHOT);
 			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 	}

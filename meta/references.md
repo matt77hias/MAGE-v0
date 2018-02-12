@@ -354,6 +354,8 @@ Uses:
 
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
+* [Baldur Karlsson](https://github.com/baldurk)
+* [Naiwen Xie](https://github.com/sienaiwun)
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)

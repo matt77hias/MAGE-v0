@@ -43,6 +43,9 @@
   * (d3dcompiler.lib)
 * **Compiler**: MSVC++ 15.5.5
 * **IDE**: Visual Studio 2017
+* **Debuggers/Profilers**:
+  * NVidia Nsight 5.5
+  * RenderDoc v0.91
 
 ## Use
 

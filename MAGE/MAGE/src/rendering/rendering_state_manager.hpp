@@ -779,17 +779,15 @@ namespace mage {
 		 This contains:
 		 @c NoCulling,
 		 @c ClockwiseCulling,
-		 @c CounterClockwiseCulling,
-		 @c Wireframe and
-		 @c Voxelization.
+		 @c CounterClockwiseCulling and
+		 @c Wireframe.
 		 */
 		enum class RasterizerStateIndex : U8 {
 			NoCulling               = 0,
 			ClockwiseCulling        = 1,
 			CounterClockwiseCulling = 2,
 			Wireframe               = 3,
-			Voxelization            = 4,
-			Count                   = 5
+			Count                   = 4
 		};
 		
 		/**

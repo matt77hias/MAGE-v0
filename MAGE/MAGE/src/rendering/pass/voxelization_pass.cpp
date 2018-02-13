@@ -68,7 +68,7 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindVoxelizationRasterizerState(m_device_context);
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.

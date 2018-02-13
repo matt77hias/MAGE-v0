@@ -343,22 +343,6 @@ namespace mage {
 			                         depth_bias_clamp);
 	}
 
-	[[nodiscard]] HRESULT
-		CreateVoxelizationRasterizerState(ID3D11Device3 *device,
-										  ID3D11RasterizerState2 **state) noexcept {
-		Assert(device);
-		Assert(state);
-
-		D3D11_RASTERIZER_DESC2 desc = {};
-		desc.CullMode           = D3D11_CULL_BACK;
-		desc.FillMode           = D3D11_FILL_SOLID;
-		desc.DepthClipEnable    = TRUE;
-		desc.MultisampleEnable  = TRUE;
-		desc.ConservativeRaster = D3D11_CONSERVATIVE_RASTERIZATION_MODE_ON;
-
-		return device->CreateRasterizerState2(&desc, state);
-	}
-
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

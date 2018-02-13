@@ -432,20 +432,6 @@ namespace mage {
 				Get(RasterizerStateIndex::Wireframe));
 		}
 
-		/**
-		 Binds the voxelization rasterizer state of this rendering state manager.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindVoxelizationRasterizerState(
-			ID3D11DeviceContext *device_context) const noexcept {
-
-			Pipeline::RS::BindState(device_context,
-				Get(RasterizerStateIndex::Voxelization));
-		}
-
 		#pragma endregion
 
 		//---------------------------------------------------------------------

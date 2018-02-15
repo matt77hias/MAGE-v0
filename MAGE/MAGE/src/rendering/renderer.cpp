@@ -103,9 +103,9 @@ namespace mage {
 		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
 		//TODO
-		buffer.m_voxel_grid_resolution         = 256u;
+		buffer.m_voxel_grid_resolution         = 8u;
 		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
-		buffer.m_voxel_size                    = 1.0f;
+		buffer.m_voxel_size                    = 0.1;
 		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
 		
 		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
@@ -307,7 +307,7 @@ namespace mage {
 		const auto output_manager = RenderingOutputManager::Get();
 		const auto viewport = camera.GetSSViewport();
 		const auto brdf = camera.GetSettings().GetBRDF();
-		const auto vct = false;
+		const auto vct = true;
 
 		//---------------------------------------------------------------------
 		// Perform a LBuffer pass.
@@ -321,13 +321,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 		if (vct) {
 			//TODO
-			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-128.0f, 128.0f, 
-																	   -128.0f, 128.0f, 
-																	   -128.0f, 128.0f);
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-0.4f, 0.4f,
+																	   -0.4f, 0.4f,
+																	   -0.4f, 0.4f);
 			const auto world_to_voxel = world_to_view * view_to_voxel;
 			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 256u);
+										  brdf, 8u);
 		}
 
 		// Restore the viewport.
@@ -379,13 +379,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 		if (vct) {
 			//TODO
-			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-128.0f, 128.0f,
-																	   -128.0f, 128.0f,
-																	   -128.0f, 128.0f);
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-0.4f, 0.4f,
+																	   -0.4f, 0.4f,
+																	   -0.4f, 0.4f);
 			const auto world_to_voxel = world_to_view * view_to_voxel;
 			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 256u);
+										  brdf, 8u);
 		}
 
 		// Restore the viewport.

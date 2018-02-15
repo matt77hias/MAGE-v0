@@ -33,6 +33,8 @@ RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 location = g_viewport_top_left + thread_id.xy;
+	
+	[branch]
 	if (any(location >= g_display_resolution)) {
 		return;
 	}

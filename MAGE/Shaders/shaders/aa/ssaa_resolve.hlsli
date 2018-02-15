@@ -66,9 +66,11 @@ void CS(uint3 thread_id       : SV_DispatchThreadID,
 	GroupMemoryBarrierWithGroupSync();
 
 	// Early termination.
+	[branch]
 	if (0u != group_thread_id.x) {
 		return;
 	}
+	[branch]
 	if (any(output_location >= g_display_resolution)) {
 		return;
 	}
@@ -112,6 +114,8 @@ void CS(uint3 thread_id       : SV_DispatchThreadID,
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 output_location = g_viewport_top_left + thread_id.xy;
+	
+	[branch]
 	if (any(output_location >= g_display_resolution)) {
 		return;
 	}

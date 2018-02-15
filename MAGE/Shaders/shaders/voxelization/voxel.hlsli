@@ -23,7 +23,7 @@ uint EncodeRadiance(float3 L) {
 		                 | (color.x << 16u) 
 		                 | (color.y <<  8u) 
 		                 |  color.z;
-	return 255u; // encoded_L;
+	return encoded_L;
 }
 
 float3 DecodeRadiance(uint encoded_L) {
@@ -42,7 +42,7 @@ float3 DecodeRadiance(uint encoded_L) {
 	// [0,1]^3 -> [0, L_length]^3
 	const float3 L = fL.yzw * L_length;
 	
-	return encoded_L ? 10.0f : 0.0f; // L;
+	return L;
 }
 
 uint EncodeNormal(float3 n) {

@@ -58,7 +58,7 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material = GetMaterialParameters(input.tex);
 	// Obtain the view-space normal.
-	const float3 n_view = GetNormal(input.p_view, input.n_view, input.tex2);
+	const float3 n_view   = GetNormal(input.p_view, input.n_view, input.tex2);
 
 	// Calculate the pixel radiance.
 	const float3 L = GetRadiance(input.p_view, n_view,

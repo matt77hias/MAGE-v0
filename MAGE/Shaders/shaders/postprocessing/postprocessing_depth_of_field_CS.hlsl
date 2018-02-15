@@ -52,6 +52,8 @@ float GetBlurFactor(float p_view_z) {
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 location = g_viewport_top_left + thread_id.xy;
+	
+	[branch]
 	if (any(location >= g_display_resolution)) {
 		return;
 	}

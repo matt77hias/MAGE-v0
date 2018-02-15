@@ -61,9 +61,9 @@ void GS(triangle GSInputPositionNormalTexture input[3],
 	// [voxels] * [2 m_ndc/voxels] -> [-1,1]
 	const float voxel_to_ndc = 2.0f * g_voxel_grid_inv_resolution;
 	// Move vertices for conservative rasterization.
-	output[0].p.xy = (output[0].p.xy + normalize(delta_02 - delta_10)) * voxel_to_ndc;
-	output[1].p.xy = (output[1].p.xy + normalize(delta_10 - delta_21)) * voxel_to_ndc;
-	output[2].p.xy = (output[2].p.xy + normalize(delta_21 - delta_02)) * voxel_to_ndc;
+	output[0].p.xy = (output[0].p.xy /*+ normalize(delta_02 - delta_10)*/) * voxel_to_ndc;
+	output[1].p.xy = (output[1].p.xy /*+ normalize(delta_10 - delta_21)*/) * voxel_to_ndc;
+	output[2].p.xy = (output[2].p.xy /*+ normalize(delta_21 - delta_02)*/) * voxel_to_ndc;
 	
 	// Output a triangle strip of three vertices.
 	[unroll]

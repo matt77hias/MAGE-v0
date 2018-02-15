@@ -16,6 +16,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//TODO
+	constexpr U32 g_voxel_grid_resolution = 256u;
+	constexpr F32 g_voxel_size = 0.1f;
+
 	[[nodiscard]] Renderer *Renderer::Get() noexcept {
 		Assert(RenderingManager::Get());
 		
@@ -103,9 +107,9 @@ namespace mage {
 		buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
 		//TODO
-		buffer.m_voxel_grid_resolution         = 8u;
+		buffer.m_voxel_grid_resolution         = g_voxel_grid_resolution;
 		buffer.m_voxel_grid_inv_resolution     = 1.0f / buffer.m_voxel_grid_resolution;
-		buffer.m_voxel_size                    = 0.1;
+		buffer.m_voxel_size                    = g_voxel_size;
 		buffer.m_voxel_inv_size                = 1.0f / buffer.m_voxel_size;
 		
 		buffer.m_lens_radius                   = camera.GetLens().GetLensRadius();
@@ -321,13 +325,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 		if (vct) {
 			//TODO
-			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-0.4f, 0.4f,
-																	   -0.4f, 0.4f,
-																	   -0.4f, 0.4f);
+			const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
+																	   -r, r,
+																	   -r, r);
 			const auto world_to_voxel = world_to_view * view_to_voxel;
 			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 8u);
+										  brdf, g_voxel_grid_resolution);
 		}
 
 		// Restore the viewport.
@@ -379,13 +384,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 		if (vct) {
 			//TODO
-			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-0.4f, 0.4f,
-																	   -0.4f, 0.4f,
-																	   -0.4f, 0.4f);
+			const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
+			const auto view_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
+																	   -r, r,
+																	   -r, r);
 			const auto world_to_voxel = world_to_view * view_to_voxel;
 			GetVoxelizationPass()->Render(scene, world_to_voxel,
 										  world_to_view, view_to_world,
-										  brdf, 8u);
+										  brdf, g_voxel_grid_resolution);
 		}
 
 		// Restore the viewport.

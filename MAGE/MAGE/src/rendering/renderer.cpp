@@ -17,7 +17,7 @@
 namespace mage {
 
 	//TODO
-	constexpr U32 g_voxel_grid_resolution = 256u;
+	constexpr U32 g_voxel_grid_resolution = 128u;
 	constexpr F32 g_voxel_size = 0.1f;
 
 	[[nodiscard]] Renderer *Renderer::Get() noexcept {

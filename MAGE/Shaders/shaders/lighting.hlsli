@@ -259,7 +259,7 @@ float3 GetIndirectRadiance(float3 p) {
 	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
 	const float3 voxel = p * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
 	// Valid range: [0,R)x(R,0]x[0,R)
-	const int3 s_index = voxel + 0.5f * g_voxel_grid_resolution;
+	const int3 s_index = floor(voxel + 0.5f * g_voxel_grid_resolution);
 	return g_voxel_texture[s_index].xyz;
 	#endif // DISABLE_VCT
 

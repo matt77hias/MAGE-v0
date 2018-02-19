@@ -152,7 +152,7 @@ float3 GetCameraPosition() {
  Converts the given position expressed in world space to the corresponding 
  voxel index.
  */
-int3 WorldToVoxelIndex(p_world) {
+int3 WorldToVoxelIndex(float3 p_world) {
 	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
 	const float3 voxel = (p_world - g_voxel_grid_center) 
 		               * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);

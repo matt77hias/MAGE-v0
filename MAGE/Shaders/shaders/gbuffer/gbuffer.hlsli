@@ -24,9 +24,15 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #endif // MSAA_AS_SSAA
 
 	// Obtain the base color of the material.
-	const float4 base_color = GetMaterialBaseColor(input.tex);
+	const float4 base_color = GetMaterialBaseColor(input.tex_material);
 
 	clip(base_color.w - TRANSPARENCY_THRESHOLD);
+
+	// Obtain the material parameters [roughness, metalness] of the material.
+	const float2 material = GetMaterialParameters(input.tex_material);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world  = GetNormal(input.p_world, input.n_world,
+									  input.tex_geometry);
 
 	OMInputDeferred output;
 	#pragma warning( push )
@@ -34,11 +40,9 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 	// Store the base color of the material.
 	output.base_color.xyz = base_color.xyz;
 	// Store the material parameters [roughness, metalness] of the material.
-	output.material.xy    = GetMaterialParameters(input.tex);
-	// Pack and store the view-space normal.
-	output.normal.xyz     = PackNormal(GetNormal(input.p_view, 
-												 input.n_view, 
-												 input.tex2));
+	output.material.xy    = material;
+	// Pack and store the normal.
+	output.n.xyz          = PackNormal(n_world);
 	#pragma warning( pop )
 	
 	return output;

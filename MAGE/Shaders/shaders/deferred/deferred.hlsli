@@ -41,21 +41,20 @@
 //-----------------------------------------------------------------------------
 
 float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
-	const uint2 location = input.p.xy;
+	const uint2 p_display = input.p.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location, index);
+	const float3 base_color = GetGBufferMaterialBaseColor(p_display, index);
 	// Obtain the parameters of the material.
-	const float2 material   = GetGBufferMaterialParameters(location, index);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location, index);
-	// Obtain the view-space hit position.
-	const float3 p_view     = GetGBufferPosition(location, index, input.p_ndc.xy);
+	const float2 material   = GetGBufferMaterialParameters(p_display, index);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_display, index);
+	// Obtain the surface position expressed in world space.
+	const float3 p_view     = GetGBufferPosition(p_display, index, input.p_ndc.xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-	
 	return float4(L, 1.0f);
 }
 
@@ -66,21 +65,20 @@ float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
 //-----------------------------------------------------------------------------
 
 float4 PS(PSInputNDCPosition input) : SV_Target {
-	const uint2 location = input.p.xy;
+	const uint2 p_display = input.p.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location);
+	const float3 base_color = GetGBufferMaterialBaseColor(p_display);
 	// Obtain the parameters of the material.
-	const float2 material   = GetGBufferMaterialParameters(location);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location);
-	// Obtain the view-space hit position.
-	const float3 p_view     = GetGBufferPosition(location, input.p_ndc.xy);
+	const float2 material   = GetGBufferMaterialParameters(p_display);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_display);
+	// Obtain the surface position expressed in world space.
+	const float3 p_world    = GetGBufferPosition(p_display, input.p_ndc.xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-	
 	return float4(L, 1.0f);
 }
 
@@ -98,10 +96,10 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 location = g_ss_viewport_top_left + thread_id.xy;
+	const uint2 p_display = g_ss_viewport_top_left + thread_id.xy;
 	
 	[branch]
-	if (any(location >= g_ss_display_resolution)) {
+	if (any(p_display >= g_ss_display_resolution)) {
 		return;
 	}
 
@@ -109,16 +107,15 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const float3 base_color = GetGBufferMaterialBaseColor(location);
 	// Obtain the parameters of the material.
 	const float2 material   = GetGBufferMaterialParameters(location);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location);
-	// Obtain the view-space hit position.
-	const float2 p_ndc_xy   = SSDispatchThreadID(thread_id.xy);
-	const float3 p_view     = GetGBufferPosition(location, p_ndc_xy);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_display);
+	// Obtain the surface position expressed in world space.
+	const float2 p_ndc_xy   = SSDispatchThreadIDtoNDC(thread_id.xy);
+	const float3 p_world    = GetGBufferPosition(p_display, p_ndc_xy);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-
 	// Store the pixel color.
 	g_output[location] = float4(L, 1.0f);
 }

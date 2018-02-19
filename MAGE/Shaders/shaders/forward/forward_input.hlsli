@@ -21,20 +21,20 @@
 //-----------------------------------------------------------------------------
 CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 	// TRANSFORM
-	// The object-to-view transformation matrix.
-	float4x4 g_object_to_view          : packoffset(c0);
-	// The object-to-view inverse transpose transformation matrix
-	// = The normal-to-view transformation matrix.
-	float4x4 g_normal_to_view          : packoffset(c4);
+	// The object-to-world transformation matrix.
+	float4x4 g_object_to_world         : packoffset(c0);
+	// The object-to-world inverse transpose transformation matrix
+	// = The normal-to-world transformation matrix.
+	float4x4 g_normal_to_world         : packoffset(c4);
 	// The texture transformation matrix.
 	float4x4 g_texture_transform       : packoffset(c8);
 
 	// MATERIAL
 	// The base color of the material in linear space.
 	float4 g_base_color                : packoffset(c12);
-	// The roughness of the material.
+	// The (linear) roughness of the material.
 	float  g_roughness                 : packoffset(c13.x);
-	// The metalness of the material.
+	// The (linear) metalness of the material.
 	float  g_metalness                 : packoffset(c13.y);
 }
 
@@ -76,7 +76,7 @@ float4 GetMaterialBaseColor(float2 tex) {
 }
 
 /**
- Return the parameters of the material.
+ Returns the parameters of the material.
 
  @param[in]		tex
 				The texture coordinates.
@@ -94,25 +94,25 @@ float2 GetMaterialParameters(float2 tex) {
 }
 
 /**
- Return the view-space normal at the given hit point.
+ Returns the surface normal at the given surface position.
 
  @param[in]		p
-				The view-space hit position.
+				The surface position expressed in world space.
  @param[in]		n
-				The (unperturbed) view-space surface normal.
+				The (unperturbed) surface normal expressed in world space.
  @param[in]		tex
 				The texture coordinates.
- @return		The view-space normal at the given hit point.
+ @return		The (perturbed) surface normal expressed in world space.
  */
 float3 GetNormal(float3 p, float3 n, float2 tex) {
-	// Obtain the view-space normal.
+	// Obtain the normal expressed in world space.
 	#ifdef DISABLE_TSNM
 	return normalize(n);
 	#else  // DISABLE_TSNM
-	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c = UnpackNormal(g_normal_texture.Sample(g_linear_wrap_sampler,
-														  tex));
-	// Perturb the view-space normal.
-	return PerturbNormal(p, normalize(n), tex, c);
+	// Obtain the normal expressed in tangent space.
+	const float3 n_tangent = UnpackNormal(
+		g_normal_texture.Sample(g_linear_wrap_sampler, tex));
+	// Perturb the normal expressed in world space.
+	return PerturbNormal(p, normalize(n), tex, n_tangent);
 	#endif // DISABLE_TSNM
 }

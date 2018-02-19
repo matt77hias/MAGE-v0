@@ -161,8 +161,8 @@ float DepthToViewZ(float depth) {
 				The display location.
  @return		The UV coordinates.
  */
-float2 LocationToUV(float2 location) {
-	return LocationToUV(location, g_display_inv_resolution_minus1);
+float2 DisplayToUV(float2 location) {
+	return DisplayToUV(location, g_display_inv_resolution_minus1);
 }
 
 /**
@@ -175,8 +175,8 @@ float2 LocationToUV(float2 location) {
 				The super-sampled display location.
  @return		The UV coordinates.
  */
-float2 SSLocationToUV(float2 location) {
-	return LocationToUV(location, g_ss_display_inv_resolution_minus1);
+float2 SSDisplayToUV(float2 location) {
+	return DisplayToUV(location, g_ss_display_inv_resolution_minus1);
 }
 
 /**
@@ -190,7 +190,7 @@ float2 SSLocationToUV(float2 location) {
  @return		The NDC coordinates.
  */
 float2 DispatchThreadIDtoNDC(float2 id) {
-	const float2 uv = LocationToUV(id, g_viewport_inv_resolution_minus1);
+	const float2 uv = DisplayToUV(id, g_viewport_inv_resolution_minus1);
 	return UVtoNDC(uv);
 }
 
@@ -205,7 +205,7 @@ float2 DispatchThreadIDtoNDC(float2 id) {
  @return		The NDC coordinates.
  */
 float2 SSDispatchThreadIDtoNDC(float2 id) {
-	const float2 uv = LocationToUV(id, g_ss_viewport_inv_resolution_minus1);
+	const float2 uv = DisplayToUV(id, g_ss_viewport_inv_resolution_minus1);
 	return UVtoNDC(uv);
 }
 

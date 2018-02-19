@@ -98,4 +98,4 @@ float4 ToneMap_Uncharted(float4 hdr) {
 	#define TONE_MAP_COMPONENT ToneMap_Uncharted
 #endif // TONE_MAP_COMPONENT
 
-#endif //MAGE_HEADER_TONE_MAPPIN
+#endif //MAGE_HEADER_TONE_MAPPING

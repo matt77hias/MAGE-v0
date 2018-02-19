@@ -50,7 +50,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	};
 
 	const float4 ldr = FxaaPixelShader(
-		LocationToUV(location),      // FxaaFloat2 pos
+		DisplayToUV(location),      // FxaaFloat2 pos
 		0.0f,                        // FxaaFloat4 fxaaConsolePosPos
 		fxaa_tex,                    // FxaaTex    tex
 		fxaa_tex,                    // FxaaTex    fxaaConsole360TexExpBiasNegOne

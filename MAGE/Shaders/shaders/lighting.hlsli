@@ -142,19 +142,21 @@ TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
 float3 GetDirectRadiance(float3 p, float3 n, 
 						 float3 base_color, float roughness, float metalness) {
 
-	const float r_eye = length(p);
+	const float3 v_direction = GetCameraPosition() - p;
+	const float  v_distance  = length(v_direction);
 
 	#ifndef BRDFxCOS_COMPONENT
 	float3 L = base_color;
 	#else // BRDFxCOS_COMPONENT
-	float3 L = float3(0.0f, 0.0f, 0.0f);
+	float3 L = 0.0f;
 
 	#ifndef DISABLE_AMBIENT_LIGHT
 	// Ambient light contribution
 	L += g_La;
 	#endif // DISABLE_AMBIENT_LIGHT
 
-	const float3 v = -p / r_eye;
+	const float inv_v_distance = 1.0f / v_distance;
+	const float3 v = v_direction * inv_v_distance;
 
 	#ifndef DISABLE_DIRECTIONAL_LIGHTS
 	// Directional lights contribution
@@ -177,7 +179,7 @@ float3 GetDirectRadiance(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);
 	}
 	#endif // DISABLE_OMNI_LIGHTS
@@ -190,7 +192,7 @@ float3 GetDirectRadiance(float3 p, float3 n,
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);
 	}
 	#endif // DISABLE_SPOT_LIGHTS
@@ -215,10 +217,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i4 = 0u; i4 < g_nb_sm_omni_lights; ++i4) {
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
 		
-		float3 l, I_light;
-		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, I_light);
+		float3 l, L_light;
+		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, L_light);
 		
-		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);
 	}
 	#endif // DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
@@ -228,10 +230,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
 		
-		float3 l, I_light;
-		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, I_light);
+		float3 l, L_light;
+		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, L_light);
 
-		L += I_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
+		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);
 	}
 	#endif // DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
@@ -241,7 +243,7 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	#endif // BRDFxCOS_COMPONENT
 
 	#ifndef DISABLE_FOG
-	const float fog_factor = FOG_FACTOR_COMPONENT(r_eye, g_fog_density);
+	const float fog_factor = FOG_FACTOR_COMPONENT(v_distance, g_fog_density);
 	L = lerp(g_fog_color, L, fog_factor);
 	#endif // DISABLE_FOG
 	
@@ -250,16 +252,13 @@ float3 GetDirectRadiance(float3 p, float3 n,
 
 float3 GetIndirectRadiance(float3 p) {
 	#ifndef BRDFxCOS_COMPONENT
-	return float3(0.0f, 0.0f, 0.0f);
+	return 0.0f
 	#else  // BRDFxCOS_COMPONENT
 
 	#ifdef DISABLE_VCT
-	return float3(0.0f, 0.0f, 0.0f);
+	return 0.0f
 	#else  // DISABLE_VCT
-	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
-	const float3 voxel = p * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
-	// Valid range: [0,R)x(R,0]x[0,R)
-	const int3 s_index = floor(voxel + 0.5f * g_voxel_grid_resolution);
+	const int3 s_index = WorldToVoxelIndex(p);
 	return g_voxel_texture[s_index].xyz;
 	#endif // DISABLE_VCT
 
@@ -270,7 +269,8 @@ float3 GetRadiance(float3 p, float3 n,
 				   float3 base_color, float roughness, float metalness) {
 
 	#ifdef DISABLE_VCT
-	const float3 L_direct = GetDirectRadiance(p, n, base_color, roughness, metalness);
+	const float3 L_direct   = GetDirectRadiance(p, n, base_color, 
+												roughness, metalness);
 	const float3 L_indirect = GetIndirectRadiance(p);
 	
 	return L_direct + L_indirect;

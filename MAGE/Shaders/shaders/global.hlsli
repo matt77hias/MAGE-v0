@@ -39,14 +39,16 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// Member Variables: Voxelization
 	//-------------------------------------------------------------------------
 
+	// The center of the voxel grid expressed in world space.
+	float3   g_voxel_grid_center                 : packoffset(c0);
 	// The size of a voxel for all dimensions. [m/voxel]
-	float    g_voxel_size                        : packoffset(c0);
+	float    g_voxel_size                        : packoffset(c1);
 	// The inverse size of a voxel for all dimensions. [voxels/m]
-	float    g_voxel_inv_size                    : packoffset(c0.y);
+	float    g_voxel_inv_size                    : packoffset(c1.y);
 	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c0.z);
+	uint     g_voxel_grid_resolution             : packoffset(c1.z);
 	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c0.w);
+	float    g_voxel_grid_inv_resolution         : packoffset(c1.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Display Resolution
@@ -55,19 +57,19 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// The resolution of the display.
 	// g_display_resolution.x = the display width
 	// g_display_resolution.y = the display height
-	uint2  g_display_resolution                  : packoffset(c1);
+	uint2  g_display_resolution                  : packoffset(c2);
 	// The inverse of the resolution of the display minus 1.
 	// g_display_inv_resolution_minus1.x = 1 / (g_display_resolution.x - 1)
 	// g_display_inv_resolution_minus1.y = 1 / (g_display_resolution.y - 1)
-	float2 g_display_inv_resolution_minus1       : packoffset(c1.z);
+	float2 g_display_inv_resolution_minus1       : packoffset(c2.z);
 	// The resolution of the super-sampled display.
 	// g_ss_display_resolution.x = the super-sampled display width
 	// g_ss_display_resolution.y = the super-sampled display height
-	uint2  g_ss_display_resolution               : packoffset(c2);
+	uint2  g_ss_display_resolution               : packoffset(c3);
 	// The inverse of the resolution of the super-sampled display minus 1.
 	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
 	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
-	float2 g_ss_display_inv_resolution_minus1    : packoffset(c2.z);
+	float2 g_ss_display_inv_resolution_minus1    : packoffset(c3.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
@@ -75,10 +77,10 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 
 	// The gamma exponent used for gamma recovery.
 	// C  = pow(C', g_gamma)
-	float g_gamma                                : packoffset(c3);
+	float g_gamma                                : packoffset(c4);
 	// The inverse of the gamma exponent used for gamma correction.
 	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
-	float g_inv_gamma                            : packoffset(c3.y);
+	float g_inv_gamma                            : packoffset(c4.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -136,6 +138,27 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Transform Utilities
 //-----------------------------------------------------------------------------
+
+/**
+ Returns the position of the camera expressed in world space.
+
+ @return		The position of the camera expressed in world space.
+ */
+float3 GetCameraPosition() {
+	return g_camera_to_world._m30_m31_m32;
+}
+
+/**
+ Converts the given position expressed in world space to the corresponding 
+ voxel index.
+ */
+int3 WorldToVoxelIndex(p_world) {
+	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
+	const float3 voxel = (p_world - g_voxel_grid_center) 
+		               * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
+	// Valid range: [0,R)x(R,0]x[0,R)
+	return floor(voxel + 0.5f * g_voxel_grid_resolution);
+}
 
 /**
  Converts the given position expressed in NDC space to the corresponding 

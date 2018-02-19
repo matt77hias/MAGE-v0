@@ -192,12 +192,12 @@ void Contribution(DirectionalLight light, out float3 l, out float3 L) {
 				The radiance contribution of the given omni light.
  */
 void Contribution(OmniLight light, float3 p, out float3 l, out float3 L) {
-	const float3 d            = light.p - p;
-	const float  distance     = length(d);
-	const float  inv_distance = 1.0f / distance;
-	l = d * inv_distance;
+	const float3 l_direction    = light.p - p;
+	const float  l_distance     = length(l_direction);
+	const float  inv_l_distance = 1.0f / l_distance;
+	l = l_direction * inv_l_distance;
 
-	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(distance, 
+	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(l_distance,
 														  light.inv_sqr_range);
 	L = da * light.I;
 }
@@ -215,12 +215,12 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 L) {
 				The radiance contribution of the given spotlight.
  */
 void Contribution(SpotLight light, float3 p, out float3 l, out float3 L) {
-	const float3 d            = light.p - p;
-	const float  distance     = length(d);
-	const float  inv_distance = 1.0f / distance;
-	l = d * inv_distance;
+	const float3 l_direction    = light.p - p;
+	const float  l_distance     = length(l_direction);
+	const float  inv_l_distance = 1.0f / l_distance;
+	l = l_direction * inv_l_distance;
 	
-	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(distance, 
+	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(l_distance,
 														  light.inv_sqr_range);
 	const float cos_theta = dot(light.neg_d, l);
 	const float aa = LIGHT_ANGULAR_ATTENUATION_COMPONENT(cos_theta, 

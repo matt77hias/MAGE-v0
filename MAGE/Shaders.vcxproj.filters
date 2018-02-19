@@ -244,26 +244,8 @@
     <FxCompile Include="Shaders\shaders\depth\depth_VS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\msaa_8x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\ssaa_2x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\msaa_2x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\msaa_4x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\sky\sky_fullscreen_triangle_PS.hlsl">
       <Filter>Shader Files\sky</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\ssaa_3x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\aa\ssaa_4x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\aa\aa_preprocess_CS.hlsl">
       <Filter>Shader Files\aa</Filter>

@@ -37,10 +37,10 @@ RW_TEXTURE_2D(g_output_image_texture,  float4, SLOT_UAV_IMAGE);
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 location = g_viewport_top_left + thread_id.xy;
+	const uint2 p_display = g_viewport_top_left + thread_id.xy;
 
 	[branch]
-	if (any(location >= g_display_resolution)) {
+	if (any(p_display >= g_display_resolution)) {
 		return;
 	}
 
@@ -50,7 +50,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	};
 
 	const float4 ldr = FxaaPixelShader(
-		DisplayToUV(location),      // FxaaFloat2 pos
+		DisplayToUV(p_display),      // FxaaFloat2 pos
 		0.0f,                        // FxaaFloat4 fxaaConsolePosPos
 		fxaa_tex,                    // FxaaTex    tex
 		fxaa_tex,                    // FxaaTex    fxaaConsole360TexExpBiasNegOne
@@ -67,7 +67,8 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		0.05f,                       // FxaaFloat  fxaaConsoleEdgeThresholdMin                         
 		0.0f                         // FxaaFloat4 fxaaConsole360ConstDir
 	);
+	const float4 hdr = InverseToneMap_Max3(ldr);
 
 	// Store the resolved radiance.
-	g_output_image_texture[location] = InverseToneMap_Max3(ldr);
+	g_output_image_texture[p_display] = hdr;
 }

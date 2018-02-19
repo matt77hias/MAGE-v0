@@ -33,13 +33,6 @@
 #define GROUP_SIZE_2D_DEFAULT   16  // 16^2 = 256, 256/64 = 4
 #define GROUP_SIZE_3D_DEFAULT    8  //  8^3 = 512, 512/64 = 8
 
-#define GROUP_SIZE_MSAA_2X      16	// [numthreads( 2, 16, 16)] =  512
-#define GROUP_SIZE_MSAA_4X      16	// [numthreads( 4, 16, 16)] = 1024
-#define GROUP_SIZE_MSAA_8X       8	// [numthreads( 8,  8,  8)] =  512
-#define GROUP_SIZE_SSAA_2X      16	// [numthreads( 4, 16, 16)] = 1024
-#define GROUP_SIZE_SSAA_3X       8	// [numthreads( 9,  8,  8)] =  576
-#define GROUP_SIZE_SSAA_4X       8	// [numthreads(16,  8,  8)] = 1024
-
 //-----------------------------------------------------------------------------
 // Engine Includes: Samplers
 //-----------------------------------------------------------------------------

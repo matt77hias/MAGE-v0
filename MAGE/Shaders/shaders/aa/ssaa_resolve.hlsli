@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// SSAA                                     | not defined
 // GROUP_SIZE                               | GROUP_SIZE_2D_DEFAULT
 
 //-----------------------------------------------------------------------------
@@ -30,82 +29,6 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 // Compute Shader
 //-----------------------------------------------------------------------------
 
-#if defined(SSAA) && defined(GROUP_SIZE)
-
-struct Data {
-	float4 ldr;
-	float3 normal;
-	float  depth;
-};
-
-groupshared Data data[SSAA * SSAA * GROUP_SIZE * GROUP_SIZE];
-
-[numthreads((SSAA * SSAA), GROUP_SIZE, GROUP_SIZE)]
-void CS(uint3 thread_id       : SV_DispatchThreadID, 
-		uint3 group_thread_id : SV_GroupThreadID, 
-		uint  group_index     : SV_GroupIndex) {
-
-	static const float weight = 1.0f / (SSAA * SSAA);
-
-	const uint2 output_location = g_viewport_top_left + thread_id.yz;
-	const uint2 input_location  = output_location * SSAA 
-		+ uint2(group_thread_id.x % SSAA, group_thread_id.x / SSAA);
-	
-	// Accessing a texture out of bounds, results in zeros. All threads in a 
-	// SSAA tile have or do not have data available. Thus the averaging will
-	// always be correct.
-
-	// Collect and store the data in the group shared memory.
-	data[group_index].ldr    = ToneMap_Max3(
-		                       g_input_image_texture[input_location], 
-		                       weight);
-	data[group_index].normal = g_input_normal_texture[input_location];
-	data[group_index].depth  = g_input_depth_texture[input_location];
-
-	// Sync all group shared memory accesses.
-	GroupMemoryBarrierWithGroupSync();
-
-	// Early termination.
-	[branch]
-	if (0u != group_thread_id.x) {
-		return;
-	}
-	[branch]
-	if (any(output_location >= g_display_resolution)) {
-		return;
-	}
-	
-	float4 ldr_sum    = 0.0f;
-	float3 normal_sum = 0.0f;
-	#ifdef DISABLE_INVERTED_Z_BUFFER
-	float depth       = 1.0f;
-	#else  // DISABLE_INVERTED_Z_BUFFER
-	float depth       = 0.0f;
-	#endif // DISABLE_INVERTED_Z_BUFFER
-	
-	// Resolve the (multi-sampled) radiance, normal and depth.
-	[unroll]
-	for (uint i = group_index; i < group_index + (SSAA * SSAA); ++i) {
-		ldr_sum    += data[i].ldr;
-		normal_sum += data[i].normal;
-
-		#ifdef DISABLE_INVERTED_Z_BUFFER
-		depth = min(depth, data[i].depth);
-		#else  // DISABLE_INVERTED_Z_BUFFER
-		depth = max(depth, data[i].depth);
-		#endif // DISABLE_INVERTED_Z_BUFFER
-	}
-
-	// Store the resolved radiance.
-	g_output_image_texture[output_location]  = InverseToneMap_Max3(ldr_sum);
-	// Store the resolved normal.
-	g_output_normal_texture[output_location] = normalize(normal_sum);
-	// Store the resolved depth.
-	g_output_depth_texture[output_location]  = depth;
-}
-
-#else  // SSAA && GROUP_SIZE
-
 #ifndef GROUP_SIZE
 	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
 #endif
@@ -113,10 +36,10 @@ void CS(uint3 thread_id       : SV_DispatchThreadID,
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 output_location = g_viewport_top_left + thread_id.xy;
+	const uint2 p_display = g_viewport_top_left + thread_id.xy;
 	
 	[branch]
-	if (any(output_location >= g_display_resolution)) {
+	if (any(p_display >= g_display_resolution)) {
 		return;
 	}
 
@@ -125,11 +48,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	uint2 output_dim;
 	g_output_image_texture.GetDimensions(output_dim.x, output_dim.y);
 
-	const uint2 nb_samples     = input_dim / output_dim;
-	const float weight         = 1.0f / (nb_samples.x * nb_samples.y);
-	const uint2 input_location = output_location * nb_samples;
+	const uint2 nb_samples   = input_dim / output_dim;
+	const float weight       = 1.0f / (nb_samples.x * nb_samples.y);
+	const uint2 p_ss_display = p_display * nb_samples;
 	
-	float4 ldr_sum    = 0.0f;
+	float4 ldr        = 0.0f;
 	float3 normal_sum = 0.0f;
 	#ifdef DISABLE_INVERTED_Z_BUFFER
 	float depth       = 1.0f;
@@ -141,27 +64,28 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	for (uint i = 0u; i < nb_samples.x; ++i) {
 		for (uint j = 0u; j < nb_samples.y; ++j) {
 
-			const uint2 location = input_location + uint2(i,j);
-
-			ldr_sum += ToneMap_Max3(g_input_image_texture[location],
-				                    weight);
-
-			normal_sum += g_input_normal_texture[location];
-
+			const uint2 p_ss_display_ij = p_ss_display + uint2(i,j);
+			
+			const float4 hdr = g_input_image_texture[p_ss_display_ij];
+			ldr += ToneMap_Max3(hdr, weight);
+			
+			normal_sum += g_input_normal_texture[p_ss_display_ij];
+			
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			depth = min(depth, g_input_depth_texture[location]);
+			depth = min(depth, g_input_depth_texture[p_ss_display_ij]);
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			depth = max(depth, g_input_depth_texture[location]);
+			depth = max(depth, g_input_depth_texture[p_ss_display_ij]);
 			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 	}
 
-	// Store the resolved radiance.
-	g_output_image_texture[output_location]  = InverseToneMap_Max3(ldr_sum);
-	// Store the resolved normal.
-	g_output_normal_texture[output_location] = normalize(normal_sum);
-	// Store the resolved depth.
-	g_output_depth_texture[output_location]  = depth;
-}
+	const float4 hdr    = InverseToneMap_Max3(ldr);
+	const float3 normal = normalize(normal_sum);
 
-#endif // SSAA && GROUP_SIZE
+	// Store the resolved radiance.
+	g_output_image_texture[p_display]  = hdr;
+	// Store the resolved normal.
+	g_output_normal_texture[p_display] = normal;
+	// Store the resolved depth.
+	g_output_depth_texture[p_display]  = depth;
+}

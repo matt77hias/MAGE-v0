@@ -1014,22 +1014,6 @@ float2 UVtoNDC(float2 uv) {
 	return float2(2.0f, -2.0f) * uv + float2(-1.0f, 1.0f);
 }
 
-/**
- Converts the given display coordinates to UV coordinates.
-
- @param[in]		p_display
-				The display coordinates.
- @param[in]		inv_display_resolution_minus1
-				The inverse of the display resolution minus 1 
-				[1/(display_resolution.x-1), 1/(display_resolution.y-1)].
- @return		The UV u and v coordinates.
- */
-float2 DisplayToUV(float2 p_display, float2 inv_display_resolution_minus1) {
-	// x: [0,resolution.x-1] -> [0,1]
-	// y: [0,resolution.y-1] -> [0,1]
-	return p_display * inv_display_resolution_minus1;
-}
-
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Indexing Utilities
 //-----------------------------------------------------------------------------

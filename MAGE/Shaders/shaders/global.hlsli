@@ -36,25 +36,38 @@ SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
 CBUFFER(Game, SLOT_CBUFFER_GAME) {
 
 	//-------------------------------------------------------------------------
+	// Member Variables: Voxelization
+	//-------------------------------------------------------------------------
+
+	// The size of a voxel for all dimensions. [m/voxel]
+	float    g_voxel_size                        : packoffset(c0);
+	// The inverse size of a voxel for all dimensions. [voxels/m]
+	float    g_voxel_inv_size                    : packoffset(c0.y);
+	// The resolution of the voxel grid for all dimensions.
+	uint     g_voxel_grid_resolution             : packoffset(c0.z);
+	// The inverse resolution of the voxel grid for all dimensions.
+	float    g_voxel_grid_inv_resolution         : packoffset(c0.w);
+
+	//-------------------------------------------------------------------------
 	// Member Variables: Display Resolution
 	//-------------------------------------------------------------------------
 
 	// The resolution of the display.
 	// g_display_resolution.x = the display width
 	// g_display_resolution.y = the display height
-	uint2  g_display_resolution                  : packoffset(c0);
+	uint2  g_display_resolution                  : packoffset(c1);
 	// The inverse of the resolution of the display minus 1.
 	// g_display_inv_resolution_minus1.x = 1 / (g_display_resolution.x - 1)
 	// g_display_inv_resolution_minus1.y = 1 / (g_display_resolution.y - 1)
-	float2 g_display_inv_resolution_minus1       : packoffset(c0.z);
+	float2 g_display_inv_resolution_minus1       : packoffset(c1.z);
 	// The resolution of the super-sampled display.
 	// g_ss_display_resolution.x = the super-sampled display width
 	// g_ss_display_resolution.y = the super-sampled display height
-	uint2  g_ss_display_resolution               : packoffset(c1);
+	uint2  g_ss_display_resolution               : packoffset(c2);
 	// The inverse of the resolution of the super-sampled display minus 1.
 	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
 	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
-	float2 g_ss_display_inv_resolution_minus1    : packoffset(c1.z);
+	float2 g_ss_display_inv_resolution_minus1    : packoffset(c2.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
@@ -62,10 +75,10 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 
 	// The gamma exponent used for gamma recovery.
 	// C  = pow(C', g_gamma)
-	float g_gamma                                : packoffset(c2);
+	float g_gamma                                : packoffset(c3);
 	// The inverse of the gamma exponent used for gamma correction.
 	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
-	float g_inv_gamma                            : packoffset(c2.y);
+	float g_inv_gamma                            : packoffset(c3.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -74,15 +87,15 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// Member Variables: Transformations
 	//-------------------------------------------------------------------------
 	
-	// The camera-view-to-camera-projection transformation matrix.
-	float4x4 g_view_to_projection                : packoffset(c0);
-	// The camera-projection-to-camera-view transformation matrix.
-	float4x4 g_projection_to_view                : packoffset(c4);
-	// The world-to-camera-view transformation matrix.
-	float4x4 g_world_to_view                     : packoffset(c8);
-	// The camera-view-to-world transformation matrix.
-	float4x4 g_view_to_world                     : packoffset(c12);
-	
+	// The world-to-camera transformation matrix.
+	float4x4 g_world_to_camera                   : packoffset(c0);
+	// The camera-to-projection transformation matrix.
+	float4x4 g_camera_to_projection              : packoffset(c4);
+	// The projection-to-camera transformation matrix.
+	float4x4 g_projection_to_camera              : packoffset(c8);
+	// The camera-to-world transformation matrix.
+	float4x4 g_camera_to_world                   : packoffset(c12);
+
 	//-------------------------------------------------------------------------
 	// Member Variables: Viewports
 	//-------------------------------------------------------------------------
@@ -109,28 +122,15 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
 	
 	//-------------------------------------------------------------------------
-	// Member Variables: Voxelization
-	//-------------------------------------------------------------------------
-
-	// The size of a voxel for all dimensions. [m_view/voxel]
-	float    g_voxel_size                        : packoffset(c19);
-	// The inverse size of a voxel for all dimensions. [voxels/m_view]
-	float    g_voxel_inv_size                    : packoffset(c19.y);
-	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c19.z);
-	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c19.w);
-
-	//-------------------------------------------------------------------------
 	// Member Variables: Post-processing
 	//-------------------------------------------------------------------------
 
 	// The lens radius of this camera.
-	float   g_lens_radius                        : packoffset(c20);
+	float   g_lens_radius                        : packoffset(c19);
 	// The focal length of this camera.
-	float   g_focal_length                       : packoffset(c20.y);
+	float   g_focal_length                       : packoffset(c19.y);
 	// The maximum circle-of-confusion radius of this camera.
-	float   g_max_coc_radius                     : packoffset(c20.z);
+	float   g_max_coc_radius                     : packoffset(c19.z);
 }
 
 //-----------------------------------------------------------------------------
@@ -138,75 +138,93 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given (non-linear) depth to the (linear) view z-coordinate.
+ Converts the given position expressed in NDC space to the corresponding 
+ position expressed in world space.
 
- @param[in]		depth
-				The (non-linear) depth.
- @return		The (linear) view z-coordinate.
+ @param[in]		p_ndc
+				The position expressed in NDC space.
+ @return		The position expressed in world space.
  */
-float DepthToViewZ(float depth) {
-	const float4 p_proj = float4(0.0f, 0.0f, depth, 1.0f);
-	// Obtain the view space coodinates.
-	const float2 p_view_zw = mul(p_proj, g_projection_to_view).zw;
-	return p_view_zw.x / p_view_zw.y;
+float3 NDCToWorld(float3 p_ndc) {
+	const float4 p_hcamera = mul(float4(p_ndc, 1.0f), g_projection_to_camera);
+	const float  inv_w     = 1.0f / p_hcamera.w;
+	const float3 p_camera  = p_hcamera.xyz * inv_w;
+	return mul(float4(p_camera, 1.0f), g_camera_to_world).xyz;
 }
 
 /**
- Converts the given display location to UV coorcinates.
+ Converts the given display coordinates to UV coordinates.
 
- @pre			@a location is non-normalized 
-				(i.e. in the [0,g_display_resolution.x-1] by 
-				[0,g_display_resolution.y-1] range).
- @param[in]		location
-				The display location.
- @return		The UV coordinates.
+ @param[in]		p_display
+				The display coordinates.
+ @return		The UV u and v coordinates.
  */
-float2 DisplayToUV(float2 location) {
-	return DisplayToUV(location, g_display_inv_resolution_minus1);
+float2 DisplayToUV(float2 p_display) {
+	// x: [0,g_display_resolution.x-1] -> [0,1]
+	// y: [0,g_display_resolution.y-1] -> [0,1]
+	return p_display * g_display_inv_resolution_minus1;
 }
 
 /**
- Converts the given super-sampled display location to UV coorcinates.
+ Converts the given super-sampled display coordinates to UV coordinates.
 
- @pre			@a location is non-normalized 
-				(i.e. in the [0,g_ss_display_resolution.x-1] by 
-				[0,g_ss_display_resolution.y-1] range).
- @param[in]		location
-				The super-sampled display location.
- @return		The UV coordinates.
+ @param[in]		p_ss_display
+				The super-sampled display coordinates.
+ @return		The UV u and v coordinates.
  */
-float2 SSDisplayToUV(float2 location) {
-	return DisplayToUV(location, g_ss_display_inv_resolution_minus1);
+float2 SSDisplayToUV(float2 p_ss_display) {
+	// x: [0,g_ss_display_resolution.x-1] -> [0,1]
+	// y: [0,g_ss_display_resolution.y-1] -> [0,1]
+	return p_ss_display * g_ss_display_inv_resolution_minus1;
 }
 
 /**
- Converts the given viewport dispatch thread id to NDC coordinates.
+ Converts the given viewport coordinates to UV coordinates.
 
- @pre			@a id is non-normalized 
-				(i.e. in the [0,g_viewport_resolution.x-1] by 
-				[0,g_viewport_resolution.y-1] range).
+ @param[in]		p_viewport
+				The viewport coordinates.
+ @return		The UV u and v coordinates.
+ */
+float2 ViewportToUV(float2 p_viewport) {
+	// x: [0,g_viewport_resolution.x-1] -> [0,1]
+	// y: [0,g_viewport_resolution.y-1] -> [0,1]
+	return p_viewport * g_viewport_inv_resolution_minus1;
+}
+
+/**
+ Converts the given super-sampled viewport coordinates to UV coordinates.
+
+ @param[in]		p_ss_viewport
+				The super-sampled viewport coordinates.
+ @return		The UV u and v coordinates.
+ */
+float2 SSViewportToUV(float2 p_ss_viewport) {
+	// x: [0,g_ss_viewport_resolution.x-1] -> [0,1]
+	// y: [0,g_ss_viewport_resolution.y-1] -> [0,1]
+	return p_ss_viewport * g_ss_viewport_inv_resolution_minus1;
+}
+
+/**
+ Converts the given (viewport) dispatch thread id to NDC coordinates.
+
  @param[in]		id
-				The non-normalized viewport dispatch thread id.
+				The (viewport) dispatch thread id.
  @return		The NDC coordinates.
  */
 float2 DispatchThreadIDtoNDC(float2 id) {
-	const float2 uv = DisplayToUV(id, g_viewport_inv_resolution_minus1);
-	return UVtoNDC(uv);
+	return UVtoNDC(ViewportToUV(id));
 }
 
 /**
- Converts the given super-sampled viewport dispatch thread id to NDC coordinates.
+ Converts the given (super-sampled viewport) dispatch thread id to NDC 
+ coordinates.
 
- @pre			@a id is non-normalized 
-				(i.e. in the [0,g_ss_viewport_resolution.x-1] by 
-				[0,g_ss_viewport_resolution.y-1] range).
  @param[in]		id
-				The non-normalized super-sampled viewport dispatch thread id.
+				The (super-sampled viewport) dispatch thread id.
  @return		The NDC coordinates.
  */
 float2 SSDispatchThreadIDtoNDC(float2 id) {
-	const float2 uv = DisplayToUV(id, g_ss_viewport_inv_resolution_minus1);
-	return UVtoNDC(uv);
+	return UVtoNDC(SSViewportToUV(id));
 }
 
 #endif // MAGE_HEADER_GLOBAL

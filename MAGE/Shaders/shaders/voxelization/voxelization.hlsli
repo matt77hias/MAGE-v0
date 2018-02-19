@@ -46,11 +46,8 @@ RW_STRUCTURED_BUFFER(voxel_grid, Voxel, SLOT_UAV_VOXEL_BUFFER);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputPositionNormalTexture input) {
-	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
-	const float3 voxel  = input.p_view * g_voxel_inv_size 
-		                               * float3(1.0f, -1.0f, 1.0f);
 	// Valid range: [0,R)x(R,0]x[0,R)
-	const  int3 s_index = floor(voxel + 0.5f * g_voxel_grid_resolution);
+	const  int3 s_index = WorldToVoxelIndex(input.p_world);
 	const uint3   index = (uint3)s_index;
 
 	[branch]
@@ -65,18 +62,19 @@ void PS(PSInputPositionNormalTexture input) {
 
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material = GetMaterialParameters(input.tex);
-	// Obtain the view-space normal.
-	const float3 n_view   = GetNormal(input.p_view, input.n_view, input.tex2);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world  = GetNormal(input.p_world, input.n_world,
+									  input.tex_geometry);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetDirectRadiance(input.p_view, n_view, 
+	const float3 L = GetDirectRadiance(input.p_world, n_world, 
 									   base_color.xyz, material.x, material.y);
 
 	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	// Encode the radiance and normal.
 	const uint encoded_L = EncodeRadiance(L);
-	const uint endoced_n = EncodeNormal(n_view);
+	const uint endoced_n = EncodeNormal(n_world);
 	// Store the encoded radiance and normal.
 	InterlockedMax(voxel_grid[flat_index].encoded_L, encoded_L);
 	InterlockedMax(voxel_grid[flat_index].encoded_n, endoced_n);

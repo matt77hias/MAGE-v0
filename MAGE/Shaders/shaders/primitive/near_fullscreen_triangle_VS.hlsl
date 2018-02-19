@@ -11,9 +11,6 @@
 // Number of vertices: 3
 // Topology: D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 
-PSInputNDCPosition VS(uint vertex_id : SV_VertexID) {
-	PSInputNDCPosition output;
-	output.p     = NearFullScreenTriangleNDC(vertex_id);
-	output.p_ndc = output.p.xyz;
-	return output;
+float4 VS(uint vertex_id : SV_VertexID) : SV_POSITION {
+	return NearFullScreenTriangleNDC(vertex_id);
 }

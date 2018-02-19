@@ -103,9 +103,6 @@
     <FxCompile Include="Shaders\shaders\miscellaneous\tsnm_shading_normal_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\miscellaneous\shading_normal_VS.hlsl">
-      <Filter>Shader Files\miscellaneous</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
       <Filter>Shader Files\gbuffer</Filter>
     </FxCompile>
@@ -126,9 +123,6 @@
     </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_GS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\transform\minimal_transform_VS.hlsl">
-      <Filter>Shader Files\transform</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\transform\transform_VS.hlsl">
       <Filter>Shader Files\transform</Filter>
@@ -399,6 +393,9 @@
     </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_vct_ward_duer_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\depth\depth_input.hlsli">
+      <Filter>Shader Files\depth</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

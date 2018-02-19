@@ -175,6 +175,19 @@ float3 NDCToWorld(float3 p_ndc) {
 }
 
 /**
+ Converts the given (non-linear) depth to the (linear) camera space.
+
+ @param[in]		depth
+				The (non-linear) depth.
+ @return		The z coordinate expressed in camera space.
+ */
+float DepthToCameraZ(float depth) {
+	const float2 p_camera_zw = mul(float4(0.0f, 0.0f, depth, 1.0f), 
+								   g_projection_to_camera).zw;
+	return p_camera_zw.x / p_camera_zw.y;
+}
+
+/**
  Converts the given display coordinates to UV coordinates.
 
  @param[in]		p_display

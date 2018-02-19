@@ -19,19 +19,17 @@ TEXTURE_CUBE(g_sky, float3, SLOT_SRV_TEXTURE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
+float4 PS(float4 input : SV_Position, uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
-float4 PS(PSInputNDCPosition input) : SV_Target {
+float4 PS(float4 input : SV_Position) : SV_Target {
 #endif // MSAA_AS_SSAA
 
-	// Obtain the projection space coodinates.
-	const float4 p_proj = float4(input.p_ndc, 1.0f);
-	// Obtain the view space coodinates.
-	const float4 view   = mul(p_proj, g_projection_to_view);
-	const float  inv_view_w = 1.0f / view.w;
-	const float3 p_view = view.xyz * inv_view_w;
+	// Obtain the NDC space coodinates.
+	const float2 p_ss_viewport = uint2(input.xy) - g_ss_viewport_top_left;
+	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
+	const float3 p_ndc         = float3(p_ndc_xy, input.z);
 	// Obtain the world space coordinates.
-	const float3 p_world  = mul(p_view, (float3x3)g_view_to_world);
+	const float3 p_world       = NDCToWorld(p_ndc);
 	// Sample the cube map.
 	return float4(g_sky.Sample(g_linear_wrap_sampler, p_world), 1.0f);
 }

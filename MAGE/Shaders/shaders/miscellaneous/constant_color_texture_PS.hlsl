@@ -33,5 +33,5 @@ float4 PS(PSInputPositionNormalTexture input,
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
-	return g_color * g_texture.Sample(g_linear_wrap_sampler, input.tex);
+	return g_color * g_texture.Sample(g_linear_wrap_sampler, input.tex_material);
 }

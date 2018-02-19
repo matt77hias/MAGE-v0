@@ -1,15 +1,19 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "transform\transform.hlsli"
+
+#define DISABLE_BASE_COLOR_TEXTURE
 #define DISABLE_MATERIAL_TEXTURE
 #define DISABLE_TSNM
 #include "forward\forward_input.hlsli"
 
 //-----------------------------------------------------------------------------
-// Pixel Shader
+// Constant Buffers
 //-----------------------------------------------------------------------------
-void PS(PSInputTexture input) {
-	const float alpha = g_base_color.a 
-		* g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex).a;
-	clip(alpha - TRANSPARENCY_SHADOW_THRESHOLD);
+CBUFFER(SecondaryCamera, SLOT_CBUFFER_SECONDARY_CAMERA) {
+	// The world-to-camera transformation matrix.
+	float4x4 g_world_to_camera2       : packoffset(c0);
+	// The camera-to-projection transformation matrix.
+	float4x4 g_camera2_to_projection2 : packoffset(c4);
 }

@@ -103,15 +103,6 @@ struct GSInputPositionNormalTexture {
 
 /**
  A pixel shader input struct of fragments having a position expressed in 
- viewport and NDC space.
- */
-struct PSInputNDCPosition {
-	float4 p            : SV_POSITION;
-	float3 p_ndc        : POSITION0;
-};
-
-/**
- A pixel shader input struct of fragments having a position expressed in 
  viewport and world space.
  */
 struct PSInputWorldPosition {

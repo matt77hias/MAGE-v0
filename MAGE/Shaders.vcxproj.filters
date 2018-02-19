@@ -456,16 +456,7 @@
     <None Include="Shaders\shaders\hlsl_syntax.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="Shaders\shaders\aa\ssaa_resolve.hlsli">
-      <Filter>Shader Files\aa</Filter>
-    </None>
-    <None Include="Shaders\shaders\aa\msaa_resolve.hlsli">
-      <Filter>Shader Files\aa</Filter>
-    </None>
     <None Include="Shaders\shaders\aa\fxaa3_11.hlsli">
-      <Filter>Shader Files\aa</Filter>
-    </None>
-    <None Include="Shaders\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
     </None>
     <None Include="Shaders\shaders\tone_mapping.hlsli">
@@ -476,22 +467,7 @@
     <ClInclude Include="Shaders\src\hlsl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\aa\msaa_4x_resolve_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\aa\msaa_8x_resolve_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\aa\msaa_resolve_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\aa\ssaa_2x_resolve_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\aa\ssaa_3x_resolve_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\aa\ssaa_4x_resolve_CS.hpp">
       <Filter>Header Files\aa</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\aa\ssaa_resolve_CS.hpp">
@@ -501,9 +477,6 @@
       <Filter>Header Files\aa</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\aa\fxaa_CS.hpp">
-      <Filter>Header Files\aa</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\aa\msaa_2x_resolve_CS.hpp">
       <Filter>Header Files\aa</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\deferred\deferred_lambertian_CS.hpp">

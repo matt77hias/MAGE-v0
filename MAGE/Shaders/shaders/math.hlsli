@@ -974,18 +974,31 @@ float3 PackNormal(float3 n) {
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given (linear) z coordinate expressed in shading space to the 
+ Apply the homogeneous divide on the given position.
+
+ @param[in]		p
+				The position.
+ @return		The position after the homogeneous divide (i.e. the implicit w 
+				coordinate is equal to one).
+ */
+float3 HomogeneousDivide(float4 p) {
+	const float inv_w = 1.0f / p.w;
+	return p.xyz * inv_w;
+}
+
+/**
+ Converts the given (linear) z coordinate expressed in view space to the 
  corresponding (non-linear) z coordinate expressed in NDC space.
 
- @param[in]		p_z
-				The (linear) z coordinate expressed in shading space.
- @param[in]		proj_values
-				The projection values of the shading-to-projection matrix
-				[shading_to_projection22, shading_to_projection32].
+ @param[in]		p_view_z
+				The (linear) z coordinate expressed in view space.
+ @param[in]		projection_values
+				The projection values of the view-to-projection matrix
+				[view_to_projection22, view_to_projection32].
  @return		The (non-linear) z coordinate expressed in NDC space.
  */
-float ShadingZtoNDCZ(float p_z, float2 proj_values) {
-	return proj_values.x + proj_values.y / p_z;
+float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
+	return projection_values.x + projection_values.y / p_view_z;
 }
 
 /**

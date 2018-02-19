@@ -147,8 +147,7 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
  */
 float3 NDCToWorld(float3 p_ndc) {
 	const float4 p_hcamera = mul(float4(p_ndc, 1.0f), g_projection_to_camera);
-	const float  inv_w     = 1.0f / p_hcamera.w;
-	const float3 p_camera  = p_hcamera.xyz * inv_w;
+	const float3 p_camera  = HomogeneousDivide(p_hcamera);
 	return mul(float4(p_camera, 1.0f), g_camera_to_world).xyz;
 }
 

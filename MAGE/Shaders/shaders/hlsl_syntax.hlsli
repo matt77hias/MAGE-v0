@@ -2,7 +2,7 @@
 #define MAGE_HEADER_HLSL_SYNTAX
 
 //-----------------------------------------------------------------------------
-// Engine Includes: Sampler Types
+// Engine Defines: Sampler Types
 //-----------------------------------------------------------------------------
 
 #define CONCAT_REG_S(x) s##x
@@ -15,7 +15,7 @@ SamplerState name : register(REG_S(slot))
 SamplerComparisonState name : register(REG_S(slot))
 
 //-----------------------------------------------------------------------------
-// Engine Includes: Constant Buffer Types 
+// Engine Defines: Constant Buffer Types 
 //-----------------------------------------------------------------------------
 
 #define CONCAT_REG_B(x) b##x
@@ -25,7 +25,7 @@ SamplerComparisonState name : register(REG_S(slot))
 cbuffer name : register(REG_B(slot))
 
 //-----------------------------------------------------------------------------
-// Engine Includes: SRV and UAV Types
+// Engine Defines: SRV and UAV Types
 //-----------------------------------------------------------------------------
 
 #define CONCAT_REG_T(x) t##x

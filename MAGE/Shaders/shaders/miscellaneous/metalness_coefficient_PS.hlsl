@@ -23,5 +23,5 @@ float4 PS(PSInputPositionNormalTexture input,
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
-	return float2(g_metalness, g_metalness, g_metalness, 1.0f);
+	return float4(g_metalness, g_metalness, g_metalness, 1.0f);
 }

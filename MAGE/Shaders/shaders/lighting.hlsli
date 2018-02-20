@@ -163,11 +163,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i0 = 0u; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
 		
-		float3 l, L_light;
-		Contribution(light, l, L_light);
+		float3 l, E;
+		Contribution(light, l, E);
 
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_DIRECTIONAL_LIGHTS
 
@@ -176,11 +175,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
 		
-		float3 l, L_light;
-		Contribution(light, p, l, L_light);
+		float3 l, E;
+		Contribution(light, p, l, E);
 
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_OMNI_LIGHTS
 
@@ -189,11 +187,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
 		
-		float3 l, L_light;
-		Contribution(light, p, l, L_light);
+		float3 l, E;
+		Contribution(light, p, l, E);
 
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_SPOT_LIGHTS
 
@@ -204,11 +201,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i3 = 0u; i3 < g_nb_sm_directional_lights; ++i3) {
 		const ShadowMappedDirectionalLight light = g_sm_directional_lights[i3];
 		
-		float3 l, L_light;
-		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, L_light);
+		float3 l, E;
+		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, E);
 
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS
 
@@ -217,11 +213,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i4 = 0u; i4 < g_nb_sm_omni_lights; ++i4) {
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
 		
-		float3 l, L_light;
-		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, L_light);
+		float3 l, E;
+		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, E);
 		
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_SHADOW_MAPPED_OMNI_LIGHTS
 
@@ -230,11 +225,10 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
 		
-		float3 l, L_light;
-		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, L_light);
+		float3 l, E;
+		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, E);
 
-		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
-										  roughness, metalness);
+		L += E * BRDFxCOS_COMPONENT(n, l, v, base_color, roughness, metalness);
 	}
 	#endif // DISABLE_SHADOW_MAPPED_SPOT_LIGHTS
 

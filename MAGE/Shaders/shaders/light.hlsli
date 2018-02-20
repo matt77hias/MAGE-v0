@@ -23,8 +23,8 @@
  A struct of directional lights.
  */
 struct DirectionalLight {
-	// The radiance of this directional light.
-	float3 L;
+	// The irradiance of this directional light.
+	float3 E;
 	uint padding0;
 	// The (normalized) negated direction of this directional light expressed 
 	// in world space.
@@ -165,22 +165,22 @@ float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) 
 #endif // LIGHT_ANGULAR_ATTENUATION_COMPONENT
 
 /**
- Calculates the radiance contribution of the given directional light.
+ Calculates the irradiance contribution of the given directional light.
 
  @param[in]		light
 				The directional light.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution of the given directional light.
+ @param[out]	E
+				The irradiance contribution of the given directional light.
  */
-void Contribution(DirectionalLight light, out float3 l, out float3 L) {
+void Contribution(DirectionalLight light, out float3 l, out float3 E) {
 	l = light.neg_d;
-	L = light.L;
+	E = light.E;
 }
 
 /**
- Calculates the intensity contribution of the given omni light.
+ Calculates the irradiance contribution of the given omni light.
 
  @param[in]		light
 				The omni light.
@@ -188,10 +188,10 @@ void Contribution(DirectionalLight light, out float3 l, out float3 L) {
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution of the given omni light.
+ @param[out]	E
+				The irradiance contribution of the given omni light.
  */
-void Contribution(OmniLight light, float3 p, out float3 l, out float3 L) {
+void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
 	const float3 l_direction    = light.p - p;
 	const float  l_distance     = length(l_direction);
 	const float  inv_l_distance = 1.0f / l_distance;
@@ -199,11 +199,11 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 L) {
 
 	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(l_distance,
 														  light.inv_sqr_range);
-	L = da * light.I;
+	E = da * light.I;
 }
 
 /**
- Calculates the intensity contribution of the given spotlight.
+ Calculates the irradiance contribution of the given spotlight.
 
  @param[in]		light
 				The spotlight.
@@ -211,10 +211,10 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 L) {
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution of the given spotlight.
+ @param[out]	E
+				The irradiance contribution of the given spotlight.
  */
-void Contribution(SpotLight light, float3 p, out float3 l, out float3 L) {
+void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
 	const float3 l_direction    = light.p - p;
 	const float  l_distance     = length(l_direction);
 	const float  inv_l_distance = 1.0f / l_distance;
@@ -226,7 +226,7 @@ void Contribution(SpotLight light, float3 p, out float3 l, out float3 L) {
 	const float aa = LIGHT_ANGULAR_ATTENUATION_COMPONENT(cos_theta, 
 														 light.cos_umbra, 
 														 light.cos_inv_range);
-	L = aa * da * light.I;
+	E = aa * da * light.I;
 }
 
 /**
@@ -281,7 +281,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 }
 
 /**
- Calculates the radiance contribution of the given directional light.
+ Calculates the irradiance contribution of the given directional light.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
@@ -296,25 +296,25 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution.
+ @param[out]	E
+				The irradiance contribution.
  */
 void Contribution(ShadowMappedDirectionalLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  Texture2DArray< float > shadow_maps, uint index, 
-				  float3 p, out float3 l, out float3 L) {
+				  float3 p, out float3 l, out float3 E) {
 
-	float3 l0, L0;
-	Contribution(light.light, l0, L0);
+	float3 l0, E0;
+	Contribution(light.light, l0, E0);
 
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
 }
 
 /**
- Calculates the intensity contribution of the given omni light.
+ Calculates the irradiance contribution of the given omni light.
 
  @pre			@a shadow_maps must contain a shadow cube map at index @a index.
  @param[in]		light
@@ -329,25 +329,25 @@ void Contribution(ShadowMappedDirectionalLight light,
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution.
+ @param[out]	E
+				The irradiance contribution.
  */
 void Contribution(ShadowMappedOmniLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  TextureCubeArray< float > shadow_maps, uint index, 
-				  float3 p, out float3 l, out float3 L) {
+				  float3 p, out float3 l, out float3 E) {
 
-	float3 l0, L0;
-	Contribution(light.light, p, l0, L0);
+	float3 l0, E0;
+	Contribution(light.light, p, l0, E0);
 
 	l = l0;
 	const float3 p_light = p - light.light.p;
-	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, 
+	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index,
 						  p_light, light.projection_values);
 }
 
 /**
- Calculates the intensity contribution of the given spotlight.
+ Calculates the irradiance contribution of the given spotlight.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
@@ -362,21 +362,21 @@ void Contribution(ShadowMappedOmniLight light,
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	L
-				The radiance contribution.
+ @param[out]	E
+				The irradiance contribution.
  */
 void Contribution(ShadowMappedSpotLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  Texture2DArray< float > shadow_maps, uint index, 
-				  float3 p, out float3 l, out float3 L) {
+				  float3 p, out float3 l, out float3 E) {
 
-	float3 l0, L0;
-	Contribution(light.light, p, l0, L0);
+	float3 l0, E0;
+	Contribution(light.light, p, l0, E0);
 
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
 }
 
 /**

@@ -265,9 +265,6 @@
     <FxCompile Include="Shaders\shaders\postprocessing\postprocessing_depth_of_field_CS.hlsl">
       <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization.hlsli">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_blinn_phong_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
@@ -394,8 +391,41 @@
     <FxCompile Include="Shaders\shaders\forward\forward_vct_ward_duer_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\depth\depth_input.hlsli">
-      <Filter>Shader Files\depth</Filter>
+    <FxCompile Include="Shaders\shaders\miscellaneous\material_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\material_texture_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\base_color_coefficient_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\base_color_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\base_color_texture_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\material_coefficient_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\roughness_coefficient_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\roughness_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\metalness_coefficient_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\metalness_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\metalness_texture_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\miscellaneous\roughness_texture_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -462,6 +492,8 @@
     <None Include="Shaders\shaders\tone_mapping.hlsli">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="Shaders\shaders\depth\depth_input.hlsli" />
+    <None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\hlsl.hpp">

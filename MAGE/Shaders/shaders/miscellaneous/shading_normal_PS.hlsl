@@ -8,7 +8,10 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "global.hlsli"
+#define DISABLE_BASE_COLOR_TEXTURE
+#define DISABLE_MATERIAL_TEXTURE
+#define DISABLE_TSNM
+#include "forward\forward_input.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
@@ -20,9 +23,9 @@ float4 PS(PSInputPositionNormalTexture input,
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
-	// Normalize the view-space normal.
-	const float3 n_view = normalize(input.n_view);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world = GetNormal(input.p_world, input.n_world,
+									 input.tex_geometry);
 	
-	// Converts the [-1,1] range to the [0,1] range.
-	return float4(SNORMtoUNORM(n_view), 1.0f);
+	return float4(PackNormal(n_world), 1.0f);
 }

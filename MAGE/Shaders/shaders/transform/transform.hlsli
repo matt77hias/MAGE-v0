@@ -77,9 +77,9 @@ PSInputPositionNormalTexture Transform(VSInputPositionNormalTexture input,
 	
 	PSInputPositionNormalTexture output;
 	
-	output.p_world      = mul(float4(input.p, 1.0f), object_to_world).xyz;
-	const float3 p_view = mul(float4(p_world, 1.0f), world_to_view).xyz;
-	output.p            = mul(float4(p_view,  1.0f), view_to_projection);
+	output.p_world      = mul(float4(input.p,        1.0f), object_to_world).xyz;
+	const float3 p_view = mul(float4(output.p_world, 1.0f), world_to_view).xyz;
+	output.p            = mul(float4(p_view,         1.0f), view_to_projection);
 	output.n_world      = normalize(mul(input.n, normal_to_world));
 	output.tex_material = Transform(input.tex, texture_transform);
 	output.tex_geometry = input.tex;

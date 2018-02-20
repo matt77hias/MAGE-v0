@@ -50,7 +50,7 @@ float4 PS(float4 input : SV_POSITION, uint index : SV_SampleIndex) : SV_Target {
 	// Obtain the surface normal expressed in world space.
 	const float3 n_world    = GetGBufferNormal(p_ss_display, index);
 	// Obtain the surface position expressed in world space.
-	const float3 p_view     = GetGBufferPosition(p_ss_display, index);
+	const float3 p_world    = GetGBufferPosition(p_ss_display, index);
 
 	// Calculate the pixel radiance.
 	const float3 L = GetRadiance(p_world, n_world,
@@ -116,7 +116,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
 	// Store the pixel color.
-	g_output[location] = float4(L, 1.0f);
+	g_output[p_ss_display] = float4(L, 1.0f);
 }
 
 #endif // MSAA

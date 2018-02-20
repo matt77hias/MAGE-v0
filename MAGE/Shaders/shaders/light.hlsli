@@ -310,7 +310,7 @@ void Contribution(ShadowMappedDirectionalLight light,
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
 }
 
 /**
@@ -329,20 +329,20 @@ void Contribution(ShadowMappedDirectionalLight light,
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	I
-				The intensity contribution.
+ @param[out]	L
+				The radiance contribution.
  */
 void Contribution(ShadowMappedOmniLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  TextureCubeArray< float > shadow_maps, uint index, 
-				  float3 p, out float3 l, out float3 I) {
+				  float3 p, out float3 l, out float3 L) {
 
-	float3 l0, I0;
-	Contribution(light.light, p, l0, I0);
+	float3 l0, L0;
+	Contribution(light.light, p, l0, L0);
 
 	l = l0;
 	const float3 p_light = p - light.light.p;
-	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, 
+	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, 
 						  p_light, light.projection_values);
 }
 
@@ -362,21 +362,21 @@ void Contribution(ShadowMappedOmniLight light,
 				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
- @param[out]	I
-				The intensity contribution.
+ @param[out]	L
+				The radiance contribution.
  */
 void Contribution(ShadowMappedSpotLight light, 
 				  SamplerComparisonState pcf_sampler, 
 				  Texture2DArray< float > shadow_maps, uint index, 
-				  float3 p, out float3 l, out float3 I) {
+				  float3 p, out float3 l, out float3 L) {
 
-	float3 l0, I0;
-	Contribution(light.light, p, l0, I0);
+	float3 l0, L0;
+	Contribution(light.light, p, l0, L0);
 
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
 }
 
 /**

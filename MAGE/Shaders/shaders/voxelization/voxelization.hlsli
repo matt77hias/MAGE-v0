@@ -56,12 +56,12 @@ void PS(PSInputPositionNormalTexture input) {
 	}
 
 	// Obtain the base color of the material.
-	const float4 base_color = GetMaterialBaseColor(input.tex);
+	const float4 base_color = GetMaterialBaseColor(input.tex_material);
 	
 	clip(base_color.w - TRANSPARENCY_THRESHOLD);
 
 	// Obtain the material parameters [roughness, metalness] of the material.
-	const float2 material = GetMaterialParameters(input.tex);
+	const float2 material = GetMaterialParameters(input.tex_material);
 	// Obtain the surface normal expressed in world space.
 	const float3 n_world  = GetNormal(input.p_world, input.n_world,
 									  input.tex_geometry);

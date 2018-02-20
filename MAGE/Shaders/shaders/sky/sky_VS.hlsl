@@ -32,7 +32,7 @@ PSInputWorldPosition VS(uint vertex_id : SV_VertexID) {
 
 	output.p_world = g_icosphere[vertex_id];
 	
-	const float3 p_camera = mul(output.p_world, (float3x3)g_world_to_view);
+	const float3 p_camera = mul(output.p_world, (float3x3)g_world_to_camera);
 	const float4 p_proj   = mul(float4(p_camera.xy,
 									   g_sky_dome_z_scale * p_camera.z,
 									   1.0f), 

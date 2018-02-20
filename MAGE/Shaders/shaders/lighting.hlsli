@@ -252,11 +252,11 @@ float3 GetDirectRadiance(float3 p, float3 n,
 
 float3 GetIndirectRadiance(float3 p) {
 	#ifndef BRDFxCOS_COMPONENT
-	return 0.0f
+	return 0.0f;
 	#else  // BRDFxCOS_COMPONENT
 
 	#ifdef DISABLE_VCT
-	return 0.0f
+	return 0.0f;
 	#else  // DISABLE_VCT
 	const int3 s_index = WorldToVoxelIndex(p);
 	return g_voxel_texture[s_index].xyz;

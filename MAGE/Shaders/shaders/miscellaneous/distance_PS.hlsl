@@ -20,6 +20,8 @@ float4 PS(PSInputPositionNormalTexture input,
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
-	const float c = 1.0f - saturate(length(input.p_view) / 5.0f);
+	const float distance = length(GetCameraPosition() - input.p_world);
+	const float c        = 1.0f - saturate(distance / 5.0f);
+
 	return float4(c, c, c, 1.0f);
 }

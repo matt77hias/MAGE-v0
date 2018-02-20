@@ -274,7 +274,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 				   float3 p_light, float2 projection_values) {
 
 	const float  p_light_z = Max(abs(p_light));
-	const float  p_ndc_z   = ShadingZtoNDCZ(p_light_z, projection_values);
+	const float  p_ndc_z   = ViewZtoNDCZ(p_light_z, projection_values);
 	const float4 location  = float4(p_light, index);
 
 	return shadow_maps.SampleCmpLevelZero(pcf_sampler, location, p_ndc_z);

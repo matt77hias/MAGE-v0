@@ -981,7 +981,6 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
     </FxCompile>
-    <None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_lambertian_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -2149,6 +2148,7 @@
     <None Include="Shaders\shaders\tone_mapping.hlsli" />
     <None Include="Shaders\shaders\transform\transform.hlsli" />
     <None Include="Shaders\shaders\voxelization\voxel.hlsli" />
+	<None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\aa\aa_preprocess_CS.hpp" />
@@ -2165,7 +2165,17 @@
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_emissive_PS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_frostbite_PS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_blinn_phong_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_frostbite_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_vct_blinn_phong_CS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_vct_cook_torrance_CS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_vct_frostbite_CS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_vct_lambertian_CS.hpp" />
+    <ClInclude Include="Shaders\src\deferred\deferred_vct_ward_duer_CS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_ward_duer_CS.hpp" />
     <ClInclude Include="Shaders\src\depth\depth_transparent_PS.hpp" />
     <ClInclude Include="Shaders\src\depth\depth_transparent_VS.hpp" />
@@ -2185,23 +2195,48 @@
     <ClInclude Include="Shaders\src\forward\forward_transparent_tsnm_frostbite_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_transparent_tsnm_lambertian_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_transparent_tsnm_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_blinn_phong_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_frostbite_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_blinn_phong_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_frostbite_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_transparent_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_tsnm_blinn_phong_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_tsnm_cook_torrance_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_tsnm_frostbite_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_tsnm_lambertian_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_tsnm_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_blinn_phong_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_frostbite_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_blinn_phong_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_frostbite_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_lambertian_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\forward\forward_vct_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\forward\forward_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\gbuffer\gbuffer_PS.hpp" />
     <ClInclude Include="Shaders\src\gbuffer\gbuffer_tsnm_PS.hpp" />
     <ClInclude Include="Shaders\src\hlsl.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\back_buffer_PS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\constant_color_PS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\constant_color_texture_PS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\distance_PS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\shading_normal_PS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\shading_normal_VS.hpp" />
-    <ClInclude Include="Shaders\src\miscellaneous\tsnm_shading_normal_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\base_color_coefficient_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\base_color_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\base_color_texture_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\material_coefficient_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\material_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\material_texture_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\metalness_coefficient_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\metalness_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\metalness_texture_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\roughness_coefficient_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\roughness_PS.hpp" />
+    <ClInclude Include="Shaders\src\miscellaneous\roughness_texture_PS.hpp" />
     <ClInclude Include="Shaders\src\postprocessing\postprocessing_depth_of_field_CS.hpp" />
     <ClInclude Include="Shaders\src\primitive\far_fullscreen_triangle_VS.hpp" />
     <ClInclude Include="Shaders\src\primitive\line_cube_PS.hpp" />
@@ -2212,10 +2247,10 @@
     <ClInclude Include="Shaders\src\sky\sky_VS.hpp" />
     <ClInclude Include="Shaders\src\sprite\sprite_PS.hpp" />
     <ClInclude Include="Shaders\src\sprite\sprite_VS.hpp" />
-    <ClInclude Include="Shaders\src\transform\minimal_transform_VS.hpp" />
     <ClInclude Include="Shaders\src\transform\transform_VS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_blinn_phong_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_cook_torrance_PS.hpp" />
+    <ClInclude Include="Shaders\src\voxelization\voxelization_CS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_frostbite_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_GS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_lambertian_PS.hpp" />
@@ -2224,6 +2259,7 @@
     <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_frostbite_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_lambertian_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\voxelization\voxelization_VS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_ward_duer_PS.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

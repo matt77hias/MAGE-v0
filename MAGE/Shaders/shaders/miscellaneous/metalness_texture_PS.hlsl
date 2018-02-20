@@ -25,5 +25,6 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Obtain the metalness of the material.
 	const float metalness = g_material_texture.Sample(g_linear_wrap_sampler, 
 	                                                  input.tex_material).y;
+
 	return float4(metalness, metalness, metalness, 1.0f);
 }

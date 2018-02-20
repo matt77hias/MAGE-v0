@@ -30,5 +30,6 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 
 	const float4 hdr = g_image_texture[input.xy];
 	const float4 ldr = saturate(TONE_MAP_COMPONENT(hdr));
+
 	return LinearToGamma(ldr, g_inv_gamma);
 }

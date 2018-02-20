@@ -573,73 +573,63 @@ namespace mage {
 	PixelShaderPtr CreateBackBufferPS();
 
 	/**
-	 Creates a constant color pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the constant color pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
+	 An enumeration of the different false colors.
+	 
+	 This contains:
+	 
+	 @c ConstantColor,
+	 @c ConstantColorTexture,
+	 @c BaseColor,
+	 @c BaseColorCoefficient,
+	 @c BaseColorTexture,
+	 @c Material,
+	 @c MaterialCoefficient,
+	 @c MaterialTexture,
+	 @c Roughness,
+	 @c RoughnessCoefficient,
+	 @c RoughnessTexture,
+	 @c Metalness,
+	 @c MetalnessCoefficient,
+	 @c MetalnessTexture,
+	 @c ShadingNormal,
+	 @c TSNMShadingNormal, and
+	 @c Distance.
 	 */
-	PixelShaderPtr CreateConstantColorPS();
-
+	enum class FalseColor : U8 {
+		ConstantColor = 0,
+		ConstantColorTexture,
+		BaseColor,
+		BaseColorCoefficient,
+		BaseColorTexture,
+		Material,
+		MaterialCoefficient,
+		MaterialTexture,
+		Roughness,
+		RoughnessCoefficient,
+		RoughnessTexture,
+		Metalness,
+		MetalnessCoefficient,
+		MetalnessTexture,
+		ShadingNormal,
+		TSNMShadingNormal,
+		Distance
+	};
+	
 	/**
-	 Creates a constant color texture pixel shader.
+	 Creates a false color pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the constant color texture pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateConstantColorTexturePS();
-
-	/**
-	 Creates a distance pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		false_color
+					The false color.
 	 @return		A pointer to the distance pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDistancePS();
-
-	/**
-	 Creates a shading normal vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the shading normal vertex shader.
-	 @throws		Exception
-					Failed to create the vertex shader.
-	 */
-	VertexShaderPtr CreateShadingNormalVS();
-
-	/**
-	 Creates a shading normal pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
-	 @return		A pointer to the shading normal pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateShadingNormalPS(bool tsnm = false);
-
+	PixelShaderPtr CreateFalseColorPS(FalseColor false_color);
+	
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -804,19 +794,6 @@ namespace mage {
 					Failed to create the vertex shader.
 	 */
 	VertexShaderPtr CreateTransformVS();
-
-	/**
-	 Creates a minimal transform vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the minimal transform vertex shader.
-	 @throws		Exception
-					Failed to create the vertex shader.
-	 */
-	VertexShaderPtr CreateMinimalTransformVS();
 
 	#pragma endregion
 

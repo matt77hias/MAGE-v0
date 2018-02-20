@@ -106,12 +106,23 @@
 
 // Miscellaneous
 #include "miscellaneous\back_buffer_PS.hpp"
-#include "miscellaneous\distance_PS.hpp"
 #include "miscellaneous\constant_color_PS.hpp"
 #include "miscellaneous\constant_color_texture_PS.hpp"
-#include "miscellaneous\shading_normal_VS.hpp"
+#include "miscellaneous\base_color_PS.hpp"
+#include "miscellaneous\base_color_coefficient_PS.hpp"
+#include "miscellaneous\base_color_texture_PS.hpp"
+#include "miscellaneous\material_PS.hpp"
+#include "miscellaneous\material_coefficient_PS.hpp"
+#include "miscellaneous\material_texture_PS.hpp"
+#include "miscellaneous\roughness_PS.hpp"
+#include "miscellaneous\roughness_coefficient_PS.hpp"
+#include "miscellaneous\roughness_texture_PS.hpp"
+#include "miscellaneous\metalness_PS.hpp"
+#include "miscellaneous\metalness_coefficient_PS.hpp"
+#include "miscellaneous\metalness_texture_PS.hpp"
 #include "miscellaneous\shading_normal_PS.hpp"
 #include "miscellaneous\tsnm_shading_normal_PS.hpp"
+#include "miscellaneous\distance_PS.hpp"
 
 // Post-processing
 #include "postprocessing\postprocessing_depth_of_field_CS.hpp"
@@ -131,7 +142,6 @@
 #include "sprite\sprite_PS.hpp"
 
 // Transform
-#include "transform\minimal_transform_VS.hpp"
 #include "transform\transform_VS.hpp"
 
 // Voxelization
@@ -531,28 +541,46 @@ namespace mage {
 		return Create< PixelShader >(MAGE_SHADER_ARGS(g_back_buffer_PS));
 	}
 
-	PixelShaderPtr CreateConstantColorPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
-	}
-
-	PixelShaderPtr CreateConstantColorTexturePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
-	}
-
-	PixelShaderPtr CreateDistancePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
-	}
-
-	VertexShaderPtr CreateShadingNormalVS() {
-		using vertex_t = VertexPositionNormalTexture;
-		return Create< VertexShader >(MAGE_SHADER_ARGS(g_shading_normal_VS),
-									  vertex_t::s_input_element_desc,
-									  vertex_t::s_nb_input_elements);
-	}
-
-	PixelShaderPtr CreateShadingNormalPS(bool tsnm) {
-		return tsnm ? Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS))
-			        : Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
+	PixelShaderPtr CreateFalseColorPS(FalseColor false_color) {
+		switch (false_color) {
+			
+			case FalseColor::ConstantColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
+			case FalseColor::ConstantColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
+			case FalseColor::BaseColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+			case FalseColor::BaseColorCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_coefficient_PS));
+			case FalseColor::BaseColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_texture_PS));
+			case FalseColor::Material:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_PS));
+			case FalseColor::MaterialCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_coefficient_PS));
+			case FalseColor::MaterialTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_texture_PS));
+			case FalseColor::Roughness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_PS));
+			case FalseColor::RoughnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_coefficient_PS));
+			case FalseColor::RoughnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_texture_PS));
+			case FalseColor::Metalness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_PS));
+			case FalseColor::MetalnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_coefficient_PS));
+			case FalseColor::MetalnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_texture_PS));
+			case FalseColor::ShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
+			case FalseColor::TSNMShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS));
+			case FalseColor::Distance:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
+			default:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+		}
 	}
 
 	#pragma endregion
@@ -632,13 +660,6 @@ namespace mage {
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
 	#pragma region
-
-	VertexShaderPtr CreateMinimalTransformVS() {
-		using vertex_t = VertexPositionNormalTexture;
-		return Create< VertexShader >(MAGE_SHADER_ARGS(g_minimal_transform_VS), 
-									  vertex_t::s_input_element_desc, 
-									  vertex_t::s_nb_input_elements);
-	}
 
 	VertexShaderPtr CreateTransformVS() {
 		using vertex_t = VertexPositionNormalTexture;

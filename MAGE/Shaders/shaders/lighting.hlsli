@@ -176,8 +176,8 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
 		
-		float3 l, I_light;
-		Contribution(light, p, l, I_light);
+		float3 l, L_light;
+		Contribution(light, p, l, L_light);
 
 		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);
@@ -189,8 +189,8 @@ float3 GetDirectRadiance(float3 p, float3 n,
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
 		
-		float3 l, I_light;
-		Contribution(light, p, l, I_light);
+		float3 l, L_light;
+		Contribution(light, p, l, L_light);
 
 		L += L_light * BRDFxCOS_COMPONENT(n, l, v, base_color, 
 										  roughness, metalness);

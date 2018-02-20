@@ -23,7 +23,7 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #endif // MSAA_AS_SSAA
 
 	// Obtain the roughness of the material.
-	const float2 roughness = g_material_texture.Sample(g_linear_wrap_sampler, 
-	                                                   input.tex_material).x;
+	const float roughness = g_material_texture.Sample(g_linear_wrap_sampler, 
+	                                                  input.tex_material).x;
 	return float4(roughness, roughness, roughness, 1.0f);
 }

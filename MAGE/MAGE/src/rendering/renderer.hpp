@@ -8,21 +8,17 @@
 #include "rendering\pass\aa_pass.hpp"
 #include "rendering\pass\back_buffer_pass.hpp"
 #include "rendering\pass\bounding_volume_pass.hpp"
-#include "rendering\pass\constant_component_pass.hpp"
-#include "rendering\pass\constant_shading_pass.hpp"
-#include "rendering\pass\deferred_shading_pass.hpp"
+#include "rendering\pass\deferred_pass.hpp"
 #include "rendering\pass\depth_pass.hpp"
 #include "rendering\pass\dof_pass.hpp"
+#include "rendering\pass\forward_pass.hpp"
 #include "rendering\pass\gbuffer_pass.hpp"
 #include "rendering\pass\lbuffer_pass.hpp"
-#include "rendering\pass\shading_normal_pass.hpp"
 #include "rendering\pass\sky_pass.hpp"
+#include "rendering\pass\solid_pass.hpp"
 #include "rendering\pass\sprite_pass.hpp"
-#include "rendering\pass\variable_component_pass.hpp"
-#include "rendering\pass\variable_shading_pass.hpp"
 #include "rendering\pass\voxelization_pass.hpp"
 #include "rendering\pass\wireframe_pass.hpp"
-
 #include "rendering\buffer\game_buffer.hpp"
 #include "rendering\buffer\camera_buffer.hpp"
 
@@ -68,14 +64,9 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		width
-						The width in pixels of the back buffer.
-		 @param[in]		height
-						The height in pixels of the back buffer.
 		 */
 		explicit Renderer(ID3D11Device *device, 
-			              ID3D11DeviceContext *device_context, 
-			              U32 width, U32 height);
+			              ID3D11DeviceContext *device_context);
 
 		/**
 		 Constructs a renderer from the given renderer.
@@ -197,50 +188,15 @@ namespace mage {
 		}
 
 		/**
-		 Returns the constant component pass of this renderer.
+		 Returns the deferred pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the constant component pass of this scene 
-						renderer.
+		 @return		A pointer to the deferred pass of this renderer.
 		 */
-		ConstantComponentPass *GetConstantComponentPass() {
-			if (!m_constant_component_pass) {
-				m_constant_component_pass = MakeUnique< ConstantComponentPass >();
-			}
-			return m_constant_component_pass.get();
-		}
-
-		/**
-		 Returns the constant shading pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the constant shading pass of this scene 
-						renderer.
-		 */
-		ConstantShadingPass *GetConstantShadingPass() {
-			if (!m_constant_shading_pass) {
-				m_constant_shading_pass = MakeUnique< ConstantShadingPass >();
-			}
-			return m_constant_shading_pass.get();
-		}
-
-		/**
-		 Returns the deferred shading pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the deferred shading pass of this scene 
-						renderer.
-		 */
-		DeferredShadingPass *GetDeferredShadingPass() {
+		DeferredShadingPass *GetDeferredPass() {
 			if (!m_deferred_shading_pass) {
 				m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
 			}
@@ -280,6 +236,22 @@ namespace mage {
 		}
 
 		/**
+		 Returns the forward pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the forward pass of this renderer.
+		 */
+		ForwardPass *GetForwardPass() {
+			if (!m_forward_pass) {
+				m_forward_pass = MakeUnique< ForwardPass >();
+			}
+			return m_forward_pass.get();
+		}
+
+		/**
 		 Returns the GBuffer pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -312,23 +284,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the shading normal pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the shading normal pass of this scene 
-						renderer.
-		 */
-		ShadingNormalPass *GetShadingNormalPass() {
-			if (!m_shading_normal_pass) {
-				m_shading_normal_pass = MakeUnique< ShadingNormalPass >();
-			}
-			return m_shading_normal_pass.get();
-		}
-
-		/**
 		 Returns the sky pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -345,6 +300,22 @@ namespace mage {
 		}
 
 		/**
+		 Returns the solid pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the solid pass of this renderer.
+		 */
+		SolidPass *GetSolidPass() {
+			if (!m_solid_pass) {
+				m_solid_pass = MakeUnique< SolidPass >();
+			}
+			return m_solid_pass.get();
+		}
+
+		/**
 		 Returns the sprite pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -358,40 +329,6 @@ namespace mage {
 				m_sprite_pass = MakeUnique< SpritePass >();
 			}
 			return m_sprite_pass.get();
-		}
-
-		/**
-		 Returns the variable component pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the variable component pass of this scene 
-						renderer.
-		 */
-		VariableComponentPass *GetVariableComponentPass() {
-			if (!m_variable_component_pass) {
-				m_variable_component_pass = MakeUnique< VariableComponentPass >();
-			}
-			return m_variable_component_pass.get();
-		}
-
-		/**
-		 Returns the variable shading pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the variable shading pass of this scene 
-						renderer.
-		 */
-		VariableShadingPass *GetVariableShadingPass() {
-			if (!m_variable_shading_pass) {
-				m_variable_shading_pass = MakeUnique< VariableShadingPass >();
-			}
-			return m_variable_shading_pass.get();
 		}
 
 		/**
@@ -432,48 +369,38 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		/**
-		 Binds the camera buffer of this renderer.
-		 
-		 @param[in]		camera
-						A reference to the camera.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
-		 @param[in]		projection_to_view
-						The projection-to-view transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
-		 @throws		Exception
-						Failed to bind the persistent state of this renderer.
-		 */
-		void XM_CALLCONV BindCameraBuffer(const Camera &camera,
-			                              FXMMATRIX view_to_projection, 
-			                              CXMMATRIX projection_to_view,
-			                              CXMMATRIX world_to_view,
-			                              CXMMATRIX view_to_world);
-
-		void XM_CALLCONV ExecuteSolidForwardPipeline(const Scene &scene,
-			                                         const Camera &camera,
-			                                         FXMMATRIX world_to_projection,
-			                                         CXMMATRIX world_to_view,
-			                                         CXMMATRIX view_to_world);
-
-		void XM_CALLCONV ExecuteForwardPipeline(const Scene &scene,
-			                                    const Camera &camera,
-			                                    FXMMATRIX world_to_projection,
-			                                    CXMMATRIX world_to_view,
-			                                    CXMMATRIX view_to_world);
-
-		void XM_CALLCONV ExecuteDeferredPipeline(const Scene &scene,
-			                                     const Camera &camera,
-			                                     FXMMATRIX world_to_projection,
-			                                     CXMMATRIX world_to_view,
-			                                     CXMMATRIX view_to_world);
-
-		void ExecuteAAPipeline(const Camera &camera);
-
+		void UpdateBuffers(const Scene &scene) const;
+		
+		void Render(const Scene &scene, const Camera &camera);
+		
+		void XM_CALLCONV RenderForward(const Scene &scene, 
+									   const Camera &camera, 
+									   FXMMATRIX world_to_projection);
+		
+		void XM_CALLCONV RenderDeferred(const Scene &scene, 
+										const Camera &camera, 
+										FXMMATRIX world_to_projection);
+		
+		void XM_CALLCONV RenderSolid(const Scene &scene, 
+									 const Camera &camera, 
+									 FXMMATRIX world_to_projection);
+		
+		void XM_CALLCONV RenderVoxelization(const Scene &scene, 
+											const Camera &camera, 
+											FXMMATRIX world_to_projection);
+		
+		void XM_CALLCONV RenderGBuffer(const Scene &scene, 
+									   const Camera &camera, 
+									   FXMMATRIX world_to_projection);
+		
+		void XM_CALLCONV RenderFalseColor(const Scene &scene, 
+										  const Camera &camera, 
+										  FXMMATRIX world_to_projection);
+		
+		void RenderAA(const Camera &camera);
+		
+		void RenderPostProcessing(const Camera &camera);
+		
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -484,20 +411,10 @@ namespace mage {
 		ID3D11DeviceContext * const m_device_context;
 
 		/**
-		 The maximum viewport of this renderer.
-		 */
-		Viewport m_maximum_viewport;
-
-		/**
 		 A pointer to the game buffer of this renderer.
 		 */
 		ConstantBuffer< GameBuffer > m_game_buffer;
 
-		/**
-		 A pointer to the camera buffer of this renderer.
-		 */
-		ConstantBuffer< CameraBuffer > m_camera_buffer;
-		
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes
 		//---------------------------------------------------------------------
@@ -518,19 +435,9 @@ namespace mage {
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 
 		/**
-		 A pointer to the constant component pass of this renderer.
+		 A pointer to the deferred pass of this renderer.
 		 */
-		UniquePtr< ConstantComponentPass > m_constant_component_pass;
-		
-		/**
-		 A pointer to the constant shading pass of this renderer.
-		 */
-		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
-
-		/**
-		 A pointer to the deferred shading pass of this renderer.
-		 */
-		UniquePtr< DeferredShadingPass > m_deferred_shading_pass;
+		UniquePtr< DeferredPass > m_deferred_pass;
 
 		/**
 		 A pointer to the depth pass of this renderer.
@@ -543,6 +450,11 @@ namespace mage {
 		UniquePtr< DOFPass > m_dof_pass;
 
 		/**
+		 A pointer to the forward pass of this renderer.
+		 */
+		UniquePtr< ForwardPass > m_forward_pass;
+
+		/**
 		 A pointer to the GBuffer pass of this renderer.
 		 */
 		UniquePtr< GBufferPass >  m_gbuffer_pass;
@@ -553,29 +465,19 @@ namespace mage {
 		UniquePtr< LBufferPass >  m_lbuffer_pass;
 
 		/**
-		 A pointer to the shading normal pass of this renderer.
-		 */
-		UniquePtr< ShadingNormalPass > m_shading_normal_pass;
-
-		/**
 		 A pointer to the sky pass of this renderer.
 		 */
 		UniquePtr< SkyPass > m_sky_pass;
 
 		/**
+		 A pointer to the solid pass of this renderer.
+		 */
+		UniquePtr< SolidPass > m_solid_pass;
+
+		/**
 		 A pointer to the sprite pass of this renderer.
 		 */
 		UniquePtr< SpritePass > m_sprite_pass;
-
-		/**
-		 A pointer to the variable component pass of this renderer.
-		 */
-		UniquePtr< VariableComponentPass > m_variable_component_pass;
-
-		/**
-		 A pointer to the variable shading pass of this renderer.
-		 */
-		UniquePtr< VariableShadingPass > m_variable_shading_pass;
 
 		/**
 		 A pointer to the voxelization pass of this renderer.

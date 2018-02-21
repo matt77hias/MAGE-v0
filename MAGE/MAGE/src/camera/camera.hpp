@@ -218,7 +218,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera (i.e. this 
 						camera).
 		 */
-		Camera &operator=(const Camera &camera) noexcept;
+		Camera &operator=(const Camera &camera);
 
 		/**
 		 Moves the given camera to this camera.
@@ -454,7 +454,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to copy.
 		 */
-		Camera(const Camera &camera) noexcept;
+		Camera(const Camera &camera);
 
 		/**
 		 Constructs a camera by moving the given camera.

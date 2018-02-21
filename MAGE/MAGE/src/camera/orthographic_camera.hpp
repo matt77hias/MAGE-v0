@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera) noexcept;
+		OrthographicCamera(const OrthographicCamera &camera);
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic 
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic 
 						camera (i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera) noexcept;
+		OrthographicCamera &operator=(const OrthographicCamera &camera);
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.

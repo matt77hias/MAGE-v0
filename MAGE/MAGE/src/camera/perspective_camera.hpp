@@ -115,7 +115,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to copy.
 		 */
-		PerspectiveCamera(const PerspectiveCamera &camera) noexcept;
+		PerspectiveCamera(const PerspectiveCamera &camera);
 		
 		/**
 		 Constructs a perspective camera by moving the given perspective camera.
@@ -142,7 +142,7 @@ namespace mage {
 		 @return		A reference to the copy of the given perspective 
 						camera (i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera) noexcept;
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera);
 
 		/**
 		 Moves the given perspective camera to this perspective camera.

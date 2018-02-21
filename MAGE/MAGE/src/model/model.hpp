@@ -88,7 +88,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model (i.e. this 
 						model).
 		 */
-		Model &operator=(const Model &model) = delete;
+		Model &operator=(const Model &model);
 
 		/**
 		 Moves the given model to this model.

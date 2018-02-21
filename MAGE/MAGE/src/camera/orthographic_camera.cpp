@@ -28,7 +28,7 @@ namespace mage {
 		m_height(MAGE_DEFAULT_HEIGHT) {}
 
 	OrthographicCamera::OrthographicCamera(
-		const OrthographicCamera &camera) noexcept = default;
+		const OrthographicCamera &camera) = default;
 
 	OrthographicCamera::OrthographicCamera(
 		OrthographicCamera &&camera) noexcept = default;
@@ -36,7 +36,7 @@ namespace mage {
 	OrthographicCamera::~OrthographicCamera() = default;
 
 	OrthographicCamera &OrthographicCamera
-		::operator=(const OrthographicCamera &camera) noexcept = default;
+		::operator=(const OrthographicCamera &camera) = default;
 
 	OrthographicCamera &OrthographicCamera
 		::operator=(OrthographicCamera &&camera) noexcept = default;

@@ -34,6 +34,8 @@ namespace mage {
 
 	Model::~Model() = default;
 
+	Model &Model::operator=(const Model &model) = default;
+
 	Model &Model::operator=(Model &&model) noexcept = default;
 
 	void Model::UpdateBuffer(ID3D11DeviceContext *device_context) const {

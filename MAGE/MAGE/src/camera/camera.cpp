@@ -32,13 +32,13 @@ namespace mage {
 		m_viewport(),
 		m_settings() {}
 
-	Camera::Camera(const Camera &camera) noexcept = default;
+	Camera::Camera(const Camera &camera) = default;
 
 	Camera::Camera(Camera &&camera) noexcept = default;
 
 	Camera::~Camera() = default;
 
-	Camera &Camera::operator=(const Camera &camera) noexcept = default;
+	Camera &Camera::operator=(const Camera &camera) = default;
 
 	Camera &Camera::operator=(Camera &&camera) noexcept = default;
 

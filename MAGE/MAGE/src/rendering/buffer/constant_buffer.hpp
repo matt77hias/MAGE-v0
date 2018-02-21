@@ -93,7 +93,7 @@ namespace mage {
 		 @return		A reference to the moved constant buffer (i.e. this 
 						constant buffer).
 		 */
-		ConstantBuffer &operator=(ConstantBuffer &&buffer) = delete;
+		ConstantBuffer &operator=(ConstantBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

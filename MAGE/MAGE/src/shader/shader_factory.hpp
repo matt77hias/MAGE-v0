@@ -529,6 +529,19 @@ namespace mage {
 								   bool vct, 
 								   bool tsnm);
 
+	/**
+	 Creates a forward solid pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the forward Lambertian pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateForwardSolidPS();
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

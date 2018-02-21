@@ -48,6 +48,7 @@
 #include "depth\depth_transparent_VS.hpp"
 #include "depth\depth_transparent_PS.hpp"
 
+#include "forward\forward_solid_PS.hpp"
 // Forward: Opaque
 #include "forward\forward_blinn_phong_PS.hpp"
 #include "forward\forward_cook_torrance_PS.hpp"
@@ -357,7 +358,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, 
+											 bool vct, 
+											 bool tsnm) {
+
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -385,7 +389,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency, 
+											   bool vct, 
+											   bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -418,7 +425,10 @@ namespace mage {
 		                    : Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
-	PixelShaderPtr CreateForwardFrostbitePS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardFrostbitePS(bool transparency, 
+											bool vct, 
+											bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -446,7 +456,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardLambertianPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardLambertianPS(bool transparency, 
+											 bool vct, 
+											 bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -474,7 +487,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardWardDuerPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardWardDuerPS(bool transparency, 
+										   bool vct, 
+										   bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -502,7 +518,11 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardPS(BRDFType brdf, bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardPS(BRDFType brdf, 
+								   bool transparency, 
+								   bool vct, 
+								   bool tsnm) {
+		
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
@@ -516,6 +536,10 @@ namespace mage {
 		default:
 			return CreateForwardFrostbitePS(   transparency, vct, tsnm);
 		}
+	}
+
+	PixelShaderPtr CreateForwardSolidPS() {
+		return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_solid_PS));
 	}
 
 	#pragma endregion

@@ -287,6 +287,7 @@
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_solid_PS.hlsl" />
     <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_blinn_phong_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -2148,7 +2149,7 @@
     <None Include="Shaders\shaders\tone_mapping.hlsli" />
     <None Include="Shaders\shaders\transform\transform.hlsli" />
     <None Include="Shaders\shaders\voxelization\voxel.hlsli" />
-	<None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
+    <None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\aa\aa_preprocess_CS.hpp" />

@@ -427,6 +427,9 @@
     <FxCompile Include="Shaders\shaders\miscellaneous\roughness_texture_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\forward\forward_solid_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shaders\brdf.hlsli">
@@ -492,11 +495,11 @@
     <None Include="Shaders\shaders\tone_mapping.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="Shaders\shaders\depth\depth_input.hlsli"> 
-	  <Filter>Shader Files\depth</Filter>
+    <None Include="Shaders\shaders\depth\depth_input.hlsli">
+      <Filter>Shader Files\depth</Filter>
     </None>
-    <None Include="Shaders\shaders\voxelization\voxelization.hlsli"> 
-	  <Filter>Shader Files\voxelization</Filter>
+    <None Include="Shaders\shaders\voxelization\voxelization.hlsli">
+      <Filter>Shader Files\voxelization</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -481,7 +481,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this renderer.
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 The maximum viewport of this renderer.

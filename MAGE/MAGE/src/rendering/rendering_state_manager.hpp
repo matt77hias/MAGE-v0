@@ -50,7 +50,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		explicit RenderingStateManager(D3D11Device *device);
+		explicit RenderingStateManager(ID3D11Device *device);
 
 		/**
 		 Constructs a rendering state manager from the given rendering state 
@@ -657,7 +657,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		void SetupRenderingStates(D3D11Device *device);
+		void SetupRenderingStates(ID3D11Device *device);
 
 		/**
 		 Setup the blend states of this rendering state manager.
@@ -669,7 +669,7 @@ namespace mage {
 						Failed to setup the blend states of this rendering 
 						state manager.
 		 */
-		void SetupBlendStates(D3D11Device *device);
+		void SetupBlendStates(ID3D11Device *device);
 		
 		/**
 		 Setup the depth stencil states of this rendering state manager.
@@ -681,7 +681,7 @@ namespace mage {
 						Failed to setup the depth stencil states of this 
 						rendering state manager.
 		 */
-		void SetupDepthStencilStates(D3D11Device *device);
+		void SetupDepthStencilStates(ID3D11Device *device);
 		
 		/**
 		 Setup the rasterizer states of this rendering state manager.
@@ -693,7 +693,7 @@ namespace mage {
 						Failed to setup the rasterizer states of this rendering 
 						state manager.
 		 */
-		void SetupRasterizerStates(D3D11Device *device);
+		void SetupRasterizerStates(ID3D11Device *device);
 		
 		/**
 		 Setup the samplers states of this rendering state manager.
@@ -705,7 +705,7 @@ namespace mage {
 						Failed to setup the samplers states of this rendering 
 						state manager.
 		 */
-		void SetupSamplerStates(D3D11Device *device);
+		void SetupSamplerStates(ID3D11Device *device);
 		
 		/**
 		 An enumeration of the different blend state indices for rendering 

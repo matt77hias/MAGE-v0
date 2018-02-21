@@ -169,7 +169,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this deferred shading pass.
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the compute shader of this deferred shading pass.

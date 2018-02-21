@@ -137,7 +137,7 @@ namespace mage::loader {
 		/**
 		 A pointer to the rendering device of this FONT reader.
 		 */
-		D3D11Device * const m_device;
+		ID3D11Device * const m_device;
 
 		/**
 		 A reference to the sprite font output of this FONT reader.

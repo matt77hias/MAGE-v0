@@ -140,7 +140,7 @@ namespace mage {
 	}
 
 	void VoxelGrid::BindBeginVoxelizationBuffer(
-		D3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext *device_context) const noexcept {
 		
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
 							  nullptr);
@@ -153,7 +153,7 @@ namespace mage {
 	}
 
 	void VoxelGrid::BindEndVoxelizationBuffer(
-		D3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext *device_context) const noexcept {
 
 		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
 										  SLOT_UAV_VOXEL_BUFFER, 
@@ -161,7 +161,7 @@ namespace mage {
 	}
 
 	void VoxelGrid::BindBeginVoxelizationTexture(
-		D3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext *device_context) const noexcept {
 
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
 							  m_buffer_uav.Get());
@@ -170,7 +170,7 @@ namespace mage {
 	}
 
 	void VoxelGrid::BindEndVoxelizationTexture(
-		D3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext *device_context) const noexcept {
 
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_VOXEL_BUFFER, 
 							  nullptr);

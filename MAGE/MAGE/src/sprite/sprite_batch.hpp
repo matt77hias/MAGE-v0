@@ -378,7 +378,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this sprite batch.
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch for 

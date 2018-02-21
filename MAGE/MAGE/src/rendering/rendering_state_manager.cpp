@@ -35,7 +35,7 @@ namespace mage {
 		return RenderingManager::Get()->GetRenderingStateManager();
 	}
 
-	RenderingStateManager::RenderingStateManager(D3D11Device *device)
+	RenderingStateManager::RenderingStateManager(ID3D11Device *device)
 		: m_blend_states{}, 
 		m_depth_stencil_states{}, 
 		m_rasterizer_states{}, 
@@ -49,7 +49,7 @@ namespace mage {
 
 	RenderingStateManager::~RenderingStateManager() = default;
 
-	void RenderingStateManager::SetupRenderingStates(D3D11Device *device) {
+	void RenderingStateManager::SetupRenderingStates(ID3D11Device *device) {
 		Assert(device);
 
 		// Setup the blend states.
@@ -62,7 +62,7 @@ namespace mage {
 		SetupSamplerStates(device);
 	}
 
-	void RenderingStateManager::SetupBlendStates(D3D11Device *device) {
+	void RenderingStateManager::SetupBlendStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateOpaqueBlendState(
 				device, ReleaseAndGetAddressOf(BlendStateIndex::Opaque));
@@ -119,7 +119,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupDepthStencilStates(D3D11Device *device) {
+	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateDepthNoneDepthStencilState(
 				device, ReleaseAndGetAddressOf(DepthStencilStateIndex::DepthNone));
@@ -207,7 +207,7 @@ namespace mage {
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
-	void RenderingStateManager::SetupRasterizerStates(D3D11Device *device) {
+	void RenderingStateManager::SetupRasterizerStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateCullNoneRasterizerState(
 				device, ReleaseAndGetAddressOf(RasterizerStateIndex::NoCulling));
@@ -241,7 +241,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupSamplerStates(D3D11Device *device) {
+	void RenderingStateManager::SetupSamplerStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreatePointWrapSamplerState(
 				device, ReleaseAndGetAddressOf(SamplerStateIndex::PointWrap));

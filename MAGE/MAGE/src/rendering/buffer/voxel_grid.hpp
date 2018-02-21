@@ -31,17 +31,17 @@ namespace mage {
 			return m_resolution;
 		}
 
-		void BindViewport(D3D11DeviceContext *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
 		void BindBeginVoxelizationBuffer(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindEndVoxelizationBuffer(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindBeginVoxelizationTexture(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindEndVoxelizationTexture(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 
 	private:
 

@@ -17,7 +17,7 @@
 namespace mage::loader {
 
 	void ImportSpriteFontFromFile(const wstring &fname, 
-		                          D3D11Device *device, 
+		                          ID3D11Device *device, 
 		                          SpriteFontOutput &output, 
 		                          const SpriteFontDescriptor &desc) {
 		

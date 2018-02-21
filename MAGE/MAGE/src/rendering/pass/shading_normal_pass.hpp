@@ -189,7 +189,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this shading normal pass. 
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 The current render mode of this shading normal pass.

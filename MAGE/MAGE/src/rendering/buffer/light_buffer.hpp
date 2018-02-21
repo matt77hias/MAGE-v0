@@ -172,7 +172,7 @@ namespace mage {
 	};
 
 	static_assert(64 == sizeof(LightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -196,7 +196,7 @@ namespace mage {
 		 Constructs an directional light buffer.
 		 */
 		DirectionalLightBuffer() noexcept
-			: m_L(), 
+			: m_E(), 
 			m_padding0(0u),
 			m_neg_d(), 
 			m_padding1(0u) {}
@@ -259,10 +259,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiance in watts per square meter per steradians of the 
-		 directional light of this directional light buffer.
+		 The irradiance in watts per square meter of the directional light of 
+		 this directional light buffer.
 		 */
-		RGB m_L;
+		RGB m_E;
 
 		/**
 		 The padding of this directional light buffer.
@@ -270,8 +270,8 @@ namespace mage {
 		U32 m_padding0;
 
 		/**
-		 The (normalized) negated direction of the directional light in camera 
-		 view space of this directional light buffer.
+		 The (normalized) negated direction of the directional light in world 
+		 space of this directional light buffer.
 		 */
 		Direction3 m_neg_d;
 
@@ -282,7 +282,7 @@ namespace mage {
 	};
 
 	static_assert(32 == sizeof(DirectionalLightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -363,7 +363,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in camera view space of this omni light 
+		 The position of the omni light in world space of this omni light 
 		 buffer.
 		 */
 		Point3 m_p;
@@ -386,7 +386,7 @@ namespace mage {
 	};
 
 	static_assert(32 == sizeof(OmniLightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -469,8 +469,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the spotlight in camera view space of this spotlight 
-		 buffer.
+		 The position of the spotlight in world space of this spotlight buffer.
 		 */
 		Point3 m_p;
 
@@ -492,8 +491,8 @@ namespace mage {
 		F32 m_cos_umbra;
 
 		/**
-		 The (normalized) negated direction of the spotlight in camera view 
-		 space of this spotlight buffer.
+		 The (normalized) negated direction of the spotlight in world space of 
+		 this spotlight buffer.
 		 */
 		Direction3 m_neg_d;
 
@@ -504,7 +503,7 @@ namespace mage {
 	};
 
 	static_assert(48 == sizeof(SpotLightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -514,7 +513,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of directional light with shadow mapping buffers used by shaders.
+	 A struct of shadow mapped directional light buffers used by shaders.
 	 */
 	struct alignas(16) ShadowMappedDirectionalLightBuffer final {
 
@@ -525,36 +524,36 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs an directional light with shadow mapping buffer.
+		 Constructs a shadow mapped directional light buffer.
 		 */
 		ShadowMappedDirectionalLightBuffer() noexcept
 			: m_light(), 
-			m_cview_to_lprojection() {}
+			m_world_to_projection{} {}
 		
 		/**
-		 Constructs an directional light with shadow mapping buffer from the 
-		 given directional light with shadow mapping buffer.
+		 Constructs a shadow mapped directional light buffer from the given 
+		 shadow mapped directional light buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light with shadow 
-						mapping buffer to copy.
+						A reference to the directional light with shadow mapped 
+						directional light buffer to copy.
 		 */
 		ShadowMappedDirectionalLightBuffer(
 			const ShadowMappedDirectionalLightBuffer &buffer) noexcept = default;
 
 		/**
-		 Constructs an directional light with shadow mapping buffer by moving 
-		 the given directional light with shadow mapping buffer.
+		 Constructs a shadow mapped directional light buffer by moving the 
+		 given shadow mapped directional light buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light with shadow 
-						mapping buffer to move.
+						A reference to the directional light with shadow mapped 
+						directional light buffer to move.
 		 */
 		ShadowMappedDirectionalLightBuffer(
 			ShadowMappedDirectionalLightBuffer &&buffer) noexcept = default;
 		
 		/**
-		 Destructs this directional light with shadow mapping buffer.
+		 Destructs this shadow mapped directional light buffer.
 		 */
 		~ShadowMappedDirectionalLightBuffer() = default;
 		
@@ -563,29 +562,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given directional light with shadow mapping buffer to this 
-		 directional light with shadow mapping buffer.
+		 Copies the given shadow mapped directional light buffer to this shadow 
+		 mapped directional light buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light with shadow 
-						mapping buffer to copy.
-		 @return		A reference to the copy of the given directional light 
-						with shadow mapping buffer (i.e. this directional light 
-						with shadow mapping buffer).
+						A reference to the shadow mapped directional light 
+						buffer to copy.
+		 @return		A reference to the copy of the shadow mapped directional 
+						light buffer (i.e. this shadow mapped directional light 
+						buffer).
 		 */
 		ShadowMappedDirectionalLightBuffer &operator=(
 			const ShadowMappedDirectionalLightBuffer &buffer) = default;
 
 		/**
-		 Moves the given directional light with shadow mapping buffer to this 
-		 directional light with shadow mapping buffer.
+		 Moves the given shadow mapped directional light buffer to this shadow 
+		 mapped directional light buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light with shadow 
-						mapping buffer to move.
-		 @return		A reference to the moved directional light with shadow 
-						mapping buffer (i.e. this directional light with shadow 
-						mapping buffer).
+						A reference to the shadow mapped directional light 
+						buffer to move.
+		 @return		A reference to the moved shadow mapped directional 
+						light buffer (i.e. this shadow mapped directional light 
+						buffer).
 		 */
 		ShadowMappedDirectionalLightBuffer &operator=(
 			ShadowMappedDirectionalLightBuffer &&buffer) = default;
@@ -595,8 +594,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The directional light buffer of this directional light buffer with 
-		 shadow mapping.
+		 The directional light buffer of this shadow mapped directional light 
+		 buffer.
 		 */
 		DirectionalLightBuffer m_light;
 
@@ -608,15 +607,14 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (column-major packed, row-major matrix) 
-		 camera-view-to-light-projection matrix of this directional light 
-		 buffer with shadow mapping for use in HLSL.
+		 The (column-major packed, row-major matrix) world-to-projection matrix 
+		 of this shadow mapped directional light buffer.
 		 */
-		XMMATRIX m_cview_to_lprojection;
+		XMMATRIX m_world_to_projection;
 	};
 
 	static_assert(96 == sizeof(ShadowMappedDirectionalLightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -626,7 +624,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of omni light with shadow mapping buffers used by shaders.
+	 A struct of shadow mapped omni light buffers used by shaders.
 	 */
 	struct alignas(16) ShadowMappedOmniLightBuffer final {
 
@@ -637,38 +635,37 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs an omni light with shadow mapping buffer.
+		 Constructs a shadow mapped omni light buffer.
 		 */
 		ShadowMappedOmniLightBuffer() noexcept
 			: m_light(), 
-			m_cview_to_lview(),
 			m_projection_values(), 
 			m_padding0() {}
 		
 		/**
-		 Constructs an omni light with shadow mapping buffer from the given 
-		 omni light with shadow mapping buffer.
+		 Constructs a shadow mapped omni light buffer from the given shadow 
+		 mapped omni light buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light with shadow mapping 
-						buffer to copy.
+						A reference to the shadow mapped omni light buffer to 
+						copy.
 		 */
 		ShadowMappedOmniLightBuffer(
 			const ShadowMappedOmniLightBuffer &buffer) noexcept = default;
 
 		/**
-		 Constructs an omni light with shadow mapping buffer by moving the given 
-		 omni light with shadow mapping buffer.
+		 Constructs a shadow mapped omni light buffer by moving the given 
+		 shadow mapped omni light buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light with shadow mapping 
-						buffer to move.
+						A reference to the shadow mapped omni light buffer to 
+						move.
 		 */
 		ShadowMappedOmniLightBuffer(
 			ShadowMappedOmniLightBuffer &&buffer) noexcept = default;
 		
 		/**
-		 Destructs this omni light with shadow mapping buffer.
+		 Destructs this shadow mapped omni light buffer.
 		 */
 		~ShadowMappedOmniLightBuffer() = default;
 		
@@ -677,29 +674,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given omni light with shadow mapping buffer to this omni 
-		 light with shadow mapping buffer.
+		 Copies the given shadow mapped omni light buffer to this shadow mapped 
+		 omni light buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light 
-						with shadow mapping buffer to copy.
-		 @return		A reference to the copy of the given omni light with 
-						shadow mapping buffer (i.e. this omni light with shadow 
-						mapping buffer).
+						A reference to the shadow mapped omni light buffer to 
+						copy.
+		 @return		A reference to the copy of the given shadow mapped omni 
+						light buffer (i.e. this shadow mapped omni light 
+						buffer).
 		 */
 		ShadowMappedOmniLightBuffer &operator=(
 			const ShadowMappedOmniLightBuffer &buffer) = default;
 
 		/**
-		 Moves the given omni light with shadow mapping buffer to this omni 
-		 light with shadow mapping buffer.
+		 Moves the given shadow mapped omni light buffer to this shadow mapped 
+		 omni light buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light 
-						with shadow mapping buffer to move.
-		 @return		A reference to the moved omni light with shadow 
-						mapping buffer (i.e. this omni light with shadow 
-						mapping buffer).
+						A reference to the shadow mapped omni light buffer to 
+						move.
+		 @return		A reference to the moved shadow mapped omni light 
+						buffer (i.e. this shadow mapped omni light buffer).
 		 */
 		ShadowMappedOmniLightBuffer &operator=(
 			ShadowMappedOmniLightBuffer &&buffer) = default;
@@ -709,7 +705,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The omni light buffer of this omni light buffer with shadow mapping.
+		 The omni light buffer of this shadow mapped omni light buffer.
 		 */
 		OmniLightBuffer m_light;
 
@@ -721,25 +717,19 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (column-major packed, row-major matrix) camera-view-to-light-view 
-		 matrix of this omni light buffer with shadow mapping for use in HLSL.
-		 */
-		XMMATRIX m_cview_to_lview;
-
-		/**
-		 The projection values of the view-to-projection transformation matrix
-		 of this omni light buffer with shadow mapping.
+		 The projection values of the light-to-projection transformation matrix
+		 of this shadow mapped omni light buffer.
 		 */
 		F32x2 m_projection_values;
 		
 		/**
-		 The padding of this omni light buffer with shadow mapping. 
+		 The padding of this shadow mapped omni light buffer. 
 		 */
 		U32 m_padding0[2];
 	};
 
-	static_assert(112 == sizeof(ShadowMappedOmniLightBuffer), 
-		"CPU/GPU struct mismatch");
+	static_assert(48 == sizeof(ShadowMappedOmniLightBuffer), 
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 
@@ -749,7 +739,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A struct of spotlight with shadow mapping buffers used by shaders.
+	 A struct of shadow mapped spotlight buffers used by shaders.
 	 */
 	struct alignas(16) ShadowMappedSpotLightBuffer final {
 
@@ -760,36 +750,36 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a spotlight with shadow mapping buffer.
+		 Constructs a shadow mapped spotlight buffer.
 		 */
 		ShadowMappedSpotLightBuffer() noexcept
 			: m_light(), 
-			m_cview_to_lprojection() {}
+			m_world_to_projection{} {}
 		
 		/**
-		 Constructs a spotlight with shadow mapping buffer from the given 
-		 spotlight with shadow mapping buffer.
+		 Constructs a shadow mapped spotlight buffer from the given shadow 
+		 mapped spotlight buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight with shadow mapping buffer 
-						to copy.
+						A reference to the shadow mapped spotlight buffer to 
+						copy.
 		 */
 		ShadowMappedSpotLightBuffer(
 			const ShadowMappedSpotLightBuffer &buffer) noexcept = default;
 
 		/**
-		 Constructs a spotlight with shadow mapping buffer by moving the given 
-		 spotlight with shadow mapping buffer.
+		 Constructs a shadow mapped spotlight buffer by moving the given shadow 
+		 mapped spotlight buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight with shadow mapping buffer 
-						to move.
+						A reference to the shadow mapped spotlight buffer to 
+						move.
 		 */
 		ShadowMappedSpotLightBuffer(
 			ShadowMappedSpotLightBuffer &&buffer) noexcept = default;
 		
 		/**
-		 Destructs this spotlight with shadow mapping buffer.
+		 Destructs this shadow mapped spotlight buffer.
 		 */
 		~ShadowMappedSpotLightBuffer() = default;
 
@@ -798,29 +788,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given spotlight with shadow mapping buffer to this 
-		 spotlight with shadow mapping buffer.
+		 Copies the given shadow mapped spotlight buffer to this shadow mapped 
+		 spotlight buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight 
-						with shadow mapping buffer to copy.
-		 @return		A reference to the copy of the given spotlight with 
-						shadow mapping buffer (i.e. this spotlight with shadow 
-						mapping buffer).
+						A reference to the shadow mapped spotlight buffer to 
+						copy.
+		 @return		A reference to the copy of the given shadow mapped 
+						spotlight buffer (i.e. this shadow mapped spotlight 
+						buffer).
 		 */
 		ShadowMappedSpotLightBuffer &operator=(
 			const ShadowMappedSpotLightBuffer &buffer) = default;
 
 		/**
-		 Moves the given spotlight with shadow mapping buffer 
-		 to this spotlight with shadow mapping buffer.
+		 Moves the given shadow mapped spotlight buffer to this shadow mapped 
+		 spotlight buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight 
-						with shadow mapping buffer to move.
-		 @return		A reference to the moved spotlight with shadow mapping 
-						buffer (i.e. this spotlight with shadow mapping 
-						buffer).
+						A reference to the shadow mapped spotlight buffer to 
+						move.
+		 @return		A reference to the moved shadow mapped spotlight buffer 
+						(i.e. this shadow mapped spotlight buffer).
 		 */
 		ShadowMappedSpotLightBuffer &operator=(
 			ShadowMappedSpotLightBuffer &&buffer) = default;
@@ -830,7 +819,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The spotlight buffer of this spotlight buffer with shadow mapping.
+		 The spotlight buffer of this shadow mapped spotlight buffer.
 		 */
 		SpotLightBuffer m_light;
 
@@ -842,15 +831,14 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (column-major packed, row-major matrix) 
-		 camera-view-to-light-projection matrix of this spotlight buffer with 
-		 shadow mapping for use in HLSL.
+		 The (column-major packed, row-major matrix) world-to-projection 
+		 matrix of this shadow mapped spotlight buffer.
 		 */
-		XMMATRIX m_cview_to_lprojection;
+		XMMATRIX m_world_to_projection;
 	};
 
 	static_assert(112 == sizeof(ShadowMappedSpotLightBuffer), 
-		"CPU/GPU struct mismatch");
+				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
 }

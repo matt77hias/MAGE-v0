@@ -29,7 +29,13 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		GameBuffer() noexcept
-			: m_display_width(0u), 
+			: m_voxel_grid_center(0.0f),
+			m_padding0(0u),
+			m_voxel_grid_resolution(0u),
+			m_voxel_grid_inv_resolution(0.0f),
+			m_voxel_size(0.0f),
+			m_voxel_inv_size(0.0f),
+			m_display_width(0u), 
 			m_display_height(0u),
 			m_display_inv_width_minus1(0.0f),
 			m_display_inv_height_minus1(0.0f),
@@ -39,7 +45,7 @@ namespace mage {
 			m_ss_display_inv_height_minus1(0.0f),
 			m_gamma(0.0f), 
 			m_inv_gamma(0.0f), 
-			m_padding{} {}
+			m_padding1{} {}
 
 		/**
 		 Constructs a game buffer from the given game buffer.
@@ -85,6 +91,43 @@ namespace mage {
 						buffer).
 		 */
 		GameBuffer &operator=(GameBuffer &&buffer) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Voxelization
+		//---------------------------------------------------------------------
+
+		/**
+		 The center of the voxel grid expressed in world space of this game 
+		 buffer.
+		 */
+		F32x3 m_voxel_grid_center;
+
+		/**
+		 The padding of this game buffer.
+		 */
+		U32 m_padding0;
+
+		/**
+		 The resolution of the voxel grid for all dimensions of this game 
+		 buffer.
+		 */
+		U32 m_voxel_grid_resolution;
+
+		/**
+		 The inverse resolution of the voxel grid for all dimensions of this 
+		 game buffer.
+		 */
+		F32 m_voxel_grid_inv_resolution;
+
+		/**
+		 The size of a voxel for all dimensions of this game buffer.
+		 */
+		F32 m_voxel_size;
+
+		/**
+		 The inverse size of a voxel for all dimensions of this game buffer.
+		 */
+		F32 m_voxel_inv_size;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Display Resolution
@@ -149,8 +192,8 @@ namespace mage {
 		/**
 		 The padding of this game buffer.
 		 */
-		U32 m_padding[2];
+		U32 m_padding1[2];
 	};
 
-	static_assert(48 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
+	static_assert(80 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
 }

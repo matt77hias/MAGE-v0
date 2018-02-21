@@ -41,14 +41,14 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 
 	// The center of the voxel grid expressed in world space.
 	float3   g_voxel_grid_center                 : packoffset(c0);
-	// The size of a voxel for all dimensions. [m/voxel]
-	float    g_voxel_size                        : packoffset(c1);
-	// The inverse size of a voxel for all dimensions. [voxels/m]
-	float    g_voxel_inv_size                    : packoffset(c1.y);
 	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c1.z);
+	uint     g_voxel_grid_resolution             : packoffset(c1);
 	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c1.w);
+	float    g_voxel_grid_inv_resolution         : packoffset(c1.x);
+	// The size of a voxel for all dimensions. [m/voxel]
+	float    g_voxel_size                        : packoffset(c1.y);
+	// The inverse size of a voxel for all dimensions. [voxels/m]
+	float    g_voxel_inv_size                    : packoffset(c1.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Display Resolution

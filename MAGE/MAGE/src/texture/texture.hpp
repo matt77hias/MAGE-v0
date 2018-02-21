@@ -167,7 +167,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(D3D11DeviceContext *device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept;
 
 	private:
 

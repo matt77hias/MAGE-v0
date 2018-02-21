@@ -43,7 +43,7 @@ namespace mage {
 
 	template<>
 	inline void HullShader
-		::SetupShader(D3D11Device *device, 
+		::SetupShader(ID3D11Device *device, 
 		              const CompiledShader &compiled_shader) {
 		
 		Assert(device);
@@ -59,7 +59,7 @@ namespace mage {
 
 	template<>
 	inline void DomainShader
-		::SetupShader(D3D11Device *device, 
+		::SetupShader(ID3D11Device *device, 
 		              const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -75,7 +75,7 @@ namespace mage {
 
 	template<>
 	inline void GeometryShader
-		::SetupShader(D3D11Device *device, 
+		::SetupShader(ID3D11Device *device, 
 		              const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -91,7 +91,7 @@ namespace mage {
 
 	template<>
 	inline void PixelShader
-		::SetupShader(D3D11Device *device, 
+		::SetupShader(ID3D11Device *device, 
 		              const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -107,7 +107,7 @@ namespace mage {
 
 	template<>
 	inline void ComputeShader
-		::SetupShader(D3D11Device *device, 
+		::SetupShader(ID3D11Device *device, 
 		              const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -123,7 +123,7 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	inline void Shader< ShaderT, PipelineStageT >
-		::BindShader(D3D11DeviceContext *device_context) const noexcept {
+		::BindShader(ID3D11DeviceContext *device_context) const noexcept {
 
 		PipelineStageT::BindShader(device_context, m_shader.Get());
 	}

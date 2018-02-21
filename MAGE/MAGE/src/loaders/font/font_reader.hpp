@@ -38,7 +38,7 @@ namespace mage::loader {
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		*/
-		explicit SpriteFontReader(D3D11Device *device, 
+		explicit SpriteFontReader(ID3D11Device *device, 
 			SpriteFontOutput &output, const SpriteFontDescriptor &desc);
 		
 		/**

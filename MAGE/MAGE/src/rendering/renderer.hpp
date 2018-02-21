@@ -73,8 +73,8 @@ namespace mage {
 		 @param[in]		height
 						The height in pixels of the back buffer.
 		 */
-		explicit Renderer(D3D11Device *device, 
-			              D3D11DeviceContext *device_context, 
+		explicit Renderer(ID3D11Device *device, 
+			              ID3D11DeviceContext *device_context, 
 			              U32 width, U32 height);
 
 		/**

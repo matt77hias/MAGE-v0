@@ -28,7 +28,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT >
-		::StaticMesh(D3D11Device *device,
+		::StaticMesh(ID3D11Device *device,
 		             std::vector< VertexT > vertices,
 		             std::vector< IndexT >  indices,
 		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
@@ -56,7 +56,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void StaticMesh< VertexT, IndexT >
-		::SetupVertexBuffer(D3D11Device *device) {
+		::SetupVertexBuffer(ID3D11Device *device) {
 		
 		Assert(device);
 
@@ -71,7 +71,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void StaticMesh< VertexT, IndexT >
-		::SetupIndexBuffer(D3D11Device *device) {
+		::SetupIndexBuffer(ID3D11Device *device) {
 		
 		Assert(device);
 

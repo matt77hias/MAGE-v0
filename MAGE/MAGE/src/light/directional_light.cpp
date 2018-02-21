@@ -25,7 +25,7 @@ namespace mage {
 	DirectionalLight::DirectionalLight() noexcept
 		: Component(),
 		m_shadows(false), 
-		m_radiance(MAGE_DEFAULT_RADIANCE), 
+		m_irradiance(MAGE_DEFAULT_RADIANCE), 
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
 
 	DirectionalLight::DirectionalLight(

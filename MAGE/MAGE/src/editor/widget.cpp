@@ -255,10 +255,10 @@ namespace mage::editor {
 		// Base color
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
-		// Radiance
-		auto radiance = light.GetRadiance();
-		ImGui::InputFloat("Radiance", &radiance);
-		light.SetRadiance(radiance);
+		// Irradiance
+		auto irradiance = light.GetIrradiance();
+		ImGui::InputFloat("Irradiance", &irradiance);
+		light.SetIrradiance(irradiance);
 	}
 	
 	static void DrawWidget(OmniLight &light) {

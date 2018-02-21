@@ -44,11 +44,11 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// The resolution of the voxel grid for all dimensions.
 	uint     g_voxel_grid_resolution             : packoffset(c1);
 	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c1.x);
+	float    g_voxel_grid_inv_resolution         : packoffset(c1.y);
 	// The size of a voxel for all dimensions. [m/voxel]
-	float    g_voxel_size                        : packoffset(c1.y);
+	float    g_voxel_size                        : packoffset(c1.z);
 	// The inverse size of a voxel for all dimensions. [voxels/m]
-	float    g_voxel_inv_size                    : packoffset(c1.z);
+	float    g_voxel_inv_size                    : packoffset(c1.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Display Resolution

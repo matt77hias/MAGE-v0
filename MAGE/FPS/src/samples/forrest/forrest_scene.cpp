@@ -142,7 +142,7 @@ namespace mage {
 		camera_node->Add(spot_light);
 
 		auto directional_light = Create< DirectionalLight >();
-		directional_light->SetRadiance(4.0f);
+		directional_light->SetIrradiance(4.0f);
 		
 		auto directional_light_node = Create< Node >("Directional Light");
 		directional_light_node->Add(directional_light);

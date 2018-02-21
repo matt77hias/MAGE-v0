@@ -32,13 +32,31 @@ namespace mage {
 		m_viewport(),
 		m_settings() {}
 
-	Camera::Camera(const Camera &camera) = default;
+	Camera::Camera(const Camera &camera) 
+		: Component(camera),
+		m_buffer(),
+		m_near_z(camera.m_near_z),
+		m_far_z(camera.m_far_z),
+		m_lens(camera.m_lens),
+		m_viewport(camera.m_viewport),
+		m_settings(camera.m_settings) {}
 
 	Camera::Camera(Camera &&camera) noexcept = default;
 
 	Camera::~Camera() = default;
 
-	Camera &Camera::operator=(const Camera &camera) = default;
+	Camera &Camera::operator=(const Camera &camera) {
+		Component::operator=(camera);
+
+		m_buffer   = ConstantBuffer< CameraBuffer >();
+		m_near_z   = camera.m_near_z;
+		m_far_z    = camera.m_far_z;
+		m_lens     = camera.m_lens;
+		m_viewport = camera.m_viewport;
+		m_settings = camera.m_settings;
+
+		return *this;
+	}
 
 	Camera &Camera::operator=(Camera &&camera) noexcept = default;
 

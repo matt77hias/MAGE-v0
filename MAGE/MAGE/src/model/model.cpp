@@ -28,13 +28,37 @@ namespace mage {
 		m_material(),
 		m_light_occlusion(true) {}
 
-	Model::Model(const Model &model) = default;
+	Model::Model(const Model &model) 
+		: Component(model),
+		m_buffer(),
+		m_aabb(model.m_aabb),
+		m_sphere(model.m_sphere),
+		m_mesh(model.m_mesh),
+		m_start_index(model.m_start_index),
+		m_nb_indices(model.m_nb_indices),
+		m_texture_transform(model.m_texture_transform),
+		m_material(model.m_material),
+		m_light_occlusion(model.m_light_occlusion) {}
 
 	Model::Model(Model &&model) noexcept = default;
 
 	Model::~Model() = default;
 
-	Model &Model::operator=(const Model &model) = default;
+	Model &Model::operator=(const Model &model) {
+		Component::operator=(model);
+
+		m_buffer            = ConstantBuffer< ModelBuffer >();
+		m_aabb              = model.m_aabb;
+		m_sphere            = model.m_sphere;
+		m_mesh              = model.m_mesh;
+		m_start_index       = model.m_start_index;
+		m_nb_indices        = model.m_nb_indices;
+		m_texture_transform = model.m_texture_transform;
+		m_material          = model.m_material;
+		m_light_occlusion   = model.m_light_occlusion;
+
+		return *this;
+	}
 
 	Model &Model::operator=(Model &&model) noexcept = default;
 

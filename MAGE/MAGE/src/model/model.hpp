@@ -160,7 +160,7 @@ namespace mage {
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(D3D11DeviceContext *device_context, 
+		void BindMesh(ID3D11DeviceContext *device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			m_mesh->BindMesh(device_context, topology);
@@ -173,7 +173,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void Draw(D3D11DeviceContext *device_context) const noexcept {
+		void Draw(ID3D11DeviceContext *device_context) const noexcept {
 			m_mesh->Draw(device_context, m_start_index, m_nb_indices);
 		}
 
@@ -274,7 +274,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void UpdateBuffer(D3D11DeviceContext *device_context) const;
+		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
 
 		/**
 		 Binds the buffer of this model to the given pipeline stage.
@@ -290,7 +290,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void BindBuffer(D3D11DeviceContext *device_context, 
+		void BindBuffer(ID3D11DeviceContext *device_context, 
 						U32 slot) const noexcept;
 
 	private:

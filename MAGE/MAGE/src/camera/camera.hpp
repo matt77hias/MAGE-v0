@@ -378,7 +378,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindSSViewport(D3D11DeviceContext *device_context) const noexcept {
+		void BindSSViewport(ID3D11DeviceContext *device_context) const noexcept {
 			GetSSViewport().BindViewport(device_context);
 		}
 
@@ -415,7 +415,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void UpdateBuffer(D3D11DeviceContext *device_context) const;
+		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
 
 		/**
 		 Binds the buffer of this camera to the given pipeline stage.
@@ -431,7 +431,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void BindBuffer(D3D11DeviceContext *device_context, 
+		void BindBuffer(ID3D11DeviceContext *device_context, 
 						U32 slot) const noexcept;
 
 	protected:

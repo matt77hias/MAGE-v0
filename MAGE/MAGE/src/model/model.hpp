@@ -10,6 +10,8 @@
 #include "geometry\bounding_volume.hpp"
 #include "transform\texture_transform.hpp"
 #include "material\material.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
+#include "rendering\buffer\model_buffer.hpp"
 
 #pragma endregion
 
@@ -261,7 +263,46 @@ namespace mage {
 			m_light_occlusion = light_occlusion;
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates the buffer of this model.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void UpdateBuffer(D3D11DeviceContext *device_context) const;
+
+		/**
+		 Binds the buffer of this model to the given pipeline stage.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the constant buffer to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+		 */
+		template< typename PipelineStageT >
+		void BindBuffer(D3D11DeviceContext *device_context, 
+						U32 slot) const noexcept;
+
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 The buffer of this model.
+		 */
+		mutable ConstantBuffer< ModelBuffer > m_buffer;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Geometry
@@ -318,3 +359,12 @@ namespace mage {
 
 	#pragma warning( pop )
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "model\model.tpp"
+
+#pragma endregion

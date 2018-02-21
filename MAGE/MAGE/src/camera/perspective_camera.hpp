@@ -269,13 +269,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the view-to-projection matrix of this perspective camera.
+		 Returns the camera-to-projection matrix of this perspective camera.
 
-		 @return		The view-to-projection matrix of this perspective 
+		 @return		The camera-to-projection matrix of this perspective 
 						camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetViewToProjectionMatrix() const noexcept override {
+			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixPerspectiveFovLH(
@@ -287,20 +287,20 @@ namespace mage {
 		}
 
 		/**
-		 Returns the projection-to-view matrix of this perspective camera.
+		 Returns the projection-to-camera matrix of this perspective camera.
 
-		 @return		The projection-to-view matrix of this perspective 
+		 @return		The projection-to-camera matrix of this perspective 
 						camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetProjectionToViewMatrix() const noexcept override {
+			GetProjectionToCameraMatrix() const noexcept override {
 
-			const auto view_to_projection = GetViewToProjectionMatrix();
+			const auto camera_to_projection = GetCameraToProjectionMatrix();
 
-			const auto m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
-			const auto m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
-			const auto m23 = 1.0f / XMVectorGetZ(view_to_projection.r[3]);
-			const auto m33 = -XMVectorGetZ(view_to_projection.r[2]) * m23;
+			const auto m00 = 1.0f / XMVectorGetX(camera_to_projection.r[0]);
+			const auto m11 = 1.0f / XMVectorGetY(camera_to_projection.r[1]);
+			const auto m23 = 1.0f / XMVectorGetZ(camera_to_projection.r[3]);
+			const auto m33 = -XMVectorGetZ(camera_to_projection.r[2]) * m23;
 
 			return XMMATRIX {
 				 m00, 0.0f, 0.0f, 0.0f,

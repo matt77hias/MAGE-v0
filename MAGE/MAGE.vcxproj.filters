@@ -934,5 +934,11 @@
     <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
+    <None Include="MAGE\src\model\model.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\camera\camera.tpp">
+      <Filter>Header Files\camera</Filter>
+    </None>
   </ItemGroup>
 </Project>

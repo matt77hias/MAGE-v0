@@ -407,8 +407,6 @@ namespace mage {
 										   const Camera &camera,
 										   FXMMATRIX world_to_projection) {
 
-		const auto output_manager = RenderingOutputManager::Get();
-
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
@@ -416,7 +414,7 @@ namespace mage {
 								 camera.GetSettings().GetFog());
 
 		camera.BindSSViewport(m_device_context);
-		output_manager->BindBeginForward(m_device_context);
+		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward
@@ -432,6 +430,9 @@ namespace mage {
 		camera.BindSSViewport(m_device_context);
 		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
 
+		//---------------------------------------------------------------------
+		// Forward
+		//---------------------------------------------------------------------
 		GetForwardPass()->RenderFalseColor(scene, world_to_projection, false_color);
 	}
 

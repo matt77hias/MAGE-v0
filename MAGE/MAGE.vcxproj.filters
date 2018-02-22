@@ -450,9 +450,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\aa_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
@@ -744,9 +741,6 @@
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp">

@@ -29,7 +29,8 @@ namespace mage {
 	ForwardPass::ForwardPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()), 
-		m_uv(CreateReferenceTexture()) {}
+		m_uv(CreateReferenceTexture()), 
+		m_color_buffer() {}
 
 	ForwardPass::ForwardPass(ForwardPass &&pass) noexcept = default;
 
@@ -75,6 +76,34 @@ namespace mage {
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
+	}
+
+	void ForwardPass::BindFixedWireframeState() const noexcept {
+		// VS: Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateManager::Get()->BindWireframeRasterizerState(m_device_context);
+		// OM: Bind the depth-stencil state.
+		#ifdef DISABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadDepthStencilState(m_device_context);
+		#else  // DISABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadDepthStencilState(m_device_context);
+		#endif // DISABLE_INVERTED_Z_BUFFER
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+	}
+
+	void ForwardPass::BindColor(const RGBA &color) {
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, color);
+		// Bind the color buffer.
+		m_color_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_COLOR);
 	}
 
 	void XM_CALLCONV ForwardPass::Render(const Scene &scene, 
@@ -344,6 +373,34 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			const PixelShaderPtr ps = CreateFalseColorPS(false_color);
+			// PS: Bind the pixel shader.
+			ps->BindShader(m_device_context);
+		}
+
+		// Process the models.
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
+			}
+
+			Render(model, world_to_projection);
+		});
+	}
+
+	void XM_CALLCONV ForwardPass::RenderWireframe(const Scene &scene, 
+												  FXMMATRIX world_to_projection) {
+		// Bind the fixed opaque state.
+		BindFixedWireframeState();
+
+		constexpr RGBA color = { 0.0f, 0.0f, 1.0f, 1.0f };
+		// PS: Bind the color data.
+		BindColor(color);
+
+		//---------------------------------------------------------------------
+		// All models.
+		//---------------------------------------------------------------------
+		{
+			const PixelShaderPtr ps = CreateFalseColorPS(FalseColor::ConstantColor);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}

@@ -113,7 +113,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_output_manager.hpp" />
@@ -209,7 +208,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />

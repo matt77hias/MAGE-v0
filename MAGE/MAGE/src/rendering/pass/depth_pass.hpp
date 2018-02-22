@@ -7,7 +7,7 @@
 
 #include "scene\scene.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
-#include "rendering\buffer\model_buffer.hpp"
+#include "rendering\buffer\camera_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -23,20 +23,6 @@ namespace mage {
 	class DepthPass final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the depth pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the depth pass associated with the current 
-						engine.
-		 */
-		static DepthPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -116,17 +102,11 @@ namespace mage {
 						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
-			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_projection);
+			                    FXMMATRIX world_to_projection);
 
 		/**
 		 Renders the occluders of the scene.
@@ -135,17 +115,11 @@ namespace mage {
 						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderOccluders(const Scene &scene,
-			                             FXMMATRIX world_to_projection,
-			                             CXMMATRIX world_to_view,
-			                             CXMMATRIX view_to_projection);
+			                             FXMMATRIX world_to_projection);
 
 	private:
 

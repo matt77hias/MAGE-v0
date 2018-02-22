@@ -6,6 +6,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
 #include "shader\shader_factory.hpp"
 
 #pragma endregion
@@ -152,7 +153,7 @@ namespace mage {
 										   BRDFType brdf, bool vct) const;
 		
 		/**
-		 Renders the given scene.
+		 Renders the given scene as a false color.
 
 		 @param[in]		scene
 						A reference to the scene.
@@ -166,6 +167,20 @@ namespace mage {
 		void XM_CALLCONV RenderFalseColor(const Scene &scene,
 										  FXMMATRIX world_to_projection,
 										  FalseColor false_color) const;
+
+		/**
+		 Renders the given scene as a wireframe.
+
+		 @param[in]		scene
+						A reference to the scene.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV RenderWireframe(const Scene &scene, 
+										 FXMMATRIX world_to_projection);
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -181,6 +196,21 @@ namespace mage {
 		 Binds the fixed transparent state of this forward pass.
 		 */
 		void BindFixedTransparentState() const noexcept;
+
+		/**
+		 Binds the fixed wireframe state of this forward pass.
+		 */
+		void BindFixedWireframeState() const noexcept;
+
+		/**
+		 Binds the color data of this forward pass.
+
+		 @param[in]		color
+						A reference to the color (in in linear space).
+		 @throws		Exception
+						Failed to bind the color data of this forward pass.
+		 */
+		void BindColor(const RGBA &color);
 
 		/**
 		 Renders the given model.
@@ -211,5 +241,10 @@ namespace mage {
 		 A pointer to the UV reference texture of this forward pass. 
 		 */
 		const SharedPtr< const Texture > m_uv;
+
+		/**
+		 The color buffer of this forward pass.
+		 */
+		ConstantBuffer< RGBA > m_color_buffer;
 	};
 }

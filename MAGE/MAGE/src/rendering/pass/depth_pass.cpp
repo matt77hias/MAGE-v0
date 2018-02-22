@@ -17,12 +17,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DepthPass *DepthPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetDepthPass();
-	}
-
 	DepthPass::DepthPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_opaque_vs(CreateDepthVS()),

@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
-#include "resource\resource_factory.hpp"
+#include "rendering\pass\forward_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
+#include "texture\texture_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"

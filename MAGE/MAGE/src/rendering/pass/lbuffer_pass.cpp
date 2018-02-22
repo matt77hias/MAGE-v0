@@ -232,8 +232,8 @@ namespace mage {
 
 				for (size_t i = 0; i < std::size(rotations); ++i) {
 					LightCameraInfo camera;
-					camera.world_to_lprojection = world_to_light * rotations[i] 
-						                        * light_to_lprojection;
+					camera.world_to_light      = world_to_light * rotations[i];
+					camera.light_to_projection = light_to_lprojection;
 
 					// Add omni light camera to the omni light cameras.
 					m_omni_light_cameras.push_back(std::move(camera));
@@ -303,7 +303,8 @@ namespace mage {
 
 				// Create a spotlight camera.
 				LightCameraInfo camera;
-				camera.world_to_lprojection     = world_to_lprojection;
+				camera.world_to_light          = world_to_light;
+				camera.light_to_projection     = light_to_lprojection;
 
 				// Add spotlight camera to the spotlight cameras.
 				m_spot_light_cameras.push_back(std::move(camera));
@@ -396,7 +397,9 @@ namespace mage {
 				m_directional_sms->BindDSV(m_device_context, i++);
 
 				// Perform the depth pass.
-				m_depth_pass->RenderOccluders(scene, camera.world_to_lprojection);
+				m_depth_pass->RenderOccluders(scene, 
+											  camera.world_to_light, 
+											  camera.light_to_projection);
 			}
 		}
 
@@ -413,7 +416,9 @@ namespace mage {
 				m_omni_sms->BindDSV(m_device_context, i++);
 
 				// Perform the depth pass.
-				m_depth_pass->RenderOccluders(scene, camera.world_to_lprojection);
+				m_depth_pass->RenderOccluders(scene,
+											  camera.world_to_light,
+											  camera.light_to_projection);
 			}
 		}
 
@@ -430,7 +435,9 @@ namespace mage {
 				m_spot_sms->BindDSV(m_device_context, i++);
 
 				// Perform the depth pass.
-				m_depth_pass->RenderOccluders(scene, camera.world_to_lprojection);
+				m_depth_pass->RenderOccluders(scene,
+											  camera.world_to_light,
+											  camera.light_to_projection);
 			}
 		}
 	}

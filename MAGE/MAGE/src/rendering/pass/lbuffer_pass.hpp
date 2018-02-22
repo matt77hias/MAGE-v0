@@ -105,7 +105,8 @@ namespace mage {
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
 
 		struct alignas(16) LightCameraInfo final {
-			XMMATRIX world_to_lprojection;
+			XMMATRIX world_to_light;
+			XMMATRIX light_to_projection;
 		};
 
 		AlignedVector< LightCameraInfo > m_directional_light_cameras;

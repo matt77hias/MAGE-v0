@@ -188,6 +188,30 @@ namespace mage {
 		});
 	}
 
+	void XM_CALLCONV ForwardPass::RenderSolid(const Scene &scene,
+												FXMMATRIX world_to_projection) const {
+		// Bind the fixed opaque state.
+		BindFixedOpaqueState();
+
+		//---------------------------------------------------------------------
+		// All models.
+		//---------------------------------------------------------------------
+		{
+			const PixelShaderPtr ps = CreateForwardSolidPS();
+			// PS: Bind the pixel shader.
+			ps->BindShader(m_device_context);
+		}
+
+		// Process the models.
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+			if (State::Active != model.GetState()) {
+				return;
+			}
+
+			Render(model, world_to_projection);
+		});
+	}
+
 	void XM_CALLCONV ForwardPass::RenderGBuffer(const Scene &scene, 
 												FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.

@@ -12,15 +12,11 @@
 #include "rendering\pass\depth_pass.hpp"
 #include "rendering\pass\dof_pass.hpp"
 #include "rendering\pass\forward_pass.hpp"
-#include "rendering\pass\gbuffer_pass.hpp"
 #include "rendering\pass\lbuffer_pass.hpp"
 #include "rendering\pass\sky_pass.hpp"
-#include "rendering\pass\solid_pass.hpp"
 #include "rendering\pass\sprite_pass.hpp"
 #include "rendering\pass\voxelization_pass.hpp"
-#include "rendering\pass\wireframe_pass.hpp"
 #include "rendering\buffer\game_buffer.hpp"
-#include "rendering\buffer\camera_buffer.hpp"
 
 #pragma endregion
 
@@ -196,11 +192,11 @@ namespace mage {
 						must be loaded.
 		 @return		A pointer to the deferred pass of this renderer.
 		 */
-		DeferredShadingPass *GetDeferredPass() {
-			if (!m_deferred_shading_pass) {
-				m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
+		DeferredPass *GetDeferredPass() {
+			if (!m_deferred_pass) {
+				m_deferred_pass = MakeUnique< DeferredPass >();
 			}
-			return m_deferred_shading_pass.get();
+			return m_deferred_pass.get();
 		}
 
 		/**
@@ -252,22 +248,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the GBuffer pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the GBuffer pass of this renderer.
-		 */
-		GBufferPass *GetGBufferPass() {
-			if (!m_gbuffer_pass) {
-				m_gbuffer_pass = MakeUnique< GBufferPass >();
-			}
-			return m_gbuffer_pass.get();
-		}
-
-		/**
 		 Returns the LBuffer pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -297,22 +277,6 @@ namespace mage {
 				m_sky_pass = MakeUnique< SkyPass >();
 			}
 			return m_sky_pass.get();
-		}
-
-		/**
-		 Returns the solid pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the solid pass of this renderer.
-		 */
-		SolidPass *GetSolidPass() {
-			if (!m_solid_pass) {
-				m_solid_pass = MakeUnique< SolidPass >();
-			}
-			return m_solid_pass.get();
 		}
 
 		/**
@@ -347,22 +311,6 @@ namespace mage {
 			return m_voxelization_pass.get();
 		}
 
-		/**
-		 Returns the wireframe pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the wireframe pass of this renderer.
-		 */
-		WireframePass *GetWireframePass() {
-			if (!m_wireframe_pass) {
-				m_wireframe_pass = MakeUnique< WireframePass >();
-			}
-			return m_wireframe_pass.get();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -384,14 +332,15 @@ namespace mage {
 		void XM_CALLCONV RenderSolid(const Scene &scene, 
 									 const Camera &camera, 
 									 FXMMATRIX world_to_projection);
-		
-		void XM_CALLCONV RenderVoxelization(const Scene &scene, 
-											const Camera &camera, 
-											FXMMATRIX world_to_projection);
-		
+
 		void XM_CALLCONV RenderFalseColor(const Scene &scene, 
-										  const Camera &camera, 
-										  FXMMATRIX world_to_projection);
+										  const Camera &camera,
+										  FXMMATRIX world_to_projection, 
+										  FalseColor false_color);
+		
+		void XM_CALLCONV RenderVoxelGrid(const Scene &scene, 
+										 const Camera &camera, 
+										 FXMMATRIX world_to_projection);
 		
 		void RenderAA(const Camera &camera);
 		
@@ -451,11 +400,6 @@ namespace mage {
 		UniquePtr< ForwardPass > m_forward_pass;
 
 		/**
-		 A pointer to the GBuffer pass of this renderer.
-		 */
-		UniquePtr< GBufferPass >  m_gbuffer_pass;
-
-		/**
 		 A pointer to the LBuffer pass of this renderer.
 		 */
 		UniquePtr< LBufferPass >  m_lbuffer_pass;
@@ -466,11 +410,6 @@ namespace mage {
 		UniquePtr< SkyPass > m_sky_pass;
 
 		/**
-		 A pointer to the solid pass of this renderer.
-		 */
-		UniquePtr< SolidPass > m_solid_pass;
-
-		/**
 		 A pointer to the sprite pass of this renderer.
 		 */
 		UniquePtr< SpritePass > m_sprite_pass;
@@ -479,10 +418,5 @@ namespace mage {
 		 A pointer to the voxelization pass of this renderer.
 		 */
 		UniquePtr< VoxelizationPass > m_voxelization_pass;
-
-		/**
-		 A pointer to the wireframe pass of this renderer.
-		 */
-		UniquePtr< WireframePass > m_wireframe_pass;
 	};
 }

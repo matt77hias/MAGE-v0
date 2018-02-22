@@ -108,6 +108,19 @@ namespace mage {
 								BRDFType brdf, bool vct) const;
 
 		/**
+		 Renders the given scene as solid.
+
+		 @param[in]		scene
+						A reference to the scene.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV RenderSolid(const Scene &scene, 
+									 FXMMATRIX world_to_projection) const;
+
+		/**
 		 Renders the given scene to a GBuffer.
 
 		 @param[in]		scene

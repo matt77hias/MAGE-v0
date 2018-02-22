@@ -154,29 +154,94 @@ namespace mage {
 			break;
 		}
 		
-		case RenderMode::Voxelization: {
-			RenderVoxelization(scene, camera, world_to_projection);
+		case RenderMode::VoxelGrid: {
+			RenderVoxelGrid(scene, camera, world_to_projection);
 			break;
 		}
 
-		case RenderMode::FalseColor_BaseColor:
-		case RenderMode::FalseColor_BaseColorCoefficient:
-		case RenderMode::FalseColor_BaseColorTexture:
-		case RenderMode::FalseColor_Material:
-		case RenderMode::FalseColor_MaterialCoefficient:
-		case RenderMode::FalseColor_MaterialTexture:
-		case RenderMode::FalseColor_Roughness:
-		case RenderMode::FalseColor_RoughnessCoefficient:
-		case RenderMode::FalseColor_RoughnessTexture:
-		case RenderMode::FalseColor_Metalness:
-		case RenderMode::FalseColor_MetalnessCoefficient:
-		case RenderMode::FalseColor_MetalnessTexture:
-		case RenderMode::FalseColor_ShadingNormal:
-		case RenderMode::FalseColor_TSNMShadingNormal:
-		case RenderMode::FalseColor_UVTexture:
-		case RenderMode::FalseColor_Depth:
+		case RenderMode::FalseColor_BaseColor: {
+			RenderFalseColor(scene, camera, world_to_projection, 
+							 FalseColor::BaseColor);
+			break;
+		}
+		case RenderMode::FalseColor_BaseColorCoefficient: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::BaseColorCoefficient);
+			break;
+		}
+		case RenderMode::FalseColor_BaseColorTexture: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::BaseColorTexture);
+			break;
+		}
+		case RenderMode::FalseColor_Material: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::Material);
+			break;
+		}
+		case RenderMode::FalseColor_MaterialCoefficient: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::MaterialCoefficient);
+			break;
+		}
+		case RenderMode::FalseColor_MaterialTexture: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::MaterialTexture);
+			break;
+		}
+		case RenderMode::FalseColor_Roughness: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::Roughness);
+			break;
+		}
+		case RenderMode::FalseColor_RoughnessCoefficient: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::RoughnessCoefficient);
+			break;
+		}
+		case RenderMode::FalseColor_RoughnessTexture: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::RoughnessTexture);
+			break;
+		}
+		case RenderMode::FalseColor_Metalness: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::Metalness);
+			break;
+		}
+		case RenderMode::FalseColor_MetalnessCoefficient: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::MetalnessCoefficient);
+			break;
+		}
+		case RenderMode::FalseColor_MetalnessTexture: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::MetalnessTexture);
+			break;
+		}
+		case RenderMode::FalseColor_ShadingNormal: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::ShadingNormal);
+			break;
+		}
+		case RenderMode::FalseColor_TSNMShadingNormal: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::TSNMShadingNormal);
+			break;
+		}
+		case RenderMode::FalseColor_Depth: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::Depth);
+			break;
+		}
 		case RenderMode::FalseColor_Distance: {
-			RenderFalseColor(scene, camera, world_to_projection);
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::Distance);
+			break;
+		}
+		case RenderMode::FalseColor_UV: {
+			RenderFalseColor(scene, camera, world_to_projection,
+							 FalseColor::UV);
 			break;
 		}
 
@@ -194,7 +259,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		const auto &settings = camera.GetSettings();
 		if (settings.ContainsRenderLayer(RenderLayer::Wireframe)) {
-			GetWireframePass()->Render(scene, world_to_projection);
+			GetForwardPass()->RenderWireframe(scene, world_to_projection);
 		}
 		if (settings.ContainsRenderLayer(RenderLayer::AABB)) {
 			GetBoundingVolumePass()->Render(scene, world_to_projection);
@@ -305,7 +370,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// GBuffer: opaque fragments
 		//---------------------------------------------------------------------
-		GetGBufferPass()->Render(scene, world_to_projection);
+		GetForwardPass()->RenderGBuffer(scene, world_to_projection);
 
 		output_manager->BindEndGBuffer(m_device_context);
 		output_manager->BindBeginDeferred(m_device_context);
@@ -359,18 +424,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Forward
 		//---------------------------------------------------------------------
-		GetSolidPass()->Render(scene, world_to_projection);
+		GetForwardPass()->RenderSolid(scene, world_to_projection);
 	}
 
-	void XM_CALLCONV Renderer::RenderVoxelization(const Scene &scene,
-												  const Camera &camera,
-												  FXMMATRIX world_to_projection) {
-		//TODO
-	}
-
-	void XM_CALLCONV Renderer::RenderFalseColor(const Scene &scene,
+	void XM_CALLCONV Renderer::RenderFalseColor(const Scene &scene, 
 												const Camera &camera,
-												FXMMATRIX world_to_projection) {
+												FXMMATRIX world_to_projection, 
+												FalseColor false_color) {
+		
+		camera.BindSSViewport(m_device_context);
+		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
+
+		GetForwardPass()->RenderFalseColor(scene, world_to_projection, false_color);
+	}
+
+	void XM_CALLCONV Renderer::RenderVoxelGrid(const Scene &scene, 
+											   const Camera &camera, 
+											   FXMMATRIX world_to_projection) {
 		//TODO
 	}
 

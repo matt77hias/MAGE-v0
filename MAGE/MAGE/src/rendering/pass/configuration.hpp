@@ -28,9 +28,9 @@ namespace mage {
 	 @c FalseColor_MetalnessTexture,
 	 @c FalseColor_ShadingNormal,
 	 @c FalseColor_TSNMShadingNormal,
-	 @c FalseColor_UVTexture,
-	 @c FalseColor_Depth, and
-	 @c FalseColor_Distance.
+	 @c FalseColor_Depth,
+	 @c FalseColor_Distance, and
+	 @c FalseColor_UV.
 	 */
 	enum class RenderMode : U8 {
 		// Rendering
@@ -57,9 +57,9 @@ namespace mage {
 		FalseColor_MetalnessTexture,
 		FalseColor_ShadingNormal,
 		FalseColor_TSNMShadingNormal,
-		FalseColor_UVTexture,
 		FalseColor_Depth,
-		FalseColor_Distance
+		FalseColor_Distance,
+		FalseColor_UV
 	};
 
 	/**

@@ -84,9 +84,9 @@ namespace mage::editor {
 			"Metalness Texture",
 			"Shading Normal",
 			"TSNM Shading Normal",
-			"UV Texture",
 			"Depth",
-			"Distance"
+			"Distance",
+			"UV"
 		};
 		static constexpr RenderMode render_modes[] = {
 			RenderMode::None,
@@ -108,9 +108,9 @@ namespace mage::editor {
 			RenderMode::FalseColor_MetalnessTexture,
 			RenderMode::FalseColor_ShadingNormal,
 			RenderMode::FalseColor_TSNMShadingNormal,
-			RenderMode::FalseColor_UVTexture,
 			RenderMode::FalseColor_Depth,
-			RenderMode::FalseColor_Distance
+			RenderMode::FalseColor_Distance,
+			RenderMode::FalseColor_UV
 		};
 		static_assert(std::size(render_mode_names) == std::size(render_modes));
 

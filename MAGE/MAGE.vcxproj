@@ -108,7 +108,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\gbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\sky_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
@@ -205,7 +204,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\gbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\lbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\sky_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />

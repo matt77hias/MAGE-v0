@@ -54,6 +54,7 @@
 // False Color
 #include "falsecolor\constant_color_PS.hpp"
 #include "falsecolor\constant_color_texture_PS.hpp"
+#include "falsecolor\constant_texture_PS.hpp"
 #include "falsecolor\base_color_PS.hpp"
 #include "falsecolor\base_color_coefficient_PS.hpp"
 #include "falsecolor\base_color_texture_PS.hpp"
@@ -377,8 +378,9 @@ namespace mage {
 			
 			case FalseColor::ConstantColor:
 				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
+			case FalseColor::UV:
 			case FalseColor::ConstantColorTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_texture_PS));
 			case FalseColor::BaseColor:
 				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
 			case FalseColor::BaseColorCoefficient:

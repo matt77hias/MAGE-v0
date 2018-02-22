@@ -400,8 +400,9 @@ namespace mage {
 	 @c MetalnessTexture,
 	 @c ShadingNormal,
 	 @c TSNMShadingNormal,
-	 @c Depth, and
-	 @c Distance.
+	 @c Depth,
+	 @c Distance, and
+	 @c UV.
 	 */
 	enum class FalseColor : U8 {
 		ConstantColor = 0,
@@ -421,7 +422,8 @@ namespace mage {
 		ShadingNormal,
 		TSNMShadingNormal,
 		Depth,
-		Distance
+		Distance,
+		UV
 	};
 	
 	/**

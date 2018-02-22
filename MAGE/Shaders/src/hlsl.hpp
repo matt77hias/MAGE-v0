@@ -4,9 +4,9 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISABLE_INVERTED_Z_BUFFER             | not defined
+// DISABLE_INVERTED_Z_BUFFER                | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -59,10 +59,10 @@
 
 #define SLOT_CBUFFER_GAME                          0
 #define SLOT_CBUFFER_PRIMARY_CAMERA                1
-#define SLOT_CBUFFER_COLOR                         2
 #define SLOT_CBUFFER_LIGHTING                      2
 #define SLOT_CBUFFER_MODEL                         3
 #define SLOT_CBUFFER_SECONDARY_CAMERA              4
+#define SLOT_CBUFFER_COLOR                         5
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Light and Shadow Map SRVs
@@ -100,9 +100,9 @@
 // Engine Includes: General SRVs
 //-----------------------------------------------------------------------------
 
-#define SLOT_SRV_IMAGE                            SLOT_SRV_BASE_COLOR
-#define SLOT_SRV_SPRITE                           SLOT_SRV_BASE_COLOR
-#define SLOT_SRV_TEXTURE                          SLOT_SRV_BASE_COLOR
+#define SLOT_SRV_IMAGE                            15
+#define SLOT_SRV_SPRITE                           15
+#define SLOT_SRV_TEXTURE                          15
 
 //-----------------------------------------------------------------------------
 // Engine Includes: General UAVs

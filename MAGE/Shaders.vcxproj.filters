@@ -439,6 +439,9 @@
     <FxCompile Include="Shaders\shaders\postprocessing\depth_of_field_CS.hlsl">
       <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\falsecolor\constant_texture_PS.hlsl">
+      <Filter>Shader Files\falsecolor</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shaders\aa\fxaa3_11.hlsli">
@@ -865,6 +868,9 @@
     </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxelization_CS.hpp">
       <Filter>Header Files\voxelization</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\falsecolor\constant_texture_PS.hpp">
+      <Filter>Header Files\falsecolor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

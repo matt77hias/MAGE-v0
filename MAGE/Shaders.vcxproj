@@ -301,6 +301,20 @@
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\falsecolor\constant_texture_PS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\falsecolor\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\falsecolor\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\falsecolor\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\falsecolor\%(Filename).hpp</HeaderFileOutput>
+    </FxCompile>
     <FxCompile Include="Shaders\shaders\falsecolor\depth_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -2206,6 +2220,7 @@
     <ClInclude Include="Shaders\src\falsecolor\base_color_texture_PS.hpp" />
     <ClInclude Include="Shaders\src\falsecolor\constant_color_PS.hpp" />
     <ClInclude Include="Shaders\src\falsecolor\constant_color_texture_PS.hpp" />
+    <ClInclude Include="Shaders\src\falsecolor\constant_texture_PS.hpp" />
     <ClInclude Include="Shaders\src\falsecolor\depth_PS.hpp" />
     <ClInclude Include="Shaders\src\falsecolor\distance_PS.hpp" />
     <ClInclude Include="Shaders\src\falsecolor\material_coefficient_PS.hpp" />

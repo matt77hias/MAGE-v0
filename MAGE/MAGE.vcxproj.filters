@@ -441,9 +441,6 @@
     <ClInclude Include="MAGE\src\rendering\buffer\camera_buffer.hpp">
       <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\gbuffer_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
@@ -738,9 +735,6 @@
       <Filter>Source Files\rendering\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\gbuffer_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\lbuffer_pass.cpp">

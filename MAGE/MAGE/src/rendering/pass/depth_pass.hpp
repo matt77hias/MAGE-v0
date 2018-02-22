@@ -100,26 +100,32 @@ namespace mage {
 
 		 @param[in]		scene
 						A reference to the scene.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
+		 @param[in]		world_to_camera
+						The world-to-camera transformation matrix.
+		 @param[in]		camera_to_projection
+						The camera-to-projection transformation matrix.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
-			                    FXMMATRIX world_to_projection);
+								FXMMATRIX world_to_camera,
+								CXMMATRIX camera_to_projection);
 
 		/**
 		 Renders the occluders of the scene.
 
 		 @param[in]		scene
 						A reference to the scene.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
+		 @param[in]		world_to_camera
+						The world-to-camera transformation matrix.
+		 @param[in]		camera_to_projection
+						The camera-to-projection transformation matrix.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV RenderOccluders(const Scene &scene,
-			                             FXMMATRIX world_to_projection);
+										 FXMMATRIX world_to_camera,
+										 CXMMATRIX camera_to_projection);
 
 	private:
 
@@ -138,44 +144,39 @@ namespace mage {
 		void BindTransparentShaders() const noexcept;
 
 		/**
-		 Binds the projection data of this depth pass.
+		 Binds the camera of this depth pass.
 
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
-						transforming vertices.
+		 @param[in]		world_to_camera
+						The world-to-camera transformation matrix.
+		 @param[in]		camera_to_projection
+						The camera-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to bind the projection data of this depth pass.
+						Failed to bind the camera of this depth pass.
 		 */
-		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
+		void XM_CALLCONV BindCamera(FXMMATRIX world_to_camera, 
+									CXMMATRIX camera_to_projection);
 
 		/**
-		 Binds the opaque model data of this depth pass.
+		 Renders the given opaque model.
 
-		 @param[in]		object_to_view
-						The object-to-view transformation matrix used for
-						transforming vertices.
-		 @throws		Exception
-						Failed to bind the model data of this depth pass.
+		 @param[in]		model
+						A reference to the opaque model.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
 		 */
-		void XM_CALLCONV BindOpaqueModelData(FXMMATRIX object_to_view);
+		void XM_CALLCONV RenderOpaque(const Model &model, 
+									  FXMMATRIX world_to_projection) const noexcept;
 
 		/**
-		 Binds the transparent model data of this depth pass.
+		 Renders the given transparent model.
 
-		 @param[in]		object_to_view
-						The object-to-view transformation matrix used for
-						transforming vertices.
-		 @param[in]		texture_transform
-						The texture transformation matrix used for transforming 
-						texture coordinates.
-		 @param[in]		material
-						A reference to the material.
-		 @throws		Exception
-						Failed to bind the model data of this depth pass.
+		 @param[in]		model
+						A reference to the transparent model.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
 		 */
-		void XM_CALLCONV BindTransparentModelData(FXMMATRIX object_to_view,
-			                                      CXMMATRIX texture_transform,
-			                                      const Material &material);
+		void XM_CALLCONV RenderTransparent(const Model &model, 
+										   FXMMATRIX world_to_projection) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -204,23 +205,8 @@ namespace mage {
 		const PixelShaderPtr m_transparent_ps;
 
 		/**
-		 The projection buffer of this depth pass.
+		 The camera buffer of this depth pass.
 		 */
-		ConstantBuffer< XMMATRIX > m_projection_buffer;
-
-		/**
-		 The opaque model buffer of this depth pass.
-		 */
-		ConstantBuffer< XMMATRIX > m_opaque_model_buffer;
-
-		/**
-		 The transparent model buffer of this depth pass.
-		 */
-		ConstantBuffer< ModelTextureTransformBuffer > m_transparent_model_buffer;
-
-		/**
-		 The dissolve buffer of this depth pass. 
-		 */
-		ConstantBuffer< XMVECTOR > m_dissolve_buffer;
+		ConstantBuffer< SecondaryCameraBuffer > m_camera_buffer;
 	};
 }

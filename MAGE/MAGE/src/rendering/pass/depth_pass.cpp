@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\depth_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -22,10 +22,7 @@ namespace mage {
 		m_opaque_vs(CreateDepthVS()),
 		m_transparent_vs(CreateDepthTransparentVS()),
 		m_transparent_ps(CreateDepthTransparentPS()),
-		m_projection_buffer(), 
-		m_opaque_model_buffer(),
-		m_transparent_model_buffer(), 
-		m_dissolve_buffer() {}
+		m_camera_buffer() {}
 
 	DepthPass::DepthPass(DepthPass &&pass) noexcept = default;
 
@@ -62,188 +59,156 @@ namespace mage {
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
-	void XM_CALLCONV DepthPass
-		::BindProjectionData(FXMMATRIX view_to_projection) {
+	void XM_CALLCONV DepthPass::BindCamera(FXMMATRIX world_to_camera,
+										   CXMMATRIX camera_to_projection) {
+		SecondaryCameraBuffer buffer;
+		buffer.m_world_to_camera      = XMMatrixTranspose(world_to_camera);
+		buffer.m_camera_to_projection = XMMatrixTranspose(camera_to_projection);
 
-		// Update the projection buffer.
-		m_projection_buffer.UpdateData(m_device_context, 
-									   XMMatrixTranspose(view_to_projection));
-		// Bind the projection buffer.
-		m_projection_buffer.Bind< Pipeline::VS >(m_device_context, 
-												 SLOT_CBUFFER_SECONDARY_CAMERA);
-	}
-
-	void XM_CALLCONV DepthPass
-		::BindOpaqueModelData(FXMMATRIX object_to_view) {
-
-		// Update the model buffer.
-		m_opaque_model_buffer.UpdateData(m_device_context, 
-										 XMMatrixTranspose(object_to_view));
-		// Bind the model buffer.
-		m_opaque_model_buffer.Bind< Pipeline::VS >(m_device_context, 
-												   SLOT_CBUFFER_MODEL);
-	}
-
-	void XM_CALLCONV DepthPass
-		::BindTransparentModelData(FXMMATRIX object_to_view, 
-								   CXMMATRIX texture_transform, 
-								   const Material &material) {
-
-		ModelTextureTransformBuffer transform;
-		transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
-		transform.m_texture_transform = XMMatrixTranspose(texture_transform);
-
-		// Update the model buffer.
-		m_transparent_model_buffer.UpdateData(m_device_context, transform);
-		// Bind the model buffer.
-		m_transparent_model_buffer.Bind< Pipeline::VS >(m_device_context, 
-														SLOT_CBUFFER_MODEL);
-		// Update the dissolve buffer.
-		m_dissolve_buffer.UpdateData(m_device_context,
-			XMVectorSet(material.GetBaseColor().m_w, 0.0f, 0.0f, 0.0f));
-		// Bind the dissolve buffer.
-		m_dissolve_buffer.Bind< Pipeline::PS >(m_device_context, 
-											   SLOT_CBUFFER_MODEL);
-		// Bind the diffuse SRV.
-		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, 
-							  material.GetBaseColorSRV());
+		// Update the camera buffer.
+		m_camera_buffer.UpdateData(m_device_context, buffer);
+		// Bind the camera buffer.
+		m_camera_buffer.Bind< Pipeline::VS >(m_device_context,
+											 SLOT_CBUFFER_SECONDARY_CAMERA);
 	}
 
 	void XM_CALLCONV DepthPass::Render(const Scene &scene, 
-									   FXMMATRIX world_to_projection, 
-									   CXMMATRIX world_to_view, 
-									   CXMMATRIX view_to_projection) {
+									   FXMMATRIX world_to_camera, 
+									   CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
-		BindProjectionData(view_to_projection);
+		BindCamera(world_to_camera, camera_to_projection);
+
+		const auto world_to_projection = world_to_camera * camera_to_projection;
+
+		//---------------------------------------------------------------------
+		// All opaque models.
+		//---------------------------------------------------------------------
 
 		// Bind the shaders.
 		BindOpaqueShaders();
 
 		// Process the opaque models.
-		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
 			if (State::Active != model.GetState()
 				|| model.GetMaterial().IsTransparant()) {
 				return;
 			}
 			
-			const auto &transform           = model.GetOwner()->GetTransform();
-			const auto object_to_world      = transform.GetObjectToWorldMatrix();
-			const auto object_to_projection = object_to_world * world_to_projection;
-
-			// Apply view frustum culling.
-			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
-				return;
-			}
-
-			const auto object_to_view       = object_to_world * world_to_view;
-
-			// Bind the model data.
-			BindOpaqueModelData(object_to_view);
-			// Bind the model mesh.
-			model.BindMesh(m_device_context);
-			// Draw the model.
-			model.Draw(m_device_context);
+			RenderOpaque(model, world_to_projection);
 		});
+
+		//---------------------------------------------------------------------
+		// All transparent models.
+		//---------------------------------------------------------------------
 
 		// Bind the shaders.
 		BindTransparentShaders();
 
 		// Process the transparent models.
-		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+			
+			const auto &material = model.GetMaterial();
+			
 			if (State::Active != model.GetState()
-				|| !model.GetMaterial().IsTransparant()
-				||  model.GetMaterial().GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
+				|| !material.IsTransparant()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 			
-			const auto &transform           = model.GetOwner()->GetTransform();
-			const auto object_to_world      = transform.GetObjectToWorldMatrix();
-			const auto object_to_projection = object_to_world * world_to_projection;
-
-			// Apply view frustum culling.
-			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
-				return;
-			}
-
-			const auto object_to_view       = object_to_world * world_to_view;
-			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
-
-			// Bind the model data.
-			BindTransparentModelData(object_to_view, texture_transform, model.GetMaterial());
-			// Bind the model mesh.
-			model.BindMesh(m_device_context);
-			// Draw the model.
-			model.Draw(m_device_context);
+			RenderTransparent(model, world_to_projection);
 		});
 	}
 
 	void XM_CALLCONV DepthPass::RenderOccluders(const Scene &scene, 
-												FXMMATRIX world_to_projection, 
-												CXMMATRIX world_to_view, 
-												CXMMATRIX view_to_projection) {
+												FXMMATRIX world_to_camera, 
+												CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
-		BindProjectionData(view_to_projection);
+		BindCamera(world_to_camera, camera_to_projection);
+
+		const auto world_to_projection = world_to_camera * camera_to_projection;
+
+		//---------------------------------------------------------------------
+		// All opaque models.
+		//---------------------------------------------------------------------
 
 		// Bind the shaders.
 		BindOpaqueShaders();
 
 		// Process the opaque models.
-		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
 			if (State::Active != model.GetState()
-				|| model.GetMaterial().IsTransparant()
-				|| !model.OccludesLight()) {
+				|| !model.OccludesLight()
+				|| model.GetMaterial().IsTransparant()) {
 				return;
 			}
 			
-			const auto &transform           = model.GetOwner()->GetTransform();
-			const auto object_to_world      = transform.GetObjectToWorldMatrix();
-			const auto object_to_projection = object_to_world * world_to_projection;
-
-			// Apply view frustum culling.
-			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
-				return;
-			}
-
-			const auto object_to_view       = object_to_world * world_to_view;
-
-			// Bind the model data.
-			BindOpaqueModelData(object_to_view);
-			// Bind the model mesh.
-			model.BindMesh(m_device_context);
-			// Draw the model.
-			model.Draw(m_device_context);
+			RenderOpaque(model, world_to_projection);
 		});
+
+		//---------------------------------------------------------------------
+		// All transparent models.
+		//---------------------------------------------------------------------
 
 		// Bind the shaders.
 		BindTransparentShaders();
 
 		// Process the transparent models.
-		scene.ForEach< Model >([this, world_to_projection, world_to_view](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+			
+			const auto &material = model.GetMaterial();
+			
 			if (State::Active != model.GetState()
-				|| !model.GetMaterial().IsTransparant()
-				||  model.GetMaterial().GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD
-				|| !model.OccludesLight()) {
+				|| !model.OccludesLight()
+				|| !material.IsTransparant()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 			
-			const auto &transform           = model.GetOwner()->GetTransform();
-			const auto object_to_world      = transform.GetObjectToWorldMatrix();
-			const auto object_to_projection = object_to_world * world_to_projection;
-
-			// Apply view frustum culling.
-			if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
-				return;
-			}
-
-			const auto object_to_view       = object_to_world * world_to_view;
-			const auto texture_transform    = model.GetTextureTransform().GetTransformMatrix();
-
-			// Bind the model data.
-			BindTransparentModelData(object_to_view, texture_transform, model.GetMaterial());
-			// Bind the model mesh.
-			model.BindMesh(m_device_context);
-			// Draw the model.
-			model.Draw(m_device_context);
+			RenderTransparent(model, world_to_projection);
 		});
+	}
+
+	void XM_CALLCONV DepthPass::RenderOpaque(const Model &model,
+											 FXMMATRIX world_to_projection) const noexcept {
+
+		const auto &transform           = model.GetOwner()->GetTransform();
+		const auto object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto object_to_projection = object_to_world * world_to_projection;
+
+		// Apply view frustum culling.
+		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
+			return;
+		}
+
+		// Bind the constant buffer of the model.
+		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+		// Bind the mesh of the model.
+		model.BindMesh(m_device_context);
+		// Draw the model.
+		model.Draw(m_device_context);
+	}
+
+	void XM_CALLCONV DepthPass::RenderTransparent(const Model &model,
+												  FXMMATRIX world_to_projection) const noexcept {
+
+		const auto &transform           = model.GetOwner()->GetTransform();
+		const auto object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto object_to_projection = object_to_world * world_to_projection;
+
+		// Apply view frustum culling.
+		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
+			return;
+		}
+
+		// Bind the constant buffer of the model.
+		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
+		model.BindBuffer< Pipeline::PS >(m_device_context, SLOT_CBUFFER_MODEL);
+		// Bind the SRV of the model.
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, 
+							  model.GetMaterial().GetBaseColorSRV());
+		// Bind the mesh of the model.
+		model.BindMesh(m_device_context);
+		// Draw the model.
+		model.Draw(m_device_context);
 	}
 }

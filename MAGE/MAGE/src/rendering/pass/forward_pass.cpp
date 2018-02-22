@@ -300,7 +300,8 @@ namespace mage {
 
 			if (State::Active != model.GetState()
 				|| material.InteractsWithLight()
-				|| !material.IsTransparant()) {
+				|| !material.IsTransparant()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 
@@ -325,7 +326,8 @@ namespace mage {
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
 				|| nullptr != material.GetNormalSRV()
-				|| !material.IsTransparant()) {
+				|| !material.IsTransparant()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 
@@ -350,7 +352,8 @@ namespace mage {
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
 				|| nullptr == material.GetNormalSRV()
-				|| !material.IsTransparant()) {
+				|| !material.IsTransparant()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 

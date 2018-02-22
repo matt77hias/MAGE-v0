@@ -1086,7 +1086,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldOrigin() const noexcept {
-			return TransformObjectToWorld(GetObjectOrigin());
+			return GetObjectToWorldMatrix().r[3];
 		}
 
 		/**
@@ -1097,7 +1097,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisX());
+			return GetObjectToWorldMatrix().r[0];
 		}
 
 		/**
@@ -1108,7 +1108,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisY());
+			return GetObjectToWorldMatrix().r[1];;
 		}
 
 		/**
@@ -1119,7 +1119,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisZ());
+			return GetObjectToWorldMatrix().r[2];;
 		}
 
 		#pragma endregion

@@ -260,14 +260,14 @@ namespace mage {
 		}
 
 		/**
-		 Returns the view-to-projection matrix of the (forward) light camera 
+		 Returns the light-to-projection matrix of the (forward) light camera 
 		 of this omni light.
 
-		 @return		The view-to-projection matrix of the (forward) light 
+		 @return		The light-to-projection matrix of the (forward) light 
 						camera of this omni light.
 		 */
 		[[nodiscard]] const XMMATRIX XM_CALLCONV 
-			GetViewToProjectionMatrix() const noexcept {
+			GetLightToProjectionMatrix() const noexcept {
 
 			static constexpr auto near_plane = 0.1f;
 

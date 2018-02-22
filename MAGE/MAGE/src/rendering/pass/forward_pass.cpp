@@ -166,7 +166,7 @@ namespace mage {
 		// All models with TSNM.
 		//---------------------------------------------------------------------
 		{
-			constexpr bool tsnm = false;
+			constexpr bool tsnm = true;
 			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
@@ -222,7 +222,7 @@ namespace mage {
 		// All models with TSNM.
 		//---------------------------------------------------------------------
 		{
-			constexpr bool tsnm = false;
+			constexpr bool tsnm = true;
 			const PixelShaderPtr ps = CreateGBufferPS(tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
@@ -336,7 +336,7 @@ namespace mage {
 		// All transparent models with TSNM.
 		//---------------------------------------------------------------------
 		{
-			constexpr bool tsnm = false;
+			constexpr bool tsnm = true;
 			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
@@ -441,7 +441,7 @@ namespace mage {
 			material.GetNormalSRV()
 		};
 		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_BASE_COLOR, 
-							   std::size(srvs), srvs);
+							   static_cast< U32 >(std::size(srvs)), srvs);
 		// Bind the mesh of the model.
 		model.BindMesh(m_device_context);
 		// Draw the model.

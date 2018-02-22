@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\sky_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -16,12 +16,6 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	SkyPass *SkyPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetSkyPass();
-	}
 
 	SkyPass::SkyPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
@@ -50,9 +44,9 @@ namespace mage {
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		RenderingStateManager::Get()->BindLessEqualDepthReadDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);

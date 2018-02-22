@@ -17,26 +17,12 @@
 namespace mage {
 
 	/**
-	 A class of deferred passes for unpacking GBuffers and performing 
-	 light calculations using the rendering or compute pipeline.
+	 A class of deferred passes for unpacking GBuffers and performing light 
+	 calculations using the rendering or compute pipeline.
 	 */
 	class DeferredPass final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the deferred pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the deferred pass associated with 
-						the current engine.
-		 */
-		static DeferredPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -53,8 +39,7 @@ namespace mage {
 		DeferredPass();
 
 		/**
-		 Constructs a deferred pass from the given deferred shading 
-		 pass.
+		 Constructs a deferred pass from the given deferred shading pass.
 
 		 @param[in]		pass
 						A reference to the deferred pass to copy.
@@ -62,8 +47,7 @@ namespace mage {
 		DeferredPass(const DeferredPass &pass) = delete;
 
 		/**
-		 Constructs a deferred pass by moving the given deferred 
-		 pass.
+		 Constructs a deferred pass by moving the given deferred pass.
 
 		 @param[in]		pass
 						A reference to the deferred pass to move.
@@ -94,8 +78,8 @@ namespace mage {
 
 		 @param[in]		pass
 						A reference to the deferred pass to move.
-		 @return		A reference to the moved deferred pass (i.e. 
-						this deferred pass).
+		 @return		A reference to the moved deferred pass (i.e. this 
+						deferred pass).
 		 */
 		DeferredPass &operator=(DeferredPass &&pass) = delete;
 

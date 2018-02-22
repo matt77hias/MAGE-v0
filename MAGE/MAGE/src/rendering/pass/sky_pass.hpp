@@ -23,20 +23,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the sky pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the sky pass associated with the current 
-						engine.
-		 */
-		static SkyPass *Get();
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 

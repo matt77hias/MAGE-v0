@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\deferred_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -17,12 +17,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DeferredPass *DeferredPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetDeferredPass();
-	}
-
 	DeferredPass::DeferredPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
@@ -31,8 +25,7 @@ namespace mage {
 		m_brdf(BRDFType::Unknown), 
 		m_vct(false) {}
 
-	DeferredPass::DeferredPass(
-		DeferredPass &&pass) noexcept = default;
+	DeferredPass::DeferredPass(DeferredPass &&pass) noexcept = default;
 
 	DeferredPass::~DeferredPass() = default;
 
@@ -78,7 +71,8 @@ namespace mage {
 	}
 
 	void DeferredPass::Dispatch(const Viewport &viewport, 
-									   BRDFType brdf, bool vct) {
+								BRDFType brdf, bool vct) {
+		
 		// Update the compute and pixel shader.
 		UpdateShaders(brdf, vct);
 		// CS: Bind the compute shader.

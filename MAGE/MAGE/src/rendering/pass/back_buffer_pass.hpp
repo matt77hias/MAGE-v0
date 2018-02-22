@@ -23,20 +23,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the back buffer pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the back buffer pass associated with the 
-						current engine.
-		 */
-		static BackBufferPass *Get();
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 

@@ -24,20 +24,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the AA pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the AA pass associated with the current
-						engine.
-		 */
-		static AAPass *Get();
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 

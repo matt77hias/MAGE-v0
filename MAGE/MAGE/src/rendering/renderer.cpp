@@ -131,6 +131,8 @@ namespace mage {
 		const auto output_manager       = RenderingOutputManager::Get();
 		const auto render_mode          = camera.GetSettings().GetRenderMode();
 
+		output_manager->BindBegin(m_device_context);
+
 		//---------------------------------------------------------------------
 		// RenderMode
 		//---------------------------------------------------------------------

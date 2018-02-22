@@ -37,13 +37,10 @@ namespace mage {
 		m_depth_pass(),
 		m_dof_pass(),
 		m_forward_pass(),
-		m_gbuffer_pass(),
 		m_lbuffer_pass(),
 		m_sky_pass(),
-		m_solid_pass(),
 		m_sprite_pass(),
-		m_voxelization_pass(),
-		m_wireframe_pass() {}
+		m_voxelization_pass() {}
 	
 	Renderer::Renderer(Renderer &&scene_renderer) noexcept = default;
 	
@@ -441,7 +438,10 @@ namespace mage {
 	void XM_CALLCONV Renderer::RenderVoxelGrid(const Scene &scene, 
 											   const Camera &camera, 
 											   FXMMATRIX world_to_projection) {
-		//TODO
+		// TODO
+		(void)scene;
+		(void)camera;
+		(void)world_to_projection;
 	}
 
 	void Renderer::RenderPostProcessing(const Camera &camera) {

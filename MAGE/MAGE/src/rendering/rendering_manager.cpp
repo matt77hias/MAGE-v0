@@ -76,10 +76,7 @@ namespace mage {
 		m_rendering_state_manager = MakeUnique< RenderingStateManager >(m_device.Get());
 		
 		// Setup the renderer.
-		m_renderer = MakeUnique< Renderer >(m_device.Get(), 
-			                                m_device_context.Get(), 
-			                                m_display_configuration->GetDisplayWidth(),
-			                                m_display_configuration->GetDisplayHeight());
+		m_renderer = MakeUnique< Renderer >(m_device.Get(), m_device_context.Get());
 
 		// Setup ImGui.
 		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());

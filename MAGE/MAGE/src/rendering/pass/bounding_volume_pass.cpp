@@ -22,7 +22,7 @@ namespace mage {
 		m_vs(CreateLineCubeVS()), 
 		m_ps(CreateLineCubePS()),
 		m_color_buffer(), 
-		m_model_buffer() {}
+		m_transform_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
 		BoundingVolumePass &&pass) noexcept = default;

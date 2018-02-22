@@ -39,7 +39,7 @@ namespace mage {
 		m_directional_light_cameras(),
 		m_omni_light_cameras(),
 		m_spot_light_cameras(), 
-		m_depth_pass() {}
+		m_depth_pass(MakeUnique< DepthPass >()) {}
 
 	LBufferPass::LBufferPass(LBufferPass &&buffer) noexcept = default;
 	

@@ -159,14 +159,6 @@ namespace mage {
 			break;
 		}
 
-		case RenderMode::GBuffer_Depth:
-		case RenderMode::GBuffer_BaseColor:
-		case RenderMode::GBuffer_Material:
-		case RenderMode::GBuffer_Normal: {
-			RenderGBuffer(scene, camera, world_to_projection);
-			break;
-		}
-
 		case RenderMode::FalseColor_BaseColor:
 		case RenderMode::FalseColor_BaseColorCoefficient:
 		case RenderMode::FalseColor_BaseColorTexture:
@@ -182,6 +174,7 @@ namespace mage {
 		case RenderMode::FalseColor_ShadingNormal:
 		case RenderMode::FalseColor_TSNMShadingNormal:
 		case RenderMode::FalseColor_UVTexture:
+		case RenderMode::FalseColor_Depth:
 		case RenderMode::FalseColor_Distance: {
 			RenderFalseColor(scene, camera, world_to_projection);
 			break;
@@ -372,12 +365,6 @@ namespace mage {
 	void XM_CALLCONV Renderer::RenderVoxelization(const Scene &scene,
 												  const Camera &camera,
 												  FXMMATRIX world_to_projection) {
-		//TODO
-	}
-
-	void XM_CALLCONV Renderer::RenderGBuffer(const Scene &scene,
-											 const Camera &camera,
-											 FXMMATRIX world_to_projection) {
 		//TODO
 	}
 

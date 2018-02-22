@@ -16,7 +16,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: AA
+	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -74,6 +74,26 @@ namespace mage {
 
 	#pragma endregion
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: Back Buffer
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Creates a back buffer pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the back buffer pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateBackBufferPS();
+
+	#pragma endregion
+	
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
@@ -355,6 +375,73 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: False Color
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 An enumeration of the different false colors.
+	 
+	 This contains:
+	 
+	 @c ConstantColor,
+	 @c ConstantColorTexture,
+	 @c BaseColor,
+	 @c BaseColorCoefficient,
+	 @c BaseColorTexture,
+	 @c Material,
+	 @c MaterialCoefficient,
+	 @c MaterialTexture,
+	 @c Roughness,
+	 @c RoughnessCoefficient,
+	 @c RoughnessTexture,
+	 @c Metalness,
+	 @c MetalnessCoefficient,
+	 @c MetalnessTexture,
+	 @c ShadingNormal,
+	 @c TSNMShadingNormal,
+	 @c Depth, and
+	 @c Distance.
+	 */
+	enum class FalseColor : U8 {
+		ConstantColor = 0,
+		ConstantColorTexture,
+		BaseColor,
+		BaseColorCoefficient,
+		BaseColorTexture,
+		Material,
+		MaterialCoefficient,
+		MaterialTexture,
+		Roughness,
+		RoughnessCoefficient,
+		RoughnessTexture,
+		Metalness,
+		MetalnessCoefficient,
+		MetalnessTexture,
+		ShadingNormal,
+		TSNMShadingNormal,
+		Depth,
+		Distance
+	};
+	
+	/**
+	 Creates a false color pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		false_color
+					The false color.
+	 @return		A pointer to the distance pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateFalseColorPS(FalseColor false_color);
+	
+	#pragma endregion
+	
+	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -568,85 +655,7 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Miscellaneous
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 Creates a back buffer pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the back buffer pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateBackBufferPS();
-
-	/**
-	 An enumeration of the different false colors.
-	 
-	 This contains:
-	 
-	 @c ConstantColor,
-	 @c ConstantColorTexture,
-	 @c BaseColor,
-	 @c BaseColorCoefficient,
-	 @c BaseColorTexture,
-	 @c Material,
-	 @c MaterialCoefficient,
-	 @c MaterialTexture,
-	 @c Roughness,
-	 @c RoughnessCoefficient,
-	 @c RoughnessTexture,
-	 @c Metalness,
-	 @c MetalnessCoefficient,
-	 @c MetalnessTexture,
-	 @c ShadingNormal,
-	 @c TSNMShadingNormal, and
-	 @c Distance.
-	 */
-	enum class FalseColor : U8 {
-		ConstantColor = 0,
-		ConstantColorTexture,
-		BaseColor,
-		BaseColorCoefficient,
-		BaseColorTexture,
-		Material,
-		MaterialCoefficient,
-		MaterialTexture,
-		Roughness,
-		RoughnessCoefficient,
-		RoughnessTexture,
-		Metalness,
-		MetalnessCoefficient,
-		MetalnessTexture,
-		ShadingNormal,
-		TSNMShadingNormal,
-		Distance
-	};
-	
-	/**
-	 Creates a false color pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		false_color
-					The false color.
-	 @return		A pointer to the distance pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateFalseColorPS(FalseColor false_color);
-	
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Post Processing
+	// Factory Methods: Post-processing
 	//-------------------------------------------------------------------------
 	#pragma region
 

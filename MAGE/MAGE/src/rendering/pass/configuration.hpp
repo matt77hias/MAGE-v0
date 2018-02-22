@@ -13,11 +13,7 @@ namespace mage {
 	 @c Forward,
 	 @c Deferred,
 	 @c Solid,            
-	 @c Voxelization,
-	 @c GBuffer_Depth,
-	 @c GBuffer_BaseColor,
-	 @c GBuffer_Material,
-	 @c GBuffer_Normal,
+	 @c VoxelGrid,
 	 @c FalseColor_BaseColor,
 	 @c FalseColor_BaseColorCoefficient,
 	 @c FalseColor_BaseColorTexture,
@@ -32,7 +28,8 @@ namespace mage {
 	 @c FalseColor_MetalnessTexture,
 	 @c FalseColor_ShadingNormal,
 	 @c FalseColor_TSNMShadingNormal,
-	 @c FalseColor_UVTexture, and
+	 @c FalseColor_UVTexture,
+	 @c FalseColor_Depth, and
 	 @c FalseColor_Distance.
 	 */
 	enum class RenderMode : U8 {
@@ -43,13 +40,7 @@ namespace mage {
 		Solid,            
 		
 		// Voxelization visualization
-		Voxelization,
-
-		// GBuffer visualization
-		GBuffer_Depth,
-		GBuffer_BaseColor,
-		GBuffer_Material,
-		GBuffer_Normal,
+		VoxelGrid,
 
 		// False color visualization
 		FalseColor_BaseColor,
@@ -67,6 +58,7 @@ namespace mage {
 		FalseColor_ShadingNormal,
 		FalseColor_TSNMShadingNormal,
 		FalseColor_UVTexture,
+		FalseColor_Depth,
 		FalseColor_Distance
 	};
 

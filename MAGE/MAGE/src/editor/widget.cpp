@@ -69,11 +69,7 @@ namespace mage::editor {
 			"Forward",
 			"Deferred",
 			"Solid",
-			"Voxelization",
-			"GBuffer Depth",
-			"GBuffer BaseColor",
-			"GBuffer Material",
-			"GBuffer Normal",
+			"Voxel Grid",
 			"Base Color",
 			"Base Color Coefficient",
 			"Base Color Texture",
@@ -89,6 +85,7 @@ namespace mage::editor {
 			"Shading Normal",
 			"TSNM Shading Normal",
 			"UV Texture",
+			"Depth",
 			"Distance"
 		};
 		static constexpr RenderMode render_modes[] = {
@@ -96,11 +93,7 @@ namespace mage::editor {
 			RenderMode::Forward,
 			RenderMode::Deferred,
 			RenderMode::Solid,
-			RenderMode::Voxelization,
-			RenderMode::GBuffer_Depth,
-			RenderMode::GBuffer_BaseColor,
-			RenderMode::GBuffer_Material,
-			RenderMode::GBuffer_Normal,
+			RenderMode::VoxelGrid,
 			RenderMode::FalseColor_BaseColor,
 			RenderMode::FalseColor_BaseColorCoefficient,
 			RenderMode::FalseColor_BaseColorTexture,
@@ -116,6 +109,7 @@ namespace mage::editor {
 			RenderMode::FalseColor_ShadingNormal,
 			RenderMode::FalseColor_TSNMShadingNormal,
 			RenderMode::FalseColor_UVTexture,
+			RenderMode::FalseColor_Depth,
 			RenderMode::FalseColor_Distance
 		};
 		static_assert(std::size(render_mode_names) == std::size(render_modes));

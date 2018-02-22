@@ -15,6 +15,9 @@
 // SSAA
 #include "aa\ssaa_resolve_CS.hpp"
 
+// Back Buffer
+#include "backbuffer\back_buffer_PS.hpp"
+
 // Deferred: Opaque
 #include "deferred\deferred_blinn_phong_CS.hpp"
 #include "deferred\deferred_cook_torrance_CS.hpp"
@@ -47,6 +50,26 @@
 // Depth: Transparent
 #include "depth\depth_transparent_VS.hpp"
 #include "depth\depth_transparent_PS.hpp"
+
+// False Color
+#include "falsecolor\constant_color_PS.hpp"
+#include "falsecolor\constant_color_texture_PS.hpp"
+#include "falsecolor\base_color_PS.hpp"
+#include "falsecolor\base_color_coefficient_PS.hpp"
+#include "falsecolor\base_color_texture_PS.hpp"
+#include "falsecolor\material_PS.hpp"
+#include "falsecolor\material_coefficient_PS.hpp"
+#include "falsecolor\material_texture_PS.hpp"
+#include "falsecolor\roughness_PS.hpp"
+#include "falsecolor\roughness_coefficient_PS.hpp"
+#include "falsecolor\roughness_texture_PS.hpp"
+#include "falsecolor\metalness_PS.hpp"
+#include "falsecolor\metalness_coefficient_PS.hpp"
+#include "falsecolor\metalness_texture_PS.hpp"
+#include "falsecolor\shading_normal_PS.hpp"
+#include "falsecolor\tsnm_shading_normal_PS.hpp"
+#include "falsecolor\depth_PS.hpp"
+#include "falsecolor\distance_PS.hpp"
 
 #include "forward\forward_solid_PS.hpp"
 // Forward: Opaque
@@ -105,28 +128,8 @@
 // GBuffer: Opaque + TSNM
 #include "gbuffer\gbuffer_tsnm_PS.hpp"
 
-// Miscellaneous
-#include "miscellaneous\back_buffer_PS.hpp"
-#include "miscellaneous\constant_color_PS.hpp"
-#include "miscellaneous\constant_color_texture_PS.hpp"
-#include "miscellaneous\base_color_PS.hpp"
-#include "miscellaneous\base_color_coefficient_PS.hpp"
-#include "miscellaneous\base_color_texture_PS.hpp"
-#include "miscellaneous\material_PS.hpp"
-#include "miscellaneous\material_coefficient_PS.hpp"
-#include "miscellaneous\material_texture_PS.hpp"
-#include "miscellaneous\roughness_PS.hpp"
-#include "miscellaneous\roughness_coefficient_PS.hpp"
-#include "miscellaneous\roughness_texture_PS.hpp"
-#include "miscellaneous\metalness_PS.hpp"
-#include "miscellaneous\metalness_coefficient_PS.hpp"
-#include "miscellaneous\metalness_texture_PS.hpp"
-#include "miscellaneous\shading_normal_PS.hpp"
-#include "miscellaneous\tsnm_shading_normal_PS.hpp"
-#include "miscellaneous\distance_PS.hpp"
-
 // Post-processing
-#include "postprocessing\postprocessing_depth_of_field_CS.hpp"
+#include "postprocessing\depth_of_field_CS.hpp"
 
 // Primitive
 #include "primitive\line_cube_VS.hpp"
@@ -209,7 +212,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: AA
+	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -231,6 +234,17 @@ namespace mage {
 
 	#pragma endregion
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: Miscellaneous
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	PixelShaderPtr CreateBackBufferPS() {
+		return Create< PixelShader >(MAGE_SHADER_ARGS(g_back_buffer_PS));
+	}
+
+	#pragma endregion
+	
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
@@ -349,6 +363,57 @@ namespace mage {
 
 	PixelShaderPtr CreateDepthTransparentPS() {
 		return Create< PixelShader >(MAGE_SHADER_ARGS(g_depth_transparent_PS));
+	}
+
+	#pragma endregion
+	
+	//-------------------------------------------------------------------------
+	// Factory Methods: False Color
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	PixelShaderPtr CreateFalseColorPS(FalseColor false_color) {
+		switch (false_color) {
+			
+			case FalseColor::ConstantColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
+			case FalseColor::ConstantColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
+			case FalseColor::BaseColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+			case FalseColor::BaseColorCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_coefficient_PS));
+			case FalseColor::BaseColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_texture_PS));
+			case FalseColor::Material:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_PS));
+			case FalseColor::MaterialCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_coefficient_PS));
+			case FalseColor::MaterialTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_texture_PS));
+			case FalseColor::Roughness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_PS));
+			case FalseColor::RoughnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_coefficient_PS));
+			case FalseColor::RoughnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_texture_PS));
+			case FalseColor::Metalness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_PS));
+			case FalseColor::MetalnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_coefficient_PS));
+			case FalseColor::MetalnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_texture_PS));
+			case FalseColor::ShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
+			case FalseColor::TSNMShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS));
+			case FalseColor::Depth:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_depth_PS));	
+			case FalseColor::Distance:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
+			default:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+		}
 	}
 
 	#pragma endregion
@@ -557,65 +622,12 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Miscellaneous
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	PixelShaderPtr CreateBackBufferPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_back_buffer_PS));
-	}
-
-	PixelShaderPtr CreateFalseColorPS(FalseColor false_color) {
-		switch (false_color) {
-			
-			case FalseColor::ConstantColor:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
-			case FalseColor::ConstantColorTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
-			case FalseColor::BaseColor:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
-			case FalseColor::BaseColorCoefficient:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_coefficient_PS));
-			case FalseColor::BaseColorTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_texture_PS));
-			case FalseColor::Material:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_PS));
-			case FalseColor::MaterialCoefficient:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_coefficient_PS));
-			case FalseColor::MaterialTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_texture_PS));
-			case FalseColor::Roughness:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_PS));
-			case FalseColor::RoughnessCoefficient:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_coefficient_PS));
-			case FalseColor::RoughnessTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_texture_PS));
-			case FalseColor::Metalness:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_PS));
-			case FalseColor::MetalnessCoefficient:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_coefficient_PS));
-			case FalseColor::MetalnessTexture:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_texture_PS));
-			case FalseColor::ShadingNormal:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
-			case FalseColor::TSNMShadingNormal:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS));
-			case FalseColor::Distance:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
-			default:
-				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
-		}
-	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Post Processing
+	// Factory Methods: Post-processing
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	ComputeShaderPtr CreateDepthOfFieldCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_postprocessing_depth_of_field_CS));
+		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_depth_of_field_CS));
 	}
 
 	#pragma endregion

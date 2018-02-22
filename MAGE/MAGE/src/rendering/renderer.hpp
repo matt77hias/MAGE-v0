@@ -389,10 +389,6 @@ namespace mage {
 											const Camera &camera, 
 											FXMMATRIX world_to_projection);
 		
-		void XM_CALLCONV RenderGBuffer(const Scene &scene, 
-									   const Camera &camera, 
-									   FXMMATRIX world_to_projection);
-		
 		void XM_CALLCONV RenderFalseColor(const Scene &scene, 
 										  const Camera &camera, 
 										  FXMMATRIX world_to_projection);

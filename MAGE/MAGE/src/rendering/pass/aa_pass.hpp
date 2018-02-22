@@ -24,20 +24,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the AA pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the AA pass associated with the current
-						engine.
-		 */
-		static AAPass *Get();
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -150,7 +136,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this AA pass.
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the AA preprocess compute shader of this AA pass.

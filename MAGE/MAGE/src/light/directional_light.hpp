@@ -105,34 +105,34 @@ namespace mage {
 		}
 
 		/**
-		 Returns the radiance of this directional light.
+		 Returns the irradiance of this directional light.
 
-		 @return		The radiance in watts per square meter per steradians 
-						of this directional light.
+		 @return		The irradiance in watts per square meter of this 
+						directional light.
 		 */
-		[[nodiscard]] F32 GetRadiance() const noexcept {
-			return m_radiance;
+		[[nodiscard]] F32 GetIrradiance() const noexcept {
+			return m_irradiance;
 		}
 
 		/**
-		 Sets the radiance of this directional light to the given radiance.
+		 Sets the irradiance of this directional light to the given irradiance.
 		 
-		 @pre			@a radiance must be non-negative.
-		 @param[in]		radiance
-						The radiance in watts per square meter per steradians.
+		 @pre			@a irradiance must be non-negative.
+		 @param[in]		irradiance
+						The irradiance in watts per square meter.
 		 */
-		void SetRadiance(F32 radiance) noexcept {
-			Assert(0.0f <= radiance);
-			m_radiance = radiance;
+		void SetIrradiance(F32 irradiance) noexcept {
+			Assert(0.0f <= irradiance);
+			m_irradiance = irradiance;
 		}
 
 		/**
-		 Returns the radiance spectrum of this directional light.
+		 Returns the irradiance spectrum of this directional light.
 
-		 @return		The radiance spectrum of this directional light.
+		 @return		The irradiance spectrum of this directional light.
 		 */
-		[[nodiscard]] const RGB GetRadianceSpectrum() const noexcept {
-			const auto L = m_radiance * SRGBtoRGB(XMLoad(m_base_color));
+		[[nodiscard]] const RGB GetIrradianceSpectrum() const noexcept {
+			const auto L = m_irradiance * SRGBtoRGB(XMLoad(m_base_color));
 			return RGB(XMStore< F32x3 >(L));
 		}
 
@@ -195,10 +195,10 @@ namespace mage {
 		bool m_shadows;
 
 		/**
-		 The radiance in watts per square meter per steradians of this 
-		 directional light.
+		 The irradiance (which is equal to the exitant radiance/radiosity) in 
+		 watts per square meter of this directional light.
 		 */
-		F32 m_radiance;
+		F32 m_irradiance;
 
 		/**
 		 The sRGB base color of this directional light.

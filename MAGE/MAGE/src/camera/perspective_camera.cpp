@@ -30,7 +30,7 @@ namespace mage {
 		m_fov_y(MAGE_DEFAULT_FOV_Y) {}
 
 	PerspectiveCamera::PerspectiveCamera(
-		const PerspectiveCamera &camera) noexcept = default;
+		const PerspectiveCamera &camera) = default;
 
 	PerspectiveCamera::PerspectiveCamera(
 		PerspectiveCamera &&camera) noexcept = default;
@@ -38,7 +38,7 @@ namespace mage {
 	PerspectiveCamera::~PerspectiveCamera() = default;
 
 	PerspectiveCamera &PerspectiveCamera
-		::operator=(const PerspectiveCamera &camera) noexcept = default;
+		::operator=(const PerspectiveCamera &camera) = default;
 
 	PerspectiveCamera &PerspectiveCamera
 		::operator=(PerspectiveCamera &&camera) noexcept = default;

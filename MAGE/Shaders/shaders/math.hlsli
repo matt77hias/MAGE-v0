@@ -974,14 +974,28 @@ float3 PackNormal(float3 n) {
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given (linear) view z-coordinate to the (non-linear) NDC 
- z-coordinate.
+ Apply the homogeneous divide on the given position.
+
+ @param[in]		p
+				The position.
+ @return		The position after the homogeneous divide (i.e. the implicit w 
+				coordinate is equal to one).
+ */
+float3 HomogeneousDivide(float4 p) {
+	const float inv_w = 1.0f / p.w;
+	return p.xyz * inv_w;
+}
+
+/**
+ Converts the given (linear) z coordinate expressed in view space to the 
+ corresponding (non-linear) z coordinate expressed in NDC space.
 
  @param[in]		p_view_z
-				The (linear) view z-coordinate.
+				The (linear) z coordinate expressed in view space.
  @param[in]		projection_values
-				The projection values [view_projection22, view_projection32].
- @return		The (non-linear) NDC z-coordinate.
+				The projection values of the view-to-projection matrix
+				[view_to_projection22, view_to_projection32].
+ @return		The (non-linear) z coordinate expressed in NDC space.
  */
 float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 	return projection_values.x + projection_values.y / p_view_z;
@@ -992,7 +1006,7 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 
  @param[in]		p_ndc_xy
 				The NDC x and y coordinate.
- @return		The UV coordinates.
+ @return		The UV u and v coordinates.
  */
 float2 NDCtoUV(float2 p_ndc_xy) {
 	// x: [-1,1] -> [0,1]
@@ -1004,31 +1018,13 @@ float2 NDCtoUV(float2 p_ndc_xy) {
  Converts the given UV coordinates to NDC coordinates.
 
  @param[in]		uv
-				The UV coordinates.
+				The UV u and v coordinates.
  @return		The NDC x and y coordinate.
  */
 float2 UVtoNDC(float2 uv) {
 	// x: [0,1] -> [-1,1]
 	// y: [0,1] -> [1,-1]
 	return float2(2.0f, -2.0f) * uv + float2(-1.0f, 1.0f);
-}
-
-/**
- Converts the given location to UV coorcinates.
-
- @pre			@a location is non-normalized 
-				(i.e. in the [0,resolution.x-1] by [0,resolution.y-1] range).
- @param[in]		location
-				The location.
- @param[in]		inv_resolution_minus1
-				The inverse of the resolution minus 1 
-				[1/(resolution.x-1), 1/(resolution.y-1)].
- @return		The UV coordinates.
- */
-float2 LocationToUV(float2 location, float2 inv_resolution_minus1) {
-	// x: [0,resolution.x-1] -> [0,1]
-	// y: [0,resolution.y-1] -> [0,1]
-	return location * inv_resolution_minus1;
 }
 
 //-----------------------------------------------------------------------------

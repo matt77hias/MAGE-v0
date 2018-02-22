@@ -65,7 +65,9 @@ uint EncodeNormal(float3 n) {
 }
 
 float3 DecodeNormal(uint encoded_n) {
-	static const float3 i_to_f = float3(1.0f / 1023.0f, 1.0f / 511.0f, 1.0f / 1023.0f);
+	static const float3 i_to_f = float3(1.0f / 1023.0f, 
+										1.0f /  511.0f, 
+										1.0f / 1023.0f);
 
 	const uint3 normal_sign = 0x1 & uint3(encoded_n >> 31u,
 		                                  encoded_n >> 20u,

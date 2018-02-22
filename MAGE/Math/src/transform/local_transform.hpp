@@ -1072,7 +1072,7 @@ namespace mage {
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return GetTranslationV();
+			return  GetObjectToParentMatrix().r[3];
 		}
 
 		/**
@@ -1083,7 +1083,7 @@ namespace mage {
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisX());
+			return GetObjectToParentMatrix().r[0];
 		}
 		
 		/**
@@ -1094,7 +1094,7 @@ namespace mage {
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisY());
+			return GetObjectToParentMatrix().r[1];
 		}
 		
 		/**
@@ -1105,7 +1105,7 @@ namespace mage {
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return TransformObjectToParentDirection(GetObjectAxisZ());
+			return GetObjectToParentMatrix().r[2];
 		}
 		
 		#pragma endregion

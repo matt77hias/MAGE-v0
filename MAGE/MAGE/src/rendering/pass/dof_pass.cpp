@@ -3,9 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\dof_pass.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -16,12 +15,6 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	DOFPass *DOFPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetDOFPass();
-	}
 
 	DOFPass::DOFPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),

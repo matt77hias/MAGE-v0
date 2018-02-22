@@ -25,20 +25,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the bounding volume pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the bounding volume pass associated with 
-						the current engine.
-		 */
-		static BoundingVolumePass *Get();
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -109,14 +95,11 @@ namespace mage {
 						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
-			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view);
+			                    FXMMATRIX world_to_projection);
 
 	private:
 
@@ -130,45 +113,57 @@ namespace mage {
 		void BindFixedState() const noexcept;
 
 		/**
-		 Binds the light color data of this bounding volume pass.
+		 Binds the light color of this bounding volume pass.
 
 		 @throws		Exception
-						Failed to bind the light color data of this bounding 
+						Failed to bind the light color of this bounding 
 						volume pass.
 		 */
-		void BindLightColorData();
+		void BindLightColor();
 
 		/**
-		 Binds the model color data of this bounding volume pass.
+		 Binds the model color of this bounding volume pass.
 		 
 		 @throws		Exception
-						Failed to bind the model color data of this bounding 
+						Failed to bind the model color of this bounding 
 						volume pass.
 		 */
-		void BindModelColorData();
+		void BindModelColor();
 
 		/**
-		 Binds the color data of this bounding volume pass.
+		 Binds the color of this bounding volume pass.
 
 		 @param[in]		color
 						A reference to the color.
 		 @throws		Exception
-						Failed to bind the light color data of this bounding 
+						Failed to bind the light color of this bounding 
 						volume pass.
 		 */
-		void BindColorData(const RGBA &color);
+		void BindColor(const RGBA &color);
 
 		/**
-		 Binds the model data of this bounding volume pass.
+		 Binds the transform of this bounding volume pass.
 
-		 @param[in]		box_to_view
-						The box-to-view transformation matrix used for
-						transforming box vertices.
+		 @param[in]		cube_to_world
+						The cube-to-world transformation matrix used for 
+						transforming cube vertices.
 		 @throws		Exception
-						Failed to bind the model data of this bounding volume 
+						Failed to bind the transform of this bounding volume 
 						pass.
 		 */
-		void XM_CALLCONV BindModelData(FXMMATRIX box_to_view);
+		void XM_CALLCONV BindTransform(FXMMATRIX cube_to_world);
+
+		/**
+		 Renders the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		object_to_world
+						The object-to-world transformation matrix.
+		 @throws		Exception
+						Failed to bind the render the given AABB.
+		 */
+		void XM_CALLCONV Render(const AABB &aabb, FXMMATRIX object_to_world);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -177,7 +172,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this bounding volume pass.
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the vertex shader of this bounding volume pass.
@@ -195,8 +190,8 @@ namespace mage {
 		ConstantBuffer< RGBA > m_color_buffer;
 
 		/**
-		 The model buffer of this bounding volume pass.
+		 The transform buffer of this bounding volume pass.
 		 */
-		ConstantBuffer< XMMATRIX > m_model_buffer;
+		ConstantBuffer< XMMATRIX > m_transform_buffer;
 	};
 }

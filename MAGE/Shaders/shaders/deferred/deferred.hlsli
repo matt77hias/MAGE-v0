@@ -40,22 +40,21 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 
-float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
-	const uint2 location = input.p.xy;
+float4 PS(float4 input : SV_POSITION, uint index : SV_SampleIndex) : SV_Target {
+	const uint2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location, index);
+	const float3 base_color = GetGBufferMaterialBaseColor(p_ss_display, index);
 	// Obtain the parameters of the material.
-	const float2 material   = GetGBufferMaterialParameters(location, index);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location, index);
-	// Obtain the view-space hit position.
-	const float3 p_view     = GetGBufferPosition(location, index, input.p_ndc.xy);
+	const float2 material   = GetGBufferMaterialParameters(p_ss_display, index);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_ss_display, index);
+	// Obtain the surface position expressed in world space.
+	const float3 p_world    = GetGBufferPosition(p_ss_display, index);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-	
 	return float4(L, 1.0f);
 }
 
@@ -65,22 +64,21 @@ float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 
-float4 PS(PSInputNDCPosition input) : SV_Target {
-	const uint2 location = input.p.xy;
+float4 PS(float4 input : SV_POSITION) : SV_Target {
+	const uint2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location);
+	const float3 base_color = GetGBufferMaterialBaseColor(p_ss_display);
 	// Obtain the parameters of the material.
-	const float2 material   = GetGBufferMaterialParameters(location);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location);
-	// Obtain the view-space hit position.
-	const float3 p_view     = GetGBufferPosition(location, input.p_ndc.xy);
+	const float2 material   = GetGBufferMaterialParameters(p_ss_display);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_ss_display);
+	// Obtain the surface position expressed in world space.
+	const float3 p_world    = GetGBufferPosition(p_ss_display);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-	
 	return float4(L, 1.0f);
 }
 
@@ -98,29 +96,27 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 location = g_ss_viewport_top_left + thread_id.xy;
+	const uint2 p_ss_display = g_ss_viewport_top_left + thread_id.xy;
 	
 	[branch]
-	if (any(location >= g_ss_display_resolution)) {
+	if (any(p_ss_display >= g_ss_display_resolution)) {
 		return;
 	}
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location);
+	const float3 base_color = GetGBufferMaterialBaseColor(p_ss_display);
 	// Obtain the parameters of the material.
-	const float2 material   = GetGBufferMaterialParameters(location);
-	// Obtain the view-space normal.
-	const float3 n_view     = GetGBufferNormal(location);
-	// Obtain the view-space hit position.
-	const float2 p_ndc_xy   = SSDispatchThreadIDtoNDC(thread_id.xy);
-	const float3 p_view     = GetGBufferPosition(location, p_ndc_xy);
+	const float2 material   = GetGBufferMaterialParameters(p_ss_display);
+	// Obtain the surface normal expressed in world space.
+	const float3 n_world    = GetGBufferNormal(p_ss_display);
+	// Obtain the surface position expressed in world space.
+	const float3 p_world    = GetGBufferPosition(p_ss_display);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetRadiance(p_view, n_view,
+	const float3 L = GetRadiance(p_world, n_world,
 		                         base_color, material.x, material.y);
-
 	// Store the pixel color.
-	g_output[location] = float4(L, 1.0f);
+	g_output[p_ss_display] = float4(L, 1.0f);
 }
 
 #endif // MSAA

@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera) noexcept;
+		OrthographicCamera(const OrthographicCamera &camera);
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic 
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic 
 						camera (i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera) noexcept;
+		OrthographicCamera &operator=(const OrthographicCamera &camera);
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
@@ -173,13 +173,13 @@ namespace mage {
 		}
 	
 		/**
-		 Returns the view-to-projection matrix of this orthographic camera.
+		 Returns the camera-to-projection matrix of this orthographic camera.
 
-		 @return		The view-to-projection matrix of this orthographic 
+		 @return		The camera-to-projection matrix of this orthographic 
 						camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetViewToProjectionMatrix() const noexcept override {
+			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
@@ -191,20 +191,20 @@ namespace mage {
 		}
 
 		/**
-		 Returns the projection-to-view matrix of this orthographic camera.
+		 Returns the projection-to-camera matrix of this orthographic camera.
 
-		 @return		The projection-to-view matrix of this orthographic 
+		 @return		The projection-to-camera matrix of this orthographic 
 						camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetProjectionToViewMatrix() const noexcept override {
+			GetProjectionToCameraMatrix() const noexcept override {
 
-			const auto view_to_projection = GetViewToProjectionMatrix();
+			const auto camera_to_projection = GetCameraToProjectionMatrix();
 
-			const auto m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
-			const auto m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
-			const auto m22 = 1.0f / XMVectorGetZ(view_to_projection.r[2]);
-			const auto m32 = -XMVectorGetZ(view_to_projection.r[3]) * m22;
+			const auto m00 = 1.0f / XMVectorGetX(camera_to_projection.r[0]);
+			const auto m11 = 1.0f / XMVectorGetY(camera_to_projection.r[1]);
+			const auto m22 = 1.0f / XMVectorGetZ(camera_to_projection.r[2]);
+			const auto m32 = -XMVectorGetZ(camera_to_projection.r[3]) * m22;
 			
 			return XMMATRIX {
 				 m00, 0.0f, 0.0f, 0.0f,

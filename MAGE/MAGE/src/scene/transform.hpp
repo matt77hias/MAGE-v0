@@ -1086,7 +1086,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldOrigin() const noexcept {
-			return TransformObjectToWorld(GetObjectOrigin());
+			return GetObjectToWorldMatrix().r[3];
 		}
 
 		/**
@@ -1097,7 +1097,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisX());
+			return GetObjectToWorldMatrix().r[0];
 		}
 
 		/**
@@ -1108,7 +1108,7 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisY());
+			return GetObjectToWorldMatrix().r[1];;
 		}
 
 		/**
@@ -1119,111 +1119,9 @@ namespace mage {
 						expressed in world space coordinates.
 		 */
 		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
-			return TransformObjectToWorld(GetObjectAxisZ());
+			return GetObjectToWorldMatrix().r[2];;
 		}
 
-		#pragma endregion
-
-		//---------------------------------------------------------------------
-		// Member Methods: Camera Object Space
-		//---------------------------------------------------------------------
-		#pragma region
-
-		/**
-		 Returns the local eye position of this transform expressed in object 
-		 space coordinates.
-
-		 @return		The local eye position of this transform expressed 
-						in object space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectEye() const noexcept {
-			return GetObjectOrigin();
-		}
-
-		/**
-		 Returns the local left direction of this transform expressed in object 
-		 space coordinates.
-
-		 @return		The local left direction of this transform 
-						expressed in object space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectLeft() const noexcept {
-			return GetObjectAxisX();
-		}
-		
-		/**
-		 Returns the local up direction of this transform expressed in object 
-		 space coordinates.
-
-		 @return		The local up direction of this transform 
-						expressed in object space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectUp() const noexcept {
-			return GetObjectAxisY();
-		}
-		
-		/**
-		 Returns the local forward direction of this transform expressed in 
-		 object space coordinates.
-
-		 @return		The local forward direction of this transform 
-						expressed in object space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectForward() const noexcept {
-			return GetObjectAxisZ();
-		}
-		
-		#pragma endregion
-
-		//---------------------------------------------------------------------
-		// Member Methods: Camera World Space
-		//---------------------------------------------------------------------
-		#pragma region
-
-		/**
-		 Returns the local eye position of this transform expressed in world 
-		 space coordinates.
-
-		 @return		The local eye position of this transform expressed in 
-						world space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldEye() const noexcept {
-			return GetWorldOrigin();
-		}
-
-		/**
-		 Returns the local left direction of this transform expressed in world 
-		 space coordinates.
-
-		 @return		The local left direction of this transform expressed in 
-						world space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldLeft() const noexcept {
-			return GetWorldAxisX();
-		}
-		
-		/**
-		 Returns the local up direction of this transform expressed in world 
-		 space coordinates.
-
-		 @return		The local up direction of this transform expressed in 
-						world space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldUp() const noexcept {
-			return GetWorldAxisY();
-		}
-		
-		/**
-		 Returns the local forward direction of this transform expressed in 
-		 world space coordinates.
-
-		 @return		The local forward direction of this transform expressed 
-						in world space coordinates.
-		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldForward() const noexcept {
-			return GetWorldAxisZ();
-		}
-		
 		#pragma endregion
 
 		//---------------------------------------------------------------------
@@ -1287,32 +1185,6 @@ namespace mage {
 
 			UpdateWorldToObjectMatrix();
 			return m_world_to_object;
-		}
-
-		/**
-		 Returns the view-to-world matrix of this transform.
-
-		 @return		The view-to-world matrix of this transform.
-		 @note			Transforms for cameras should not contain scaling 
-						components.
-		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
-			GetViewToWorldMatrix() const noexcept {
-
-			return GetObjectToWorldMatrix();
-		}
-
-		/**
-		 Returns the world-to-view matrix of this transform.
-
-		 @return		The world-to-view matrix of this transform.
-		 @note			Transforms for cameras should not contain scaling 
-						components.
-		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
-			GetWorldToViewMatrix() const noexcept {
-
-			return GetWorldToObjectMatrix();
 		}
 
 		/**

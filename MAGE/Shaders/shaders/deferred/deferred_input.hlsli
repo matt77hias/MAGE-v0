@@ -37,140 +37,138 @@ RW_TEXTURE_2D(g_output,             float4, SLOT_UAV_IMAGE);
 
 /**
  Returns the base color of the material from the GBuffer corresponding to the 
- given location.
+ given super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
  @return		The base color of the material from the GBuffer corresponding 
-				to the given location.
+				to the given super-sampled display position.
  */
-float3 GetGBufferMaterialBaseColor(uint2 location, uint index) {
+float3 GetGBufferMaterialBaseColor(uint2 p_ss_display, uint index) {
 	// Load the base color from the GBuffer base color texture.
-	return g_base_color_texture.sample[index][location].xyz;
+	return g_base_color_texture.sample[index][p_ss_display].xyz;
 }
 
 /**
  Returns the parameters of the material from the GBuffer corresponding to the 
- given location.
+ given super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
  @return		The parameters of the material [roughness, metalness] from the 
-				GBuffer corresponding to the given location.
+				GBuffer corresponding to the given super-sampled display 
+				position.
  */
-float2 GetGBufferMaterialParameters(uint2 location, uint index) {
+float2 GetGBufferMaterialParameters(uint2 p_ss_display, uint index) {
 	// Load the material data the GBuffer material texture.
-	return g_material_texture.sample[index][location].xy;
+	return g_material_texture.sample[index][p_ss_display].xy;
 }
 
 /**
- Returns the view-space normal from the GBuffer corresponding to the given 
- location.
+ Returns the surface normal from the GBuffer corresponding to the given 
+ super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @return		The view-space normal from the GBuffer corresponding to the 
-				given location.
+ @return		The surface normal from the GBuffer expressed in world space 
+				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferNormal(uint2 location, uint index) {
+float3 GetGBufferNormal(uint2 p_ss_display, uint index) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return UnpackNormal(g_normal_texture.sample[index][location]);
+	return UnpackNormal(g_normal_texture.sample[index][p_ss_display]);
 }
 
 /**
- Returns the view-space position from the GBuffer corresponding to the given 
- location.
+ Returns the surface position from the GBuffer corresponding to the given 
+ super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @param[in]		p_ndc_xy
-				The x and y coordinates of the NDC-space hit position.
- @return		The view-space position from the GBuffer corresponding to the 
-				given location.
+ @return		The surface position from the GBuffer expressed in world space 
+				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferPosition(uint2 location, uint index, float2 p_ndc_xy) {
+float3 GetGBufferPosition(uint2 p_ss_display, uint index) {
 	// Load the depth from the GBuffer depth texture.
-	const float  depth  = g_depth_texture.sample[index][location];
-	// Obtain the projection space coodinates.
-	const float4 p_proj = float4(p_ndc_xy, depth, 1.0f);
-	// Obtain the view space coodinates.
-	const float4 p_view = mul(p_proj, g_projection_to_view);
-	const float  inv_p_view_w = 1.0f / p_view.w;
-	return p_view.xyz * inv_p_view_w;
+	const float  depth = g_depth_texture.sample[index][p_ss_display];
+	// Obtain the NDC space coordinates.
+	const uint2  p_ss_viewport = p_ss_display - g_ss_viewport_top_left;
+	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
+	const float3 p_ndc         = float3(p_ndc_xy, depth);
+	// Obtain the world space coodinates.
+	return NDCToWorld(p_ndc);
 }
 
 #else  // MSAA
 
 /**
  Returns the base color of the material from the GBuffer corresponding to the 
- given location.
+ given super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @return		The base color of the material from the GBuffer corresponding 
-				to the given location.
+				to the given super-sampled display position.
  */
-float3 GetGBufferMaterialBaseColor(uint2 location) {
+float3 GetGBufferMaterialBaseColor(uint2 p_ss_display) {
 	// Load the base color from the GBuffer base color texture.
-	return g_base_color_texture[location].xyz;
+	return g_base_color_texture[p_ss_display].xyz;
 }
 
 /**
  Returns the parameters of the material from the GBuffer corresponding to the 
- given location.
+ given super-sampled display position.
 
- @param[in]		location
-				The location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
  @return		The parameters of the material [roughness, metalness] from the 
-				GBuffer corresponding to the given location.
+				GBuffer corresponding to the given super-sampled display 
+				position.
  */
-float2 GetGBufferMaterialParameters(uint2 location) {
+float2 GetGBufferMaterialParameters(uint2 p_ss_display) {
 	// Load the material data the GBuffer material texture.
-	return g_material_texture[location].xy;
+	return g_material_texture[p_ss_display].xy;
 }
 
 /**
- Returns the view-space normal from the GBuffer corresponding to the given 
- location.
+ Returns the surface normal from the GBuffer corresponding to the given 
+ super-sampled display position.
 
- @param[in]		location
-				The location.
- @return		The view-space normal from the GBuffer corresponding to the 
-				given location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
+ @return		The surface normal from the GBuffer expressed in world space 
+				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferNormal(uint2 location) {
+float3 GetGBufferNormal(uint2 p_ss_display) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return UnpackNormal(g_normal_texture[location]);
+	return UnpackNormal(g_normal_texture[p_ss_display]);
 }
 
 /**
- Returns the view-space position from the GBuffer corresponding to the given 
- location.
+ Returns the surface position from the GBuffer corresponding to the given 
+ super-sampled display position.
 
- @param[in]		p_ndc_xy
-				The x and y coordinates of the NDC-space hit position.
- @param[in]		location
-				The location.
- @return		The view-space position from the GBuffer corresponding to the 
-				given location.
+ @param[in]		p_display
+				The super-sampled display coordinates.
+ @return		The surface position from the GBuffer expressed in world space 
+				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferPosition(uint2 location, float2 p_ndc_xy) {
+float3 GetGBufferPosition(uint2 p_ss_display) {
 	// Load the depth from the GBuffer depth texture.
-	const float  depth  = g_depth_texture[location];
-	// Obtain the projection space coodinates.
-	const float4 p_proj = float4(p_ndc_xy, depth, 1.0f);
-	// Obtain the view space coodinates.
-	const float4 p_view = mul(p_proj, g_projection_to_view);
-	const float  inv_p_view_w = 1.0f / p_view.w;
-	return p_view.xyz * inv_p_view_w;
+	const float  depth = g_depth_texture[p_ss_display];
+	// Obtain the NDC space coordinates.
+	const uint2  p_ss_viewport = p_ss_display - g_ss_viewport_top_left;
+	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
+	const float3 p_ndc         = float3(p_ndc_xy, depth);
+	// Obtain the world space coodinates.
+	return NDCToWorld(p_ndc);
 }
 
 #endif // MSAA

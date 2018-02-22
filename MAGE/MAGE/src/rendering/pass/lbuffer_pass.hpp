@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "rendering\pass\depth_pass.hpp"
 #include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\structured_buffer.hpp"
 #include "rendering\buffer\light_buffer.hpp"
@@ -63,8 +63,6 @@ namespace mage {
 
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world,
 								const Fog &fog);
 		
 	private:
@@ -78,30 +76,21 @@ namespace mage {
 
 		void ProcessLightsData(const Scene &scene, const Fog &fog);
 
-		void XM_CALLCONV ProcessDirectionalLights(const Scene &scene, 
-												  FXMMATRIX world_to_view, 
-												  CXMMATRIX view_to_world);
+		void XM_CALLCONV ProcessDirectionalLights(const Scene &scene);
 		void XM_CALLCONV ProcessOmniLights(const Scene &scene, 
-										   FXMMATRIX world_to_projection, 
-										   CXMMATRIX world_to_view, 
-										   CXMMATRIX view_to_world);
+										   FXMMATRIX world_to_projection);
 		void XM_CALLCONV ProcessSpotLights(const Scene &scene, 
-										   FXMMATRIX world_to_projection, 
-										   CXMMATRIX world_to_view, 
-										   CXMMATRIX view_to_world);
+										   FXMMATRIX world_to_projection);
 
 		void SetupShadowMaps();
 
-		void XM_CALLCONV RenderShadowMaps(const Scene &scene, 
-										  FXMMATRIX world_to_cview);
+		void XM_CALLCONV RenderShadowMaps(const Scene &scene);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		D3D11DeviceContext * const m_device_context;
-
-		ComPtr< ID3D11SamplerState > m_pcf_sampler;
+		ID3D11DeviceContext * const m_device_context;
 
 		ConstantBuffer< LightBuffer > m_light_buffer;
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
@@ -116,11 +105,14 @@ namespace mage {
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
 
 		struct alignas(16) LightCameraInfo final {
-			XMMATRIX cview_to_lprojection;
+			XMMATRIX world_to_light;
+			XMMATRIX light_to_projection;
 		};
 
 		AlignedVector< LightCameraInfo > m_directional_light_cameras;
 		AlignedVector< LightCameraInfo > m_omni_light_cameras;
 		AlignedVector< LightCameraInfo > m_spot_light_cameras;
+
+		UniquePtr< DepthPass > m_depth_pass;
 	};
 }

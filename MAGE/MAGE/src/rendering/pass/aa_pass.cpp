@@ -3,9 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\aa_pass.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -16,12 +15,6 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	AAPass *AAPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetAAPass();
-	}
 
 	AAPass::AAPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),

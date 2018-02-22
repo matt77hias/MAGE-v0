@@ -19,7 +19,7 @@ namespace mage {
 	public:
 
 		explicit VoxelGrid(size_t resolution);
-		explicit VoxelGrid(D3D11Device *device, size_t resolution);
+		explicit VoxelGrid(ID3D11Device *device, size_t resolution);
 		VoxelGrid(const VoxelGrid &voxel_grid) = delete;
 		VoxelGrid(VoxelGrid &&voxel_grid) = default;
 		~VoxelGrid() = default;
@@ -31,24 +31,24 @@ namespace mage {
 			return m_resolution;
 		}
 
-		void BindViewport(D3D11DeviceContext *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
 		void BindBeginVoxelizationBuffer(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindEndVoxelizationBuffer(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindBeginVoxelizationTexture(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 		void BindEndVoxelizationTexture(
-			D3D11DeviceContext *device_context) const noexcept;
+			ID3D11DeviceContext *device_context) const noexcept;
 
 	private:
 
-		void SetupVoxelGrid(D3D11Device *device);
+		void SetupVoxelGrid(ID3D11Device *device);
 
-		void SetupStructuredBuffer(D3D11Device *device);
-		void SetupTexture(D3D11Device *device);
+		void SetupStructuredBuffer(ID3D11Device *device);
+		void SetupTexture(ID3D11Device *device);
 
 		size_t m_resolution;
 		Viewport m_viewport;

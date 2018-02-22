@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\sprite_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -16,12 +16,6 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	SpritePass *SpritePass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetSpritePass();
-	}
 
 	SpritePass::SpritePass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),

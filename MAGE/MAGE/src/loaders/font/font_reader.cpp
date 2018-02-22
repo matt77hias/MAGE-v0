@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	SpriteFontReader::SpriteFontReader(D3D11Device *device, 
+	SpriteFontReader::SpriteFontReader(ID3D11Device *device, 
 		                               SpriteFontOutput &output, 
 		                               const SpriteFontDescriptor &desc)
 		: BigEndianBinaryReader(), 

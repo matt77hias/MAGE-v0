@@ -3,13 +3,14 @@
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
 #include "primitive\line_cube.hlsli"
+#include "transform\transform.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(Model, SLOT_CBUFFER_MODEL) {
-	// The object-to-view transformation matrix.
-	float4x4 g_object_to_view : packoffset(c0);
+	// The cube-to-world transformation matrix.
+	float4x4 g_cube_to_world : packoffset(c0);
 }
 
 //-----------------------------------------------------------------------------
@@ -20,6 +21,8 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 // Topology: D3D11_PRIMITIVE_TOPOLOGY_LINELIST
 
 float4 VS(uint vertex_id : SV_VertexID) : SV_Position {
-	return mul(mul(float4(g_line_cube[vertex_id], 1.0f), 
-	           g_object_to_view), g_view_to_projection);
+	return Transform(g_line_cube[vertex_id], 
+	                 g_cube_to_world, 
+					 g_world_to_camera, 
+					 g_camera_to_projection);
 }

@@ -105,20 +105,14 @@
     <ClInclude Include="MAGE\src\rendering\pass\back_buffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\configuration.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\constant_component_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\constant_shading_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\deferred_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\gbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\shading_normal_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\sky_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\variable_component_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\variable_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_output_manager.hpp" />
@@ -206,20 +200,14 @@
     <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\back_buffer_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\bounding_volume_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\constant_component_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\constant_shading_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\deferred_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\gbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\lbuffer_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\shading_normal_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\sky_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\variable_component_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\variable_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
@@ -248,6 +236,7 @@
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MAGE\src\camera\camera.tpp" />
     <None Include="MAGE\src\loaders\mdl\mdl_loader.tpp" />
     <None Include="MAGE\src\loaders\mdl\mdl_reader.tpp" />
     <None Include="MAGE\src\loaders\mdl\mdl_writer.tpp" />
@@ -260,6 +249,7 @@
     <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp" />
     <None Include="MAGE\src\mesh\static_mesh.tpp" />
+    <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_output.tpp" />
     <None Include="MAGE\src\rendering\buffer\constant_buffer.tpp" />

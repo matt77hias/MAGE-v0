@@ -14,317 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// ModelNormalTransformBuffer
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of transform buffers used by shaders for transforming vertex 
-	 positions/directions and normals.
-	 */
-	struct alignas(16) ModelNormalTransformBuffer final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a transform buffer.
-		 */
-		ModelNormalTransformBuffer() noexcept
-			: m_object_to_view{},
-			m_normal_to_view{} {}
-
-		/**
-		 Constructs a transform buffer from the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 */
-		ModelNormalTransformBuffer(
-			const ModelNormalTransformBuffer &buffer) noexcept = default;
-		
-		/**
-		 Constructs a transform buffer by moving the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 */
-		ModelNormalTransformBuffer(
-			ModelNormalTransformBuffer &&buffer) noexcept = default;
-
-		/**
-		 Destructs this transform buffer.
-		 */
-		~ModelNormalTransformBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-		
-		/**
-		 Copies the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 @return		A reference to the copy of the given transform buffer
-						(i.e. this transform buffer).
-		 */
-		ModelNormalTransformBuffer &operator=(
-			const ModelNormalTransformBuffer &buffer) = default;
-
-		/**
-		 Moves the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer (i.e. this 
-						transform buffer).
-		 */
-		ModelNormalTransformBuffer &operator=(
-			ModelNormalTransformBuffer &&buffer) = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transforms
-		//---------------------------------------------------------------------
-
-		// HLSL expects column-major packed matrices by default.
-		// DirectXMath expects row-major packed matrices.
-
-		/**
-		 The (camera dependent, object dependent) (column-major packed, 
-		 row-major matrix) object-to-view matrix of this model buffer for use 
-		 in HLSL.
-		 */
-		XMMATRIX m_object_to_view;
-		
-		/**
-		 The (camera dependent, object dependent) (column-major packed, 
-		 row-major matrix) object-to-view inverse tranpose matrix 
-		 (normal-to-view matrix) of this model buffer for use in HLSL.
-		 */
-		XMMATRIX m_normal_to_view;
-	};
-
-	static_assert(128 == sizeof(ModelNormalTransformBuffer), 
-		"CPU/GPU struct mismatch");
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// ModelTextureTransformBuffer
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of transform buffers used by shaders for transforming vertex 
-	 positions/directions and texture coordinates.
-	 */
-	struct alignas(16) ModelTextureTransformBuffer final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a transform buffer.
-		 */
-		ModelTextureTransformBuffer() noexcept
-			: m_object_to_view{},
-			m_texture_transform{} {}
-
-		/**
-		 Constructs a transform buffer from the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 */
-		ModelTextureTransformBuffer(
-			const ModelTextureTransformBuffer &buffer) noexcept = default;
-		
-		/**
-		 Constructs a transform buffer by moving the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 */
-		ModelTextureTransformBuffer(
-			ModelTextureTransformBuffer &&buffer) noexcept = default;
-
-		/**
-		 Destructs this transform buffer.
-		 */
-		~ModelTextureTransformBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-		
-		/**
-		 Copies the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 @return		A reference to the copy of the given transform buffer
-						(i.e. this transform buffer).
-		 */
-		ModelTextureTransformBuffer &operator=(
-			const ModelTextureTransformBuffer &buffer) = default;
-
-		/**
-		 Moves the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer (i.e. this 
-						transform buffer).
-		 */
-		ModelTextureTransformBuffer &operator=(
-			ModelTextureTransformBuffer &&buffer) = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transforms
-		//---------------------------------------------------------------------
-
-		// HLSL expects column-major packed matrices by default.
-		// DirectXMath expects row-major packed matrices.
-
-		/**
-		 The (camera dependent, object dependent) (column-major packed, 
-		 row-major matrix) object-to-view matrix of this model buffer for use 
-		 in HLSL.
-		 */
-		XMMATRIX m_object_to_view;
-
-		/**
-		 The (object dependent) (column-major packed, row-major matrix) texture 
-		 transform matrix of this model buffer for use in HLSL.
-		 */
-		XMMATRIX m_texture_transform;
-	};
-
-	static_assert(128 == sizeof(ModelTextureTransformBuffer), 
-		"CPU/GPU struct mismatch");
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// ModelNormalTextureTransformBuffer
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of transform buffers used by shaders for transforming vertex 
-	 positions/directions, normals and texture coordinates.
-	 */
-	struct alignas(16) ModelNormalTextureTransformBuffer final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a transform buffer.
-		 */
-		ModelNormalTextureTransformBuffer() noexcept
-			: m_object_to_view{},
-			m_normal_to_view{},
-			m_texture_transform{} {}
-
-		/**
-		 Constructs a transform buffer from the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 */
-		ModelNormalTextureTransformBuffer(
-			const ModelNormalTextureTransformBuffer &buffer) noexcept = default;
-		
-		/**
-		 Constructs a transform buffer by moving the given transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 */
-		ModelNormalTextureTransformBuffer(
-			ModelNormalTextureTransformBuffer &&buffer) noexcept = default;
-
-		/**
-		 Destructs this transform buffer.
-		 */
-		~ModelNormalTextureTransformBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-		
-		/**
-		 Copies the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to copy.
-		 @return		A reference to the copy of the given transform buffer
-						(i.e. this transform buffer).
-		 */
-		ModelNormalTextureTransformBuffer &operator=(
-			const ModelNormalTextureTransformBuffer &buffer) = default;
-
-		/**
-		 Moves the given transform buffer to this transform buffer.
-
-		 @param[in]		buffer
-						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer (i.e. this 
-						transform buffer).
-		 */
-		ModelNormalTextureTransformBuffer &operator=(
-			ModelNormalTextureTransformBuffer &&buffer) = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transforms
-		//---------------------------------------------------------------------
-
-		// HLSL expects column-major packed matrices by default.
-		// DirectXMath expects row-major packed matrices.
-
-		/**
-		 The (camera dependent, object dependent) (column-major packed, 
-		 row-major matrix) object-to-view matrix of this model buffer for use 
-		 in HLSL.
-		 */
-		XMMATRIX m_object_to_view;
-		
-		/**
-		 The (camera dependent, object dependent) (column-major packed, 
-		 row-major matrix) object-to-view inverse tranpose matrix 
-		 (normal-to-view matrix) of this model buffer for use in HLSL.
-		 */
-		XMMATRIX m_normal_to_view;
-
-		/**
-		 The (object dependent) (column-major packed, row-major matrix) 
-		 texture transform matrix of this model buffer for use in HLSL.
-		 */
-		XMMATRIX m_texture_transform;
-	};
-
-	static_assert(192 == sizeof(ModelNormalTextureTransformBuffer), 
-		"CPU/GPU struct mismatch");
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// ModelBuffer
-	//-------------------------------------------------------------------------
-	#pragma region
-
 	/**
 	 A struct of model buffers.
 	 */
@@ -340,7 +29,9 @@ namespace mage {
 		 Constructs a model buffer.
 		 */
 		ModelBuffer() noexcept
-			: m_transform(),
+			: m_object_to_world{},
+			m_normal_to_world{},
+			m_texture_transform{},
 			m_base_color{}, 
 			m_roughness(0.0f),
 			m_metalness(0.0f),
@@ -396,10 +87,26 @@ namespace mage {
 		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
 		/**
-		 The transformation matrices of this model buffer.
+		 The (column-major packed, row-major matrix) object-to-world matrix of 
+		 this model buffer.
 		 */
-		ModelNormalTextureTransformBuffer m_transform;
+		XMMATRIX m_object_to_world;
+		
+		/**
+		 The (column-major packed, row-major matrix) object-to-world inverse 
+		 transpose matrix (normal-to-world matrix) of this model buffer.
+		 */
+		XMMATRIX m_normal_to_world;
+
+		/**
+		 The (column-major packed, row-major matrix) texture transform matrix 
+		 of this model buffer.
+		 */
+		XMMATRIX m_texture_transform;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material
@@ -426,8 +133,5 @@ namespace mage {
 		U32 m_padding[2];
 	};
 
-	static_assert(224 == sizeof(ModelBuffer), 
-		"CPU/GPU struct mismatch");
-
-	#pragma endregion
+	static_assert(224 == sizeof(ModelBuffer), "CPU/GPU struct mismatch");
 }

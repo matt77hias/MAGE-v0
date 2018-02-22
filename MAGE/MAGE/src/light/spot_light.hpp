@@ -400,14 +400,14 @@ namespace mage {
 		}
 
 		/**
-		 Returns the view-to-projection matrix of the light camera of this spot 
+		 Returns the light-to-projection matrix of the light camera of this spot 
 		 light.
 
-		 @return		The view-to-projection matrix of the light camera of 
+		 @return		The light-to-projection matrix of the light camera of 
 						this spot light.
 		 */
 		[[nodiscard]] const XMMATRIX XM_CALLCONV 
-			GetViewToProjectionMatrix() const noexcept {
+			GetLightToProjectionMatrix() const noexcept {
 
 			static const auto near_plane = 0.1f;
 			const auto fov = 2.0f * GetUmbraAngle();

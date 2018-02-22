@@ -1,27 +1,15 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "global.hlsli"
-
-//-----------------------------------------------------------------------------
-// Constant Buffers
-//-----------------------------------------------------------------------------
-CBUFFER(Model, SLOT_CBUFFER_MODEL) {
-	// MATERIAL
-	// The alpha channel of the base color of the material.
-	float g_base_color_a : packoffset(c0);
-};
-
-//-----------------------------------------------------------------------------
-// SRVs
-//-----------------------------------------------------------------------------
-TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
+#define DISABLE_MATERIAL_TEXTURE
+#define DISABLE_TSNM
+#include "forward\forward_input.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputTexture input) {
-	const float alpha = g_base_color_a 
+	const float alpha = g_base_color.a 
 		* g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex).a;
 	clip(alpha - TRANSPARENCY_SHADOW_THRESHOLD);
 }

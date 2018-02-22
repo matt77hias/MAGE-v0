@@ -98,7 +98,7 @@ namespace mage {
 		 @return		A reference to the moved structured buffer (i.e. this 
 						structured buffer).
 		 */
-		StructuredBuffer &operator=(StructuredBuffer &&buffer) = delete;
+		StructuredBuffer &operator=(StructuredBuffer &&buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

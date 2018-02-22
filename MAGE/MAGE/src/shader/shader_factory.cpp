@@ -15,6 +15,9 @@
 // SSAA
 #include "aa\ssaa_resolve_CS.hpp"
 
+// Back Buffer
+#include "backbuffer\back_buffer_PS.hpp"
+
 // Deferred: Opaque
 #include "deferred\deferred_blinn_phong_CS.hpp"
 #include "deferred\deferred_cook_torrance_CS.hpp"
@@ -48,6 +51,28 @@
 #include "depth\depth_transparent_VS.hpp"
 #include "depth\depth_transparent_PS.hpp"
 
+// False Color
+#include "falsecolor\constant_color_PS.hpp"
+#include "falsecolor\constant_color_texture_PS.hpp"
+#include "falsecolor\constant_texture_PS.hpp"
+#include "falsecolor\base_color_PS.hpp"
+#include "falsecolor\base_color_coefficient_PS.hpp"
+#include "falsecolor\base_color_texture_PS.hpp"
+#include "falsecolor\material_PS.hpp"
+#include "falsecolor\material_coefficient_PS.hpp"
+#include "falsecolor\material_texture_PS.hpp"
+#include "falsecolor\roughness_PS.hpp"
+#include "falsecolor\roughness_coefficient_PS.hpp"
+#include "falsecolor\roughness_texture_PS.hpp"
+#include "falsecolor\metalness_PS.hpp"
+#include "falsecolor\metalness_coefficient_PS.hpp"
+#include "falsecolor\metalness_texture_PS.hpp"
+#include "falsecolor\shading_normal_PS.hpp"
+#include "falsecolor\tsnm_shading_normal_PS.hpp"
+#include "falsecolor\depth_PS.hpp"
+#include "falsecolor\distance_PS.hpp"
+
+#include "forward\forward_solid_PS.hpp"
 // Forward: Opaque
 #include "forward\forward_blinn_phong_PS.hpp"
 #include "forward\forward_cook_torrance_PS.hpp"
@@ -104,17 +129,8 @@
 // GBuffer: Opaque + TSNM
 #include "gbuffer\gbuffer_tsnm_PS.hpp"
 
-// Miscellaneous
-#include "miscellaneous\back_buffer_PS.hpp"
-#include "miscellaneous\distance_PS.hpp"
-#include "miscellaneous\constant_color_PS.hpp"
-#include "miscellaneous\constant_color_texture_PS.hpp"
-#include "miscellaneous\shading_normal_VS.hpp"
-#include "miscellaneous\shading_normal_PS.hpp"
-#include "miscellaneous\tsnm_shading_normal_PS.hpp"
-
 // Post-processing
-#include "postprocessing\postprocessing_depth_of_field_CS.hpp"
+#include "postprocessing\depth_of_field_CS.hpp"
 
 // Primitive
 #include "primitive\line_cube_VS.hpp"
@@ -131,7 +147,6 @@
 #include "sprite\sprite_PS.hpp"
 
 // Transform
-#include "transform\minimal_transform_VS.hpp"
 #include "transform\transform_VS.hpp"
 
 // Voxelization
@@ -198,7 +213,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: AA
+	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -220,6 +235,17 @@ namespace mage {
 
 	#pragma endregion
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: Miscellaneous
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	PixelShaderPtr CreateBackBufferPS() {
+		return Create< PixelShader >(MAGE_SHADER_ARGS(g_back_buffer_PS));
+	}
+
+	#pragma endregion
+	
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
@@ -341,13 +367,68 @@ namespace mage {
 	}
 
 	#pragma endregion
+	
+	//-------------------------------------------------------------------------
+	// Factory Methods: False Color
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	PixelShaderPtr CreateFalseColorPS(FalseColor false_color) {
+		switch (false_color) {
+			
+			case FalseColor::ConstantColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
+			case FalseColor::UV:
+			case FalseColor::ConstantColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_texture_PS));
+			case FalseColor::BaseColor:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+			case FalseColor::BaseColorCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_coefficient_PS));
+			case FalseColor::BaseColorTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_texture_PS));
+			case FalseColor::Material:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_PS));
+			case FalseColor::MaterialCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_coefficient_PS));
+			case FalseColor::MaterialTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_material_texture_PS));
+			case FalseColor::Roughness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_PS));
+			case FalseColor::RoughnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_coefficient_PS));
+			case FalseColor::RoughnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_roughness_texture_PS));
+			case FalseColor::Metalness:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_PS));
+			case FalseColor::MetalnessCoefficient:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_coefficient_PS));
+			case FalseColor::MetalnessTexture:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_metalness_texture_PS));
+			case FalseColor::ShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
+			case FalseColor::TSNMShadingNormal:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS));
+			case FalseColor::Depth:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_depth_PS));	
+			case FalseColor::Distance:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
+			default:
+				return Create< PixelShader >(MAGE_SHADER_ARGS(g_base_color_PS));
+		}
+	}
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, 
+											 bool vct, 
+											 bool tsnm) {
+
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -375,7 +456,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency, 
+											   bool vct, 
+											   bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -408,7 +492,10 @@ namespace mage {
 		                    : Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
-	PixelShaderPtr CreateForwardFrostbitePS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardFrostbitePS(bool transparency, 
+											bool vct, 
+											bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -436,7 +523,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardLambertianPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardLambertianPS(bool transparency, 
+											 bool vct, 
+											 bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -464,7 +554,10 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardWardDuerPS(bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardWardDuerPS(bool transparency, 
+										   bool vct, 
+										   bool tsnm) {
+		
 		const auto config = static_cast< U32 >(transparency) << 2u
 		                  | static_cast< U32 >(vct)          << 1u
 						  | static_cast< U32 >(tsnm);
@@ -492,7 +585,11 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardPS(BRDFType brdf, bool transparency, bool vct, bool tsnm) {
+	PixelShaderPtr CreateForwardPS(BRDFType brdf, 
+								   bool transparency, 
+								   bool vct, 
+								   bool tsnm) {
+		
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
@@ -506,6 +603,10 @@ namespace mage {
 		default:
 			return CreateForwardFrostbitePS(   transparency, vct, tsnm);
 		}
+	}
+
+	PixelShaderPtr CreateForwardSolidPS() {
+		return Create< PixelShader >(MAGE_SHADER_ARGS(g_forward_solid_PS));
 	}
 
 	#pragma endregion
@@ -523,47 +624,12 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Miscellaneous
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	PixelShaderPtr CreateBackBufferPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_back_buffer_PS));
-	}
-
-	PixelShaderPtr CreateConstantColorPS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_PS));
-	}
-
-	PixelShaderPtr CreateConstantColorTexturePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_constant_color_texture_PS));
-	}
-
-	PixelShaderPtr CreateDistancePS() {
-		return Create< PixelShader >(MAGE_SHADER_ARGS(g_distance_PS));
-	}
-
-	VertexShaderPtr CreateShadingNormalVS() {
-		using vertex_t = VertexPositionNormalTexture;
-		return Create< VertexShader >(MAGE_SHADER_ARGS(g_shading_normal_VS),
-									  vertex_t::s_input_element_desc,
-									  vertex_t::s_nb_input_elements);
-	}
-
-	PixelShaderPtr CreateShadingNormalPS(bool tsnm) {
-		return tsnm ? Create< PixelShader >(MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS))
-			        : Create< PixelShader >(MAGE_SHADER_ARGS(g_shading_normal_PS));
-	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Post Processing
+	// Factory Methods: Post-processing
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	ComputeShaderPtr CreateDepthOfFieldCS() {
-		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_postprocessing_depth_of_field_CS));
+		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_depth_of_field_CS));
 	}
 
 	#pragma endregion
@@ -632,13 +698,6 @@ namespace mage {
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
 	#pragma region
-
-	VertexShaderPtr CreateMinimalTransformVS() {
-		using vertex_t = VertexPositionNormalTexture;
-		return Create< VertexShader >(MAGE_SHADER_ARGS(g_minimal_transform_VS), 
-									  vertex_t::s_input_element_desc, 
-									  vertex_t::s_nb_input_elements);
-	}
 
 	VertexShaderPtr CreateTransformVS() {
 		using vertex_t = VertexPositionNormalTexture;

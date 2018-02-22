@@ -25,7 +25,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	PrimitiveBatchMesh< VertexT, IndexT >
-		::PrimitiveBatchMesh(D3D11Device *device,
+		::PrimitiveBatchMesh(ID3D11Device *device,
 			                 size_t nb_vertices,
 			                 const std::vector< IndexT > &indices,
 			                 D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
@@ -51,7 +51,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void PrimitiveBatchMesh< VertexT, IndexT >
-		::SetupVertexBuffer(D3D11Device *device, size_t nb_vertices) {
+		::SetupVertexBuffer(ID3D11Device *device, size_t nb_vertices) {
 		
 		Assert(device);
 		Assert(0 < nb_vertices);
@@ -68,7 +68,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void PrimitiveBatchMesh< VertexT, IndexT >
-		::SetupIndexBuffer(D3D11Device *device, 
+		::SetupIndexBuffer(ID3D11Device *device, 
 			               const std::vector< IndexT > &indices) {
 		
 		Assert(device);

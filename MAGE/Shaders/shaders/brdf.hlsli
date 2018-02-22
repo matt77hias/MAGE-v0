@@ -14,6 +14,9 @@
 // BRDF_MINIMUM_ALPHA                       | 0.1f
 // BRDF_DOT_EPSILON                         | 0.00001f
 
+// The input arguments (n, l, v) for evaluating BRDFs and BRDF components must 
+// be expressed in the same coordinate system which can be chosen arbitrarily.
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -51,17 +54,17 @@ float sat_dot(float3 x, float3 y) {
 
 /**
  Calculates the reflected direction of the given light direction about the 
- given normal.
+ given surface normal.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
- @param[in]		n
-				The surface normal.
+  @param[in]	n
+				The surface normal expressed in shading space.
  @param[in]		l
-				The light (hit-to-light) direction.
+				The light (hit-to-light) direction expressed in shading space.
  @return		The normalized reflected vector of the given light direction 
-				about the given normal direction.
-*/
+				about the given surface normal expressed in shading space.
+ */
 float3 ReflectedDirection(float3 n, float3 l) {
 	return reflect(-l, n);
 }
@@ -72,12 +75,12 @@ float3 ReflectedDirection(float3 n, float3 l) {
  @pre			@a l is normalized.
  @pre			@a v is normalized.
  @param[in]		l
-				The light (hit-to-light) direction.
+				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
-				The view (hit-to-eye) direction.
+				The view (hit-to-eye) direction expressed in shading space.
  @return		The normalized half direction between the given light and view 
-				direction.
-*/
+				direction expressed in shading space.
+ */
 float3 HalfDirection(float3 l, float3 v) {
 	// l+v / ||l+v||
 	return normalize(l + v);
@@ -1430,11 +1433,11 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
  @pre			@a l is normalized.
  @pre			@a v is normalized.
  @param[in]		n
-				The surface normal.
+				The surface normal expressed in shading space.
  @param[in]		l
-				The light (hit-to-light) direction.
+				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
-				The view (hit-to-eye) direction.
+				The view (hit-to-eye) direction expressed in shading space.
  @param[in]		base_color
 				The base color of the material.
  @param[in]		roughness
@@ -1500,11 +1503,11 @@ float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
  @pre			@a l is normalized.
  @pre			@a v is normalized.
  @param[in]		n
-				The surface normal.
+				The surface normal expressed in shading space.
  @param[in]		l
-				The light (hit-to-light) direction.
+				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
-				The view (hit-to-eye) direction.
+				The view (hit-to-eye) direction expressed in shading space.
  @param[in]		base_color
 				The base color of the material.
  @param[in]		roughness
@@ -1553,11 +1556,11 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
  @pre			@a l is normalized.
  @pre			@a v is normalized.
  @param[in]		n
-				The surface normal.
+				The surface normal expressed in shading space.
  @param[in]		l
-				The light (hit-to-light) direction.
+				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
-				The view (hit-to-eye) direction.
+				The view (hit-to-eye) direction expressed in shading space.
  @param[in]		base_color
 				The base color of the material.
  @param[in]		roughness

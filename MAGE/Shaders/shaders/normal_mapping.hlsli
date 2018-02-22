@@ -1,20 +1,24 @@
 #ifndef MAGE_HEADER_NORMAL_MAPPING
 #define MAGE_HEADER_NORMAL_MAPPING
 
+// The input arguments (p and n) for applying tangent space normal mapping must 
+// be expressed in the same coordinate system which can be chosen arbitrarily.
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the TBN coordinate frame.
+ Calculates the tangent-to-shading transformation matrix.
 
  @pre			@a n is normalized.
  @param[in]		p
-				The view-space position.
+				The surface position expressed in shading space.
  @param[in]		n
-				The view-space normal to perturb.
+				The surface normal to perturb expressed in shading space.
  @param[in]		tex
 				The texture coordinates.
+ @return		The tangent-to-shading transformation matrix.
  */
 float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.
@@ -39,22 +43,25 @@ float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
 }
 
 /**
- Returns the perturbed normal.
+ Calculates the perturbed surface normal.
 
  @pre			@a n is normalized.
+ @pre			@a n_tangent is normalized.
  @param[in]		p
-				The view-space position.
+				The surface position expressed in shading space.
  @param[in]		n
-				The view-space normal to perturb.
+				The surface normal to perturb expressed in shading space.
  @param[in]		tex
 				The texture coordinates.
- @param[in]		c
-				The tangent space coefficients.
+ @param[in]		n_tangent
+				The surface normal expressed in tangent space.
+ @return		The perturbed surface normal expressed in shading space.
  */
-float3 PerturbNormal(float3 p, float3 n, float2 tex, float3 c) {
+float3 PerturbNormal(float3 p, float3 n, float2 tex, float3 n_tangent) {
+	// Calculates the tangent-to-shading transformation matrix.
 	const float3x3 TBN = CalculateTBN(p, n, tex);
 
-	return normalize(mul(c, TBN));
+	return normalize(mul(n_tangent, TBN));
 }
 
 #endif // MAGE_HEADER_NORMAL_MAPPING

@@ -12,7 +12,7 @@ namespace mage {
 			desc, export_as_MDL) {}
 
 	template< typename VertexT, typename IndexT >
-	ModelDescriptor::ModelDescriptor(wstring fname, D3D11Device *device,
+	ModelDescriptor::ModelDescriptor(wstring fname, ID3D11Device *device,
 		const MeshDescriptor< VertexT, IndexT > &desc, bool export_as_MDL)
 		: Resource< ModelDescriptor >(std::move(fname)), 
 		m_mesh(), 

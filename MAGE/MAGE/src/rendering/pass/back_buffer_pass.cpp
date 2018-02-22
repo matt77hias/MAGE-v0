@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\pass\back_buffer_pass.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "shader\shader_factory.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,12 +13,6 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	BackBufferPass *BackBufferPass::Get() {
-		Assert(Renderer::Get());
-
-		return Renderer::Get()->GetBackBufferPass();
-	}
 
 	BackBufferPass::BackBufferPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),

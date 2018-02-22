@@ -4,9 +4,9 @@
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
-// Defines			                      | Default
+// Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISABLE_INVERTED_Z_BUFFER             | not defined
+// DISABLE_INVERTED_Z_BUFFER                | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -32,13 +32,6 @@
 #define MAGE_AMD_WAFEFRONT_SIZE 64
 #define GROUP_SIZE_2D_DEFAULT   16  // 16^2 = 256, 256/64 = 4
 #define GROUP_SIZE_3D_DEFAULT    8  //  8^3 = 512, 512/64 = 8
-
-#define GROUP_SIZE_MSAA_2X      16	// [numthreads( 2, 16, 16)] =  512
-#define GROUP_SIZE_MSAA_4X      16	// [numthreads( 4, 16, 16)] = 1024
-#define GROUP_SIZE_MSAA_8X       8	// [numthreads( 8,  8,  8)] =  512
-#define GROUP_SIZE_SSAA_2X      16	// [numthreads( 4, 16, 16)] = 1024
-#define GROUP_SIZE_SSAA_3X       8	// [numthreads( 9,  8,  8)] =  576
-#define GROUP_SIZE_SSAA_4X       8	// [numthreads(16,  8,  8)] = 1024
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Samplers
@@ -66,10 +59,10 @@
 
 #define SLOT_CBUFFER_GAME                          0
 #define SLOT_CBUFFER_PRIMARY_CAMERA                1
-#define SLOT_CBUFFER_COLOR                         2
 #define SLOT_CBUFFER_LIGHTING                      2
 #define SLOT_CBUFFER_MODEL                         3
 #define SLOT_CBUFFER_SECONDARY_CAMERA              4
+#define SLOT_CBUFFER_COLOR                         5
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Light and Shadow Map SRVs
@@ -107,9 +100,9 @@
 // Engine Includes: General SRVs
 //-----------------------------------------------------------------------------
 
-#define SLOT_SRV_IMAGE                            SLOT_SRV_BASE_COLOR
-#define SLOT_SRV_SPRITE                           SLOT_SRV_BASE_COLOR
-#define SLOT_SRV_TEXTURE                          SLOT_SRV_BASE_COLOR
+#define SLOT_SRV_IMAGE                            15
+#define SLOT_SRV_SPRITE                           15
+#define SLOT_SRV_TEXTURE                          15
 
 //-----------------------------------------------------------------------------
 // Engine Includes: General UAVs

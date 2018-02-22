@@ -70,10 +70,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto camera = Create< PerspectiveCamera >();
 
-		// Camera: Lens
-		// camera->GetLens().SetLensRadius(0.01f);
-		// camera->GetLens().SetFocalLength(3.0f);
-		// camera->GetLens().SetMaximumCoCRadius(2.0f);
 		// Camera: Viewport
 		// camera->GetViewport().SetNormalizedWidth(0.5f);
 		// Camera: Fog
@@ -142,7 +138,7 @@ namespace mage {
 		camera_node->Add(spot_light);
 
 		auto directional_light = Create< DirectionalLight >();
-		directional_light->SetRadiance(4.0f);
+		directional_light->SetIrradiance(4.0f);
 		
 		auto directional_light_node = Create< Node >("Directional Light");
 		directional_light_node->Add(directional_light);

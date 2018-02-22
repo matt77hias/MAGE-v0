@@ -8,6 +8,8 @@
 #include "scene\component.hpp"
 #include "camera\camera_settings.hpp"
 #include "camera\viewport.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
+#include "rendering\buffer\camera_buffer.hpp"
 
 #pragma endregion
 
@@ -216,7 +218,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera (i.e. this 
 						camera).
 		 */
-		Camera &operator=(const Camera &camera) noexcept;
+		Camera &operator=(const Camera &camera);
 
 		/**
 		 Moves the given camera to this camera.
@@ -290,20 +292,20 @@ namespace mage {
 		}
 
 		/**
-		 Returns the view-to-projection matrix of this camera.
+		 Returns the camera-to-projection matrix of this camera.
 
-		 @return		The view-to-projection matrix of this camera.
+		 @return		The camera-to-projection matrix of this camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetViewToProjectionMatrix() const noexcept = 0;
+			GetCameraToProjectionMatrix() const noexcept = 0;
 
 		/**
-		 Returns the projection-to-view matrix of this camera.
+		 Returns the projection-to-camera matrix of this camera.
 
-		 @return		The projection-to-view matrix of this camera.
+		 @return		The projection-to-camera matrix of this camera.
 		 */
 		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
-			GetProjectionToViewMatrix() const noexcept = 0;
+			GetProjectionToCameraMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lens
@@ -365,7 +367,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindViewport(D3D11DeviceContext *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext *device_context) const noexcept {
 			GetViewport().BindViewport(device_context);
 		}
 
@@ -376,7 +378,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindSSViewport(D3D11DeviceContext *device_context) const noexcept {
+		void BindSSViewport(ID3D11DeviceContext *device_context) const noexcept {
 			GetSSViewport().BindViewport(device_context);
 		}
 
@@ -402,6 +404,36 @@ namespace mage {
 			return m_settings;
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates the buffer of this camera.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
+
+		/**
+		 Binds the buffer of this camera to the given pipeline stage.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the constant buffer to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+		 */
+		template< typename PipelineStageT >
+		void BindBuffer(ID3D11DeviceContext *device_context, 
+						U32 slot) const noexcept;
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -422,7 +454,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to copy.
 		 */
-		Camera(const Camera &camera) noexcept;
+		Camera(const Camera &camera);
 
 		/**
 		 Constructs a camera by moving the given camera.
@@ -433,6 +465,15 @@ namespace mage {
 		Camera(Camera &&camera) noexcept;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 The buffer of this camera.
+		 */
+		mutable ConstantBuffer< CameraBuffer > m_buffer;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Projection
@@ -478,3 +519,12 @@ namespace mage {
 
 	#pragma endregion
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "camera\camera.tpp"
+
+#pragma endregion

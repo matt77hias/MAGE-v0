@@ -6,8 +6,6 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
-#include "rendering\buffer\model_buffer.hpp"
 #include "rendering\buffer\voxel_grid.hpp"
 #include "shader\shader.hpp"
 
@@ -25,20 +23,6 @@ namespace mage {
 	class VoxelizationPass final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the voxelization pass associated with the current engine.
-
-		 @pre			The scene renderer associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the voxelization pass associated with 
-						the current engine.
-		 */
-		static VoxelizationPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -112,10 +96,6 @@ namespace mage {
 						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		resolution
@@ -125,10 +105,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world, 
-								BRDFType brdf,
-								size_t resolution);
+								BRDFType brdf, size_t resolution);
 
 	private:
 
@@ -152,95 +129,34 @@ namespace mage {
 		void BindFixedState() const noexcept;
 
 		/**
-		 An enumeration of the different pixel shader indices for variable 
-		 shading passes.
-
-		 This contains:
-		 @c BRDF and
-		 @c BRDF_TSNM.
-		 */
-		enum class PSIndex : U8 {
-			BRDF       = 0,
-			BRDF_TSNM  = 1,
-			Count      = 2
-		};
-
-		/**
-		 Updates the pixel shaders of this voxelization pass for the given 
-		 BRDF.
-
-		 @pre			The resource manager associated with the current 
-						engine must be loaded.
-		 @param[in]		brdf
-						The BRDF.
-		 @throws		Exception
-						Failed to update the pixel shaders of this variable 
-						shading pass.
-		 */
-		void UpdatePSs(BRDFType brdf);
-		
-		/**
-		 Binds the pixel shader of this voxelization pass associated with 
-		 the given pixel shader index.
-
-		 @param[in]		index
-						The pixel shader index.
-		 */
-		void BindPS(PSIndex index) noexcept;
-		
-		/**
-		 Binds the pixel shader of this voxelization pass associated with 
-		 the given material.
-
-		 @param[in]		material
-						A reference to the material.
-		 */
-		void BindPS(const Material &material) noexcept;
-		
-		/**
-		 Binds the model data of this voxelization pass.
-
-		 @param[in]		object_to_view
-						The object-to-view transformation matrix used for
-						transforming vertices.
-		 @param[in]		view_to_object
-						The view-to-object transformation matrix used for 
-						transforming normals.
-		 @param[in]		texture_transform
-						The texture transformation matrix used for transforming 
-						texture coordinates.
-		 @param[in]		material
-						A reference to the material.
-		 @throws		Exception
-						Failed to bind the model data of this voxelization 
-						pass.
-		 */
-		void XM_CALLCONV BindModelData(FXMMATRIX object_to_view, 
-			                           CXMMATRIX view_to_object,
-			                           CXMMATRIX texture_transform,
-			                           const Material &material);
-
-		/**
-		 Renders the scene.
+		 Renders the given scene.
 
 		 @param[in]		scene
 						A reference to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
 		 @param[in]		brdf
 						The BRDF.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c false 
+						otherwise.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const Scene &scene,
 			                    FXMMATRIX world_to_projection,
-			                    CXMMATRIX world_to_view,
-			                    CXMMATRIX view_to_world, 
-								BRDFType brdf);
+								BRDFType brdf) const;
+
+		/**
+		 Renders the given model.
+
+		 @param[in]		model
+						A reference to the model.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 */
+		void XM_CALLCONV Render(const Model &model,
+								FXMMATRIX world_to_projection) const noexcept;
 
 		/**
 		 Dispatches this voxelization pass.
@@ -254,7 +170,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this voxelization pass. 
 		 */
-		D3D11DeviceContext * const m_device_context;
+		ID3D11DeviceContext * const m_device_context;
 
 		/**
 		 A pointer to the vertex shader of this voxelization pass.
@@ -267,31 +183,9 @@ namespace mage {
 		const GeometryShaderPtr m_gs;
 
 		/**
-		 An array containing pointers to the pixel shaders of this variable 
-		 shading pass.
-		 */
-		PixelShaderPtr m_ps[static_cast< size_t >(PSIndex::Count)];
-
-		/**
 		 A pointer to the compute shader of this voxelization pass.
 		 */
 		const ComputeShaderPtr m_cs;
-		
-		/**
-		 The pixel shader index of the bound pixel shader of this variable 
-		 shading pass.
-		 */
-		PSIndex m_bound_ps;
-		
-		/**
-		 The current BRDF of this voxelization pass.
-		 */
-		BRDFType m_brdf;
-
-		/**
-		 The model buffer of this voxelization pass.
-		 */
-		ConstantBuffer< ModelBuffer > m_model_buffer;
 
 		/**
 		 The voxel grid of this voxelization pass. 

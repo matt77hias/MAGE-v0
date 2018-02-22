@@ -10,6 +10,8 @@
 #include "geometry\bounding_volume.hpp"
 #include "transform\texture_transform.hpp"
 #include "material\material.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
+#include "rendering\buffer\model_buffer.hpp"
 
 #pragma endregion
 
@@ -86,7 +88,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model (i.e. this 
 						model).
 		 */
-		Model &operator=(const Model &model) = delete;
+		Model &operator=(const Model &model);
 
 		/**
 		 Moves the given model to this model.
@@ -145,7 +147,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindMesh(D3D11DeviceContext *device_context) const noexcept {
+		void BindMesh(ID3D11DeviceContext *device_context) const noexcept {
 			m_mesh->BindMesh(device_context);
 		}
 
@@ -158,7 +160,7 @@ namespace mage {
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(D3D11DeviceContext *device_context, 
+		void BindMesh(ID3D11DeviceContext *device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			m_mesh->BindMesh(device_context, topology);
@@ -171,7 +173,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void Draw(D3D11DeviceContext *device_context) const noexcept {
+		void Draw(ID3D11DeviceContext *device_context) const noexcept {
 			m_mesh->Draw(device_context, m_start_index, m_nb_indices);
 		}
 
@@ -261,7 +263,46 @@ namespace mage {
 			m_light_occlusion = light_occlusion;
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates the buffer of this model.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
+
+		/**
+		 Binds the buffer of this model to the given pipeline stage.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the constant buffer to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+		 */
+		template< typename PipelineStageT >
+		void BindBuffer(ID3D11DeviceContext *device_context, 
+						U32 slot) const noexcept;
+
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables: Buffer
+		//---------------------------------------------------------------------
+
+		/**
+		 The buffer of this model.
+		 */
+		mutable ConstantBuffer< ModelBuffer > m_buffer;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Geometry
@@ -318,3 +359,12 @@ namespace mage {
 
 	#pragma warning( pop )
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "model\model.tpp"
+
+#pragma endregion

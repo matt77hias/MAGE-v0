@@ -14,6 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// CameraBuffer
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A struct of camera buffers.
 	 */
@@ -29,10 +34,10 @@ namespace mage {
 		 Constructs a camera buffer.
 		 */
 		CameraBuffer() noexcept 
-			: m_view_to_projection{}, 
-			m_projection_to_view{}, 
-			m_world_to_view{}, 
-			m_view_to_world{}, 
+			: m_world_to_camera{},
+			m_camera_to_projection{},
+			m_projection_to_camera{},
+			m_camera_to_world{},
 			m_viewport_top_left_x(0u), 
 			m_viewport_top_left_y(0u), 
 			m_viewport_width(0u), 
@@ -45,10 +50,6 @@ namespace mage {
 			m_viewport_inv_height_minus1(0.0f), 
 			m_ss_viewport_inv_width_minus1(0.0f), 
 			m_ss_viewport_inv_height_minus1(0.0f), 
-			m_voxel_size(0.0f), 
-			m_voxel_inv_size(0.0f), 
-			m_voxel_grid_resolution(0u), 
-			m_voxel_grid_inv_resolution(0.0f), 
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
@@ -107,28 +108,28 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera dependent) (column-major packed, row-major matrix) 
-		 view-to-projection matrix of this camera buffer for use in HLSL.
+		 The (column-major packed, row-major matrix) world-to-camera matrix of 
+		 this camera buffer.
 		 */
-		XMMATRIX m_view_to_projection;
+		XMMATRIX m_world_to_camera;
 
 		/**
-		 The (camera dependent) (column-major packed, row-major matrix) 
-		 projection-to-view matrix of this camera buffer for use in HLSL.
+		 The (column-major packed, row-major matrix) camera-to-projection 
+		 matrix of this camera buffer.
 		 */
-		XMMATRIX m_projection_to_view;
+		XMMATRIX m_camera_to_projection;
 
 		/**
-		 The (camera dependent) (column-major packed, row-major matrix) 
-		 world-to-view matrix of this camera buffer for use in HLSL.
+		 The (column-major packed, row-major matrix) projection-to-camera 
+		 matrix of this camera buffer.
 		 */
-		XMMATRIX m_world_to_view;
+		XMMATRIX m_projection_to_camera;
 
 		/**
-		 The (camera dependent) (column-major packed, row-major matrix) 
-		 view-to-world matrix of this camera buffer for use in HLSL.
+		 The (column-major packed, row-major matrix) camera-to-world matrix of 
+		 this camera buffer.
 		 */
-		XMMATRIX m_view_to_world;
+		XMMATRIX m_camera_to_world;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Viewports
@@ -201,32 +202,6 @@ namespace mage {
 		F32 m_ss_viewport_inv_height_minus1;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Voxelization
-		//---------------------------------------------------------------------
-
-		/**
-		 The size of a voxel for all dimensions of this camera buffer. 
-		 */
-		F32 m_voxel_size;
-		
-		/**
-		 The inverse size of a voxel for all dimensions of this camera buffer. 
-		 */
-		F32 m_voxel_inv_size;
-
-		/**
-		 The resolution of the voxel grid for all dimensions of this camera 
-		 buffer. 
-		 */
-		U32 m_voxel_grid_resolution;
-
-		/**
-		 The inverse resolution of the voxel grid for all dimensions of this 
-		 camera buffer. 
-		 */
-		F32 m_voxel_grid_inv_resolution;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Post-processing
 		//---------------------------------------------------------------------
 
@@ -252,5 +227,109 @@ namespace mage {
 		U32 m_padding0;
 	};
 
-	static_assert(336 == sizeof(CameraBuffer), "CPU/GPU struct mismatch");
+	static_assert(320 == sizeof(CameraBuffer), 
+				  "CPU/GPU struct mismatch");
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SecondaryCameraBuffer
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A struct of secondary camera buffers.
+	 */
+	struct alignas(16) SecondaryCameraBuffer final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a secondary camera buffer.
+		 */
+		SecondaryCameraBuffer() noexcept 
+			: m_world_to_camera{},
+			m_camera_to_projection{} {}
+
+		/**
+		 Constructs a secondary camera buffer from the given secondary camera 
+		 buffer.
+
+		 @param[in]		buffer
+						A reference to the secondary camera buffer to copy.
+		 */
+		SecondaryCameraBuffer(
+			const SecondaryCameraBuffer &buffer) noexcept = default;
+		
+		/**
+		 Constructs a secondary camera buffer by moving the given secondary 
+		 camera buffer.
+
+		 @param[in]		buffer
+						A reference to the secondary camera buffer to move.
+		 */
+		SecondaryCameraBuffer(
+			SecondaryCameraBuffer &&buffer) noexcept = default;
+
+		/**
+		 Destructs this secondary camera buffer.
+		 */
+		~SecondaryCameraBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+		
+		/**
+		 Copies the given secondary camera buffer to this secondary camera 
+		 buffer.
+
+		 @param[in]		buffer
+						A reference to the secondary camera buffer to copy.
+		 @return		A reference to the copy of the given secondary camera 
+						buffer (i.e. this secondary camera buffer).
+		 */
+		SecondaryCameraBuffer &operator=(
+			const SecondaryCameraBuffer &buffer) = default;
+
+		/**
+		 Moves the given secondary camera buffer to this secondary camera 
+		 buffer.
+
+		 @param[in]		buffer
+						A reference to the secondary camera buffer to move.
+		 @return		A reference to the moved secondary camera buffer (i.e. 
+						this camera buffer).
+		 */
+		SecondaryCameraBuffer &operator=(
+			SecondaryCameraBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transformations
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (column-major packed, row-major matrix) world-to-camera matrix of 
+		 this secondary camera buffer.
+		 */
+		XMMATRIX m_world_to_camera;
+
+		/**
+		 The (column-major packed, row-major matrix) camera-to-projection 
+		 matrix of this secondary camera buffer.
+		 */
+		XMMATRIX m_camera_to_projection;
+	};
+
+	static_assert(128 == sizeof(SecondaryCameraBuffer), 
+				  "CPU/GPU struct mismatch");
+
+	#pragma endregion
 }

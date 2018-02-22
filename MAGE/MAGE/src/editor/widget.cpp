@@ -69,34 +69,48 @@ namespace mage::editor {
 			"Forward",
 			"Deferred",
 			"Solid",
+			"Voxel Grid",
 			"Base Color",
 			"Base Color Coefficient",
 			"Base Color Texture",
 			"Material",
 			"Material Coefficient",
 			"Material Texture",
-			"Normal Texture",
-			"UV Texture",
-			"Distance",
+			"Roughness",
+			"Roughness Coefficient",
+			"Roughness Texture",
+			"Metalness",
+			"Metalness Coefficient",
+			"Metalness Texture",
 			"Shading Normal",
-			"TSNM Shading Normal" 
+			"TSNM Shading Normal",
+			"Depth",
+			"Distance",
+			"UV"
 		};
 		static constexpr RenderMode render_modes[] = {
 			RenderMode::None,
 			RenderMode::Forward,
 			RenderMode::Deferred,
 			RenderMode::Solid,
-			RenderMode::BaseColor,
-			RenderMode::BaseColorCoefficient,
-			RenderMode::BaseColorTexture,
-			RenderMode::Material,
-			RenderMode::MaterialCoefficient,
-			RenderMode::MaterialTexture,
-			RenderMode::NormalTexture,
-			RenderMode::UVTexture,
-			RenderMode::Distance,
-			RenderMode::ShadingNormal,
-			RenderMode::TSNMShadingNormal 
+			RenderMode::VoxelGrid,
+			RenderMode::FalseColor_BaseColor,
+			RenderMode::FalseColor_BaseColorCoefficient,
+			RenderMode::FalseColor_BaseColorTexture,
+			RenderMode::FalseColor_Material,
+			RenderMode::FalseColor_MaterialCoefficient,
+			RenderMode::FalseColor_MaterialTexture,
+			RenderMode::FalseColor_Roughness,
+			RenderMode::FalseColor_RoughnessCoefficient,
+			RenderMode::FalseColor_RoughnessTexture,
+			RenderMode::FalseColor_Metalness,
+			RenderMode::FalseColor_MetalnessCoefficient,
+			RenderMode::FalseColor_MetalnessTexture,
+			RenderMode::FalseColor_ShadingNormal,
+			RenderMode::FalseColor_TSNMShadingNormal,
+			RenderMode::FalseColor_Depth,
+			RenderMode::FalseColor_Distance,
+			RenderMode::FalseColor_UV
 		};
 		static_assert(std::size(render_mode_names) == std::size(render_modes));
 
@@ -255,10 +269,10 @@ namespace mage::editor {
 		// Base color
 		ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
 
-		// Radiance
-		auto radiance = light.GetRadiance();
-		ImGui::InputFloat("Radiance", &radiance);
-		light.SetRadiance(radiance);
+		// Irradiance
+		auto irradiance = light.GetIrradiance();
+		ImGui::InputFloat("Irradiance", &irradiance);
+		light.SetIrradiance(irradiance);
 	}
 	
 	static void DrawWidget(OmniLight &light) {

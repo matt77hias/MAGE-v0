@@ -7,7 +7,7 @@ namespace mage {
 
 	template< typename PipelineStageT >
 	inline void Texture
-		::Bind(D3D11DeviceContext *device_context, U32 slot) const noexcept {
+		::Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\pass\lbuffer_pass.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"

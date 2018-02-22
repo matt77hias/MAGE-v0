@@ -70,10 +70,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto camera = Create< PerspectiveCamera >();
 
-		// Camera: Lens
-		// camera->GetLens().SetLensRadius(0.01f);
-		// camera->GetLens().SetFocalLength(3.0f);
-		// camera->GetLens().SetMaximumCoCRadius(2.0f);
 		// Camera: Viewport
 		// camera->GetViewport().SetNormalizedWidth(0.5f);
 		// Camera: Fog

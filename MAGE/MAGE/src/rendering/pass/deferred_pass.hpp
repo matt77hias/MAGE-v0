@@ -17,10 +17,10 @@
 namespace mage {
 
 	/**
-	 A class of deferred shading passes for unpacking GBuffers and performing 
+	 A class of deferred passes for unpacking GBuffers and performing 
 	 light calculations using the rendering or compute pipeline.
 	 */
-	class DeferredShadingPass final {
+	class DeferredPass final {
 
 	public:
 
@@ -29,75 +29,75 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the deferred shading pass associated with the current engine.
+		 Returns the deferred pass associated with the current engine.
 
 		 @pre			The scene renderer associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the deferred shading pass associated with 
+		 @return		A pointer to the deferred pass associated with 
 						the current engine.
 		 */
-		static DeferredShadingPass *Get();
+		static DeferredPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a deferred shading pass.
+		 Constructs a deferred pass.
 
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 */
-		DeferredShadingPass();
+		DeferredPass();
 
 		/**
-		 Constructs a deferred shading pass from the given deferred shading 
+		 Constructs a deferred pass from the given deferred shading 
 		 pass.
 
 		 @param[in]		pass
-						A reference to the deferred shading pass to copy.
+						A reference to the deferred pass to copy.
 		 */
-		DeferredShadingPass(const DeferredShadingPass &pass) = delete;
+		DeferredPass(const DeferredPass &pass) = delete;
 
 		/**
-		 Constructs a deferred shading pass by moving the given deferred 
-		 shading pass.
+		 Constructs a deferred pass by moving the given deferred 
+		 pass.
 
 		 @param[in]		pass
-						A reference to the deferred shading pass to move.
+						A reference to the deferred pass to move.
 		 */
-		DeferredShadingPass(DeferredShadingPass &&pass) noexcept;
+		DeferredPass(DeferredPass &&pass) noexcept;
 
 		/**
-		 Destructs this deferred shading pass.
+		 Destructs this deferred pass.
 		 */
-		~DeferredShadingPass();
+		~DeferredPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given deferred shading pass to this deferred shading pass.
+		 Copies the given deferred pass to this deferred pass.
 
 		 @param[in]		pass
-						A reference to the deferred shading pass to copy.
+						A reference to the deferred pass to copy.
 		 @return		A reference to the copy of the given deferred shading 
-						pass (i.e. this deferred shading pass).
+						pass (i.e. this deferred pass).
 		 */
-		DeferredShadingPass &operator=(const DeferredShadingPass &pass) = delete;
+		DeferredPass &operator=(const DeferredPass &pass) = delete;
 
 		/**
-		 Moves the given deferred shading pass to this deferred shading pass.
+		 Moves the given deferred pass to this deferred pass.
 
 		 @param[in]		pass
-						A reference to the deferred shading pass to move.
-		 @return		A reference to the moved deferred shading pass (i.e. 
-						this deferred shading pass).
+						A reference to the deferred pass to move.
+		 @return		A reference to the moved deferred pass (i.e. 
+						this deferred pass).
 		 */
-		DeferredShadingPass &operator=(DeferredShadingPass &&pass) = delete;
+		DeferredPass &operator=(DeferredPass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -138,12 +138,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed state of this deferred shading pass.
+		 Binds the fixed state of this deferred pass.
 		 */
 		void BindFixedState() const noexcept;
 
 		/**
-		 Updates the compute and pixel shader of this deferred shading pass for 
+		 Updates the compute and pixel shader of this deferred pass for 
 		 the given BRDF.
 
 		 @pre			The resource manager associated with the current engine 
@@ -155,10 +155,10 @@ namespace mage {
 						otherwise.
 		 @throws		Exception
 						Failed to update the compute shader of this deferred 
-						shading pass.
+						pass.
 		 @throws		Exception
 						Failed to update the pixel shader of this deferred 
-						shading pass.
+						pass.
 		 */
 		void UpdateShaders(BRDFType brdf, bool vct);
 		
@@ -167,33 +167,33 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this deferred shading pass.
+		 A pointer to the device context of this deferred pass.
 		 */
 		ID3D11DeviceContext * const m_device_context;
 
 		/**
-		 A pointer to the compute shader of this deferred shading pass.
+		 A pointer to the compute shader of this deferred pass.
 		 */
 		ComputeShaderPtr m_cs;
 
 		/**
-		 A pointer to the vertex shader of this deferred shading pass.
+		 A pointer to the vertex shader of this deferred pass.
 		 */
 		const VertexShaderPtr m_msaa_vs;
 
 		/**
-		 A pointer to the pixel shader of this deferred shading pass.
+		 A pointer to the pixel shader of this deferred pass.
 		 */
 		PixelShaderPtr m_msaa_ps;
 		
 		/**
-		 The current BRDF of this deferred shading pass.
+		 The current BRDF of this deferred pass.
 		 */
 		BRDFType m_brdf;
 
 		/**
 		 A flag indicating whether or not voxel cone tracing should be enabled 
-		 for this deferred shading pass.
+		 for this deferred pass.
 		 */
 		bool m_vct;
 	};

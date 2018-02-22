@@ -459,9 +459,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\variable_component_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\variable_shading_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
@@ -481,9 +478,6 @@
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\constant_shading_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\deferred_shading_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp">
@@ -592,6 +586,12 @@
       <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp">
+      <Filter>Header Files\rendering\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp">
+      <Filter>Header Files\rendering\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
   </ItemGroup>
@@ -770,9 +770,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\variable_component_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\variable_shading_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
@@ -789,9 +786,6 @@
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\constant_shading_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\deferred_shading_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp">
@@ -855,6 +849,12 @@
       <Filter>Source Files\rendering\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp">
+      <Filter>Source Files\rendering\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp">
+      <Filter>Source Files\rendering\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
   </ItemGroup>

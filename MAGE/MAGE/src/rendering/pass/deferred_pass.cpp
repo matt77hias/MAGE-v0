@@ -17,13 +17,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DeferredShadingPass *DeferredShadingPass::Get() {
+	DeferredPass *DeferredPass::Get() {
 		Assert(Renderer::Get());
 
-		return Renderer::Get()->GetDeferredShadingPass();
+		return Renderer::Get()->GetDeferredPass();
 	}
 
-	DeferredShadingPass::DeferredShadingPass()
+	DeferredPass::DeferredPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
 		m_msaa_vs(CreateNearFullscreenTriangleVS()),
@@ -31,12 +31,12 @@ namespace mage {
 		m_brdf(BRDFType::Unknown), 
 		m_vct(false) {}
 
-	DeferredShadingPass::DeferredShadingPass(
-		DeferredShadingPass &&pass) noexcept = default;
+	DeferredPass::DeferredPass(
+		DeferredPass &&pass) noexcept = default;
 
-	DeferredShadingPass::~DeferredShadingPass() = default;
+	DeferredPass::~DeferredPass() = default;
 
-	void DeferredShadingPass::BindFixedState() const noexcept {
+	void DeferredPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
 											D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -58,7 +58,7 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void DeferredShadingPass::UpdateShaders(BRDFType brdf, bool vct) {
+	void DeferredPass::UpdateShaders(BRDFType brdf, bool vct) {
 		if (m_brdf != brdf || m_vct != vct) {
 			m_brdf    = brdf;
 			m_vct     = vct;
@@ -67,7 +67,7 @@ namespace mage {
 		}
 	}
 
-	void DeferredShadingPass::Render(BRDFType brdf, bool vct) {
+	void DeferredPass::Render(BRDFType brdf, bool vct) {
 		// Update the compute and pixel shader.
 		UpdateShaders(brdf, vct);
 		// Binds the fixed state.
@@ -77,7 +77,7 @@ namespace mage {
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}
 
-	void DeferredShadingPass::Dispatch(const Viewport &viewport, 
+	void DeferredPass::Dispatch(const Viewport &viewport, 
 									   BRDFType brdf, bool vct) {
 		// Update the compute and pixel shader.
 		UpdateShaders(brdf, vct);

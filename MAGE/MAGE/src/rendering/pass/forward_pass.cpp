@@ -17,13 +17,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableShadingPass *VariableShadingPass::Get() {
+	VariablePass *VariablePass::Get() {
 		Assert(Renderer::Get());
 
-		return Renderer::Get()->GetVariableShadingPass();
+		return Renderer::Get()->GetVariablePass();
 	}
 
-	VariableShadingPass::VariableShadingPass()
+	VariablePass::VariablePass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps{ 
@@ -39,12 +39,12 @@ namespace mage {
 		m_vct(false), 
 		m_model_buffer() {}
 
-	VariableShadingPass::VariableShadingPass(
-		VariableShadingPass &&pass) noexcept = default;
+	VariablePass::VariablePass(
+		VariablePass &&pass) noexcept = default;
 
-	VariableShadingPass::~VariableShadingPass() = default;
+	VariablePass::~VariablePass() = default;
 
-	void VariableShadingPass::BindFixedOpaqueState() const noexcept {
+	void VariablePass::BindFixedOpaqueState() const noexcept {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -65,7 +65,7 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void VariableShadingPass::BindFixedTransparentState() const noexcept {
+	void VariablePass::BindFixedTransparentState() const noexcept {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -86,7 +86,7 @@ namespace mage {
 		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
 	}
 
-	void VariableShadingPass::UpdatePSs(BRDFType brdf, bool vct) {
+	void VariablePass::UpdatePSs(BRDFType brdf, bool vct) {
 		if (m_brdf != brdf || m_vct != vct) {
 			m_brdf = brdf;
 			m_vct  = vct;
@@ -101,14 +101,14 @@ namespace mage {
 		}
 	}
 
-	void VariableShadingPass::BindPS(PSIndex index) noexcept {
+	void VariablePass::BindPS(PSIndex index) noexcept {
 		if (m_bound_ps != index) {
 			m_ps[static_cast< size_t >(index)]->BindShader(m_device_context);
 			m_bound_ps = index;
 		}
 	}
 
-	void VariableShadingPass::BindOpaquePS(const Material &material) noexcept {
+	void VariablePass::BindOpaquePS(const Material &material) noexcept {
 		if (!material.InteractsWithLight()) {
 			BindPS(PSIndex::Emissive);
 			return;
@@ -122,7 +122,7 @@ namespace mage {
 		}
 	}
 
-	void VariableShadingPass::BindTransparentPS(const Material &material) noexcept {
+	void VariablePass::BindTransparentPS(const Material &material) noexcept {
 		if (!material.InteractsWithLight()) {
 			BindPS(PSIndex::Transparent_Emissive);
 			return;
@@ -136,7 +136,7 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV VariableShadingPass
+	void XM_CALLCONV VariablePass
 		::BindModelData(FXMMATRIX object_to_view, 
 						CXMMATRIX view_to_object, 
 						CXMMATRIX texture_transform, 
@@ -169,7 +169,7 @@ namespace mage {
 							  material.GetNormalSRV());
 	}
 
-	void XM_CALLCONV VariableShadingPass
+	void XM_CALLCONV VariablePass
 		::Render(const Scene &scene, 
 				 FXMMATRIX world_to_projection, 
 				 CXMMATRIX world_to_view, 
@@ -219,7 +219,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV VariableShadingPass
+	void XM_CALLCONV VariablePass
 		::RenderEmissive(const Scene &scene, 
 						 FXMMATRIX world_to_projection, 
 						 CXMMATRIX world_to_view, 
@@ -266,7 +266,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV VariableShadingPass
+	void XM_CALLCONV VariablePass
 		::RenderTransparent(const Scene &scene, 
 							FXMMATRIX world_to_projection, 
 							CXMMATRIX world_to_view, 

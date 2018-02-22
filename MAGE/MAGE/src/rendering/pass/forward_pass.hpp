@@ -18,10 +18,10 @@
 namespace mage {
 
 	/**
-	 A class of variable shading passes for rendering models using a variable 
+	 A class of variable passes for rendering models using a variable 
 	 (material dependent) shading.
 	 */
-	class VariableShadingPass final {
+	class VariablePass final {
 
 	public:
 
@@ -30,75 +30,75 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the variable shading pass associated with the current engine.
+		 Returns the variable pass associated with the current engine.
 
 		 @pre			The scene renderer associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the variable shading pass associated with 
+		 @return		A pointer to the variable pass associated with 
 						the current engine.
 		 */
-		static VariableShadingPass *Get();
+		static VariablePass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a variable shading pass.
+		 Constructs a variable pass.
 
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 */
-		VariableShadingPass();
+		VariablePass();
 
 		/**
-		 Constructs a variable shading pass from the given variable shading 
+		 Constructs a variable pass from the given variable shading 
 		 pass.
 
 		 @param[in]		pass
-						A reference to the variable shading pass to copy.
+						A reference to the variable pass to copy.
 		 */
-		VariableShadingPass(const VariableShadingPass &pass) = delete;
+		VariablePass(const VariablePass &pass) = delete;
 
 		/**
-		 Constructs a variable shading pass by moving the given variable 
-		 shading pass.
+		 Constructs a variable pass by moving the given variable 
+		 pass.
 
 		 @param[in]		pass
-						A reference to the variable shading pass to move.
+						A reference to the variable pass to move.
 		 */
-		VariableShadingPass(VariableShadingPass &&pass) noexcept;
+		VariablePass(VariablePass &&pass) noexcept;
 
 		/**
-		 Destructs this variable shading pass.
+		 Destructs this variable pass.
 		 */
-		~VariableShadingPass();
+		~VariablePass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given variable shading pass to this variable shading pass.
+		 Copies the given variable pass to this variable pass.
 
 		 @param[in]		pass
-						A reference to the variable shading pass to copy.
+						A reference to the variable pass to copy.
 		 @return		A reference to the copy of the given variable shading 
-						pass (i.e. this variable shading pass).
+						pass (i.e. this variable pass).
 		 */
-		VariableShadingPass &operator=(const VariableShadingPass &pass) = delete;
+		VariablePass &operator=(const VariablePass &pass) = delete;
 
 		/**
-		 Moves the given variable shading pass to this variable shading pass.
+		 Moves the given variable pass to this variable pass.
 
 		 @param[in]		pass
-						A reference to the variable shading pass to move.
-		 @return		A reference to the moved variable shading pass (i.e. 
-						this variable shading pass).
+						A reference to the variable pass to move.
+		 @return		A reference to the moved variable pass (i.e. 
+						this variable pass).
 		 */
-		VariableShadingPass &operator=(VariableShadingPass &&pass) = delete;
+		VariablePass &operator=(VariablePass &&pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -182,18 +182,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed opaque state of this variable shading pass.
+		 Binds the fixed opaque state of this variable pass.
 		 */
 		void BindFixedOpaqueState() const noexcept;
 
 		/**
-		 Binds the fixed transparent state of this variable shading pass.
+		 Binds the fixed transparent state of this variable pass.
 		 */
 		void BindFixedTransparentState() const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices for variable 
-		 shading passes.
+		 passes.
 
 		 This contains:
 		 @c Emissive,
@@ -214,7 +214,7 @@ namespace mage {
 		};
 
 		/**
-		 Updates the pixel shaders of this variable shading pass for the given 
+		 Updates the pixel shaders of this variable pass for the given 
 		 BRDF.
 
 		 @pre			The resource manager associated with the current 
@@ -226,12 +226,12 @@ namespace mage {
 						otherwise.
 		 @throws		Exception
 						Failed to update the pixel shaders of this variable 
-						shading pass.
+						pass.
 		 */
 		void UpdatePSs(BRDFType brdf, bool vct);
 		
 		/**
-		 Binds the pixel shader of this variable shading pass associated with 
+		 Binds the pixel shader of this variable pass associated with 
 		 the given pixel shader index.
 
 		 @param[in]		index
@@ -240,7 +240,7 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		
 		/**
-		 Binds the opaque pixel shader of this variable shading pass associated 
+		 Binds the opaque pixel shader of this variable pass associated 
 		 with the given material.
 
 		 @param[in]		material
@@ -249,7 +249,7 @@ namespace mage {
 		void BindOpaquePS(const Material &material) noexcept;
 
 		/**
-		 Binds the transparent pixel shader of this variable shading pass 
+		 Binds the transparent pixel shader of this variable pass 
 		 associated with the given material.
 
 		 @param[in]		material
@@ -258,7 +258,7 @@ namespace mage {
 		void BindTransparentPS(const Material &material) noexcept;
 		
 		/**
-		 Binds the model data of this variable shading pass.
+		 Binds the model data of this variable pass.
 
 		 @param[in]		object_to_view
 						The object-to-view transformation matrix used for
@@ -285,40 +285,40 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this variable shading pass. 
+		 A pointer to the device context of this variable pass. 
 		 */
 		ID3D11DeviceContext * const m_device_context;
 
 		/**
-		 A pointer to the vertex shader of this variable shading pass.
+		 A pointer to the vertex shader of this variable pass.
 		 */
 		const VertexShaderPtr m_vs;
 
 		/**
 		 An array containing pointers to the pixel shaders of this variable 
-		 shading pass.
+		 pass.
 		 */
 		PixelShaderPtr m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
 		 The pixel shader index of the bound pixel shader of this variable 
-		 shading pass.
+		 pass.
 		 */
 		PSIndex m_bound_ps;
 		
 		/**
-		 The current BRDF of this variable shading pass.
+		 The current BRDF of this variable pass.
 		 */
 		BRDFType m_brdf;
 
 		/**
 		 A flag indicating whether or not voxel cone tracing should be enabled 
-		 for this variable shading pass.
+		 for this variable pass.
 		 */
 		bool m_vct;
 
 		/**
-		 The model buffer of this variable shading pass.
+		 The model buffer of this variable pass.
 		 */
 		ConstantBuffer< ModelBuffer > m_model_buffer;
 	};

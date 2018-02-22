@@ -107,7 +107,7 @@
     <ClInclude Include="MAGE\src\rendering\pass\configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\constant_component_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\constant_shading_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\deferred_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\gbuffer_pass.hpp" />
@@ -116,7 +116,7 @@
     <ClInclude Include="MAGE\src\rendering\pass\sky_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\variable_component_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\variable_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\wireframe_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
@@ -208,7 +208,7 @@
     <ClCompile Include="MAGE\src\rendering\pass\bounding_volume_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\constant_component_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\constant_shading_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\deferred_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\gbuffer_pass.cpp" />
@@ -217,7 +217,7 @@
     <ClCompile Include="MAGE\src\rendering\pass\sky_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\variable_component_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\variable_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\wireframe_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />

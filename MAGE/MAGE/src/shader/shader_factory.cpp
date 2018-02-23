@@ -166,6 +166,11 @@
 #include "voxelization\voxelization_tsnm_lambertian_PS.hpp"
 #include "voxelization\voxelization_tsnm_ward_duer_PS.hpp"
 
+// Voxel Grid
+#include "voxelization\voxel_grid_VS.hpp"
+#include "voxelization\voxel_grid_GS.hpp"
+#include "voxelization\voxel_grid_PS.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -767,6 +772,19 @@ namespace mage {
 
 	ComputeShaderPtr CreateVoxelizationCS() {
 		return Create< ComputeShader >(MAGE_SHADER_ARGS(g_voxelization_CS));
+	}
+
+	VertexShaderPtr CreateVoxelGridVS() {
+		return Create< VertexShader >(MAGE_SHADER_ARGS(g_voxel_grid_VS),
+									  nullptr, 0u);
+	}
+
+	GeometryShaderPtr CreateVoxelGridGS() {
+		return Create< GeometryShader >(MAGE_SHADER_ARGS(g_voxel_grid_GS));
+	}
+
+	PixelShaderPtr CreateVoxelGridPS() {
+		return Create< PixelShader >(MAGE_SHADER_ARGS(g_voxel_grid_PS));
 	}
 
 	#pragma endregion

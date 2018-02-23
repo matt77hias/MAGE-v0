@@ -964,5 +964,44 @@ namespace mage {
 	 */
 	ComputeShaderPtr CreateVoxelizationCS();
 
+	/**
+	 Creates a voxel grid vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the vertex shader.
+	 */
+	VertexShaderPtr CreateVoxelGridVS();
+
+	/**
+	 Creates a voxel grid geometry shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the geometry shader.
+	 */
+	GeometryShaderPtr CreateVoxelGridGS();
+
+	/**
+	 Creates a voxel grid pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelGridPS();
+
 	#pragma endregion
 }

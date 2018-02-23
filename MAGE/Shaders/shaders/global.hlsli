@@ -166,7 +166,7 @@ int3 WorldToVoxelIndex(float3 p_world) {
 
 /**
  Converts the given voxel index to the corresponding position expressed in 
- world space (centroid of the voxel).
+ world space (i.e. left, lower, near corner of the voxel).
 
  @param[in]		p_world
 				the position expressed in world space.

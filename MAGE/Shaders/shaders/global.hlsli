@@ -151,6 +151,10 @@ float3 GetCameraPosition() {
 /**
  Converts the given position expressed in world space to the corresponding 
  voxel index.
+
+ @param[in]		p_world
+				the position expressed in world space.
+ @return		The voxel index.
  */
 int3 WorldToVoxelIndex(float3 p_world) {
 	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
@@ -158,6 +162,20 @@ int3 WorldToVoxelIndex(float3 p_world) {
 		               * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
 	// Valid range: [0,R)x(R,0]x[0,R)
 	return floor(voxel + 0.5f * g_voxel_grid_resolution);
+}
+
+/**
+ Converts the given voxel index to the corresponding position expressed in 
+ world space (centroid of the voxel).
+
+ @param[in]		p_world
+				the position expressed in world space.
+ @return		The voxel index.
+ */
+float3 VoxelIndexToWorld(uint3 voxel_index) {
+	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
+	const float3 voxel = voxel_index - 0.5f * g_voxel_grid_resolution;
+	return voxel * g_voxel_size * float3(1.0f, -1.0f, 1.0f) + g_voxel_grid_center;
 }
 
 /**

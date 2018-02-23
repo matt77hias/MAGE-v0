@@ -293,7 +293,7 @@ namespace mage {
 											 FXMMATRIX world_to_projection) {
 
 		const auto output_manager = RenderingOutputManager::Get();
-		const auto vct            = false;
+		const auto vct            = true;
 
 		//---------------------------------------------------------------------
 		// LBuffer

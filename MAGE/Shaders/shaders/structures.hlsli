@@ -83,9 +83,18 @@ struct VSInputPositionNormalColorTexture {
 //-----------------------------------------------------------------------------
 
 /**
+ A geometry shader input struct of vertices having a position expressed in 
+ world space and color.
+ */
+struct GSInputPositionColor {
+	float3 p_world      : POSITION0;
+	float4 color        : COLOR0;
+};
+
+/**
  A geometry shader input struct of vertices having a position and a normal 
- expressed in world space, and a pair of material and a pair of geometry texture 
- coordinates.
+ expressed in world space, and a pair of material and a pair of geometry 
+ texture coordinates.
  */
 struct GSInputPositionNormalTexture {
 	float3 p_world      : POSITION0;
@@ -108,6 +117,15 @@ struct GSInputPositionNormalTexture {
 struct PSInputWorldPosition {
 	float4 p            : SV_POSITION;
 	float3 p_world      : POSITION0;
+};
+
+/**
+ A pixel shader input struct of fragments having a position expressed in 
+ viewport space and a color.
+ */
+struct PSInputColor {
+	float4 p            : SV_POSITION;
+	float4 color        : COLOR0;
 };
 
 /**

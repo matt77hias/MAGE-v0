@@ -37,6 +37,28 @@ float4 Transform(float3 p_object,
 }
 
 /**
+ Transforms the given position from world to projection space.
+
+ @param[in]		p_world
+				The position expressed in world space. 
+ @param[in]		world_to_view
+				The world-to-view transformation matrix.
+ @param[in]		view_to_projection
+				The view-to-projection transformation matrix.
+ @return		The position expressed in projection space. 
+ */
+float4 Transform(float3 p_world,
+				 float4x4 world_to_view,
+				 float4x4 view_to_projection) {
+
+	// The same transform sequence is used to eliminate Z-fighting.
+	const float3 p_view  = mul(float4(p_world,  1.0f), world_to_view).xyz;
+	const float4 p_proj  = mul(float4(p_view,   1.0f), view_to_projection);
+	
+	return p_proj;
+}
+
+/**
  Transforms the given texture coordinates.
 
  @param[in]		tex

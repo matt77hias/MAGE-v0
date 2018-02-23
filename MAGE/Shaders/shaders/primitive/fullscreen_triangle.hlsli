@@ -16,6 +16,7 @@
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
+				The vertex id.
  @return		The position in NDC space of the vertex corresponding to the 
 				given id of a fullscreen triangle.
  */
@@ -38,6 +39,7 @@ float4 NearFullScreenTriangleNDC(uint vertex_id) {
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
+				The vertex id.
  @return		The position in NDC space of the vertex corresponding to the 
 				given id of a fullscreen triangle.
  */
@@ -60,6 +62,7 @@ float4 FarFullScreenTriangleNDC(uint vertex_id) {
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
+				The vertex id.
  @return		The pair of texture coordinates of the vertex corresponding to 
 				the given id of a fullscreen triangle.
  */

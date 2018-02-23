@@ -442,6 +442,15 @@
     <FxCompile Include="Shaders\shaders\falsecolor\constant_texture_PS.hlsl">
       <Filter>Shader Files\falsecolor</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxel_grid_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxel_grid_VS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\voxelization\voxel_grid_GS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shaders\aa\fxaa3_11.hlsli">
@@ -512,6 +521,9 @@
     </None>
     <None Include="Shaders\shaders\voxelization\voxelization.hlsli">
       <Filter>Shader Files\voxelization</Filter>
+    </None>
+    <None Include="Shaders\shaders\primitive\cube.hlsli">
+      <Filter>Shader Files\primitive</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

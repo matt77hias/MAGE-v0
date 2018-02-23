@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_VOXEL_GRID_RESOLUTION 64
+#define MAGE_DEFAULT_VOXEL_GRID_RESOLUTION 1
 
 #pragma endregion
 

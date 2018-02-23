@@ -576,6 +576,9 @@
     <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp">
+      <Filter>Header Files\rendering\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -819,6 +822,9 @@
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp">
+      <Filter>Source Files\rendering\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
   </ItemGroup>

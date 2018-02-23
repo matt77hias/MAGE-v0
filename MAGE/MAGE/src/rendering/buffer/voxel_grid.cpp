@@ -144,6 +144,8 @@ namespace mage {
 		
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
 							  nullptr);
+		Pipeline::VS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
+							  nullptr);
 		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
 							  nullptr);
 
@@ -181,7 +183,9 @@ namespace mage {
 
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
 							  m_texture_srv.Get());
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+		Pipeline::VS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE, 
+							  m_texture_srv.Get());
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_VOXEL_TEXTURE,
 							  m_texture_srv.Get());
 	}
 }

@@ -6,7 +6,7 @@ struct Voxel {
 	uint encoded_n;
 };
 
-static const float g_max_length = 10.0f;
+static const float g_max_length = 1.0f;
 
 uint EncodeRadiance(float3 L) {
 	const float L_length     = length(L);
@@ -18,7 +18,7 @@ uint EncodeRadiance(float3 L) {
 	const uint3 color = uint3(255.0f * L * L_inv_length);
 	
 	// |........|........|........|........|
-	// | lenght |  red   |  green |  blue  |
+	// | length |  red   |  green |  blue  |
 	const uint encoded_L = (length  << 24u)
 		                 | (color.x << 16u) 
 		                 | (color.y <<  8u) 

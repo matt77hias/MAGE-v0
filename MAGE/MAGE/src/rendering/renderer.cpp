@@ -18,7 +18,7 @@ namespace mage {
 
 	//TODO
 	constexpr U32 g_voxel_grid_resolution = 128u;
-	constexpr F32 g_voxel_size = 0.1f;
+	constexpr F32 g_voxel_size = 0.08f;
 
 	[[nodiscard]] Renderer *Renderer::Get() noexcept {
 		Assert(RenderingManager::Get());
@@ -40,7 +40,8 @@ namespace mage {
 		m_lbuffer_pass(),
 		m_sky_pass(),
 		m_sprite_pass(),
-		m_voxelization_pass() {}
+		m_voxelization_pass(), 
+		m_voxel_grid_pass() {}
 	
 	Renderer::Renderer(Renderer &&scene_renderer) noexcept = default;
 	
@@ -154,7 +155,7 @@ namespace mage {
 		}
 		
 		case RenderMode::VoxelGrid: {
-			RenderVoxelGrid(scene, camera, world_to_projection);
+			RenderVoxelGrid(scene, camera);
 			break;
 		}
 
@@ -293,7 +294,7 @@ namespace mage {
 											 FXMMATRIX world_to_projection) {
 
 		const auto output_manager = RenderingOutputManager::Get();
-		const auto vct            = true;
+		const auto vct            = false;
 
 		//---------------------------------------------------------------------
 		// LBuffer
@@ -439,12 +440,27 @@ namespace mage {
 	}
 
 	void XM_CALLCONV Renderer::RenderVoxelGrid(const Scene &scene, 
-											   const Camera &camera, 
-											   FXMMATRIX world_to_projection) {
-		// TODO
-		(void)scene;
-		(void)camera;
-		(void)world_to_projection;
+											   const Camera &camera) {
+
+		//---------------------------------------------------------------------
+		// Voxelization
+		//---------------------------------------------------------------------
+		//TODO
+		const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
+		const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r, 
+																	-r, r, 
+																	-r, r);
+		GetVoxelizationPass()->Render(scene, world_to_voxel, 
+									  camera.GetSettings().GetBRDF(), 
+									  g_voxel_grid_resolution);
+
+		camera.BindSSViewport(m_device_context);
+		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
+		
+		//---------------------------------------------------------------------
+		// Voxel Grid
+		//---------------------------------------------------------------------
+		GetVoxelGridPass()->Render(g_voxel_grid_resolution);
 	}
 
 	void Renderer::RenderPostProcessing(const Camera &camera) {

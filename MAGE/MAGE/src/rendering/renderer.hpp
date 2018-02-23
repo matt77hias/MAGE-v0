@@ -16,6 +16,7 @@
 #include "rendering\pass\sky_pass.hpp"
 #include "rendering\pass\sprite_pass.hpp"
 #include "rendering\pass\voxelization_pass.hpp"
+#include "rendering\pass\voxel_grid_pass.hpp"
 #include "rendering\buffer\game_buffer.hpp"
 
 #pragma endregion
@@ -311,6 +312,22 @@ namespace mage {
 			return m_voxelization_pass.get();
 		}
 
+		/**
+		 Returns the voxel grid pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the voxel grid pass of this renderer.
+		 */
+		VoxelGridPass *GetVoxelGridPass() {
+			if (!m_voxel_grid_pass) {
+				m_voxel_grid_pass = MakeUnique< VoxelGridPass >();
+			}
+			return m_voxel_grid_pass.get();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -339,8 +356,7 @@ namespace mage {
 										  FalseColor false_color);
 		
 		void XM_CALLCONV RenderVoxelGrid(const Scene &scene, 
-										 const Camera &camera, 
-										 FXMMATRIX world_to_projection);
+										 const Camera &camera);
 		
 		void RenderAA(const Camera &camera);
 		
@@ -418,5 +434,10 @@ namespace mage {
 		 A pointer to the voxelization pass of this renderer.
 		 */
 		UniquePtr< VoxelizationPass > m_voxelization_pass;
+
+		/**
+		 A pointer to the voxel grid pass of this renderer.
+		 */
+		UniquePtr< VoxelGridPass > m_voxel_grid_pass;
 	};
 }

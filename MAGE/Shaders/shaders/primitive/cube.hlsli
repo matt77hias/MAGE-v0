@@ -20,13 +20,13 @@
 				with a size of [1,1,1].
  */
 float3 OffsettedUnitCube(uint vertex_id) {
-	// 0x287a = 10100001111010
-	// 0x02af = 00001010101111
-	// 0x31e3 = 11000111100011
+	// 0x287A = 10100001111010
+	// 0x02AF = 00001010101111
+	// 0x31E3 = 11000111100011
 	const uint mask = 1u << vertex_id;
-	return float3((0x287a & mask) != 0u,
-		          (0x02af & mask) != 0u,
-				  (0x31e3 & mask) != 0u);
+	return float3((0x287A & mask) != 0u,
+		          (0x02AF & mask) != 0u,
+				  (0x31E3 & mask) != 0u);
 }
 
 // Number of vertices: 14

@@ -155,7 +155,7 @@ namespace mage {
 		}
 		
 		case RenderMode::VoxelGrid: {
-			RenderVoxelGrid(scene, camera);
+			RenderVoxelGrid(scene, camera, world_to_projection);
 			break;
 		}
 
@@ -440,7 +440,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV Renderer::RenderVoxelGrid(const Scene &scene, 
-											   const Camera &camera) {
+											   const Camera &camera,
+											   FXMMATRIX world_to_projection) {
+
+		//---------------------------------------------------------------------
+		// LBuffer
+		//---------------------------------------------------------------------
+		GetLBufferPass()->Render(scene, world_to_projection,
+								 camera.GetSettings().GetFog());
 
 		//---------------------------------------------------------------------
 		// Voxelization

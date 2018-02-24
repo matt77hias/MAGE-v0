@@ -356,7 +356,8 @@ namespace mage {
 										  FalseColor false_color);
 		
 		void XM_CALLCONV RenderVoxelGrid(const Scene &scene, 
-										 const Camera &camera);
+										 const Camera &camera, 
+										 FXMMATRIX world_to_projection);
 		
 		void RenderAA(const Camera &camera);
 		

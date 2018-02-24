@@ -170,6 +170,8 @@ TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/co
 
 TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
 
+YUSOV E.: [Designing A Modern Cross-Platform Graphics Library](https://www.gamedev.net/articles/programming/graphics/designing-a-modern-cross-platform-graphics-library-r4807/), 2017.
+
 ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direct3D 11*, 1st Edition, A K Peters/CRC Press, 2011.
 
 ### Mathematics

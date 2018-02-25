@@ -459,9 +459,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\configuration.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
@@ -578,6 +575,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\configuration.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

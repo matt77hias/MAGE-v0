@@ -8,7 +8,7 @@
 #include "camera\fog.hpp"
 #include "camera\sky.hpp"
 #include "material\brdf.hpp"
-#include "rendering\pass\configuration.hpp"
+#include "rendering\configuration.hpp"
 
 #pragma endregion
 

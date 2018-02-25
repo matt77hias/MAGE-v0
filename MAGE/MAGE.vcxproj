@@ -97,6 +97,7 @@
     <ClInclude Include="MAGE\src\rendering\buffer\shadow_map_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\structured_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp" />
+    <ClInclude Include="MAGE\src\rendering\configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\conversion.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
@@ -104,7 +105,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\aa_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\back_buffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp" />

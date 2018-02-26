@@ -179,6 +179,12 @@
     <ClInclude Include="Utilities\src\system\timer.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\ui\window.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\ui\window_settings.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">
@@ -236,6 +242,9 @@
       <Filter>Source Files\system</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\ui\combo_box.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\ui\window.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>

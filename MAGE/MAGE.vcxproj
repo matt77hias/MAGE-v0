@@ -149,8 +149,6 @@
     <ClInclude Include="MAGE\src\texture\guids.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
-    <ClInclude Include="MAGE\src\ui\main_window.hpp" />
-    <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
@@ -232,7 +230,6 @@
     <ClCompile Include="MAGE\src\sprite\sprite_text.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
-    <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\camera\camera.tpp" />

@@ -19,9 +19,6 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{d6c229ab-ecab-4540-9656-b550419eb073}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\resource">
-      <UniqueIdentifier>{427e1973-185c-4785-9390-9367c18ac5e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scripting">
       <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
     </Filter>
@@ -81,9 +78,6 @@
     </Filter>
     <Filter Include="Source Files\texture">
       <UniqueIdentifier>{b664c90b-5549-4bbd-b8e2-59575770e9bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\resource">
-      <UniqueIdentifier>{0b3d584a-6f9a-4b10-ad87-8cd5f1354171}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\sprite">
       <UniqueIdentifier>{0e6f04b4-b3bf-4a6c-b89d-f80e376d898a}</UniqueIdentifier>
@@ -296,12 +290,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
       <Filter>Header Files\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
-      <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\core\engine_statistics.hpp">
       <Filter>Header Files\core</Filter>
@@ -579,6 +567,9 @@
     <ClInclude Include="MAGE\src\rendering\configuration.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\resource_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -655,9 +646,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
       <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
-      <Filter>Source Files\resource</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
@@ -827,6 +815,9 @@
     <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\resource_manager.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\scripting\variable_script.tpp">
@@ -846,9 +837,6 @@
     </None>
     <None Include="MAGE\src\model\model_output.tpp">
       <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\resource\resource_manager.tpp">
-      <Filter>Header Files\resource</Filter>
     </None>
     <None Include="MAGE\src\shader\shader.tpp">
       <Filter>Header Files\shader</Filter>
@@ -909,6 +897,9 @@
     </None>
     <None Include="MAGE\src\camera\camera.tpp">
       <Filter>Header Files\camera</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\resource_manager.tpp">
+      <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

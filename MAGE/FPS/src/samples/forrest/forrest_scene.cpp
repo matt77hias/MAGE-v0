@@ -13,6 +13,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "texture\texture_factory.hpp"
+
 #include "character_motor_script.hpp"
 #include "mouse_look_script.hpp"
 #include "rotation_script.hpp"

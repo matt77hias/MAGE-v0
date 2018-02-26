@@ -408,6 +408,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_manager.tpp"
+#include "rendering\resource_manager.tpp"
 
 #pragma endregion

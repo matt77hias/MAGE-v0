@@ -121,9 +121,8 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_manager.hpp" />
+    <ClInclude Include="MAGE\src\rendering\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\rendering\swap_chain.hpp" />
-    <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
-    <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\component.hpp" />
     <ClInclude Include="MAGE\src\scene\node.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
@@ -216,8 +215,8 @@
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_output_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp" />
+    <ClCompile Include="MAGE\src\rendering\resource_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp" />
-    <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\component.cpp" />
     <ClCompile Include="MAGE\src\scene\node.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
@@ -258,7 +257,7 @@
     <None Include="MAGE\src\rendering\buffer\structured_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\rendering\rendering_state_manager.tpp" />
-    <None Include="MAGE\src\resource\resource_manager.tpp" />
+    <None Include="MAGE\src\rendering\resource_manager.tpp" />
     <None Include="MAGE\src\scene\node.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />

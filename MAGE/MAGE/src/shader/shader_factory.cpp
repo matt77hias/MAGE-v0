@@ -4,7 +4,7 @@
 #pragma region
 
 #include "shader\shader_factory.hpp"
-#include "resource\resource_manager.hpp"
+#include "rendering\resource_manager.hpp"
 #include "mesh\vertex.hpp"
 
 // FXAA

@@ -13,6 +13,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "texture\texture_factory.hpp"
+
 #include "editor_script.hpp"
 #include "stats_script.hpp"
 #include "switch_scene_script.hpp"

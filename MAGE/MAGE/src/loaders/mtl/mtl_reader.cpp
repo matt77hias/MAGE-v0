@@ -6,7 +6,7 @@
 #include "loaders\mtl\mtl_reader.hpp"
 #include "loaders\mtl\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
-#include "resource\resource_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 

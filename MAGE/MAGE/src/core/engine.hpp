@@ -9,12 +9,10 @@
 
 #include "input\input_manager.hpp"
 #include "rendering\rendering_manager.hpp"
-#include "resource\resource_manager.hpp"
+#include "rendering\resource_manager.hpp"
 #include "scene\scene_manager.hpp"
 #include "system\timer.hpp"
 #include "ui\main_window.hpp"
-
-#include "resource\resource_factory.hpp"
 
 #include "core\engine_setup.hpp"
 #include "core\engine_statistics.hpp"

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "resource\resource_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 

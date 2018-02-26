@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\pass\voxelization_pass.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\state_manager.hpp"
 #include "shader\shader_factory.hpp"
 
 // Include HLSL bindings.

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "sprite\sprite_batch.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\state_manager.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"

@@ -6,8 +6,8 @@
 #pragma region
 
 #include "rendering\renderer.hpp"
-#include "rendering\rendering_output_manager.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\output_manager.hpp"
+#include "rendering\state_manager.hpp"
 #include "rendering\resource_manager.hpp"
 #include "rendering\swap_chain.hpp"
 

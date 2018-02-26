@@ -963,6 +963,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state_manager.tpp"
+#include "rendering\state_manager.tpp"
 
 #pragma endregion

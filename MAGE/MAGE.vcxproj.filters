@@ -324,15 +324,6 @@
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_state_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_output_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -570,6 +561,15 @@
     <ClInclude Include="MAGE\src\rendering\resource_manager.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\state_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\output_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -666,12 +666,6 @@
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_output_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
@@ -818,6 +812,12 @@
     <ClCompile Include="MAGE\src\rendering\resource_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\output_manager.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\state_manager.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\scripting\variable_script.tpp">
@@ -843,9 +843,6 @@
     </None>
     <None Include="MAGE\src\texture\texture.tpp">
       <Filter>Header Files\texture</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\rendering_state_manager.tpp">
-      <Filter>Header Files\rendering</Filter>
     </None>
     <None Include="MAGE\src\loaders\mdl\mdl_loader.tpp">
       <Filter>Header Files\loaders\mdl</Filter>
@@ -899,6 +896,9 @@
       <Filter>Header Files\camera</Filter>
     </None>
     <None Include="MAGE\src\rendering\resource_manager.tpp">
+      <Filter>Header Files\rendering</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\state_manager.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>

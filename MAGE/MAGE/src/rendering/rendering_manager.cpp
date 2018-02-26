@@ -40,8 +40,8 @@ namespace mage {
 		m_device_context(), 
 		m_swap_chain(), 
 		m_renderer(), 
-		m_rendering_output_manager(), 
-		m_rendering_state_manager() {
+		m_output_manager(), 
+		m_state_manager() {
 
 		Assert(m_window);
 		Assert(m_display_configuration);
@@ -65,15 +65,15 @@ namespace mage {
 				                               m_window, 
 			                                   m_display_configuration.get());
 
-		// Setup the rendering output manager.
-		m_rendering_output_manager 
+		// Setup the output manager.
+		m_output_manager 
 			= MakeUnique< OutputManager >(m_device.Get(), 
 			                                       m_display_configuration->GetDisplayWidth(),
 			                                       m_display_configuration->GetDisplayHeight(),
 									               m_display_configuration->GetAADescriptor());
 		
-		// Setup the rendering state manager.
-		m_rendering_state_manager = MakeUnique< StateManager >(m_device.Get());
+		// Setup the state manager.
+		m_state_manager = MakeUnique< StateManager >(m_device.Get());
 		
 		// Setup the renderer.
 		m_renderer = MakeUnique< Renderer >(m_device.Get(), m_device_context.Get());
@@ -155,7 +155,7 @@ namespace mage {
 	}
 
 	void RenderingManager::BindPersistentState() {
-		m_rendering_state_manager->BindPersistentState();
+		m_state_manager->BindPersistentState();
 		m_renderer->BindPersistentState();
 	}
 }

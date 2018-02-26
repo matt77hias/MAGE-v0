@@ -149,9 +149,9 @@ namespace mage {
 		}
 
 		/**
-		 Returns the rendering output manager of this rendering manager.
+		 Returns the output manager of this rendering manager.
 
-		 @return		A pointer to the rendering output manager of this 
+		 @return		A pointer to the output manager of this 
 						rendering manager.
 		 */
 		[[nodiscard]] Renderer *GetRenderer() const noexcept {
@@ -159,27 +159,27 @@ namespace mage {
 		}
 
 		/**
-		 Returns the rendering output manager of this rendering manager.
+		 Returns the output manager of this rendering manager.
 
-		 @return		A pointer to the rendering output manager of this 
+		 @return		A pointer to the output manager of this 
 						rendering manager.
 		 */
 		[[nodiscard]] const OutputManager *
 			GetOutputManager() const noexcept {
 
-			return m_rendering_output_manager.get();
+			return m_output_manager.get();
 		}
 
 		/**
-		 Returns the rendering state manager of this rendering manager.
+		 Returns the state manager of this rendering manager.
 
-		 @return		A pointer to the rendering state manager of this 
+		 @return		A pointer to the state manager of this 
 						rendering manager.
 		 */
 		[[nodiscard]] const StateManager *
 			GetStateManager() const noexcept {
 
-			return m_rendering_state_manager.get();
+			return m_state_manager.get();
 		}
 
 		/**
@@ -282,13 +282,13 @@ namespace mage {
 		UniquePtr< Renderer > m_renderer;
 
 		/**
-		 A pointer to the rendering output manager of this rendering manager.
+		 A pointer to the output manager of this rendering manager.
 		 */
-		UniquePtr< OutputManager > m_rendering_output_manager;
+		UniquePtr< OutputManager > m_output_manager;
 
 		/**
-		 A pointer to the rendering state manager of this rendering manager.
+		 A pointer to the state manager of this rendering manager.
 		 */
-		UniquePtr< StateManager > m_rendering_state_manager;
+		UniquePtr< StateManager > m_state_manager;
 	};
 }

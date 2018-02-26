@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 A class of rendering state managers.
+	 A class of state managers.
 	 */
 	class StateManager final {
 
@@ -26,13 +26,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the rendering state manager of the rendering manager 
-		 associated with the current engine.
+		 Returns the state manager of the rendering manager associated with the 
+		 current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the rendering state manager of the 
-						rendering manager associated with the current engine.
+		 @return		A pointer to the state manager of the rendering manager 
+						associated with the current engine.
 		 */
 		[[nodiscard]] static const StateManager *Get() noexcept;
 
@@ -41,37 +41,35 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a rendering state manager.
+		 Constructs a state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the rendering states of this rendering 
-						state manager.
+						Failed to setup the rendering states of this state 
+						manager.
 		 */
 		explicit StateManager(ID3D11Device *device);
 
 		/**
-		 Constructs a rendering state manager from the given rendering state 
-		 manager.
+		 Constructs a state manager from the given state manager.
 
 		 @param[in]		manager
-						A reference to the rendering state manager to copy.
+						A reference to the state manager to copy.
 		 */
 		StateManager(const StateManager &manager) = delete;
 
 		/**
-		 Constructs a rendering state manager by moving the given rendering 
-		 state manager.
+		 Constructs a state manager by moving the given state manager.
 
 		 @param[in]		manager
-						A reference to the rendering state manager to move.
+						A reference to the state manager to move.
 		 */
 		StateManager(StateManager &&manager) noexcept;
 
 		/**
-		 Destructs this rendering state manager.
+		 Destructs this state manager.
 		 */
 		~StateManager();
 
@@ -80,24 +78,22 @@ namespace mage {
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given rendering state manager to this rendering state 
-		 manager.
+		 Copies the given state manager to this state manager.
 
 		 @param[in]		manager
-						A reference to the rendering state manager to copy.
-		 @return		A reference to the copy of the given rendering state 
-						manager (i.e. this rendering state manager).
+						A reference to the state manager to copy.
+		 @return		A reference to the copy of the given state manager 
+						(i.e. this state manager).
 		 */
 		StateManager &operator=(const StateManager &manager) = delete;
 
 		/**
-		 Moves the given rendering state manager to this rendering state 
-		 manager.
+		 Moves the given state manager to this state manager.
 
 		 @param[in]		manager
-						A reference to the rendering state manager to move.
-		 @return		A reference to the moved rendering state manager
-						(i.e. this rendering state manager).
+						A reference to the state manager to move.
+		 @return		A reference to the moved state manager (i.e. this state 
+						manager).
 		 */
 		StateManager &operator=(StateManager &&manager) = delete;
 
@@ -106,11 +102,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the persistent state of this rendering state manager.
+		 Binds the persistent state of this state manager.
 
 		 @throws		Exception
-						Failed to bind the persistent state of this rendering 
-						state manager.
+						Failed to bind the persistent state of this state 
+						manager.
 		 */
 		void BindPersistentState() const noexcept;
 
@@ -120,7 +116,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Binds the opaque blend state of this rendering state manager.
+		 Binds the opaque blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -134,7 +130,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the alpha blend state of this rendering state manager.
+		 Binds the alpha blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -148,7 +144,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the additive blend state of this rendering state manager.
+		 Binds the additive blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -162,7 +158,7 @@ namespace mage {
 		}
 		
 		/**
-		 Binds the multiplicative blend state of this rendering state manager.
+		 Binds the multiplicative blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -176,8 +172,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the bi-multiplicative blend state of this rendering state 
-		 manager.
+		 Binds the bi-multiplicative blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -191,7 +186,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the transparency blend state of this rendering state manager.
+		 Binds the transparency blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -205,7 +200,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the alpha-to-coverage blend state of this rendering state manager.
+		 Binds the alpha-to-coverage blend state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -226,7 +221,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Binds the no-depth stencil state of this rendering state manager.
+		 Binds the no-depth stencil state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -242,8 +237,8 @@ namespace mage {
 		#ifdef DISABLE_INVERTED_Z_BUFFER
 
 		/**
-		 Binds the less-equal, read-write depth stencil state of this rendering
-		 state manager.
+		 Binds the less-equal, read-write depth stencil state of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -257,8 +252,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the less-equal, read depth stencil state of this rendering state 
-		 manager.
+		 Binds the less-equal, read depth stencil state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -272,8 +266,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the less, read-write depth stencil state of this rendering state 
-		 manager.
+		 Binds the less, read-write depth stencil state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -287,8 +280,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the less, read depth stencil state of this rendering state 
-		 manager.
+		 Binds the less, read depth stencil state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -304,8 +296,8 @@ namespace mage {
 		#else  // DISABLE_INVERTED_Z_BUFFER
 
 		/**
-		 Binds the greater-equal, read-write depth stencil state of this rendering
-		 state manager.
+		 Binds the greater-equal, read-write depth stencil state of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -319,7 +311,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the greater-equal, read depth stencil state of this rendering state 
+		 Binds the greater-equal, read depth stencil state of this state 
 		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -334,7 +326,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the greater, read-write depth stencil state of this rendering state 
+		 Binds the greater, read-write depth stencil state of this state 
 		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -349,8 +341,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the greater, read depth stencil state of this rendering state 
-		 manager.
+		 Binds the greater, read depth stencil state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -373,7 +364,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Binds the no-culling rasterizer state of this rendering state manager.
+		 Binds the no-culling rasterizer state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -387,8 +378,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the clockwise-culling rasterizer state of this rendering state 
-		 manager.
+		 Binds the clockwise-culling rasterizer state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -402,8 +392,8 @@ namespace mage {
 		}
 
 		/**
-		 Binds the counter-clockwise-culling rasterizer state of this rendering 
-		 state manager.
+		 Binds the counter-clockwise-culling rasterizer state of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -417,7 +407,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the wireframe rasterizer state of this rendering state manager.
+		 Binds the wireframe rasterizer state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -438,8 +428,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Binds the point sampler state with wrapping of this rendering state 
-		 manager.
+		 Binds the point sampler state with wrapping of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -458,8 +447,7 @@ namespace mage {
 			                           U32 slot) const noexcept;
 		
 		/**
-		 Binds the point sampler state with clamping of this rendering state 
-		 manager.
+		 Binds the point sampler state with clamping of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -478,8 +466,7 @@ namespace mage {
 			                            U32 slot) const noexcept;
 		
 		/**
-		 Binds the point sampler state with mirroring of this rendering state 
-		 manager.
+		 Binds the point sampler state with mirroring of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -498,8 +485,7 @@ namespace mage {
 			                             U32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with wrapping of this rendering state 
-		 manager.
+		 Binds the linear sampler state with wrapping of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -518,8 +504,7 @@ namespace mage {
 			                            U32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with clamping of this rendering state 
-		 manager.
+		 Binds the linear sampler state with clamping of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -538,8 +523,7 @@ namespace mage {
 			                             U32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with mirroring of this rendering state 
-		 manager.
+		 Binds the linear sampler state with mirroring of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -558,8 +542,8 @@ namespace mage {
 			                              U32 slot) const noexcept;
 
 		/**
-		 Binds the anisotropic sampler state with wrapping of this rendering 
-		 state manager.
+		 Binds the anisotropic sampler state with wrapping of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -578,8 +562,8 @@ namespace mage {
 			                                 U32 slot) const noexcept;
 		
 		/**
-		 Binds the anisotropic sampler state with clamping of this rendering 
-		 state manager.
+		 Binds the anisotropic sampler state with clamping of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -598,8 +582,8 @@ namespace mage {
 			                                  U32 slot) const noexcept;
 		
 		/**
-		 Binds the anisotropic sampler state with mirroring of this rendering 
-		 state manager.
+		 Binds the anisotropic sampler state with mirroring of this state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -618,7 +602,7 @@ namespace mage {
 			                                   U32 slot) const noexcept;
 
 		/**
-		 Binds the PCF sampler state of this rendering state manager.
+		 Binds the PCF sampler state of this state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -646,68 +630,67 @@ namespace mage {
 
 		/**
 		 Setup the rendering states (blend, depth stencil, rasterizer, sampler)
-		 of this rendering state manager.
+		 of this state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the rendering states of this rendering 
-						state manager.
+						Failed to setup the rendering states of this state 
+						manager.
 		 */
 		void SetupRenderingStates(ID3D11Device *device);
 
 		/**
-		 Setup the blend states of this rendering state manager.
+		 Setup the blend states of this state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the blend states of this rendering 
-						state manager.
+						Failed to setup the blend states of this state manager.
 		 */
 		void SetupBlendStates(ID3D11Device *device);
 		
 		/**
-		 Setup the depth stencil states of this rendering state manager.
+		 Setup the depth stencil states of this state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the depth stencil states of this 
-						rendering state manager.
+						Failed to setup the depth stencil states of state 
+						manager.
 		 */
 		void SetupDepthStencilStates(ID3D11Device *device);
 		
 		/**
-		 Setup the rasterizer states of this rendering state manager.
+		 Setup the rasterizer states of this state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the rasterizer states of this rendering 
-						state manager.
+						Failed to setup the rasterizer states of this state 
+						manager.
 		 */
 		void SetupRasterizerStates(ID3D11Device *device);
 		
 		/**
-		 Setup the samplers states of this rendering state manager.
+		 Setup the samplers states of this state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		Exception
-						Failed to setup the samplers states of this rendering 
-						state manager.
+						Failed to setup the samplers states of this state 
+						manager.
 		 */
 		void SetupSamplerStates(ID3D11Device *device);
 		
 		/**
-		 An enumeration of the different blend state indices for rendering 
-		 state managers.
+		 An enumeration of the different blend state indices for state 
+		 managers.
 
 		 This contains:
 		 @c Opaque,
@@ -731,7 +714,7 @@ namespace mage {
 		
 		/**
 		 An enumeration of the different depth stencil state indices for 
-		 rendering state managers.
+		 state managers.
 
 		 This contains:
 		 @c DepthNone,
@@ -757,8 +740,8 @@ namespace mage {
 		};
 		
 		/**
-		 An enumeration of the different rasterizer state indices for rendering 
-		 state managers.
+		 An enumeration of the different rasterizer state indices for state 
+		 managers.
 
 		 This contains:
 		 @c NoCulling,
@@ -775,8 +758,8 @@ namespace mage {
 		};
 		
 		/**
-		 An enumeration of the different sampler state indices for rendering 
-		 state managers.
+		 An enumeration of the different sampler state indices for state 
+		 managers.
 
 		 This contains:
 		 @c PointWrap,
@@ -805,13 +788,13 @@ namespace mage {
 		};
 		
 		/**
-		 Returns the blend state of this rendering state manager associated to 
-		 the given index.
+		 Returns the blend state of this state manager associated to the given 
+		 index.
 
 		 @param[in]		index
 						The blend state index.
-		 @return		A pointer to the blend state of this rendering state 
-						manager associated to the given index.
+		 @return		A pointer to the blend state of this state manager 
+						associated to the given index.
 		 */
 		[[nodiscard]] ID3D11BlendState *
 			Get(BlendStateIndex index) const noexcept {
@@ -820,13 +803,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns and releases the address of the blend state of this 
-		 rendering state manager associated to the given index.
+		 Returns and releases the address of the blend state of this state 
+		 manager associated to the given index.
 
 		 @param[in]		index
 						The blend state index.
-		 @return		A pointer to a pointer to the blend state of this 
-						rendering state manager associated to the given index.
+		 @return		A pointer to a pointer to the blend state of this state 
+						manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11BlendState **
 			ReleaseAndGetAddressOf(BlendStateIndex index) noexcept {
@@ -835,13 +818,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the depth stencil state of this rendering state manager 
-		 associated to the given index.
+		 Returns the depth stencil state of this state manager associated to 
+		 the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
-		 @return		A pointer to the depth stencil state of this rendering 
-						state manager associated to the given index.
+		 @return		A pointer to the depth stencil state of this state 
+						manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11DepthStencilState *
 			Get(DepthStencilStateIndex index) const noexcept {
@@ -851,12 +834,12 @@ namespace mage {
 		
 		/**
 		 Returns and releases the address of the depth stencil state of this 
-		 rendering state manager associated to the given index.
+		 state manager associated to the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
 		 @return		A pointer to a pointer to the depth stencil state of 
-						this rendering state manager associated to the given index.
+						this state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11DepthStencilState **
 			ReleaseAndGetAddressOf(DepthStencilStateIndex index) noexcept {
@@ -865,13 +848,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the rasterizer state of this rendering state manager associated 
-		 to the given index.
+		 Returns the rasterizer state of this state manager associated to the 
+		 given index.
 
 		 @param[in]		index
 						The rasterizer state index.
-		 @return		A pointer to the rasterizer state of this rendering 
-						state manager associated to the given index.
+		 @return		A pointer to the rasterizer state of this state manager 
+						associated to the given index.
 		 */
 		[[nodiscard]] ID3D11RasterizerState *
 			Get(RasterizerStateIndex index) const noexcept {
@@ -880,13 +863,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns and releases the address of the rasterizer state of this 
-		 rendering state manager associated to the given index.
+		 Returns and releases the address of the rasterizer state of this state 
+		 manager associated to the given index.
 
 		 @param[in]		index
 						The rasterizer state index.
 		 @return		A pointer to a pointer to the rasterizer state of this 
-						rendering state manager associated to the given index.
+						state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11RasterizerState **
 			ReleaseAndGetAddressOf(RasterizerStateIndex index) noexcept {
@@ -895,13 +878,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the sampler state of this rendering state manager associated to 
-		 the given index.
+		 Returns the sampler state of this state manager associated to the 
+		 given index.
 
 		 @param[in]		index
 						The sampler state index.
-		 @return		A pointer to the sampler state of this rendering state 
-						manager associated to the given index.
+		 @return		A pointer to the sampler state of this state manager 
+						associated to the given index.
 		 */
 		[[nodiscard]] ID3D11SamplerState *
 			Get(SamplerStateIndex index) const noexcept {
@@ -910,13 +893,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns and releases the address of the sampler state of this 
-		 rendering state manager associated to the given index.
+		 Returns and releases the address of the sampler state of this state 
+		 manager associated to the given index.
 
 		 @param[in]		index
 						The sampler state index.
 		 @return		A pointer to a pointer to the sampler state of this 
-						rendering state manager associated to the given index.
+						state manager associated to the given index.
 		 */
 		[[nodiscard]] ID3D11SamplerState **
 			ReleaseAndGetAddressOf(SamplerStateIndex index) noexcept {
@@ -929,29 +912,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 An array containing pointers to the blend states of this rendering 
-		 state manager.
+		 An array containing pointers to the blend states of this state 
+		 manager.
 		 */
 		ComPtr< ID3D11BlendState > m_blend_states[
 			static_cast< size_t >(BlendStateIndex::Count)];
 
 		/**
-		 An array containing pointers to the depth stencil states of this 
-		 rendering state manager.
+		 An array containing pointers to the depth stencil states of this state 
+		 manager.
 		 */
 		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
 			static_cast< size_t >(DepthStencilStateIndex::Count)];
 
 		/**
-		 An array containing pointers to the rasterizer states of this 
-		 rendering state manager.
+		 An array containing pointers to the rasterizer states of this state 
+		 manager.
 		 */
 		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
 			static_cast< size_t >(RasterizerStateIndex::Count)];
 		
 		/**
-		 An array containing pointers to the sampler states of this rendering 
-		 state manager.
+		 An array containing pointers to the sampler states of this state 
+		 manager.
 		 */
 		ComPtr< ID3D11SamplerState > m_sampler_states[
 			static_cast< size_t >(SamplerStateIndex::Count)];

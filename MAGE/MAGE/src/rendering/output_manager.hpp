@@ -16,7 +16,7 @@
 namespace mage {
 
 	/**
-	 A class of rendering output managers.
+	 A class of output managers.
 	 */
 	class OutputManager final {
 
@@ -27,12 +27,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the rendering output manager of the rendering manager 
+		 Returns the output manager of the rendering manager 
 		 associated with the current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the rendering output manager of the 
+		 @return		A pointer to the output manager of the 
 						rendering manager associated with the current engine.
 		 */
 		[[nodiscard]] static const OutputManager *Get() noexcept;
@@ -42,7 +42,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a rendering output manager.
+		 Constructs a output manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
@@ -54,8 +54,8 @@ namespace mage {
 		 @param[in]		desc
 						The Anti-Aliasing descriptor.
 		 @throws		Exception
-						Failed to setup the rendering outputs of this rendering 
-						output manager.
+						Failed to setup the rendering outputs of this output 
+						manager.
 		 */
 		explicit OutputManager(ID3D11Device *device, 
 			                   U32 width, 
@@ -63,25 +63,23 @@ namespace mage {
 			                   AADescriptor desc);
 
 		/**
-		 Constructs a rendering output manager from the given rendering output 
-		 manager.
+		 Constructs a output manager from the given output manager.
 
 		 @param[in]		manager
-						A reference to the rendering output manager to copy.
+						A reference to the output manager to copy.
 		 */
 		OutputManager(const OutputManager &manager) = delete;
 
 		/**
-		 Constructs a rendering output manager by moving the given rendering 
-		 output manager.
+		 Constructs a output manager by moving the given output manager.
 
 		 @param[in]		manager
-						A reference to the rendering output manager to move.
+						A reference to the output manager to move.
 		 */
 		OutputManager(OutputManager &&manager) noexcept;
 
 		/**
-		 Destructs this rendering output manager.
+		 Destructs this output manager.
 		 */
 		~OutputManager();
 
@@ -90,24 +88,22 @@ namespace mage {
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given rendering output manager to this rendering output 
-		 manager.
+		 Copies the given output manager to this output manager.
 
 		 @param[in]		manager
-						A reference to the rendering output manager to copy.
-		 @return		A reference to the copy of the given rendering output 
-						manager (i.e. this rendering output manager).
+						A reference to the output manager to copy.
+		 @return		A reference to the copy of the given output manager 
+						(i.e. this output manager).
 		 */
 		OutputManager &operator=(const OutputManager &manager) = delete;
 
 		/**
-		 Moves the given rendering output manager to this rendering output 
-		 manager.
+		 Moves the given output manager to this output manager.
 
 		 @param[in]		manager
-						A reference to the rendering output manager to move.
-		 @return		A reference to the moved rendering output manager
-						(i.e. this rendering output manager).
+						A reference to the output manager to move.
+		 @return		A reference to the moved output manager (i.e. this 
+						output manager).
 		 */
 		OutputManager &operator=(OutputManager &&manager) = delete;
 

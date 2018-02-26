@@ -39,17 +39,17 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessEqualDepthReadDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterEqualDepthReadDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+		StateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void SkyPass::Render(const Sky &sky) const noexcept {

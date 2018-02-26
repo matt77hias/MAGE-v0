@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of rendering state managers.
 	 */
-	class RenderingStateManager final {
+	class StateManager final {
 
 	public:
 
@@ -34,7 +34,7 @@ namespace mage {
 		 @return		A pointer to the rendering state manager of the 
 						rendering manager associated with the current engine.
 		 */
-		[[nodiscard]] static const RenderingStateManager *Get() noexcept;
+		[[nodiscard]] static const StateManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -50,7 +50,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		explicit RenderingStateManager(ID3D11Device *device);
+		explicit StateManager(ID3D11Device *device);
 
 		/**
 		 Constructs a rendering state manager from the given rendering state 
@@ -59,7 +59,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the rendering state manager to copy.
 		 */
-		RenderingStateManager(const RenderingStateManager &manager) = delete;
+		StateManager(const StateManager &manager) = delete;
 
 		/**
 		 Constructs a rendering state manager by moving the given rendering 
@@ -68,12 +68,12 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the rendering state manager to move.
 		 */
-		RenderingStateManager(RenderingStateManager &&manager) noexcept;
+		StateManager(StateManager &&manager) noexcept;
 
 		/**
 		 Destructs this rendering state manager.
 		 */
-		~RenderingStateManager();
+		~StateManager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -88,8 +88,7 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering state 
 						manager (i.e. this rendering state manager).
 		 */
-		RenderingStateManager &operator=(
-			const RenderingStateManager &manager) = delete;
+		StateManager &operator=(const StateManager &manager) = delete;
 
 		/**
 		 Moves the given rendering state manager to this rendering state 
@@ -100,8 +99,7 @@ namespace mage {
 		 @return		A reference to the moved rendering state manager
 						(i.e. this rendering state manager).
 		 */
-		RenderingStateManager &operator=(
-			RenderingStateManager &&manager) = delete;
+		StateManager &operator=(StateManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

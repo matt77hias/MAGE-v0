@@ -40,18 +40,18 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullNoneRasterizerState(m_device_context);
-		//RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullNoneRasterizerState(m_device_context);
+		//StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+		StateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void VoxelGridPass::Render(size_t resolution) const noexcept {

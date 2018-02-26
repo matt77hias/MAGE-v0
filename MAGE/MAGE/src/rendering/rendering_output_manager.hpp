@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of rendering output managers.
 	 */
-	class RenderingOutputManager final {
+	class OutputManager final {
 
 	public:
 
@@ -35,7 +35,7 @@ namespace mage {
 		 @return		A pointer to the rendering output manager of the 
 						rendering manager associated with the current engine.
 		 */
-		[[nodiscard]] static const RenderingOutputManager *Get() noexcept;
+		[[nodiscard]] static const OutputManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -57,10 +57,10 @@ namespace mage {
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
-		explicit RenderingOutputManager(ID3D11Device *device, 
-			                            U32 width, 
-			                            U32 height, 
-			                            AADescriptor desc);
+		explicit OutputManager(ID3D11Device *device, 
+			                   U32 width, 
+			                   U32 height, 
+			                   AADescriptor desc);
 
 		/**
 		 Constructs a rendering output manager from the given rendering output 
@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the rendering output manager to copy.
 		 */
-		RenderingOutputManager(const RenderingOutputManager &manager) = delete;
+		OutputManager(const OutputManager &manager) = delete;
 
 		/**
 		 Constructs a rendering output manager by moving the given rendering 
@@ -78,12 +78,12 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the rendering output manager to move.
 		 */
-		RenderingOutputManager(RenderingOutputManager &&manager) noexcept;
+		OutputManager(OutputManager &&manager) noexcept;
 
 		/**
 		 Destructs this rendering output manager.
 		 */
-		~RenderingOutputManager();
+		~OutputManager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -98,8 +98,7 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering output 
 						manager (i.e. this rendering output manager).
 		 */
-		RenderingOutputManager &operator=(
-			const RenderingOutputManager &manager) = delete;
+		OutputManager &operator=(const OutputManager &manager) = delete;
 
 		/**
 		 Moves the given rendering output manager to this rendering output 
@@ -110,8 +109,7 @@ namespace mage {
 		 @return		A reference to the moved rendering output manager
 						(i.e. this rendering output manager).
 		 */
-		RenderingOutputManager &operator=(
-			RenderingOutputManager &&manager) = delete;
+		OutputManager &operator=(OutputManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

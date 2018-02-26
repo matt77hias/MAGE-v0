@@ -8,6 +8,7 @@
 #include "rendering\renderer.hpp"
 #include "rendering\rendering_output_manager.hpp"
 #include "rendering\rendering_state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 #include "rendering\swap_chain.hpp"
 
 #pragma endregion
@@ -163,8 +164,8 @@ namespace mage {
 		 @return		A pointer to the rendering output manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]] const RenderingOutputManager *
-			GetRenderingOutputManager() const noexcept {
+		[[nodiscard]] const OutputManager *
+			GetOutputManager() const noexcept {
 
 			return m_rendering_output_manager.get();
 		}
@@ -175,8 +176,8 @@ namespace mage {
 		 @return		A pointer to the rendering state manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]] const RenderingStateManager *
-			GetRenderingStateManager() const noexcept {
+		[[nodiscard]] const StateManager *
+			GetStateManager() const noexcept {
 
 			return m_rendering_state_manager.get();
 		}
@@ -263,7 +264,7 @@ namespace mage {
 		/**
 		 A pointer to the device of this rendering manager.
 		 */
-		ComPtr< D3D11Device >	m_device;
+		ComPtr< D3D11Device > m_device;
 
 		/**
 		 A pointer to the device context of this rendering manager.
@@ -283,11 +284,11 @@ namespace mage {
 		/**
 		 A pointer to the rendering output manager of this rendering manager.
 		 */
-		UniquePtr< RenderingOutputManager > m_rendering_output_manager;
+		UniquePtr< OutputManager > m_rendering_output_manager;
 
 		/**
 		 A pointer to the rendering state manager of this rendering manager.
 		 */
-		UniquePtr< RenderingStateManager > m_rendering_state_manager;
+		UniquePtr< StateManager > m_rendering_state_manager;
 	};
 }

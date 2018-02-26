@@ -37,13 +37,13 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
+		StateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
+		StateManager::Get()->BindAlphaBlendState(m_device_context);
 	}
 
 	void SpritePass::Render(const Scene &scene) {

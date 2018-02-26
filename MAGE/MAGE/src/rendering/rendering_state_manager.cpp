@@ -29,13 +29,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const RenderingStateManager *RenderingStateManager::Get() noexcept {
+	[[nodiscard]] const StateManager *StateManager::Get() noexcept {
 		Assert(RenderingManager::Get());
 
-		return RenderingManager::Get()->GetRenderingStateManager();
+		return RenderingManager::Get()->GetStateManager();
 	}
 
-	RenderingStateManager::RenderingStateManager(ID3D11Device *device)
+	StateManager::StateManager(ID3D11Device *device)
 		: m_blend_states{}, 
 		m_depth_stencil_states{}, 
 		m_rasterizer_states{}, 
@@ -44,12 +44,11 @@ namespace mage {
 		SetupRenderingStates(device);
 	}
 
-	RenderingStateManager::RenderingStateManager(
-		RenderingStateManager &&manager) noexcept = default;
+	StateManager::StateManager(StateManager &&manager) noexcept = default;
 
-	RenderingStateManager::~RenderingStateManager() = default;
+	StateManager::~StateManager() = default;
 
-	void RenderingStateManager::SetupRenderingStates(ID3D11Device *device) {
+	void StateManager::SetupRenderingStates(ID3D11Device *device) {
 		Assert(device);
 
 		// Setup the blend states.
@@ -62,7 +61,7 @@ namespace mage {
 		SetupSamplerStates(device);
 	}
 
-	void RenderingStateManager::SetupBlendStates(ID3D11Device *device) {
+	void StateManager::SetupBlendStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateOpaqueBlendState(
 				device, ReleaseAndGetAddressOf(BlendStateIndex::Opaque));
@@ -119,7 +118,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device *device) {
+	void StateManager::SetupDepthStencilStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateDepthNoneDepthStencilState(
 				device, ReleaseAndGetAddressOf(DepthStencilStateIndex::DepthNone));
@@ -207,7 +206,7 @@ namespace mage {
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
-	void RenderingStateManager::SetupRasterizerStates(ID3D11Device *device) {
+	void StateManager::SetupRasterizerStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreateCullNoneRasterizerState(
 				device, ReleaseAndGetAddressOf(RasterizerStateIndex::NoCulling));
@@ -241,7 +240,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::SetupSamplerStates(ID3D11Device *device) {
+	void StateManager::SetupSamplerStates(ID3D11Device *device) {
 		{
 			const HRESULT result = CreatePointWrapSamplerState(
 				device, ReleaseAndGetAddressOf(SamplerStateIndex::PointWrap));
@@ -323,7 +322,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::BindPersistentState() const noexcept {
+	void StateManager::BindPersistentState() const noexcept {
 		static_assert(SLOT_SAMPLER_POINT_CLAMP        == SLOT_SAMPLER_POINT_WRAP + 1);
 		static_assert(SLOT_SAMPLER_POINT_MIRROR       == SLOT_SAMPLER_POINT_WRAP + 2);
 		static_assert(SLOT_SAMPLER_LINEAR_WRAP        == SLOT_SAMPLER_POINT_WRAP + 3);

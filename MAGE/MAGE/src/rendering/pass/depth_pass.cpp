@@ -50,12 +50,12 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 

@@ -46,15 +46,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+		StateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void ForwardPass::BindFixedTransparentState() const noexcept {
@@ -67,15 +67,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
+		StateManager::Get()->BindTransparencyBlendState(m_device_context);
 	}
 
 	void ForwardPass::BindFixedWireframeState() const noexcept {
@@ -88,15 +88,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateManager::Get()->BindWireframeRasterizerState(m_device_context);
+		StateManager::Get()->BindWireframeRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
+		StateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void ForwardPass::BindColor(const RGBA &color) {

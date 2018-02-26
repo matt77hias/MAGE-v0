@@ -26,16 +26,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const RenderingOutputManager *RenderingOutputManager::Get() noexcept {
+	[[nodiscard]] const OutputManager *OutputManager::Get() noexcept {
 		Assert(RenderingManager::Get());
 
-		return RenderingManager::Get()->GetRenderingOutputManager();
+		return RenderingManager::Get()->GetOutputManager();
 	}
 
-	RenderingOutputManager::RenderingOutputManager(ID3D11Device *device, 
-		                                           U32 width, 
-		                                           U32 height, 
-		                                           AADescriptor desc)
+	OutputManager::OutputManager(ID3D11Device *device, 
+		                         U32 width, 
+		                         U32 height, 
+		                         AADescriptor desc)
 		: m_srvs{}, 
 		m_rtvs{}, 
 		m_uavs{}, 
@@ -47,15 +47,14 @@ namespace mage {
 		SetupBuffers(device, width, height, desc);
 	}
 
-	RenderingOutputManager::RenderingOutputManager(
-		RenderingOutputManager &&manager) noexcept = default;
+	OutputManager::OutputManager(OutputManager &&manager) noexcept = default;
 
-	RenderingOutputManager::~RenderingOutputManager() = default;
+	OutputManager::~OutputManager() = default;
 
-	void RenderingOutputManager::SetupBuffers(ID3D11Device *device, 
-		                                      U32 width, 
-		                                      U32 height, 
-		                                      AADescriptor desc) {
+	void OutputManager::SetupBuffers(ID3D11Device *device, 
+		                             U32 width, 
+		                             U32 height, 
+		                             AADescriptor desc) {
 		Assert(device);
 
 		U32 nb_samples = 1u;
@@ -215,14 +214,14 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupBuffer(ID3D11Device *device, 
-		                                     U32 width, 
-		                                     U32 height, 
-		                                     U32 nb_samples, 
-		                                     DXGI_FORMAT format, 
-		                                     ID3D11ShaderResourceView **srv, 
-		                                     ID3D11RenderTargetView **rtv, 
-		                                     ID3D11UnorderedAccessView **uav) {
+	void OutputManager::SetupBuffer(ID3D11Device *device, 
+		                            U32 width, 
+		                            U32 height, 
+		                            U32 nb_samples, 
+		                            DXGI_FORMAT format, 
+		                            ID3D11ShaderResourceView **srv, 
+		                            ID3D11RenderTargetView **rtv, 
+		                            ID3D11UnorderedAccessView **uav) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
@@ -287,10 +286,10 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::SetupDepthBuffer(ID3D11Device *device, 
-		                                          U32 width, 
-		                                          U32 height, 
-		                                          U32 nb_samples) {
+	void OutputManager::SetupDepthBuffer(ID3D11Device *device, 
+		                                 U32 width, 
+		                                 U32 height, 
+		                                 U32 nb_samples) {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = width;
@@ -362,7 +361,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingOutputManager::BindBegin(
+	void OutputManager::BindBegin(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
@@ -400,7 +399,7 @@ namespace mage {
 		m_hdr0_to_hdr1 = true;
 	}
 
-	void RenderingOutputManager::BindBeginGBuffer(
+	void OutputManager::BindBeginGBuffer(
 		ID3D11DeviceContext *device_context) const noexcept {
 		
 		// Collect the GBuffer RTVs.
@@ -415,7 +414,7 @@ namespace mage {
 			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
 	}
 	
-	void RenderingOutputManager::BindEndGBuffer(
+	void OutputManager::BindEndGBuffer(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		// Bind no RTV and no DSV.
@@ -423,7 +422,7 @@ namespace mage {
 			nullptr, nullptr);
 	}
 	
-	void RenderingOutputManager::BindBeginDeferred(
+	void OutputManager::BindBeginDeferred(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
@@ -458,7 +457,7 @@ namespace mage {
 		}
 	}
 	
-	void RenderingOutputManager::BindEndDeferred(
+	void OutputManager::BindEndDeferred(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
@@ -488,7 +487,7 @@ namespace mage {
 		}
 	}
 	
-	void RenderingOutputManager::BindBeginForward(
+	void OutputManager::BindBeginForward(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		// Collect the RTVs.
@@ -502,7 +501,7 @@ namespace mage {
 			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
 	}
 
-	void RenderingOutputManager::BindEndForward(
+	void OutputManager::BindEndForward(
 		ID3D11DeviceContext *device_context) const noexcept {
 		
 		// Bind no RTV and no DSV.
@@ -510,7 +509,7 @@ namespace mage {
 			nullptr, nullptr);
 	}
 
-	void RenderingOutputManager::BindBeginResolve(
+	void OutputManager::BindBeginResolve(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		// Bind the SRVs.
@@ -536,7 +535,7 @@ namespace mage {
 			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
-	void RenderingOutputManager::BindEndResolve(
+	void OutputManager::BindEndResolve(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
@@ -558,7 +557,7 @@ namespace mage {
 			static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
-	void RenderingOutputManager::BindBeginPostProcessing(
+	void OutputManager::BindBeginPostProcessing(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
@@ -567,7 +566,7 @@ namespace mage {
 			GetSRV(SRVIndex::PostProcessing_Depth));
 	}
 
-	void RenderingOutputManager::BindPingPong(
+	void OutputManager::BindPingPong(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		// Bind no HDR UAV.
@@ -594,7 +593,7 @@ namespace mage {
 		m_hdr0_to_hdr1 = !m_hdr0_to_hdr1;
 	}
 
-	void RenderingOutputManager::BindEnd(
+	void OutputManager::BindEnd(
 		ID3D11DeviceContext *device_context) const noexcept {
 
 		// Bind the back buffer RTV and no DSV.

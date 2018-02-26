@@ -129,7 +129,7 @@ namespace mage {
 		const auto camera_to_projection = camera.GetCameraToProjectionMatrix();
 		const auto world_to_projection  = world_to_camera * camera_to_projection;
 
-		const auto output_manager       = RenderingOutputManager::Get();
+		const auto output_manager       = OutputManager::Get();
 		const auto render_mode          = camera.GetSettings().GetRenderMode();
 
 		output_manager->BindBegin(m_device_context);
@@ -293,7 +293,7 @@ namespace mage {
 											 const Camera &camera,
 											 FXMMATRIX world_to_projection) {
 
-		const auto output_manager = RenderingOutputManager::Get();
+		const auto output_manager = OutputManager::Get();
 		const auto vct            = false;
 
 		//---------------------------------------------------------------------
@@ -341,7 +341,7 @@ namespace mage {
 											  const Camera &camera,
 											  FXMMATRIX world_to_projection) {
 		
-		const auto output_manager = RenderingOutputManager::Get();
+		const auto output_manager = OutputManager::Get();
 		const auto vct = false;
 
 		//---------------------------------------------------------------------
@@ -417,7 +417,7 @@ namespace mage {
 								 camera.GetSettings().GetFog());
 
 		camera.BindSSViewport(m_device_context);
-		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
+		OutputManager::Get()->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward
@@ -431,7 +431,7 @@ namespace mage {
 												FalseColor false_color) {
 		
 		camera.BindSSViewport(m_device_context);
-		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
+		OutputManager::Get()->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward
@@ -462,7 +462,7 @@ namespace mage {
 									  g_voxel_grid_resolution);
 
 		camera.BindSSViewport(m_device_context);
-		RenderingOutputManager::Get()->BindBeginForward(m_device_context);
+		OutputManager::Get()->BindBeginForward(m_device_context);
 		
 		//---------------------------------------------------------------------
 		// Voxel Grid
@@ -471,7 +471,7 @@ namespace mage {
 	}
 
 	void Renderer::RenderPostProcessing(const Camera &camera) {
-		const auto output_manager = RenderingOutputManager::Get();
+		const auto output_manager = OutputManager::Get();
 
 		camera.BindViewport(m_device_context);
 		output_manager->BindBeginPostProcessing(m_device_context);
@@ -488,7 +488,7 @@ namespace mage {
 	}
 
 	void Renderer::RenderAA(const Camera &camera) {
-		const auto output_manager = RenderingOutputManager::Get();
+		const auto output_manager = OutputManager::Get();
 		const auto desc = DisplayConfiguration::Get()->GetAADescriptor();
 		const auto viewport = camera.GetSSViewport();
 

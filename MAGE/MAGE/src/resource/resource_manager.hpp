@@ -9,7 +9,6 @@
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
 #include "sprite\font\sprite_font.hpp"
-#include "scripting\variable_script.hpp"
 
 #pragma endregion
 
@@ -158,24 +157,6 @@ namespace mage {
 			 The pool type of resource pools containing compute shaders.
 			 */
 			using pool_type  = PersistentResourcePool< wstring, const ComputeShader >;
-		};
-
-		/**
-		 A struct of variable script resource records.
-		 */
-		template<>
-		struct ResourceRecord< VariableScript > final {
-			
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing variable scripts.
-			 */
-			using pool_type  = ResourcePool< wstring, VariableScript >;
 		};
 
 		/**
@@ -419,11 +400,6 @@ namespace mage {
 		 The texture resource pool of this resource manager.
 		 */
 		typename pool_type< Texture > m_texture_pool;
-
-		/**
-		 The variable script resource pool of this resource manager.
-		 */
-		typename pool_type< VariableScript > m_variable_script_pool;
 	};
 }
 

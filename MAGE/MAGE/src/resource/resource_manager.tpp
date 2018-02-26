@@ -85,13 +85,6 @@ namespace mage {
 		return m_texture_pool;
 	}
 
-	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< VariableScript > &
-		ResourceManager::GetPool< VariableScript >() const noexcept {
-
-		return m_variable_script_pool;
-	}
-
 	#pragma endregion
 
 	//---------------------------------------------------------------------

@@ -16,11 +16,6 @@ namespace mage {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(size_t capacity)
-		: StructuredBuffer(Pipeline::GetDevice(), capacity) {}
-
-	template< typename DataT >
-	StructuredBuffer< DataT >
 		::StructuredBuffer(ID3D11Device *device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
@@ -61,17 +56,8 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	inline void StructuredBuffer< DataT >
-		::UpdateData(ID3D11DeviceContext *device_context, 
-			         const AlignedVector< DataT > &data) {
-
-		UpdateData(Pipeline::GetDevice(), device_context, data);
-	}
-
-	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::UpdateData(ID3D11Device *device, 
-		             ID3D11DeviceContext *device_context, 
+		::UpdateData(ID3D11DeviceContext *device_context, 
 			         const AlignedVector< DataT > &data) {
 		
 		Assert(device_context);
@@ -83,6 +69,8 @@ namespace mage {
 			return;
 		}
 		if (m_capacity < m_size) {
+			ComPtr< ID3D11Device > device;
+			device_context->GetDevice(device.ReleaseAndGetAddressOf());
 			SetupStructuredBuffer(device, m_size);
 		}
 

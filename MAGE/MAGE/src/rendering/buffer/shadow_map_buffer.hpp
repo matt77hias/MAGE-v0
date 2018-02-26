@@ -59,10 +59,6 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ShadowMapBuffer(size_t nb_shadow_maps = 1u, 
-			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                     DepthFormat format = DepthFormat::D16);
 		explicit ShadowMapBuffer(ID3D11Device *device,
 			                     size_t nb_shadow_maps = 1u, 
 			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
@@ -158,10 +154,6 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ShadowCubeMapBuffer(size_t nb_shadow_cube_maps = 1u, 
-			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                         DepthFormat format = DepthFormat::D16);
 		explicit ShadowCubeMapBuffer(ID3D11Device *device,
 			                         size_t nb_shadow_cube_maps = 1u,
 			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,

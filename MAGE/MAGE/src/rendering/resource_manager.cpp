@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
-#include "logging\error.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -13,13 +12,17 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] ResourceManager *ResourceManager::Get() noexcept {
-		Assert(Engine::Get());
-
-		return Engine::Get()->GetResourceManager();
-	}
-
-	ResourceManager::ResourceManager() = default;
+	ResourceManager::ResourceManager(ID3D11Device *device) 
+		: m_device(device), 
+		m_model_descriptor_pool(), 
+		m_vs_pool(), 
+		m_hs_pool(),
+		m_ds_pool(),
+		m_gs_pool(),
+		m_ps_pool(),
+		m_cs_pool(),
+		m_sprite_font_pool(),
+		m_texture_pool() {}
 
 	ResourceManager::~ResourceManager() = default;
 }

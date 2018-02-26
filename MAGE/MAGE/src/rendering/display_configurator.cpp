@@ -5,6 +5,7 @@
 
 #include "rendering\display_configurator.hpp"
 #include "rendering\display_settings.hpp"
+#include "scripting\variable_script.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"
@@ -50,6 +51,8 @@ extern "C" {
 //-----------------------------------------------------------------------------
 #pragma region
 
+#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"./DisplaySettings.var"
+
 #define MAGE_DISPLAY_VARIABLE_AA           "anti-aliasing"
 #define MAGE_DISPLAY_VARIABLE_REFRESH_RATE "refresh"
 #define MAGE_DISPLAY_VARIABLE_RESOLUTION   "resolution"
@@ -63,23 +66,235 @@ extern "C" {
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator
+	//-------------------------------------------------------------------------
+	// DisplayConfigurator::Impl
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of display configurators.
+	 */
+	class DisplayConfigurator::Impl final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a display configurator.
+
+		 @param[in]		pixel_format
+						The pixel format.
+		 */
+		explicit Impl(DXGI_FORMAT pixel_format);
+
+		/**
+		 Constructs a display configurator.
+
+		 @param[in]		adapter
+						A pointer to the adapter.
+		 @param[in]		output
+						A pointer to the output.
+		 @param[in]		pixel_format
+						The pixel format.
+		 */
+		explicit Impl(ComPtr< DXGIAdapter > adapter, 
+					  ComPtr< DXGIOutput >  output, 
+					  DXGI_FORMAT pixel_format);
+
+		/**
+		 Constructs a display configurator from the given display configurator.
+
+		 @param[in]		configurator
+						A reference to a display configurator to copy.
+		 */
+		Impl(const Impl &configurator) = delete;
+
+		/**
+		 Constructs a display configurator by moving the given display configurator.
+
+		 @param[in]		configurator
+						A reference to a display configurator to move.
+		 */
+		Impl(Impl &&configurator) noexcept;
+
+		/**
+		 Destructs this display configurator.
+		 */
+		~Impl();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given display configurator to this display configurator.
+
+		 @param[in]		configurator
+						A reference to a display configurator to copy.
+		 @return		A reference to the copy of the given display 
+						configurator (i.e. this display configurator).
+		 */
+		Impl &operator=(const Impl &configurator) = delete;
+
+		/**
+		 Moves the given display configurator to this display configurator.
+
+		 @param[in]		configurator
+						A reference to a display configurator to move.
+		 @return		A reference to the moved display configurator (i.e. 
+						this display configurator).
+		 */
+		Impl &operator=(Impl &&configurator) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Configurs the display by enumerating the available display modes and 
+		 options associated with the adapter output of the physical adapter 
+		 with the most dedicated video memory.
+
+		 @return		A success/error value.
+		 */
+		[[nodiscard]] HRESULT Configure() const;
+
+		/**
+		 Returns the display configuration of this display configurator.
+
+		 @return		A pointer to the display configuration
+						of this display configurator.
+		 */
+		[[nodiscard]] const DisplayConfiguration *
+			GetDisplayConfiguration() const noexcept {
+
+			return m_display_configuration.get();
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Engine-defined callback function used with the CreateDialog for 
+		 display configuration.
+
+		 @param[in]		dialog
+						A handle to the dialog box.
+		 @param[in]		message
+						The message.
+		 @param[in]		wParam
+						Additional message-specific information.
+		 @param[in]		lParam
+						Additional message-specific information.
+		 @return		@c true if @a message is processed. @c false otherwise.
+		 */
+		[[nodiscard]] static INT_PTR CALLBACK DisplayDialogProcDelegate(
+			HWND dialog, UINT message, WPARAM wParam, LPARAM lParam);
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes the adapter and the output this display configurator.
+
+		 @throws		Exception
+						Failed to initialize the adapter and the output of this 
+						display configurator.
+		 */
+		void InitializeAdapterAndOutput();
+
+		/**
+		 Initializes the display modes of this display configurator.
+
+		 @throws		Exception
+						Failed to initialize the display modes of this display 
+						configurator.
+		 */
+		void InitializeDisplayModes();
+
+		/**
+		 Engine-defined callback function used with the CreateDialog for 
+		 display configuration.
+
+		 @param[in]		dialog
+						A handle to the dialog box.
+		 @param[in]		message
+						The message.
+		 @param[in]		wParam
+						Additional message-specific information.
+		 @param[in]		lParam
+						Additional message-specific information.
+		 @return		@c true if @a message is processed. @c false otherwise.
+		 */
+		[[nodiscard]] INT_PTR DisplayDialogProc(HWND dialog, 
+			                                    UINT message,
+			                                    [[maybe_unused]] WPARAM wParam, 
+			                                    [[maybe_unused]] LPARAM lParam);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+		
+		/**
+		 The supported pixel format of this display configurator.
+		 */
+		DXGI_FORMAT m_pixel_format;
+
+		/**
+		 A pointer to the adapter (e.g. video card) of this display 
+		 configurator.
+		 */
+		ComPtr< DXGIAdapter > m_adapter;
+
+		/**
+		 A pointer to the output (e.g. screen monitor) of this display 
+		 configurator.
+		 */
+		ComPtr< DXGIOutput > m_output;
+
+		/**
+		 A pointer to the display configuration of this display configurator.
+		 */
+		UniquePtr< DisplayConfiguration > m_display_configuration;
+
+		/**
+		 A pointer to the script which stores the display configuration
+		 of this display configurator.
+		 */
+		UniquePtr< VariableScript > m_display_configuration_script;
+
+		/**
+		 The enumerated display modes of this display 
+		 configurator.
+		 */
+		std::vector< DXGI_MODE_DESC > m_display_modes;
+	};
+
+	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator::Impl
 		::DisplayDialogProcDelegate(HWND dialog, 
 			                        UINT message, 
 			                        WPARAM wParam, 
 			                        LPARAM lParam) {
 
-		const auto configurator 
-			= GetDialogCaller< DisplayConfigurator >(dialog, message, wParam, lParam);
-
+		const auto configurator = GetDialogCaller< DisplayConfigurator::Impl >
+			                      (dialog, message, wParam, lParam);
+		
 		return configurator->DisplayDialogProc(dialog, message, wParam, lParam);
 	}
 
-	DisplayConfigurator::DisplayConfigurator(DXGI_FORMAT pixel_format)
+	DisplayConfigurator::Impl::Impl(DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format), 
+		m_adapter(), 
+		m_output(),
 		m_display_configuration(),
 		m_display_configuration_script(),
-		m_adapter(), m_output(), 
 		m_display_modes() {
 
 		// Load the settings script.
@@ -93,17 +308,16 @@ namespace mage {
 		InitializeAdapterAndOutput();
 		// Initialize the display modes.
 		InitializeDisplayModes();
-
 	}
 
-	DisplayConfigurator::DisplayConfigurator(ComPtr< DXGIAdapter > adapter, 
-		                                     ComPtr< DXGIOutput > output,
-		                                     DXGI_FORMAT pixel_format)
+	DisplayConfigurator::Impl::Impl(ComPtr< DXGIAdapter > adapter,
+		                            ComPtr< DXGIOutput > output,
+		                            DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format),
+		m_adapter(std::move(adapter)),
+		m_output(std::move(output)),
 		m_display_configuration(), 
 		m_display_configuration_script(),
-		m_adapter(std::move(adapter)), 
-		m_output(std::move(output)), 
 		m_display_modes() {
 
 		// Load the settings script.
@@ -117,10 +331,9 @@ namespace mage {
 		InitializeDisplayModes();
 	}
 
-	DisplayConfigurator::DisplayConfigurator(
-		DisplayConfigurator &&configurator) noexcept = default;
+	DisplayConfigurator::Impl::Impl(Impl &&configurator) noexcept = default;
 
-	DisplayConfigurator::~DisplayConfigurator() = default;
+	DisplayConfigurator::Impl::~Impl() = default;
 
 	/**
 	 Checks whether the given display mode needs to be rejected.
@@ -137,7 +350,7 @@ namespace mage {
 			|| (display_mode_desc.Height < 512u);
 	}
 	
-	void DisplayConfigurator::InitializeAdapterAndOutput() {
+	void DisplayConfigurator::Impl::InitializeAdapterAndOutput() {
 		ComPtr< IDXGIFactory > factory;
 		{
 			const HRESULT result = CreateDXGIFactory(
@@ -198,7 +411,7 @@ namespace mage {
 		}
 	}
 	
-	void DisplayConfigurator::InitializeDisplayModes() {
+	void DisplayConfigurator::Impl::InitializeDisplayModes() {
 		const U32 flags = DXGI_ENUM_MODES_INTERLACED;
 		
 		// Get the number of display modes that match the requested format 
@@ -238,7 +451,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] HRESULT DisplayConfigurator::Configure() const {
+	[[nodiscard]] HRESULT DisplayConfigurator::Impl::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. 
 		//    If this parameter is nullptr, then the current executable is 
@@ -288,7 +501,7 @@ namespace mage {
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	[[nodiscard]] INT_PTR DisplayConfigurator
+	[[nodiscard]] INT_PTR DisplayConfigurator::Impl
 		::DisplayDialogProc(HWND dialog, 
 			                UINT message,
 		                    [[maybe_unused]] WPARAM wParam, 
@@ -577,4 +790,36 @@ namespace mage {
 		
 		return FALSE;
 	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// DisplayConfigurator
+	//-------------------------------------------------------------------------
+	#pragma region
+	
+	DisplayConfigurator::DisplayConfigurator(DXGI_FORMAT pixel_format) 
+		: m_impl(MakeUnique< Impl >(pixel_format)) {}
+
+	DisplayConfigurator::DisplayConfigurator(ComPtr< DXGIAdapter > adapter,
+											 ComPtr< DXGIOutput > output, 
+											 DXGI_FORMAT pixel_format)
+		: m_impl(MakeUnique< Impl >(adapter, output, pixel_format)) {}
+
+	DisplayConfigurator::DisplayConfigurator(
+		DisplayConfigurator &&configurator) noexcept = default;
+
+	DisplayConfigurator::~DisplayConfigurator() = default;
+
+	[[nodiscard]] HRESULT DisplayConfigurator::Configure() const {
+		return m_impl->Configure();
+	}
+
+	[[nodiscard]] const DisplayConfiguration *
+		DisplayConfigurator::GetDisplayConfiguration() const noexcept {
+
+		return m_impl->GetDisplayConfiguration();
+	}
+
+	#pragma endregion
 }

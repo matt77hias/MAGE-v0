@@ -30,30 +30,6 @@ namespace mage {
 		/**
 		 Constructs a buffer lock.
 
-		 @pre			The device associated with the current engine
-						must be loaded.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a buffer is not equal to @c nullptr.
-		 @pre			@a mapped_buffer is not equal to @c nullptr.
-		 @param[in]		buffer
-						A pointer to the buffer.
-		 @param[in]		map_type
-						The map type specifying the CPU's read and write 
-						permissions for the buffer of this buffer lock.
-		 @param[out]	mapped_buffer
-						A pointer to map the buffer of this buffer lock to.
-		 @throws		Exception
-						Failed to map the buffer.
-		 */
-		explicit BufferLock(ID3D11Buffer *buffer,
-			                D3D11_MAP map_type,
-			                D3D11_MAPPED_SUBRESOURCE *mapped_buffer)
-			: BufferLock(Pipeline::GetImmediateDeviceContext(),
-				         buffer, map_type, mapped_buffer) {}
-
-		/**
-		 Constructs a buffer lock.
-
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a buffer is not equal to @c nullptr.
 		 @pre			@a mapped_buffer is not equal to @c nullptr.

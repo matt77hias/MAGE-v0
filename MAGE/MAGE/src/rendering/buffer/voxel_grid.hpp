@@ -18,7 +18,6 @@ namespace mage {
 
 	public:
 
-		explicit VoxelGrid(size_t resolution);
 		explicit VoxelGrid(ID3D11Device *device, size_t resolution);
 		VoxelGrid(const VoxelGrid &voxel_grid) = delete;
 		VoxelGrid(VoxelGrid &&voxel_grid) = default;

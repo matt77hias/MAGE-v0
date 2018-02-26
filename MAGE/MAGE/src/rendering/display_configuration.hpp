@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
+#include "type\types.hpp"
+#include "rendering\rendering.hpp"
 #include "rendering\aa_descriptor.hpp"
 
 #pragma endregion
@@ -21,21 +22,6 @@ namespace mage {
 	class DisplayConfiguration final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the display configuration of the rendering manager associated 
-		 with the current engine.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @return		A pointer to the display configuration of the rendering 
-						manager associated with the current engine.
-		 */
-		static const DisplayConfiguration *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

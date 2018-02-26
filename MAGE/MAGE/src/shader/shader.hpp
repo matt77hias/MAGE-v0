@@ -34,31 +34,6 @@ namespace mage {
 		/**
 		 Constructs a vertex shader.
 
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @pre			The array pointed to by @a input_element_desc contains 
-						@a nb_input_elements elements, if @a input_element_desc 
-						is not equal to @c nullptr.
-		 @param[in]		guid
-						The globally unique identifier.
-		 @param[in]		compiled_shader
-						A reference to the compiled vertex shader.
-		 @param[in]		input_element_desc
-						A pointer the input element descriptors.
-		 @param[in]		nb_input_elements
-						The number of elements contained in the
-						given input element descriptor.
-		 @throws		Exception
-						Failed to initialize this vertex shader.
-		 */
-		explicit VertexShader(wstring guid,
-			                  const CompiledShader &compiled_shader,
-			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			                  size_t nb_input_elements);
-		
-		/**
-		 Constructs a vertex shader.
-
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc contains 
 						@a nb_input_elements elements, if @a input_element_desc 
@@ -212,21 +187,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a shader.
-
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @param[in]		guid
-						The globally unique identifier.
-		 @param[in]		compiled_shader
-						A reference to the compiled shader.
-		 @throws		Exception
-						Failed to initialize this shader.
-		 */
-		explicit Shader(wstring guid, 
-			            const CompiledShader &compiled_shader);
 
 		/**
 		 Constructs a shader.

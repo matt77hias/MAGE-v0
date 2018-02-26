@@ -22,21 +22,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the state manager of the rendering manager associated with the 
-		 current engine.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @return		A pointer to the state manager of the rendering manager 
-						associated with the current engine.
-		 */
-		[[nodiscard]] static const StateManager *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -632,61 +617,46 @@ namespace mage {
 		 Setup the rendering states (blend, depth stencil, rasterizer, sampler)
 		 of this state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
 						Failed to setup the rendering states of this state 
 						manager.
 		 */
-		void SetupRenderingStates(ID3D11Device *device);
+		void SetupRenderingStates();
 
 		/**
 		 Setup the blend states of this state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
 						Failed to setup the blend states of this state manager.
 		 */
-		void SetupBlendStates(ID3D11Device *device);
+		void SetupBlendStates();
 		
 		/**
 		 Setup the depth stencil states of this state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
 						Failed to setup the depth stencil states of state 
 						manager.
 		 */
-		void SetupDepthStencilStates(ID3D11Device *device);
+		void SetupDepthStencilStates();
 		
 		/**
 		 Setup the rasterizer states of this state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
 						Failed to setup the rasterizer states of this state 
 						manager.
 		 */
-		void SetupRasterizerStates(ID3D11Device *device);
+		void SetupRasterizerStates();
 		
 		/**
 		 Setup the samplers states of this state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
 						Failed to setup the samplers states of this state 
 						manager.
 		 */
-		void SetupSamplerStates(ID3D11Device *device);
+		void SetupSamplerStates();
 		
 		/**
 		 An enumeration of the different blend state indices for state 
@@ -910,6 +880,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the device of this state manager.
+		 */
+		ID3D11Device * const m_device;
 
 		/**
 		 An array containing pointers to the blend states of this state 

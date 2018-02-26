@@ -17,9 +17,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VoxelGrid::VoxelGrid(size_t resolution)
-		: VoxelGrid(Pipeline::GetDevice(), resolution) {}
-
 	VoxelGrid::VoxelGrid(ID3D11Device *device, size_t resolution)
 		: m_resolution(resolution), 
 		m_viewport(static_cast< F32 >(resolution), 

@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_manager.hpp"
+#include "rendering\output_manager.hpp"
+#include "rendering\pipeline.hpp"
 #include "logging\error.hpp"
 #include "exception\exception.hpp"
 
@@ -26,17 +27,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const OutputManager *OutputManager::Get() noexcept {
-		Assert(RenderingManager::Get());
-
-		return RenderingManager::Get()->GetOutputManager();
-	}
-
 	OutputManager::OutputManager(ID3D11Device *device, 
-		                         U32 width, 
-		                         U32 height, 
-		                         AADescriptor desc)
-		: m_srvs{}, 
+								 DisplayConfiguration *display_configuration, 
+								 SwapChain *swap_chain)
+		: m_display_configuration(display_configuration),
+		m_device(device), 
+		m_swap_chain(swap_chain),
+		m_srvs{}, 
 		m_rtvs{}, 
 		m_uavs{}, 
 		m_dsv(), 
@@ -44,25 +41,26 @@ namespace mage {
 		m_msaa(false), 
 		m_ssaa(false) {
 
-		SetupBuffers(device, width, height, desc);
+		Assert(m_display_configuration);
+		Assert(m_device);
+		Assert(swap_chain);
+
+		SetupBuffers();
 	}
 
 	OutputManager::OutputManager(OutputManager &&manager) noexcept = default;
 
 	OutputManager::~OutputManager() = default;
 
-	void OutputManager::SetupBuffers(ID3D11Device *device, 
-		                             U32 width, 
-		                             U32 height, 
-		                             AADescriptor desc) {
-		Assert(device);
-
+	void OutputManager::SetupBuffers() {
 		U32 nb_samples = 1u;
-		auto ss_width   = width;
-		auto ss_height  = height;
+		auto width     = m_display_configuration->GetDisplayWidth();
+		auto height    = m_display_configuration->GetDisplayHeight();
+		auto ss_width  = width;
+		auto ss_height = height;
 		auto aa        = true;
 		
-		switch (desc) {
+		switch (m_display_configuration->GetAADescriptor()) {
 
 		case AADescriptor::MSAA_2x: {
 			m_msaa     = true;
@@ -107,52 +105,35 @@ namespace mage {
 		}
 
 		// Setup the depth buffer.
-		SetupDepthBuffer(device, 
-			             ss_width, 
-			             ss_height,
-			             nb_samples);
+		SetupDepthBuffer(ss_width, ss_height, nb_samples);
 
 		// Setup the GBuffer buffers.
-		SetupBuffer(device, 
-			        ss_width, 
-			        ss_height,
-			        nb_samples, 
+		SetupBuffer(ss_width, ss_height, nb_samples, 
 			        DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
 			        nullptr);
-		SetupBuffer(device, 
-			        ss_width, 
-			        ss_height,
-			        nb_samples, 
+		SetupBuffer(ss_width, ss_height, nb_samples, 
 			        DXGI_FORMAT_R8G8B8A8_UNORM,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
 			        nullptr);
-		SetupBuffer(device, 
-			        ss_width, 
-			        ss_height,
-			        nb_samples, DXGI_FORMAT_R11G11B10_FLOAT,
+		SetupBuffer(ss_width, ss_height, nb_samples, 
+					DXGI_FORMAT_R11G11B10_FLOAT,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
 			        nullptr);
 
 		// Setup the HDR buffer.
 		if (m_msaa) {
-			SetupBuffer(device, 
-				        ss_width,
-				        ss_height,
-				        nb_samples, 
+			SetupBuffer(ss_width, ss_height, nb_samples, 
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
 				        nullptr);
 		}
 		else {
-			SetupBuffer(device, 
-				        ss_width, 
-				        ss_height,
-				        1u, 
+			SetupBuffer(ss_width, ss_height, 1u, 
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
@@ -160,10 +141,7 @@ namespace mage {
 		}
 		
 		if (aa) {
-			SetupBuffer(device, 
-				        width, 
-				        height,
-				        1u, 
+			SetupBuffer(width, height, 1u, 
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
@@ -178,29 +156,20 @@ namespace mage {
 				= m_uavs[static_cast< size_t >(UAVIndex::HDR)];
 		}
 
-		SetupBuffer(device, 
-			        width, 
-			        height, 
-			        1u, 
+		SetupBuffer(width, height, 1u, 
 			        DXGI_FORMAT_R16G16B16A16_FLOAT,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR1),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR1),
 			        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR1));
 
 		if (m_msaa || m_ssaa) {
-			SetupBuffer(device, 
-				        width, 
-				        height,
-				        1u,
+			SetupBuffer(width, height, 1u,
 				        DXGI_FORMAT_R32_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
 				        nullptr,
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
 			
-			SetupBuffer(device, 
-				        width, 
-				        height,
-				        1u, 
+			SetupBuffer(width, height, 1u, 
 				        DXGI_FORMAT_R11G11B10_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
 				        nullptr,
@@ -214,8 +183,7 @@ namespace mage {
 		}
 	}
 
-	void OutputManager::SetupBuffer(ID3D11Device *device, 
-		                            U32 width, 
+	void OutputManager::SetupBuffer(U32 width, 
 		                            U32 height, 
 		                            U32 nb_samples, 
 		                            DXGI_FORMAT format, 
@@ -242,7 +210,7 @@ namespace mage {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = device->CheckMultisampleQualityLevels(
+			const HRESULT result = m_device->CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result,
@@ -256,7 +224,7 @@ namespace mage {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = device->CreateTexture2D(
+			const HRESULT result = m_device->CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
@@ -264,7 +232,7 @@ namespace mage {
 		// SRV
 		{
 			// Create the SRV.
-			const HRESULT result = device->CreateShaderResourceView(
+			const HRESULT result = m_device->CreateShaderResourceView(
 				texture.Get(), nullptr, srv);
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
@@ -272,7 +240,7 @@ namespace mage {
 		// RTV
 		if (rtv) {
 			// Create the RTV.
-			const HRESULT result = device->CreateRenderTargetView(
+			const HRESULT result = m_device->CreateRenderTargetView(
 				texture.Get(), nullptr, rtv);
 			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
 		}
@@ -280,14 +248,13 @@ namespace mage {
 		// UAV
 		if (uav) {
 			// Create the UAV.
-			const HRESULT result = device->CreateUnorderedAccessView(
+			const HRESULT result = m_device->CreateUnorderedAccessView(
 				texture.Get(), nullptr, uav);
 			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
 	}
 
-	void OutputManager::SetupDepthBuffer(ID3D11Device *device, 
-		                                 U32 width, 
+	void OutputManager::SetupDepthBuffer(U32 width, 
 		                                 U32 height, 
 		                                 U32 nb_samples) {
 		// Create the texture descriptor.
@@ -304,7 +271,7 @@ namespace mage {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = device->CheckMultisampleQualityLevels(
+			const HRESULT result = m_device->CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result, 
@@ -318,7 +285,7 @@ namespace mage {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = device->CreateTexture2D(
+			const HRESULT result = m_device->CreateTexture2D(
 				&texture_desc, nullptr, 
 				texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
@@ -338,9 +305,9 @@ namespace mage {
 			}
 			
 			// Create the SRV.
-			const HRESULT result = device->CreateShaderResourceView(
+			const HRESULT result = m_device->CreateShaderResourceView(
 				texture.Get(), &srv_desc,
-				m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Depth)].ReleaseAndGetAddressOf());
+				ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Depth));
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
 
@@ -354,7 +321,7 @@ namespace mage {
 				                     D3D11_DSV_DIMENSION_TEXTURE2D;
 
 			// Create the DSV.
-			const HRESULT result = device->CreateDepthStencilView(
+			const HRESULT result = m_device->CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "DSV creation failed: %08X.", result);
@@ -598,7 +565,7 @@ namespace mage {
 
 		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,
-			SwapChain::Get()->GetRTV(), nullptr);
+			m_swap_chain->GetRTV(), nullptr);
 		
 		// Bind no HDR UAV.
 		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 

@@ -5,16 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\renderer.hpp"
-#include "rendering\output_manager.hpp"
-#include "rendering\state_manager.hpp"
 #include "rendering\resource_manager.hpp"
 #include "rendering\swap_chain.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -49,11 +47,11 @@ namespace mage {
 		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		window
 						The main window handle.
-		 @param[in]		display_configuration
+		 @param[in]		configuration
 						A pointer to the display configuration.
 		 */
 		explicit RenderingManager(HWND window, 
-			const DisplayConfiguration *display_configuration);
+								  const DisplayConfiguration *configuration);
 
 		/**
 		 Constructs a rendering manager from the given rendering manager.
@@ -101,7 +99,7 @@ namespace mage {
 		RenderingManager &operator=(RenderingManager &&manager) = delete;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Display Configuration
+		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
@@ -111,64 +109,14 @@ namespace mage {
 						rendering manager.
 		 */
 		[[nodiscard]] const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept {
-
-			return m_display_configuration.get();
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Rendering
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the device of this rendering manager.
-
-		 @return		A pointer to the device of this rendering manager.
-		 */
-		[[nodiscard]] D3D11Device *GetDevice() const noexcept {
-			return m_device.Get();
-		}
-
-		/**
-		 Returns the device context of this rendering manager.
-
-		 @return		A pointer to the device context of this rendering 
-						manager.
-		 */
-		[[nodiscard]] D3D11DeviceContext *GetDeviceContext() const noexcept {
-			return m_device_context.Get();
-		}
+			GetDisplayConfiguration() const noexcept;
 
 		/**
 		 Returns the swap chain of this rendering manager.
 
 		 @return		A pointer to the swap chain of this rendering manager.
 		 */
-		[[nodiscard]] SwapChain *GetSwapChain() const noexcept {
-			return m_swap_chain.get();
-		}
-
-		/**
-		 Returns the output manager of this rendering manager.
-
-		 @return		A pointer to the output manager of this 
-						rendering manager.
-		 */
-		[[nodiscard]] Renderer *GetRenderer() const noexcept {
-			return m_renderer.get();
-		}
-
-		/**
-		 Returns the output manager of this rendering manager.
-
-		 @return		A pointer to the output manager of this 
-						rendering manager.
-		 */
-		[[nodiscard]] const OutputManager *
-			GetOutputManager() const noexcept {
-
-			return m_output_manager.get();
-		}
+		[[nodiscard]] SwapChain *GetSwapChain() const noexcept;
 
 		/**
 		 Returns the state manager of this rendering manager.
@@ -176,21 +124,27 @@ namespace mage {
 		 @return		A pointer to the state manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]] const StateManager *
-			GetStateManager() const noexcept {
-
-			return m_state_manager.get();
-		}
+		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept;
 
 		/**
 		 Begins a frame.
 		 */
-		void BeginFrame() const;
+		void BeginFrame();
+
+		/**
+		 Renders the given scene.
+
+		 @param[in]		scene
+						A reference to the scene.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void Render(const Scene &scene);
 		
 		/**
 		 Ends a frame.
 		 */
-		void EndFrame() const;
+		void EndFrame();
 
 		/**
 		 Binds the persistent state of this rendering manager.
@@ -207,88 +161,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 Initializes the different rendering systems of this rendering manager.
-
-		 @throws		Exception
-						Failed to initialize at least one of the different 
-						rendering systems of this rendering manager.
-		 */
-		void InitializeSystems();
+		class Impl;
 
 		/**
-		 Uninitializes the different rendering systems of this rendering 
-		 manager.
+		 A pointer to the implementation of this rendering manager.
 		 */
-		void UninitializeSystems() noexcept;
-
-		//---------------------------------------------------------------------
-		// Member Methods: Rendering
-		//---------------------------------------------------------------------
-
-		/**
-		 Sets up the D3D11 device and context of this rendering manager.
-
-		 @throws		Exception
-						Failed to set up the device and device context of this 
-						rendering manager.
-		 */
-		void SetupDevice();
-
-		//---------------------------------------------------------------------
-		// Member Variables: Display Configration
-		//---------------------------------------------------------------------
-
-		/**
-		 The handle of the parent window of this rendering manager.
-		 */
-		const HWND m_window;
-
-		/**
-		 A pointer to the display configuration of this rendering manager.
-		 */
-		UniquePtr< DisplayConfiguration > m_display_configuration;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Rendering
-		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the feature level of this rendering manager.
-		 */
-		D3D_FEATURE_LEVEL m_feature_level;
-
-		/**
-		 A pointer to the device of this rendering manager.
-		 */
-		ComPtr< D3D11Device > m_device;
-
-		/**
-		 A pointer to the device context of this rendering manager.
-		 */
-		ComPtr< D3D11DeviceContext > m_device_context;
-
-		/**
-		 A pointer to the swap chain of this rendering manager.
-		 */
-		UniquePtr< SwapChain > m_swap_chain;
-
-		/**
-		 A pointer to the renderer of this rendering manager.
-		 */
-		UniquePtr< Renderer > m_renderer;
-
-		/**
-		 A pointer to the output manager of this rendering manager.
-		 */
-		UniquePtr< OutputManager > m_output_manager;
-
-		/**
-		 A pointer to the state manager of this rendering manager.
-		 */
-		UniquePtr< StateManager > m_state_manager;
+		UniquePtr< Impl > m_impl;
 	};
 }

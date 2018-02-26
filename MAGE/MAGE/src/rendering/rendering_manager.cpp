@@ -4,6 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
+#include "rendering\renderer.hpp"
 #include "imgui\imgui_impl_dx11.hpp"
 #include "logging\error.hpp"
 #include "exception\exception.hpp"
@@ -20,21 +21,235 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const RenderingManager *RenderingManager::Get() noexcept {
-		Assert(Engine::Get());
+	//-------------------------------------------------------------------------
+	// RenderingManager::Impl
+	//-------------------------------------------------------------------------
+	#pragma region
 
-		return Engine::Get()->GetRenderingManager();
-	}
+	/**
+	 A class of rendering managers.
+	 */
+	class RenderingManager::Impl final {
 
-	RenderingManager::RenderingManager(HWND window, 
-		const DisplayConfiguration *display_configuration) 
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a rendering manager.
+
+		 @pre			@a window is not equal to @c nullptr.
+		 @pre			@a display_configuration is not equal to @c nullptr.
+		 @param[in]		window
+						The main window handle.
+		 @param[in]		display_configuration
+						A pointer to the display configuration.
+		 */
+		explicit Impl(HWND window, 
+					  const DisplayConfiguration *display_configuration);
+
+		/**
+		 Constructs a rendering manager from the given rendering manager.
+
+		 @param[in]		manager
+						A reference to a rendering manager to copy.
+		 */
+		Impl(const Impl &manager) = delete;
+
+		/**
+		 Constructs a rendering manager by moving the given rendering manager.
+
+		 @param[in]		manager
+						A reference to a rendering manager to move.
+		 */
+		Impl(Impl &&manager) noexcept;
+
+		/**
+		 Destructs this rendering manager.
+		 */
+		~Impl();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given rendering manager to this rendering manager.
+
+		 @param[in]		manager
+						A reference to a rendering manager to copy.
+		 @return		A reference to the copy of the given rendering manager 
+						(i.e. this rendering manager).
+		 */
+		Impl &operator=(const Impl &manager) = delete;
+
+		/**
+		 Moves the given rendering manager to this rendering manager.
+
+		 @param[in]		manager
+						A reference to a rendering manager to move.
+		 @return		A reference to the moved rendering manager (i.e. this 
+						rendering manager).
+		 */
+		Impl &operator=(Impl &&manager) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the display configuration of this rendering manager.
+
+		 @return		A pointer to the display configuration of this 
+						rendering manager.
+		 */
+		[[nodiscard]] const DisplayConfiguration *
+			GetDisplayConfiguration() const noexcept {
+
+			return m_display_configuration.get();
+		}
+
+		/**
+		 Returns the swap chain of this rendering manager.
+
+		 @return		A pointer to the swap chain of this rendering manager.
+		 */
+		[[nodiscard]] SwapChain *GetSwapChain() const noexcept {
+			return m_swap_chain.get();
+		}
+
+		/**
+		 Returns the resource manager of this rendering manager.
+
+		 @return		A pointer to the resource manager of this 
+						rendering manager.
+		 */
+		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept {
+			return m_resource_manager.get();
+		}
+
+		/**
+		 Begins a frame.
+		 */
+		void BeginFrame();
+
+		/**
+		 Renders the given scene.
+
+		 @param[in]		scene
+						A reference to the scene.
+		 @throws		Exception
+						Failed to render the scene.
+		 */
+		void Render(const Scene &scene);
+		
+		/**
+		 Ends a frame.
+		 */
+		void EndFrame();
+
+		/**
+		 Binds the persistent state of this rendering manager.
+
+		 @throws		Exception
+						Failed to bind the persistent state of the rendering
+						output manager of this rendering manager.
+		 @throws		Exception
+						Failed to bind the persistent state of the rendering
+						state manager of this rendering manager.
+		 */
+		void BindPersistentState();
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes the different rendering systems of this rendering manager.
+
+		 @throws		Exception
+						Failed to initialize at least one of the different 
+						rendering systems of this rendering manager.
+		 */
+		void InitializeSystems();
+
+		/**
+		 Uninitializes the different rendering systems of this rendering 
+		 manager.
+		 */
+		void UninitializeSystems() noexcept;
+
+		/**
+		 Sets up the D3D11 device and context of this rendering manager.
+
+		 @throws		Exception
+						Failed to set up the device and device context of this 
+						rendering manager.
+		 */
+		void SetupDevice();
+
+		//---------------------------------------------------------------------
+		// Member Variables: Display Configuration
+		//---------------------------------------------------------------------
+
+		/**
+		 The handle of the parent window of this rendering manager.
+		 */
+		const HWND m_window;
+
+		/**
+		 A pointer to the display configuration of this rendering manager.
+		 */
+		UniquePtr< DisplayConfiguration > m_display_configuration;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Rendering
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the feature level of this rendering manager.
+		 */
+		D3D_FEATURE_LEVEL m_feature_level;
+
+		/**
+		 A pointer to the device of this rendering manager.
+		 */
+		ComPtr< D3D11Device > m_device;
+
+		/**
+		 A pointer to the device context of this rendering manager.
+		 */
+		ComPtr< D3D11DeviceContext > m_device_context;
+
+		/**
+		 A pointer to the swap chain of this rendering manager.
+		 */
+		UniquePtr< SwapChain > m_swap_chain;
+
+		/**
+		 A pointer to the renderer of this rendering manager.
+		 */
+		UniquePtr< Renderer > m_renderer;
+
+		/**
+		 A pointer to the resource manager of this rendering manager.
+		 */
+		UniquePtr< ResourceManager > m_resource_manager;
+	};
+
+	RenderingManager::Impl::Impl(HWND window, 
+								 const DisplayConfiguration *configuration)
 		: m_window(window),
 		m_display_configuration(
-			MakeUnique< DisplayConfiguration >(*display_configuration)),
+			MakeUnique< DisplayConfiguration >(*configuration)),
 		m_feature_level(),
 		m_device(), 
 		m_device_context(), 
@@ -49,14 +264,13 @@ namespace mage {
 		InitializeSystems();
 	}
 
-	RenderingManager::RenderingManager(
-		RenderingManager &&manager) noexcept = default;
+	RenderingManager::Impl::Impl(RenderingManager::Impl &&manager) noexcept = default;
 
-	RenderingManager::~RenderingManager() {
+	RenderingManager::Impl::~Impl() {
 		UninitializeSystems();
 	}
 
-	void RenderingManager::InitializeSystems() {
+	void RenderingManager::Impl::InitializeSystems() {
 		// Setup the device and device context.
 		SetupDevice();
 		
@@ -66,23 +280,20 @@ namespace mage {
 			                                   m_display_configuration.get());
 
 		// Setup the output manager.
-		m_output_manager 
-			= MakeUnique< OutputManager >(m_device.Get(), 
-			                                       m_display_configuration->GetDisplayWidth(),
-			                                       m_display_configuration->GetDisplayHeight(),
-									               m_display_configuration->GetAADescriptor());
-		
-		// Setup the state manager.
-		m_state_manager = MakeUnique< StateManager >(m_device.Get());
-		
+		// Setup the resource manager.
+		m_resource_manager = MakeUnique< ResourceManager >(m_device.Get());
 		// Setup the renderer.
-		m_renderer = MakeUnique< Renderer >(m_device.Get(), m_device_context.Get());
+		m_renderer         = MakeUnique< Renderer >(m_device.Get(),
+													m_device_context.Get(), 
+													m_display_configuration.get(),
+													m_swap_chain.get(), 
+													m_resource_manager.get());
 
 		// Setup ImGui.
 		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());
 	}
 
-	void RenderingManager::UninitializeSystems() noexcept {
+	void RenderingManager::Impl::UninitializeSystems() noexcept {
 		// Uninitialize ImGui.
 		ImGui_ImplDX11_Shutdown();
 
@@ -95,11 +306,7 @@ namespace mage {
 		}
 	}
 
-	//-------------------------------------------------------------------------
-	// RenderingManager: D3D11 Device and Device Context
-	//-------------------------------------------------------------------------
-
-	void RenderingManager::SetupDevice() {
+	void RenderingManager::Impl::SetupDevice() {
 		// Set the runtime layers to enable.
 		U32 create_device_flags = 0u;
 		#ifdef _DEBUG
@@ -138,24 +345,79 @@ namespace mage {
 		}
 	}
 
-	//-------------------------------------------------------------------------
-	// RenderingManager: Rendering
-	//-------------------------------------------------------------------------
-
-	void RenderingManager::BeginFrame() const {
+	void RenderingManager::Impl::BeginFrame() {
 		m_swap_chain->Clear();
 		
 		ImGui_ImplDX11_NewFrame();
 	}
 
-	void RenderingManager::EndFrame() const {
+	void RenderingManager::Impl::Render(const Scene &scene) {
+		m_renderer->Render(scene);
+	}
+
+	void RenderingManager::Impl::EndFrame() {
 		ImGui::Render();
 		
 		m_swap_chain->Present();
 	}
 
-	void RenderingManager::BindPersistentState() {
+	void RenderingManager::Impl::BindPersistentState() {
 		m_state_manager->BindPersistentState();
 		m_renderer->BindPersistentState();
 	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// RenderingManager
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	[[nodiscard]] const RenderingManager *RenderingManager::Get() noexcept {
+		Assert(Engine::Get());
+
+		return Engine::Get()->GetRenderingManager();
+	}
+
+	RenderingManager::RenderingManager(HWND window, 
+									   const DisplayConfiguration *configuration) 
+		: m_impl(MakeUnique< Impl >(window, configuration)) {}
+
+	RenderingManager::RenderingManager(RenderingManager &&manager) noexcept = default;
+
+	RenderingManager::~RenderingManager() = default;
+
+	[[nodiscard]] const DisplayConfiguration *
+		RenderingManager::GetDisplayConfiguration() const noexcept {
+
+		return m_impl->GetDisplayConfiguration();
+	}
+	
+	[[nodiscard]] SwapChain *RenderingManager::GetSwapChain() const noexcept {
+		return m_impl->GetSwapChain();
+	}
+	
+	[[nodiscard]] ResourceManager *
+		RenderingManager::GetResourceManager() const noexcept {
+
+		return m_impl->GetResourceManager();
+	}
+
+	void RenderingManager::BeginFrame() {
+		m_impl->BeginFrame();
+	}
+	
+	void RenderingManager::Render(const Scene &scene) {
+		m_impl->Render(scene);
+	}
+
+	void RenderingManager::EndFrame() {
+		m_impl->EndFrame();
+	}
+	
+	void RenderingManager::BindPersistentState() {
+		m_impl->BindPersistentState();
+	}
+
+	#pragma endregion
 }

@@ -195,7 +195,6 @@
     <ClCompile Include="MAGE\src\rendering\buffer\shadow_map_buffer.cpp" />
     <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp" />
     <ClCompile Include="MAGE\src\rendering\conversion.cpp" />
-    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\back_buffer_pass.cpp" />
@@ -209,7 +208,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />

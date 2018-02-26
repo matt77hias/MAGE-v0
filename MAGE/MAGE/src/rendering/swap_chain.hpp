@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -20,21 +20,6 @@ namespace mage {
 	class SwapChain final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the swap chain of the rendering manager associated with the 
-		 current engine.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @return		A pointer to the swap chain of the rendering manager 
-						associated with the current engine.
-		 */
-		[[nodiscard]] static SwapChain *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -111,21 +96,7 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		[[nodiscard]] HWND GetWindow() noexcept {
-			return m_window;
-		}
-
-		/**
-		 Returns the display configuration of this swap chain.
-
-		 @return		A pointer to the display configuration of this swap 
-						chain.
-		 */
-		[[nodiscard]] const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept {
-
-			return m_display_configuration;
-		}
+		[[nodiscard]] HWND GetWindow() noexcept;
 
 		/**
 		 Checks whether this swap chain displays in windowed mode.
@@ -133,9 +104,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		[[nodiscard]] bool IsWindowed() const noexcept {
-			return !IsFullScreen();
-		}
+		[[nodiscard]] bool IsWindowed() const noexcept;
 		
 		/**
 		 Checks whether this swap chain displays in full screen mode.
@@ -143,11 +112,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool IsFullScreen() const noexcept {
-			BOOL current = FALSE;
-			m_swap_chain->GetFullscreenState(&current, nullptr);
-			return current == TRUE;
-		}
+		[[nodiscard]] bool IsFullScreen() const noexcept;
 		
 		/**
 		 Checks whether this swap chain lost its mode, i.e. the tracked mode of 
@@ -156,9 +121,7 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool LostMode() const noexcept {
-			return IsTrackedFullScreen() == IsWindowed();
-		}
+		[[nodiscard]] bool LostMode() const noexcept;
 
 		/**
 		 Sets the initial mode of this swap chain.
@@ -168,11 +131,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to reset up the swap chain.
 		 */
-		void SetInitialMode() {
-			if (m_display_configuration->IsFullScreen()) {
-				SwitchMode(true);
-			}
-		}
+		void SetInitialMode();
 		
 		/**
 		 Recreates the swap chain buffers and switches the mode of this swap 
@@ -199,9 +158,7 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		[[nodiscard]] ID3D11RenderTargetView *GetRTV() const noexcept {
-			return m_rtv.Get();
-		}
+		[[nodiscard]] ID3D11RenderTargetView *GetRTV() const noexcept;
 
 		/**
 		 Clears the render target view of the back buffer of this swap chain.
@@ -216,110 +173,25 @@ namespace mage {
 		/**
 		 Takes a screenshot of the current back buffer of this swap chain.
 
+		 @param[in]		fname
+						A reference to the filename.
 		 @throws		Exception
 						Failed to take a screenshot of the current back buffer 
 						of this swap chain. 
 		 */
-		void TakeScreenShot() const;
+		void TakeScreenShot(const wstring &fname) const;
 
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods: Display Configuration
+		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 Checks whether the tracked mode of this swap chain corresponds to
-		 fullscreen mode.
-
-		 @return		@c true if the tracked mode of this swap chain 
-						corresponds to fullscreen mode.
-						@c false otherwise.
-		 */
-		[[nodiscard]] bool IsTrackedFullScreen() const noexcept {
-			return m_display_configuration->IsFullScreen();
-		}
+		class Impl;
 
 		/**
-		 Sets the tracked mode of this swap chain.
-
-		 @param[in]		fullscreen
-						@c true if the tracked mode corresponds to fullscreen 
-						mode. @c false otherwise.
+		 A pointer to the implementation of this swap chain.
 		 */
-		void SetTrackedFullScreen(bool fullscreen) noexcept {
-			m_display_configuration->SetFullScreen(fullscreen);
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Swap Chain
-		//---------------------------------------------------------------------
-		
-		/**
-		 Sets up the swap chain.
-
-		 @throws		Exception
-						Failed to set up the swap chain.
-		 */
-		void SetupSwapChain();
-		
-		/**
-		 Resets the swap chain.
-
-		 @throws		Exception
-						Failed to reset up the swap chain.
-		 */
-		void ResetSwapChain();
-
-		/**
-		 Creates the swap chain.
-
-		 @throws		Exception
-						Failed to create the swap chain.
-		 */
-		void CreateSwapChain();
-		
-		/**
-		 Creates the render target view of the back buffer of this swap chain.
-
-		 @throws		Exception
-						Failed to obtain the back buffer resource of this swap 
-						chain.
-		 @throws		Exception
-						Failed to create the render target view of the back 
-						buffer of this swap chain.
-		 */
-		void CreateRTV();
-
-		//---------------------------------------------------------------------
-		// Member Variables: Display Configuration
-		//---------------------------------------------------------------------
-
-		/**
-		 The handle of the parent window of this swap chain.
-		 */
-		HWND m_window;
-
-		/**
-		 A pointer to the display configuration of this swap chain.
-		 */
-		DisplayConfiguration * const m_display_configuration;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Swap Chain
-		//---------------------------------------------------------------------
-
-		ID3D11Device * const m_device;
-
-		/**
-		 A pointer to the swap chain.
-		 */
-		ComPtr< DXGISwapChain > m_swap_chain;
-		
-		/**
-		 A pointer to the render target view of the back buffer of this swap 
-		 chain.
-		 */
-		ComPtr< ID3D11RenderTargetView > m_rtv;
+		UniquePtr< Impl > m_impl;	
 	};
 }

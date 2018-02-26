@@ -32,16 +32,6 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @throws		Exception
-						Failed to setup this constant buffer.
-		 */
-		ConstantBuffer();
-
-		/**
-		 Constructs a constant buffer.
-
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.

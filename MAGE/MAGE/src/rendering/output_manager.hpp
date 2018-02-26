@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\aa_descriptor.hpp"
-#include "rendering\pipeline.hpp"
+#include "rendering\swap_chain.hpp"
 
 #pragma endregion
 
@@ -23,21 +22,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the output manager of the rendering manager 
-		 associated with the current engine.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @return		A pointer to the output manager of the 
-						rendering manager associated with the current engine.
-		 */
-		[[nodiscard]] static const OutputManager *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -45,22 +29,21 @@ namespace mage {
 		 Constructs a output manager.
 
 		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a display_configuration is not equal to @c nullptr.
+		 @pre			@a swap_chain is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		width
-						The width in pixels of the back buffer.
-		 @param[in]		height
-						The height in pixels of the back buffer.
-		 @param[in]		desc
-						The Anti-Aliasing descriptor.
+		 @param[in]		display_configuration
+						A pointer to the display configuration.
+		  @param[in]	swap_chain
+						A pointer to the swap chain.
 		 @throws		Exception
 						Failed to setup the rendering outputs of this output 
 						manager.
 		 */
 		explicit OutputManager(ID3D11Device *device, 
-			                   U32 width, 
-			                   U32 height, 
-			                   AADescriptor desc);
+							   DisplayConfiguration *display_configuration,
+							   SwapChain *swap_chain);
 
 		/**
 		 Constructs a output manager from the given output manager.
@@ -198,13 +181,9 @@ namespace mage {
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 
-		void SetupBuffers(ID3D11Device *device, 
-			              U32 width, 
-			              U32 height, 
-			              AADescriptor desc);
+		void SetupBuffers();
 
-		void SetupBuffer(ID3D11Device *device, 
-			             U32 width, 
+		void SetupBuffer(U32 width, 
 			             U32 height, 
 			             U32 nb_samples, 
 			             DXGI_FORMAT format,
@@ -212,14 +191,17 @@ namespace mage {
 			             ID3D11RenderTargetView **rtv, 
 			             ID3D11UnorderedAccessView **uav);
 
-		void SetupDepthBuffer(ID3D11Device *device, 
-			                  U32 width, 
+		void SetupDepthBuffer(U32 width, 
 			                  U32 height, 
 			                  U32 nb_samples);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		DisplayConfiguration * const m_display_configuration;
+		ID3D11Device * const m_device;
+		SwapChain * const m_swap_chain;
 
 		ComPtr< ID3D11ShaderResourceView > m_srvs[
 			static_cast< size_t >(SRVIndex::Count)];

@@ -33,35 +33,6 @@ namespace mage {
 						The vertex type.
 		 @tparam		IndexT
 						The index type.
-		 @pre			The device associated with the current engine
-						must be loaded.
-		 @pre			The resource manager associated with the current engine
-						must be loaded.
-		 @tparam		VertexT
-						The vertex type.
-		 @param[in]		fname
-						The filename (the globally unique identifier).
-		 @param[in]		desc
-						A reference to the mesh descriptor.
-		 @param[in]		export_as_MDL
-						@c true if the model descriptor needs to be
-						exported as MDL file. @c false otherwise.
-		 @throws		Exception
-						Failed to initialize the model descriptor.
-		 */
-		template< typename VertexT, typename IndexT >
-		explicit ModelDescriptor(wstring fname, 
-			const MeshDescriptor< VertexT, IndexT > &desc 
-			    = MeshDescriptor< VertexT, IndexT >(),
-			bool export_as_MDL = false);
-
-		/**
-		 Constructs a model descriptor.
-
-		 @tparam		VertexT
-						The vertex type.
-		 @tparam		IndexT
-						The index type.
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The resource manager associated with the current engine
 						must be loaded.

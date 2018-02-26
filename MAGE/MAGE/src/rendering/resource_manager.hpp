@@ -31,7 +31,6 @@ namespace mage {
 
 		/**
 		 A struct of resource records.
-
 		 @tparam		ResourceT
 						The resource type.
 		 */
@@ -162,7 +161,6 @@ namespace mage {
 		/**
 		 The pool type of resource pools containing resources of the given 
 		 type.
-
 		 @tparam		ResourceT
 						The resource type.
 		 */
@@ -172,7 +170,6 @@ namespace mage {
 		/**
 		 The key type of resource pools containing resources of the given 
 		 type.
-
 		 @tparam		ResourceT
 						The resource type.
 		 */
@@ -182,7 +179,6 @@ namespace mage {
 		/**
 		 The value type of resource pools containing resources of the given 
 		 type.
-
 		 @tparam		ResourceT
 						The resource type.
 		 */
@@ -192,26 +188,17 @@ namespace mage {
 		#pragma endregion
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the resource manager associated with the current engine.
-
-		 @pre			The current engine must exist.
-		 @return		A pointer to the resource manager associated with the 
-						current engine.
-		 */
-		[[nodiscard]] static ResourceManager *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a resource manager.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
 		 */
-		ResourceManager();
+		ResourceManager(ID3D11Device *device);
 		
 		/**
 		 Constructs a resource manager from the given resource manager.
@@ -355,6 +342,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		 The device of this resource manager.
+		 */
+		ID3D11Device * const m_device;
 
 		/**
 		 The model descriptor resource pool of this resource manager.

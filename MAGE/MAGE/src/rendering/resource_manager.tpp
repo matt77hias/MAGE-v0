@@ -113,7 +113,7 @@ namespace mage {
 
 		return GetPool< ResourceT >().template
 			GetOrCreate< key_type< ResourceT >, ConstructorArgsT... >(
-				guid, key_type< ResourceT >(guid),
+				guid, key_type< ResourceT >(guid), m_device,
 				std::forward< ConstructorArgsT >(args)...);
 	}
 

@@ -26,22 +26,6 @@ namespace mage {
 
 	public:
 
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a structured buffer.
-
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @param[in]		capacity
-						The initial capacity.
-		 @throws		Exception
-						Failed to setup this structured buffer.
-		 */
-		explicit StructuredBuffer(size_t capacity);
-		
 		/**
 		 Constructs a structured buffer.
 
@@ -125,26 +109,7 @@ namespace mage {
 		/**
 		 Updates the data of this structured buffer with the given data.
 
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		data
-						A reference to a vector containing the data elements.
-		  @throws		Exception
-						Failed to update the data.
-		 */
-		void UpdateData(ID3D11DeviceContext *device_context, 
-			            const AlignedVector< DataT > &data);
-
-		/**
-		 Updates the data of this structured buffer with the given data.
-
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		data
@@ -152,8 +117,7 @@ namespace mage {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11Device *device, 
-			            ID3D11DeviceContext *device_context,
+		void UpdateData(ID3D11DeviceContext *device_context,
 			            const AlignedVector< DataT > &data);
 
 		/**

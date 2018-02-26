@@ -6,21 +6,11 @@
 #pragma region
 
 #include "rendering\display_configuration.hpp"
-#include "scripting\variable_script.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"./DisplaySettings.var"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -126,111 +116,19 @@ namespace mage {
 						of this display configurator.
 		 */
 		[[nodiscard]] const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept {
-
-			return m_display_configuration.get();
-		}
+			GetDisplayConfiguration() const noexcept;
 
 	private:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Engine-defined callback function used with the CreateDialog for 
-		 display configuration.
-
-		 @param[in]		dialog
-						A handle to the dialog box.
-		 @param[in]		message
-						The message.
-		 @param[in]		wParam
-						Additional message-specific information.
-		 @param[in]		lParam
-						Additional message-specific information.
-		 @return		@c true if @a message is processed. @c false otherwise.
-		 */
-		[[nodiscard]] static INT_PTR CALLBACK DisplayDialogProcDelegate(
-			HWND dialog, UINT message, WPARAM wParam, LPARAM lParam);
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes the adapter and the output this display configurator.
-
-		 @throws		Exception
-						Failed to initialize the adapter and the output of this 
-						display configurator.
-		 */
-		void InitializeAdapterAndOutput();
-
-		/**
-		 Initializes the display modes of this display configurator.
-
-		 @throws		Exception
-						Failed to initialize the display modes of this display 
-						configurator.
-		 */
-		void InitializeDisplayModes();
-
-		/**
-		 Engine-defined callback function used with the CreateDialog for 
-		 display configuration.
-
-		 @param[in]		dialog
-						A handle to the dialog box.
-		 @param[in]		message
-						The message.
-		 @param[in]		wParam
-						Additional message-specific information.
-		 @param[in]		lParam
-						Additional message-specific information.
-		 @return		@c true if @a message is processed. @c false otherwise.
-		 */
-		[[nodiscard]] INT_PTR DisplayDialogProc(HWND dialog, 
-			                                    UINT message,
-			                                    [[maybe_unused]] WPARAM wParam, 
-			                                    [[maybe_unused]] LPARAM lParam);
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
-		/**
-		 The supported pixel format of this display configurator.
-		 */
-		DXGI_FORMAT m_pixel_format;
+
+		class Impl;
 
 		/**
-		 A pointer to the display configuration of this display configurator.
+		 A pointer to the implementation of this display configurator.
 		 */
-		UniquePtr< DisplayConfiguration > m_display_configuration;
-
-		/**
-		 A pointer to the script which stores the display configuration
-		 of this display configurator.
-		 */
-		UniquePtr< VariableScript > m_display_configuration_script;
-
-		/**
-		 A pointer to the adapter (e.g. video card) of this display 
-		 configurator.
-		 */
-		ComPtr< DXGIAdapter > m_adapter;
-
-		/**
-		 A pointer to the output (e.g. screen monitor) of this display 
-		 configurator.
-		 */
-		ComPtr< DXGIOutput > m_output;
-
-		/**
-		 The enumerated display modes of this display 
-		 configurator.
-		 */
-		std::vector< DXGI_MODE_DESC > m_display_modes;
+		UniquePtr< Impl > m_impl;
 	};
 }

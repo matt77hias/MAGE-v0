@@ -29,18 +29,6 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @param[in]		fname
-						The filename (the globally unique identifier).
-		 @throws		Exception
-						Failed to initialize the texture.
-		 */
-		explicit Texture(wstring fname);
-
-		/**
-		 Constructs a texture.
-
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
@@ -52,26 +40,6 @@ namespace mage {
 						Failed to initialize the texture.
 		 */
 		explicit Texture(wstring fname, ID3D11Device *device);
-
-		/**
-		 Constructs a 2D texture.
-
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @pre			@a desc is not equal to @c nullptr.
-		 @pre			@a initial_data is not equal to @c nullptr.
-		 @param[in]		guid
-						The globally unique identifier.
-		 @param[in]		desc
-						A pointer to the texture descriptor.
-		 @param[in]		initial_data
-						A pointer to the initial data.
-		 @throws		Exception
-						Failed to initialize the texture.
-		 */
-		explicit Texture(wstring guid,
-			             const D3D11_TEXTURE2D_DESC *desc,
-			             const D3D11_SUBRESOURCE_DATA *initial_data);
 
 		/**
 		 Constructs a 2D texture.

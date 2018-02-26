@@ -17,11 +17,6 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >
-		::Shader(wstring guid, const CompiledShader &compiled_shader)
-		: Shader(std::move(guid), Pipeline::GetDevice(), compiled_shader) {}
-
-	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >
 		::Shader(wstring guid, ID3D11Device *device, 
 			const CompiledShader &compiled_shader)
 		: Resource< Shader >(std::move(guid)), 

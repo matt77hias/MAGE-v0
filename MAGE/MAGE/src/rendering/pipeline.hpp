@@ -31,28 +31,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods: Device and DeviceContext
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the device.
-
-		 @pre			The rendering manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the device.
-		 */
-		[[nodiscard]] static D3D11Device *GetDevice() noexcept;
-
-		/**
-		 Returns the immediate device context.
-
-		 @pre			The rendering manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the immediate device context.
-		 */
-		[[nodiscard]] static D3D11DeviceContext *GetImmediateDeviceContext() noexcept;
-
-		//---------------------------------------------------------------------
 		// Class Member Methods: Drawing and Dispatching
 		//---------------------------------------------------------------------
 		#pragma region
@@ -2077,13 +2055,20 @@ namespace mage {
 			D3D_FEATURE_LEVEL_11_0
 		};
 
+		/**
+		 The number of draw calls
+		 */
+		static U32 s_nb_draws;
+
 	private:
 
 		//---------------------------------------------------------------------
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
-		static void OnDraw() noexcept;
+		static void OnDraw() noexcept {
+			++s_nb_draws;
+		}
 	};
 
 	/**

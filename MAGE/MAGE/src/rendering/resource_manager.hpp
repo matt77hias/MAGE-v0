@@ -46,7 +46,7 @@ namespace mage {
 		 */
 		template< typename ResourceT >
 		struct ResourceRecord< ResourceT, 
-			typename std::enable_if_t< std::negation_v< is_shader_v< ResourceT > > > > final {
+			typename std::enable_if_t< !is_shader_v< ResourceT > > > final {
 
 		public:
 

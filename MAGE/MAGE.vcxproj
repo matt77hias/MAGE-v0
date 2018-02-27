@@ -136,7 +136,6 @@
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
-    <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\sprite\font\color_string.hpp" />
     <ClInclude Include="MAGE\src\sprite\font\glyph.hpp" />
     <ClInclude Include="MAGE\src\sprite\font\sprite_font.hpp" />
@@ -146,7 +145,6 @@
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_text.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
-    <ClInclude Include="MAGE\src\texture\guids.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
   </ItemGroup>

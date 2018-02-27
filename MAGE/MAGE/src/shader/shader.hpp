@@ -366,24 +366,27 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Type Traits
 	//-------------------------------------------------------------------------
-	
+	#pragma region
+
 	template< typename T >
 	struct is_shader : public std::false_type {};
-	template< typename VertexShader >
-	struct is_shader : public std::true_type {};
-	template< typename HullShader >
-	struct is_shader : public std::true_type {};
-	template< typename DomainShader >
-	struct is_shader : public std::true_type {};
-	template< typename GeometryShader >
-	struct is_shader : public std::true_type {};
-	template< typename PixelShader >
-	struct is_shader : public std::true_type {};
-	template< typename ComputeShader >
-	struct is_shader : public std::true_type {};
+	template<>
+	struct is_shader< VertexShader >   : public std::true_type {};
+	template<>
+	struct is_shader< HullShader >     : public std::true_type {};
+	template<>
+	struct is_shader< DomainShader >   : public std::true_type {};
+	template<>
+	struct is_shader< GeometryShader > : public std::true_type {};
+	template<>
+	struct is_shader< PixelShader >    : public std::true_type {};
+	template<>
+	struct is_shader< ComputeShader >  : public std::true_type {};
 
 	template< typename T >
 	inline constexpr bool is_shader_v = is_shader< T >::value;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

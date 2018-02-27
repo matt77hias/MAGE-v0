@@ -222,9 +222,6 @@
     <ClInclude Include="MAGE\src\model\model_output.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\shading.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\vertex.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -296,9 +293,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\shader_factory.hpp">
       <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\texture\guids.hpp">
-      <Filter>Header Files\texture</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\camera\viewport.hpp">
       <Filter>Header Files\camera</Filter>

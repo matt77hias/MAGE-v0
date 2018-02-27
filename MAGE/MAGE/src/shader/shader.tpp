@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "rendering\pipeline.hpp"
 #include "logging\error.hpp"
 #include "exception\exception.hpp"
 

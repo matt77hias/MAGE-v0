@@ -14,97 +14,91 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declaration.
+	// Forward declarations.
 	class Texture;
+	class ResourceManager;
 
 	/**
 	 Creates a MAGE texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateMAGETexture();
+	SharedPtr< const Texture > CreateMAGETexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a reference texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateReferenceTexture();
+	SharedPtr< const Texture > CreateReferenceTexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a black texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateBlackTexture();
+	SharedPtr< const Texture > CreateBlackTexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a white texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateWhiteTexture();
+	SharedPtr< const Texture > CreateWhiteTexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a red texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateRedTexture();
+	SharedPtr< const Texture > CreateRedTexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a green texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateGreenTexture();
+	SharedPtr< const Texture > CreateGreenTexture(ResourceManager *resource_manager);
 
 	/**
 	 Creates a blue texture.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @pre			@a resource_manager is not equal to @c nullptr.
+	 @param[in]		resource_manager
+					A pointer to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateBlueTexture();
+	SharedPtr< const Texture > CreateBlueTexture(ResourceManager *resource_manager);
 }

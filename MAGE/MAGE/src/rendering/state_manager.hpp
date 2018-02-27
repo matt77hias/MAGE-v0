@@ -89,11 +89,14 @@ namespace mage {
 		/**
 		 Binds the persistent state of this state manager.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		Exception
 						Failed to bind the persistent state of this state 
 						manager.
 		 */
-		void BindPersistentState() const noexcept;
+		void BindPersistentState(ID3D11DeviceContext *device_context) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Blend States

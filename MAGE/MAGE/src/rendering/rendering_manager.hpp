@@ -127,9 +127,16 @@ namespace mage {
 		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept;
 
 		/**
-		 Begins a frame.
+		 Binds the persistent state of this rendering manager.
+
+		 @throws		Exception
+						Failed to bind the persistent state of this rendering 
+						manager.
+		 @throws		Exception
+						Failed to bind the persistent state of this rendering 
+						manager.
 		 */
-		void BeginFrame();
+		void BindPersistentState();
 
 		/**
 		 Renders the given scene.
@@ -140,23 +147,6 @@ namespace mage {
 						Failed to render the scene.
 		 */
 		void Render(const Scene &scene);
-		
-		/**
-		 Ends a frame.
-		 */
-		void EndFrame();
-
-		/**
-		 Binds the persistent state of this rendering manager.
-
-		 @throws		Exception
-						Failed to bind the persistent state of the rendering
-						output manager of this rendering manager.
-		 @throws		Exception
-						Failed to bind the persistent state of the rendering
-						state manager of this rendering manager.
-		 */
-		void BindPersistentState();
 
 	private:
 

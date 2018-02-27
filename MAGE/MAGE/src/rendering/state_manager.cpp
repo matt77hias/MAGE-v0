@@ -317,7 +317,9 @@ namespace mage {
 		}
 	}
 
-	void StateManager::BindPersistentState() const noexcept {
+	void StateManager::BindPersistentState(
+		ID3D11DeviceContext *device_context) const noexcept {
+
 		static_assert(SLOT_SAMPLER_POINT_CLAMP        == SLOT_SAMPLER_POINT_WRAP + 1);
 		static_assert(SLOT_SAMPLER_POINT_MIRROR       == SLOT_SAMPLER_POINT_WRAP + 2);
 		static_assert(SLOT_SAMPLER_LINEAR_WRAP        == SLOT_SAMPLER_POINT_WRAP + 3);
@@ -343,7 +345,7 @@ namespace mage {
 		};
 
 		// Bind the samplers.
-		Pipeline::BindSamplers(Pipeline::GetImmediateDeviceContext(),
+		Pipeline::BindSamplers(device_context,
 							   SLOT_SAMPLER_POINT_WRAP,
 			                   static_cast< U32 >(std::size(samplers)),
 			                   samplers);

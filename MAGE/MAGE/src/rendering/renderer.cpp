@@ -323,6 +323,8 @@ namespace mage {
 	Renderer::Impl::~Impl() = default;
 
 	void Renderer::Impl::BindPersistentState() {
+		m_state_manager->BindPersistentState(m_device_context);
+		
 		GameBuffer buffer;
 		buffer.m_display_width                = m_display_configuration->GetDisplayWidth();
 		buffer.m_display_height               = m_display_configuration->GetDisplayHeight();

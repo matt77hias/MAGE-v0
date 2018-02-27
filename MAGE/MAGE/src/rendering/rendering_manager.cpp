@@ -135,9 +135,16 @@ namespace mage {
 		}
 
 		/**
-		 Begins a frame.
+		 Binds the persistent state of this rendering manager.
+
+		 @throws		Exception
+						Failed to bind the persistent state of this rendering 
+						manager.
+		 @throws		Exception
+						Failed to bind the persistent state of this rendering 
+						manager.
 		 */
-		void BeginFrame();
+		void BindPersistentState();
 
 		/**
 		 Renders the given scene.
@@ -149,23 +156,6 @@ namespace mage {
 		 */
 		void Render(const Scene &scene);
 		
-		/**
-		 Ends a frame.
-		 */
-		void EndFrame();
-
-		/**
-		 Binds the persistent state of this rendering manager.
-
-		 @throws		Exception
-						Failed to bind the persistent state of the rendering
-						output manager of this rendering manager.
-		 @throws		Exception
-						Failed to bind the persistent state of the rendering
-						state manager of this rendering manager.
-		 */
-		void BindPersistentState();
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -254,9 +244,8 @@ namespace mage {
 		m_device(), 
 		m_device_context(), 
 		m_swap_chain(), 
-		m_renderer(), 
-		m_output_manager(), 
-		m_state_manager() {
+		m_renderer(),
+		m_resource_manager() {
 
 		Assert(m_window);
 		Assert(m_display_configuration);
@@ -345,25 +334,20 @@ namespace mage {
 		}
 	}
 
-	void RenderingManager::Impl::BeginFrame() {
-		m_swap_chain->Clear();
-		
-		ImGui_ImplDX11_NewFrame();
+	void RenderingManager::Impl::BindPersistentState() {
+		m_renderer->BindPersistentState();
 	}
 
 	void RenderingManager::Impl::Render(const Scene &scene) {
-		m_renderer->Render(scene);
-	}
+		m_swap_chain->Clear();
 
-	void RenderingManager::Impl::EndFrame() {
-		ImGui::Render();
+		ImGui_ImplDX11_NewFrame();
 		
-		m_swap_chain->Present();
-	}
+		m_renderer->Render(scene);
 
-	void RenderingManager::Impl::BindPersistentState() {
-		m_state_manager->BindPersistentState();
-		m_renderer->BindPersistentState();
+		ImGui::Render();
+
+		m_swap_chain->Present();
 	}
 
 	#pragma endregion
@@ -403,20 +387,12 @@ namespace mage {
 		return m_impl->GetResourceManager();
 	}
 
-	void RenderingManager::BeginFrame() {
-		m_impl->BeginFrame();
-	}
-	
-	void RenderingManager::Render(const Scene &scene) {
-		m_impl->Render(scene);
-	}
-
-	void RenderingManager::EndFrame() {
-		m_impl->EndFrame();
-	}
-	
 	void RenderingManager::BindPersistentState() {
 		m_impl->BindPersistentState();
+	}
+
+	void RenderingManager::Render(const Scene &scene) {
+		m_impl->Render(scene);
 	}
 
 	#pragma endregion

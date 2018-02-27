@@ -43,14 +43,14 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// WindowListener
+	// WindowMessageListener
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	/**
-	 A class of window listeners.
+	 A class of window message listeners.
 	 */
-	class WindowListener {
+	class WindowMessageListener {
 
 	public:
 
@@ -59,54 +59,60 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a window listener.
+		 Constructs a window message listener.
 		 */
-		WindowListener() noexcept;
+		WindowMessageListener() noexcept;
 
 		/**
-		 Constructs a window listener from the given window listener.
+		 Constructs a window message listener from the given window message 
+		 listener.
 
 		 @param[in]		listener
-						A reference to the window listener to copy.
+						A reference to the window message listener to copy.
 		 */
-		WindowListener(const WindowListener &listener) noexcept;
+		WindowMessageListener(const WindowMessageListener &listener) noexcept;
 
 		/**
-		 Constructs a window listener by moving the given window listener.
+		 Constructs a window message listener by moving the given window message 
+		 listener.
 
 		 @param[in]		listener
-						A reference to the window listener to move.
+						A reference to the window message listener to move.
 		 */
-		WindowListener(WindowListener &&listener) noexcept;
+		WindowMessageListener(WindowMessageListener &&listener) noexcept;
 
 		/**
-		 Destructs this window listener.
+		 Destructs this window message listener.
 		 */
-		virtual ~WindowListener();
+		virtual ~WindowMessageListener();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given window listener to this window listener.
+		 Copies the given window message listener to this window message 
+		 listener.
 
 		 @param[in]		listener
-						A reference to the window listener to copy.
-		 @return		A reference to the copy of the given window listener 
-						(i.e. this window listener).
+						A reference to the window message listener to copy.
+		 @return		A reference to the copy of the given window message 
+						listener (i.e. this window message listener).
 		 */
-		WindowListener &operator=(const WindowListener &listener) noexcept;
+		WindowMessageListener &operator=(
+			const WindowMessageListener &listener) noexcept;
 
 		/**
-		 Moves the given window listener to this window listener.
+		 Moves the given window message listener to this window message 
+		 listener.
 
 		 @param[in]		listener
-						A reference to the window listener to move.
-		 @return		A reference to the moved window listener (i.e. this 
-						window listener).
+						A reference to the window message listener to move.
+		 @return		A reference to the moved window message listener (i.e. 
+						this window message listener).
 		 */
-		WindowListener &operator=(WindowListener &&listener) noexcept;
+		WindowMessageListener &operator=(
+			WindowMessageListener &&listener) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -125,13 +131,114 @@ namespace mage {
 		 @param[in]		lParam
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
-		 @return		The return value is the result of the message 
-						processing and depends on the message sent.
 		 */
-		virtual void HandleMessage(HWND window, 
-								   UINT message, 
-								   WPARAM wParam, 
-								   LPARAM lParam) const = 0;
+		virtual void ProcessWindowMessage(HWND window, 
+										  UINT message, 
+										  WPARAM wParam, 
+										  LPARAM lParam) const = 0;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// WindowMessageHandler
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of window message handlers.
+	 */
+	class WindowMessageHandler {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a window message handler.
+		 */
+		WindowMessageHandler() noexcept;
+
+		/**
+		 Constructs a window message handler from the given window message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the window message handler to copy.
+		 */
+		WindowMessageHandler(const WindowMessageHandler &handler) noexcept;
+
+		/**
+		 Constructs a window message handler by moving the given window message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the window message handler to move.
+		 */
+		WindowMessageHandler(WindowMessageHandler &&handler) noexcept;
+
+		/**
+		 Destructs this window message handler.
+		 */
+		virtual ~WindowMessageHandler();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given window message handler to this window message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the window message handler to copy.
+		 @return		A reference to the copy of the given window message 
+						handler (i.e. this window message handler).
+		 */
+		WindowMessageHandler &operator=(
+			const WindowMessageHandler &handler) noexcept;
+
+		/**
+		 Moves the given window message handler to this window message handler.
+
+		 @param[in]		handler
+						A reference to the window message handler to move.
+		 @return		A reference to the moved window message handler (i.e. 
+						this window message handler).
+		 */
+		WindowMessageHandler &operator=(
+			WindowMessageHandler &&handler) noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Handles the given message sent to a window.
+
+		 @param[in]		window
+						A handle to the window.
+		 @param[in]		message
+						The message.
+		 @param[in]		wParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[in]		lParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[out]	result
+						The result of the message processing in case the 
+						message is handled by this window message handler.
+		 @return		@c true if the given message is handled by this window 
+						message handler. @c false otherwise.
+		 */
+		[[nodiscard]] virtual bool HandleWindowMessage(HWND window, 
+													   UINT message, 
+													   WPARAM wParam, 
+													   LPARAM lParam, 
+													   LRESULT &result) const = 0;
 	};
 
 	#pragma endregion
@@ -270,6 +377,12 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Types
+		//---------------------------------------------------------------------
+
+		using WindowDescriptorPtr = SharedPtr< const WindowDescriptor >;
+
+		//---------------------------------------------------------------------
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
@@ -299,7 +412,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The default window style.
+		 The default window style of windows.
 		 */
 		static constexpr DWORD s_default_window_style = WS_OVERLAPPED 
 			                                          | WS_CAPTION 
@@ -327,7 +440,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the window.
 		 */
-		explicit Window(SharedPtr< const WindowDescriptor > window_desc, 
+		explicit Window(WindowDescriptorPtr window_desc,
 						const wstring &title_text, 
 						U32 width, 
 						U32 height,
@@ -396,9 +509,7 @@ namespace mage {
 		 
 		 @return		A pointer to the window descriptor of this window.
 		 */
-		[[nodiscard]] SharedPtr< const WindowDescriptor >
-			GetWindowDescriptor() const noexcept {
-
+		[[nodiscard]] WindowDescriptorPtr GetWindowDescriptor() const noexcept {
 			return m_window_desc;
 		}
 
@@ -449,31 +560,38 @@ namespace mage {
 		void SetTitleText(const wchar_t *title_text);
 
 		/**
-		 Adds the given listener to this window.
+		 Adds the given window message listener to this window.
 
 		 @param[in]		listener
-						A pointer to the listener to add.
+						A pointer to the window message listener to add.
 		 */
-		void AddListener(const WindowListener *listener);
+		void AddListener(const WindowMessageListener *listener);
 
 		/**
-		 Removes the given listener from this window.
+		 Removes the given window message listener from this window.
 
 		 @param[in]		listener
-						A pointer to the listener to remove.
+						A pointer to the window message listener to remove.
 		 */
-		void RemoveListener(const WindowListener *listener);
+		void RemoveListener(const WindowMessageListener *listener);
+
+		/**
+		 Adds the given window message handler to this window.
+
+		 @param[in]		handler
+						A pointer to the window message handler to add.
+		 */
+		void AddHandler(const WindowMessageHandler *handler);
+
+		/**
+		 Removes the given window message handler from this window.
+
+		 @param[in]		handler
+						A pointer to the window message handler to remove.
+		 */
+		void RemoveHandler(const WindowMessageHandler *handler);
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Friends
-		//---------------------------------------------------------------------
-
-		friend LRESULT CALLBACK HandleWindowMessage(HWND window,
-													UINT message,
-													WPARAM wParam,
-													LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -511,6 +629,31 @@ namespace mage {
 		void InitializeWindow(const wstring &title_text, 
 							  const RECT &rectangle, DWORD style);
 
+		/**
+		 Handles the given message sent to this window.
+
+		 @param[in]		window
+						A handle to the window.
+		 @param[in]		message
+						The message.
+		 @param[in]		wParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[in]		lParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[out]	result
+						The result of the message processing in case the 
+						message is handled by this window.
+		 @return		@c true if the given message is handled by this window. 
+						@c false otherwise.
+		 */
+		[[nodiscard]] bool HandleWindowMessage(HWND window, 
+											   UINT message, 
+											   WPARAM wParam, 
+											   LPARAM lParam, 
+											   LRESULT &result) const;
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -518,7 +661,7 @@ namespace mage {
 		/**
 		 A pointer to the window descriptor of this window.
 		 */
-		const SharedPtr< const WindowDescriptor > m_window_desc;
+		const WindowDescriptorPtr m_window_desc;
 
 		/**
 		 The window handle of this window.
@@ -526,9 +669,14 @@ namespace mage {
 		HWND m_window;
 
 		/**
-		 A vector containing the listeners of this window.
+		 A vector containing the message listeners of this window.
 		 */
-		std::vector< const WindowListener * > m_listeners;
+		std::vector< const WindowMessageListener * > m_listeners;
+
+		/**
+		 A vector containing the message handler of this window.
+		 */
+		std::vector< const WindowMessageHandler * > m_handlers;
 	};
 
 	#pragma endregion

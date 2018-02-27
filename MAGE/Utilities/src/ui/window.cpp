@@ -26,23 +26,48 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// WindowListener
+	// WindowMessageListener
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	WindowListener::WindowListener() noexcept = default;
+	WindowMessageListener::WindowMessageListener() noexcept = default;
 
-	WindowListener::WindowListener(const WindowListener &listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(
+		const WindowMessageListener &listener) noexcept = default;
 
-	WindowListener::WindowListener(WindowListener &&listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(
+		WindowMessageListener &&listener) noexcept = default;
 
-	WindowListener::~WindowListener() = default;
+	WindowMessageListener::~WindowMessageListener() = default;
 
-	WindowListener &WindowListener
-		::operator=(const WindowListener &listener) noexcept = default;
+	WindowMessageListener &WindowMessageListener
+		::operator=(const WindowMessageListener &listener) noexcept = default;
 
-	WindowListener &WindowListener
-		::operator=(WindowListener &&listener) noexcept = default;
+	WindowMessageListener &WindowMessageListener
+		::operator=(WindowMessageListener &&listener) noexcept = default;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// WindowMessageHandler
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	WindowMessageHandler::WindowMessageHandler() noexcept = default;
+
+	WindowMessageHandler::WindowMessageHandler(
+		const WindowMessageHandler &handler) noexcept = default;
+
+	WindowMessageHandler::WindowMessageHandler(
+		WindowMessageHandler &&handler) noexcept = default;
+
+	WindowMessageHandler::~WindowMessageHandler() = default;
+
+	WindowMessageHandler &WindowMessageHandler
+		::operator=(const WindowMessageHandler &handler) noexcept = default;
+
+	WindowMessageHandler &WindowMessageHandler
+		::operator=(WindowMessageHandler &&handler) noexcept = default;
 
 	#pragma endregion
 
@@ -102,18 +127,21 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] LRESULT CALLBACK Window::HandleWindowMessage(HWND window, 
-															   UINT message, 
-															   WPARAM wParam, 
+	[[nodiscard]] LRESULT CALLBACK Window::HandleWindowMessage(HWND window,
+															   UINT message,
+															   WPARAM wParam,
 															   LPARAM lParam) {
-		
-		auto * const caller = GetWindowCaller< Window >
-			                  (window, message, wParam, lParam);
-		
-		for (auto listener : caller->m_listeners) {
-			listener->HandleMessage(window, message, wParam, lParam);
+		// Window dependent message handling.
+		{
+			auto * const caller = GetWindowCaller< Window >
+				                  (window, message, wParam, lParam);
+			LRESULT result;
+			if (caller->HandleWindowMessage(window, message, wParam, lParam, result)) {
+				return result;
+			}
 		}
-		
+
+		// Window independent message handling.
 		switch (message) {
 		
 		case WM_DESTROY: {
@@ -162,12 +190,13 @@ namespace mage {
 		return 0;
 	}
 
-	Window::Window(SharedPtr< const WindowDescriptor > window_desc, 
+	Window::Window(WindowDescriptorPtr window_desc,
 				   const wstring &title_text, 
 				   U32 width, U32 height, DWORD style) 
 		: m_window_desc(std::move(window_desc)), 
 		m_window(nullptr), 
-		m_listeners() {
+		m_listeners(), 
+		m_handlers() {
 
 		Assert(m_window_desc);
 
@@ -254,6 +283,10 @@ namespace mage {
 		return 0 == result ? L"" : text;
 	}
 
+	void Window::SetTitleText(const wstring &title_text) {
+		SetTitleText(title_text.c_str());
+	}
+
 	void Window::SetTitleText(const wchar_t *title_text) {
 		Assert(title_text);
 
@@ -261,7 +294,7 @@ namespace mage {
 		ThrowIfFailed(result, "Failed to set the title window text.");
 	}
 
-	void Window::AddListener(const WindowListener *listener) {
+	void Window::AddListener(const WindowMessageListener *listener) {
 		if (!listener) {
 			return;
 		}
@@ -269,13 +302,50 @@ namespace mage {
 		m_listeners.push_back(listener);
 	}
 
-	void Window::RemoveListener(const WindowListener *listener) {
+	void Window::RemoveListener(const WindowMessageListener *listener) {
 		if (!listener) {
 			return;
 		}
 
 		m_listeners.erase(std::remove(m_listeners.begin(), m_listeners.end(), listener), 
 						  m_listeners.end());
+	}
+
+	void Window::AddHandler(const WindowMessageHandler *handler) {
+		if (!handler) {
+			return;
+		}
+
+		m_handlers.push_back(handler);
+	}
+
+	void Window::RemoveHandler(const WindowMessageHandler *handler) {
+		if (!handler) {
+			return;
+		}
+
+		m_handlers.erase(std::remove(m_handlers.begin(), m_handlers.end(), handler),
+						 m_handlers.end());
+	}
+
+	[[nodiscard]] bool Window::HandleWindowMessage(HWND window, 
+												   UINT message, 
+												   WPARAM wParam, 
+												   LPARAM lParam, 
+												   LRESULT &result) const {
+		// Notify the window message listeners.
+		for (auto listener : m_listeners) {
+			listener->ProcessWindowMessage(window, message, wParam, lParam);
+		}
+
+		// Notify the window message handlers.
+		for (auto handler : m_handlers) {
+			if (handler->HandleWindowMessage(window, message, wParam, lParam, result)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	#pragma endregion

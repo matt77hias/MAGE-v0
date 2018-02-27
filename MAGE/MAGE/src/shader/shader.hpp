@@ -362,6 +362,28 @@ namespace mage {
 	using ComputeShaderPtr = SharedPtr< const ComputeShader >;
 
 	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Traits
+	//-------------------------------------------------------------------------
+	
+	template< typename T >
+	struct is_shader : public std::false_type {};
+	template< typename VertexShader >
+	struct is_shader : public std::true_type {};
+	template< typename HullShader >
+	struct is_shader : public std::true_type {};
+	template< typename DomainShader >
+	struct is_shader : public std::true_type {};
+	template< typename GeometryShader >
+	struct is_shader : public std::true_type {};
+	template< typename PixelShader >
+	struct is_shader : public std::true_type {};
+	template< typename ComputeShader >
+	struct is_shader : public std::true_type {};
+
+	template< typename T >
+	inline constexpr bool is_shader_v = is_shader< T >::value;
 }
 
 //-----------------------------------------------------------------------------

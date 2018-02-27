@@ -33,8 +33,7 @@ namespace mage {
 	struct Vector2;
 
 	template< typename T >
-	struct Vector2< T,
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+	struct Vector2< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -100,8 +99,7 @@ namespace mage {
 	struct Vector3;
 
 	template< typename T >
-	struct Vector3< T, 
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+	struct Vector3< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -171,8 +169,7 @@ namespace mage {
 	struct Vector4;
 
 	template< typename T >
-	struct Vector4< T, 
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+	struct Vector4< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -250,7 +247,7 @@ namespace mage {
 
 	template< typename T >
 	struct alignas(16) Vector2A< T,
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -326,7 +323,7 @@ namespace mage {
 
 	template< typename T >
 	struct alignas(16) Vector3A< T,
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -407,7 +404,7 @@ namespace mage {
 
 	template< typename T >
 	struct alignas(16) Vector4A< T,
-		typename std::enable_if_t< std::is_arithmetic_v< T >, void > > {
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 

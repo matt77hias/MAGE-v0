@@ -31,11 +31,22 @@ namespace mage {
 
 		/**
 		 A struct of resource records.
+		 
+		 @tparam		ResourceT
+						The resource type.
+		 */
+		template< typename ResourceT, typename Enable = void >
+		struct ResourceRecord;
+
+		/**
+		 A struct of non-shader resource records.
+		 
 		 @tparam		ResourceT
 						The resource type.
 		 */
 		template< typename ResourceT >
-		struct ResourceRecord final { 
+		struct ResourceRecord< ResourceT, 
+			typename std::enable_if_t< std::negation_v< is_shader_v< ResourceT > > > > final {
 
 		public:
 
@@ -51,10 +62,14 @@ namespace mage {
 		};
 		
 		/**
-		 A struct of vertex shader resource records.
+		 A struct of shader resource records.
+
+		 @tparam		ResourceT
+						The resource type.
 		 */
-		template<>
-		struct ResourceRecord< VertexShader > final {
+		template< typename ResourceT >
+		struct ResourceRecord< ResourceT,
+			typename std::enable_if_t< is_shader_v< ResourceT > > > final {
 
 		public:
 
@@ -65,97 +80,7 @@ namespace mage {
 			/**
 			 The pool type of resource pools containing vertex shaders.
 			 */
-			using pool_type  = PersistentResourcePool< wstring, const VertexShader >;
-		};
-
-		/**
-		 A struct of hull shader resource records.
-		 */
-		template<>
-		struct ResourceRecord< HullShader > final {
-			
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing hull shaders.
-			 */
-			using pool_type  = PersistentResourcePool< wstring, const HullShader >;
-		};
-
-		/**
-		 A struct of domain shader resource records.
-		 */
-		template<>
-		struct ResourceRecord< DomainShader > final {
-		
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing domain shaders.
-			 */
-			using pool_type  = PersistentResourcePool< wstring, const DomainShader >;
-		};
-
-		/**
-		 A struct of geometry shader resource records.
-		 */
-		template<>
-		struct ResourceRecord< GeometryShader > final {
-			
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing geometry shaders.
-			 */
-			using pool_type  = PersistentResourcePool< wstring, const GeometryShader >;
-		};
-
-		/**
-		 A struct of pixel shader resource records.
-		 */
-		template<>
-		struct ResourceRecord< PixelShader > final {
-			
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing pixel shaders.
-			 */
-			using pool_type  = PersistentResourcePool< wstring, const PixelShader >;
-		};
-
-		/**
-		 A struct of compute shader resource records.
-		 */
-		template<>
-		struct ResourceRecord< ComputeShader > final {
-
-		public:
-
-			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
-			//-----------------------------------------------------------------
-
-			/**
-			 The pool type of resource pools containing compute shaders.
-			 */
-			using pool_type  = PersistentResourcePool< wstring, const ComputeShader >;
+			using pool_type  = PersistentResourcePool< wstring, const ResourceT >;
 		};
 
 		/**

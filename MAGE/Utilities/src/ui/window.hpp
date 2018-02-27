@@ -359,7 +359,7 @@ namespace mage {
 		/**
 		 The window class name of this window descriptor.
 		 */
-		const wstring m_window_class_name;
+		wstring m_window_class_name;
 	};
 
 	#pragma endregion

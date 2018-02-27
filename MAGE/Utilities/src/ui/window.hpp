@@ -354,7 +354,7 @@ namespace mage {
 		/**
 		 The application instance handle of this window descriptor.
 		 */
-		const HINSTANCE m_instance;
+		HINSTANCE m_instance;
 
 		/**
 		 The window class name of this window descriptor.
@@ -661,7 +661,7 @@ namespace mage {
 		/**
 		 A pointer to the window descriptor of this window.
 		 */
-		const WindowDescriptorPtr m_window_desc;
+		WindowDescriptorPtr m_window_desc;
 
 		/**
 		 The window handle of this window.

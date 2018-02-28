@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
@@ -23,54 +26,46 @@ namespace mage {
 	/**
 	 Creates a AA preprocess compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the AA preprocess compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateAAPreprocessCS();
+	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a FXAA compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the FXAA compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateFXAACS();
+	ComputeShaderPtr CreateFXAACS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a MSAA resolve compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the MSAA resolve compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateMSAAResolveCS();
+	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a SSAA resolve compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the SSAA resolve compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateSSAAResolveCS();
+	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -82,15 +77,13 @@ namespace mage {
 	/**
 	 Creates a back buffer pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateBackBufferPS();
+	PixelShaderPtr CreateBackBufferPS(ResourceManager &resource_manager);
 
 	#pragma endregion
 	
@@ -102,10 +95,8 @@ namespace mage {
 	/**
 	 Creates a deferred Blinn-Phong compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -113,15 +104,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredBlinnPhongCS(bool vct);
+	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager &resource_manager, 
+												bool vct);
 
 	/**
 	 Creates a deferred Cook-Torrance compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -129,28 +119,25 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredCookTorranceCS(bool vct);
+	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager &resource_manager, 
+												  bool vct);
 
 	/**
 	 Creates a deferred emissive compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the deferred emissive compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredEmissiveCS();
+	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a deferred Frostbite compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -158,15 +145,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredFrostbiteCS(bool vct);
+	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager &resource_manager, 
+											   bool vct);
 
 	/**
 	 Creates a deferred Ward-Duer compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false
 					otherwise.
@@ -174,15 +160,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredWardDuerCS(bool vct);
+	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager &resource_manager, 
+											  bool vct);
 
 	/**
 	 Creates a deferred Lambertian compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -190,15 +175,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredLambertianCS(bool vct);
+	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager &resource_manager, 
+												bool vct);
 
 	/**
 	 Creates a deferred compute shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF type.
 	 @param[in]		vct
@@ -209,15 +193,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredCS(BRDFType brdf, bool vct);
+	ComputeShaderPtr CreateDeferredCS(ResourceManager &resource_manager, 
+									  BRDFType brdf, bool vct);
 
 	/**
 	 Creates a deferred MSAA Blinn-Phong pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -225,15 +208,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(bool vct);
+	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager &resource_manager, 
+												  bool vct);
 
 	/**
 	 Creates a deferred MSAA Cook-Torrance pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -241,15 +223,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS(bool vct);
+	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager &resource_manager, 
+													bool vct);
 
 	/**
 	 Creates a deferred MSAA emissive pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -257,15 +238,13 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAEmissivePS();
+	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a deferred MSAA Frostbite pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -273,15 +252,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS(bool vct);
+	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager &resource_manager, 
+												 bool vct);
 
 	/**
 	 Creates a deferred MSAA Ward-Duer pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -289,15 +267,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS(bool vct);
+	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager &resource_manager, 
+												bool vct);
 
 	/**
 	 Creates a deferred MSAA Lambertian pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -305,15 +282,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAALambertianPS(bool vct);
+	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager &resource_manager, 
+												  bool vct);
 
 	/**
 	 Creates a deferred MSAA pixel shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF type.
 	 @param[in]		vct
@@ -324,7 +300,8 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAPS(BRDFType brdf, bool vct);
+	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager &resource_manager, 
+										BRDFType brdf, bool vct);
 
 	#pragma endregion
 
@@ -336,41 +313,35 @@ namespace mage {
 	/**
 	 Creates a depth vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the depth vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateDepthVS();
+	VertexShaderPtr CreateDepthVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a depth transparent vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the depth transparent vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateDepthTransparentVS();
+	VertexShaderPtr CreateDepthTransparentVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a depth transparent pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the depth transparent pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDepthTransparentPS();
+	PixelShaderPtr CreateDepthTransparentPS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -429,17 +400,16 @@ namespace mage {
 	/**
 	 Creates a false color pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		false_color
 					The false color.
 	 @return		A pointer to the distance pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateFalseColorPS(FalseColor false_color);
+	PixelShaderPtr CreateFalseColorPS(ResourceManager &resource_manager, 
+									  FalseColor false_color);
 	
 	#pragma endregion
 	
@@ -451,10 +421,8 @@ namespace mage {
 	/**
 	 Creates a forward Blinn-Phong pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -468,17 +436,16 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardBlinnPhongPS(bool transparency, 
+	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager &resource_manager, 
+											 bool transparency,
 											 bool vct, 
 											 bool tsnm);
 
 	/**
 	 Creates a forward Cook-Torrance pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -492,17 +459,16 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardCookTorrancePS(bool transparency,
+	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager &resource_manager, 
+											   bool transparency,
 											   bool vct,
 											   bool tsnm);
 
 	/**
 	 Creates an forward emissive pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -516,15 +482,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardEmissivePS(bool transparency);
+	PixelShaderPtr CreateForwardEmissivePS(ResourceManager &resource_manager, 
+										   bool transparency);
 
 	/**
 	 Creates a forward Frostbite pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -538,17 +503,16 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardFrostbitePS(bool transparency,
+	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager &resource_manager, 
+											bool transparency,
 											bool vct,
 											bool tsnm);
 
 	/**
 	 Creates a forward Lambertian pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -562,17 +526,16 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardLambertianPS(bool transparency,
+	PixelShaderPtr CreateForwardLambertianPS(ResourceManager &resource_manager, 
+											 bool transparency,
 											 bool vct,
 											 bool tsnm);
 
 	/**
 	 Creates a forward Ward-Duer pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -586,17 +549,16 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardWardDuerPS(bool transparency,
+	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager &resource_manager, 
+										   bool transparency,
 										   bool vct,
 										   bool tsnm);
 
 	/**
 	 Creates a forward pixel shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF type.
 	 @param[in]		transparency
@@ -613,7 +575,8 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardPS(BRDFType brdf, 
+	PixelShaderPtr CreateForwardPS(ResourceManager &resource_manager, 
+								   BRDFType brdf,
 								   bool transparency, 
 								   bool vct, 
 								   bool tsnm);
@@ -621,15 +584,13 @@ namespace mage {
 	/**
 	 Creates a forward solid pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the forward Lambertian pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardSolidPS();
+	PixelShaderPtr CreateForwardSolidPS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -641,10 +602,8 @@ namespace mage {
 	/**
 	 Creates a GBuffer pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -652,7 +611,8 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateGBufferPS(bool tsnm);
+	PixelShaderPtr CreateGBufferPS(ResourceManager &resource_manager, 
+								   bool tsnm);
 
 	#pragma endregion
 
@@ -664,15 +624,13 @@ namespace mage {
 	/**
 	 Creates a depth-of-field compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the depth-of-field compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDepthOfFieldCS();
+	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -684,54 +642,46 @@ namespace mage {
 	/**
 	 Creates a line cube vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the line cube vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateLineCubeVS();
+	VertexShaderPtr CreateLineCubeVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a line cube pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the line cube pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateLineCubePS();
+	PixelShaderPtr CreateLineCubePS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a far fullscreen triangle vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the far fullscreen triangle vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateFarFullscreenTriangleVS();
+	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a near fullscreen triangle vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the near fullscreen triangle vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateNearFullscreenTriangleVS();
+	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -743,28 +693,24 @@ namespace mage {
 	/**
 	 Creates a sky vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the sky vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateSkyVS();
+	VertexShaderPtr CreateSkyVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a sky pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the sky pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateSkyPS();
+	PixelShaderPtr CreateSkyPS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -776,28 +722,24 @@ namespace mage {
 	/**
 	 Creates a sprite vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the sprite vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateSpriteVS();
+	VertexShaderPtr CreateSpriteVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a sprite pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the sprite pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateSpritePS();
+	PixelShaderPtr CreateSpritePS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -809,15 +751,13 @@ namespace mage {
 	/**
 	 Creates a transform vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the transform vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateTransformVS();
+	VertexShaderPtr CreateTransformVS(ResourceManager &resource_manager);
 
 	#pragma endregion
 
@@ -829,36 +769,30 @@ namespace mage {
 	/**
 	 Creates a voxelization vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateVoxelizationVS();
+	VertexShaderPtr CreateVoxelizationVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a voxelization geometry shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
-	GeometryShaderPtr CreateVoxelizationGS();
+	GeometryShaderPtr CreateVoxelizationGS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a voxelization Blinn-Phong pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -866,15 +800,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationBlinnPhongPS(bool tsnm);
+	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager &resource_manager, 
+												  bool tsnm);
 
 	/**
 	 Creates a voxelization Cook-Torrance pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -882,15 +815,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationCookTorrancePS(bool tsnm);
+	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager &resource_manager, 
+													bool tsnm);
 
 	/**
 	 Creates a voxelization Frostbite pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -898,15 +830,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationFrostbitePS(bool tsnm);
+	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager &resource_manager, 
+												 bool tsnm);
 
 	/**
 	 Creates a voxelization Lambertian pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -914,15 +845,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationLambertianPS(bool tsnm);
+	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager &resource_manager, 
+												  bool tsnm);
 
 	/**
 	 Creates a voxelization Ward-Duer pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
@@ -930,15 +860,14 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationWardDuerPS(bool tsnm);
+	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager &resource_manager, 
+												bool tsnm);
 
 	/**
 	 Creates a voxelization pixel shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF type.
 	 @param[in]		tsnm
@@ -949,59 +878,52 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationPS(BRDFType brdf, bool tsnm);
+	PixelShaderPtr CreateVoxelizationPS(ResourceManager &resource_manager, 
+										BRDFType brdf, bool tsnm);
 
 	/**
 	 Creates a voxelization compute shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateVoxelizationCS();
+	ComputeShaderPtr CreateVoxelizationCS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a voxel grid vertex shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateVoxelGridVS();
+	VertexShaderPtr CreateVoxelGridVS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a voxel grid geometry shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
-	GeometryShaderPtr CreateVoxelGridGS();
+	GeometryShaderPtr CreateVoxelGridGS(ResourceManager &resource_manager);
 
 	/**
 	 Creates a voxel grid pixel shader.
 
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelGridPS();
+	PixelShaderPtr CreateVoxelGridPS(ResourceManager &resource_manager);
 
 	#pragma endregion
 }

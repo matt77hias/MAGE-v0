@@ -49,21 +49,15 @@ namespace mage {
 		return texture_desc;
 	}
 
-	SharedPtr< const Texture > CreateMAGETexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-
-		return resource_manager->GetOrCreate< Texture >(L"assets/textures/mage.dds");
+	SharedPtr< const Texture > CreateMAGETexture(ResourceManager &resource_manager) {
+		return resource_manager.GetOrCreate< Texture >(L"assets/textures/mage.dds");
 	}
 
-	SharedPtr< const Texture > CreateReferenceTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-
-		return resource_manager->GetOrCreate< Texture >(L"assets/textures/reference.dds");
+	SharedPtr< const Texture > CreateReferenceTexture(ResourceManager &resource_manager) {
+		return resource_manager.GetOrCreate< Texture >(L"assets/textures/reference.dds");
 	}
 
-	SharedPtr< const Texture > CreateBlackTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-		
+	SharedPtr< const Texture > CreateBlackTexture(ResourceManager &resource_manager) {
 		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF000000;
@@ -72,13 +66,12 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 		
-		return resource_manager->GetOrCreate< Texture >(
-			MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
+		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_BLACK, 
+													   &texture_desc, 
+													   &texture_data);
 	}
 
-	SharedPtr< const Texture > CreateWhiteTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-		
+	SharedPtr< const Texture > CreateWhiteTexture(ResourceManager &resource_manager) {
 		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFFFFFFFF;
@@ -87,13 +80,12 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager->GetOrCreate< Texture >(
-			MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
+		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_WHITE, 
+													   &texture_desc, 
+													   &texture_data);
 	}
 
-	SharedPtr< const Texture > CreateRedTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-		
+	SharedPtr< const Texture > CreateRedTexture(ResourceManager &resource_manager) {
 		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF000000;
@@ -102,13 +94,12 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager->GetOrCreate< Texture >(
-			MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
+		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_RED, 
+													   &texture_desc, 
+													   &texture_data);
 	}
 
-	SharedPtr< const Texture > CreateGreenTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-		
+	SharedPtr< const Texture > CreateGreenTexture(ResourceManager &resource_manager) {
 		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF00FF00;
@@ -117,13 +108,12 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager->GetOrCreate< Texture >(
-			MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
+		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_GREEN, 
+													   &texture_desc, 
+													   &texture_data);
 	}
 
-	SharedPtr< const Texture > CreateBlueTexture(ResourceManager *resource_manager) {
-		Assert(resource_manager);
-		
+	SharedPtr< const Texture > CreateBlueTexture(ResourceManager &resource_manager) {
 		const auto texture_desc = CreateSingleColorTexture2DDesc();
 
 		static constexpr U32 color = 0xFF0000FF;
@@ -132,7 +122,8 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager->GetOrCreate< Texture >(
-			MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
+		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_BLUE, 
+													   &texture_desc, 
+													   &texture_data);
 	}
 }

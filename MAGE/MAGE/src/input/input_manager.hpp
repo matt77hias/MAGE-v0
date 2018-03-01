@@ -33,7 +33,7 @@ namespace mage {
 		 @return		A pointer to the input manager associated with the 
 						current engine.
 		 */
-		[[nodiscard]] static const InputManager *Get() noexcept;
+		[[nodiscard]]static const InputManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -106,7 +106,7 @@ namespace mage {
 
 		 @return		The window handle of this input manager.
 		 */
-		[[nodiscard]] HWND GetWindow() noexcept {
+		[[nodiscard]]HWND GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -123,7 +123,7 @@ namespace mage {
 
 		 @return		A pointer to the keyboard of this input manager.
 		 */
-		[[nodiscard]] const Keyboard *GetKeyboard() const noexcept {
+		[[nodiscard]]const Keyboard *GetKeyboard() const noexcept {
 			return m_keyboard.get();
 		}
 
@@ -132,7 +132,7 @@ namespace mage {
 
 		 @return		A pointer to the mouse of this input manager.
 		 */
-		[[nodiscard]] const Mouse *GetMouse() const noexcept {
+		[[nodiscard]]const Mouse *GetMouse() const noexcept {
 			return m_mouse.get();
 		}
 

@@ -72,7 +72,7 @@ namespace mage {
 
 		 @return		The state of this component.
 		 */
-		[[nodiscard]] State GetState() const noexcept {
+		[[nodiscard]]State GetState() const noexcept {
 			return m_state;
 		}
 
@@ -93,7 +93,7 @@ namespace mage {
 
 		 @return		The guid of this component.
 		 */
-		[[nodiscard]] U64 GetGuid() const noexcept {
+		[[nodiscard]]U64 GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -103,7 +103,7 @@ namespace mage {
 		 @return		@c true if this component has an owner. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool HasOwner() const noexcept {
+		[[nodiscard]]bool HasOwner() const noexcept {
 			return bool(m_owner);
 		}
 
@@ -112,7 +112,7 @@ namespace mage {
 
 		 @return		A pointer to the owner of this component.
 		 */
-		[[nodiscard]] ProxyPtr< Node > GetOwner() noexcept {
+		[[nodiscard]]ProxyPtr< Node > GetOwner() noexcept {
 			return m_owner;
 		}
 
@@ -121,7 +121,7 @@ namespace mage {
 
 		 @return		A pointer to the owner of this component.
 		 */
-		[[nodiscard]] ProxyPtr< const Node > GetOwner() const noexcept {
+		[[nodiscard]]ProxyPtr< const Node > GetOwner() const noexcept {
 			return m_owner;
 		}
 

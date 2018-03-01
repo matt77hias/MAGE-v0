@@ -79,7 +79,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		[[nodiscard]] size_t GetNumberOfShadowMaps() const noexcept {
+		[[nodiscard]]size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
 		}
 
@@ -100,10 +100,10 @@ namespace mage {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-		[[nodiscard]] ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+		[[nodiscard]]ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
-		[[nodiscard]] ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]]ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_srv.Get();
 		}
 
@@ -174,10 +174,10 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		[[nodiscard]] size_t GetNumberOfShadowMaps() const noexcept {
+		[[nodiscard]]size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
 		}
-		[[nodiscard]] size_t GetNumberOfShadowCubeMaps() const noexcept {
+		[[nodiscard]]size_t GetNumberOfShadowCubeMaps() const noexcept {
 			return m_dsvs.size() / 6u;
 		}
 
@@ -198,10 +198,10 @@ namespace mage {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-		[[nodiscard]] ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+		[[nodiscard]]ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
-		[[nodiscard]] ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]]ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_srv.Get();
 		}
 

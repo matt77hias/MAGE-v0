@@ -13,7 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] U16 NumberOfPhysicalCores() noexcept {
+	[[nodiscard]]
+	U16 NumberOfPhysicalCores() {
 
 		DWORD length = 0u;
 		
@@ -55,7 +56,8 @@ namespace mage {
 		return nb_physical_cores;
 	}
 
-	[[nodiscard]] U16 NumberOfSystemCores() noexcept {
+	[[nodiscard]]
+	U16 NumberOfSystemCores() noexcept {
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info = {};
 		// Retrieve information about the current system.

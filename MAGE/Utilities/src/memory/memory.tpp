@@ -39,8 +39,8 @@ namespace mage {
 
 	template< typename ToT, typename FromT >
 	inline UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT > &&ptr) noexcept {
-		FromT * const stored_ptr = ptr.release();
-		ToT   * const converted_stored_ptr = dynamic_cast< ToT * >(stored_ptr);
+		const auto stored_ptr = ptr.release();
+		const auto converted_stored_ptr = dynamic_cast< ToT * >(stored_ptr);
 		if (converted_stored_ptr) {
 			return UniquePtr< ToT >(converted_stored_ptr);
 		}

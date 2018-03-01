@@ -25,7 +25,7 @@ namespace mage {
 		SSAA_4x,
 	};
 
-	[[nodiscard]] constexpr AADescriptor 
+	[[nodiscard]]constexpr AADescriptor 
 		RetrieveAADescriptor(size_t desc) noexcept {
 
 		switch (desc) {
@@ -49,7 +49,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] constexpr U32 
+	[[nodiscard]]constexpr U32 
 		GetResolutionMultiplier(AADescriptor desc) noexcept {
 
 		switch (desc) {

@@ -47,7 +47,8 @@ namespace mage {
 	 @return		A pointer to the start of the word.
 					(i.e. pointer to a space or null-terminating character)
 	 */
-	[[nodiscard]] static const char *FindWordStart(const char *buffer) {
+	[[nodiscard]]
+	static const char *FindWordStart(const char *buffer) {
 		while ('\0' != *buffer && isspace(*buffer)) {
 			++buffer;
 		}
@@ -64,7 +65,8 @@ namespace mage {
 	 @return		A pointer to the end of the word.
 					(i.e. pointer to a space or null-terminating character)
 	 */
-	[[nodiscard]] static const char *FindWordEnd(const char *buffer) {
+	[[nodiscard]]
+	static const char *FindWordEnd(const char *buffer) {
 		while ('\0' != *buffer && !isspace(*buffer)) {
 			++buffer;
 		}

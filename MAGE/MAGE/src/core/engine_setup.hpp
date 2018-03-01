@@ -106,7 +106,7 @@ namespace mage {
 
 		 @return		A reference to the name of the application.
 		 */
-		[[nodiscard]] const wstring &GetApplicationName() const noexcept {
+		[[nodiscard]]const wstring &GetApplicationName() const noexcept {
 			return m_name;
 		}
 
@@ -115,7 +115,7 @@ namespace mage {
 
 		 @return		The application instance handle.
 		 */
-		[[nodiscard]] HINSTANCE GetApplicationInstance() const noexcept {
+		[[nodiscard]]HINSTANCE GetApplicationInstance() const noexcept {
 			return m_instance;
 		}
 	

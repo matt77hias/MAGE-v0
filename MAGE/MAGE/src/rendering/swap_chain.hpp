@@ -96,7 +96,7 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		[[nodiscard]] HWND GetWindow() noexcept;
+		[[nodiscard]]HWND GetWindow() noexcept;
 
 		/**
 		 Checks whether this swap chain displays in windowed mode.
@@ -104,7 +104,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		[[nodiscard]] bool IsWindowed() const noexcept;
+		[[nodiscard]]bool IsWindowed() const noexcept;
 		
 		/**
 		 Checks whether this swap chain displays in full screen mode.
@@ -112,7 +112,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool IsFullScreen() const noexcept;
+		[[nodiscard]]bool IsFullScreen() const noexcept;
 		
 		/**
 		 Checks whether this swap chain lost its mode, i.e. the tracked mode of 
@@ -121,7 +121,7 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool LostMode() const noexcept;
+		[[nodiscard]]bool LostMode() const noexcept;
 
 		/**
 		 Sets the initial mode of this swap chain.
@@ -158,7 +158,7 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		[[nodiscard]] ID3D11RenderTargetView *GetRTV() const noexcept;
+		[[nodiscard]]ID3D11RenderTargetView *GetRTV() const noexcept;
 
 		/**
 		 Clears the render target view of the back buffer of this swap chain.

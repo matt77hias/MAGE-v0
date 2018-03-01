@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename VertexT >
-	[[nodiscard]] HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
 		                                           ID3D11Buffer **buffer, 
 		                                           const VertexT *vertices, 
 		                                           size_t nb_vertices) noexcept {
@@ -41,7 +41,7 @@ namespace mage {
 	}
 
 	template< typename VertexT >
-	[[nodiscard]] HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
 		                                            ID3D11Buffer **buffer, 
 		                                            const VertexT *vertices, 
 		                                            size_t nb_vertices) noexcept {
@@ -71,7 +71,7 @@ namespace mage {
 	}
 
 	template< typename IndexT >
-	[[nodiscard]] HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
 		                                          ID3D11Buffer **buffer, 
 		                                          const IndexT *indices, 
 		                                          size_t nb_indices) noexcept {
@@ -97,7 +97,7 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
 		                                             ID3D11Buffer **buffer, 
 		                                             const DataT *data, 
 		                                             size_t count) noexcept {
@@ -123,7 +123,7 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
 		                                              ID3D11Buffer **buffer, 
 		                                              const DataT *data, 
 		                                              size_t count) noexcept {
@@ -153,7 +153,7 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
 		                                               ID3D11Buffer **buffer, 
 		                                               const DataT *data, 
 		                                               size_t count) noexcept {
@@ -181,7 +181,7 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
 		                                                ID3D11Buffer **buffer, 
 		                                                const DataT *data, 
 		                                                size_t count) noexcept {

@@ -84,9 +84,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] char *
-		SkipDelimiters(char *str, const char *delimiters) noexcept {
-		
+	[[nodiscard]]
+	char *SkipDelimiters(char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 
@@ -97,9 +96,8 @@ namespace mage {
 		return ('\0' != *str) ? str : nullptr;
 	}
 	
-	[[nodiscard]] const char *
-		SkipDelimiters(const char *str, const char *delimiters) noexcept {
-		
+	[[nodiscard]]
+	const char *SkipDelimiters(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
@@ -110,30 +108,28 @@ namespace mage {
 		return ('\0' != *str) ? str : nullptr;
 	}
 	
-	[[nodiscard]] char *
-		GotoDelimiters(char *str, const char *delimiters) noexcept {
-		
+	[[nodiscard]]
+	char *GotoDelimiters(char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
-		while (*str != '\0' && !str_contains(delimiters, *str)) {
+		while ('\0' != *str && !str_contains(delimiters, *str)) {
 			++str;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *str) ? str : nullptr;
 	}
 	
-	[[nodiscard]] const char *
-		GotoDelimiters(const char *str, const char *delimiters) noexcept {
-		
+	[[nodiscard]]
+	const char *GotoDelimiters(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
-		while (*str != '\0' && !str_contains(delimiters, *str)) {
+		while ('\0' != *str && !str_contains(delimiters, *str)) {
 			++str;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *str) ? str : nullptr;
 	}
 
 	#pragma endregion

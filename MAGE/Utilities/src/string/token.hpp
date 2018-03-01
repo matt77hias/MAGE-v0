@@ -145,7 +145,7 @@ namespace mage {
 					not.
 	 */
 	TokenResult ReadChars(char *str, char **context, char **result, 
-		const char *delimiters = g_default_delimiters) noexcept;
+						  const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a quoted string.
@@ -172,7 +172,7 @@ namespace mage {
 					or not.
 	 */
 	TokenResult ReadQuotedString(char *str, char **context, string &result, 
-		const char *delimiters = g_default_delimiters);
+								 const char *delimiters = g_default_delimiters);
 	
 	/**
 	 Reads and converts the next token in the given string to a @c DataT 
@@ -201,8 +201,8 @@ namespace mage {
 					succeeded or not.
 	 */
 	template< typename DataT >
-	TokenResult Read(char *str, char **context, DataT &result,
-		const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult Read(char *str, char **context, DataT &result, 
+					 const char *delimiters = g_default_delimiters) noexcept;
 	
 	#pragma endregion
 
@@ -227,7 +227,7 @@ namespace mage {
 					or not.
 	 */
 	TokenResult ContainsChars(const char *str, 
-		const char *delimiters = g_default_delimiters) noexcept;
+							  const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a quoted 
@@ -246,7 +246,7 @@ namespace mage {
 					succeeds or not.
 	 */
 	TokenResult ContainsQuotedString(const char *str, 
-		const char *delimiters = g_default_delimiters) noexcept;
+									 const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c DataT 
@@ -267,7 +267,7 @@ namespace mage {
 	 */
 	template< typename DataT >
 	TokenResult Contains(const char *str, 
-		const char *delimiters = g_default_delimiters) noexcept;
+						 const char *delimiters = g_default_delimiters) noexcept;
 
 	#pragma endregion
 
@@ -290,8 +290,9 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	[[nodiscard]] char *SkipDelimiters(char *str,
-		const char *delimiters = g_default_delimiters) noexcept;
+	[[nodiscard]]
+	char *SkipDelimiters(char *str, 
+						 const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
@@ -307,8 +308,9 @@ namespace mage {
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
-	[[nodiscard]] const char *SkipDelimiters(const char *str,
-		const char *delimiters = g_default_delimiters) noexcept;
+	[[nodiscard]]
+	const char *SkipDelimiters(const char *str, 
+							   const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -324,8 +326,9 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	[[nodiscard]] char *GotoDelimiters(char *str,
-		const char *delimiters = g_default_delimiters) noexcept;
+	[[nodiscard]]
+	char *GotoDelimiters(char *str, 
+						 const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -341,8 +344,9 @@ namespace mage {
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
-	[[nodiscard]] const char *GotoDelimiters(const char *str,
-		const char *delimiters = g_default_delimiters) noexcept;
+	[[nodiscard]]
+	const char *GotoDelimiters(const char *str, 
+							   const char *delimiters = g_default_delimiters) noexcept;
 
 	#pragma endregion
 }

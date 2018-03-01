@@ -11,7 +11,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ResourceT >
-	[[nodiscard]] inline ResourceManager::pool_type< ResourceT > &
+	[[nodiscard]]inline ResourceManager::pool_type< ResourceT > &
 		ResourceManager::GetPool() noexcept {
 
 		// This member method is non-const 
@@ -23,63 +23,63 @@ namespace mage {
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< ModelDescriptor > &
+	[[nodiscard]]inline const ResourceManager::pool_type< ModelDescriptor > &
 		ResourceManager::GetPool< ModelDescriptor >() const noexcept {
 
 		return m_model_descriptor_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< VertexShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< VertexShader > &
 		ResourceManager::GetPool< VertexShader >() const noexcept {
 
 		return m_vs_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< HullShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< HullShader > &
 		ResourceManager::GetPool< HullShader >() const noexcept {
 
 		return m_hs_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< DomainShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< DomainShader > &
 		ResourceManager::GetPool< DomainShader >() const noexcept {
 
 		return m_ds_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< GeometryShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< GeometryShader > &
 		ResourceManager::GetPool< GeometryShader >() const noexcept {
 
 		return m_gs_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< PixelShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< PixelShader > &
 		ResourceManager::GetPool< PixelShader >() const noexcept {
 
 		return m_ps_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< ComputeShader > &
+	[[nodiscard]]inline const ResourceManager::pool_type< ComputeShader > &
 		ResourceManager::GetPool< ComputeShader >() const noexcept {
 
 		return m_cs_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< SpriteFont > &
+	[[nodiscard]]inline const ResourceManager::pool_type< SpriteFont > &
 		ResourceManager::GetPool< SpriteFont >() const noexcept {
 
 		return m_sprite_font_pool;
 	}
 
 	template<>
-	[[nodiscard]] inline const ResourceManager::pool_type< Texture > &
+	[[nodiscard]]inline const ResourceManager::pool_type< Texture > &
 		ResourceManager::GetPool< Texture >() const noexcept {
 
 		return m_texture_pool;
@@ -93,14 +93,14 @@ namespace mage {
 	#pragma region
 
 	template< typename ResourceT >
-	[[nodiscard]] inline bool 
+	[[nodiscard]]inline bool 
 		ResourceManager::Contains(const key_type< ResourceT > &guid) noexcept {
 
 		return GetPool< ResourceT >().Contains(guid);
 	}
 
 	template< typename ResourceT >
-	[[nodiscard]] inline SharedPtr< ResourceManager::value_type< ResourceT > >
+	[[nodiscard]]inline SharedPtr< ResourceManager::value_type< ResourceT > >
 		ResourceManager::Get(const key_type< ResourceT > &guid) noexcept {
 
 		return GetPool< ResourceT >().Get(guid);

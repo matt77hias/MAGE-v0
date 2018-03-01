@@ -40,7 +40,7 @@ namespace mage {
 
 		 @return		A pointer to the current engine.
 		 */
-		[[nodiscard]] static Engine *Get() noexcept {
+		[[nodiscard]]static Engine *Get() noexcept {
 			return s_engine;
 		}
 
@@ -111,7 +111,7 @@ namespace mage {
 
 		 @return		@c true if this loadable is loaded. @c false otherwise.
 		 */
-		[[nodiscard]] bool IsLoaded() const noexcept {
+		[[nodiscard]]bool IsLoaded() const noexcept {
 			return m_loaded;
 		}
 
@@ -128,7 +128,7 @@ namespace mage {
 						function terminates before entering the message loop, 
 						it returns 0.
 		 */
-		[[nodiscard]] int Run(UniquePtr< Scene > &&scene, 
+		[[nodiscard]]int Run(UniquePtr< Scene > &&scene, 
 			                  int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
@@ -141,7 +141,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the resource manager of this engine.
 		 */
-		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept {
+		[[nodiscard]]ResourceManager *GetResourceManager() const noexcept {
 			return m_resource_manager.get();
 		}
 
@@ -155,7 +155,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the main window of this engine.
 		 */
-		[[nodiscard]] MainWindow *GetMainWindow() const noexcept {
+		[[nodiscard]]MainWindow *GetMainWindow() const noexcept {
 			return m_main_window.get();
 		}
 		
@@ -180,7 +180,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the rendering manager of this engine.
 		 */
-		[[nodiscard]] const RenderingManager *GetRenderingManager() const noexcept {
+		[[nodiscard]]const RenderingManager *GetRenderingManager() const noexcept {
 			return m_rendering_manager.get();
 		}
 
@@ -204,7 +204,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the input manager of this engine.
 		 */
-		[[nodiscard]] const InputManager *GetInputManager() const noexcept {
+		[[nodiscard]]const InputManager *GetInputManager() const noexcept {
 			return m_input_manager.get();
 		}
 
@@ -218,7 +218,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the scene manager of this engine.
 		 */
-		[[nodiscard]] SceneManager *GetSceneManager() const noexcept {
+		[[nodiscard]]SceneManager *GetSceneManager() const noexcept {
 			return m_scene_manager.get();
 		}
 
@@ -236,7 +236,7 @@ namespace mage {
 
 		 @return		A pointer to the engine statistics of this engine.
 		 */
-		[[nodiscard]] EngineStatistics *GetEngineStatistics() const noexcept {
+		[[nodiscard]]EngineStatistics *GetEngineStatistics() const noexcept {
 			return m_engine_stats.get();
 		}
 

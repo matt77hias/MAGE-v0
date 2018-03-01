@@ -173,7 +173,8 @@ namespace mage {
 	 @return		A pointer to the data associated with the selected item in 
 					the combo box.
 	 */
-	[[nodiscard]] const void *ComboBoxSelected(HWND dialog, int id) noexcept;
+	[[nodiscard]]
+	const void *ComboBoxSelected(HWND dialog, int id) noexcept;
 
 	/**
 	 Returns the value associated with the selected item in a combo box.
@@ -187,8 +188,8 @@ namespace mage {
 	 @return		The value associated with the selected item in a combo box.
 	 @note			This function converts the @c void * data to @c size_t data.
 	 */
-	[[nodiscard]] inline size_t ComboBoxSelectedValue(HWND dialog, 
-		                                              int id) noexcept {
+	[[nodiscard]]
+	inline size_t ComboBoxSelectedValue(HWND dialog, int id) noexcept {
 
 		return static_cast< size_t >(PtrToUlong(ComboBoxSelected(dialog, id)));
 	}
@@ -208,8 +209,8 @@ namespace mage {
 	 @note			This function converts the @c void * data to @c DataT* data.
 	 */
 	template< typename T >
-	[[nodiscard]] inline const T *ComboBoxSelectedPtr(HWND dialog, 
-		                                              int id) noexcept {
+	[[nodiscard]]
+	inline const T *ComboBoxSelectedPtr(HWND dialog, int id) noexcept {
 		
 		return static_cast< const T * >(ComboBoxSelected(dialog, id));
 	}
@@ -232,7 +233,8 @@ namespace mage {
 	 @return		@c true if a valid item is selected in the combo box.
 					@c false otherwise.
 	 */
-	[[nodiscard]] bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept;
+	[[nodiscard]]
+	bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept;
 
 	#pragma endregion
 
@@ -251,7 +253,8 @@ namespace mage {
 					The identifier of the control to be retrieved.
 	 @return		The number of items of a combo box.	
 	 */
-	[[nodiscard]] int ComboBoxCount(HWND dialog, int id) noexcept;
+	[[nodiscard]]
+	int ComboBoxCount(HWND dialog, int id) noexcept;
 
 	#pragma endregion
 
@@ -274,9 +277,8 @@ namespace mage {
 	 @return		@c true if the given description is contained in the combo 
 					box. @c false otherwise.
 	 */
-	[[nodiscard]] bool ComboBoxContains(HWND dialog, 
-		                                int id, 
-		                                const wchar_t *desc) noexcept;
+	[[nodiscard]]
+	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
 
 	#pragma endregion
 }

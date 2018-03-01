@@ -155,8 +155,7 @@ namespace mage {
 
 	template<>
 	inline TokenResult StringTo(const char *begin, const char *end, 
-		bool &result) noexcept {
-		
+								bool &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -198,8 +197,7 @@ namespace mage {
 	
 	template<>
 	inline TokenResult StringTo(const char *begin, const char *end, 
-		S8 &result) noexcept {
-		
+								S8 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -213,9 +211,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		U8 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								U8 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -229,9 +226,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		S16 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								S16 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -245,9 +241,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		U16 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								U16 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -261,9 +256,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		S32 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								S32 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -277,9 +271,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		U32 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								U32 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -293,9 +286,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		S64 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								S64 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -309,9 +301,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		U64 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								U64 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -325,9 +316,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		F32 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								F32 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -341,9 +331,8 @@ namespace mage {
 	}
 	
 	template<>
-	inline TokenResult StringTo(const char *begin, const char *end,
-		F64 &result) noexcept {
-		
+	inline TokenResult StringTo(const char *begin, const char *end, 
+								F64 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -642,7 +631,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	inline TokenResult ContainsChars(const char *str, const char *delimiters) noexcept {
+	inline TokenResult ContainsChars(const char *str, 
+									 const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
@@ -651,7 +641,8 @@ namespace mage {
 	}
 	
 	template< typename DataT >
-	inline TokenResult Contains(const char *str, const char *delimiters) noexcept {
+	inline TokenResult Contains(const char *str, 
+								const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
@@ -666,7 +657,8 @@ namespace mage {
 	}
 
 	template<>
-	inline TokenResult Contains< string >(const char *str, const char *delimiters) noexcept {
+	inline TokenResult Contains< string >(const char *str, 
+										  const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 

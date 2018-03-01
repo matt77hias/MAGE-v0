@@ -118,7 +118,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read to the given file.
 		 */
-		[[nodiscard]] bool IsHeaderValid();
+		[[nodiscard]]bool IsHeaderValid();
 
 		/**
 		 Reads a texture.

@@ -153,10 +153,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	static_assert(!std::is_same< bool, BOOL >::value,
-		"MAGE/Windows primitive type mismatch");
-	static_assert(!std::is_same< BOOL, HRESULT >::value,
-		"MAGE/Windows primitive type mismatch");
+	static_assert(!std::is_same< bool, BOOL >::value, 
+				  "MAGE/Windows primitive type mismatch");
+	static_assert(!std::is_same< BOOL, HRESULT >::value, 
+				  "MAGE/Windows primitive type mismatch");
 
 	/**
 	 Throws if the given result correspond to a failure.

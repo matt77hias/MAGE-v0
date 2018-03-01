@@ -34,8 +34,8 @@ namespace mage {
 					A reference to the file time.
 	 @return		A @c U64 (in 100 ns) representing the given file time.
 	 */
-	[[nodiscard]] static inline U64 
-		ConvertTimestamp(const FILETIME &ftime) noexcept {
+	[[nodiscard]]
+	static inline U64 ConvertTimestamp(const FILETIME &ftime) noexcept {
 		
 		return static_cast< U64 >(ftime.dwLowDateTime)
 			 | static_cast< U64 >(ftime.dwHighDateTime) << 32u;
@@ -53,7 +53,8 @@ namespace mage {
 
 	 @return		The current system timestamp (in 100 ns).
 	 */
-	[[nodiscard]] static U64 GetSystemTimestamp() noexcept {
+	[[nodiscard]]
+	static U64 GetSystemTimestamp() noexcept {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		FILETIME ftime;
@@ -64,7 +65,8 @@ namespace mage {
 			   ? 0ull : ConvertTimestamp(local_ftime);
 	}
 
-	[[nodiscard]] const wstring GetLocalSystemDateAsString() {
+	[[nodiscard]]
+	const wstring GetLocalSystemDateAsString() {
 		FILETIME ftime;
 		GetSystemTimeAsFileTime(&ftime);
 
@@ -90,7 +92,8 @@ namespace mage {
 		return (result) ? wstring(str_date) : wstring();
 	}
 
-	[[nodiscard]] const wstring GetLocalSystemTimeAsString() {
+	[[nodiscard]]
+	const wstring GetLocalSystemTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		FILETIME ftime;
@@ -118,7 +121,8 @@ namespace mage {
 		return (result) ? wstring(str_time) : wstring();
 	}
 
-	[[nodiscard]] const wstring GetLocalSystemDateAndTimeAsString() {
+	[[nodiscard]]
+	const wstring GetLocalSystemDateAndTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		FILETIME ftime;
@@ -160,7 +164,8 @@ namespace mage {
 		return wstring(str_date) + L'-' + wstring(str_time);
 	}
 
-	[[nodiscard]] typename SystemClock::time_point SystemClock::now() noexcept {
+	[[nodiscard]]
+	typename SystemClock::time_point SystemClock::now() noexcept {
 		return time_point(duration(GetSystemTimestamp()));
 	}
 
@@ -226,7 +231,8 @@ namespace mage {
 	 
 	 @return		The current core timestamp of the calling process.
 	 */
-	[[nodiscard]] static inline U64 GetCoreTimestamp() noexcept {
+	[[nodiscard]]
+	static inline U64 GetCoreTimestamp() noexcept {
 		U64 kernel_mode_timestamp = 0ull;
 		U64 user_mode_timestamp   = 0ull;
 		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
@@ -240,7 +246,8 @@ namespace mage {
 	 @return		The current kernel mode core timestamp of the calling 
 					process.
 	 */
-	[[nodiscard]] static inline U64 GetKernelModeCoreTimestamp() noexcept {
+	[[nodiscard]]
+	static inline U64 GetKernelModeCoreTimestamp() noexcept {
 		U64 kernel_mode_timestamp = 0ull;
 		U64 user_mode_timestamp   = 0ull;
 		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
@@ -254,7 +261,8 @@ namespace mage {
 	 @return		The current user mode core timestamp of the calling 
 					process.
 	 */
-	[[nodiscard]] static inline U64 GetUserModeCoreTimestamp() noexcept {
+	[[nodiscard]]
+	static inline U64 GetUserModeCoreTimestamp() noexcept {
 		U64 kernel_mode_timestamp = 0ull;
 		U64 user_mode_timestamp   = 0ull;
 		GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
@@ -268,7 +276,8 @@ namespace mage {
 	 @return		The current core timestamp of the calling process per 
 					system core.
 	 */
-	[[nodiscard]] static inline U64 GetCoreTimestampPerCore() noexcept {
+	[[nodiscard]]
+	static inline U64 GetCoreTimestampPerCore() noexcept {
 		return GetCoreTimestamp() / g_nb_system_cores;
 	}
 
@@ -278,7 +287,8 @@ namespace mage {
 	 @return		The current kernel mode core timestamp of the calling 
 					process per system core.
 	 */
-	[[nodiscard]] static inline U64 GetKernelModeCoreTimestampPerCore() noexcept {
+	[[nodiscard]]
+	static inline U64 GetKernelModeCoreTimestampPerCore() noexcept {
 		return GetKernelModeCoreTimestamp() / g_nb_system_cores;
 	}
 
@@ -288,41 +298,46 @@ namespace mage {
 	 @return		The current user mode core timestamp of the calling 
 					process per system core.
 	 */
-	[[nodiscard]] static inline U64 GetUserModeCoreTimestampPerCore() noexcept {
+	[[nodiscard]]
+	static inline U64 GetUserModeCoreTimestampPerCore() noexcept {
 		return GetUserModeCoreTimestamp() / g_nb_system_cores;
 	}
 
-	[[nodiscard]] typename CoreClock::time_point 
-		CoreClock::now() noexcept {
-
+	[[nodiscard]]
+	typename CoreClock::time_point CoreClock::now() noexcept {
 		return time_point(duration(GetCoreTimestamp()));
 	}
 
-	[[nodiscard]] typename KernelModeCoreClock::time_point 
+	[[nodiscard]]
+	typename KernelModeCoreClock::time_point 
 		KernelModeCoreClock::now() noexcept {
 
 		return time_point(duration(GetKernelModeCoreTimestamp()));
 	}
 
-	[[nodiscard]] typename UserModeCoreClock::time_point 
+	[[nodiscard]]
+	typename UserModeCoreClock::time_point 
 		UserModeCoreClock::now() noexcept {
 
 		return time_point(duration(GetUserModeCoreTimestamp()));
 	}
 
-	[[nodiscard]] typename CoreClockPerCore::time_point 
+	[[nodiscard]]
+	typename CoreClockPerCore::time_point 
 		CoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetCoreTimestampPerCore()));
 	}
 
-	[[nodiscard]] typename KernelModeCoreClockPerCore::time_point 
+	[[nodiscard]]
+	typename KernelModeCoreClockPerCore::time_point 
 		KernelModeCoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetKernelModeCoreTimestampPerCore()));
 	}
 
-	[[nodiscard]] typename UserModeCoreClockPerCore::time_point 
+	[[nodiscard]]
+	typename UserModeCoreClockPerCore::time_point 
 		UserModeCoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetUserModeCoreTimestampPerCore()));

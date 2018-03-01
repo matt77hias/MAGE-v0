@@ -264,7 +264,7 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						transform.
 		 */
-		[[nodiscard]] F32 GetTranslationX() const noexcept {
+		[[nodiscard]]F32 GetTranslationX() const noexcept {
 			return m_transform.GetTranslationX();
 		}
 		
@@ -274,7 +274,7 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						transform.
 		 */
-		[[nodiscard]] F32 GetTranslationY() const noexcept {
+		[[nodiscard]]F32 GetTranslationY() const noexcept {
 			return m_transform.GetTranslationY();
 		}
 		
@@ -284,7 +284,7 @@ namespace mage {
 		 @return		The z-value of the translation component of this 
 						transform.
 		 */
-		[[nodiscard]] F32 GetTranslationZ() const noexcept {
+		[[nodiscard]]F32 GetTranslationZ() const noexcept {
 			return m_transform.GetTranslationZ();
 		}
 		
@@ -293,7 +293,7 @@ namespace mage {
 
 		 @return		The translation component of this transform.
 		 */
-		[[nodiscard]] const F32x3 GetTranslation() const noexcept {
+		[[nodiscard]]const F32x3 GetTranslation() const noexcept {
 			return m_transform.GetTranslation();
 		}
 		
@@ -302,7 +302,7 @@ namespace mage {
 
 		 @return		The translation component of this transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
 			return m_transform.GetTranslationV();
 		}
 
@@ -312,7 +312,7 @@ namespace mage {
 		 @return		The object-to-parent translation matrix of this 
 						transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetObjectToParentTranslationMatrix() const noexcept {
 
 			return m_transform.GetObjectToParentTranslationMatrix();
@@ -324,7 +324,7 @@ namespace mage {
 		 @return		The parent-to-object translation matrix of this 
 						transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetParentToObjectTranslationMatrix() const noexcept {
 
 			return m_transform.GetParentToObjectTranslationMatrix();
@@ -640,7 +640,7 @@ namespace mage {
 
 		 @return		The x-value of the rotation component of this transform.
 		 */
-		[[nodiscard]] F32 GetRotationX() const noexcept {
+		[[nodiscard]]F32 GetRotationX() const noexcept {
 			return m_transform.GetRotationX();
 		}
 		
@@ -649,7 +649,7 @@ namespace mage {
 
 		 @return		The y-value of the rotation component of this transform.
 		 */
-		[[nodiscard]] F32 GetRotationY() const noexcept {
+		[[nodiscard]]F32 GetRotationY() const noexcept {
 			return m_transform.GetRotationY();
 		}
 		
@@ -658,7 +658,7 @@ namespace mage {
 
 		 @return		The z-value of the rotation component of this transform.
 		 */
-		[[nodiscard]] F32 GetRotationZ() const noexcept {
+		[[nodiscard]]F32 GetRotationZ() const noexcept {
 			return m_transform.GetRotationZ();
 		}
 		
@@ -667,7 +667,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform.
 		 */
-		[[nodiscard]] const F32x3 GetRotation() const noexcept {
+		[[nodiscard]]const F32x3 GetRotation() const noexcept {
 			return m_transform.GetRotation();
 		}
 		
@@ -676,7 +676,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
 			return m_transform.GetRotationV();
 		}
 
@@ -686,7 +686,7 @@ namespace mage {
 		 @return		The object-to-parent rotation quaternion of this 
 						transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			GetObjectToParentRotationQuaternion() const noexcept {
 
 			return m_transform.GetObjectToParentRotationQuaternion();
@@ -698,7 +698,7 @@ namespace mage {
 		 @return		The parent-to-object rotation quaternion of this 
 						transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			GetParentToObjectRotationQuaternion() const noexcept {
 
 			return m_transform.GetParentToObjectRotationQuaternion();
@@ -709,7 +709,7 @@ namespace mage {
 
 		 @return		The object-to-parent rotation matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetObjectToParentRotationMatrix() const noexcept {
 
 			return m_transform.GetObjectToParentRotationMatrix();
@@ -720,7 +720,7 @@ namespace mage {
 
 		 @return		The parent-to-object rotation matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetParentToObjectRotationMatrix() const noexcept {
 
 			return m_transform.GetParentToObjectRotationMatrix();
@@ -907,7 +907,7 @@ namespace mage {
 
 		 @return		The x-value of the scale component of this transform.
 		 */
-		[[nodiscard]] F32 GetScaleX() const noexcept {
+		[[nodiscard]]F32 GetScaleX() const noexcept {
 			return m_transform.GetScaleX();
 		}
 		
@@ -916,7 +916,7 @@ namespace mage {
 
 		 @return		The y-value of the scale component of this transform.
 		 */
-		[[nodiscard]] F32 GetScaleY() const noexcept {
+		[[nodiscard]]F32 GetScaleY() const noexcept {
 			return m_transform.GetScaleY();
 		}
 		
@@ -925,7 +925,7 @@ namespace mage {
 
 		 @return		The z-value of the scale component of this transform.
 		 */
-		[[nodiscard]] F32 GetScaleZ() const noexcept {
+		[[nodiscard]]F32 GetScaleZ() const noexcept {
 			return m_transform.GetScaleZ();
 		}
 		
@@ -934,7 +934,7 @@ namespace mage {
 
 		 @return		The scale component of this transform.
 		 */
-		[[nodiscard]] const F32x3 GetScale() const noexcept {
+		[[nodiscard]]const F32x3 GetScale() const noexcept {
 			return m_transform.GetScale();
 		}
 		
@@ -943,7 +943,7 @@ namespace mage {
 
 		 @return		The scale component of this transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
 			return m_transform.GetScaleV();
 		}
 
@@ -952,7 +952,7 @@ namespace mage {
 
 		 @return		The scale object-to-parent matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetObjectToParentScaleMatrix() const noexcept {
 
 			return m_transform.GetObjectToParentScaleMatrix();
@@ -963,7 +963,7 @@ namespace mage {
 
 		 @return		The parent-to-object scale matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetParentToObjectScaleMatrix() const noexcept {
 
 			return m_transform.GetParentToObjectScaleMatrix();
@@ -983,7 +983,7 @@ namespace mage {
 		 @return		The position of the local origin of this transform 
 						expressed in object space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectOrigin() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetObjectOrigin() const noexcept {
 			return m_transform.GetObjectOrigin();
 		}
 
@@ -994,7 +994,7 @@ namespace mage {
 		 @return		The direction of the local x-axis of this transform 
 						expressed in object space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectAxisX() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetObjectAxisX() const noexcept {
 			return m_transform.GetObjectAxisX();
 		}
 		
@@ -1005,7 +1005,7 @@ namespace mage {
 		 @return		The direction of the local y-axis of this transform 
 						expressed in object space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectAxisY() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetObjectAxisY() const noexcept {
 			return m_transform.GetObjectAxisY();
 		}
 		
@@ -1016,7 +1016,7 @@ namespace mage {
 		 @return		The direction of the local z-axis of this transform 
 						expressed in object space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetObjectAxisZ() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetObjectAxisZ() const noexcept {
 			return m_transform.GetObjectAxisZ();
 		}
 		
@@ -1034,7 +1034,7 @@ namespace mage {
 		 @return		The position of the local origin of this transform 
 						expressed in parent space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
 			return m_transform.GetParentOrigin();
 		}
 
@@ -1045,7 +1045,7 @@ namespace mage {
 		 @return		The direction of the local x-axis of this transform 
 						expressed in parent space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
 			return m_transform.GetParentAxisX();
 		}
 		
@@ -1056,7 +1056,7 @@ namespace mage {
 		 @return		The direction of the local y-axis of this transform 
 						expressed in parent space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
 			return m_transform.GetParentAxisY();
 		}
 		
@@ -1067,7 +1067,7 @@ namespace mage {
 		 @return		The direction of the local z-axis of this transform 
 						expressed in parent space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
 			return m_transform.GetParentAxisZ();
 		}
 		
@@ -1085,7 +1085,7 @@ namespace mage {
 		 @return		The position of the local origin of this transform 
 						expressed in world space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldOrigin() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetWorldOrigin() const noexcept {
 			return GetObjectToWorldMatrix().r[3];
 		}
 
@@ -1096,7 +1096,7 @@ namespace mage {
 		 @return		The direction of the local x-axis of this transform 
 						expressed in world space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
 			return GetObjectToWorldMatrix().r[0];
 		}
 
@@ -1107,7 +1107,7 @@ namespace mage {
 		 @return		The direction of the local y-axis of this transform 
 						expressed in world space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
 			return GetObjectToWorldMatrix().r[1];;
 		}
 
@@ -1118,7 +1118,7 @@ namespace mage {
 		 @return		The direction of the local z-axis of this transform 
 						expressed in world space coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
+		[[nodiscard]]const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
 			return GetObjectToWorldMatrix().r[2];;
 		}
 
@@ -1146,7 +1146,7 @@ namespace mage {
 
 		 @return		The object-to-parent matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetObjectToParentMatrix() const noexcept {
 
 			return m_transform.GetObjectToParentMatrix();
@@ -1157,7 +1157,7 @@ namespace mage {
 
 		 @return		The parent-to-object matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetParentToObjectMatrix() const noexcept {
 
 			return m_transform.GetParentToObjectMatrix();
@@ -1168,7 +1168,7 @@ namespace mage {
 
 		 @return		The object-to-world matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetObjectToWorldMatrix() const noexcept {
 
 			UpdateObjectToWorldMatrix();
@@ -1180,7 +1180,7 @@ namespace mage {
 
 		 @return		The world-to-object matrix of this transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetWorldToObjectMatrix() const noexcept {
 
 			UpdateWorldToObjectMatrix();
@@ -1196,7 +1196,7 @@ namespace mage {
 		 @return		The transformed vector expressed in parent space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToParent(FXMVECTOR vector) const noexcept {
 			
 			return m_transform.TransformObjectToParent(vector);
@@ -1211,7 +1211,7 @@ namespace mage {
 		 @return		The transformed point expressed in parent space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToParentPoint(FXMVECTOR point) const noexcept {
 			
 			return m_transform.TransformObjectToParentPoint(point);
@@ -1226,7 +1226,7 @@ namespace mage {
 		 @return		The transformed direction expressed in parent space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
 			
 			return m_transform.TransformObjectToParentDirection(direction);
@@ -1241,7 +1241,7 @@ namespace mage {
 		 @return		The transformed vector expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformParentToObject(FXMVECTOR vector) const noexcept {
 			
 			return m_transform.TransformParentToObject(vector);
@@ -1256,7 +1256,7 @@ namespace mage {
 		 @return		The transformed point expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformParentToObjectPoint(FXMVECTOR point) const noexcept {
 			
 			return m_transform.TransformParentToObjectPoint(point);
@@ -1271,7 +1271,7 @@ namespace mage {
 		 @return		The transformed direction expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformParentToObjectDirection(FXMVECTOR direction) const noexcept {
 			
 			return m_transform.TransformParentToObjectDirection(direction);
@@ -1286,7 +1286,7 @@ namespace mage {
 		 @return		The transformed vector expressed in world space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToWorld(FXMVECTOR vector) const noexcept {
 			
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
@@ -1301,7 +1301,7 @@ namespace mage {
 		 @return		The transformed point expressed in world space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToWorldPoint(FXMVECTOR point) const noexcept {
 			
 			return XMVector3TransformCoord(point, GetObjectToWorldMatrix());
@@ -1316,7 +1316,7 @@ namespace mage {
 		 @return		The transformed direction expressed in world space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformObjectToWorldDirection(FXMVECTOR direction) const noexcept {
 			
 			return XMVector3TransformNormal(direction, GetObjectToWorldMatrix());
@@ -1331,7 +1331,7 @@ namespace mage {
 		 @return		The transformed vector expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformWorldToObject(FXMVECTOR vector) const noexcept {
 			
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
@@ -1346,7 +1346,7 @@ namespace mage {
 		 @return		The transformed point expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformWorldToObjectPoint(FXMVECTOR point) const noexcept {
 			
 			return XMVector3TransformCoord(point, GetWorldToObjectMatrix());
@@ -1361,7 +1361,7 @@ namespace mage {
 		 @return		The transformed direction expressed in object space 
 						coordinates.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV 
+		[[nodiscard]]const XMVECTOR XM_CALLCONV 
 			TransformWorldToObjectDirection(FXMVECTOR direction) const noexcept {
 			
 			return XMVector3TransformNormal(direction, GetWorldToObjectMatrix());
@@ -1385,7 +1385,7 @@ namespace mage {
 		 @return		@c true if this transform has an owner. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool HasOwner() const noexcept {
+		[[nodiscard]]bool HasOwner() const noexcept {
 			return bool(m_owner);
 		}
 
@@ -1394,7 +1394,7 @@ namespace mage {
 
 		 @return		A pointer to the owner of this transform.
 		 */
-		[[nodiscard]] ProxyPtr< Node > GetOwner() noexcept {
+		[[nodiscard]]ProxyPtr< Node > GetOwner() noexcept {
 			return m_owner;
 		}
 
@@ -1403,7 +1403,7 @@ namespace mage {
 
 		 @return		A pointer to the owner of this transform.
 		 */
-		[[nodiscard]] ProxyPtr< const Node > GetOwner() const noexcept {
+		[[nodiscard]]ProxyPtr< const Node > GetOwner() const noexcept {
 			return m_owner;
 		}
 

@@ -33,7 +33,7 @@ namespace mage {
 		 @return		A pointer to the engine statistics associated with the 
 						current engine.
 		 */
-		[[nodiscard]] static EngineStatistics *Get() noexcept;
+		[[nodiscard]]static EngineStatistics *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -110,7 +110,7 @@ namespace mage {
 
 		 @return		The number of draw calls of this engine statistics.
 		 */
-		[[nodiscard]] constexpr U32 GetNumberOfDrawCalls() noexcept {
+		[[nodiscard]]constexpr U32 GetNumberOfDrawCalls() noexcept {
 			return m_nb_draw_calls;
 		}
 

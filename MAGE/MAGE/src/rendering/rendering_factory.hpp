@@ -40,7 +40,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename VertexT >
-	[[nodiscard]] HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
 		                                           ID3D11Buffer **buffer, 
 		                                           const VertexT *vertices, 
 		                                           size_t nb_vertices) noexcept;
@@ -66,7 +66,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename VertexT >
-	[[nodiscard]] HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
 		                                            ID3D11Buffer **buffer, 
 		                                            const VertexT *vertices, 
 		                                            size_t nb_vertices) noexcept;
@@ -92,7 +92,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename IndexT >
-	[[nodiscard]] HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
 		                                          ID3D11Buffer **buffer, 
 		                                          const IndexT *indices, 
 		                                          size_t nb_indices) noexcept;
@@ -116,7 +116,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
 		                                             ID3D11Buffer **buffer, 
 		                                             const DataT *data, 
 		                                             size_t count = 1u) noexcept;
@@ -141,7 +141,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
 		                                              ID3D11Buffer **buffer, 
 		                                              const DataT *data, 
 		                                              size_t count = 1u) noexcept;
@@ -165,7 +165,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
 		                                               ID3D11Buffer **buffer, 
 		                                               const DataT *data, 
 		                                               size_t count = 1u) noexcept;
@@ -190,7 +190,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]] HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
+	[[nodiscard]]HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
 		                                                ID3D11Buffer **buffer, 
 		                                                const DataT *data, 
 		                                                size_t count = 1u) noexcept;
@@ -217,7 +217,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateOpaqueBlendState(ID3D11Device *device, 
 			                   ID3D11BlendState **state) noexcept;
 	
@@ -236,7 +236,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAlphaBlendState(ID3D11Device *device, 
 			                  ID3D11BlendState **state) noexcept;
 	
@@ -255,7 +255,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAdditiveBlendState(ID3D11Device *device, 
 			                     ID3D11BlendState **state) noexcept;
 	
@@ -274,7 +274,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateMultiplicativeBlendState(ID3D11Device *device, 
 			                           ID3D11BlendState **state) noexcept;
 
@@ -293,7 +293,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateBiMultiplicativeBlendState(ID3D11Device *device, 
 			                             ID3D11BlendState **state) noexcept;
 
@@ -315,7 +315,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateTransparencyBlendState(ID3D11Device *device, 
 			                         ID3D11BlendState **state) noexcept;
 
@@ -330,7 +330,7 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAlphaToCoverageBlendState(ID3D11Device *device, 
 			                            ID3D11BlendState **state) noexcept;
 
@@ -352,7 +352,7 @@ namespace mage {
 					A pointer to a pointer to the depth stencil state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateDepthNoneDepthStencilState(ID3D11Device *device, 
 			                             ID3D11DepthStencilState **state) noexcept;
 	
@@ -369,7 +369,7 @@ namespace mage {
 					The depth comparison function.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateDepthReadWriteDepthStencilState(ID3D11Device *device, 
 			                                  ID3D11DepthStencilState **state,
 		                                      D3D11_COMPARISON_FUNC func) noexcept;
@@ -387,7 +387,7 @@ namespace mage {
 					The depth comparison function.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateDepthReadDepthStencilState(ID3D11Device *device, 
 			                             ID3D11DepthStencilState **state,
 		                                 D3D11_COMPARISON_FUNC func) noexcept;
@@ -420,7 +420,7 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateRasterizerState(ID3D11Device *device, 
 			                  ID3D11RasterizerState **state, 
 		                      D3D11_CULL_MODE cull_mode, 
@@ -446,7 +446,7 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateCullNoneRasterizerState(ID3D11Device *device, 
 			                          ID3D11RasterizerState **state,
 		                              S32 depth_bias = 0, 
@@ -470,7 +470,7 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateCullClockwiseRasterizerState(ID3D11Device *device, 
 			                               ID3D11RasterizerState **state,
 		                                   S32 depth_bias = 0, 
@@ -494,7 +494,7 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateCullCounterClockwiseRasterizerState(ID3D11Device *device, 
 			                                      ID3D11RasterizerState **state,
 		                                          S32 depth_bias = 0, 
@@ -518,7 +518,7 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateWireframeRasterizerState(ID3D11Device *device, 
 			                           ID3D11RasterizerState **state,
 		                               S32 depth_bias = 0, 
@@ -548,7 +548,7 @@ namespace mage {
 					the boundaries of a texture.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateSamplerState(ID3D11Device *device, 
 			               ID3D11SamplerState **state, 
 		                   D3D11_FILTER filter, 
@@ -565,7 +565,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreatePointWrapSamplerState(ID3D11Device *device, 
 			                        ID3D11SamplerState **state) noexcept;
 	
@@ -580,7 +580,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	@return			A success/error value.
 	*/
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreatePointClampSamplerState(ID3D11Device *device, 
 			                         ID3D11SamplerState **state) noexcept;
 
@@ -595,7 +595,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	@return			A success/error value.
 	*/
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreatePointMirrorSamplerState(ID3D11Device *device, 
 			                          ID3D11SamplerState **state) noexcept;
 	
@@ -610,7 +610,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateLinearWrapSamplerState(ID3D11Device *device, 
 			                         ID3D11SamplerState **state) noexcept;
 	
@@ -625,7 +625,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateLinearClampSamplerState(ID3D11Device *device, 
 			                          ID3D11SamplerState **state) noexcept;
 
@@ -640,7 +640,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateLinearMirrorSamplerState(ID3D11Device *device, 
 			                           ID3D11SamplerState **state) noexcept;
 	
@@ -655,7 +655,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAnisotropicWrapSamplerState(ID3D11Device *device, 
 			                              ID3D11SamplerState **state) noexcept;
 
@@ -670,7 +670,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAnisotropicClampSamplerState(ID3D11Device *device, 
 			                               ID3D11SamplerState **state) noexcept;
 
@@ -685,7 +685,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreateAnisotropicMirrorSamplerState(ID3D11Device *device, 
 			                                ID3D11SamplerState **state) noexcept;
 
@@ -700,7 +700,7 @@ namespace mage {
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]] HRESULT 
+	[[nodiscard]]HRESULT 
 		CreatePCFSamplerState(ID3D11Device *device, 
 			                  ID3D11SamplerState **state) noexcept;
 

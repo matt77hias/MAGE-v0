@@ -107,7 +107,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		[[nodiscard]] HRESULT Configure() const;
+		[[nodiscard]]HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.
@@ -115,7 +115,7 @@ namespace mage {
 		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		[[nodiscard]] const DisplayConfiguration *
+		[[nodiscard]]const DisplayConfiguration *
 			GetDisplayConfiguration() const noexcept;
 
 	private:

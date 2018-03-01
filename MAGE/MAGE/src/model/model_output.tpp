@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] bool ModelOutput< VertexT, IndexT >
+	[[nodiscard]]bool ModelOutput< VertexT, IndexT >
 		::ContainsModelPart(const string &name) noexcept {
 		
 		for (const auto &model_part : m_model_parts) {

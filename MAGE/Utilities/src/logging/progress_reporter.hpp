@@ -5,16 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "system\timer.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <mutex>
+#include "type\types.hpp"
 
 #pragma endregion
 
@@ -120,72 +111,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		/**
-		 Initializes this progress reporter.
-
-		 @param[in]		title
-						A reference to the title.
-		 @param[in]		bar_length
-						The length of the progress bar. If @a bar_length is 
-						equal to 0 the default length will be chosen.
-		 */
-		void Initialize(const string &title, U16 bar_length = 0u);
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
+		class Impl;
 
 		/**
-		 The total number of work units that need to be done.
+		 A pointer to the implementation of this progress reporter.
 		 */
-		U32 m_nb_work_total;
-
-		/**
-		 The number of work units that are currently done.
-		 */
-		U32 m_nb_work_done;
-
-		/**
-		 The total number of progress characters that need to be outputted by 
-		 this progress reporter.
-		 */
-		U16 m_nb_progress_total;
-
-		/**
-		 The total number of progress characters that are currently outputted 
-		 by this progress reporter.
-		 */
-		U16 m_nb_progress_printed;
-
-		/**
-		 The progress character of this progress reporter.
-		 */
-		char m_progress_char;
-
-		/**
-		 A pointer to the output file stream of this progress reporter.
-		 */
-		FILE *m_fout;
-
-		/**
-		 A pointer to the output buffer of this progress reporter.
-		 */
-		UniquePtr< char[] > m_buffer;
-
-		/**
-		 A pointer to the current character in the output buffer of this progress 
-		 reporter.
-		 */
-		char *m_current_pos;
-
-		/**
-		 The timer of this progress reporter.
-		 */
-		WallClockTimer m_timer;
-
-		/**
-		 The mutex of this progress reporter.
-		 */
-		std::mutex m_mutex;
+		UniquePtr< Impl > m_impl;
 	};
 }

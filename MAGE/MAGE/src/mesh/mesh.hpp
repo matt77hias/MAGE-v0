@@ -27,7 +27,7 @@ namespace mage {
 	 @return		The format of the given index type.
 	 */
 	template< typename IndexT >
-	[[nodiscard]] constexpr DXGI_FORMAT GetIndexFormat() noexcept;
+	[[nodiscard]]constexpr DXGI_FORMAT GetIndexFormat() noexcept;
 
 	#pragma endregion
 
@@ -84,7 +84,7 @@ namespace mage {
 
 		 @return		The number of vertices of this mesh.
 		 */
-		[[nodiscard]] size_t GetNumberOfVertices() const noexcept {
+		[[nodiscard]]size_t GetNumberOfVertices() const noexcept {
 			return m_nb_vertices;
 		}
 
@@ -93,7 +93,7 @@ namespace mage {
 
 		 @return		The number of indices of this mesh.
 		 */
-		[[nodiscard]] size_t GetNumberOfIndices() const noexcept {
+		[[nodiscard]]size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -102,7 +102,7 @@ namespace mage {
 
 		 @return		The vertex size (in bytes) of this mesh.
 		 */
-		[[nodiscard]] size_t GetVertexSize() const noexcept {
+		[[nodiscard]]size_t GetVertexSize() const noexcept {
 			return m_vertex_size;
 		}
 
@@ -111,7 +111,7 @@ namespace mage {
 
 		 @return		The index format of this mesh.
 		 */
-		[[nodiscard]] DXGI_FORMAT GetIndexFormat() const noexcept {
+		[[nodiscard]]DXGI_FORMAT GetIndexFormat() const noexcept {
 			return m_index_format;
 		}
 
@@ -120,7 +120,7 @@ namespace mage {
 
 		 @return		The primitive topology of this mesh.	
 		 */
-		[[nodiscard]] D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
+		[[nodiscard]]D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
 			return m_primitive_topology;
 		}
 		

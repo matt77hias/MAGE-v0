@@ -47,7 +47,7 @@ namespace mage::script {
 		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
-		[[nodiscard]] RotationAxis GetRotationAxis() const noexcept {
+		[[nodiscard]]RotationAxis GetRotationAxis() const noexcept {
 			return m_axis;
 		}
 		void SetRotationAxis(RotationAxis axis) noexcept {

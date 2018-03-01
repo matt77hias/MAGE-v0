@@ -15,14 +15,14 @@
 namespace mage {
 	
 	template<>
-	[[nodiscard]] inline bool VariableScript
+	[[nodiscard]]inline bool VariableScript
 		::Contains< void >(const string &name) const noexcept {
 
 		return m_variables.cend() != m_variables.find(name);
 	}
 
 	template< typename T >
-	[[nodiscard]] bool VariableScript
+	[[nodiscard]]bool VariableScript
 		::Contains(const string &name) const noexcept {
 
 		if (const auto it = m_variables.find(name);
@@ -40,7 +40,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	[[nodiscard]] const T *VariableScript::GetValue(const string &name) const {
+	[[nodiscard]]const T *VariableScript::GetValue(const string &name) const {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 

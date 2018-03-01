@@ -97,7 +97,7 @@ namespace mage {
 		 @return		@c true if this camera lens has a finite aperture.
 						@c false otherwise.
 		 */
-		[[nodiscard]] constexpr bool HasFiniteAperture() const noexcept {
+		[[nodiscard]]constexpr bool HasFiniteAperture() const noexcept {
 			return 0.0f != m_radius;
 		}
 
@@ -106,7 +106,7 @@ namespace mage {
 
 		 @return		The radius of this camera lens.
 		 */
-		[[nodiscard]] constexpr F32 GetLensRadius() const noexcept {
+		[[nodiscard]]constexpr F32 GetLensRadius() const noexcept {
 			return m_radius;
 		}
 		
@@ -125,7 +125,7 @@ namespace mage {
 
 		 @return		The focal length of this camera lens.
 		 */
-		[[nodiscard]] constexpr F32 GetFocalLength() const noexcept {
+		[[nodiscard]]constexpr F32 GetFocalLength() const noexcept {
 			return m_focal_length;
 		}
 		
@@ -146,7 +146,7 @@ namespace mage {
 		 @return		The maximum radius of the circle of confusion of this 
 						camera lens.
 		 */
-		[[nodiscard]] constexpr F32 GetMaximumCoCRadius() const noexcept {
+		[[nodiscard]]constexpr F32 GetMaximumCoCRadius() const noexcept {
 			return m_max_coc_radius;
 		}
 		
@@ -240,7 +240,7 @@ namespace mage {
 		 @return		The position of the near z-plane of this camera in 
 						camera view space.
 		 */
-		[[nodiscard]] F32 GetNearZ() const noexcept {
+		[[nodiscard]]F32 GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
@@ -262,7 +262,7 @@ namespace mage {
 		 @return		The position of the far z-plane of this camera in 
 						camera view space.
 		 */
-		[[nodiscard]] F32 GetFarZ() const noexcept {
+		[[nodiscard]]F32 GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
@@ -296,7 +296,7 @@ namespace mage {
 
 		 @return		The camera-to-projection matrix of this camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept = 0;
 
 		/**
@@ -304,7 +304,7 @@ namespace mage {
 
 		 @return		The projection-to-camera matrix of this camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
@@ -316,7 +316,7 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		[[nodiscard]] CameraLens &GetLens() noexcept {
+		[[nodiscard]]CameraLens &GetLens() noexcept {
 			return m_lens;
 		}
 		
@@ -325,7 +325,7 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		[[nodiscard]] const CameraLens &GetLens() const noexcept {
+		[[nodiscard]]const CameraLens &GetLens() const noexcept {
 			return m_lens;
 		}
 
@@ -338,7 +338,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		[[nodiscard]] Viewport &GetViewport() noexcept {
+		[[nodiscard]]Viewport &GetViewport() noexcept {
 			return m_viewport;
 		}
 
@@ -347,7 +347,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		[[nodiscard]] const Viewport &GetViewport() const noexcept {
+		[[nodiscard]]const Viewport &GetViewport() const noexcept {
 			return m_viewport;
 		}
 
@@ -358,7 +358,7 @@ namespace mage {
 						engine must be loaded.
 		 @return		The super-sampled viewport of this camera.
 		 */
-		[[nodiscard]] const Viewport GetSSViewport() const noexcept;
+		[[nodiscard]]const Viewport GetSSViewport() const noexcept;
 
 		/**
 		 Binds the viewport of this camera.
@@ -391,7 +391,7 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.	
 		 */
-		[[nodiscard]] CameraSettings &GetSettings() noexcept {
+		[[nodiscard]]CameraSettings &GetSettings() noexcept {
 			return m_settings;
 		}
 		
@@ -400,7 +400,7 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.
 		 */
-		[[nodiscard]] const CameraSettings &GetSettings() const noexcept {
+		[[nodiscard]]const CameraSettings &GetSettings() const noexcept {
 			return m_settings;
 		}
 

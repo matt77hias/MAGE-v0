@@ -34,7 +34,7 @@ namespace mage {
 		 @return		A pointer to the rendering manager associated with the 
 						current engine.
 		 */
-		[[nodiscard]] static const RenderingManager *Get() noexcept;
+		[[nodiscard]]static const RenderingManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -108,7 +108,7 @@ namespace mage {
 		 @return		A pointer to the display configuration of this 
 						rendering manager.
 		 */
-		[[nodiscard]] const DisplayConfiguration *
+		[[nodiscard]]const DisplayConfiguration *
 			GetDisplayConfiguration() const noexcept;
 
 		/**
@@ -116,7 +116,7 @@ namespace mage {
 
 		 @return		A pointer to the swap chain of this rendering manager.
 		 */
-		[[nodiscard]] SwapChain *GetSwapChain() const noexcept;
+		[[nodiscard]]SwapChain *GetSwapChain() const noexcept;
 
 		/**
 		 Returns the state manager of this rendering manager.
@@ -124,7 +124,7 @@ namespace mage {
 		 @return		A pointer to the state manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept;
+		[[nodiscard]]ResourceManager *GetResourceManager() const noexcept;
 
 		/**
 		 Binds the persistent state of this rendering manager.

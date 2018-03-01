@@ -95,7 +95,7 @@ namespace mage {
 
 	void DoubleEndedMemoryStack::Reset() noexcept {
 		m_current_low  = m_begin;
-		m_current_high = m_begin + m_size;
+		m_current_high = m_begin + m_size - 1;
 	}
 
 	void DoubleEndedMemoryStack::RollBackLow(uintptr_t ptr) noexcept {
@@ -105,7 +105,7 @@ namespace mage {
 	}
 
 	void DoubleEndedMemoryStack::RollBackHigh(uintptr_t ptr) noexcept {
-		Assert(m_current_high <= ptr && ptr <= m_begin + m_size);
+		Assert(m_current_high <= ptr && ptr < m_begin + m_size);
 		
 		m_current_high = ptr;
 	}

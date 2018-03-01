@@ -32,7 +32,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -41,7 +41,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return false;
 		}
 
@@ -50,7 +50,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return false;
 		}
 
@@ -59,7 +59,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return false;
 		}
 
@@ -167,7 +167,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -176,7 +176,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return true;
 		}
 
@@ -185,7 +185,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return false;
 		}
 
@@ -194,7 +194,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return false;
 		}
 
@@ -312,7 +312,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -321,7 +321,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return false;
 		}
 
@@ -330,7 +330,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return false;
 		}
 
@@ -339,7 +339,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return true;
 		}
 
@@ -457,7 +457,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -466,7 +466,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return false;
 		}
 
@@ -475,7 +475,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return true;
 		}
 
@@ -484,7 +484,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return false;
 		}
 
@@ -603,7 +603,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -612,7 +612,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return true;
 		}
 
@@ -621,7 +621,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return false;
 		}
 
@@ -630,7 +630,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return true;
 		}
 
@@ -756,7 +756,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -765,7 +765,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return true;
 		}
 
@@ -774,7 +774,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return true;
 		}
 
@@ -783,7 +783,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return false;
 		}
 
@@ -910,7 +910,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -919,7 +919,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return false;
 		}
 
@@ -928,7 +928,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return true;
 		}
 
@@ -937,7 +937,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return true;
 		}
 
@@ -1064,7 +1064,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasPosition() noexcept {
+		[[nodiscard]]static constexpr bool HasPosition() noexcept {
 			return true;
 		}
 
@@ -1073,7 +1073,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasNormal() noexcept {
+		[[nodiscard]]static constexpr bool HasNormal() noexcept {
 			return true;
 		}
 
@@ -1082,7 +1082,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasTexture() noexcept {
+		[[nodiscard]]static constexpr bool HasTexture() noexcept {
 			return true;
 		}
 
@@ -1091,7 +1091,7 @@ namespace mage {
 
 		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
-		[[nodiscard]] static constexpr bool HasColor() noexcept {
+		[[nodiscard]]static constexpr bool HasColor() noexcept {
 			return true;
 		}
 

@@ -37,7 +37,7 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool AABB::Encloses(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto r        = sphere.Radius();
@@ -53,7 +53,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool AABB::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto r        = sphere.Radius();
@@ -73,7 +73,7 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Partial | Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool AABB::Overlaps(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto r        = -sphere.Radius();
@@ -90,7 +90,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool AABB::OverlapsStrict(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto r        = -sphere.Radius();
@@ -124,7 +124,7 @@ namespace mage {
 	// Bounding Sphere: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingSphere::Encloses(const AABB &aabb) const noexcept {
 		const auto pmin = aabb.MinPoint();
 		const auto pmax = aabb.MaxPoint();
@@ -157,7 +157,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingSphere::EnclosesStrict(const AABB &aabb) const noexcept {
 		const auto pmin = aabb.MinPoint();
 		const auto pmax = aabb.MaxPoint();
@@ -190,7 +190,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingSphere::Encloses(const BoundingSphere &sphere) const noexcept {
 		const auto p      = sphere.Centroid();
 		const auto radius = sphere.Radius();
@@ -217,7 +217,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingSphere::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
 		const auto p      = sphere.Centroid();
 		const auto radius = sphere.Radius();
@@ -300,7 +300,7 @@ namespace mage {
 	// BoundingFrustum: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] bool XM_CALLCONV 
+	[[nodiscard]]bool XM_CALLCONV 
 		BoundingFrustum::Encloses(FXMVECTOR point) const noexcept {
 
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
@@ -313,7 +313,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] bool XM_CALLCONV 
+	[[nodiscard]]bool XM_CALLCONV 
 		BoundingFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
 		
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
@@ -339,7 +339,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::EnclosesStrict(const AABB &aabb) const noexcept {
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
 			const auto p      = aabb.MinPointAlongNormal(m_planes[i]);
@@ -352,7 +352,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::Encloses(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
@@ -367,7 +367,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::EnclosesStrict(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
@@ -386,7 +386,7 @@ namespace mage {
 	// BoundingFrustum: Overlapping = Partial | Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::Overlaps(const AABB &aabb) const noexcept {
 		// Test for no coverage.
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
@@ -400,7 +400,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::OverlapsStrict(const AABB &aabb) const noexcept {
 		// Test for no coverage.
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
@@ -414,7 +414,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::Overlaps(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
@@ -430,7 +430,7 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::OverlapsStrict(const BoundingSphere &sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
@@ -450,7 +450,7 @@ namespace mage {
 	// BoundingFrustum: Operators
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	bool BoundingFrustum::operator==(const BoundingFrustum &frustum) const noexcept {
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
 			if (XMVector4NotEqual(m_planes[i], frustum.m_planes[i])) {

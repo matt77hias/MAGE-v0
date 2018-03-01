@@ -35,7 +35,7 @@ namespace mage {
 		 @return		A pointer to the mouse of the input manager associated 
 						with the current engine.
 		 */
-		[[nodiscard]] static const Mouse *Get() noexcept;
+		[[nodiscard]]static const Mouse *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The window handle of this mouse.
 		 */
-		[[nodiscard]] HWND GetWindow() noexcept {
+		[[nodiscard]]HWND GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -137,7 +137,7 @@ namespace mage {
 
 		 @return		The horizontal position of this mouse.
 		 */
-		[[nodiscard]] S32 GetPositionX() const noexcept {
+		[[nodiscard]]S32 GetPositionX() const noexcept {
 			return static_cast< S32 >(m_position.x);
 		}
 
@@ -146,7 +146,7 @@ namespace mage {
 
 		 @return		The vertical position of this mouse.
 		 */
-		[[nodiscard]] S32 GetPositionY() const noexcept {
+		[[nodiscard]]S32 GetPositionY() const noexcept {
 			return static_cast< S32 >(m_position.y);
 		}
 
@@ -155,7 +155,7 @@ namespace mage {
 
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
-		[[nodiscard]] S32 GetDeltaX() const noexcept {
+		[[nodiscard]]S32 GetDeltaX() const noexcept {
 			return static_cast< S32 >(m_button_state.lX);
 		}
 
@@ -164,7 +164,7 @@ namespace mage {
 
 		 @return		The change in this mouse's vertical coordinate.
 		 */
-		[[nodiscard]] S32 GetDeltaY() const noexcept {
+		[[nodiscard]]S32 GetDeltaY() const noexcept {
 			return static_cast< S32 >(m_button_state.lY);
 		}
 
@@ -173,7 +173,7 @@ namespace mage {
 
 		 @return		The change in this mouse's scroll wheel.
 		 */
-		[[nodiscard]] S32 GetDeltaWheel() const noexcept {
+		[[nodiscard]]S32 GetDeltaWheel() const noexcept {
 			return static_cast< S32 >(m_button_state.lZ);
 		}
 

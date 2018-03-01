@@ -102,7 +102,7 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		[[nodiscard]] HWND GetWindow() noexcept {
+		[[nodiscard]]HWND GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -112,7 +112,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		[[nodiscard]] bool IsWindowed() const noexcept {
+		[[nodiscard]]bool IsWindowed() const noexcept {
 			return !IsFullScreen();
 		}
 		
@@ -122,7 +122,7 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool IsFullScreen() const noexcept {
+		[[nodiscard]]bool IsFullScreen() const noexcept {
 			BOOL current = FALSE;
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return current == TRUE;
@@ -135,7 +135,7 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool LostMode() const noexcept {
+		[[nodiscard]]bool LostMode() const noexcept {
 			return IsTrackedFullScreen() == IsWindowed();
 		}
 
@@ -178,7 +178,7 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		[[nodiscard]] ID3D11RenderTargetView *GetRTV() const noexcept {
+		[[nodiscard]]ID3D11RenderTargetView *GetRTV() const noexcept {
 			return m_rtv.Get();
 		}
 
@@ -217,7 +217,7 @@ namespace mage {
 						corresponds to fullscreen mode.
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool IsTrackedFullScreen() const noexcept {
+		[[nodiscard]]bool IsTrackedFullScreen() const noexcept {
 			return m_display_configuration->IsFullScreen();
 		}
 
@@ -490,19 +490,19 @@ namespace mage {
 
 	SwapChain::~SwapChain() = default;
 
-	[[nodiscard]] HWND SwapChain::GetWindow() noexcept {
+	[[nodiscard]]HWND SwapChain::GetWindow() noexcept {
 		return m_impl->GetWindow();
 	}
 
-	[[nodiscard]] bool SwapChain::IsWindowed() const noexcept {
+	[[nodiscard]]bool SwapChain::IsWindowed() const noexcept {
 		return m_impl->IsWindowed();
 	}
 
-	[[nodiscard]] bool SwapChain::IsFullScreen() const noexcept {
+	[[nodiscard]]bool SwapChain::IsFullScreen() const noexcept {
 		return m_impl->IsFullScreen();
 	}
 
-	[[nodiscard]] bool SwapChain::LostMode() const noexcept {
+	[[nodiscard]]bool SwapChain::LostMode() const noexcept {
 		return m_impl->LostMode();
 	}
 
@@ -514,7 +514,7 @@ namespace mage {
 		m_impl->SwitchMode(toggle);
 	}
 
-	[[nodiscard]] ID3D11RenderTargetView *SwapChain::GetRTV() const noexcept {
+	[[nodiscard]]ID3D11RenderTargetView *SwapChain::GetRTV() const noexcept {
 		return m_impl->GetRTV();
 	}
 

@@ -261,7 +261,8 @@ namespace mage {
 	 @return		Otherwise, the given handle is returned.
 
 	 */
-	[[nodiscard]] static inline HANDLE SafeHandle(HANDLE handle) noexcept {
+	[[nodiscard]]
+	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (INVALID_HANDLE_VALUE == handle) ? nullptr : handle;
 	}
 
@@ -492,7 +493,8 @@ namespace mage {
 		 @return		A pointer to the memory resource pointed to by this 
 						proxy pointer.
 		 */
-		[[nodiscard]] T *Get() const noexcept {
+		[[nodiscard]]
+		T *Get() const noexcept {
 			return m_getter();
 		}
 
@@ -507,7 +509,8 @@ namespace mage {
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
-		[[nodiscard]] bool operator==(const ProxyPtr< U >& rhs) const noexcept {
+		[[nodiscard]]
+		bool operator==(const ProxyPtr< U >& rhs) const noexcept {
 			return Get() == rhs.Get(); 
 		}
 		
@@ -523,7 +526,8 @@ namespace mage {
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
-		[[nodiscard]] bool operator!=(const ProxyPtr< U >& rhs) const noexcept {
+		[[nodiscard]]
+		bool operator!=(const ProxyPtr< U >& rhs) const noexcept {
 			return !(*this == rhs);
 		}
 
@@ -548,8 +552,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator==(const ProxyPtr< T >& lhs,
-		                                 std::nullptr_t) noexcept {
+	[[nodiscard]]
+	inline bool operator==(const ProxyPtr< T >& lhs, std::nullptr_t) noexcept {
 		return !bool(lhs);
 	}
 
@@ -564,8 +568,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator!=(const ProxyPtr< T >& lhs,
-		                                 std::nullptr_t) noexcept {
+	[[nodiscard]]
+	inline bool operator!=(const ProxyPtr< T >& lhs, std::nullptr_t) noexcept {
 		return bool(lhs);
 	}
 
@@ -580,8 +584,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator==(std::nullptr_t,
-		                                 const ProxyPtr< T >& rhs) noexcept {
+	[[nodiscard]]
+	inline bool operator==(std::nullptr_t, const ProxyPtr< T >& rhs) noexcept {
 		return !bool(rhs);
 	}
 
@@ -596,8 +600,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator!=(std::nullptr_t,
-		                                 const ProxyPtr< T >& rhs) noexcept {
+	[[nodiscard]]
+	inline bool operator!=(std::nullptr_t, const ProxyPtr< T >& rhs) noexcept {
 		return bool(rhs);
 	}
 

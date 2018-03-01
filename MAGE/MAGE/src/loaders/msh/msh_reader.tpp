@@ -51,7 +51,7 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
+	[[nodiscard]]bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
 		auto magic = g_msh_token_magic;
 		
 		while (*magic != L'\0') {

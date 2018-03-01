@@ -125,7 +125,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		#pragma region
 
-		[[nodiscard]] static HRESULT Map(ID3D11DeviceContext &device_context, 
+		[[nodiscard]]static HRESULT Map(ID3D11DeviceContext &device_context, 
 										 ID3D11Resource *resource, 
 										 U32 subresource, 
 										 D3D11_MAP map_type, 

@@ -29,7 +29,8 @@ namespace mage {
 					array @a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] inline const DataT BytesBigEndianTo(const U8 *bytes) noexcept {
+	[[nodiscard]]
+	inline const DataT BytesBigEndianTo(const U8 *bytes) noexcept {
 		Assert(bytes);
 		return *reinterpret_cast< const DataT * >(bytes);
 	}
@@ -48,7 +49,8 @@ namespace mage {
 					array @a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] const DataT BytesLittleEndianTo(const U8 *bytes) noexcept;
+	[[nodiscard]]
+	const DataT BytesLittleEndianTo(const U8 *bytes) noexcept;
 
 	/**
 	 Reads a @c DataT element from the given byte array.
@@ -67,9 +69,8 @@ namespace mage {
 					@a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] inline const DataT BytesTo(const U8 *bytes, 
-		                                     bool big_endian) noexcept {
-
+	[[nodiscard]]
+	inline const DataT BytesTo(const U8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
 		return (big_endian) ? BytesBigEndianTo< DataT >(bytes)
 			                : BytesLittleEndianTo< DataT >(bytes);

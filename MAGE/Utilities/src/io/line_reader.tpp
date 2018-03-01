@@ -43,7 +43,8 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	[[nodiscard]] inline bool LineReader::Contains() const {
+	[[nodiscard]]
+	inline bool LineReader::Contains() const {
 		return mage::Contains< DataT >(m_context, GetDelimiters().c_str()) 
 			   == TokenResult::Valid;
 	}

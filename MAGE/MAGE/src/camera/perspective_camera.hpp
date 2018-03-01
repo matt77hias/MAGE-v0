@@ -30,7 +30,7 @@ namespace mage {
 	 @return		The horizontal field-of-view corresponding to the given 
 					aspect ratio and vertical field-of-view.
 	 */
-	[[nodiscard]] inline F32 FOVXFromFOVY(F32 aspect_ratio, F32 fov_y) noexcept {
+	[[nodiscard]]inline F32 FOVXFromFOVY(F32 aspect_ratio, F32 fov_y) noexcept {
 		return 2.0f * atanf(aspect_ratio * tanf(0.5f * fov_y));
 	}
 
@@ -45,7 +45,7 @@ namespace mage {
 	 @return		The vertical field-of-view corresponding to the given 
 					aspect ratio and horizontal field-of-view.
 	 */
-	[[nodiscard]] inline F32 FOVYFromFOVX(F32 aspect_ratio, F32 fov_x) noexcept {
+	[[nodiscard]]inline F32 FOVYFromFOVX(F32 aspect_ratio, F32 fov_x) noexcept {
 		return 2.0f * atanf(tanf(0.5f * fov_x) / aspect_ratio);
 	}
 
@@ -59,7 +59,7 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given width and 
 					height.
 	 */
-	[[nodiscard]] constexpr F32 
+	[[nodiscard]]constexpr F32 
 		AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
 		
 		return width / height;
@@ -76,7 +76,7 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given horizontal and 
 					vertical field-of-views.
 	 */
-	[[nodiscard]] inline F32 AspectRatioFromFOVs(F32 fov_x, F32 fov_y) noexcept {
+	[[nodiscard]]inline F32 AspectRatioFromFOVs(F32 fov_x, F32 fov_y) noexcept {
 		return tanf(0.5f * fov_x) / tanf(0.5f * fov_y);
 	}
 
@@ -164,7 +164,7 @@ namespace mage {
 		 @return		The horizontal field-of-view of this perspective 
 						camera.
 		 */
-		[[nodiscard]] F32 GetFOVX() const noexcept {
+		[[nodiscard]]F32 GetFOVX() const noexcept {
 			return FOVXFromFOVY(m_aspect_ratio, m_fov_y);
 		}
 
@@ -174,7 +174,7 @@ namespace mage {
 		 @return		The vertical field-of-view of this perspective 
 						camera.
 		 */
-		[[nodiscard]] F32 GetFOVY() const noexcept {
+		[[nodiscard]]F32 GetFOVY() const noexcept {
 			return m_fov_y;
 		}
 
@@ -194,7 +194,7 @@ namespace mage {
 
 		 @return		The aspect ratio of this perspective camera.
 		 */
-		[[nodiscard]] F32 GetAspectRatio() const noexcept {
+		[[nodiscard]]F32 GetAspectRatio() const noexcept {
 			return m_aspect_ratio;
 		}
 
@@ -274,7 +274,7 @@ namespace mage {
 		 @return		The camera-to-projection matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -292,7 +292,7 @@ namespace mage {
 		 @return		The projection-to-camera matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept override {
 
 			const auto camera_to_projection = GetCameraToProjectionMatrix();

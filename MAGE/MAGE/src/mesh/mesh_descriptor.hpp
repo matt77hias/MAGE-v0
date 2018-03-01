@@ -106,7 +106,7 @@ namespace mage {
 		 @return		@c true if the mesh coordinate system handness should 
 						be inverted. @c false otherwise.
 		 */
-		[[nodiscard]] constexpr bool InvertHandness() const noexcept {
+		[[nodiscard]]constexpr bool InvertHandness() const noexcept {
 			return m_invert_handedness;
 		}
 
@@ -118,7 +118,7 @@ namespace mage {
 		 @return		@c true if the face vertices should be defined in 
 						clockwise order. @c false otherwise.
 		 */
-		[[nodiscard]] constexpr bool ClockwiseOrder() const noexcept {
+		[[nodiscard]]constexpr bool ClockwiseOrder() const noexcept {
 			return m_clockwise_order;
 		}
 

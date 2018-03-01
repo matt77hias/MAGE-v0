@@ -123,7 +123,7 @@ namespace mage {
 		m_timer.Restart();
 	}
 	
-	[[nodiscard]] int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
+	[[nodiscard]]int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
 		// Check if this engine is loaded.
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");

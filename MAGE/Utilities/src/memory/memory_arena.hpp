@@ -100,7 +100,8 @@ namespace mage {
 
 		 @return		The alignment in bytes of this memory arena.
 		 */
-		[[nodiscard]] size_t GetAlignment() const noexcept {
+		[[nodiscard]]
+		size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -109,7 +110,8 @@ namespace mage {
 
 		 @return		The maximum block size in bytes of this memory arena.
 		 */
-		[[nodiscard]] size_t GetMaximumBlockSize() const noexcept {
+		[[nodiscard]]
+		size_t GetMaximumBlockSize() const noexcept {
 			return m_maximum_block_size;
 		}
 
@@ -120,7 +122,8 @@ namespace mage {
 		 @return		The block size (in bytes) of the current block of this 
 						memory arena.
 		 */
-		[[nodiscard]] size_t GetCurrentBlockSize() const noexcept {
+		[[nodiscard]]
+		size_t GetCurrentBlockSize() const noexcept {
 			return m_current_block.first;
 		}
 
@@ -130,14 +133,16 @@ namespace mage {
 		 @return		The block size (in bytes) of all blocks of this memory
 						arena.
 		 */
-		[[nodiscard]] size_t GetTotalBlockSize() const noexcept;
+		[[nodiscard]]
+		size_t GetTotalBlockSize() const noexcept;
 
 		/**
 		 Returns a pointer to the current block of this memory arena.
 
 		 @return		A pointer to the current block of this memory arena.
 		 */
-		[[nodiscard]] void *GetCurrentBlockPtr() const noexcept {
+		[[nodiscard]]
+		void *GetCurrentBlockPtr() const noexcept {
 			return (void *)m_current_block.second;
 		}
 
@@ -200,6 +205,7 @@ namespace mage {
 			using value_type = DataT;
 
 			using propagate_on_container_move_assignment = std::true_type;
+
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -349,9 +355,8 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator==(
-				const Allocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator==(const Allocator< DataU > &rhs) const noexcept {
 				return m_memory_arena == rhs.m_memory_arena;
 			}
 
@@ -367,9 +372,8 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator!=(
-				const Allocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -416,7 +420,8 @@ namespace mage {
 		 @return		An allocator for this memory arena.
 		 */
 		template< typename DataT >
-		[[nodiscard]] Allocator< DataT > GetAllocator() const noexcept{
+		[[nodiscard]]
+		Allocator< DataT > GetAllocator() const noexcept{
 			return Allocator< DataT >(this);
 		}
 

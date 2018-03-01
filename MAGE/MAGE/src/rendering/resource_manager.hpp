@@ -188,7 +188,7 @@ namespace mage {
 						unique identifier. @c false otherwise.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]] bool 
+		[[nodiscard]]bool 
 			Contains(const typename key_type< ResourceT > &guid) noexcept;
 		
 		/**
@@ -206,7 +206,7 @@ namespace mage {
 		 @return		A pointer to the resource.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]] SharedPtr< typename value_type< ResourceT > >
+		[[nodiscard]]SharedPtr< typename value_type< ResourceT > >
 			Get(const typename key_type< ResourceT > &guid) noexcept;
 
 		/**
@@ -248,7 +248,7 @@ namespace mage {
 						resources of the given type of this resource manager.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]] typename pool_type< ResourceT > &
+		[[nodiscard]]typename pool_type< ResourceT > &
 			GetPool() noexcept;
 
 		/**
@@ -261,7 +261,7 @@ namespace mage {
 						resources of the given type of this resource manager.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]] const typename pool_type< ResourceT > &
+		[[nodiscard]]const typename pool_type< ResourceT > &
 			GetPool() const noexcept;
 
 		//---------------------------------------------------------------------

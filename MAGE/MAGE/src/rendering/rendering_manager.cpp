@@ -109,7 +109,7 @@ namespace mage {
 		 @return		A pointer to the display configuration of this 
 						rendering manager.
 		 */
-		[[nodiscard]] const DisplayConfiguration *
+		[[nodiscard]]const DisplayConfiguration *
 			GetDisplayConfiguration() const noexcept {
 
 			return m_display_configuration.get();
@@ -120,7 +120,7 @@ namespace mage {
 
 		 @return		A pointer to the swap chain of this rendering manager.
 		 */
-		[[nodiscard]] SwapChain *GetSwapChain() const noexcept {
+		[[nodiscard]]SwapChain *GetSwapChain() const noexcept {
 			return m_swap_chain.get();
 		}
 
@@ -130,7 +130,7 @@ namespace mage {
 		 @return		A pointer to the resource manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]] ResourceManager *GetResourceManager() const noexcept {
+		[[nodiscard]]ResourceManager *GetResourceManager() const noexcept {
 			return m_resource_manager.get();
 		}
 
@@ -357,7 +357,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] const RenderingManager *RenderingManager::Get() noexcept {
+	[[nodiscard]]const RenderingManager *RenderingManager::Get() noexcept {
 		Assert(Engine::Get());
 
 		return Engine::Get()->GetRenderingManager();
@@ -371,17 +371,17 @@ namespace mage {
 
 	RenderingManager::~RenderingManager() = default;
 
-	[[nodiscard]] const DisplayConfiguration *
+	[[nodiscard]]const DisplayConfiguration *
 		RenderingManager::GetDisplayConfiguration() const noexcept {
 
 		return m_impl->GetDisplayConfiguration();
 	}
 	
-	[[nodiscard]] SwapChain *RenderingManager::GetSwapChain() const noexcept {
+	[[nodiscard]]SwapChain *RenderingManager::GetSwapChain() const noexcept {
 		return m_impl->GetSwapChain();
 	}
 	
-	[[nodiscard]] ResourceManager *
+	[[nodiscard]]ResourceManager *
 		RenderingManager::GetResourceManager() const noexcept {
 
 		return m_impl->GetResourceManager();

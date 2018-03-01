@@ -93,7 +93,7 @@ namespace mage {
 
 		 @return		The size of this structured buffer.
 		 */
-		[[nodiscard]] size_t size() const noexcept {
+		[[nodiscard]]size_t size() const noexcept {
 			return m_size;
 		}
 
@@ -102,7 +102,7 @@ namespace mage {
 
 		 @return		The capacity of this structured buffer.
 		 */
-		[[nodiscard]] size_t capacity() const noexcept {
+		[[nodiscard]]size_t capacity() const noexcept {
 			return m_capacity;
 		}
 
@@ -126,7 +126,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of this structured buffer.
 		 */
-		[[nodiscard]] ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]]ID3D11ShaderResourceView *Get() const noexcept {
 			return m_buffer_srv.Get();
 		}
 

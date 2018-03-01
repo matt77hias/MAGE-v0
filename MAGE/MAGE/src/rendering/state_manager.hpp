@@ -769,7 +769,7 @@ namespace mage {
 		 @return		A pointer to the blend state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]] ID3D11BlendState *
+		[[nodiscard]]ID3D11BlendState *
 			Get(BlendStateIndex index) const noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].Get();
@@ -784,7 +784,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the blend state of this state 
 						manager associated to the given index.
 		 */
-		[[nodiscard]] ID3D11BlendState **
+		[[nodiscard]]ID3D11BlendState **
 			ReleaseAndGetAddressOf(BlendStateIndex index) noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -799,7 +799,7 @@ namespace mage {
 		 @return		A pointer to the depth stencil state of this state 
 						manager associated to the given index.
 		 */
-		[[nodiscard]] ID3D11DepthStencilState *
+		[[nodiscard]]ID3D11DepthStencilState *
 			Get(DepthStencilStateIndex index) const noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
@@ -814,7 +814,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the depth stencil state of 
 						this state manager associated to the given index.
 		 */
-		[[nodiscard]] ID3D11DepthStencilState **
+		[[nodiscard]]ID3D11DepthStencilState **
 			ReleaseAndGetAddressOf(DepthStencilStateIndex index) noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -829,7 +829,7 @@ namespace mage {
 		 @return		A pointer to the rasterizer state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]] ID3D11RasterizerState *
+		[[nodiscard]]ID3D11RasterizerState *
 			Get(RasterizerStateIndex index) const noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].Get();
@@ -844,7 +844,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the rasterizer state of this 
 						state manager associated to the given index.
 		 */
-		[[nodiscard]] ID3D11RasterizerState **
+		[[nodiscard]]ID3D11RasterizerState **
 			ReleaseAndGetAddressOf(RasterizerStateIndex index) noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -859,7 +859,7 @@ namespace mage {
 		 @return		A pointer to the sampler state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]] ID3D11SamplerState *
+		[[nodiscard]]ID3D11SamplerState *
 			Get(SamplerStateIndex index) const noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].Get();
@@ -874,7 +874,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the sampler state of this 
 						state manager associated to the given index.
 		 */
-		[[nodiscard]] ID3D11SamplerState **
+		[[nodiscard]]ID3D11SamplerState **
 			ReleaseAndGetAddressOf(SamplerStateIndex index) noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();

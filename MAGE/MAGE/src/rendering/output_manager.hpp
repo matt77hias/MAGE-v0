@@ -145,37 +145,37 @@ namespace mage {
 			Count                 = 5
 		};
 
-		[[nodiscard]] ID3D11ShaderResourceView *
+		[[nodiscard]]ID3D11ShaderResourceView *
 			GetSRV(SRVIndex index) const noexcept {
 
 			return m_srvs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]] ID3D11ShaderResourceView **
+		[[nodiscard]]ID3D11ShaderResourceView **
 			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
 
 			return m_srvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		[[nodiscard]] ID3D11RenderTargetView *
+		[[nodiscard]]ID3D11RenderTargetView *
 			GetRTV(RTVIndex index) const noexcept {
 
 			return m_rtvs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]] ID3D11RenderTargetView **
+		[[nodiscard]]ID3D11RenderTargetView **
 			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
 
 			return m_rtvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		[[nodiscard]] ID3D11UnorderedAccessView *
+		[[nodiscard]]ID3D11UnorderedAccessView *
 			GetUAV(UAVIndex index) const noexcept {
 
 			return m_uavs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]] ID3D11UnorderedAccessView **
+		[[nodiscard]]ID3D11UnorderedAccessView **
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();

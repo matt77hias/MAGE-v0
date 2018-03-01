@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
-		[[nodiscard]] SRGB &GetBaseColor() noexcept {
+		[[nodiscard]]SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
-		[[nodiscard]] const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]]const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -110,7 +110,7 @@ namespace mage {
 		 @return		The radiance in watts per square meter per steradians 
 						of this ambient light.
 		 */
-		[[nodiscard]] F32 GetRadiance() const noexcept {
+		[[nodiscard]]F32 GetRadiance() const noexcept {
 			return m_radiance;
 		}
 
@@ -131,7 +131,7 @@ namespace mage {
 
 		 @return		The radiance spectrum of this ambient light.
 		 */
-		[[nodiscard]] const RGB GetRadianceSpectrum() const noexcept {
+		[[nodiscard]]const RGB GetRadianceSpectrum() const noexcept {
 			const auto L = m_radiance * SRGBtoRGB(XMLoad(m_base_color));
 			return RGB(XMStore< F32x3 >(L));
 		}

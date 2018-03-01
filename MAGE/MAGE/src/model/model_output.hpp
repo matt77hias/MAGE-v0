@@ -107,7 +107,7 @@ namespace mage {
 		 @return		@c true if this model part has the default child as its 
 						child. @c false otherwise.
 		 */
-		[[nodiscard]] bool HasDefaultChild() const noexcept {
+		[[nodiscard]]bool HasDefaultChild() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_CHILD == m_child;
 		}
 
@@ -117,7 +117,7 @@ namespace mage {
 		 @return		@c true if this model part has the default parent as 
 						its parent. @c false otherwise.
 		 */
-		[[nodiscard]] bool HasDefaultParent() const noexcept {
+		[[nodiscard]]bool HasDefaultParent() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_PARENT == m_parent;
 		}
 
@@ -128,7 +128,7 @@ namespace mage {
 		 @return		@c true if this model part has the default material as 
 						its material. @c false otherwise.
 		 */
-		[[nodiscard]] bool HasDefaultMaterial() const noexcept {
+		[[nodiscard]]bool HasDefaultMaterial() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_MATERIAL == m_material;
 		}
 
@@ -285,7 +285,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the model part.
 		 */
-		[[nodiscard]] bool ContainsModelPart(const string &name) noexcept;
+		[[nodiscard]]bool ContainsModelPart(const string &name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.

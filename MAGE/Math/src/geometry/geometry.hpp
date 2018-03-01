@@ -416,9 +416,8 @@ namespace mage {
 					A reference to the set of UV texture coordinates.
 	 @return		The set of UV texture coordinates with inverted handness.
 	 */
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const UV InvertHandness(const UV &uv) noexcept {
-
 		return UV(uv.m_x, 1.0f - uv.m_y);
 	}
 	
@@ -429,9 +428,8 @@ namespace mage {
 					A reference to the point.
 	 @return		The point with inverted handness.
 	 */
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const Point3 InvertHandness(const Point3 &point) noexcept {
-		
 		return Point3(point.m_x, point.m_y, -point.m_z);
 	}
 	
@@ -442,9 +440,8 @@ namespace mage {
 					A reference to the normal.
 	 @return		The normal with inverted handness.
 	 */
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const Normal3 InvertHandness(const Normal3 &normal) noexcept {
-		
 		return Normal3(normal.m_x, normal.m_y, -normal.m_z);
 	}
 
@@ -455,9 +452,8 @@ namespace mage {
 					A reference to the direction.
 	 @return		The direction with inverted handness.
 	 */
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const Direction3 InvertHandness(const Direction3 &direction) noexcept {
-		
 		return Direction3(direction.m_x, direction.m_y, -direction.m_z);
 	}
 

@@ -124,7 +124,7 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
-		[[nodiscard]] SpriteTransform &GetSpriteTransform() noexcept {
+		[[nodiscard]]SpriteTransform &GetSpriteTransform() noexcept {
 			return m_sprite_transform;
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
-		[[nodiscard]] const SpriteTransform &GetSpriteTransform() const noexcept {
+		[[nodiscard]]const SpriteTransform &GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
 		
@@ -147,7 +147,7 @@ namespace mage {
 
 		 @return		The sprite effects of this sprite text.
 		 */
-		[[nodiscard]] SpriteEffect GetSpriteEffects() const noexcept {
+		[[nodiscard]]SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
 		
@@ -179,7 +179,7 @@ namespace mage {
 		 @return		A reference to a vector containing the color strings 
 						of this sprite text.
 		 */
-		[[nodiscard]] const std::vector< ColorString > &GetText() const noexcept {
+		[[nodiscard]]const std::vector< ColorString > &GetText() const noexcept {
 			return m_strings;
 		}
 
@@ -240,7 +240,7 @@ namespace mage {
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
-		[[nodiscard]] SRGBA &GetTextEffectColor() noexcept {
+		[[nodiscard]]SRGBA &GetTextEffectColor() noexcept {
 			return m_text_effect_color;
 		}
 
@@ -250,7 +250,7 @@ namespace mage {
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
-		[[nodiscard]] const SRGBA &GetTextEffectColor() const noexcept {
+		[[nodiscard]]const SRGBA &GetTextEffectColor() const noexcept {
 			return m_text_effect_color;
 		}
 
@@ -259,7 +259,7 @@ namespace mage {
 
 		 @return		The text effect of this sprite text.
 		 */
-		[[nodiscard]] TextEffect GetTextEffect() const noexcept {
+		[[nodiscard]]TextEffect GetTextEffect() const noexcept {
 			return m_text_effect;
 		}
 
@@ -282,7 +282,7 @@ namespace mage {
 
 		 @return		A pointer to the font of this sprite text.
 		 */
-		[[nodiscard]] SharedPtr< const SpriteFont > GetFont() const noexcept {
+		[[nodiscard]]SharedPtr< const SpriteFont > GetFont() const noexcept {
 			return m_font;
 		}
 		
@@ -292,7 +292,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the font of 
 						this sprite text.
 		 */
-		[[nodiscard]] ID3D11ShaderResourceView *GetFontSRV() const noexcept {
+		[[nodiscard]]ID3D11ShaderResourceView *GetFontSRV() const noexcept {
 			return m_font->Get();
 		}
 

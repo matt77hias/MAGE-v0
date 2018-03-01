@@ -90,7 +90,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this spotlight.
 		 */
-		[[nodiscard]] SRGB &GetBaseColor() noexcept {
+		[[nodiscard]]SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -99,7 +99,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this spotlight.
 		 */
-		[[nodiscard]] const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]]const SRGB &GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The power in watts of this omni light.
 		 */
-		[[nodiscard]] F32 GetPower() const noexcept {
+		[[nodiscard]]F32 GetPower() const noexcept {
 			return GetIntensity() * 0.25f * XM_1DIVPI;
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @return		The power spectrum of this omni light.
 		 */
-		[[nodiscard]] const RGB GetPowerSpectrum() const noexcept {
+		[[nodiscard]]const RGB GetPowerSpectrum() const noexcept {
 			const auto P = GetPower() * SRGBtoRGB(XMLoad(m_base_color));
 			return RGB(XMStore< F32x3 >(P));
 		}
@@ -138,7 +138,7 @@ namespace mage {
 		 @return		The radiant intensity in watts per steradians of this 
 						omni light.
 		 */
-		[[nodiscard]] F32 GetIntensity() const noexcept {
+		[[nodiscard]]F32 GetIntensity() const noexcept {
 			return m_intensity;
 		}
 
@@ -158,7 +158,7 @@ namespace mage {
 
 		 @return		The radiant intensity spectrum of this omni light.
 		 */
-		[[nodiscard]] const RGB GetIntensitySpectrum() const noexcept {
+		[[nodiscard]]const RGB GetIntensitySpectrum() const noexcept {
 			const auto I = GetIntensity() * SRGBtoRGB(XMLoad(m_base_color));
 			return RGB(XMStore< F32x3 >(I));
 		}
@@ -172,7 +172,7 @@ namespace mage {
 
 		 @return		A reference to the AABB of this omni light.
 		 */
-		[[nodiscard]] const AABB &GetAABB() const noexcept {
+		[[nodiscard]]const AABB &GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -181,7 +181,7 @@ namespace mage {
 
 		 @return		A reference to the BoundingSphere of this omni light.
 		 */
-		[[nodiscard]] const BoundingSphere &GetBoundingSphere() const noexcept {
+		[[nodiscard]]const BoundingSphere &GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
 
@@ -194,7 +194,7 @@ namespace mage {
 
 		 @return		The range of this omni light.
 		 */
-		[[nodiscard]] F32 GetRange() const noexcept {
+		[[nodiscard]]F32 GetRange() const noexcept {
 			return m_range;
 		}
 
@@ -223,7 +223,7 @@ namespace mage {
 		 @return		@c true if shadows should be used for this omni light. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool UseShadows() const noexcept {
+		[[nodiscard]]bool UseShadows() const noexcept {
 			return m_shadows;
 		}
 
@@ -266,7 +266,7 @@ namespace mage {
 		 @return		The light-to-projection matrix of the (forward) light 
 						camera of this omni light.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]const XMMATRIX XM_CALLCONV 
 			GetLightToProjectionMatrix() const noexcept {
 
 			static constexpr auto near_plane = 0.1f;

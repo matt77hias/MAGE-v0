@@ -152,13 +152,15 @@ namespace mage {
 		}
 	}
 	
-	[[nodiscard]] bool LineReader::ContainsChars() const {
+	[[nodiscard]]
+	bool LineReader::ContainsChars() const {
 		return mage::ContainsChars(m_context, GetDelimiters().c_str()) 
-			== TokenResult::Valid;
+			   == TokenResult::Valid;
 	}
 	
-	[[nodiscard]] bool LineReader::ContainsQuotedString() const {
+	[[nodiscard]]
+	bool LineReader::ContainsQuotedString() const {
 		return mage::ContainsQuotedString(m_context, GetDelimiters().c_str()) 
-			== TokenResult::Valid;
+			   == TokenResult::Valid;
 	}
 }

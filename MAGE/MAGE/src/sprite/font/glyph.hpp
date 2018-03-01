@@ -108,7 +108,7 @@ namespace mage {
 		 @return		@c true if the this glyph's character is smaller than 
 						the given glyph's character. @c false otherwise.
 		 */
-		[[nodiscard]] bool operator<(const Glyph &rhs) const noexcept {
+		[[nodiscard]]bool operator<(const Glyph &rhs) const noexcept {
 			return m_character < rhs.m_character;
 		}
 
@@ -121,7 +121,7 @@ namespace mage {
 		 @return		@c true if the this glyph's character is smaller than 
 						the given character. @c false otherwise.
 		 */
-		[[nodiscard]] bool operator<(wchar_t rhs) const noexcept {
+		[[nodiscard]]bool operator<(wchar_t rhs) const noexcept {
 			return m_character < static_cast< U32 >(rhs);
 		}
 

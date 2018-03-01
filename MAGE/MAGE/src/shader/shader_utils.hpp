@@ -37,7 +37,7 @@ namespace mage {
 					@c ID3DBlob interface that you can use to access the 
 					compiled code.
 	 */
-	[[nodiscard]] HRESULT CompileShaderFromFile(const wstring &fname,
+	[[nodiscard]]HRESULT CompileShaderFromFile(const wstring &fname,
 		                                        const string &entry_point, 
 		                                        const string &shader_target, 
 		                                        ID3DBlob **output_blob);

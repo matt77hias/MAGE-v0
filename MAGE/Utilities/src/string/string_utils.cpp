@@ -22,9 +22,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] char *
-		str_escape_first(char *str, char c) noexcept {
-		
+	[[nodiscard]]
+	char *str_escape_first(char *str, char c) noexcept {
 		Assert(str);
 		
 		auto input = str;
@@ -49,9 +48,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const char *
-		str_escape_first(const char *str, char c) noexcept {
-		
+	[[nodiscard]]
+	const char *str_escape_first(const char *str, char c) noexcept {
 		Assert(str);
 		
 		auto input = str;
@@ -76,9 +74,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] wchar_t *
-		str_escape_first(wchar_t *str, wchar_t c) noexcept {
-		
+	[[nodiscard]]
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
 		
 		auto input = str;
@@ -103,9 +100,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const wchar_t *
-		str_escape_first(const wchar_t *str, wchar_t c) noexcept {
-		
+	[[nodiscard]]
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
 		
 		auto input = str;
@@ -130,9 +126,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] char *
-		str_gets(char *str, size_t num, const char **input) noexcept {
-		
+	[[nodiscard]]
+	char *str_gets(char *str, size_t num, const char **input) noexcept {
 		Assert(str);
 		Assert(input);
 
@@ -160,9 +155,8 @@ namespace mage {
 		return str;
 	}
 
-	[[nodiscard]] wchar_t *
-		str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
-		
+	[[nodiscard]]
+	wchar_t *str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
 		Assert(str);
 		Assert(input);
 		
@@ -190,11 +184,13 @@ namespace mage {
 		return str;
 	}
 
-	[[nodiscard]] const wstring str_convert(const string &str) {
+	[[nodiscard]]
+	const wstring str_convert(const string &str) {
 		return wstring(CA2W(str.c_str()));
 	}
 
-	[[nodiscard]] const string str_convert(const wstring &str) {
+	[[nodiscard]]
+	const string str_convert(const wstring &str) {
 		return string(CW2A(str.c_str()));
 	}
 }

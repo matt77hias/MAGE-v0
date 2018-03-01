@@ -128,7 +128,7 @@ namespace mage::loader {
 		 @return		@c true if the header of the file is valid. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool IsHeaderValid();
+		[[nodiscard]]bool IsHeaderValid();
 
 		//---------------------------------------------------------------------
 		// Member Variables

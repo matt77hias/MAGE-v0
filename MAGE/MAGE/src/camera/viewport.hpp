@@ -31,16 +31,16 @@ namespace mage {
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
-		[[nodiscard]] static const D3D11_VIEWPORT GetMaxViewport() noexcept;
+		[[nodiscard]]static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		[[nodiscard]] static const D3D11_VIEWPORT 
+		[[nodiscard]]static const D3D11_VIEWPORT 
 			GetMaxViewport(U32 width, U32 height) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width), 
 				                  static_cast< F32 >(height));
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT 
+		[[nodiscard]]static const D3D11_VIEWPORT 
 			GetMaxViewport(F32 width, F32 height) noexcept {
 			
 			D3D11_VIEWPORT viewport = {};
@@ -50,7 +50,7 @@ namespace mage {
 			return viewport;
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT 
+		[[nodiscard]]static const D3D11_VIEWPORT 
 			GetMaxViewport(U32 width, U32 height, AADescriptor desc) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width),
@@ -58,7 +58,7 @@ namespace mage {
 				                  desc);
 		}
 
-		[[nodiscard]] static const D3D11_VIEWPORT 
+		[[nodiscard]]static const D3D11_VIEWPORT 
 			GetMaxViewport(F32 width, F32 height, AADescriptor desc) noexcept {
 			
 			const auto multiplier = GetResolutionMultiplier(desc);
@@ -129,7 +129,7 @@ namespace mage {
 
 		 @return		A reference to the viewport of this viewport.
 		 */
-		[[nodiscard]] const D3D11_VIEWPORT &GetViewport() const noexcept {
+		[[nodiscard]]const D3D11_VIEWPORT &GetViewport() const noexcept {
 			return m_viewport;
 		}
 
@@ -150,15 +150,15 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
-		[[nodiscard]] F32 GetTopLeftX() const noexcept {
+		[[nodiscard]]F32 GetTopLeftX() const noexcept {
 			return m_viewport.TopLeftX;
 		}
 
-		[[nodiscard]] F32 GetTopLeftY() const noexcept {
+		[[nodiscard]]F32 GetTopLeftY() const noexcept {
 			return m_viewport.TopLeftY;
 		}
 
-		[[nodiscard]] const F32x2 GetTopLeft() const noexcept {
+		[[nodiscard]]const F32x2 GetTopLeft() const noexcept {
 			return F32x2(GetTopLeftX(), GetTopLeftY());
 		}
 
@@ -198,15 +198,15 @@ namespace mage {
 			SetTopLeftY(top_left.m_y);
 		}
 
-		[[nodiscard]] F32 GetNormalizedTopLeftX() const noexcept {
+		[[nodiscard]]F32 GetNormalizedTopLeftX() const noexcept {
 			return AbsoluteToNormalizedPixelX(GetTopLeftX());
 		}
 
-		[[nodiscard]] F32 GetNormalizedTopLeftY() const noexcept {
+		[[nodiscard]]F32 GetNormalizedTopLeftY() const noexcept {
 			return AbsoluteToNormalizedPixelY(GetTopLeftY());
 		}
 
-		[[nodiscard]] const F32x2 GetNormalizedTopLeft() const noexcept {
+		[[nodiscard]]const F32x2 GetNormalizedTopLeft() const noexcept {
 			return AbsoluteToNormalizedPixel(GetTopLeft());
 		}
 
@@ -246,15 +246,15 @@ namespace mage {
 			SetNormalizedTopLeftY(top_left.m_y);
 		}
 
-		[[nodiscard]] F32 GetWidth() const noexcept {
+		[[nodiscard]]F32 GetWidth() const noexcept {
 			return m_viewport.Width;
 		}
 
-		[[nodiscard]] F32 GetHeight() const noexcept {
+		[[nodiscard]]F32 GetHeight() const noexcept {
 			return m_viewport.Height;
 		}
 
-		[[nodiscard]] const F32x2 GetWidthAndHeight() const noexcept {
+		[[nodiscard]]const F32x2 GetWidthAndHeight() const noexcept {
 			return F32x2(GetWidth(), GetHeight());
 		}
 
@@ -294,15 +294,15 @@ namespace mage {
 			SetHeight(resolution.m_y);
 		}
 
-		[[nodiscard]] F32 GetNormalizedWidth() const noexcept {
+		[[nodiscard]]F32 GetNormalizedWidth() const noexcept {
 			return AbsoluteToNormalizedPixelX(GetWidth());
 		}
 
-		[[nodiscard]] F32 GetNormalizedHeight() const noexcept {
+		[[nodiscard]]F32 GetNormalizedHeight() const noexcept {
 			return AbsoluteToNormalizedPixelY(GetHeight());
 		}
 
-		[[nodiscard]] const F32x2 GetNormalizedWidthAndHeight() const noexcept {
+		[[nodiscard]]const F32x2 GetNormalizedWidthAndHeight() const noexcept {
 			return AbsoluteToNormalizedPixel(GetWidthAndHeight());
 		}
 
@@ -342,7 +342,7 @@ namespace mage {
 			SetNormalizedHeight(resolution.m_y);
 		}
 
-		[[nodiscard]] F32 GetMinimumDepth() const noexcept {
+		[[nodiscard]]F32 GetMinimumDepth() const noexcept {
 			return m_viewport.MinDepth;
 		}
 
@@ -350,7 +350,7 @@ namespace mage {
 			m_viewport.MinDepth = min_depth;
 		}
 
-		[[nodiscard]] F32 GetMaximumDepth() const noexcept {
+		[[nodiscard]]F32 GetMaximumDepth() const noexcept {
 			return m_viewport.MaxDepth;
 		}
 
@@ -387,7 +387,7 @@ namespace mage {
 
 	 @return		The viewport transform for the maximum viewport.
 	 */
-	[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept;
+	[[nodiscard]]const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept;
 
 	/**
 	 Returns the viewport transform for the given viewport.
@@ -396,7 +396,7 @@ namespace mage {
 					A reference to the viewport.
 	 @return		The viewport transform for the given viewport.
 	 */
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
+	[[nodiscard]]const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(const D3D11_VIEWPORT &viewport) noexcept;
 
 	#pragma endregion

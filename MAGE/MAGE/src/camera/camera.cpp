@@ -60,7 +60,7 @@ namespace mage {
 
 	Camera &Camera::operator=(Camera &&camera) noexcept = default;
 
-	[[nodiscard]] const Viewport Camera::GetSSViewport() const noexcept {
+	[[nodiscard]]const Viewport Camera::GetSSViewport() const noexcept {
 		const auto desc = DisplayConfiguration::Get()->GetAADescriptor();
 		return Viewport(m_viewport, desc);
 	}

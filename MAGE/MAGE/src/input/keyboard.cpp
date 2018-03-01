@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] const Keyboard *Keyboard::Get() noexcept {
+	[[nodiscard]]const Keyboard *Keyboard::Get() noexcept {
 		Assert(InputManager::Get());
 
 		return InputManager::Get()->GetKeyboard();

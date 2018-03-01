@@ -115,7 +115,7 @@ namespace mage {
 
 		 @return		A pointer to the shader resource view of this texture.
 		 */
-		[[nodiscard]] ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]]ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 		

@@ -53,7 +53,7 @@ namespace mage {
 						than the second given glyph's character. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]]bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
 			return lhs.m_character < rhs.m_character;
 		}
 
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		@c true if the given glyph's character is smaller than 
 						the given character. @c false otherwise.
 		 */
-		[[nodiscard]] bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
+		[[nodiscard]]bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
 			return lhs.m_character < static_cast< U32 >(rhs);
 		}
 
@@ -83,7 +83,7 @@ namespace mage {
 		 @return		@c true if the given character is smaller than the 
 						given glyph's character. @c false otherwise.
 		 */
-		[[nodiscard]] bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]]bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
 			return static_cast< U32 >(lhs) < rhs.m_character;
 		}
 	};
@@ -223,7 +223,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+	[[nodiscard]]const XMVECTOR XM_CALLCONV 
 		SpriteFont::MeasureText(const ColorString *strings, size_t nb_strings) const {
 		
 		auto result = XMVectorZero();
@@ -269,7 +269,7 @@ namespace mage {
 		return result;
 	}
 
-	[[nodiscard]] const RECT 
+	[[nodiscard]]const RECT 
 		SpriteFont::MeasureDrawBounds(const ColorString *strings,
 			                          size_t nb_strings,
 			                          const F32x2 &top_left) const {
@@ -331,14 +331,14 @@ namespace mage {
 		return result;
 	}
 
-	[[nodiscard]] bool SpriteFont::ContainsCharacter(wchar_t character) const {
+	[[nodiscard]]bool SpriteFont::ContainsCharacter(wchar_t character) const {
 		return std::binary_search(m_glyphs.cbegin(), 
 			                      m_glyphs.cend(), 
 			                      character, 
 			                      GlyphLessThan());
 	}
 	
-	[[nodiscard]] const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
+	[[nodiscard]]const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
 		if (const auto it = std::lower_bound(m_glyphs.cbegin(), 
 			                                 m_glyphs.cend(), 
 			                                 character, 

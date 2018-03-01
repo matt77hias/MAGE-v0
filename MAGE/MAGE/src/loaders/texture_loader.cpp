@@ -59,7 +59,7 @@ namespace mage::loader {
 	 @return		The WIC container format associated with the given image 
 					file extension.
 	 */
-	[[nodiscard]] static inline const GUID 
+	[[nodiscard]]static inline const GUID 
 		GetGUIDContainerFormat(const wstring &extension) noexcept {
 
 		if (extension == L"png" || extension == L"PNG") {

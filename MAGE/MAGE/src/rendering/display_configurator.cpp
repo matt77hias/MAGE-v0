@@ -160,7 +160,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		[[nodiscard]] HRESULT Configure() const;
+		[[nodiscard]]HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.
@@ -168,7 +168,7 @@ namespace mage {
 		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		[[nodiscard]] const DisplayConfiguration *
+		[[nodiscard]]const DisplayConfiguration *
 			GetDisplayConfiguration() const noexcept {
 
 			return m_display_configuration.get();
@@ -194,7 +194,7 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
-		[[nodiscard]] static INT_PTR CALLBACK DisplayDialogProcDelegate(
+		[[nodiscard]]static INT_PTR CALLBACK DisplayDialogProcDelegate(
 			HWND dialog, UINT message, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
@@ -233,7 +233,7 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
-		[[nodiscard]] INT_PTR DisplayDialogProc(HWND dialog, 
+		[[nodiscard]]INT_PTR DisplayDialogProc(HWND dialog, 
 			                                    UINT message,
 			                                    [[maybe_unused]] WPARAM wParam, 
 			                                    [[maybe_unused]] LPARAM lParam);
@@ -277,7 +277,7 @@ namespace mage {
 		std::vector< DXGI_MODE_DESC > m_display_modes;
 	};
 
-	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator::Impl
+	[[nodiscard]]INT_PTR CALLBACK DisplayConfigurator::Impl
 		::DisplayDialogProcDelegate(HWND dialog, 
 			                        UINT message, 
 			                        WPARAM wParam, 
@@ -343,7 +343,7 @@ namespace mage {
 	 @return		@c true if the given display mode needs to be rejected.
 					@c false otherwise.
 	 */
-	[[nodiscard]] static inline bool 
+	[[nodiscard]]static inline bool 
 		RejectDisplayMode(const DXGI_MODE_DESC &display_mode_desc) noexcept {
 		
 		return (display_mode_desc.Width  < 512u) 
@@ -451,7 +451,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] HRESULT DisplayConfigurator::Impl::Configure() const {
+	[[nodiscard]]HRESULT DisplayConfigurator::Impl::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. 
 		//    If this parameter is nullptr, then the current executable is 
@@ -479,7 +479,7 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the resolution of 
 					the given display format descriptor.
 	 */
-	[[nodiscard]] static inline size_t 
+	[[nodiscard]]static inline size_t 
 		ConvertResolution(const DXGI_MODE_DESC &desc) noexcept {
 
 		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
@@ -494,14 +494,14 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the refresh rate of 
 					the given display format descriptor.
 	 */
-	[[nodiscard]] static inline size_t 
+	[[nodiscard]]static inline size_t 
 		ConvertRefreshRate(const DXGI_MODE_DESC &desc) noexcept {
 
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	[[nodiscard]] INT_PTR DisplayConfigurator::Impl
+	[[nodiscard]]INT_PTR DisplayConfigurator::Impl
 		::DisplayDialogProc(HWND dialog, 
 			                UINT message,
 		                    [[maybe_unused]] WPARAM wParam, 
@@ -811,11 +811,11 @@ namespace mage {
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 
-	[[nodiscard]] HRESULT DisplayConfigurator::Configure() const {
+	[[nodiscard]]HRESULT DisplayConfigurator::Configure() const {
 		return m_impl->Configure();
 	}
 
-	[[nodiscard]] const DisplayConfiguration *
+	[[nodiscard]]const DisplayConfiguration *
 		DisplayConfigurator::GetDisplayConfiguration() const noexcept {
 
 		return m_impl->GetDisplayConfiguration();

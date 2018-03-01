@@ -234,11 +234,12 @@ namespace mage {
 		 @return		@c true if the given message is handled by this window 
 						message handler. @c false otherwise.
 		 */
-		[[nodiscard]] virtual bool HandleWindowMessage(HWND window, 
-													   UINT message, 
-													   WPARAM wParam, 
-													   LPARAM lParam, 
-													   LRESULT &result) const = 0;
+		[[nodiscard]]
+		virtual bool HandleWindowMessage(HWND window, 
+										 UINT message, 
+										 WPARAM wParam, 
+										 LPARAM lParam, 
+										 LRESULT &result) const = 0;
 	};
 
 	#pragma endregion
@@ -331,7 +332,8 @@ namespace mage {
 		 @return		The application instance handle of this window 
 						descriptor.
 		 */
-		[[nodiscard]] HINSTANCE GetInstance() const noexcept {
+		[[nodiscard]]
+		HINSTANCE GetInstance() const noexcept {
 			return m_instance;
 		}
 
@@ -341,7 +343,8 @@ namespace mage {
 		 @return		A reference to the window class name of this window 
 						descriptor.
 		 */
-		[[nodiscard]] const wstring &GetWindowClassName() const noexcept {
+		[[nodiscard]]
+		const wstring &GetWindowClassName() const noexcept {
 			return m_window_class_name;
 		}
 
@@ -402,10 +405,11 @@ namespace mage {
 		 @return		The return value is the result of the message
 						processing and depends on the message sent.
 		 */
-		[[nodiscard]] static LRESULT CALLBACK HandleWindowMessage(HWND window, 
-																  UINT message, 
-																  WPARAM wParam,
-																  LPARAM lParam);
+		[[nodiscard]]
+		static LRESULT CALLBACK HandleWindowMessage(HWND window, 
+													UINT message, 
+													WPARAM wParam, 
+													LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -509,7 +513,8 @@ namespace mage {
 		 
 		 @return		A pointer to the window descriptor of this window.
 		 */
-		[[nodiscard]] WindowDescriptorPtr GetWindowDescriptor() const noexcept {
+		[[nodiscard]]
+		WindowDescriptorPtr GetWindowDescriptor() const noexcept {
 			return m_window_desc;
 		}
 
@@ -518,7 +523,8 @@ namespace mage {
 		 
 		 @return		The application instance handle of this window.
 		 */
-		[[nodiscard]] HINSTANCE GetInstance() const noexcept {
+		[[nodiscard]]
+		HINSTANCE GetInstance() const noexcept {
 			return m_window_desc->GetInstance();
 		}
 
@@ -527,7 +533,8 @@ namespace mage {
 
 		 @return		The window handle of this window.
 		 */
-		[[nodiscard]] HWND GetWindow() const noexcept {
+		[[nodiscard]]
+		HWND GetWindow() const noexcept {
 			return m_window;
 		}
 
@@ -536,7 +543,8 @@ namespace mage {
 
 		 @return		The title text of this window.
 		 */
-		[[nodiscard]] const wstring GetTitleText() const noexcept;
+		[[nodiscard]]
+		const wstring GetTitleText() const noexcept;
 
 		/**
 		 Sets the title text of this window to the given title text.
@@ -612,7 +620,9 @@ namespace mage {
 						Failed to create the window.
 		 */
 		void InitializeWindow(const wstring &title_text, 
-							  U32 width, U32 height, DWORD style);
+							  U32 width, 
+							  U32 height, 
+							  DWORD style);
 
 		/**
 		 Initializes the window of this window.
@@ -627,7 +637,8 @@ namespace mage {
 						Failed to create the window.
 		 */
 		void InitializeWindow(const wstring &title_text, 
-							  const RECT &rectangle, DWORD style);
+							  const RECT &rectangle, 
+							  DWORD style);
 
 		/**
 		 Handles the given message sent to this window.
@@ -648,11 +659,12 @@ namespace mage {
 		 @return		@c true if the given message is handled by this window. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool HandleWindowMessage(HWND window, 
-											   UINT message, 
-											   WPARAM wParam, 
-											   LPARAM lParam, 
-											   LRESULT &result) const;
+		[[nodiscard]]
+		bool HandleWindowMessage(HWND window, 
+								 UINT message, 
+								 WPARAM wParam, 
+								 LPARAM lParam, 
+								 LRESULT &result) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

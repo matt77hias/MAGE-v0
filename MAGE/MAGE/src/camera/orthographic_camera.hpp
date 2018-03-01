@@ -94,7 +94,7 @@ namespace mage {
 		 @return		The width of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		[[nodiscard]] F32 GetWidth() const noexcept {
+		[[nodiscard]]F32 GetWidth() const noexcept {
 			return m_width;
 		}
 
@@ -117,7 +117,7 @@ namespace mage {
 		 @return		The height of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		[[nodiscard]] F32 GetHeight() const noexcept {
+		[[nodiscard]]F32 GetHeight() const noexcept {
 			return m_height;
 		}
 		
@@ -178,7 +178,7 @@ namespace mage {
 		 @return		The camera-to-projection matrix of this orthographic 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -196,7 +196,7 @@ namespace mage {
 		 @return		The projection-to-camera matrix of this orthographic 
 						camera.
 		 */
-		[[nodiscard]] virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept override {
 
 			const auto camera_to_projection = GetCameraToProjectionMatrix();

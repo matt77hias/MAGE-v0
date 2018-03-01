@@ -36,9 +36,8 @@ namespace mage {
 	 @return		A pointer to the memory block that was allocated. The 
 					pointer is a multiple of the given alignment.
 	 */
-	[[nodiscard]] inline void *AllocAligned(size_t size, 
-		                                    size_t alignment) noexcept {
-
+	[[nodiscard]]
+	inline void *AllocAligned(size_t size, size_t alignment) noexcept {
 		return _aligned_malloc(size, alignment);
 	}
 
@@ -57,10 +56,10 @@ namespace mage {
 					pointer is a multiple of the given alignment.
 	 */
 	template< typename DataT >
-	[[nodiscard]] inline DataT *AllocAlignedData(size_t count, 
-		                                         size_t alignment) noexcept {
-
-		return static_cast< DataT * >(AllocAligned(count * sizeof(DataT), alignment));
+	[[nodiscard]]
+	inline DataT *AllocAlignedData(size_t count, size_t alignment) noexcept {
+		return static_cast< DataT * >(
+			AllocAligned(count * sizeof(DataT), alignment));
 	}
 
 	/**
@@ -102,6 +101,7 @@ namespace mage {
 		using value_type = DataT;
 
 		using propagate_on_container_move_assignment = std::true_type;
+		
 		using is_always_equal = std::true_type;
 
 		/**
@@ -215,7 +215,8 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
-		[[nodiscard]] DataT *allocate(size_t count) const {
+		[[nodiscard]]
+		DataT *allocate(size_t count) const {
 			DataT * const data = AllocAlignedData< DataT >(count, AlignmentS);
 			if (!data) {
 				throw std::bad_alloc();
@@ -250,8 +251,9 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
-		[[nodiscard]] DataT *allocate(size_t count, 
-			                          [[maybe_unused]] const void *hint) const {
+		[[nodiscard]]
+		DataT *allocate(size_t count, 
+						[[maybe_unused]] const void *hint) const {
 
 			return allocate(count);
 		}
@@ -289,8 +291,9 @@ namespace mage {
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename DataU >
-		[[nodiscard]] constexpr bool operator==([[maybe_unused]]
-			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
+		[[nodiscard]]
+		constexpr bool operator==([[maybe_unused]] 
+								  const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return true;
 		}
@@ -309,8 +312,9 @@ namespace mage {
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename DataU >
-		[[nodiscard]] constexpr bool operator!=([[maybe_unused]]
-			const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
+		[[nodiscard]]
+		constexpr bool operator!=([[maybe_unused]] 
+								  const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
 			
 			return false;
 		}

@@ -11,27 +11,24 @@ namespace mage {
 	#pragma region
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] inline bool ResourcePool< KeyT, ResourceT >
-		::empty() const noexcept {
-
+	[[nodiscard]]
+	inline bool ResourcePool< KeyT, ResourceT >::empty() const noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		return m_resource_map.empty();
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] inline size_t ResourcePool< KeyT, ResourceT >
-		::size() const noexcept {
-		
+	[[nodiscard]]
+	inline size_t ResourcePool< KeyT, ResourceT >::size() const noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 		
 		return m_resource_map.size();
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] bool ResourcePool< KeyT, ResourceT >
-		::Contains(const KeyT &key) noexcept {
-		
+	[[nodiscard]]
+	bool ResourcePool< KeyT, ResourceT >::Contains(const KeyT &key) noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		if (const auto it = m_resource_map.find(key); 
@@ -50,7 +47,8 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >
+	[[nodiscard]]
+	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >
 		::Get(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -107,9 +105,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	void ResourcePool< KeyT, ResourceT >
-		::Remove(const KeyT &key) {
-		
+	void ResourcePool< KeyT, ResourceT >::Remove(const KeyT &key) {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		if (const auto it = m_resource_map.find(key); 
@@ -120,9 +116,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void ResourcePool< KeyT, ResourceT >
-		::RemoveAll() {
-		
+	inline void ResourcePool< KeyT, ResourceT >::RemoveAll() {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		m_resource_map.clear();
@@ -168,16 +162,18 @@ namespace mage {
 	#pragma region
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] inline bool PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]]
+	inline bool PersistentResourcePool< KeyT, ResourceT >
 		::empty() const noexcept {
-
+		
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		return m_resource_map.empty();
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] inline size_t PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]]
+	inline size_t PersistentResourcePool< KeyT, ResourceT >
 		::size() const noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -186,7 +182,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] bool PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]]bool PersistentResourcePool< KeyT, ResourceT >
 		::Contains(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -196,7 +192,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	[[nodiscard]] SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >
+	[[nodiscard]]SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >
 		::Get(const KeyT &key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -237,9 +233,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	void PersistentResourcePool< KeyT, ResourceT >
-		::Remove(const KeyT &key) {
-		
+	void PersistentResourcePool< KeyT, ResourceT >::Remove(const KeyT &key) {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		if (const auto it = m_resource_map.find(key); 
@@ -250,9 +244,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void PersistentResourcePool< KeyT, ResourceT >
-		::RemoveAll() {
-		
+	inline void PersistentResourcePool< KeyT, ResourceT >::RemoveAll() {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		m_resource_map.clear();

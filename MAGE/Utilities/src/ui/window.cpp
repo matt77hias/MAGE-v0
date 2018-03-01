@@ -127,10 +127,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] LRESULT CALLBACK Window::HandleWindowMessage(HWND window,
-															   UINT message,
-															   WPARAM wParam,
-															   LPARAM lParam) {
+	[[nodiscard]]
+	LRESULT CALLBACK Window::HandleWindowMessage(HWND window, 
+												 UINT message, 
+												 WPARAM wParam, 
+												 LPARAM lParam) {
 		// Window dependent message handling.
 		{
 			auto * const caller = GetWindowCaller< Window >
@@ -192,7 +193,9 @@ namespace mage {
 
 	Window::Window(WindowDescriptorPtr window_desc,
 				   const wstring &title_text, 
-				   U32 width, U32 height, DWORD style) 
+				   U32 width, 
+				   U32 height, 
+				   DWORD style) 
 		: m_window_desc(std::move(window_desc)), 
 		m_window(nullptr), 
 		m_listeners(), 
@@ -209,7 +212,9 @@ namespace mage {
 	Window::~Window() = default;
 	
 	void Window::InitializeWindow(const wstring &title_text, 
-								  U32 width, U32 height, DWORD style) {
+								  U32 width, 
+								  U32 height, 
+								  DWORD style) {
 		
 		const RECT rectangle = { 
 			0, 
@@ -222,7 +227,8 @@ namespace mage {
 	}
 
 	void Window::InitializeWindow(const wstring &title_text, 
-								  const RECT &rectangle, DWORD style) {
+								  const RECT &rectangle, 
+								  DWORD style) {
 
 		// Calculate the required size of the window rectangle, based on the desired 
 		// client rectangle size. A client rectangle is the smallest rectangle that 
@@ -274,7 +280,8 @@ namespace mage {
 		ThrowIfFailed(result, "Failed to update the window.");
 	}
 
-	[[nodiscard]] const wstring Window::GetTitleText() const noexcept {
+	[[nodiscard]]
+	const wstring Window::GetTitleText() const noexcept {
 		wchar_t text[1024];
 		const int result = GetWindowText(m_window,
 										 text,
@@ -328,11 +335,13 @@ namespace mage {
 						 m_handlers.end());
 	}
 
-	[[nodiscard]] bool Window::HandleWindowMessage(HWND window, 
-												   UINT message, 
-												   WPARAM wParam, 
-												   LPARAM lParam, 
-												   LRESULT &result) const {
+	[[nodiscard]]
+	bool Window::HandleWindowMessage(HWND window, 
+									 UINT message, 
+									 WPARAM wParam, 
+									 LPARAM lParam, 
+									 LRESULT &result) const {
+
 		// Notify the window message listeners.
 		for (auto listener : m_listeners) {
 			listener->ProcessWindowMessage(window, message, wParam, lParam);

@@ -24,7 +24,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline F32 RadicalInverse(size_t index, F32 base) noexcept {
 		auto result = 0.0f;
 		auto denom  = 1.0f;
@@ -38,7 +38,7 @@ namespace mage {
 		return result;
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline F32 VanderCorput(size_t index) noexcept {
 		return RadicalInverse(index, 2.0f);
 	}
@@ -52,7 +52,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x2 Halton2D(size_t index) noexcept {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
@@ -60,7 +60,7 @@ namespace mage {
 		return F32x2(x, y);
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x3 Halton3D(size_t index) noexcept {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
@@ -69,7 +69,7 @@ namespace mage {
 		return F32x3(x, y, z);
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x4 Halton4D(size_t index) noexcept {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
@@ -94,7 +94,7 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x2 Hammersley2D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
@@ -104,7 +104,7 @@ namespace mage {
 		return F32x2(x, y);
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x3 Hammersley3D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
@@ -115,7 +115,7 @@ namespace mage {
 		return F32x3(x, y, z);
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x4 Hammersley4D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
@@ -127,7 +127,7 @@ namespace mage {
 		return F32x4(x, y, z, w);
 	}
 
-	[[nodiscard]] 
+	[[nodiscard]]
 	inline const F32x2 Roth(size_t index, size_t nb_samples) noexcept {
 		return Hammersley2D(index, nb_samples);
 	}

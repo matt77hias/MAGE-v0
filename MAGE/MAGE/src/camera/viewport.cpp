@@ -20,7 +20,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
+	[[nodiscard]]const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
 		const auto config = DisplayConfiguration::Get();
 		
 		return GetMaxViewport(config->GetDisplayWidth(), 
@@ -34,7 +34,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept {
+	[[nodiscard]]const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept {
 		const auto config = DisplayConfiguration::Get();
 		const auto width  = 2.0f / config->GetDisplayWidth();
 		const auto height = 2.0f / config->GetDisplayHeight();
@@ -50,7 +50,7 @@ namespace mage {
 		};
 	}
 
-	[[nodiscard]] const XMMATRIX XM_CALLCONV 
+	[[nodiscard]]const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(const D3D11_VIEWPORT &viewport) noexcept {
 		
 		const auto width  = (viewport.Width  > 0.0f) ?

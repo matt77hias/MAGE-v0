@@ -109,7 +109,7 @@ namespace mage {
 		 @return		A pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		[[nodiscard]] ID3D11Buffer *Get() const noexcept {
+		[[nodiscard]]ID3D11Buffer *Get() const noexcept {
 			return m_buffer.Get();
 		}
 		

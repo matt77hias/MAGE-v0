@@ -212,21 +212,21 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] inline const Point3 OBJReader< VertexT, IndexT >
+	[[nodiscard]]inline const Point3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexCoordinates() {
 
 		return Point3(Read< F32x3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] inline const Normal3 OBJReader< VertexT, IndexT >
+	[[nodiscard]]inline const Normal3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexNormalCoordinates() {
 
 		return Normal3(Read< F32x3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] inline const UV OBJReader< VertexT, IndexT >
+	[[nodiscard]]inline const UV OBJReader< VertexT, IndexT >
 		::ReadOBJVertexTextureCoordinates() {
 
 		const UV result(Read< F32x2 >());
@@ -240,7 +240,7 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] const typename OBJReader< VertexT, IndexT >::Index3
+	[[nodiscard]]const typename OBJReader< VertexT, IndexT >::Index3
 		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
 
 		const auto token = ReadChars();
@@ -294,7 +294,7 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]] const VertexT OBJReader< VertexT, IndexT >
+	[[nodiscard]]const VertexT OBJReader< VertexT, IndexT >
 		::ConstructVertex(const Index3 &vertex_indices) {
 		
 		VertexT vertex;

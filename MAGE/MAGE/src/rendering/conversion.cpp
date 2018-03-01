@@ -20,21 +20,21 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] F32 NormalizedToAbsolutePixelX(F32 x) noexcept {
+	[[nodiscard]]F32 NormalizedToAbsolutePixelX(F32 x) noexcept {
 		const auto config = DisplayConfiguration::Get();
 		const auto width  = static_cast< F32 >(config->GetDisplayWidth());
 
 		return NormalizedToAbsolute(x, width);
 	}
 
-	[[nodiscard]] F32 NormalizedToAbsolutePixelY(F32 y) noexcept {
+	[[nodiscard]]F32 NormalizedToAbsolutePixelY(F32 y) noexcept {
 		const auto config = DisplayConfiguration::Get();
 		const auto height = static_cast< F32 >(config->GetDisplayHeight());
 
 		return NormalizedToAbsolute(y, height);
 	}
 
-	[[nodiscard]] const F32x2 
+	[[nodiscard]]const F32x2 
 		NormalizedToAbsolutePixel(const F32x2 &p) noexcept {
 
 		const auto config = DisplayConfiguration::Get();
@@ -44,7 +44,7 @@ namespace mage {
 		return NormalizedToAbsolute(p, F32x2(width, height));
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV
+	[[nodiscard]]const XMVECTOR XM_CALLCONV
 		NormalizedToAbsolutePixel(FXMVECTOR p) noexcept {
 
 		const auto config = DisplayConfiguration::Get();
@@ -54,21 +54,21 @@ namespace mage {
 		return NormalizedToAbsolute(p, XMVectorSet(width, height, width, height));
 	}
 
-	[[nodiscard]] F32 AbsoluteToNormalizedPixelX(F32 x) noexcept {
+	[[nodiscard]]F32 AbsoluteToNormalizedPixelX(F32 x) noexcept {
 		const auto config = DisplayConfiguration::Get();
 		const auto width  = static_cast< F32 >(config->GetDisplayWidth());
 
 		return AbsoluteToNormalized(x, width);
 	}
 
-	[[nodiscard]] F32 AbsoluteToNormalizedPixelY(F32 y) noexcept {
+	[[nodiscard]]F32 AbsoluteToNormalizedPixelY(F32 y) noexcept {
 		const auto config = DisplayConfiguration::Get();
 		const auto height = static_cast< F32 >(config->GetDisplayHeight());
 
 		return AbsoluteToNormalized(y, height);
 	}
 
-	[[nodiscard]] const F32x2 
+	[[nodiscard]]const F32x2 
 		AbsoluteToNormalizedPixel(const F32x2 &p) noexcept {
 
 		const auto config = DisplayConfiguration::Get();
@@ -78,7 +78,7 @@ namespace mage {
 		return AbsoluteToNormalized(p, F32x2(width, height));
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV
+	[[nodiscard]]const XMVECTOR XM_CALLCONV
 		AbsoluteToNormalizedPixel(FXMVECTOR p) noexcept {
 
 		const auto config = DisplayConfiguration::Get();
@@ -95,7 +95,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+	[[nodiscard]]const XMVECTOR XM_CALLCONV 
 		GetTexture2DSize(ID3D11ShaderResourceView *srv) {
 		
 		Assert(srv);
@@ -112,7 +112,7 @@ namespace mage {
 		return GetTexture2DSize(texture.Get());
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+	[[nodiscard]]const XMVECTOR XM_CALLCONV 
 		GetTexture2DSize(ID3D11Texture2D *texture) noexcept {
 		
 		Assert(texture);
@@ -159,7 +159,7 @@ namespace mage {
 		GetTexture2DSize(texture.Get(), width, height);
 	}
 
-	[[nodiscard]] F32 
+	[[nodiscard]]F32 
 		NormalizedToAbsoluteTexelX(F32 x, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -168,7 +168,7 @@ namespace mage {
 		return NormalizedToAbsolute(x, width);
 	}
 
-	[[nodiscard]] F32 
+	[[nodiscard]]F32 
 		NormalizedToAbsoluteTexelY(F32 y, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -177,7 +177,7 @@ namespace mage {
 		return NormalizedToAbsolute(y, height);
 	}
 
-	[[nodiscard]] const F32x2 
+	[[nodiscard]]const F32x2 
 		NormalizedToAbsoluteTexel(const F32x2 &p, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -186,7 +186,7 @@ namespace mage {
 		return NormalizedToAbsolute(p, F32x2(width, height));
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+	[[nodiscard]]const XMVECTOR XM_CALLCONV 
 		NormalizedToAbsoluteTexel(FXMVECTOR p, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -195,7 +195,7 @@ namespace mage {
 		return NormalizedToAbsolute(p, XMVectorSet(width, height, width, height));
 	}
 
-	[[nodiscard]] F32 
+	[[nodiscard]]F32 
 		AbsoluteToNormalizedTexelX(F32 x, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -204,7 +204,7 @@ namespace mage {
 		return AbsoluteToNormalized(x, width);
 	}
 
-	[[nodiscard]] F32 
+	[[nodiscard]]F32 
 		AbsoluteToNormalizedTexelY(F32 y, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -213,7 +213,7 @@ namespace mage {
 		return AbsoluteToNormalized(y, height);
 	}
 
-	[[nodiscard]] const F32x2 
+	[[nodiscard]]const F32x2 
 		AbsoluteToNormalizedTexel(const F32x2 &p, ID3D11ShaderResourceView *texture) {
 
 		float width, height;
@@ -222,7 +222,7 @@ namespace mage {
 		return AbsoluteToNormalized(p, F32x2(width, height));
 	}
 
-	[[nodiscard]] const XMVECTOR XM_CALLCONV 
+	[[nodiscard]]const XMVECTOR XM_CALLCONV 
 		AbsoluteToNormalizedTexel(FXMVECTOR p, ID3D11ShaderResourceView *texture) {
 
 		float width, height;

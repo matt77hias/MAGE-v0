@@ -43,7 +43,7 @@ namespace mage::script {
 		virtual void Load() override;
 		virtual void Update([[maybe_unused]] F64 delta_time) override;
 
-		[[nodiscard]] F32 GetVelocity() const noexcept {
+		[[nodiscard]]F32 GetVelocity() const noexcept {
 			return m_velocity;
 		}
 		void SetVelocity(F32 velocity) noexcept {

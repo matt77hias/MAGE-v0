@@ -16,8 +16,8 @@ namespace mage {
 
 	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
 
-	[[nodiscard]] U16 ConsoleWidth() {
-		
+	[[nodiscard]]
+	U16 ConsoleWidth() {
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		ThrowIfFailed((nullptr != handle),
@@ -49,9 +49,8 @@ namespace mage {
 	 @return		@c TRUE if the function handles the control signal. 
 					@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
 	 */
-	[[nodiscard]] static inline BOOL WINAPI 
-		ConsoleCloseHandler(DWORD dwCtrlType) {
-
+	[[nodiscard]]
+	static inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
 		return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
 	}
 

@@ -41,31 +41,31 @@ namespace mage {
 	//---------------------------------------------------------------------
 
 	template< typename ComponentT >
-	[[nodiscard]] inline bool Node::Contains() const noexcept {
+	[[nodiscard]]inline bool Node::Contains() const noexcept {
 		return m_components.find(typeid(ComponentT)) != m_components.cend();
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] inline size_t Node::GetNumberOf() const noexcept {
+	[[nodiscard]]inline size_t Node::GetNumberOf() const noexcept {
 		return m_components.count(typeid(ComponentT));
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] inline ProxyPtr< ComponentT > Node::Get() noexcept {
+	[[nodiscard]]inline ProxyPtr< ComponentT > Node::Get() noexcept {
 		const auto it = m_components.find(typeid(ComponentT));
 		return (it != m_components.end()) ? 
 			static_pointer_cast< ComponentT >(it->second) : nullptr;
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] inline ProxyPtr< const ComponentT > Node::Get() const noexcept {
+	[[nodiscard]]inline ProxyPtr< const ComponentT > Node::Get() const noexcept {
 		const auto it = m_components.find(typeid(ComponentT));
 		return (it != m_components.cend()) ? 
 			static_pointer_cast< const ComponentT >(it->second) : nullptr;
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
+	[[nodiscard]]const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
 		std::vector< ProxyPtr< ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));
@@ -79,7 +79,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT >
-	[[nodiscard]] const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
+	[[nodiscard]]const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
 		std::vector< ProxyPtr< const ComponentT > > components;
 		
 		const auto range = m_components.equal_range(typeid(ComponentT));

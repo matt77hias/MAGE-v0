@@ -104,7 +104,8 @@ namespace mage {
 		 @return		The alignment in bytes of this single-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetAlignment() const noexcept {
+		[[nodiscard]]
+		size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -114,7 +115,8 @@ namespace mage {
 		 @return		The size (used + available) in bytes of this 
 						single-ended memory stack.
 		 */
-		[[nodiscard]] size_t GetSize() const noexcept {
+		[[nodiscard]]
+		size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -124,7 +126,8 @@ namespace mage {
 		 @return		The used size in bytes of this single-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetUsedSize() const noexcept {
+		[[nodiscard]]
+		size_t GetUsedSize() const noexcept {
 			return m_current - m_begin;
 		}
 
@@ -134,7 +137,8 @@ namespace mage {
 		 @return		The available size in bytes of this single-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetAvailableSize() const noexcept {
+		[[nodiscard]]
+		size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -145,7 +149,8 @@ namespace mage {
 		 @return		A pointer to the current position of this single-ended 
 						memory stack.
 		 */
-		[[nodiscard]] uintptr_t GetCurrentPtr() const noexcept {
+		[[nodiscard]]
+		uintptr_t GetCurrentPtr() const noexcept {
 			return m_current;
 		}
 
@@ -224,6 +229,7 @@ namespace mage {
 			using value_type = DataT;
 
 			using propagate_on_container_move_assignment = std::true_type;
+			
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -373,9 +379,8 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator==(
-				const Allocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator==(const Allocator< DataU > &rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -391,9 +396,8 @@ namespace mage {
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator!=(
-				const Allocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -440,7 +444,8 @@ namespace mage {
 		 @return		An allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		[[nodiscard]] Allocator< DataT > GetAllocator() const noexcept{
+		[[nodiscard]]
+		Allocator< DataT > GetAllocator() const noexcept{
 			return Allocator< DataT >(this);
 		}
 
@@ -562,7 +567,8 @@ namespace mage {
 		 @return		The alignment in bytes of this double-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetAlignment() const noexcept {
+		[[nodiscard]]
+		size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -572,7 +578,8 @@ namespace mage {
 		 @return		The size (used + available) in bytes of this memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetSize() const noexcept {
+		[[nodiscard]]
+		size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -582,7 +589,8 @@ namespace mage {
 		 @return		The used size in bytes of this double-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetUsedSize() const noexcept {
+		[[nodiscard]]
+		size_t GetUsedSize() const noexcept {
 			return m_size - m_current_high + m_current_low;
 		}
 
@@ -592,7 +600,8 @@ namespace mage {
 		 @return		The used high size in bytes of this double-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetUsedLowSize() const noexcept {
+		[[nodiscard]]
+		size_t GetUsedLowSize() const noexcept {
 			return m_current_low - m_begin;
 		}
 
@@ -602,7 +611,8 @@ namespace mage {
 		 @return		The used low size in bytes of this double-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetUsedHighSize() const noexcept {
+		[[nodiscard]]
+		size_t GetUsedHighSize() const noexcept {
 			return m_begin + m_size - m_current_high;
 		}
 
@@ -612,7 +622,8 @@ namespace mage {
 		 @return		The available size in bytes of this double-ended memory 
 						stack.
 		 */
-		[[nodiscard]] size_t GetAvailableSize() const noexcept {
+		[[nodiscard]]
+		size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -623,7 +634,8 @@ namespace mage {
 		 @return		A pointer to the current low position of this 
 						double-ended memory stack.
 		 */
-		[[nodiscard]] uintptr_t GetCurrentLowPtr() const noexcept {
+		[[nodiscard]]
+		uintptr_t GetCurrentLowPtr() const noexcept {
 			return m_current_low;
 		}
 
@@ -634,7 +646,8 @@ namespace mage {
 		 @return		A pointer to the current high position of this 
 						double-ended memory stack.
 		 */
-		[[nodiscard]] uintptr_t GetCurrentHighPtr() const noexcept {
+		[[nodiscard]]
+		uintptr_t GetCurrentHighPtr() const noexcept {
 			return m_current_high;
 		}
 
@@ -758,6 +771,7 @@ namespace mage {
 			using value_type = DataT;
 
 			using propagate_on_container_move_assignment = std::true_type;
+			
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -910,9 +924,8 @@ namespace mage {
 							low allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator==(
-				const LowAllocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator==(const LowAllocator< DataU > &rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -929,9 +942,8 @@ namespace mage {
 							low allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator!=(
-				const LowAllocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator!=(const LowAllocator< DataU > &rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -991,6 +1003,7 @@ namespace mage {
 			using value_type = DataT;
 
 			using propagate_on_container_move_assignment = std::true_type;
+			
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -1143,9 +1156,8 @@ namespace mage {
 							high allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator==(
-				const HighAllocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator==(const HighAllocator< DataU > &rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -1162,9 +1174,8 @@ namespace mage {
 							high allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename DataU >
-			[[nodiscard]] bool operator!=(
-				const HighAllocator< DataU > &rhs) const noexcept {
-
+			[[nodiscard]]
+			bool operator!=(const HighAllocator< DataU > &rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -1211,7 +1222,8 @@ namespace mage {
 		 @return		A low allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		[[nodiscard]] LowAllocator< DataT > GetLowAllocator() const noexcept{
+		[[nodiscard]]
+		LowAllocator< DataT > GetLowAllocator() const noexcept{
 			return LowAllocator< DataT >(this);
 		}
 
@@ -1223,7 +1235,8 @@ namespace mage {
 		 @return		A high allocator for this single-ended memory stack.
 		 */
 		template< typename DataT >
-		[[nodiscard]] HighAllocator< DataT > GetHighAllocator() const noexcept{
+		[[nodiscard]]
+		HighAllocator< DataT > GetHighAllocator() const noexcept{
 			return HighAllocator< DataT >(this);
 		}
 

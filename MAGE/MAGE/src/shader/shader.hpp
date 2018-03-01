@@ -34,12 +34,11 @@ namespace mage {
 		/**
 		 Constructs a vertex shader.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc contains 
 						@a nb_input_elements elements, if @a input_element_desc 
 						is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
 		 @param[in]		compiled_shader
@@ -52,7 +51,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this vertex shader.
 		*/
-		explicit VertexShader(ID3D11Device *device, 
+		explicit VertexShader(ID3D11Device &device, 
 							  wstring guid,
 			                  const CompiledShader &compiled_shader, 
 			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
@@ -110,11 +109,10 @@ namespace mage {
 		/**
 		 Binds this vertex shader.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext *device_context) const noexcept {
+		void BindShader(ID3D11DeviceContext &device_context) const noexcept {
 			Pipeline::IA::BindInputLayout(device_context, m_vertex_layout.Get());
 			Pipeline::VS::BindShader(device_context, m_vertex_shader.Get());
 		}
@@ -128,12 +126,11 @@ namespace mage {
 		/**
 		 Sets up this vertex shader.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc contains 
 						@a nb_input_elements elements.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		compiled_shader
 						A reference to the compiled vertex shader.
 		 @param[in]		input_element_desc
@@ -144,7 +141,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(ID3D11Device *device,
+		void SetupShader(ID3D11Device &device,
 			             const CompiledShader &compiled_shader,
 			             const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			             size_t nb_input_elements);
@@ -191,9 +188,8 @@ namespace mage {
 		/**
 		 Constructs a shader.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
 		 @param[in]		compiled_shader
@@ -201,7 +197,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this shader.
 		 */
-		explicit Shader(ID3D11Device *device, 
+		explicit Shader(ID3D11Device &device, 
 						wstring guid, 
 			            const CompiledShader &compiled_shader);
 		
@@ -256,11 +252,10 @@ namespace mage {
 		/**
 		 Binds this shader.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext *device_context) const noexcept;
+		void BindShader(ID3D11DeviceContext &device_context) const noexcept;
 
 	private:
 
@@ -271,15 +266,14 @@ namespace mage {
 		/**
 		 Sets up this shader.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
 		 @throws		Exception
 						Failed to setup this shader.
 		 */
-		void SetupShader(ID3D11Device *device, 
+		void SetupShader(ID3D11Device &device, 
 			             const CompiledShader &compiled_shader);
 		
 		//---------------------------------------------------------------------

@@ -6,7 +6,7 @@
 #pragma region
 
 #include "type\types.hpp"
-#include "rendering\pipeline.hpp"
+#include "rendering\rendering.hpp"
 
 #pragma endregion
 
@@ -70,7 +70,8 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this compiled 
 						shader.
 		 */
-		[[nodiscard]]virtual const BYTE *GetBytecode() const noexcept = 0;
+		[[nodiscard]]
+		virtual const BYTE *GetBytecode() const noexcept = 0;
 
 		/**
 		 Returns the size of the shader bytecode (in bytes) of this compiled 
@@ -79,7 +80,8 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this 
 						compiled shader.
 		 */
-		[[nodiscard]]virtual SIZE_T GetBytecodeSize() const noexcept = 0;
+		[[nodiscard]]
+		virtual SIZE_T GetBytecodeSize() const noexcept = 0;
 		
 	protected:
 	
@@ -201,7 +203,8 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this buffer 
 						compiled shader.
 		 */
-		[[nodiscard]]virtual const BYTE *GetBytecode() const noexcept override {
+		[[nodiscard]]
+		virtual const BYTE *GetBytecode() const noexcept override {
 			return m_bytecode;
 		}
 
@@ -212,7 +215,8 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this 
 						buffer compiled shader.
 		 */
-		[[nodiscard]]virtual SIZE_T GetBytecodeSize() const noexcept override {
+		[[nodiscard]]
+		virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_bytecode_size;
 		}
 
@@ -319,7 +323,8 @@ namespace mage {
 		 @return		A pointer to the shader bytecode of this blob compiled 
 						shader.
 		 */
-		[[nodiscard]]virtual const BYTE *GetBytecode() const noexcept override {
+		[[nodiscard]]
+		virtual const BYTE *GetBytecode() const noexcept override {
 			return static_cast< BYTE * >(m_shader_blob->GetBufferPointer());
 		}
 
@@ -330,7 +335,8 @@ namespace mage {
 		 @return		The size of the shader bytecode (in bytes) of this blob 
 						compiled shader.
 		 */
-		[[nodiscard]]virtual SIZE_T GetBytecodeSize() const noexcept override {
+		[[nodiscard]]
+		virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_shader_blob->GetBufferSize();
 		}
 

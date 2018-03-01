@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\shading.hpp"
 #include "shader\shader_utils.hpp"
 #include "logging\error.hpp"
 
@@ -32,10 +31,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]]HRESULT CompileShaderFromFile(const wstring &fname,
-		                                        const string &entry_point, 
-		                                        const string &shader_target, 
-		                                        ID3DBlob **output_blob) {
+	[[nodiscard]]
+	HRESULT CompileShaderFromFile(const wstring &fname, 
+								  const string &entry_point, 
+								  const string &shader_target, 
+								  ID3DBlob **output_blob) {
 		Assert(output_blob);
 
 		DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -71,14 +71,20 @@ namespace mage {
 		//    messages.
 		ComPtr< ID3DBlob > error_blob;
 		const HRESULT result = D3DCompileFromFile(fname.c_str(), 
-			nullptr, nullptr, entry_point.c_str(), shader_target.c_str(), 
-			shader_flags, 0u, output_blob, error_blob.GetAddressOf());
+												  nullptr, 
+												  nullptr, 
+												  entry_point.c_str(), 
+												  shader_target.c_str(), 
+												  shader_flags, 
+												  0u, 
+												  output_blob, 
+												  error_blob.GetAddressOf());
 		
 		if (FAILED(result)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.
 				OutputDebugStringA(reinterpret_cast< const char * >(
-					                   error_blob->GetBufferPointer()));
+					               error_blob->GetBufferPointer()));
 			}
 			return result;
 		}

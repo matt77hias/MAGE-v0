@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VertexShader::VertexShader(ID3D11Device *device, 
+	VertexShader::VertexShader(ID3D11Device &device, 
 							   wstring guid, 
 		                       const CompiledShader &compiled_shader, 
 		                       const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
@@ -31,21 +31,20 @@ namespace mage {
 	VertexShader &VertexShader
 		::operator=(VertexShader &&vertex_shader) noexcept = default;
 	
-	void VertexShader::SetupShader(ID3D11Device *device, 
+	void VertexShader::SetupShader(ID3D11Device &device, 
 		                           const CompiledShader &compiled_shader,
 		                           const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 		                           size_t nb_input_elements) {
-		Assert(device);
 
 		// Create the vertex shader.
 		{
-			const HRESULT result = device->CreateVertexShader(
-											compiled_shader.GetBytecode(), 
-											compiled_shader.GetBytecodeSize(),
-											nullptr, 
-											m_vertex_shader.ReleaseAndGetAddressOf());
+			const HRESULT result = device.CreateVertexShader(
+				                           compiled_shader.GetBytecode(), 
+				                           compiled_shader.GetBytecodeSize(), 
+				                           nullptr, 
+				                           m_vertex_shader.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
-				"Vertex shader creation failed: %08X.", result);
+						  "Vertex shader creation failed: %08X.", result);
 		}
 
 		if (!input_element_desc) {
@@ -57,14 +56,14 @@ namespace mage {
 
 		// Create the vertex input layout.
 		{
-			const HRESULT result = device->CreateInputLayout(
-											input_element_desc, 
-											static_cast< U32 >(nb_input_elements),
-											compiled_shader.GetBytecode(), 
-											compiled_shader.GetBytecodeSize(),
-											m_vertex_layout.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result,
-				"Vertex input layout creation failed: %08X.", result);
+			const HRESULT result = device.CreateInputLayout(
+				                           input_element_desc, 
+				                           static_cast< U32 >(nb_input_elements), 
+				                           compiled_shader.GetBytecode(), 
+				                           compiled_shader.GetBytecodeSize(), 
+				                           m_vertex_layout.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, 
+						  "Vertex input layout creation failed: %08X.", result);
 		}
 	}
 }

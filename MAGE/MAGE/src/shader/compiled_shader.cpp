@@ -6,9 +6,26 @@
 #pragma region
 
 #include "shader\compiled_shader.hpp"
-#include "shader\shading.hpp"
 #include "logging\error.hpp"
 #include "exception\exception.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <d3dcompiler.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Linker Directives
+//-----------------------------------------------------------------------------
+#pragma region
+
+#pragma comment (lib, "d3dcompiler.lib")
 
 #pragma endregion
 
@@ -82,8 +99,7 @@ namespace mage {
 		// Compile/Read the vertex shader.
 		const HRESULT result = D3DReadFileToBlob(fname.c_str(), 
 				                                 m_shader_blob.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result,
-			"D3DReadFileToBlob failed: %08X.", result);
+		ThrowIfFailed(result, "D3DReadFileToBlob failed: %08X.", result);
 	}
 
 	BlobCompiledShader::BlobCompiledShader(

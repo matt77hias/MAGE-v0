@@ -209,6 +209,7 @@ namespace mage {
 					Failed to create the vertex shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline VertexShaderPtr CreateVS(ResourceManager &resource_manager, 
 										   ConstructorArgsT &&...args) {
 		
@@ -231,6 +232,7 @@ namespace mage {
 					Failed to create the hull shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline HullShaderPtr CreateHS(ResourceManager &resource_manager, 
 										 ConstructorArgsT &&...args) {
 		
@@ -253,6 +255,7 @@ namespace mage {
 					Failed to create the domain shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline DomainShaderPtr CreateDS(ResourceManager &resource_manager, 
 										   ConstructorArgsT &&...args) {
 		
@@ -275,6 +278,7 @@ namespace mage {
 					Failed to create the geometry shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline GeometryShaderPtr CreateGS(ResourceManager &resource_manager, 
 											 ConstructorArgsT &&...args) {
 		
@@ -297,6 +301,7 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline PixelShaderPtr CreatePS(ResourceManager &resource_manager, 
 										  ConstructorArgsT &&...args) {
 		
@@ -319,6 +324,7 @@ namespace mage {
 					Failed to create the compute shader.
 	 */
 	template< typename... ConstructorArgsT >
+	[[nodiscard]]
 	static inline ComputeShaderPtr CreateCS(ResourceManager &resource_manager, 
 											ConstructorArgsT &&...args) {
 		

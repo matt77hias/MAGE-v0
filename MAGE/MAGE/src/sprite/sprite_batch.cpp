@@ -4,7 +4,11 @@
 #pragma region
 
 #include "sprite\sprite_batch.hpp"
-#include "rendering\state_manager.hpp"
+#include "camera\viewport.hpp"
+#include "collection\vector.hpp"
+#include "mesh\sprite_batch_mesh.hpp"
+#include "mesh\vertex.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -16,12 +20,415 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteBatch::SpriteBatch()
-		: SpriteBatch(Pipeline::GetDevice(), 
-			          Pipeline::GetImmediateDeviceContext()) {}
+	//-------------------------------------------------------------------------
+	// SpriteInfo
+	//-------------------------------------------------------------------------
+	#pragma region
 
-	SpriteBatch::SpriteBatch(ID3D11Device *device, 
-		                     ID3D11DeviceContext *device_context)
+	/**
+	 A struct of sprite info for a single sprite.
+	 */
+	struct alignas(16) SpriteInfo final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+		
+		// Combine values from SpriteEffect with these internal-only flags.
+
+		/**
+		 Mask indicating whether the source region (top left, width and height) 
+		 of sprite info structures is expressed in texels.
+		 */
+		static constexpr U32 s_source_in_texels = 4u;
+
+		/**
+		 Mask indicating whether the destination size (width and height) of 
+		 sprite info structures is expressed in pixels.
+		 */
+		static constexpr U32 s_destination_size_in_pixels = 8u;
+
+		static_assert(((s_source_in_texels | s_destination_size_in_pixels)
+			          & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
+			          "Flag bits must not overlap");
+		
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a sprite info.
+		 */
+		SpriteInfo() noexcept
+			: m_source{}, 
+			m_destination{},
+			m_color{}, 
+			m_origin_rotation_depth{},
+			m_texture(nullptr), 
+			m_flags(0u) {}
+
+		/**
+		 Constructs a sprite info from the given sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to copy.
+		 */
+		SpriteInfo(const SpriteInfo &sprite_info) noexcept = default;
+
+		/**
+		 Constructs a sprite info by moving the given sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to move.
+		 */
+		SpriteInfo(SpriteInfo &&sprite_info) noexcept = default;
+
+		/**
+		 Destructs this sprite info.
+		 */
+		~SpriteInfo() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given sprite info to this sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to copy.
+		 @return		A reference to the copy of the given sprite info (i.e. 
+						this sprite info).
+		 */
+		SpriteInfo &operator=(const SpriteInfo &sprite_info) noexcept = default;
+
+		/**
+		 Moves the given sprite info to this sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to move.
+		 @return		A reference to the moved sprite info (i.e. this sprite 
+						info).
+		 */
+		SpriteInfo &operator=(SpriteInfo &&sprite_info) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The texture source region (Left Top Width Height) of the sprite 
+		 associated with this sprite info.
+		 */
+		F32x4A m_source;
+
+		/**
+		 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
+		 this sprite info.
+		 */
+		F32x4A m_destination;
+
+		/**
+		 The (sRGB) color of the sprite associated with this sprite info.
+		 */
+		F32x4A m_color;
+
+		/**
+		 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
+		 with this sprite info.
+		 */
+		F32x4A m_origin_rotation_depth;
+
+		/**
+		 A pointer to the shader resource view of the texture associated with 
+		 this sprite info.
+		 */
+		ID3D11ShaderResourceView *m_texture;
+
+		/**
+		 The flags of the sprite associated with this sprite info.
+		 */
+		U32 m_flags;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SpriteBatch::Impl
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of sprite batches.
+	 */
+	class alignas(16) SpriteBatch::Impl final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a sprite batch.
+
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @param[in]		device
+						A pointer to the device.
+		 @param[in]		device_context
+						A reference to the device context.
+		 */
+		Impl(ID3D11Device &device, ID3D11DeviceContext *device_context);
+
+		/**
+		 Constructs a sprite batch from the given sprite batch.
+
+		 @param[in]		sprite_batch
+						A reference to the sprite batch to copy.
+		 */
+		Impl(const Impl &sprite_batch) = delete;
+
+		/**
+		 Constructs a sprite batch by moving the given sprite batch.
+
+		 @param[in]		sprite_batch
+						A reference to the sprite batch to move.
+		 */
+		Impl(Impl &&sprite_batch) noexcept;
+		
+		/**
+		 Destructs this sprite batch.
+		 */
+		~Impl();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given sprite batch to this sprite batch.
+
+		 @param[in]		sprite_batch
+						A reference to the sprite batch to copy.
+		 @return		A reference to the copy of the given sprite batch (i.e. 
+						this sprite batch).
+		 */
+		Impl &operator=(const Impl &sprite_batch) = delete;
+
+		/**
+		 Moves the given sprite batch to this sprite batch.
+
+		 @param[in]		sprite_batch
+						A reference to the sprite batch to move.
+		 @return		A reference to the moved sprite batch (i.e. this sprite 
+						batch).
+		 */
+		Impl &operator=(Impl &&sprite_batch) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Lifecycle
+		//---------------------------------------------------------------------
+
+		/**
+		 Begins the processing of a batch of sprites.
+
+		 @pre			This sprite batch is not inside a begin/end pair.
+		 @param[in]		sort_mode
+						A reference to the sprite sorting mode for the whole 
+						batch of sprites.
+		 @param[in]		transform
+						The transform for the whole batch of sprites.
+		 */
+		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
+			                   FXMMATRIX transform = XMMatrixIdentity());
+		
+		/**
+		 Draws a sprite.
+
+		 @pre			This sprite batch is inside a begin/end pair.
+		 @pre			@a texture is not equal to @c nullptr.
+		 @param[in]		texture
+						A pointer to the shader resource view of the texture to 
+						draw.
+		 @param[in]		color
+						The sRGB color (multiplier).
+		 @param[in]		effects
+						The sprite effects to apply.
+		 @param[in]		transform
+						A reference to the sprite transform.
+		 @param[in]		source
+						A pointer the rectangular subregion of the texture.
+		 */
+		void XM_CALLCONV Draw(ID3D11ShaderResourceView *texture, 
+			                  FXMVECTOR color, 
+			                  SpriteEffect effects, 
+			                  const SpriteTransform &transform, 
+			                  const RECT *source = nullptr);
+		
+		/**
+		 Ends the processing of a batch of sprites.
+
+		 @pre			This sprite batch is inside a begin/end pair.
+		 */
+		void End();
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods: Lifecycle
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds the fixed state of this sprite batch.
+		 */
+		void BindFixedState();
+		
+		/**
+		 Flushes a batch of sprites for rendering if non-immediate rendering is 
+		 required for the current batch of sprites. Otherwise, the sprites in 
+		 the current batch are rendered immediately.
+
+		 Sprites are sorted based on the sprite sorting mode and adjacent 
+		 sprites are grouped for rendering if sharing the same texture.
+
+		 @note		This functionality is only used in case of non-immediate 
+					rendering.
+		 */
+		void FlushBatch();
+
+		/**
+		 Sorts the sprites of the current batch according to the sprite sorting 
+		 mode of this sprite batch.
+
+		 @note		This functionality is only used in case of non-immediate 
+					rendering.
+		 */
+		void SortSprites();
+		
+		/**
+		 Draws a subbatch of sprites of the current batch of sprites
+		 of this sprite batch.
+
+		 @pre			@a texture is not equal to @c nullptr.
+		 @pre			@a sprites is not equal to @c nullptr.
+		 @pre			@a sprites points to an array containing at least 
+						@a nb_sprites sprite info data pointers which are not 
+						equal to @c nullptr.
+		 @param[in]		texture
+						A pointer to the shader resource view of the texture
+						that needs to be rendered.
+		 @param[in]		sprites
+						A pointer to the sprite info data pointers of the
+						sprites which need to be rendered.
+		 @param[in]		nb_sprites
+						The number of sprites which need to be rendered.
+		 */
+		void Render(ID3D11ShaderResourceView *texture,
+			        const SpriteInfo * const *sprites, 
+			        size_t nb_sprites);
+		
+		/**
+		 Prepares a single sprite for rendering.
+
+		 @pre			@a vertices is not equal to @c nullptr.
+		 @pre			@a vertices points to an array containing at least 
+						{@link mage::SpriteBatchMesh::s_vertices_per_sprite}.
+		 @param[in]		sprite
+						A reference to the sprite info data.
+		 @param[in]		vertices
+						A pointer to the vertices for the sprite.
+		 @param[in]		texture_size
+						The size of the texture (in the number of texels).
+		 @param[in]		inverse_texture_size
+						The inverse of @a texture_size.
+		 */
+		void XM_CALLCONV PrepareSprite(const SpriteInfo &sprite, 
+			                           VertexPositionColorTexture *vertices,
+			                           FXMVECTOR texture_size, 
+			                           FXMVECTOR inverse_texture_size) noexcept;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The initial capacity of the vector containing the sprites waiting to 
+		 be drawn by a sprite batch.
+		 */
+		static const size_t s_initial_capacity = 64u;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Rendering
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the device context of this sprite batch.
+		 */
+		ID3D11DeviceContext * const m_device_context;
+
+		/**
+		 A pointer to the sprite batch mesh used by this sprite batch for 
+		 drawing the sprites onto.
+		 */
+		UniquePtr< SpriteBatchMesh > m_mesh;
+
+		/**
+		 The current position in the mesh of this sprite batch for adding sprite 
+		 vertices.
+		 */
+		size_t m_mesh_position;
+
+		/**
+		 A flag indicating whether this sprite batch is in a begin/end pair 
+		 for processing sprites.
+		 */
+		bool m_in_begin_end_pair;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Batch-Dependent Data
+		//---------------------------------------------------------------------
+
+		/**
+		 The sprite sorting mode used by this sprite batch for
+		 deciding on the draw order of sprites in the current
+		 btach of sprites.
+		 */
+		SpriteSortMode m_sort_mode;
+
+		/**
+		 The transform of this sprite batch applied to
+		 all sprites in the current batch of sprites.
+		 */
+		XMMATRIX m_transform;
+
+		/**
+		 The transform buffer used by this sprite batch for storing
+		 a sprite transformation. 
+		 */
+		ConstantBuffer< XMMATRIX > m_transform_buffer;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Sprites
+		//---------------------------------------------------------------------
+
+		/**
+		 A vector containing the sprites waiting to be drawn by this sprite 
+		 batch.
+		 */
+		AlignedVector< SpriteInfo > m_sprites;
+		
+		/**
+		 A vector containing the pointers to the sorted sprites of this sprite 
+		 batch.
+		 */
+		std::vector< const SpriteInfo * > m_sorted_sprites;
+	};
+
+	SpriteBatch::Impl::Impl(ID3D11Device &device, 
+							ID3D11DeviceContext *device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
 		m_mesh_position(0u),
@@ -32,16 +439,18 @@ namespace mage {
 		m_sprites(),
 		m_sorted_sprites() {
 
+		Assert(m_device_context);
+
 		m_sprites.reserve(s_initial_capacity);
 		m_sorted_sprites.reserve(m_sprites.capacity());
 	}
 
-	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
+	SpriteBatch::Impl::Impl(Impl &&sprite_batch) noexcept = default;
 
-	SpriteBatch::~SpriteBatch() = default;
+	SpriteBatch::Impl::~Impl() = default;
 
-	void XM_CALLCONV SpriteBatch::Begin(SpriteSortMode sort_mode, 
-		                                FXMMATRIX transform) {
+	void XM_CALLCONV SpriteBatch::Impl::Begin(SpriteSortMode sort_mode, 
+											  FXMMATRIX transform) {
 		
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
@@ -60,11 +469,11 @@ namespace mage {
 		m_in_begin_end_pair = true;
 	}
 	
-	void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView *texture,
-		                               FXMVECTOR color,
-		                               SpriteEffect effects,
-		                               const SpriteTransform &transform, 
-		                               const RECT *source) {
+	void XM_CALLCONV SpriteBatch::Impl::Draw(ID3D11ShaderResourceView *texture, 
+											 FXMVECTOR color, 
+											 SpriteEffect effects, 
+											 const SpriteTransform &transform, 
+											 const RECT *source) {
 		
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
@@ -143,7 +552,7 @@ namespace mage {
 		}
 	}
 
-	void SpriteBatch::End() {
+	void SpriteBatch::Impl::End() {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
@@ -157,7 +566,7 @@ namespace mage {
 		m_in_begin_end_pair = false;
 	}
 
-	void SpriteBatch::BindFixedState() {
+	void SpriteBatch::Impl::BindFixedState() {
 		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context->GetType()) {
 			m_mesh_position = 0;
 		}
@@ -165,16 +574,15 @@ namespace mage {
 		m_transform *= GetViewportTransform();
 
 		// Updates the transform (for a complete batch).
-		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
+		m_transform_buffer.UpdateData(*m_device_context, XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.
-		m_transform_buffer.Bind< Pipeline::VS >(m_device_context, 
+		m_transform_buffer.Bind< Pipeline::VS >(*m_device_context, 
 			                                    SLOT_CBUFFER_SECONDARY_CAMERA);
-		
 		// Binds the mesh.
-		m_mesh->BindMesh(m_device_context);
+		m_mesh->BindMesh(*m_device_context);
 	}
 
-	void SpriteBatch::FlushBatch() {
+	void SpriteBatch::Impl::FlushBatch() {
 		if (0u == m_sprites.size()) {
 			return;
 		}
@@ -209,7 +617,7 @@ namespace mage {
 		Render(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
 	}
 
-	void SpriteBatch::SortSprites() {
+	void SpriteBatch::Impl::SortSprites() {
 		switch (m_sort_mode) {
 
 		case SpriteSortMode::Texture: {
@@ -249,12 +657,12 @@ namespace mage {
 		}
 	}
 
-	void SpriteBatch::Render(ID3D11ShaderResourceView *texture,
-		                     const SpriteInfo * const *sprites, 
-		                     size_t nb_sprites) {
+	void SpriteBatch::Impl::Render(ID3D11ShaderResourceView *texture, 
+								   const SpriteInfo * const *sprites, 
+								   size_t nb_sprites) {
 
 		// Binds the texture.
-		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_SPRITE, texture);
+		Pipeline::PS::BindSRV(*m_device_context, SLOT_SRV_SPRITE, texture);
 
 		const auto texture_size         = GetTexture2DSize(texture);
 		const auto inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -294,7 +702,7 @@ namespace mage {
 					+ m_mesh_position * SpriteBatchMesh::s_vertices_per_sprite;
 				
 				for (size_t i = 0; i < nb_sprites_to_render; ++i) {
-					PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
+					PrepareSprite(*sprites[i], vertices, texture_size, inverse_texture_size);
 					vertices += SpriteBatchMesh::s_vertices_per_sprite;
 				}
 			}
@@ -313,19 +721,19 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV SpriteBatch
-		::PrepareSprite(const SpriteInfo *sprite, 
+	void XM_CALLCONV SpriteBatch::Impl
+		::PrepareSprite(const SpriteInfo &sprite, 
 		                VertexPositionColorTexture *vertices,
 		                FXMVECTOR texture_size, 
 			            FXMVECTOR inverse_texture_size) noexcept {
 		
-		auto source                      = XMLoad(sprite->m_source);
-		const auto destination           = XMLoad(sprite->m_destination);
-		const auto color                 = XMLoad(sprite->m_color);
-		const auto origin_rotation_depth = XMLoad(sprite->m_origin_rotation_depth);
-		const auto rotation              = sprite->m_origin_rotation_depth.m_z;
-		const auto depth                 = sprite->m_origin_rotation_depth.m_w;
-		const auto flags                 = sprite->m_flags;
+		auto source                      = XMLoad(sprite.m_source);
+		const auto destination           = XMLoad(sprite.m_destination);
+		const auto color                 = XMLoad(sprite.m_color);
+		const auto origin_rotation_depth = XMLoad(sprite.m_origin_rotation_depth);
+		const auto rotation              = sprite.m_origin_rotation_depth.m_z;
+		const auto depth                 = sprite.m_origin_rotation_depth.m_w;
+		const auto flags                 = sprite.m_flags;
 		auto source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		auto destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
 		
@@ -431,4 +839,40 @@ namespace mage {
 			vertices[i].m_tex = UV(XMStore< F32x2 >(uv));
 		}
 	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SpriteBatch
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	SpriteBatch::SpriteBatch(ID3D11Device *device,
+							 ID3D11DeviceContext &device_context)
+		: m_impl(MakeUnique< Impl >(device, device_context)) {}
+
+	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
+
+	SpriteBatch::~SpriteBatch() = default;
+
+	void XM_CALLCONV SpriteBatch::Begin(SpriteSortMode sort_mode,
+										FXMMATRIX transform) {
+		
+		m_impl->Begin(sort_mode, transform);
+	}
+
+	void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView *texture,
+									   FXMVECTOR color,
+									   SpriteEffect effects,
+									   const SpriteTransform &transform,
+									   const RECT *source = nullptr) {
+		
+		m_impl->Draw(texture, color, effects, transform, source);
+	}
+
+	void SpriteBatch::End() {
+		m_impl->End();
+	}
+
+	#pragma endregion
 }

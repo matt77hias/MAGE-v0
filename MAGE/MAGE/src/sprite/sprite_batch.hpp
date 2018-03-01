@@ -5,11 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\viewport.hpp"
-#include "collection\vector.hpp"
-#include "mesh\sprite_batch_mesh.hpp"
-#include "mesh\vertex.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
+#include "rendering\rendering.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "transform\sprite_transform.hpp"
 
@@ -19,142 +15,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	//-------------------------------------------------------------------------
-	// SpriteInfo
-	//-------------------------------------------------------------------------
-
-	/**
-	 A struct of sprite info for a single sprite.
-	 */
-	struct alignas(16) SpriteInfo final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-		
-		// Combine values from SpriteEffect with these internal-only flags.
-
-		/**
-		 Mask indicating whether the source region (top left, width and height) 
-		 of sprite info structures is expressed in texels.
-		 */
-		static constexpr U32 s_source_in_texels = 4u;
-
-		/**
-		 Mask indicating whether the destination size (width and height) of 
-		 sprite info structures is expressed in pixels.
-		 */
-		static constexpr U32 s_destination_size_in_pixels = 8u;
-
-		static_assert(((s_source_in_texels | s_destination_size_in_pixels)
-			          & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
-			          "Flag bits must not overlap");
-		
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a sprite info.
-		 */
-		SpriteInfo() noexcept
-			: m_source{}, 
-			m_destination{},
-			m_color{}, 
-			m_origin_rotation_depth{},
-			m_texture(nullptr), 
-			m_flags(0u) {}
-
-		/**
-		 Constructs a sprite info from the given sprite info.
-
-		 @param[in]		sprite_info
-						A reference to the sprite info to copy.
-		 */
-		SpriteInfo(const SpriteInfo &sprite_info) noexcept = default;
-
-		/**
-		 Constructs a sprite info by moving the given sprite info.
-
-		 @param[in]		sprite_info
-						A reference to the sprite info to move.
-		 */
-		SpriteInfo(SpriteInfo &&sprite_info) noexcept = default;
-
-		/**
-		 Destructs this sprite info.
-		 */
-		~SpriteInfo() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given sprite info to this sprite info.
-
-		 @param[in]		sprite_info
-						A reference to the sprite info to copy.
-		 @return		A reference to the copy of the given sprite info (i.e. 
-						this sprite info).
-		 */
-		SpriteInfo &operator=(const SpriteInfo &sprite_info) noexcept = default;
-
-		/**
-		 Moves the given sprite info to this sprite info.
-
-		 @param[in]		sprite_info
-						A reference to the sprite info to move.
-		 @return		A reference to the moved sprite info (i.e. this sprite 
-						info).
-		 */
-		SpriteInfo &operator=(SpriteInfo &&sprite_info) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The texture source region (Left Top Width Height) of the sprite 
-		 associated with this sprite info.
-		 */
-		F32x4A m_source;
-
-		/**
-		 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
-		 this sprite info.
-		 */
-		F32x4A m_destination;
-
-		/**
-		 The (sRGB) color of the sprite associated with this sprite info.
-		 */
-		F32x4A m_color;
-
-		/**
-		 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
-		 with this sprite info.
-		 */
-		F32x4A m_origin_rotation_depth;
-
-		/**
-		 A pointer to the shader resource view of the texture associated with 
-		 this sprite info.
-		 */
-		ID3D11ShaderResourceView *m_texture;
-
-		/**
-		 The flags of the sprite associated with this sprite info.
-		 */
-		U32 m_flags;
-	};
-
-	//-------------------------------------------------------------------------
-	// SpriteBatch
-	//-------------------------------------------------------------------------
 
 	/**
 	 A class of sprite batches.
@@ -170,18 +30,6 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
-		 @pre			The device associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @pre			The device context associated of the rendering manager 
-						associated with the current engine must be loaded.
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 */
-		SpriteBatch();
-
-		/**
-		 Constructs a sprite batch.
-
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			The renderer associated with the current engine must be 
@@ -191,7 +39,7 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *device_context);
+		SpriteBatch(ID3D11Device *device, ID3D11DeviceContext &device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -288,153 +136,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods: Lifecycle
+		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 Binds the fixed state of this sprite batch.
-		 */
-		void BindFixedState();
-		
-		/**
-		 Flushes a batch of sprites for rendering if non-immediate rendering is 
-		 required for the current batch of sprites. Otherwise, the sprites in 
-		 the current batch are rendered immediately.
-
-		 Sprites are sorted based on the sprite sorting mode and adjacent 
-		 sprites are grouped for rendering if sharing the same texture.
-
-		 @note		This functionality is only used in case of non-immediate 
-					rendering.
-		 */
-		void FlushBatch();
+		class Impl;
 
 		/**
-		 Sorts the sprites of the current batch according to the sprite sorting 
-		 mode of this sprite batch.
-
-		 @note		This functionality is only used in case of non-immediate 
-					rendering.
+		 A pointer to the implementation of this sprite batch.
 		 */
-		void SortSprites();
-		
-		/**
-		 Draws a subbatch of sprites of the current batch of sprites
-		 of this sprite batch.
-
-		 @pre			@a texture is not equal to @c nullptr.
-		 @pre			@a sprites is not equal to @c nullptr.
-		 @pre			@a sprites points to an array containing at least 
-						@a nb_sprites sprite info data pointers which are not 
-						equal to @c nullptr.
-		 @param[in]		texture
-						A pointer to the shader resource view of the texture
-						that needs to be rendered.
-		 @param[in]		sprites
-						A pointer to the sprite info data pointers of the
-						sprites which need to be rendered.
-		 @param[in]		nb_sprites
-						The number of sprites which need to be rendered.
-		 */
-		void Render(ID3D11ShaderResourceView *texture,
-			        const SpriteInfo * const *sprites, 
-			        size_t nb_sprites);
-		
-		/**
-		 Prepares a single sprite for rendering.
-
-		 @pre			@a sprite is not equal to @c nullptr.
-		 @pre			@a vertices is not equal to @c nullptr.
-		 @pre			@a vertices points to an array containing at least 
-						{@link mage::SpriteBatchMesh::s_vertices_per_sprite}.
-		 @param[in]		sprite
-						A pointer to the sprite info data.
-		 @param[in]		vertices
-						A pointer to the vertices for the sprite.
-		 @param[in]		texture_size
-						The size of the texture (in the number of texels).
-		 @param[in]		inverse_texture_size
-						The inverse of @a texture_size.
-		 */
-		void XM_CALLCONV PrepareSprite(const SpriteInfo *sprite, 
-			                           VertexPositionColorTexture *vertices,
-			                           FXMVECTOR texture_size, 
-			                           FXMVECTOR inverse_texture_size) noexcept;
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The initial capacity of the vector containing the sprites waiting to 
-		 be drawn by a sprite batch.
-		 */
-		static const size_t s_initial_capacity = 64u;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Rendering
-		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device context of this sprite batch.
-		 */
-		ID3D11DeviceContext * const m_device_context;
-
-		/**
-		 A pointer to the sprite batch mesh used by this sprite batch for 
-		 drawing the sprites onto.
-		 */
-		UniquePtr< SpriteBatchMesh > m_mesh;
-
-		/**
-		 The current position in the mesh of this sprite batch for adding sprite 
-		 vertices.
-		 */
-		size_t m_mesh_position;
-
-		/**
-		 A flag indicating whether this sprite batch is in a begin/end pair 
-		 for processing sprites.
-		 */
-		bool m_in_begin_end_pair;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Batch-Dependent Data
-		//---------------------------------------------------------------------
-
-		/**
-		 The sprite sorting mode used by this sprite batch for
-		 deciding on the draw order of sprites in the current
-		 btach of sprites.
-		 */
-		SpriteSortMode m_sort_mode;
-
-		/**
-		 The transform of this sprite batch applied to
-		 all sprites in the current batch of sprites.
-		 */
-		XMMATRIX m_transform;
-
-		/**
-		 The transform buffer used by this sprite batch for storing
-		 a sprite transformation. 
-		 */
-		ConstantBuffer< XMMATRIX > m_transform_buffer;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Sprites
-		//---------------------------------------------------------------------
-
-		/**
-		 A vector containing the sprites waiting to be drawn by this sprite 
-		 batch.
-		 */
-		AlignedVector< SpriteInfo > m_sprites;
-		
-		/**
-		 A vector containing the pointers to the sorted sprites of this sprite 
-		 batch.
-		 */
-		std::vector< const SpriteInfo * > m_sorted_sprites;
+		UniquePtr< Impl > m_impl;
 	};
 }

@@ -53,7 +53,8 @@ namespace mage {
 						than the second given glyph's character. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]]
+		bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
 			return lhs.m_character < rhs.m_character;
 		}
 
@@ -68,7 +69,8 @@ namespace mage {
 		 @return		@c true if the given glyph's character is smaller than 
 						the given character. @c false otherwise.
 		 */
-		[[nodiscard]]bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
+		[[nodiscard]]
+		bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
 			return lhs.m_character < static_cast< U32 >(rhs);
 		}
 
@@ -83,7 +85,8 @@ namespace mage {
 		 @return		@c true if the given character is smaller than the 
 						given glyph's character. @c false otherwise.
 		 */
-		[[nodiscard]]bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
+		[[nodiscard]]
+		bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
 			return static_cast< U32 >(lhs) < rhs.m_character;
 		}
 	};
@@ -95,7 +98,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	SpriteFont::SpriteFont(ID3D11Device *device,
+	SpriteFont::SpriteFont(ID3D11Device &device,
 						   wstring fname,
 		                   const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(std::move(fname)), 
@@ -103,8 +106,6 @@ namespace mage {
 		m_glyphs(),
 		m_default_glyph(nullptr), 
 		m_line_spacing(0.0f) {
-
-		Assert(device);
 
 		SpriteFontOutput output;
 		loader::ImportSpriteFontFromFile(GetFilename(), device, output, desc);
@@ -137,7 +138,8 @@ namespace mage {
 		                      const SpriteTransform &transform,
 		                      SpriteEffect effects,
 		                      const SRGBA *color) const {
-		
+		Assert(strings);
+
 		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
 			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
 			          "The following tables must be updated to match");
@@ -223,8 +225,10 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]]const XMVECTOR XM_CALLCONV 
-		SpriteFont::MeasureText(const ColorString *strings, size_t nb_strings) const {
+	[[nodiscard]]
+	const XMVECTOR XM_CALLCONV SpriteFont::MeasureText(const ColorString *strings, 
+													   size_t nb_strings) const {
+		Assert(strings);
 		
 		auto result = XMVectorZero();
 		auto x = 0.0f;
@@ -269,11 +273,12 @@ namespace mage {
 		return result;
 	}
 
-	[[nodiscard]]const RECT 
-		SpriteFont::MeasureDrawBounds(const ColorString *strings,
-			                          size_t nb_strings,
-			                          const F32x2 &top_left) const {
-		
+	[[nodiscard]]
+	const RECT SpriteFont::MeasureDrawBounds(const ColorString *strings, 
+											 size_t nb_strings, 
+											 const F32x2 &top_left) const {
+		Assert(strings);
+
 		RECT result = { 
 			std::numeric_limits< LONG >::max(), 
 			std::numeric_limits< LONG >::max(), 
@@ -331,14 +336,16 @@ namespace mage {
 		return result;
 	}
 
-	[[nodiscard]]bool SpriteFont::ContainsCharacter(wchar_t character) const {
+	[[nodiscard]]
+	bool SpriteFont::ContainsCharacter(wchar_t character) const {
 		return std::binary_search(m_glyphs.cbegin(), 
 			                      m_glyphs.cend(), 
 			                      character, 
 			                      GlyphLessThan());
 	}
 	
-	[[nodiscard]]const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
+	[[nodiscard]]
+	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
 		if (const auto it = std::lower_bound(m_glyphs.cbegin(), 
 			                                 m_glyphs.cend(), 
 			                                 character, 

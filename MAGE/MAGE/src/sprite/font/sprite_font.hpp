@@ -32,11 +32,10 @@ namespace mage {
 		/**
 		 Constructs a sprite font.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The renderer associated with the current engine
 						must be loaded.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
 		 @param[in]		desc
@@ -44,7 +43,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(ID3D11Device *device,
+		explicit SpriteFont(ID3D11Device &device,
 							wstring fname,
 			                const SpriteFontDescriptor &desc 
 			                    = SpriteFontDescriptor());
@@ -144,8 +143,9 @@ namespace mage {
 						rightmost pixel rendered by any character glyph. This 
 						has the effect of ignoring 'trailing spaces'.
 		 */
-		[[nodiscard]]const XMVECTOR XM_CALLCONV
-			MeasureText(const ColorString *strings, size_t nb_strings) const;
+		[[nodiscard]]
+		const XMVECTOR XM_CALLCONV MeasureText(const ColorString *strings, 
+											   size_t nb_strings) const;
 		
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
@@ -162,9 +162,10 @@ namespace mage {
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.
 		 */
-		[[nodiscard]]const RECT MeasureDrawBounds(const ColorString *strings, 
-			                                       size_t nb_strings,
-			                                       const F32x2 &top_left) const;
+		[[nodiscard]]
+		const RECT MeasureDrawBounds(const ColorString *strings, 
+									 size_t nb_strings,
+									 const F32x2 &top_left) const;
 		
 		/**
 		 Checks whether this sprite font is empty.
@@ -172,7 +173,8 @@ namespace mage {
 		 @return		@c true if this sprite font is empty. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool empty() const noexcept {
+		[[nodiscard]]
+		bool empty() const noexcept {
 			return m_glyphs.empty();
 		}
 
@@ -181,7 +183,8 @@ namespace mage {
 
 		 @return		The number of characters in this sprite font.
 		 */
-		[[nodiscard]]size_t size() const noexcept {
+		[[nodiscard]]
+		size_t size() const noexcept {
 			return m_glyphs.size();
 		}
 
@@ -190,7 +193,8 @@ namespace mage {
 
 		 @return		The line spacing of this sprite font.
 		 */
-		[[nodiscard]]F32 GetLineSpacing() const noexcept {
+		[[nodiscard]]
+		F32 GetLineSpacing() const noexcept {
 			return m_line_spacing;
 		}
 
@@ -211,7 +215,8 @@ namespace mage {
 
 		 @return		The default character of this sprite font.
 		 */
-		[[nodiscard]]wchar_t GetDefaultCharacter() const noexcept {
+		[[nodiscard]]
+		wchar_t GetDefaultCharacter() const noexcept {
 			return m_default_glyph ? 
 				static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
 		}
@@ -243,7 +248,8 @@ namespace mage {
 						corresponding to the given character. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool ContainsCharacter(wchar_t character) const;
+		[[nodiscard]]
+		bool ContainsCharacter(wchar_t character) const;
 		
 		/**
 		 Returns the glyph of this sprite font corresponding to the given 
@@ -262,7 +268,8 @@ namespace mage {
 						this sprite font and if this sprite font has not a 
 						default character.
 		 */
-		[[nodiscard]]const Glyph *GetGlyph(wchar_t character) const;
+		[[nodiscard]]
+		const Glyph *GetGlyph(wchar_t character) const;
 		
 		/**
 		 Returns a pointer to the shader resource view of the texture of this 
@@ -271,7 +278,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the texture 
 						of this sprite font.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 

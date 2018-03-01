@@ -15,11 +15,11 @@
 namespace mage {
 
 	template< typename VertexT >
-	[[nodiscard]]HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
-		                                           ID3D11Buffer **buffer, 
-		                                           const VertexT *vertices, 
-		                                           size_t nb_vertices) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateStaticVertexBuffer(ID3D11Device &device, 
+									 ID3D11Buffer **buffer, 
+									 const VertexT *vertices, 
+									 size_t nb_vertices) noexcept {
 		Assert(buffer);
 		Assert(vertices);
 		
@@ -37,15 +37,15 @@ namespace mage {
 		init_data.pSysMem = vertices;
 
 		// Create the vertex buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename VertexT >
-	[[nodiscard]]HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
-		                                            ID3D11Buffer **buffer, 
-		                                            const VertexT *vertices, 
-		                                            size_t nb_vertices) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device &device, 
+									  ID3D11Buffer **buffer, 
+									  const VertexT *vertices, 
+									  size_t nb_vertices) noexcept {
 		Assert(buffer);
 		
 		// Create the buffer descriptor.
@@ -59,7 +59,7 @@ namespace mage {
 
 		if (nullptr == vertices) {
 			// Create the vertex buffer.
-			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+			return device.CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
 		// Specify the subresource data.
@@ -67,15 +67,15 @@ namespace mage {
 		init_data.pSysMem = vertices;
 
 		// Create the vertex buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename IndexT >
-	[[nodiscard]]HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
-		                                          ID3D11Buffer **buffer, 
-		                                          const IndexT *indices, 
-		                                          size_t nb_indices) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateStaticIndexBuffer(ID3D11Device &device, 
+									ID3D11Buffer **buffer, 
+									const IndexT *indices, 
+									size_t nb_indices) noexcept {
 		Assert(buffer);
 		Assert(indices);
 		
@@ -93,15 +93,15 @@ namespace mage {
 		init_data.pSysMem = indices;
 
 		// Create the index buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
-		                                             ID3D11Buffer **buffer, 
-		                                             const DataT *data, 
-		                                             size_t count) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateStaticConstantBuffer(ID3D11Device &device, 
+									   ID3D11Buffer **buffer, 
+									   const DataT *data, 
+									   size_t count) noexcept {
 		Assert(buffer);
 		Assert(data);
 		
@@ -119,15 +119,15 @@ namespace mage {
 		init_data.pSysMem = data;
 
 		// Create the constant buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
-		                                              ID3D11Buffer **buffer, 
-		                                              const DataT *data, 
-		                                              size_t count) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device &device,
+										ID3D11Buffer **buffer, 
+										const DataT *data, 
+										size_t count) noexcept {
 		Assert(buffer);
 		
 		// Create the buffer descriptor.
@@ -141,7 +141,7 @@ namespace mage {
 
 		if (nullptr == data) {
 			// Create the constant buffer.
-			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+			return device.CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
 		// Specify the subresource data.
@@ -149,15 +149,15 @@ namespace mage {
 		init_data.pSysMem = data;
 
 		// Create the constant buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
-		                                               ID3D11Buffer **buffer, 
-		                                               const DataT *data, 
-		                                               size_t count) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device &device, 
+										 ID3D11Buffer **buffer, 
+										 const DataT *data, 
+										 size_t count) noexcept {
 		Assert(buffer);
 		Assert(data);
 		
@@ -177,15 +177,15 @@ namespace mage {
 		init_data.pSysMem = data;
 
 		// Create the structured buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
-		                                                ID3D11Buffer **buffer, 
-		                                                const DataT *data, 
-		                                                size_t count) noexcept {
-		Assert(device);
+	[[nodiscard]]
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device &device, 
+										  ID3D11Buffer **buffer,
+										  const DataT *data, 
+										  size_t count) noexcept {
 		Assert(buffer);
 		
 		// Create the buffer descriptor.
@@ -201,7 +201,7 @@ namespace mage {
 		
 		if (nullptr == data) {
 			// Create the structured buffer.
-			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+			return device.CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
 		// Specify the subresource data.
@@ -209,6 +209,6 @@ namespace mage {
 		init_data.pSysMem = data;
 
 		// Create the structured buffer.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 }

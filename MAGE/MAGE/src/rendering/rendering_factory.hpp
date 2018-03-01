@@ -24,13 +24,12 @@ namespace mage {
 
 	 @tparam		VertexT
 					The vertex type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a vertices is not equal to @c nullptr.
 	 @pre			@a vertices points to an array containing at least 
 					@a nb_vertices elements.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		vertices
@@ -40,23 +39,23 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename VertexT >
-	[[nodiscard]]HRESULT CreateStaticVertexBuffer(ID3D11Device *device, 
-		                                           ID3D11Buffer **buffer, 
-		                                           const VertexT *vertices, 
-		                                           size_t nb_vertices) noexcept;
+	[[nodiscard]]
+	HRESULT CreateStaticVertexBuffer(ID3D11Device &device, 
+									 ID3D11Buffer **buffer, 
+									 const VertexT *vertices, 
+									 size_t nb_vertices) noexcept;
 	
 	/**
 	 Creates a dynamic vertex buffer.
 
 	 @tparam		VertexT
 					The vertex type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			If @a vertices is not equal to @c nullptr, then @a vertices 
 					points to an array containing at least @a nb_vertices 
 					elements.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		vertices
@@ -66,23 +65,23 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename VertexT >
-	[[nodiscard]]HRESULT CreateDynamicVertexBuffer(ID3D11Device *device, 
-		                                            ID3D11Buffer **buffer, 
-		                                            const VertexT *vertices, 
-		                                            size_t nb_vertices) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device &device,
+									  ID3D11Buffer **buffer, 
+									  const VertexT *vertices, 
+									  size_t nb_vertices) noexcept;
 	
 	/**
 	 Creates a static index buffer.
 
 	 @tparam		IndexT
 					The index type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a indices is not equal to @c nullptr.
 	 @pre			@a indices points to an array containing at least 
 					@a nb_indices elements.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		indices
@@ -92,21 +91,21 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename IndexT >
-	[[nodiscard]]HRESULT CreateStaticIndexBuffer(ID3D11Device *device, 
-		                                          ID3D11Buffer **buffer, 
-		                                          const IndexT *indices, 
-		                                          size_t nb_indices) noexcept;
+	[[nodiscard]]
+	HRESULT CreateStaticIndexBuffer(ID3D11Device &device, 
+									ID3D11Buffer **buffer, 
+									const IndexT *indices, 
+									size_t nb_indices) noexcept;
 	
 	/**
 	 Creates a static constant buffer.
 
 	 @tparam		DataT
 					The data type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a data is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		data
@@ -116,22 +115,22 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateStaticConstantBuffer(ID3D11Device *device, 
-		                                             ID3D11Buffer **buffer, 
-		                                             const DataT *data, 
-		                                             size_t count = 1u) noexcept;
+	[[nodiscard]]
+	HRESULT CreateStaticConstantBuffer(ID3D11Device &device, 
+									   ID3D11Buffer **buffer, 
+									   const DataT *data, 
+									   size_t count = 1u) noexcept;
 	
 	/**
 	 Creates a dynamic constant buffer.
 
 	 @tparam		DataT
 					The data type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			If @a data is not equal to @c nullptr, then @a data points 
 					to an array containing at least @a count elements.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		data
@@ -141,21 +140,21 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateDynamicConstantBuffer(ID3D11Device *device, 
-		                                              ID3D11Buffer **buffer, 
-		                                              const DataT *data, 
-		                                              size_t count = 1u) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device &device, 
+										ID3D11Buffer **buffer, 
+										const DataT *data, 
+										size_t count = 1u) noexcept;
 	
 	/**
 	 Creates a static structured buffer.
 
 	 @tparam		DataT
 					The data type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a data is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		data
@@ -165,22 +164,22 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateStaticStructuredBuffer(ID3D11Device *device, 
-		                                               ID3D11Buffer **buffer, 
-		                                               const DataT *data, 
-		                                               size_t count = 1u) noexcept;
+	[[nodiscard]]
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device &device, 
+										 ID3D11Buffer **buffer, 
+										 const DataT *data, 
+										 size_t count = 1u) noexcept;
 	
 	/**
 	 Creates a dynamic structured buffer.
 
 	 @tparam		DataT
 					The data type.
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			If @a data is not equal to @c nullptr, then @a data points 
 					to an array containing at least @a count elements.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
 	 @param[in]		data
@@ -190,10 +189,11 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template< typename DataT >
-	[[nodiscard]]HRESULT CreateDynamicStructuredBuffer(ID3D11Device *device, 
-		                                                ID3D11Buffer **buffer, 
-		                                                const DataT *data, 
-		                                                size_t count = 1u) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device &device, 
+										  ID3D11Buffer **buffer, 
+										  const DataT *data, 
+										  size_t count = 1u) noexcept;
 
 	#pragma endregion
 
@@ -209,17 +209,16 @@ namespace mage {
 	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
 	 (source.a   × 1) + (destination.a   × 0) = source.a.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateOpaqueBlendState(ID3D11Device *device, 
-			                   ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateOpaqueBlendState(ID3D11Device &device, 
+								   ID3D11BlendState **state) noexcept;
 	
 	/**
 	 Creates an alpha blend state.
@@ -228,17 +227,16 @@ namespace mage {
 	 (source.rgb ×  source.alpha    ) + (destination.rgb × (1-source.alpha))
 	 (source.a   × (1-destination.a)) + (destination.a   ×  1              ).
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAlphaBlendState(ID3D11Device *device, 
-			                  ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAlphaBlendState(ID3D11Device &device, 
+								  ID3D11BlendState **state) noexcept;
 	
 	/**
 	 Creates an additive blend state.
@@ -247,17 +245,16 @@ namespace mage {
 	 (source.rgb ×  1               ) + (destination.rgb × 1)
 	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAdditiveBlendState(ID3D11Device *device, 
-			                     ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAdditiveBlendState(ID3D11Device &device, 
+									 ID3D11BlendState **state) noexcept;
 	
 	/**
 	 Creates a multiplicative blend state.
@@ -266,17 +263,16 @@ namespace mage {
 	 (source.rgb ×  0               ) + (destination.rgb × source.rgb)
 	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateMultiplicativeBlendState(ID3D11Device *device, 
-			                           ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateMultiplicativeBlendState(ID3D11Device &device, 
+										   ID3D11BlendState **state) noexcept;
 
 	/**
 	 Creates a bi-multiplicative blend state.
@@ -285,17 +281,16 @@ namespace mage {
 	 (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
 	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateBiMultiplicativeBlendState(ID3D11Device *device, 
-			                             ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateBiMultiplicativeBlendState(ID3D11Device &device, 
+											 ID3D11BlendState **state) noexcept;
 
 	/**
 	 Creates an transparency blend state.
@@ -307,32 +302,30 @@ namespace mage {
 	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
 	 (source.a   × 1) + (destination.a   × 0) = source.a.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateTransparencyBlendState(ID3D11Device *device, 
-			                         ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateTransparencyBlendState(ID3D11Device &device, 
+										 ID3D11BlendState **state) noexcept;
 
 	/**
 	 Creates a alpha-to-coverage blend state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAlphaToCoverageBlendState(ID3D11Device *device, 
-			                            ID3D11BlendState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAlphaToCoverageBlendState(ID3D11Device &device, 
+											ID3D11BlendState **state) noexcept;
 
 	#pragma endregion
 
@@ -344,53 +337,50 @@ namespace mage {
 	/**
 	 Creates a no-read-no-write depth stencil state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateDepthNoneDepthStencilState(ID3D11Device *device, 
-			                             ID3D11DepthStencilState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDepthNoneDepthStencilState(ID3D11Device &device, 
+											 ID3D11DepthStencilState **state) noexcept;
 	
 	/**
 	 Creates a read-write depth stencil state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
 	 @param[in]		func
 					The depth comparison function.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateDepthReadWriteDepthStencilState(ID3D11Device *device, 
-			                                  ID3D11DepthStencilState **state,
-		                                      D3D11_COMPARISON_FUNC func) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDepthReadWriteDepthStencilState(ID3D11Device &device, 
+												  ID3D11DepthStencilState **state, 
+												  D3D11_COMPARISON_FUNC func) noexcept;
 	
 	/**
 	 Creates a read-only depth stencil state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
 	 @param[in]		func
 					The depth comparison function.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateDepthReadDepthStencilState(ID3D11Device *device, 
-			                             ID3D11DepthStencilState **state,
-		                                 D3D11_COMPARISON_FUNC func) noexcept;
+	[[nodiscard]]
+	HRESULT CreateDepthReadDepthStencilState(ID3D11Device &device, 
+											 ID3D11DepthStencilState **state, 
+											 D3D11_COMPARISON_FUNC func) noexcept;
 
 	#pragma endregion
 
@@ -402,10 +392,9 @@ namespace mage {
 	/**
 	 Creates a rasterizer state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
 	 @param[in]		cull_mode
@@ -420,22 +409,21 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateRasterizerState(ID3D11Device *device, 
-			                  ID3D11RasterizerState **state, 
-		                      D3D11_CULL_MODE cull_mode, 
-			                  D3D11_FILL_MODE fill_mode,
-		                      S32 depth_bias = 0, 
-			                  F32 slope_scaled_depth_bias = 0.0f, 
-		                      F32 depth_bias_clamp = 0.0f) noexcept;
+	[[nodiscard]]
+	HRESULT CreateRasterizerState(ID3D11Device &device, 
+								  ID3D11RasterizerState **state, 
+								  D3D11_CULL_MODE cull_mode, 
+								  D3D11_FILL_MODE fill_mode, 
+								  S32 depth_bias = 0,
+								  F32 slope_scaled_depth_bias = 0.0f, 
+								  F32 depth_bias_clamp = 0.0f) noexcept;
 	
 	/**
 	 Creates a no-culling (solid) rasterizer state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
 	 @param[in]		depth_bias
@@ -446,20 +434,19 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateCullNoneRasterizerState(ID3D11Device *device, 
-			                          ID3D11RasterizerState **state,
-		                              S32 depth_bias = 0, 
-			                          F32 slope_scaled_depth_bias = 0.0f,
-		                              F32 depth_bias_clamp = 0.0f) noexcept;
+	[[nodiscard]]
+	HRESULT CreateCullNoneRasterizerState(ID3D11Device &device, 
+										  ID3D11RasterizerState **state, 
+										  S32 depth_bias = 0, 
+										  F32 slope_scaled_depth_bias = 0.0f, 
+										  F32 depth_bias_clamp = 0.0f) noexcept;
 	
 	/**
 	 Creates a clockwise-culling (solid) rasterizer state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
 	 @param[in]		depth_bias
@@ -470,20 +457,19 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateCullClockwiseRasterizerState(ID3D11Device *device, 
-			                               ID3D11RasterizerState **state,
-		                                   S32 depth_bias = 0, 
-			                               F32 slope_scaled_depth_bias = 0.0f,
-		                                   F32 depth_bias_clamp = 0.0f) noexcept;
+	[[nodiscard]]
+	HRESULT CreateCullClockwiseRasterizerState(ID3D11Device &device, 
+											   ID3D11RasterizerState **state, 
+											   S32 depth_bias = 0, 
+											   F32 slope_scaled_depth_bias = 0.0f, 
+											   F32 depth_bias_clamp = 0.0f) noexcept;
 	
 	/**
 	 Creates a counter-clockwise-culling (solid) rasterizer state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
 	 @param[in]		depth_bias
@@ -494,20 +480,19 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateCullCounterClockwiseRasterizerState(ID3D11Device *device, 
-			                                      ID3D11RasterizerState **state,
-		                                          S32 depth_bias = 0, 
-			                                      F32 slope_scaled_depth_bias = 0.0f,
-		                                          F32 depth_bias_clamp = 0.0f) noexcept;
+	[[nodiscard]]
+	HRESULT CreateCullCounterClockwiseRasterizerState(ID3D11Device &device, 
+													  ID3D11RasterizerState **state, 
+													  S32 depth_bias = 0, 
+													  F32 slope_scaled_depth_bias = 0.0f, 
+													  F32 depth_bias_clamp = 0.0f) noexcept;
 	
 	/**
 	 Creates a wireframe rasterizer state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
 	 @param[in]		depth_bias
@@ -518,12 +503,12 @@ namespace mage {
 					The maximum depth bias of a pixel.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateWireframeRasterizerState(ID3D11Device *device, 
-			                           ID3D11RasterizerState **state,
-		                               S32 depth_bias = 0, 
-			                           F32 slope_scaled_depth_bias = 0.0f,
-		                               F32 depth_bias_clamp = 0.0f) noexcept;
+	[[nodiscard]]
+	HRESULT CreateWireframeRasterizerState(ID3D11Device &device, 
+										   ID3D11RasterizerState **state, 
+										   S32 depth_bias = 0, 
+										   F32 slope_scaled_depth_bias = 0.0f, 
+										   F32 depth_bias_clamp = 0.0f) noexcept;
 
 	#pragma endregion
 
@@ -535,10 +520,9 @@ namespace mage {
 	/**
 	 Creates a sampling state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @param[in]		filter
@@ -548,161 +532,151 @@ namespace mage {
 					the boundaries of a texture.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateSamplerState(ID3D11Device *device, 
-			               ID3D11SamplerState **state, 
-		                   D3D11_FILTER filter, 
-			               D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
+	[[nodiscard]]
+	HRESULT CreateSamplerState(ID3D11Device &device, 
+							   ID3D11SamplerState **state,
+							   D3D11_FILTER filter, 
+							   D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
 	
 	/**
 	 Creates a point sampling state with wrapping.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreatePointWrapSamplerState(ID3D11Device *device, 
-			                        ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreatePointWrapSamplerState(ID3D11Device &device, 
+										ID3D11SamplerState **state) noexcept;
 	
 	/**
 	Creates a point sampling state with clamping.
 
-	@pre			@a device is not equal to @c nullptr.
 	@pre			@a state is not equal to @c nullptr.
 	@param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	@param[out]		state
 					A pointer to a pointer to the sampler state.
 	@return			A success/error value.
 	*/
-	[[nodiscard]]HRESULT 
-		CreatePointClampSamplerState(ID3D11Device *device, 
-			                         ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreatePointClampSamplerState(ID3D11Device &device, 
+										 ID3D11SamplerState **state) noexcept;
 
 	/**
 	Creates a point sampling state with mirroring.
 
-	@pre			@a device is not equal to @c nullptr.
 	@pre			@a state is not equal to @c nullptr.
 	@param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	@param[out]		state
 					A pointer to a pointer to the sampler state.
 	@return			A success/error value.
 	*/
-	[[nodiscard]]HRESULT 
-		CreatePointMirrorSamplerState(ID3D11Device *device, 
-			                          ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreatePointMirrorSamplerState(ID3D11Device &device,
+										  ID3D11SamplerState **state) noexcept;
 	
 	/**
 	 Creates a linear sampling state with wrapping.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateLinearWrapSamplerState(ID3D11Device *device, 
-			                         ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateLinearWrapSamplerState(ID3D11Device &device, 
+										 ID3D11SamplerState **state) noexcept;
 	
 	/**
 	 Creates a linear sampling state with clamping.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateLinearClampSamplerState(ID3D11Device *device, 
-			                          ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateLinearClampSamplerState(ID3D11Device &device, 
+										  ID3D11SamplerState **state) noexcept;
 
 	/**
 	 Creates a linear sampling state with mirroring.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateLinearMirrorSamplerState(ID3D11Device *device, 
-			                           ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateLinearMirrorSamplerState(ID3D11Device &device, 
+										   ID3D11SamplerState **state) noexcept;
 	
 	/**
 	 Creates an anisotropic sampling state with wrapping.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAnisotropicWrapSamplerState(ID3D11Device *device, 
-			                              ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAnisotropicWrapSamplerState(ID3D11Device &device, 
+											  ID3D11SamplerState **state) noexcept;
 
 	/**
 	 Creates an anisotropic sampling state with clamping.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAnisotropicClampSamplerState(ID3D11Device *device, 
-			                               ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAnisotropicClampSamplerState(ID3D11Device &device, 
+											   ID3D11SamplerState **state) noexcept;
 
 	/**
 	 Creates an anisotropic sampling state with mirroring.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreateAnisotropicMirrorSamplerState(ID3D11Device *device, 
-			                                ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreateAnisotropicMirrorSamplerState(ID3D11Device &device, 
+												ID3D11SamplerState **state) noexcept;
 
 	/**
 	 Creates a PCF sampling state.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a state is not equal to @c nullptr.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
 	 @return		A success/error value.
 	 */
-	[[nodiscard]]HRESULT 
-		CreatePCFSamplerState(ID3D11Device *device, 
-			                  ID3D11SamplerState **state) noexcept;
+	[[nodiscard]]
+	HRESULT CreatePCFSamplerState(ID3D11Device &device, 
+								  ID3D11SamplerState **state) noexcept;
 
 	#pragma endregion
 }

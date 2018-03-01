@@ -125,12 +125,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 		#pragma region
 
-		[[nodiscard]]static HRESULT Map(ID3D11DeviceContext &device_context, 
-										 ID3D11Resource *resource, 
-										 U32 subresource, 
-										 D3D11_MAP map_type, 
-										 U32 map_flags, 
-										 D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
+		[[nodiscard]]
+		static HRESULT Map(ID3D11DeviceContext &device_context, 
+						   ID3D11Resource *resource, 
+						   U32 subresource, 
+						   D3D11_MAP map_type, 
+						   U32 map_flags, 
+						   D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
 
 			return device_context.Map(resource, 
 									  subresource, 
@@ -231,7 +232,6 @@ namespace mage {
 		/**
 		 Binds a shader resource view to all shader stages.
 		 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @param[in]		device_context
 						A reference to the device context.
@@ -257,7 +257,6 @@ namespace mage {
 		/**
 		 Binds an array of shader resource views to all shaders stage.
 		 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 						- @a slot.
@@ -293,7 +292,6 @@ namespace mage {
 		/**
 		 Binds a sampler to all shader stages.
 		 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 		 @param[in]		device_context
 						A reference to the device context.
@@ -319,7 +317,6 @@ namespace mage {
 		/**
 		 Binds an array of samplers to all shader stages.
 		 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 		 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 						- @a slot.
@@ -401,10 +398,10 @@ namespace mage {
 				                          const U32 *offsets) noexcept {
 
 				device_context.IASetVertexBuffers(slot, 
-					                               nb_buffers, 
-					                               buffers, 
-					                               strides, 
-					                               offsets);
+												  nb_buffers, 
+												  buffers, 
+												  strides, 
+												  offsets);
 			}
 
 			static void BindPrimitiveTopology(ID3D11DeviceContext &device_context,
@@ -441,7 +438,6 @@ namespace mage {
 			/**
 			 Binds a vertex shader to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -456,7 +452,6 @@ namespace mage {
 			/**
 			 Binds a vertex shader to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -472,14 +467,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.VSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -501,7 +495,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -531,7 +524,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -553,7 +545,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -584,7 +575,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -606,7 +596,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the vertex shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.
@@ -655,7 +644,6 @@ namespace mage {
 			/**
 			 Binds a hull shader to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -670,7 +658,6 @@ namespace mage {
 			/**
 			 Binds a hull shader to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -686,14 +673,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.HSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -715,7 +701,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -745,7 +730,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -767,7 +751,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -798,7 +781,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -820,7 +802,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the hull shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.
@@ -846,14 +827,6 @@ namespace mage {
 					
 				device_context.HSSetSamplers(slot, nb_samplers, samplers);
 			}
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Constructors
-			//-----------------------------------------------------------------
-
-			HS() = delete;
 		};
 
 		#pragma endregion
@@ -889,7 +862,6 @@ namespace mage {
 			/**
 			 Binds a domain shader to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -904,7 +876,6 @@ namespace mage {
 			/**
 			 Binds a domain shader to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -920,14 +891,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.DSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -949,7 +919,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -979,7 +948,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1001,7 +969,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -1032,7 +999,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1054,7 +1020,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the domain shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.
@@ -1103,7 +1068,6 @@ namespace mage {
 			/**
 			 Binds a geometry shader to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1118,7 +1082,6 @@ namespace mage {
 			/**
 			 Binds a geometry shader to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1134,14 +1097,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.GSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1163,7 +1125,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -1193,7 +1154,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1215,7 +1175,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -1246,7 +1205,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1268,7 +1226,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the geometry shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.
@@ -1387,7 +1344,6 @@ namespace mage {
 			/**
 			 Binds a pixel shader to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1402,7 +1358,6 @@ namespace mage {
 			/**
 			 Binds a pixel shader to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1418,14 +1373,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.PSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1447,7 +1401,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -1477,7 +1430,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1499,7 +1451,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -1530,7 +1481,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1552,7 +1502,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the pixel shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.
@@ -1729,8 +1678,11 @@ namespace mage {
 				                 F32 depth = s_clear_depth,
 				                 U8 stencil = 0u) noexcept {
 
-				device_context.ClearDepthStencilView(
-					dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
+				device_context.ClearDepthStencilView(dsv, 
+													 D3D11_CLEAR_DEPTH 
+												   | D3D11_CLEAR_STENCIL, 
+													 depth, 
+													 stencil);
 			}
 
 			static void ClearDepthOfDSV(ID3D11DeviceContext &device_context,
@@ -1781,7 +1733,6 @@ namespace mage {
 			/**
 			 Binds a compute shader to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1796,7 +1747,6 @@ namespace mage {
 			/**
 			 Binds a compute shader to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @param[in]		device_context
 							A reference to the device context.
 			 @param[in]		shader
@@ -1812,14 +1762,13 @@ namespace mage {
 				                   U32 nb_class_instances) noexcept {
 				
 				device_context.CSSetShader(shader, 
-					                        class_instances, 
-					                        nb_class_instances);
+										   class_instances, 
+										   nb_class_instances);
 			}
 			
 			/**
 			 Binds a constant buffer to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1841,7 +1790,6 @@ namespace mage {
 			/**
 			 Binds an array of constant buffers to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 			 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 							- @a slot.
@@ -1871,7 +1819,6 @@ namespace mage {
 			/**
 			 Binds a shader resource view to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1893,7 +1840,6 @@ namespace mage {
 			/**
 			 Binds an array of shader resource views to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 			 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
 							- @a slot.
@@ -1924,7 +1870,6 @@ namespace mage {
 			/**
 			 Binds an unordered access view to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_1_UAV_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -1951,7 +1896,6 @@ namespace mage {
 			/**
 			 Binds an array of unordered access views to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_1_UAV_SLOT_COUNT.
 			 @pre			@a nb_uavs < @c D3D11_1_UAV_SLOT_COUNT - @a slot.
 			 @pre			@a uavs points to an array containing at least 
@@ -1989,7 +1933,6 @@ namespace mage {
 			/**
 			 Binds a sampler to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @param[in]		device_context
 							A reference to the device context.
@@ -2011,7 +1954,6 @@ namespace mage {
 			/**
 			 Binds an array of samplers to the compute shader stage.
 			 
-			 @pre			@a device_context is not equal to @c nullptr.
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
 			 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
 							- @a slot.

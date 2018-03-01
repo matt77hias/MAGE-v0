@@ -35,17 +35,17 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The renderer associated with the current engine
 						must be loaded.
-		 @param[in]		fname
-						The filename (the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
+		 @param[in]		fname
+						The filename (the globally unique identifier).
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(wstring fname, 
-			                ID3D11Device *device,
+		explicit SpriteFont(ID3D11Device *device,
+							wstring fname,
 			                const SpriteFontDescriptor &desc 
 			                    = SpriteFontDescriptor());
 

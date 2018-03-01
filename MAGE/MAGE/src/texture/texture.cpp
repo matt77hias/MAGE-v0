@@ -5,7 +5,6 @@
 
 #include "texture\texture.hpp"
 #include "loaders\texture_loader.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -15,36 +14,33 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Texture::Texture(wstring fname, ID3D11Device *device)
+	Texture::Texture(ID3D11Device &device, wstring fname)
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
 
-		Assert(device);
-
 		loader::ImportTextureFromFile(GetFilename(), 
-			                          device, 
-			                          m_texture_srv.ReleaseAndGetAddressOf());
+									  device, 
+									  m_texture_srv.ReleaseAndGetAddressOf());
 	}
 
-	Texture::Texture(wstring guid, 
-		            ID3D11Device *device,
-		            const D3D11_TEXTURE2D_DESC *desc, 
-		            const D3D11_SUBRESOURCE_DATA *initial_data)
+	Texture::Texture(ID3D11Device &device, wstring guid, 
+					 const D3D11_TEXTURE2D_DESC &desc, 
+					 const D3D11_SUBRESOURCE_DATA &initial_data)
 		: Resource< Texture >(std::move(guid)), 
 		m_texture_srv() {
 
-		Assert(device);
-
 		ComPtr< ID3D11Texture2D > texture;
+		
 		// Create the texture.
 		{
-			const HRESULT result = device->CreateTexture2D(
-				desc, initial_data, texture.ReleaseAndGetAddressOf());
+			const HRESULT result = device.CreateTexture2D(
+				&desc, &initial_data, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
+		
 		// Create the SRV.
 		{
-			const HRESULT result = device->CreateShaderResourceView(
+			const HRESULT result = device.CreateShaderResourceView(
 				texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture SRV creation failed: %08X.", result);
 		}

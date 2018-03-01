@@ -4,9 +4,7 @@
 #pragma region
 
 #include "texture\texture_factory.hpp"
-#include "texture\texture.hpp"
 #include "rendering\resource_manager.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -28,14 +26,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 Create a 2D texture descriptor for a single color (i.e. one texel) texture.
+	//-------------------------------------------------------------------------
+	// General Factory Methods
+	//-------------------------------------------------------------------------
+	#pragma region
 
-	 @return		A 2D texture descriptor for a single color (i.e. one texel) 
-					texture.
+	/**
+	 Creates a flat (single-texel) 2D texture.
+
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		guid
+					A reference to the globally unique identifier.
+	 @param[in]		color
+					The color.
+	 @return		A pointer to the texture.
+	 @throws		Exception
+					Failed to create the texture.
 	 */
-	[[nodiscard]] static inline const D3D11_TEXTURE2D_DESC 
-		CreateSingleColorTexture2DDesc() noexcept {
+	[[nodiscard]]
+	static inline TexturePtr CreateFlatTexture2D(ResourceManager &resource_manager, 
+												 const wstring &guid, 
+												 U32 color) {
 
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width              = 1u;
@@ -46,84 +58,69 @@ namespace mage {
 		texture_desc.SampleDesc.Count   = 1u;
 		texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
 		texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
-		return texture_desc;
-	}
-
-	SharedPtr< const Texture > CreateMAGETexture(ResourceManager &resource_manager) {
-		return resource_manager.GetOrCreate< Texture >(L"assets/textures/mage.dds");
-	}
-
-	SharedPtr< const Texture > CreateReferenceTexture(ResourceManager &resource_manager) {
-		return resource_manager.GetOrCreate< Texture >(L"assets/textures/reference.dds");
-	}
-
-	SharedPtr< const Texture > CreateBlackTexture(ResourceManager &resource_manager) {
-		const auto texture_desc = CreateSingleColorTexture2DDesc();
-
-		static constexpr U32 color = 0xFF000000;
-
-		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(color);
-		
-		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_BLACK, 
-													   &texture_desc, 
-													   &texture_data);
-	}
-
-	SharedPtr< const Texture > CreateWhiteTexture(ResourceManager &resource_manager) {
-		const auto texture_desc = CreateSingleColorTexture2DDesc();
-
-		static constexpr U32 color = 0xFFFFFFFF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_WHITE, 
-													   &texture_desc, 
-													   &texture_data);
+		return resource_manager.GetOrCreate< Texture >(guid, 
+													   texture_desc, 
+													   texture_data);
 	}
 
-	SharedPtr< const Texture > CreateRedTexture(ResourceManager &resource_manager) {
-		const auto texture_desc = CreateSingleColorTexture2DDesc();
+	#pragma endregion
 
-		static constexpr U32 color = 0xFF000000;
+	//-------------------------------------------------------------------------
+	// Factory Methods: Flat
+	//-------------------------------------------------------------------------
+	#pragma region
 
-		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(color);
-
-		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_RED, 
-													   &texture_desc, 
-													   &texture_data);
+	TexturePtr CreateBlackTexture(ResourceManager &resource_manager) {
+		return CreateFlatTexture2D(resource_manager, 
+								   MAGE_GUID_TEXTURE_BLACK, 
+								   0xFF000000);
 	}
 
-	SharedPtr< const Texture > CreateGreenTexture(ResourceManager &resource_manager) {
-		const auto texture_desc = CreateSingleColorTexture2DDesc();
-
-		static constexpr U32 color = 0xFF00FF00;
-
-		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(color);
-
-		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_GREEN, 
-													   &texture_desc, 
-													   &texture_data);
+	TexturePtr CreateWhiteTexture(ResourceManager &resource_manager) {
+		return CreateFlatTexture2D(resource_manager,
+								   MAGE_GUID_TEXTURE_WHITE,
+								   0xFFFFFFFF);
 	}
 
-	SharedPtr< const Texture > CreateBlueTexture(ResourceManager &resource_manager) {
-		const auto texture_desc = CreateSingleColorTexture2DDesc();
-
-		static constexpr U32 color = 0xFF0000FF;
-
-		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(color);
-
-		return resource_manager.GetOrCreate< Texture >(MAGE_GUID_TEXTURE_BLUE, 
-													   &texture_desc, 
-													   &texture_data);
+	TexturePtr CreateRedTexture(ResourceManager &resource_manager) {
+		return CreateFlatTexture2D(resource_manager,
+								   MAGE_GUID_TEXTURE_RED,
+								   0xFF000000);
 	}
+
+	TexturePtr CreateGreenTexture(ResourceManager &resource_manager) {
+		return CreateFlatTexture2D(resource_manager,
+								   MAGE_GUID_TEXTURE_GREEN,
+								   0xFF00FF00);
+	}
+
+	TexturePtr CreateBlueTexture(ResourceManager &resource_manager) {
+		return CreateFlatTexture2D(resource_manager,
+								   MAGE_GUID_TEXTURE_BLUE,
+								   0xFF0000FF);
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Miscellaneous
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	TexturePtr CreateMAGETexture(ResourceManager &resource_manager) {
+		return resource_manager.GetOrCreate< Texture >(
+			L"assets/textures/mage.dds");
+	}
+
+	TexturePtr CreateReferenceTexture(ResourceManager &resource_manager) {
+		return resource_manager.GetOrCreate< Texture >(
+			L"assets/textures/reference.dds");
+	}
+
+	#pragma endregion
 }

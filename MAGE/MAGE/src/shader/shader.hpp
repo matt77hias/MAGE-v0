@@ -38,10 +38,10 @@ namespace mage {
 		 @pre			The array pointed to by @a input_element_desc contains 
 						@a nb_input_elements elements, if @a input_element_desc 
 						is not equal to @c nullptr.
-		 @param[in]		guid
-						The globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
+		 @param[in]		guid
+						The globally unique identifier.
 		 @param[in]		compiled_shader
 						A reference to the compiled vertex shader.
 		 @param[in]		input_element_desc
@@ -52,8 +52,8 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this vertex shader.
 		*/
-		explicit VertexShader(wstring guid, 
-			                  ID3D11Device *device, 
+		explicit VertexShader(ID3D11Device *device, 
+							  wstring guid,
 			                  const CompiledShader &compiled_shader, 
 			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			                  size_t nb_input_elements);
@@ -192,17 +192,17 @@ namespace mage {
 		 Constructs a shader.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		guid
-						The globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
+		 @param[in]		guid
+						The globally unique identifier.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
 		 @throws		Exception
 						Failed to initialize this shader.
 		 */
-		explicit Shader(wstring guid, 
-			            ID3D11Device *device,
+		explicit Shader(ID3D11Device *device, 
+						wstring guid, 
 			            const CompiledShader &compiled_shader);
 		
 		/**

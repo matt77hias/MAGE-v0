@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
+#include "texture\texture.hpp"
 
 #pragma endregion
 
@@ -14,31 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declarations.
-	class Texture;
+	// Forward declaration.
 	class ResourceManager;
 
-	/**
-	 Creates a MAGE texture.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @return		A pointer to the texture.
-	 @throws		Exception
-					Failed to create the texture.
-	 */
-	SharedPtr< const Texture > CreateMAGETexture(ResourceManager &resource_manager);
-
-	/**
-	 Creates a reference texture.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @return		A pointer to the texture.
-	 @throws		Exception
-					Failed to create the texture.
-	 */
-	SharedPtr< const Texture > CreateReferenceTexture(ResourceManager &resource_manager);
+	//-------------------------------------------------------------------------
+	// Factory Methods: Flat
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Creates a black texture.
@@ -49,7 +31,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateBlackTexture(ResourceManager &resource_manager);
+	TexturePtr CreateBlackTexture(ResourceManager &resource_manager);
 
 	/**
 	 Creates a white texture.
@@ -60,7 +42,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateWhiteTexture(ResourceManager &resource_manager);
+	TexturePtr CreateWhiteTexture(ResourceManager &resource_manager);
 
 	/**
 	 Creates a red texture.
@@ -71,7 +53,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateRedTexture(ResourceManager &resource_manager);
+	TexturePtr CreateRedTexture(ResourceManager &resource_manager);
 
 	/**
 	 Creates a green texture.
@@ -82,7 +64,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateGreenTexture(ResourceManager &resource_manager);
+	TexturePtr CreateGreenTexture(ResourceManager &resource_manager);
 
 	/**
 	 Creates a blue texture.
@@ -93,5 +75,36 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	SharedPtr< const Texture > CreateBlueTexture(ResourceManager &resource_manager);
+	TexturePtr CreateBlueTexture(ResourceManager &resource_manager);
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Miscellaneous
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Creates a MAGE texture.
+
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @return		A pointer to the texture.
+	 @throws		Exception
+					Failed to create the texture.
+	 */
+	TexturePtr CreateMAGETexture(ResourceManager &resource_manager);
+
+	/**
+	 Creates a reference texture.
+
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @return		A pointer to the texture.
+	 @throws		Exception
+					Failed to create the texture.
+	 */
+	TexturePtr CreateReferenceTexture(ResourceManager &resource_manager);
+
+	#pragma endregion
 }

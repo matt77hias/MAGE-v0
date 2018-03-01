@@ -15,6 +15,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Texture
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of textures.
 	 */
@@ -29,39 +34,33 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
+		 @param[in]		device
+						A reference to the device.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
-		 @param[in]		device
-						A pointer to the device.
 		 @throws		Exception
-						Failed to initialize the texture.
+						Failed to construct the texture.
 		 */
-		explicit Texture(wstring fname, ID3D11Device *device);
+		explicit Texture(ID3D11Device &device, wstring fname);
 
 		/**
 		 Constructs a 2D texture.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a desc is not equal to @c nullptr.
-		 @pre			@a initial_data is not equal to @c nullptr.
+		 @param[in]		device
+						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
-		 @param[in]		device
-						A pointer to the device.
 		 @param[in]		desc
-						A pointer to the texture descriptor.
+						A reference to the texture descriptor.
 		 @param[in]		initial_data
-						A pointer to the initial data.
+						A reference to the initial data.
 		 @throws		Exception
-						Failed to initialize the texture.
+						Failed to construct the texture.
 		 */
-		explicit Texture(wstring guid, 
-			             ID3D11Device *device,
-			             const D3D11_TEXTURE2D_DESC *desc,
-			             const D3D11_SUBRESOURCE_DATA *initial_data);
+		explicit Texture(ID3D11Device &device,
+						 wstring guid, 
+			             const D3D11_TEXTURE2D_DESC &desc,
+			             const D3D11_SUBRESOURCE_DATA &initial_data);
 
 		/**
 		 Constructs a texture from the given texture.
@@ -123,19 +122,18 @@ namespace mage {
 		/**
 		 Binds this texture.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -148,6 +146,20 @@ namespace mage {
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A pointer to a texture resource.
+	 */
+	using TexturePtr = SharedPtr< const Texture >;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

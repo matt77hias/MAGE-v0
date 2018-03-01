@@ -127,35 +127,35 @@ namespace mage {
 
 		[[nodiscard]]
 		static HRESULT Map(ID3D11DeviceContext &device_context, 
-						   ID3D11Resource *resource, 
+						   ID3D11Resource &resource, 
 						   U32 subresource, 
 						   D3D11_MAP map_type, 
 						   U32 map_flags, 
-						   D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
+						   D3D11_MAPPED_SUBRESOURCE &mapped_resource) noexcept {
 
-			return device_context.Map(resource, 
+			return device_context.Map(&resource, 
 									  subresource, 
 									  map_type, 
 									  map_flags, 
-									  mapped_resource);
+									  &mapped_resource);
 		}
 
 		static void Unmap(ID3D11DeviceContext &device_context,
-			              ID3D11Resource *resource, 
+			              ID3D11Resource &resource, 
 			              U32 subresource) noexcept {
 
-			device_context.Unmap(resource, subresource);
+			device_context.Unmap(&resource, subresource);
 		}
 		
 		static void UpdateSubresource(ID3D11DeviceContext &device_context,
-			                          ID3D11Resource *dst_resource, 
+			                          ID3D11Resource &dst_resource, 
 			                          U32 dst_subresource,
 			                          const void *src_data, 
 			                          U32 src_row_pitch, 
 			                          U32 src_depth_pitch,
 			                          const D3D11_BOX *dst_box = nullptr) noexcept {
 
-			device_context.UpdateSubresource(dst_resource, 
+			device_context.UpdateSubresource(&dst_resource, 
 											 dst_subresource, 
 											 dst_box, 
 											 src_data, 

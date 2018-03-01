@@ -32,13 +32,12 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		explicit ConstantBuffer(ID3D11Device *device);
+		explicit ConstantBuffer(ID3D11Device &device);
 		
 		/**
 		 Constructs a constant buffer from the given constant buffer.
@@ -92,15 +91,14 @@ namespace mage {
 		/**
 		 Updates the data of this constant buffer with the given data.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		data
 						A reference to the data.
 		 @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext *device_context, 
+		void UpdateData(ID3D11DeviceContext &device_context, 
 			            const DataT &data);
 		
 		/**
@@ -109,20 +107,20 @@ namespace mage {
 		 @return		A pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		[[nodiscard]]ID3D11Buffer *Get() const noexcept {
+		[[nodiscard]]
+		ID3D11Buffer *Get() const noexcept {
 			return m_buffer.Get();
 		}
 		
 		/**
 		 Binds this constant buffer.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < 
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						constant buffer to (ranges from 0 to 
@@ -130,7 +128,7 @@ namespace mage {
 						- 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -141,13 +139,12 @@ namespace mage {
 		/**
 		 Sets up the resource buffer of this constant buffer.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		void SetupConstantBuffer(ID3D11Device *device);
+		void SetupConstantBuffer(ID3D11Device &device);
 
 		//---------------------------------------------------------------------
 		// Member Variables

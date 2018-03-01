@@ -30,31 +30,24 @@ namespace mage {
 		/**
 		 Constructs a buffer lock.
 
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a buffer is not equal to @c nullptr.
-		 @pre			@a mapped_buffer is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		buffer
-						A pointer to the buffer.
+						A reference to the buffer.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write 
 						permissions for the buffer of this buffer lock.
 		 @param[out]	mapped_buffer
-						A pointer to map the buffer of this buffer lock to.
+						A reference to map the buffer of this buffer lock to.
 		 @throws		Exception
 						Failed to map the buffer.
 		 */
-		explicit BufferLock(ID3D11DeviceContext *device_context,
-			                ID3D11Buffer *buffer,
+		explicit BufferLock(ID3D11DeviceContext &device_context,
+			                ID3D11Buffer &buffer,
 			                D3D11_MAP map_type,
-			                D3D11_MAPPED_SUBRESOURCE *mapped_buffer)
+			                D3D11_MAPPED_SUBRESOURCE &mapped_buffer)
 			: m_device_context(device_context),
 			m_buffer(buffer) {
-
-			Assert(device_context);
-			Assert(buffer);
-			Assert(mapped_buffer);
 
 			MapBuffer(map_type, mapped_buffer);
 		}
@@ -115,19 +108,16 @@ namespace mage {
 		/**
 		 Maps the buffer of this buffer lock.
 
-		 @pre			@a mapped_buffer is not equal to @c nullptr.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write 
 						permissions for the buffer of this buffer lock.
 		 @param[out]	mapped_buffer
-						A pointer to map the buffer of this buffer lock to.
+						A reference to map the buffer of this buffer lock to.
 		 @throws		Exception
 						Failed to map the buffer.
 		 */
 		void MapBuffer(D3D11_MAP map_type, 
-			           D3D11_MAPPED_SUBRESOURCE *mapped_buffer) {
-
-			Assert(mapped_buffer);
+			           D3D11_MAPPED_SUBRESOURCE &mapped_buffer) {
 
 			const HRESULT result = Pipeline::Map(m_device_context, 
 				                                 m_buffer,
@@ -156,11 +146,11 @@ namespace mage {
 		/**
 		 A pointer to the device context of this buffer lock.
 		 */
-		ID3D11DeviceContext *m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the buffer of this lock.
 		 */
-		ID3D11Buffer *m_buffer;
+		std::reference_wrapper< ID3D11Buffer > m_buffer;
 	};
 }

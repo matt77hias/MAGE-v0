@@ -16,7 +16,7 @@ namespace mage {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(ID3D11Device *device, size_t capacity)
+		::StructuredBuffer(ID3D11Device &device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
 		m_capacity(0), 
@@ -27,9 +27,7 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::SetupStructuredBuffer(ID3D11Device *device, size_t capacity) {
-		
-		Assert(device);
+		::SetupStructuredBuffer(ID3D11Device &device, size_t capacity) {
 
 		// Create the buffer resource.
 		{
@@ -49,7 +47,7 @@ namespace mage {
 			srv_desc.Buffer.FirstElement = 0u;
 			srv_desc.Buffer.NumElements  = static_cast< U32 >(m_capacity);
 			
-			const HRESULT result = device->CreateShaderResourceView(
+			const HRESULT result = device.CreateShaderResourceView(
 				m_buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
@@ -57,11 +55,8 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::UpdateData(ID3D11DeviceContext *device_context, 
+		::UpdateData(ID3D11DeviceContext &device_context, 
 			         const AlignedVector< DataT > &data) {
-		
-		Assert(device_context);
-		Assert(m_buffer);
 
 		m_size = data.size();
 
@@ -71,13 +66,15 @@ namespace mage {
 		if (m_capacity < m_size) {
 			ComPtr< ID3D11Device > device;
 			device_context->GetDevice(device.ReleaseAndGetAddressOf());
-			SetupStructuredBuffer(device, m_size);
+			SetupStructuredBuffer(*device.Get(), m_size);
 		}
+
+		Assert(m_buffer);
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-		BufferLock lock(device_context, m_buffer.Get(), 
-						D3D11_MAP_WRITE_DISCARD, &mapped_buffer);
+		BufferLock lock(device_context, *m_buffer.Get(), 
+						D3D11_MAP_WRITE_DISCARD, mapped_buffer);
 			
 		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(DataT));
 	}
@@ -85,7 +82,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void StructuredBuffer< DataT >
-		::Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept {
+		::Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

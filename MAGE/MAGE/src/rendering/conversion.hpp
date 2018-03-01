@@ -15,6 +15,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// DXGI_FORMAT
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 Returns the number of bits per pixel of the given DXGI format.
 
@@ -22,7 +27,8 @@ namespace mage {
 					The DXGI format.
 	 @return		The number of bits per pixel of the given DXGI format.
 	 */
-	[[nodiscard]]constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
+	[[nodiscard]]
+	constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
@@ -175,7 +181,8 @@ namespace mage {
 	 @return		The matching sRGB converted DXGI format of the given DXGI 
 					format.
 	 */
-	[[nodiscard]]constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
+	[[nodiscard]]
+	constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R8G8B8A8_UNORM:
@@ -198,126 +205,6 @@ namespace mage {
 		}
 	}
 
-	//-------------------------------------------------------------------------
-	// Normalized <> Absolute
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	[[nodiscard]]inline F32 NormalizedToAbsolute(F32 p, F32 resolution) noexcept {
-		return p * resolution;
-	}
-
-	[[nodiscard]]inline const F32x2 
-		NormalizedToAbsolute(const F32x2 &p, const F32x2 &resolution) noexcept {
-
-		return F32x2(p.m_x * resolution.m_x, p.m_y * resolution.m_y);
-
-	}
-
-	[[nodiscard]]inline const XMVECTOR XM_CALLCONV
-		NormalizedToAbsolute(FXMVECTOR p, FXMVECTOR resolution) noexcept {
-
-		return p * resolution;
-	}
-
-	[[nodiscard]]inline F32 AbsoluteToNormalized(F32 p, F32 resolution) noexcept {
-		return p / resolution;
-	}
-
-	[[nodiscard]]inline const F32x2
-		AbsoluteToNormalized(const F32x2 &p, const F32x2 &resolution) noexcept {
-
-		return F32x2(p.m_x / resolution.m_x, p.m_y / resolution.m_y);
-	}
-
-	[[nodiscard]]inline const XMVECTOR XM_CALLCONV
-		AbsoluteToNormalized(FXMVECTOR p, FXMVECTOR resolution) noexcept {
-
-		return p / resolution;
-	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Normalized <> Absolute Pixel
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	[[nodiscard]]F32 NormalizedToAbsolutePixelX(F32 x) noexcept;
-
-	[[nodiscard]]F32 NormalizedToAbsolutePixelY(F32 y) noexcept;
-
-	[[nodiscard]]const F32x2 
-		NormalizedToAbsolutePixel(const F32x2 &p) noexcept;
-
-	[[nodiscard]]inline const F32x2
-		NormalizedToAbsolutePixel(F32 x, F32 y) noexcept {
-
-		return NormalizedToAbsolutePixel(F32x2(x, y));
-	}
-
-	[[nodiscard]]const XMVECTOR XM_CALLCONV
-		NormalizedToAbsolutePixel(FXMVECTOR p) noexcept;
-
-	[[nodiscard]]F32 AbsoluteToNormalizedPixelX(F32 x) noexcept;
-
-	[[nodiscard]]F32 AbsoluteToNormalizedPixelY(F32 y) noexcept;
-
-	[[nodiscard]]const F32x2 
-		AbsoluteToNormalizedPixel(const F32x2 &p) noexcept;
-
-	[[nodiscard]]inline const F32x2 
-		AbsoluteToNormalizedPixel(F32 x, F32 y) noexcept {
-
-		return AbsoluteToNormalizedPixel(F32x2(x, y));
-	}
-
-	[[nodiscard]]const XMVECTOR XM_CALLCONV
-		AbsoluteToNormalizedPixel(FXMVECTOR p) noexcept;
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Normalized <> Absolute Texel
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	[[nodiscard]]F32 
-		NormalizedToAbsoluteTexelX(F32 x, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]F32 
-		NormalizedToAbsoluteTexelY(F32 y, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]const F32x2 
-		NormalizedToAbsoluteTexel(const F32x2 &p, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]inline const F32x2
-		NormalizedToAbsoluteTexel(F32 x, F32 y, ID3D11ShaderResourceView *texture) {
-
-		return NormalizedToAbsoluteTexel(F32x2(x, y), texture);
-	}
-
-	[[nodiscard]]const XMVECTOR XM_CALLCONV 
-		NormalizedToAbsoluteTexel(FXMVECTOR p, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]F32 
-		AbsoluteToNormalizedTexelX(F32 x, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]F32 
-		AbsoluteToNormalizedTexelY(F32 y, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]const F32x2 
-		AbsoluteToNormalizedTexel(const F32x2 &p, ID3D11ShaderResourceView *texture);
-
-	[[nodiscard]]inline const F32x2
-		AbsoluteToNormalizedTexel(F32 x, F32 y, ID3D11ShaderResourceView *texture) {
-
-		return AbsoluteToNormalizedTexel(F32x2(x, y), texture);
-	}
-
-	[[nodiscard]]const XMVECTOR XM_CALLCONV 
-		AbsoluteToNormalizedTexel(FXMVECTOR p, ID3D11ShaderResourceView *texture);
-
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -328,29 +215,25 @@ namespace mage {
 	/**
 	 Returns the size of the given 2D texture.
 
-	 @pre			@a texture_srv is not equal to @c nullptr.
 	 @param[in]		texture_srv
-					A pointer to the (texture) shader resource view.
-	 @return		The size of the given 2D texture as a
-					@c XMVECTOR (width, height, width, height).
+					A reference to the (texture) shader resource view.
+	 @return		The size [width, height] of the given 2D texture.
 	 @throws		Exception
 					The resource of the given shader resource view must be 
 					convertible to a @c ID3D11Texture2D.
 	 */
-	[[nodiscard]]const XMVECTOR XM_CALLCONV 
-		GetTexture2DSize(ID3D11ShaderResourceView *texture_srv);
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &texture_srv);
 
 	/**
 	 Returns the size of the given 2D texture.
 
-	 @pre			@a texture is not equal to @c nullptr.
 	 @param[in]		texture
-					A pointer to the 2D texture.
-	 @return		The size of the given 2D texture as a @c XMVECTOR 
-					(width, height, width, height).
+					A reference to the 2D texture.
+	 @return		The size [width, height] of the given 2D texture.
 	 */
-	[[nodiscard]]const XMVECTOR XM_CALLCONV 
-		GetTexture2DSize(ID3D11Texture2D *texture) noexcept;
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept;
 
 	#pragma endregion
 }

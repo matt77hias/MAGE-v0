@@ -106,6 +106,52 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
+	// Normalized <> Absolute
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	[[nodiscard]]
+	inline F32 NormalizedToAbsolute(F32 p, F32 resolution) noexcept {
+		return p * resolution;
+	}
+
+	[[nodiscard]]
+	inline const F32x2 NormalizedToAbsolute(const F32x2 &p,
+											const F32x2 &resolution) noexcept {
+
+		return F32x2(p.m_x * resolution.m_x, p.m_y * resolution.m_y);
+
+	}
+
+	[[nodiscard]]
+	inline const XMVECTOR XM_CALLCONV
+		NormalizedToAbsolute(FXMVECTOR p, FXMVECTOR resolution) noexcept {
+
+		return p * resolution;
+	}
+
+	[[nodiscard]]
+	inline F32 AbsoluteToNormalized(F32 p, F32 resolution) noexcept {
+		return p / resolution;
+	}
+
+	[[nodiscard]]
+	inline const F32x2 AbsoluteToNormalized(const F32x2 &p,
+											const F32x2 &resolution) noexcept {
+
+		return F32x2(p.m_x / resolution.m_x, p.m_y / resolution.m_y);
+	}
+
+	[[nodiscard]]
+	inline const XMVECTOR XM_CALLCONV
+		AbsoluteToNormalized(FXMVECTOR p, FXMVECTOR resolution) noexcept {
+
+		return p / resolution;
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Packing
 	//-------------------------------------------------------------------------
 	#pragma region

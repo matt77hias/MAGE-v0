@@ -29,15 +29,14 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		capacity
 						The initial capacity.
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device *device, size_t capacity);
+		explicit StructuredBuffer(ID3D11Device &device, size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -93,7 +92,8 @@ namespace mage {
 
 		 @return		The size of this structured buffer.
 		 */
-		[[nodiscard]]size_t size() const noexcept {
+		[[nodiscard]]
+		size_t size() const noexcept {
 			return m_size;
 		}
 
@@ -102,22 +102,22 @@ namespace mage {
 
 		 @return		The capacity of this structured buffer.
 		 */
-		[[nodiscard]]size_t capacity() const noexcept {
+		[[nodiscard]]
+		size_t capacity() const noexcept {
 			return m_capacity;
 		}
 
 		/**
 		 Updates the data of this structured buffer with the given data.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		data
 						A reference to a vector containing the data elements.
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext *device_context,
+		void UpdateData(ID3D11DeviceContext &device_context,
 			            const AlignedVector< DataT > &data);
 
 		/**
@@ -126,27 +126,27 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of this structured buffer.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *Get() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_buffer_srv.Get();
 		}
 
 		/**
 		 Binds this structured buffer.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a slot < 
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext *device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -158,15 +158,14 @@ namespace mage {
 		 Sets up the resource buffer and shader resource view of this 
 		 structured buffer.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		capacity
 						The capacity.
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device *device, size_t capacity);
+		void SetupStructuredBuffer(ID3D11Device &device, size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -174,14 +174,12 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		device_context
 						A reference to the device context.
 		 */
-		Impl(ID3D11Device &device, ID3D11DeviceContext *device_context);
+		Impl(ID3D11Device &device, ID3D11DeviceContext &device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -367,7 +365,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this sprite batch.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch for 
@@ -428,7 +426,7 @@ namespace mage {
 	};
 
 	SpriteBatch::Impl::Impl(ID3D11Device &device, 
-							ID3D11DeviceContext *device_context)
+							ID3D11DeviceContext &device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
 		m_mesh_position(0u),
@@ -567,19 +565,19 @@ namespace mage {
 	}
 
 	void SpriteBatch::Impl::BindFixedState() {
-		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context->GetType()) {
+		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context.get().GetType()) {
 			m_mesh_position = 0;
 		}
 
 		m_transform *= GetViewportTransform();
 
 		// Updates the transform (for a complete batch).
-		m_transform_buffer.UpdateData(*m_device_context, XMMatrixTranspose(m_transform));
+		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.
-		m_transform_buffer.Bind< Pipeline::VS >(*m_device_context, 
+		m_transform_buffer.Bind< Pipeline::VS >(m_device_context, 
 			                                    SLOT_CBUFFER_SECONDARY_CAMERA);
 		// Binds the mesh.
-		m_mesh->BindMesh(*m_device_context);
+		m_mesh->BindMesh(m_device_context);
 	}
 
 	void SpriteBatch::Impl::FlushBatch() {
@@ -662,9 +660,9 @@ namespace mage {
 								   size_t nb_sprites) {
 
 		// Binds the texture.
-		Pipeline::PS::BindSRV(*m_device_context, SLOT_SRV_SPRITE, texture);
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_SPRITE, texture);
 
-		const auto texture_size         = GetTexture2DSize(texture);
+		const auto texture_size         = XMLoad(GetTexture2DSize(*texture));
 		const auto inverse_texture_size = XMVectorReciprocal(texture_size);
 
 		while (nb_sprites > 0u) {
@@ -695,7 +693,7 @@ namespace mage {
 					                       ? D3D11_MAP_WRITE_DISCARD 
 					                       : D3D11_MAP_WRITE_NO_OVERWRITE;
 				D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-				const auto lock = m_mesh->Lock(m_device_context, map_type, &mapped_buffer);
+				const auto lock = m_mesh->Lock(m_device_context, map_type, mapped_buffer);
 
 				// Update the data.
 				auto vertices = static_cast< VertexPositionColorTexture * >(mapped_buffer.pData)
@@ -847,7 +845,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	SpriteBatch::SpriteBatch(ID3D11Device *device,
+	SpriteBatch::SpriteBatch(ID3D11Device &device,
 							 ID3D11DeviceContext &device_context)
 		: m_impl(MakeUnique< Impl >(device, device_context)) {}
 

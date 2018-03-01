@@ -30,16 +30,12 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		SpriteBatch(ID3D11Device *device, ID3D11DeviceContext &device_context);
+		SpriteBatch(ID3D11Device &device, ID3D11DeviceContext &device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.

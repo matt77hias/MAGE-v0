@@ -720,9 +720,8 @@ namespace mage {
 	 @return		The spectrum in sRGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
-		RGBtoSRGB(FXMVECTOR rgb) noexcept {
-
+	[[nodiscard]] 
+	inline const XMVECTOR XM_CALLCONV RGBtoSRGB(FXMVECTOR rgb) noexcept {
 		// Frostbite's conversion
 		static constexpr auto exp = 1.0f / 2.4f;
 		
@@ -742,9 +741,8 @@ namespace mage {
 	 @return		The spectrum in (linear) RGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
-		SRGBtoRGB(FXMVECTOR srgb) noexcept {
-
+	[[nodiscard]] 
+	inline const XMVECTOR XM_CALLCONV SRGBtoRGB(FXMVECTOR srgb) noexcept {
 		// Frostbite's conversion
 		static constexpr auto mlow  = 1.0f / 12.92f;
 		static constexpr auto mhigh = 1.0f / 1.055f;
@@ -784,9 +782,8 @@ namespace mage {
 	 @return		The spectrum in XYZ space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
-		RGBtoXYZ(FXMVECTOR rgb) noexcept {
-
+	[[nodiscard]] 
+	inline const XMVECTOR XM_CALLCONV RGBtoXYZ(FXMVECTOR rgb) noexcept {
 		static const XMMATRIX transform = {
 			0.412453f, 0.212671f, 0.019334f, 0.0f,
 			0.357580f, 0.715160f, 0.119193f, 0.0f,
@@ -805,9 +802,8 @@ namespace mage {
 	 @return		The spectrum in (linear) RGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	[[nodiscard]] inline const XMVECTOR XM_CALLCONV 
-		XYZtoRGB(FXMVECTOR xyz) noexcept {
-
+	[[nodiscard]] 
+	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
 		static const XMMATRIX transform = {
 			 3.240479f, -0.969256f,  0.055648f, 0.0f,
 			-1.537150f,  1.875991f, -0.204043f, 0.0f, 

@@ -250,7 +250,8 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						texture transform.
 		 */
-		[[nodiscard]] F32 GetTranslationX() const noexcept {
+		[[nodiscard]] 
+		F32 GetTranslationX() const noexcept {
 			return m_translation.m_x;
 		}
 
@@ -261,7 +262,8 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						texture transform.
 		 */
-		[[nodiscard]] F32 GetTranslationY() const noexcept {
+		[[nodiscard]] 
+		F32 GetTranslationY() const noexcept {
 			return m_translation.m_y;
 		}
 
@@ -270,7 +272,8 @@ namespace mage {
 
 		 @return		The translation component of this texture transform.
 		 */
-		[[nodiscard]] const F32x2 GetTranslation() const noexcept {
+		[[nodiscard]] 
+		const F32x2 GetTranslation() const noexcept {
 			return m_translation;
 		}
 
@@ -279,7 +282,8 @@ namespace mage {
 
 		 @return		The translation component of this texture transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
+		[[nodiscard]] 
+		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
 			return XMLoad(m_translation);
 		}
 
@@ -341,7 +345,8 @@ namespace mage {
 
 		 @return		The rotation component of this texture transform.
 		 */
-		[[nodiscard]] F32 GetRotation() const noexcept {
+		[[nodiscard]] 
+		F32 GetRotation() const noexcept {
 			return m_rotation;
 		}
 
@@ -475,7 +480,8 @@ namespace mage {
 		 @return		The x-value of the rotation origin of this texture 
 						transform.
 		 */
-		[[nodiscard]] F32 GetRotationOriginX() const noexcept {
+		[[nodiscard]] 
+		F32 GetRotationOriginX() const noexcept {
 			return m_rotation_origin.m_x;
 		}
 
@@ -485,7 +491,8 @@ namespace mage {
 		 @return		The y-value of the rotation origin of this texture 
 						transform.
 		 */
-		[[nodiscard]] F32 GetRotationOriginY() const noexcept {
+		[[nodiscard]] 
+		F32 GetRotationOriginY() const noexcept {
 			return m_rotation_origin.m_y;
 		}
 
@@ -494,7 +501,8 @@ namespace mage {
 
 		 @return		The rotation origin of this texture transform.
 		 */
-		[[nodiscard]] const F32x2 GetRotationOrigin() const noexcept {
+		[[nodiscard]] 
+		const F32x2 GetRotationOrigin() const noexcept {
 			return m_rotation_origin;
 		}
 
@@ -503,7 +511,8 @@ namespace mage {
 
 		 @return		The rotation origin of this texture transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
+		[[nodiscard]] 
+		const XMVECTOR XM_CALLCONV GetRotationOriginV() const noexcept {
 			return XMLoad(m_rotation_origin);
 		}
 
@@ -659,7 +668,8 @@ namespace mage {
 		 @return		The x-value of the scale component of this texture 
 						transform.
 		 */
-		[[nodiscard]] F32 GetScaleX() const noexcept {
+		[[nodiscard]] 
+		F32 GetScaleX() const noexcept {
 			return m_scale.m_x;
 		}
 
@@ -669,7 +679,8 @@ namespace mage {
 		 @return		The y-value of the scale component of this texture 
 						transform.
 		 */
-		[[nodiscard]] F32 GetScaleY() const noexcept {
+		[[nodiscard]] 
+		F32 GetScaleY() const noexcept {
 			return m_scale.m_y;
 		}
 
@@ -678,7 +689,8 @@ namespace mage {
 
 		 @return		The scale component of this texture transform.
 		 */
-		[[nodiscard]] const F32x2 GetScale() const noexcept {
+		[[nodiscard]] 
+		const F32x2 GetScale() const noexcept {
 			return m_scale;
 		}
 
@@ -687,7 +699,8 @@ namespace mage {
 
 		 @return		The scale component of this texture transform.
 		 */
-		[[nodiscard]] const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
+		[[nodiscard]] 
+		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
 			return XMLoad(m_scale);
 		}
 
@@ -702,9 +715,8 @@ namespace mage {
 
 		 @return		The transformation matrix of this texture transform.
 		 */
-		[[nodiscard]] const XMMATRIX XM_CALLCONV 
-			GetTransformMatrix() const noexcept {
-
+		[[nodiscard]] 
+		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
 			return DirectX::XMMatrixAffineTransformation2D(GetScaleV(),
 				                                           GetRotationOriginV(),
 				                                           GetRotation(), 

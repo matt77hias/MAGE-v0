@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource to copy.
 		 */
-		Resource(const Resource &resource) = delete;
+		Resource(const Resource& resource) = delete;
 
 		/**
 		 Constructs a resource by moving the given resource.
@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource to move.
 		 */
-		Resource(Resource &&resource) noexcept;
+		Resource(Resource&& resource) noexcept;
 
 		/**
 		 Destructs this resource.
@@ -70,7 +70,7 @@ namespace mage {
 		 @return		A reference to the copy of the given resource (i.e.
 						this resource).
 		 */
-		Resource &operator=(const Resource &resource) = delete;
+		Resource& operator=(const Resource& resource) = delete;
 
 		/**
 		 Moves the given resource to this resource.
@@ -79,7 +79,7 @@ namespace mage {
 						A reference to the resource to move.
 		 @return		A reference to the moved resource (i.e. this resource).
 		 */
-		Resource &operator=(Resource &&resource) noexcept;
+		Resource& operator=(Resource&& resource) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -92,7 +92,7 @@ namespace mage {
 						resource.
 		 */
 		[[nodiscard]]
-		const wstring &GetGuid() const noexcept {
+		const wstring& GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -103,7 +103,7 @@ namespace mage {
 		 @return		A reference to the filename of this resource.
 		 */
 		[[nodiscard]]
-		const wstring &GetFilename() const noexcept {
+		const wstring& GetFilename() const noexcept {
 			return GetGuid();
 		}
 

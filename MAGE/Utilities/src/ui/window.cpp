@@ -32,19 +32,19 @@ namespace mage {
 
 	WindowMessageListener::WindowMessageListener() noexcept = default;
 
-	WindowMessageListener::WindowMessageListener(
-		const WindowMessageListener &listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(const WindowMessageListener& 
+												 listener) noexcept = default;
 
-	WindowMessageListener::WindowMessageListener(
-		WindowMessageListener &&listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(WindowMessageListener&& 
+												 listener) noexcept = default;
 
 	WindowMessageListener::~WindowMessageListener() = default;
 
-	WindowMessageListener &WindowMessageListener
-		::operator=(const WindowMessageListener &listener) noexcept = default;
+	WindowMessageListener& WindowMessageListener
+		::operator=(const WindowMessageListener& listener) noexcept = default;
 
-	WindowMessageListener &WindowMessageListener
-		::operator=(WindowMessageListener &&listener) noexcept = default;
+	WindowMessageListener& WindowMessageListener
+		::operator=(WindowMessageListener&& listener) noexcept = default;
 
 	#pragma endregion
 
@@ -56,18 +56,18 @@ namespace mage {
 	WindowMessageHandler::WindowMessageHandler() noexcept = default;
 
 	WindowMessageHandler::WindowMessageHandler(
-		const WindowMessageHandler &handler) noexcept = default;
+		const WindowMessageHandler& handler) noexcept = default;
 
 	WindowMessageHandler::WindowMessageHandler(
-		WindowMessageHandler &&handler) noexcept = default;
+		WindowMessageHandler&& handler) noexcept = default;
 
 	WindowMessageHandler::~WindowMessageHandler() = default;
 
-	WindowMessageHandler &WindowMessageHandler
-		::operator=(const WindowMessageHandler &handler) noexcept = default;
+	WindowMessageHandler& WindowMessageHandler
+		::operator=(const WindowMessageHandler& handler) noexcept = default;
 
-	WindowMessageHandler &WindowMessageHandler
-		::operator=(WindowMessageHandler &&handler) noexcept = default;
+	WindowMessageHandler& WindowMessageHandler
+		::operator=(WindowMessageHandler&& handler) noexcept = default;
 
 	#pragma endregion
 
@@ -76,13 +76,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	WindowDescriptor::WindowDescriptor(HINSTANCE instance,
+	WindowDescriptor::WindowDescriptor(NotNull< HINSTANCE > instance,
 									   wstring window_class_name,
 									   U32 window_class_style)
-		: m_instance(instance), 
+		: m_instance(std::move(instance)), 
 		m_window_class_name(std::move(window_class_name)) {
-
-		Assert(m_instance);
 
 		// Prepare and register the window class.
 		WNDCLASSEX wcex    = {};
@@ -113,7 +111,9 @@ namespace mage {
 					  m_window_class_name.c_str());
 	}
 
-	WindowDescriptor::WindowDescriptor(WindowDescriptor &&desc) noexcept = default;
+	WindowDescriptor::WindowDescriptor(WindowDescriptor&& desc) noexcept
+		: m_instance(std::move(desc.m_instance)),
+		m_window_class_name(std::move(desc.m_window_class_name)) {}
 
 	WindowDescriptor::~WindowDescriptor() {
 		// Unregister the window class.
@@ -128,16 +128,17 @@ namespace mage {
 	#pragma region
 
 	[[nodiscard]]
-	LRESULT CALLBACK Window::HandleWindowMessage(HWND window, 
+	LRESULT CALLBACK Window::HandleWindowMessage(HWND window,
 												 UINT message, 
 												 WPARAM wParam, 
 												 LPARAM lParam) {
 		// Window dependent message handling.
 		{
-			auto * const caller = GetWindowCaller< Window >
-				                  (window, message, wParam, lParam);
+			const auto caller = GetWindowCaller< Window >
+				                (window, message, wParam, lParam);
 			LRESULT result;
-			if (caller->HandleWindowMessage(window, message, wParam, lParam, result)) {
+			if (caller->HandleWindowMessage(window, message, wParam, lParam, 
+											result)) {
 				return result;
 			}
 		}
@@ -192,7 +193,7 @@ namespace mage {
 	}
 
 	Window::Window(WindowDescriptorPtr window_desc,
-				   const wstring &title_text, 
+				   const wstring& title_text, 
 				   U32 width, 
 				   U32 height, 
 				   DWORD style) 
@@ -207,11 +208,11 @@ namespace mage {
 		InitializeWindow(title_text, width, height, style);
 	}
 
-	Window::Window(Window &&window) noexcept = default;
+	Window::Window(Window&& window) noexcept = default;
 
 	Window::~Window() = default;
 	
-	void Window::InitializeWindow(const wstring &title_text, 
+	void Window::InitializeWindow(const wstring& title_text, 
 								  U32 width, 
 								  U32 height, 
 								  DWORD style) {
@@ -226,8 +227,8 @@ namespace mage {
 		return InitializeWindow(title_text, rectangle, style);
 	}
 
-	void Window::InitializeWindow(const wstring &title_text, 
-								  const RECT &rectangle, 
+	void Window::InitializeWindow(const wstring& title_text, 
+								  const RECT& rectangle, 
 								  DWORD style) {
 
 		// Calculate the required size of the window rectangle, based on the desired 
@@ -290,57 +291,35 @@ namespace mage {
 		return 0 == result ? L"" : text;
 	}
 
-	void Window::SetTitleText(const wstring &title_text) {
-		SetTitleText(title_text.c_str());
-	}
-
-	void Window::SetTitleText(const wchar_t *title_text) {
-		Assert(title_text);
-
+	void Window::SetTitleText(NotNull< const_wzstring > title_text) {
 		const BOOL result = SetWindowText(m_window, title_text);
 		ThrowIfFailed(result, "Failed to set the title window text.");
 	}
 
-	void Window::AddListener(const WindowMessageListener *listener) {
-		if (!listener) {
-			return;
-		}
-
+	void Window::AddListener(WindowMessageListenerPtr listener) {
 		m_listeners.push_back(listener);
 	}
 
-	void Window::RemoveListener(const WindowMessageListener *listener) {
-		if (!listener) {
-			return;
-		}
-
+	void Window::RemoveListener(WindowMessageListenerPtr listener) {
 		m_listeners.erase(std::remove(m_listeners.begin(), m_listeners.end(), listener), 
 						  m_listeners.end());
 	}
 
-	void Window::AddHandler(const WindowMessageHandler *handler) {
-		if (!handler) {
-			return;
-		}
-
+	void Window::AddHandler(WindowMessageHandlerPtr handler) {
 		m_handlers.push_back(handler);
 	}
 
-	void Window::RemoveHandler(const WindowMessageHandler *handler) {
-		if (!handler) {
-			return;
-		}
-
+	void Window::RemoveHandler(WindowMessageHandlerPtr handler) {
 		m_handlers.erase(std::remove(m_handlers.begin(), m_handlers.end(), handler),
 						 m_handlers.end());
 	}
 
 	[[nodiscard]]
-	bool Window::HandleWindowMessage(HWND window, 
+	bool Window::HandleWindowMessage(NotNull< HWND > window,
 									 UINT message, 
 									 WPARAM wParam, 
 									 LPARAM lParam, 
-									 LRESULT &result) const {
+									 LRESULT& result) const {
 
 		// Notify the window message listeners.
 		for (auto listener : m_listeners) {

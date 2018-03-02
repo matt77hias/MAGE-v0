@@ -6,7 +6,6 @@
 #pragma region
 
 #include "type\types.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -50,7 +49,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the single-ended memory stack to copy.
 		 */
-		SingleEndedMemoryStack(const SingleEndedMemoryStack &stack) = delete;
+		SingleEndedMemoryStack(const SingleEndedMemoryStack& stack) = delete;
 
 		/**
 		 Constructs a single-ended memory stack by moving the given 
@@ -59,7 +58,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the single-ended memory stack to move.
 		 */
-		SingleEndedMemoryStack(SingleEndedMemoryStack &&stack) noexcept;
+		SingleEndedMemoryStack(SingleEndedMemoryStack&& stack) noexcept;
 		
 		/**
 		 Destructs this single-ended memory stack.
@@ -79,8 +78,8 @@ namespace mage {
 		 @return		A reference to the copy of the given single-ended memory 
 						stack (i.e. this single-ended memory stack).
 		 */
-		SingleEndedMemoryStack &operator=(
-			const SingleEndedMemoryStack &stack) = delete;
+		SingleEndedMemoryStack& operator=(const SingleEndedMemoryStack& 
+										  stack) = delete;
 
 		/**
 		 Moves the given single-ended memory stack to this single-ended memory 
@@ -91,8 +90,8 @@ namespace mage {
 		 @return		A reference to the moved single-ended memory stack 
 						(i.e. this single-ended memory stack).
 		 */
-		SingleEndedMemoryStack &operator=(
-			SingleEndedMemoryStack &&stack) = delete;
+		SingleEndedMemoryStack& operator=(SingleEndedMemoryStack&& 
+										  stack) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -182,7 +181,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void *Alloc(size_t size) noexcept;
+		void* Alloc(size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory on this single-ended memory stack.
@@ -201,7 +200,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocData(size_t count = 1, 
+		DataT* AllocData(size_t count = 1, 
 			             bool initialization = false) noexcept;
 
 		//---------------------------------------------------------------------
@@ -242,7 +241,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			Allocator(const Allocator &allocator) noexcept = default;
+			Allocator(const Allocator& allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator by moving the given allocator.
@@ -250,7 +249,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to move.
 			 */
-			Allocator(Allocator &&allocator) noexcept = default;
+			Allocator(Allocator&& allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator from the given allocator.
@@ -261,7 +260,7 @@ namespace mage {
 							A reference to the allocator to copy.
 			 */
 			template< typename DataU >
-			Allocator(const Allocator< DataU > &allocator) noexcept
+			Allocator(const Allocator< DataU >& allocator) noexcept
 				: m_memory_stack(allocator.m_memory_stack) {}
 		
 			/**
@@ -281,7 +280,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator &operator=(const Allocator &allocator) = delete;
+			Allocator& operator=(const Allocator& allocator) = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -291,7 +290,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator &operator=(Allocator &&allocator) noexcept = default;
+			Allocator& operator=(Allocator&& allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -309,7 +308,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count) const {
+			DataT* allocate(size_t count) const {
 				const auto data = m_memory_stack->AllocData< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
@@ -343,8 +342,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count, 
-				            [[maybe_unused]] const void *hint) const {
+			DataT* allocate(size_t count, 
+				            [[maybe_unused]] const void* hint) const {
 
 				return allocate(count);
 			}
@@ -364,7 +363,7 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT *data, 
+			void deallocate([[maybe_unused]] DataT* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
@@ -380,7 +379,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator==(const Allocator< DataU > &rhs) const noexcept {
+			bool operator==(const Allocator< DataU >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -397,7 +396,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
+			bool operator!=(const Allocator< DataU >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -416,15 +415,12 @@ namespace mage {
 			/**
 			 Constructs an allocator.
 
-			 @pre			@a memory_stack is not equal to @c nullptr.
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit Allocator(SingleEndedMemoryStack *memory_stack) noexcept
-				: m_memory_stack(memory_stack) {
-
-				Assert(m_memory_stack);
-			}
+			explicit Allocator(NotNull< SingleEndedMemoryStack * > 
+							   memory_stack) noexcept
+				: m_memory_stack(std::move(memory_stack)) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -433,7 +429,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this allocator.
 			 */
-			SingleEndedMemoryStack *m_memory_stack;
+			NotNull< SingleEndedMemoryStack * > m_memory_stack;
 		};
 
 		/**
@@ -513,7 +509,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the double-ended memory stack to copy.
 		 */
-		DoubleEndedMemoryStack(const DoubleEndedMemoryStack &stack) = delete;
+		DoubleEndedMemoryStack(const DoubleEndedMemoryStack& stack) = delete;
 
 		/**
 		 Constructs a double-ended memory stack by moving the given 
@@ -522,7 +518,7 @@ namespace mage {
 		 @param[in]		stack
 						A reference to the double-ended memory stack to move.
 		 */
-		DoubleEndedMemoryStack(DoubleEndedMemoryStack &&stack) noexcept;
+		DoubleEndedMemoryStack(DoubleEndedMemoryStack&& stack) noexcept;
 		
 		/**
 		 Destructs this double-ended memory stack.
@@ -542,8 +538,8 @@ namespace mage {
 		 @return		A reference to the copy of the given double-ended 
 						memory stack (i.e. this double-ended memory stack).
 		 */
-		DoubleEndedMemoryStack &operator=(
-			const DoubleEndedMemoryStack &stack) = delete;
+		DoubleEndedMemoryStack& operator=(const DoubleEndedMemoryStack& 
+										  stack) = delete;
 
 		/**
 		 Moves the given double-ended memory stack to this double-ended memory 
@@ -554,8 +550,8 @@ namespace mage {
 		 @return		A reference to the moved double-ended memory stack 
 						(i.e. this memory stack).
 		 */
-		DoubleEndedMemoryStack &operator=(
-			DoubleEndedMemoryStack &&stack) = delete;
+		DoubleEndedMemoryStack& operator=(DoubleEndedMemoryStack&& 
+										  stack) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -693,7 +689,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void *AllocLow(size_t size) noexcept;
+		void* AllocLow(size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory of the given size on the high side of this 
@@ -704,7 +700,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void *AllocHigh(size_t size) noexcept;
+		void* AllocHigh(size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory on the low side of this memory stack.
@@ -723,7 +719,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocDataLow(size_t count = 1, 
+		DataT* AllocDataLow(size_t count = 1, 
 			                bool initialization = false) noexcept;
 
 		/**
@@ -743,7 +739,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocDataHigh(size_t count = 1, 
+		DataT* AllocDataHigh(size_t count = 1, 
 			                 bool initialization = false) noexcept;
 
 		//---------------------------------------------------------------------
@@ -784,7 +780,7 @@ namespace mage {
 			 @param[in]		low_allocator
 							A reference to the low allocator to copy.
 			 */
-			LowAllocator(const LowAllocator &low_allocator) noexcept = default;
+			LowAllocator(const LowAllocator& low_allocator) noexcept = default;
 		
 			/**
 			 Constructs a low allocator by moving the given low allocator.
@@ -792,7 +788,7 @@ namespace mage {
 			 @param[in]		low_allocator
 							A reference to the low allocator to move.
 			 */
-			LowAllocator(LowAllocator &&low_allocator) noexcept = default;
+			LowAllocator(LowAllocator&& low_allocator) noexcept = default;
 		
 			/**
 			 Constructs a low allocator from the given low allocator.
@@ -803,7 +799,7 @@ namespace mage {
 							A reference to the low allocator to copy.
 			 */
 			template< typename DataU >
-			LowAllocator(const LowAllocator< DataU > &low_allocator) noexcept
+			LowAllocator(const LowAllocator< DataU >& low_allocator) noexcept
 				: m_memory_stack(low_allocator.m_memory_stack) {}
 		
 			/**
@@ -823,8 +819,7 @@ namespace mage {
 			 @return		A reference to the copy of the given low allocator 
 							(i.e. this low allocator).
 			 */
-			LowAllocator &operator=(
-				const LowAllocator &low_allocator) = delete;
+			LowAllocator& operator=(const LowAllocator& low_allocator) = delete;
 
 			/**
 			 Moves the given low allocator to this low allocator.
@@ -834,8 +829,8 @@ namespace mage {
 			 @return		A reference to the moved low allocator (i.e. this 
 							low allocator).
 			 */
-			LowAllocator &operator=(
-				LowAllocator &&low_allocator) noexcept = default;
+			LowAllocator& operator=(LowAllocator&& 
+									low_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -853,7 +848,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count) const {
+			DataT* allocate(size_t count) const {
 				const auto data = m_memory_stack->AllocDataLow< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
@@ -887,8 +882,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count, 
-				            [[maybe_unused]] const void *hint) const {
+			DataT* allocate(size_t count, 
+				            [[maybe_unused]] const void* hint) const {
 
 				return allocate(count);
 			}
@@ -908,7 +903,7 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT *data, 
+			void deallocate([[maybe_unused]] DataT* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
@@ -925,7 +920,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator==(const LowAllocator< DataU > &rhs) const noexcept {
+			bool operator==(const LowAllocator< DataU >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -943,7 +938,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator!=(const LowAllocator< DataU > &rhs) const noexcept {
+			bool operator!=(const LowAllocator< DataU >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -962,15 +957,12 @@ namespace mage {
 			/**
 			 Constructs a low allocator.
 
-			 @pre			@a memory_stack is not equal to @c nullptr.
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit LowAllocator(DoubleEndedMemoryStack *memory_stack) noexcept
-				: m_memory_stack(memory_stack) {
-
-				Assert(m_memory_stack);
-			}
+			explicit LowAllocator(NotNull< DoubleEndedMemoryStack * > 
+								  memory_stack) noexcept
+				: m_memory_stack(std::move(memory_stack)) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -979,7 +971,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this low allocator.
 			 */
-			DoubleEndedMemoryStack *m_memory_stack;
+			NotNull< DoubleEndedMemoryStack * > m_memory_stack;
 		};
 
 		/**
@@ -1016,7 +1008,7 @@ namespace mage {
 			 @param[in]		high_allocator
 							A reference to the high allocator to copy.
 			 */
-			HighAllocator(const HighAllocator &high_allocator) noexcept = default;
+			HighAllocator(const HighAllocator& high_allocator) noexcept = default;
 		
 			/**
 			 Constructs a high allocator by moving the given high allocator.
@@ -1024,7 +1016,7 @@ namespace mage {
 			 @param[in]		high_allocator
 							A reference to the high allocator to move.
 			 */
-			HighAllocator(HighAllocator &&high_allocator) noexcept = default;
+			HighAllocator(HighAllocator&& high_allocator) noexcept = default;
 		
 			/**
 			 Constructs a high allocator from the given high allocator.
@@ -1035,7 +1027,7 @@ namespace mage {
 							A reference to the high_allocator to copy.
 			 */
 			template< typename DataU >
-			HighAllocator(const HighAllocator< DataU > &high_allocator) noexcept
+			HighAllocator(const HighAllocator< DataU >& high_allocator) noexcept
 				: m_memory_stack(high_allocator.m_memory_stack) {}
 		
 			/**
@@ -1055,8 +1047,8 @@ namespace mage {
 			 @return		A reference to the copy of the given high allocator 
 							(i.e. this high allocator).
 			 */
-			HighAllocator &operator=(
-				const HighAllocator &high_allocator) = delete;
+			HighAllocator& operator=(const HighAllocator& 
+									 high_allocator) = delete;
 
 			/**
 			 Moves the given high allocator to this high allocator.
@@ -1066,8 +1058,8 @@ namespace mage {
 			 @return		A reference to the moved high allocator (i.e. this 
 							high allocator).
 			 */
-			HighAllocator &operator=(
-				HighAllocator &&high_allocator) noexcept = default;
+			HighAllocator& operator=(HighAllocator&& 
+									 high_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -1085,7 +1077,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count) const {
+			DataT* allocate(size_t count) const {
 				const auto data = m_memory_stack->AllocDataHigh< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
@@ -1119,8 +1111,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count, 
-				            [[maybe_unused]] const void *hint) const {
+			DataT* allocate(size_t count, 
+				            [[maybe_unused]] const void* hint) const {
 
 				return allocate(count);
 			}
@@ -1140,7 +1132,7 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT *data, 
+			void deallocate([[maybe_unused]] DataT* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
@@ -1157,7 +1149,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator==(const HighAllocator< DataU > &rhs) const noexcept {
+			bool operator==(const HighAllocator< DataU >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -1175,7 +1167,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator!=(const HighAllocator< DataU > &rhs) const noexcept {
+			bool operator!=(const HighAllocator< DataU >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -1194,15 +1186,12 @@ namespace mage {
 			/**
 			 Constructs a high allocator.
 
-			 @pre			@a memory_stack is not equal to @c nullptr.
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit HighAllocator(DoubleEndedMemoryStack *memory_stack) noexcept
-				: m_memory_stack(memory_stack) {
-
-				Assert(m_memory_stack);
-			}
+			explicit HighAllocator(NotNull< DoubleEndedMemoryStack * > 
+								   memory_stack) noexcept
+				: m_memory_stack(std::move(memory_stack)) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -1211,7 +1200,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this high allocator.
 			 */
-			DoubleEndedMemoryStack *m_memory_stack;
+			NotNull< DoubleEndedMemoryStack * > m_memory_stack;
 		};
 
 		/**

@@ -38,7 +38,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string &title, 
+		explicit ProgressReporter(const string& title, 
 			                      U32 nb_work, 
 			                      char progress_char = '+', 
 			                      U16 bar_length = 0u);
@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to copy.
 		 */
-		ProgressReporter(const ProgressReporter &reporter) = delete;
+		ProgressReporter(const ProgressReporter& reporter) = delete;
 
 		/**
 		 Constructs a progress reporter by moving the given progress reporter.
@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 */
-		ProgressReporter(ProgressReporter &&reporter) = delete;
+		ProgressReporter(ProgressReporter&& reporter) = delete;
 
 		/**
 		 Destructs this progress reporter.
@@ -76,7 +76,7 @@ namespace mage {
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
-		ProgressReporter &operator=(const ProgressReporter &reporter) = delete;
+		ProgressReporter& operator=(const ProgressReporter& reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
@@ -86,7 +86,7 @@ namespace mage {
 		 @return		A reference to moved progress reporter (i.e. this 
 						progress reporter).
 		 */
-		ProgressReporter &operator=(ProgressReporter &&reporter) = delete;
+		ProgressReporter& operator=(ProgressReporter&& reporter) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to copy.
 		 */
-		CPUMonitor(const CPUMonitor &cpu_monitor) noexcept = default;
+		CPUMonitor(const CPUMonitor& cpu_monitor) noexcept = default;
 
 		/**
 		 Constructs a CPU monitor by moving the given CPU monitor.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to move.
 		 */
-		CPUMonitor(CPUMonitor &&cpu_monitor) noexcept = default;
+		CPUMonitor(CPUMonitor&& cpu_monitor) noexcept = default;
 
 		/**
 		 Destructs this CPU monitor.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given CPU monitor (i.e. 
 						this CPU monitor).
 		 */
-		CPUMonitor &operator=(const CPUMonitor &cpu_monitor) noexcept = default;
+		CPUMonitor& operator=(const CPUMonitor& cpu_monitor) noexcept = default;
 
 		/**
 		 Moves the given CPU monitor to this CPU monitor.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the moved CPU monitor (i.e. this CPU 
 						monitor).
 		 */
-		CPUMonitor &operator=(CPUMonitor &&cpu_monitor) noexcept = default;
+		CPUMonitor& operator=(CPUMonitor&& cpu_monitor) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -33,7 +33,7 @@ namespace mage {
 		 @return		A reference to the copy of the given line reader (i.e. 
 						this line reader).
 		 */
-		LineReader &operator=(const LineReader &reader) = delete;
+		LineReader& operator=(const LineReader& reader) = delete;
 
 		/**
 		 Moves the given line reader to this line reader.
@@ -43,7 +43,7 @@ namespace mage {
 		 @return		A reference to the moved line reader (i.e. this line 
 						reader).
 		 */
-		LineReader &operator=(LineReader &&reader) noexcept;
+		LineReader& operator=(LineReader&& reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -61,12 +61,11 @@ namespace mage {
 						Failed to read from the given file.
 		 */
 		void ReadFromFile(wstring fname, 
-			string delimiters = g_default_delimiters);
+						  string delimiters = g_default_delimiters);
 		
 		/**
 		 Reads the input string.
 
-		 @pre			@a input is not equal to @c nullptr.
 		 @param[in]		input
 						A pointer to the input null-terminated byte string.
 		 @param[in]		delimiters
@@ -75,8 +74,8 @@ namespace mage {
 		 @throws		Exception
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const char *input, 
-			                string delimiters = g_default_delimiters);
+		void ReadFromMemory(NotNull< const_zstring > input, 
+							string delimiters = g_default_delimiters);
 
 		/**
 		 Returns the current filename of this line reader.
@@ -85,7 +84,7 @@ namespace mage {
 						reader.
 		 */
 		[[nodiscard]]
-		const wstring &GetFilename() const noexcept {
+		const wstring& GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -96,7 +95,7 @@ namespace mage {
 						reader.
 		 */
 		[[nodiscard]]
-		const string &GetDelimiters() const noexcept {
+		const string& GetDelimiters() const noexcept {
 			return m_delimiters;
 		}
 
@@ -117,7 +116,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to copy.
 		 */
-		LineReader(const LineReader &reader) = delete;
+		LineReader(const LineReader& reader) = delete;
 
 		/**
 		 Constructs a line reader by moving the given line reader.
@@ -125,7 +124,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to move.
 		 */
-		LineReader(LineReader &&reader) noexcept;
+		LineReader(LineReader&& reader) noexcept;
 
 		/**
 		 Destructs this line reader.
@@ -159,7 +158,7 @@ namespace mage {
 		 @throws		Exception
 						There is no next token.
 		 */
-		const char *ReadChars();
+		NotNull< const_zstring > ReadChars();
 
 		/**
 		 Reads and converts the next token of this line reader to a quoted 
@@ -226,7 +225,7 @@ namespace mage {
 		/**
 		 The current context of this line reader.
 		 */
-		char *m_context;
+		zstring m_context;
 
 	private:
 
@@ -245,13 +244,12 @@ namespace mage {
 		/**
 		 Reads the given line.
 
-		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(char *line) = 0;
+		virtual void ReadLine(NotNull< const_zstring > line) = 0;
 
 		/**
 		 Post-processes after reading the current file of this line reader.

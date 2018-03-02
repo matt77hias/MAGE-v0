@@ -6,7 +6,6 @@
 #pragma region
 
 #include "type\types.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -52,7 +51,7 @@ namespace mage {
 		 @param[in]		arena
 						A reference to the memory arena to copy.
 		 */
-		MemoryArena(const MemoryArena &arena) = delete;
+		MemoryArena(const MemoryArena& arena) = delete;
 
 		/**
 		 Constructs a memory arena by moving the given memory arena.
@@ -60,7 +59,7 @@ namespace mage {
 		 @param[in]		arena
 						A reference to the memory arena to move.
 		 */
-		MemoryArena(MemoryArena &&arena);
+		MemoryArena(MemoryArena&& arena);
 		
 		/**
 		 Destructs this memory arena.
@@ -79,7 +78,7 @@ namespace mage {
 		 @return		A reference to the copy of the given memory arena (i.e. 
 						this memory arena).
 		 */
-		MemoryArena &operator=(const MemoryArena &arena) = delete;
+		MemoryArena& operator=(const MemoryArena& arena) = delete;
 
 		/**
 		 Moves the given memory arena to this memory arena.
@@ -89,7 +88,7 @@ namespace mage {
 		 @return		A reference to the moved memory arena (i.e. this memory 
 						arena).
 		 */
-		MemoryArena &operator=(MemoryArena &&arena) = delete;
+		MemoryArena& operator=(MemoryArena&& arena) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -142,8 +141,8 @@ namespace mage {
 		 @return		A pointer to the current block of this memory arena.
 		 */
 		[[nodiscard]]
-		void *GetCurrentBlockPtr() const noexcept {
-			return (void *)m_current_block.second;
+		void* GetCurrentBlockPtr() const noexcept {
+			return (void*)m_current_block.second;
 		}
 
 		/**
@@ -159,7 +158,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void *Alloc(size_t size);
+		void* Alloc(size_t size);
 
 		/**
 		 Allocates a block of memory on this memory arena.
@@ -178,7 +177,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename DataT >
-		DataT *AllocData(size_t count = 1, bool initialization = false);
+		DataT* AllocData(size_t count = 1, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -218,7 +217,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			Allocator(const Allocator &allocator) noexcept = default;
+			Allocator(const Allocator& allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator by moving the given allocator.
@@ -226,7 +225,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to move.
 			 */
-			Allocator(Allocator &&allocator) noexcept = default;
+			Allocator(Allocator&& allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator from the given allocator.
@@ -237,7 +236,7 @@ namespace mage {
 							A reference to the allocator to copy.
 			 */
 			template< typename DataU >
-			Allocator(const Allocator< DataU > &allocator) noexcept
+			Allocator(const Allocator< DataU >& allocator) noexcept
 				: m_memory_arena(allocator.m_memory_arena) {}
 		
 			/**
@@ -257,7 +256,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator &operator=(const Allocator &allocator) = delete;
+			Allocator& operator=(const Allocator& allocator) = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -267,7 +266,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator &operator=(Allocator &&allocator) noexcept = default;
+			Allocator& operator=(Allocator&& allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -285,8 +284,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count) const {
-				const auto data = m_memory_stack->AllocData< DataT >(count);
+			DataT* allocate(size_t count) const {
+				const auto data = m_memory_arena->AllocData< DataT >(count);
 				if (!data) {
 					throw std::bad_alloc();
 				}
@@ -319,8 +318,8 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT *allocate(size_t count, 
-				            [[maybe_unused]] const void *hint) const {
+			DataT* allocate(size_t count, 
+				            [[maybe_unused]] const void* hint) const {
 				
 				return allocate(count);
 			}
@@ -340,7 +339,7 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT *data, 
+			void deallocate([[maybe_unused]] DataT* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
@@ -356,7 +355,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator==(const Allocator< DataU > &rhs) const noexcept {
+			bool operator==(const Allocator< DataU >& rhs) const noexcept {
 				return m_memory_arena == rhs.m_memory_arena;
 			}
 
@@ -373,7 +372,7 @@ namespace mage {
 			 */
 			template< typename DataU >
 			[[nodiscard]]
-			bool operator!=(const Allocator< DataU > &rhs) const noexcept {
+			bool operator!=(const Allocator< DataU >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -392,15 +391,11 @@ namespace mage {
 			/**
 			 Constructs an allocator.
 
-			 @pre			@a memory_arena is not equal to @c nullptr.
 			 @param[in]		memory_arena
-							A pointer to the memory arena.
+							A reference to the memory arena.
 			 */
-			explicit Allocator(MemoryArena *memory_arena) noexcept
-				: m_memory_arena(memory_arena) {
-
-				Assert(m_memory_arena);
-			}
+			explicit Allocator(NotNull< MemoryArena * > memory_arena) noexcept
+				: m_memory_arena(std::move(memory_arena)) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -409,7 +404,7 @@ namespace mage {
 			/**
 			 A pointer to the memory arena of this allocator.
 			 */
-			MemoryArena *m_memory_arena;
+			NotNull< MemoryArena * > m_memory_arena;
 		};
 
 		/**
@@ -434,7 +429,7 @@ namespace mage {
 		/**
 		 A type definition for a memory block.
 		 */
-		using MemoryBlock = std::pair< size_t, U8 * >;
+		using MemoryBlock = std::pair< size_t, U8* >;
 
 		//---------------------------------------------------------------------
 		// Member Variables

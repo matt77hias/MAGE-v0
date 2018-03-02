@@ -5,7 +5,6 @@
 
 #include "logging\dump.hpp"
 #include "logging\error.hpp"
-#include "type\types.hpp"
 
 #pragma endregion
 
@@ -33,9 +32,8 @@
 namespace mage {
 
 	[[nodiscard]]
-	static inline LONG WINAPI 
-		UnhandledExceptionFilter(EXCEPTION_POINTERS *exception_record) noexcept {
-		
+	static inline LONG WINAPI UnhandledExceptionFilter(EXCEPTION_POINTERS* 
+													   exception_record) noexcept {
 		CreateMiniDump(exception_record);
 		return EXCEPTION_CONTINUE_SEARCH;
 	}
@@ -44,7 +42,7 @@ namespace mage {
 		SetUnhandledExceptionFilter(UnhandledExceptionFilter);
 	}
 
-	void CreateMiniDump(EXCEPTION_POINTERS *exception_record) noexcept {
+	void CreateMiniDump(EXCEPTION_POINTERS* exception_record) noexcept {
 		Info("Start creating a mini dump file.");
 
 		auto file_handle = CreateUniqueHandle(CreateFile(L"MiniDump.dmp", 

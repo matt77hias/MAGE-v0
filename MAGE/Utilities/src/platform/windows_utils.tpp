@@ -7,11 +7,10 @@ namespace mage {
 
 	template< typename CallerT >
 	[[nodiscard]]
-	inline CallerT *GetWindowCaller(HWND window, 
-									UINT message, 
-									[[maybe_unused]] WPARAM wParam, 
-									LPARAM lParam) noexcept {
-
+	inline NotNull< CallerT * > GetWindowCaller(NotNull< HWND > window,
+												UINT message,
+												[[maybe_unused]] WPARAM wParam,
+												LPARAM lParam) noexcept {
 		if (WM_NCCREATE != message) {
 			// Retrieves information about the specified window.
 			// 1. A handle to the window and, indirectly, the class to which 
@@ -38,11 +37,10 @@ namespace mage {
 
 	template< typename CallerT >
 	[[nodiscard]]
-	inline CallerT *GetDialogCaller(HWND dialog, 
-									UINT message, 
-									[[maybe_unused]] WPARAM wParam, 
-									LPARAM lParam) noexcept {
-		
+	inline NotNull< CallerT * > GetDialogCaller(NotNull< HWND > dialog,
+												UINT message,
+												[[maybe_unused]] WPARAM wParam,
+												LPARAM lParam) noexcept {
 		if (WM_INITDIALOG != message) {
 			// Retrieves information about the specified window.
 			// 1. A handle to the window and, indirectly, the class to which  

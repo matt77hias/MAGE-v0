@@ -23,7 +23,7 @@ namespace mage {
 					otherwise.
 	 */
 	[[nodiscard]]
-	bool FileExists(const wstring &fname) noexcept;
+	bool FileExists(const wstring& fname) noexcept;
 
 	/**
 	 Returns the filename of the given file.
@@ -39,7 +39,7 @@ namespace mage {
 	 */
 	template< typename StringT >
 	[[nodiscard]]
-	const StringT GetFilename(const StringT &path, const StringT &name);
+	const StringT GetFilename(const StringT& path, const StringT& name);
 
 	/**
 	 Returns the extension of the given file.
@@ -54,7 +54,7 @@ namespace mage {
 	 */
 	template< typename StringT >
 	[[nodiscard]]
-	const StringT GetFileExtension(const StringT &fname);
+	const StringT GetFileExtension(const StringT& fname);
 
 	/**
 	 Returns the name of the given file.
@@ -69,7 +69,7 @@ namespace mage {
 	 */
 	template< typename StringT >
 	[[nodiscard]]
-	const StringT GetFileName(const StringT &fname);
+	const StringT GetFileName(const StringT& fname);
 
 	/**
 	 Returns the path of the given file.
@@ -84,7 +84,7 @@ namespace mage {
 	 */
 	template< typename StringT >
 	[[nodiscard]]
-	const StringT GetPathName(const StringT &fname);
+	const StringT GetPathName(const StringT& fname);
 
 	/**
 	 Returns the filename of the given file without its file extension.
@@ -99,7 +99,7 @@ namespace mage {
 	 */
 	template< typename StringT >
 	[[nodiscard]]
-	const StringT GetFilenameWithoutFileExtension(const StringT &fname);
+	const StringT GetFilenameWithoutFileExtension(const StringT& fname);
 }
 
 //-----------------------------------------------------------------------------

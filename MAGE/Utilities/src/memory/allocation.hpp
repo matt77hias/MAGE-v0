@@ -37,7 +37,7 @@ namespace mage {
 					pointer is a multiple of the given alignment.
 	 */
 	[[nodiscard]]
-	inline void *AllocAligned(size_t size, size_t alignment) noexcept {
+	inline void* AllocAligned(size_t size, size_t alignment) noexcept {
 		return _aligned_malloc(size, alignment);
 	}
 
@@ -57,8 +57,8 @@ namespace mage {
 	 */
 	template< typename DataT >
 	[[nodiscard]]
-	inline DataT *AllocAlignedData(size_t count, size_t alignment) noexcept {
-		return static_cast< DataT * >(
+	inline DataT* AllocAlignedData(size_t count, size_t alignment) noexcept {
+		return static_cast< DataT* >(
 			AllocAligned(count * sizeof(DataT), alignment));
 	}
 
@@ -70,7 +70,7 @@ namespace mage {
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.
 	 */
-	inline void FreeAligned(void *ptr) noexcept {
+	inline void FreeAligned(void* ptr) noexcept {
 		if (!ptr) {
 			return;
 		}
@@ -143,8 +143,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to copy.
 		 */
-		constexpr AlignedAllocator(
-			const AlignedAllocator &allocator) noexcept = default;
+		constexpr AlignedAllocator(const AlignedAllocator& 
+								   allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator by moving the given aligned allocator.
@@ -152,8 +152,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to move.
 		 */
-		constexpr AlignedAllocator(
-			AlignedAllocator &&allocator) noexcept = default;
+		constexpr AlignedAllocator(AlignedAllocator&&
+								   allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator from the given aligned allocator.
@@ -165,7 +165,7 @@ namespace mage {
 		 */
 		template< typename DataU >
 		constexpr AlignedAllocator([[maybe_unused]]
-			const AlignedAllocator< DataU, AlignmentS > &allocator) noexcept {}
+			const AlignedAllocator< DataU, AlignmentS >& allocator) noexcept {}
 		
 		/**
 		 Destructs this aligned allocator.
@@ -184,8 +184,8 @@ namespace mage {
 		 @return		A reference to the copy of the given aligned allocator 
 						(i.e. this aligned allocator).
 		 */
-		AlignedAllocator &operator=(
-			const AlignedAllocator &allocator) = delete;
+		AlignedAllocator& operator=(const AlignedAllocator& 
+									allocator) = delete;
 
 		/**
 		 Moves the given aligned allocator to this aligned allocator.
@@ -195,8 +195,8 @@ namespace mage {
 		 @return		A reference to the moved aligned allocator (i.e. this 
 						aligned allocator).
 		 */
-		AlignedAllocator &operator=(
-			AlignedAllocator &&allocator) noexcept = default;
+		AlignedAllocator& operator=(AlignedAllocator&& 
+									allocator) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -216,8 +216,8 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
-		DataT *allocate(size_t count) const {
-			DataT * const data = AllocAlignedData< DataT >(count, AlignmentS);
+		DataT* allocate(size_t count) const {
+			DataT* const data = AllocAlignedData< DataT >(count, AlignmentS);
 			if (!data) {
 				throw std::bad_alloc();
 			}
@@ -252,8 +252,8 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
-		DataT *allocate(size_t count, 
-						[[maybe_unused]] const void *hint) const {
+		DataT* allocate(size_t count, 
+						[[maybe_unused]] const void* hint) const {
 
 			return allocate(count);
 		}
@@ -273,8 +273,8 @@ namespace mage {
 						allocate for this block of storage.
 		 @note			The elements in the array are not destroyed.
 		 */
-		void deallocate(DataT *data, [[maybe_unused]] size_t count) const noexcept {
-			FreeAligned((void *)data);
+		void deallocate(DataT* data, [[maybe_unused]] size_t count) const noexcept {
+			FreeAligned((void*)data);
 		}
 		
 		/**
@@ -293,8 +293,8 @@ namespace mage {
 		template< typename DataU >
 		[[nodiscard]]
 		constexpr bool operator==([[maybe_unused]] 
-								  const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
-			
+								  const AlignedAllocator< DataU, AlignmentS >& 
+								  rhs) const noexcept {
 			return true;
 		}
 
@@ -314,8 +314,8 @@ namespace mage {
 		template< typename DataU >
 		[[nodiscard]]
 		constexpr bool operator!=([[maybe_unused]] 
-								  const AlignedAllocator< DataU, AlignmentS > &rhs) const noexcept {
-			
+								  const AlignedAllocator< DataU, AlignmentS >& 
+								  rhs) const noexcept {
 			return false;
 		}
 	};

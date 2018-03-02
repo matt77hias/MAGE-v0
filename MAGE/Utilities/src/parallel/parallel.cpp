@@ -15,7 +15,6 @@ namespace mage {
 
 	[[nodiscard]]
 	U16 NumberOfPhysicalCores() {
-
 		DWORD length = 0u;
 		
 		// Obtain the buffer length.
@@ -32,9 +31,8 @@ namespace mage {
 		
 		// Populate the buffer.
 		{
-			const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX info =
-				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
-					buffer.get());
+			const auto info = reinterpret_cast< 
+				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get());
 
 			const BOOL result = GetLogicalProcessorInformationEx(
 				RelationProcessorCore, info, &length);
@@ -44,9 +42,8 @@ namespace mage {
 		U16 nb_physical_cores = 0;
 		size_t offset = 0u;
 		do {
-			const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX current_info =
-				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
-					buffer.get() + offset);
+			const auto current_info = reinterpret_cast< 
+				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get() + offset);
 			
 			offset += current_info->Size;
 			++nb_physical_cores;

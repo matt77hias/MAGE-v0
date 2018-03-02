@@ -34,8 +34,8 @@ namespace mage {
 		 @return		A reference to the copy of the given big endian binary 
 						writer (i.e. this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(
-			const BigEndianBinaryWriter &writer) = delete;
+		BigEndianBinaryWriter& operator=(const BigEndianBinaryWriter& 
+										 writer) = delete;
 
 		/**
 		 Moves the given big endian binary writer to this big endian binary writer.
@@ -45,8 +45,8 @@ namespace mage {
 		 @return		A reference to the moved big endian binary writer (i.e. 
 						this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(
-			BigEndianBinaryWriter &&writer) noexcept;
+		BigEndianBinaryWriter& operator=(BigEndianBinaryWriter&& 
+										 writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		A reference to the current filename of this writer.
 		 */
 		[[nodiscard]]
-		const wstring &GetFilename() const noexcept {
+		const wstring& GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -90,7 +90,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to copy.
 		 */
-		BigEndianBinaryWriter(const BigEndianBinaryWriter &writer) = delete;
+		BigEndianBinaryWriter(const BigEndianBinaryWriter& writer) = delete;
 		
 		/**
 		 Constructs a big endian binary writer by moving the given big endian 
@@ -99,7 +99,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to move.
 		 */
-		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) noexcept;
+		BigEndianBinaryWriter(BigEndianBinaryWriter&& writer) noexcept;
 
 		/**
 		 Destructs this big endian binary writer.
@@ -121,25 +121,20 @@ namespace mage {
 						Failed to write the given data.
 		 */
 		template< typename DataT >
-		void Write(const DataT &data);
+		void Write(const DataT& data);
 		
 		/**
-		 Writes the given data.
+		 Writes the given data array.
 
-		 @pre			@a data is not equal to @c nullptr.
-		 @pre			The array pointed to by @a data contains at least 
-						@a count elements.
 		 @tparam		DataT
 						The data type.
 		 @param[in]		data
-						A pointer to the data.
-		 @param[in]		count
-						The number of data elements of @c size(DataT) to write.
+						The data array.
 		 @throws		Exception
 						Failed to write the given data.
 		 */
 		template< typename DataT >
-		void WriteArray(const DataT *data, size_t count);
+		void WriteArray(gsl::span< const DataT > data);
 
 		/**
 		 Writes the given character.
@@ -154,26 +149,13 @@ namespace mage {
 		/**
 		 Writes the given string.
 
-		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to 
 						write.
 		 @throws		Exception
 						Failed to write the given string.
 		 */
-		void WriteString(const char *str);
-
-		/**
-		 Writes the given string.
-
-		 @param[in]		str
-						A reference to the string to write.
-		 @throws		Exception
-						Failed to write the given string.
-		 */
-		void WriteString(const string &str) {
-			WriteString(str.c_str());
-		}
+		void WriteString(NotNull< const_zstring > str);
 
 	private:
 

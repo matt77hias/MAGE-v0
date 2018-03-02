@@ -53,7 +53,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit Impl(const string &title, 
+		explicit Impl(const string& title, 
 					  U32 nb_work, 
 					  char progress_char = '+', 
 					  U16 bar_length = 0u);
@@ -64,7 +64,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to copy.
 		 */
-		Impl(const Impl &reporter) = delete;
+		Impl(const Impl& reporter) = delete;
 
 		/**
 		 Constructs a progress reporter by moving the given progress reporter.
@@ -72,7 +72,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 */
-		Impl(Impl &&reporter) = delete;
+		Impl(Impl&& reporter) = delete;
 
 		/**
 		 Destructs this progress reporter.
@@ -91,7 +91,7 @@ namespace mage {
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
-		Impl &operator=(const Impl &reporter) = delete;
+		Impl& operator=(const Impl& reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
@@ -101,7 +101,7 @@ namespace mage {
 		 @return		A reference to moved progress reporter (i.e. this 
 						progress reporter).
 		 */
-		Impl &operator=(Impl &&reporter) = delete;
+		Impl& operator=(Impl&& reporter) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -135,7 +135,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		void Initialize(const string &title, U16 bar_length = 0u);
+		void Initialize(const string& title, U16 bar_length = 0u);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -171,7 +171,7 @@ namespace mage {
 		/**
 		 A pointer to the output file stream of this progress reporter.
 		 */
-		FILE *m_fout;
+		FILE* m_fout;
 
 		/**
 		 A pointer to the output buffer of this progress reporter.
@@ -182,7 +182,7 @@ namespace mage {
 		 A pointer to the current character in the output buffer of this progress 
 		 reporter.
 		 */
-		char *m_current_pos;
+		char* m_current_pos;
 
 		/**
 		 The timer of this progress reporter.
@@ -195,7 +195,7 @@ namespace mage {
 		std::mutex m_mutex;
 	};
 
-	ProgressReporter::Impl::Impl(const string &title, 
+	ProgressReporter::Impl::Impl(const string& title, 
 								 U32 nb_work, 
 								 char progress_char, 
 								 U16 bar_length)
@@ -215,13 +215,15 @@ namespace mage {
 
 	ProgressReporter::Impl::~Impl() = default;
 
-	void ProgressReporter::Impl::Initialize(const string &title, 
+	void ProgressReporter::Impl::Initialize(const string& title, 
 											U16 bar_length) {
 		if (0u == bar_length) {
 			bar_length = ConsoleWidth() - U16(28u);
 		}
 
-		m_nb_progress_total = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
+		m_nb_work_done        = 0u;
+		m_nb_progress_printed = 0u;
+		m_nb_progress_total   = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
 		
 		// Initialize the output buffer.
 		const size_t buffer_length = title.size() + m_nb_progress_total + 64;
@@ -320,7 +322,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ProgressReporter::ProgressReporter(const string &title, 
+	ProgressReporter::ProgressReporter(const string& title, 
 									   U32 nb_work, 
 									   char progress_char, 
 									   U16 bar_length)

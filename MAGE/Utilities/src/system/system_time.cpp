@@ -35,8 +35,7 @@ namespace mage {
 	 @return		A @c U64 (in 100 ns) representing the given file time.
 	 */
 	[[nodiscard]]
-	static inline U64 ConvertTimestamp(const FILETIME &ftime) noexcept {
-		
+	static inline U64 ConvertTimestamp(const FILETIME& ftime) noexcept {
 		return static_cast< U64 >(ftime.dwLowDateTime)
 			 | static_cast< U64 >(ftime.dwHighDateTime) << 32u;
 	}
@@ -165,7 +164,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	typename SystemClock::time_point SystemClock::now() noexcept {
+	typename const SystemClock::time_point SystemClock::now() noexcept {
 		return time_point(duration(GetSystemTimestamp()));
 	}
 
@@ -191,11 +190,11 @@ namespace mage {
 					A reference to the current user mode timestamp of the 
 					calling process.
 	 @note			If the retrieval fails, both @a kernel_mode_timestamp and 
-					@a user_mode_timestamp point are zero. To get extended 
-					error information, call @c GetLastError.
+					@a user_mode_timestamp are zero. To get extended error 
+					information, call @c GetLastError.
 	 */
-	void static GetCoreTimestamp(U64 &kernel_mode_timestamp, 
-		                         U64 &user_mode_timestamp) noexcept {
+	void static GetCoreTimestamp(U64& kernel_mode_timestamp, 
+		                         U64& user_mode_timestamp) noexcept {
 		
 		FILETIME ftime;
 		FILETIME kernel_mode_ftime;
@@ -304,40 +303,40 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	typename CoreClock::time_point CoreClock::now() noexcept {
+	typename const CoreClock::time_point CoreClock::now() noexcept {
 		return time_point(duration(GetCoreTimestamp()));
 	}
 
 	[[nodiscard]]
-	typename KernelModeCoreClock::time_point 
+	typename const KernelModeCoreClock::time_point
 		KernelModeCoreClock::now() noexcept {
 
 		return time_point(duration(GetKernelModeCoreTimestamp()));
 	}
 
 	[[nodiscard]]
-	typename UserModeCoreClock::time_point 
+	typename const UserModeCoreClock::time_point
 		UserModeCoreClock::now() noexcept {
 
 		return time_point(duration(GetUserModeCoreTimestamp()));
 	}
 
 	[[nodiscard]]
-	typename CoreClockPerCore::time_point 
+	typename const CoreClockPerCore::time_point
 		CoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetCoreTimestampPerCore()));
 	}
 
 	[[nodiscard]]
-	typename KernelModeCoreClockPerCore::time_point 
+	typename const KernelModeCoreClockPerCore::time_point
 		KernelModeCoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetKernelModeCoreTimestampPerCore()));
 	}
 
 	[[nodiscard]]
-	typename UserModeCoreClockPerCore::time_point 
+	typename const UserModeCoreClockPerCore::time_point
 		UserModeCoreClockPerCore::now() noexcept {
 
 		return time_point(duration(GetUserModeCoreTimestampPerCore()));

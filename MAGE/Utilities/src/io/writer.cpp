@@ -4,7 +4,6 @@
 #pragma region
 
 #include "io\writer.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -18,20 +17,20 @@ namespace mage {
 		: m_file_stream(nullptr), 
 		m_fname() {}
 
-	Writer::Writer(Writer &&writer) noexcept = default;
+	Writer::Writer(Writer&& writer) noexcept = default;
 
 	Writer::~Writer() = default;
 
-	Writer &Writer::operator=(Writer &&writer) noexcept = default;
+	Writer& Writer::operator=(Writer&& writer) noexcept = default;
 
 	void Writer::WriteToFile(wstring fname) {
 		m_fname = std::move(fname);
 
-		FILE *file;
+		FILE* file;
 		{
 			const errno_t result = _wfopen_s(&file, m_fname.c_str(), L"w");
-			ThrowIfFailed((0 == result),
-				"%ls: could not open file.", m_fname.c_str());
+			ThrowIfFailed((0 == result), 
+						  "%ls: could not open file.", m_fname.c_str());
 		}
 
 		m_file_stream.reset(file);
@@ -42,20 +41,16 @@ namespace mage {
 	void Writer::WriteCharacter(char c) {
 		const int result = fputc(c, m_file_stream.get());
 		ThrowIfFailed((EOF != result), 
-			"%ls: could not write to file.", GetFilename().c_str());
+					  "%ls: could not write to file.", GetFilename().c_str());
 	}
 	
-	void Writer::WriteString(const char *str) {
-		Assert(str);
-		
+	void Writer::WriteString(NotNull< const_zstring > str) {
 		const int result = fputs(str, m_file_stream.get());
-		ThrowIfFailed((EOF != result),
-			"%ls: could not write to file.", GetFilename().c_str());
+		ThrowIfFailed((EOF != result), 
+					  "%ls: could not write to file.", GetFilename().c_str());
 	}
 	
-	void Writer::WriteStringLine(const char *str) {
-		Assert(str);
-
+	void Writer::WriteStringLine(NotNull< const_zstring > str) {
 		WriteString(str);
 		WriteCharacter('\n');
 	}

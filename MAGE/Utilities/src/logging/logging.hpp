@@ -36,7 +36,7 @@ namespace mage {
 		 @return		A reference to the global logging configuration.
 		 */
 		[[nodiscard]]
-		static LoggingConfiguration &Get() noexcept {
+		static LoggingConfiguration& Get() noexcept {
 			return s_logging_configuration;
 		}
 
@@ -63,8 +63,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to the logging configuration to copy.
 		 */
-		constexpr LoggingConfiguration(
-			const LoggingConfiguration &configuration) noexcept = default;
+		constexpr LoggingConfiguration(const LoggingConfiguration& 
+									   configuration) noexcept = default;
 
 		/**
 		 Constructs a logging configuration by moving the given logging 
@@ -73,8 +73,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to the logging configuration to move.
 		 */
-		constexpr LoggingConfiguration(
-			LoggingConfiguration &&configuration) noexcept = default;
+		constexpr LoggingConfiguration(LoggingConfiguration&& 
+									   configuration) noexcept = default;
 
 		/**
 		 Destructs this logging configuration.
@@ -93,8 +93,8 @@ namespace mage {
 		 @return		A reference to the copy of the given logging 
 						configuration (i.e. this logging configuration).
 		 */
-		constexpr LoggingConfiguration &operator=(
-			const LoggingConfiguration &configuration) noexcept = default;
+		constexpr LoggingConfiguration& operator=(
+			const LoggingConfiguration& configuration) noexcept = default;
 
 		/**
 		 Moves the given logging configuration to this logging configuration.
@@ -104,8 +104,8 @@ namespace mage {
 		 @return		A reference to the moved logging configuration (i.e. 
 						this logging configuration).
 		 */
-		constexpr LoggingConfiguration &operator=(
-			LoggingConfiguration &&configuration) noexcept = default;
+		constexpr LoggingConfiguration& operator=(
+			LoggingConfiguration&& configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

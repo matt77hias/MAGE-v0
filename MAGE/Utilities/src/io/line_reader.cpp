@@ -29,22 +29,22 @@ namespace mage {
 		m_delimiters(g_default_delimiters), 
 		m_line_number(0) {}
 
-	LineReader::LineReader(LineReader &&reader) noexcept = default;
+	LineReader::LineReader(LineReader&& reader) noexcept = default;
 
 	LineReader::~LineReader() = default;
 
-	LineReader &LineReader::operator=(LineReader &&reader) noexcept = default;
+	LineReader& LineReader::operator=(LineReader&& reader) noexcept = default;
 
 	void LineReader::ReadFromFile(wstring fname, string delimiters) {
 		m_fname      = std::move(fname);
 		m_delimiters = std::move(delimiters);
 		
 		// Open the file.
-		FILE *file;
+		FILE* file;
 		{
 			const errno_t result = _wfopen_s(&file, m_fname.c_str(), L"r");
 			ThrowIfFailed((0 == result), 
-				"%ls: could not open file.", m_fname.c_str());
+						  "%ls: could not open file.", m_fname.c_str());
 		}
 
 		m_file_stream.reset(file);
@@ -67,9 +67,7 @@ namespace mage {
 		m_context = nullptr;
 	}
 
-	void LineReader::ReadFromMemory(const char *input, string delimiters) {
-		Assert(input);
-		
+	void LineReader::ReadFromMemory(NotNull< const_zstring > input, string delimiters) {
 		m_fname      = L"input string";
 		m_delimiters = std::move(delimiters);
 		
@@ -79,7 +77,8 @@ namespace mage {
 
 		char current_line[MAX_PATH];
 		m_line_number = 1;
-		// Continue reading from the file until the eof is reached.
+		// Continue reading from the input until the null-terminating character 
+		// is reached.
 		while (str_gets(current_line, 
 			            std::size(current_line), 
 			            &input)) {
@@ -102,14 +101,12 @@ namespace mage {
 		}
 	}
 	
-	const char *LineReader::ReadChars() {
-		char *result;
-		const auto token_result 
-			= mage::ReadChars(nullptr, 
-				              &m_context, 
-				              &result, 
-				              GetDelimiters().c_str());
-
+	NotNull< const_zstring > LineReader::ReadChars() {
+		zstring result = nullptr;
+		const auto token_result = mage::ReadChars(nullptr, 
+												  &m_context, 
+												  &result, 
+												  GetDelimiters().c_str());
 		switch (token_result) {
 		
 		case TokenResult::Valid: {
@@ -126,12 +123,10 @@ namespace mage {
 	
 	const string LineReader::ReadQuotedString() {
 		string result;
-		const auto token_result 
-			= mage::ReadQuotedString(nullptr, 
-				                     &m_context, 
-				                     result, 
-				                     GetDelimiters().c_str());
-
+		const auto token_result = mage::ReadQuotedString(nullptr, 
+														 &m_context, 
+														 result, 
+														 GetDelimiters().c_str());
 		switch (token_result) {
 		
 		case TokenResult::Valid: {

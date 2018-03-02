@@ -16,14 +16,13 @@
 namespace mage {
 
 	/**
-	 A pointer to the null-terminated byte string containing the default 
-	 delimiters:
+	 A pointer to the null-terminated string containing the default delimiters:
 		1. space character;
 		2. tab character;
 		3. end of line (EOL) character;
 		4. carriage return (CR) character.
 	 */
-	constexpr const char *g_default_delimiters = " \t\n\r";
+	constexpr const_zstring g_default_delimiters = " \t\n\r";
 
 	/**
 	 An enumeration of the different token results.
@@ -50,7 +49,7 @@ namespace mage {
 	 @tparam		DataT
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated byte string to convert.
+					A pointer to the null-terminated string to convert.
 	 @param[out]	result
 					A reference to the @c DataT element represented by the 
 					given string @a str.
@@ -58,7 +57,7 @@ namespace mage {
 					given string @a str to a @c DataT element succeeded or not.
 	 */
 	template< typename DataT >
-	TokenResult StringTo(const char *str, DataT &result) noexcept;
+	TokenResult StringTo(const_zstring str, DataT& result) noexcept;
 
 	#pragma endregion
 
@@ -70,8 +69,6 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given string.
 
-	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
-					to @c nullptr.
 	 @tparam		DataT
 					The data type.
 	 @param[in]		begin
@@ -86,7 +83,7 @@ namespace mage {
 					given string @a str to a @c DataT element succeeded or not.
 	 */
 	template< typename DataT >
-	TokenResult StringTo(const char *begin, const char *end, DataT &result) noexcept;
+	TokenResult StringTo(const_zstring begin, const_zstring end, DataT& result) noexcept;
 	
 	#pragma endregion
 
@@ -101,7 +98,7 @@ namespace mage {
 	 @tparam		DataT
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated byte string to convert.
+					A pointer to the null-terminated string to convert.
 	 @param[out]	result
 					A reference to the @c DataT element represented by the 
 					prefix of the given string @a str.
@@ -110,7 +107,7 @@ namespace mage {
 					succeeded or not.
 	 */
 	template< typename DataT >
-	TokenResult StringPrefixTo(const char *str, DataT &result) noexcept;
+	TokenResult StringPrefixTo(const_zstring str, DataT& result) noexcept;
 
 	#pragma endregion
 
@@ -124,12 +121,10 @@ namespace mage {
 	 characters.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
-	 @pre			@a result is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string. If @a str is 
-					equal to @c nullptr, reading continues from the beginning 
-					of @a str. Otherwise, reading continues from the current 
+					A pointer to the null-terminated string. If @a str is equal 
+					to @c nullptr, reading continues from the beginning of 
+					@a str. Otherwise, reading continues from the current 
 					position.
 	 @param[in,out] context
 					A pointer to the current position int he given string 
@@ -138,25 +133,26 @@ namespace mage {
 					A pointer to the pointer to the characters represented by 
 					the next token in the given string @a str.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing 
-					the delimiting characters.
+					A pointer to the null-terminated string containing the 
+					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to characters succeeded or 
 					not.
 	 */
-	TokenResult ReadChars(char *str, char **context, char **result, 
-						  const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult ReadChars(zstring str, zstring* context, 
+						  NotNull< zstring* > result,
+						  NotNull< const_zstring > delimiters
+						  = g_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a quoted string.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @pre			The quote '"' may not be delimiter.
 	 @param[in]		str
-					A pointer to the null-terminated byte string. If @a str is 
-					equal to @c nullptr, reading continues from the beginning 
-					of @a str. Otherwise, reading continues from the current 
+					A pointer to the null-terminated string. If @a str is equal 
+					to @c nullptr, reading continues from the beginning of 
+					@a str. Otherwise, reading continues from the current 
 					position.
 	 @param[in,out] context
 					A pointer to the current position int he given string 
@@ -165,27 +161,27 @@ namespace mage {
 					A reference to the quoted string represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing 
-					the delimiting characters.
+					A pointer to the null-terminated string containing the 
+					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to a quoted string succeeded 
 					or not.
 	 */
-	TokenResult ReadQuotedString(char *str, char **context, string &result, 
-								 const char *delimiters = g_default_delimiters);
+	TokenResult ReadQuotedString(zstring str, zstring* context, string& result,
+								 NotNull< const_zstring > delimiters
+								 = g_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c DataT 
 	 element.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @tparam		DataT
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated byte string. If @a str is 
-					equal to @c nullptr, reading continues from the beginning 
-					of @a str. Otherwise, reading continues from the current 
+					A pointer to the null-terminated string. If @a str is equal 
+					to @c nullptr, reading continues from the beginning of 
+					@a str. Otherwise, reading continues from the current 
 					position.
 	 @param[in,out] context
 					A pointer to the current position in the given string 
@@ -194,15 +190,16 @@ namespace mage {
 					A reference to the @c DataT element represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing 
-					the delimiting characters.
+					A pointer to the null-terminated string containing the 
+					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to a @c DataT element 
 					succeeded or not.
 	 */
 	template< typename DataT >
-	TokenResult Read(char *str, char **context, DataT &result, 
-					 const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult Read(zstring str, zstring* context, DataT& result,
+					 NotNull< const_zstring > delimiters
+					 = g_default_delimiters) noexcept;
 	
 	#pragma endregion
 
@@ -215,59 +212,56 @@ namespace mage {
 	 Checks whether the next token in the given string represents 
 	 (non-delimiting) characters.
 	 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to an @c U32 succeeds 
 					or not.
 	 */
-	TokenResult ContainsChars(const char *str, 
-							  const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult ContainsChars(NotNull< zstring > str,
+							  NotNull< const_zstring > delimiters
+							  = g_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a quoted 
 	 string.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @pre			The quote '"' may not be delimiter.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a quoted string 
 					succeeds or not.
 	 */
-	TokenResult ContainsQuotedString(const char *str, 
-									 const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult ContainsQuotedString(NotNull< zstring > str,
+									 NotNull< const_zstring > delimiters
+									 = g_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c DataT 
 	 element.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @tparam		DataT
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
 					next token in the given string to a @c DataT element 
 					succeeds or not.
 	 */
 	template< typename DataT >
-	TokenResult Contains(const char *str, 
-						 const char *delimiters = g_default_delimiters) noexcept;
+	TokenResult Contains(NotNull< zstring > str,
+						 NotNull< const_zstring > delimiters
+						 = g_default_delimiters) noexcept;
 
 	#pragma endregion
 
@@ -279,74 +273,70 @@ namespace mage {
 	/**
 	 Advances to the first non-delimiting character in the given string.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
 	[[nodiscard]]
-	char *SkipDelimiters(char *str, 
-						 const char *delimiters = g_default_delimiters) noexcept;
+	zstring SkipDelimiters(NotNull< zstring > str, 
+						   NotNull< const_zstring > delimiters 
+						   = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first non-delimiting character in the 
 					given string.
 	 */
 	[[nodiscard]]
-	const char *SkipDelimiters(const char *str, 
-							   const char *delimiters = g_default_delimiters) noexcept;
+	const_zstring SkipDelimiters(NotNull< const_zstring > str, 
+								 NotNull< const_zstring > delimiters 
+								 = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
 	[[nodiscard]]
-	char *GotoDelimiters(char *str, 
-						 const char *delimiters = g_default_delimiters) noexcept;
+	zstring GotoDelimiters(NotNull< zstring > str, 
+						   NotNull< const_zstring > delimiters 
+						   = g_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string.
+					A pointer to the null-terminated string.
 	 @param[in]		delimiters
-					A pointer to the null-terminated byte string containing the 
+					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first delimiting character in the 
 					given string.
 	 */
 	[[nodiscard]]
-	const char *GotoDelimiters(const char *str, 
-							   const char *delimiters = g_default_delimiters) noexcept;
+	const_zstring GotoDelimiters(NotNull< const_zstring > str, 
+								 NotNull< const_zstring > delimiters 
+								 = g_default_delimiters) noexcept;
 
 	#pragma endregion
 }

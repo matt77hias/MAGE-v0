@@ -30,16 +30,16 @@ namespace mage {
 		m_used_blocks(), 
 		m_available_blocks() {}
 
-	MemoryArena::MemoryArena(MemoryArena &&arena) = default;
+	MemoryArena::MemoryArena(MemoryArena&& arena) = default;
 
 	MemoryArena::~MemoryArena() {
 		FreeAligned(GetCurrentBlockPtr());
 		
-		for (const auto &block : m_used_blocks) {
+		for (const auto& block : m_used_blocks) {
 			FreeAligned(block.second);
 		}
 
-		for (const auto &block : m_available_blocks) {
+		for (const auto& block : m_available_blocks) {
 			FreeAligned(block.second);
 		}
 	}
@@ -48,11 +48,11 @@ namespace mage {
 	size_t MemoryArena::GetTotalBlockSize() const noexcept {
 		auto size = GetCurrentBlockSize();
 		
-		for (const auto &block : m_used_blocks) {
+		for (const auto& block : m_used_blocks) {
 			size += block.first;
 		}
 
-		for (const auto &block : m_available_blocks) {
+		for (const auto& block : m_available_blocks) {
 			size += block.first;
 		}
 
@@ -65,7 +65,7 @@ namespace mage {
 		m_available_blocks.splice(m_available_blocks.begin(), m_used_blocks);
 	}
 
-	void *MemoryArena::Alloc(size_t size) {
+	void* MemoryArena::Alloc(size_t size) {
 		// Round up the given size to minimum machine alignment.
 		size = ((size + 15) & (~15));
 

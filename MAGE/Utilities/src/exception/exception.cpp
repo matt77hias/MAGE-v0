@@ -31,15 +31,14 @@ namespace mage {
 		: std::exception(), 
 		m_text{} {}
 
-	Exception::Exception(const char *format, ...)
+	Exception::Exception(NotNull< const_zstring > format, ...)
 		: Exception() {
-
-		Assert(format);
 
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
+		const char* const c_str = format;
+		va_start(args, c_str);
 
 		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
@@ -49,26 +48,28 @@ namespace mage {
 		Error(m_text);
 	}
 
-	Exception::Exception(const char *format, va_list args) 
+	Exception::Exception(NotNull< const_zstring > format, va_list args)
 		: std::exception(), 
 		m_text{} {
-
-		Assert(format);
 
 		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
 		Error(m_text);
 	}
 
-	Exception::Exception(const Exception &exception) = default;
+	Exception::Exception(const Exception& exception) = default;
 
-	Exception::Exception(Exception &&exception) = default;
+	Exception::Exception(Exception&& exception) = default;
 
 	Exception::~Exception() = default;
 
-	Exception &Exception::operator=(const Exception &exception) = default;
+	Exception& Exception::operator=(const Exception& exception) = default;
 
-	Exception &Exception::operator=(Exception &&exception) = default;
+	Exception& Exception::operator=(Exception&& exception) = default;
+
+	const char* Exception::what() const noexcept {
+		return m_text;
+	}
 
 	#pragma endregion
 
@@ -83,14 +84,15 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(bool result, const char *format, ...) {
+	void ThrowIfFailed(bool result, NotNull< const_zstring > format, ...) {
 		if (false == result) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			va_start(args, format);
+			const char* const c_str = format;
+			va_start(args, c_str);
 
-			const Exception exception(format);
+			const Exception exception(format, args);
 
 			// End using variable argument list.
 			va_end(args);
@@ -105,14 +107,15 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(BOOL result, const char *format, ...) {
+	void ThrowIfFailed(BOOL result, NotNull< const_zstring > format, ...) {
 		if (FALSE == result) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			va_start(args, format);
+			const char* const c_str = format;
+			va_start(args, c_str);
 
-			const Exception exception(format);
+			const Exception exception(format, args);
 
 			// End using variable argument list.
 			va_end(args);
@@ -127,14 +130,15 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(HRESULT result, const char *format, ...) {
+	void ThrowIfFailed(HRESULT result, NotNull< const_zstring > format, ...) {
 		if (FAILED(result)) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			va_start(args, format);
+			const char* const c_str = format;
+			va_start(args, c_str);
 
-			const Exception exception(format);
+			const Exception exception(format, args);
 
 			// End using variable argument list.
 			va_end(args);

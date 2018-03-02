@@ -33,7 +33,7 @@ namespace mage {
 		 @return		A reference to the copy of the given writer (i.e. this 
 						writer).
 		 */
-		Writer &operator=(const Writer &writer) = delete;
+		Writer& operator=(const Writer& writer) = delete;
 
 		/**
 		 Moves the given writer to this writer.
@@ -42,7 +42,7 @@ namespace mage {
 						A reference to a writer to move.
 		 @return		A reference to the moved writer (i.e. this writer).
 		 */
-		Writer &operator=(Writer &&writer) noexcept;
+		Writer& operator=(Writer&& writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -63,7 +63,8 @@ namespace mage {
 
 		 @return		A reference to the current filename of this writer.
 		 */
-		[[nodiscard]]const wstring &GetFilename() const noexcept {
+		[[nodiscard]]
+		const wstring& GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -84,7 +85,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to copy.
 		 */
-		Writer(const Writer &writer) = delete;
+		Writer(const Writer& writer) = delete;
 
 		/**
 		 Constructs a writer by moving the given writer.
@@ -92,7 +93,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to move.
 		 */
-		Writer(Writer &&writer) noexcept;
+		Writer(Writer&& writer) noexcept;
 
 		/**
 		 Destructs this writer.
@@ -116,51 +117,23 @@ namespace mage {
 		/**
 		 Writes the given string.
 
-		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
-						A pointer to the first null-terminated byte string to 
-						write.
+						A pointer to the null-terminated string to write.
 		 @throws		Exception
 						Failed to write the given string.
 		 */
-		void WriteString(const char *str);
-		
-		/**
-		 Writes the given string.
-
-		 @param[in]		str
-						A reference to the string to write.
-		 @throws		Exception
-						Failed to write the given string.
-		 */
-		void WriteString(const string &str) {
-			WriteString(str.c_str());
-		}
-		
-		/**
-		 Writes the given string and ends the current line.
-
-		 @pre			@a str is not equal to @c nullptr.
-		 @param[in]		str
-						A pointer to the first null-terminated byte string to 
-						write.
-		 @throws		Exception
-						Failed to write the given string.
-		 */
-		void WriteStringLine(const char *str);
+		void WriteString(NotNull< const_zstring > str);
 		
 		/**
 		 Writes the given string and ends the current line.
 
 		 @param[in]		str
-						A reference to the string to write.
+						A pointer to the null-terminated string to write.
 		 @throws		Exception
 						Failed to write the given string.
 		 */
-		void WriteStringLine(const string &str) {
-			WriteStringLine(str.c_str());
-		}
-
+		void WriteStringLine(NotNull< const_zstring > str);
+		
 	private:
 
 		//---------------------------------------------------------------------

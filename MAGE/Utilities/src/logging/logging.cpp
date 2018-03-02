@@ -4,13 +4,12 @@
 #pragma region
 
 #include "logging\logging.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -28,8 +27,8 @@ namespace mage {
 		// Structure containing information about a console screen buffer.
 		CONSOLE_SCREEN_BUFFER_INFO buffer_info = {};
 		{
-			const BOOL result 
-				= GetConsoleScreenBufferInfo(handle, &buffer_info);
+			const BOOL result = GetConsoleScreenBufferInfo(handle, 
+														   &buffer_info);
 			ThrowIfFailed(result,
 				"Retrieving console screen buffer info failed.");
 		}
@@ -65,39 +64,39 @@ namespace mage {
 		{
 			// This allows proper memory cleanup from the application itself
 			// in case the console is closed by the user.
-			const BOOL result =
-				SetConsoleCtrlHandler(ConsoleCloseHandler, TRUE);
+			const BOOL result = SetConsoleCtrlHandler(ConsoleCloseHandler, 
+													  TRUE);
 			ThrowIfFailed(result, "Setting console handler failed.");
 		}
 
 		// Redirect stdin to the allocated console.
 		{
-			FILE *stream;
+			FILE* stream;
 			// Reuse stdin to open the file "CONIN$".
 			const errno_t result 
 				= freopen_s(&stream, "CONIN$", "r", stdin);
 			ThrowIfFailed(0 == result, 
-				"stdin redirection failed: %d.", result);
+						  "stdin redirection failed: %d.", result);
 		}
 
 		// Redirect stdout to the allocated console.
 		{
-			FILE *stream;
+			FILE* stream;
 			// Reuse stdout to open the file "CONOUT$".
 			const errno_t result
 				= freopen_s(&stream, "CONOUT$", "w", stdout);
 			ThrowIfFailed(0 == result, 
-				"stdout redirection failed: %d.", result);
+						  "stdout redirection failed: %d.", result);
 		}
 
 		// Redirect stderr to the allocated console.
 		{
-			FILE *stream;
+			FILE* stream;
 			// Reuse stderr to open the file "CONOUT$".
 			const errno_t result 
 				= freopen_s(&stream, "CONOUT$", "w", stderr);
 			ThrowIfFailed(0 == result, 
-				"stderr redirection failed: %d.", result);
+						  "stderr redirection failed: %d.", result);
 		}
 	}
 }

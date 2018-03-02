@@ -22,7 +22,7 @@
 namespace mage {
 
 	[[nodiscard]]
-	bool FileExists(const wstring &fname) noexcept {
+	bool FileExists(const wstring& fname) noexcept {
 		return TRUE == PathFileExists(fname.c_str());
 	}
 }

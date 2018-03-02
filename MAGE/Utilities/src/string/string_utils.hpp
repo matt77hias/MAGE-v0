@@ -6,7 +6,6 @@
 #pragma region
 
 #include "string\string.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -16,126 +15,114 @@
 namespace mage {
 
 	/**
-	 Checks whether the given strings are equal.
+	 Checks whether the given null-terminated strings are equal.
 
-	 @pre			@a str1 is not equal to @c nullptr.
-	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
-					A pointer to the first null-terminated byte string.
+					The first null-terminated string.
 	 @param[in]		str2
-					A pointer to the second null-terminated byte string.
+					The second null-terminated string.
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_equals(const char *str1, const char *str2) noexcept {
-		Assert(str1);
-		Assert(str2);
-
+	inline bool str_equals(NotNull< const_zstring > str1, 
+						   NotNull< const_zstring > str2) noexcept {
+		
 		return strcmp(str1, str2) ? false : true;
 	}
 
 	/**
-	 Checks whether the given strings are equal.
+	 Checks whether the given null-terminated strings are equal.
 
-	 @pre			@a str1 is not equal to @c nullptr.
-	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
-					A pointer to the first null-terminated wide string.
+					The first null-terminated string.
 	 @param[in]		str2
-					A pointer to the second null-terminated wide string.
+					The second null-terminated string.
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) noexcept {
-		Assert(str1);
-		Assert(str2);
-
+	inline bool str_equals(NotNull< const_wzstring > str1, 
+						   NotNull< const_wzstring > str2) noexcept {
+		
 		return wcscmp(str1, str2) ? false : true;
 	}
 
 	/**
-	 Checks whether the first given string contains the second given string.
+	 Checks whether the first given null-terminated string contains the second 
+	 given null-terminated string.
 
-	 @pre			@a str1 is not equal to @c nullptr.
-	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
-					A pointer to the null-terminated byte string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		str2
-					A pointer to the null-terminated byte string containing 
-					the sequence of characters to match.
+					The null-terminated string containing the sequence of 
+					characters to match.
 	 @return		@c true if @a str1 contains a substring @a str2. @c false 
 					otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(const char *str1, const char *str2) noexcept {
-		Assert(str1);
-		Assert(str2);
+	inline bool str_contains(NotNull< const_zstring > str1,
+							 NotNull< const_zstring > str2) noexcept {
 
 		return strstr(str1, str2) ? true : false;
 	}
 
 	/**
-	 Checks whether the first given string contains the second given string.
+	 Checks whether the first given null-terminated string contains the second 
+	 given null-terminated string.
 
-	 @pre			@a str1 is not equal to @c nullptr.
-	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
-					A pointer to the null-terminated wide string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		str2
-					A pointer to the null-terminated wide string containing 
-					the sequence of characters to match.
+					The null-terminated string containing the sequence of 
+					characters to match.
 	 @return		@c true if @a str1 contains a substring @a str2. @c false 
 					otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) noexcept {
-		Assert(str1);
-		Assert(str2);
-
+	inline bool str_contains(NotNull< const_wzstring > str1,
+							 NotNull< const_wzstring > str2) noexcept {
+		
 		return wcsstr(str1, str2) ? true : false;
 	}
 
 	/**
-	 Checks whether the first given string contains the given character.
+	 Checks whether the given null-terminated string contains the given character.
 
-	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The byte character to match.
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(const char *str, char c) noexcept {
-		Assert(str);
+	inline bool str_contains(NotNull< const_zstring > str, 
+							 char c) noexcept {
 
 		return strchr(str, static_cast< int >(c)) ? true : false;
 	}
 
 	/**
-	 Checks whether the first given string contains the given character.
+	 Checks whether the given null-terminated string contains the given character.
 
-	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated wide string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The wide character to match.
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(const wchar_t *str, wchar_t c) noexcept {
-		Assert(str);
+	inline bool str_contains(NotNull< const_wzstring > str, 
+							 wchar_t c) noexcept {
 
 		return wcschr(str, c) ? true : false;
 	}
 
 	/**
-	 Finds the first occurrence of the given character in the given string
-	 neglecting the usage of the given character in a custom escape sequence.
+	 Finds the first occurrence of the given character in the given 
+	 null-terminated string neglecting the usage of the given character in a 
+	 custom escape sequence.
 
-	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The byte character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
@@ -143,15 +130,16 @@ namespace mage {
 
 	 */
 	[[nodiscard]]
-	char *str_escape_first(char *str, char c) noexcept;
+	zstring str_escape_first(NotNull< zstring > str, 
+							 char c) noexcept;
 
 	/**
-	 Finds the first occurrence of the given character in the given string
-	 neglecting the usage of the given character in a custom escape sequence. 
-	 
-	 @pre			@a str is not equal to @c nullptr.
+	 Finds the first occurrence of the given character in the given 
+	 null-terminated string neglecting the usage of the given character in a 
+	 custom escape sequence.
+
 	 @param[in]		str
-					A pointer to the null-terminated byte string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The byte character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
@@ -159,15 +147,16 @@ namespace mage {
 
 	 */
 	[[nodiscard]]
-	const char *str_escape_first(const char *str, char c) noexcept;
+	const_zstring str_escape_first(NotNull< const_zstring > str, 
+								   char c) noexcept;
 
 	/**
-	 Finds the first occurrence of the given character in the given string
-	 neglecting the usage of the given character in a custom escape sequence.
+	 Finds the first occurrence of the given character in the given 
+	 null-terminated string neglecting the usage of the given character in a 
+	 custom escape sequence.
 
-	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated wide string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The wide character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
@@ -175,15 +164,16 @@ namespace mage {
 
 	 */
 	[[nodiscard]]
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept;
+	wzstring str_escape_first(NotNull< wzstring > str, 
+							  wchar_t c) noexcept;
 
 	/**
-	 Finds the first occurrence of the given character in the given string
-	 neglecting the usage of the given character in a custom escape sequence.
+	 Finds the first occurrence of the given character in the given 
+	 null-terminated string neglecting the usage of the given character in a 
+	 custom escape sequence.
 
-	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated wide string to be scanned.
+					The null-terminated string to be scanned.
 	 @param[in]		c
 					The wide character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
@@ -191,77 +181,82 @@ namespace mage {
 
 	 */
 	[[nodiscard]]
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept;
+	const_wzstring str_escape_first(NotNull< const_wzstring > str, 
+									wchar_t c) noexcept;
 
 	/**
-	 Reads characters from the given input string and stores them as a C string 
-	 into @a str until (@a num-1) characters have been read or either a newline 
-	 or the end-of-file is reached, whichever happens first.
+	 Reads characters from the given input string and stores them into @a str 
+	 until (@a num-1) characters have been read or either a newline or the 
+	 null-terminating character is reached, whichever happens first.
 
 	 A newline character makes @c sgets stop reading, but it is considered a 
 	 valid character by the function and included in the string copied to 
 	 @a str.
 
-	 A terminating null character is automatically appended after the 
+	 A null-terminating character is automatically appended after the 
 	 characters copied to @a str.
 	 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a input is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated byte string to copy to.
+					A pointer to the string to copy to.
 	 @param[in]		num
 					Maximum number of characters to be copied into @a str 
 					(including the terminating null-character).
 	 @param[in]		input
 					A pointer to a pointer to the input string.
-	 @note			The @c sgets function is the byte string variant of @c fgets.
+	 @return		@c nullptr if the null-terminating character is reached.
+	 @return		@a str.
+	 @note			The @c sgets function is the string variant of @c fgets.
 	 */
-	[[nodiscard]]
-	char *str_gets(char *str, size_t num, const char **input) noexcept;
+	[[nodiscard]] 
+	zstring str_gets(NotNull< char* > str,
+					 size_t num, 
+					 NotNull< NotNull< const_zstring >* > input) noexcept;
 
 	/**
-	 Reads characters from the given input string and stores them as a C string 
-	 into @a str until (@a num-1) characters have been read or either a newline 
-	 or the end-of-file is reached, whichever happens first.
+	 Reads characters from the given input string and stores them into @a str 
+	 until (@a num-1) characters have been read or either a newline or the 
+	 null-terminating character is reached, whichever happens first.
 
 	 A newline character makes @c sgets stop reading, but it is considered a 
 	 valid character by the function and included in the string copied to 
 	 @a str.
 
-	 A terminating null character is automatically appended after the 
+	 A null-terminating character is automatically appended after the 
 	 characters copied to @a str.
 
-	 @pre			@a str is not equal to @c nullptr.
-	 @pre			@a input is not equal to @c nullptr.
 	 @param[in]		str
-					A pointer to the null-terminated wide string to copy to.
+					A pointer to the string to copy to.
 	 @param[in]		num
 					Maximum number of characters to be copied into @a str 
 					(including the terminating null-character).
 	 @param[in]		input
 					A pointer to a pointer to the input string.
-	 @note			The @c sgets function is the wide string variant of @c fgets.
+	 @return		@c nullptr if the null-terminating character is reached.
+	 @return		@a str.
+	 @note			The @c sgets function is the string variant of @c fgets.
 	 */
-	[[nodiscard]]
-	wchar_t *str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept;
+	[[nodiscard]] 
+	wzstring str_gets(NotNull< wchar_t* > str,
+					  size_t num, 
+					  NotNull< NotNull< const_wzstring >* > input) noexcept;
 
 	/**
-	 Converts the given byte string to a wide string.
+	 Converts the given string to a wide string.
 
 	 @param[in]		str
-					A reference to the byte string to copy.
-	 @return		The wide string copy of the given byte string.
+					A reference to the string to copy.
+	 @return		The wide string copy of the given string.
 	 */
 	[[nodiscard]]
-	const wstring str_convert(const string &str);
+	const wstring str_convert(const string& str);
 	
 	/**
-	 Converts the given wide string to an byte string.
+	 Converts the given wide string to a string.
 
 	 @param[in]		str
 					A reference to the wide string to copy.
-	 @return		The byte string copy of the given wide string.
+	 @return		The string copy of the given wide string.
 	 */
 	[[nodiscard]]
-	const string str_convert(const wstring &str);
+	const string str_convert(const wstring& str);
 }

@@ -47,15 +47,15 @@ namespace mage {
 		constexpr Vector2(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
 		
-		Vector2(const T *v) noexcept
+		Vector2(const T* v) noexcept
 			: Vector2(v[0], v[1]) {}
 		
-		constexpr Vector2(const Vector2 &v) noexcept = default;
+		constexpr Vector2(const Vector2& v) noexcept = default;
 		
-		constexpr Vector2(Vector2 &&v) noexcept = default;
+		constexpr Vector2(Vector2&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector2(const Vector2< U > &v) noexcept
+		constexpr explicit Vector2(const Vector2< U >& v) noexcept
 			: Vector2(static_cast< T >(v.m_x), 
 				      static_cast< T >(v.m_y)) {}
 		
@@ -65,9 +65,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2 &operator=(const Vector2 &v) noexcept = default;
+		constexpr Vector2& operator=(const Vector2& v) noexcept = default;
 		
-		constexpr Vector2 &operator=(Vector2 &&v) noexcept = default;
+		constexpr Vector2& operator=(Vector2&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -79,17 +79,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -127,18 +127,18 @@ namespace mage {
 		constexpr Vector3(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
 		
-		Vector3(const T *v) noexcept
+		Vector3(const T* v) noexcept
 			: Vector3(v[0], v[1], v[2]) {}
 		
-		constexpr explicit Vector3(const Vector2< T > &v, T z = 0) noexcept
+		constexpr explicit Vector3(const Vector2< T >& v, T z = 0) noexcept
 			: Vector3(v.m_x, v.m_y, z) {}
 		
-		constexpr Vector3(const Vector3 &v) noexcept = default;
+		constexpr Vector3(const Vector3& v) noexcept = default;
 		
-		constexpr Vector3(Vector3 &&v) noexcept = default;
+		constexpr Vector3(Vector3&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector3(const Vector3< U > &v) noexcept
+		constexpr explicit Vector3(const Vector3< U >& v) noexcept
 			: Vector3(static_cast< T >(v.m_x),
 				      static_cast< T >(v.m_y),
 				      static_cast< T >(v.m_z)) {}
@@ -149,9 +149,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3 &operator=(const Vector3 &v) noexcept = default;
+		constexpr Vector3& operator=(const Vector3& v) noexcept = default;
 		
-		constexpr Vector3 &operator=(Vector3 &&v) noexcept = default;
+		constexpr Vector3& operator=(Vector3&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -163,17 +163,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -213,21 +213,21 @@ namespace mage {
 		constexpr Vector4(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
 		
-		Vector4(const T *v) noexcept
+		Vector4(const T* v) noexcept
 			: Vector4(v[0], v[1], v[2], v[3]) {}
 		
-		constexpr explicit Vector4(const Vector2< T > &v, T z = 0, T w = 0) noexcept
+		constexpr explicit Vector4(const Vector2< T >& v, T z = 0, T w = 0) noexcept
 			: Vector4(v.m_x, v.m_y, z, w) {}
 		
-		constexpr explicit Vector4(const Vector3< T > &v, T w = 0) noexcept
+		constexpr explicit Vector4(const Vector3< T >& v, T w = 0) noexcept
 			: Vector4(v.m_x, v.m_y, v.m_z, w) {}
 		
-		constexpr Vector4(const Vector4 &v) noexcept = default;
+		constexpr Vector4(const Vector4& v) noexcept = default;
 		
-		constexpr Vector4(Vector4 &&v) noexcept = default;
+		constexpr Vector4(Vector4&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector4(const Vector4< U > &v) noexcept
+		constexpr explicit Vector4(const Vector4< U >& v) noexcept
 			: Vector4(static_cast< T >(v.m_x),
 				      static_cast< T >(v.m_y),
 				      static_cast< T >(v.m_z),
@@ -239,9 +239,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4 &operator=(const Vector4 &v) noexcept = default;
-		
-		constexpr Vector4 &operator=(Vector4 &&v) noexcept = default;
+		constexpr Vector4& operator=(const Vector4& v) noexcept = default;
+
+		constexpr Vector4& operator=(Vector4&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -253,17 +253,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -309,20 +309,20 @@ namespace mage {
 		constexpr Vector2A(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
 		
-		Vector2A(const T *v) noexcept
+		Vector2A(const T* v) noexcept
 			: Vector2A(v[0], v[1]) {}
 		
-		constexpr Vector2A(const Vector2A &v) noexcept = default;
+		constexpr Vector2A(const Vector2A& v) noexcept = default;
 		
-		constexpr Vector2A(Vector2A &&v) noexcept = default;
+		constexpr Vector2A(Vector2A&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector2A(const Vector2< U > &v) noexcept
+		constexpr explicit Vector2A(const Vector2< U >& v) noexcept
 			: Vector2A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y)) {}
 		
 		template< typename U >
-		constexpr explicit Vector2A(const Vector2A< U > &v) noexcept
+		constexpr explicit Vector2A(const Vector2A< U >& v) noexcept
 			: Vector2A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y)) {}
 		
@@ -332,9 +332,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2A &operator=(const Vector2A &v) noexcept = default;
+		constexpr Vector2A& operator=(const Vector2A& v) noexcept = default;
 		
-		constexpr Vector2A &operator=(Vector2A &&v) noexcept = default;
+		constexpr Vector2A& operator=(Vector2A&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -346,17 +346,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -400,24 +400,24 @@ namespace mage {
 		constexpr Vector3A(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
 		
-		Vector3A(const T *v) noexcept
+		Vector3A(const T* v) noexcept
 			: Vector3A(v[0], v[1], v[2]) {}
 		
-		constexpr explicit Vector3A(const Vector2A< T > &v, T z = 0) noexcept
+		constexpr explicit Vector3A(const Vector2A< T >& v, T z = 0) noexcept
 			: Vector3A(v.m_x, v.m_y, z) {}
 		
-		constexpr Vector3A(const Vector3A &v) noexcept = default;
+		constexpr Vector3A(const Vector3A& v) noexcept = default;
 		
-		constexpr Vector3A(Vector3A &&v) noexcept = default;
+		constexpr Vector3A(Vector3A&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector3A(const Vector3< U > &v) noexcept
+		constexpr explicit Vector3A(const Vector3< U >& v) noexcept
 			: Vector3A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y),
 				       static_cast< T >(v.m_z)) {}
 		
 		template< typename U >
-		constexpr explicit Vector3A(const Vector3A< U > &v) noexcept
+		constexpr explicit Vector3A(const Vector3A< U >& v) noexcept
 			: Vector3A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y),
 				       static_cast< T >(v.m_z)) {}
@@ -428,9 +428,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3A &operator=(const Vector3A &v) noexcept = default;
+		constexpr Vector3A& operator=(const Vector3A& v) noexcept = default;
 		
-		constexpr Vector3A &operator=(Vector3A &&v) noexcept = default;
+		constexpr Vector3A& operator=(Vector3A&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -442,17 +442,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 
@@ -498,28 +498,28 @@ namespace mage {
 		constexpr Vector4A(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
 		
-		Vector4A(const T *v) noexcept
+		Vector4A(const T* v) noexcept
 			: Vector4A(v[0], v[1], v[2], v[3]) {}
 		
-		constexpr explicit Vector4A(const Vector2A< T > &v, T z = 0, T w = 0) noexcept
+		constexpr explicit Vector4A(const Vector2A< T >& v, T z = 0, T w = 0) noexcept
 			: Vector4A(v.m_x, v.m_y, z, w) {}
 		
-		constexpr explicit Vector4A(const Vector3A< T > &v, T w = 0) noexcept
+		constexpr explicit Vector4A(const Vector3A< T >& v, T w = 0) noexcept
 			: Vector4A(v.m_x, v.m_y, v.m_z, w) {}
 		
-		constexpr Vector4A(const Vector4A &v) noexcept = default;
+		constexpr Vector4A(const Vector4A& v) noexcept = default;
 		
-		constexpr Vector4A(Vector4A &&v) noexcept = default;
+		constexpr Vector4A(Vector4A&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector4A(const Vector4< U > &v) noexcept
+		constexpr explicit Vector4A(const Vector4< U >& v) noexcept
 			: Vector4A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y),
 				       static_cast< T >(v.m_z),
 				       static_cast< T >(v.m_w)) {}
 		
 		template< typename U >
-		constexpr explicit Vector4A(const Vector4A< U > &v) noexcept
+		constexpr explicit Vector4A(const Vector4A< U >& v) noexcept
 			: Vector4A(static_cast< T >(v.m_x),
 				       static_cast< T >(v.m_y),
 				       static_cast< T >(v.m_z),
@@ -531,9 +531,9 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4A &operator=(const Vector4A &v) noexcept = default;
+		constexpr Vector4A& operator=(const Vector4A& v) noexcept = default;
 		
-		constexpr Vector4A &operator=(Vector4A &&v) noexcept = default;
+		constexpr Vector4A& operator=(Vector4A&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -545,17 +545,17 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		constexpr const T &operator[](size_t i) const noexcept {
+		constexpr const T& operator[](size_t i) const noexcept {
 			return GetData()[i];
 		}
 
 		[[nodiscard]]
-		constexpr T *GetData() noexcept {
+		constexpr T* GetData() noexcept {
 			return &m_x;
 		}
 		
 		[[nodiscard]]
-		constexpr const T *GetData() const noexcept {
+		constexpr const T* GetData() const noexcept {
 			return &m_x;
 		}
 

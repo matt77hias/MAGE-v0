@@ -7,14 +7,14 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]]
-	inline const StringT GetFilename(const StringT &path, 
-									 const StringT &name) {
+	inline const StringT GetFilename(const StringT& path, 
+									 const StringT& name) {
 		return path + name;
 	}
 
 	template< typename StringT >
 	[[nodiscard]]
-	inline const StringT GetFileExtension(const StringT &fname) {
+	inline const StringT GetFileExtension(const StringT& fname) {
 		static const StringT str(1, StringT::value_type('.'));
 		
 		const auto begin_pos = fname.find_last_of(str);
@@ -26,7 +26,7 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]]
-	inline const StringT GetFileName(const StringT &fname) {
+	inline const StringT GetFileName(const StringT& fname) {
 		static const StringT str(1, StringT::value_type('/'));
 		
 		const auto begin_pos = fname.find_last_of(str);
@@ -38,7 +38,7 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]]
-	inline const StringT GetPathName(const StringT &fname) {
+	inline const StringT GetPathName(const StringT& fname) {
 		static const StringT str(1, StringT::value_type('/'));
 		
 		const auto end_pos = fname.find_last_of(str);
@@ -50,7 +50,7 @@ namespace mage {
 
 	template< typename StringT >
 	[[nodiscard]]
-	inline const StringT GetFilenameWithoutFileExtension(const StringT &fname) {
+	inline const StringT GetFilenameWithoutFileExtension(const StringT& fname) {
 		static const StringT str(1, StringT::value_type('.'));
 		
 		const auto end_pos = fname.find_last_of(str);

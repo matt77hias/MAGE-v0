@@ -19,14 +19,14 @@ namespace mage {
 		: m_guid(std::move(guid)) {}
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(Resource &&resource) noexcept = default;
+	Resource< ResourceT >::Resource(Resource&& resource) noexcept = default;
 
 	template< typename ResourceT >
 	Resource< ResourceT >::~Resource() = default;
 
 	template< typename ResourceT >
-	Resource< ResourceT > &Resource< ResourceT >
-		::operator=(Resource &&resource) noexcept = default;
+	Resource< ResourceT >& Resource< ResourceT >
+		::operator=(Resource&& resource) noexcept = default;
 
 	template< typename ResourceT >
 	[[nodiscard]]

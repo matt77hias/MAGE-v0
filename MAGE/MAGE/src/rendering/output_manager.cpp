@@ -5,7 +5,6 @@
 
 #include "rendering\output_manager.hpp"
 #include "rendering\pipeline.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -27,9 +26,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	OutputManager::OutputManager(ID3D11Device *device, 
-								 DisplayConfiguration *display_configuration, 
-								 SwapChain *swap_chain)
+	OutputManager::OutputManager(ID3D11Device &device, 
+								 DisplayConfiguration &display_configuration, 
+								 SwapChain &swap_chain)
 		: m_display_configuration(display_configuration),
 		m_device(device), 
 		m_swap_chain(swap_chain),
@@ -41,26 +40,22 @@ namespace mage {
 		m_msaa(false), 
 		m_ssaa(false) {
 
-		Assert(m_display_configuration);
-		Assert(m_device);
-		Assert(swap_chain);
-
 		SetupBuffers();
 	}
 
-	OutputManager::OutputManager(OutputManager &&manager) noexcept = default;
+	OutputManager::OutputManager(OutputManager&& manager) noexcept = default;
 
 	OutputManager::~OutputManager() = default;
 
 	void OutputManager::SetupBuffers() {
 		U32 nb_samples = 1u;
-		auto width     = m_display_configuration->GetDisplayWidth();
-		auto height    = m_display_configuration->GetDisplayHeight();
+		auto width     = m_display_configuration.get().GetDisplayWidth();
+		auto height    = m_display_configuration.get().GetDisplayHeight();
 		auto ss_width  = width;
 		auto ss_height = height;
 		auto aa        = true;
 		
-		switch (m_display_configuration->GetAADescriptor()) {
+		switch (m_display_configuration.get().GetAADescriptor()) {
 
 		case AADescriptor::MSAA_2x: {
 			m_msaa     = true;
@@ -210,7 +205,7 @@ namespace mage {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = m_device->CheckMultisampleQualityLevels(
+			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result,
@@ -224,7 +219,7 @@ namespace mage {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = m_device->CreateTexture2D(
+			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
@@ -232,7 +227,7 @@ namespace mage {
 		// SRV
 		{
 			// Create the SRV.
-			const HRESULT result = m_device->CreateShaderResourceView(
+			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), nullptr, srv);
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
@@ -240,7 +235,7 @@ namespace mage {
 		// RTV
 		if (rtv) {
 			// Create the RTV.
-			const HRESULT result = m_device->CreateRenderTargetView(
+			const HRESULT result = m_device.get().CreateRenderTargetView(
 				texture.Get(), nullptr, rtv);
 			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
 		}
@@ -248,7 +243,7 @@ namespace mage {
 		// UAV
 		if (uav) {
 			// Create the UAV.
-			const HRESULT result = m_device->CreateUnorderedAccessView(
+			const HRESULT result = m_device.get().CreateUnorderedAccessView(
 				texture.Get(), nullptr, uav);
 			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
@@ -271,7 +266,7 @@ namespace mage {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = m_device->CheckMultisampleQualityLevels(
+			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result, 
@@ -285,7 +280,7 @@ namespace mage {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = m_device->CreateTexture2D(
+			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, 
 				texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
@@ -305,7 +300,7 @@ namespace mage {
 			}
 			
 			// Create the SRV.
-			const HRESULT result = m_device->CreateShaderResourceView(
+			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), &srv_desc,
 				ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Depth));
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
@@ -321,7 +316,7 @@ namespace mage {
 				                     D3D11_DSV_DIMENSION_TEXTURE2D;
 
 			// Create the DSV.
-			const HRESULT result = m_device->CreateDepthStencilView(
+			const HRESULT result = m_device.get().CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "DSV creation failed: %08X.", result);
@@ -329,75 +324,72 @@ namespace mage {
 	}
 
 	void OutputManager::BindBegin(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
 		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
 		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
 
 		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView * const srvs[4] = {};
+		ID3D11ShaderResourceView* const srvs[4] = {};
 		// Bind no GBuffer SRVs.
-		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-			static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-			static_cast< U32 >(std::size(srvs)), srvs);
+		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+							   static_cast< U32 >(std::size(srvs)), srvs);
+		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+							   static_cast< U32 >(std::size(srvs)), srvs);
 
 		// Clear the GBuffer RTVs.
 		Pipeline::OM::ClearRTV(device_context, 
-			GetRTV(RTVIndex::GBuffer_BaseColor));
+							   GetRTV(RTVIndex::GBuffer_BaseColor));
 		Pipeline::OM::ClearRTV(device_context, 
-			GetRTV(RTVIndex::GBuffer_Material));
+							   GetRTV(RTVIndex::GBuffer_Material));
 		Pipeline::OM::ClearRTV(device_context, 
-			GetRTV(RTVIndex::GBuffer_Normal));
+							   GetRTV(RTVIndex::GBuffer_Normal));
 		// Clear the GBuffer DSV.
 		Pipeline::OM::ClearDepthOfDSV(device_context, m_dsv.Get());
 
 		// Bind no HDR SRV.
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-			nullptr);
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-			nullptr);
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
 		
 		// Clear the HDR RTV.
-		Pipeline::OM::ClearRTV(device_context,
-			GetRTV(RTVIndex::HDR));
+		Pipeline::OM::ClearRTV(device_context, GetRTV(RTVIndex::HDR));
 
 		m_hdr0_to_hdr1 = true;
 	}
 
 	void OutputManager::BindBeginGBuffer(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 		
 		// Collect the GBuffer RTVs.
-		ID3D11RenderTargetView * const rtvs[] = {
+		ID3D11RenderTargetView* const rtvs[] = {
 			GetRTV(RTVIndex::GBuffer_BaseColor),
 			GetRTV(RTVIndex::GBuffer_Material),
 			GetRTV(RTVIndex::GBuffer_Normal)
 		};
 
 		// Bind the GBuffer RTVs and GBuffer DSV.
-		Pipeline::OM::BindRTVsAndDSV(device_context,
-			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
+		Pipeline::OM::BindRTVsAndDSV(device_context, 
+									 static_cast< U32 >(std::size(rtvs)), 
+									 rtvs, m_dsv.Get());
 	}
 	
 	void OutputManager::BindEndGBuffer(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		// Bind no RTV and no DSV.
-		Pipeline::OM::BindRTVAndDSV(device_context,
-			nullptr, nullptr);
+		Pipeline::OM::BindRTVAndDSV(device_context, nullptr, nullptr);
 	}
 	
 	void OutputManager::BindBeginDeferred(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
 		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
 		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
 
 		// Collect the GBuffer SRVs. 
-		ID3D11ShaderResourceView * const srvs[] = {
+		ID3D11ShaderResourceView* const srvs[] = {
 			GetSRV(SRVIndex::GBuffer_BaseColor),
 			GetSRV(SRVIndex::GBuffer_Material),
 			GetSRV(SRVIndex::GBuffer_Normal),
@@ -406,180 +398,174 @@ namespace mage {
 		
 		if (m_msaa) {
 			// Bind the GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-				static_cast< U32 >(std::size(srvs)), srvs);
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+								   static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR RTV and no DSV.
-			Pipeline::OM::BindRTVAndDSV(device_context,
-				GetRTV(RTVIndex::HDR), nullptr);
+			Pipeline::OM::BindRTVAndDSV(device_context, 
+										GetRTV(RTVIndex::HDR), nullptr);
 		}
 		else {
 			// Bind the GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-				static_cast< U32 >(std::size(srvs)), srvs);
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+								   static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind the HDR UAV.
 			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-				GetUAV(UAVIndex::HDR));
+								  GetUAV(UAVIndex::HDR));
 		}
 	}
 	
 	void OutputManager::BindEndDeferred(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
 		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
 		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
 
 		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView * const srvs[4] = {};
+		ID3D11ShaderResourceView* const srvs[4] = {};
 
 		if (m_msaa) {
 			// Bind no GBuffer SRVs.
-			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-				static_cast< U32 >(std::size(srvs)), srvs);
+			Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+								   static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no RTV and no DSV.
-			Pipeline::OM::BindRTVAndDSV(device_context,
-				nullptr, nullptr);
+			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, nullptr);
 		}
 		else {
 			// Bind no GBuffer SRVs.
-			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR,
-				static_cast< U32 >(std::size(srvs)), srvs);
+			Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
+								   static_cast< U32 >(std::size(srvs)), srvs);
 
 			// Bind no HDR UAV.
-			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-				nullptr);
+			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
 		}
 	}
 	
 	void OutputManager::BindBeginForward(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		// Collect the RTVs.
-		ID3D11RenderTargetView * const rtvs[2] = {
+		ID3D11RenderTargetView* const rtvs[] = {
 			GetRTV(RTVIndex::HDR),
 			GetRTV(RTVIndex::GBuffer_Normal)
 		};
 
 		// Bind the RTVs and DSV.
-		Pipeline::OM::BindRTVsAndDSV(device_context,
-			static_cast< U32 >(std::size(rtvs)), rtvs, m_dsv.Get());
+		Pipeline::OM::BindRTVsAndDSV(device_context, 
+									 static_cast< U32 >(std::size(rtvs)), 
+									 rtvs, m_dsv.Get());
 	}
 
 	void OutputManager::BindEndForward(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 		
 		// Bind no RTV and no DSV.
-		Pipeline::OM::BindRTVAndDSV(device_context, 
-			nullptr, nullptr);
+		Pipeline::OM::BindRTVAndDSV(device_context, nullptr, nullptr);
 	}
 
 	void OutputManager::BindBeginResolve(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		// Bind the SRVs.
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-			GetSRV(SRVIndex::HDR));
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE,  
+							  GetSRV(SRVIndex::HDR));
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
-			GetSRV(SRVIndex::GBuffer_Normal));
+							  GetSRV(SRVIndex::GBuffer_Normal));
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
-			GetSRV(SRVIndex::GBuffer_Depth));
+							  GetSRV(SRVIndex::GBuffer_Depth));
 
 		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
 		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
 
 		// Collect the SRVs.
-		ID3D11UnorderedAccessView * const uavs[] = {
+		ID3D11UnorderedAccessView* const uavs[] = {
 			GetUAV(UAVIndex::PostProcessing_HDR0),
 			GetUAV(UAVIndex::PostProcessing_Normal),
 			GetUAV(UAVIndex::PostProcessing_Depth)
 		};
 
 		// Bind the UAVs.
-		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE,
-			static_cast< U32 >(std::size(uavs)), uavs);
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE, 
+							   static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
 	void OutputManager::BindEndResolve(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
 		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
 
 		// Bind no SRVs.
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-			nullptr);
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
-			nullptr);
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
-			nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE,  nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH,  nullptr);
 
 		// Collect the SRVs.
-		ID3D11UnorderedAccessView * const uavs[3] = {};
+		ID3D11UnorderedAccessView* const uavs[3] = {};
 
 		// Bind no UAVs.
-		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE,
-			static_cast< U32 >(std::size(uavs)), uavs);
+		Pipeline::CS::BindUAVs(device_context, SLOT_UAV_IMAGE, 
+							   static_cast< U32 >(std::size(uavs)), uavs);
 	}
 
 	void OutputManager::BindBeginPostProcessing(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, 
-			GetSRV(SRVIndex::PostProcessing_Normal));
+							  GetSRV(SRVIndex::PostProcessing_Normal));
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH, 
-			GetSRV(SRVIndex::PostProcessing_Depth));
+							  GetSRV(SRVIndex::PostProcessing_Depth));
 	}
 
 	void OutputManager::BindPingPong(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-			nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
 		
 		if (m_hdr0_to_hdr1) {
 			// Bind HDR UAV.
 			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-				GetUAV(UAVIndex::PostProcessing_HDR1));
+								  GetUAV(UAVIndex::PostProcessing_HDR1));
 			// Bind HDR SRV.
 			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-				GetSRV(SRVIndex::PostProcessing_HDR0));
+								  GetSRV(SRVIndex::PostProcessing_HDR0));
 		}
 		else {
 			// Bind HDR UAV.
 			Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-				GetUAV(UAVIndex::PostProcessing_HDR0));
+								  GetUAV(UAVIndex::PostProcessing_HDR0));
 			// Bind HDR SRV.
 			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-				GetSRV(SRVIndex::PostProcessing_HDR1));
+								  GetSRV(SRVIndex::PostProcessing_HDR1));
 		}
 
 		m_hdr0_to_hdr1 = !m_hdr0_to_hdr1;
 	}
 
 	void OutputManager::BindEnd(
-		ID3D11DeviceContext *device_context) const noexcept {
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		// Bind the back buffer RTV and no DSV.
-		Pipeline::OM::BindRTVAndDSV(device_context,
-			m_swap_chain->GetRTV(), nullptr);
+		Pipeline::OM::BindRTVAndDSV(device_context, 
+									m_swap_chain.GetRTV(), 
+									nullptr);
 		
 		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, 
-			nullptr);
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
 
 		if (m_hdr0_to_hdr1) {
 			// Bind HDR SRV.
 			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-				GetSRV(SRVIndex::PostProcessing_HDR0));
+								  GetSRV(SRVIndex::PostProcessing_HDR0));
 		}
 		else {
 			// Bind HDR SRV.
 			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-				GetSRV(SRVIndex::PostProcessing_HDR1));
+								  GetSRV(SRVIndex::PostProcessing_HDR1));
 		}
 	}
 }

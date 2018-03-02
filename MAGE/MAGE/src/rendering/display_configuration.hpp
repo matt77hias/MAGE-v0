@@ -41,7 +41,7 @@ namespace mage {
 		 */
 		explicit DisplayConfiguration(ComPtr< DXGIAdapter > adapter,
 			                          ComPtr< DXGIOutput >  output,
-			                          const DXGI_MODE_DESC &display_mode)
+			                          const DXGI_MODE_DESC& display_mode)
 			: m_adapter(std::move(adapter)),
 			m_output(std::move(output)),
 			m_display_mode(display_mode),
@@ -57,8 +57,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to a display configuration to copy.
 		 */
-		DisplayConfiguration(
-			const DisplayConfiguration &configuration) = default;
+		DisplayConfiguration(const DisplayConfiguration& 
+							 configuration) = default;
 
 		/**
 		 Constructs a display configuration by moving the given display 
@@ -67,8 +67,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to a display configuration to move.
 		 */
-		DisplayConfiguration(
-			DisplayConfiguration &&configuration) noexcept = default;
+		DisplayConfiguration(DisplayConfiguration&& 
+							 configuration) noexcept = default;
 
 		/**
 		 Destructs this display configuration.
@@ -87,8 +87,8 @@ namespace mage {
 		 @return		A reference to the copy of the given display 
 						configuration (i.e. this display configuration).
 		 */
-		DisplayConfiguration &operator=(
-			const DisplayConfiguration &configuration) = default;
+		DisplayConfiguration& operator=(const DisplayConfiguration& 
+										configuration) = default;
 
 		/**
 		 Moves the given display configuration to this display configuration.
@@ -98,8 +98,8 @@ namespace mage {
 		 @return		A reference to the moved display configuration (i.e. 
 						this display configuration).
 		 */
-		DisplayConfiguration &operator=(
-			DisplayConfiguration &&configuration) noexcept = default;
+		DisplayConfiguration& operator=(DisplayConfiguration&& 
+										configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Adapter
@@ -110,7 +110,8 @@ namespace mage {
 
 		 @return		A pointer to the adapter of this display configuration.
 		 */
-		[[nodiscard]]DXGIAdapter *GetAdapter() const noexcept {
+		[[nodiscard]]
+		DXGIAdapter* GetAdapter() const noexcept {
 			return m_adapter.Get();
 		}
 
@@ -123,7 +124,8 @@ namespace mage {
 
 		 @return		A pointer to the output of this display configuration.
 		 */
-		[[nodiscard]]DXGIOutput *GetOutput() const noexcept {
+		[[nodiscard]]
+		DXGIOutput* GetOutput() const noexcept {
 			return m_output.Get();
 		}
 
@@ -137,7 +139,8 @@ namespace mage {
 		 @return		The display width in pixels of this display 
 						configuration.
 		 */
-		[[nodiscard]]U32 GetDisplayWidth() const noexcept {
+		[[nodiscard]]
+		U32 GetDisplayWidth() const noexcept {
 			return static_cast< U32 >(m_display_mode.Width);
 		}
 		
@@ -147,7 +150,8 @@ namespace mage {
 		 @return		The display height in pixels of this display 
 						configuration.
 		 */
-		[[nodiscard]]U32 GetDisplayHeight() const noexcept {
+		[[nodiscard]]
+		U32 GetDisplayHeight() const noexcept {
 			return static_cast< U32 >(m_display_mode.Height);
 		}
 		
@@ -158,7 +162,8 @@ namespace mage {
 		 @return		The super-sampled display width in pixels of this 
 						display configuration.
 		 */
-		[[nodiscard]]U32 GetSSDisplayWidth() const noexcept {
+		[[nodiscard]]
+		U32 GetSSDisplayWidth() const noexcept {
 			return GetResolutionMultiplier(m_aa_desc) * GetDisplayWidth();
 		}
 		
@@ -169,7 +174,8 @@ namespace mage {
 		 @return		The super-sampled height in pixels of this display 
 						configuration.
 		 */
-		[[nodiscard]]U32 GetSSDisplayHeight() const noexcept {
+		[[nodiscard]]
+		U32 GetSSDisplayHeight() const noexcept {
 			return GetResolutionMultiplier(m_aa_desc) * GetDisplayHeight();
 		}
 		
@@ -184,7 +190,8 @@ namespace mage {
 		 @return		The rounded display refresh rate of this display 
 						configuration.
 		 */
-		[[nodiscard]]U32 GetDisplayRoundedRefreshRate() const noexcept {
+		[[nodiscard]]
+		U32 GetDisplayRoundedRefreshRate() const noexcept {
 			const auto n = static_cast< F32 >(m_display_mode.RefreshRate.Numerator);
 			const auto d = static_cast< F32 >(m_display_mode.RefreshRate.Denominator);
 			return static_cast< U32 >(round(n / d));
@@ -195,7 +202,8 @@ namespace mage {
 
 		 @return		The display refresh rate of this display configuration.
 		 */
-		[[nodiscard]]const DXGI_RATIONAL GetDisplayRefreshRate() const noexcept{
+		[[nodiscard]]
+		const DXGI_RATIONAL GetDisplayRefreshRate() const noexcept{
 			return m_display_mode.RefreshRate;
 		}
 		
@@ -208,7 +216,8 @@ namespace mage {
 
 		 @return		The display format of this display configuration.
 		 */
-		[[nodiscard]]DXGI_FORMAT GetDisplayFormat() const noexcept {
+		[[nodiscard]]
+		DXGI_FORMAT GetDisplayFormat() const noexcept {
 			return m_display_mode.Format;
 		}
 		
@@ -221,7 +230,8 @@ namespace mage {
 
 		 @return		The display mode of this display configuration.
 		 */
-		[[nodiscard]]const DXGI_MODE_DESC &GetDisplayMode() const noexcept {
+		[[nodiscard]]
+		const DXGI_MODE_DESC& GetDisplayMode() const noexcept {
 			return m_display_mode;
 		}
 		
@@ -234,7 +244,7 @@ namespace mage {
 		 @param[in]		display_mode
 						A reference to the display mode.
 		 */
-		void SetDisplayMode(const DXGI_MODE_DESC &display_mode) noexcept {
+		void SetDisplayMode(const DXGI_MODE_DESC& display_mode) noexcept {
 			m_display_mode = display_mode;
 		}
 
@@ -248,7 +258,8 @@ namespace mage {
 		 @return		@c true if this display configuration uses MSAA. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool UsesMSAA() const noexcept {
+		[[nodiscard]]
+		bool UsesMSAA() const noexcept {
 			switch (m_aa_desc) {
 
 			case AADescriptor::MSAA_2x:
@@ -267,7 +278,8 @@ namespace mage {
 		 @return		@c true if this display configuration uses SSAA. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool UsesSSAA() const noexcept {
+		[[nodiscard]]
+		bool UsesSSAA() const noexcept {
 			switch (m_aa_desc) {
 
 			case AADescriptor::SSAA_2x:
@@ -286,7 +298,8 @@ namespace mage {
 		 @return		The Anti-Aliasing descriptor of this display 
 						configuration.
 		 */
-		[[nodiscard]]AADescriptor GetAADescriptor() const noexcept {
+		[[nodiscard]]
+		AADescriptor GetAADescriptor() const noexcept {
 			return m_aa_desc;
 		}
 		
@@ -312,7 +325,8 @@ namespace mage {
 		 @return		@c true if the application should run in windowed mode
 						for this display configuration. @c false otherwise.
 		 */
-		[[nodiscard]]bool IsWindowed() const noexcept {
+		[[nodiscard]]
+		bool IsWindowed() const noexcept {
 			return m_windowed;
 		}
 		
@@ -335,7 +349,8 @@ namespace mage {
 						mode for this display configuration. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool IsFullScreen() const noexcept {
+		[[nodiscard]]
+		bool IsFullScreen() const noexcept {
 			return !m_windowed;
 		}
 
@@ -361,7 +376,8 @@ namespace mage {
 		 @return		@c true if v-sync should be enabled for this display 
 						configuration. @c false otherwise.
 		 */
-		[[nodiscard]]bool IsVSynced() const noexcept {
+		[[nodiscard]]
+		bool IsVSynced() const noexcept {
 			return m_vsync;
 		}
 
@@ -387,7 +403,8 @@ namespace mage {
 		 @return		The gamma value used for gamma correction of this 
 						display configuration.
 		 */
-		[[nodiscard]]F32 GetGamma() const noexcept {
+		[[nodiscard]]
+		F32 GetGamma() const noexcept {
 			return m_gamma;
 		}
 		

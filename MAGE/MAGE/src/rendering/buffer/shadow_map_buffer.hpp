@@ -60,7 +60,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit ShadowMapBuffer(ID3D11Device& device,
-			                     size_t nb_shadow_maps = 1u, 
+			                     size_t nb_shadow_maps, 
 			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     DepthFormat format = DepthFormat::D16);
@@ -158,7 +158,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit ShadowCubeMapBuffer(ID3D11Device& device,
-			                         size_t nb_shadow_cube_maps = 1u,
+			                         size_t nb_shadow_cube_maps,
 			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         DepthFormat format = DepthFormat::D16);

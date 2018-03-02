@@ -28,14 +28,13 @@ namespace mage {
 		/**
 		 Constructs a state manager.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup the rendering states of this state 
 						manager.
 		 */
-		explicit StateManager(ID3D11Device *device);
+		explicit StateManager(ID3D11Device& device);
 
 		/**
 		 Constructs a state manager from the given state manager.
@@ -43,7 +42,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the state manager to copy.
 		 */
-		StateManager(const StateManager &manager) = delete;
+		StateManager(const StateManager& manager) = delete;
 
 		/**
 		 Constructs a state manager by moving the given state manager.
@@ -51,7 +50,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the state manager to move.
 		 */
-		StateManager(StateManager &&manager) noexcept;
+		StateManager(StateManager&& manager) noexcept;
 
 		/**
 		 Destructs this state manager.
@@ -70,7 +69,7 @@ namespace mage {
 		 @return		A reference to the copy of the given state manager 
 						(i.e. this state manager).
 		 */
-		StateManager &operator=(const StateManager &manager) = delete;
+		StateManager& operator=(const StateManager& manager) = delete;
 
 		/**
 		 Moves the given state manager to this state manager.
@@ -80,7 +79,7 @@ namespace mage {
 		 @return		A reference to the moved state manager (i.e. this state 
 						manager).
 		 */
-		StateManager &operator=(StateManager &&manager) = delete;
+		StateManager& operator=(StateManager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -89,14 +88,14 @@ namespace mage {
 		/**
 		 Binds the persistent state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @throws		Exception
 						Failed to bind the persistent state of this state 
 						manager.
 		 */
-		void BindPersistentState(ID3D11DeviceContext *device_context) const noexcept;
+		void BindPersistentState(ID3D11DeviceContext& 
+								 device_context) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Blend States
@@ -106,12 +105,11 @@ namespace mage {
 		/**
 		 Binds the opaque blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindOpaqueBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindOpaqueBlendState(ID3D11DeviceContext& 
+								  device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::Opaque));
@@ -120,12 +118,11 @@ namespace mage {
 		/**
 		 Binds the alpha blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindAlphaBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindAlphaBlendState(ID3D11DeviceContext& 
+								 device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::Alpha));
@@ -134,12 +131,11 @@ namespace mage {
 		/**
 		 Binds the additive blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindAdditiveBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindAdditiveBlendState(ID3D11DeviceContext& 
+									device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::Additive));
@@ -148,12 +144,11 @@ namespace mage {
 		/**
 		 Binds the multiplicative blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindMultiplicativeBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindMultiplicativeBlendState(ID3D11DeviceContext& 
+										  device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::Multiplicative));
@@ -162,12 +157,11 @@ namespace mage {
 		/**
 		 Binds the bi-multiplicative blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindBiMultiplicativeBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindBiMultiplicativeBlendState(ID3D11DeviceContext& 
+											device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::BiMultiplicative));
@@ -176,12 +170,11 @@ namespace mage {
 		/**
 		 Binds the transparency blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindTransparencyBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindTransparencyBlendState(ID3D11DeviceContext& 
+										device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::Transparency));
@@ -190,12 +183,11 @@ namespace mage {
 		/**
 		 Binds the alpha-to-coverage blend state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindAlphaToCoverageBlendState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindAlphaToCoverageBlendState(ID3D11DeviceContext& 
+										   device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, 
 										 Get(BlendStateIndex::AlphaToCoverage));
@@ -211,12 +203,11 @@ namespace mage {
 		/**
 		 Binds the no-depth stencil state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindDepthNoneDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindDepthNoneDepthStencilState(ID3D11DeviceContext& 
+											device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::DepthNone));
@@ -228,12 +219,11 @@ namespace mage {
 		 Binds the less-equal, read-write depth stencil state of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindLessEqualDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindLessEqualDepthReadWriteDepthStencilState(ID3D11DeviceContext& 
+														  device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::LessEqualDepthReadWrite));
@@ -242,12 +232,11 @@ namespace mage {
 		/**
 		 Binds the less-equal, read depth stencil state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindLessEqualDepthReadDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindLessEqualDepthReadDepthStencilState(ID3D11DeviceContext& 
+													 device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::LessEqualDepthRead));
@@ -256,12 +245,11 @@ namespace mage {
 		/**
 		 Binds the less, read-write depth stencil state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindLessDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindLessDepthReadWriteDepthStencilState(ID3D11DeviceContext& 
+													 device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::LessDepthReadWrite));
@@ -270,12 +258,11 @@ namespace mage {
 		/**
 		 Binds the less, read depth stencil state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindLessDepthReadDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindLessDepthReadDepthStencilState(ID3D11DeviceContext& 
+												device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::LessDepthRead));
@@ -287,12 +274,11 @@ namespace mage {
 		 Binds the greater-equal, read-write depth stencil state of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindGreaterEqualDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindGreaterEqualDepthReadWriteDepthStencilState(ID3D11DeviceContext& 
+															 device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::GreaterEqualDepthReadWrite));
@@ -302,12 +288,11 @@ namespace mage {
 		 Binds the greater-equal, read depth stencil state of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindGreaterEqualDepthReadDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindGreaterEqualDepthReadDepthStencilState(ID3D11DeviceContext& 
+														device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::GreaterEqualDepthRead));
@@ -317,12 +302,11 @@ namespace mage {
 		 Binds the greater, read-write depth stencil state of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindGreaterDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindGreaterDepthReadWriteDepthStencilState(ID3D11DeviceContext& 
+														device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::GreaterDepthReadWrite));
@@ -331,12 +315,11 @@ namespace mage {
 		/**
 		 Binds the greater, read depth stencil state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindGreaterDepthReadDepthStencilState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindGreaterDepthReadDepthStencilState(ID3D11DeviceContext& 
+												   device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				Get(DepthStencilStateIndex::GreaterDepthRead));
@@ -354,12 +337,11 @@ namespace mage {
 		/**
 		 Binds the no-culling rasterizer state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindCullNoneRasterizerState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindCullNoneRasterizerState(ID3D11DeviceContext& 
+										 device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context, 
 				Get(RasterizerStateIndex::NoCulling));
@@ -368,12 +350,11 @@ namespace mage {
 		/**
 		 Binds the clockwise-culling rasterizer state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindCullClockwiseRasterizerState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindCullClockwiseRasterizerState(ID3D11DeviceContext& 
+											  device_context) const noexcept {
 			
 			Pipeline::RS::BindState(device_context, 
 				Get(RasterizerStateIndex::ClockwiseCulling));
@@ -383,12 +364,11 @@ namespace mage {
 		 Binds the counter-clockwise-culling rasterizer state of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindCullCounterClockwiseRasterizerState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindCullCounterClockwiseRasterizerState(ID3D11DeviceContext& 
+													 device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
 				Get(RasterizerStateIndex::CounterClockwiseCulling));
@@ -397,12 +377,11 @@ namespace mage {
 		/**
 		 Binds the wireframe rasterizer state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 */
-		void BindWireframeRasterizerState(
-			ID3D11DeviceContext *device_context) const noexcept {
+		void BindWireframeRasterizerState(ID3D11DeviceContext& 
+										  device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
 				Get(RasterizerStateIndex::Wireframe));
@@ -418,194 +397,184 @@ namespace mage {
 		/**
 		 Binds the point sampler state with wrapping of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointWrapSamplerState(ID3D11DeviceContext *device_context, 
+		void BindPointWrapSamplerState(ID3D11DeviceContext& device_context, 
 			                           U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with clamping of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointClampSamplerState(ID3D11DeviceContext *device_context, 
+		void BindPointClampSamplerState(ID3D11DeviceContext& device_context, 
 			                            U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with mirroring of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPointMirrorSamplerState(ID3D11DeviceContext *device_context, 
+		void BindPointMirrorSamplerState(ID3D11DeviceContext& device_context, 
 			                             U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with wrapping of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearWrapSamplerState(ID3D11DeviceContext *device_context, 
+		void BindLinearWrapSamplerState(ID3D11DeviceContext& device_context, 
 			                            U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with clamping of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearClampSamplerState(ID3D11DeviceContext *device_context, 
+		void BindLinearClampSamplerState(ID3D11DeviceContext& device_context, 
 			                             U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with mirroring of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindLinearMirrorSamplerState(ID3D11DeviceContext *device_context, 
+		void BindLinearMirrorSamplerState(ID3D11DeviceContext& device_context, 
 			                              U32 slot) const noexcept;
 
 		/**
 		 Binds the anisotropic sampler state with wrapping of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicWrapSamplerState(ID3D11DeviceContext *device_context, 
+		void BindAnisotropicWrapSamplerState(ID3D11DeviceContext& device_context, 
 			                                 U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with clamping of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicClampSamplerState(ID3D11DeviceContext *device_context, 
+		void BindAnisotropicClampSamplerState(ID3D11DeviceContext& device_context, 
 			                                  U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with mirroring of this state 
 		 manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindAnisotropicMirrorSamplerState(ID3D11DeviceContext *device_context, 
+		void BindAnisotropicMirrorSamplerState(ID3D11DeviceContext& device_context, 
 			                                   U32 slot) const noexcept;
 
 		/**
 		 Binds the PCF sampler state of this state manager.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context
 		 @param[in]		slot
 						The index into the device's zero-based array to set the 
 						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
-		void BindPCFSamplerState(ID3D11DeviceContext *device_context, 
+		void BindPCFSamplerState(ID3D11DeviceContext& device_context, 
 			                     U32 slot) const noexcept;
 		
 		#pragma endregion
@@ -769,9 +738,8 @@ namespace mage {
 		 @return		A pointer to the blend state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]]ID3D11BlendState *
-			Get(BlendStateIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11BlendState* Get(BlendStateIndex index) const noexcept {
 			return m_blend_states[static_cast< size_t >(index)].Get();
 		}
 
@@ -784,7 +752,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the blend state of this state 
 						manager associated to the given index.
 		 */
-		[[nodiscard]]ID3D11BlendState **
+		[[nodiscard]]
+		NotNull< ID3D11BlendState** > 
 			ReleaseAndGetAddressOf(BlendStateIndex index) noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -799,9 +768,8 @@ namespace mage {
 		 @return		A pointer to the depth stencil state of this state 
 						manager associated to the given index.
 		 */
-		[[nodiscard]]ID3D11DepthStencilState *
-			Get(DepthStencilStateIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11DepthStencilState* Get(DepthStencilStateIndex index) const noexcept {
 			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
 		}
 		
@@ -814,9 +782,10 @@ namespace mage {
 		 @return		A pointer to a pointer to the depth stencil state of 
 						this state manager associated to the given index.
 		 */
-		[[nodiscard]]ID3D11DepthStencilState **
+		[[nodiscard]]
+		NotNull< ID3D11DepthStencilState** > 
 			ReleaseAndGetAddressOf(DepthStencilStateIndex index) noexcept {
-
+			
 			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
@@ -829,9 +798,8 @@ namespace mage {
 		 @return		A pointer to the rasterizer state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]]ID3D11RasterizerState *
-			Get(RasterizerStateIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11RasterizerState* Get(RasterizerStateIndex index) const noexcept {
 			return m_rasterizer_states[static_cast< size_t >(index)].Get();
 		}
 		
@@ -844,9 +812,10 @@ namespace mage {
 		 @return		A pointer to a pointer to the rasterizer state of this 
 						state manager associated to the given index.
 		 */
-		[[nodiscard]]ID3D11RasterizerState **
+		[[nodiscard]]
+		NotNull< ID3D11RasterizerState** > 
 			ReleaseAndGetAddressOf(RasterizerStateIndex index) noexcept {
-
+			
 			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
@@ -859,9 +828,8 @@ namespace mage {
 		 @return		A pointer to the sampler state of this state manager 
 						associated to the given index.
 		 */
-		[[nodiscard]]ID3D11SamplerState *
-			Get(SamplerStateIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11SamplerState* Get(SamplerStateIndex index) const noexcept {
 			return m_sampler_states[static_cast< size_t >(index)].Get();
 		}
 		
@@ -874,7 +842,8 @@ namespace mage {
 		 @return		A pointer to a pointer to the sampler state of this 
 						state manager associated to the given index.
 		 */
-		[[nodiscard]]ID3D11SamplerState **
+		[[nodiscard]]
+		NotNull< ID3D11SamplerState** > 
 			ReleaseAndGetAddressOf(SamplerStateIndex index) noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -885,9 +854,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device of this state manager.
+		 A reference to the device of this state manager.
 		 */
-		ID3D11Device * const m_device;
+		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
 		 An array containing pointers to the blend states of this state 

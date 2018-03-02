@@ -6,8 +6,8 @@
 #pragma region
 
 #include "camera\viewport.hpp"
-#include "shader\shader.hpp"
-#include "rendering\aa_descriptor.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -30,12 +30,16 @@ namespace mage {
 		/**
 		 Constructs a AA pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		AAPass();
+		explicit AAPass(ID3D11DeviceContext& device_context, 
+						StateManager& state_manager,
+						ResourceManager& resource_manager);
 
 		/**
 		 Constructs a AA pass from the given AA 
@@ -44,7 +48,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the AA pass to copy.
 		 */
-		AAPass(const AAPass &pass) = delete;
+		AAPass(const AAPass& pass) = delete;
 
 		/**
 		 Constructs a AA pass by moving the given AA 
@@ -53,7 +57,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the AA pass to move.
 		 */
-		AAPass(AAPass &&pass) noexcept;
+		AAPass(AAPass&& pass) noexcept;
 
 		/**
 		 Destructs this AA pass.
@@ -72,7 +76,7 @@ namespace mage {
 		 @return		A reference to the copy of the given AA pass (i.e. 
 						this AA pass).
 		 */
-		AAPass &operator=(const AAPass &pass) = delete;
+		AAPass& operator=(const AAPass& pass) = delete;
 
 		/**
 		 Moves the given AA pass to this AA pass.
@@ -81,7 +85,7 @@ namespace mage {
 						A reference to the AA pass to move.
 		 @return		A reference to the moved AA pass (i.e. this AA pass).
 		 */
-		AAPass &operator=(AAPass &&pass) = delete;
+		AAPass& operator=(AAPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -97,7 +101,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void DispatchPreprocess(const Viewport &viewport, AADescriptor desc);
+		void DispatchPreprocess(const Viewport& viewport, AADescriptor desc);
 
 		/**
 		 Dispatches an AA pass.
@@ -109,48 +113,27 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Dispatch(const Viewport &viewport, AADescriptor desc);
+		void Dispatch(const Viewport& viewport, AADescriptor desc);
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Updates the compute shaders of this AA pass.
-
-		 @pre			The resource manager associated with the current 
-						engine must be loaded.
-		 @param[in]		desc
-						The AA descriptor.
-		 @throws		Exception
-						Failed to update the compute shaders of this AA pass.
-		 */
-		void UpdateCSs(AADescriptor desc);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this AA pass.
+		 A reference to the device context of this AA pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A pointer to the AA preprocess compute shader of this AA pass.
+		 A reference to the state manager of this AA pass.
 		 */
-		ComputeShaderPtr m_preprocess_cs;
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
-		 A pointer to the AA compute shader of this AA pass.
+		 A reference to the resource manager of this AA pass.
 		 */
-		ComputeShaderPtr m_cs;
-
-		/**
-		 The current BRDF of this variable shading pass.
-		 */
-		AADescriptor m_aa_desc;
+		std::reference_wrapper< ResourceManager > m_resource_manager;
 	};
 }

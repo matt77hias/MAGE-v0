@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\pass\bounding_volume_pass.hpp"
-#include "rendering\state_manager.hpp"
 #include "shader\shader_factory.hpp"
 
 // Include HLSL bindings.
@@ -17,15 +16,19 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	BoundingVolumePass::BoundingVolumePass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateLineCubeVS()), 
-		m_ps(CreateLineCubePS()),
-		m_color_buffer(), 
-		m_transform_buffer() {}
+	BoundingVolumePass::BoundingVolumePass(ID3D11Device& device,
+										   ID3D11DeviceContext& device_context,
+										   StateManager& state_manager,
+										   ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_state_manager(state_manager),
+		m_vs(CreateLineCubeVS(resource_manager)),
+		m_ps(CreateLineCubePS(resource_manager)),
+		m_color_buffer(device),
+		m_transform_buffer(device) {}
 
-	BoundingVolumePass::BoundingVolumePass(
-		BoundingVolumePass &&pass) noexcept = default;
+	BoundingVolumePass::BoundingVolumePass(BoundingVolumePass&& 
+										   pass) noexcept = default;
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
@@ -42,17 +45,17 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindWireframeRasterizerState(m_device_context);
+		m_state_manager.get().BindWireframeRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
 	void BoundingVolumePass::BindLightColor() {
@@ -71,7 +74,7 @@ namespace mage {
 		BindColor(color);
 	}
 
-	void BoundingVolumePass::BindColor(const RGBA &color) {
+	void BoundingVolumePass::BindColor(const RGBA& color) {
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);
 		// Bind the color buffer.
@@ -85,7 +88,7 @@ namespace mage {
 		m_transform_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
-	void XM_CALLCONV BoundingVolumePass::Render(const Scene &scene, 
+	void XM_CALLCONV BoundingVolumePass::Render(const Scene& scene, 
 												FXMMATRIX world_to_projection) {
 		// Bind the fixed state.
 		BindFixedState();
@@ -99,7 +102,7 @@ namespace mage {
 				return;
 			}
 			
-			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto& transform           = light.GetOwner()->GetTransform();
 			const auto object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto object_to_projection = object_to_world * world_to_projection;
 
@@ -117,10 +120,10 @@ namespace mage {
 				return;
 			}
 			
-			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto& transform           = light.GetOwner()->GetTransform();
 			const auto object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto object_to_projection = object_to_world * world_to_projection;
-			const auto &aabb                = light.GetAABB();
+			const auto& aabb                = light.GetAABB();
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
@@ -139,10 +142,10 @@ namespace mage {
 				return;
 			}
 			
-			const auto &transform           = model.GetOwner()->GetTransform();
+			const auto& transform           = model.GetOwner()->GetTransform();
 			const auto object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto object_to_projection = object_to_world * world_to_projection;
-			const auto &aabb                = model.GetAABB();
+			const auto& aabb                = model.GetAABB();
 
 			// Apply view frustum culling.
 			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
@@ -153,7 +156,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV BoundingVolumePass::Render(const AABB &aabb, 
+	void XM_CALLCONV BoundingVolumePass::Render(const AABB& aabb, 
 												FXMMATRIX object_to_world) {
 
 		const LocalTransform aabb_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());

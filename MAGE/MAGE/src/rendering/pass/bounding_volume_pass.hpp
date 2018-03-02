@@ -6,8 +6,8 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -31,12 +31,19 @@ namespace mage {
 		/**
 		 Constructs a bounding volume pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		BoundingVolumePass();
+		explicit BoundingVolumePass(ID3D11Device& device, 
+									ID3D11DeviceContext& device_context, 
+									StateManager& state_manager, 
+									ResourceManager& resource_manager);
 
 		/**
 		 Constructs a bounding volume pass from the given bounding volume pass.
@@ -44,7 +51,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the bounding volume pass to copy.
 		 */
-		BoundingVolumePass(const BoundingVolumePass &pass) = delete;
+		BoundingVolumePass(const BoundingVolumePass& pass) = delete;
 
 		/**
 		 Constructs a bounding volume pass by moving the given bounding volume 
@@ -53,7 +60,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the bounding volume pass to move.
 		 */
-		BoundingVolumePass(BoundingVolumePass &&pass) noexcept;
+		BoundingVolumePass(BoundingVolumePass&& pass) noexcept;
 
 		/**
 		 Destructs this bounding volume pass.
@@ -72,7 +79,7 @@ namespace mage {
 		 @return		A reference to the copy of the given bounding volume 
 						pass (i.e. this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(const BoundingVolumePass &pass) = delete;
+		BoundingVolumePass& operator=(const BoundingVolumePass& pass) = delete;
 
 		/**
 		 Moves the given bounding volume pass to this bounding volume pass.
@@ -82,7 +89,7 @@ namespace mage {
 		 @return		A reference to the moved bounding volume pass (i.e. 
 						this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(BoundingVolumePass &&pass) = delete;
+		BoundingVolumePass& operator=(BoundingVolumePass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -98,7 +105,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(const Scene &scene,
+		void XM_CALLCONV Render(const Scene& scene,
 			                    FXMMATRIX world_to_projection);
 
 	private:
@@ -139,7 +146,7 @@ namespace mage {
 						Failed to bind the light color of this bounding 
 						volume pass.
 		 */
-		void BindColor(const RGBA &color);
+		void BindColor(const RGBA& color);
 
 		/**
 		 Binds the transform of this bounding volume pass.
@@ -163,26 +170,31 @@ namespace mage {
 		 @throws		Exception
 						Failed to bind the render the given AABB.
 		 */
-		void XM_CALLCONV Render(const AABB &aabb, FXMMATRIX object_to_world);
+		void XM_CALLCONV Render(const AABB& aabb, FXMMATRIX object_to_world);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this bounding volume pass.
+		 A reference to the device context of this bounding volume pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this bounding volume pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
 		 A pointer to the vertex shader of this bounding volume pass.
 		 */
-		const VertexShaderPtr m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this bounding volume pass.
 		 */
-		const PixelShaderPtr m_ps;
+		PixelShaderPtr m_ps;
 
 		/**
 		 The color buffer of this bounding volume pass.

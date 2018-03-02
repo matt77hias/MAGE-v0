@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -27,14 +28,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs an back buffer pass.
+		 Constructs a back buffer pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		BackBufferPass();
+		explicit BackBufferPass(ID3D11DeviceContext& device_context, 
+								StateManager& state_manager, 
+								ResourceManager& resource_manager);
 
 		/**
 		 Constructs an back buffer pass from the given back buffer pass.
@@ -42,7 +47,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the back buffer pass to copy.
 		 */
-		BackBufferPass(const BackBufferPass &pass) = delete;
+		BackBufferPass(const BackBufferPass& pass) = delete;
 
 		/**
 		 Constructs an back buffer pass by moving the given back buffer pass.
@@ -50,7 +55,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the Image pass to move.
 		 */
-		BackBufferPass(BackBufferPass &&pass) noexcept;
+		BackBufferPass(BackBufferPass&& pass) noexcept;
 
 		/**
 		 Destructs this back buffer pass.
@@ -69,7 +74,7 @@ namespace mage {
 		 @return		A reference to the copy of the given back buffer pass 
 						(i.e. this back buffer pass).
 		 */
-		BackBufferPass &operator=(const BackBufferPass &pass) = delete;
+		BackBufferPass& operator=(const BackBufferPass& pass) = delete;
 
 		/**
 		 Moves the given back buffer pass to this back buffer pass.
@@ -79,7 +84,7 @@ namespace mage {
 		 @return		A reference to the moved back buffer pass (i.e. this 
 						back buffer pass).
 		 */
-		BackBufferPass &operator=(BackBufferPass &&pass) = delete;
+		BackBufferPass& operator=(BackBufferPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -106,18 +111,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this back buffer pass.
+		 A reference to the device context of this back buffer pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this back buffer pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
 		 A pointer to the vertex shader of this back buffer pass.
 		 */
-		const VertexShaderPtr m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this back buffer pass.
 		 */
-		const PixelShaderPtr m_ps;
+		PixelShaderPtr m_ps;
 	};
 }

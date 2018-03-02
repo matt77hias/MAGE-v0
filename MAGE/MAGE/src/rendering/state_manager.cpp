@@ -7,7 +7,6 @@
 
 #include "rendering\state_manager.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -29,19 +28,17 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	StateManager::StateManager(ID3D11Device *device)
+	StateManager::StateManager(ID3D11Device& device)
 		: m_device(device),
 		m_blend_states{}, 
 		m_depth_stencil_states{}, 
 		m_rasterizer_states{}, 
 		m_sampler_states{} {
 
-		Assert(m_device);
-
 		SetupRenderingStates();
 	}
 
-	StateManager::StateManager(StateManager &&manager) noexcept = default;
+	StateManager::StateManager(StateManager&& manager) noexcept = default;
 
 	StateManager::~StateManager() = default;
 
@@ -317,8 +314,8 @@ namespace mage {
 		}
 	}
 
-	void StateManager::BindPersistentState(
-		ID3D11DeviceContext *device_context) const noexcept {
+	void StateManager::BindPersistentState(ID3D11DeviceContext& 
+										   device_context) const noexcept {
 
 		static_assert(SLOT_SAMPLER_POINT_CLAMP        == SLOT_SAMPLER_POINT_WRAP + 1);
 		static_assert(SLOT_SAMPLER_POINT_MIRROR       == SLOT_SAMPLER_POINT_WRAP + 2);
@@ -331,7 +328,7 @@ namespace mage {
 		static_assert(SLOT_SAMPLER_PCF                == SLOT_SAMPLER_POINT_WRAP + 9);
 
 		// Collect the samplers.
-		ID3D11SamplerState * const samplers[] = {
+		ID3D11SamplerState* const samplers[] = {
 			Get(SamplerStateIndex::PointWrap),
 			Get(SamplerStateIndex::PointClamp),
 			Get(SamplerStateIndex::PointMirror),

@@ -6,8 +6,9 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 #include "rendering\buffer\voxel_grid.hpp"
-#include "shader\shader.hpp"
 
 #pragma endregion
 
@@ -31,12 +32,17 @@ namespace mage {
 		/**
 		 Constructs a voxelization pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		VoxelizationPass();
+		explicit VoxelizationPass(ID3D11Device &device, 
+								  ID3D11DeviceContext& device_context, 
+								  StateManager& state_manager, 
+								  ResourceManager& resource_manager);
 
 		/**
 		 Constructs a voxelization pass from the given voxelization 
@@ -45,7 +51,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the voxelization pass to copy.
 		 */
-		VoxelizationPass(const VoxelizationPass &pass) = delete;
+		VoxelizationPass(const VoxelizationPass& pass) = delete;
 
 		/**
 		 Constructs a voxelization pass by moving the given variable 
@@ -54,7 +60,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the voxelization pass to move.
 		 */
-		VoxelizationPass(VoxelizationPass &&pass) noexcept;
+		VoxelizationPass(VoxelizationPass&& pass) noexcept;
 
 		/**
 		 Destructs this voxelization pass.
@@ -73,7 +79,7 @@ namespace mage {
 		 @return		A reference to the copy of the given voxelization 
 						pass (i.e. this voxelization pass).
 		 */
-		VoxelizationPass &operator=(const VoxelizationPass &pass) = delete;
+		VoxelizationPass& operator=(const VoxelizationPass& pass) = delete;
 
 		/**
 		 Moves the given voxelization pass to this voxelization pass.
@@ -83,7 +89,7 @@ namespace mage {
 		 @return		A reference to the moved voxelization pass (i.e. 
 						this voxelization pass).
 		 */
-		VoxelizationPass &operator=(VoxelizationPass &&pass) = delete;
+		VoxelizationPass& operator=(VoxelizationPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -103,7 +109,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(const Scene &scene,
+		void XM_CALLCONV Render(const Scene& scene,
 			                    FXMMATRIX world_to_projection,
 								BRDFType brdf, size_t resolution);
 
@@ -143,7 +149,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(const Scene &scene,
+		void XM_CALLCONV Render(const Scene& scene,
 			                    FXMMATRIX world_to_projection,
 								BRDFType brdf) const;
 
@@ -155,7 +161,7 @@ namespace mage {
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 */
-		void XM_CALLCONV Render(const Model &model,
+		void XM_CALLCONV Render(const Model& model,
 								FXMMATRIX world_to_projection) const noexcept;
 
 		/**
@@ -168,24 +174,34 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this voxelization pass. 
+		 A reference to the device context of this voxelization pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this voxelization pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
+
+		/**
+		 A reference to the resource manager of this voxelization pass.
+		 */
+		std::reference_wrapper< ResourceManager > m_resource_manager;
 
 		/**
 		 A pointer to the vertex shader of this voxelization pass.
 		 */
-		const VertexShaderPtr m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the geometry shader of this voxelization pass.
 		 */
-		const GeometryShaderPtr m_gs;
+		GeometryShaderPtr m_gs;
 
 		/**
 		 A pointer to the compute shader of this voxelization pass.
 		 */
-		const ComputeShaderPtr m_cs;
+		ComputeShaderPtr m_cs;
 
 		/**
 		 The voxel grid of this voxelization pass. 

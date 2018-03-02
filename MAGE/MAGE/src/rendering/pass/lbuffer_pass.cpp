@@ -24,30 +24,36 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LBufferPass::LBufferPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_light_buffer(),
-		m_directional_lights(3u),
-		m_omni_lights(32u),
-		m_spot_lights(32u),
-		m_sm_directional_lights(1u),
-		m_sm_omni_lights(1u),
-		m_sm_spot_lights(1u),
-		m_directional_sms(MakeUnique< ShadowMapBuffer >()),
-		m_omni_sms(MakeUnique< ShadowCubeMapBuffer >()),
-		m_spot_sms(MakeUnique< ShadowMapBuffer >()),
+	LBufferPass::LBufferPass(ID3D11Device &device,
+							 ID3D11DeviceContext& device_context,
+							 StateManager& state_manager,
+							 ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_light_buffer(device),
+		m_directional_lights(device, 3u),
+		m_omni_lights(device, 32u),
+		m_spot_lights(device, 32u),
+		m_sm_directional_lights(device, 1u),
+		m_sm_omni_lights(device, 1u),
+		m_sm_spot_lights(device, 1u),
+		m_directional_sms(MakeUnique< ShadowMapBuffer >(device, 1u)),
+		m_omni_sms(MakeUnique< ShadowCubeMapBuffer >(device, 1u)),
+		m_spot_sms(MakeUnique< ShadowMapBuffer >(device, 1u)),
 		m_directional_light_cameras(),
 		m_omni_light_cameras(),
 		m_spot_light_cameras(), 
-		m_depth_pass(MakeUnique< DepthPass >()) {}
+		m_depth_pass(MakeUnique< DepthPass >(device, 
+											 device_context,
+											 state_manager, 
+											 resource_manager)) {}
 
-	LBufferPass::LBufferPass(LBufferPass &&buffer) noexcept = default;
+	LBufferPass::LBufferPass(LBufferPass&& buffer) noexcept = default;
 	
 	LBufferPass::~LBufferPass() = default;
 
-	void XM_CALLCONV LBufferPass::Render(const Scene &scene, 
+	void XM_CALLCONV LBufferPass::Render(const Scene& scene, 
 										 FXMMATRIX world_to_projection, 
-										 const Fog &fog) {
+										 const Fog& fog) {
 		// Process the lights.
 		ProcessDirectionalLights(scene);
 		ProcessOmniLights(scene, world_to_projection);
@@ -71,7 +77,7 @@ namespace mage {
 		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 1);
 		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 2);
 		
-		ID3D11ShaderResourceView * const srvs[3] = {};
+		ID3D11ShaderResourceView* const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
 		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
@@ -90,7 +96,7 @@ namespace mage {
 		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS                 == SLOT_SRV_DIRECTIONAL_LIGHTS + 7);
 		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS                 == SLOT_SRV_DIRECTIONAL_LIGHTS + 8);
 		
-		ID3D11ShaderResourceView * const srvs[] = {
+		ID3D11ShaderResourceView* const srvs[] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
 			m_spot_lights.Get(),
@@ -118,10 +124,10 @@ namespace mage {
 			static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
-	void LBufferPass::ProcessLightsData(const Scene &scene, const Fog &fog) {
+	void LBufferPass::ProcessLightsData(const Scene& scene, const Fog& fog) {
 		LightBuffer buffer;
 		
-		scene.ForEach< AmbientLight >([&buffer](const AmbientLight &light) {
+		scene.ForEach< AmbientLight >([&buffer](const AmbientLight& light) {
 			if (State::Active != light.GetState()) {
 				return;
 			}
@@ -143,7 +149,7 @@ namespace mage {
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessDirectionalLights(const Scene &scene) {
+	void XM_CALLCONV LBufferPass::ProcessDirectionalLights(const Scene& scene) {
 
 		AlignedVector< DirectionalLightBuffer > lights;
 		lights.reserve(m_directional_lights.size());
@@ -154,13 +160,13 @@ namespace mage {
 
 		// Process the directional lights.
 		scene.ForEach< DirectionalLight >([this, &lights, &sm_lights]
-		(const DirectionalLight &light) {
+		(const DirectionalLight& light) {
 
 			if (State::Active != light.GetState()) {
 				return;
 			}
 
-			const auto &transform = light.GetOwner()->GetTransform();
+			const auto& transform = light.GetOwner()->GetTransform();
 			const auto neg_d      = -XMVector3Normalize(transform.GetWorldAxisZ());
 
 			if (light.UseShadows()) {
@@ -188,7 +194,7 @@ namespace mage {
 		m_sm_directional_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessOmniLights(const Scene &scene, 
+	void XM_CALLCONV LBufferPass::ProcessOmniLights(const Scene& scene, 
 													FXMMATRIX world_to_projection) {
 		AlignedVector< OmniLightBuffer > lights;
 		lights.reserve(m_omni_lights.size());
@@ -199,7 +205,7 @@ namespace mage {
 
 		// Process the omni lights.
 		scene.ForEach< OmniLight >([this, &lights, &sm_lights, world_to_projection]
-		(const OmniLight &light) {
+		(const OmniLight& light) {
 			
 			static const XMMATRIX rotations[6] = {
 				XMMatrixRotationY(-XM_PIDIV2), // Look: +x
@@ -214,7 +220,7 @@ namespace mage {
 				return;
 			}
 
-			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto& transform           = light.GetOwner()->GetTransform();
 			const auto light_to_world       = transform.GetObjectToWorldMatrix();
 			const auto light_to_projection  = light_to_world * world_to_projection;
 
@@ -267,7 +273,7 @@ namespace mage {
 		m_sm_omni_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessSpotLights(const Scene &scene, 
+	void XM_CALLCONV LBufferPass::ProcessSpotLights(const Scene& scene, 
 													FXMMATRIX world_to_projection) {
 		AlignedVector< SpotLightBuffer > lights;
 		lights.reserve(m_spot_lights.size());
@@ -278,13 +284,13 @@ namespace mage {
 
 		// Process the spotlights.
 		scene.ForEach< SpotLight >([this, &lights, &sm_lights, world_to_projection]
-		(const SpotLight &light) {
+		(const SpotLight& light) {
 			
 			if (State::Active != light.GetState()) {
 				return;
 			}
 
-			const auto &transform           = light.GetOwner()->GetTransform();
+			const auto& transform           = light.GetOwner()->GetTransform();
 			const auto light_to_world       = transform.GetObjectToWorldMatrix();
 			const auto light_to_projection  = light_to_world * world_to_projection;
 
@@ -380,7 +386,7 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV LBufferPass::RenderShadowMaps(const Scene &scene) {
+	void XM_CALLCONV LBufferPass::RenderShadowMaps(const Scene& scene) {
 		// Bind the fixed state.
 		m_depth_pass->BindFixedState();
 

@@ -6,7 +6,8 @@
 #pragma region
 
 #include "camera\sky.hpp"
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -29,12 +30,16 @@ namespace mage {
 		/**
 		 Constructs a sky pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		SkyPass();
+		explicit SkyPass(ID3D11DeviceContext& device_context, 
+						 StateManager& state_manager, 
+						 ResourceManager& resource_manager);
 
 		/**
 		 Constructs a sky pass from the given sky pass.
@@ -42,7 +47,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the sky pass to copy.
 		 */
-		SkyPass(const SkyPass &pass) = delete;
+		SkyPass(const SkyPass& pass) = delete;
 
 		/**
 		 Constructs a sky pass by moving the given sky pass.
@@ -50,7 +55,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the sky pass to move.
 		 */
-		SkyPass(SkyPass &&pass) noexcept;
+		SkyPass(SkyPass&& pass) noexcept;
 
 		/**
 		 Destructs this sky pass.
@@ -69,7 +74,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sky pass (i.e. 
 						this sky pass).
 		 */
-		SkyPass &operator=(const SkyPass &pass) = delete;
+		SkyPass& operator=(const SkyPass& pass) = delete;
 
 		/**
 		 Moves the given sky pass to this sky pass.
@@ -78,7 +83,7 @@ namespace mage {
 						A reference to the sky pass to move.
 		 @return		A reference to the moved sky pass (i.e. this sky pass).
 		 */
-		SkyPass &operator=(SkyPass &&pass) = delete;
+		SkyPass& operator=(SkyPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -90,7 +95,7 @@ namespace mage {
 		 @param[in]		sky
 						A reference to the sky.
 		 */
-		void Render(const Sky &sky) const noexcept;
+		void Render(const Sky& sky) const noexcept;
 		
 	private:
 
@@ -108,18 +113,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this sky pass.
+		 A reference to the device context of this sky pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this sky pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
 		 A pointer to the vertex shader of this sky pass.
 		 */
-		const VertexShaderPtr m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this sky pass.
 		 */
-		const PixelShaderPtr m_ps;
+		PixelShaderPtr m_ps;
 	};
 }

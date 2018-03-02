@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\pass\voxel_grid_pass.hpp"
-#include "rendering\state_manager.hpp"
 #include "shader\shader_factory.hpp"
 
 // Include HLSL bindings.
@@ -17,13 +16,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VoxelGridPass::VoxelGridPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateVoxelGridVS()), 
-		m_gs(CreateVoxelGridGS()),
-		m_ps(CreateVoxelGridPS()) {}
+	VoxelGridPass::VoxelGridPass(ID3D11DeviceContext& device_context,
+								 StateManager& state_manager,
+								 ResourceManager& resource_manager)
+		: m_device_context(device_context), 
+		m_state_manager(state_manager), 
+		m_vs(CreateVoxelGridVS(resource_manager)), 
+		m_gs(CreateVoxelGridGS(resource_manager)), 
+		m_ps(CreateVoxelGridPS(resource_manager)) {}
 
-	VoxelGridPass::VoxelGridPass(VoxelGridPass &&pass) noexcept = default;
+	VoxelGridPass::VoxelGridPass(VoxelGridPass&& pass) noexcept = default;
 
 	VoxelGridPass::~VoxelGridPass() = default;
 
@@ -40,26 +42,27 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullNoneRasterizerState(m_device_context);
+		m_state_manager.get().BindCullNoneRasterizerState(m_device_context);
 		//StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
 	void VoxelGridPass::Render(size_t resolution) const noexcept {
 		// Bind the fixed state.
 		BindFixedState();
 
-		const auto nb_voxels 
-			= static_cast< U32 >(resolution * resolution * resolution);
+		const auto nb_voxels = static_cast< U32 >(resolution * 
+												  resolution * 
+												  resolution);
 
 		// Draw the voxel grid.
 		Pipeline::Draw(m_device_context, nb_voxels, 0u);

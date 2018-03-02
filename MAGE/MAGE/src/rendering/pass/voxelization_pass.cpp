@@ -13,29 +13,23 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_VOXEL_GRID_RESOLUTION 1
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VoxelizationPass::VoxelizationPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateVoxelizationVS()),
-		m_gs(CreateVoxelizationGS()),
-		m_cs(CreateVoxelizationCS()),
-		m_voxel_grid(MakeUnique< VoxelGrid >(
-			MAGE_DEFAULT_VOXEL_GRID_RESOLUTION)) {}
+	VoxelizationPass::VoxelizationPass(ID3D11Device &device,
+									   ID3D11DeviceContext& device_context,
+									   StateManager& state_manager,
+									   ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_state_manager(state_manager),
+		m_resource_manager(resource_manager),
+		m_vs(CreateVoxelizationVS(resource_manager)),
+		m_gs(CreateVoxelizationGS(resource_manager)),
+		m_cs(CreateVoxelizationCS(resource_manager)),
+		m_voxel_grid(MakeUnique< VoxelGrid >(device, 1u)) {}
 
-	VoxelizationPass::VoxelizationPass(
-		VoxelizationPass &&pass) noexcept = default;
+	VoxelizationPass::VoxelizationPass(VoxelizationPass&& pass) noexcept = default;
 
 	VoxelizationPass::~VoxelizationPass() = default;
 
@@ -55,14 +49,14 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
-		StateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Scene &scene,
+	void XM_CALLCONV VoxelizationPass::Render(const Scene& scene,
 											  FXMMATRIX world_to_projection,
 											  BRDFType brdf,
 											  size_t resolution) {
@@ -78,7 +72,7 @@ namespace mage {
 		m_voxel_grid->BindEndVoxelizationTexture(m_device_context);
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Scene &scene,
+	void XM_CALLCONV VoxelizationPass::Render(const Scene& scene,
 											  FXMMATRIX world_to_projection, 
 											  BRDFType brdf) const {
 		// Bind the fixed opaque state.
@@ -91,15 +85,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = false;
-			const PixelShaderPtr ps = CreateVoxelizationPS(brdf, tsnm);
+			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
+														   brdf, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -116,15 +111,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = true;
-			const PixelShaderPtr ps = CreateVoxelizationPS(brdf, tsnm);
+			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
+														   brdf, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -137,10 +133,10 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Model &model, 
+	void XM_CALLCONV VoxelizationPass::Render(const Model& model, 
 											  FXMMATRIX world_to_projection) const noexcept {
 
-		const auto &transform           = model.GetOwner()->GetTransform();
+		const auto& transform           = model.GetOwner()->GetTransform();
 		const auto object_to_world      = transform.GetObjectToWorldMatrix();
 		const auto object_to_projection = object_to_world * world_to_projection;
 
@@ -149,7 +145,7 @@ namespace mage {
 			return;
 		}
 
-		const auto &material            = model.GetMaterial();
+		const auto& material            = model.GetMaterial();
 
 		// Bind the constant buffer of the model.
 		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
@@ -157,7 +153,7 @@ namespace mage {
 		// Bind the SRVs of the model.
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
 		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
-		ID3D11ShaderResourceView * const srvs[] = {
+		ID3D11ShaderResourceView* const srvs[] = {
 			material.GetBaseColorSRV(),
 			material.GetMaterialSRV(),
 			material.GetNormalSRV()
@@ -175,8 +171,8 @@ namespace mage {
 		m_cs->BindShader(m_device_context);
 
 		// Dispatch.
-		const auto nb_groups = GetNumberOfGroups(
-			static_cast< U32 >(m_voxel_grid->GetResolution()), GROUP_SIZE_3D_DEFAULT);
+		const auto nb_groups = GetNumberOfGroups(static_cast< U32 >(m_voxel_grid->GetResolution()), 
+												 GROUP_SIZE_3D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups, nb_groups, nb_groups);
 	}
 }

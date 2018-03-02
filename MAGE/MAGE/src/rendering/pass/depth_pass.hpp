@@ -6,9 +6,8 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
-#include "rendering\buffer\camera_buffer.hpp"
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -31,12 +30,19 @@ namespace mage {
 		/**
 		 Constructs a depth pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		DepthPass();
+		explicit DepthPass(ID3D11Device& device, 
+						   ID3D11DeviceContext& device_context, 
+						   StateManager& state_manager, 
+						   ResourceManager& resource_manager);
 
 		/**
 		 Constructs a depth pass from the given depth pass.
@@ -44,7 +50,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the depth pass to copy.
 		 */
-		DepthPass(const DepthPass &pass) = delete;
+		DepthPass(const DepthPass& pass) = delete;
 
 		/**
 		 Constructs a depth pass by moving the given depth pass.
@@ -52,7 +58,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the depth pass to move.
 		 */
-		DepthPass(DepthPass &&pass) noexcept;
+		DepthPass(DepthPass&& pass) noexcept;
 
 		/**
 		 Destructs this depth pass.
@@ -71,7 +77,7 @@ namespace mage {
 		 @return		A reference to the copy of the given depth pass (i.e. 
 						this depth pass).
 		 */
-		DepthPass &operator=(const DepthPass &pass) = delete;
+		DepthPass& operator=(const DepthPass& pass) = delete;
 
 		/**
 		 Moves the given depth pass to this depth pass.
@@ -81,7 +87,7 @@ namespace mage {
 		 @return		A reference to the moved depth pass (i.e. this depth 
 						pass).
 		 */
-		DepthPass &operator=(DepthPass &&pass) = delete;
+		DepthPass& operator=(DepthPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -107,7 +113,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(const Scene &scene,
+		void XM_CALLCONV Render(const Scene& scene,
 								FXMMATRIX world_to_camera,
 								CXMMATRIX camera_to_projection);
 
@@ -123,7 +129,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderOccluders(const Scene &scene,
+		void XM_CALLCONV RenderOccluders(const Scene& scene,
 										 FXMMATRIX world_to_camera,
 										 CXMMATRIX camera_to_projection);
 
@@ -164,7 +170,7 @@ namespace mage {
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 */
-		void XM_CALLCONV RenderOpaque(const Model &model, 
+		void XM_CALLCONV RenderOpaque(const Model& model, 
 									  FXMMATRIX world_to_projection) const noexcept;
 
 		/**
@@ -175,7 +181,7 @@ namespace mage {
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 */
-		void XM_CALLCONV RenderTransparent(const Model &model, 
+		void XM_CALLCONV RenderTransparent(const Model& model, 
 										   FXMMATRIX world_to_projection) const noexcept;
 
 		//---------------------------------------------------------------------
@@ -183,26 +189,31 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this depth pass.
+		 A reference to the device context of this depth pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this depth pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
 		 A pointer to the vertex shader of this depth pass.
 		 */
-		const VertexShaderPtr m_opaque_vs;
+		VertexShaderPtr m_opaque_vs;
 
 		/**
 		 A pointer to the vertex shader for transparent models
 		 of this depth pass.
 		 */
-		const VertexShaderPtr m_transparent_vs;
+		VertexShaderPtr m_transparent_vs;
 
 		/**
 		 A pointer to the pixel shader for transparent models
 		 of this depth pass.
 		 */
-		const PixelShaderPtr m_transparent_ps;
+		PixelShaderPtr m_transparent_ps;
 
 		/**
 		 The camera buffer of this depth pass.

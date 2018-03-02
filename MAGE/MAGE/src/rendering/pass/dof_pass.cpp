@@ -16,15 +16,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DOFPass::DOFPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_cs(CreateDepthOfFieldCS()) {}
+	DOFPass::DOFPass(ID3D11DeviceContext& device_context,
+					 StateManager& state_manager,
+					 ResourceManager& resource_manager)
+		: m_device_context(device_context), 
+		m_state_manager(state_manager), 
+		m_cs(CreateDepthOfFieldCS(resource_manager)) {}
 
-	DOFPass::DOFPass(DOFPass &&pass) noexcept = default;
+	DOFPass::DOFPass(DOFPass&& pass) noexcept = default;
 
 	DOFPass::~DOFPass() = default;
 
-	void DOFPass::Dispatch(const Viewport &viewport) const noexcept {
+	void DOFPass::Dispatch(const Viewport& viewport) const noexcept {
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 

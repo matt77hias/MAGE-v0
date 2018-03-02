@@ -28,22 +28,19 @@ namespace mage {
 		/**
 		 Constructs a output manager.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
-		 @pre			@a swap_chain is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						A reference to the display configuration.
 		  @param[in]	swap_chain
-						A pointer to the swap chain.
+						A reference to the swap chain.
 		 @throws		Exception
 						Failed to setup the rendering outputs of this output 
 						manager.
 		 */
-		explicit OutputManager(ID3D11Device *device, 
-							   DisplayConfiguration *display_configuration,
-							   SwapChain *swap_chain);
+		explicit OutputManager(ID3D11Device& device, 
+							   DisplayConfiguration& display_configuration,
+							   SwapChain& swap_chain);
 
 		/**
 		 Constructs a output manager from the given output manager.
@@ -51,7 +48,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the output manager to copy.
 		 */
-		OutputManager(const OutputManager &manager) = delete;
+		OutputManager(const OutputManager& manager) = delete;
 
 		/**
 		 Constructs a output manager by moving the given output manager.
@@ -59,7 +56,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the output manager to move.
 		 */
-		OutputManager(OutputManager &&manager) noexcept;
+		OutputManager(OutputManager&& manager) noexcept;
 
 		/**
 		 Destructs this output manager.
@@ -78,7 +75,7 @@ namespace mage {
 		 @return		A reference to the copy of the given output manager 
 						(i.e. this output manager).
 		 */
-		OutputManager &operator=(const OutputManager &manager) = delete;
+		OutputManager& operator=(const OutputManager& manager) = delete;
 
 		/**
 		 Moves the given output manager to this output manager.
@@ -88,24 +85,24 @@ namespace mage {
 		 @return		A reference to the moved output manager (i.e. this 
 						output manager).
 		 */
-		OutputManager &operator=(OutputManager &&manager) = delete;
+		OutputManager& operator=(OutputManager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindBegin(ID3D11DeviceContext *device_context) const noexcept;
-		void BindBeginGBuffer(ID3D11DeviceContext *device_context) const noexcept;
-		void BindEndGBuffer(ID3D11DeviceContext *device_context) const noexcept;
-		void BindBeginDeferred(ID3D11DeviceContext *device_context) const noexcept;
-		void BindEndDeferred(ID3D11DeviceContext *device_context) const noexcept;
-		void BindBeginForward(ID3D11DeviceContext *device_context) const noexcept;
-		void BindEndForward(ID3D11DeviceContext *device_context) const noexcept;
-		void BindBeginResolve(ID3D11DeviceContext *device_context) const noexcept;
-		void BindEndResolve(ID3D11DeviceContext *device_context) const noexcept;
-		void BindBeginPostProcessing(ID3D11DeviceContext *device_context) const noexcept;
-		void BindPingPong(ID3D11DeviceContext *device_context) const noexcept;
-		void BindEnd(ID3D11DeviceContext *device_context) const noexcept;
+		void BindBegin(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginGBuffer(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndGBuffer(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginDeferred(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndDeferred(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginForward(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndForward(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginResolve(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndResolve(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginPostProcessing(ID3D11DeviceContext& device_context) const noexcept;
+		void BindPingPong(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEnd(ID3D11DeviceContext& device_context) const noexcept;
 
 	private:
 
@@ -145,37 +142,37 @@ namespace mage {
 			Count                 = 5
 		};
 
-		[[nodiscard]]ID3D11ShaderResourceView *
-			GetSRV(SRVIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11ShaderResourceView *GetSRV(SRVIndex index) const noexcept {
 			return m_srvs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]]ID3D11ShaderResourceView **
+		[[nodiscard]]
+		NotNull< ID3D11ShaderResourceView** > 
 			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
 
 			return m_srvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		[[nodiscard]]ID3D11RenderTargetView *
-			GetRTV(RTVIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11RenderTargetView *GetRTV(RTVIndex index) const noexcept {
 			return m_rtvs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]]ID3D11RenderTargetView **
+		[[nodiscard]]
+		NotNull< ID3D11RenderTargetView** > 
 			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
 
 			return m_rtvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 		
-		[[nodiscard]]ID3D11UnorderedAccessView *
-			GetUAV(UAVIndex index) const noexcept {
-
+		[[nodiscard]]
+		ID3D11UnorderedAccessView *GetUAV(UAVIndex index) const noexcept {
 			return m_uavs[static_cast< size_t >(index)].Get();
 		}
 		
-		[[nodiscard]]ID3D11UnorderedAccessView **
+		[[nodiscard]]
+		NotNull< ID3D11UnorderedAccessView ** > 
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -199,9 +196,9 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		DisplayConfiguration * const m_display_configuration;
-		ID3D11Device * const m_device;
-		SwapChain * const m_swap_chain;
+		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
+		std::reference_wrapper< ID3D11Device > m_device;
+		std::reference_wrapper< SwapChain > m_swap_chain;
 
 		ComPtr< ID3D11ShaderResourceView > m_srvs[
 			static_cast< size_t >(SRVIndex::Count)];

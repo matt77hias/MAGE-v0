@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\pass\deferred_pass.hpp"
-#include "rendering\state_manager.hpp"
 #include "shader\shader_factory.hpp"
 
 // Include HLSL bindings.
@@ -17,15 +16,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DeferredPass::DeferredPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_cs(CreateDeferredCS(BRDFType::Unknown, false)),
-		m_msaa_vs(CreateNearFullscreenTriangleVS()),
-		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown, false)),
-		m_brdf(BRDFType::Unknown), 
-		m_vct(false) {}
+	DeferredPass::DeferredPass(ID3D11DeviceContext& device_context,
+							   StateManager& state_manager,
+							   ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_state_manager(state_manager), 
+		m_resource_manager(resource_manager),
+		m_msaa_vs(CreateNearFullscreenTriangleVS(resource_manager)) {}
 
-	DeferredPass::DeferredPass(DeferredPass &&pass) noexcept = default;
+	DeferredPass::DeferredPass(DeferredPass&& pass) noexcept = default;
 
 	DeferredPass::~DeferredPass() = default;
 
@@ -42,41 +41,33 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_msaa_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-		StateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
-	}
-
-	void DeferredPass::UpdateShaders(BRDFType brdf, bool vct) {
-		if (m_brdf != brdf || m_vct != vct) {
-			m_brdf    = brdf;
-			m_vct     = vct;
-			m_cs      = CreateDeferredCS(brdf, m_vct);
-			m_msaa_ps = CreateDeferredMSAAPS(brdf, m_vct);
-		}
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
 	void DeferredPass::Render(BRDFType brdf, bool vct) {
-		// Update the compute and pixel shader.
-		UpdateShaders(brdf, vct);
 		// Binds the fixed state.
 		BindFixedState();
+
+		const auto ps = CreateDeferredMSAAPS(m_resource_manager, brdf, vct);
+		// PS: Bind the pixel shader.
+		ps->BindShader(m_device_context);
 		
 		// Draw the fullscreen triangle.
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}
 
-	void DeferredPass::Dispatch(const Viewport &viewport, 
+	void DeferredPass::Dispatch(const Viewport& viewport, 
 								BRDFType brdf, bool vct) {
 		
-		// Update the compute and pixel shader.
-		UpdateShaders(brdf, vct);
+		const auto cs = CreateDeferredCS(m_resource_manager, brdf, vct);
 		// CS: Bind the compute shader.
-		m_cs->BindShader(m_device_context);
+		cs->BindShader(m_device_context);
 		
 		// Dispatch the pass.
 		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),

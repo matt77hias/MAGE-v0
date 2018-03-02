@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rendering\pass\sky_pass.hpp"
-#include "rendering\state_manager.hpp"
 #include "shader\shader_factory.hpp"
 
 // Include HLSL bindings.
@@ -17,12 +16,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SkyPass::SkyPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateSkyVS()), 
-		m_ps(CreateSkyPS()) {}
+	SkyPass::SkyPass(ID3D11DeviceContext& device_context,
+					 StateManager& state_manager,
+					 ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_state_manager(state_manager),
+		m_vs(CreateSkyVS(resource_manager)),
+		m_ps(CreateSkyPS(resource_manager)) {}
 
-	SkyPass::SkyPass(SkyPass &&pass) noexcept = default;
+	SkyPass::SkyPass(SkyPass&& pass) noexcept = default;
 
 	SkyPass::~SkyPass() = default;
 
@@ -39,20 +41,20 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessEqualDepthReadDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessEqualDepthReadDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterEqualDepthReadDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterEqualDepthReadDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
-	void SkyPass::Render(const Sky &sky) const noexcept {
+	void SkyPass::Render(const Sky& sky) const noexcept {
 		// Bind the fixed state.
 		BindFixedState();
 

@@ -6,7 +6,8 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -29,12 +30,19 @@ namespace mage {
 		/**
 		 Constructs a sprite pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		SpritePass();
+		explicit SpritePass(ID3D11Device& device, 
+							ID3D11DeviceContext& device_context, 
+							StateManager& state_manager, 
+							ResourceManager& resource_manager);
 
 		/**
 		 Constructs a sprite pass from the given sprite pass.
@@ -42,7 +50,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the sprite pass to copy.
 		 */
-		SpritePass(const SpritePass &pass) = delete;
+		SpritePass(const SpritePass& pass) = delete;
 
 		/**
 		 Constructs a sprite pass by moving the given sprite pass.
@@ -50,7 +58,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the sprite pass to move.
 		 */
-		SpritePass(SpritePass &&pass) noexcept;
+		SpritePass(SpritePass&& pass) noexcept;
 
 		/**
 		 Destructs this sprite pass.
@@ -69,7 +77,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite pass (i.e. 
 						this sprite pass).
 		 */
-		SpritePass &operator=(const SpritePass &pass) = delete;
+		SpritePass& operator=(const SpritePass& pass) = delete;
 
 		/**
 		 Moves the given sprite pass to this sprite pass.
@@ -79,7 +87,7 @@ namespace mage {
 		 @return		A reference to the moved sprite pass (i.e. this sprite 
 						pass).
 		 */
-		SpritePass &operator=(SpritePass &&pass) = delete;
+		SpritePass& operator=(SpritePass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -93,7 +101,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene);
+		void Render(const Scene& scene);
 
 	private:
 
@@ -111,23 +119,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 		
 		/**
-		 A pointer to the device context of this sprite pass.
+		 A reference to the device context of this sprite pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+
+		/**
+		 A reference to the state manager of this sprite pass.
+		 */
+		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
 		 A pointer to the vertex shader of this sprite pass.
 		 */
-		const VertexShaderPtr m_vs;
+		VertexShaderPtr m_vs;
 
 		/**
 		 A pointer to the pixel shader of this sprite pass.
 		 */
-		const PixelShaderPtr m_ps;
+		PixelShaderPtr m_ps;
 
 		/**
-		 A pointer to the sprite batch.
+		 The sprite batch of this sprite pass.
 		 */
-		UniquePtr< SpriteBatch > m_sprite_batch;
+		SpriteBatch m_sprite_batch;
 	};
 }

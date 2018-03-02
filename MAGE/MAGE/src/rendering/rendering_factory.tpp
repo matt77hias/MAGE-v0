@@ -16,11 +16,10 @@ namespace mage {
 
 	template< typename VertexT >
 	[[nodiscard]]
-	HRESULT CreateStaticVertexBuffer(ID3D11Device &device, 
-									 ID3D11Buffer **buffer, 
-									 const VertexT *vertices, 
+	HRESULT CreateStaticVertexBuffer(ID3D11Device& device, 
+									 NotNull< ID3D11Buffer** > buffer, 
+									 const VertexT* vertices, 
 									 size_t nb_vertices) noexcept {
-		Assert(buffer);
 		Assert(vertices);
 		
 		// Create the buffer descriptor.
@@ -42,11 +41,10 @@ namespace mage {
 
 	template< typename VertexT >
 	[[nodiscard]]
-	HRESULT CreateDynamicVertexBuffer(ID3D11Device &device, 
-									  ID3D11Buffer **buffer, 
-									  const VertexT *vertices, 
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device& device, 
+									  NotNull< ID3D11Buffer** > buffer,
+									  const VertexT* vertices, 
 									  size_t nb_vertices) noexcept {
-		Assert(buffer);
 		
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -72,11 +70,10 @@ namespace mage {
 
 	template< typename IndexT >
 	[[nodiscard]]
-	HRESULT CreateStaticIndexBuffer(ID3D11Device &device, 
-									ID3D11Buffer **buffer, 
-									const IndexT *indices, 
+	HRESULT CreateStaticIndexBuffer(ID3D11Device& device, 
+									NotNull< ID3D11Buffer** > buffer,
+									const IndexT* indices, 
 									size_t nb_indices) noexcept {
-		Assert(buffer);
 		Assert(indices);
 		
 		// Create the buffer descriptor.
@@ -98,11 +95,10 @@ namespace mage {
 
 	template< typename DataT >
 	[[nodiscard]]
-	HRESULT CreateStaticConstantBuffer(ID3D11Device &device, 
-									   ID3D11Buffer **buffer, 
-									   const DataT *data, 
+	HRESULT CreateStaticConstantBuffer(ID3D11Device& device, 
+									   NotNull< ID3D11Buffer** > buffer,
+									   const DataT* data, 
 									   size_t count) noexcept {
-		Assert(buffer);
 		Assert(data);
 		
 		// Create the buffer descriptor.
@@ -124,11 +120,10 @@ namespace mage {
 
 	template< typename DataT >
 	[[nodiscard]]
-	HRESULT CreateDynamicConstantBuffer(ID3D11Device &device,
-										ID3D11Buffer **buffer, 
-										const DataT *data, 
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
+										NotNull< ID3D11Buffer** > buffer,
+										const DataT* data, 
 										size_t count) noexcept {
-		Assert(buffer);
 		
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -154,11 +149,10 @@ namespace mage {
 
 	template< typename DataT >
 	[[nodiscard]]
-	HRESULT CreateStaticStructuredBuffer(ID3D11Device &device, 
-										 ID3D11Buffer **buffer, 
-										 const DataT *data, 
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device& device, 
+										 NotNull< ID3D11Buffer** > buffer,
+										 const DataT* data, 
 										 size_t count) noexcept {
-		Assert(buffer);
 		Assert(data);
 		
 		// Create the buffer descriptor.
@@ -182,12 +176,11 @@ namespace mage {
 
 	template< typename DataT >
 	[[nodiscard]]
-	HRESULT CreateDynamicStructuredBuffer(ID3D11Device &device, 
-										  ID3D11Buffer **buffer,
-										  const DataT *data, 
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
+										  NotNull< ID3D11Buffer** > buffer,
+										  const DataT* data, 
 										  size_t count) noexcept {
-		Assert(buffer);
-		
+
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;

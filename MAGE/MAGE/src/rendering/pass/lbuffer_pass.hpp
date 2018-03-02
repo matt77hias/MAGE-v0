@@ -6,7 +6,6 @@
 #pragma region
 
 #include "rendering\pass\depth_pass.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
 #include "rendering\buffer\structured_buffer.hpp"
 #include "rendering\buffer\light_buffer.hpp"
 #include "rendering\buffer\shadow_map_buffer.hpp"
@@ -26,17 +25,32 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		LBufferPass();
-		LBufferPass(const LBufferPass &buffer) = delete;
-		LBufferPass(LBufferPass &&buffer) noexcept;
+		/**
+		 Constructs a LBuffer pass.
+
+		 @param[in]		device
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 */
+		explicit LBufferPass(ID3D11Device& device, 
+							 ID3D11DeviceContext& device_context, 
+							 StateManager& state_manager, 
+							 ResourceManager& resource_manager);
+		LBufferPass(const LBufferPass& buffer) = delete;
+		LBufferPass(LBufferPass&& buffer) noexcept;
 		~LBufferPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		LBufferPass &operator=(const LBufferPass &buffer) = delete;
-		LBufferPass &operator=(LBufferPass &&buffer) = delete;
+		LBufferPass& operator=(const LBufferPass& buffer) = delete;
+		LBufferPass& operator=(LBufferPass&& buffer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -61,9 +75,9 @@ namespace mage {
 			return m_sm_spot_lights.size();
 		}
 
-		void XM_CALLCONV Render(const Scene &scene,
+		void XM_CALLCONV Render(const Scene& scene,
 			                    FXMMATRIX world_to_projection,
-								const Fog &fog);
+								const Fog& fog);
 		
 	private:
 
@@ -74,23 +88,26 @@ namespace mage {
 		void UnbindShadowMaps() const noexcept;
 		void BindLBuffer() const noexcept;
 
-		void ProcessLightsData(const Scene &scene, const Fog &fog);
+		void ProcessLightsData(const Scene& scene, const Fog& fog);
 
-		void XM_CALLCONV ProcessDirectionalLights(const Scene &scene);
-		void XM_CALLCONV ProcessOmniLights(const Scene &scene, 
+		void XM_CALLCONV ProcessDirectionalLights(const Scene& scene);
+		void XM_CALLCONV ProcessOmniLights(const Scene& scene, 
 										   FXMMATRIX world_to_projection);
-		void XM_CALLCONV ProcessSpotLights(const Scene &scene, 
+		void XM_CALLCONV ProcessSpotLights(const Scene& scene, 
 										   FXMMATRIX world_to_projection);
 
 		void SetupShadowMaps();
 
-		void XM_CALLCONV RenderShadowMaps(const Scene &scene);
+		void XM_CALLCONV RenderShadowMaps(const Scene& scene);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ID3D11DeviceContext * const m_device_context;
+		/**
+		 A reference to the device context of this LBuffer pass.
+		 */
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		ConstantBuffer< LightBuffer > m_light_buffer;
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;

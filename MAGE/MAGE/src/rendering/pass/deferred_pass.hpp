@@ -7,7 +7,8 @@
 
 #include "camera\viewport.hpp"
 #include "material\brdf.hpp"
-#include "shader\shader.hpp"
+#include "rendering\state_manager.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -31,12 +32,16 @@ namespace mage {
 		/**
 		 Constructs a deferred pass.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
+		 @param[in]		device_context
+						A reference to the device context.
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 */
-		DeferredPass();
+		explicit DeferredPass(ID3D11DeviceContext& device_context, 
+							  StateManager& state_manager, 
+							  ResourceManager& resource_manager);
 
 		/**
 		 Constructs a deferred pass from the given deferred shading pass.
@@ -44,7 +49,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the deferred pass to copy.
 		 */
-		DeferredPass(const DeferredPass &pass) = delete;
+		DeferredPass(const DeferredPass& pass) = delete;
 
 		/**
 		 Constructs a deferred pass by moving the given deferred pass.
@@ -52,7 +57,7 @@ namespace mage {
 		 @param[in]		pass
 						A reference to the deferred pass to move.
 		 */
-		DeferredPass(DeferredPass &&pass) noexcept;
+		DeferredPass(DeferredPass&& pass) noexcept;
 
 		/**
 		 Destructs this deferred pass.
@@ -71,7 +76,7 @@ namespace mage {
 		 @return		A reference to the copy of the given deferred shading 
 						pass (i.e. this deferred pass).
 		 */
-		DeferredPass &operator=(const DeferredPass &pass) = delete;
+		DeferredPass& operator=(const DeferredPass& pass) = delete;
 
 		/**
 		 Moves the given deferred pass to this deferred pass.
@@ -81,7 +86,7 @@ namespace mage {
 		 @return		A reference to the moved deferred pass (i.e. this 
 						deferred pass).
 		 */
-		DeferredPass &operator=(DeferredPass &&pass) = delete;
+		DeferredPass& operator=(DeferredPass&& pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -113,7 +118,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to dispatch.
 		 */
-		void Dispatch(const Viewport &viewport, BRDFType brdf, bool vct);
+		void Dispatch(const Viewport& viewport, BRDFType brdf, bool vct);
 		
 	private:
 
@@ -125,60 +130,29 @@ namespace mage {
 		 Binds the fixed state of this deferred pass.
 		 */
 		void BindFixedState() const noexcept;
-
-		/**
-		 Updates the compute and pixel shader of this deferred pass for 
-		 the given BRDF.
-
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @param[in]		brdf
-						The BRDF.
-		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
-						otherwise.
-		 @throws		Exception
-						Failed to update the compute shader of this deferred 
-						pass.
-		 @throws		Exception
-						Failed to update the pixel shader of this deferred 
-						pass.
-		 */
-		void UpdateShaders(BRDFType brdf, bool vct);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this deferred pass.
+		 A reference to the device context of this deferred pass.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A pointer to the compute shader of this deferred pass.
+		 A reference to the state manager of this deferred pass.
 		 */
-		ComputeShaderPtr m_cs;
+		std::reference_wrapper< StateManager > m_state_manager;
+
+		/**
+		 A reference to the resource manager of this deferred pass.
+		 */
+		std::reference_wrapper< ResourceManager > m_resource_manager;
 
 		/**
 		 A pointer to the vertex shader of this deferred pass.
 		 */
-		const VertexShaderPtr m_msaa_vs;
-
-		/**
-		 A pointer to the pixel shader of this deferred pass.
-		 */
-		PixelShaderPtr m_msaa_ps;
-		
-		/**
-		 The current BRDF of this deferred pass.
-		 */
-		BRDFType m_brdf;
-
-		/**
-		 A flag indicating whether or not voxel cone tracing should be enabled 
-		 for this deferred pass.
-		 */
-		bool m_vct;
+		VertexShaderPtr m_msaa_vs;
 	};
 }

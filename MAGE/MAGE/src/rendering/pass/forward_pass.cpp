@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\pass\forward_pass.hpp"
-#include "rendering\state_manager.hpp"
+#include "shader\shader_factory.hpp"
 #include "texture\texture_factory.hpp"
 
 // Include HLSL bindings.
@@ -26,13 +26,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ForwardPass::ForwardPass()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateTransformVS()), 
-		m_uv(CreateReferenceTexture()), 
-		m_color_buffer() {}
+	ForwardPass::ForwardPass(ID3D11Device& device,
+							 ID3D11DeviceContext& device_context,
+							 StateManager& state_manager,
+							 ResourceManager& resource_manager)
+		: m_device_context(device_context),
+		m_state_manager(state_manager),
+		m_resource_manager(resource_manager),
+		m_vs(CreateTransformVS(resource_manager)),
+		m_uv(CreateReferenceTexture(resource_manager)),
+		m_color_buffer(device) {}
 
-	ForwardPass::ForwardPass(ForwardPass &&pass) noexcept = default;
+	ForwardPass::ForwardPass(ForwardPass&& pass) noexcept = default;
 
 	ForwardPass::~ForwardPass() = default;
 
@@ -46,15 +51,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
 	void ForwardPass::BindFixedTransparentState() const noexcept {
@@ -67,15 +72,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindTransparencyBlendState(m_device_context);
+		m_state_manager.get().BindTransparencyBlendState(m_device_context);
 	}
 
 	void ForwardPass::BindFixedWireframeState() const noexcept {
@@ -88,25 +93,25 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		StateManager::Get()->BindWireframeRasterizerState(m_device_context);
+		m_state_manager.get().BindWireframeRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		StateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		StateManager::Get()->BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().BindOpaqueBlendState(m_device_context);
 	}
 
-	void ForwardPass::BindColor(const RGBA &color) {
+	void ForwardPass::BindColor(const RGBA& color) {
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);
 		// Bind the color buffer.
 		m_color_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_COLOR);
 	}
 
-	void XM_CALLCONV ForwardPass::Render(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::Render(const Scene& scene, 
 										 FXMMATRIX world_to_projection, 
 										 BRDFType brdf, bool vct) const {
 		// Bind the fixed opaque state.
@@ -118,15 +123,16 @@ namespace mage {
 		// All emissive models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateForwardEmissivePS(transparency);
+			const PixelShaderPtr ps = CreateForwardEmissivePS(m_resource_manager, 
+															  transparency);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| material.InteractsWithLight()
@@ -142,15 +148,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = false;
-			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
+			const PixelShaderPtr ps = CreateForwardPS(m_resource_manager, 
+													  brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -167,15 +174,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = true;
-			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
+			const PixelShaderPtr ps = CreateForwardPS(m_resource_manager, 
+													  brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -188,8 +196,8 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderSolid(const Scene &scene,
-												FXMMATRIX world_to_projection) const {
+	void XM_CALLCONV ForwardPass::RenderSolid(const Scene& scene, 
+											  FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
 
@@ -197,13 +205,13 @@ namespace mage {
 		// All models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateForwardSolidPS();
+			const PixelShaderPtr ps = CreateForwardSolidPS(m_resource_manager);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -212,7 +220,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderGBuffer(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::RenderGBuffer(const Scene& scene, 
 												FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
@@ -222,15 +230,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = false;
-			const PixelShaderPtr ps = CreateGBufferPS(tsnm);
+			const PixelShaderPtr ps = CreateGBufferPS(m_resource_manager, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -247,15 +255,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = true;
-			const PixelShaderPtr ps = CreateGBufferPS(tsnm);
+			const PixelShaderPtr ps = CreateGBufferPS(m_resource_manager, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -268,7 +276,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderEmissive(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::RenderEmissive(const Scene& scene, 
 												 FXMMATRIX world_to_projection) const {
 		constexpr bool transparency = false;
 
@@ -279,15 +287,16 @@ namespace mage {
 		// All emissive models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateForwardEmissivePS(transparency);
+			const PixelShaderPtr ps = CreateForwardEmissivePS(m_resource_manager, 
+															  transparency);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| material.InteractsWithLight()
@@ -299,7 +308,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderTransparent(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::RenderTransparent(const Scene& scene, 
 													FXMMATRIX world_to_projection, 
 													BRDFType brdf, 
 													bool vct) const {
@@ -312,15 +321,16 @@ namespace mage {
 		// All transparent emissive models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateForwardEmissivePS(transparency);
+			const PixelShaderPtr ps = CreateForwardEmissivePS(m_resource_manager, 
+															  transparency);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| material.InteractsWithLight()
@@ -337,15 +347,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = false;
-			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
+			const PixelShaderPtr ps = CreateForwardPS(m_resource_manager, 
+													  brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -363,15 +374,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = true;
-			const PixelShaderPtr ps = CreateForwardPS(brdf, transparency, vct, tsnm);
+			const PixelShaderPtr ps = CreateForwardPS(m_resource_manager, 
+													  brdf, transparency, vct, tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 
-			const auto &material = model.GetMaterial();
+			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
 				|| !material.InteractsWithLight()
@@ -385,7 +397,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderFalseColor(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::RenderFalseColor(const Scene& scene, 
 												   FXMMATRIX world_to_projection, 
 												   FalseColor false_color) const {
 		// Bind the fixed opaque state.
@@ -399,13 +411,14 @@ namespace mage {
 		// All models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateFalseColorPS(false_color);
+			const PixelShaderPtr ps = CreateFalseColorPS(m_resource_manager, 
+														 false_color);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -414,7 +427,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderWireframe(const Scene &scene, 
+	void XM_CALLCONV ForwardPass::RenderWireframe(const Scene& scene, 
 												  FXMMATRIX world_to_projection) {
 		// Bind the fixed opaque state.
 		BindFixedWireframeState();
@@ -427,13 +440,14 @@ namespace mage {
 		// All models.
 		//---------------------------------------------------------------------
 		{
-			const PixelShaderPtr ps = CreateFalseColorPS(FalseColor::ConstantColor);
+			const PixelShaderPtr ps = CreateFalseColorPS(m_resource_manager, 
+														 FalseColor::ConstantColor);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model &model) {
+		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -442,10 +456,10 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::Render(const Model &model, 
+	void XM_CALLCONV ForwardPass::Render(const Model& model, 
 										 FXMMATRIX world_to_projection) const noexcept {
 
-		const auto &transform           = model.GetOwner()->GetTransform();
+		const auto& transform           = model.GetOwner()->GetTransform();
 		const auto object_to_world      = transform.GetObjectToWorldMatrix();
 		const auto object_to_projection = object_to_world * world_to_projection;
 
@@ -454,7 +468,7 @@ namespace mage {
 			return;
 		}
 
-		const auto &material            = model.GetMaterial();
+		const auto& material            = model.GetMaterial();
 
 		// Bind the constant buffer of the model.
 		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
@@ -462,7 +476,7 @@ namespace mage {
 		// Bind the SRVs of the model.
 		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
 		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
-		ID3D11ShaderResourceView * const srvs[] = {
+		ID3D11ShaderResourceView* const srvs[] = {
 			material.GetBaseColorSRV(),
 			material.GetMaterialSRV(),
 			material.GetNormalSRV()

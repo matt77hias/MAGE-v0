@@ -7,7 +7,7 @@ namespace mage {
 
 	template< typename CallerT >
 	[[nodiscard]]
-	inline NotNull< CallerT * > GetWindowCaller(NotNull< HWND > window,
+	inline NotNull< CallerT* > GetWindowCaller(NotNull< HWND > window,
 												UINT message,
 												[[maybe_unused]] WPARAM wParam,
 												LPARAM lParam) noexcept {
@@ -16,12 +16,12 @@ namespace mage {
 			// 1. A handle to the window and, indirectly, the class to which 
 			// the window belongs.
 			// 2. Retrieves the user data associated with the window.
-			return reinterpret_cast< CallerT * >(
-				GetWindowLongPtr(window, GWLP_USERDATA));
+			return reinterpret_cast< CallerT* >(GetWindowLongPtr(window, 
+																 GWLP_USERDATA));
 		}
 
-		const auto caller = reinterpret_cast< CallerT * >(
-			                reinterpret_cast< CREATESTRUCT * >(lParam)->lpCreateParams);
+		const auto caller = reinterpret_cast< CallerT* >(
+			                reinterpret_cast< CREATESTRUCT* >(lParam)->lpCreateParams);
 
 		// Changes an attribute of the specified window.
 		// 1. A handle to the window and, indirectly, the class to which the 
@@ -37,7 +37,7 @@ namespace mage {
 
 	template< typename CallerT >
 	[[nodiscard]]
-	inline NotNull< CallerT * > GetDialogCaller(NotNull< HWND > dialog,
+	inline NotNull< CallerT* > GetDialogCaller(NotNull< HWND > dialog,
 												UINT message,
 												[[maybe_unused]] WPARAM wParam,
 												LPARAM lParam) noexcept {
@@ -46,11 +46,11 @@ namespace mage {
 			// 1. A handle to the window and, indirectly, the class to which  
 			// the window belongs.
 			// 2. Retrieves the user data associated with the window.
-			return reinterpret_cast< CallerT * >(
-				GetWindowLongPtr(dialog, GWLP_USERDATA));
+			return reinterpret_cast< CallerT* >(GetWindowLongPtr(dialog, 
+																 GWLP_USERDATA));
 		}
 
-		const auto caller = reinterpret_cast< CallerT * >(lParam);
+		const auto caller = reinterpret_cast< CallerT* >(lParam);
 
 		// Changes an attribute of the specified window.
 		// 1. A handle to the window and, indirectly, the class to which the 

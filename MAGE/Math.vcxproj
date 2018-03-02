@@ -41,9 +41,6 @@
     <ClInclude Include="Math\src\transform\sprite_transform.hpp" />
     <ClInclude Include="Math\src\transform\texture_transform.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B6FAB106-B50E-4340-9458-146E624420DF}</ProjectGuid>

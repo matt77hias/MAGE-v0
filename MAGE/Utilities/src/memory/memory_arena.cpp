@@ -103,7 +103,7 @@ namespace mage {
 			m_current_block_pos = 0;
 		}
 
-		const auto ptr = (void *)(m_current_block.second + m_current_block_pos);
+		const auto ptr = (void*)(m_current_block.second + m_current_block_pos);
 		
 		m_current_block_pos += size;
 		

@@ -488,7 +488,7 @@ namespace mage {
 		
 		Assert(str || context);
 		
-		const auto * const token = strtok_s(str, delimiters, context);
+		const auto* const token = strtok_s(str, delimiters, context);
 		return StringTo< DataT >(token, result);
 	}
 
@@ -498,7 +498,7 @@ namespace mage {
 
 		Assert(str || context);
 
-		const auto * const token = strtok_s(str, delimiters, context);
+		const auto* const token = strtok_s(str, delimiters, context);
 		if (!token) {
 			return TokenResult::None;
 		}

@@ -28,7 +28,7 @@ namespace mage {
 
 	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]
-	bool ResourcePool< KeyT, ResourceT >::Contains(const KeyT &key) noexcept {
+	bool ResourcePool< KeyT, ResourceT >::Contains(const KeyT& key) noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		if (const auto it = m_resource_map.find(key); 
@@ -49,7 +49,7 @@ namespace mage {
 	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]
 	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >
-		::Get(const KeyT &key) noexcept {
+		::Get(const KeyT& key) noexcept {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
 

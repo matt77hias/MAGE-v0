@@ -394,7 +394,7 @@ namespace mage {
 			 @param[in]		memory_arena
 							A reference to the memory arena.
 			 */
-			explicit Allocator(NotNull< MemoryArena * > memory_arena) noexcept
+			explicit Allocator(NotNull< MemoryArena* > memory_arena) noexcept
 				: m_memory_arena(std::move(memory_arena)) {}
 
 			//-----------------------------------------------------------------
@@ -404,7 +404,7 @@ namespace mage {
 			/**
 			 A pointer to the memory arena of this allocator.
 			 */
-			NotNull< MemoryArena * > m_memory_arena;
+			NotNull< MemoryArena* > m_memory_arena;
 		};
 
 		/**

@@ -8,7 +8,7 @@ namespace mage {
 	template< typename DataT >
 	DataT* MemoryArena::AllocData(size_t count, bool initialization) {
 		// Allocation
-		const auto ptr = static_cast< DataT * >(Alloc(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT* >(Alloc(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.

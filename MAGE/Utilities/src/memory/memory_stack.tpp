@@ -9,7 +9,7 @@ namespace mage {
 	DataT* SingleEndedMemoryStack::AllocData(size_t count, 
 											 bool initialization) noexcept {
 		// Allocation
-		const auto ptr = static_cast< DataT * >(Alloc(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT* >(Alloc(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.
@@ -30,7 +30,7 @@ namespace mage {
 	DataT* DoubleEndedMemoryStack::AllocDataLow(size_t count, 
 												bool initialization) noexcept {
 		// Allocation
-		const auto ptr = static_cast< DataT * >(AllocLow(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT* >(AllocLow(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.
@@ -51,7 +51,7 @@ namespace mage {
 	DataT* DoubleEndedMemoryStack::AllocDataHigh(size_t count, 
 												 bool initialization) noexcept {
 		// Allocation
-		const auto ptr = static_cast< DataT * >(AllocHigh(count * sizeof(DataT)));
+		const auto ptr = static_cast< DataT* >(AllocHigh(count * sizeof(DataT)));
 
 		if (!ptr) {
 			// The allocation failed.

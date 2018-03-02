@@ -418,7 +418,7 @@ namespace mage {
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit Allocator(NotNull< SingleEndedMemoryStack * > 
+			explicit Allocator(NotNull< SingleEndedMemoryStack* > 
 							   memory_stack) noexcept
 				: m_memory_stack(std::move(memory_stack)) {}
 
@@ -429,7 +429,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this allocator.
 			 */
-			NotNull< SingleEndedMemoryStack * > m_memory_stack;
+			NotNull< SingleEndedMemoryStack* > m_memory_stack;
 		};
 
 		/**
@@ -960,7 +960,7 @@ namespace mage {
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit LowAllocator(NotNull< DoubleEndedMemoryStack * > 
+			explicit LowAllocator(NotNull< DoubleEndedMemoryStack* > 
 								  memory_stack) noexcept
 				: m_memory_stack(std::move(memory_stack)) {}
 
@@ -971,7 +971,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this low allocator.
 			 */
-			NotNull< DoubleEndedMemoryStack * > m_memory_stack;
+			NotNull< DoubleEndedMemoryStack* > m_memory_stack;
 		};
 
 		/**
@@ -1189,7 +1189,7 @@ namespace mage {
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit HighAllocator(NotNull< DoubleEndedMemoryStack * > 
+			explicit HighAllocator(NotNull< DoubleEndedMemoryStack* > 
 								   memory_stack) noexcept
 				: m_memory_stack(std::move(memory_stack)) {}
 
@@ -1200,7 +1200,7 @@ namespace mage {
 			/**
 			 A pointer to the memory stack of this high allocator.
 			 */
-			NotNull< DoubleEndedMemoryStack * > m_memory_stack;
+			NotNull< DoubleEndedMemoryStack* > m_memory_stack;
 		};
 
 		/**

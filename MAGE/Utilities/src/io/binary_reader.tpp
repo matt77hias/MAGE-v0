@@ -50,6 +50,6 @@ namespace mage {
 					  static_cast< U64 >(count));
 
 		m_pos = new_pos;
-		return reinterpret_cast< const DataT * >(old_pos);
+		return reinterpret_cast< const DataT* >(old_pos);
 	}
 }

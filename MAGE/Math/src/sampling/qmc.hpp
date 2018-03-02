@@ -43,12 +43,13 @@ namespace mage {
 		return RadicalInverse(index, 2.0f);
 	}
 
-	inline void Halton(size_t index,  F32 *sample, size_t nb_dims) noexcept {
-		Assert(nb_dims < std::size(g_primes));
+	inline void Halton(size_t index, gsl::span< F32 > sample) noexcept {
+		const size_t nb_dims = sample.size();
+		Assert(nb_dims <= std::size(g_primes));
 
-		for (size_t i = 0; i < nb_dims; ++i, ++sample) {
-			*sample = RadicalInverse(index, 
-									 static_cast< F32 >(g_primes[i]));
+		size_t i = 0;
+		for (auto& dim : sample) {
+			dim = RadicalInverse(index, static_cast< F32 >(g_primes[i++]));
 		}
 	}
 
@@ -79,18 +80,19 @@ namespace mage {
 		return F32x4(x, y, z, w);
 	}
 
-	inline void Hammersley(size_t index, F32 *sample, 
-						   size_t nb_dims, size_t nb_samples) noexcept {
+	inline void Hammersley(size_t index, gsl::span< F32 > sample, 
+						   size_t nb_samples) noexcept {
 		
 		Assert(index < nb_samples);
-		Assert(nb_dims <= std::size(g_primes));
 		
-		*sample = index / static_cast< F32 >(nb_samples);
-		++sample;
-
-		for (size_t i = 0; i < nb_dims - 1; ++i, ++sample) {
-			*sample = RadicalInverse(index, 
-									 static_cast< F32 >(g_primes[i]));
+		const size_t nb_dims = sample.size();
+		Assert(0 < nb_dims && nb_dims - 1 <= std::size(g_primes));
+		
+		*sample.begin() = index / static_cast< F32 >(nb_samples);
+		
+		size_t i = 0;
+		for (auto it = sample.begin() + 1; it != sample.end(); ++it) {
+			*it = RadicalInverse(index, static_cast< F32 >(g_primes[i++]));
 		}
 	}
 

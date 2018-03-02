@@ -80,48 +80,48 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x2 &src) noexcept {
-		return XMLoadFloat2(reinterpret_cast< const XMFLOAT2 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x2& src) noexcept {
+		return XMLoadFloat2(reinterpret_cast< const XMFLOAT2* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x3 &src) noexcept {
-		return XMLoadFloat3(reinterpret_cast< const XMFLOAT3 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x3& src) noexcept {
+		return XMLoadFloat3(reinterpret_cast< const XMFLOAT3* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x4 &src) noexcept {
-		return XMLoadFloat4(reinterpret_cast< const XMFLOAT4 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x4& src) noexcept {
+		return XMLoadFloat4(reinterpret_cast< const XMFLOAT4* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x2A &src) noexcept {
-		return XMLoadFloat2A(reinterpret_cast< const XMFLOAT2A * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x2A& src) noexcept {
+		return XMLoadFloat2A(reinterpret_cast< const XMFLOAT2A* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x3A &src) noexcept {
-		return XMLoadFloat3A(reinterpret_cast< const XMFLOAT3A * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x3A& src) noexcept {
+		return XMLoadFloat3A(reinterpret_cast< const XMFLOAT3A* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x4A &src) noexcept {
-		return XMLoadFloat4A(reinterpret_cast< const XMFLOAT4A * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const F32x4A& src) noexcept {
+		return XMLoadFloat4A(reinterpret_cast< const XMFLOAT4A* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x2 &src) noexcept {
-		return XMLoadSInt2(reinterpret_cast< const XMINT2 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x2& src) noexcept {
+		return XMLoadSInt2(reinterpret_cast< const XMINT2* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x3 &src) noexcept {
-		return XMLoadSInt3(reinterpret_cast< const XMINT3 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x3& src) noexcept {
+		return XMLoadSInt3(reinterpret_cast< const XMINT3* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x4 &src) noexcept {
-		return XMLoadSInt4(reinterpret_cast< const XMINT4 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const S32x4& src) noexcept {
+		return XMLoadSInt4(reinterpret_cast< const XMINT4* >(&src));
 	}
 
 	[[nodiscard]]
@@ -130,23 +130,23 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x2 &src) noexcept {
-		return XMLoadUInt2(reinterpret_cast< const XMUINT2 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x2& src) noexcept {
+		return XMLoadUInt2(reinterpret_cast< const XMUINT2* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x3 &src) noexcept {
-		return XMLoadUInt3(reinterpret_cast< const XMUINT3 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x3& src) noexcept {
+		return XMLoadUInt3(reinterpret_cast< const XMUINT3* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x4 &src) noexcept {
-		return XMLoadUInt4(reinterpret_cast< const XMUINT4 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const U32x4& src) noexcept {
+		return XMLoadUInt4(reinterpret_cast< const XMUINT4* >(&src));
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV XMLoad(const RECT &src) noexcept {
-		const auto v = XMLoadInt4(reinterpret_cast< const U32 * >(&src));
+	inline const XMVECTOR XM_CALLCONV XMLoad(const RECT& src) noexcept {
+		const auto v = XMLoadInt4(reinterpret_cast< const U32* >(&src));
 		return XMConvertVectorIntToFloat(v, 0);
 	}
 
@@ -173,7 +173,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x2 dst;
-		XMStoreFloat2(reinterpret_cast< XMFLOAT2 * >(&dst), src);
+		XMStoreFloat2(reinterpret_cast< XMFLOAT2* >(&dst), src);
 		return dst;
 	}
 
@@ -181,7 +181,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x3 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x3 dst;
-		XMStoreFloat3(reinterpret_cast< XMFLOAT3 * >(&dst), src);
+		XMStoreFloat3(reinterpret_cast< XMFLOAT3* >(&dst), src);
 		return dst;
 	}
 
@@ -189,7 +189,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x4 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x4 dst;
-		XMStoreFloat4(reinterpret_cast< XMFLOAT4 * >(&dst), src);
+		XMStoreFloat4(reinterpret_cast< XMFLOAT4* >(&dst), src);
 		return dst;
 	}
 
@@ -197,7 +197,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2A XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x2A dst;
-		XMStoreFloat2A(reinterpret_cast< XMFLOAT2A * >(&dst), src);
+		XMStoreFloat2A(reinterpret_cast< XMFLOAT2A* >(&dst), src);
 		return dst;
 	}
 
@@ -205,7 +205,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x3A XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x3A dst;
-		XMStoreFloat3A(reinterpret_cast< XMFLOAT3A * >(&dst), src);
+		XMStoreFloat3A(reinterpret_cast< XMFLOAT3A* >(&dst), src);
 		return dst;
 	}
 
@@ -213,7 +213,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x4A XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		F32x4A dst;
-		XMStoreFloat4A(reinterpret_cast< XMFLOAT4A * >(&dst), src);
+		XMStoreFloat4A(reinterpret_cast< XMFLOAT4A* >(&dst), src);
 		return dst;
 	}
 
@@ -221,7 +221,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const S32x2 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		S32x2 dst;
-		XMStoreSInt2(reinterpret_cast< XMINT2 * >(&dst), src);
+		XMStoreSInt2(reinterpret_cast< XMINT2* >(&dst), src);
 		return dst;
 	}
 
@@ -229,7 +229,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const S32x3 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		S32x3 dst;
-		XMStoreSInt3(reinterpret_cast< XMINT3 * >(&dst), src);
+		XMStoreSInt3(reinterpret_cast< XMINT3* >(&dst), src);
 		return dst;
 	}
 
@@ -237,7 +237,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const S32x4 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		S32x4 dst;
-		XMStoreSInt4(reinterpret_cast< XMINT4 * >(&dst), src);
+		XMStoreSInt4(reinterpret_cast< XMINT4* >(&dst), src);
 		return dst;
 	}
 
@@ -253,7 +253,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const U32x2 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		U32x2 dst;
-		XMStoreUInt2(reinterpret_cast< XMUINT2 * >(&dst), src);
+		XMStoreUInt2(reinterpret_cast< XMUINT2* >(&dst), src);
 		return dst;
 	}
 
@@ -261,7 +261,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const U32x3 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		U32x3 dst;
-		XMStoreUInt3(reinterpret_cast< XMUINT3 * >(&dst), src);
+		XMStoreUInt3(reinterpret_cast< XMUINT3* >(&dst), src);
 		return dst;
 	}
 
@@ -269,7 +269,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const U32x4 XM_CALLCONV XMStore(FXMVECTOR src) noexcept {
 		U32x4 dst;
-		XMStoreUInt4(reinterpret_cast< XMUINT4 * >(&dst), src);
+		XMStoreUInt4(reinterpret_cast< XMUINT4* >(&dst), src);
 		return dst;
 	}
 

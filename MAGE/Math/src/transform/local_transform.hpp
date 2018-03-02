@@ -78,7 +78,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the local transform to copy.
 		 */
-		LocalTransform(const LocalTransform &transform) noexcept = default;
+		LocalTransform(const LocalTransform& transform) noexcept = default;
 
 		/**
 		 Constructs a local transform by moving the given local transform.
@@ -86,7 +86,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the local transform to move.
 		 */
-		LocalTransform(LocalTransform &&transform) noexcept = default;
+		LocalTransform(LocalTransform&& transform) noexcept = default;
 
 		/**
 		 Destructs this local transform.
@@ -105,7 +105,7 @@ namespace mage {
 		 @return		A reference to the copy of the given local transform 
 						(i.e. this local transform).
 		 */
-		LocalTransform &operator=(const LocalTransform &transform) = default;
+		LocalTransform& operator=(const LocalTransform& transform) = default;
 
 		/**
 		 Moves the given local transform to this local transform.
@@ -115,7 +115,7 @@ namespace mage {
 		 @return		A reference to the moved local transform (i.e. this 
 						local transform).
 		 */
-		LocalTransform &operator=(LocalTransform &&transform) = default;
+		LocalTransform& operator=(LocalTransform&& transform) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
@@ -249,7 +249,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const F32x3 &translation) noexcept {
+		void AddTranslation(const F32x3& translation) noexcept {
 			AddTranslation(translation.m_x, translation.m_y, translation.m_z);
 		}
 		
@@ -505,7 +505,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
-		void AddRotation(const F32x3 &rotation) noexcept {
+		void AddRotation(const F32x3& rotation) noexcept {
 			AddRotation(rotation.m_x, rotation.m_y, rotation.m_z);
 		}
 		
@@ -628,7 +628,7 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(const F32x3 &rotation, 
+		void AddAndClampRotation(const F32x3& rotation, 
 			                     F32 min_angle, 
 			                     F32 max_angle) noexcept {
 
@@ -921,7 +921,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const F32x3 &scale) noexcept {
+		void AddScale(const F32x3& scale) noexcept {
 			AddScale(scale.m_x, scale.m_y, scale.m_z);
 		}
 

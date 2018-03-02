@@ -38,9 +38,9 @@ namespace mage {
 			Seed(seed);
 		}
 		
-		RNG(const RNG &rng) = default;
+		RNG(const RNG& rng) = default;
 		
-		RNG(RNG &&rng) = default;
+		RNG(RNG&& rng) = default;
 		
 		~RNG() = default;
 
@@ -48,9 +48,9 @@ namespace mage {
 		// Assignment Operators
 		//-------------------------------------------------------------------------
 
-		RNG &operator=(const RNG &rng) = delete;
+		RNG& operator=(const RNG& rng) = delete;
 		
-		RNG &operator=(RNG &&rng) = delete;
+		RNG& operator=(RNG&& rng) = delete;
 
 		//-------------------------------------------------------------------------
 		// Member Methods

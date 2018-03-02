@@ -54,7 +54,7 @@ namespace mage {
 						A reference to the set of UV texture coordinates to 
 						copy.
 		 */
-		constexpr UV(const UV &uv) noexcept = default;
+		constexpr UV(const UV& uv) noexcept = default;
 		
 		/**
 		 Constructs a set of UV texture coordinates by moving the given set of 
@@ -64,7 +64,7 @@ namespace mage {
 						A reference to the set of UV texture coordinates to 
 						move.
 		 */
-		constexpr UV(UV &&uv) noexcept = default;
+		constexpr UV(UV&& uv) noexcept = default;
 		
 		/**
 		 Constructs a set of UV texture coordinates from the given vector.
@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A reference to the copy of the given set of UV texture 
 						coordinates (i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV &operator=(const UV &uv) noexcept = default;
+		constexpr UV& operator=(const UV& uv) noexcept = default;
 		
 		/**
 		 Moves the given set of UV texture coordinates to this set of texture 
@@ -106,7 +106,7 @@ namespace mage {
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV &operator=(UV &&uv) noexcept = default;
+		constexpr UV& operator=(UV&& uv) noexcept = default;
 	};
 
 	static_assert(sizeof(UV) == sizeof(F32x2));
@@ -153,7 +153,7 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point to copy.
 		 */
-		constexpr Point3(const Point3 &point) noexcept = default;
+		constexpr Point3(const Point3& point) noexcept = default;
 		
 		/**
 		 Constructs a point by moving the given point.
@@ -161,7 +161,7 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point to move.
 		 */
-		constexpr Point3(Point3 &&point) noexcept = default;
+		constexpr Point3(Point3&& point) noexcept = default;
 		
 		/**
 		 Constructs a point from the given vector.
@@ -189,7 +189,7 @@ namespace mage {
 		 @return		A reference to the copy of the given point (i.e. this 
 						point).
 		 */
-		constexpr Point3 &operator=(const Point3 &point) noexcept = default;
+		constexpr Point3& operator=(const Point3& point) noexcept = default;
 		
 		/**
 		 Moves the given point to this point.
@@ -198,7 +198,7 @@ namespace mage {
 						A reference to the point to move.
 		 @return		A reference to the moved point (i.e. this point).
 		 */
-		constexpr Point3 &operator=(Point3 &&point) noexcept = default;
+		constexpr Point3& operator=(Point3&& point) noexcept = default;
 	};
 
 	static_assert(sizeof(Point3) == sizeof(F32x3));
@@ -249,7 +249,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to copy.
 		 */
-		constexpr Normal3(const Normal3 &normal) noexcept = default;
+		constexpr Normal3(const Normal3& normal) noexcept = default;
 		
 		/**
 		 Constructs a normal by moving the given normal.
@@ -257,7 +257,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to move.
 		 */
-		constexpr Normal3(Normal3 &&normal) noexcept = default;
+		constexpr Normal3(Normal3&& normal) noexcept = default;
 		
 		/**
 		 Constructs a normal from the given vector.
@@ -285,7 +285,7 @@ namespace mage {
 		 @return		A reference to the copy of the given normal (i.e. this 
 						normal).
 		 */
-		constexpr Normal3 &operator=(const Normal3 &normal) noexcept = default;
+		constexpr Normal3& operator=(const Normal3& normal) noexcept = default;
 		
 		/**
 		 Moves the given normal to this normal.
@@ -294,7 +294,7 @@ namespace mage {
 						A reference to the normal to move.
 		 @return		A reference to the moved normal (i.e. this normal).
 		 */
-		constexpr Normal3 &operator=(Normal3 &&normal) noexcept = default;
+		constexpr Normal3& operator=(Normal3&& normal) noexcept = default;
 	};
 
 	static_assert(sizeof(Normal3) == sizeof(F32x3));
@@ -341,7 +341,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to copy.
 		 */
-		constexpr Direction3(const Direction3 &direction) noexcept = default;
+		constexpr Direction3(const Direction3& direction) noexcept = default;
 		
 		/**
 		 Constructs a direction by moving the given direction.
@@ -349,7 +349,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to move.
 		 */
-		constexpr Direction3(Direction3 &&direction) noexcept = default;
+		constexpr Direction3(Direction3&& direction) noexcept = default;
 		
 		/**
 		 Constructs a direction from the given normal.
@@ -386,8 +386,8 @@ namespace mage {
 		 @return		A reference to the copy of the given direction (i.e. 
 						this direction).
 		 */
-		constexpr Direction3 &operator=(
-			const Direction3 &direction) noexcept = default;
+		constexpr Direction3& operator=(const Direction3& 
+										direction) noexcept = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -396,8 +396,8 @@ namespace mage {
 						A reference to the direction to move.
 		 @return		A reference to the moved direction (i.e. this direction).
 		 */
-		constexpr Direction3 &operator=(
-			Direction3 &&direction) noexcept = default;
+		constexpr Direction3& operator=(Direction3&& 
+										direction) noexcept = default;
 	};
 
 	static_assert(sizeof(Direction3) == sizeof(F32x3));
@@ -417,7 +417,7 @@ namespace mage {
 	 @return		The set of UV texture coordinates with inverted handness.
 	 */
 	[[nodiscard]]
-	inline const UV InvertHandness(const UV &uv) noexcept {
+	inline const UV InvertHandness(const UV& uv) noexcept {
 		return UV(uv.m_x, 1.0f - uv.m_y);
 	}
 	
@@ -429,7 +429,7 @@ namespace mage {
 	 @return		The point with inverted handness.
 	 */
 	[[nodiscard]]
-	inline const Point3 InvertHandness(const Point3 &point) noexcept {
+	inline const Point3 InvertHandness(const Point3& point) noexcept {
 		return Point3(point.m_x, point.m_y, -point.m_z);
 	}
 	
@@ -441,7 +441,7 @@ namespace mage {
 	 @return		The normal with inverted handness.
 	 */
 	[[nodiscard]]
-	inline const Normal3 InvertHandness(const Normal3 &normal) noexcept {
+	inline const Normal3 InvertHandness(const Normal3& normal) noexcept {
 		return Normal3(normal.m_x, normal.m_y, -normal.m_z);
 	}
 
@@ -453,7 +453,7 @@ namespace mage {
 	 @return		The direction with inverted handness.
 	 */
 	[[nodiscard]]
-	inline const Direction3 InvertHandness(const Direction3 &direction) noexcept {
+	inline const Direction3 InvertHandness(const Direction3& direction) noexcept {
 		return Direction3(direction.m_x, direction.m_y, -direction.m_z);
 	}
 

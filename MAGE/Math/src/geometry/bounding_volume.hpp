@@ -54,8 +54,8 @@ namespace mage {
 		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere &sphere, 
-													  const Point3 &point) noexcept {
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
+													  const Point3& point) noexcept {
 			return Union(sphere, XMLoad(point));
 		}
 
@@ -73,8 +73,8 @@ namespace mage {
 		 */
 		template< typename VertexT >
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere &sphere, 
-													  const VertexT &vertex) noexcept {
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
+													  const VertexT& vertex) noexcept {
 			return Union(sphere, vertex.m_p);
 		}
 
@@ -89,7 +89,7 @@ namespace mage {
 		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere &sphere, 
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
 													  FXMVECTOR point) noexcept {
 
 			const auto length = XMVector3Length(point - sphere.m_pr);
@@ -125,7 +125,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		explicit BoundingSphere(const Point3 &p) noexcept 
+		explicit BoundingSphere(const Point3& p) noexcept 
 			: BoundingSphere(p, 0.0f) {}
 
 		/**
@@ -145,7 +145,7 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		BoundingSphere(const Point3 &p, F32 r) noexcept
+		BoundingSphere(const Point3& p, F32 r) noexcept
 			: BoundingSphere(XMLoad(p), r) {}
 
 		/**
@@ -165,7 +165,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the aabb.
 		 */
-		explicit BoundingSphere(const AABB &aabb) noexcept;
+		explicit BoundingSphere(const AABB& aabb) noexcept;
 
 		/**
 		 Constructs a bounding sphere from the given bounding sphere.
@@ -173,7 +173,7 @@ namespace mage {
 		 @param[in]		sphere
 						A reference to the sphere to copy.
 		 */
-		BoundingSphere(const BoundingSphere &sphere) noexcept = default;
+		BoundingSphere(const BoundingSphere& sphere) noexcept = default;
 
 		/**
 		 Constructs a bounding sphere by moving the given bounding sphere.
@@ -181,7 +181,7 @@ namespace mage {
 		 @param[in]		sphere
 						A reference to the sphere to move.
 		 */
-		BoundingSphere(BoundingSphere &&sphere) noexcept = default;
+		BoundingSphere(BoundingSphere&& sphere) noexcept = default;
 
 		/**
 		 Destructs this bounding sphere.
@@ -200,7 +200,7 @@ namespace mage {
 		 @return		A reference to the copy of the given bounding sphere 
 						(i.e. this bounding sphere).
 		 */
-		BoundingSphere &operator=(const BoundingSphere &sphere) noexcept = default;
+		BoundingSphere& operator=(const BoundingSphere& sphere) noexcept = default;
 
 		/**
 		 Moves the given bounding sphere to this bounding sphere.
@@ -210,7 +210,7 @@ namespace mage {
 		 @return		A reference to the moved bounding sphere (i.e. this 
 						bounding sphere).
 		 */
-		BoundingSphere &operator=(BoundingSphere &&sphere) noexcept = default;
+		BoundingSphere& operator=(BoundingSphere&& sphere) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -252,7 +252,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool Encloses(const Point3 &point) const noexcept {
+		bool Encloses(const Point3& point) const noexcept {
 			return Encloses(XMLoad(point));
 		}
 
@@ -268,7 +268,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const Point3 &point) const noexcept {
+		bool EnclosesStrict(const Point3& point) const noexcept {
 			return EnclosesStrict(XMLoad(point));
 		}
 
@@ -320,7 +320,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool Encloses(const AABB &aabb) const noexcept;
+		bool Encloses(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding sphere completely, strictly encloses the 
@@ -334,7 +334,7 @@ namespace mage {
 						a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const AABB &aabb) const noexcept;
+		bool EnclosesStrict(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding sphere completely encloses the given 
@@ -348,7 +348,7 @@ namespace mage {
 						regard to a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool Encloses(const BoundingSphere &sphere) const noexcept;
+		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
 		 Checks whether this bounding sphere completely, strictly encloses the 
@@ -362,7 +362,7 @@ namespace mage {
 						regard to a bounding sphere.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
+		bool EnclosesStrict(const BoundingSphere& sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Overlapping = Partial | Full Coverage
@@ -380,7 +380,7 @@ namespace mage {
 						sphere with regard to an bounding sphere.
 		 */
 		[[nodiscard]]
-		bool Overlaps(const BoundingSphere &sphere) const noexcept {
+		bool Overlaps(const BoundingSphere& sphere) const noexcept {
 			const auto length2  = XMVector3LengthSq(sphere.m_pr - m_pr);
 			const auto radius_1 = Radius();
 			const auto radius_2 = sphere.Radius();
@@ -399,7 +399,7 @@ namespace mage {
 						sphere with regard to an bounding sphere.
 		 */
 		[[nodiscard]]
-		bool OverlapsStrict(const BoundingSphere &sphere) const noexcept {
+		bool OverlapsStrict(const BoundingSphere& sphere) const noexcept {
 			const auto length2  = XMVector3LengthSq(sphere.m_pr - m_pr);
 			const auto radius_1 = Radius();
 			const auto radius_2 = sphere.Radius();
@@ -420,7 +420,7 @@ namespace mage {
 						bounding sphere. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator==(const BoundingSphere &sphere) const noexcept {
+		bool operator==(const BoundingSphere& sphere) const noexcept {
 			return XMVector4Equal(m_pr, sphere.m_pr);
 		}
 
@@ -434,7 +434,7 @@ namespace mage {
 						bounding sphere. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator!=(const BoundingSphere &sphere) const noexcept {
+		bool operator!=(const BoundingSphere& sphere) const noexcept {
 			return !(*this == sphere);
 		}
 
@@ -480,8 +480,8 @@ namespace mage {
 		 @return		The union AABB of @a aabb and @a point.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB &aabb, 
-											const Point3 &point) noexcept {
+		static const AABB XM_CALLCONV Union(const AABB& aabb, 
+											const Point3& point) noexcept {
 
 			return Union(aabb, XMLoad(point));
 		}
@@ -499,8 +499,8 @@ namespace mage {
 		*/
 		template< typename VertexT >
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB &aabb, 
-											const VertexT &vertex) noexcept {
+		static const AABB XM_CALLCONV Union(const AABB& aabb, 
+											const VertexT& vertex) noexcept {
 			return Union(aabb, vertex.m_p);
 		}
 
@@ -514,7 +514,7 @@ namespace mage {
 		 @return		The union AABB of @a aabb and @a point.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB &aabb, 
+		static const AABB XM_CALLCONV Union(const AABB& aabb, 
 											FXMVECTOR point) noexcept {
 
 			return Union(aabb, AABB(point));
@@ -530,8 +530,8 @@ namespace mage {
 		 @return		The union AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB &aabb1, 
-											const AABB &aabb2) noexcept {
+		static const AABB XM_CALLCONV Union(const AABB& aabb1, 
+											const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
@@ -549,8 +549,8 @@ namespace mage {
 		 @return		The overlap AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Overlap(const AABB &aabb1, 
-											  const AABB &aabb2) noexcept {
+		static const AABB XM_CALLCONV Overlap(const AABB& aabb1, 
+											  const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
@@ -568,8 +568,8 @@ namespace mage {
 		 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV OverlapStrict(const AABB &aabb1, 
-													const AABB &aabb2) noexcept {
+		static const AABB XM_CALLCONV OverlapStrict(const AABB& aabb1, 
+													const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
@@ -614,7 +614,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		explicit AABB(const Point3 &p) noexcept
+		explicit AABB(const Point3& p) noexcept
 			: AABB(XMLoad(p)) {}
 
 		/**
@@ -634,7 +634,7 @@ namespace mage {
 		 @param[in]		p_max
 						A reference to the maximum extents.
 		 */
-		AABB(const Point3 &p_min, const Point3 &p_max) noexcept
+		AABB(const Point3& p_min, const Point3& p_max) noexcept
 			: AABB(XMLoad(p_min), XMLoad(p_max)) {}
 
 		/**
@@ -655,7 +655,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to copy.
 		 */
-		AABB(const AABB &aabb) noexcept = default;
+		AABB(const AABB& aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB by moving the given AABB.
@@ -663,7 +663,7 @@ namespace mage {
 		 @param[in]		aabb
 						A reference to the AABB to move.
 		 */
-		AABB(AABB &&aabb) noexcept = default;
+		AABB(AABB&& aabb) noexcept = default;
 
 		/**
 		 Constructs an AABB of the given bounding sphere.
@@ -671,7 +671,7 @@ namespace mage {
 		 @param[in]		sphere
 						A reference to the bounding sphere.
 		 */
-		explicit AABB(const BoundingSphere &sphere) noexcept;
+		explicit AABB(const BoundingSphere& sphere) noexcept;
 
 		/**
 		 Destructs this AABB.
@@ -690,7 +690,7 @@ namespace mage {
 		 @return		A reference to the copy of the given AABB (i.e. this 
 						AABB).
 		 */
-		AABB &operator=(const AABB &aabb) noexcept = default;
+		AABB& operator=(const AABB& aabb) noexcept = default;
 
 		/**
 		 Moves the given AABB to this AABB.
@@ -699,7 +699,7 @@ namespace mage {
 						A reference to the AABB to move.
 		 @return		A reference to the moved AABB (i.e. this AABB).
 		 */
-		AABB &operator=(AABB &&aabb) noexcept = default;
+		AABB& operator=(AABB&& aabb) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -736,8 +736,8 @@ namespace mage {
 						A reference to the maximum point of this AABB along @a n.
 		 */
 		void XM_CALLCONV MinAndMaxPointAlongNormal(FXMVECTOR n, 
-			                                       XMVECTOR &pmin, 
-			                                       XMVECTOR &pmax) const noexcept {
+			                                       XMVECTOR& pmin, 
+			                                       XMVECTOR& pmax) const noexcept {
 			
 			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			pmin = XMVectorSelect(m_max, m_min, control);
@@ -817,7 +817,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]]
-		bool Encloses(const Point3 &point) const noexcept {
+		bool Encloses(const Point3& point) const noexcept {
 			return Encloses(XMLoad(point));
 		}
 
@@ -832,7 +832,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const Point3 &point) const noexcept {
+		bool EnclosesStrict(const Point3& point) const noexcept {
 			return EnclosesStrict(XMLoad(point));
 		}
 
@@ -891,7 +891,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]]
-		bool Encloses(const AABB &aabb) const noexcept {
+		bool Encloses(const AABB& aabb) const noexcept {
 			if (!Encloses(aabb.m_min)) {
 				return false;
 			}
@@ -913,7 +913,7 @@ namespace mage {
 						an AABB.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const AABB &aabb) const noexcept {
+		bool EnclosesStrict(const AABB& aabb) const noexcept {
 			if (!EnclosesStrict(aabb.m_min)) {
 				return false;
 			}
@@ -936,7 +936,7 @@ namespace mage {
 						regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool Encloses(const BoundingSphere &sphere) const noexcept;
+		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given 
@@ -950,7 +950,7 @@ namespace mage {
 						regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
+		bool EnclosesStrict(const BoundingSphere& sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Overlapping = Partial | Full Coverage
@@ -967,7 +967,7 @@ namespace mage {
 						with regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool Overlaps(const AABB &aabb) const noexcept {
+		bool Overlaps(const AABB& aabb) const noexcept {
 			// Test for no coverage.
 			if (XMVector3Greater(aabb.m_min, m_max)) {
 				return false;
@@ -990,7 +990,7 @@ namespace mage {
 						with regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool OverlapsStrict(const AABB &aabb) const noexcept {
+		bool OverlapsStrict(const AABB& aabb) const noexcept {
 			// Test for no coverage.
 			if (XMVector3GreaterOrEqual(aabb.m_min, m_max)) {
 				return false;
@@ -1013,7 +1013,7 @@ namespace mage {
 						sphere with regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool Overlaps(const BoundingSphere &sphere) const noexcept;
+		bool Overlaps(const BoundingSphere& sphere) const noexcept;
 
 		/**
 		 Checks whether this AABB strictly overlaps the given bounding sphere.
@@ -1026,7 +1026,7 @@ namespace mage {
 						sphere with regard to an AABB.
 		 */
 		[[nodiscard]]
-		bool OverlapsStrict(const BoundingSphere &sphere) const noexcept;
+		bool OverlapsStrict(const BoundingSphere& sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Operators
@@ -1041,7 +1041,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator==(const AABB &aabb) const noexcept {
+		bool operator==(const AABB& aabb) const noexcept {
 			return XMVector4Equal(m_min, aabb.m_min)
 				&& XMVector4Equal(m_max, aabb.m_max);
 		}
@@ -1055,7 +1055,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator!=(const AABB &aabb) const noexcept {
+		bool operator!=(const AABB& aabb) const noexcept {
 			return !(*this == aabb);
 		}
 
@@ -1118,7 +1118,7 @@ namespace mage {
 		template< typename BoundingVolumeT >
 		[[nodiscard]]
 		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection, 
-									 const BoundingVolumeT &volume) noexcept {
+									 const BoundingVolumeT& volume) noexcept {
 
 			const BoundingFrustum frustum(object_to_projection);
 			return !frustum.Overlaps(volume);
@@ -1154,7 +1154,7 @@ namespace mage {
 		 @param[in]		frustum
 						A reference to the bounding frustum to copy.
 		 */
-		BoundingFrustum(const BoundingFrustum &frustum) noexcept = default;
+		BoundingFrustum(const BoundingFrustum& frustum) noexcept = default;
 
 		/**
 		 Constructs a bounding frustum by moving the given bounding frustum.
@@ -1162,7 +1162,7 @@ namespace mage {
 		 @param[in]		frustum
 						A reference to the bounding frustum to move.
 		 */
-		BoundingFrustum(BoundingFrustum &&frustum) noexcept = default;
+		BoundingFrustum(BoundingFrustum&& frustum) noexcept = default;
 
 		/**
 		 Destructs this bounding frustum.
@@ -1181,7 +1181,8 @@ namespace mage {
 		 @return		A reference to the copy of the given bounding frustum 
 						(i.e. this bounding frustum).
 		 */
-		BoundingFrustum &operator=(const BoundingFrustum &frustum) noexcept = default;
+		BoundingFrustum& operator=(const BoundingFrustum& 
+								   frustum) noexcept = default;
 
 		/**
 		 Moves the given bounding frustum to this bounding frustum.
@@ -1191,7 +1192,8 @@ namespace mage {
 		 @return		A reference to the moved bounding frustum (i.e. this 
 						bounding frustum).
 		 */
-		BoundingFrustum &operator=(BoundingFrustum &&frustum) noexcept = default;
+		BoundingFrustum& operator=(BoundingFrustum&& 
+								   frustum) noexcept = default;
 		
 		//---------------------------------------------------------------------
 		// Member Methods: Enclosing = Full Coverage
@@ -1209,7 +1211,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool Encloses(const Point3 &point) const noexcept {
+		bool Encloses(const Point3& point) const noexcept {
 			return Encloses(XMLoad(point));
 		}
 
@@ -1225,7 +1227,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const Point3 &point) const noexcept {
+		bool EnclosesStrict(const Point3& point) const noexcept {
 			return EnclosesStrict(XMLoad(point));
 		}
 
@@ -1268,7 +1270,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool Encloses(const AABB &aabb) const noexcept;
+		bool Encloses(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum completely, strictly encloses the 
@@ -1282,7 +1284,7 @@ namespace mage {
 						a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const AABB &aabb) const noexcept;
+		bool EnclosesStrict(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum completely encloses the given 
@@ -1297,7 +1299,7 @@ namespace mage {
 						regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool Encloses(const BoundingSphere &sphere) const noexcept;
+		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum completely, strictly encloses the 
@@ -1311,7 +1313,7 @@ namespace mage {
 						regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool EnclosesStrict(const BoundingSphere &sphere) const noexcept;
+		bool EnclosesStrict(const BoundingSphere& sphere) const noexcept;
 		
 		//---------------------------------------------------------------------
 		// Member Methods: Overlapping = Partial | Full Coverage
@@ -1328,7 +1330,7 @@ namespace mage {
 						with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool Overlaps(const AABB &aabb) const noexcept;
+		bool Overlaps(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum strictly overlaps the given AABB.
@@ -1342,7 +1344,7 @@ namespace mage {
 						with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool OverlapsStrict(const AABB &aabb) const noexcept;
+		bool OverlapsStrict(const AABB& aabb) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum overlaps the given bounding 
@@ -1356,7 +1358,7 @@ namespace mage {
 						sphere with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool Overlaps(const BoundingSphere &sphere) const noexcept;
+		bool Overlaps(const BoundingSphere& sphere) const noexcept;
 
 		/**
 		 Checks whether this bounding frustum strictly overlaps the given 
@@ -1371,7 +1373,7 @@ namespace mage {
 						sphere with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
-		bool OverlapsStrict(const BoundingSphere &sphere) const noexcept;
+		bool OverlapsStrict(const BoundingSphere& sphere) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Operators
@@ -1387,7 +1389,7 @@ namespace mage {
 						bounding frustum. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator==(const BoundingFrustum &frustum) const noexcept;
+		bool operator==(const BoundingFrustum& frustum) const noexcept;
 
 		/**
 		 Checks whether the given bounding frustum is not equal to this 
@@ -1399,7 +1401,7 @@ namespace mage {
 						bounding frustum. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator!=(const BoundingFrustum &frustum) const noexcept {
+		bool operator!=(const BoundingFrustum& frustum) const noexcept {
 			return !(*this == frustum);
 		}
 
@@ -1491,8 +1493,8 @@ namespace mage {
      @return		The coverage of @a volume2 with regard to @a volume1.
 	 */
 	template< typename BoundingVolumeT, typename BoundingVolumeU >
-	inline Coverage Classify(const BoundingVolumeT &volume1,
-		                     const BoundingVolumeU &volume2) noexcept {
+	inline Coverage Classify(const BoundingVolumeT& volume1,
+		                     const BoundingVolumeU& volume2) noexcept {
 
 		return volume1.Encloses(volume2) ? Coverage::FullCoverage 
 			: (volume1.Overlaps(volume2) ? Coverage::PartialCoverage 
@@ -1513,7 +1515,7 @@ namespace mage {
      @return		The coverage of @a point with regard to @a volume.
 	 */
 	template< typename BoundingVolumeT >
-	inline Coverage XM_CALLCONV Classify(const BoundingVolumeT &volume,
+	inline Coverage XM_CALLCONV Classify(const BoundingVolumeT& volume,
 		                                 FXMVECTOR point,
 		                                 F32 epsilon) noexcept {
 
@@ -1534,8 +1536,8 @@ namespace mage {
      @return		The coverage of @a point with regard to @a volume.
 	 */
 	template< typename BoundingVolumeT >
-	inline Coverage Classify(const BoundingVolumeT &volume,
-		                     const Point3 &point,
+	inline Coverage Classify(const BoundingVolumeT& volume,
+		                     const Point3& point,
 		                     F32 epsilon) noexcept {
 
 		return Classify(volume, XMLoad(point), epsilon);

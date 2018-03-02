@@ -88,7 +88,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform to copy.
 		 */
-		SpriteTransform(const SpriteTransform &transform) noexcept = default;
+		SpriteTransform(const SpriteTransform& transform) noexcept = default;
 
 		/**
 		 Constructs a sprite transform by moving the given sprite transform.
@@ -96,7 +96,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform to move.
 		 */
-		SpriteTransform(SpriteTransform &&transform) noexcept = default;
+		SpriteTransform(SpriteTransform&& transform) noexcept = default;
 
 		/**
 		 Destructs this sprite transform.
@@ -115,7 +115,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite transform
 						(i.e. this sprite transform).
 		 */
-		SpriteTransform &operator=(const SpriteTransform &transform) = default;
+		SpriteTransform& operator=(const SpriteTransform& transform) = default;
 
 		/**
 		 Moves the given sprite transform to this sprite transform.
@@ -125,7 +125,7 @@ namespace mage {
 		 @return		A reference to the moved sprite transform (i.e. this
 						sprite transform).
 		 */
-		SpriteTransform &operator=(SpriteTransform &&transform) = default;
+		SpriteTransform& operator=(SpriteTransform&& transform) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
@@ -233,7 +233,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const F32x2 &translation) noexcept {
+		void AddTranslation(const F32x2& translation) noexcept {
 			AddTranslation(translation.m_x, translation.m_y);
 		}
 
@@ -503,7 +503,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
-		void AddRotationOrigin(const F32x2 &rotation_origin) noexcept {
+		void AddRotationOrigin(const F32x2& rotation_origin) noexcept {
 			AddRotationOrigin(rotation_origin.m_x, rotation_origin.m_y);
 		}
 
@@ -691,7 +691,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const F32x2 &scale) noexcept {
+		void AddScale(const F32x2& scale) noexcept {
 			AddScale(scale.m_x, scale.m_y);
 		}
 

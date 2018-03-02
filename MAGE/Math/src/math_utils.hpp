@@ -116,8 +116,8 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const F32x2 NormalizedToAbsolute(const F32x2 &p,
-											const F32x2 &resolution) noexcept {
+	inline const F32x2 NormalizedToAbsolute(const F32x2& p,
+											const F32x2& resolution) noexcept {
 
 		return F32x2(p.m_x * resolution.m_x, p.m_y * resolution.m_y);
 
@@ -136,8 +136,8 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const F32x2 AbsoluteToNormalized(const F32x2 &p,
-											const F32x2 &resolution) noexcept {
+	inline const F32x2 AbsoluteToNormalized(const F32x2& p,
+											const F32x2& resolution) noexcept {
 
 		return F32x2(p.m_x / resolution.m_x, p.m_y / resolution.m_y);
 	}
@@ -167,7 +167,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV 
-		XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
+		XMVectorLeftTopRightBottom(const RECT& rect) noexcept {
 		
 		return XMLoad(rect);
 	}
@@ -183,7 +183,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV 
-		XMVectorLeftTopWidthHeight(const RECT &rect) noexcept {
+		XMVectorLeftTopWidthHeight(const RECT& rect) noexcept {
 
 		const auto v = XMVectorLeftTopRightBottom(rect);
 		return v - XMVectorPermute< 0, 1, 4, 5 >(XMVectorZero(), v);

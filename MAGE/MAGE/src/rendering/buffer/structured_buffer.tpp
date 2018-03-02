@@ -16,7 +16,7 @@ namespace mage {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
-		::StructuredBuffer(ID3D11Device &device, size_t capacity)
+		::StructuredBuffer(ID3D11Device& device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
 		m_capacity(0), 
@@ -27,7 +27,7 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::SetupStructuredBuffer(ID3D11Device &device, size_t capacity) {
+		::SetupStructuredBuffer(ID3D11Device& device, size_t capacity) {
 
 		// Create the buffer resource.
 		{
@@ -55,8 +55,8 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >
-		::UpdateData(ID3D11DeviceContext &device_context, 
-			         const AlignedVector< DataT > &data) {
+		::UpdateData(ID3D11DeviceContext& device_context, 
+			         const AlignedVector< DataT >& data) {
 
 		m_size = data.size();
 
@@ -82,7 +82,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void StructuredBuffer< DataT >
-		::Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept {
+		::Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

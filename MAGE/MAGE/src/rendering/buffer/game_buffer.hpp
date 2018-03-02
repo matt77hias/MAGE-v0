@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the game buffer to copy.
 		 */
-		GameBuffer(const GameBuffer &buffer) noexcept = default;
+		GameBuffer(const GameBuffer& buffer) noexcept = default;
 		
 		/**
 		 Constructs a game buffer by moving the given game buffer.
@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the game buffer to move.
 		 */
-		GameBuffer(GameBuffer &&buffer) noexcept = default;
+		GameBuffer(GameBuffer&& buffer) noexcept = default;
 
 		/**
 		 Destructs this game buffer.
@@ -80,7 +80,7 @@ namespace mage {
 		 @return		A reference to the copy of the given game buffer (i.e. 
 						this game buffer).
 		 */
-		GameBuffer &operator=(const GameBuffer &buffer) noexcept = default;
+		GameBuffer& operator=(const GameBuffer& buffer) noexcept = default;
 
 		/**
 		 Moves the given game buffer to this game buffer.
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the moved game buffer (i.e. this game 
 						buffer).
 		 */
-		GameBuffer &operator=(GameBuffer &&buffer) noexcept = default;
+		GameBuffer& operator=(GameBuffer&& buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Voxelization

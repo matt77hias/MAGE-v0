@@ -36,7 +36,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device &device, size_t capacity);
+		explicit StructuredBuffer(ID3D11Device& device, size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the structured buffer to copy.
 		 */
-		StructuredBuffer(const StructuredBuffer &buffer) = delete;
+		StructuredBuffer(const StructuredBuffer& buffer) = delete;
 
 		/**
 		 Constructs a structured buffer by moving the given structured buffer.
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the structured buffer to move.
 		 */
-		StructuredBuffer(StructuredBuffer &&buffer) noexcept = default;
+		StructuredBuffer(StructuredBuffer&& buffer) noexcept = default;
 
 		/**
 		 Destructs this structured buffer.
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given structured buffer
 						(i.e. this structured buffer).
 		 */
-		StructuredBuffer &operator=(const StructuredBuffer &buffer) = delete;
+		StructuredBuffer& operator=(const StructuredBuffer& buffer) = delete;
 
 		/**
 		 Moves the given structured buffer to this structured buffer.
@@ -81,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved structured buffer (i.e. this 
 						structured buffer).
 		 */
-		StructuredBuffer &operator=(StructuredBuffer &&buffer) noexcept = default;
+		StructuredBuffer& operator=(StructuredBuffer&& buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -117,14 +117,14 @@ namespace mage {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext &device_context,
-			            const AlignedVector< DataT > &data);
+		void UpdateData(ID3D11DeviceContext& device_context,
+			            const AlignedVector< DataT >& data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.
 
-		 @return		A pointer to the shader resource view
-						of this structured buffer.
+		 @return		A pointer to the shader resource view of this 
+						structured buffer.
 		 */
 		[[nodiscard]]
 		ID3D11ShaderResourceView *Get() const noexcept {
@@ -146,7 +146,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -165,7 +165,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device &device, size_t capacity);
+		void SetupStructuredBuffer(ID3D11Device& device, size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables

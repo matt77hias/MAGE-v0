@@ -19,7 +19,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device &device,
+	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device& device,
 		                             size_t nb_shadow_maps, 
 		                             U32 width, 
 		                             U32 height, 
@@ -44,7 +44,7 @@ namespace mage {
 		m_viewport.SetWidthAndHeight(m_width, m_height);
 	}
 
-	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device &device) {
+	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
 			                       device, 
 			                       m_rasterizer_state.ReleaseAndGetAddressOf(),
@@ -54,7 +54,7 @@ namespace mage {
 		ThrowIfFailed(result, "Rasterizer state creation failed: %08X.", result);
 	}
 
-	void ShadowMapBuffer::SetupShadowMapBuffer(ID3D11Device &device,
+	void ShadowMapBuffer::SetupShadowMapBuffer(ID3D11Device& device,
 		                                       size_t nb_shadow_maps) {
 
 		switch (m_format) {
@@ -79,7 +79,7 @@ namespace mage {
 		}
 	}
 
-	void ShadowMapBuffer::SetupShadowMapArray(ID3D11Device &device,
+	void ShadowMapBuffer::SetupShadowMapArray(ID3D11Device& device,
 		                                      size_t nb_shadow_maps, 
 		                                      DXGI_FORMAT texture_format,
 		                                      DXGI_FORMAT dsv_format, 
@@ -154,7 +154,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device &device,
+	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device& device,
 		                                     size_t nb_shadow_cube_maps, 
 		                                     U32 width, 
 		                                     U32 height, 
@@ -179,7 +179,7 @@ namespace mage {
 		m_viewport.SetWidthAndHeight(m_width, m_height);
 	}
 
-	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device &device) {
+	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
 			                       device, 
 			                       m_rasterizer_state.ReleaseAndGetAddressOf(),
@@ -189,7 +189,7 @@ namespace mage {
 		ThrowIfFailed(result, "Rasterizer state creation failed: %08X.", result);
 	}
 
-	void ShadowCubeMapBuffer::SetupShadowCubeMapBuffer(ID3D11Device &device,
+	void ShadowCubeMapBuffer::SetupShadowCubeMapBuffer(ID3D11Device& device,
 		                                               size_t nb_shadow_cube_maps) {
 		switch (m_format) {
 		
@@ -213,7 +213,7 @@ namespace mage {
 		}
 	}
 
-	void ShadowCubeMapBuffer::SetupShadowCubeMapArray(ID3D11Device &device,
+	void ShadowCubeMapBuffer::SetupShadowCubeMapArray(ID3D11Device& device,
 		                                              size_t nb_shadow_cube_maps, 
 		                                              DXGI_FORMAT texture_format,
 		                                              DXGI_FORMAT dsv_format, 

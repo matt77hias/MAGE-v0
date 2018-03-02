@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the model buffer to copy.
 		 */
-		ModelBuffer(const ModelBuffer &buffer) noexcept = default;
+		ModelBuffer(const ModelBuffer& buffer) noexcept = default;
 		
 		/**
 		 Constructs a model buffer by moving the given model 
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the model buffer to move.
 		 */
-		ModelBuffer(ModelBuffer &&buffer) noexcept = default;
+		ModelBuffer(ModelBuffer&& buffer) noexcept = default;
 
 		/**
 		 Destructs this model buffer.
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model buffer (i.e. 
 						this model buffer).
 		 */
-		ModelBuffer &operator=(const ModelBuffer &buffer) = default;
+		ModelBuffer& operator=(const ModelBuffer& buffer) = default;
 
 		/**
 		 Moves the given model buffer to this model buffer.
@@ -81,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved model buffer (i.e. this model 
 						buffer).
 		 */
-		ModelBuffer &operator=(ModelBuffer &&buffer) = default;
+		ModelBuffer& operator=(ModelBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transforms

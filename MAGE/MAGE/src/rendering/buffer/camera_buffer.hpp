@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the camera buffer to copy.
 		 */
-		CameraBuffer(const CameraBuffer &buffer) noexcept = default;
+		CameraBuffer(const CameraBuffer& buffer) noexcept = default;
 		
 		/**
 		 Constructs a camera buffer by moving the given camera buffer.
@@ -69,7 +69,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the camera buffer to move.
 		 */
-		CameraBuffer(CameraBuffer &&buffer) noexcept = default;
+		CameraBuffer(CameraBuffer&& buffer) noexcept = default;
 
 		/**
 		 Destructs this camera buffer.
@@ -88,7 +88,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera buffer (i.e. 
 						this camera buffer).
 		 */
-		CameraBuffer &operator=(const CameraBuffer &buffer) = default;
+		CameraBuffer& operator=(const CameraBuffer& buffer) = default;
 
 		/**
 		 Moves the given camera buffer to this camera buffer.
@@ -98,7 +98,7 @@ namespace mage {
 		 @return		A reference to the moved camera buffer (i.e. this camera 
 						buffer).
 		 */
-		CameraBuffer &operator=(CameraBuffer &&buffer) = default;
+		CameraBuffer& operator=(CameraBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transformations
@@ -263,7 +263,7 @@ namespace mage {
 						A reference to the secondary camera buffer to copy.
 		 */
 		SecondaryCameraBuffer(
-			const SecondaryCameraBuffer &buffer) noexcept = default;
+			const SecondaryCameraBuffer& buffer) noexcept = default;
 		
 		/**
 		 Constructs a secondary camera buffer by moving the given secondary 
@@ -273,7 +273,7 @@ namespace mage {
 						A reference to the secondary camera buffer to move.
 		 */
 		SecondaryCameraBuffer(
-			SecondaryCameraBuffer &&buffer) noexcept = default;
+			SecondaryCameraBuffer&& buffer) noexcept = default;
 
 		/**
 		 Destructs this secondary camera buffer.
@@ -293,8 +293,8 @@ namespace mage {
 		 @return		A reference to the copy of the given secondary camera 
 						buffer (i.e. this secondary camera buffer).
 		 */
-		SecondaryCameraBuffer &operator=(
-			const SecondaryCameraBuffer &buffer) = default;
+		SecondaryCameraBuffer& operator=(
+			const SecondaryCameraBuffer& buffer) = default;
 
 		/**
 		 Moves the given secondary camera buffer to this secondary camera 
@@ -305,8 +305,8 @@ namespace mage {
 		 @return		A reference to the moved secondary camera buffer (i.e. 
 						this camera buffer).
 		 */
-		SecondaryCameraBuffer &operator=(
-			SecondaryCameraBuffer &&buffer) = default;
+		SecondaryCameraBuffer& operator=(
+			SecondaryCameraBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transformations

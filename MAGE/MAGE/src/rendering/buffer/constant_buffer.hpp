@@ -37,7 +37,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		explicit ConstantBuffer(ID3D11Device &device);
+		explicit ConstantBuffer(ID3D11Device& device);
 		
 		/**
 		 Constructs a constant buffer from the given constant buffer.
@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the constant buffer to copy.
 		 */
-		ConstantBuffer(const ConstantBuffer &buffer) = delete;
+		ConstantBuffer(const ConstantBuffer& buffer) = delete;
 
 		/**
 		 Constructs a constant buffer by moving the given constant buffer.
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the constant buffer to move.
 		 */
-		ConstantBuffer(ConstantBuffer &&buffer) noexcept = default;
+		ConstantBuffer(ConstantBuffer&& buffer) noexcept = default;
 		
 		/**
 		 Destructs this constant buffer.
@@ -72,7 +72,7 @@ namespace mage {
 		 @return		A reference to the copy of the given constant buffer
 						(i.e. this constant buffer).
 		 */
-		ConstantBuffer &operator=(const ConstantBuffer &buffer) = delete;
+		ConstantBuffer& operator=(const ConstantBuffer& buffer) = delete;
 
 		/**
 		 Moves the given constant buffer to this constant buffer.
@@ -82,7 +82,7 @@ namespace mage {
 		 @return		A reference to the moved constant buffer (i.e. this 
 						constant buffer).
 		 */
-		ConstantBuffer &operator=(ConstantBuffer &&buffer) noexcept = default;
+		ConstantBuffer& operator=(ConstantBuffer&& buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -98,8 +98,8 @@ namespace mage {
 		 @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext &device_context, 
-			            const DataT &data);
+		void UpdateData(ID3D11DeviceContext& device_context, 
+			            const DataT& data);
 		
 		/**
 		 Returns the buffer resource of this constant buffer.
@@ -128,7 +128,7 @@ namespace mage {
 						- 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept;
 
 	private:
 
@@ -144,7 +144,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this constant buffer.
 		 */
-		void SetupConstantBuffer(ID3D11Device &device);
+		void SetupConstantBuffer(ID3D11Device& device);
 
 		//---------------------------------------------------------------------
 		// Member Variables

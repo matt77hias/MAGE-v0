@@ -6,7 +6,6 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -42,10 +41,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to map the buffer.
 		 */
-		explicit BufferLock(ID3D11DeviceContext &device_context,
-			                ID3D11Buffer &buffer,
+		explicit BufferLock(ID3D11DeviceContext& device_context,
+			                ID3D11Buffer& buffer,
 			                D3D11_MAP map_type,
-			                D3D11_MAPPED_SUBRESOURCE &mapped_buffer)
+			                D3D11_MAPPED_SUBRESOURCE& mapped_buffer)
 			: m_device_context(device_context),
 			m_buffer(buffer) {
 
@@ -58,7 +57,7 @@ namespace mage {
 		 @param[in]		buffer_lock
 						A reference to the buffer lock to copy.
 		 */
-		BufferLock(const BufferLock &buffer_lock) = delete;
+		BufferLock(const BufferLock& buffer_lock) = delete;
 
 		/**
 		 Constructs a buffer lock by moving the given buffer lock.
@@ -66,7 +65,7 @@ namespace mage {
 		 @param[in]		buffer_lock
 						A reference to the buffer lock to move.
 		 */
-		BufferLock(BufferLock &&buffer_lock) noexcept = default;
+		BufferLock(BufferLock&& buffer_lock) noexcept = default;
 
 		/**
 		 Destructs this buffer lock.
@@ -87,7 +86,7 @@ namespace mage {
 		 @return		A reference to the copy of the given buffer lock (i.e. 
 						this buffer lock)
 		 */
-		BufferLock &operator=(const BufferLock &buffer_lock) = delete;
+		BufferLock& operator=(const BufferLock& buffer_lock) = delete;
 
 		/**
 		 Moves the given buffer lock to this buffer lock.
@@ -97,7 +96,7 @@ namespace mage {
 		 @return		A reference to the moved buffer lock (i.e. this buffer 
 						lock)
 		 */
-		BufferLock &operator=(BufferLock &&buffer_lock) noexcept = default;
+		BufferLock& operator=(BufferLock&& buffer_lock) noexcept = default;
 
 	private:
 
@@ -117,7 +116,7 @@ namespace mage {
 						Failed to map the buffer.
 		 */
 		void MapBuffer(D3D11_MAP map_type, 
-			           D3D11_MAPPED_SUBRESOURCE &mapped_buffer) {
+			           D3D11_MAPPED_SUBRESOURCE& mapped_buffer) {
 
 			const HRESULT result = Pipeline::Map(m_device_context, 
 				                                 m_buffer,

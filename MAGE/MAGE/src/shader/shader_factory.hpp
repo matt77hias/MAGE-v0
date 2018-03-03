@@ -33,7 +33,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a FXAA compute shader.
@@ -44,7 +44,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateFXAACS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateFXAACS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a MSAA resolve compute shader.
@@ -55,7 +55,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a SSAA resolve compute shader.
@@ -66,7 +66,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -84,7 +84,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateBackBufferPS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 	
@@ -105,7 +105,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
 												bool vct);
 
 	/**
@@ -120,7 +120,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
 												  bool vct);
 
 	/**
@@ -132,7 +132,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a deferred Frostbite compute shader.
@@ -146,7 +146,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
 											   bool vct);
 
 	/**
@@ -161,7 +161,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
 											  bool vct);
 
 	/**
@@ -176,7 +176,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
 												bool vct);
 
 	/**
@@ -194,7 +194,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
 									  BRDFType brdf, bool vct);
 
 	/**
@@ -209,7 +209,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager, 
 												  bool vct);
 
 	/**
@@ -224,7 +224,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager, 
 													bool vct);
 
 	/**
@@ -239,7 +239,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a deferred MSAA Frostbite pixel shader.
@@ -253,7 +253,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager, 
 												 bool vct);
 
 	/**
@@ -268,7 +268,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager, 
 												bool vct);
 
 	/**
@@ -283,7 +283,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager, 
 												  bool vct);
 
 	/**
@@ -301,7 +301,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
 										BRDFType brdf, bool vct);
 
 	#pragma endregion
@@ -320,7 +320,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateDepthVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateDepthVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a depth transparent vertex shader.
@@ -331,7 +331,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateDepthTransparentVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateDepthTransparentVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a depth transparent pixel shader.
@@ -342,7 +342,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDepthTransparentPS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateDepthTransparentPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -362,7 +362,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateFalseColorPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager, 
 									  FalseColor false_color);
 	
 	#pragma endregion
@@ -390,7 +390,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
 											 bool transparency,
 											 bool vct, 
 											 bool tsnm);
@@ -413,7 +413,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
 											   bool transparency,
 											   bool vct,
 											   bool tsnm);
@@ -436,7 +436,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardEmissivePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
 										   bool transparency);
 
 	/**
@@ -457,7 +457,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
 											bool transparency,
 											bool vct,
 											bool tsnm);
@@ -480,7 +480,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardLambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
 											 bool transparency,
 											 bool vct,
 											 bool tsnm);
@@ -503,7 +503,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
 										   bool transparency,
 										   bool vct,
 										   bool tsnm);
@@ -529,7 +529,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
 								   BRDFType brdf,
 								   bool transparency, 
 								   bool vct, 
@@ -544,7 +544,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardSolidPS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateForwardSolidPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -565,7 +565,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateGBufferPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager, 
 								   bool tsnm);
 
 	#pragma endregion
@@ -584,7 +584,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -602,7 +602,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateLineCubeVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateLineCubeVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a line cube pixel shader.
@@ -613,7 +613,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateLineCubePS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateLineCubePS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a far fullscreen triangle vertex shader.
@@ -624,7 +624,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a near fullscreen triangle vertex shader.
@@ -635,7 +635,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -653,7 +653,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateSkyVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateSkyVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a sky pixel shader.
@@ -664,7 +664,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateSkyPS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateSkyPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -682,7 +682,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateSpriteVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateSpriteVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a sprite pixel shader.
@@ -693,7 +693,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateSpritePS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateSpritePS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -711,7 +711,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateTransformVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateTransformVS(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -729,7 +729,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateVoxelizationVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateVoxelizationVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a voxelization geometry shader.
@@ -740,7 +740,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
-	GeometryShaderPtr CreateVoxelizationGS(ResourceManager &resource_manager);
+	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a voxelization Blinn-Phong pixel shader.
@@ -754,7 +754,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
 												  bool tsnm);
 
 	/**
@@ -769,7 +769,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
 													bool tsnm);
 
 	/**
@@ -784,7 +784,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
 												 bool tsnm);
 
 	/**
@@ -799,7 +799,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
 												  bool tsnm);
 
 	/**
@@ -814,7 +814,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
 												bool tsnm);
 
 	/**
@@ -832,7 +832,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
 										BRDFType brdf, bool tsnm);
 
 	/**
@@ -844,7 +844,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateVoxelizationCS(ResourceManager &resource_manager);
+	ComputeShaderPtr CreateVoxelizationCS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a voxel grid vertex shader.
@@ -855,7 +855,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the vertex shader.
 	 */
-	VertexShaderPtr CreateVoxelGridVS(ResourceManager &resource_manager);
+	VertexShaderPtr CreateVoxelGridVS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a voxel grid geometry shader.
@@ -866,7 +866,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the geometry shader.
 	 */
-	GeometryShaderPtr CreateVoxelGridGS(ResourceManager &resource_manager);
+	GeometryShaderPtr CreateVoxelGridGS(ResourceManager& resource_manager);
 
 	/**
 	 Creates a voxel grid pixel shader.
@@ -877,7 +877,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelGridPS(ResourceManager &resource_manager);
+	PixelShaderPtr CreateVoxelGridPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 }

@@ -41,7 +41,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to construct the texture.
 		 */
-		explicit Texture(ID3D11Device &device, wstring fname);
+		explicit Texture(ID3D11Device& device, wstring fname);
 
 		/**
 		 Constructs a 2D texture.
@@ -57,10 +57,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to construct the texture.
 		 */
-		explicit Texture(ID3D11Device &device,
+		explicit Texture(ID3D11Device& device,
 						 wstring guid, 
-			             const D3D11_TEXTURE2D_DESC &desc,
-			             const D3D11_SUBRESOURCE_DATA &initial_data);
+			             const D3D11_TEXTURE2D_DESC& desc,
+			             const D3D11_SUBRESOURCE_DATA& initial_data);
 
 		/**
 		 Constructs a texture from the given texture.
@@ -68,7 +68,7 @@ namespace mage {
 		 @param[in]		texture
 						A reference to the texture to copy.
 		 */
-		Texture(const Texture &texture) = delete;
+		Texture(const Texture& texture) = delete;
 
 		/**
 		 Constructs a texture by moving the given texture.
@@ -76,7 +76,7 @@ namespace mage {
 		 @param[in]		texture
 						A reference to the texture to move.
 		 */
-		Texture(Texture &&texture) noexcept;
+		Texture(Texture&& texture) noexcept;
 
 		/**
 		 Destructs this texture.
@@ -95,7 +95,7 @@ namespace mage {
 		 @return		A reference to the copy of the given texture (i.e. this 
 						texture).
 		 */
-		Texture &operator=(const Texture &texture) = delete;
+		Texture& operator=(const Texture& texture) = delete;
 
 		/**
 		 Moves the given texture to this texture.
@@ -104,7 +104,7 @@ namespace mage {
 						A reference to the texture to move.
 		 @return		A reference to the moved texture (i.e. this texture).
 		 */
-		Texture &operator=(Texture &&texture) noexcept;
+		Texture& operator=(Texture&& texture) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -116,7 +116,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view of this texture.
 		 */
 		[[nodiscard]]
-		ID3D11ShaderResourceView *Get() const noexcept {
+		ID3D11ShaderResourceView* Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 		
@@ -134,7 +134,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext &device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept;
 
 	private:
 

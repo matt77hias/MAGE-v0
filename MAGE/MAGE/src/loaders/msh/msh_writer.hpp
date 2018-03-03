@@ -49,8 +49,8 @@ namespace mage::loader {
 		 @param[in]		indices
 						A reference to a vector containing the indices.
 		 */
-		explicit MSHWriter(const std::vector< VertexT > &vertices, 
-			               const std::vector< IndexT >  &indices);
+		explicit MSHWriter(const std::vector< VertexT >& vertices, 
+			               const std::vector< IndexT > & indices);
 		
 		/**
 		 Constructs a MSH writer from the given MSH writer.
@@ -58,7 +58,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the MSH writer to copy.
 		 */
-		MSHWriter(const MSHWriter &writer) = delete;
+		MSHWriter(const MSHWriter& writer) = delete;
 
 		/**
 		 Constructs a MSH writer by moving the given MSH writer.
@@ -66,7 +66,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the MSH writer to move.
 		 */
-		MSHWriter(MSHWriter &&writer) noexcept;
+		MSHWriter(MSHWriter&& writer) noexcept;
 
 		/**
 		 Destructs this MSH writer.
@@ -85,7 +85,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given MSH writer (i.e. 
 						this MSH writer).
 		 */
-		MSHWriter &operator=(const MSHWriter &writer) = delete;
+		MSHWriter& operator=(const MSHWriter& writer) = delete;
 
 		/**
 		 Moves the given MSH writer to this MSH writer.
@@ -95,7 +95,7 @@ namespace mage::loader {
 		 @return		A reference to the moved MSH writer (i.e. this MSH 
 						writer).
 		 */
-		MSHWriter &operator=(MSHWriter &&writer) = delete;
+		MSHWriter& operator=(MSHWriter&& writer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -127,13 +127,13 @@ namespace mage::loader {
 		 A reference to a vector containing the vertices to write by this VS 
 		 writer.
 		 */
-		const std::vector< VertexT > &m_vertices;
+		const std::vector< VertexT >& m_vertices;
 		
 		/**
 		 A reference to a vector containing the indices to write by this VS 
 		 writer.
 		 */
-		const std::vector< IndexT > &m_indices;
+		const std::vector< IndexT >& m_indices;
 	};
 }
 

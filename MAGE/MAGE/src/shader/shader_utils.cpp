@@ -32,10 +32,10 @@
 namespace mage {
 
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const wstring &fname, 
-								  const string &entry_point, 
-								  const string &shader_target, 
-								  ID3DBlob **output_blob) {
+	HRESULT CompileShaderFromFile(const wstring& fname, 
+								  const string& entry_point, 
+								  const string& shader_target, 
+								  NotNull< ID3DBlob** > output_blob) {
 		Assert(output_blob);
 
 		DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;

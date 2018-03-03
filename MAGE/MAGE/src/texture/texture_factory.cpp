@@ -45,7 +45,7 @@ namespace mage {
 					Failed to create the texture.
 	 */
 	[[nodiscard]]
-	static inline TexturePtr CreateFlatTexture2D(ResourceManager &resource_manager, 
+	static inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager, 
 												 const wstring &guid, 
 												 U32 color) {
 
@@ -75,31 +75,31 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	TexturePtr CreateBlackTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateBlackTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager, 
 								   MAGE_GUID_TEXTURE_BLACK, 
 								   0xFF000000);
 	}
 
-	TexturePtr CreateWhiteTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateWhiteTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_WHITE,
 								   0xFFFFFFFF);
 	}
 
-	TexturePtr CreateRedTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateRedTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_RED,
 								   0xFF000000);
 	}
 
-	TexturePtr CreateGreenTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateGreenTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_GREEN,
 								   0xFF00FF00);
 	}
 
-	TexturePtr CreateBlueTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateBlueTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_BLUE,
 								   0xFF0000FF);
@@ -112,12 +112,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	TexturePtr CreateMAGETexture(ResourceManager &resource_manager) {
+	TexturePtr CreateMAGETexture(ResourceManager& resource_manager) {
 		return resource_manager.GetOrCreate< Texture >(
 			L"assets/textures/mage.dds");
 	}
 
-	TexturePtr CreateReferenceTexture(ResourceManager &resource_manager) {
+	TexturePtr CreateReferenceTexture(ResourceManager& resource_manager) {
 		return resource_manager.GetOrCreate< Texture >(
 			L"assets/textures/reference.dds");
 	}

@@ -8,7 +8,6 @@
 #include "loaders\dds\screen_grab.hpp"
 #include "loaders\wic\wic_loader.hpp"
 #include "file\file_utils.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -27,23 +26,20 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	void ImportTextureFromFile(const wstring &fname, 
-		                       ID3D11Device *device, 
-		                       ID3D11ShaderResourceView **texture_srv) {
-		
-		Assert(device);
-		Assert(texture_srv);
+	void ImportTextureFromFile(const wstring& fname, 
+		                       ID3D11Device& device, 
+		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
 		
 		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
-				device, fname.c_str(), nullptr, texture_srv);
+				&device, fname.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
 		}
 		else {
 			const HRESULT result = DirectX::CreateWICTextureFromFile(
-				device, fname.c_str(), nullptr, texture_srv);
+				&device, fname.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
 		}
 	}
@@ -59,8 +55,9 @@ namespace mage::loader {
 	 @return		The WIC container format associated with the given image 
 					file extension.
 	 */
-	[[nodiscard]]static inline const GUID 
-		GetGUIDContainerFormat(const wstring &extension) noexcept {
+	[[nodiscard]]
+	static inline const GUID 
+		GetGUIDContainerFormat(const wstring& extension) noexcept {
 
 		if (extension == L"png" || extension == L"PNG") {
 			return GUID_ContainerFormatPng;
@@ -94,18 +91,15 @@ namespace mage::loader {
 		}
 	}
 
-	void ExportTextureToFile(const wstring &fname,
-		                     ID3D11DeviceContext *device_context, 
-		                     ID3D11Resource *texture) {
-
-		Assert(device_context);
-		Assert(texture);
+	void ExportTextureToFile(const wstring& fname,
+		                     ID3D11DeviceContext& device_context, 
+		                     ID3D11Resource& texture) {
 
 		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
-				device_context, texture, fname.c_str());
+				&device_context, &texture, fname.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
 		}
 		else {
@@ -115,7 +109,7 @@ namespace mage::loader {
 				"Unknown image file extension: %ls", fname.c_str());
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(
-				device_context, texture, format, fname.c_str());
+				&device_context, &texture, format, fname.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
 		}
 	}

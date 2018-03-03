@@ -48,7 +48,7 @@ namespace mage {
 		 @return		A reference to the copy of the given compiled shader 
 						(i.e. this compiled shader).
 		 */
-		CompiledShader &operator=(const CompiledShader &compiled_shader) noexcept;
+		CompiledShader& operator=(const CompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Moves the given compiled shader to this compiled shader.
@@ -58,7 +58,7 @@ namespace mage {
 		 @return		A reference to the moved compiled shader (i.e. this 
 						compiled shader).
 		 */
-		CompiledShader &operator=(CompiledShader &&compiled_shader) noexcept;
+		CompiledShader& operator=(CompiledShader&& compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -100,7 +100,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
 		 */
-		CompiledShader(const CompiledShader &compiled_shader) noexcept;
+		CompiledShader(const CompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Constructs a compiled shader by moving the given compiled shader.
@@ -108,7 +108,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to move.
 		 */
-		CompiledShader(CompiledShader &&compiled_shader) noexcept;
+		CompiledShader(CompiledShader&& compiled_shader) noexcept;
 	};
 
 	#pragma endregion
@@ -150,7 +150,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to copy.
 		 */
-		BufferCompiledShader(const BufferCompiledShader &compiled_shader) noexcept;
+		BufferCompiledShader(const BufferCompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Constructs a buffer compiled shader by moving the given buffer 
@@ -159,7 +159,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to move.
 		 */
-		BufferCompiledShader(BufferCompiledShader &&compiled_shader) noexcept;
+		BufferCompiledShader(BufferCompiledShader&& compiled_shader) noexcept;
 
 		/**
 		 Destructs this buffer compiled shader.
@@ -179,8 +179,8 @@ namespace mage {
 		 @return		A reference to the copy of the given buffer compiled 
 						shader (i.e. this buffer compiled shader).
 		 */
-		BufferCompiledShader &operator=(
-			const BufferCompiledShader &compiled_shader) noexcept;
+		BufferCompiledShader& operator=(
+			const BufferCompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Moves the given buffer compiled shader to this buffer compiled shader.
@@ -190,8 +190,8 @@ namespace mage {
 		 @return		A reference to the moved buffer compiled shader (i.e. 
 						this buffer compiled shader).
 		 */
-		BufferCompiledShader &operator=(
-			BufferCompiledShader &&compiled_shader) noexcept;
+		BufferCompiledShader& operator=(
+			BufferCompiledShader&& compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -263,7 +263,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to load the compiled shader from the given file.
 		 */
-		explicit BlobCompiledShader(const wstring &fname) noexcept;
+		explicit BlobCompiledShader(const wstring& fname) noexcept;
 		
 		/**
 		 Constructs a blob compiled shader from the given blob compiled shader.
@@ -271,7 +271,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to copy.
 		 */
-		BlobCompiledShader(const BlobCompiledShader &compiled_shader) noexcept;
+		BlobCompiledShader(const BlobCompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Constructs a blob compiled shader by moving the given blob compiled 
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to move.
 		 */
-		BlobCompiledShader(BlobCompiledShader &&compiled_shader) noexcept;
+		BlobCompiledShader(BlobCompiledShader&& compiled_shader) noexcept;
 
 		/**
 		 Destructs this blob compiled shader.
@@ -299,8 +299,8 @@ namespace mage {
 		 @return		A reference to the copy of the given blob compiled 
 						shader (i.e. this blob compiled shader).
 		 */
-		BlobCompiledShader &operator=(
-			const BlobCompiledShader &compiled_shader) noexcept;
+		BlobCompiledShader& operator=(
+			const BlobCompiledShader& compiled_shader) noexcept;
 
 		/**
 		 Moves the given blob compiled shader to this blob compiled shader.
@@ -310,8 +310,8 @@ namespace mage {
 		 @return		A reference to the moved blob compiled shader (i.e. 
 						this blob compiled shader).
 		 */
-		BlobCompiledShader &operator=(
-			BlobCompiledShader &&compiled_shader) noexcept;
+		BlobCompiledShader& operator=(
+			BlobCompiledShader&& compiled_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

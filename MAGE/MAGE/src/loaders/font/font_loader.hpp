@@ -18,11 +18,10 @@ namespace mage::loader {
 	/**
 	 Imports the FONT from the given file.
 
-	 @pre			@a device is not equal to @c nullptr.
 	 @param[in]		fname
 					A reference to the FONT filename.
 	 @param[in]		device
-					A pointer to the device.
+					A reference to the device.
 	 @param[out]	output
 					A reference to the sprite font output.
 	 @param[in]		desc
@@ -30,9 +29,9 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the sprite font from file.
 	 */
-	void ImportFontFromFile(const wstring &fname, 
-		                    ID3D11Device *device, 
-		                    SpriteFontOutput &output, 
-		                    const SpriteFontDescriptor &desc 
+	void ImportFontFromFile(const wstring& fname, 
+		                    ID3D11Device& device, 
+		                    SpriteFontOutput& output, 
+		                    const SpriteFontDescriptor& desc 
 		                        = SpriteFontDescriptor());
 }

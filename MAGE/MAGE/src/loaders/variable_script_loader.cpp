@@ -15,8 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	void ImportVariableScriptFromFile(const wstring &fname, 
-		std::map< string, Value > &variable_buffer) {
+	void ImportVariableScriptFromFile(const wstring& fname, 
+		std::map< string, Value >& variable_buffer) {
 		
 		const auto extension = GetFileExtension(fname);
 
@@ -29,8 +29,8 @@ namespace mage::loader {
 		}
 	}
 
-	void ExportVariableScriptToFile(const wstring &fname, 
-		const std::map< string, Value > &variable_buffer) {
+	void ExportVariableScriptToFile(const wstring& fname, 
+		const std::map< string, Value >& variable_buffer) {
 		
 		const auto extension = GetFileExtension(fname);
 

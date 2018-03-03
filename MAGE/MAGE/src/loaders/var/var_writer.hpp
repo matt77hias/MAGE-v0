@@ -42,7 +42,7 @@ namespace mage::loader {
 						A reference to a map containing the variables to write 
 						to file.
 		 */
-		explicit VARWriter(const std::map< string, Value > &variable_buffer);
+		explicit VARWriter(const std::map< string, Value >& variable_buffer);
 		
 		/**
 		 Constructs a VAR writer from the given VAR writer.
@@ -50,7 +50,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the VAR writer to copy.
 		 */
-		VARWriter(const VARWriter &writer) = delete;
+		VARWriter(const VARWriter& writer) = delete;
 
 		/**
 		 Constructs a VAR writer by moving the given VAR writer.
@@ -58,7 +58,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the VAR writer to move.
 		 */
-		VARWriter(VARWriter &&writer) noexcept;
+		VARWriter(VARWriter&& writer) noexcept;
 
 		/**
 		 Destructs this VAR writer.
@@ -77,7 +77,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given VAR writer (i.e. 
 						this VAR writer).
 		 */
-		VARWriter &operator=(const VARWriter &writer) = delete;
+		VARWriter& operator=(const VARWriter& writer) = delete;
 
 		/**
 		 Moves the given VAR writer to this VAR writer.
@@ -87,7 +87,7 @@ namespace mage::loader {
 		 @return		A reference to the moved VAR writer (i.e. this VAR 
 						writer).
 		 */
-		VARWriter &operator=(VARWriter &&writer) = delete;
+		VARWriter& operator=(VARWriter&& writer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -119,6 +119,6 @@ namespace mage::loader {
 		 A reference to a map containing the variables to write by this VAR 
 		 writer.
 		 */
-		const std::map< string, Value > &m_variable_buffer;
+		const std::map< string, Value >& m_variable_buffer;
 	};
 }

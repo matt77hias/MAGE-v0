@@ -30,27 +30,22 @@ namespace mage {
 		/**
 		 Constructs a renderer.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
-		 @pre			@a swap_chain is not equal to @c nullptr.
-		 @pre			@a resource_manager is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						A reference to the display configuration.
 		 @param[in]		swap_chain
-						A pointer to the swap chain.
+						A reference to the swap chain.
 		 @param[in]		resource_manager
 						A pointer to the resource manager.
 		 */
-		explicit Renderer(ID3D11Device *device,
-						  ID3D11DeviceContext *device_context,
-						  DisplayConfiguration *display_configuration,
-						  SwapChain *swap_chain,
-						  ResourceManager *resource_manager);
+		explicit Renderer(ID3D11Device& device,
+						  ID3D11DeviceContext& device_context,
+						  DisplayConfiguration& display_configuration,
+						  SwapChain& swap_chain,
+						  ResourceManager& resource_manager);
 
 		/**
 		 Constructs a renderer from the given renderer.
@@ -58,7 +53,7 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to the renderer to copy.
 		 */
-		Renderer(const Renderer &renderer) = delete;
+		Renderer(const Renderer& renderer) = delete;
 
 		/**
 		 Constructs a renderer by moving the given renderer.
@@ -66,7 +61,7 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to the renderer to move.
 		 */
-		Renderer(Renderer &&renderer) noexcept;
+		Renderer(Renderer&& renderer) noexcept;
 
 		/**
 		 Destructs this renderer.
@@ -85,7 +80,7 @@ namespace mage {
 		 @return		A reference to the copy of the given renderer (i.e. 
 						this renderer).
 		 */
-		Renderer &operator=(const Renderer &renderer) = delete;
+		Renderer& operator=(const Renderer& renderer) = delete;
 
 		/**
 		 Moves the given renderer to this renderer.
@@ -94,7 +89,7 @@ namespace mage {
 						A reference to the renderer to move.
 		 @return		A reference to the moved renderer (i.e. this renderer).
 		 */
-		Renderer &operator=(Renderer &&renderer) = delete;
+		Renderer& operator=(Renderer&& renderer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -116,7 +111,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene);
+		void Render(const Scene& scene);
 
 	private:
 

@@ -55,7 +55,7 @@ namespace mage {
 		 @param[in]		configurator
 						A reference to a display configurator to copy.
 		 */
-		DisplayConfigurator(const DisplayConfigurator &configurator) = delete;
+		DisplayConfigurator(const DisplayConfigurator& configurator) = delete;
 
 		/**
 		 Constructs a display configurator by moving the given display configurator.
@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		configurator
 						A reference to a display configurator to move.
 		 */
-		DisplayConfigurator(DisplayConfigurator &&configurator) noexcept;
+		DisplayConfigurator(DisplayConfigurator&& configurator) noexcept;
 
 		/**
 		 Destructs this display configurator.
@@ -82,8 +82,8 @@ namespace mage {
 		 @return		A reference to the copy of the given display 
 						configurator (i.e. this display configurator).
 		 */
-		DisplayConfigurator &operator=(
-			const DisplayConfigurator &configurator) = delete;
+		DisplayConfigurator& operator=(const DisplayConfigurator& 
+									   configurator) = delete;
 
 		/**
 		 Moves the given display configurator to this display configurator.
@@ -93,8 +93,8 @@ namespace mage {
 		 @return		A reference to the moved display configurator (i.e. 
 						this display configurator).
 		 */
-		DisplayConfigurator &operator=(
-			DisplayConfigurator &&configurator) = delete;
+		DisplayConfigurator& operator=(DisplayConfigurator&& 
+									   configurator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -107,7 +107,8 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		[[nodiscard]]HRESULT Configure() const;
+		[[nodiscard]]
+		HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.
@@ -115,8 +116,8 @@ namespace mage {
 		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		[[nodiscard]]const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept;
+		[[nodiscard]]
+		const DisplayConfiguration* GetDisplayConfiguration() const noexcept;
 
 	private:
 

@@ -51,10 +51,10 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this vertex shader.
 		*/
-		explicit VertexShader(ID3D11Device &device, 
+		explicit VertexShader(ID3D11Device& device, 
 							  wstring guid,
-			                  const CompiledShader &compiled_shader, 
-			                  const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+			                  const CompiledShader& compiled_shader, 
+			                  const D3D11_INPUT_ELEMENT_DESC* input_element_desc, 
 			                  size_t nb_input_elements);
 		
 		/**
@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.
 		 */
-		VertexShader(const VertexShader &vertex_shader) = delete;
+		VertexShader(const VertexShader& vertex_shader) = delete;
 		
 		/**
 		 Constructs a vertex shader by moving the given vertex shader.
@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to move.
 		 */
-		VertexShader(VertexShader &&vertex_shader) noexcept;
+		VertexShader(VertexShader&& vertex_shader) noexcept;
 		
 		/**
 		 Destructs this vertex shader.
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex shader 
 						(i.e. this vertex shader).
 		 */
-		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
+		VertexShader& operator=(const VertexShader& vertex_shader) = delete;
 
 		/**
 		 Moves the given vertex shader to this vertex shader.
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the moved vertex shader (i.e. this 
 						vertex shader).
 		 */
-		VertexShader &operator=(VertexShader &&vertex_shader) noexcept;
+		VertexShader& operator=(VertexShader&& vertex_shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -112,7 +112,7 @@ namespace mage {
 		 @param[in]		device_context
 						A reference to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext &device_context) const noexcept {
+		void BindShader(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::IA::BindInputLayout(device_context, m_vertex_layout.Get());
 			Pipeline::VS::BindShader(device_context, m_vertex_shader.Get());
 		}
@@ -141,9 +141,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(ID3D11Device &device,
-			             const CompiledShader &compiled_shader,
-			             const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+		void SetupShader(ID3D11Device& device,
+			             const CompiledShader& compiled_shader,
+			             const D3D11_INPUT_ELEMENT_DESC* input_element_desc, 
 			             size_t nb_input_elements);
 			
 		//---------------------------------------------------------------------
@@ -197,9 +197,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize this shader.
 		 */
-		explicit Shader(ID3D11Device &device, 
+		explicit Shader(ID3D11Device& device, 
 						wstring guid, 
-			            const CompiledShader &compiled_shader);
+			            const CompiledShader& compiled_shader);
 		
 		/**
 		 Constructs a shader from the given shader.
@@ -207,7 +207,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to copy.
 		 */
-		Shader(const Shader &shader) = delete;
+		Shader(const Shader& shader) = delete;
 
 		/**
 		 Constructs a shader by moving the given shader.
@@ -215,7 +215,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to move.
 		 */
-		Shader(Shader &&shader) noexcept;
+		Shader(Shader&& shader) noexcept;
 
 		/**
 		 Destructs this shader.
@@ -234,7 +234,7 @@ namespace mage {
 		 @return		A reference to the copy of the given shader (i.e. this 
 						shader).
 		 */
-		Shader &operator=(const Shader &shader) = delete;
+		Shader& operator=(const Shader& shader) = delete;
 
 		/**
 		 Moves the given shader to this shader.
@@ -243,7 +243,7 @@ namespace mage {
 						A reference to the shader to move.
 		 @return		A reference to the moved shader (i.e. this shader).
 		 */
-		Shader &operator=(Shader &&shader) noexcept;
+		Shader& operator=(Shader&& shader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -255,7 +255,7 @@ namespace mage {
 		 @param[in]		device_context
 						A reference to the device context.
 		 */
-		void BindShader(ID3D11DeviceContext &device_context) const noexcept;
+		void BindShader(ID3D11DeviceContext& device_context) const noexcept;
 
 	private:
 
@@ -273,8 +273,8 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup this shader.
 		 */
-		void SetupShader(ID3D11Device &device, 
-			             const CompiledShader &compiled_shader);
+		void SetupShader(ID3D11Device& device, 
+			             const CompiledShader& compiled_shader);
 		
 		//---------------------------------------------------------------------
 		// Member Variables

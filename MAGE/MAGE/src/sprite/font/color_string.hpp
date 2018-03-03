@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		color_string
 						A reference to the color string to copy.
 		 */
-		ColorString(const ColorString &color_string) = default;
+		ColorString(const ColorString& color_string) = default;
 
 		/**
 		 Constructs a color string by moving the given color string.
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		color_string
 						A reference to the color string to move.
 		 */
-		ColorString(ColorString &&color_string) noexcept = default;
+		ColorString(ColorString&& color_string) noexcept = default;
 
 		/**
 		 Destructs this color string.
@@ -72,7 +72,7 @@ namespace mage {
 		 @return		A reference to the copy of the given color string (i.e. 
 						this color string).
 		 */
-		ColorString &operator=(const ColorString &color_string) = default;
+		ColorString& operator=(const ColorString& color_string) = default;
 
 		/**
 		 Moves the given color string to this color string.
@@ -82,7 +82,7 @@ namespace mage {
 		 @return		A reference to the moved color string (i.e. this color 
 						string).
 		 */
-		ColorString &operator=(ColorString &&color_string) noexcept = default;
+		ColorString& operator=(ColorString&& color_string) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -104,7 +104,7 @@ namespace mage {
 		 @return		A reference to the string of this color string.
 		 */
 		[[nodiscard]]
-		const wstring &GetString() const noexcept {
+		const wstring& GetString() const noexcept {
 			return m_str;
 		}
 		
@@ -124,7 +124,7 @@ namespace mage {
 		 @return		A reference to sRGB color of this color string.
 		 */
 		[[nodiscard]]
-		SRGBA &GetColor() noexcept {
+		SRGBA& GetColor() noexcept {
 			return m_color;
 		}
 
@@ -134,7 +134,7 @@ namespace mage {
 		 @return		A reference to sRGB color of this color string.
 		 */
 		[[nodiscard]]
-		const SRGBA &GetColor() const noexcept {
+		const SRGBA& GetColor() const noexcept {
 			return m_color;
 		}
 

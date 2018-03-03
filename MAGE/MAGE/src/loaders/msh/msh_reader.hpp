@@ -50,8 +50,8 @@ namespace mage::loader {
 						A reference to a vector for storing the read indices
 						from file.
 		 */
-		explicit MSHReader(std::vector< VertexT > &vertices, 
-			               std::vector< IndexT >  &indices);
+		explicit MSHReader(std::vector< VertexT >& vertices, 
+			               std::vector< IndexT > & indices);
 
 		/**
 		 Constructs a MSH reader from the given MSH reader.
@@ -59,7 +59,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MSH reader to copy.
 		 */
-		MSHReader(const MSHReader &reader) = delete;
+		MSHReader(const MSHReader& reader) = delete;
 
 		/**
 		 Constructs a MSH reader by moving the given MSH reader.
@@ -67,7 +67,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MSH reader to move.
 		 */
-		MSHReader(MSHReader &&reader) noexcept;
+		MSHReader(MSHReader&& reader) noexcept;
 
 		/**
 		 Destructs this MSH reader.
@@ -86,7 +86,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given MSH reader (i.e. 
 						this MSH reader).
 		 */
-		MSHReader &operator=(const MSHReader &reader) = delete;
+		MSHReader& operator=(const MSHReader& reader) = delete;
 
 		/**
 		 Moves the given MSH reader to this MSH reader.
@@ -96,7 +96,7 @@ namespace mage::loader {
 		 @return		A reference to the moved MSH reader (i.e. this MSH 
 						reader).
 		 */
-		MSHReader &operator=(MSHReader &&reader) = delete;
+		MSHReader& operator=(MSHReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -128,7 +128,8 @@ namespace mage::loader {
 		 @return		@c true if the header of the file is valid. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool IsHeaderValid();
+		[[nodiscard]]
+		bool IsHeaderValid();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -138,13 +139,13 @@ namespace mage::loader {
 		 A reference to a vector containing the read vertices of this MSH 
 		 reader.
 		 */
-		std::vector< VertexT > &m_vertices;
+		std::vector< VertexT >& m_vertices;
 
 		/**
 		 A reference to a vector containing the read indices of this MSH 
 		 reader.
 		 */
-		std::vector< IndexT > &m_indices;
+		std::vector< IndexT >& m_indices;
 	};
 }
 

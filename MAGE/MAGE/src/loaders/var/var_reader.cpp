@@ -14,17 +14,17 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	VARReader::VARReader(std::map< string, Value > &variable_buffer)
+	VARReader::VARReader(std::map< string, Value >& variable_buffer)
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VARReader::VARReader(VARReader &&reader) noexcept = default;
+	VARReader::VARReader(VARReader&& reader) noexcept = default;
 
 	VARReader::~VARReader() = default;
 
-	void VARReader::ReadLine(char *line) {
+	void VARReader::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto * const token
+		const auto* const token
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_var_token_comment == token[0]) {

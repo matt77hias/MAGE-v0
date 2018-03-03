@@ -30,16 +30,16 @@ namespace mage::loader {
 		/**
 		 Constructs a FONT reader.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[out]	output
 						A reference to the sprite font output.
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		*/
-		explicit SpriteFontReader(ID3D11Device *device, 
-			SpriteFontOutput &output, const SpriteFontDescriptor &desc);
+		explicit SpriteFontReader(ID3D11Device& device, 
+								  SpriteFontOutput &output, 
+								  const SpriteFontDescriptor &desc);
 		
 		/**
 		 Constructs a FONT reader from the given FONT reader.
@@ -47,7 +47,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the FONT reader to copy.
 		 */
-		SpriteFontReader(const SpriteFontReader &reader) = delete;
+		SpriteFontReader(const SpriteFontReader& reader) = delete;
 
 		/**
 		 Constructs a FONT reader by moving the given FONT reader.
@@ -55,7 +55,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the FONT reader to move.
 		 */
-		SpriteFontReader(SpriteFontReader &&reader) noexcept;
+		SpriteFontReader(SpriteFontReader&& reader) noexcept;
 
 		/**
 		 Destructs this FONT reader.
@@ -74,7 +74,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given FONT reader
 						(i.e. this FONT reader).
 		 */
-		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
+		SpriteFontReader& operator=(const SpriteFontReader& reader) = delete;
 
 		/**
 		 Moves the given FONT reader to this FONT reader.
@@ -84,7 +84,7 @@ namespace mage::loader {
 		 @return		A reference to the moved FONT reader (i.e. this 
 						FONT reader).
 		 */
-		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
+		SpriteFontReader& operator=(SpriteFontReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -118,7 +118,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read to the given file.
 		 */
-		[[nodiscard]]bool IsHeaderValid();
+		[[nodiscard]]
+		bool IsHeaderValid();
 
 		/**
 		 Reads a texture.
@@ -135,18 +136,18 @@ namespace mage::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the rendering device of this FONT reader.
+		 A reference to the rendering device of this FONT reader.
 		 */
-		ID3D11Device * const m_device;
+		ID3D11Device& m_device;
 
 		/**
 		 A reference to the sprite font output of this FONT reader.
 		 */
-		SpriteFontOutput &m_output;
+		SpriteFontOutput& m_output;
 
 		/**
 		 A reference to the sprite font descriptor of this FONT reader.
 		 */
-		const SpriteFontDescriptor &m_desc;
+		const SpriteFontDescriptor& m_desc;
 	};
 }

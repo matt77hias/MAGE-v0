@@ -28,19 +28,19 @@ namespace mage {
 		/**
 		 Constructs a swap chain.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
 		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						A reference to the display configuration.
 		 */
-		explicit SwapChain(ID3D11Device *device, 
-			               HWND window,
-			               DisplayConfiguration *display_configuration);
+		explicit SwapChain(ID3D11Device& device, 
+						   ID3D11DeviceContext& device_context,
+			               NotNull< HWND > window,
+			               DisplayConfiguration& display_configuration);
 
 		/**
 		 Constructs a swap chain from the given swap chain.
@@ -48,7 +48,7 @@ namespace mage {
 		 @param[in]		swap_chain
 						A reference to a swap chain to copy.
 		 */
-		SwapChain(const SwapChain &swap_chain) = delete;
+		SwapChain(const SwapChain& swap_chain) = delete;
 
 		/**
 		 Constructs a swap chain by moving the given swap chain.
@@ -56,7 +56,7 @@ namespace mage {
 		 @param[in]		swap_chain
 						A reference to a swap chain to move.
 		 */
-		SwapChain(SwapChain &&swap_chain) noexcept;
+		SwapChain(SwapChain&& swap_chain) noexcept;
 
 		/**
 		 Destructs this swap chain.
@@ -75,7 +75,7 @@ namespace mage {
 		 @return		A reference to the copy of the given swap chain (i.e. 
 						this swap chain).
 		 */
-		SwapChain &operator=(const SwapChain &swap_chain) = delete;
+		SwapChain& operator=(const SwapChain& swap_chain) = delete;
 
 		/**
 		 Moves the given swap chain to this swap chain.
@@ -85,7 +85,7 @@ namespace mage {
 		 @return		A reference to the moved swap chain (i.e. this swap 
 						chain).
 		 */
-		SwapChain &operator=(SwapChain &&swap_chain) = delete;
+		SwapChain& operator=(SwapChain&& swap_chain) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Display Configuration
@@ -96,7 +96,8 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		[[nodiscard]]HWND GetWindow() noexcept;
+		[[nodiscard]]
+		NotNull< HWND > GetWindow() noexcept;
 
 		/**
 		 Checks whether this swap chain displays in windowed mode.
@@ -104,7 +105,8 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		[[nodiscard]]bool IsWindowed() const noexcept;
+		[[nodiscard]]
+		bool IsWindowed() const noexcept;
 		
 		/**
 		 Checks whether this swap chain displays in full screen mode.
@@ -112,7 +114,8 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool IsFullScreen() const noexcept;
+		[[nodiscard]]
+		bool IsFullScreen() const noexcept;
 		
 		/**
 		 Checks whether this swap chain lost its mode, i.e. the tracked mode of 
@@ -121,7 +124,8 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool LostMode() const noexcept;
+		[[nodiscard]]
+		bool LostMode() const noexcept;
 
 		/**
 		 Sets the initial mode of this swap chain.
@@ -158,10 +162,12 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		[[nodiscard]]ID3D11RenderTargetView *GetRTV() const noexcept;
+		[[nodiscard]]
+		ID3D11RenderTargetView *GetRTV() const noexcept;
 
 		/**
 		 Clears the render target view of the back buffer of this swap chain.
+
 		 */
 		void Clear() const noexcept;
 
@@ -179,7 +185,7 @@ namespace mage {
 						Failed to take a screenshot of the current back buffer 
 						of this swap chain. 
 		 */
-		void TakeScreenShot(const wstring &fname) const;
+		void TakeScreenShot(const wstring& fname) const;
 
 	private:
 

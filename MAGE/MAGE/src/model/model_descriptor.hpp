@@ -33,13 +33,12 @@ namespace mage {
 						The vertex type.
 		 @tparam		IndexT
 						The index type.
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			The resource manager associated with the current engine
-						must be loaded.
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
 		 @param[in]		desc
@@ -51,9 +50,10 @@ namespace mage {
 						Failed to initialize the model descriptor.
 		 */
 		template< typename VertexT, typename IndexT >
-		explicit ModelDescriptor(ID3D11Device *device, 
+		explicit ModelDescriptor(ID3D11Device& device, 
+								 ResourceManager &resource_manager, 
 								 wstring fname,
-			const MeshDescriptor< VertexT, IndexT > &desc 
+			const MeshDescriptor< VertexT, IndexT >& desc 
 			    = MeshDescriptor< VertexT, IndexT >(),
 			bool export_as_MDL = false);
 		
@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to copy.
 		 */
-		ModelDescriptor(const ModelDescriptor &desc) = delete;
+		ModelDescriptor(const ModelDescriptor& desc) = delete;
 
 		/**
 		 Constructs a model descriptor by moving the given model descriptor.
@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to move.
 		 */
-		ModelDescriptor(ModelDescriptor &&desc) noexcept;
+		ModelDescriptor(ModelDescriptor&& desc) noexcept;
 
 		/**
 		 Destructs a model descriptor.
@@ -88,7 +88,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to copy.
 		 */
-		ModelDescriptor &operator=(const ModelDescriptor &desc) = delete;
+		ModelDescriptor& operator=(const ModelDescriptor& desc) = delete;
 
 		/**
 		 Moves the given model descriptor to this model descriptor.
@@ -96,7 +96,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to move.
 		 */
-		ModelDescriptor &operator=(ModelDescriptor &&desc) noexcept;
+		ModelDescriptor& operator=(ModelDescriptor&& desc) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -107,7 +107,8 @@ namespace mage {
 
 		 @return		A pointer to the mesh of this model descriptor.
 		 */
-		[[nodiscard]]SharedPtr< const Mesh > GetMesh() const noexcept {
+		[[nodiscard]]
+		SharedPtr< const Mesh > GetMesh() const noexcept {
 			return m_mesh;
 		}
 
@@ -121,8 +122,8 @@ namespace mage {
 		 @return		A pointer to the material of this model 
 						descriptor matching the given name @a name.
 		 */
-		[[nodiscard]]const Material *
-			GetMaterial(const string &name) const noexcept;
+		[[nodiscard]]
+		const Material* GetMaterial(const string& name) const noexcept;
 
 		/**
 		 Traverses all materials of this model descriptor.
@@ -145,8 +146,8 @@ namespace mage {
 		 @return		A pointer to the model part of this model descriptor 
 						matching the given name @a name.
 		 */
-		[[nodiscard]]const ModelPart *
-			GetModelPart(const string &name) const noexcept;
+		[[nodiscard]]
+		const ModelPart* GetModelPart(const string& name) const noexcept;
 		
 		/**
 		 Traverses all model parts of this model descriptor.

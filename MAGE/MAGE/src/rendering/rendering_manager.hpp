@@ -24,34 +24,19 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the rendering manager associated with the current engine.
-
-		 @pre			The current engine must exist.
-		 @return		A pointer to the rendering manager associated with the 
-						current engine.
-		 */
-		[[nodiscard]]static const RenderingManager *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a rendering manager.
 
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		window
 						The main window handle.
 		 @param[in]		configuration
-						A pointer to the display configuration.
+						The display configuration.
 		 */
-		explicit RenderingManager(HWND window, 
-								  const DisplayConfiguration *configuration);
+		explicit RenderingManager(NotNull< HWND > window, 
+								  DisplayConfiguration configuration);
 
 		/**
 		 Constructs a rendering manager from the given rendering manager.
@@ -59,7 +44,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to copy.
 		 */
-		RenderingManager(const RenderingManager &manager) = delete;
+		RenderingManager(const RenderingManager& manager) = delete;
 
 		/**
 		 Constructs a rendering manager by moving the given rendering manager.
@@ -67,7 +52,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to move.
 		 */
-		RenderingManager(RenderingManager &&manager) noexcept;
+		RenderingManager(RenderingManager&& manager) noexcept;
 
 		/**
 		 Destructs this rendering manager.
@@ -86,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering manager 
 						(i.e. this rendering manager).
 		 */
-		RenderingManager &operator=(const RenderingManager &manager) = delete;
+		RenderingManager& operator=(const RenderingManager& manager) = delete;
 
 		/**
 		 Moves the given rendering manager to this rendering manager.
@@ -96,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved rendering manager (i.e. this 
 						rendering manager).
 		 */
-		RenderingManager &operator=(RenderingManager &&manager) = delete;
+		RenderingManager& operator=(RenderingManager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -105,26 +90,28 @@ namespace mage {
 		/**
 		 Returns the display configuration of this rendering manager.
 
-		 @return		A pointer to the display configuration of this 
+		 @return		A reference to the display configuration of this 
 						rendering manager.
 		 */
-		[[nodiscard]]const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept;
+		[[nodiscard]]
+		const DisplayConfiguration& GetDisplayConfiguration() const noexcept;
 
 		/**
 		 Returns the swap chain of this rendering manager.
 
-		 @return		A pointer to the swap chain of this rendering manager.
+		 @return		A reference to the swap chain of this rendering manager.
 		 */
-		[[nodiscard]]SwapChain *GetSwapChain() const noexcept;
+		[[nodiscard]]
+		SwapChain& GetSwapChain() const noexcept;
 
 		/**
 		 Returns the state manager of this rendering manager.
 
-		 @return		A pointer to the state manager of this 
+		 @return		A reference to the state manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]]ResourceManager *GetResourceManager() const noexcept;
+		[[nodiscard]]
+		ResourceManager& GetResourceManager() const noexcept;
 
 		/**
 		 Binds the persistent state of this rendering manager.
@@ -146,7 +133,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene);
+		void Render(const Scene& scene);
 
 	private:
 

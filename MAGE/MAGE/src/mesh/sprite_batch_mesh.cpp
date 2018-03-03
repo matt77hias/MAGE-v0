@@ -21,24 +21,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteBatchMesh::SpriteBatchMesh()
-		: SpriteBatchMesh(Pipeline::GetDevice()) {}
-
-	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device *device) 
+	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device& device) 
 		: PrimitiveBatchMesh(device,
 		                     MaxVerticesPerBatch(),
 		                     GenerateIndices()) {}
 
-	SpriteBatchMesh::SpriteBatchMesh(SpriteBatchMesh &&mesh) noexcept = default;
+	SpriteBatchMesh::SpriteBatchMesh(SpriteBatchMesh&& mesh) noexcept = default;
 
 	SpriteBatchMesh::~SpriteBatchMesh() = default;
 
-	SpriteBatchMesh &SpriteBatchMesh
-		::operator=(SpriteBatchMesh &&mesh) noexcept = default;
+	SpriteBatchMesh& SpriteBatchMesh::operator=(SpriteBatchMesh&& 
+												mesh) noexcept = default;
 
-	[[nodiscard]]const std::vector< U16 > SpriteBatchMesh::GenerateIndices() {
-		static_assert(MaxVerticesPerBatch() < std::numeric_limits< U16 >::max(),
-			"s_max_sprites_per_batch too large for 16-bit indices.");
+	[[nodiscard]]
+	const std::vector< U16 > SpriteBatchMesh::GenerateIndices() {
+		static_assert(MaxVerticesPerBatch() < std::numeric_limits< U16 >::max(), 
+					  "s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
 		std::vector< U16 > indices;

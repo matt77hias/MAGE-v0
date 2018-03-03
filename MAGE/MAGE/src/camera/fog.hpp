@@ -6,7 +6,6 @@
 #pragma region
 
 #include "spectrum\color.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -40,7 +39,7 @@ namespace mage {
 		 @param[in]		fog
 						A reference to the fog to copy.
 		 */
-		constexpr Fog(const Fog &fog) noexcept = default;
+		constexpr Fog(const Fog& fog) noexcept = default;
 
 		/**
 		 Constructs a fog by moving the given fog.
@@ -48,7 +47,7 @@ namespace mage {
 		 @param[in]		fog
 						A reference to the fog to move.
 		 */
-		constexpr Fog(Fog &&fog) noexcept = default;
+		constexpr Fog(Fog&& fog) noexcept = default;
 
 		/**
 		 Destructs this fog.
@@ -66,7 +65,7 @@ namespace mage {
 						A reference to the fog to copy.
 		 @return		A reference to the copy of the given fog (i.e. this fog).
 		 */
-		constexpr Fog &operator=(const Fog &fog) noexcept = default;
+		constexpr Fog& operator=(const Fog& fog) noexcept = default;
 
 		/**
 		 Moves the given fog to this fog.
@@ -75,7 +74,7 @@ namespace mage {
 						A reference to the fog to move.
 		 @return		A reference to the moved fog (i.e. this fog).
 		 */
-		constexpr Fog &operator=(Fog &&fog) noexcept = default;
+		constexpr Fog& operator=(Fog&& fog) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -86,7 +85,8 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
-		[[nodiscard]]constexpr SRGB &GetBaseColor() noexcept {
+		[[nodiscard]]
+		constexpr SRGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -95,7 +95,8 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
-		[[nodiscard]]constexpr const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]]
+		constexpr const SRGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -104,7 +105,8 @@ namespace mage {
 		
 		 @return		The density of this fog.
 		 */
-		[[nodiscard]]constexpr F32 GetDensity() const noexcept {
+		[[nodiscard]]
+		constexpr F32 GetDensity() const noexcept {
 			return m_density;
 		}
 

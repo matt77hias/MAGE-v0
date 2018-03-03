@@ -23,11 +23,11 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	VARWriter::VARWriter(const std::map< string, Value > &variable_buffer)
+	VARWriter::VARWriter(const std::map< string, Value >& variable_buffer)
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VARWriter::VARWriter(VARWriter &&writer) noexcept = default;
+	VARWriter::VARWriter(VARWriter&& writer) noexcept = default;
 
 	VARWriter::~VARWriter() = default;
 
@@ -35,7 +35,7 @@ namespace mage::loader {
 		
 		char output[MAX_PATH];
 
-		for (const auto &[key, value] : m_variable_buffer) {
+		for (const auto& [key, value] : m_variable_buffer) {
 				
 			// bool
 			{

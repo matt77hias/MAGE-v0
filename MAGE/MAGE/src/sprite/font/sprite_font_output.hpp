@@ -46,7 +46,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the sprite font output to copy.
 		 */
-		SpriteFontOutput(const SpriteFontOutput &output) = delete;
+		SpriteFontOutput(const SpriteFontOutput& output) = delete;
 
 		/**
 		 Constructs a sprite font output by moving the given sprite font output.
@@ -54,7 +54,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the sprite font output to move.
 		 */
-		SpriteFontOutput(SpriteFontOutput &&output) noexcept = default;
+		SpriteFontOutput(SpriteFontOutput&& output) noexcept = default;
 
 		/**
 		 Destructs this sprite font output.
@@ -73,7 +73,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite font output
 						(i.e. this sprite font output).
 		 */
-		SpriteFontOutput &operator=(const SpriteFontOutput &output) = delete;
+		SpriteFontOutput& operator=(const SpriteFontOutput& output) = delete;
 
 		/**
 		 Moves the given sprite font output to this sprite font output.
@@ -83,7 +83,7 @@ namespace mage {
 		 @return		A reference to the moved sprite font output (i.e. this 
 						sprite font output).
 		 */
-		SpriteFontOutput &operator=(SpriteFontOutput &&output) noexcept = default;
+		SpriteFontOutput& operator=(SpriteFontOutput&& output) noexcept = default;
 	
 		//---------------------------------------------------------------------
 		// Member Variables

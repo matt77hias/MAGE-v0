@@ -110,7 +110,7 @@ namespace mage {
 		 @param[in]		configurator
 						A reference to a display configurator to copy.
 		 */
-		Impl(const Impl &configurator) = delete;
+		Impl(const Impl& configurator) = delete;
 
 		/**
 		 Constructs a display configurator by moving the given display configurator.
@@ -118,7 +118,7 @@ namespace mage {
 		 @param[in]		configurator
 						A reference to a display configurator to move.
 		 */
-		Impl(Impl &&configurator) noexcept;
+		Impl(Impl&& configurator) noexcept;
 
 		/**
 		 Destructs this display configurator.
@@ -137,7 +137,7 @@ namespace mage {
 		 @return		A reference to the copy of the given display 
 						configurator (i.e. this display configurator).
 		 */
-		Impl &operator=(const Impl &configurator) = delete;
+		Impl& operator=(const Impl& configurator) = delete;
 
 		/**
 		 Moves the given display configurator to this display configurator.
@@ -147,7 +147,7 @@ namespace mage {
 		 @return		A reference to the moved display configurator (i.e. 
 						this display configurator).
 		 */
-		Impl &operator=(Impl &&configurator) = delete;
+		Impl& operator=(Impl&& configurator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -160,7 +160,8 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		[[nodiscard]]HRESULT Configure() const;
+		[[nodiscard]]
+		HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.
@@ -168,9 +169,8 @@ namespace mage {
 		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		[[nodiscard]]const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept {
-
+		[[nodiscard]]
+		const DisplayConfiguration* GetDisplayConfiguration() const noexcept {
 			return m_display_configuration.get();
 		}
 
@@ -194,8 +194,11 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
-		[[nodiscard]]static INT_PTR CALLBACK DisplayDialogProcDelegate(
-			HWND dialog, UINT message, WPARAM wParam, LPARAM lParam);
+		[[nodiscard]]
+		static INT_PTR CALLBACK DisplayDialogProcDelegate(HWND dialog, 
+														  UINT message, 
+														  WPARAM wParam, 
+														  LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -233,10 +236,11 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a message is processed. @c false otherwise.
 		 */
-		[[nodiscard]]INT_PTR DisplayDialogProc(HWND dialog, 
-			                                    UINT message,
-			                                    [[maybe_unused]] WPARAM wParam, 
-			                                    [[maybe_unused]] LPARAM lParam);
+		[[nodiscard]]
+		INT_PTR DisplayDialogProc(HWND dialog, 
+								  UINT message, 
+								  [[maybe_unused]] WPARAM wParam, 
+								  [[maybe_unused]] LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -277,11 +281,12 @@ namespace mage {
 		std::vector< DXGI_MODE_DESC > m_display_modes;
 	};
 
-	[[nodiscard]]INT_PTR CALLBACK DisplayConfigurator::Impl
+	[[nodiscard]]
+	INT_PTR CALLBACK DisplayConfigurator::Impl
 		::DisplayDialogProcDelegate(HWND dialog, 
-			                        UINT message, 
+									UINT message, 
 			                        WPARAM wParam, 
-			                        LPARAM lParam) {
+									LPARAM lParam) {
 
 		const auto configurator = GetDialogCaller< DisplayConfigurator::Impl >
 			                      (dialog, message, wParam, lParam);
@@ -331,7 +336,7 @@ namespace mage {
 		InitializeDisplayModes();
 	}
 
-	DisplayConfigurator::Impl::Impl(Impl &&configurator) noexcept = default;
+	DisplayConfigurator::Impl::Impl(Impl&& configurator) noexcept = default;
 
 	DisplayConfigurator::Impl::~Impl() = default;
 
@@ -343,8 +348,9 @@ namespace mage {
 	 @return		@c true if the given display mode needs to be rejected.
 					@c false otherwise.
 	 */
-	[[nodiscard]]static inline bool 
-		RejectDisplayMode(const DXGI_MODE_DESC &display_mode_desc) noexcept {
+	[[nodiscard]]
+	static inline bool RejectDisplayMode(const DXGI_MODE_DESC& 
+										 display_mode_desc) noexcept {
 		
 		return (display_mode_desc.Width  < 512u) 
 			|| (display_mode_desc.Height < 512u);
@@ -384,8 +390,9 @@ namespace mage {
 			DXGI_ADAPTER_DESC desc;
 			{
 				const HRESULT result = iterated_adapter->GetDesc(&desc);
-				ThrowIfFailed(result,
-					"DXGI_ADAPTER_DESC retrieval failed: %08X.", result);
+				ThrowIfFailed(result, 
+							  "DXGI_ADAPTER_DESC retrieval failed: %08X.", 
+							  result);
 			}
 
 			const auto vram = desc.DedicatedVideoMemory;
@@ -422,8 +429,9 @@ namespace mage {
 					                                            flags, 
 					                                            &nb_display_modes, 
 					                                            nullptr);
-			ThrowIfFailed(result,
-				"Failed to get the number of display modes: %08X.", result);
+			ThrowIfFailed(result, 
+						  "Failed to get the number of display modes: %08X.", 
+						  result);
 		}
 		
 		// Get the display modes that match the requested format and other 
@@ -451,7 +459,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]]HRESULT DisplayConfigurator::Impl::Configure() const {
+	[[nodiscard]]
+	HRESULT DisplayConfigurator::Impl::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. 
 		//    If this parameter is nullptr, then the current executable is 
@@ -479,9 +488,8 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the resolution of 
 					the given display format descriptor.
 	 */
-	[[nodiscard]]static inline size_t 
-		ConvertResolution(const DXGI_MODE_DESC &desc) noexcept {
-
+	[[nodiscard]]
+	static inline size_t ConvertResolution(const DXGI_MODE_DESC& desc) noexcept {
 		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
 	}
 
@@ -494,18 +502,17 @@ namespace mage {
 	 @return		A @c size_t value corresponding to the refresh rate of 
 					the given display format descriptor.
 	 */
-	[[nodiscard]]static inline size_t 
-		ConvertRefreshRate(const DXGI_MODE_DESC &desc) noexcept {
-
+	[[nodiscard]]
+	static inline size_t ConvertRefreshRate(const DXGI_MODE_DESC& desc) noexcept {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
 			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	[[nodiscard]]INT_PTR DisplayConfigurator::Impl
-		::DisplayDialogProc(HWND dialog, 
-			                UINT message,
-		                    [[maybe_unused]] WPARAM wParam, 
-			                [[maybe_unused]] LPARAM lParam) {
+	[[nodiscard]]
+	INT_PTR DisplayConfigurator::Impl::DisplayDialogProc(HWND dialog, 
+														 UINT message, 
+														 [[maybe_unused]] WPARAM wParam, 
+														 [[maybe_unused]] LPARAM lParam) {
 
 		wchar_t buffer[16];
 
@@ -598,7 +605,7 @@ namespace mage {
 				ComboBox_ResetContent(GetDlgItem(dialog, IDC_RESOLUTION));
 
 				// Fill in the resolutions combo box.
-				for (const auto &mode : m_display_modes) {
+				for (const auto& mode : m_display_modes) {
 					swprintf_s(buffer, 
 						       std::size(buffer), 
 						       L"%u x %u", 
@@ -665,9 +672,9 @@ namespace mage {
 				const auto selected_resolution
 					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 				
-				const DXGI_MODE_DESC *selected_diplay_mode 
+				const DXGI_MODE_DESC* selected_diplay_mode 
 					= nullptr;
-				for (const auto &display_mode : m_display_modes) {
+				for (const auto& display_mode : m_display_modes) {
 					
 					const auto resolution = ConvertResolution(display_mode);
 					if (selected_resolution != resolution) {
@@ -755,7 +762,7 @@ namespace mage {
 					ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
 					
 					// Update the refresh rate combo box.
-					for (const auto &mode : m_display_modes) {
+					for (const auto& mode : m_display_modes) {
 						
 						const auto resolution = ConvertResolution(mode);
 						
@@ -806,17 +813,19 @@ namespace mage {
 											 DXGI_FORMAT pixel_format)
 		: m_impl(MakeUnique< Impl >(adapter, output, pixel_format)) {}
 
-	DisplayConfigurator::DisplayConfigurator(
-		DisplayConfigurator &&configurator) noexcept = default;
+	DisplayConfigurator::DisplayConfigurator(DisplayConfigurator&& 
+											 configurator) noexcept = default;
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 
-	[[nodiscard]]HRESULT DisplayConfigurator::Configure() const {
+	[[nodiscard]]
+	HRESULT DisplayConfigurator::Configure() const {
 		return m_impl->Configure();
 	}
 
-	[[nodiscard]]const DisplayConfiguration *
-		DisplayConfigurator::GetDisplayConfiguration() const noexcept {
+	[[nodiscard]]
+	const DisplayConfiguration* DisplayConfigurator
+		::GetDisplayConfiguration() const noexcept {
 
 		return m_impl->GetDisplayConfiguration();
 	}

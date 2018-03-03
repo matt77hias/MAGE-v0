@@ -6,7 +6,6 @@
 #pragma region
 
 #include "rendering\rendering_factory.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -18,17 +17,7 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT >
-		::StaticMesh(std::vector< VertexT > vertices, 
-		             std::vector< IndexT >  indices,
-		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: StaticMesh(Pipeline::GetDevice(),
-			         std::move(vertices), 
-			         std::move(indices), 
-			         primitive_topology) {}
-
-	template< typename VertexT, typename IndexT >
-	StaticMesh< VertexT, IndexT >
-		::StaticMesh(ID3D11Device *device,
+		::StaticMesh(ID3D11Device& device,
 		             std::vector< VertexT > vertices,
 		             std::vector< IndexT >  indices,
 		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
@@ -44,22 +33,20 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT >
-		::StaticMesh(StaticMesh &&mesh) noexcept = default;
+		::StaticMesh(StaticMesh&& mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	StaticMesh< VertexT, IndexT >
 		::~StaticMesh() = default;
 
 	template< typename VertexT, typename IndexT >
-	StaticMesh< VertexT, IndexT > &StaticMesh< VertexT, IndexT >
-		::operator=(StaticMesh &&mesh) noexcept = default;
+	StaticMesh< VertexT, IndexT >& StaticMesh< VertexT, IndexT >
+		::operator=(StaticMesh&& mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	void StaticMesh< VertexT, IndexT >
-		::SetupVertexBuffer(ID3D11Device *device) {
+		::SetupVertexBuffer(ID3D11Device& device) {
 		
-		Assert(device);
-
 		const HRESULT result = CreateStaticVertexBuffer(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
 			m_vertices.data(), m_vertices.size());
@@ -71,10 +58,8 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void StaticMesh< VertexT, IndexT >
-		::SetupIndexBuffer(ID3D11Device *device) {
+		::SetupIndexBuffer(ID3D11Device& device) {
 		
-		Assert(device);
-
 		const HRESULT result = CreateStaticIndexBuffer(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), 
 			m_indices.data(), m_indices.size());

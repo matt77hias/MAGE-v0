@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ResourceManager::ResourceManager(ID3D11Device *device) 
+	ResourceManager::ResourceManager(ID3D11Device& device) 
 		: m_device(device), 
 		m_model_descriptor_pool(), 
 		m_vs_pool(), 
@@ -23,6 +23,8 @@ namespace mage {
 		m_cs_pool(),
 		m_sprite_font_pool(),
 		m_texture_pool() {}
+
+	ResourceManager::ResourceManager(ResourceManager&& manager) noexcept = default;
 
 	ResourceManager::~ResourceManager() = default;
 }

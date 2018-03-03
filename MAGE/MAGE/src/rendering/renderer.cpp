@@ -5,7 +5,6 @@
 
 #include "rendering\renderer.hpp"
 #include "rendering\output_manager.hpp"
-#include "rendering\state_manager.hpp"
 #include "rendering\pass\aa_pass.hpp"
 #include "rendering\pass\back_buffer_pass.hpp"
 #include "rendering\pass\bounding_volume_pass.hpp"
@@ -19,7 +18,6 @@
 #include "rendering\pass\voxelization_pass.hpp"
 #include "rendering\pass\voxel_grid_pass.hpp"
 #include "rendering\buffer\game_buffer.hpp"
-#include "logging\error.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -54,27 +52,22 @@ namespace mage {
 		/**
 		 Constructs a renderer.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
-		 @pre			@a swap_chain is not equal to @c nullptr.
-		 @pre			@a resource_manager is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						A reference to the display configuration.
 		 @param[in]		swap_chain
-						A pointer to the swap chain.
+						A reference to the swap chain.
 		 @param[in]		resource_manager
 						A pointer to the resource manager.
 		 */
-		explicit Impl(ID3D11Device *device, 
-					  ID3D11DeviceContext *device_context, 
-					  DisplayConfiguration *display_configuration, 
-					  SwapChain *swap_chain,
-					  ResourceManager *resource_manager);
+		explicit Impl(ID3D11Device& device, 
+					  ID3D11DeviceContext& device_context, 
+					  DisplayConfiguration& display_configuration, 
+					  SwapChain& swap_chain,
+					  ResourceManager& resource_manager);
 
 		/**
 		 Constructs a renderer from the given renderer.
@@ -82,7 +75,7 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to the renderer to copy.
 		 */
-		Impl(const Impl &renderer) = delete;
+		Impl(const Impl& renderer) = delete;
 
 		/**
 		 Constructs a renderer by moving the given renderer.
@@ -90,7 +83,7 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to the renderer to move.
 		 */
-		Impl(Impl &&renderer) noexcept;
+		Impl(Impl&& renderer) noexcept;
 
 		/**
 		 Destructs this renderer.
@@ -109,7 +102,7 @@ namespace mage {
 		 @return		A reference to the copy of the given renderer (i.e. 
 						this renderer).
 		 */
-		Impl &operator=(const Impl &renderer) = delete;
+		Impl& operator=(const Impl& renderer) = delete;
 
 		/**
 		 Moves the given renderer to this renderer.
@@ -118,7 +111,7 @@ namespace mage {
 						A reference to the renderer to move.
 		 @return		A reference to the moved renderer (i.e. this renderer).
 		 */
-		Impl &operator=(Impl &&renderer) = delete;
+		Impl& operator=(Impl&& renderer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -140,7 +133,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene);
+		void Render(const Scene& scene);
 
 	private:
 
@@ -148,34 +141,36 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void UpdateBuffers(const Scene &scene) const;
+		void InitializePasses();
+
+		void UpdateBuffers(const Scene& scene) const;
 		
-		void Render(const Scene &scene, const Camera &camera);
+		void Render(const Scene& scene, const Camera& camera);
 		
-		void XM_CALLCONV RenderForward(const Scene &scene, 
-									   const Camera &camera, 
+		void XM_CALLCONV RenderForward(const Scene& scene, 
+									   const Camera& camera, 
 									   FXMMATRIX world_to_projection);
 		
-		void XM_CALLCONV RenderDeferred(const Scene &scene, 
-										const Camera &camera, 
+		void XM_CALLCONV RenderDeferred(const Scene& scene, 
+										const Camera& camera, 
 										FXMMATRIX world_to_projection);
 		
-		void XM_CALLCONV RenderSolid(const Scene &scene, 
-									 const Camera &camera, 
+		void XM_CALLCONV RenderSolid(const Scene& scene, 
+									 const Camera& camera, 
 									 FXMMATRIX world_to_projection);
 
-		void XM_CALLCONV RenderFalseColor(const Scene &scene, 
-										  const Camera &camera,
+		void XM_CALLCONV RenderFalseColor(const Scene& scene, 
+										  const Camera& camera,
 										  FXMMATRIX world_to_projection, 
 										  FalseColor false_color);
 		
-		void XM_CALLCONV RenderVoxelGrid(const Scene &scene, 
-										 const Camera &camera, 
+		void XM_CALLCONV RenderVoxelGrid(const Scene& scene, 
+										 const Camera& camera, 
 										 FXMMATRIX world_to_projection);
 		
-		void RenderAA(const Camera &camera);
+		void RenderAA(const Camera& camera);
 		
-		void RenderPostProcessing(const Camera &camera);
+		void RenderPostProcessing(const Camera& camera);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -184,22 +179,22 @@ namespace mage {
 		/**
 		 A pointer to the display configuration of this renderer.
 		 */
-		DisplayConfiguration * const m_display_configuration;
+		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
 
 		/**
 		 A pointer to the device of this renderer.
 		 */
-		ID3D11Device * const m_device;
+		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
 		 A pointer to the device context of this renderer.
 		 */
-		ID3D11DeviceContext * const m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the resource manager of this renderer.
 		 */
-		ResourceManager * const m_resource_manager;
+		std::reference_wrapper< ResourceManager > m_resource_manager;
 
 		/**
 		 A pointer to the output manager of this rendering manager.
@@ -275,21 +270,21 @@ namespace mage {
 		UniquePtr< SpritePass > m_sprite_pass;
 
 		/**
-		 A pointer to the voxelization pass of this renderer.
-		 */
-		UniquePtr< VoxelizationPass > m_voxelization_pass;
-
-		/**
 		 A pointer to the voxel grid pass of this renderer.
 		 */
 		UniquePtr< VoxelGridPass > m_voxel_grid_pass;
+
+		/**
+		 A pointer to the voxelization pass of this renderer.
+		 */
+		UniquePtr< VoxelizationPass > m_voxelization_pass;
 	};
 
-	Renderer::Impl::Impl(ID3D11Device *device, 
-						 ID3D11DeviceContext *device_context, 
-						 DisplayConfiguration *display_configuration, 
-						 SwapChain *swap_chain, 
-						 ResourceManager *resource_manager)
+	Renderer::Impl::Impl(ID3D11Device& device, 
+						 ID3D11DeviceContext& device_context, 
+						 DisplayConfiguration& display_configuration, 
+						 SwapChain& swap_chain, 
+						 ResourceManager& resource_manager)
 		: m_display_configuration(display_configuration),
 		m_device(device), 
 		m_device_context(device_context), 
@@ -299,44 +294,98 @@ namespace mage {
 													 swap_chain)),
 		m_state_manager(MakeUnique< StateManager >(device)),
 		m_game_buffer(device),
-		m_aa_pass(MakeUnique< AAPass >()),
-		m_back_buffer_pass(MakeUnique< BackBufferPass >()),
-		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
-		m_deferred_pass(MakeUnique< DeferredPass >()),
-		m_depth_pass(MakeUnique< DepthPass >()),
-		m_dof_pass(MakeUnique< DOFPass >()),
-		m_forward_pass(MakeUnique< ForwardPass >()),
-		m_lbuffer_pass(MakeUnique< LBufferPass >()),
-		m_sky_pass(MakeUnique< SkyPass >()),
-		m_sprite_pass(MakeUnique< SpritePass >()),
-		m_voxelization_pass(MakeUnique< VoxelizationPass >()),
-		m_voxel_grid_pass(MakeUnique< VoxelGridPass >()) {
+		m_aa_pass(),
+		m_back_buffer_pass(),
+		m_bounding_volume_pass(),
+		m_deferred_pass(),
+		m_depth_pass(),
+		m_dof_pass(),
+		m_forward_pass(),
+		m_lbuffer_pass(),
+		m_sky_pass(),
+		m_sprite_pass(),
+		m_voxel_grid_pass(),
+		m_voxelization_pass() {
 
-		Assert(m_display_configuration);
-		Assert(m_device);
-		Assert(m_device_context);
-		Assert(m_resource_manager);
+		InitializePasses();
 	}
 	
 	Renderer::Impl::Impl(Impl &&scene_renderer) noexcept = default;
 	
 	Renderer::Impl::~Impl() = default;
 
+	void Renderer::Impl::InitializePasses() {
+		m_aa_pass = MakeUnique< AAPass >(m_device_context,
+										 m_state_manager,
+										 m_resource_manager);
+
+		m_back_buffer_pass = MakeUnique< BackBufferPass >(m_device_context,
+														  m_state_manager,
+														  m_resource_manager);
+
+		m_bounding_volume_pass = MakeUnique< BoundingVolumePass >(m_device,
+																  m_device_context,
+																  m_state_manager,
+																  m_resource_manager);
+		m_deferred_pass = MakeUnique< DeferredPass >(m_device_context,
+													 m_state_manager,
+													 m_resource_manager);
+
+		m_depth_pass = MakeUnique< DepthPass >(m_device,
+											   m_device_context,
+											   m_state_manager,
+											   m_resource_manager);
+
+		m_dof_pass = MakeUnique< DOFPass >(m_device_context,
+										   m_state_manager,
+										   m_resource_manager);
+
+		m_forward_pass = MakeUnique< ForwardPass >(m_device,
+												   m_device_context,
+												   m_state_manager,
+												   m_resource_manager);
+
+		m_lbuffer_pass = MakeUnique< LBufferPass >(m_device,
+												   m_device_context,
+												   m_state_manager,
+												   m_resource_manager);
+
+		m_sky_pass = MakeUnique< SkyPass >(m_device_context,
+										   m_state_manager,
+										   m_resource_manager);
+
+		m_sprite_pass = MakeUnique< SpritePass >(m_device,
+												 m_device_context,
+												 m_state_manager,
+												 m_resource_manager);
+
+		m_voxel_grid_pass = MakeUnique< VoxelGridPass >(m_device_context,
+														m_state_manager,
+														m_resource_manager);
+
+		m_voxelization_pass = MakeUnique< VoxelizationPass >(m_device,
+															 m_device_context,
+															 m_state_manager,
+															 m_resource_manager);
+
+
+	}
+
 	void Renderer::Impl::BindPersistentState() {
 		m_state_manager->BindPersistentState(m_device_context);
 		
 		GameBuffer buffer;
-		buffer.m_display_width                = m_display_configuration->GetDisplayWidth();
-		buffer.m_display_height               = m_display_configuration->GetDisplayHeight();
+		buffer.m_display_width                = m_display_configuration.get().GetDisplayWidth();
+		buffer.m_display_height               = m_display_configuration.get().GetDisplayHeight();
 		buffer.m_display_inv_width_minus1     = 1.0f / (buffer.m_display_width  - 1.0f);
 		buffer.m_display_inv_height_minus1    = 1.0f / (buffer.m_display_height - 1.0f);
 		
-		buffer.m_ss_display_width             = m_display_configuration->GetSSDisplayWidth();
-		buffer.m_ss_display_height            = m_display_configuration->GetSSDisplayHeight();
+		buffer.m_ss_display_width             = m_display_configuration.get().GetSSDisplayWidth();
+		buffer.m_ss_display_height            = m_display_configuration.get().GetSSDisplayHeight();
 		buffer.m_ss_display_inv_width_minus1  = 1.0f / (buffer.m_ss_display_width  - 1.0f);
 		buffer.m_ss_display_inv_height_minus1 = 1.0f / (buffer.m_ss_display_height - 1.0f);
 		
-		buffer.m_gamma                        = m_display_configuration->GetGamma();
+		buffer.m_gamma                        = m_display_configuration.get().GetGamma();
 		buffer.m_inv_gamma                    = 1.0f / buffer.m_gamma;
 
 		//TODO
@@ -351,12 +400,12 @@ namespace mage {
 		m_game_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_GAME);
 	}
 
-	void Renderer::Impl::Render(const Scene &scene) {
+	void Renderer::Impl::Render(const Scene& scene) {
 		// Update the buffers.
 		UpdateBuffers(scene);
 
 		// Render the scene for each camera.
-		scene.ForEach< Camera >([this, &scene](const Camera &camera) {
+		scene.ForEach< Camera >([this, &scene](const Camera& camera) {
 			if (State::Active != camera.GetState()) {
 				return;
 			}
@@ -366,18 +415,18 @@ namespace mage {
 		});
 
 		// Bind the maximum viewport.
-		const Viewport viewport(m_display_configuration->GetDisplayWidth(),
-								m_display_configuration->GetDisplayHeight());
+		const Viewport viewport(m_display_configuration.get().GetDisplayWidth(),
+								m_display_configuration.get().GetDisplayHeight());
 		viewport.BindViewport(m_device_context);
 
 		// Perform a sprite pass.
 		m_sprite_pass->Render(scene);
 	}
 
-	void Renderer::Impl::UpdateBuffers(const Scene &scene) const {
+	void Renderer::Impl::UpdateBuffers(const Scene& scene) const {
 		// Update the buffer of each camera.
 		scene.ForEach< Camera >(
-			[device_context(m_device_context)](const Camera &camera) {
+			[device_context(m_device_context)](const Camera& camera) {
 				if (State::Active == camera.GetState()) {
 					camera.UpdateBuffer(device_context);
 				}
@@ -386,7 +435,7 @@ namespace mage {
 
 		// Update the buffer of each model.
 		scene.ForEach< Model >(
-			[device_context(m_device_context)](const Model &model) {
+			[device_context(m_device_context)](const Model& model) {
 				if (State::Active == model.GetState()) {
 					model.UpdateBuffer(device_context);
 				}
@@ -394,14 +443,14 @@ namespace mage {
 		);
 	}
 
-	void Renderer::Impl::Render(const Scene &scene, const Camera &camera) {
+	void Renderer::Impl::Render(const Scene& scene, const Camera& camera) {
 		// Bind the camera to the pipeline.
 		camera.BindBuffer< Pipeline >(m_device_context,
 									  SLOT_CBUFFER_PRIMARY_CAMERA);
 
 		// Obtain the world-to-projection transformation matrix of the 
 		// camera for view frustum culling.
-		const auto &transform           = camera.GetOwner()->GetTransform();
+		const auto& transform           = camera.GetOwner()->GetTransform();
 		const auto world_to_camera      = transform.GetWorldToObjectMatrix();
 		const auto camera_to_projection = camera.GetCameraToProjectionMatrix();
 		const auto world_to_projection  = world_to_camera * camera_to_projection;
@@ -533,7 +582,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// RenderLayer
 		//---------------------------------------------------------------------
-		const auto &settings = camera.GetSettings();
+		const auto& settings = camera.GetSettings();
 		if (settings.ContainsRenderLayer(RenderLayer::Wireframe)) {
 			m_forward_pass->RenderWireframe(scene, world_to_projection);
 		}
@@ -565,8 +614,8 @@ namespace mage {
 		m_back_buffer_pass->Render();
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderForward(const Scene &scene,
-												   const Camera &camera,
+	void XM_CALLCONV Renderer::Impl::RenderForward(const Scene& scene,
+												   const Camera& camera,
 												   FXMMATRIX world_to_projection) {
 		const auto vct = false;
 
@@ -611,8 +660,8 @@ namespace mage {
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderDeferred(const Scene &scene, 
-													const Camera &camera, 
+	void XM_CALLCONV Renderer::Impl::RenderDeferred(const Scene& scene, 
+													const Camera& camera, 
 													FXMMATRIX world_to_projection) {
 		const auto vct = false;
 
@@ -678,8 +727,8 @@ namespace mage {
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderSolid(const Scene &scene, 
-												 const Camera &camera, 
+	void XM_CALLCONV Renderer::Impl::RenderSolid(const Scene& scene, 
+												 const Camera& camera, 
 												 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
@@ -697,8 +746,8 @@ namespace mage {
 		m_forward_pass->RenderSolid(scene, world_to_projection);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const Scene &scene, 
-													  const Camera &camera, 
+	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const Scene& scene, 
+													  const Camera& camera, 
 													  FXMMATRIX world_to_projection, 
 													  FalseColor false_color) {
 		
@@ -711,8 +760,8 @@ namespace mage {
 		m_forward_pass->RenderFalseColor(scene, world_to_projection, false_color);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const Scene &scene, 
-													 const Camera &camera, 
+	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const Scene& scene, 
+													 const Camera& camera, 
 													 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
@@ -743,7 +792,7 @@ namespace mage {
 		m_voxel_grid_pass->Render(g_voxel_grid_resolution);
 	}
 
-	void Renderer::Impl::RenderPostProcessing(const Camera &camera) {
+	void Renderer::Impl::RenderPostProcessing(const Camera& camera) {
 		camera.BindViewport(m_device_context);
 		m_output_manager->BindBeginPostProcessing(m_device_context);
 
@@ -758,8 +807,8 @@ namespace mage {
 		}
 	}
 
-	void Renderer::Impl::RenderAA(const Camera &camera) {
-		const auto desc     = m_display_configuration->GetAADescriptor();
+	void Renderer::Impl::RenderAA(const Camera& camera) {
+		const auto desc     = m_display_configuration.get().GetAADescriptor();
 		const auto viewport = camera.GetSSViewport();
 
 		switch (desc) {
@@ -810,18 +859,18 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	Renderer::Renderer(ID3D11Device *device,
-					   ID3D11DeviceContext *device_context,
-					   DisplayConfiguration *display_configuration,
-					   SwapChain *swap_chain,
-					   ResourceManager *resource_manager)
+	Renderer::Renderer(ID3D11Device& device,
+					   ID3D11DeviceContext& device_context,
+					   DisplayConfiguration& display_configuration,
+					   SwapChain& swap_chain,
+					   ResourceManager& resource_manager)
 		: m_impl(MakeUnique< Impl >(device,
 									device_context,
 									display_configuration,
 									swap_chain,
 									resource_manager)) {}
 
-	Renderer::Renderer(Renderer &&renderer) noexcept = default;
+	Renderer::Renderer(Renderer&& renderer) noexcept = default;
 
 	Renderer::~Renderer() = default;
 
@@ -829,7 +878,7 @@ namespace mage {
 		m_impl->BindPersistentState();
 	}
 
-	void Renderer::Render(const Scene &scene) {
+	void Renderer::Render(const Scene& scene) {
 		m_impl->Render(scene);
 	}
 

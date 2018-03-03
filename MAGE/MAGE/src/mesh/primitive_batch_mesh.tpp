@@ -16,18 +16,9 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	PrimitiveBatchMesh< VertexT, IndexT >
-		::PrimitiveBatchMesh(size_t nb_vertices, 
-		                     const std::vector< IndexT > &indices,
-		                     D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: PrimitiveBatchMesh(Pipeline::GetDevice(), 
-			                 nb_vertices, indices, 
-			                 primitive_topology) {}
-
-	template< typename VertexT, typename IndexT >
-	PrimitiveBatchMesh< VertexT, IndexT >
-		::PrimitiveBatchMesh(ID3D11Device *device,
+		::PrimitiveBatchMesh(ID3D11Device& device,
 			                 size_t nb_vertices,
-			                 const std::vector< IndexT > &indices,
+			                 const std::vector< IndexT >& indices,
 			                 D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: Mesh(sizeof(VertexT), 
 			   mage::GetIndexFormat< IndexT >(),
@@ -39,21 +30,20 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	PrimitiveBatchMesh< VertexT, IndexT >
-		::PrimitiveBatchMesh(PrimitiveBatchMesh &&mesh) noexcept = default;
+		::PrimitiveBatchMesh(PrimitiveBatchMesh&& mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	PrimitiveBatchMesh< VertexT, IndexT >
 		::~PrimitiveBatchMesh() = default;
 
 	template< typename VertexT, typename IndexT >
-	PrimitiveBatchMesh< VertexT, IndexT > &PrimitiveBatchMesh< VertexT, IndexT >
-		::operator=(PrimitiveBatchMesh &&mesh) noexcept = default;
+	PrimitiveBatchMesh< VertexT, IndexT >& PrimitiveBatchMesh< VertexT, IndexT >
+		::operator=(PrimitiveBatchMesh&& mesh) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	void PrimitiveBatchMesh< VertexT, IndexT >
-		::SetupVertexBuffer(ID3D11Device *device, size_t nb_vertices) {
+		::SetupVertexBuffer(ID3D11Device& device, size_t nb_vertices) {
 		
-		Assert(device);
 		Assert(0 < nb_vertices);
 
 		const HRESULT result
@@ -68,10 +58,9 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	void PrimitiveBatchMesh< VertexT, IndexT >
-		::SetupIndexBuffer(ID3D11Device *device, 
-			               const std::vector< IndexT > &indices) {
+		::SetupIndexBuffer(ID3D11Device& device, 
+			               const std::vector< IndexT >& indices) {
 		
-		Assert(device);
 		Assert(0 < indices.size());
 
 		const HRESULT result = CreateStaticIndexBuffer(

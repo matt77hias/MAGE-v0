@@ -98,9 +98,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	SpriteFont::SpriteFont(ID3D11Device &device,
+	SpriteFont::SpriteFont(ID3D11Device& device,
 						   wstring fname,
-		                   const SpriteFontDescriptor &desc)
+		                   const SpriteFontDescriptor& desc)
 		: Resource< SpriteFont >(std::move(fname)), 
 		m_texture_srv(), 
 		m_glyphs(),
@@ -108,18 +108,18 @@ namespace mage {
 		m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
-		loader::ImportSpriteFontFromFile(GetFilename(), device, output, desc);
+		loader::ImportSpriteFontFromFile(GetFilename(), &device, output, desc);
 
 		InitializeSpriteFont(output);
 	}
 
-	SpriteFont::SpriteFont(SpriteFont &&font) noexcept = default;
+	SpriteFont::SpriteFont(SpriteFont&& font) noexcept = default;
 
 	SpriteFont::~SpriteFont() = default;
 
-	SpriteFont &SpriteFont::operator=(SpriteFont &&font) noexcept = default;
+	SpriteFont& SpriteFont::operator=(SpriteFont&& font) noexcept = default;
 
-	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
+	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput& output) {
 		m_glyphs = std::move(output.m_glyphs);
 		const auto sorted = std::is_sorted(m_glyphs.cbegin(), 
 			                               m_glyphs.cend(), 
@@ -132,12 +132,12 @@ namespace mage {
 		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
-	void SpriteFont::DrawText(SpriteBatch &sprite_batch,
-		                      const ColorString *strings,
+	void SpriteFont::DrawText(SpriteBatch& sprite_batch,
+		                      const ColorString* strings,
 		                      size_t nb_strings,
-		                      const SpriteTransform &transform,
+		                      const SpriteTransform& transform,
 		                      SpriteEffect effects,
-		                      const SRGBA *color) const {
+		                      const SRGBA* color) const {
 		Assert(strings);
 
 		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
@@ -226,7 +226,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const XMVECTOR XM_CALLCONV SpriteFont::MeasureText(const ColorString *strings, 
+	const XMVECTOR XM_CALLCONV SpriteFont::MeasureText(const ColorString* strings, 
 													   size_t nb_strings) const {
 		Assert(strings);
 		
@@ -274,9 +274,9 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const RECT SpriteFont::MeasureDrawBounds(const ColorString *strings, 
+	const RECT SpriteFont::MeasureDrawBounds(const ColorString* strings, 
 											 size_t nb_strings, 
-											 const F32x2 &top_left) const {
+											 const F32x2& top_left) const {
 		Assert(strings);
 
 		RECT result = { 
@@ -345,7 +345,7 @@ namespace mage {
 	}
 	
 	[[nodiscard]]
-	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
+	const Glyph* SpriteFont::GetGlyph(wchar_t character) const {
 		if (const auto it = std::lower_bound(m_glyphs.cbegin(), 
 			                                 m_glyphs.cend(), 
 			                                 character, 

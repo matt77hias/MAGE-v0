@@ -35,7 +35,16 @@ namespace mage {
 		 @param[in]		name
 						The name of the material.		
 		 */
-		explicit Material(string name = "material");
+		explicit Material(string name = "material")
+			: m_name(std::move(name)),
+			m_light_interaction(true),
+			m_transparent(false),
+			m_base_color(SRGBA(1.0f)),
+			m_base_color_texture(),
+			m_roughness(0.5f),
+			m_metalness(0.0f),
+			m_material_texture(),
+			m_normal_texture() {}
 		
 		/**
 		 Constructs a material from the given material.
@@ -43,7 +52,7 @@ namespace mage {
 		 @param[in]		material
 						A reference to the material to copy.
 		 */
-		Material(const Material &material) = default;
+		Material(const Material& material) = default;
 		
 		/**
 		 Constructs a material by moving the given material.
@@ -51,7 +60,7 @@ namespace mage {
 		 @param[in]		material
 						A reference to the material to move.
 		 */
-		Material(Material &&material) noexcept = default;
+		Material(Material&& material) noexcept = default;
 		
 		/**
 		 Destructs this material.
@@ -70,7 +79,7 @@ namespace mage {
 		 @return		A reference to the copy of the given material (i.e. 
 						this material).
 		 */
-		Material &operator=(const Material &material) = default;
+		Material& operator=(const Material& material) = default;
 
 		/**
 		 Moves the given material to this material.
@@ -79,7 +88,7 @@ namespace mage {
 						A reference to the material to move.
 		 @return		A reference to the moved material (i.e. this material).
 		 */
-		Material &operator=(Material &&material) noexcept = default;
+		Material& operator=(Material&& material) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Name
@@ -90,7 +99,7 @@ namespace mage {
 
 		 @return		A reference to the name of this material.
 		 */
-		[[nodiscard]]const string &GetName() const noexcept {
+		[[nodiscard]]const string& GetName() const noexcept {
 			return m_name;
 		}
 		
@@ -114,7 +123,8 @@ namespace mage {
 		 @return		@c true if this material interacts with light and 
 						light sources. @c false otherwise.
 		 */
-		[[nodiscard]]bool InteractsWithLight() const noexcept {
+		[[nodiscard]]
+		bool InteractsWithLight() const noexcept {
 			return m_light_interaction;
 		}
 
@@ -161,7 +171,8 @@ namespace mage {
 		 @return		@c true if and only if this material is opaque. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool IsOpaque() const noexcept {
+		[[nodiscard]]
+		bool IsOpaque() const noexcept {
 			return !IsTransparant();
 		}
 		
@@ -172,7 +183,8 @@ namespace mage {
 		 @return		@c true if and only if this material is transparent.
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool IsTransparant() const noexcept {
+		[[nodiscard]]
+		bool IsTransparant() const noexcept {
 			return m_transparent;
 		}
 		
@@ -203,7 +215,8 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this material.
 		 */
-		[[nodiscard]]SRGBA &GetBaseColor() noexcept {
+		[[nodiscard]]
+		SRGBA& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -212,7 +225,8 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this material.
 		 */
-		[[nodiscard]]const SRGBA &GetBaseColor() const noexcept {
+		[[nodiscard]]
+		const SRGBA& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -222,7 +236,8 @@ namespace mage {
 		 @return		A pointer to the sRGB base color texture of this 
 						material.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+		[[nodiscard]]
+		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
 		
@@ -235,7 +250,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the sRGB base 
 						color texture of this material.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
 		
@@ -246,9 +262,7 @@ namespace mage {
 		 @param[in]		base_color_texture
 						A pointer to the sRGB base color texture.
 		 */
-		void SetBaseColorTexture(
-			SharedPtr< const Texture > base_color_texture) noexcept {
-			
+		void SetBaseColorTexture(TexturePtr base_color_texture) noexcept {
 			m_base_color_texture = std::move(base_color_texture);
 		}
 		
@@ -261,7 +275,8 @@ namespace mage {
 		
 		 @return		The roughness of this material.			
 		 */
-		[[nodiscard]]F32 GetRoughness() const noexcept {
+		[[nodiscard]]
+		F32 GetRoughness() const noexcept {
 			return m_roughness;
 		}
 
@@ -273,7 +288,7 @@ namespace mage {
 						The roughness.
 		 */
 		void SetRoughness(F32 roughness) noexcept {
-			Assert(0.0f <= roughness && roughness <= 1.0f);
+			Assert(0.0f <= roughness &&  roughness <= 1.0f);
 			m_roughness = roughness;
 		}
 
@@ -282,7 +297,8 @@ namespace mage {
 
 		 @return		The metalness of this material.			
 		 */
-		[[nodiscard]]F32 GetMetalness() const noexcept {
+		[[nodiscard]]
+		F32 GetMetalness() const noexcept {
 			return m_metalness;
 		}
 
@@ -294,7 +310,7 @@ namespace mage {
 						The metalness.
 		 */
 		void SetMetalness(F32 metalness) noexcept {
-			Assert(0.0f <= metalness && metalness <= 1.0f);
+			Assert(0.0f <= metalness &&  metalness <= 1.0f);
 			m_metalness = metalness;
 		}
 
@@ -303,7 +319,8 @@ namespace mage {
 
 		 @return		The material RGBA channels of this material.
 		 */
-		[[nodiscard]]const RGBA GetMaterialRGBA() const noexcept {
+		[[nodiscard]]
+		const RGBA GetMaterialRGBA() const noexcept {
 			return RGBA(GetRoughness(), GetMetalness(), 0.0f, 0.0f);
 		}
 
@@ -312,7 +329,8 @@ namespace mage {
 
 		 @return		A pointer to the material texture of this material.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > GetMaterialTexture() const noexcept {
+		[[nodiscard]]
+		TexturePtr GetMaterialTexture() const noexcept {
 			return m_material_texture;
 		}
 		
@@ -324,7 +342,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the material 
 						texture of this material.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetMaterialSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetMaterialSRV() const noexcept {
 			return m_material_texture ? m_material_texture->Get() : nullptr;
 		}
 
@@ -335,9 +354,7 @@ namespace mage {
 		 @param[in]		material_texture
 						A pointer to the material texture.
 		 */
-		void SetMaterialTexture(
-			SharedPtr< const Texture > material_texture) noexcept {
-			
+		void SetMaterialTexture(TexturePtr material_texture) noexcept {
 			m_material_texture = std::move(material_texture);
 		}
 
@@ -350,7 +367,8 @@ namespace mage {
 
 		 @return		A pointer to the normal texture of this material.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > GetNormalTexture() const noexcept {
+		[[nodiscard]]
+		TexturePtr GetNormalTexture() const noexcept {
 			return m_normal_texture;
 		}
 		
@@ -362,7 +380,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the normal 
 						texture of this material.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetNormalSRV() const noexcept {
 			return m_normal_texture ? m_normal_texture->Get() : nullptr;
 		}
 
@@ -370,12 +389,10 @@ namespace mage {
 		 Sets the normal texture of this material to the given normal texture.
 
 		 @param[in]		normal_texture
-						A reference to the normal texture.
+						The normal texture.
 		 */
-		void SetNormalTexture(
-			const SharedPtr< const Texture > &normal_texture) {
-			
-			m_normal_texture = normal_texture;
+		void SetNormalTexture(TexturePtr normal_texture) {
+			m_normal_texture = std::move(normal_texture);
 		}
 		
 	private:
@@ -422,7 +439,7 @@ namespace mage {
 		/**
 		 A pointer to the sRGB base color texture of this material.
 		 */
-		SharedPtr< const Texture > m_base_color_texture;
+		TexturePtr m_base_color_texture;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material Parameters
@@ -444,7 +461,7 @@ namespace mage {
 		 The red channel contains the roughness of this material.
 		 The blue channel contains the metalness of this material.
 		 */
-		SharedPtr< const Texture > m_material_texture;
+		TexturePtr m_material_texture;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Normal Texture
@@ -453,6 +470,6 @@ namespace mage {
 		/**
 		 A pointer to the normal texture of this material.
 		 */
-		SharedPtr< const Texture > m_normal_texture;
+		TexturePtr m_normal_texture;
 	};
 }

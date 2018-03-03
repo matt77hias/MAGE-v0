@@ -31,7 +31,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateBlackTexture(ResourceManager &resource_manager);
+	TexturePtr CreateBlackTexture(ResourceManager& resource_manager);
 
 	/**
 	 Creates a white texture.
@@ -42,7 +42,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateWhiteTexture(ResourceManager &resource_manager);
+	TexturePtr CreateWhiteTexture(ResourceManager& resource_manager);
 
 	/**
 	 Creates a red texture.
@@ -53,7 +53,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateRedTexture(ResourceManager &resource_manager);
+	TexturePtr CreateRedTexture(ResourceManager& resource_manager);
 
 	/**
 	 Creates a green texture.
@@ -64,7 +64,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateGreenTexture(ResourceManager &resource_manager);
+	TexturePtr CreateGreenTexture(ResourceManager& resource_manager);
 
 	/**
 	 Creates a blue texture.
@@ -75,7 +75,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateBlueTexture(ResourceManager &resource_manager);
+	TexturePtr CreateBlueTexture(ResourceManager& resource_manager);
 
 	#pragma endregion
 
@@ -93,7 +93,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateMAGETexture(ResourceManager &resource_manager);
+	TexturePtr CreateMAGETexture(ResourceManager& resource_manager);
 
 	/**
 	 Creates a reference texture.
@@ -104,7 +104,7 @@ namespace mage {
 	 @throws		Exception
 					Failed to create the texture.
 	 */
-	TexturePtr CreateReferenceTexture(ResourceManager &resource_manager);
+	TexturePtr CreateReferenceTexture(ResourceManager& resource_manager);
 
 	#pragma endregion
 }

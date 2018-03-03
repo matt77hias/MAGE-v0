@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		settings
 						A reference to the camera settings to copy.
 		 */
-		CameraSettings(const CameraSettings &settings) noexcept = default;
+		CameraSettings(const CameraSettings& settings) noexcept = default;
 
 		/**
 		 Constructs a camera settings by moving the given camera settings.
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		settings
 						A reference to the camera settings to move.
 		 */
-		CameraSettings(CameraSettings &&settings) noexcept = default;
+		CameraSettings(CameraSettings&& settings) noexcept = default;
 
 		/**
 		 Destructs this camera settings.
@@ -71,8 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera settings 
 						(i.e. this camera settings).
 		 */
-		CameraSettings &operator=(
-			const CameraSettings &settings) noexcept = default;
+		CameraSettings& operator=(const CameraSettings& settings) noexcept = default;
 
 		/**
 		 Moves the given camera settings to this camera settings.
@@ -82,8 +81,7 @@ namespace mage {
 		 @return		A reference to the moved camera settings (i.e. this 
 						camera settings).
 		 */
-		CameraSettings &operator=(
-			CameraSettings &&settings) noexcept = default;
+		CameraSettings& operator=(CameraSettings&& settings) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -95,7 +93,8 @@ namespace mage {
 			ResetRenderLayers();
 		}
 
-		[[nodiscard]]RenderMode GetRenderMode() const noexcept {
+		[[nodiscard]]
+		RenderMode GetRenderMode() const noexcept {
 			return m_render_mode;
 		}
 
@@ -107,7 +106,8 @@ namespace mage {
 			SetRenderMode(RenderMode::Forward);
 		}
 
-		[[nodiscard]]BRDFType GetBRDF() const noexcept {
+		[[nodiscard]]
+		BRDFType GetBRDF() const noexcept {
 			return m_brdf;
 		}
 
@@ -119,13 +119,15 @@ namespace mage {
 			SetBRDF(BRDFType::Unknown);
 		}
 
-		[[nodiscard]]bool ContainsRenderLayers() const noexcept {
+		[[nodiscard]]
+		bool ContainsRenderLayers() const noexcept {
 			return static_cast< U32 >(RenderLayer::None) != m_render_layer_mask;
 		}
 
-		[[nodiscard]]bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
+		[[nodiscard]]
+		bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(static_cast< U32 >(render_layer)
-				                       & m_render_layer_mask);
+				                      &  m_render_layer_mask);
 		}
 
 		void AddRenderLayer(RenderLayer render_layer) noexcept {
@@ -133,7 +135,7 @@ namespace mage {
 		}
 
 		void RemoveRenderLayer(RenderLayer render_layer) noexcept {
-			m_render_layer_mask &= ~(static_cast< U32 >(render_layer));
+			m_render_layer_mask& = ~(static_cast< U32 >(render_layer));
 		}
 
 		void ToggleRenderLayer(RenderLayer render_layer) noexcept {
@@ -144,19 +146,23 @@ namespace mage {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
 		}
 
-		[[nodiscard]]Fog &GetFog() noexcept {
+		[[nodiscard]]
+		Fog& GetFog() noexcept {
 			return m_fog;
 		}
 
-		[[nodiscard]]const Fog &GetFog() const noexcept {
+		[[nodiscard]]
+		const Fog& GetFog() const noexcept {
 			return m_fog;
 		}
 
-		[[nodiscard]]Sky &GetSky() noexcept {
+		[[nodiscard]]
+		Sky& GetSky() noexcept {
 			return m_sky;
 		}
 
-		[[nodiscard]]const Sky &GetSky() const noexcept {
+		[[nodiscard]]
+		const Sky& GetSky() const noexcept {
 			return m_sky;
 		}
 

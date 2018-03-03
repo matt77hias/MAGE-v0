@@ -16,9 +16,9 @@
 namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT >::Shader(ID3D11Device &device, 
+	Shader< ShaderT, PipelineStageT >::Shader(ID3D11Device& device, 
 											  wstring guid, 
-											  const CompiledShader &compiled_shader)
+											  const CompiledShader& compiled_shader)
 		: Resource< Shader >(std::move(guid)), 
 		m_shader() {
 
@@ -27,19 +27,19 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >
-		::Shader(Shader &&shader) noexcept = default;
+		::Shader(Shader&& shader) noexcept = default;
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
 	
 	template< typename ShaderT, typename PipelineStageT >
-	Shader< ShaderT, PipelineStageT > &Shader< ShaderT, PipelineStageT >
-		::operator=(Shader &&shader) noexcept = default;
+	Shader< ShaderT, PipelineStageT >& Shader< ShaderT, PipelineStageT >
+		::operator=(Shader&& shader) noexcept = default;
 
 	template<>
 	inline void HullShader
-		::SetupShader(ID3D11Device &device, 
-		              const CompiledShader &compiled_shader) {
+		::SetupShader(ID3D11Device& device, 
+		              const CompiledShader& compiled_shader) {
 		
 		// Create the hull shader.
 		const HRESULT result = device.CreateHullShader(
@@ -52,8 +52,8 @@ namespace mage {
 
 	template<>
 	inline void DomainShader
-		::SetupShader(ID3D11Device &device, 
-		              const CompiledShader &compiled_shader) {
+		::SetupShader(ID3D11Device& device, 
+		              const CompiledShader& compiled_shader) {
 
 		// Create the domain shader.
 		const HRESULT result = device.CreateDomainShader(
@@ -66,8 +66,8 @@ namespace mage {
 
 	template<>
 	inline void GeometryShader
-		::SetupShader(ID3D11Device &device, 
-		              const CompiledShader &compiled_shader) {
+		::SetupShader(ID3D11Device& device, 
+		              const CompiledShader& compiled_shader) {
 
 		// Create the geometry shader.
 		const HRESULT result = device.CreateGeometryShader(
@@ -80,8 +80,8 @@ namespace mage {
 
 	template<>
 	inline void PixelShader
-		::SetupShader(ID3D11Device &device, 
-		              const CompiledShader &compiled_shader) {
+		::SetupShader(ID3D11Device& device, 
+		              const CompiledShader& compiled_shader) {
 
 		// Create the pixel shader.
 		const HRESULT result = device.CreatePixelShader(
@@ -94,8 +94,8 @@ namespace mage {
 
 	template<>
 	inline void ComputeShader
-		::SetupShader(ID3D11Device &device, 
-		              const CompiledShader &compiled_shader) {
+		::SetupShader(ID3D11Device& device, 
+		              const CompiledShader& compiled_shader) {
 
 		// Create the compute shader.
 		const HRESULT result = device.CreateComputeShader(
@@ -108,7 +108,7 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	inline void Shader< ShaderT, PipelineStageT >
-		::BindShader(ID3D11DeviceContext &device_context) const noexcept {
+		::BindShader(ID3D11DeviceContext& device_context) const noexcept {
 
 		PipelineStageT::BindShader(device_context, m_shader.Get());
 	}

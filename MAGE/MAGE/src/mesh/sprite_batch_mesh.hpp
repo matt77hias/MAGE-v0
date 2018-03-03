@@ -61,7 +61,8 @@ namespace mage {
 		 @return		The minimum number of vertices to draw per batch for 
 						sprite batch meshes.
 		 */
-		[[nodiscard]]static constexpr size_t MinVerticesPerBatch() noexcept {
+		[[nodiscard]]
+		static constexpr size_t MinVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -72,7 +73,8 @@ namespace mage {
 		 @return		The maximum number of vertices to draw per batch for 
 						sprite batch meshes.
 		 */
-		[[nodiscard]]static constexpr size_t MaxVerticesPerBatch() noexcept {
+		[[nodiscard]]
+		static constexpr size_t MaxVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_max_sprites_per_batch;
 		}
 
@@ -83,7 +85,8 @@ namespace mage {
 		 @return		The minimum number of indices to draw per batch for 
 						sprite batch meshes.
 		 */
-		[[nodiscard]]static constexpr size_t MinIndicesPerBatch() noexcept {
+		[[nodiscard]]
+		static constexpr size_t MinIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -94,7 +97,8 @@ namespace mage {
 		 @return		The maximum number of indices to draw per batch for 
 						sprite batch meshes.
 		 */
-		[[nodiscard]]static constexpr size_t MaxIndicesPerBatch() noexcept {
+		[[nodiscard]]
+		static constexpr size_t MaxIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_max_sprites_per_batch;
 		}
 
@@ -105,23 +109,8 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
-		 @throws		Exception
-						Failed to setup the vertex buffer of the sprite batch 
-						mesh.
-		 @throws		Exception
-						Failed to setup the index buffer of the sprite batch 
-						mesh.
-		 */
-		SpriteBatchMesh();
-
-		/**
-		 Constructs a sprite batch mesh.
-
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup the vertex buffer of the sprite batch 
 						mesh.
@@ -129,7 +118,7 @@ namespace mage {
 						Failed to setup the index buffer of the sprite batch 
 						mesh.
 		 */
-		explicit SpriteBatchMesh(ID3D11Device *device);
+		explicit SpriteBatchMesh(ID3D11Device& device);
 
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.
@@ -137,7 +126,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the sprite batch mesh to copy.
 		 */
-		SpriteBatchMesh(const SpriteBatchMesh &mesh) = delete;
+		SpriteBatchMesh(const SpriteBatchMesh& mesh) = delete;
 
 		/**
 		 Constructs a sprite batch mesh by moving the given sprite batch mesh.
@@ -145,7 +134,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the sprite batch mesh to move.
 		 */
-		SpriteBatchMesh(SpriteBatchMesh &&mesh) noexcept;
+		SpriteBatchMesh(SpriteBatchMesh&& mesh) noexcept;
 
 		/**
 		 Destructs this sprite batch mesh.
@@ -164,7 +153,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite batch mesh 
 						(i.e. this sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(const SpriteBatchMesh &mesh) = delete;
+		SpriteBatchMesh& operator=(const SpriteBatchMesh& mesh) = delete;
 
 		/**
 		 Moves the given sprite batch mesh to this sprite batch mesh.
@@ -174,7 +163,7 @@ namespace mage {
 		 @return		A reference to the moved sprite batch mesh (i.e. this 
 						sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(SpriteBatchMesh &&mesh) noexcept;
+		SpriteBatchMesh& operator=(SpriteBatchMesh&& mesh) noexcept;
 
 	private:
 
@@ -187,6 +176,7 @@ namespace mage {
 
 		 @return		A vector containing the indices of a sprite batch mesh.
 		 */
-		[[nodiscard]]static const std::vector< U16 > GenerateIndices();
+		[[nodiscard]]
+		static const std::vector< U16 > GenerateIndices();
 	};
 }

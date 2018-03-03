@@ -33,8 +33,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to copy.
 		 */
-		constexpr SpriteFontDescriptor(
-			const SpriteFontDescriptor &desc) noexcept = default;
+		constexpr SpriteFontDescriptor(const SpriteFontDescriptor& 
+									   desc) noexcept = default;
 
 		/**
 		 Constructs a sprite font descriptor by moving the given sprite font 
@@ -43,8 +43,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to move.
 		 */
-		constexpr SpriteFontDescriptor(
-			SpriteFontDescriptor &&desc) noexcept = default;
+		constexpr SpriteFontDescriptor(SpriteFontDescriptor&& 
+									   desc) noexcept = default;
 
 		/**
 		Destructs this sprite font descriptor.
@@ -64,8 +64,8 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite font 
 						descriptor (i.e. this sprite font descriptor).
 		 */
-		constexpr SpriteFontDescriptor &operator=(
-			const SpriteFontDescriptor &desc) noexcept = default;
+		constexpr SpriteFontDescriptor& operator=(
+			const SpriteFontDescriptor& desc) noexcept = default;
 
 		/**
 		 Moves the given sprite font descriptor to this sprite font descriptor.
@@ -75,8 +75,8 @@ namespace mage {
 		 @return		A reference to the moved sprite font descriptor (i.e. 
 						this sprite font descriptor).
 		 */
-		constexpr SpriteFontDescriptor &operator=(
-			SpriteFontDescriptor &&desc) noexcept = default;
+		constexpr SpriteFontDescriptor& operator=(
+			SpriteFontDescriptor&& desc) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

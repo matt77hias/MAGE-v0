@@ -6,7 +6,6 @@
 #include "loaders\sprite_font_loader.hpp"
 #include "loaders\font\font_loader.hpp"
 #include "file\file_utils.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -16,13 +15,11 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	void ImportSpriteFontFromFile(const wstring &fname, 
-		                          ID3D11Device *device, 
-		                          SpriteFontOutput &output, 
-		                          const SpriteFontDescriptor &desc) {
+	void ImportSpriteFontFromFile(const wstring& fname, 
+		                          ID3D11Device& device, 
+		                          SpriteFontOutput& output, 
+		                          const SpriteFontDescriptor& desc) {
 		
-		Assert(device);
-
 		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"font" || extension == L"FONT") {

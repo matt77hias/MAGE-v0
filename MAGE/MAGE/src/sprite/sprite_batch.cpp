@@ -696,7 +696,7 @@ namespace mage {
 				const auto lock = m_mesh->Lock(m_device_context, map_type, mapped_buffer);
 
 				// Update the data.
-				auto vertices = static_cast< VertexPositionColorTexture * >(mapped_buffer.pData)
+				auto vertices = static_cast< VertexPositionColorTexture* >(mapped_buffer.pData)
 					+ m_mesh_position * SpriteBatchMesh::s_vertices_per_sprite;
 				
 				for (size_t i = 0; i < nb_sprites_to_render; ++i) {

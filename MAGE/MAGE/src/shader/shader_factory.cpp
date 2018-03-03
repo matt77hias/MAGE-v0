@@ -210,7 +210,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline VertexShaderPtr CreateVS(ResourceManager &resource_manager, 
+	static inline VertexShaderPtr CreateVS(ResourceManager& resource_manager, 
 										   ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< VertexShader >(
@@ -233,7 +233,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline HullShaderPtr CreateHS(ResourceManager &resource_manager, 
+	static inline HullShaderPtr CreateHS(ResourceManager& resource_manager, 
 										 ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< HullShader >(
@@ -256,7 +256,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline DomainShaderPtr CreateDS(ResourceManager &resource_manager, 
+	static inline DomainShaderPtr CreateDS(ResourceManager& resource_manager, 
 										   ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< DomainShader >(
@@ -279,7 +279,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline GeometryShaderPtr CreateGS(ResourceManager &resource_manager, 
+	static inline GeometryShaderPtr CreateGS(ResourceManager& resource_manager, 
 											 ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< GeometryShader >(
@@ -302,7 +302,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline PixelShaderPtr CreatePS(ResourceManager &resource_manager, 
+	static inline PixelShaderPtr CreatePS(ResourceManager& resource_manager, 
 										  ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< PixelShader >(
@@ -325,7 +325,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	static inline ComputeShaderPtr CreateCS(ResourceManager &resource_manager, 
+	static inline ComputeShaderPtr CreateCS(ResourceManager& resource_manager, 
 											ConstructorArgsT &&...args) {
 		
 		return resource_manager.GetOrCreate< ComputeShader >(
@@ -339,22 +339,22 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_aa_preprocess_CS));
 	}
 
-	ComputeShaderPtr CreateFXAACS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateFXAACS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_fxaa_CS));
 	}
 
-	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_msaa_resolve_CS));
 	}
 
-	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
 	}
@@ -366,7 +366,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateBackBufferPS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_back_buffer_PS));
 	}
@@ -378,7 +378,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
 												bool vct) {
 		
 		return vct ? CreateCS(resource_manager, 
@@ -387,7 +387,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
 												  bool vct) {
 		
 		return vct ? CreateCS(resource_manager, 
@@ -396,12 +396,12 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
 											   bool vct) {
 		
 		return vct ? CreateCS(resource_manager, 
@@ -410,7 +410,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
 												bool vct) {
 		
 		return vct ? CreateCS(resource_manager, 
@@ -419,7 +419,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
 											  bool vct) {
 		
 		return vct ? CreateCS(resource_manager, 
@@ -428,7 +428,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredCS(ResourceManager &resource_manager, 
+	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
 									  BRDFType brdf, bool vct) {
 		switch (brdf) {
 
@@ -445,7 +445,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager, 
 												  bool vct) {
 
 		return vct ? CreatePS(resource_manager, 
@@ -454,7 +454,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager, 
 													bool vct) {
 
 		return vct ? CreatePS(resource_manager, 
@@ -463,12 +463,12 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager, 
 												 bool vct) {
 
 		return vct ? CreatePS(resource_manager, 
@@ -477,7 +477,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager, 
 												  bool vct) {
 
 		return vct ? CreatePS(resource_manager, 
@@ -486,7 +486,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager, 
 												bool vct) {
 
 		return vct ? CreatePS(resource_manager, 
@@ -495,7 +495,7 @@ namespace mage {
 							  MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
 										BRDFType brdf, bool vct) {
 		switch (brdf) {
 
@@ -519,7 +519,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateDepthVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateDepthVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_VS), 
@@ -527,7 +527,7 @@ namespace mage {
 						vertex_t::s_nb_input_elements);
 	}
 
-	VertexShaderPtr CreateDepthTransparentVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateDepthTransparentVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_transparent_VS), 
@@ -535,7 +535,7 @@ namespace mage {
 						vertex_t::s_nb_input_elements);
 	}
 
-	PixelShaderPtr CreateDepthTransparentPS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateDepthTransparentPS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_transparent_PS));
 	}
@@ -547,7 +547,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateFalseColorPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager, 
 									  FalseColor false_color) {
 		switch (false_color) {
 			
@@ -619,7 +619,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
 											 bool transparency,
 											 bool vct, 
 											 bool tsnm) {
@@ -659,7 +659,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
 											   bool transparency,
 											   bool vct, 
 											   bool tsnm) {
@@ -699,7 +699,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardEmissivePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
 										   bool transparency) {
 
 		return transparency ? CreatePS(resource_manager, 
@@ -708,7 +708,7 @@ namespace mage {
 									   MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
-	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
 											bool transparency,
 											bool vct, 
 											bool tsnm) {
@@ -748,7 +748,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardLambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
 											 bool transparency,
 											 bool vct, 
 											 bool tsnm) {
@@ -788,7 +788,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
 										   bool transparency,
 										   bool vct, 
 										   bool tsnm) {
@@ -828,7 +828,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
 								   BRDFType brdf,
 								   bool transparency, 
 								   bool vct, 
@@ -849,7 +849,7 @@ namespace mage {
 		}
 	}
 
-	PixelShaderPtr CreateForwardSolidPS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateForwardSolidPS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_forward_solid_PS));
 	}
@@ -861,7 +861,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateGBufferPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager, 
 								   bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -877,7 +877,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_of_field_CS));
 	}
@@ -889,24 +889,24 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateLineCubeVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateLineCubeVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_line_cube_VS), 
 						nullptr, 0u);
 	}
 
-	PixelShaderPtr CreateLineCubePS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateLineCubePS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_line_cube_PS));
 	}
 
-	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS), 
 						nullptr, 0u);
 	}
 
-	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS), 
 						nullptr, 0u);
@@ -919,13 +919,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateSkyVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateSkyVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_sky_VS), 
 						nullptr, 0u);
 	}
 
-	PixelShaderPtr CreateSkyPS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateSkyPS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_sky_PS));
 	}
@@ -937,7 +937,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateSpriteVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateSpriteVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionColorTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_sprite_VS), 
@@ -945,7 +945,7 @@ namespace mage {
 						vertex_t::s_nb_input_elements);
 	}
 
-	PixelShaderPtr CreateSpritePS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateSpritePS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_sprite_PS));
 	}
@@ -957,7 +957,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateTransformVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateTransformVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_transform_VS), 
@@ -972,7 +972,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	VertexShaderPtr CreateVoxelizationVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateVoxelizationVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxelization_VS), 
@@ -980,12 +980,12 @@ namespace mage {
 						vertex_t::s_nb_input_elements);
 	}
 
-	GeometryShaderPtr CreateVoxelizationGS(ResourceManager &resource_manager) {
+	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager) {
 		return CreateGS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
-	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
 												  bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -994,7 +994,7 @@ namespace mage {
 							   MAGE_SHADER_ARGS(g_voxelization_blinn_phong_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
 													bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -1003,7 +1003,7 @@ namespace mage {
 							   MAGE_SHADER_ARGS(g_voxelization_cook_torrance_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
 												 bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -1012,7 +1012,7 @@ namespace mage {
 							   MAGE_SHADER_ARGS(g_voxelization_frostbite_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
 												  bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -1021,7 +1021,7 @@ namespace mage {
 							   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
 												bool tsnm) {
 
 		return tsnm ? CreatePS(resource_manager, 
@@ -1030,7 +1030,7 @@ namespace mage {
 							   MAGE_SHADER_ARGS(g_voxelization_ward_duer_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationPS(ResourceManager &resource_manager, 
+	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
 										BRDFType brdf, bool tsnm) {
 		switch (brdf) {
 
@@ -1047,23 +1047,23 @@ namespace mage {
 		}
 	}
 
-	ComputeShaderPtr CreateVoxelizationCS(ResourceManager &resource_manager) {
+	ComputeShaderPtr CreateVoxelizationCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxelization_CS));
 	}
 
-	VertexShaderPtr CreateVoxelGridVS(ResourceManager &resource_manager) {
+	VertexShaderPtr CreateVoxelGridVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxel_grid_VS), 
 						nullptr, 0u);
 	}
 
-	GeometryShaderPtr CreateVoxelGridGS(ResourceManager &resource_manager) {
+	GeometryShaderPtr CreateVoxelGridGS(ResourceManager& resource_manager) {
 		return CreateGS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxel_grid_GS));
 	}
 
-	PixelShaderPtr CreateVoxelGridPS(ResourceManager &resource_manager) {
+	PixelShaderPtr CreateVoxelGridPS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxel_grid_PS));
 	}

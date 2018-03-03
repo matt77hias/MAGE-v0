@@ -6,7 +6,6 @@
 #include "loaders\font\font_reader.hpp"
 #include "loaders\font\font_tokens.hpp"
 #include "rendering\conversion.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -16,19 +15,15 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	SpriteFontReader::SpriteFontReader(ID3D11Device *device, 
-		                               SpriteFontOutput &output, 
-		                               const SpriteFontDescriptor &desc)
+	SpriteFontReader::SpriteFontReader(ID3D11Device& device, 
+		                               SpriteFontOutput& output, 
+		                               const SpriteFontDescriptor& desc)
 		: BigEndianBinaryReader(), 
 		m_device(device), 
 		m_output(output), 
-		m_desc(desc) {
+		m_desc(desc) {}
 
-		Assert(device);
-	}
-
-	SpriteFontReader::SpriteFontReader(
-		SpriteFontReader &&reader) noexcept = default;
+	SpriteFontReader::SpriteFontReader(SpriteFontReader&& reader) noexcept = default;
 
 	SpriteFontReader::~SpriteFontReader() = default;
 
@@ -37,8 +32,9 @@ namespace mage::loader {
 		// Read the header.
 		{
 			const bool result = IsHeaderValid();
-			ThrowIfFailed(result,
-				"%ls: invalid sprite font header.", GetFilename().c_str());
+			ThrowIfFailed(result, 
+						  "%ls: invalid sprite font header.", 
+						  GetFilename().c_str());
 		}
 
 		// Read glyphs.
@@ -56,14 +52,12 @@ namespace mage::loader {
 		ReadTexture();
 	}
 
-	[[nodiscard]]bool SpriteFontReader::IsHeaderValid() {
-		auto magic = g_font_token_magic;
-		
-		while (*magic != L'\0') {
-			if (Read< U8 >() != *magic) {
+	[[nodiscard]]
+	bool SpriteFontReader::IsHeaderValid() {
+		for (auto magic = g_font_token_magic; *magic != L'\0'; ++magic) {
+			if (*magic != Read< U8 >()) {
 				return false;
 			}
-			++magic;
 		}
 		
 		return true;
@@ -97,7 +91,7 @@ namespace mage::loader {
 		// Create the texture resource.
 		ComPtr< ID3D11Texture2D > texture;
 		{
-			const HRESULT result = m_device->CreateTexture2D(
+			const HRESULT result = m_device.CreateTexture2D(
 				&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "%ls: Texture creation failed: %08X.",
 				GetFilename().c_str(), result);
@@ -109,7 +103,7 @@ namespace mage::loader {
 		
 		// Create the SRV.
 		{
-			const HRESULT result = m_device->CreateShaderResourceView(
+			const HRESULT result = m_device.CreateShaderResourceView(
 				texture.Get(), &shader_resource_view_desc,
 				m_output.m_texture_srv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "%ls: SRV creation failed: %08X.",

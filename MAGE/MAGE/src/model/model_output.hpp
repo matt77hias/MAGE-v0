@@ -58,7 +58,7 @@ namespace mage {
 		 @param[in]		model_part
 						A reference to the model part to copy.
 		 */
-		ModelPart(const ModelPart &model_part) = default;
+		ModelPart(const ModelPart& model_part) = default;
 
 		/**
 		 Constructs a model part by moving the given model part. 
@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		model_part
 						A reference to the model part to move.
 		 */
-		ModelPart(ModelPart &&model_part) noexcept = default;
+		ModelPart(ModelPart&& model_part) noexcept = default;
 
 		/**
 		 Destructs this model part.
@@ -85,7 +85,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model part (i.e. 
 						this model part).
 		 */
-		ModelPart &operator=(const ModelPart &model_part) = default;
+		ModelPart& operator=(const ModelPart& model_part) = default;
 
 		/**
 		 Moves the given model part to this model part.
@@ -95,7 +95,7 @@ namespace mage {
 		 @return		A reference to the moved model part (i.e. this model 
 						part).
 		 */
-		ModelPart &operator=(ModelPart &&model_part) noexcept = default;
+		ModelPart& operator=(ModelPart&& model_part) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -107,7 +107,8 @@ namespace mage {
 		 @return		@c true if this model part has the default child as its 
 						child. @c false otherwise.
 		 */
-		[[nodiscard]]bool HasDefaultChild() const noexcept {
+		[[nodiscard]]
+		bool HasDefaultChild() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_CHILD == m_child;
 		}
 
@@ -117,7 +118,8 @@ namespace mage {
 		 @return		@c true if this model part has the default parent as 
 						its parent. @c false otherwise.
 		 */
-		[[nodiscard]]bool HasDefaultParent() const noexcept {
+		[[nodiscard]]
+		bool HasDefaultParent() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_PARENT == m_parent;
 		}
 
@@ -128,7 +130,8 @@ namespace mage {
 		 @return		@c true if this model part has the default material as 
 						its material. @c false otherwise.
 		 */
-		[[nodiscard]]bool HasDefaultMaterial() const noexcept {
+		[[nodiscard]]
+		bool HasDefaultMaterial() const noexcept {
 			return MAGE_MDL_PART_DEFAULT_MATERIAL == m_material;
 		}
 
@@ -223,7 +226,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the model output to copy.
 		 */
-		ModelOutput(const ModelOutput &output) = delete;
+		ModelOutput(const ModelOutput& output) = delete;
 
 		/**
 		 Constructs a model output by moving the given model output.
@@ -231,7 +234,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the model output to move.
 		 */
-		ModelOutput(ModelOutput &&output) noexcept = default;
+		ModelOutput(ModelOutput&& output) noexcept = default;
 
 		/**
 		 Destructs this model output.
@@ -250,7 +253,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model output (i.e.
 						this model output).
 		 */
-		ModelOutput &operator=(const ModelOutput &output) = delete;
+		ModelOutput& operator=(const ModelOutput& output) = delete;
 
 		/**
 		 Moves the given model output to this model output.
@@ -260,7 +263,7 @@ namespace mage {
 		 @return		A reference to the moved model output
 						(i.e. this model output).
 		 */
-		ModelOutput &operator=(ModelOutput &&output) noexcept = default;
+		ModelOutput& operator=(ModelOutput&& output) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -285,7 +288,8 @@ namespace mage {
 		 @param[in]		name
 						The name of the model part.
 		 */
-		[[nodiscard]]bool ContainsModelPart(const string &name) noexcept;
+		[[nodiscard]]
+		bool ContainsModelPart(const string& name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.
@@ -351,7 +355,7 @@ namespace mage {
 		 @param[in]		model_part
 						A reference to the model part.
 		 */
-		void SetupBoundingVolumes(ModelPart &model_part) noexcept;
+		void SetupBoundingVolumes(ModelPart& model_part) noexcept;
 	};
 }
 

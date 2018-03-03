@@ -6,16 +6,17 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	ModelDescriptor::ModelDescriptor(ID3D11Device *device, 
+	ModelDescriptor::ModelDescriptor(ID3D11Device& device, 
+									 ResourceManager& resource_manager,
 									 wstring fname,
-		const MeshDescriptor< VertexT, IndexT > &desc, bool export_as_MDL)
+		const MeshDescriptor< VertexT, IndexT >& desc, bool export_as_MDL)
 		: Resource< ModelDescriptor >(std::move(fname)), 
-		m_mesh(), 
+		m_mesh(device),
 		m_materials(), 
 		m_model_parts() {
 
 		ModelOutput< VertexT, IndexT > buffer;
-		loader::ImportModelFromFile(GetFilename(), buffer, desc);
+		loader::ImportModelFromFile(GetFilename(), resource_manager, buffer, desc);
 
 		if (export_as_MDL) {
 			const wstring mdl_fname 
@@ -33,14 +34,14 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachMaterial(ActionT action) const {
-		for (const auto &material : m_materials) {
+		for (const auto& material : m_materials) {
 			action(material);
 		}
 	}
 
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachModelPart(ActionT action) const {
-		for (const auto &model_part : m_model_parts) {
+		for (const auto& model_part : m_model_parts) {
 			action(model_part);
 		}
 	}

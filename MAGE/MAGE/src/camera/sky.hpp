@@ -36,7 +36,7 @@ namespace mage {
 		 @param[in]		sky
 						A reference to the sky to copy.
 		 */
-		Sky(const Sky &sky) = default;
+		Sky(const Sky& sky) = default;
 
 		/**
 		 Constructs a sky by moving the given sky.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		sky
 						A reference to the sky to move.
 		 */
-		Sky(Sky &&sky) noexcept = default;
+		Sky(Sky&& sky) noexcept = default;
 
 		/**
 		 Destructs this sky.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sky (i.e. this 
 						sky).
 		 */
-		Sky &operator=(const Sky &sky) noexcept = default;
+		Sky& operator=(const Sky& sky) noexcept = default;
 
 		/**
 		 Moves the given sky to this sky.
@@ -72,7 +72,7 @@ namespace mage {
 						A reference to the sky to move.
 		 @return		A reference to the moved sky (i.e. this sky).
 		 */
-		Sky &operator=(Sky &&sky) noexcept = default;
+		Sky& operator=(Sky&& sky) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -83,7 +83,8 @@ namespace mage {
 
 		 @return		A pointer to the texture of this sky.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > GetTexture() const noexcept {
+		[[nodiscard]]
+		TexturePtr GetTexture() const noexcept {
 			return m_texture;
 		}
 		
@@ -94,7 +95,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the texture of 
 						this sky.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetSRV() const noexcept {
 			return m_texture ? m_texture->Get() : nullptr;
 		}
 		
@@ -102,10 +104,10 @@ namespace mage {
 		 Sets the texture of this sky to the given texture.
 
 		 @param[in]		texture
-						A reference to the texture of this sky.
+						The texture of this sky.
 		 */
-		void SetTexture(const SharedPtr< const Texture > &texture) {
-			m_texture = texture;
+		void SetTexture(TexturePtr texture) {
+			m_texture = std::move(texture);
 		}
 
 	private:
@@ -117,6 +119,6 @@ namespace mage {
 		/**
 		 The cube map texture of this sky.
 		 */
-		SharedPtr< const Texture > m_texture;
+		TexturePtr m_texture;
 	};
 }

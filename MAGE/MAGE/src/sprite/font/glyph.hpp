@@ -39,7 +39,7 @@ namespace mage {
 		 @param[in]		glyph
 						A reference to the glyph to copy.
 		 */
-		Glyph(const Glyph &glyph) noexcept = default;
+		Glyph(const Glyph& glyph) noexcept = default;
 
 		/**
 		 Constructs a glyph by moving the given glyph.
@@ -47,7 +47,7 @@ namespace mage {
 		 @param[in]		glyph
 						A reference to the glyph to move.
 		 */
-		Glyph(Glyph &&glyph) noexcept = default;
+		Glyph(Glyph&& glyph) noexcept = default;
 
 		/**
 		 Destructs this glyph.
@@ -66,7 +66,7 @@ namespace mage {
 		 @return		A reference to copy of the given glyph (i.e. this 
 						glyph).
 		 */
-		Glyph &operator=(const Glyph &glyph) noexcept = default;
+		Glyph& operator=(const Glyph& glyph) noexcept = default;
 
 		/**
 		 Moves the given glyph to this glyph.
@@ -75,7 +75,7 @@ namespace mage {
 						A reference to the glyph to move.
 		 @return		A reference to the moved glyph (i.e. this glyph).
 		 */
-		Glyph &operator=(Glyph &&glyph) noexcept = default;
+		Glyph& operator=(Glyph&& glyph) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -111,7 +111,7 @@ namespace mage {
 						the given glyph's character. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator<(const Glyph &rhs) const noexcept {
+		bool operator<(const Glyph& rhs) const noexcept {
 			return m_character < rhs.m_character;
 		}
 

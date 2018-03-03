@@ -19,7 +19,6 @@ namespace mage {
 	 Compiles Microsoft High Level Shader Language (HLSL) code into bytecode 
 	 for a given shader target.
 
-	 @pre			@a output_blob is not equal to @c nullptr.
 	 @param[in]		fname
 					A pointer to a constant null-terminated string that 
 					contains the name of the file that contains the shader 
@@ -38,8 +37,8 @@ namespace mage {
 					compiled code.
 	 */
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const wstring &fname, 
-								  const string &entry_point, 
-								  const string &shader_target, 
-								  ID3DBlob **output_blob);
+	HRESULT CompileShaderFromFile(const wstring& fname, 
+								  const string& entry_point, 
+								  const string& shader_target, 
+								  NotNull< ID3DBlob** > output_blob);
 }

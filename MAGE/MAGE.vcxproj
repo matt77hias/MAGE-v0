@@ -183,7 +183,6 @@
     <ClCompile Include="MAGE\src\loaders\var\var_reader.cpp" />
     <ClCompile Include="MAGE\src\loaders\var\var_writer.cpp" />
     <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp" />
-    <ClCompile Include="MAGE\src\material\material.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />

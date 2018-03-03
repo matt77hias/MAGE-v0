@@ -12,10 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VertexShader::VertexShader(ID3D11Device &device, 
+	VertexShader::VertexShader(ID3D11Device& device, 
 							   wstring guid, 
-		                       const CompiledShader &compiled_shader, 
-		                       const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+		                       const CompiledShader& compiled_shader, 
+		                       const D3D11_INPUT_ELEMENT_DESC* input_element_desc, 
 		                       size_t nb_input_elements)
 		: Resource< VertexShader >(std::move(guid)), 
 		m_vertex_shader(), 
@@ -24,16 +24,16 @@ namespace mage {
 		SetupShader(device, compiled_shader, input_element_desc, nb_input_elements);
 	}
 
-	VertexShader::VertexShader(VertexShader &&vertex_shader) noexcept = default;
+	VertexShader::VertexShader(VertexShader&& vertex_shader) noexcept = default;
 
 	VertexShader::~VertexShader() = default;
 
-	VertexShader &VertexShader
-		::operator=(VertexShader &&vertex_shader) noexcept = default;
+	VertexShader& VertexShader
+		::operator=(VertexShader&& vertex_shader) noexcept = default;
 	
-	void VertexShader::SetupShader(ID3D11Device &device, 
-		                           const CompiledShader &compiled_shader,
-		                           const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
+	void VertexShader::SetupShader(ID3D11Device& device, 
+		                           const CompiledShader& compiled_shader,
+		                           const D3D11_INPUT_ELEMENT_DESC* input_element_desc, 
 		                           size_t nb_input_elements) {
 
 		// Create the vertex shader.

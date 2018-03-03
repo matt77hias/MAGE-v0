@@ -58,9 +58,6 @@
     <Filter Include="Header Files\material">
       <UniqueIdentifier>{952e5625-967e-4083-9d50-1edbc82454c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\material">
-      <UniqueIdentifier>{04ea3622-d17f-443d-825c-966e53b30806}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
     </Filter>
@@ -640,9 +637,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\viewport.cpp">
       <Filter>Source Files\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\material\material.cpp">
-      <Filter>Source Files\material</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
       <Filter>Source Files\rendering</Filter>

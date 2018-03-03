@@ -27,7 +27,8 @@ namespace mage {
 	 @return		The format of the given index type.
 	 */
 	template< typename IndexT >
-	[[nodiscard]]constexpr DXGI_FORMAT GetIndexFormat() noexcept;
+	[[nodiscard]]
+	constexpr DXGI_FORMAT GetIndexFormat() noexcept;
 
 	#pragma endregion
 
@@ -64,7 +65,7 @@ namespace mage {
 		 @return		A reference to the copy of the given mesh (i.e. this 
 						mesh).
 		 */
-		Mesh &operator=(const Mesh &mesh) = delete;
+		Mesh &operator=(const Mesh& mesh) = delete;
 
 		/**
 		 Moves the given mesh to this mesh.
@@ -73,7 +74,7 @@ namespace mage {
 						A reference to the mesh to move.
 		 @return		A reference to the moved mesh (i.e. this mesh).
 		 */
-		Mesh &operator=(Mesh &&mesh) noexcept;
+		Mesh &operator=(Mesh&& mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -84,7 +85,8 @@ namespace mage {
 
 		 @return		The number of vertices of this mesh.
 		 */
-		[[nodiscard]]size_t GetNumberOfVertices() const noexcept {
+		[[nodiscard]]
+		size_t GetNumberOfVertices() const noexcept {
 			return m_nb_vertices;
 		}
 
@@ -93,7 +95,8 @@ namespace mage {
 
 		 @return		The number of indices of this mesh.
 		 */
-		[[nodiscard]]size_t GetNumberOfIndices() const noexcept {
+		[[nodiscard]]
+		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -102,7 +105,8 @@ namespace mage {
 
 		 @return		The vertex size (in bytes) of this mesh.
 		 */
-		[[nodiscard]]size_t GetVertexSize() const noexcept {
+		[[nodiscard]]
+		size_t GetVertexSize() const noexcept {
 			return m_vertex_size;
 		}
 
@@ -111,7 +115,8 @@ namespace mage {
 
 		 @return		The index format of this mesh.
 		 */
-		[[nodiscard]]DXGI_FORMAT GetIndexFormat() const noexcept {
+		[[nodiscard]]
+		DXGI_FORMAT GetIndexFormat() const noexcept {
 			return m_index_format;
 		}
 
@@ -120,7 +125,8 @@ namespace mage {
 
 		 @return		The primitive topology of this mesh.	
 		 */
-		[[nodiscard]]D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
+		[[nodiscard]]
+		D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
 			return m_primitive_topology;
 		}
 		
@@ -130,11 +136,10 @@ namespace mage {
 		 The vertex buffer, index buffer and primitive topology of this mesh 
 		 will be bound to the input-assembler stage.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void BindMesh(ID3D11DeviceContext *device_context) const noexcept {
+		void BindMesh(ID3D11DeviceContext& device_context) const noexcept {
 			BindMesh(device_context, m_primitive_topology);
 		}
 		
@@ -144,13 +149,12 @@ namespace mage {
 		 The vertex buffer, index buffer and given primitive topology of this 
 		 mesh will be bound to the input-assembler stage.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(ID3D11DeviceContext *device_context, 
+		void BindMesh(ID3D11DeviceContext& device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			Pipeline::IA::BindVertexBuffer(device_context, 
@@ -166,11 +170,10 @@ namespace mage {
 		/**
 		 Draws this complete mesh.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void Draw(ID3D11DeviceContext *device_context) const noexcept {
+		void Draw(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::DrawIndexed(device_context,
 				                  static_cast< U32 >(m_nb_indices), 
 				                  0u);
@@ -179,15 +182,14 @@ namespace mage {
 		/**
 		 Draws a submesh of this mesh.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		start_index
 						The start index.
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
-		void Draw(ID3D11DeviceContext *device_context,
+		void Draw(ID3D11DeviceContext& device_context,
 			      size_t start_index, 
 			      size_t nb_indices) const noexcept {
 
@@ -222,7 +224,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the mesh to copy.
 		 */
-		Mesh(const Mesh &mesh) = delete;
+		Mesh(const Mesh& mesh) = delete;
 
 		/**
 		 Constructs a mesh by moving the given mesh.
@@ -230,7 +232,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the mesh to move.
 		 */
-		Mesh(Mesh &&mesh) noexcept;
+		Mesh(Mesh&& mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

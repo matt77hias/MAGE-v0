@@ -41,19 +41,19 @@ namespace mage {
 
 	CompiledShader::CompiledShader() noexcept = default;
 
-	CompiledShader::CompiledShader(
-		const CompiledShader &compiled_shader) noexcept = default;
+	CompiledShader::CompiledShader(const CompiledShader& 
+								   compiled_shader) noexcept = default;
 
-	CompiledShader::CompiledShader(
-		CompiledShader &&compiled_shader) noexcept = default;
+	CompiledShader::CompiledShader(CompiledShader&& 
+								   compiled_shader) noexcept = default;
 
 	CompiledShader::~CompiledShader() = default;
 
-	CompiledShader &CompiledShader::operator=(
-		const CompiledShader &compiled_shader) noexcept = default;
+	CompiledShader& CompiledShader
+		::operator=(const CompiledShader& compiled_shader) noexcept = default;
 
-	CompiledShader &CompiledShader::operator=(
-		CompiledShader &&compiled_shader) noexcept = default;
+	CompiledShader& CompiledShader
+		::operator=(CompiledShader&& compiled_shader) noexcept = default;
 
 	#pragma endregion
 
@@ -71,19 +71,19 @@ namespace mage {
 		Assert(m_bytecode);	
 	}
 
-	BufferCompiledShader::BufferCompiledShader(
-		const BufferCompiledShader &compiled_shader) noexcept = default;
+	BufferCompiledShader::BufferCompiledShader(const BufferCompiledShader& 
+											   compiled_shader) noexcept = default;
 
-	BufferCompiledShader::BufferCompiledShader(
-		BufferCompiledShader &&compiled_shader) noexcept = default;
+	BufferCompiledShader::BufferCompiledShader(BufferCompiledShader&& 
+											   compiled_shader) noexcept = default;
 
 	BufferCompiledShader::~BufferCompiledShader() = default;
 
-	BufferCompiledShader &BufferCompiledShader::operator=(
-		const BufferCompiledShader &compiled_shader) noexcept = default;
+	BufferCompiledShader& BufferCompiledShader
+		::operator=(const BufferCompiledShader& compiled_shader) noexcept = default;
 
-	BufferCompiledShader &BufferCompiledShader::operator=(
-		BufferCompiledShader &&compiled_shader) noexcept = default;
+	BufferCompiledShader& BufferCompiledShader
+		::operator=(BufferCompiledShader&& compiled_shader) noexcept = default;
 
 	#pragma endregion
 
@@ -92,7 +92,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	BlobCompiledShader::BlobCompiledShader(const wstring &fname) noexcept
+	BlobCompiledShader::BlobCompiledShader(const wstring& fname) noexcept
 		: CompiledShader(), 
 		m_shader_blob() {
 			
@@ -102,19 +102,19 @@ namespace mage {
 		ThrowIfFailed(result, "D3DReadFileToBlob failed: %08X.", result);
 	}
 
-	BlobCompiledShader::BlobCompiledShader(
-		const BlobCompiledShader &compiled_shader) noexcept = default;
+	BlobCompiledShader::BlobCompiledShader(const BlobCompiledShader& 
+										   compiled_shader) noexcept = default;
 
-	BlobCompiledShader::BlobCompiledShader(
-		BlobCompiledShader &&compiled_shader) noexcept = default;
+	BlobCompiledShader::BlobCompiledShader(BlobCompiledShader&& 
+										   compiled_shader) noexcept = default;
 
 	BlobCompiledShader::~BlobCompiledShader() = default;
 
-	BlobCompiledShader &BlobCompiledShader::operator=(
-		const BlobCompiledShader &compiled_shader) noexcept = default;
+	BlobCompiledShader& BlobCompiledShader
+		::operator=(const BlobCompiledShader& compiled_shader) noexcept = default;
 
-	BlobCompiledShader &BlobCompiledShader::operator=(
-		BlobCompiledShader &&compiled_shader) noexcept = default;
+	BlobCompiledShader& BlobCompiledShader
+		::operator=(BlobCompiledShader&& compiled_shader) noexcept = default;
 
 	#pragma endregion
 }

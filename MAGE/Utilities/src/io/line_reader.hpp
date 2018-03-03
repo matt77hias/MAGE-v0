@@ -245,11 +245,11 @@ namespace mage {
 		 Reads the given line.
 
 		 @param[in,out] line
-						A pointer to the null-terminated byte string to read.
+						A pointer to the null-terminated string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(NotNull< const_zstring > line) = 0;
+		virtual void ReadLine(NotNull< zstring > line) = 0;
 
 		/**
 		 Post-processes after reading the current file of this line reader.

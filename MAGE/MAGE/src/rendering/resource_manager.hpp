@@ -119,11 +119,10 @@ namespace mage {
 		/**
 		 Constructs a resource manager.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 */
-		ResourceManager(ID3D11Device *device);
+		ResourceManager(ID3D11Device& device);
 		
 		/**
 		 Constructs a resource manager from the given resource manager.
@@ -131,7 +130,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the resource manager to copy.
 		 */
-		ResourceManager(const ResourceManager &manager) = delete;
+		ResourceManager(const ResourceManager& manager) = delete;
 		
 		/**
 		 Constructs a resource manager by moving the given resource manager.
@@ -139,7 +138,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the resource manager to move.
 		 */
-		ResourceManager(ResourceManager &&manager) = delete;
+		ResourceManager(ResourceManager&& manager) noexcept;
 		
 		/**
 		 Destructs this resource manager.
@@ -158,7 +157,7 @@ namespace mage {
 		 @return		A reference to the copy of the given resource manager
 						(i.e. this resource manager).
 		 */
-		ResourceManager &operator=(const ResourceManager &manager) = delete;
+		ResourceManager& operator=(const ResourceManager& manager) = delete;
 		
 		/**
 		 Moves the given resource manager to this resource manager.
@@ -168,7 +167,7 @@ namespace mage {
 		 @return		A reference to the moved resource manager (i.e. this 
 						resource manager).
 		 */
-		ResourceManager &operator=(ResourceManager &&manager) = delete;
+		ResourceManager& operator=(ResourceManager&& manager) = delete;
 		
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -188,8 +187,8 @@ namespace mage {
 						unique identifier. @c false otherwise.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]]bool 
-			Contains(const typename key_type< ResourceT > &guid) noexcept;
+		[[nodiscard]]
+		bool Contains(const typename key_type< ResourceT >& guid) noexcept;
 		
 		/**
 		 Returns the resource of the given type corresponding to the given 
@@ -206,8 +205,9 @@ namespace mage {
 		 @return		A pointer to the resource.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]]SharedPtr< typename value_type< ResourceT > >
-			Get(const typename key_type< ResourceT > &guid) noexcept;
+		[[nodiscard]]
+		SharedPtr< typename value_type< ResourceT > >
+			Get(const typename key_type< ResourceT >& guid) noexcept;
 
 		/**
 		 Creates a resource of the given type (if not existing).
@@ -229,8 +229,8 @@ namespace mage {
 		 */
 		template< typename ResourceT, typename... ConstructorArgsT >
 		SharedPtr< typename value_type< ResourceT > >
-			GetOrCreate(const typename key_type< ResourceT > &guid,
-				        ConstructorArgsT &&...args);
+			GetOrCreate(const typename key_type< ResourceT >& guid,
+				        ConstructorArgsT&&... args);
 
 	private:
 
@@ -248,8 +248,8 @@ namespace mage {
 						resources of the given type of this resource manager.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]]typename pool_type< ResourceT > &
-			GetPool() noexcept;
+		[[nodiscard]]
+		typename pool_type< ResourceT >& GetPool() noexcept;
 
 		/**
 		 Returns the resource pool containing resources of the given type of 
@@ -261,8 +261,8 @@ namespace mage {
 						resources of the given type of this resource manager.
 		 */
 		template< typename ResourceT >
-		[[nodiscard]]const typename pool_type< ResourceT > &
-			GetPool() const noexcept;
+		[[nodiscard]]
+		const typename pool_type< ResourceT >& GetPool() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -271,7 +271,7 @@ namespace mage {
 		/**
 		 The device of this resource manager.
 		 */
-		ID3D11Device * const m_device;
+		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
 		 The model descriptor resource pool of this resource manager.

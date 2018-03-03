@@ -23,9 +23,9 @@ namespace mage {
 		m_index_format(index_format),
 		m_primitive_topology(primitive_topology) {}
 
-	Mesh::Mesh(Mesh &&mesh) noexcept = default;
+	Mesh::Mesh(Mesh&& mesh) noexcept = default;
 
 	Mesh::~Mesh() = default;
 
-	Mesh &Mesh::operator=(Mesh &&mesh) noexcept = default;
+	Mesh& Mesh::operator=(Mesh&& mesh) noexcept = default;
 }

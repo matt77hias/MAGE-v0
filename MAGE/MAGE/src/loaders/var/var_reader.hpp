@@ -42,7 +42,7 @@ namespace mage::loader {
 						A reference to a map for storing the read variables 
 						from file.
 		 */
-		explicit VARReader(std::map< string, Value > &variable_buffer);
+		explicit VARReader(std::map< string, Value >& variable_buffer);
 		
 		/**
 		 Constructs a VAR reader from the given VAR reader.
@@ -50,7 +50,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the VAR reader to copy.
 		 */
-		VARReader(const VARReader &reader) = delete;
+		VARReader(const VARReader& reader) = delete;
 		
 		/**
 		 Constructs a VAR reader by moving the given VAR reader.
@@ -58,7 +58,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the VAR reader to move.
 		 */
-		VARReader(VARReader &&reader) noexcept;
+		VARReader(VARReader&& reader) noexcept;
 
 		/**
 		 Destructs this VAR reader.
@@ -77,7 +77,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given VAR reader (i.e. 
 						this VAR reader).
 		 */
-		VARReader &operator=(const VARReader &reader) = delete;
+		VARReader& operator=(const VARReader& reader) = delete;
 
 		/**
 		 Moves the given VAR reader to this VAR reader.
@@ -87,7 +87,7 @@ namespace mage::loader {
 		 @return		A reference to the moved VAR reader (i.e. this VAR 
 						reader).
 		 */
-		VARReader &operator=(VARReader &&reader) = delete;
+		VARReader& operator=(VARReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -110,13 +110,12 @@ namespace mage::loader {
 		/**
 		 Reads the given line.
 
-		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
-						A pointer to the null-terminated byte string to read.
+						A pointer to the null-terminated string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(char *line) override;
+		virtual void ReadLine(NotNull< zstring > line) override;
 
 		/**
 		 Reads a Bool variable definition.
@@ -198,6 +197,6 @@ namespace mage::loader {
 		 A reference to a map containing the read variables of this VAR 
 		 reader.
 		 */
-		std::map< string, Value > &m_variable_buffer;
+		std::map< string, Value >& m_variable_buffer;
 	};
 }

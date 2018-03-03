@@ -5,7 +5,6 @@
 
 #include "rendering\swap_chain.hpp"
 #include "loaders\texture_loader.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -34,19 +33,19 @@ namespace mage {
 		/**
 		 Constructs a swap chain.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
+		 @param[in]		device_context
+						A reference to the device context.
 		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						A reference to the display configuration.
 		 */
-		explicit Impl(ID3D11Device *device, 
-					  HWND window, 
-					  DisplayConfiguration *display_configuration);
+		explicit Impl(ID3D11Device& device, 
+					  ID3D11DeviceContext& device_context, 
+					  NotNull< HWND > window, 
+					  DisplayConfiguration& display_configuration);
 
 		/**
 		 Constructs a swap chain from the given swap chain.
@@ -54,7 +53,7 @@ namespace mage {
 		 @param[in]		swap_chain
 						A reference to a swap chain to copy.
 		 */
-		Impl(const Impl &swap_chain) = delete;
+		Impl(const Impl& swap_chain) = delete;
 
 		/**
 		 Constructs a swap chain by moving the given swap chain.
@@ -62,7 +61,7 @@ namespace mage {
 		 @param[in]		swap_chain
 						A reference to a swap chain to move.
 		 */
-		Impl(Impl &&swap_chain) noexcept;
+		Impl(Impl&& swap_chain) noexcept;
 
 		/**
 		 Destructs this swap chain.
@@ -81,7 +80,7 @@ namespace mage {
 		 @return		A reference to the copy of the given swap chain (i.e. 
 						this swap chain).
 		 */
-		Impl &operator=(const Impl &swap_chain) = delete;
+		Impl& operator=(const Impl& swap_chain) = delete;
 
 		/**
 		 Moves the given swap chain to this swap chain.
@@ -91,7 +90,7 @@ namespace mage {
 		 @return		A reference to the moved swap chain (i.e. this swap 
 						chain).
 		 */
-		Impl &operator=(Impl &&swap_chain) = delete;
+		Impl& operator=(Impl&& swap_chain) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Display Configuration
@@ -102,7 +101,8 @@ namespace mage {
 
 		 @return		The window handle of this swap chain.
 		 */
-		[[nodiscard]]HWND GetWindow() noexcept {
+		[[nodiscard]]
+		NotNull< HWND > GetWindow() noexcept {
 			return m_window;
 		}
 
@@ -112,7 +112,8 @@ namespace mage {
 		 @return		@c true if this swap chain displays in windowed mode. 
 						@c false otherwise.
 		*/
-		[[nodiscard]]bool IsWindowed() const noexcept {
+		[[nodiscard]]
+		bool IsWindowed() const noexcept {
 			return !IsFullScreen();
 		}
 		
@@ -122,7 +123,8 @@ namespace mage {
 		 @return		@c true if this swap chain displays in full screen mode. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool IsFullScreen() const noexcept {
+		[[nodiscard]]
+		bool IsFullScreen() const noexcept {
 			BOOL current = FALSE;
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return current == TRUE;
@@ -135,7 +137,8 @@ namespace mage {
 		 @return		@c true if this swap chain lost its mode. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool LostMode() const noexcept {
+		[[nodiscard]]
+		bool LostMode() const noexcept {
 			return IsTrackedFullScreen() == IsWindowed();
 		}
 
@@ -148,7 +151,7 @@ namespace mage {
 						Failed to reset up the swap chain.
 		 */
 		void SetInitialMode() {
-			if (m_display_configuration->IsFullScreen()) {
+			if (m_display_configuration.get().IsFullScreen()) {
 				SwitchMode(true);
 			}
 		}
@@ -178,7 +181,8 @@ namespace mage {
 		 @return		A pointer to the render target view of the back buffer 
 						of this swap chain.
 		 */
-		[[nodiscard]]ID3D11RenderTargetView *GetRTV() const noexcept {
+		[[nodiscard]]
+		ID3D11RenderTargetView *GetRTV() const noexcept {
 			return m_rtv.Get();
 		}
 
@@ -201,7 +205,7 @@ namespace mage {
 						Failed to take a screenshot of the current back buffer 
 						of this swap chain. 
 		 */
-		void TakeScreenShot(const wstring &fname) const;
+		void TakeScreenShot(const wstring& fname) const;
 
 	private:
 
@@ -217,8 +221,9 @@ namespace mage {
 						corresponds to fullscreen mode.
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool IsTrackedFullScreen() const noexcept {
-			return m_display_configuration->IsFullScreen();
+		[[nodiscard]]
+		bool IsTrackedFullScreen() const noexcept {
+			return m_display_configuration.get().IsFullScreen();
 		}
 
 		/**
@@ -229,7 +234,7 @@ namespace mage {
 						mode. @c false otherwise.
 		 */
 		void SetTrackedFullScreen(bool fullscreen) noexcept {
-			m_display_configuration->SetFullScreen(fullscreen);
+			m_display_configuration.get().SetFullScreen(fullscreen);
 		}
 
 		//---------------------------------------------------------------------
@@ -279,18 +284,26 @@ namespace mage {
 		/**
 		 The handle of the parent window of this swap chain.
 		 */
-		HWND m_window;
+		NotNull< HWND > m_window;
 
 		/**
-		 A pointer to the display configuration of this swap chain.
+		 A reference to the display configuration of this swap chain.
 		 */
-		DisplayConfiguration * const m_display_configuration;
+		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Swap Chain
 		//---------------------------------------------------------------------
 
-		ID3D11Device * const m_device;
+		/**
+		 A reference to the device.
+		 */
+		std::reference_wrapper< ID3D11Device > m_device;
+
+		/**
+		 A reference to the device context.
+		 */
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the swap chain.
@@ -304,24 +317,22 @@ namespace mage {
 		ComPtr< ID3D11RenderTargetView > m_rtv;
 	};
 
-	SwapChain::Impl::Impl(ID3D11Device *device, 
-						  HWND window, 
-						  DisplayConfiguration *display_configuration)
+	SwapChain::Impl::Impl(ID3D11Device& device,
+						  ID3D11DeviceContext& device_context,
+						  NotNull< HWND > window,
+						  DisplayConfiguration& display_configuration)
 		: m_window(window), 
 		m_display_configuration(display_configuration),
 		m_device(device), 
+		m_device_context(device_context), 
 		m_swap_chain(), 
 		m_rtv() {
-
-		Assert(m_window);
-		Assert(m_display_configuration);
-		Assert(m_device);
 
 		// Setup the swap chain.
 		SetupSwapChain();
 	}
 
-	SwapChain::Impl::Impl(Impl &&swap_chain) noexcept = default;
+	SwapChain::Impl::Impl(Impl&& swap_chain) noexcept = default;
 
 	SwapChain::Impl::~Impl() {
 		// Switch to windowed mode since Direct3D is incapable to clear its 
@@ -352,7 +363,7 @@ namespace mage {
 		ComPtr< IDXGIFactory2 > dxgi_factory;
 		{
 			const HRESULT result 
-				= m_display_configuration->GetAdapter()->GetParent(
+				= m_display_configuration.get().GetAdapter()->GetParent(
 					__uuidof(IDXGIFactory2), 
 					(void **)dxgi_factory.GetAddressOf());
 			ThrowIfFailed(result, "IDXGIFactory2 creation failed: %08X.", result);
@@ -374,9 +385,9 @@ namespace mage {
 
 		// Create a swap chain descriptor.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width       = m_display_configuration->GetDisplayWidth();
-		swap_chain_desc.Height      = m_display_configuration->GetDisplayHeight();
-		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
+		swap_chain_desc.Width       = m_display_configuration.get().GetDisplayWidth();
+		swap_chain_desc.Height      = m_display_configuration.get().GetDisplayHeight();
+		swap_chain_desc.Format      = m_display_configuration.get().GetDisplayFormat();
 		swap_chain_desc.SampleDesc.Count = 1u;
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swap_chain_desc.BufferCount = 1u;
@@ -384,14 +395,14 @@ namespace mage {
 
 		// Create a fullscreen swap chain descriptor.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
-		swap_chain_fullscreen_desc.RefreshRate = m_display_configuration->GetDisplayRefreshRate();
+		swap_chain_fullscreen_desc.RefreshRate = m_display_configuration.get().GetDisplayRefreshRate();
 		swap_chain_fullscreen_desc.Windowed    = TRUE;
 
 		ComPtr< IDXGISwapChain1 > swap_chain;
 		{
 			// Get the IDXGISwapChain1.
 			const HRESULT result = dxgi_factory->CreateSwapChainForHwnd(
-				m_device, m_window, &swap_chain_desc, &swap_chain_fullscreen_desc, 
+				&m_device.get(), m_window, &swap_chain_desc, &swap_chain_fullscreen_desc, 
 				nullptr, swap_chain.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: %08X.", result);
 		}
@@ -420,9 +431,9 @@ namespace mage {
 		{
 			// Create the RTV.
 			const HRESULT result 
-				= m_device->CreateRenderTargetView(back_buffer.Get(), 
-					                               nullptr, 
-					                               m_rtv.ReleaseAndGetAddressOf());
+				= m_device.get().CreateRenderTargetView(back_buffer.Get(), 
+														nullptr,
+														m_rtv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
 				"Back buffer RTV creation failed: %08X.", result);
 		}
@@ -430,12 +441,12 @@ namespace mage {
 
 	void SwapChain::Impl::Clear() const noexcept {
 		// Clear the back buffer.
-		Pipeline::OM::ClearRTV(Pipeline::GetImmediateDeviceContext(), m_rtv.Get());
+		Pipeline::OM::ClearRTV(m_device_context, m_rtv.Get());
 	}
 
 	void SwapChain::Impl::Present() const noexcept {
 		// Present the back buffer to the front buffer.
-		const U32 sync_interval = (m_display_configuration->IsVSynced()) 
+		const U32 sync_interval = (m_display_configuration.get().IsVSynced()) 
 			                      ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 	}
@@ -452,7 +463,7 @@ namespace mage {
 		}
 		
 		loader::ExportTextureToFile(fname,
-			                        Pipeline::GetImmediateDeviceContext(), 
+			                        &m_device_context.get(),
 			                        back_buffer.Get());
 	}
 
@@ -481,28 +492,34 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	SwapChain::SwapChain(ID3D11Device *device,
-						 HWND window,
-						 DisplayConfiguration *display_configuration)
-		: m_impl(MakeUnique< Impl >(device, window, display_configuration)) {}
+	SwapChain::SwapChain(ID3D11Device& device,
+						 ID3D11DeviceContext& device_context,
+						 NotNull< HWND > window,
+						 DisplayConfiguration& display_configuration)
+		: m_impl(MakeUnique< Impl >(device, device_context, 
+									window, display_configuration)) {}
 
-	SwapChain::SwapChain(SwapChain &&swap_chain) noexcept = default;
+	SwapChain::SwapChain(SwapChain&& swap_chain) noexcept = default;
 
 	SwapChain::~SwapChain() = default;
 
-	[[nodiscard]]HWND SwapChain::GetWindow() noexcept {
+	[[nodiscard]]
+	NotNull< HWND > SwapChain::GetWindow() noexcept {
 		return m_impl->GetWindow();
 	}
 
-	[[nodiscard]]bool SwapChain::IsWindowed() const noexcept {
+	[[nodiscard]]
+	bool SwapChain::IsWindowed() const noexcept {
 		return m_impl->IsWindowed();
 	}
 
-	[[nodiscard]]bool SwapChain::IsFullScreen() const noexcept {
+	[[nodiscard]]
+	bool SwapChain::IsFullScreen() const noexcept {
 		return m_impl->IsFullScreen();
 	}
 
-	[[nodiscard]]bool SwapChain::LostMode() const noexcept {
+	[[nodiscard]]
+	bool SwapChain::LostMode() const noexcept {
 		return m_impl->LostMode();
 	}
 
@@ -514,7 +531,8 @@ namespace mage {
 		m_impl->SwitchMode(toggle);
 	}
 
-	[[nodiscard]]ID3D11RenderTargetView *SwapChain::GetRTV() const noexcept {
+	[[nodiscard]]
+	ID3D11RenderTargetView *SwapChain::GetRTV() const noexcept {
 		return m_impl->GetRTV();
 	}
 
@@ -526,7 +544,7 @@ namespace mage {
 		m_impl->Present();
 	}
 
-	void SwapChain::TakeScreenShot(const wstring &fname) const {
+	void SwapChain::TakeScreenShot(const wstring& fname) const {
 		m_impl->TakeScreenShot(fname);
 	}
 

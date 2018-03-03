@@ -43,34 +43,10 @@ namespace mage {
 		/**
 		 Constructs a static mesh.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
-		 @pre			The number of vertices must be greater than zero.
-		 @pre			The number of indices must be greater than zero.
-		 @param[in]		vertices
-						A vector containing the vertices.
-		 @param[in]		indices
-						A vector containing the indices.
-		 @param[in]		primitive_topology
-						The primitive topology.
-		 @throws		Exception
-						Failed to setup the vertex buffer of the static mesh.
-		 @throws		Exception
-						Failed to setup the index buffer of the static mesh.
-		 */
-		explicit StaticMesh(std::vector< VertexT > vertices,
-			                std::vector< IndexT >  indices,
-			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
-			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		/**
-		 Constructs a static mesh.
-
-		 @pre			@a device is not equal to @c nullptr.
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @param[in]		vertices
 						A vector containing the vertices.
 		 @param[in]		indices
@@ -82,7 +58,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to setup the index buffer of the static mesh.
 		 */
-		explicit StaticMesh(ID3D11Device *device,
+		explicit StaticMesh(ID3D11Device& device,
 			                std::vector< VertexT > vertices,
 			                std::vector< IndexT >  indices,
 			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
@@ -94,7 +70,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the static mesh to copy.
 		 */
-		StaticMesh(const StaticMesh &mesh) = delete;
+		StaticMesh(const StaticMesh& mesh) = delete;
 
 		/**
 		 Constructs a static mesh by moving the given static mesh.
@@ -102,7 +78,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the static mesh to move.
 		 */
-		StaticMesh(StaticMesh &&mesh) noexcept;
+		StaticMesh(StaticMesh&& mesh) noexcept;
 
 		/**
 		 Destructs this static mesh.
@@ -121,7 +97,7 @@ namespace mage {
 		 @return		A reference to the copy of the given static mesh (i.e. 
 						this static mesh).
 		 */
-		StaticMesh &operator=(const StaticMesh &mesh) = delete;
+		StaticMesh& operator=(const StaticMesh& mesh) = delete;
 
 		/**
 		 Moves the given static mesh to this static mesh.
@@ -131,7 +107,7 @@ namespace mage {
 		 @return		A reference to the moved static mesh (i.e. this static 
 						mesh).
 		 */
-		StaticMesh &operator=(StaticMesh &&mesh) noexcept;
+		StaticMesh& operator=(StaticMesh&& mesh) noexcept;
 
 	private:
 
@@ -142,24 +118,22 @@ namespace mage {
 		/**
 		 Sets up the vertex buffer of this static mesh.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup the vertex buffer of this static mesh.
 		 */
-		void SetupVertexBuffer(ID3D11Device *device);
+		void SetupVertexBuffer(ID3D11Device& device);
 
 		/**
 		 Sets up the index buffer of this static mesh.
 
-		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
-						A pointer to the device.
+						A reference to the device.
 		 @throws		Exception
 						Failed to setup the index buffer of this static mesh.
 		 */
-		void SetupIndexBuffer(ID3D11Device *device);
+		void SetupIndexBuffer(ID3D11Device& device);
 
 		//---------------------------------------------------------------------
 		// Member Variables

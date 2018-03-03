@@ -6,7 +6,6 @@
 #include "core\engine.hpp"
 #include "rendering\renderer.hpp"
 #include "imgui\imgui_impl_dx11.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -44,15 +43,13 @@ namespace mage {
 		/**
 		 Constructs a rendering manager.
 
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
-						A pointer to the display configuration.
+						The display configuration.
 		 */
-		explicit Impl(HWND window, 
-					  const DisplayConfiguration *display_configuration);
+		explicit Impl(NotNull< HWND > window, 
+					  DisplayConfiguration display_configuration);
 
 		/**
 		 Constructs a rendering manager from the given rendering manager.
@@ -60,7 +57,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to copy.
 		 */
-		Impl(const Impl &manager) = delete;
+		Impl(const Impl& manager) = delete;
 
 		/**
 		 Constructs a rendering manager by moving the given rendering manager.
@@ -68,7 +65,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to move.
 		 */
-		Impl(Impl &&manager) noexcept;
+		Impl(Impl&& manager) noexcept;
 
 		/**
 		 Destructs this rendering manager.
@@ -87,7 +84,7 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering manager 
 						(i.e. this rendering manager).
 		 */
-		Impl &operator=(const Impl &manager) = delete;
+		Impl& operator=(const Impl& manager) = delete;
 
 		/**
 		 Moves the given rendering manager to this rendering manager.
@@ -97,7 +94,7 @@ namespace mage {
 		 @return		A reference to the moved rendering manager (i.e. this 
 						rendering manager).
 		 */
-		Impl &operator=(Impl &&manager) = delete;
+		Impl& operator=(Impl&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -106,32 +103,34 @@ namespace mage {
 		/**
 		 Returns the display configuration of this rendering manager.
 
-		 @return		A pointer to the display configuration of this 
+		 @return		A reference to the display configuration of this 
 						rendering manager.
 		 */
-		[[nodiscard]]const DisplayConfiguration *
-			GetDisplayConfiguration() const noexcept {
-
-			return m_display_configuration.get();
+		[[nodiscard]]
+		const DisplayConfiguration& GetDisplayConfiguration() const noexcept {
+			return *m_display_configuration;
 		}
 
 		/**
 		 Returns the swap chain of this rendering manager.
 
-		 @return		A pointer to the swap chain of this rendering manager.
+		 @return		A reference to the swap chain of this rendering 
+						manager.
 		 */
-		[[nodiscard]]SwapChain *GetSwapChain() const noexcept {
-			return m_swap_chain.get();
+		[[nodiscard]]
+		SwapChain& GetSwapChain() const noexcept {
+			return *m_swap_chain;
 		}
 
 		/**
 		 Returns the resource manager of this rendering manager.
 
-		 @return		A pointer to the resource manager of this 
+		 @return		A reference to the resource manager of this 
 						rendering manager.
 		 */
-		[[nodiscard]]ResourceManager *GetResourceManager() const noexcept {
-			return m_resource_manager.get();
+		[[nodiscard]]
+		ResourceManager& GetResourceManager() const noexcept {
+			return *m_resource_manager;
 		}
 
 		/**
@@ -154,7 +153,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene &scene);
+		void Render(const Scene& scene);
 		
 	private:
 
@@ -193,7 +192,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this rendering manager.
 		 */
-		const HWND m_window;
+		NotNull< HWND > m_window;
 
 		/**
 		 A pointer to the display configuration of this rendering manager.
@@ -235,11 +234,11 @@ namespace mage {
 		UniquePtr< ResourceManager > m_resource_manager;
 	};
 
-	RenderingManager::Impl::Impl(HWND window, 
-								 const DisplayConfiguration *configuration)
-		: m_window(window),
+	RenderingManager::Impl::Impl(NotNull< HWND > window, 
+								 DisplayConfiguration configuration)
+		: m_window(std::move(window)),
 		m_display_configuration(
-			MakeUnique< DisplayConfiguration >(*configuration)),
+			MakeUnique< DisplayConfiguration >(std::move(configuration))),
 		m_feature_level(),
 		m_device(), 
 		m_device_context(), 
@@ -247,13 +246,10 @@ namespace mage {
 		m_renderer(),
 		m_resource_manager() {
 
-		Assert(m_window);
-		Assert(m_display_configuration);
-
 		InitializeSystems();
 	}
 
-	RenderingManager::Impl::Impl(RenderingManager::Impl &&manager) noexcept = default;
+	RenderingManager::Impl::Impl(RenderingManager::Impl&& manager) noexcept = default;
 
 	RenderingManager::Impl::~Impl() {
 		UninitializeSystems();
@@ -264,19 +260,19 @@ namespace mage {
 		SetupDevice();
 		
 		// Setup the swap chain.
-		m_swap_chain = MakeUnique< SwapChain >(m_device.Get(), 
+		m_swap_chain = MakeUnique< SwapChain >(*m_device.Get(), 
 				                               m_window, 
-			                                   m_display_configuration.get());
+			                                   *m_display_configuration);
 
 		// Setup the output manager.
 		// Setup the resource manager.
-		m_resource_manager = MakeUnique< ResourceManager >(m_device.Get());
+		m_resource_manager = MakeUnique< ResourceManager >(*m_device.Get());
 		// Setup the renderer.
-		m_renderer         = MakeUnique< Renderer >(m_device.Get(),
-													m_device_context.Get(), 
-													m_display_configuration.get(),
-													m_swap_chain.get(), 
-													m_resource_manager.get());
+		m_renderer         = MakeUnique< Renderer >(*m_device.Get(),
+													*m_device_context.Get(), 
+													*m_display_configuration,
+													*m_swap_chain, 
+													*m_resource_manager);
 
 		// Setup ImGui.
 		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());
@@ -338,7 +334,7 @@ namespace mage {
 		m_renderer->BindPersistentState();
 	}
 
-	void RenderingManager::Impl::Render(const Scene &scene) {
+	void RenderingManager::Impl::Render(const Scene& scene) {
 		m_swap_chain->Clear();
 
 		ImGui_ImplDX11_NewFrame();
@@ -357,33 +353,29 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]]const RenderingManager *RenderingManager::Get() noexcept {
-		Assert(Engine::Get());
+	RenderingManager::RenderingManager(NotNull< HWND > window, 
+									   DisplayConfiguration configuration) 
+		: m_impl(MakeUnique< Impl >(std::move(window), 
+									std::move(configuration))) {}
 
-		return Engine::Get()->GetRenderingManager();
-	}
-
-	RenderingManager::RenderingManager(HWND window, 
-									   const DisplayConfiguration *configuration) 
-		: m_impl(MakeUnique< Impl >(window, configuration)) {}
-
-	RenderingManager::RenderingManager(RenderingManager &&manager) noexcept = default;
+	RenderingManager::RenderingManager(RenderingManager&& manager) noexcept = default;
 
 	RenderingManager::~RenderingManager() = default;
 
-	[[nodiscard]]const DisplayConfiguration *
+	[[nodiscard]]
+	const DisplayConfiguration& 
 		RenderingManager::GetDisplayConfiguration() const noexcept {
 
 		return m_impl->GetDisplayConfiguration();
 	}
 	
-	[[nodiscard]]SwapChain *RenderingManager::GetSwapChain() const noexcept {
+	[[nodiscard]]
+	SwapChain& RenderingManager::GetSwapChain() const noexcept {
 		return m_impl->GetSwapChain();
 	}
 	
-	[[nodiscard]]ResourceManager *
-		RenderingManager::GetResourceManager() const noexcept {
-
+	[[nodiscard]]
+	ResourceManager& RenderingManager::GetResourceManager() const noexcept {
 		return m_impl->GetResourceManager();
 	}
 
@@ -391,7 +383,7 @@ namespace mage {
 		m_impl->BindPersistentState();
 	}
 
-	void RenderingManager::Render(const Scene &scene) {
+	void RenderingManager::Render(const Scene& scene) {
 		m_impl->Render(scene);
 	}
 

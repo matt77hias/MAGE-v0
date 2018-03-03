@@ -43,9 +43,9 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(ID3D11Device &device,
+		explicit SpriteFont(ID3D11Device& device,
 							wstring fname,
-			                const SpriteFontDescriptor &desc 
+			                const SpriteFontDescriptor& desc 
 			                    = SpriteFontDescriptor());
 
 		/**
@@ -54,7 +54,7 @@ namespace mage {
 		 @param[in]		font
 						A reference to the sprite font to copy.
 		 */
-		SpriteFont(const SpriteFont &font) = delete;
+		SpriteFont(const SpriteFont& font) = delete;
 
 		/**
 		 Constructs a sprite font by moving the given sprite font.
@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		font
 						A reference to the sprite font to move.
 		 */
-		SpriteFont(SpriteFont &&font) noexcept;
+		SpriteFont(SpriteFont&& font) noexcept;
 
 		/**
 		 Destructs this sprite font.
@@ -81,7 +81,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite font (i.e. 
 						this sprite font).
 		 */
-		SpriteFont &operator=(const SpriteFont &font) = delete;
+		SpriteFont& operator=(const SpriteFont& font) = delete;
 
 		/**
 		 Moves the given sprite font to this sprite font.
@@ -91,7 +91,7 @@ namespace mage {
 		 @return		A reference to the moved sprite font (i.e. this sprite 
 						font).
 		 */
-		SpriteFont &operator=(SpriteFont &&font) noexcept;
+		SpriteFont& operator=(SpriteFont&& font) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -120,12 +120,12 @@ namespace mage {
 						@c nullptr, each string will be drawn in its own color.
 						Otherwise, each string is drawn in this color.
 		 */
-		void DrawText(SpriteBatch &sprite_batch, 
-			          const ColorString *strings,
+		void DrawText(SpriteBatch& sprite_batch, 
+			          const ColorString* strings,
 				      size_t nb_strings,
-			          const SpriteTransform &transform,
+			          const SpriteTransform& transform,
 			          SpriteEffect effects = SpriteEffect::None,
-		              const SRGBA *color = nullptr) const;
+		              const SRGBA* color = nullptr) const;
 		
 		/**
 		 Returns the size of the given text with this sprite font (in pixels).
@@ -144,7 +144,7 @@ namespace mage {
 						has the effect of ignoring 'trailing spaces'.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV MeasureText(const ColorString *strings, 
+		const XMVECTOR XM_CALLCONV MeasureText(const ColorString* strings, 
 											   size_t nb_strings) const;
 		
 		/**
@@ -163,9 +163,9 @@ namespace mage {
 						font.
 		 */
 		[[nodiscard]]
-		const RECT MeasureDrawBounds(const ColorString *strings, 
+		const RECT MeasureDrawBounds(const ColorString* strings, 
 									 size_t nb_strings,
-									 const F32x2 &top_left) const;
+									 const F32x2& top_left) const;
 		
 		/**
 		 Checks whether this sprite font is empty.
@@ -269,7 +269,7 @@ namespace mage {
 						default character.
 		 */
 		[[nodiscard]]
-		const Glyph *GetGlyph(wchar_t character) const;
+		const Glyph* GetGlyph(wchar_t character) const;
 		
 		/**
 		 Returns a pointer to the shader resource view of the texture of this 
@@ -279,7 +279,7 @@ namespace mage {
 						of this sprite font.
 		 */
 		[[nodiscard]]
-		ID3D11ShaderResourceView *Get() const noexcept {
+		ID3D11ShaderResourceView* Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 
@@ -298,7 +298,7 @@ namespace mage {
 						The sprite font glyphs of the given sprite font output 
 						are not sorted.
 		 */
-		void InitializeSpriteFont(const SpriteFontOutput &output);
+		void InitializeSpriteFont(const SpriteFontOutput& output);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -317,7 +317,7 @@ namespace mage {
 		/**
 		 A pointer to the default glyph of this sprite font.
 		 */
-		const Glyph *m_default_glyph;
+		const Glyph* m_default_glyph;
 
 		/**
 		 The (extra) line spacing of this sprite font.

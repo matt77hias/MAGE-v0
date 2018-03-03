@@ -41,9 +41,9 @@ namespace mage::loader {
 					Failed to import the mesh from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportMSHMeshFromFile(const wstring &fname, 
-		                       std::vector< VertexT > &vertices, 
-		                       std::vector< IndexT >  &indices);
+	void ImportMSHMeshFromFile(const wstring& fname, 
+		                       std::vector< VertexT >& vertices, 
+		                       std::vector< IndexT > & indices);
 
 	/**
 	 Exports the given mesh to the given MSH file.
@@ -63,9 +63,9 @@ namespace mage::loader {
 					Failed to export the mesh to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportMSHMeshToFile(const wstring &fname, 
-		                     const std::vector< VertexT > &vertices, 
-		                     const std::vector< IndexT >  &indices);
+	void ExportMSHMeshToFile(const wstring& fname, 
+		                     const std::vector< VertexT >& vertices, 
+		                     const std::vector< IndexT > & indices);
 }
 
 //-----------------------------------------------------------------------------

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Texture::Texture(ID3D11Device &device, wstring fname)
+	Texture::Texture(ID3D11Device& device, wstring fname)
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
 
@@ -23,9 +23,9 @@ namespace mage {
 									  m_texture_srv.ReleaseAndGetAddressOf());
 	}
 
-	Texture::Texture(ID3D11Device &device, wstring guid, 
-					 const D3D11_TEXTURE2D_DESC &desc, 
-					 const D3D11_SUBRESOURCE_DATA &initial_data)
+	Texture::Texture(ID3D11Device& device, wstring guid, 
+					 const D3D11_TEXTURE2D_DESC& desc, 
+					 const D3D11_SUBRESOURCE_DATA& initial_data)
 		: Resource< Texture >(std::move(guid)), 
 		m_texture_srv() {
 
@@ -46,9 +46,9 @@ namespace mage {
 		}
 	}
 
-	Texture::Texture(Texture &&texture) noexcept = default;
+	Texture::Texture(Texture&& texture) noexcept = default;
 
 	Texture::~Texture() = default;
 
-	Texture &Texture::operator=(Texture &&texture) noexcept = default;
+	Texture &Texture::operator=(Texture&& texture) noexcept = default;
 }

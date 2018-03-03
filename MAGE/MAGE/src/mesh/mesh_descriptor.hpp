@@ -54,7 +54,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the mesh descriptor to copy.
 		 */
-		constexpr MeshDescriptor(const MeshDescriptor &desc) noexcept = default;
+		constexpr MeshDescriptor(const MeshDescriptor& desc) noexcept = default;
 		
 		/**
 		 Constructs a mesh descriptor by moving the given mesh descriptor.
@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the mesh descriptor to move.
 		 */
-		constexpr MeshDescriptor(MeshDescriptor &&desc) noexcept = default;
+		constexpr MeshDescriptor(MeshDescriptor&& desc) noexcept = default;
 		
 		/**
 		 Destructs this mesh descriptor.
@@ -81,8 +81,8 @@ namespace mage {
 		 @return		A reference to the copy of the given mesh descriptor 
 						(i.e. this mesh descriptor).
 		 */
-		constexpr MeshDescriptor &operator=(
-			const MeshDescriptor &desc) noexcept = default;
+		constexpr MeshDescriptor& operator=(const MeshDescriptor& 
+											desc) noexcept = default;
 
 		/**
 		 Moves the given mesh descriptor to this mesh descriptor.
@@ -92,8 +92,8 @@ namespace mage {
 		 @return		A reference to the moved mesh descriptor (i.e. this 
 						mesh descriptor).
 		 */
-		constexpr MeshDescriptor &operator=(
-			MeshDescriptor &&desc) noexcept = default;
+		constexpr MeshDescriptor& operator=(MeshDescriptor&& 
+											desc) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -106,7 +106,8 @@ namespace mage {
 		 @return		@c true if the mesh coordinate system handness should 
 						be inverted. @c false otherwise.
 		 */
-		[[nodiscard]]constexpr bool InvertHandness() const noexcept {
+		[[nodiscard]]
+		constexpr bool InvertHandness() const noexcept {
 			return m_invert_handedness;
 		}
 
@@ -118,7 +119,8 @@ namespace mage {
 		 @return		@c true if the face vertices should be defined in 
 						clockwise order. @c false otherwise.
 		 */
-		[[nodiscard]]constexpr bool ClockwiseOrder() const noexcept {
+		[[nodiscard]]
+		constexpr bool ClockwiseOrder() const noexcept {
 			return m_clockwise_order;
 		}
 

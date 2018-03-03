@@ -17,15 +17,15 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >
-		::MSHReader(std::vector< VertexT > &vertices, 
-		            std::vector< IndexT >  &indices)
+		::MSHReader(std::vector< VertexT >& vertices, 
+		            std::vector< IndexT >& indices)
 		: BigEndianBinaryReader(), 
 		m_vertices(vertices), 
 		m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >::MSHReader(
-		MSHReader &&reader) noexcept = default;
+		MSHReader&& reader) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >::~MSHReader() = default;
@@ -51,16 +51,15 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
-		auto magic = g_msh_token_magic;
-		
-		while (*magic != L'\0') {
-			if (Read< U8 >() != *magic) {
+	
+	[[nodiscard]]
+	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
+		for (auto magic = g_font_token_magic; *magic != L'\0'; ++magic) {
+			if (*magic != Read< U8 >()) {
 				return false;
 			}
-			++magic;
 		}
-		
+
 		return true;
 	}
 }

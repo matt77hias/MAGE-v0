@@ -27,15 +27,15 @@ namespace mage {
 		m_radiance(MAGE_DEFAULT_RADIANCE),
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
 
-	AmbientLight::AmbientLight(const AmbientLight &light) noexcept = default;
+	AmbientLight::AmbientLight(const AmbientLight& light) noexcept = default;
 	
-	AmbientLight::AmbientLight(AmbientLight &&light) noexcept = default;
+	AmbientLight::AmbientLight(AmbientLight&& light) noexcept = default;
 	
 	AmbientLight::~AmbientLight() = default;
 
-	AmbientLight &AmbientLight
-		::operator=(const AmbientLight &light) noexcept = default;
+	AmbientLight& AmbientLight
+		::operator=(const AmbientLight& light) noexcept = default;
 
-	AmbientLight &AmbientLight
-		::operator=(AmbientLight &&light) noexcept = default;
+	AmbientLight& AmbientLight
+		::operator=(AmbientLight&& light) noexcept = default;
 }

@@ -29,16 +29,16 @@ namespace mage {
 		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
 
 	DirectionalLight::DirectionalLight(
-		const DirectionalLight &light) noexcept = default;
+		const DirectionalLight& light) noexcept = default;
 	
 	DirectionalLight::DirectionalLight(
-		DirectionalLight &&light) noexcept = default;
+		DirectionalLight&& light) noexcept = default;
 	
 	DirectionalLight::~DirectionalLight() = default;
 
-	DirectionalLight &DirectionalLight
-		::operator=(const DirectionalLight &light) noexcept = default;
+	DirectionalLight& DirectionalLight
+		::operator=(const DirectionalLight& light) noexcept = default;
 
-	DirectionalLight &DirectionalLight
-		::operator=(DirectionalLight &&light) noexcept = default;
+	DirectionalLight& DirectionalLight
+		::operator=(DirectionalLight&& light) noexcept = default;
 }

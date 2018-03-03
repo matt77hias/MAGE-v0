@@ -40,15 +40,15 @@ namespace mage {
 		UpdateBoundingVolumes();
 	}
 
-	SpotLight::SpotLight(const SpotLight &light) noexcept = default;
+	SpotLight::SpotLight(const SpotLight& light) noexcept = default;
 	
-	SpotLight::SpotLight(SpotLight &&light) noexcept = default;
+	SpotLight::SpotLight(SpotLight&& light) noexcept = default;
 	
 	SpotLight::~SpotLight() = default;
 
-	SpotLight &SpotLight::operator=(const SpotLight &light) noexcept = default;
+	SpotLight& SpotLight::operator=(const SpotLight& light) noexcept = default;
 
-	SpotLight &SpotLight::operator=(SpotLight &&light) noexcept = default;
+	SpotLight& SpotLight::operator=(SpotLight&& light) noexcept = default;
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const auto a         = 1.0f / (m_cos_umbra * m_cos_umbra);

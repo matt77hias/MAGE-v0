@@ -42,7 +42,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the spotlight to copy.
 		 */
-		SpotLight(const SpotLight &light) noexcept;
+		SpotLight(const SpotLight& light) noexcept;
 
 		/**
 		 Constructs a spotlight by moving the given spotlight.
@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the spotlight to move.
 		 */
-		SpotLight(SpotLight &&light) noexcept;
+		SpotLight(SpotLight&& light) noexcept;
 
 		/**
 		 Destructs this spotlight.
@@ -69,7 +69,7 @@ namespace mage {
 		 @return		A reference to the copy of the given spotlight (i.e. 
 						this spotlight).
 		 */
-		SpotLight &operator=(const SpotLight &light) noexcept;
+		SpotLight& operator=(const SpotLight& light) noexcept;
 
 		/**
 		 Moves the given spotlight to this spotlight.
@@ -79,7 +79,7 @@ namespace mage {
 		 @return		A reference to the moved spotlight (i.e. this 
 						spotlight).
 		 */
-		SpotLight &operator=(SpotLight &&light) noexcept;
+		SpotLight& operator=(SpotLight&& light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
@@ -90,7 +90,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this omni light.
 		 */
-		[[nodiscard]]SRGB &GetBaseColor() noexcept {
+		[[nodiscard]]SRGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -99,7 +99,7 @@ namespace mage {
 
 		 @return		A reference to the sRGB base color of this omni light.
 		 */
-		[[nodiscard]]const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]]const SRGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -174,7 +174,7 @@ namespace mage {
 
 		 @return		A reference to the AABB of this spotlight.
 		 */
-		[[nodiscard]]const AABB &GetAABB() const noexcept {
+		[[nodiscard]]const AABB& GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -183,7 +183,7 @@ namespace mage {
 
 		 @return		A reference to the BoundingSphere of this spotlight.
 		 */
-		[[nodiscard]]const BoundingSphere &GetBoundingSphere() const noexcept {
+		[[nodiscard]]const BoundingSphere& GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
 

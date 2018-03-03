@@ -41,7 +41,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the directional light to copy.
 		 */
-		DirectionalLight(const DirectionalLight &light) noexcept;
+		DirectionalLight(const DirectionalLight& light) noexcept;
 
 		/**
 		 Constructs a directional light by moving the given directional light.
@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		light
 						A reference to the directional light to move.
 		 */
-		DirectionalLight(DirectionalLight &&light) noexcept;
+		DirectionalLight(DirectionalLight&& light) noexcept;
 
 		/**
 		 Destructs this directional light.
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		A reference to the copy of the given directional light
 						(i.e. this directional light).
 		 */
-		DirectionalLight &operator=(const DirectionalLight &light) noexcept;
+		DirectionalLight& operator=(const DirectionalLight& light) noexcept;
 
 		/**
 		 Moves the given directional light to this directional light.
@@ -78,7 +78,7 @@ namespace mage {
 		 @return		A reference to the moved directional light (i.e. this 
 						directional light).
 		 */
-		DirectionalLight &operator=(DirectionalLight &&light) noexcept;
+		DirectionalLight& operator=(DirectionalLight&& light) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lighting
@@ -90,7 +90,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this directional 
 						light.
 		 */
-		[[nodiscard]]SRGB &GetBaseColor() noexcept {
+		[[nodiscard]]SRGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this directional 
 						light.
 		 */
-		[[nodiscard]]const SRGB &GetBaseColor() const noexcept {
+		[[nodiscard]]const SRGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 

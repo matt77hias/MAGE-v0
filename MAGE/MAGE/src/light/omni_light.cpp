@@ -36,15 +36,15 @@ namespace mage {
 		UpdateBoundingVolumes();
 	}
 
-	OmniLight::OmniLight(const OmniLight &light) noexcept = default;
+	OmniLight::OmniLight(const OmniLight& light) noexcept = default;
 	
-	OmniLight::OmniLight(OmniLight &&light) noexcept = default;
+	OmniLight::OmniLight(OmniLight&& light) noexcept = default;
 	
 	OmniLight::~OmniLight() = default;
 
-	OmniLight &OmniLight::operator=(const OmniLight &light) noexcept = default;
+	OmniLight& OmniLight::operator=(const OmniLight& light) noexcept = default;
 
-	OmniLight &OmniLight::operator=(OmniLight &&light) noexcept = default;
+	OmniLight& OmniLight::operator=(OmniLight&& light) noexcept = default;
 	
 	void OmniLight::UpdateBoundingVolumes() noexcept {
 		m_aabb   = AABB(Point3(-m_range, -m_range, -m_range),

@@ -6,7 +6,6 @@
 #include "loaders\mtl\mtl_reader.hpp"
 #include "loaders\mtl\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
-#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -15,17 +14,19 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	MTLReader::MTLReader(std::vector< Material > &material_buffer)
+	MTLReader::MTLReader(ResourceManager& resource_manager, 
+						 std::vector< Material > &material_buffer)
 		: LineReader(), 
+		m_resource_manager(resource_manager), 
 		m_material_buffer(material_buffer) {}
 
 	MTLReader::MTLReader(MTLReader &&reader) noexcept = default;
 
 	MTLReader::~MTLReader() = default;
 
-	void MTLReader::ReadLine(char *line) {
+	void MTLReader::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto * const token
+		const auto* const token
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_mtl_token_comment == token[0]) {
@@ -101,8 +102,8 @@ namespace mage::loader {
 		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
-	[[nodiscard]]const SRGB MTLReader::ReadMTLSRGB() {
-
+	[[nodiscard]]
+	const SRGB MTLReader::ReadMTLSRGB() {
 		const auto red = Read< F32 >();
 
 		F32 green = red;
@@ -115,8 +116,8 @@ namespace mage::loader {
 		return SRGB(red, green, blue);
 	}
 
-	[[nodiscard]]const SRGBA MTLReader::ReadMTLSRGBA() {
-		
+	[[nodiscard]]
+	const SRGBA MTLReader::ReadMTLSRGBA() {
 		const auto red = Read< F32 >();
 
 		F32 green = red;
@@ -131,11 +132,12 @@ namespace mage::loader {
 		return SRGBA(red, green, blue, alpha);
 	}
 
-	[[nodiscard]]SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
+	[[nodiscard]]
+	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
 		const auto texture_path  = mage::GetPathName(GetFilename());
 		const auto texture_name  = str_convert(Read< string >());
 		const auto texture_fname = mage::GetFilename(texture_path, texture_name);
-		return ResourceManager::Get()->GetOrCreate< Texture >(texture_fname);
+		return m_resource_manager.GetOrCreate< Texture >(texture_fname);
 	}
 }

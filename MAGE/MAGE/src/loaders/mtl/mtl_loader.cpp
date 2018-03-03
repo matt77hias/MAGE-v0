@@ -13,10 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	void ImportMTLMaterialFromFile(const wstring &fname, 
-		                           std::vector< Material > &materials) {
+	void ImportMTLMaterialFromFile(const wstring& fname, 
+								   ResourceManager& resource_manager, 
+								   std::vector< Material >& materials) {
 		
-		MTLReader reader(materials);
+		MTLReader reader(resource_manager, materials);
 		reader.ReadFromFile(fname);
 	}
 }

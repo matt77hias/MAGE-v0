@@ -16,12 +16,13 @@
 namespace mage::loader {
 
 	void ImportMaterialFromFile(const wstring &fname, 
-		                        std::vector< Material > &materials) {
+								ResourceManager &resource_manaer, 
+								std::vector< Material > &materials) {
 		
 		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"mtl" || extension == L"MTL") {
-			ImportMTLMaterialFromFile(fname, materials);
+			ImportMTLMaterialFromFile(fname, resource_manaer, materials);
 			return;
 		}
 		else {

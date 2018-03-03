@@ -6,6 +6,7 @@
 #pragma region
 
 #include "material\material.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -28,11 +29,14 @@ namespace mage::loader {
 
 	 @param[in]		fname
 					A reference to the MTL filename.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[out]	materials
 					A reference to a vector containing the materials.
 	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
 	void ImportMTLMaterialFromFile(const wstring &fname, 
-		                           std::vector< Material > &materials);
+								   ResourceManager& resource_manager, 
+		                           std::vector< Material >& materials);
 }

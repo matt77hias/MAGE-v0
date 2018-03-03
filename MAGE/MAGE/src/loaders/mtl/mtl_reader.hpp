@@ -7,6 +7,7 @@
 
 #include "io\line_reader.hpp"
 #include "material\material.hpp"
+#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -38,11 +39,14 @@ namespace mage::loader {
 		/**
 		 Constructs a MTL reader.
 		 
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 @param[in]		material_buffer
 						A reference to a vector for storing the read materials 
 						from file.
 		 */
-		explicit MTLReader(std::vector< Material > &material_buffer);
+		explicit MTLReader(ResourceManager& resource_manager, 
+						   std::vector< Material >& material_buffer);
 
 		/**
 		 Constructs a MTL reader from the given MTL reader.
@@ -50,7 +54,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MTL reader to copy.
 		 */
-		MTLReader(const MTLReader &reader) = delete;
+		MTLReader(const MTLReader& reader) = delete;
 
 		/**
 		 Constructs a MTL reader by moving the given MTL reader.
@@ -58,7 +62,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MTL reader to move.
 		 */
-		MTLReader(MTLReader &&reader) noexcept;
+		MTLReader(MTLReader&& reader) noexcept;
 
 		/**
 		 Destructs this MTL reader.
@@ -77,7 +81,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given MTL reader (i.e. 
 						this MTL reader).
 		 */
-		MTLReader &operator=(const MTLReader &reader) = delete;
+		MTLReader& operator=(const MTLReader& reader) = delete;
 
 		/**
 		 Moves the given MTL reader to this MTL reader.
@@ -87,7 +91,7 @@ namespace mage::loader {
 		 @return		A reference to the moved MTL reader (i.e. this MTL 
 						reader).
 		 */
-		MTLReader &operator=(MTLReader &&reader) = delete;
+		MTLReader& operator=(MTLReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -110,13 +114,12 @@ namespace mage::loader {
 		/**
 		 Reads the given line.
 
-		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
-						A pointer to the null-terminated byte string to read.
+						A pointer to the null-terminated string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(char *line) override;
+		virtual void ReadLine(NotNull< zstring > line) override;
 
 		/**
 		 Reads a Material Name definition.
@@ -182,7 +185,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c SRGB.
 		 */
-		[[nodiscard]]const SRGB ReadMTLSRGB();
+		[[nodiscard]]
+		const SRGB ReadMTLSRGB();
 
 		/**
 		 Reads an sRGBA spectrum.
@@ -192,7 +196,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c SRGBA.
 		 */
-		[[nodiscard]]const SRGBA ReadMTLSRGBA();
+		[[nodiscard]]
+		const SRGBA ReadMTLSRGBA();
 
 		/**
 		 Reads a texture.
@@ -202,16 +207,22 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a texture.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > ReadMTLTexture();
+		[[nodiscard]]
+		TexturePtr ReadMTLTexture();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
+		 A reference to resource manager of this MTL reader.
+		 */
+		ResourceManager& m_resource_manager;
+
+		/**
 		 A reference to a vector containing the read materials of this MTL 
 		 reader.
 		 */
-		std::vector< Material > &m_material_buffer;
+		std::vector< Material >& m_material_buffer;
 	};
 }

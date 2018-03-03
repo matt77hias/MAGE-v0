@@ -25,6 +25,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	/**
 	 A class of OBJ file readers for reading meshes.
 
@@ -45,14 +48,17 @@ namespace mage::loader {
 		/**
 		 Constructs an OBJ reader.
 
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 @param[in]		model_output
 						A reference to a model output for storing the read data 
 						from file.
 		 @param[in]		mesh_desc
 						A reference to a mesh descriptor.
 		 */
-		explicit OBJReader(ModelOutput< VertexT, IndexT > &model_output,
-			const MeshDescriptor< VertexT, IndexT > &mesh_desc);
+		explicit OBJReader(ResourceManager& resource_manager, 
+						   ModelOutput< VertexT, IndexT >& model_output, 
+						   const MeshDescriptor< VertexT, IndexT >& mesh_desc);
 		
 		/**
 		 Constructs an OBJ reader from the given OBJ reader.
@@ -60,7 +66,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the OBJ reader to copy.
 		 */
-		OBJReader(const OBJReader &reader) = delete;
+		OBJReader(const OBJReader& reader) = delete;
 
 		/**
 		 Constructs an OBJ reader by moving the given OBJ reader.
@@ -68,7 +74,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the OBJ reader to move.
 		 */
-		OBJReader(OBJReader &&reader) noexcept;
+		OBJReader(OBJReader&& reader) noexcept;
 
 		/**
 		 Destructs this OBJ reader.
@@ -87,7 +93,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given OBJ reader (i.e. 
 						this OBJ reader).
 		 */
-		OBJReader &operator=(const OBJReader &reader) = delete;
+		OBJReader& operator=(const OBJReader& reader) = delete;
 
 		/**
 		 Moves the given OBJ reader to this OBJ reader.
@@ -97,7 +103,7 @@ namespace mage::loader {
 		 @return		A reference to the moved OBJ reader (i.e. this OBJ 
 						reader).
 		 */
-		OBJReader &operator=(OBJReader &&reader) = delete;
+		OBJReader& operator=(OBJReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -137,13 +143,12 @@ namespace mage::loader {
 		/**
 		 Reads the given line.
 
-		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
-						A pointer to the null-terminated byte string to read.
+						A pointer to the null-terminated string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(char *line) override;
+		virtual void ReadLine(NotNull< zstring > line) override;
 
 		/**
 		 Post-processes after reading the current file of this OBJ reader.
@@ -244,7 +249,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c Point3.
 		 */
-		[[nodiscard]]const Point3 ReadOBJVertexCoordinates();
+		[[nodiscard]]
+		const Point3 ReadOBJVertexCoordinates();
 
 		/**
 		 Reads a set of vertex normal coordinates.
@@ -256,7 +262,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c Normal3.
 		 */
-		[[nodiscard]]const Normal3 ReadOBJVertexNormalCoordinates();
+		[[nodiscard]]
+		const Normal3 ReadOBJVertexNormalCoordinates();
 
 		/**
 		 Reads a set of vertex texture coordinates.
@@ -267,7 +274,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a @c UV.
 		 */
-		[[nodiscard]]const UV ReadOBJVertexTextureCoordinates();
+		[[nodiscard]]
+		const UV ReadOBJVertexTextureCoordinates();
 
 		/**
 		 Reads a set of face indices.
@@ -278,7 +286,8 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read a Bool variable.
 		 */
-		[[nodiscard]]const Index3 ReadOBJVertexIndices();
+		[[nodiscard]]
+		const Index3 ReadOBJVertexIndices();
 		
 		/**
 		 Constructs or retrieves (if already existing) the vertex matching the 
@@ -289,7 +298,8 @@ namespace mage::loader {
 		 @return		The vertex matching the given vertex indices 
 						@a vertex_indices.
 		 */
-		[[nodiscard]]const VertexT ConstructVertex(const Index3 &vertex_indices);
+		[[nodiscard]]
+		const VertexT ConstructVertex(const Index3& vertex_indices);
 
 		/**
 		 A struct of @c Index3 comparators for OBJ vertex indices.
@@ -301,18 +311,19 @@ namespace mage::loader {
 			/**
 			 Compares the two given @c Index3 vectors against each other.
 
-			 @param[in]		a
+			 @param[in]		lhs
 							A reference to the first vector.
-			 @param[in]		b
+			 @param[in]		rhs
 							A reference to the second vector.
-			 @return		@c true if the @a a is smaller than @a b. @c false 
-							otherwise.
+			 @return		@c true if the @a lhs is smaller than @a rhs. 
+							@c false otherwise.
 			 */
-			[[nodiscard]]bool operator()(const Index3& a, 
-				                          const Index3& b) const noexcept {
+			[[nodiscard]]
+			bool operator()(const Index3& lhs, const Index3& rhs) const noexcept {
 
-				return (a.m_x == b.m_x) ? ((a.m_y == b.m_y) ? 
-					(a.m_z < b.m_z) : (a.m_y < b.m_y)) : (a.m_x < b.m_x);
+				return (lhs.m_x == rhs.m_x) ? ((lhs.m_y == rhs.m_y) ? (lhs.m_z < rhs.m_z) 
+					                                                : (lhs.m_y < rhs.m_y)) 
+					                        : (lhs.m_x < rhs.m_x);
 			}
 		};
 
@@ -346,15 +357,20 @@ namespace mage::loader {
 		std::map< Index3, IndexT, OBJComparatorIndex3 > m_mapping;
 		
 		/**
+		 A reference to the resource manager of this OBJ reader.
+		 */
+		ResourceManager& m_resource_manager;
+
+		/**
 		 A reference to a model output containing the read data of this OBJ 
 		 reader.
 		 */
-		ModelOutput< VertexT, IndexT > &m_model_output;
+		ModelOutput< VertexT, IndexT >& m_model_output;
 
 		/**
 		 A reference to the mesh descriptor for this OBJ reader.
 		 */
-		const MeshDescriptor< VertexT, IndexT > &m_mesh_desc;
+		const MeshDescriptor< VertexT, IndexT >& m_mesh_desc;
 	};
 }
 

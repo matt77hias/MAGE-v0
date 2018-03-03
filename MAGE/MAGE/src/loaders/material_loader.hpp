@@ -6,7 +6,6 @@
 #pragma region
 
 #include "material\material.hpp"
-#include "rendering\resource_manager.hpp"
 
 #pragma endregion
 
@@ -23,6 +22,9 @@
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::loader {
+
+	// Forward declaration.
+	class ResourceManager;
 
 	/**
 	 Imports the materials from the given file.

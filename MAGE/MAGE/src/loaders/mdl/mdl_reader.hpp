@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	/**
 	 A class of MDL file readers for reading models.
 
@@ -35,11 +38,14 @@ namespace mage::loader {
 		/**
 		 Constructs a MDL reader.
 
+		 @param[in]		resource_manager
+						A reference to the resource manager.
 		 @param[in]		model_output
 						A reference to the model output for storing the model 
 						data from file.
 		 */
-		explicit MDLReader(ModelOutput< VertexT, IndexT > &model_output);
+		explicit MDLReader(ResourceManager& resource_manager, 
+						   ModelOutput< VertexT, IndexT >& model_output);
 		
 		/**
 		 Constructs a MDL reader from the given MDL reader.
@@ -47,7 +53,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MDL reader to copy.
 		 */
-		MDLReader(const MDLReader &reader) = delete;
+		MDLReader(const MDLReader& reader) = delete;
 
 		/**
 		 Constructs a MDL reader by moving the given MDL reader.
@@ -55,7 +61,7 @@ namespace mage::loader {
 		 @param[in]		reader
 						A reference to the MDL reader to move.
 		 */
-		MDLReader(MDLReader &&reader) noexcept;
+		MDLReader(MDLReader&& reader) noexcept;
 
 		/**
 		 Destructs this MDL reader.
@@ -74,7 +80,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given MDL reader (i.e. 
 						this MDL reader).
 		 */
-		MDLReader &operator=(const MDLReader &reader) = delete;
+		MDLReader& operator=(const MDLReader& reader) = delete;
 
 		/**
 		 Moves the given MDL reader to this MDL reader.
@@ -84,7 +90,7 @@ namespace mage::loader {
 		 @return		A reference to the moved MDL reader (i.e. this MDL 
 						reader).
 		 */
-		MDLReader &operator=(MDLReader &&reader) = delete;
+		MDLReader& operator=(MDLReader&& reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -115,13 +121,12 @@ namespace mage::loader {
 		/**
 		 Reads the given line.
 
-		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
-						A pointer to the null-terminated byte string to read.
+						A pointer to the null-terminated string to read.
 		 @throws		Exception
 						Failed to read the given line.
 		 */
-		virtual void ReadLine(char *line) override;
+		virtual void ReadLine(NotNull< zstring > line) override;
 
 		/**
 		 Reads the Mesh definition and imports the mesh corresponding to the 
@@ -158,10 +163,15 @@ namespace mage::loader {
 		//---------------------------------------------------------------------
 
 		/**
+		 A reference to the resource manager of this MDL reader.
+		 */
+		ResourceManager& m_resource_manager;
+
+		/**
 		 A reference to the model output containing the model data of this MDL 
 		 reader.
 		 */
-		ModelOutput< VertexT, IndexT > &m_model_output;
+		ModelOutput< VertexT, IndexT >& m_model_output;
 	};
 }
 

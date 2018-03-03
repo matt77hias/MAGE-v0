@@ -20,28 +20,32 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	OBJReader< VertexT, IndexT >
-		::OBJReader(ModelOutput< VertexT, IndexT > &model_output,
-			        const MeshDescriptor< VertexT, IndexT > &mesh_desc)
+		::OBJReader(ResourceManager& resource_manager, 
+					ModelOutput< VertexT, IndexT >& model_output,
+			        const MeshDescriptor< VertexT, IndexT >& mesh_desc)
 		: LineReader(),
 		m_vertex_coordinates(), 
 		m_vertex_texture_coordinates(),
 		m_vertex_normal_coordinates(), 
-		m_mapping(),
+		m_mapping(), 
+		m_resource_manager(resource_manager),
 		m_model_output(model_output), 
 		m_mesh_desc(mesh_desc) {}
 
 	template< typename VertexT, typename IndexT >
-	OBJReader< VertexT, IndexT >::OBJReader(OBJReader &&reader) noexcept = default;
+	OBJReader< VertexT, IndexT >::OBJReader(OBJReader&& reader) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	OBJReader< VertexT, IndexT >::~OBJReader() = default;
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Preprocess() {
-		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(),
-			"%ls: vertex buffer must be empty.", GetFilename().c_str());
-		ThrowIfFailed(m_model_output.m_index_buffer.empty(),
-			"%ls: index buffer must be empty.", GetFilename().c_str());
+		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(), 
+					  "%ls: vertex buffer must be empty.", 
+					  GetFilename().c_str());
+		ThrowIfFailed(m_model_output.m_index_buffer.empty(), 
+					  "%ls: index buffer must be empty.", 
+					  GetFilename().c_str());
 
 		// Begin current group.
 		m_model_output.StartModelPart(ModelPart());
@@ -54,10 +58,10 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	void OBJReader< VertexT, IndexT >::ReadLine(char *line) {
+	void OBJReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto * const token 
-			= strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const auto* const token 
+			= strtok_s(line, GetDelimiters().c_str(),& m_context);
 
 		if (!token || g_obj_token_comment == token[0]) {
 			return;
@@ -105,7 +109,9 @@ namespace mage::loader {
 		const auto mtl_name  = str_convert(Read< string >());
 		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
+		ImportMaterialFromFile(mtl_fname,
+							   m_resource_manager,
+							   m_model_output.m_material_buffer);
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -212,21 +218,24 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]inline const Point3 OBJReader< VertexT, IndexT >
+	[[nodiscard]]
+	inline const Point3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexCoordinates() {
 
 		return Point3(Read< F32x3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]inline const Normal3 OBJReader< VertexT, IndexT >
+	[[nodiscard]]
+	inline const Normal3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexNormalCoordinates() {
 
 		return Normal3(Read< F32x3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]inline const UV OBJReader< VertexT, IndexT >
+	[[nodiscard]]
+	inline const UV OBJReader< VertexT, IndexT >
 		::ReadOBJVertexTextureCoordinates() {
 
 		const UV result(Read< F32x2 >());
@@ -240,7 +249,8 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]const typename OBJReader< VertexT, IndexT >::Index3
+	[[nodiscard]]
+	const typename OBJReader< VertexT, IndexT >::Index3
 		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
 
 		const auto token = ReadChars();
@@ -294,8 +304,9 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	[[nodiscard]]const VertexT OBJReader< VertexT, IndexT >
-		::ConstructVertex(const Index3 &vertex_indices) {
+	[[nodiscard]]
+	const VertexT OBJReader< VertexT, IndexT >
+		::ConstructVertex(const Index3& vertex_indices) {
 		
 		VertexT vertex;
 

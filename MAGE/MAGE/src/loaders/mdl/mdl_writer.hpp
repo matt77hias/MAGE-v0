@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	/**
 	 A class of MDL file writers for writing models.
 
@@ -39,7 +42,7 @@ namespace mage::loader {
 						A reference to the model output containing the model 
 						data.
 		 */
-		explicit MDLWriter(const ModelOutput< VertexT, IndexT > &model_output);
+		explicit MDLWriter(const ModelOutput< VertexT, IndexT >& model_output);
 
 		/**
 		 Constructs a MDL writer from the given MDL writer.
@@ -47,7 +50,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the MDL writer to copy.
 		 */
-		MDLWriter(const MDLWriter &writer) = delete;
+		MDLWriter(const MDLWriter& writer) = delete;
 
 		/**
 		 Constructs a MDL writer by moving the given MDL writer.
@@ -55,7 +58,7 @@ namespace mage::loader {
 		 @param[in]		writer
 						A reference to the MDL writer to move.
 		 */
-		MDLWriter(MDLWriter &&writer) noexcept;
+		MDLWriter(MDLWriter&& writer) noexcept;
 
 		/**
 		 Destructs this MDL writer.
@@ -74,7 +77,7 @@ namespace mage::loader {
 		 @return		A reference to the copy of the given MDL writer (i.e. 
 						this MDL writer).
 		 */
-		MDLWriter &operator=(const MDLWriter &writer) = delete;
+		MDLWriter& operator=(const MDLWriter& writer) = delete;
 
 		/**
 		 Moves the given MDL writer to this MDL writer.
@@ -84,7 +87,7 @@ namespace mage::loader {
 		 @return		A reference to the moved MDL writer (i.e. this MDL 
 						writer).
 		 */
-		MDLWriter &operator=(MDLWriter &&writer) = delete;
+		MDLWriter& operator=(MDLWriter&& writer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -143,7 +146,7 @@ namespace mage::loader {
 		 A reference to the model output containing the model data of this MDL 
 		 writer.
 		 */
-		const ModelOutput< VertexT, IndexT > &m_model_output;
+		const ModelOutput< VertexT, IndexT >& m_model_output;
 	};
 }
 

@@ -28,12 +28,12 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	MDLWriter< VertexT, IndexT >
-		::MDLWriter(const ModelOutput< VertexT, IndexT > &model_output)
+		::MDLWriter(const ModelOutput< VertexT, IndexT >& model_output)
 		: Writer(), 
 		m_model_output(model_output) {}
 
 	template< typename VertexT, typename IndexT >
-	MDLWriter< VertexT, IndexT >::MDLWriter(MDLWriter &&writer) noexcept = default;
+	MDLWriter< VertexT, IndexT >::MDLWriter(MDLWriter&& writer) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MDLWriter< VertexT, IndexT >::~MDLWriter() = default;
@@ -52,7 +52,7 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLWriter< VertexT, IndexT >::ExportMesh() {
-		const auto &fname = GetFilename();
+		const auto& fname = GetFilename();
 		const auto msh_fname
 			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
 
@@ -62,7 +62,7 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLWriter< VertexT, IndexT >::WriteMaterials() {
-		const auto &fname = GetFilename();
+		const auto& fname = GetFilename();
 		
 		const auto mtl_fname
 			= mage::GetFilenameWithoutFileExtension(fname) + L".mtl";
@@ -89,7 +89,7 @@ namespace mage::loader {
 	void MDLWriter< VertexT, IndexT >::WriteModelParts() {
 		char output[MAX_PATH];
 
-		for (const auto &model_part : m_model_output.m_model_parts) {
+		for (const auto& model_part : m_model_output.m_model_parts) {
 
 			sprintf_s(output, 
 				      std::size(output),

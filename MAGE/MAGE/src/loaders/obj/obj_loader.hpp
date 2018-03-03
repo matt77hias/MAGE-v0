@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	/**
 	 Imports a mesh from the given OBJ file.
 
@@ -24,6 +27,8 @@ namespace mage::loader {
 					The index type.
 	 @param[in]		fname
 					A reference to the OBJ filename.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in,out]	model_output
 					A reference to the model output.
 	 @param[in]		mesh_desc
@@ -32,10 +37,11 @@ namespace mage::loader {
 					Failed to import the mesh from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportOBJMeshFromFile(const wstring &fname, 
-		ModelOutput< VertexT, IndexT > &model_output,
-		const MeshDescriptor< VertexT, IndexT > &mesh_desc 
-		    = MeshDescriptor< VertexT, IndexT >());
+	void ImportOBJMeshFromFile(const wstring& fname, 
+							   ResourceManager &resource_manager, 
+							   ModelOutput< VertexT, IndexT >& model_output, 
+							   const MeshDescriptor< VertexT, IndexT >& 
+							   mesh_desc = MeshDescriptor< VertexT, IndexT >());
 }
 
 //-----------------------------------------------------------------------------

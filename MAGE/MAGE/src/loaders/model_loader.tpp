@@ -17,17 +17,18 @@
 namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
-	void ImportModelFromFile(const wstring &fname, 
-		ModelOutput< VertexT, IndexT > &model_output,
-		const MeshDescriptor< VertexT, IndexT > &mesh_desc) {
+	void ImportModelFromFile(const wstring& fname, 
+							 ResourceManager& resource_manager, 
+							 ModelOutput< VertexT, IndexT >& model_output, 
+							 const MeshDescriptor< VertexT, IndexT >& mesh_desc) {
 
 		const auto extension = GetFileExtension(fname);
 
 		if (extension == L"mdl" || extension == L"MDL") {
-			ImportMDLModelFromFile(fname, model_output);
+			ImportMDLModelFromFile(fname, resource_manager, model_output);
 		} 
 		else if (extension == L"obj" || extension == L"OBJ") {
-			ImportOBJMeshFromFile(fname, model_output, mesh_desc);
+			ImportOBJMeshFromFile(fname, resource_manager, model_output, mesh_desc);
 		}
 		else {
 			throw Exception("Unknown model file extension: %ls", fname.c_str());
@@ -35,8 +36,8 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	void ExportModelToFile(const wstring &fname, 
-		const ModelOutput< VertexT, IndexT > &model_output) {
+	void ExportModelToFile(const wstring& fname, 
+						   const ModelOutput< VertexT, IndexT >& model_output) {
 
 		const auto extension = GetFileExtension(fname);
 

@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
+	// Forward declaration.
+	class ResourceManager;
+
 	/**
 	 Imports the model from the given MDL file.
 
@@ -21,6 +24,8 @@ namespace mage::loader {
 					The vertex type.
 	 @tparam		IndexT
 					The index type.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
 	 @param[in]		fname
 					A reference to the MDL filename.
 	 @param[out]	model_output
@@ -29,8 +34,9 @@ namespace mage::loader {
 					Failed to import the model from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportMDLModelFromFile(const wstring &fname,
-		ModelOutput< VertexT, IndexT > &model_output);
+	void ImportMDLModelFromFile(const wstring& fname, 
+								const ResourceManager& resource_manager, 
+								ModelOutput< VertexT, IndexT >& model_output);
 
 	/**
 	 Exports the given model to the given MDL file.
@@ -47,8 +53,8 @@ namespace mage::loader {
 					Failed to export the model to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportMDLModelToFile(const wstring &fname,
-		const ModelOutput< VertexT, IndexT > &model_output);
+	void ExportMDLModelToFile(const wstring& fname, 
+							  const ModelOutput< VertexT, IndexT >& model_output);
 }
 
 //-----------------------------------------------------------------------------

@@ -20,22 +20,26 @@ namespace mage::loader {
 
 	template< typename VertexT, typename IndexT >
 	MDLReader< VertexT, IndexT >
-		::MDLReader(ModelOutput< VertexT, IndexT > &model_output)
+		::MDLReader(ResourceManager& resource_manager, 
+					ModelOutput< VertexT, IndexT >& model_output)
 		: LineReader(), 
+		m_resource_manager(resource_manager),
 		m_model_output(model_output) {}
 
 	template< typename VertexT, typename IndexT >
-	MDLReader< VertexT, IndexT >::MDLReader(MDLReader &&reader) noexcept = default;
+	MDLReader< VertexT, IndexT >::MDLReader(MDLReader&& reader) noexcept = default;
 
 	template< typename VertexT, typename IndexT >
 	MDLReader< VertexT, IndexT >::~MDLReader() = default;
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::Preprocess() {
-		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(),
-			"%ls: vertex buffer must be empty.", GetFilename().c_str());
-		ThrowIfFailed(m_model_output.m_index_buffer.empty(),
-			"%ls: index buffer must be empty.", GetFilename().c_str());
+		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(), 
+					  "%ls: vertex buffer must be empty.", 
+					  GetFilename().c_str());
+		ThrowIfFailed(m_model_output.m_index_buffer.empty(), 
+					  "%ls: index buffer must be empty.", 
+					  GetFilename().c_str());
 
 		ImportMesh();
 	}
@@ -49,10 +53,10 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	void MDLReader< VertexT, IndexT >::ReadLine(char *line) {
+	void MDLReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto * const token
-			= strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const auto* const token
+			= strtok_s(line, GetDelimiters().c_str(),& m_context);
 
 		if (!token || g_mdl_token_comment == token[0]) {
 			return;
@@ -94,6 +98,8 @@ namespace mage::loader {
 		const auto mtl_name  = str_convert(Read< string >());
 		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
+		ImportMaterialFromFile(mtl_fname, 
+							   m_resource_manager, 
+							   m_model_output.m_material_buffer);
 	}
 }

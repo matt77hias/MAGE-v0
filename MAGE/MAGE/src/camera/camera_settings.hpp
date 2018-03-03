@@ -127,7 +127,7 @@ namespace mage {
 		[[nodiscard]]
 		bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(static_cast< U32 >(render_layer)
-				                      &  m_render_layer_mask);
+				                      & m_render_layer_mask);
 		}
 
 		void AddRenderLayer(RenderLayer render_layer) noexcept {
@@ -135,7 +135,7 @@ namespace mage {
 		}
 
 		void RemoveRenderLayer(RenderLayer render_layer) noexcept {
-			m_render_layer_mask& = ~(static_cast< U32 >(render_layer));
+			m_render_layer_mask &= ~(static_cast< U32 >(render_layer));
 		}
 
 		void ToggleRenderLayer(RenderLayer render_layer) noexcept {

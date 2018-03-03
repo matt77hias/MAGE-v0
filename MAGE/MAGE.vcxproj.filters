@@ -635,9 +635,6 @@
     <ClCompile Include="MAGE\src\shader\shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\camera\viewport.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>

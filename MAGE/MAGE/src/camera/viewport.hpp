@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\conversion.hpp"
+#include "math\math.hpp"
+#include "rendering\rendering.hpp"
 #include "rendering\aa_descriptor.hpp"
 
 #pragma endregion
@@ -31,18 +32,14 @@ namespace mage {
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
-		[[nodiscard]]static const D3D11_VIEWPORT GetMaxViewport() noexcept;
-
-		[[nodiscard]]static const D3D11_VIEWPORT 
-			GetMaxViewport(U32 width, U32 height) noexcept {
-			
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(U32 width, U32 height) noexcept {
 			return GetMaxViewport(static_cast< F32 >(width), 
 				                  static_cast< F32 >(height));
 		}
 
-		[[nodiscard]]static const D3D11_VIEWPORT 
-			GetMaxViewport(F32 width, F32 height) noexcept {
-			
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(F32 width, F32 height) noexcept {
 			D3D11_VIEWPORT viewport = {};
 			viewport.Width    = width;
 			viewport.Height   = height;
@@ -50,16 +47,18 @@ namespace mage {
 			return viewport;
 		}
 
-		[[nodiscard]]static const D3D11_VIEWPORT 
-			GetMaxViewport(U32 width, U32 height, AADescriptor desc) noexcept {
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(U32 width, U32 height, 
+												   AADescriptor desc) noexcept {
 			
 			return GetMaxViewport(static_cast< F32 >(width),
 				                  static_cast< F32 >(height), 
 				                  desc);
 		}
 
-		[[nodiscard]]static const D3D11_VIEWPORT 
-			GetMaxViewport(F32 width, F32 height, AADescriptor desc) noexcept {
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(F32 width, F32 height, 
+												   AADescriptor desc) noexcept {
 			
 			const auto multiplier = GetResolutionMultiplier(desc);
 
@@ -73,9 +72,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-
-		Viewport() noexcept
-			: Viewport(GetMaxViewport()) {}
 
 		explicit Viewport(U32 width, U32 height) noexcept
 			: Viewport(GetMaxViewport(width, height)) {}
@@ -92,9 +88,9 @@ namespace mage {
 		explicit Viewport(D3D11_VIEWPORT viewport) noexcept
 			: m_viewport(std::move(viewport)) {}
 		
-		Viewport(const Viewport &viewport) noexcept = default;
+		Viewport(const Viewport& viewport) noexcept = default;
 		
-		Viewport(Viewport &&viewport) noexcept = default;
+		Viewport(Viewport&& viewport) noexcept = default;
 
 		explicit Viewport(Viewport viewport, AADescriptor desc) noexcept
 			: Viewport(std::move(viewport)) {
@@ -112,15 +108,15 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		Viewport &operator=(const Viewport &viewport) noexcept = default;
+		Viewport& operator=(const Viewport& viewport) noexcept = default;
 		
-		Viewport &operator=(Viewport &&viewport) noexcept = default;
+		Viewport& operator=(Viewport&& viewport) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindViewport(ID3D11DeviceContext *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::RS::BindViewport(device_context, &m_viewport);
 		}
 
@@ -129,15 +125,9 @@ namespace mage {
 
 		 @return		A reference to the viewport of this viewport.
 		 */
-		[[nodiscard]]const D3D11_VIEWPORT &GetViewport() const noexcept {
+		[[nodiscard]]
+		const D3D11_VIEWPORT& GetViewport() const noexcept {
 			return m_viewport;
-		}
-
-		/**
-		 Sets the viewport of this viewport to the maximum viewport.
-		 */
-		void SetMaximumViewport() noexcept {
-			SetViewport(GetMaxViewport());
 		}
 
 		/**
@@ -150,15 +140,18 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
-		[[nodiscard]]F32 GetTopLeftX() const noexcept {
+		[[nodiscard]]
+		F32 GetTopLeftX() const noexcept {
 			return m_viewport.TopLeftX;
 		}
 
-		[[nodiscard]]F32 GetTopLeftY() const noexcept {
+		[[nodiscard]]
+		F32 GetTopLeftY() const noexcept {
 			return m_viewport.TopLeftY;
 		}
 
-		[[nodiscard]]const F32x2 GetTopLeft() const noexcept {
+		[[nodiscard]]
+		const F32x2 GetTopLeft() const noexcept {
 			return F32x2(GetTopLeftX(), GetTopLeftY());
 		}
 
@@ -198,63 +191,18 @@ namespace mage {
 			SetTopLeftY(top_left.m_y);
 		}
 
-		[[nodiscard]]F32 GetNormalizedTopLeftX() const noexcept {
-			return AbsoluteToNormalizedPixelX(GetTopLeftX());
-		}
-
-		[[nodiscard]]F32 GetNormalizedTopLeftY() const noexcept {
-			return AbsoluteToNormalizedPixelY(GetTopLeftY());
-		}
-
-		[[nodiscard]]const F32x2 GetNormalizedTopLeft() const noexcept {
-			return AbsoluteToNormalizedPixel(GetTopLeft());
-		}
-
-		void SetNormalizedTopLeftX(U32 x) noexcept {
-			SetNormalizedTopLeftX(static_cast< F32 >(x));
-		}
-
-		void SetNormalizedTopLeftX(F32 x) noexcept {
-			SetTopLeftX(NormalizedToAbsolutePixelX(x));
-		}
-
-		void SetNormalizedTopLeftY(U32 y) noexcept {
-			SetNormalizedTopLeftY(static_cast< F32 >(y));
-		}
-
-		void SetNormalizedTopLeftY(F32 y) noexcept {
-			SetTopLeftY(NormalizedToAbsolutePixelY(y));
-		}
-
-		void SetNormalizedTopLeft(U32 x, U32 y) noexcept {
-			SetNormalizedTopLeftX(x);
-			SetNormalizedTopLeftY(y);
-		}
-
-		void SetNormalizedTopLeft(U32x2 top_left) noexcept {
-			SetNormalizedTopLeftX(top_left.m_x);
-			SetNormalizedTopLeftY(top_left.m_y);
-		}
-
-		void SetNormalizedTopLeft(F32 x, F32 y) noexcept {
-			SetNormalizedTopLeftX(x);
-			SetNormalizedTopLeftY(y);
-		}
-
-		void SetNormalizedTopLeft(F32x2 top_left) noexcept {
-			SetNormalizedTopLeftX(top_left.m_x);
-			SetNormalizedTopLeftY(top_left.m_y);
-		}
-
-		[[nodiscard]]F32 GetWidth() const noexcept {
+		[[nodiscard]]
+		F32 GetWidth() const noexcept {
 			return m_viewport.Width;
 		}
 
-		[[nodiscard]]F32 GetHeight() const noexcept {
+		[[nodiscard]]
+		F32 GetHeight() const noexcept {
 			return m_viewport.Height;
 		}
 
-		[[nodiscard]]const F32x2 GetWidthAndHeight() const noexcept {
+		[[nodiscard]]
+		const F32x2 GetWidthAndHeight() const noexcept {
 			return F32x2(GetWidth(), GetHeight());
 		}
 
@@ -294,55 +242,8 @@ namespace mage {
 			SetHeight(resolution.m_y);
 		}
 
-		[[nodiscard]]F32 GetNormalizedWidth() const noexcept {
-			return AbsoluteToNormalizedPixelX(GetWidth());
-		}
-
-		[[nodiscard]]F32 GetNormalizedHeight() const noexcept {
-			return AbsoluteToNormalizedPixelY(GetHeight());
-		}
-
-		[[nodiscard]]const F32x2 GetNormalizedWidthAndHeight() const noexcept {
-			return AbsoluteToNormalizedPixel(GetWidthAndHeight());
-		}
-
-		void SetNormalizedWidth(U32 width) noexcept {
-			SetNormalizedWidth(static_cast< F32 >(width));
-		}
-
-		void SetNormalizedWidth(F32 width) noexcept {
-			SetWidth(NormalizedToAbsolutePixelX(width));
-		}
-
-		void SetNormalizedHeight(U32 height) noexcept {
-			SetNormalizedHeight(static_cast< F32 >(height));
-		}
-
-		void SetNormalizedHeight(F32 height) noexcept {
-			SetHeight(NormalizedToAbsolutePixelY(height));
-		}
-
-		void SetNormalizedWidthAndHeight(U32 width, U32 height) noexcept {
-			SetNormalizedWidth(width);
-			SetNormalizedHeight(height);
-		}
-
-		void SetNormalizedWidthAndHeight(U32x2 resolution) noexcept {
-			SetNormalizedWidth(resolution.m_x);
-			SetNormalizedHeight(resolution.m_y);
-		}
-
-		void SetNormalizedWidthAndHeight(F32 width, F32 height) noexcept {
-			SetNormalizedWidth(width);
-			SetNormalizedHeight(height);
-		}
-
-		void SetNormalizedWidthAndHeight(F32x2 resolution) noexcept {
-			SetNormalizedWidth(resolution.m_x);
-			SetNormalizedHeight(resolution.m_y);
-		}
-
-		[[nodiscard]]F32 GetMinimumDepth() const noexcept {
+		[[nodiscard]]
+		F32 GetMinimumDepth() const noexcept {
 			return m_viewport.MinDepth;
 		}
 
@@ -350,7 +251,8 @@ namespace mage {
 			m_viewport.MinDepth = min_depth;
 		}
 
-		[[nodiscard]]F32 GetMaximumDepth() const noexcept {
+		[[nodiscard]]
+		F32 GetMaximumDepth() const noexcept {
 			return m_viewport.MaxDepth;
 		}
 
@@ -383,21 +285,31 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Returns the viewport transform for the maximum viewport.
-
-	 @return		The viewport transform for the maximum viewport.
-	 */
-	[[nodiscard]]const XMMATRIX XM_CALLCONV GetViewportTransform() noexcept;
-
-	/**
 	 Returns the viewport transform for the given viewport.
 
 	 @param[in]		viewport
 					A reference to the viewport.
 	 @return		The viewport transform for the given viewport.
 	 */
-	[[nodiscard]]const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(const D3D11_VIEWPORT &viewport) noexcept;
+	[[nodiscard]]
+	const XMMATRIX XM_CALLCONV 
+		GetViewportTransform(const D3D11_VIEWPORT& viewport) noexcept {
+
+		const auto width  = (viewport.Width  > 0.0f) ?
+							2.0f / viewport.Width  : 0.0f;
+		const auto height = (viewport.Height > 0.0f) ?
+							2.0f / viewport.Height : 0.0f;
+
+		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
+		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
+		
+		return XMMATRIX {
+			width,    0.0f, 0.0f, 0.0f,
+			 0.0f, -height, 0.0f, 0.0f,
+			 0.0f,    0.0f, 1.0f, 0.0f,
+			-1.0f,    1.0f, 0.0f, 1.0f
+		};
+	}
 
 	#pragma endregion
 }

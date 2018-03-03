@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math.hpp"
+#include "math.hpp"
 #include "rendering\rendering.hpp"
 #include "rendering\aa_descriptor.hpp"
 

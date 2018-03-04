@@ -6,7 +6,7 @@
 #pragma region
 
 #include "io\writer.hpp"
-#include "scripting\variable.hpp"
+#include "scripting\variable_value.hpp"
 
 #pragma endregion
 

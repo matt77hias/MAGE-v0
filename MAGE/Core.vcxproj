@@ -18,6 +18,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\src\loaders\variable_script_loader.hpp" />
+    <ClInclude Include="Core\src\loaders\var\var_loader.hpp" />
+    <ClInclude Include="Core\src\loaders\var\var_reader.hpp" />
+    <ClInclude Include="Core\src\loaders\var\var_tokens.hpp" />
+    <ClInclude Include="Core\src\loaders\var\var_writer.hpp" />
+    <ClInclude Include="Core\src\meta\targetver.hpp" />
+    <ClInclude Include="Core\src\meta\version.hpp" />
+    <ClInclude Include="Core\src\scene\component.hpp" />
+    <ClInclude Include="Core\src\scene\node.hpp" />
+    <ClInclude Include="Core\src\scene\state.hpp" />
+    <ClInclude Include="Core\src\scene\transform.hpp" />
+    <ClInclude Include="Core\src\scripting\variable_value.hpp" />
+    <ClInclude Include="Core\src\scripting\variable_script.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\src\loaders\variable_script_loader.cpp" />
+    <ClCompile Include="Core\src\loaders\var\var_loader.cpp" />
+    <ClCompile Include="Core\src\loaders\var\var_reader.cpp" />
+    <ClCompile Include="Core\src\loaders\var\var_writer.cpp" />
+    <ClCompile Include="Core\src\meta\version.cpp" />
+    <ClCompile Include="Core\src\scene\component.cpp" />
+    <ClCompile Include="Core\src\scene\node.cpp" />
+    <ClCompile Include="Core\src\scene\transform.cpp" />
+    <ClCompile Include="Core\src\scripting\variable_script.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\src\scene\node.tpp" />
+    <None Include="Core\src\scripting\variable_script.tpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{43EEC29A-593D-4598-92F7-325EF4B75428}</ProjectGuid>
@@ -74,6 +104,22 @@
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

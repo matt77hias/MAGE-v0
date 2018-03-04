@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
+#include "type\scalar_types.hpp"
 
 #pragma endregion
 
@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-// The version numbers (major/minor/patch) must be macros, allowing the use of 
-// these numbers in preprocessor directives (e.g. if).
+// The version numbers (major/minor/patch) are macros to support the use of 
+// these numbers in conditional macro statements (e.g. if).
 #define MAGE_VERSION_MAJOR 0
 #define MAGE_VERSION_MINOR 131
 #define MAGE_VERSION_PATCH 0
@@ -38,7 +38,8 @@ namespace mage {
 
 	 @return		The version major number.
 	 */
-	[[nodiscard]]constexpr U32 GetVersionMajor() noexcept {
+	[[nodiscard]]
+	constexpr U32 GetVersionMajor() noexcept {
 		return MAGE_VERSION_MAJOR;
 	}
 
@@ -47,7 +48,8 @@ namespace mage {
 
 	 @return		The version minor number.
 	 */
-	[[nodiscard]]constexpr U32 GetVersionMinor() noexcept {
+	[[nodiscard]]
+	constexpr U32 GetVersionMinor() noexcept {
 		return MAGE_VERSION_MINOR;
 	}
 
@@ -56,7 +58,8 @@ namespace mage {
 
 	 @return		The version patch number.
 	 */
-	[[nodiscard]]constexpr U32 GetVersionPatch() noexcept {
+	[[nodiscard]]
+	constexpr U32 GetVersionPatch() noexcept {
 		return MAGE_VERSION_PATCH;
 	}
 

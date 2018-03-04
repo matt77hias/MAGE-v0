@@ -1,9 +1,11 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\version.hpp"
+#include "type\types.hpp"
 
 #pragma endregion
 
@@ -12,21 +14,20 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <stdio.h>
+#include <variant>
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Type Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void PrintConsoleHeader() noexcept {
-		printf("Engine version %u.%u.%u of %s at %s\n", 
-			GetVersionMajor(), GetVersionMinor(), GetVersionPatch(),
-			__DATE__, __TIME__);
-		printf("Copyright (c) 2016-2018 Matthias Moulin.\n");
-		
-		fflush(stdout);
-	}
+	/**
+	 A class of variables.
+	 */
+	using Value = std::variant< bool, 
+			                    S32, S32x2, S32x3, 
+			                    F32, F32x2, F32x3, F32x4, 
+			                    string >;
 }

@@ -26,11 +26,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// Node
-	//-------------------------------------------------------------------------
-	#pragma region
-
 	/**
 	 A class of nodes.
 	 */
@@ -70,7 +65,7 @@ namespace mage {
 		 @param[in]		node
 						A reference to the node.
 		 */
-		Node(const Node &node);
+		Node(const Node& node);
 
 		/**
 		 Constructs a node by moving the given node.
@@ -78,7 +73,7 @@ namespace mage {
 		 @param[in]		node
 						A reference to the node to move.
 		 */
-		Node(Node &&node) noexcept;
+		Node(Node&& node) noexcept;
 
 		/**
 		 Destructs this node.
@@ -97,7 +92,7 @@ namespace mage {
 		 @return		A reference to the copy of the given node (i.e. this 
 						node).
 		 */
-		Node &operator=(const Node &node) = delete;
+		Node& operator=(const Node& node) = delete;
 
 		/**
 		 Moves the given node to this node.
@@ -106,7 +101,7 @@ namespace mage {
 						A reference to the node to move.
 		 @return		A reference to the moved node (i.e. this node).
 		 */
-		Node &operator=(Node &&node) noexcept;
+		Node& operator=(Node&& node) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Transform
@@ -117,7 +112,8 @@ namespace mage {
 
 		 @return		A reference to the transform of this node.
 		 */
-		[[nodiscard]]Transform &GetTransform() noexcept {
+		[[nodiscard]]
+		Transform& GetTransform() noexcept {
 			return m_transform;
 		}
 		
@@ -126,7 +122,8 @@ namespace mage {
 
 		 @return		A reference to the transform of this node.
 		 */
-		[[nodiscard]]const Transform &GetTransform() const noexcept {
+		[[nodiscard]]
+		const Transform& GetTransform() const noexcept {
 			return m_transform;
 		}
 
@@ -139,7 +136,8 @@ namespace mage {
 
 		 @return		@c true if this node has a parent. @c false otherwise.
 		 */
-		[[nodiscard]]bool HasParent() const noexcept {
+		[[nodiscard]]
+		bool HasParent() const noexcept {
 			return bool(m_parent);
 		}
 		
@@ -148,7 +146,8 @@ namespace mage {
 
 		 @return		A pointer to the parent of this node.
 		 */
-		[[nodiscard]]NodePtr GetParent() const noexcept {
+		[[nodiscard]]
+		NodePtr GetParent() const noexcept {
 			return m_parent;
 		}
 		
@@ -157,7 +156,8 @@ namespace mage {
 
 		 @return		The number of childs of this node.
 		 */
-		[[nodiscard]]size_t GetNumberOfChilds() const noexcept {
+		[[nodiscard]]
+		size_t GetNumberOfChilds() const noexcept {
 			return m_childs.size();
 		}
 		
@@ -167,7 +167,8 @@ namespace mage {
 		 @return		@c true if this node contains at least one child. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool ContainsChilds() const {
+		[[nodiscard]]
+		bool ContainsChilds() const {
 			return !m_childs.empty();
 		}
 
@@ -179,7 +180,8 @@ namespace mage {
 		 @return		@c true if this node contains the given node as a 
 						child. @c false otherwise.
 		 */
-		[[nodiscard]]bool ContainsChild(ProxyPtr< const Node > node) const {
+		[[nodiscard]]
+		bool ContainsChild(ProxyPtr< const Node > node) const {
 			return std::find(m_childs.begin(), m_childs.end(), node) 
 				   != m_childs.end();
 		}
@@ -242,7 +244,8 @@ namespace mage {
 						of the given type. @c false otherwise.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]bool Contains() const noexcept;
+		[[nodiscard]]
+		bool Contains() const noexcept;
 
 		/**
 		 Checks whether this node contains components.
@@ -250,7 +253,8 @@ namespace mage {
 		 @return		@c true if this node contains at least one component. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool ContainsComponents() const noexcept {
+		[[nodiscard]]
+		bool ContainsComponents() const noexcept {
 			return !m_components.empty();
 		}
 
@@ -259,7 +263,8 @@ namespace mage {
 
 		 @return		The number of components of this node.
 		 */
-		[[nodiscard]]size_t GetNumberOfComponents() const noexcept {
+		[[nodiscard]]
+		size_t GetNumberOfComponents() const noexcept {
 			return m_components.size();
 		}
 
@@ -272,7 +277,8 @@ namespace mage {
 						node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]size_t GetNumberOf() const noexcept;
+		[[nodiscard]]
+		size_t GetNumberOf() const noexcept;
 
 		/**
 		 Returns the first component of the given type of this node.
@@ -285,7 +291,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]ProxyPtr< ComponentT > Get() noexcept;
+		[[nodiscard]]
+		ProxyPtr< ComponentT > Get() noexcept;
 
 		/**
 		 Returns the first component of the given type of this node.
@@ -298,7 +305,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]ProxyPtr< const ComponentT > Get() const noexcept;
+		[[nodiscard]]
+		ProxyPtr< const ComponentT > Get() const noexcept;
 
 		/**
 		 Returns all components of the given type of this node.
@@ -309,8 +317,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]const std::vector< ProxyPtr< ComponentT > > 
-			GetAll();
+		[[nodiscard]]
+		const std::vector< ProxyPtr< ComponentT > > GetAll();
 
 		/**
 		 Returns all components of the given type of this node.
@@ -321,8 +329,8 @@ namespace mage {
 						this node.
 		 */
 		template< typename ComponentT >
-		[[nodiscard]]const std::vector< ProxyPtr< const ComponentT > > 
-			GetAll() const;
+		[[nodiscard]]
+		const std::vector< ProxyPtr< const ComponentT > > GetAll() const;
 
 		/**
 		 Adds the given component to this node.
@@ -398,7 +406,8 @@ namespace mage {
 
 		 @return		The state of this node.
 		 */
-		[[nodiscard]]State GetState() const noexcept {
+		[[nodiscard]]
+		State GetState() const noexcept {
 			return m_state;
 		}
 
@@ -419,7 +428,8 @@ namespace mage {
 
 		 @return		The guid of this node.
 		 */
-		[[nodiscard]]U64 GetGuid() const noexcept {
+		[[nodiscard]]
+		U64 GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -428,7 +438,8 @@ namespace mage {
 
 		 @return		A pointer to this node.
 		 */
-		[[nodiscard]]NodePtr Get() const noexcept {
+		[[nodiscard]]
+		NodePtr Get() const noexcept {
 			return m_this;
 		}
 
@@ -437,7 +448,8 @@ namespace mage {
 
 		 @return		A reference to the name of this node.
 		 */
-		[[nodiscard]]const string &GetName() const noexcept {
+		[[nodiscard]]
+		const string& GetName() const noexcept {
 			return m_name;
 		}
 
@@ -451,18 +463,6 @@ namespace mage {
 			m_name = std::move(name);
 		}
 
-	private:
-
-		//---------------------------------------------------------------------
-		// Friends
-		//---------------------------------------------------------------------
-
-		friend class NodeClient;
-
-		//---------------------------------------------------------------------
-		// Member Methods: Identification
-		//---------------------------------------------------------------------
-
 		/**
 		 Sets the pointer of this node to the given pointer.
 
@@ -470,6 +470,8 @@ namespace mage {
 						The pointer.
 		 */
 		void Set(NodePtr ptr) noexcept;
+
+	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transform
@@ -532,45 +534,6 @@ namespace mage {
 		 */
 		string m_name;
 	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// NodeClient
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A class of node clients.
-	 */
-	class NodeClient final {
-	
-	private:
-
-		//---------------------------------------------------------------------
-		// Friends
-		//---------------------------------------------------------------------
-
-		friend class Scene;
-
-		//---------------------------------------------------------------------
-		// Static Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Sets the pointer of the given node to the given pointer.
-
-		 @param[in]		node
-						A reference to the node.
-		 @param[in]		ptr
-						The pointer.
-		 */
-		static void Set(Node &node, ProxyPtr< Node > ptr) noexcept {
-			node.Set(std::move(ptr));
-		}
-	};
-
-	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

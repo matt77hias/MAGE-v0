@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable.hpp"
+#include "scripting\variable_value.hpp"
 
 #pragma endregion
 
@@ -27,7 +27,7 @@ namespace mage::loader {
 	 Imports the variables from the given VAR file.
 
 	 @param[in]		fname
-					A reference to the VAR filename.
+					A reference to the filename.
 	 @param[out]	variable_buffer
 					A reference to a map containing the variables.
 	 @throws		Exception
@@ -40,7 +40,7 @@ namespace mage::loader {
 	 Exports the given variables to the given VAR file.
 
 	 @param[in]		fname
-					A reference to the VAR filename.
+					A reference to the filename.
 	 @param[in]		variable_buffer
 					A reference to a map containing the variables.
 	 @throws		Exception

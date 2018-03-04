@@ -11,16 +11,29 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+#include <cwctype>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
 	void ImportVariableScriptFromFile(const wstring& fname, 
-		std::map< string, Value >& variable_buffer) {
+									  std::map< string, Value >& 
+									  variable_buffer) {
 		
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(), 
+					   std::towlower);
 
-		if (extension == L"var" || extension == L"VAR") {
+		if (L"var" == extension) {
 			ImportVARFromFile(fname, variable_buffer);
 		}
 		else {
@@ -30,11 +43,14 @@ namespace mage::loader {
 	}
 
 	void ExportVariableScriptToFile(const wstring& fname, 
-		const std::map< string, Value >& variable_buffer) {
+									const std::map< string, Value >& 
+									variable_buffer) {
 		
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"var" || extension == L"VAR") {
+		if (L"var" == extension) {
 			ExportVARToFile(fname, variable_buffer);
 		}
 		else {

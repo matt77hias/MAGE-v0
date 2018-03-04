@@ -6,7 +6,7 @@
 #pragma region
 
 #include "io\line_reader.hpp"
-#include "scripting\variable.hpp"
+#include "scripting\variable_value.hpp"
 
 #pragma endregion
 
@@ -121,7 +121,7 @@ namespace mage::loader {
 		 Reads a Bool variable definition.
 
 		 @throws		Exception
-						Failed to read a Bool variable definition.
+						Failed to read a bool variable definition.
 		 */
 		void ReadVARBool();
 
@@ -129,7 +129,7 @@ namespace mage::loader {
 		 Reads an Int variable definition.
 
 		 @throws		Exception
-						Failed to read a Int variable definition.
+						Failed to read an int variable definition.
 		 */
 		void ReadVARInt();
 
@@ -137,7 +137,7 @@ namespace mage::loader {
 		 Reads an Int2 variable definition.
 
 		 @throws		Exception
-						Failed to read a Int2 variable definition.
+						Failed to read an int2 variable definition.
 		 */
 		void ReadVARInt2();
 
@@ -145,7 +145,7 @@ namespace mage::loader {
 		 Reads an Int variable definition.
 
 		 @throws		Exception
-						Failed to read a Int3 variable definition.
+						Failed to read an int3 variable definition.
 		 */
 		void ReadVARInt3();
 
@@ -153,7 +153,7 @@ namespace mage::loader {
 		 Reads a Float variable definition.
 
 		 @throws		Exception
-						Failed to read a Float variable definition.
+						Failed to read a float variable definition.
 		 */
 		void ReadVARFloat();
 
@@ -161,7 +161,7 @@ namespace mage::loader {
 		 Reads a Float2 variable definition.
 
 		 @throws		Exception
-						Failed to read a Float2 variable definition.
+						Failed to read a float2 variable definition.
 		 */
 		void ReadVARFloat2();
 
@@ -169,7 +169,7 @@ namespace mage::loader {
 		 Reads a Float3 variable definition.
 
 		 @throws		Exception
-						Failed to read a Float3 variable definition.
+						Failed to read a float3 variable definition.
 		 */
 		void ReadVARFloat3();
 
@@ -177,7 +177,7 @@ namespace mage::loader {
 		 Reads a Float4 variable definition.
 
 		 @throws		Exception
-						Failed to read a Float4 variable definition.
+						Failed to read a float4 variable definition.
 		 */
 		void ReadVARFloat4();
 
@@ -185,7 +185,7 @@ namespace mage::loader {
 		 Reads a String variable definition.
 
 		 @throws		Exception
-						Failed to read a String variable definition.
+						Failed to read a string variable definition.
 		 */
 		void ReadVARString();
 
@@ -194,8 +194,7 @@ namespace mage::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a map containing the read variables of this VAR 
-		 reader.
+		 A reference to a map containing the read variables of this VAR reader.
 		 */
 		std::map< string, Value >& m_variable_buffer;
 	};

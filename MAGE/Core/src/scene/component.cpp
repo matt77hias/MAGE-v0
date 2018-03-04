@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "scene\node.hpp"
 #include "parallel\id_generator.hpp"
 
 #pragma endregion
@@ -18,21 +18,21 @@ namespace mage {
 		m_guid(IdGenerator::GetNextGuid()),
 		m_owner() {}
 
-	Component::Component(const Component &component) noexcept
+	Component::Component(const Component& component) noexcept
 		: m_state(component.m_state),
 		m_guid(IdGenerator::GetNextGuid()),
 		m_owner() {}
 
-	Component::Component(Component &&component) noexcept = default;
+	Component::Component(Component&& component) noexcept = default;
 
 	Component::~Component() = default;
 
-	Component &Component::operator=(const Component &component) noexcept {
-		m_state = component.m_state;
+	Component& Component::operator=(const Component& component) noexcept {
+		SetState(component.m_state);
 		return *this;
 	}
 
-	Component &Component::operator=(Component &&component) noexcept = default;
+	Component& Component::operator=(Component&& component) noexcept = default;
 
 	void Component::SetState(State state) noexcept {
 		if (State::Terminated == state) {

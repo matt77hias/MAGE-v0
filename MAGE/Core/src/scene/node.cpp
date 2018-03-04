@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "scene\node.hpp"
 #include "parallel\id_generator.hpp"
 
 #pragma endregion
@@ -23,7 +23,7 @@ namespace mage {
 		m_this(),
 		m_name(std::move(name)) {}
 
-	Node::Node(const Node &node) 
+	Node::Node(const Node& node) 
 		: m_transform(node.m_transform),
 		m_parent(nullptr),
 		m_childs(),
@@ -33,7 +33,7 @@ namespace mage {
 		m_this(),
 		m_name(node.m_name) {}
 
-	Node::Node(Node &&node) noexcept
+	Node::Node(Node&& node) noexcept
 		: m_transform(std::move(node.m_transform)),
 		m_parent(std::move(node.m_parent)),
 		m_childs(std::move(node.m_childs)),
@@ -45,18 +45,18 @@ namespace mage {
 
 	Node::~Node() = default;
 
-	Node &Node::operator=(Node &&node) noexcept = default;
+	Node& Node::operator=(Node&& node) noexcept = default;
 
 	void Node::Set(NodePtr ptr) noexcept {
 		m_this = std::move(ptr);
 
 		TransformClient::SetOwner(m_transform, m_this);
 
-		ForEachComponent([this](Component &component) noexcept {
+		ForEachComponent([this](Component& component) noexcept {
 			ComponentClient::SetOwner(component, m_this);
 		});
 
-		ForEachChild([this](Node &node) noexcept {
+		ForEachChild([this](Node& node) noexcept {
 			node.m_parent = m_this;
 		});
 	}
@@ -104,7 +104,7 @@ namespace mage {
 	}
 
 	void Node::RemoveAllChilds() noexcept {
-		ForEachChild([](Node &node) noexcept {
+		ForEachChild([](Node& node) noexcept {
 			node.m_parent = nullptr;
 			node.m_transform.SetDirty();
 		});
@@ -124,11 +124,11 @@ namespace mage {
 
 		m_state = state;
 
-		ForEachComponent([state](Component &component) noexcept {
+		ForEachComponent([state](Component& component) noexcept {
 			component.SetState(state);
 		});
 
-		ForEachChild([state](Node &node) noexcept {
+		ForEachChild([state](Node& node) noexcept {
 			node.SetState(state);
 		});
 	}

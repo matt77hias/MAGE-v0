@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "scene\node.hpp"
 
 #pragma endregion
 
@@ -17,7 +17,7 @@ namespace mage {
 		m_dirty_world_to_object = true;
 
 		if (HasOwner()) {
-			m_owner->ForEachChild([](const Node &node) noexcept {
+			m_owner->ForEachChild([](const Node& node) noexcept {
 				node.GetTransform().SetDirty();
 			});
 		}

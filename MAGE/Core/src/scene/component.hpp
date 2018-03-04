@@ -46,22 +46,22 @@ namespace mage {
 		/**
 		 Copies the given component to this component.
 
-		 @param[in]		script
+		 @param[in]		component
 						A reference to the component to copy.
 		 @return		A reference to the copy of the given component (i.e. 
 						this component).
 		 */
-		Component &operator=(const Component &script) noexcept;
+		Component& operator=(const Component& component) noexcept;
 
 		/**
 		 Moves the given component to this component.
 
-		 @param[in]		script
+		 @param[in]		component
 						A reference to the component to move.
 		 @return		A reference to the moved component (i.e. this 
 						component).
 		 */
-		Component &operator=(Component &&script) noexcept;
+		Component& operator=(Component&& component) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: State
@@ -72,7 +72,8 @@ namespace mage {
 
 		 @return		The state of this component.
 		 */
-		[[nodiscard]]State GetState() const noexcept {
+		[[nodiscard]]
+		State GetState() const noexcept {
 			return m_state;
 		}
 
@@ -93,7 +94,8 @@ namespace mage {
 
 		 @return		The guid of this component.
 		 */
-		[[nodiscard]]U64 GetGuid() const noexcept {
+		[[nodiscard]]
+		U64 GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -103,7 +105,8 @@ namespace mage {
 		 @return		@c true if this component has an owner. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool HasOwner() const noexcept {
+		[[nodiscard]]
+		bool HasOwner() const noexcept {
 			return bool(m_owner);
 		}
 
@@ -112,7 +115,8 @@ namespace mage {
 
 		 @return		A pointer to the owner of this component.
 		 */
-		[[nodiscard]]ProxyPtr< Node > GetOwner() noexcept {
+		[[nodiscard]]
+		ProxyPtr< Node > GetOwner() noexcept {
 			return m_owner;
 		}
 
@@ -121,7 +125,8 @@ namespace mage {
 
 		 @return		A pointer to the owner of this component.
 		 */
-		[[nodiscard]]ProxyPtr< const Node > GetOwner() const noexcept {
+		[[nodiscard]]
+		ProxyPtr< const Node > GetOwner() const noexcept {
 			return m_owner;
 		}
 
@@ -142,7 +147,7 @@ namespace mage {
 		 @param[in]		component
 						A reference to the component to copy.
 		 */
-		Component(const Component &component) noexcept;
+		Component(const Component& component) noexcept;
 
 		/**
 		 Constructs a component by moving the given component.
@@ -150,7 +155,7 @@ namespace mage {
 		 @param[in]		component
 						A reference to the component to move.
 		 */
-		Component(Component &&component) noexcept;
+		Component(Component&& component) noexcept;
 
 	private:
 
@@ -230,7 +235,9 @@ namespace mage {
 		 @param[in]		owner
 						A pointer to the owner.
 		 */
-		static void SetOwner(Component &component, ProxyPtr< Node > owner) noexcept {
+		static void SetOwner(Component& component, 
+							 ProxyPtr< Node > owner) noexcept {
+
 			component.SetOwner(std::move(owner));
 		}
 	};

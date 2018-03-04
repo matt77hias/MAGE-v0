@@ -15,26 +15,26 @@
     <Filter Include="Header Files\loaders\var">
       <UniqueIdentifier>{afa89a6f-1292-423c-b28f-79d7a1c347f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\loaders">
+	<Filter Include="Header Files\meta">
+      <UniqueIdentifier>{742b677b-6265-45a9-8a7c-708bc7344b39}</UniqueIdentifier>
+    </Filter>
+	<Filter Include="Header Files\scene">
+      <UniqueIdentifier>{325c452a-f6e9-48bd-be4e-96c06e675c72}</UniqueIdentifier>
+    </Filter>
+	<Filter Include="Header Files\scripting">
+      <UniqueIdentifier>{dfaa6a70-858f-41a0-96c0-ddbc6859a215}</UniqueIdentifier>
+    </Filter>
+	<Filter Include="Source Files\loaders">
       <UniqueIdentifier>{82568ba6-e2e9-4a3e-836f-0593a2c58b65}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\loaders\var">
       <UniqueIdentifier>{86171410-612f-4508-8233-ff74216bbeae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\meta">
-      <UniqueIdentifier>{742b677b-6265-45a9-8a7c-708bc7344b39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\meta">
       <UniqueIdentifier>{de40a748-aeb7-4883-8638-a6bfa3472d0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\scene">
-      <UniqueIdentifier>{325c452a-f6e9-48bd-be4e-96c06e675c72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{0a9832e7-430f-4054-8b4a-ceb2865634b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\scripting">
-      <UniqueIdentifier>{dfaa6a70-858f-41a0-96c0-ddbc6859a215}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scripting">
       <UniqueIdentifier>{33d05814-ed2d-4de9-ad1f-56231d327386}</UniqueIdentifier>
@@ -44,16 +44,16 @@
     <ClInclude Include="Core\src\loaders\variable_script_loader.hpp">
       <Filter>Header Files\loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_tokens.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_writer.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
     <ClInclude Include="Core\src\loaders\var\var_loader.hpp">
       <Filter>Header Files\loaders\var</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\loaders\var\var_reader.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+	<ClInclude Include="Core\src\loaders\var\var_tokens.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\src\loaders\var\var_writer.hpp">
       <Filter>Header Files\loaders\var</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\meta\targetver.hpp">
@@ -61,9 +61,6 @@
     </ClInclude>
     <ClInclude Include="Core\src\meta\version.hpp">
       <Filter>Header Files\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\scripting\variable_script.hpp">
-      <Filter>Header Files\scripting</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\scene\component.hpp">
       <Filter>Header Files\scene</Filter>
@@ -76,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="Core\src\scene\transform.hpp">
       <Filter>Header Files\scene</Filter>
+    </ClInclude>
+	<ClInclude Include="Core\src\scripting\variable_script.hpp">
+      <Filter>Header Files\scripting</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\scripting\variable_value.hpp">
       <Filter>Header Files\scripting</Filter>
@@ -97,9 +97,6 @@
     <ClCompile Include="Core\src\meta\version.cpp">
       <Filter>Source Files\meta</Filter>
     </ClCompile>
-    <ClCompile Include="Core\src\scripting\variable_script.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
     <ClCompile Include="Core\src\scene\component.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -109,13 +106,16 @@
     <ClCompile Include="Core\src\scene\transform.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
+	<ClCompile Include="Core\src\scripting\variable_script.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core\src\scripting\variable_script.tpp">
-      <Filter>Header Files\scripting</Filter>
-    </None>
     <None Include="Core\src\scene\node.tpp">
       <Filter>Header Files\scene</Filter>
+    </None>
+	<None Include="Core\src\scripting\variable_script.tpp">
+      <Filter>Header Files\scripting</Filter>
     </None>
   </ItemGroup>
 </Project>

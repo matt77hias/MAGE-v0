@@ -7,7 +7,7 @@
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;tpp;hm;inl;inc;xsd</Extensions>
+      <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\transform">
       <UniqueIdentifier>{14918d2f-0d67-4400-a889-2654f2b74772}</UniqueIdentifier>

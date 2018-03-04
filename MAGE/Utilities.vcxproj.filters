@@ -86,7 +86,10 @@
     <ClInclude Include="Utilities\src\file\file_utils.hpp">
       <Filter>Header Files\file</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\io\binary_utils.hpp">
+    <ClInclude Include="Utilities\src\io\binary_reader.hpp">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+	<ClInclude Include="Utilities\src\io\binary_utils.hpp">
       <Filter>Header Files\io</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\io\binary_writer.hpp">
@@ -96,9 +99,6 @@
       <Filter>Header Files\io</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\io\writer.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\io\binary_reader.hpp">
       <Filter>Header Files\io</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\logging\dump.hpp">
@@ -164,7 +164,10 @@
     <ClInclude Include="Utilities\src\system\system_usage.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\type\scalar_types.hpp">
+    <ClInclude Include="Utilities\src\system\timer.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+	<ClInclude Include="Utilities\src\type\scalar_types.hpp">
       <Filter>Header Files\type</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\type\types.hpp">
@@ -175,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\ui\combo_box.hpp">
       <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\system\timer.hpp">
-      <Filter>Header Files\system</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\ui\window.hpp">
       <Filter>Header Files\ui</Filter>
@@ -249,6 +249,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+	<None Include="Utilities\src\file\file_utils.tpp">
+      <Filter>Header Files\file</Filter>
+    </None>
     <None Include="Utilities\src\io\binary_reader.tpp">
       <Filter>Header Files\io</Filter>
     </None>
@@ -281,9 +284,6 @@
     </None>
     <None Include="Utilities\src\string\token.tpp">
       <Filter>Header Files\string</Filter>
-    </None>
-    <None Include="Utilities\src\file\file_utils.tpp">
-      <Filter>Header Files\file</Filter>
     </None>
     <None Include="Utilities\src\system\timer.tpp">
       <Filter>Header Files\system</Filter>

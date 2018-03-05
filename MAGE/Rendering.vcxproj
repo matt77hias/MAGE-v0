@@ -18,6 +18,54 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Rendering\src\direct3d11.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp" />
+    <ClInclude Include="Rendering\src\renderer\configuration.hpp" />
+    <ClInclude Include="Rendering\src\renderer\factory.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pipeline.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\mesh.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\mesh_descriptor.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\primitive_batch_mesh.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\sprite_batch_mesh.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\static_mesh.hpp" />
+    <ClInclude Include="Rendering\src\resource\mesh\vertex.hpp" />
+    <ClInclude Include="Rendering\src\resource\model\material.hpp" />
+    <ClInclude Include="Rendering\src\resource\model\model_descriptor.hpp" />
+    <ClInclude Include="Rendering\src\resource\model\model_output.hpp" />
+    <ClInclude Include="Rendering\src\resource\rendering_resource_manager.hpp" />
+    <ClInclude Include="Rendering\src\resource\shader\compiled_shader.hpp" />
+    <ClInclude Include="Rendering\src\resource\shader\shader.hpp" />
+    <ClInclude Include="Rendering\src\resource\shader\shader_factory.hpp" />
+    <ClInclude Include="Rendering\src\resource\shader\shader_utils.hpp" />
+    <ClInclude Include="Rendering\src\resource\texture\texture.hpp" />
+    <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rendering\src\renderer\factory.tpp" />
+    <None Include="Rendering\src\resource\mesh\mesh.tpp" />
+    <None Include="Rendering\src\resource\mesh\primitive_batch_mesh.tpp" />
+    <None Include="Rendering\src\resource\mesh\static_mesh.tpp" />
+    <None Include="Rendering\src\resource\model\model_descriptor.tpp" />
+    <None Include="Rendering\src\resource\model\model_output.tpp" />
+    <None Include="Rendering\src\resource\rendering_resource_manager.tpp" />
+    <None Include="Rendering\src\resource\shader\shader.tpp" />
+    <None Include="Rendering\src\resource\texture\texture.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Rendering\src\renderer\factory.cpp" />
+    <ClCompile Include="Rendering\src\resource\mesh\mesh.cpp" />
+    <ClCompile Include="Rendering\src\resource\mesh\sprite_batch_mesh.cpp" />
+    <ClCompile Include="Rendering\src\resource\mesh\vertex.cpp" />
+    <ClCompile Include="Rendering\src\resource\model\model_descriptor.cpp" />
+    <ClCompile Include="Rendering\src\resource\rendering_resource_manager.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\compiled_shader.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_utils.cpp" />
+    <ClCompile Include="Rendering\src\resource\texture\texture.cpp" />
+    <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{06C6E5C6-63DF-4C50-9820-3A2FA8F6B88C}</ProjectGuid>

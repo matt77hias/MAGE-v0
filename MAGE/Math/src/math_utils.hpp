@@ -24,6 +24,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 Clamps the given value to [0,1].
+
+	 @param[in]		value
+					The value.
+	 @return		The clamped value.
+	 */
+	[[nodiscard]]
+	constexpr F32 Saturate(F32 value) noexcept {
+		return std::clamp(value, 0.0f, 1.0f);
+	}
+
 	//-------------------------------------------------------------------------
 	// Angles
 	//-------------------------------------------------------------------------

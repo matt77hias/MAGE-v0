@@ -3,30 +3,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_IRRADIANCE 1.0f
-#define MAGE_DEFAULT_BASE_COLOR 1.0f
+#include "scene\node.hpp"
+#include "scene\light\directional_light.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	DirectionalLight::DirectionalLight() noexcept
 		: Component(),
 		m_shadows(false), 
-		m_irradiance(MAGE_DEFAULT_IRRADIANCE),
-		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
+		m_irradiance(1.0f),
+		m_base_color(SRGB(1.0f)) {}
 
 	DirectionalLight::DirectionalLight(
 		const DirectionalLight& light) noexcept = default;

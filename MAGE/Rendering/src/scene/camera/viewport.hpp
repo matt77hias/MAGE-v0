@@ -6,15 +6,51 @@
 #pragma region
 
 #include "math.hpp"
-#include "rendering\rendering.hpp"
-#include "rendering\aa_descriptor.hpp"
+#include "renderer\configuration.hpp"
+#include "renderer\pipeline.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
+
+	//-------------------------------------------------------------------------
+	// Viewport Transformations
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Returns the viewport transform for the given viewport.
+
+	 @param[in]		viewport_width
+					The width of the viewport.
+	 @param[in]		viewport_height
+					The height of the viewport.
+	 @return		The viewport transform for the given viewport.
+	 */
+	[[nodiscard]]
+	const XMMATRIX XM_CALLCONV 
+		GetViewportTransform(F32 viewport_width, F32 viewport_height) noexcept {
+
+		const auto width  = (0.0f < viewport_width)  ? 2.0f / viewport_width 
+			                                         : 0.0f;
+		const auto height = (0.0f < viewport_height) ? 2.0f / viewport_height 
+			                                         : 0.0f;
+
+		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
+		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
+		
+		return XMMATRIX {
+			width,    0.0f, 0.0f, 0.0f,
+			 0.0f, -height, 0.0f, 0.0f,
+			 0.0f,    0.0f, 1.0f, 0.0f,
+			-1.0f,    1.0f, 0.0f, 1.0f
+		};
+	}
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Viewport
@@ -117,7 +153,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void BindViewport(ID3D11DeviceContext& device_context) const noexcept {
-			Pipeline::RS::BindViewport(device_context, &m_viewport);
+			Pipeline::RS::BindViewport(device_context, m_viewport);
 		}
 
 		/**
@@ -265,6 +301,11 @@ namespace mage {
 			SetMaximumDepth(max_depth);
 		}
 
+		[[nodiscard]]
+		const XMMATRIX XM_CALLCONV GetViewportTransform() const noexcept {
+			return mage::rendering::GetViewportTransform(GetWidth(), GetHeight());
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -276,40 +317,6 @@ namespace mage {
 		 */
 		D3D11_VIEWPORT m_viewport;
 	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Viewport Transformations
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 Returns the viewport transform for the given viewport.
-
-	 @param[in]		viewport
-					A reference to the viewport.
-	 @return		The viewport transform for the given viewport.
-	 */
-	[[nodiscard]]
-	const XMMATRIX XM_CALLCONV 
-		GetViewportTransform(const D3D11_VIEWPORT& viewport) noexcept {
-
-		const auto width  = (viewport.Width  > 0.0f) ?
-							2.0f / viewport.Width  : 0.0f;
-		const auto height = (viewport.Height > 0.0f) ?
-							2.0f / viewport.Height : 0.0f;
-
-		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
-		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
-		
-		return XMMATRIX {
-			width,    0.0f, 0.0f, 0.0f,
-			 0.0f, -height, 0.0f, 0.0f,
-			 0.0f,    0.0f, 1.0f, 0.0f,
-			-1.0f,    1.0f, 0.0f, 1.0f
-		};
-	}
 
 	#pragma endregion
 }

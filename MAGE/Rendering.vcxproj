@@ -73,6 +73,14 @@
     <ClInclude Include="Rendering\src\resource\texture\texture.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\camera_settings.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\fog.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\sky.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\viewport.hpp" />
+    <ClInclude Include="Rendering\src\scene\light\ambient_light.hpp" />
+    <ClInclude Include="Rendering\src\scene\light\directional_light.hpp" />
+    <ClInclude Include="Rendering\src\scene\light\omni_light.hpp" />
+    <ClInclude Include="Rendering\src\scene\light\spot_light.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp" />
@@ -119,6 +127,10 @@
     <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp" />
+    <ClCompile Include="Rendering\src\scene\light\ambient_light.cpp" />
+    <ClCompile Include="Rendering\src\scene\light\directional_light.cpp" />
+    <ClCompile Include="Rendering\src\scene\light\omni_light.cpp" />
+    <ClCompile Include="Rendering\src\scene\light\spot_light.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

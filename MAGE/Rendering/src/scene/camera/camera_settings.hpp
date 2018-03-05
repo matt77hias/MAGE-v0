@@ -5,17 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\fog.hpp"
-#include "camera\sky.hpp"
-#include "material\brdf.hpp"
-#include "rendering\configuration.hpp"
+#include "scene\camera\fog.hpp"
+#include "scene\camera\sky.hpp"
+#include "renderer\configuration.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of camera settingss.
@@ -127,7 +126,7 @@ namespace mage {
 		[[nodiscard]]
 		bool ContainsRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(static_cast< U32 >(render_layer)
-				                      & m_render_layer_mask);
+				                     &  m_render_layer_mask);
 		}
 
 		void AddRenderLayer(RenderLayer render_layer) noexcept {

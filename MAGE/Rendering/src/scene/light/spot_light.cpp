@@ -3,38 +3,26 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_BASE_COLOR   1.0f
-#define MAGE_DEFAULT_INTENSITY    1.0f
-#define MAGE_DEFAULT_RANGE        1.0f
-#define MAGE_DEFAULT_COS_PENUMBRA 1.0f
-#define MAGE_DEFAULT_COS_UMBRA    0.707106781f
+#include "scene\node.hpp"
+#include "scene\light\spot_light.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	SpotLight::SpotLight() noexcept
 		: Component(),
 		m_shadows(false), 
 		m_aabb(), 
 		m_sphere(), 
-		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)), 
-		m_intensity(MAGE_DEFAULT_INTENSITY), 
-		m_range(MAGE_DEFAULT_RANGE), 
-		m_cos_penumbra(MAGE_DEFAULT_COS_PENUMBRA), 
-		m_cos_umbra(MAGE_DEFAULT_COS_UMBRA) {
+		m_base_color(SRGB(1.0f)),
+		m_intensity(1.0f),
+		m_range(1.0f),
+		m_cos_penumbra(1.0f),
+		m_cos_umbra(0.707106781f) {
 
 		// Update the bounding volumes.
 		UpdateBoundingVolumes();

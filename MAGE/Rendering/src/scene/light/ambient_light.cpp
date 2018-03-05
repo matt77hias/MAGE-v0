@@ -3,29 +3,20 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_RADIANCE   1.0f
-#define MAGE_DEFAULT_BASE_COLOR 1.0f
+#include "scene\node.hpp"
+#include "scene\light\ambient_light.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	AmbientLight::AmbientLight() noexcept
 		: Component(),
-		m_radiance(MAGE_DEFAULT_RADIANCE),
-		m_base_color(SRGB(MAGE_DEFAULT_BASE_COLOR)) {}
+		m_radiance(1.0f),
+		m_base_color(SRGB(1.0f)) {}
 
 	AmbientLight::AmbientLight(const AmbientLight& light) noexcept = default;
 	

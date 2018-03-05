@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math_utils.hpp"
 #include "spectrum\color.hpp"
 
 #pragma endregion
@@ -12,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of fog with respect to the camera position (eye) to avoid popping 
@@ -113,12 +114,11 @@ namespace mage {
 		/**
 		 Sets the density of this fog to the given value.
 
-		 @pre			@a density is an element of [0,1].
 		 @param[in]		density
 						The density.
 		 */
 		constexpr void SetDensity(F32 density) noexcept {
-			m_density = density;
+			m_density = Saturate(density);
 		}
 
 	private:

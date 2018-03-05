@@ -7,14 +7,13 @@
 
 #include "scene\component.hpp"
 #include "spectrum\spectrum.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -90,7 +89,8 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
-		[[nodiscard]]SRGB& GetBaseColor() noexcept {
+		[[nodiscard]]
+		SRGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -100,7 +100,8 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
-		[[nodiscard]]const SRGB& GetBaseColor() const noexcept {
+		[[nodiscard]]
+		const SRGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -110,19 +111,18 @@ namespace mage {
 		 @return		The radiance in watts per square meter per steradians 
 						of this ambient light.
 		 */
-		[[nodiscard]]F32 GetRadiance() const noexcept {
+		[[nodiscard]]
+		F32 GetRadiance() const noexcept {
 			return m_radiance;
 		}
 
 		/**
 		 Sets the radiance of this ambient light to the given radiance.
 		 
-		 @pre			@a radiance must be non-negative.
 		 @param[in]		radiance
 						The radiance in watts per square meter per steradians.
 		 */
 		void SetRadiance(F32 radiance) noexcept {
-			Assert(0.0f <= radiance);
 			m_radiance = radiance;
 		}
 
@@ -131,7 +131,8 @@ namespace mage {
 
 		 @return		The radiance spectrum of this ambient light.
 		 */
-		[[nodiscard]]const RGB GetRadianceSpectrum() const noexcept {
+		[[nodiscard]]
+		const RGB GetRadianceSpectrum() const noexcept {
 			const auto L = m_radiance * SRGBtoRGB(XMLoad(m_base_color));
 			return RGB(XMStore< F32x3 >(L));
 		}

@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
-#include "sprite\sprite_utils.hpp"
+#include "direct3d11.hpp"
 #include "transform\sprite_transform.hpp"
 
 #pragma endregion
@@ -14,12 +13,67 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
+
+	//-------------------------------------------------------------------------
+	// SpriteEffect
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 An enumeration of the different sprite effects.
+
+	 This contains:
+	 @c None,
+	 @c MirrorX,
+	 @c MirrorY and
+	 @c MirrorXY.
+	 */
+	enum class SpriteEffect : U8 {
+		None     = 0,                 // No sprite effects.
+		MirrorX  = 1,                 // Mirror sprites along the x-axis.
+		MirrorY  = 2,                 // Mirror sprites along the y-axis.
+		MirrorXY = MirrorX | MirrorY  // Mirror sprites along the x- and y-axis.
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SpriteSortMode
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 An enumeration of the different sprite sorting modes.
+
+	 This contains:
+	 @c Deferred,
+	 @c Immediate,
+	 @c Texture,
+	 @c BackToFront and
+	 @c FrontToBack.
+	 */
+	enum class SpriteSortMode : U8 {
+		Deferred,	 // Deferred, FIFO order of the sprites.
+		Immediate,   // Immediate, FIFO order of the sprites.
+		Texture,     // Deferred sorting based on the texture of the sprites.
+		BackToFront, // Deferred, back-to-front sorting based on the depth 
+		             // value of the sprites.
+		FrontToBack	 // Deferred, front-to-back sorting based on the depth 
+		             // value of the sprites.
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SpriteBatch
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 A class of sprite batches.
 	 */
-	class alignas(16) SpriteBatch final {
+	class SpriteBatch final {
 
 	public:
 
@@ -35,7 +89,7 @@ namespace mage {
 		 @param[in]		device_context
 						A reference to the device context.
 		 */
-		SpriteBatch(ID3D11Device &device, ID3D11DeviceContext &device_context);
+		SpriteBatch(ID3D11Device& device, ID3D11DeviceContext& device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -43,7 +97,7 @@ namespace mage {
 		 @param[in]		sprite_batch
 						A reference to the sprite batch to copy.
 		 */
-		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
+		SpriteBatch(const SpriteBatch& sprite_batch) = delete;
 
 		/**
 		 Constructs a sprite batch by moving the given sprite batch.
@@ -51,7 +105,7 @@ namespace mage {
 		 @param[in]		sprite_batch
 						A reference to the sprite batch to move.
 		 */
-		SpriteBatch(SpriteBatch &&sprite_batch) noexcept;
+		SpriteBatch(SpriteBatch&& sprite_batch) noexcept;
 		
 		/**
 		 Destructs this sprite batch.
@@ -70,7 +124,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite batch (i.e. 
 						this sprite batch).
 		 */
-		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
+		SpriteBatch& operator=(const SpriteBatch& sprite_batch) = delete;
 
 		/**
 		 Moves the given sprite batch to this sprite batch.
@@ -80,7 +134,7 @@ namespace mage {
 		 @return		A reference to the moved sprite batch (i.e. this sprite 
 						batch).
 		 */
-		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
+		SpriteBatch& operator=(SpriteBatch&& sprite_batch) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lifecycle
@@ -93,17 +147,13 @@ namespace mage {
 		 @param[in]		sort_mode
 						A reference to the sprite sorting mode for the whole 
 						batch of sprites.
-		 @param[in]		transform
-						The transform for the whole batch of sprites.
 		 */
-		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
-			                   FXMMATRIX transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred);
 		
 		/**
 		 Draws a sprite.
 
 		 @pre			This sprite batch is inside a begin/end pair.
-		 @pre			@a texture is not equal to @c nullptr.
 		 @param[in]		texture
 						A pointer to the shader resource view of the texture to 
 						draw.
@@ -116,11 +166,11 @@ namespace mage {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void XM_CALLCONV Draw(ID3D11ShaderResourceView *texture, 
+		void XM_CALLCONV Draw(ID3D11ShaderResourceView* texture, 
 			                  FXMVECTOR color, 
 			                  SpriteEffect effects, 
-			                  const SpriteTransform &transform, 
-			                  const RECT *source = nullptr);
+			                  const SpriteTransform& transform, 
+			                  const RECT* source = nullptr);
 		
 		/**
 		 Ends the processing of a batch of sprites.
@@ -142,4 +192,6 @@ namespace mage {
 		 */
 		UniquePtr< Impl > m_impl;
 	};
+
+	#pragma endregion
 }

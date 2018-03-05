@@ -302,6 +302,12 @@
     <ClInclude Include="Rendering\src\display\display_settings.hpp">
       <Filter>Header Files\display</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sprite_batch.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -425,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp">
       <Filter>Source Files\display</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sprite_batch.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp">
+      <Filter>Source Files\resource\font</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

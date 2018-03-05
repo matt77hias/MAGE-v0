@@ -3,9 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\font\sprite_font.hpp"
+#include "resource\font\sprite_font.hpp"
 #include "loaders\sprite_font_loader.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -23,7 +22,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
 	// GlyphLessThan
@@ -54,7 +53,7 @@ namespace mage {
 						otherwise.
 		 */
 		[[nodiscard]]
-		bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
+		bool operator()(const Glyph& lhs, const Glyph& rhs) noexcept {
 			return lhs.m_character < rhs.m_character;
 		}
 
@@ -70,7 +69,7 @@ namespace mage {
 						the given character. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
+		bool operator()(const Glyph& lhs, wchar_t rhs) noexcept {
 			return lhs.m_character < static_cast< U32 >(rhs);
 		}
 
@@ -86,7 +85,7 @@ namespace mage {
 						given glyph's character. @c false otherwise.
 		 */
 		[[nodiscard]]
-		bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
+		bool operator()(wchar_t lhs, const Glyph& rhs) noexcept {
 			return static_cast< U32 >(lhs) < rhs.m_character;
 		}
 	};
@@ -108,7 +107,7 @@ namespace mage {
 		m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
-		loader::ImportSpriteFontFromFile(GetFilename(), &device, output, desc);
+		loader::ImportSpriteFontFromFile(GetFilename(), device, output, desc);
 
 		InitializeSpriteFont(output);
 	}
@@ -133,12 +132,10 @@ namespace mage {
 	}
 
 	void SpriteFont::DrawText(SpriteBatch& sprite_batch,
-		                      const ColorString* strings,
-		                      size_t nb_strings,
+							  gsl::span< const ColorString > strings, 
 		                      const SpriteTransform& transform,
 		                      SpriteEffect effects,
 		                      const SRGBA* color) const {
-		Assert(strings);
 
 		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
 			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
@@ -163,15 +160,15 @@ namespace mage {
 		const auto base_offset = (SpriteEffect::None == effects) 
 			                   ? transform.GetRotationOriginV() 
 			                   : transform.GetRotationOriginV()
-			                     - MeasureText(strings, nb_strings) 
+			                     - MeasureText(strings) 
 			                     * axis_is_mirrored_table[index];
 
 		auto x = 0.0f;
 		auto y = 0.0f;
 		SpriteTransform sprite_transform(transform);
 
-		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (auto character : str->GetString()) {
+		for (const auto& str : strings) {
+			for (auto character : str.GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -192,7 +189,7 @@ namespace mage {
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
 						const auto top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-						const auto &flip    = axis_direction_table[index];
+						const auto& flip    = axis_direction_table[index];
 						auto offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 						if (SpriteEffect::None != effects) {
@@ -200,14 +197,14 @@ namespace mage {
 							auto glyph_rect = XMVectorLeftTopRightBottom(glyph->m_sub_rectangle);
 							// Width Height -Width -Height
 							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-							const auto &mirror = axis_is_mirrored_table[index];
+							const auto& mirror = axis_is_mirrored_table[index];
 							offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 						}
 
 						sprite_transform.SetRotationOrigin(offset);
 						
 						const auto srgba = (color) ? XMLoad(*color) 
-							                       : XMLoad(str->GetColor());
+							                       : XMLoad(str.GetColor());
 						
 						sprite_batch.Draw(m_texture_srv.Get(), 
 							              srgba, 
@@ -226,16 +223,15 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const XMVECTOR XM_CALLCONV SpriteFont::MeasureText(const ColorString* strings, 
-													   size_t nb_strings) const {
-		Assert(strings);
-		
+	const XMVECTOR XM_CALLCONV SpriteFont
+		::MeasureText(gsl::span< const ColorString > strings) const {
+
 		auto result = XMVectorZero();
 		auto x = 0.0f;
 		auto y = 0.0f;
 
-		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (auto character : str->GetString()) {
+		for (const auto& str : strings) {
+			for (auto character : str.GetString()) {
 				switch (character) {
 
 				case L'\r': {
@@ -274,10 +270,9 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const RECT SpriteFont::MeasureDrawBounds(const ColorString* strings, 
-											 size_t nb_strings, 
-											 const F32x2& top_left) const {
-		Assert(strings);
+	const RECT SpriteFont
+		::MeasureDrawBounds(gsl::span< const ColorString > strings, 
+							const F32x2& top_left) const {
 
 		RECT result = { 
 			std::numeric_limits< LONG >::max(), 
@@ -288,8 +283,8 @@ namespace mage {
 		auto x = 0.0f;
 		auto y = 0.0f;
 
-		for (auto str = strings; str != strings + nb_strings; ++str) {
-			for (auto character : str->GetString()) {
+		for (const auto& str : strings) {
+			for (auto character : str.GetString()) {
 				switch (character) {
 
 				case L'\r': {

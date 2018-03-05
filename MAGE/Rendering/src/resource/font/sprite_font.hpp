@@ -9,14 +9,14 @@
 #include "resource\font\color_string.hpp"
 #include "resource\font\sprite_font_descriptor.hpp"
 #include "resource\font\sprite_font_output.hpp"
-#include "rendering\pass\sprite_batch.hpp"
+#include "renderer\pass\sprite_batch.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of sprite fonts.
@@ -101,16 +101,11 @@ namespace mage {
 		 Draws the given text with this sprite font using the given sprite 
 		 batch.
 
-		 @pre			@a strings is not equal to @c nullptr.
-		 @pre			@a strings points to an array containing at least
-						@a nb_strings elements.
 		 @param[in]		sprite_batch
 						A reference to the sprite batch used for rendering
 						the given text with this sprite font.
 		 @param[in]		strings
-						A pointer to the strings of the text.
-		 @param[in]		nb_strings
-						The number of strings in the text.
+						The strings of the text.
 		 @param[in]		transform
 						A reference to the sprite transform.
 		 @param[in]		effects
@@ -121,8 +116,7 @@ namespace mage {
 						Otherwise, each string is drawn in this color.
 		 */
 		void DrawText(SpriteBatch& sprite_batch, 
-			          const ColorString* strings,
-				      size_t nb_strings,
+			          gsl::span< const ColorString > strings, 
 			          const SpriteTransform& transform,
 			          SpriteEffect effects = SpriteEffect::None,
 		              const SRGBA* color = nullptr) const;
@@ -130,13 +124,8 @@ namespace mage {
 		/**
 		 Returns the size of the given text with this sprite font (in pixels).
 
-		 @pre			@a strings is not equal to @c nullptr.
-		 @pre			@a strings points to an array containing at least
-						@a nb_strings elements.
 		 @param[in]		strings
-						A pointer to the strings of the text.
-		 @param[in]		nb_strings
-						The number of strings in the text.
+						The strings of the text.
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
 		 @note			The text size is computed from the origin to the
@@ -144,27 +133,21 @@ namespace mage {
 						has the effect of ignoring 'trailing spaces'.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV MeasureText(const ColorString* strings, 
-											   size_t nb_strings) const;
+		const XMVECTOR XM_CALLCONV 
+			MeasureText(gsl::span< const ColorString > strings) const;
 		
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
 
-		 @pre			@a strings is not equal to @c nullptr.
-		 @pre			@a strings points to an array containing at least
-						@a nb_strings elements.
 		 @param[in]		strings
-						A pointer to the strings of the text.
-		 @param[in]		nb_strings
-						The number of strings in the text.
+						The strings of the text.
 		 @param[in]		top_left
 						The top-left position of the text.
 		 @return		A @c RECT bounding the given text with this sprite 
 						font.
 		 */
 		[[nodiscard]]
-		const RECT MeasureDrawBounds(const ColorString* strings, 
-									 size_t nb_strings,
+		const RECT MeasureDrawBounds(gsl::span< const ColorString > strings, 
 									 const F32x2& top_left) const;
 		
 		/**

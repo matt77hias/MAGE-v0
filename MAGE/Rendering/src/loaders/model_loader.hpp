@@ -13,10 +13,12 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::rendering::loader {
-
+namespace mage::rendering {
 	// Forward declaration.
 	class ResourceManager;
+}
+
+namespace mage::rendering::loader {
 
 	/**
 	 Imports the model from the given file.

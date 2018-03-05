@@ -11,6 +11,15 @@ namespace mage {
 	#pragma region
 
 	template< typename KeyT, typename ResourceT >
+	ResourcePool< KeyT, ResourceT >::ResourcePool(ResourcePool&& pool) noexcept 
+		: m_mutex() {
+
+		std::lock_guard< std::mutex > lock(pool.m_mutex);
+
+		m_resource_map = std::move(pool.m_resource_map);
+	}
+
+	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]
 	inline bool ResourcePool< KeyT, ResourceT >::empty() const noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
@@ -160,6 +169,16 @@ namespace mage {
 	// PersistentResourcePool
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	template< typename KeyT, typename ResourceT >
+	PersistentResourcePool< KeyT, ResourceT >
+		::PersistentResourcePool(PersistentResourcePool&& pool) noexcept
+		: m_mutex() {
+
+		std::lock_guard< std::mutex > lock(pool.m_mutex);
+
+		m_resource_map = std::move(pool.m_resource_map);
+	}
 
 	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]

@@ -79,7 +79,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool&& pool) = delete;
+		ResourcePool(ResourcePool&& pool) noexcept;
 
 		/**
 		 Destructs this resource pool.
@@ -407,7 +407,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool&& pool) = delete;
+		PersistentResourcePool(PersistentResourcePool&& pool) noexcept;
 
 		/**
 		 Destructs this persistent resource pool.

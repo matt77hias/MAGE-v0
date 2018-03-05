@@ -72,7 +72,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 */
-		Impl(Impl&& reporter) = delete;
+		Impl(Impl&& reporter) noexcept;
 
 		/**
 		 Destructs this progress reporter.
@@ -213,10 +213,29 @@ namespace mage {
 		Initialize(title, bar_length);
 	}
 
+	ProgressReporter::Impl::Impl(Impl&& reporter) noexcept 
+		: m_mutex() {
+		
+		const std::lock_guard< std::mutex > lock(reporter.m_mutex);
+
+		m_nb_work_total       = reporter.m_nb_work_total;
+		m_nb_work_done        = reporter.m_nb_work_done;
+		m_nb_progress_total   = reporter.m_nb_progress_total;
+		m_nb_progress_printed = reporter.m_nb_progress_printed;
+		m_progress_char       = reporter.m_progress_char;
+		m_fout                = reporter.m_fout;
+		m_buffer              = std::move(reporter.m_buffer);
+		m_current_pos         = reporter.m_current_pos;
+		m_timer               = std::move(reporter.m_timer);
+	}
+
 	ProgressReporter::Impl::~Impl() = default;
 
 	void ProgressReporter::Impl::Initialize(const string& title, 
 											U16 bar_length) {
+		
+		const std::lock_guard< std::mutex > lock(m_mutex);
+		
 		if (0u == bar_length) {
 			bar_length = ConsoleWidth() - U16(28u);
 		}
@@ -331,6 +350,9 @@ namespace mage {
 									progress_char, 
 									bar_length)) {}
 
+	ProgressReporter::ProgressReporter(
+		ProgressReporter&& reporter) noexcept = default;
+	
 	ProgressReporter::~ProgressReporter() = default;
 
 	void ProgressReporter::Update(U32 nb_work) {

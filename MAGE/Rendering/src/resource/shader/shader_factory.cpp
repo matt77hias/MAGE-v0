@@ -520,15 +520,17 @@ namespace mage::rendering {
 	#pragma region
 
 	VertexShaderPtr CreateDepthVS(ResourceManager& resource_manager) {
+		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_VS), 
-						VertexPositionNormalTexture::s_input_element_descs);
+						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 
 	VertexShaderPtr CreateDepthTransparentVS(ResourceManager& resource_manager) {
+		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_depth_transparent_VS), 
-						VertexPositionNormalTexture::s_input_element_descs);
+						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 
 	PixelShaderPtr CreateDepthTransparentPS(ResourceManager& resource_manager) {
@@ -888,7 +890,7 @@ namespace mage::rendering {
 	VertexShaderPtr CreateLineCubeVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_line_cube_VS), 
-						nullptr, 0u);
+						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	PixelShaderPtr CreateLineCubePS(ResourceManager& resource_manager) {
@@ -952,9 +954,10 @@ namespace mage::rendering {
 	#pragma region
 
 	VertexShaderPtr CreateTransformVS(ResourceManager& resource_manager) {
+		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_transform_VS), 
-						VertexPositionNormalTexture::s_input_element_descs);
+						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 
 	#pragma endregion
@@ -965,9 +968,10 @@ namespace mage::rendering {
 	#pragma region
 
 	VertexShaderPtr CreateVoxelizationVS(ResourceManager& resource_manager) {
+		using vertex_t = VertexPositionNormalTexture;
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxelization_VS), 
-						VertexPositionNormalTexture::s_input_element_descs);
+						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager) {
@@ -1045,7 +1049,7 @@ namespace mage::rendering {
 	VertexShaderPtr CreateVoxelGridVS(ResourceManager& resource_manager) {
 		return CreateVS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxel_grid_VS), 
-						nullptr, 0u);
+						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	GeometryShaderPtr CreateVoxelGridGS(ResourceManager& resource_manager) {

@@ -124,7 +124,7 @@ namespace mage::rendering {
 			                         ConstructorArgsT&&... args) {
 
 		return GetPool< ResourceT >().template 
-			GetOrCreate< key_type< ResourceT >, ConstructorArgsT... >(
+			GetOrCreate< ID3D11Device&, key_type< ResourceT >, ConstructorArgsT... >(
 				guid, m_device, key_type< ResourceT >(guid),
 				std::forward< ConstructorArgsT >(args)...);
 	}

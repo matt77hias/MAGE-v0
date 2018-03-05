@@ -13,10 +13,12 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::rendering::loader {
-
+namespace mage::rendering {
 	// Forward declaration.
 	class ResourceManager;
+}
+
+namespace mage::rendering::loader {
 
 	/**
 	 A class of MDL file writers for writing models.

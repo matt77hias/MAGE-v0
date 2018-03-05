@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "direct3d11.hpp"
+#include "renderer\configuration.hpp"
 #include "type\types.hpp"
-#include "rendering\rendering.hpp"
-#include "rendering\aa_descriptor.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of display configurations.
@@ -57,8 +57,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to a display configuration to copy.
 		 */
-		DisplayConfiguration(const DisplayConfiguration& 
-							 configuration) = default;
+		DisplayConfiguration(
+			const DisplayConfiguration& configuration) = default;
 
 		/**
 		 Constructs a display configuration by moving the given display 
@@ -67,8 +67,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to a display configuration to move.
 		 */
-		DisplayConfiguration(DisplayConfiguration&& 
-							 configuration) noexcept = default;
+		DisplayConfiguration(
+			DisplayConfiguration&& configuration) noexcept = default;
 
 		/**
 		 Destructs this display configuration.
@@ -87,8 +87,8 @@ namespace mage {
 		 @return		A reference to the copy of the given display 
 						configuration (i.e. this display configuration).
 		 */
-		DisplayConfiguration& operator=(const DisplayConfiguration& 
-										configuration) = default;
+		DisplayConfiguration& operator=(
+			const DisplayConfiguration& configuration) = default;
 
 		/**
 		 Moves the given display configuration to this display configuration.
@@ -98,8 +98,8 @@ namespace mage {
 		 @return		A reference to the moved display configuration (i.e. 
 						this display configuration).
 		 */
-		DisplayConfiguration& operator=(DisplayConfiguration&& 
-										configuration) noexcept = default;
+		DisplayConfiguration& operator=(
+			DisplayConfiguration&& configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Adapter

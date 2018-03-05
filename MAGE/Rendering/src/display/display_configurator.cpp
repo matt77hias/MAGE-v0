@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\display_configurator.hpp"
-#include "rendering\display_settings.hpp"
+#include "display\display_configurator.hpp"
+#include "display\display_settings.hpp"
 #include "scripting\variable_script.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
@@ -19,6 +19,7 @@
 #pragma region
 
 #include <iterator>
+#include <vector>
 #include <windowsx.h>
 
 #pragma endregion
@@ -47,25 +48,10 @@ extern "C" {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"./DisplaySettings.var"
-
-#define MAGE_DISPLAY_VARIABLE_AA           "anti-aliasing"
-#define MAGE_DISPLAY_VARIABLE_REFRESH_RATE "refresh"
-#define MAGE_DISPLAY_VARIABLE_RESOLUTION   "resolution"
-#define MAGE_DISPLAY_VARIABLE_VSYNC        "vsync"
-#define MAGE_DISPLAY_VARIABLE_WINDOWED     "windowed"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
-	
+namespace mage::rendering {
+
 	//-------------------------------------------------------------------------
 	// DisplayConfigurator::Impl
 	//-------------------------------------------------------------------------
@@ -101,7 +87,7 @@ namespace mage {
 						The pixel format.
 		 */
 		explicit Impl(ComPtr< DXGIAdapter > adapter, 
-					  ComPtr< DXGIOutput >  output, 
+					  ComPtr< DXGIOutput > output, 
 					  DXGI_FORMAT pixel_format);
 
 		/**
@@ -201,6 +187,23 @@ namespace mage {
 														  LPARAM lParam);
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		static constexpr const wchar_t* 
+			s_display_settings_fname = L"./DisplaySettings.var";
+
+		static constexpr const char* s_display_variable_aa = "anti-aliasing";
+		
+		static constexpr const char* s_display_variable_refresh_rate = "refresh";
+		
+		static constexpr const char* s_display_variable_resolution = "resolution";
+		
+		static constexpr const char* s_display_variable_vsync = "vsync";
+		
+		static constexpr const char* s_display_variable_windowed = "windowed";
+
+		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -272,7 +275,7 @@ namespace mage {
 		 A pointer to the script which stores the display configuration
 		 of this display configurator.
 		 */
-		UniquePtr< VariableScript > m_display_configuration_script;
+		UniquePtr< VariableScript > m_script;
 
 		/**
 		 The enumerated display modes of this display 
@@ -299,15 +302,13 @@ namespace mage {
 		m_adapter(), 
 		m_output(),
 		m_display_configuration(),
-		m_display_configuration_script(),
+		m_script(),
 		m_display_modes() {
 
 		// Load the settings script.
-		const auto file_exists 
-			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_display_configuration_script 
-			= MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, 
-				                           file_exists);
+		const auto file_exists = FileExists(s_display_settings_fname);
+		m_script = MakeUnique< VariableScript >
+			                             (s_display_settings_fname, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -322,15 +323,13 @@ namespace mage {
 		m_adapter(std::move(adapter)),
 		m_output(std::move(output)),
 		m_display_configuration(), 
-		m_display_configuration_script(),
+		m_script(),
 		m_display_modes() {
 
 		// Load the settings script.
-		const auto file_exists 
-			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_display_configuration_script 
-			= MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, 
-				                           file_exists);
+		const auto file_exists = FileExists(s_display_settings_fname);
+		m_script = MakeUnique< VariableScript >
+			                             (s_display_settings_fname, file_exists);
 
 		// Initialize the display modes.
 		InitializeDisplayModes();
@@ -360,7 +359,7 @@ namespace mage {
 		ComPtr< IDXGIFactory > factory;
 		{
 			const HRESULT result = CreateDXGIFactory(
-				__uuidof(IDXGIFactory), (void **)factory.GetAddressOf());
+				__uuidof(IDXGIFactory), (void**)factory.GetAddressOf());
 			ThrowIfFailed(result, "IDXGIFactory creation failed: %08X.", result);
 		}
 
@@ -375,8 +374,8 @@ namespace mage {
 			// Get the primary IDXGIOutput.
 			ComPtr< IDXGIOutput > iterated_output;
 			{
-				const HRESULT result = iterated_adapter
-					->EnumOutputs(0u, iterated_output.GetAddressOf());
+				const HRESULT result = 
+					iterated_adapter->EnumOutputs(0u, iterated_output.GetAddressOf());
 				if (FAILED(result)) {
 					// EnumAdapters order:
 					// 1. The adapter with the primary desktop output.
@@ -442,7 +441,9 @@ namespace mage {
 				                                                flags, 
 				                                                &nb_display_modes, 
 				                                                dxgi_mode_descs.get());
-			ThrowIfFailed(result, "Failed to get the display modes: %08X.", result);
+			ThrowIfFailed(result, 
+						  "Failed to get the display modes: %08X.", 
+						  result);
 		}
 
 		// Enumerate the display modes.
@@ -450,12 +451,12 @@ namespace mage {
 		for (U32 mode = 0u; mode < nb_display_modes; ++mode) {
 			
 			// Reject small display modes.
-			if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
+			if (RejectDisplayMode(dxgi_mode_descs[mode])) {
 				continue;
 			}
 
 			// Add the display mode to the list.
-			m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
+			m_display_modes.push_back(dxgi_mode_descs[mode]);
 		}
 	}
 
@@ -470,11 +471,12 @@ namespace mage {
 		// 4. A pointer to the dialog box procedure.
 		// 5. The value to pass to the dialog box in the lParam parameter 
 		//    of the WM_INITDIALOG message.
-		const INT_PTR result_dialog = DialogBoxParam(nullptr, 
-			                                         MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
-				                                     nullptr, 
-			                                         DisplayDialogProcDelegate, 
-				                                     reinterpret_cast< LPARAM >(this));
+		const INT_PTR result_dialog 
+			= DialogBoxParam(nullptr, 
+							 MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS), 
+							 nullptr, 
+							 DisplayDialogProcDelegate, 
+							 reinterpret_cast< LPARAM >(this));
 		
 		return (IDOK == result_dialog) ? S_OK : E_FAIL;
 	}
@@ -509,10 +511,11 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	INT_PTR DisplayConfigurator::Impl::DisplayDialogProc(HWND dialog, 
-														 UINT message, 
-														 [[maybe_unused]] WPARAM wParam, 
-														 [[maybe_unused]] LPARAM lParam) {
+	INT_PTR DisplayConfigurator::Impl
+		::DisplayDialogProc(HWND dialog, 
+							UINT message, 
+							[[maybe_unused]] WPARAM wParam, 
+							[[maybe_unused]] LPARAM lParam) {
 
 		wchar_t buffer[16];
 
@@ -531,38 +534,33 @@ namespace mage {
 			m_adapter->GetDesc(&desc);
 			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
-			if (m_display_configuration_script->empty()) {
-				m_display_configuration_script->Add(
-					MAGE_DISPLAY_VARIABLE_AA,           0);
-				m_display_configuration_script->Add(
-					MAGE_DISPLAY_VARIABLE_REFRESH_RATE, 0);
-				m_display_configuration_script->Add(
-					MAGE_DISPLAY_VARIABLE_RESOLUTION,   0);
-				m_display_configuration_script->Add(
-					MAGE_DISPLAY_VARIABLE_VSYNC,    false);
-				m_display_configuration_script->Add(
-					MAGE_DISPLAY_VARIABLE_WINDOWED,  true);
+			if (m_script->empty()) {
+				m_script->Add(s_display_variable_aa, 0);
+				m_script->Add(s_display_variable_refresh_rate, 0);
+				m_script->Add(s_display_variable_resolution, 0);
+				m_script->Add(s_display_variable_vsync, false);
+				m_script->Add(s_display_variable_windowed, true);
 			}
 			
 			// Windowed state
 			{
 				// Load the windowed state.
-				const auto windowed = *m_display_configuration_script
-					->GetValue< bool >(MAGE_DISPLAY_VARIABLE_WINDOWED);
+				const auto windowed 
+					= *m_script->GetValue< bool >(s_display_variable_windowed);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
 				// 2. The identifier of the button to modify.
 				// 3. The check state of the button.
-				CheckDlgButton(dialog, IDC_WINDOWED, windowed);
+				CheckDlgButton(dialog, IDC_WINDOWED,    windowed);
 				CheckDlgButton(dialog, IDC_FULLSCREEN, !windowed);
 			}
 
 			// Vsync state
 			{
 				// Load the vsync state.
-				const auto vsync = *m_display_configuration_script
-					->GetValue< bool >(MAGE_DISPLAY_VARIABLE_VSYNC);
+				const auto vsync 
+					= *m_script->GetValue< bool >(s_display_variable_vsync);
 				
 				// Change the check state of a button control.
 				// 1. A handle to the dialog box that contains the button.
@@ -594,8 +592,8 @@ namespace mage {
 				ComboBoxAddValue(dialog, IDC_AA, 
 					static_cast< size_t >(AADescriptor::SSAA_4x),  L"SSAA 4x");
 				
-				const auto index = *m_display_configuration_script
-					->GetValue< int >(MAGE_DISPLAY_VARIABLE_AA);
+				const auto index 
+					= *m_script->GetValue< S32 >(s_display_variable_aa);
 				ComboBoxSelect(dialog, IDC_AA, index);
 			}
 			
@@ -606,11 +604,9 @@ namespace mage {
 
 				// Fill in the resolutions combo box.
 				for (const auto& mode : m_display_modes) {
-					swprintf_s(buffer, 
-						       std::size(buffer), 
+					swprintf_s(buffer, std::size(buffer), 
 						       L"%u x %u", 
-						       mode.Width, 
-						       mode.Height);
+						       mode.Width, mode.Height);
 
 					if (!ComboBoxContains(dialog, IDC_RESOLUTION, buffer)) {
 						const auto resolution = ConvertResolution(mode);
@@ -618,8 +614,8 @@ namespace mage {
 					}
 				}
 
-				const auto index = *m_display_configuration_script
-					->GetValue< int >(MAGE_DISPLAY_VARIABLE_RESOLUTION);
+				const auto index 
+					= *m_script->GetValue< S32 >(s_display_variable_resolution);
 				ComboBoxSelect(dialog, IDC_RESOLUTION, index);
 			}
 
@@ -632,15 +628,14 @@ namespace mage {
 				ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
 
 				// Fill in the refresh rates combo box associated with the current resolution.
-				for (const auto &mode : m_display_modes) {
+				for (const auto& mode : m_display_modes) {
 					const auto resolution = ConvertResolution(mode);
 					if (selected_resolution == resolution) {
 
 						const auto refresh_rate = ConvertRefreshRate(mode);
-						swprintf_s(buffer, 
-							       std::size(buffer), 
+						swprintf_s(buffer, std::size(buffer), 
 							       L"%u Hz",
-							       static_cast< unsigned int >(refresh_rate));
+							       static_cast< U32 >(refresh_rate));
 
 						if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
 							ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
@@ -648,8 +643,8 @@ namespace mage {
 					}
 				}
 
-				const int refresh_rate_index = *m_display_configuration_script
-					->GetValue< int >(MAGE_DISPLAY_VARIABLE_REFRESH_RATE);
+				const auto refresh_rate_index 
+					= *m_script->GetValue< S32 >(s_display_variable_refresh_rate);
 				ComboBoxSelect(dialog, IDC_REFRESH_RATE, refresh_rate_index);
 			}
 
@@ -672,8 +667,7 @@ namespace mage {
 				const auto selected_resolution
 					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
 				
-				const DXGI_MODE_DESC* selected_diplay_mode 
-					= nullptr;
+				const DXGI_MODE_DESC* selected_diplay_mode = nullptr;
 				for (const auto& display_mode : m_display_modes) {
 					
 					const auto resolution = ConvertResolution(display_mode);
@@ -721,19 +715,14 @@ namespace mage {
 					= ComboBox_GetCurSel(GetDlgItem(dialog, IDC_RESOLUTION));
 				
 				// Store all the settings to the display configuration script.
-				m_display_configuration_script->SetValue(
-					MAGE_DISPLAY_VARIABLE_AA, aa_index);
-				m_display_configuration_script->SetValue(
-					MAGE_DISPLAY_VARIABLE_REFRESH_RATE, refresh_rate_index);
-				m_display_configuration_script->SetValue(
-					MAGE_DISPLAY_VARIABLE_RESOLUTION, resolution_index);
-				m_display_configuration_script->SetValue(
-					MAGE_DISPLAY_VARIABLE_VSYNC, vsync);
-				m_display_configuration_script->SetValue(
-					MAGE_DISPLAY_VARIABLE_WINDOWED, windowed);
+				m_script->SetValue(s_display_variable_aa, aa_index);
+				m_script->SetValue(s_display_variable_refresh_rate, refresh_rate_index);
+				m_script->SetValue(s_display_variable_resolution, resolution_index);
+				m_script->SetValue(s_display_variable_vsync, vsync);
+				m_script->SetValue(s_display_variable_windowed, windowed);
 
 				// Save all the settings in the display configuration script.
-				m_display_configuration_script->ExportScript();
+				m_script->ExportScript();
 
 				// Close the dialog.
 				EndDialog(dialog, IDOK);
@@ -772,7 +761,7 @@ namespace mage {
 							swprintf_s(buffer, 
 								       std::size(buffer), 
 								       L"%u Hz",
-								       static_cast< unsigned int >(refresh_rate));
+								       static_cast< U32 >(refresh_rate));
 							
 							if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
 								ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
@@ -811,10 +800,12 @@ namespace mage {
 	DisplayConfigurator::DisplayConfigurator(ComPtr< DXGIAdapter > adapter,
 											 ComPtr< DXGIOutput > output, 
 											 DXGI_FORMAT pixel_format)
-		: m_impl(MakeUnique< Impl >(adapter, output, pixel_format)) {}
+		: m_impl(MakeUnique< Impl >(std::move(adapter), 
+									std::move(output), 
+									pixel_format)) {}
 
-	DisplayConfigurator::DisplayConfigurator(DisplayConfigurator&& 
-											 configurator) noexcept = default;
+	DisplayConfigurator::DisplayConfigurator(
+		DisplayConfigurator&& configurator) noexcept = default;
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 

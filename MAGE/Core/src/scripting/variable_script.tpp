@@ -63,7 +63,8 @@ namespace mage {
 			it->second = std::move(value);
 		}
 		else {
-			Warning("%ls: Variable %s not found.", GetGuid(), name.c_str());
+			Warning("%ls: Variable %s not found.", 
+					GetGuid().c_str(), name.c_str());
 		}
 	}
 }

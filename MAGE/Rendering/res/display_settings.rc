@@ -1,8 +1,8 @@
-#include "rendering\display_settings.hpp"
+#include "display\display_settings.hpp"
 
 #define APSTUDIO_READONLY_SYMBOLS
-//#include "afxres.h"
 #include "WinResrc.h"
+//#include "afxres.h"
 #define IDC_STATIC -1
 #undef APSTUDIO_READONLY_SYMBOLS
 
@@ -74,7 +74,7 @@ END
 
 1 TEXTINCLUDE DISCARDABLE
 BEGIN
-	"rendering\display_settings.hpp\0"
+	"display\display_settings.hpp\0"
 END
 
 2 TEXTINCLUDE DISCARDABLE
@@ -96,4 +96,3 @@ END
 #ifndef APSTUDIO_INVOKED
 
 #endif
-

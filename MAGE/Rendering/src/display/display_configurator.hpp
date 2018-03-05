@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\display_configuration.hpp"
+#include "display\display_configuration.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of display configurators.
@@ -45,7 +45,7 @@ namespace mage {
 						The pixel format.
 		 */
 		explicit DisplayConfigurator(ComPtr< DXGIAdapter > adapter,
-			                         ComPtr< DXGIOutput >  output,
+			                         ComPtr< DXGIOutput > output,
 			                         DXGI_FORMAT pixel_format 
 			                         = DXGI_FORMAT_R10G10B10A2_UNORM);
 
@@ -82,8 +82,8 @@ namespace mage {
 		 @return		A reference to the copy of the given display 
 						configurator (i.e. this display configurator).
 		 */
-		DisplayConfigurator& operator=(const DisplayConfigurator& 
-									   configurator) = delete;
+		DisplayConfigurator& operator=(
+			const DisplayConfigurator& configurator) = delete;
 
 		/**
 		 Moves the given display configurator to this display configurator.
@@ -93,8 +93,8 @@ namespace mage {
 		 @return		A reference to the moved display configurator (i.e. 
 						this display configurator).
 		 */
-		DisplayConfigurator& operator=(DisplayConfigurator&& 
-									   configurator) = delete;
+		DisplayConfigurator& operator=(
+			DisplayConfigurator&& configurator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

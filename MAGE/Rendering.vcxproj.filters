@@ -293,6 +293,15 @@
     <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp">
       <Filter>Header Files\resource\texture</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_configuration.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_configurator.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_settings.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -413,6 +422,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp">
       <Filter>Source Files\loaders\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\display\display_configurator.cpp">
+      <Filter>Source Files\display</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

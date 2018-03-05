@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Rendering\src\direct3d11.hpp" />
+    <ClInclude Include="Rendering\src\display\display_configuration.hpp" />
+    <ClInclude Include="Rendering\src\display\display_configurator.hpp" />
+    <ClInclude Include="Rendering\src\display\display_settings.hpp" />
     <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp" />
     <ClInclude Include="Rendering\src\loaders\dds\screen_grab.hpp" />
     <ClInclude Include="Rendering\src\loaders\font\font_loader.hpp" />
@@ -90,6 +93,7 @@
     <None Include="Rendering\src\resource\texture\texture.tpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Rendering\src\display\display_configurator.cpp" />
     <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp" />
     <ClCompile Include="Rendering\src\loaders\font\font_loader.cpp" />

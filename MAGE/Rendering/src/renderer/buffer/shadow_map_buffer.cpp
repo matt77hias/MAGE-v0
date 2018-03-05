@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\shadow_map_buffer.hpp"
-#include "rendering\rendering_factory.hpp"
+#include "renderer\buffer\shadow_map_buffer.hpp"
+#include "renderer\factory.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
 	// ShadowMapBuffer
@@ -24,24 +24,16 @@ namespace mage {
 		                             U32 width, 
 		                             U32 height, 
 		                             DepthFormat format)
-		: m_width(width), 
-		m_height(height), 
-		m_format(format), 
-		m_viewport(), 
+		: m_format(format), 
+		m_viewport(width, height), 
 		m_rasterizer_state(), 
 		m_dsvs(), 
 		m_srv() {
 
-		// Setup the viewport.
-		SetupViewport();
 		// Setup the rasterizer state.
 		SetupRasterizerState(device);
 		// Setup the resource, DSVs and SRV.
 		SetupShadowMapBuffer(device, nb_shadow_maps);
-	}
-
-	void ShadowMapBuffer::SetupViewport() {
-		m_viewport.SetWidthAndHeight(m_width, m_height);
 	}
 
 	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device& device) {
@@ -91,8 +83,8 @@ namespace mage {
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
 			                          | D3D11_BIND_SHADER_RESOURCE;
-		texture_desc.Width            = m_width;
-		texture_desc.Height           = m_height;
+		texture_desc.Width            = static_cast< U32 >(m_viewport.GetWidth());
+		texture_desc.Height           = static_cast< U32 >(m_viewport.GetHeight());
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = static_cast< U32 >(nb_shadow_maps);
 		texture_desc.Format           = texture_format;
@@ -159,24 +151,16 @@ namespace mage {
 		                                     U32 width, 
 		                                     U32 height, 
 		                                     DepthFormat format)
-		: m_width(width), 
-		m_height(height), 
-		m_format(format),
-		m_viewport(), 
+		: m_format(format),
+		m_viewport(width, height), 
 		m_rasterizer_state(), 
 		m_dsvs(), 
 		m_srv() {
 
-		// Setup the viewport.
-		SetupViewport();
 		// Setup the rasterizer state.
 		SetupRasterizerState(device);
 		// Setup the resource, DSVs and SRV.
 		SetupShadowCubeMapBuffer(device, nb_shadow_cube_maps);
-	}
-
-	void ShadowCubeMapBuffer::SetupViewport() {
-		m_viewport.SetWidthAndHeight(m_width, m_height);
 	}
 
 	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device& device) {
@@ -226,8 +210,8 @@ namespace mage {
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
 			                          | D3D11_BIND_SHADER_RESOURCE;
 		texture_desc.MiscFlags        = D3D11_RESOURCE_MISC_TEXTURECUBE;
-		texture_desc.Width            = m_width;
-		texture_desc.Height           = m_height;
+		texture_desc.Width            = static_cast< U32 >(m_viewport.GetWidth());
+		texture_desc.Height           = static_cast< U32 >(m_viewport.GetHeight());
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 6u * static_cast< U32 >(nb_shadow_cube_maps);
 		texture_desc.Format           = texture_format;

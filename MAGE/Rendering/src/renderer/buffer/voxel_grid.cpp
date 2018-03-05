@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\voxel_grid.hpp"
-#include "rendering\rendering_factory.hpp"
+#include "renderer\buffer\voxel_grid.hpp"
+#include "renderer\factory.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	VoxelGrid::VoxelGrid(ID3D11Device& device, size_t resolution)
 		: m_resolution(resolution), 

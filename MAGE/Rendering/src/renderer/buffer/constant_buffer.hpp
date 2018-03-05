@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\buffer_lock.hpp"
+#include "renderer\buffer\buffer_lock.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of constant buffers.
@@ -108,7 +108,7 @@ namespace mage {
 						of this constant buffer.
 		 */
 		[[nodiscard]]
-		ID3D11Buffer *Get() const noexcept {
+		NotNull< ID3D11Buffer* > Get() const noexcept {
 			return m_buffer.Get();
 		}
 		
@@ -162,6 +162,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\constant_buffer.tpp"
+#include "renderer\buffer\constant_buffer.tpp"
 
 #pragma endregion

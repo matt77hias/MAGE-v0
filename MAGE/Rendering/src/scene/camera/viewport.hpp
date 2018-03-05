@@ -31,7 +31,7 @@ namespace mage::rendering {
 	 @return		The viewport transform for the given viewport.
 	 */
 	[[nodiscard]]
-	const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(F32 viewport_width, F32 viewport_height) noexcept {
 
 		const auto width  = (0.0f < viewport_width)  ? 2.0f / viewport_width 

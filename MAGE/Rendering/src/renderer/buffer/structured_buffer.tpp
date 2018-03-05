@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_factory.hpp"
+#include "renderer\factory.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	template< typename DataT >
 	StructuredBuffer< DataT >
@@ -68,8 +68,6 @@ namespace mage {
 			device_context->GetDevice(device.ReleaseAndGetAddressOf());
 			SetupStructuredBuffer(*device.Get(), m_size);
 		}
-
-		Assert(m_buffer);
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;

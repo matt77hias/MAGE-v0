@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_factory.hpp"
+#include "renderer\factory.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	template< typename DataT >
 	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device& device)
@@ -31,8 +31,6 @@ namespace mage {
 	template< typename DataT >
 	void ConstantBuffer< DataT >
 		::UpdateData(ID3D11DeviceContext& device_context, const DataT& data) {
-
-		Assert(m_buffer);
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;

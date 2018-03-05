@@ -48,6 +48,14 @@
     <ClInclude Include="Rendering\src\loaders\texture_loader.hpp" />
     <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\camera_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\game_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\model_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\shadow_map_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\structured_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp" />
     <ClInclude Include="Rendering\src\renderer\configuration.hpp" />
     <ClInclude Include="Rendering\src\renderer\factory.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\sprite_batch.hpp" />
@@ -92,6 +100,8 @@
     <None Include="Rendering\src\loaders\msh\msh_writer.tpp" />
     <None Include="Rendering\src\loaders\obj\obj_loader.tpp" />
     <None Include="Rendering\src\loaders\obj\obj_reader.tpp" />
+    <None Include="Rendering\src\renderer\buffer\constant_buffer.tpp" />
+    <None Include="Rendering\src\renderer\buffer\structured_buffer.tpp" />
     <None Include="Rendering\src\renderer\factory.tpp" />
     <None Include="Rendering\src\resource\mesh\mesh.tpp" />
     <None Include="Rendering\src\resource\mesh\primitive_batch_mesh.tpp" />
@@ -114,6 +124,8 @@
     <ClCompile Include="Rendering\src\loaders\sprite_font_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\texture_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp" />
+    <ClCompile Include="Rendering\src\renderer\buffer\shadow_map_buffer.cpp" />
+    <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp" />
     <ClCompile Include="Rendering\src\renderer\factory.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\sprite_batch.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp" />

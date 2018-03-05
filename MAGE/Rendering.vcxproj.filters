@@ -332,6 +332,30 @@
     <ClInclude Include="Rendering\src\scene\light\directional_light.hpp">
       <Filter>Header Files\scene\light</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\model_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\shadow_map_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\structured_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\camera_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\game_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -387,6 +411,12 @@
     </None>
     <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp">
       <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\renderer\buffer\constant_buffer.tpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </None>
+    <None Include="Rendering\src\renderer\buffer\structured_buffer.tpp">
+      <Filter>Header Files\renderer\buffer</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +503,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\scene\light\spot_light.cpp">
       <Filter>Source Files\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\buffer\shadow_map_buffer.cpp">
+      <Filter>Source Files\renderer\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp">
+      <Filter>Source Files\renderer\buffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

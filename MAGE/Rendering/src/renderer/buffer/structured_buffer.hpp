@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\buffer_lock.hpp"
+#include "renderer\buffer\buffer_lock.hpp"
 #include "collection\vector.hpp"
 
 #pragma endregion
@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of structured buffers.
@@ -127,7 +127,7 @@ namespace mage {
 						structured buffer.
 		 */
 		[[nodiscard]]
-		ID3D11ShaderResourceView *Get() const noexcept {
+		NotNull< ID3D11ShaderResourceView* > Get() const noexcept {
 			return m_buffer_srv.Get();
 		}
 
@@ -200,6 +200,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\buffer\structured_buffer.tpp"
+#include "renderer\buffer\structured_buffer.tpp"
 
 #pragma endregion

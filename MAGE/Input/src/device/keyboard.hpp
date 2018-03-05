@@ -5,15 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\input.hpp"
+#include "direct_input.hpp"
 #include "type\types.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::input {
 	
 	/**
 	 A class of keyboards.
@@ -23,37 +23,20 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the keyboard of the input manager associated with the current 
-		 engine.
-
-		 @pre			The input manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the keyboard of the input manager 
-						associated with the current engine.
-		 */
-		[[nodiscard]]static const Keyboard *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a keyboard.
 
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a di is not equal to @c nullptr.
 		 @param[in]		window
 						The handle of the parent window.
 		 @param[in]		di
-						A pointer to a direct input object.
+						A reference to a direct input object.
 		 @throws		Exception
 						Failed to initialize the keyboard.
 		 */
-		explicit Keyboard(HWND window, IDirectInput8 *di);
+		explicit Keyboard(NotNull< HWND > window, IDirectInput8& di);
 
 		/**
 		 Constructs a keyboard from the given keyboard.
@@ -61,7 +44,7 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard to copy.
 		 */
-		Keyboard(const Keyboard &keyboard) = delete;
+		Keyboard(const Keyboard& keyboard) = delete;
 
 		/**
 		 Constructs a keyboard by moving the given keyboard.
@@ -69,7 +52,7 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard to move.
 		 */
-		Keyboard(Keyboard &&keyboard) noexcept;
+		Keyboard(Keyboard&& keyboard) noexcept;
 
 		/**
 		 Destructs this keyboard.
@@ -88,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given keyboard (i.e. 
 						this keyboard).
 		 */
-		Keyboard &operator=(const Keyboard &keyboard) = delete;
+		Keyboard& operator=(const Keyboard& keyboard) = delete;
 
 		/**
 		 Moves the given keyboard to this keyboard.
@@ -97,7 +80,7 @@ namespace mage {
 						A reference to the keyboard to move.
 		 @return		A reference to the moved keyboard (i.e. this keyboard).
 		 */
-		Keyboard &operator=(Keyboard &&keyboard) = delete;
+		Keyboard& operator=(Keyboard&& keyboard) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,14 +91,13 @@ namespace mage {
 
 		 @return		The window handle of this keyboard.
 		 */
-		[[nodiscard]]HWND GetWindow() noexcept {
-			return m_window;
-		}
+		[[nodiscard]]
+		NotNull< HWND > GetWindow() noexcept;
 
 		/**
 		 Updates the state of this keyboard.
 		 */
-		void Update();
+		void Update() noexcept;
 
 		/**
 		 Checks whether the given key of this keyboard is pressed.
@@ -135,51 +117,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes the keyboard device of this keyboard.
-
-		 @throws		Exception
-						Failed to initialize the keyboard.
-		 */
-		void InitializeKeyboard();
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 The handle of the parent window of this keyboard.
-		 */
-		HWND m_window;
+		class Impl;
 
 		/**
-		 A pointer to the DirectInput object of this keyboard.
+		 A pointer to the implementation of this keyboard.
 		 */
-		IDirectInput8 * const m_di;
-
-		/**
-		 A pointer to the DirectInput keyboard device of this keyboard.
-		 */
-		ComPtr< IDirectInputDevice8 > m_keyboard;
-
-		/**
-		 The current press stamp (incremented every frame) of this keyboard.
-		 */
-		U64 m_press_stamp;
-
-		/**
-		 The state of the key buttons of this keyboard.
-		 */
-		unsigned char m_key_state[256];
-
-		/**
-		 The key button press stamp of this keyboard.
-		 
-		 Stamps the keys pressed in the last frame of this keyboard.
-		 */
-		mutable U64 m_key_press_stamp[256];
+		UniquePtr< Impl > m_impl;
 	};
 }

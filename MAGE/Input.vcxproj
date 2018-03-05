@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input\src\device\keyboard.hpp" />
+    <ClInclude Include="Input\src\device\mouse.hpp" />
+    <ClInclude Include="Input\src\direct_input.hpp" />
+    <ClInclude Include="Input\src\input_manager.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input\src\device\keyboard.cpp" />
+    <ClCompile Include="Input\src\device\mouse.cpp" />
+    <ClCompile Include="Input\src\input_manager.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{52FE3AC1-DA44-4E0C-A79E-1507FE0EB625}</ProjectGuid>

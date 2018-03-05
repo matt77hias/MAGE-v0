@@ -5,15 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\input.hpp"
+#include "direct_input.hpp"
 #include "type\types.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::input {
 
 	/**
 	 A class of mouses.
@@ -23,37 +23,20 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the mouse of the input manager associated with the current 
-		 engine.
-
-		 @pre			The input manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the mouse of the input manager associated 
-						with the current engine.
-		 */
-		[[nodiscard]]static const Mouse *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a mouse.
 
-		 @pre			@a window is not equal to @c nullptr.
-		 @pre			@a di is not equal to @c nullptr.
 		 @param[in]		window
 						The handle of the parent window.
 		 @param[in]		di
-						A pointer to a direct input object.
+						A reference to a direct input object.
 		 @throws		Exception
 						Failed to initialize the mouse.
 		 */
-		explicit Mouse(HWND window, IDirectInput8 *di);
+		explicit Mouse(NotNull< HWND > window, IDirectInput8& di);
 
 		/**
 		 Constructs a mouse from the given mouse.
@@ -61,7 +44,7 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse to copy.
 		 */
-		Mouse(const Mouse &mouse) = delete;
+		Mouse(const Mouse& mouse) = delete;
 
 		/**
 		 Constructs a mouse by moving the given mouse.
@@ -69,7 +52,7 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse to move.
 		 */
-		Mouse(Mouse &&mouse) noexcept;
+		Mouse(Mouse&& mouse) noexcept;
 
 		/**
 		 Destructs this mouse.
@@ -88,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given mouse (i.e. this 
 						mouse).
 		 */
-		Mouse &operator=(const Mouse &mouse) = delete;
+		Mouse& operator=(const Mouse& mouse) = delete;
 
 		/**
 		 Moves the given mouse to this mouse.
@@ -97,7 +80,7 @@ namespace mage {
 						A reference to the mouse to move.
 		 @return		A reference to the moved mouse (i.e. this mouse).
 		 */
-		Mouse &operator=(Mouse &&mouse) = delete;
+		Mouse& operator=(Mouse&& mouse) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,14 +91,13 @@ namespace mage {
 
 		 @return		The window handle of this mouse.
 		 */
-		[[nodiscard]]HWND GetWindow() noexcept {
-			return m_window;
-		}
+		[[nodiscard]]
+		NotNull< HWND > GetWindow() noexcept;
 
 		/**
 		 Updates the state of this mouse.
 		 */
-		void Update();
+		void Update() noexcept;
 
 		/**
 		 Checks whether the given mouse button of this mouse is pressed.
@@ -137,102 +119,68 @@ namespace mage {
 
 		 @return		The horizontal position of this mouse.
 		 */
-		[[nodiscard]]S32 GetPositionX() const noexcept {
-			return static_cast< S32 >(m_position.x);
-		}
+		[[nodiscard]]
+		S32 GetPositionX() const noexcept;
 
 		/**
 		 Returns the vertical position of this mouse.
 
 		 @return		The vertical position of this mouse.
 		 */
-		[[nodiscard]]S32 GetPositionY() const noexcept {
-			return static_cast< S32 >(m_position.y);
-		}
+		[[nodiscard]]
+		S32 GetPositionY() const noexcept;
+
+		/**
+		 Returns the position of this mouse.
+
+		 @return		The position of this mouse.
+		 */
+		[[nodiscard]]
+		const S32x2 GetPosition() const noexcept;
 
 		/**
 		 Returns the change in this mouse's horizontal coordinate.
 
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
-		[[nodiscard]]S32 GetDeltaX() const noexcept {
-			return static_cast< S32 >(m_button_state.lX);
-		}
+		[[nodiscard]]
+		S32 GetDeltaX() const noexcept;
 
 		/**
 		 Returns the change in this mouse's vertical coordinate.
 
 		 @return		The change in this mouse's vertical coordinate.
 		 */
-		[[nodiscard]]S32 GetDeltaY() const noexcept {
-			return static_cast< S32 >(m_button_state.lY);
-		}
+		[[nodiscard]]
+		S32 GetDeltaY() const noexcept;
+
+		/**
+		 Returns the change in this mouse's coordinates.
+
+		 @return		The change in this mouse's coordinates.
+		 */
+		[[nodiscard]]
+		const S32x2 GetDelta() const noexcept;
 
 		/**
 		 Returns the change in this mouse's scroll wheel.
 
 		 @return		The change in this mouse's scroll wheel.
 		 */
-		[[nodiscard]]S32 GetDeltaWheel() const noexcept {
-			return static_cast< S32 >(m_button_state.lZ);
-		}
+		[[nodiscard]]
+		S32 GetDeltaWheel() const noexcept;
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes the mouse device of this mouse.
-
-		 @throws		Exception
-						Failed to initialize the mouse.
-		 */
-		void InitializeMouse();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 The handle of the parent window of this mouse.
-		 */
-		HWND m_window;
+		class Impl;
 
 		/**
-		 A pointer to the DirectInput object of this mouse.
+		 A pointer to the implementation of this mouse.
 		 */
-		IDirectInput8 * const m_di;
-
-		/**
-		 A pointer to the DirectInput mouse device of this mouse.
-		 */
-		ComPtr< IDirectInputDevice8 > m_mouse;
-
-		/**
-		 The current press stamp (incremented every frame) of this mouse.
-		 */
-		U64 m_press_stamp;
-
-		/**
-		 The state of the mouse buttons of this mouse.
-
-		 Describes the state of a mouse device that has up to four buttons, or 
-		 another device that is being accessed as if it were a mouse device.
-		 */
-		DIMOUSESTATE m_button_state;
-
-		/**
-		 The mouse button press stamp of this mouse.
-
-		 Stamps the mouse buttons pressed in the last frame of this mouse.
-		 */
-		mutable U64 m_button_press_stamp[3];
-
-		/**
-		 The position of the mouse cursor on the screen of this mouse.
-		 */
-		POINT m_position;
+		UniquePtr< Impl > m_impl;
 	};
 }

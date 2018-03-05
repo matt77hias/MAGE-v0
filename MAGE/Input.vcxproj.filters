@@ -9,5 +9,36 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\device">
+      <UniqueIdentifier>{9faa35cc-1cfc-4977-a3b4-422f57b85282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\device">
+      <UniqueIdentifier>{52020242-7719-4fdf-aa4b-7a19f79ad4c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input\src\device\keyboard.hpp">
+      <Filter>Header Files\device</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\src\device\mouse.hpp">
+      <Filter>Header Files\device</Filter>
+    </ClInclude>
+	<ClInclude Include="Input\src\direct_input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\src\input_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input\src\device\keyboard.cpp">
+      <Filter>Source Files\device</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\src\device\mouse.cpp">
+      <Filter>Source Files\device</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\src\input_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

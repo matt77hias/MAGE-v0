@@ -111,9 +111,7 @@ namespace mage {
 					  m_window_class_name.c_str());
 	}
 
-	WindowDescriptor::WindowDescriptor(WindowDescriptor&& desc) noexcept
-		: m_instance(std::move(desc.m_instance)),
-		m_window_class_name(std::move(desc.m_window_class_name)) {}
+	WindowDescriptor::WindowDescriptor(WindowDescriptor&& desc) noexcept = default;
 
 	WindowDescriptor::~WindowDescriptor() {
 		// Unregister the window class.

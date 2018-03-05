@@ -5,15 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\keyboard.hpp"
-#include "input\mouse.hpp"
+#include "device\keyboard.hpp"
+#include "device\mouse.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::input {
 
 	/**
 	 A class of input managers.
@@ -23,26 +23,12 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the input manager associated with the current engine.
-
-		 @pre			The current engine must exist.
-		 @return		A pointer to the input manager associated with the 
-						current engine.
-		 */
-		[[nodiscard]]static const InputManager *Get() noexcept;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
 		 Constructs an input manager for the given window handle.
 
-		 @pre			@a window is not equal to @c nullptr.
 		 @param[in]		window
 						The handle of the parent window.
 		 @throws		Exception
@@ -50,7 +36,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to initialize the input systems.
 		 */
-		explicit InputManager(HWND window);
+		explicit InputManager(NotNull< HWND > window);
 
 		/**
 		 Constructs an input manager from the given input manager.
@@ -58,7 +44,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the input manager to copy.
 		 */
-		InputManager(const InputManager &manager) = delete;
+		InputManager(const InputManager& manager) = delete;
 
 		/**
 		 Constructs an input manager by moving the given input manager.
@@ -66,7 +52,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to the input manager to move.
 		 */
-		InputManager(InputManager &&manager) noexcept;
+		InputManager(InputManager&& manager) noexcept;
 
 		/**
 		 Destructs this input manager.
@@ -85,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given input manager 
 						(i.e. this input manager).
 		 */
-		InputManager &operator=(const InputManager &manager) = delete;
+		InputManager& operator=(const InputManager& manager) = delete;
 
 		/**
 		 Moves the given input manager to this input manager.
@@ -95,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved input manager (i.e. this 
 						input manager).
 		 */
-		InputManager &operator=(InputManager &&manager) = delete;
+		InputManager& operator=(InputManager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -106,83 +92,41 @@ namespace mage {
 
 		 @return		The window handle of this input manager.
 		 */
-		[[nodiscard]]HWND GetWindow() noexcept {
-			return m_window;
-		}
+		[[nodiscard]]
+		NotNull< HWND > GetWindow() noexcept;
 
 		/**
 		 Updates the state of the input systems of this input manager.
 		 */
-		void Update() {
-			m_keyboard->Update();
-			m_mouse->Update();
-		}
+		void Update() noexcept;
 
 		/**
 		 Returns the keyboard of this input manager.
 
-		 @return		A pointer to the keyboard of this input manager.
+		 @return		A reference to the keyboard of this input manager.
 		 */
-		[[nodiscard]]const Keyboard *GetKeyboard() const noexcept {
-			return m_keyboard.get();
-		}
+		[[nodiscard]]
+		const Keyboard& GetKeyboard() const noexcept;
 
 		/**
 		 Returns the mouse of this input manager.
 
-		 @return		A pointer to the mouse of this input manager.
+		 @return		A reference to the mouse of this input manager.
 		 */
-		[[nodiscard]]const Mouse *GetMouse() const noexcept {
-			return m_mouse.get();
-		}
+		[[nodiscard]]
+		const Mouse& GetMouse() const noexcept;
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes the DirectInput object of this input manager.
-
-		 @throws		Exception
-						Failed to initialize the DirectInput object.
-		 */
-		void InitializeDI();
-
-		/**
-		 Initializes the different input systems of this input manager.
-
-		 @throws		Exception
-						Failed to initialize the input systems.
-		 */
-		void InitializeInputSystems();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 The handle of the parent window of this input manager.
-		 */
-		HWND m_window;
+		class Impl;
 
-		/**
-		 A pointer to the DirectInput object of this input manager.
-
-		 The methods of the IDirectInput8 interface are used to enumerate, 
-		 create, and retrieve the status of Microsoft DirectInput device.
+		/** 
+		 A pointer to the implementation of this input manager.
 		 */
-		ComPtr< IDirectInput8 > m_di;
-
-		/**
-		 A pointer to the keyboard of this input manager.
-		 */
-		UniquePtr< Keyboard > m_keyboard;
-
-		/**
-		 A pointer to the mouse of this input manager.
-		 */
-		UniquePtr< Mouse > m_mouse;
+		UniquePtr< Impl > m_impl;
 	};
 }

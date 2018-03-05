@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of sprite font descriptors.
@@ -33,8 +33,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to copy.
 		 */
-		constexpr SpriteFontDescriptor(const SpriteFontDescriptor& 
-									   desc) noexcept = default;
+		constexpr SpriteFontDescriptor(
+			const SpriteFontDescriptor& desc) noexcept = default;
 
 		/**
 		 Constructs a sprite font descriptor by moving the given sprite font 
@@ -43,8 +43,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor to move.
 		 */
-		constexpr SpriteFontDescriptor(SpriteFontDescriptor&& 
-									   desc) noexcept = default;
+		constexpr SpriteFontDescriptor(
+			SpriteFontDescriptor&& desc) noexcept = default;
 
 		/**
 		Destructs this sprite font descriptor.

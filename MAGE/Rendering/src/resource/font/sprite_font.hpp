@@ -6,10 +6,10 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "sprite\font\color_string.hpp"
-#include "sprite\font\sprite_font_descriptor.hpp"
-#include "sprite\font\sprite_font_output.hpp"
-#include "sprite\sprite_batch.hpp"
+#include "resource\font\color_string.hpp"
+#include "resource\font\sprite_font_descriptor.hpp"
+#include "resource\font\sprite_font_output.hpp"
+#include "rendering\pass\sprite_batch.hpp"
 
 #pragma endregion
 

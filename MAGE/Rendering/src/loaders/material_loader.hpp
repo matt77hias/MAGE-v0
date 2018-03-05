@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\material.hpp"
+#include "resource\model\material.hpp"
 
 #pragma endregion
 
@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	// Forward declaration.
 	class ResourceManager;

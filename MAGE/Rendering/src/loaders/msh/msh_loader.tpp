@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring& fname, 

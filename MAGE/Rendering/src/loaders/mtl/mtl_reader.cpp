@@ -5,14 +5,13 @@
 
 #include "loaders\mtl\mtl_reader.hpp"
 #include "loaders\mtl\mtl_tokens.hpp"
-#include "string\string_utils.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	MTLReader::MTLReader(ResourceManager& resource_manager, 
 						 std::vector< Material > &material_buffer)

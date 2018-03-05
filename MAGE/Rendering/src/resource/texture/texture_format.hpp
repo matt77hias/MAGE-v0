@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math.hpp"
-#include "rendering\rendering.hpp"
+#include "direct3d11.hpp"
+#include "type\types.hpp"
 
 #pragma endregion
 
@@ -14,11 +14,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	//-------------------------------------------------------------------------
-	// DXGI_FORMAT
-	//-------------------------------------------------------------------------
-	#pragma region
 
 	/**
 	 Returns the number of bits per pixel of the given DXGI format.
@@ -28,20 +23,20 @@ namespace mage {
 	 @return		The number of bits per pixel of the given DXGI format.
 	 */
 	[[nodiscard]]
-	constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
+	constexpr U32 BitsPerPixel(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
 		case DXGI_FORMAT_R32G32B32A32_FLOAT:
 		case DXGI_FORMAT_R32G32B32A32_UINT:
 		case DXGI_FORMAT_R32G32B32A32_SINT:
-			return 128;
+			return 128u;
 
 		case DXGI_FORMAT_R32G32B32_TYPELESS:
 		case DXGI_FORMAT_R32G32B32_FLOAT:
 		case DXGI_FORMAT_R32G32B32_UINT:
 		case DXGI_FORMAT_R32G32B32_SINT:
-			return 96;
+			return 96u;
 
 		case DXGI_FORMAT_R16G16B16A16_TYPELESS:
 		case DXGI_FORMAT_R16G16B16A16_FLOAT:
@@ -60,7 +55,7 @@ namespace mage {
 		case DXGI_FORMAT_Y416:
 		case DXGI_FORMAT_Y210:
 		case DXGI_FORMAT_Y216:
-			return 64;
+			return 64u;
 
 		case DXGI_FORMAT_R10G10B10A2_TYPELESS:
 		case DXGI_FORMAT_R10G10B10A2_UNORM:
@@ -100,11 +95,11 @@ namespace mage {
 		case DXGI_FORMAT_AYUV:
 		case DXGI_FORMAT_Y410:
 		case DXGI_FORMAT_YUY2:
-			return 32;
+			return 32u;
 
 		case DXGI_FORMAT_P010:
 		case DXGI_FORMAT_P016:
-			return 24;
+			return 24u;
 
 		case DXGI_FORMAT_R8G8_TYPELESS:
 		case DXGI_FORMAT_R8G8_UNORM:
@@ -122,12 +117,12 @@ namespace mage {
 		case DXGI_FORMAT_B5G5R5A1_UNORM:
 		case DXGI_FORMAT_A8P8:
 		case DXGI_FORMAT_B4G4R4A4_UNORM:
-			return 16;
+			return 16u;
 
 		case DXGI_FORMAT_NV12:
 		case DXGI_FORMAT_420_OPAQUE:
 		case DXGI_FORMAT_NV11:
-			return 12;
+			return 12u;
 
 		case DXGI_FORMAT_R8_TYPELESS:
 		case DXGI_FORMAT_R8_UNORM:
@@ -138,10 +133,10 @@ namespace mage {
 		case DXGI_FORMAT_AI44:
 		case DXGI_FORMAT_IA44:
 		case DXGI_FORMAT_P8:
-			return 8;
+			return 8u;
 
 		case DXGI_FORMAT_R1_UNORM:
-			return 1;
+			return 1u;
 
 		case DXGI_FORMAT_BC1_TYPELESS:
 		case DXGI_FORMAT_BC1_UNORM:
@@ -149,7 +144,7 @@ namespace mage {
 		case DXGI_FORMAT_BC4_TYPELESS:
 		case DXGI_FORMAT_BC4_UNORM:
 		case DXGI_FORMAT_BC4_SNORM:
-			return 4;
+			return 4u;
 
 		case DXGI_FORMAT_BC2_TYPELESS:
 		case DXGI_FORMAT_BC2_UNORM:
@@ -166,10 +161,10 @@ namespace mage {
 		case DXGI_FORMAT_BC7_TYPELESS:
 		case DXGI_FORMAT_BC7_UNORM:
 		case DXGI_FORMAT_BC7_UNORM_SRGB:
-			return 8;
+			return 8u;
 
 		default:
-			return 0;
+			return 0u;
 		}
 	}
 
@@ -204,36 +199,4 @@ namespace mage {
 
 		}
 	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Texture Size
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 Returns the size of the given 2D texture.
-
-	 @param[in]		texture_srv
-					A reference to the (texture) shader resource view.
-	 @return		The size [width, height] of the given 2D texture.
-	 @throws		Exception
-					The resource of the given shader resource view must be 
-					convertible to a @c ID3D11Texture2D.
-	 */
-	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &texture_srv);
-
-	/**
-	 Returns the size of the given 2D texture.
-
-	 @param[in]		texture
-					A reference to the 2D texture.
-	 @return		The size [width, height] of the given 2D texture.
-	 */
-	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept;
-
-	#pragma endregion
 }

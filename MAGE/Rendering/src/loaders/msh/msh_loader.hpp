@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	/**
 	 Imports the mesh from the given MSH file.

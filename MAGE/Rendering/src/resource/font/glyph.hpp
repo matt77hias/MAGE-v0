@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4201 ) // Anonymous struct.

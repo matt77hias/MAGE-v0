@@ -5,15 +5,14 @@
 
 #include "loaders\font\font_reader.hpp"
 #include "loaders\font\font_tokens.hpp"
-#include "rendering\conversion.hpp"
-#include "exception\exception.hpp"
+#include "resource\texture\texture_format.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	SpriteFontReader::SpriteFontReader(ID3D11Device& device, 
 		                               SpriteFontOutput& output, 
@@ -93,8 +92,8 @@ namespace mage::loader {
 		{
 			const HRESULT result = m_device.CreateTexture2D(
 				&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "%ls: Texture creation failed: %08X.",
-				GetFilename().c_str(), result);
+			ThrowIfFailed(result, "%ls: Texture creation failed: %08X.", 
+						  GetFilename().c_str(), result);
 		}
 
 		// Create the SRV descriptor.
@@ -106,8 +105,8 @@ namespace mage::loader {
 			const HRESULT result = m_device.CreateShaderResourceView(
 				texture.Get(), &shader_resource_view_desc,
 				m_output.m_texture_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "%ls: SRV creation failed: %08X.",
-				GetFilename().c_str(), result);
+			ThrowIfFailed(result, "%ls: SRV creation failed: %08X.", 
+						  GetFilename().c_str(), result);
 		}
 	}
 }

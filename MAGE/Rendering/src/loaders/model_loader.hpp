@@ -5,15 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model_output.hpp"
-#include "mesh\mesh_descriptor.hpp"
+#include "resource\model\model_output.hpp"
+#include "resource\mesh\mesh_descriptor.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	// Forward declaration.
 	class ResourceManager;

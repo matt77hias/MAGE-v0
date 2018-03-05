@@ -5,14 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
+#include "direct3d11.hpp"
+#include "type\types.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	/**
 	 Imports the texture from the given file.

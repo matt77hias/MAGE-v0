@@ -5,16 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math.hpp"
 #include "spectrum\color.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of color strings representing a string and its color.
@@ -94,7 +92,7 @@ namespace mage {
 		 @return		A pointer to the string of this color string.
 		 */
 		[[nodiscard]]
-		const wchar_t *c_str() const noexcept {
+		NotNull< const_wzstring > c_str() const noexcept {
 			return m_str.c_str();
 		}
 

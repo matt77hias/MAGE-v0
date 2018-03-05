@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	MSHReader< VertexT, IndexT >
@@ -37,7 +37,7 @@ namespace mage::loader {
 		{
 			const bool result = IsHeaderValid();
 			ThrowIfFailed(result, 
-				"%ls: invalid mesh header.", GetFilename().c_str());
+						  "%ls: invalid mesh header.", GetFilename().c_str());
 		}
 
 		const auto nb_vertices = Read< U32 >();
@@ -51,7 +51,6 @@ namespace mage::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	
 	[[nodiscard]]
 	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
 		for (auto magic = g_font_token_magic; *magic != L'\0'; ++magic) {

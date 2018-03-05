@@ -20,10 +20,38 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Rendering\src\direct3d11.hpp" />
+    <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\dds\screen_grab.hpp" />
+    <ClInclude Include="Rendering\src\loaders\font\font_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\font\font_reader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\font\font_tokens.hpp" />
+    <ClInclude Include="Rendering\src\loaders\material_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_reader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_tokens.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_writer.hpp" />
+    <ClInclude Include="Rendering\src\loaders\model_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\msh\msh_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\msh\msh_reader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\msh\msh_tokens.hpp" />
+    <ClInclude Include="Rendering\src\loaders\msh\msh_writer.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_reader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_tokens.hpp" />
+    <ClInclude Include="Rendering\src\loaders\obj\obj_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\obj\obj_reader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\obj\obj_tokens.hpp" />
+    <ClInclude Include="Rendering\src\loaders\sprite_font_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\texture_loader.hpp" />
+    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp" />
     <ClInclude Include="Rendering\src\renderer\configuration.hpp" />
     <ClInclude Include="Rendering\src\renderer\factory.hpp" />
     <ClInclude Include="Rendering\src\renderer\pipeline.hpp" />
+    <ClInclude Include="Rendering\src\resource\font\color_string.hpp" />
+    <ClInclude Include="Rendering\src\resource\font\glyph.hpp" />
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_descriptor.hpp" />
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_output.hpp" />
     <ClInclude Include="Rendering\src\resource\mesh\mesh.hpp" />
     <ClInclude Include="Rendering\src\resource\mesh\mesh_descriptor.hpp" />
     <ClInclude Include="Rendering\src\resource\mesh\primitive_batch_mesh.hpp" />
@@ -37,11 +65,20 @@
     <ClInclude Include="Rendering\src\resource\shader\compiled_shader.hpp" />
     <ClInclude Include="Rendering\src\resource\shader\shader.hpp" />
     <ClInclude Include="Rendering\src\resource\shader\shader_factory.hpp" />
-    <ClInclude Include="Rendering\src\resource\shader\shader_utils.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp" />
+    <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp" />
+    <None Include="Rendering\src\loaders\mdl\mdl_reader.tpp" />
+    <None Include="Rendering\src\loaders\mdl\mdl_writer.tpp" />
+    <None Include="Rendering\src\loaders\model_loader.tpp" />
+    <None Include="Rendering\src\loaders\msh\msh_loader.tpp" />
+    <None Include="Rendering\src\loaders\msh\msh_reader.tpp" />
+    <None Include="Rendering\src\loaders\msh\msh_writer.tpp" />
+    <None Include="Rendering\src\loaders\obj\obj_loader.tpp" />
+    <None Include="Rendering\src\loaders\obj\obj_reader.tpp" />
     <None Include="Rendering\src\renderer\factory.tpp" />
     <None Include="Rendering\src\resource\mesh\mesh.tpp" />
     <None Include="Rendering\src\resource\mesh\primitive_batch_mesh.tpp" />
@@ -53,6 +90,16 @@
     <None Include="Rendering\src\resource\texture\texture.tpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp" />
+    <ClCompile Include="Rendering\src\loaders\font\font_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\font\font_reader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\material_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_reader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\sprite_font_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\texture_loader.cpp" />
+    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp" />
     <ClCompile Include="Rendering\src\renderer\factory.cpp" />
     <ClCompile Include="Rendering\src\resource\mesh\mesh.cpp" />
     <ClCompile Include="Rendering\src\resource\mesh\sprite_batch_mesh.cpp" />
@@ -62,7 +109,6 @@
     <ClCompile Include="Rendering\src\resource\shader\compiled_shader.cpp" />
     <ClCompile Include="Rendering\src\resource\shader\shader.cpp" />
     <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp" />
-    <ClCompile Include="Rendering\src\resource\shader\shader_utils.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp" />
   </ItemGroup>

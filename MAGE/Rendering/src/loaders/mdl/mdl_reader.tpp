@@ -8,15 +8,13 @@
 #include "loaders\material_loader.hpp"
 #include "loaders\mdl\mdl_tokens.hpp"
 #include "loaders\msh\msh_loader.hpp"
-#include "string\string_utils.hpp"
-#include "exception\exception.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	MDLReader< VertexT, IndexT >

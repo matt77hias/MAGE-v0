@@ -7,14 +7,23 @@
 
 #include "loaders\mdl\mdl_loader.hpp"
 #include "loaders\obj\obj_loader.hpp"
-#include "exception\exception.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+#include <cwctype>
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void ImportModelFromFile(const wstring& fname, 
@@ -22,12 +31,14 @@ namespace mage::loader {
 							 ModelOutput< VertexT, IndexT >& model_output, 
 							 const MeshDescriptor< VertexT, IndexT >& mesh_desc) {
 
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"mdl" || extension == L"MDL") {
+		if (L"mdl" == extension) {
 			ImportMDLModelFromFile(fname, resource_manager, model_output);
 		} 
-		else if (extension == L"obj" || extension == L"OBJ") {
+		else if (L"obj" == extension) {
 			ImportOBJMeshFromFile(fname, resource_manager, model_output, mesh_desc);
 		}
 		else {
@@ -39,9 +50,11 @@ namespace mage::loader {
 	void ExportModelToFile(const wstring& fname, 
 						   const ModelOutput< VertexT, IndexT >& model_output) {
 
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"mdl" || extension == L"MDL") {
+		if (L"mdl" == extension) {
 			ExportMDLModelToFile(fname, model_output);
 		}
 		else {

@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	void ImportFontFromFile(const wstring& fname, 
 		                    ID3D11Device& device, 

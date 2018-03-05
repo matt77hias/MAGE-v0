@@ -11,18 +11,30 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+#include <cwctype>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	void ImportSpriteFontFromFile(const wstring& fname, 
 		                          ID3D11Device& device, 
 		                          SpriteFontOutput& output, 
 		                          const SpriteFontDescriptor& desc) {
 		
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"font" || extension == L"FONT") {
+		if (L"font" == extension) {
 			ImportFontFromFile(fname, device, output, desc);
 		}
 		else {

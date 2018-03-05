@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	void ImportMTLMaterialFromFile(const wstring& fname, 
 								   ResourceManager& resource_manager, 

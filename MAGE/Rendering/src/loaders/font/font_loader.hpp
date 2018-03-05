@@ -5,15 +5,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\font\sprite_font_output.hpp"
-#include "sprite\font\sprite_font_descriptor.hpp"
+#include "resource\font\sprite_font_output.hpp"
+#include "resource\font\sprite_font_descriptor.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	/**
 	 Imports the FONT from the given file.

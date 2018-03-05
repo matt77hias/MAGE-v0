@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	MSHWriter< VertexT, IndexT >
@@ -39,7 +39,7 @@ namespace mage::loader {
 		const auto nb_indices  = static_cast< U32 >(m_indices.size());
 		Write< U32 >(nb_indices);
 		
-		WriteArray(gsl::span(nb_vertices.cbegin(), nb_vertices.cend());
-		WriteArray(gsl::span(nb_indices.cbegin(),  nb_indices.cend());
+		WriteArray(gsl::make_span(m_vertices));
+		WriteArray(gsl::make_span(m_indices));
 	}
 }

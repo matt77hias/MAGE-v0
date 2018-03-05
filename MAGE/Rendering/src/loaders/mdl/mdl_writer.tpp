@@ -8,7 +8,6 @@
 #include "loaders\mdl\mdl_tokens.hpp"
 #include "loaders\msh\msh_loader.hpp"
 #include "string\string_utils.hpp"
-#include "file\file_utils.hpp"
 
 #pragma endregion
 
@@ -24,7 +23,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	MDLWriter< VertexT, IndexT >
@@ -76,8 +75,7 @@ namespace mage::loader {
 			= mage::GetFilenameWithoutFileExtension(file_name);
 
 		char output[MAX_PATH];
-		sprintf_s(output, 
-			      std::size(output), 
+		sprintf_s(output, std::size(output), 
 			      "%s %s.mtl",
 			      g_mdl_token_material_library, 
 			      str_convert(file_name_we).c_str());
@@ -91,8 +89,7 @@ namespace mage::loader {
 
 		for (const auto& model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, 
-				      std::size(output),
+			sprintf_s(output, std::size(output),
 				      "%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
 				      g_mdl_token_submodel, 
 				      model_part.m_child.c_str(), 

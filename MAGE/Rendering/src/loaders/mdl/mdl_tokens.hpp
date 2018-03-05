@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	constexpr const char  g_mdl_token_comment          = '#';
-	constexpr const char *g_mdl_token_submodel         = "s";
-	constexpr const char *g_mdl_token_material_library = "mtllib";
+	constexpr const char* g_mdl_token_submodel         = "s";
+	constexpr const char* g_mdl_token_material_library = "mtllib";
 }

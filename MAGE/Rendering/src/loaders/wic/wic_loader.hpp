@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------
 // File: WICTextureLoader.h
 //
-// Function for loading a WIC image and creating a Direct3D runtime texture for it
+// Function for loading a WIC image::rendering and creating a Direct3D runtime texture for it
 // (auto-generating mipmaps if possible)
 //
 // Note: Assumes application has already called CoInitializeEx
@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "rendering\rendering.hpp"
+#include "direct3d11.hpp"
 #include <stdint.h>
 
 

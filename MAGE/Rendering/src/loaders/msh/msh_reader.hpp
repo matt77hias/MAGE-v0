@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	/**
 	 A class of MSH file readers for reading meshes.

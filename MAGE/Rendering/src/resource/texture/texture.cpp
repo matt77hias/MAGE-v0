@@ -14,6 +14,41 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
+	//-------------------------------------------------------------------------
+	// Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &srv) {
+		ComPtr< ID3D11Resource > resource;
+		srv.GetResource(&resource);
+
+		ComPtr< ID3D11Texture2D > texture;
+		const HRESULT result = resource.As(&texture);
+		ThrowIfFailed(result, 
+					  "Conversion of ID3D11Resource to Texture2D failed: %08X.", 
+					  result);
+
+		return GetTexture2DSize(*texture.Get());
+	}
+
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept {
+		// Query the texture size.
+		D3D11_TEXTURE2D_DESC desc;
+		texture.GetDesc(&desc);
+
+		return U32x2(desc.Width, desc.Height);
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Texture
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	Texture::Texture(ID3D11Device& device, wstring fname)
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
@@ -51,4 +86,6 @@ namespace mage::rendering {
 	Texture::~Texture() = default;
 
 	Texture &Texture::operator=(Texture&& texture) noexcept = default;
+
+	#pragma endregion
 }

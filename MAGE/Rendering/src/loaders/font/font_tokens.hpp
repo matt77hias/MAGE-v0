@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
-	constexpr const char *g_font_token_magic = "MAGEfont";
+	constexpr const char* g_font_token_magic = "MAGEfont";
 }

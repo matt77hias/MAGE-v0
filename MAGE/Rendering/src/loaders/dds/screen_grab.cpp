@@ -23,7 +23,7 @@
 
 // Does not capture mipmap chains, only the top-most texture level is saved
 
-// For 2D array textures and cubemaps, it captures only the first image in the array
+// For 2D array textures and cubemaps, it captures only the first image::rendering in the array
 
 #include "loaders\dds\screen_grab.hpp"
 

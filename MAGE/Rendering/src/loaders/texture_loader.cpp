@@ -17,22 +17,26 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <algorithm>
+#include <cwctype>
 #include <wincodec.h>
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	void ImportTextureFromFile(const wstring& fname, 
 		                       ID3D11Device& device, 
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
 		
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"dds" || extension == L"DDS") {
+		if (L"dds" == extension) {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
 				&device, fname.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
@@ -49,41 +53,41 @@ namespace mage::loader {
 	 extension.
 
 	 @param[in]		extension
-					A reference to the file extension.
+					A reference to the (lower case) file extension.
 	 @return		@c GUID_NULL if no WIC container format is associated with 
 					the given file extension.
-	 @return		The WIC container format associated with the given image 
+	 @return		The WIC container format associated with the given image
 					file extension.
 	 */
 	[[nodiscard]]
 	static inline const GUID 
 		GetGUIDContainerFormat(const wstring& extension) noexcept {
 
-		if (extension == L"png" || extension == L"PNG") {
+		if (L"png" == extension) {
 			return GUID_ContainerFormatPng;
 		}
-		else if (extension == L"jpe"  || extension == L"JPE"
-			  || extension == L"jpeg" || extension == L"JPEG"
-			  || extension == L"jpg"  || extension == L"JPG") {
+		else if (L"jpe"  == extension
+			  || L"jpeg" == extension
+			  || L"jpg"  == extension) {
 			return GUID_ContainerFormatJpeg;
 		}
-		else if (extension == L"tif"  || extension == L"TIF"
-			  || extension == L"tiff" || extension == L"TIFF") {
+		else if (L"tif"  == extension
+			  || L"tiff" == extension) {
 			return GUID_ContainerFormatTiff;
 		}
-		else if (extension == L"gif"  || extension == L"GIF") {
+		else if (L"gif"  == extension) {
 			return GUID_ContainerFormatGif;
 		}
-		else if (extension == L"bmp"  || extension == L"BMP"
-			  || extension == L"dib"  || extension == L"DIB") {
+		else if (L"bmp"  == extension
+			  || L"dib"  == extension) {
 			return GUID_ContainerFormatBmp;
 		}
-		else if (extension == L"ico"  || extension == L"ICO") {
+		else if (L"ico"  == extension) {
 			return GUID_ContainerFormatIco;
 		}
-		else if (extension == L"hdp"  || extension == L"HDP"
-			  || extension == L"wdp"  || extension == L"WDP"
-			  || extension == L"jxr"  || extension == L"JXR") {
+		else if (L"hdp"  == extension
+			  || L"wdp"  == extension
+			  || L"jxr"  == extension) {
 			return GUID_ContainerFormatWmp;
 		}
 		else {
@@ -95,9 +99,11 @@ namespace mage::loader {
 		                     ID3D11DeviceContext& device_context, 
 		                     ID3D11Resource& texture) {
 
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"dds" || extension == L"DDS") {
+		if (L"dds" == extension) {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
 				&device_context, &texture, fname.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
@@ -106,7 +112,8 @@ namespace mage::loader {
 
 			const auto format = GetGUIDContainerFormat(extension);
 			ThrowIfFailed((GUID_NULL != format), 
-				"Unknown image file extension: %ls", fname.c_str());
+						  "Unknown image::rendering file extension: %ls", 
+						  fname.c_str());
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(
 				&device_context, &texture, format, fname.c_str());

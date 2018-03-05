@@ -5,24 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\material.hpp"
-#include "rendering\resource_manager.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <vector>
+#include "resource\rendering_resource_manager.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	/**
 	 Imports the materials from the given MTL file.

@@ -155,9 +155,6 @@
     <ClInclude Include="Rendering\src\resource\shader\shader_factory.hpp">
       <Filter>Header Files\resource\shader</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\resource\shader\shader_utils.hpp">
-      <Filter>Header Files\resource\shader</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\resource\shader\compiled_shader.hpp">
       <Filter>Header Files\resource\shader</Filter>
     </ClInclude>
@@ -209,6 +206,93 @@
     <ClInclude Include="Rendering\src\resource\model\model_output.hpp">
       <Filter>Header Files\resource\model</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\model_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\sprite_font_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\texture_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\material_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
+      <Filter>Header Files\loaders\wic</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_reader.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_tokens.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_loader.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_loader.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_reader.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_tokens.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_tokens.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_writer.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_loader.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_reader.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_reader.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_tokens.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_writer.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_loader.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_loader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_reader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_tokens.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp">
+      <Filter>Header Files\loaders\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\dds\screen_grab.hpp">
+      <Filter>Header Files\loaders\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\color_string.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\glyph.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_descriptor.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_output.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp">
+      <Filter>Header Files\resource\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -238,15 +322,39 @@
     <None Include="Rendering\src\resource\model\model_output.tpp">
       <Filter>Header Files\resource\model</Filter>
     </None>
+    <None Include="Rendering\src\loaders\model_loader.tpp">
+      <Filter>Header Files\loaders</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\obj\obj_loader.tpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\obj\obj_reader.tpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_reader.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_writer.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_loader.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_reader.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_writer.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\src\resource\shader\shader.cpp">
       <Filter>Source Files\resource\shader</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp">
-      <Filter>Source Files\resource\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\src\resource\shader\shader_utils.cpp">
       <Filter>Source Files\resource\shader</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\shader\compiled_shader.cpp">
@@ -275,6 +383,36 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\model\model_descriptor.cpp">
       <Filter>Source Files\resource\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\material_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\sprite_font_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\texture_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp">
+      <Filter>Source Files\loaders\wic</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_loader.cpp">
+      <Filter>Source Files\loaders\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_reader.cpp">
+      <Filter>Source Files\loaders\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\font\font_loader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\font\font_reader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp">
+      <Filter>Source Files\loaders\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp">
+      <Filter>Source Files\loaders\dds</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,23 +5,34 @@
 
 #include "loaders\material_loader.hpp"
 #include "loaders\mtl\mtl_loader.hpp"
-#include "file\file_utils.hpp"
-#include "exception\exception.hpp"
+#include "resource\rendering_resource_manager.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+#include <cwctype>
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage::loader {
+namespace mage::rendering::loader {
 
 	void ImportMaterialFromFile(const wstring &fname, 
 								ResourceManager &resource_manaer, 
 								std::vector< Material > &materials) {
 		
-		const auto extension = GetFileExtension(fname);
+		auto extension = GetFileExtension(fname);
+		std::transform(extension.begin(), extension.end(), extension.begin(),
+					   std::towlower);
 
-		if (extension == L"mtl" || extension == L"MTL") {
+		if (L"mtl" == extension) {
 			ImportMTLMaterialFromFile(fname, resource_manaer, materials);
 			return;
 		}

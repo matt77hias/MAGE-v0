@@ -16,6 +16,36 @@
 namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
+	// Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Returns the size of the given 2D texture.
+
+	 @param[in]		texture_srv
+					A reference to the (texture) shader resource view.
+	 @return		The size [width, height] of the given 2D texture.
+	 @throws		Exception
+					The resource of the given shader resource view must be 
+					convertible to a @c ID3D11Texture2D.
+	 */
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &texture_srv);
+
+	/**
+	 Returns the size of the given 2D texture.
+
+	 @param[in]		texture
+					A reference to the 2D texture.
+	 @return		The size [width, height] of the given 2D texture.
+	 */
+	[[nodiscard]]
+	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Texture
 	//-------------------------------------------------------------------------
 	#pragma region

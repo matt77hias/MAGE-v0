@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pipeline.hpp"
-#include "sprite\font\glyph.hpp"
+#include "direct3d11.hpp"
+#include "resource\font\glyph.hpp"
 
 #pragma endregion
 
@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A struct of sprite font outputs for storing the data of a sprite font.

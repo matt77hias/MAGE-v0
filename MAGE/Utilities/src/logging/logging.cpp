@@ -13,6 +13,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	namespace {
+
+		/**
+		 Handler callback for handling the user closing the console (either by 
+		 clicking Close on the console window's window menu, or by clicking the 
+		 End Task button command from Task Manager).
+
+		 @param[in]		dwCtrlType
+						The type of control signal received by the handler.
+		 @return		@c TRUE if the function handles the control signal. 
+						@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
+		 */
+		[[nodiscard]]
+		inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
+			return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
+		}
+	}
+
 	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
 
 	[[nodiscard]]
@@ -36,21 +54,6 @@ namespace mage {
 		// dwSize:	a COORD structure that contains the size of the console
 		//			screen buffer in character columns and rows.
 		return static_cast< U16 >(buffer_info.dwSize.X);
-	}
-
-	/**
-	 Handler callback for handling the user closing the console (either by 
-	 clicking Close on the console window's window menu, or by clicking the 
-	 End Task button command from Task Manager).
-
-	 @param[in]		dwCtrlType
-					The type of control signal received by the handler.
-	 @return		@c TRUE if the function handles the control signal. 
-					@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
-	 */
-	[[nodiscard]]
-	static inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
-		return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
 	}
 
 	void InitializeConsole() {

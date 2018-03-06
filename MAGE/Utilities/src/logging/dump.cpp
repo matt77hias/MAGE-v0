@@ -31,11 +31,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]]
-	static inline LONG WINAPI UnhandledExceptionFilter(EXCEPTION_POINTERS* 
-													   exception_record) noexcept {
-		CreateMiniDump(exception_record);
-		return EXCEPTION_CONTINUE_SEARCH;
+	namespace {
+
+		[[nodiscard]]
+		inline LONG WINAPI UnhandledExceptionFilter(
+			EXCEPTION_POINTERS* exception_record) noexcept {
+
+			CreateMiniDump(exception_record);
+			return EXCEPTION_CONTINUE_SEARCH;
+		}
+
 	}
 
 	void AddUnhandledExceptionFilter() noexcept {

@@ -192,147 +192,147 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	// General Factory Methods
 	//-------------------------------------------------------------------------
-	#pragma region
+	namespace {
 
-	/**
-	 Creates a vertex shader.
+		/**
+		 Creates a vertex shader.
 	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the vertex shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the vertex 
-					shader.
-	 @return		A pointer to the vertex shader.
-	 @throws		Exception
-					Failed to create the vertex shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline VertexShaderPtr CreateVS(ResourceManager& resource_manager, 
-										   ConstructorArgsT&&... args) {
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the vertex shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the vertex 
+						shader.
+		 @return		A pointer to the vertex shader.
+		 @throws		Exception
+						Failed to create the vertex shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline VertexShaderPtr CreateVS(ResourceManager& resource_manager, 
+										ConstructorArgsT&&... args) {
 		
-		return resource_manager.GetOrCreate< VertexShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
+			return resource_manager.GetOrCreate< VertexShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
 
-	/**
-	 Creates a hull shader.
+		/**
+		 Creates a hull shader.
 	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the hull shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the hull 
-					shader.
-	 @return		A pointer to the hull shader.
-	 @throws		Exception
-					Failed to create the hull shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline HullShaderPtr CreateHS(ResourceManager& resource_manager, 
-										 ConstructorArgsT&&... args) {
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the hull shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the hull 
+						shader.
+		 @return		A pointer to the hull shader.
+		 @throws		Exception
+						Failed to create the hull shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline HullShaderPtr CreateHS(ResourceManager& resource_manager, 
+									  ConstructorArgsT&&... args) {
 		
-		return resource_manager.GetOrCreate< HullShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
+			return resource_manager.GetOrCreate< HullShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
 
-	/**
-	 Creates a domain shader.
+		/**
+		 Creates a domain shader.
 	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the domain shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the domain 
-					shader.
-	 @return		A pointer to the domain shader.
-	 @throws		Exception
-					Failed to create the domain shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline DomainShaderPtr CreateDS(ResourceManager& resource_manager, 
-										   ConstructorArgsT&&... args) {
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the domain shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the domain 
+						shader.
+		 @return		A pointer to the domain shader.
+		 @throws		Exception
+						Failed to create the domain shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline DomainShaderPtr CreateDS(ResourceManager& resource_manager, 
+										ConstructorArgsT&&... args) {
 		
-		return resource_manager.GetOrCreate< DomainShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
+			return resource_manager.GetOrCreate< DomainShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
 
-	/**
-	 Creates a geometry shader.
+		/**
+		 Creates a geometry shader.
 	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the geometry shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the geometry 
-					shader.
-	 @return		A pointer to the geometry shader.
-	 @throws		Exception
-					Failed to create the geometry shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline GeometryShaderPtr CreateGS(ResourceManager& resource_manager, 
-											 ConstructorArgsT&&... args) {
-		
-		return resource_manager.GetOrCreate< GeometryShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
-
-	/**
-	 Creates a pixel shader.
-	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the pixel shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the pixel 
-					shader.
-	 @return		A pointer to the pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline PixelShaderPtr CreatePS(ResourceManager& resource_manager, 
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the geometry shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the geometry 
+						shader.
+		 @return		A pointer to the geometry shader.
+		 @throws		Exception
+						Failed to create the geometry shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline GeometryShaderPtr CreateGS(ResourceManager& resource_manager, 
 										  ConstructorArgsT&&... args) {
 		
-		return resource_manager.GetOrCreate< PixelShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
+			return resource_manager.GetOrCreate< GeometryShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
 
-	/**
-	 Creates a compute shader.
+		/**
+		 Creates a pixel shader.
 	 
-	 @tparam		ConstructorArgsT
-					The constructor argument types of the compute shader.
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		args
-					A reference to the constructor arguments for the compute 
-					shader.
-	 @return		A pointer to the compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	template< typename... ConstructorArgsT >
-	[[nodiscard]]
-	static inline ComputeShaderPtr CreateCS(ResourceManager& resource_manager, 
-											ConstructorArgsT&&... args) {
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the pixel shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the pixel 
+						shader.
+		 @return		A pointer to the pixel shader.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline PixelShaderPtr CreatePS(ResourceManager& resource_manager, 
+									   ConstructorArgsT&&... args) {
 		
-		return resource_manager.GetOrCreate< ComputeShader >(
-			                    std::forward< ConstructorArgsT >(args)...);
-	}
+			return resource_manager.GetOrCreate< PixelShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
 
-	#pragma endregion
+		/**
+		 Creates a compute shader.
+	 
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the compute shader.
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		args
+						A reference to the constructor arguments for the compute 
+						shader.
+		 @return		A pointer to the compute shader.
+		 @throws		Exception
+						Failed to create the compute shader.
+		 */
+		template< typename... ConstructorArgsT >
+		[[nodiscard]]
+		inline ComputeShaderPtr CreateCS(ResourceManager& resource_manager, 
+										 ConstructorArgsT&&... args) {
+		
+			return resource_manager.GetOrCreate< ComputeShader >(
+									std::forward< ConstructorArgsT >(args)...);
+		}
+
+	}
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Anti-aliasing

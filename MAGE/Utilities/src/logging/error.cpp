@@ -23,125 +23,128 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 An enumeration of error dispositions.
+	namespace {
+
+		/**
+		 An enumeration of error dispositions.
 	
-	This contains: 
-	 @c Ignore, 
-	 @c Continue and 
-	 @c Abort.
-	 */
-	enum class [[nodiscard]] ErrorDisposition : U8 {
-		Ignore,	  // Ignore and continue execution.
-		Continue, // Report and continue execution.
-		Abort     // Report and abort exceution.
-	};
+		This contains: 
+		 @c Ignore, 
+		 @c Continue and 
+		 @c Abort.
+		 */
+		enum class [[nodiscard]] ErrorDisposition : U8 {
+			Ignore,	  // Ignore and continue execution.
+			Continue, // Report and continue execution.
+			Abort     // Report and abort exceution.
+		};
 
-	/**
-	 Finds the start of the next word.
+		/**
+		 Finds the start of the next word.
 
-	 @param[in]		str
-					A pointer to the null-terminated string.
-	 @return		A pointer to the null-terminating character if the end of 
-					the given string is reached.
-	 @return		A pointer to the start of the next word.
-	 */
-	[[nodiscard]]
-	static NotNull< const_zstring > FindWordStart(
-		NotNull< const_zstring > str) noexcept {
+		 @param[in]		str
+						A pointer to the null-terminated string.
+		 @return		A pointer to the null-terminating character if the end of 
+						the given string is reached.
+		 @return		A pointer to the start of the next word.
+		 */
+		[[nodiscard]]
+		inline NotNull< const_zstring > 
+			FindWordStart(NotNull< const_zstring > str) noexcept {
 
-		const char* buffer = str;
-		while ('\0' != *buffer && isspace(*buffer)) {
-			++buffer;
+			const char* buffer = str;
+			while ('\0' != *buffer && isspace(*buffer)) {
+				++buffer;
+			}
+
+			return buffer;
 		}
 
-		return buffer;
-	}
+		/**
+		 Finds the end of the current word.
 
-	/**
-	 Finds the end of the current word.
-
-	 @param[in]		buffer
-					A pointer to the null-terminated string.
-	 @return		A pointer to the null-terminating character if the end of 
-					the given string is reached.
-	 @return		A pointer to the end of the current word (i.e. space).
-	 */
-	[[nodiscard]]
-	static NotNull< const_zstring > FindWordEnd(
-		NotNull< const_zstring > str) noexcept {
+		 @param[in]		buffer
+						A pointer to the null-terminated string.
+		 @return		A pointer to the null-terminating character if the end of 
+						the given string is reached.
+		 @return		A pointer to the end of the current word (i.e. space).
+		 */
+		[[nodiscard]]
+		inline NotNull< const_zstring > 
+			FindWordEnd(NotNull< const_zstring > str) noexcept {
 		
-		const char* buffer = str;
-		while ('\0' != *buffer && !isspace(*buffer)) {
-			++buffer;
-		}
-
-		return buffer;
-	}
-
-	/**
-	 Process the given error.
-
-	 @param[in]		format
-					The format of the error string.
-	 @param[in]		args
-					The arguments of the format string.
-	 @param[in]		error_type
-					The type of the error.
-	 @param[in]		disposition
-					The disposition of the error.
-	 */
-	static void ProcessError(NotNull< const_zstring > format,
-		                     const va_list args,
-		                     const string& error_type, 
-		                     ErrorDisposition disposition) {
-
-		if (ErrorDisposition::Ignore == disposition) {
-			return;
-		}
-
-		// Print formatted error message
-		const size_t width  = std::max(20, ConsoleWidth() - 2);
-		string error_string = error_type + ": ";
-		auto error_pos      = error_string.size();
-
-		char error_buffer[2048];
-		vsnprintf_s(error_buffer, std::size(error_buffer), 
-			        _TRUNCATE, format, args);
-
-		const auto* msg_pos = error_buffer;
-		while (true) {
-			msg_pos = FindWordStart(msg_pos);
-
-			if ('\0' == *msg_pos) {
-				break;
+			const char* buffer = str;
+			while ('\0' != *buffer && !isspace(*buffer)) {
+				++buffer;
 			}
 
-			// false == isspace(*msg_pos)
+			return buffer;
+		}
 
-			const auto word_end  = FindWordEnd(msg_pos);
-			if (const auto word_length 
-				= static_cast< size_t >(word_end - msg_pos);
-				width < error_pos + word_length) {
+		/**
+		 Process the given error.
 
-				error_string += "\n    ";
-				error_pos     = 4;
+		 @param[in]		format
+						The format of the error string.
+		 @param[in]		args
+						The arguments of the format string.
+		 @param[in]		error_type
+						The type of the error.
+		 @param[in]		disposition
+						The disposition of the error.
+		 */
+		void ProcessError(NotNull< const_zstring > format, 
+						  const va_list args, 
+						  const string& error_type, 
+						  ErrorDisposition disposition) {
+
+			if (ErrorDisposition::Ignore == disposition) {
+				return;
 			}
 
-			while (word_end != msg_pos) {
-				error_string += *msg_pos;
-				++msg_pos;
+			// Print formatted error message
+			const size_t width  = std::max(20, ConsoleWidth() - 2);
+			string error_string = error_type + ": ";
+			auto error_pos      = error_string.size();
+
+			char error_buffer[2048];
+			vsnprintf_s(error_buffer, std::size(error_buffer), 
+						_TRUNCATE, format, args);
+
+			const auto* msg_pos = error_buffer;
+			while (true) {
+				msg_pos = FindWordStart(msg_pos);
+
+				if ('\0' == *msg_pos) {
+					break;
+				}
+
+				// false == isspace(*msg_pos)
+
+				const auto word_end  = FindWordEnd(msg_pos);
+				if (const auto word_length 
+					= static_cast< size_t >(word_end - msg_pos);
+					width < error_pos + word_length) {
+
+					error_string += "\n    ";
+					error_pos     = 4;
+				}
+
+				while (word_end != msg_pos) {
+					error_string += *msg_pos;
+					++msg_pos;
+					++error_pos;
+				}
+
+				error_string += ' ';
 				++error_pos;
 			}
 
-			error_string += ' ';
-			++error_pos;
-		}
+			fprintf(stderr, "%s\n", error_string.c_str());
 
-		fprintf(stderr, "%s\n", error_string.c_str());
-
-		if (ErrorDisposition::Abort == disposition) {
-			__debugbreak();
+			if (ErrorDisposition::Abort == disposition) {
+				__debugbreak();
+			}
 		}
 	}
 

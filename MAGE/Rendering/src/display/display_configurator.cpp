@@ -53,6 +53,57 @@ extern "C" {
 namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
+	// Utilities
+	//-------------------------------------------------------------------------
+	namespace {
+
+		/**
+		 Checks whether the given display mode needs to be rejected.
+
+		 @param[in]		display_mode_desc
+						A reference to a display mode descriptor.
+		 @return		@c true if the given display mode needs to be rejected.
+						@c false otherwise.
+		 */
+		[[nodiscard]]
+		inline bool RejectDisplayMode(
+			const DXGI_MODE_DESC& display_mode_desc) noexcept {
+		
+			return (display_mode_desc.Width  < 512u) 
+				|| (display_mode_desc.Height < 512u);
+		}
+
+		/**
+		 Converts the resolution of the given display format descriptor to a 
+		 @c size_t.
+
+		 @param[in]		desc
+						A reference to the display format descriptor.
+		 @return		A @c size_t value corresponding to the resolution of 
+						the given display format descriptor.
+		 */
+		[[nodiscard]]
+		inline size_t ConvertResolution(const DXGI_MODE_DESC& desc) noexcept {
+			return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
+		}
+
+		/**
+		 Converts the refresh rate of the given display format descriptor to a 
+		 @c size_t.
+
+		 @param[in]		desc
+						A reference to the display format descriptor.
+		 @return		A @c size_t value corresponding to the refresh rate of 
+						the given display format descriptor.
+		 */
+		[[nodiscard]]
+		inline size_t ConvertRefreshRate(const DXGI_MODE_DESC& desc) noexcept {
+			return static_cast< size_t >(round(desc.RefreshRate.Numerator 
+				 / static_cast< F32 >(desc.RefreshRate.Denominator)));
+		}
+	}
+
+	//-------------------------------------------------------------------------
 	// DisplayConfigurator::Impl
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -339,22 +390,6 @@ namespace mage::rendering {
 
 	DisplayConfigurator::Impl::~Impl() = default;
 
-	/**
-	 Checks whether the given display mode needs to be rejected.
-
-	 @param[in]		display_mode_desc
-					A reference to a display mode descriptor.
-	 @return		@c true if the given display mode needs to be rejected.
-					@c false otherwise.
-	 */
-	[[nodiscard]]
-	static inline bool RejectDisplayMode(const DXGI_MODE_DESC& 
-										 display_mode_desc) noexcept {
-		
-		return (display_mode_desc.Width  < 512u) 
-			|| (display_mode_desc.Height < 512u);
-	}
-	
 	void DisplayConfigurator::Impl::InitializeAdapterAndOutput() {
 		ComPtr< IDXGIFactory > factory;
 		{
@@ -481,35 +516,6 @@ namespace mage::rendering {
 		return (IDOK == result_dialog) ? S_OK : E_FAIL;
 	}
 	
-	/**
-	 Converts the resolution of the given display format descriptor to a 
-	 @c size_t.
-
-	 @param[in]		desc
-					A reference to the display format descriptor.
-	 @return		A @c size_t value corresponding to the resolution of 
-					the given display format descriptor.
-	 */
-	[[nodiscard]]
-	static inline size_t ConvertResolution(const DXGI_MODE_DESC& desc) noexcept {
-		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
-	}
-
-	/**
-	 Converts the refresh rate of the given display format descriptor to a 
-	 @c size_t.
-
-	 @param[in]		desc
-					A reference to the display format descriptor.
-	 @return		A @c size_t value corresponding to the refresh rate of 
-					the given display format descriptor.
-	 */
-	[[nodiscard]]
-	static inline size_t ConvertRefreshRate(const DXGI_MODE_DESC& desc) noexcept {
-		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
-			 / static_cast< F32 >(desc.RefreshRate.Denominator)));
-	}
-
 	[[nodiscard]]
 	INT_PTR DisplayConfigurator::Impl
 		::DisplayDialogProc(HWND dialog, 

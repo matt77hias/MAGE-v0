@@ -29,46 +29,45 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	// General Factory Methods
 	//-------------------------------------------------------------------------
-	#pragma region
+	namespace {
 
-	/**
-	 Creates a flat (single-texel) 2D texture.
+		/**
+		 Creates a flat (single-texel) 2D texture.
 
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		guid
-					A reference to the globally unique identifier.
-	 @param[in]		color
-					The color.
-	 @return		A pointer to the texture.
-	 @throws		Exception
-					Failed to create the texture.
-	 */
-	[[nodiscard]]
-	static inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager, 
-												 const wstring& guid, 
-												 U32 color) {
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
+		 @param[in]		color
+						The color.
+		 @return		A pointer to the texture.
+		 @throws		Exception
+						Failed to create the texture.
+		 */
+		[[nodiscard]]
+		inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager, 
+											  const wstring& guid, 
+											  U32 color) {
 
-		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width              = 1u;
-		texture_desc.Height             = 1u;
-		texture_desc.MipLevels          = 1u;
-		texture_desc.ArraySize          = 1u;
-		texture_desc.Format             = DXGI_FORMAT_B8G8R8X8_UNORM;
-		texture_desc.SampleDesc.Count   = 1u;
-		texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
-		texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
+			D3D11_TEXTURE2D_DESC texture_desc = {};
+			texture_desc.Width              = 1u;
+			texture_desc.Height             = 1u;
+			texture_desc.MipLevels          = 1u;
+			texture_desc.ArraySize          = 1u;
+			texture_desc.Format             = DXGI_FORMAT_B8G8R8X8_UNORM;
+			texture_desc.SampleDesc.Count   = 1u;
+			texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
+			texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
 
-		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(color);
+			D3D11_SUBRESOURCE_DATA texture_data = {};
+			texture_data.pSysMem     = &color;
+			texture_data.SysMemPitch = sizeof(color);
 
-		return resource_manager.GetOrCreate< Texture >(guid, 
-													   texture_desc, 
-													   texture_data);
+			return resource_manager.GetOrCreate< Texture >(guid, 
+														   texture_desc, 
+														   texture_data);
+		}
 	}
-
-	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Flat

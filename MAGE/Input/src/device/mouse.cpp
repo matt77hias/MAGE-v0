@@ -16,29 +16,29 @@ namespace mage::input {
 	//-------------------------------------------------------------------------
 	// Mouse Utilities
 	//-------------------------------------------------------------------------
-	#pragma region
+	namespace {
 
-	/**
-	 Returns the mouse position expressed in client-area coordinates.
+		/**
+		 Returns the mouse position expressed in client-area coordinates.
 
-	 @param[in]		window
-					The handle of the parent window.
-	 @return		The mouse position expressed in client-area coordinates.
-	 */
-	[[nodiscard]]
-	static inline const S32x2 GetMousePosition(NotNull< HWND > window) noexcept {
-		POINT position;
-		// Retrieve the position of the mouse cursor, in screen coordinates.
-		GetCursorPos(&position);
-		// Convert the screen coordinates of a specified point on the screen 
-		// to client-area coordinates.
-		ScreenToClient(window, &position);
+		 @param[in]		window
+						The handle of the parent window.
+		 @return		The mouse position expressed in client-area coordinates.
+		 */
+		[[nodiscard]]
+		inline const S32x2 GetMousePosition(NotNull< HWND > window) noexcept {
+			POINT position;
+			// Retrieve the position of the mouse cursor, in screen coordinates.
+			GetCursorPos(&position);
+			// Convert the screen coordinates of a specified point on the screen 
+			// to client-area coordinates.
+			ScreenToClient(window, &position);
 
-		return S32x2(static_cast< S32 >(position.x), 
-					 static_cast< S32 >(position.y));
+			return S32x2(static_cast<S32>(position.x),
+						 static_cast<S32>(position.y));
+		}
+
 	}
-
-	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Mouse::Impl

@@ -17,8 +17,8 @@ namespace mage::rendering {
 				 SharedPtr< const Mesh > mesh,
 		         size_t start_index, 
 		         size_t nb_indices,
-		         const AABB &aabb, 
-		         const BoundingSphere &bs) 
+		         const AABB& aabb, 
+		         const BoundingSphere& bs) 
 		: Component(),
 		m_buffer(device),
 		m_aabb(aabb),

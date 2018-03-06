@@ -32,10 +32,10 @@ namespace mage::rendering {
 							  AADescriptor desc) const {
 
 		const auto& transform                  = GetOwner()->GetTransform();
-		const auto world_to_camera             = transform.GetWorldToObjectMatrix();
-		const auto camera_to_world             = transform.GetObjectToWorldMatrix();
-		const auto camera_to_projection        = GetCameraToProjectionMatrix();
-		const auto projection_to_camera        = GetProjectionToCameraMatrix();
+		const auto  world_to_camera            = transform.GetWorldToObjectMatrix();
+		const auto  camera_to_world            = transform.GetObjectToWorldMatrix();
+		const auto  camera_to_projection       = GetCameraToProjectionMatrix();
+		const auto  projection_to_camera       = GetProjectionToCameraMatrix();
 
 		CameraBuffer buffer;
 		buffer.m_world_to_camera               = XMMatrixTranspose(world_to_camera);

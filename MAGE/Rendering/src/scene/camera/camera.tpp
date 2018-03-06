@@ -3,10 +3,10 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	template< typename PipelineStageT >
-	inline void Camera::BindBuffer(ID3D11DeviceContext *device_context,
+	inline void Camera::BindBuffer(ID3D11DeviceContext& device_context,
 								   U32 slot) const noexcept {
 
 		m_buffer.Bind< PipelineStageT >(device_context, slot);

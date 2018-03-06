@@ -362,6 +362,15 @@
     <ClInclude Include="Rendering\src\scene\sprite\sprite_text.hpp">
       <Filter>Header Files\scene\sprite</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\orthographic_camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\perspective_camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -426,6 +435,9 @@
     </None>
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp">
       <Filter>Header Files\scene\sprite</Filter>
+    </None>
+    <None Include="Rendering\src\scene\camera\camera.tpp">
+      <Filter>Header Files\scene\camera</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -524,6 +536,15 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\scene\sprite\sprite_text.cpp">
       <Filter>Source Files\scene\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\orthographic_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\perspective_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,70 +3,35 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-#include "rendering\display_configuration.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_NEAR_Z          0.01f
-#define MAGE_DEFAULT_FAR_Z          100.0f
+#include "scene\node.hpp"
+#include "scene\camera\camera.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
-	Camera::Camera() noexcept
+	Camera::Camera(ID3D11Device& device) 
 		: Component(), 
-		m_buffer(), 
-		m_near_z(MAGE_DEFAULT_NEAR_Z),
-		m_far_z(MAGE_DEFAULT_FAR_Z),
+		m_buffer(device),
+		m_near_z(0.01f),
+		m_far_z(100.0f),
 		m_lens(),
 		m_viewport(),
 		m_settings() {}
 
-	Camera::Camera(const Camera &camera) 
-		: Component(camera),
-		m_buffer(),
-		m_near_z(camera.m_near_z),
-		m_far_z(camera.m_far_z),
-		m_lens(camera.m_lens),
-		m_viewport(camera.m_viewport),
-		m_settings(camera.m_settings) {}
-
-	Camera::Camera(Camera &&camera) noexcept = default;
+	Camera::Camera(Camera&& camera) noexcept = default;
 
 	Camera::~Camera() = default;
 
-	Camera &Camera::operator=(const Camera &camera) {
-		Component::operator=(camera);
+	Camera& Camera::operator=(Camera&& camera) noexcept = default;
 
-		m_buffer   = ConstantBuffer< CameraBuffer >();
-		m_near_z   = camera.m_near_z;
-		m_far_z    = camera.m_far_z;
-		m_lens     = camera.m_lens;
-		m_viewport = camera.m_viewport;
-		m_settings = camera.m_settings;
+	void Camera::UpdateBuffer(ID3D11DeviceContext& device_context, 
+							  AADescriptor desc) const {
 
-		return *this;
-	}
-
-	Camera &Camera::operator=(Camera &&camera) noexcept = default;
-
-	[[nodiscard]]const Viewport Camera::GetSSViewport() const noexcept {
-		const auto desc = DisplayConfiguration::Get()->GetAADescriptor();
-		return Viewport(m_viewport, desc);
-	}
-
-	void Camera::UpdateBuffer(ID3D11DeviceContext *device_context) const {
-		const auto &transform                  = GetOwner()->GetTransform();
+		const auto& transform                  = GetOwner()->GetTransform();
 		const auto world_to_camera             = transform.GetWorldToObjectMatrix();
 		const auto camera_to_world             = transform.GetObjectToWorldMatrix();
 		const auto camera_to_projection        = GetCameraToProjectionMatrix();
@@ -85,7 +50,7 @@ namespace mage {
 		buffer.m_viewport_inv_width_minus1     = 1.0f / (m_viewport.GetWidth()  - 1.0f);
 		buffer.m_viewport_inv_height_minus1    = 1.0f / (m_viewport.GetHeight() - 1.0f);
 
-		const auto ss_viewport                 = GetSSViewport();
+		const auto ss_viewport                 = Viewport(m_viewport, desc);
 		buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
 		buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
 		buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());

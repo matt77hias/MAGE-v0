@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\camera.hpp"
+#include "scene\camera\camera.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Constructs an orthographic camera.
 
-		 @pre			The rendering manager associated with the current
-						engine must be loaded.
+		 @param[in]		device
+						A reference to the device.
 		 */
-		OrthographicCamera() noexcept;
+		OrthographicCamera(ID3D11Device& device);
 
 		/**
 		 Constructs an orthographic camera from the given orthographic 
@@ -43,7 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera);
+		OrthographicCamera(const OrthographicCamera& camera) = delete;
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic 
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to move.
 		 */
-		OrthographicCamera(OrthographicCamera &&camera) noexcept;
+		OrthographicCamera(OrthographicCamera&& camera) noexcept;
 
 		/**
 		 Destructs this orthographic camera.
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic 
 						camera (i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera);
+		OrthographicCamera& operator=(const OrthographicCamera& camera) = delete;
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
@@ -81,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved orthographic camera (i.e. this 
 						orthographic camera).
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&camera) noexcept;
+		OrthographicCamera& operator=(OrthographicCamera&& camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Projection
@@ -94,7 +94,8 @@ namespace mage {
 		 @return		The width of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		[[nodiscard]]F32 GetWidth() const noexcept {
+		[[nodiscard]]
+		F32 GetWidth() const noexcept {
 			return m_width;
 		}
 
@@ -117,7 +118,8 @@ namespace mage {
 		 @return		The height of the camera projection plane of this 
 						orthographic camera in view space.
 		 */
-		[[nodiscard]]F32 GetHeight() const noexcept {
+		[[nodiscard]]
+		F32 GetHeight() const noexcept {
 			return m_height;
 		}
 		
@@ -150,7 +152,7 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the view-to-projection matrix of this orthographic camera.
+		 Sets the camera-to-projection matrix of this orthographic camera.
 
 		 @param[in]		width
 						The width of the camera projection plane in camera 
@@ -163,10 +165,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		*/
-		void SetViewToProjectionMatrix(F32 width, 
-			                           F32 height, 
-			                           F32 near_z, 
-			                           F32 far_z) noexcept {
+		void SetCameraToProjectionMatrix(F32 width,  F32 height, 
+										 F32 near_z, F32 far_z) noexcept {
 			
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
@@ -178,7 +178,8 @@ namespace mage {
 		 @return		The camera-to-projection matrix of this orthographic 
 						camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -196,7 +197,8 @@ namespace mage {
 		 @return		The projection-to-camera matrix of this orthographic 
 						camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept override {
 
 			const auto camera_to_projection = GetCameraToProjectionMatrix();

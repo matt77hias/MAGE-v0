@@ -109,6 +109,9 @@ namespace mage::rendering {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
+		explicit Viewport() noexcept
+			: m_viewport{} {}
+
 		explicit Viewport(U32 width, U32 height) noexcept
 			: Viewport(GetMaxViewport(width, height)) {}
 

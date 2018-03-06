@@ -32,7 +32,7 @@ namespace mage::rendering {
 		// Create the buffer resource.
 		{
 			const HRESULT result = CreateDynamicStructuredBuffer< DataT >(
-				device, m_buffer.ReleaseAndGetAddressOf(), nullptr, capacity);
+				device, m_buffer.ReleaseAndGetAddressOf(), capacity);
 			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
 		}
 

@@ -81,8 +81,11 @@
     <ClInclude Include="Rendering\src\resource\texture\texture.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\camera.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\camera_settings.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\fog.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\orthographic_camera.hpp" />
+    <ClInclude Include="Rendering\src\scene\camera\perspective_camera.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\sky.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\viewport.hpp" />
     <ClInclude Include="Rendering\src\scene\light\ambient_light.hpp" />
@@ -113,6 +116,7 @@
     <None Include="Rendering\src\resource\rendering_resource_manager.tpp" />
     <None Include="Rendering\src\resource\shader\shader.tpp" />
     <None Include="Rendering\src\resource\texture\texture.tpp" />
+    <None Include="Rendering\src\scene\camera\camera.tpp" />
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +146,9 @@
     <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp" />
+    <ClCompile Include="Rendering\src\scene\camera\camera.cpp" />
+    <ClCompile Include="Rendering\src\scene\camera\orthographic_camera.cpp" />
+    <ClCompile Include="Rendering\src\scene\camera\perspective_camera.cpp" />
     <ClCompile Include="Rendering\src\scene\light\ambient_light.cpp" />
     <ClCompile Include="Rendering\src\scene\light\directional_light.cpp" />
     <ClCompile Include="Rendering\src\scene\light\omni_light.cpp" />

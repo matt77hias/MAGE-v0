@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\camera.hpp"
+#include "scene\camera\camera.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
 	// Perspective Utilities
@@ -30,7 +30,8 @@ namespace mage {
 	 @return		The horizontal field-of-view corresponding to the given 
 					aspect ratio and vertical field-of-view.
 	 */
-	[[nodiscard]]inline F32 FOVXFromFOVY(F32 aspect_ratio, F32 fov_y) noexcept {
+	[[nodiscard]]
+	inline F32 FOVXFromFOVY(F32 aspect_ratio, F32 fov_y) noexcept {
 		return 2.0f * atanf(aspect_ratio * tanf(0.5f * fov_y));
 	}
 
@@ -45,7 +46,8 @@ namespace mage {
 	 @return		The vertical field-of-view corresponding to the given 
 					aspect ratio and horizontal field-of-view.
 	 */
-	[[nodiscard]]inline F32 FOVYFromFOVX(F32 aspect_ratio, F32 fov_x) noexcept {
+	[[nodiscard]]
+	inline F32 FOVYFromFOVX(F32 aspect_ratio, F32 fov_x) noexcept {
 		return 2.0f * atanf(tanf(0.5f * fov_x) / aspect_ratio);
 	}
 
@@ -59,9 +61,8 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given width and 
 					height.
 	 */
-	[[nodiscard]]constexpr F32 
-		AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
-		
+	[[nodiscard]]
+	constexpr F32 AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
 		return width / height;
 	}
 
@@ -76,7 +77,8 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given horizontal and 
 					vertical field-of-views.
 	 */
-	[[nodiscard]]inline F32 AspectRatioFromFOVs(F32 fov_x, F32 fov_y) noexcept {
+	[[nodiscard]]
+	inline F32 AspectRatioFromFOVs(F32 fov_x, F32 fov_y) noexcept {
 		return tanf(0.5f * fov_x) / tanf(0.5f * fov_y);
 	}
 
@@ -104,10 +106,10 @@ namespace mage {
 		/**
 		 Constructs a perspective camera.
 
-		 @pre			The rendering manager associated with the current
-						engine must be loaded.
+		 @param[in]		device
+						A reference to the device.
 		 */
-		PerspectiveCamera() noexcept;
+		PerspectiveCamera(ID3D11Device& device);
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.
@@ -115,7 +117,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to copy.
 		 */
-		PerspectiveCamera(const PerspectiveCamera &camera);
+		PerspectiveCamera(const PerspectiveCamera& camera) = delete;
 		
 		/**
 		 Constructs a perspective camera by moving the given perspective camera.
@@ -123,7 +125,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to move.
 		 */
-		PerspectiveCamera(PerspectiveCamera &&camera) noexcept;
+		PerspectiveCamera(PerspectiveCamera&& camera) noexcept;
 
 		/**
 		 Destructs this perspective camera.
@@ -142,7 +144,7 @@ namespace mage {
 		 @return		A reference to the copy of the given perspective 
 						camera (i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera);
+		PerspectiveCamera& operator=(const PerspectiveCamera& camera) = delete;
 
 		/**
 		 Moves the given perspective camera to this perspective camera.
@@ -152,7 +154,7 @@ namespace mage {
 		 @return		A reference to the moved perspective camera (i.e. this 
 						perspective camera).
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&camera) noexcept;
+		PerspectiveCamera& operator=(PerspectiveCamera&& camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -164,7 +166,8 @@ namespace mage {
 		 @return		The horizontal field-of-view of this perspective 
 						camera.
 		 */
-		[[nodiscard]]F32 GetFOVX() const noexcept {
+		[[nodiscard]]
+		F32 GetFOVX() const noexcept {
 			return FOVXFromFOVY(m_aspect_ratio, m_fov_y);
 		}
 
@@ -174,7 +177,8 @@ namespace mage {
 		 @return		The vertical field-of-view of this perspective 
 						camera.
 		 */
-		[[nodiscard]]F32 GetFOVY() const noexcept {
+		[[nodiscard]]
+		F32 GetFOVY() const noexcept {
 			return m_fov_y;
 		}
 
@@ -194,7 +198,8 @@ namespace mage {
 
 		 @return		The aspect ratio of this perspective camera.
 		 */
-		[[nodiscard]]F32 GetAspectRatio() const noexcept {
+		[[nodiscard]]
+		F32 GetAspectRatio() const noexcept {
 			return m_aspect_ratio;
 		}
 
@@ -244,7 +249,7 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the view-to-projection matrix of this perspective camera.
+		 Sets the camera-to-projection matrix of this perspective camera.
 
 		 @param[in]		width
 						The width.
@@ -257,11 +262,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in view space.
 		 */
-		void SetViewToProjectionMatrix(F32 width, 
-			                           F32 height,
-			                           F32 fov_y, 
-			                           F32 near_z, 
-			                           F32 far_z) noexcept {
+		void SetCameraToProjectionMatrix(F32 width,  F32 height, F32 fov_y, 
+										 F32 near_z, F32 far_z) noexcept {
 			
 			SetAspectRatio(width, height);
 			SetFOVY(fov_y);
@@ -274,7 +276,8 @@ namespace mage {
 		 @return		The camera-to-projection matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -292,7 +295,8 @@ namespace mage {
 		 @return		The projection-to-camera matrix of this perspective 
 						camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept override {
 
 			const auto camera_to_projection = GetCameraToProjectionMatrix();

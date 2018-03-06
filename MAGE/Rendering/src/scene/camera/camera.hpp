@@ -6,17 +6,17 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "camera\camera_settings.hpp"
-#include "camera\viewport.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
-#include "rendering\buffer\camera_buffer.hpp"
+#include "scene\camera\camera_settings.hpp"
+#include "scene\camera\viewport.hpp"
+#include "renderer\buffer\constant_buffer.hpp"
+#include "renderer\buffer\camera_buffer.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
 	// CameraLens
@@ -48,7 +48,7 @@ namespace mage {
 		 @param[in]		lens
 						A reference to the camera lens to copy.
 		 */
-		constexpr CameraLens(const CameraLens &lens) noexcept = default;
+		constexpr CameraLens(const CameraLens& lens) noexcept = default;
 
 		/**
 		 Constructs a camera lens by moving the given camera lens.
@@ -56,7 +56,7 @@ namespace mage {
 		 @param[in]		lens
 						A reference to the camera lens to move.
 		 */
-		constexpr CameraLens(CameraLens &&lens) noexcept = default;
+		constexpr CameraLens(CameraLens&& lens) noexcept = default;
 
 		/**
 		 Destructs this camera lens.
@@ -75,7 +75,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera lens (i.e. 
 						this camera lens).
 		 */
-		constexpr CameraLens &operator=(const CameraLens &lens) noexcept = default;
+		constexpr CameraLens& operator=(const CameraLens& lens) noexcept = default;
 
 		/**
 		 Moves the given camera lens to this camera lens.
@@ -85,7 +85,7 @@ namespace mage {
 		 @return		A reference to the moved camera lens (i.e. this camera 
 						lens).
 		 */
-		constexpr CameraLens &operator=(CameraLens &&lens) noexcept = default;
+		constexpr CameraLens& operator=(CameraLens&& lens) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -97,7 +97,8 @@ namespace mage {
 		 @return		@c true if this camera lens has a finite aperture.
 						@c false otherwise.
 		 */
-		[[nodiscard]]constexpr bool HasFiniteAperture() const noexcept {
+		[[nodiscard]]
+		constexpr bool HasFiniteAperture() const noexcept {
 			return 0.0f != m_radius;
 		}
 
@@ -106,7 +107,8 @@ namespace mage {
 
 		 @return		The radius of this camera lens.
 		 */
-		[[nodiscard]]constexpr F32 GetLensRadius() const noexcept {
+		[[nodiscard]]
+		constexpr F32 GetLensRadius() const noexcept {
 			return m_radius;
 		}
 		
@@ -125,7 +127,8 @@ namespace mage {
 
 		 @return		The focal length of this camera lens.
 		 */
-		[[nodiscard]]constexpr F32 GetFocalLength() const noexcept {
+		[[nodiscard]]
+		constexpr F32 GetFocalLength() const noexcept {
 			return m_focal_length;
 		}
 		
@@ -146,7 +149,8 @@ namespace mage {
 		 @return		The maximum radius of the circle of confusion of this 
 						camera lens.
 		 */
-		[[nodiscard]]constexpr F32 GetMaximumCoCRadius() const noexcept {
+		[[nodiscard]]
+		constexpr F32 GetMaximumCoCRadius() const noexcept {
 			return m_max_coc_radius;
 		}
 		
@@ -218,7 +222,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera (i.e. this 
 						camera).
 		 */
-		Camera &operator=(const Camera &camera);
+		Camera& operator=(const Camera& camera) = delete;
 
 		/**
 		 Moves the given camera to this camera.
@@ -227,7 +231,7 @@ namespace mage {
 						A reference to the camera to move.
 		 @return		A reference to the moved camera (i.e. this camera).
 		 */
-		Camera &operator=(Camera &&camera) noexcept;
+		Camera& operator=(Camera&& camera) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Projection
@@ -240,7 +244,8 @@ namespace mage {
 		 @return		The position of the near z-plane of this camera in 
 						camera view space.
 		 */
-		[[nodiscard]]F32 GetNearZ() const noexcept {
+		[[nodiscard]]
+		F32 GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
@@ -262,7 +267,8 @@ namespace mage {
 		 @return		The position of the far z-plane of this camera in 
 						camera view space.
 		 */
-		[[nodiscard]]F32 GetFarZ() const noexcept {
+		[[nodiscard]]
+		F32 GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
@@ -296,7 +302,8 @@ namespace mage {
 
 		 @return		The camera-to-projection matrix of this camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept = 0;
 
 		/**
@@ -304,7 +311,8 @@ namespace mage {
 
 		 @return		The projection-to-camera matrix of this camera.
 		 */
-		[[nodiscard]]virtual const XMMATRIX XM_CALLCONV 
+		[[nodiscard]]
+		virtual const XMMATRIX XM_CALLCONV 
 			GetProjectionToCameraMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
@@ -316,7 +324,8 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		[[nodiscard]]CameraLens &GetLens() noexcept {
+		[[nodiscard]]
+		CameraLens& GetLens() noexcept {
 			return m_lens;
 		}
 		
@@ -325,7 +334,8 @@ namespace mage {
 
 		 @return		A reference to the lens of this camera.	
 		 */
-		[[nodiscard]]const CameraLens &GetLens() const noexcept {
+		[[nodiscard]]
+		const CameraLens& GetLens() const noexcept {
 			return m_lens;
 		}
 
@@ -338,7 +348,8 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		[[nodiscard]]Viewport &GetViewport() noexcept {
+		[[nodiscard]]
+		Viewport& GetViewport() noexcept {
 			return m_viewport;
 		}
 
@@ -347,39 +358,9 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera.
 		 */
-		[[nodiscard]]const Viewport &GetViewport() const noexcept {
+		[[nodiscard]]
+		const Viewport& GetViewport() const noexcept {
 			return m_viewport;
-		}
-
-		/**
-		 Returns the super-sampled viewport of this camera.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @return		The super-sampled viewport of this camera.
-		 */
-		[[nodiscard]]const Viewport GetSSViewport() const noexcept;
-
-		/**
-		 Binds the viewport of this camera.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindViewport(ID3D11DeviceContext *device_context) const noexcept {
-			GetViewport().BindViewport(device_context);
-		}
-
-		/**
-		 Binds the super-sampled viewport of this camera.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindSSViewport(ID3D11DeviceContext *device_context) const noexcept {
-			GetSSViewport().BindViewport(device_context);
 		}
 
 		//---------------------------------------------------------------------
@@ -391,7 +372,8 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.	
 		 */
-		[[nodiscard]]CameraSettings &GetSettings() noexcept {
+		[[nodiscard]]
+		CameraSettings& GetSettings() noexcept {
 			return m_settings;
 		}
 		
@@ -400,7 +382,8 @@ namespace mage {
 
 		 @return		A reference to the settings of this camera.
 		 */
-		[[nodiscard]]const CameraSettings &GetSettings() const noexcept {
+		[[nodiscard]]
+		const CameraSettings& GetSettings() const noexcept {
 			return m_settings;
 		}
 
@@ -411,27 +394,28 @@ namespace mage {
 		/**
 		 Updates the buffer of this camera.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
+		 @param[in]		desc
+						The anti-aliasing descriptor.
 		 */
-		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
+		void UpdateBuffer(ID3D11DeviceContext& device_context,
+						  AADescriptor desc) const;
 
 		/**
 		 Binds the buffer of this camera to the given pipeline stage.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void BindBuffer(ID3D11DeviceContext *device_context, 
+		void BindBuffer(ID3D11DeviceContext& device_context, 
 						U32 slot) const noexcept;
 
 	protected:
@@ -443,10 +427,10 @@ namespace mage {
 		/**
 		 Constructs a camera.
 
-		 @pre			The rendering manager associated with the current
-						engine must be loaded.
+		 @param[in]		device
+						A reference to the device.
 		 */
-		Camera() noexcept;
+		Camera(ID3D11Device& device);
 
 		/**
 		 Constructs a camera from the given camera.
@@ -454,7 +438,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to copy.
 		 */
-		Camera(const Camera &camera);
+		Camera(const Camera& camera) = delete;
 
 		/**
 		 Constructs a camera by moving the given camera.
@@ -462,7 +446,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		Camera(Camera &&camera) noexcept;
+		Camera(Camera&& camera) noexcept;
 
 	private:
 
@@ -525,6 +509,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\camera.tpp"
+#include "scene\camera\camera.tpp"
 
 #pragma endregion

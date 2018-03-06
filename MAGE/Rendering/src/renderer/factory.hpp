@@ -57,6 +57,25 @@ namespace mage::rendering {
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device& device,
 									  NotNull< ID3D11Buffer** > buffer,
 									  gsl::span< const VertexT > vertices) noexcept;
+
+	/**
+	 Creates a dynamic vertex buffer.
+
+	 @tparam		VertexT
+					The vertex type.
+	 @param[in]		device
+					A reference to the device.
+	 @param[out]	buffer
+					A pointer to a pointer to the buffer.
+	 @param[in]		nb_vertices
+					The number of vertices.
+	 @return		A success/error value.
+	 */
+	template< typename VertexT >
+	[[nodiscard]]
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device& device,
+									  NotNull< ID3D11Buffer** > buffer,
+									  size_t nb_vertices) noexcept;
 	
 	/**
 	 Creates a static index buffer.
@@ -114,6 +133,25 @@ namespace mage::rendering {
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
 										NotNull< ID3D11Buffer** > buffer,
 										gsl::span< const DataT > data) noexcept;
+
+	/**
+	 Creates a dynamic constant buffer.
+
+	 @tparam		DataT
+					The data type.
+	 @param[in]		device
+					A reference to the device.
+	 @param[out]	buffer
+					A pointer to a pointer to the buffer.
+	 @param[in]		nb_data_elements
+					The number of data elements.
+	 @return		A success/error value.
+	 */
+	template< typename DataT >
+	[[nodiscard]]
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
+										NotNull< ID3D11Buffer** > buffer,
+										size_t nb_data_elements) noexcept;
 	
 	/**
 	 Creates a static structured buffer.
@@ -152,6 +190,25 @@ namespace mage::rendering {
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,
 										  gsl::span< const DataT > data) noexcept;
+
+	/**
+	 Creates a dynamic structured buffer.
+
+	 @tparam		DataT
+					The data type.
+	 @param[in]		device
+					A reference to the device.
+	 @param[out]	buffer
+					A pointer to a pointer to the buffer.
+	 @param[in]		nb_data_elements
+					The number of data elements.
+	 @return		A success/error value.
+	 */
+	template< typename DataT >
+	[[nodiscard]]
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
+										  NotNull< ID3D11Buffer** > buffer,
+										  size_t nb_data_elements) noexcept;
 
 	#pragma endregion
 

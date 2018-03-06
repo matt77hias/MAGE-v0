@@ -112,7 +112,7 @@ namespace mage::rendering::loader {
 
 			const auto format = GetGUIDContainerFormat(extension);
 			ThrowIfFailed((GUID_NULL != format), 
-						  "Unknown image::rendering file extension: %ls", 
+						  "Unknown image file extension: %ls", 
 						  fname.c_str());
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(

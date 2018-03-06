@@ -34,17 +34,11 @@
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\camera">
-      <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\camera">
-      <UniqueIdentifier>{387a1d6e-f2b9-464f-91ca-5c2ced312bca}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rendering">
       <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
@@ -71,15 +65,6 @@
   <ItemGroup>
     <ClInclude Include="MAGE\src\core\engine.hpp">
       <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\camera.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
-      <Filter>Header Files\camera</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\core\engine_setup.hpp">
       <Filter>Header Files\core</Filter>
@@ -179,15 +164,6 @@
     <ClCompile Include="MAGE\src\model\model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\camera\camera.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -270,9 +246,6 @@
     </None>
     <None Include="MAGE\src\model\model.tpp">
       <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\camera\camera.tpp">
-      <Filter>Header Files\camera</Filter>
     </None>
     <None Include="MAGE\src\rendering\state_manager.tpp">
       <Filter>Header Files\rendering</Filter>

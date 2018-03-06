@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAGE\src\camera\camera.hpp" />
-    <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
-    <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
     <ClInclude Include="MAGE\src\editor\widget.hpp" />
@@ -55,9 +52,6 @@
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MAGE\src\camera\camera.cpp" />
-    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
-    <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\editor\widget.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui.cpp" />
@@ -87,7 +81,6 @@
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\camera\camera.tpp" />
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\rendering\state_manager.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />

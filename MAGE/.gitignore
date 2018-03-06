@@ -18,7 +18,7 @@
 x64/
 x86/
 [Bb]in/
-[Oo]bj/
+#[Oo]bj/
 [Ll]og/
 Shaders/src/*/
 

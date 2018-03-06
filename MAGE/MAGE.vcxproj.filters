@@ -28,47 +28,20 @@
     <Filter Include="Header Files\rendering">
       <UniqueIdentifier>{3f617a84-2fd4-45a3-9bea-c3e24f4d948b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\input">
-      <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\input">
-      <UniqueIdentifier>{1b2b46df-06c6-4e3b-8350-fc302748c1ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\texture">
-      <UniqueIdentifier>{204a640f-99a9-48ae-91f8-f3a784014c52}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\shader">
-      <UniqueIdentifier>{3ccd36e8-21b7-4ef1-9d07-09f0edb8d26b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\shader">
-      <UniqueIdentifier>{bf5285b6-f30c-44ef-b945-a5cbfe9b4dc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\mesh">
-      <UniqueIdentifier>{782ee454-4d9a-4d6e-9daa-32a156758e2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\camera">
       <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\material">
-      <UniqueIdentifier>{952e5625-967e-4083-9d50-1edbc82454c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\light">
-      <UniqueIdentifier>{c6187753-2837-414e-8508-c7fb6a51854a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\texture">
-      <UniqueIdentifier>{b664c90b-5549-4bbd-b8e2-59575770e9bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\sprite">
       <UniqueIdentifier>{0e6f04b4-b3bf-4a6c-b89d-f80e376d898a}</UniqueIdentifier>
@@ -76,80 +49,20 @@
     <Filter Include="Source Files\sprite">
       <UniqueIdentifier>{30da0086-7246-40cb-8a93-c0e0e68a7ce6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\mesh">
-      <UniqueIdentifier>{e7352513-7730-49d0-b678-7af1f64efbcc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\camera">
       <UniqueIdentifier>{387a1d6e-f2b9-464f-91ca-5c2ced312bca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\light">
-      <UniqueIdentifier>{fe412037-a677-4491-99d9-d221f29bf980}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rendering">
       <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\loaders">
-      <UniqueIdentifier>{a3ba6c44-ffcd-467c-98da-437e86d5f193}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders">
-      <UniqueIdentifier>{69c76b4b-2461-4755-907d-460a531bc9f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\dds">
-      <UniqueIdentifier>{393ff898-8d72-4826-953e-019cd7807b6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\mdl">
-      <UniqueIdentifier>{54af2a84-d176-4438-b758-20dd913f8c99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\msh">
-      <UniqueIdentifier>{b4523b56-9fd3-4e7a-94ec-e9b84b2ceff7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\mtl">
-      <UniqueIdentifier>{aa9f8459-819b-4abf-8c59-94c3d1696af0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\wic">
-      <UniqueIdentifier>{9f54fff1-38b1-4d72-bdd6-0eb32d400803}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\obj">
-      <UniqueIdentifier>{040ea3ca-4825-4c2a-9c89-687d5c0e2e65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\wic">
-      <UniqueIdentifier>{ef75dd03-9f0a-4339-9e6d-05e15efb8019}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\mtl">
-      <UniqueIdentifier>{fcf2b759-8ea6-468c-8fc8-568d575b78a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\dds">
-      <UniqueIdentifier>{ee21040c-1889-48c1-86c8-e53a3948eba1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\rendering\buffer">
-      <UniqueIdentifier>{933dd38b-35b7-4463-bea7-a3efec4d6745}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\rendering\pass">
       <UniqueIdentifier>{c4f4ed46-d8c8-4387-a29a-8e35cd0146ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\rendering\buffer">
-      <UniqueIdentifier>{b38288c4-b188-4d2a-9f94-65e833c8287a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rendering\pass">
       <UniqueIdentifier>{88555923-d4c3-4d24-8c8d-8f000bb4d0b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sprite\font">
-      <UniqueIdentifier>{bc8d1822-4e5f-4197-9e6b-0a74713bc504}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\sprite\font">
       <UniqueIdentifier>{05e90b6c-88bb-43fa-add9-277ffd2a5829}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\var">
-      <UniqueIdentifier>{a3fbf0b1-46dd-47cb-9876-f7aef535721a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\font">
-      <UniqueIdentifier>{3a5bc342-335c-4858-99d7-73a464d64ba8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\var">
-      <UniqueIdentifier>{37a1bb02-0aed-48dd-bc2b-bc59331363bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\font">
-      <UniqueIdentifier>{44afcfd8-0d23-48d9-9fc7-e08846cbb1ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{f7674e16-9496-4272-b5f9-97de57a51a8d}</UniqueIdentifier>
@@ -168,27 +81,6 @@
     <ClInclude Include="MAGE\src\core\engine.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\core\version.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\input\input.hpp">
-      <Filter>Header Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\input\input_manager.hpp">
-      <Filter>Header Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\input\keyboard.hpp">
-      <Filter>Header Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\input\mouse.hpp">
-      <Filter>Header Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable_script.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -198,29 +90,11 @@
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\shader_utils.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\material\material.hpp">
-      <Filter>Header Files\material</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\core\targetver.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\core\engine_setup.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\model\model_output.hpp">
-      <Filter>Header Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\vertex.hpp">
-      <Filter>Header Files\mesh</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp">
       <Filter>Header Files\scripting</Filter>
@@ -228,176 +102,14 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\texture\texture.hpp">
-      <Filter>Header Files\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\model\model_descriptor.hpp">
-      <Filter>Header Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\static_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\light\spot_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\light\omni_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\light\ambient_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\light\directional_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\compiled_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
-      <Filter>Header Files\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\core\engine_statistics.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\display_configuration.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\display_configurator.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\display_settings.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\shader_factory.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\viewport.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\material\brdf.hpp">
-      <Filter>Header Files\material</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\camera_settings.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pipeline.hpp">
-      <Filter>Header Files\rendering</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\swap_chain.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\aa_descriptor.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\dds\dds_loader.hpp">
-      <Filter>Header Files\loaders\dds</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\dds\screen_grab.hpp">
-      <Filter>Header Files\loaders\dds</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_loader.hpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_reader.hpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_tokens.hpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_writer.hpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\msh\msh_loader.hpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\msh\msh_reader.hpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\msh\msh_tokens.hpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\msh\msh_writer.hpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_loader.hpp">
-      <Filter>Header Files\loaders\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_reader.hpp">
-      <Filter>Header Files\loaders\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_tokens.hpp">
-      <Filter>Header Files\loaders\mtl</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\obj\obj_loader.hpp">
-      <Filter>Header Files\loaders\obj</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\obj\obj_reader.hpp">
-      <Filter>Header Files\loaders\obj</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\obj\obj_tokens.hpp">
-      <Filter>Header Files\loaders\obj</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\wic\wic_loader.hpp">
-      <Filter>Header Files\loaders\wic</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\material_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\model_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\sprite_font_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\texture_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\variable_script_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\constant_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\game_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\light_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\model_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\shadow_map_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\structured_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\camera_buffer.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
@@ -423,42 +135,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font_descriptor.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font_output.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\color_string.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\glyph.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\var\var_loader.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\var\var_reader.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\var\var_tokens.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\var\var_writer.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\font\font_loader.hpp">
-      <Filter>Header Files\loaders\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\font\font_reader.hpp">
-      <Filter>Header Files\loaders\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\font\font_tokens.hpp">
-      <Filter>Header Files\loaders\font</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
@@ -480,47 +156,14 @@
     <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\component.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\node.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\state.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\sky.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\fog.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_text.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\editor\widget.hpp">
       <Filter>Header Files\editor</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\transform.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\conversion.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp">
-      <Filter>Header Files\rendering\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
@@ -534,12 +177,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\configuration.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\resource_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\state_manager.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -549,58 +186,16 @@
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\false_color.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\input\input_manager.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\input\keyboard.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\input\mouse.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\variable_script.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\shader_utils.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\core\version.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\model\model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\texture\texture.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp">
-      <Filter>Source Files\sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\vertex.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
       <Filter>Source Files\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\camera.cpp">
       <Filter>Source Files\camera</Filter>
@@ -608,35 +203,8 @@
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\light\spot_light.cpp">
-      <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\light\ambient_light.cpp">
-      <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\light\directional_light.cpp">
-      <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\light\omni_light.cpp">
-      <Filter>Source Files\light</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
-      <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
       <Filter>Source Files\rendering</Filter>
@@ -644,44 +212,11 @@
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\dds\dds_loader.cpp">
-      <Filter>Source Files\loaders\dds</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\dds\screen_grab.cpp">
-      <Filter>Source Files\loaders\dds</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\mtl\mtl_loader.cpp">
-      <Filter>Source Files\loaders\mtl</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\mtl\mtl_reader.cpp">
-      <Filter>Source Files\loaders\mtl</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp">
-      <Filter>Source Files\loaders\wic</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\material_loader.cpp">
-      <Filter>Source Files\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\sprite_font_loader.cpp">
-      <Filter>Source Files\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\texture_loader.cpp">
-      <Filter>Source Files\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\variable_script_loader.cpp">
-      <Filter>Source Files\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\buffer\shadow_map_buffer.cpp">
-      <Filter>Source Files\rendering\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
@@ -707,24 +242,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\font\sprite_font.cpp">
-      <Filter>Source Files\sprite\font</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\var\var_writer.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\var\var_loader.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\var\var_reader.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\font\font_loader.cpp">
-      <Filter>Source Files\loaders\font</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\font\font_reader.cpp">
-      <Filter>Source Files\loaders\font</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
@@ -736,12 +253,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\imgui\imgui.cpp">
       <Filter>Source Files\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scene\node.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scene\component.cpp">
-      <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp">
       <Filter>Source Files\sprite</Filter>
@@ -755,15 +266,6 @@
     <ClCompile Include="MAGE\src\editor\widget.cpp">
       <Filter>Source Files\editor</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scene\transform.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\conversion.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp">
-      <Filter>Source Files\rendering\buffer</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
@@ -776,9 +278,6 @@
     <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\resource_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\output_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
@@ -787,83 +286,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\scripting\variable_script.tpp">
-      <Filter>Header Files\scripting</Filter>
-    </None>
-    <None Include="MAGE\src\model\model_descriptor.tpp">
-      <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\rendering_factory.tpp">
-      <Filter>Header Files\rendering</Filter>
-    </None>
-    <None Include="MAGE\src\mesh\static_mesh.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </None>
     <None Include="MAGE\src\scene\scene.tpp">
-      <Filter>Header Files\scene</Filter>
-    </None>
-    <None Include="MAGE\src\model\model_output.tpp">
-      <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\shader\shader.tpp">
-      <Filter>Header Files\shader</Filter>
-    </None>
-    <None Include="MAGE\src\texture\texture.tpp">
-      <Filter>Header Files\texture</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\mdl\mdl_loader.tpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\mdl\mdl_reader.tpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\mdl\mdl_writer.tpp">
-      <Filter>Header Files\loaders\mdl</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\msh\msh_loader.tpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\msh\msh_reader.tpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\msh\msh_writer.tpp">
-      <Filter>Header Files\loaders\msh</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\obj\obj_loader.tpp">
-      <Filter>Header Files\loaders\obj</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\obj\obj_reader.tpp">
-      <Filter>Header Files\loaders\obj</Filter>
-    </None>
-    <None Include="MAGE\src\loaders\model_loader.tpp">
-      <Filter>Header Files\loaders</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\buffer\constant_buffer.tpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\buffer\structured_buffer.tpp">
-      <Filter>Header Files\rendering\buffer</Filter>
-    </None>
-    <None Include="MAGE\src\scene\node.tpp">
       <Filter>Header Files\scene</Filter>
     </None>
     <None Include="MAGE\src\sprite\sprite_text.tpp">
       <Filter>Header Files\sprite</Filter>
-    </None>
-    <None Include="MAGE\src\mesh\mesh.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </None>
-    <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp">
-      <Filter>Header Files\mesh</Filter>
     </None>
     <None Include="MAGE\src\model\model.tpp">
       <Filter>Header Files\model</Filter>
     </None>
     <None Include="MAGE\src\camera\camera.tpp">
       <Filter>Header Files\camera</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\resource_manager.tpp">
-      <Filter>Header Files\rendering</Filter>
     </None>
     <None Include="MAGE\src\rendering\state_manager.tpp">
       <Filter>Header Files\rendering</Filter>

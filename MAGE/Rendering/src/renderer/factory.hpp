@@ -151,7 +151,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
 										NotNull< ID3D11Buffer** > buffer,
-										size_t nb_data_elements) noexcept;
+										size_t nb_data_elements = 1u) noexcept;
 	
 	/**
 	 Creates a static structured buffer.

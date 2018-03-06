@@ -3,18 +3,18 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 	
 	template< typename ActionT >
 	inline void SpriteText::ForEachColorString(ActionT action) {
-		for (auto &str : m_strings) {
+		for (auto& str : m_strings) {
 			action(str);
 		}
 	}
 
 	template< typename ActionT >
 	inline void SpriteText::ForEachColorString(ActionT action) const {
-		for (const auto &str : m_strings) {
+		for (const auto& str : m_strings) {
 			action(str);
 		}
 	}

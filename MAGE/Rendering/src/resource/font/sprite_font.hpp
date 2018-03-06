@@ -18,6 +18,11 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
+	//-------------------------------------------------------------------------
+	// SpriteFont
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of sprite fonts.
 	 */
@@ -307,4 +312,18 @@ namespace mage::rendering {
 		 */
 		F32 m_line_spacing;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A pointer to a sprite font resource.
+	 */
+	using SpriteFontPtr = SharedPtr< const SpriteFont >;
+
+	#pragma endregion
 }

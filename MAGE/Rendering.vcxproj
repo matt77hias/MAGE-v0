@@ -89,6 +89,8 @@
     <ClInclude Include="Rendering\src\scene\light\directional_light.hpp" />
     <ClInclude Include="Rendering\src\scene\light\omni_light.hpp" />
     <ClInclude Include="Rendering\src\scene\light\spot_light.hpp" />
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_image.hpp" />
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_text.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp" />
@@ -111,6 +113,7 @@
     <None Include="Rendering\src\resource\rendering_resource_manager.tpp" />
     <None Include="Rendering\src\resource\shader\shader.tpp" />
     <None Include="Rendering\src\resource\texture\texture.tpp" />
+    <None Include="Rendering\src\scene\sprite\sprite_text.tpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp" />
@@ -143,6 +146,8 @@
     <ClCompile Include="Rendering\src\scene\light\directional_light.cpp" />
     <ClCompile Include="Rendering\src\scene\light\omni_light.cpp" />
     <ClCompile Include="Rendering\src\scene\light\spot_light.cpp" />
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_image.cpp" />
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_text.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

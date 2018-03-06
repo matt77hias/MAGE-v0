@@ -6,15 +6,14 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "sprite\font\sprite_font.hpp"
-#include "logging\error.hpp"
+#include "resource\font\sprite_font.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -62,7 +61,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite text to copy.
 		 */
-		SpriteText(const SpriteText &sprite);
+		SpriteText(const SpriteText& sprite);
 
 		/**
 		 Constructs a sprite text by moving the given sprite text.
@@ -70,7 +69,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite text to move.
 		 */
-		SpriteText(SpriteText &&sprite) noexcept;
+		SpriteText(SpriteText&& sprite) noexcept;
 
 		/**
 		 Destruct this sprite text.
@@ -89,7 +88,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite text (i.e. 
 						this sprite text).
 		 */
-		SpriteText &operator=(const SpriteText &sprite);
+		SpriteText& operator=(const SpriteText& sprite);
 
 		/**
 		 Moves the given sprite text to this sprite text.
@@ -99,7 +98,7 @@ namespace mage {
 		 @return		A reference to the moved sprite text (i.e. this sprite 
 						text).
 		 */
-		SpriteText &operator=(SpriteText &&sprite) noexcept;
+		SpriteText& operator=(SpriteText&& sprite) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -112,7 +111,7 @@ namespace mage {
 						A reference to the sprite batch used for rendering this 
 						sprite text.
 		 */
-		void Draw(SpriteBatch &sprite_batch) const;
+		void Draw(SpriteBatch& sprite_batch) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -124,7 +123,8 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
-		[[nodiscard]]SpriteTransform &GetSpriteTransform() noexcept {
+		[[nodiscard]]
+		SpriteTransform& GetSpriteTransform() noexcept {
 			return m_sprite_transform;
 		}
 
@@ -134,7 +134,8 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						text.
 		 */
-		[[nodiscard]]const SpriteTransform &GetSpriteTransform() const noexcept {
+		[[nodiscard]]
+		const SpriteTransform& GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
 		
@@ -147,7 +148,8 @@ namespace mage {
 
 		 @return		The sprite effects of this sprite text.
 		 */
-		[[nodiscard]]SpriteEffect GetSpriteEffects() const noexcept {
+		[[nodiscard]]
+		SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
 		
@@ -179,7 +181,8 @@ namespace mage {
 		 @return		A reference to a vector containing the color strings 
 						of this sprite text.
 		 */
-		[[nodiscard]]const std::vector< ColorString > &GetText() const noexcept {
+		[[nodiscard]]
+		const std::vector< ColorString >& GetText() const noexcept {
 			return m_strings;
 		}
 
@@ -240,7 +243,8 @@ namespace mage {
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
-		[[nodiscard]]SRGBA &GetTextEffectColor() noexcept {
+		[[nodiscard]]
+		SRGBA& GetTextEffectColor() noexcept {
 			return m_text_effect_color;
 		}
 
@@ -250,7 +254,8 @@ namespace mage {
 		 @return		A reference to the sRGB text effect color of this 
 						sprite text.
 		 */
-		[[nodiscard]]const SRGBA &GetTextEffectColor() const noexcept {
+		[[nodiscard]]
+		const SRGBA& GetTextEffectColor() const noexcept {
 			return m_text_effect_color;
 		}
 
@@ -259,7 +264,8 @@ namespace mage {
 
 		 @return		The text effect of this sprite text.
 		 */
-		[[nodiscard]]TextEffect GetTextEffect() const noexcept {
+		[[nodiscard]]
+		TextEffect GetTextEffect() const noexcept {
 			return m_text_effect;
 		}
 
@@ -282,7 +288,8 @@ namespace mage {
 
 		 @return		A pointer to the font of this sprite text.
 		 */
-		[[nodiscard]]SharedPtr< const SpriteFont > GetFont() const noexcept {
+		[[nodiscard]]
+		SpriteFontPtr GetFont() const noexcept {
 			return m_font;
 		}
 		
@@ -292,20 +299,18 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the font of 
 						this sprite text.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetFontSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetFontSRV() const noexcept {
 			return m_font->Get();
 		}
 
 		/**
 		 Sets the font of this sprite text to the given font.
-
-		 @pre			@c font.get() is not equal to @c nullptr.		
+	
 		 @param[in]		font
 						A pointer to the font of this sprite text.
 		 */
-		void SetFont(SharedPtr< const SpriteFont > font) noexcept {
-			Assert(font);
-
+		void SetFont(SpriteFontPtr font) noexcept {
 			m_font = std::move(font);
 		}
 
@@ -359,7 +364,7 @@ namespace mage {
 		/**
 		 A pointer to the sprite font of this sprite text.
 		 */
-		SharedPtr< const SpriteFont > m_font;
+		SpriteFontPtr m_font;
 	};
 
 	#pragma warning( pop )
@@ -370,6 +375,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite_text.tpp"
+#include "scene\sprite\sprite_text.tpp"
 
 #pragma endregion

@@ -6,15 +6,16 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "sprite\sprite_batch.hpp"
-#include "texture\texture.hpp"
+#include "renderer\pass\sprite_batch.hpp"
+#include "resource\texture\texture.hpp"
+#include "spectrum\spectrum.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -22,7 +23,7 @@ namespace mage {
 	/**
 	 A class of sprite images.
 	 */
-	class alignas(16) SpriteImage final : public Component{
+	class alignas(16) SpriteImage final : public Component {
 
 	public:
 
@@ -41,7 +42,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite image to copy.
 		 */
-		SpriteImage(const SpriteImage &sprite) noexcept;
+		SpriteImage(const SpriteImage& sprite) noexcept;
 
 		/**
 		 Constructs a sprite image by moving the given sprite image.
@@ -49,7 +50,7 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite) noexcept;
+		SpriteImage(SpriteImage&& sprite) noexcept;
 
 		/**
 		 Destruct this sprite image.
@@ -68,7 +69,7 @@ namespace mage {
 		 @return		A reference to the copy of the given sprite image (i.e. 
 						this sprite image).
 		 */
-		SpriteImage &operator=(const SpriteImage &sprite) noexcept;
+		SpriteImage& operator=(const SpriteImage& sprite) noexcept;
 
 		/**
 		 Moves the given sprite image to this sprite image.
@@ -78,7 +79,7 @@ namespace mage {
 		 @return		A reference to the moved sprite image (i.e. this sprite 
 						image).
 		 */
-		SpriteImage &operator=(SpriteImage &&sprite) noexcept;
+		SpriteImage& operator=(SpriteImage&& sprite) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -91,7 +92,7 @@ namespace mage {
 						A reference to the sprite batch used for rendering this 
 						sprite image.
 		 */
-		void Draw(SpriteBatch &sprite_batch) const;
+		void Draw(SpriteBatch& sprite_batch) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -103,7 +104,8 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						image.
 		 */
-		[[nodiscard]]SpriteTransform &GetSpriteTransform() noexcept {
+		[[nodiscard]]
+		SpriteTransform& GetSpriteTransform() noexcept {
 			return m_sprite_transform;
 		}
 
@@ -113,7 +115,8 @@ namespace mage {
 		 @return		A reference to the sprite transform of this sprite 
 						image.
 		 */
-		[[nodiscard]]const SpriteTransform &GetSpriteTransform() const noexcept {
+		[[nodiscard]]
+		const SpriteTransform& GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
 		
@@ -126,7 +129,8 @@ namespace mage {
 
 		 @return		The sprite effects of this sprite image.
 		 */
-		[[nodiscard]]SpriteEffect GetSpriteEffects() const noexcept {
+		[[nodiscard]]
+		SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
 		
@@ -151,7 +155,8 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this sprite 
 						image.
 		 */
-		[[nodiscard]]SRGBA &GetBaseColor() noexcept {
+		[[nodiscard]]
+		SRGBA& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
@@ -161,7 +166,8 @@ namespace mage {
 		 @return		A reference to the sRGB base color of this sprite 
 						image.
 		 */
-		[[nodiscard]]const SRGBA &GetBaseColor() const noexcept {
+		[[nodiscard]]
+		const SRGBA& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -170,7 +176,8 @@ namespace mage {
 
 		 @return		The base color texture region of this sprite image.
 		 */
-		[[nodiscard]]const RECT GetBaseColorTextureRegion() const noexcept {
+		[[nodiscard]]
+		const RECT GetBaseColorTextureRegion() const noexcept {
 			return m_base_color_texture_region;
 		}
 
@@ -182,7 +189,8 @@ namespace mage {
 						image corresponds to the maximum texture region. 
 						@c false otherwise.
 		 */
-		[[nodiscard]]bool HasMaximumBaseColorTextureRegion() const noexcept {
+		[[nodiscard]]
+		bool HasMaximumBaseColorTextureRegion() const noexcept {
 			return 0 == m_base_color_texture_region.left
 				&& 0 == m_base_color_texture_region.top
 				&& 0 == m_base_color_texture_region.right
@@ -214,7 +222,8 @@ namespace mage {
 		 @return		A pointer to the sRGB base color texture of this sprite 
 						image.
 		 */
-		[[nodiscard]]SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+		[[nodiscard]]
+		TexturePtr GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
 		
@@ -227,7 +236,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view of the sRGB base 
 						color texture of this sprite image.
 		 */
-		[[nodiscard]]ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
 		
@@ -238,9 +248,7 @@ namespace mage {
 		 @param[in]		base_color_texture
 						A pointer to the sRGB base color texture.
 		 */
-		void SetBaseColorTexture(
-			SharedPtr< const Texture > base_color_texture) noexcept {
-			
+		void SetBaseColorTexture(TexturePtr base_color_texture) noexcept {
 			m_base_color_texture = std::move(base_color_texture);
 		}
 
@@ -284,7 +292,7 @@ namespace mage {
 		/**
 		 A pointer to the sRGB base color texture of this sprite image.
 		 */
-		SharedPtr< const Texture > m_base_color_texture;
+		TexturePtr m_base_color_texture;
 	};
 
 	#pragma warning( pop )

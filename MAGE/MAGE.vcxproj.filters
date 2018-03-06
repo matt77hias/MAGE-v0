@@ -43,12 +43,6 @@
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\sprite">
-      <UniqueIdentifier>{0e6f04b4-b3bf-4a6c-b89d-f80e376d898a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\sprite">
-      <UniqueIdentifier>{30da0086-7246-40cb-8a93-c0e0e68a7ce6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\camera">
       <UniqueIdentifier>{387a1d6e-f2b9-464f-91ca-5c2ced312bca}</UniqueIdentifier>
     </Filter>
@@ -60,9 +54,6 @@
     </Filter>
     <Filter Include="Source Files\rendering\pass">
       <UniqueIdentifier>{88555923-d4c3-4d24-8c8d-8f000bb4d0b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\sprite\font">
-      <UniqueIdentifier>{05e90b6c-88bb-43fa-add9-277ffd2a5829}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{f7674e16-9496-4272-b5f9-97de57a51a8d}</UniqueIdentifier>
@@ -156,12 +147,6 @@
     <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_text.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\editor\widget.hpp">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
@@ -254,12 +239,6 @@
     <ClCompile Include="MAGE\src\imgui\imgui.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite_image.cpp">
-      <Filter>Source Files\sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite_text.cpp">
-      <Filter>Source Files\sprite</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
@@ -288,9 +267,6 @@
   <ItemGroup>
     <None Include="MAGE\src\scene\scene.tpp">
       <Filter>Header Files\scene</Filter>
-    </None>
-    <None Include="MAGE\src\sprite\sprite_text.tpp">
-      <Filter>Header Files\sprite</Filter>
     </None>
     <None Include="MAGE\src\model\model.tpp">
       <Filter>Header Files\model</Filter>

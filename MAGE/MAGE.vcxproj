@@ -53,8 +53,6 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_text.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
@@ -87,15 +85,12 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\camera\camera.tpp" />
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\rendering\state_manager.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
-    <None Include="MAGE\src\sprite\sprite_text.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

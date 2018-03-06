@@ -356,6 +356,12 @@
     <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_image.hpp">
+      <Filter>Header Files\scene\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_text.hpp">
+      <Filter>Header Files\scene\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -417,6 +423,9 @@
     </None>
     <None Include="Rendering\src\renderer\buffer\structured_buffer.tpp">
       <Filter>Header Files\renderer\buffer</Filter>
+    </None>
+    <None Include="Rendering\src\scene\sprite\sprite_text.tpp">
+      <Filter>Header Files\scene\sprite</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -509,6 +518,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp">
       <Filter>Source Files\renderer\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_image.cpp">
+      <Filter>Source Files\scene\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_text.cpp">
+      <Filter>Source Files\scene\sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

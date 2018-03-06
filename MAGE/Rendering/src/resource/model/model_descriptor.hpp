@@ -18,6 +18,11 @@ namespace mage::rendering {
 	// Forward declaration.
 	class ResourceManager;
 
+	//-------------------------------------------------------------------------
+	// ModelDescriptor
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	/**
 	 A class of model descriptors describing a complete model.
 	 */
@@ -186,6 +191,20 @@ namespace mage::rendering {
 		 */
 		AlignedVector< ModelPart > m_model_parts;
 	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A pointer to a model descriptor resource.
+	 */
+	using ModelDescriptorPtr = SharedPtr< const ModelDescriptor >;
+
+	#pragma endregion
 }
 
 //-----------------------------------------------------------------------------

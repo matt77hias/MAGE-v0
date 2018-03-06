@@ -371,6 +371,9 @@
     <ClInclude Include="Rendering\src\scene\camera\camera.hpp">
       <Filter>Header Files\scene\camera</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\scene\model\model.hpp">
+      <Filter>Header Files\scene\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -438,6 +441,9 @@
     </None>
     <None Include="Rendering\src\scene\camera\camera.tpp">
       <Filter>Header Files\scene\camera</Filter>
+    </None>
+    <None Include="Rendering\src\scene\model\model.tpp">
+      <Filter>Header Files\scene\model</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -545,6 +551,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\scene\camera\camera.cpp">
       <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\model\model.cpp">
+      <Filter>Source Files\scene\model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

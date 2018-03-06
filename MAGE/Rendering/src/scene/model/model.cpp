@@ -3,22 +3,24 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "scene\node.hpp"
+#include "scene\model\model.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
-	Model::Model(SharedPtr< const Mesh > mesh, 
+	Model::Model(ID3D11Device& device, 
+				 SharedPtr< const Mesh > mesh,
 		         size_t start_index, 
 		         size_t nb_indices,
 		         const AABB &aabb, 
 		         const BoundingSphere &bs) 
 		: Component(),
-		m_buffer(), 
+		m_buffer(device),
 		m_aabb(aabb),
 		m_sphere(bs),
 		m_mesh(std::move(mesh)), 
@@ -28,41 +30,13 @@ namespace mage {
 		m_material(),
 		m_light_occlusion(true) {}
 
-	Model::Model(const Model &model) 
-		: Component(model),
-		m_buffer(),
-		m_aabb(model.m_aabb),
-		m_sphere(model.m_sphere),
-		m_mesh(model.m_mesh),
-		m_start_index(model.m_start_index),
-		m_nb_indices(model.m_nb_indices),
-		m_texture_transform(model.m_texture_transform),
-		m_material(model.m_material),
-		m_light_occlusion(model.m_light_occlusion) {}
-
-	Model::Model(Model &&model) noexcept = default;
+	Model::Model(Model&& model) noexcept = default;
 
 	Model::~Model() = default;
 
-	Model &Model::operator=(const Model &model) {
-		Component::operator=(model);
+	Model& Model::operator=(Model&& model) noexcept = default;
 
-		m_buffer            = ConstantBuffer< ModelBuffer >();
-		m_aabb              = model.m_aabb;
-		m_sphere            = model.m_sphere;
-		m_mesh              = model.m_mesh;
-		m_start_index       = model.m_start_index;
-		m_nb_indices        = model.m_nb_indices;
-		m_texture_transform = model.m_texture_transform;
-		m_material          = model.m_material;
-		m_light_occlusion   = model.m_light_occlusion;
-
-		return *this;
-	}
-
-	Model &Model::operator=(Model &&model) noexcept = default;
-
-	void Model::UpdateBuffer(ID3D11DeviceContext *device_context) const {
+	void Model::UpdateBuffer(ID3D11DeviceContext& device_context) const {
 		const auto &transform        = GetOwner()->GetTransform();
 		const auto object_to_world   = transform.GetObjectToWorldMatrix();
 		const auto world_to_object   = transform.GetWorldToObjectMatrix();

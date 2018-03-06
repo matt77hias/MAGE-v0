@@ -29,7 +29,6 @@
     <ClInclude Include="MAGE\src\imgui\stb_rect_pack.hpp" />
     <ClInclude Include="MAGE\src\imgui\stb_textedit.hpp" />
     <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp" />
-    <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\aa_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\back_buffer_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp" />
@@ -58,7 +57,6 @@
     <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp" />
     <ClCompile Include="MAGE\src\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\back_buffer_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\pass\bounding_volume_pass.cpp" />
@@ -81,7 +79,6 @@
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\rendering\state_manager.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
   </ItemGroup>

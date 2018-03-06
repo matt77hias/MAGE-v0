@@ -31,12 +31,6 @@
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\model">
-      <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\model">
-      <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
     </Filter>
@@ -68,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\core\engine_setup.hpp">
       <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\model\model.hpp">
-      <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp">
       <Filter>Header Files\scripting</Filter>
@@ -161,9 +152,6 @@
     <ClCompile Include="MAGE\src\core\engine.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\model\model.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -243,9 +231,6 @@
   <ItemGroup>
     <None Include="MAGE\src\scene\scene.tpp">
       <Filter>Header Files\scene</Filter>
-    </None>
-    <None Include="MAGE\src\model\model.tpp">
-      <Filter>Header Files\model</Filter>
     </None>
     <None Include="MAGE\src\rendering\state_manager.tpp">
       <Filter>Header Files\rendering</Filter>

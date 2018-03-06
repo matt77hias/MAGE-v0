@@ -6,19 +6,19 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "mesh\mesh.hpp"
+#include "resource\mesh\mesh.hpp"
+#include "resource\model\material.hpp"
 #include "geometry\bounding_volume.hpp"
 #include "transform\texture_transform.hpp"
-#include "material\material.hpp"
-#include "rendering\buffer\constant_buffer.hpp"
-#include "rendering\buffer\model_buffer.hpp"
+#include "renderer\buffer\constant_buffer.hpp"
+#include "renderer\buffer\model_buffer.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -38,6 +38,8 @@ namespace mage {
 		 Constructs a model.
 
 		 @pre			@a mesh is not equal to @c nullptr.
+		 @param[in]		device
+						A reference to the device.
 		 @param[in]		mesh
 						A pointer to the mesh.
 		 @param[in]		start_index
@@ -49,11 +51,12 @@ namespace mage {
 		 @param[in]		bs
 						A reference to the BoundingSphere.
 		 */
-		explicit Model(SharedPtr< const Mesh > mesh, 
+		explicit Model(ID3D11Device& device, 
+					   SharedPtr< const Mesh > mesh, 
 			           size_t start_index, 
 			           size_t nb_indices, 
-			           const AABB &aabb, 
-			           const BoundingSphere &bs);
+			           const AABB& aabb, 
+			           const BoundingSphere& bs);
 
 		/**
 		 Constructs a model from the given model.
@@ -61,7 +64,7 @@ namespace mage {
 		 @param[in]		model
 						A reference to the model to copy.
 		 */
-		Model(const Model &model);
+		Model(const Model& model) = delete;
 
 		/**
 		 Constructs a model by moving the given model.
@@ -69,7 +72,7 @@ namespace mage {
 		 @param[in]		model
 						A reference to the model to move.
 		 */
-		Model(Model &&model) noexcept;
+		Model(Model&& model) noexcept;
 
 		/**
 		 Destructs this model.
@@ -88,7 +91,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model (i.e. this 
 						model).
 		 */
-		Model &operator=(const Model &model);
+		Model& operator=(const Model& model) = delete;
 
 		/**
 		 Moves the given model to this model.
@@ -97,7 +100,7 @@ namespace mage {
 						A reference to the model to move.
 		 @return		A reference to the moved model (i.e. this model).
 		 */
-		Model &operator=(Model &&model) noexcept;
+		Model& operator=(Model&& model) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Geometry
@@ -108,7 +111,8 @@ namespace mage {
 
 		 @return		A reference to the AABB of this model.
 		 */
-		[[nodiscard]]const AABB &GetAABB() const noexcept {
+		[[nodiscard]]
+		const AABB& GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -117,7 +121,8 @@ namespace mage {
 
 		 @return		A reference to the bounding sphere of this model.
 		 */
-		[[nodiscard]]const BoundingSphere &GetBoundingSphere() const noexcept {
+		[[nodiscard]]
+		const BoundingSphere& GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
 
@@ -126,7 +131,8 @@ namespace mage {
 
 		 @return		The start index of this model in the mesh of this model.
 		 */
-		[[nodiscard]]size_t GetStartIndex() const noexcept {
+		[[nodiscard]]
+		size_t GetStartIndex() const noexcept {
 			return m_start_index;
 		}
 
@@ -136,31 +142,30 @@ namespace mage {
 		 @return		The number of indices of this model in the mesh of this 
 						model.
 		 */
-		[[nodiscard]]size_t GetNumberOfIndices() const noexcept {
+		[[nodiscard]]
+		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
 		/**
 		 Binds the mesh of this model.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void BindMesh(ID3D11DeviceContext *device_context) const noexcept {
+		void BindMesh(ID3D11DeviceContext& device_context) const noexcept {
 			m_mesh->BindMesh(device_context);
 		}
 
 		/**
 		 Binds the mesh of this model with given primitive topology.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(ID3D11DeviceContext *device_context, 
+		void BindMesh(ID3D11DeviceContext& device_context, 
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			m_mesh->BindMesh(device_context, topology);
@@ -169,11 +174,10 @@ namespace mage {
 		/**
 		 Draws this model.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void Draw(ID3D11DeviceContext *device_context) const noexcept {
+		void Draw(ID3D11DeviceContext& device_context) const noexcept {
 			m_mesh->Draw(device_context, m_start_index, m_nb_indices);
 		}
 
@@ -186,7 +190,8 @@ namespace mage {
 
 		 @return		A reference to the texture transform of this model.
 		 */
-		[[nodiscard]]TextureTransform &GetTextureTransform() noexcept {
+		[[nodiscard]]
+		TextureTransform& GetTextureTransform() noexcept {
 			return m_texture_transform;
 		}
 
@@ -195,7 +200,8 @@ namespace mage {
 
 		 @return		A reference to the texture transform of this model.
 		 */
-		[[nodiscard]]const TextureTransform &GetTextureTransform() const noexcept {
+		[[nodiscard]]
+		const TextureTransform& GetTextureTransform() const noexcept {
 			return m_texture_transform;
 		}
 
@@ -204,7 +210,8 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		[[nodiscard]]Material &GetMaterial() noexcept {
+		[[nodiscard]]
+		Material& GetMaterial() noexcept {
 			return m_material;
 		}
 
@@ -213,7 +220,8 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		[[nodiscard]]const Material &GetMaterial() const noexcept {
+		[[nodiscard]]
+		const Material& GetMaterial() const noexcept {
 			return m_material;
 		}
 
@@ -227,7 +235,8 @@ namespace mage {
 		 @return		@c true if this model occludes light. @c false 
 						otherwise.
 		 */
-		[[nodiscard]]bool OccludesLight() const noexcept {
+		[[nodiscard]]
+		bool OccludesLight() const noexcept {
 			return m_light_occlusion;
 		}
 
@@ -270,27 +279,25 @@ namespace mage {
 		/**
 		 Updates the buffer of this model.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 */
-		void UpdateBuffer(ID3D11DeviceContext *device_context) const;
+		void UpdateBuffer(ID3D11DeviceContext& device_context) const;
 
 		/**
 		 Binds the buffer of this model to the given pipeline stage.
 
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
-						A pointer to the device context.
+						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void BindBuffer(ID3D11DeviceContext *device_context, 
+		void BindBuffer(ID3D11DeviceContext& device_context, 
 						U32 slot) const noexcept;
 
 	private:
@@ -365,6 +372,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model.tpp"
+#include "scene\model\model.tpp"
 
 #pragma endregion

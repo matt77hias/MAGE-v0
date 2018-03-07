@@ -75,9 +75,6 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\swap_chain.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
@@ -138,12 +135,6 @@
     <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp">
       <Filter>Header Files\rendering\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\state_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\output_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -156,9 +147,6 @@
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
@@ -221,19 +209,10 @@
     <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp">
       <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\output_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\state_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\scene\scene.tpp">
       <Filter>Header Files\scene</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\state_manager.tpp">
-      <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

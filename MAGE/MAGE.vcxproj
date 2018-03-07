@@ -42,10 +42,7 @@
     <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\output_manager.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\state_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\swap_chain.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
@@ -71,15 +68,11 @@
     <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\output_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\state_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\swap_chain.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\rendering\state_manager.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -269,7 +269,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The device of this resource manager.
+		 A reference to the device of this resource manager.
 		 */
 		std::reference_wrapper< ID3D11Device > m_device;
 

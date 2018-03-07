@@ -358,7 +358,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this sprite batch.
+		 A reference to the device context of this sprite batch.
 		 */
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 

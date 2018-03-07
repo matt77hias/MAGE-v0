@@ -152,7 +152,7 @@ namespace mage::input {
 		NotNull< HWND > m_window;
 
 		/**
-		 A pointer to the DirectInput object of this keyboard.
+		 A reference to the DirectInput object of this keyboard.
 		 */
 		std::reference_wrapper< IDirectInput8 > m_di;
 

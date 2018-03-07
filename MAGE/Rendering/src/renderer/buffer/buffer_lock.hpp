@@ -143,12 +143,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this buffer lock.
+		 A reference to the device context of this buffer lock.
 		 */
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A pointer to the buffer of this lock.
+		 A reference to the buffer of this lock.
 		 */
 		std::reference_wrapper< ID3D11Buffer > m_buffer;
 	};

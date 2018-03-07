@@ -240,7 +240,7 @@ namespace mage::input {
 		NotNull< HWND > m_window;
 
 		/**
-		 A pointer to the DirectInput object of this mouse.
+		 A reference to the DirectInput object of this mouse.
 		 */
 		std::reference_wrapper< IDirectInput8 > m_di;
 

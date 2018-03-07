@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\display_configuration.hpp"
+#include "display\display_configuration.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of swap chains.
@@ -163,7 +163,7 @@ namespace mage {
 						of this swap chain.
 		 */
 		[[nodiscard]]
-		ID3D11RenderTargetView *GetRTV() const noexcept;
+		NotNull< ID3D11RenderTargetView* > GetRTV() const noexcept;
 
 		/**
 		 Clears the render target view of the back buffer of this swap chain.

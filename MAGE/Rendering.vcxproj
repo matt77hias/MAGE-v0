@@ -58,8 +58,11 @@
     <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp" />
     <ClInclude Include="Rendering\src\renderer\configuration.hpp" />
     <ClInclude Include="Rendering\src\renderer\factory.hpp" />
+    <ClInclude Include="Rendering\src\renderer\output_manager.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\sprite_batch.hpp" />
     <ClInclude Include="Rendering\src\renderer\pipeline.hpp" />
+    <ClInclude Include="Rendering\src\renderer\state_manager.hpp" />
+    <ClInclude Include="Rendering\src\renderer\swap_chain.hpp" />
     <ClInclude Include="Rendering\src\resource\font\color_string.hpp" />
     <ClInclude Include="Rendering\src\resource\font\glyph.hpp" />
     <ClInclude Include="Rendering\src\resource\font\sprite_font.hpp" />
@@ -136,7 +139,10 @@
     <ClCompile Include="Rendering\src\renderer\buffer\shadow_map_buffer.cpp" />
     <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp" />
     <ClCompile Include="Rendering\src\renderer\factory.cpp" />
+    <ClCompile Include="Rendering\src\renderer\output_manager.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\sprite_batch.cpp" />
+    <ClCompile Include="Rendering\src\renderer\state_manager.cpp" />
+    <ClCompile Include="Rendering\src\renderer\swap_chain.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp" />
     <ClCompile Include="Rendering\src\resource\mesh\mesh.cpp" />
     <ClCompile Include="Rendering\src\resource\mesh\sprite_batch_mesh.cpp" />

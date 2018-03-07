@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\output_manager.hpp"
-#include "rendering\pipeline.hpp"
+#include "renderer\output_manager.hpp"
+#include "renderer\pipeline.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -24,11 +24,11 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
-	OutputManager::OutputManager(ID3D11Device &device, 
-								 DisplayConfiguration &display_configuration, 
-								 SwapChain &swap_chain)
+	OutputManager::OutputManager(ID3D11Device& device, 
+								 DisplayConfiguration& display_configuration, 
+								 SwapChain& swap_chain)
 		: m_display_configuration(display_configuration),
 		m_device(device), 
 		m_swap_chain(swap_chain),
@@ -182,9 +182,9 @@ namespace mage {
 		                            U32 height, 
 		                            U32 nb_samples, 
 		                            DXGI_FORMAT format, 
-		                            ID3D11ShaderResourceView **srv, 
-		                            ID3D11RenderTargetView **rtv, 
-		                            ID3D11UnorderedAccessView **uav) {
+		                            ID3D11ShaderResourceView** srv, 
+		                            ID3D11RenderTargetView** rtv, 
+		                            ID3D11UnorderedAccessView** uav) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
@@ -551,7 +551,7 @@ namespace mage {
 
 		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context, 
-									m_swap_chain.GetRTV(), 
+									m_swap_chain.get().GetRTV(), 
 									nullptr);
 		
 		// Bind no HDR UAV.

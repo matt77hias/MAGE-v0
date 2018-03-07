@@ -5,14 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\swap_chain.hpp"
+#include "renderer\swap_chain.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of output managers.
@@ -143,7 +143,7 @@ namespace mage {
 		};
 
 		[[nodiscard]]
-		ID3D11ShaderResourceView *GetSRV(SRVIndex index) const noexcept {
+		ID3D11ShaderResourceView* GetSRV(SRVIndex index) const noexcept {
 			return m_srvs[static_cast< size_t >(index)].Get();
 		}
 		
@@ -155,7 +155,7 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		ID3D11RenderTargetView *GetRTV(RTVIndex index) const noexcept {
+		ID3D11RenderTargetView* GetRTV(RTVIndex index) const noexcept {
 			return m_rtvs[static_cast< size_t >(index)].Get();
 		}
 		
@@ -167,12 +167,12 @@ namespace mage {
 		}
 		
 		[[nodiscard]]
-		ID3D11UnorderedAccessView *GetUAV(UAVIndex index) const noexcept {
+		ID3D11UnorderedAccessView* GetUAV(UAVIndex index) const noexcept {
 			return m_uavs[static_cast< size_t >(index)].Get();
 		}
 		
 		[[nodiscard]]
-		NotNull< ID3D11UnorderedAccessView ** > 
+		NotNull< ID3D11UnorderedAccessView** > 
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
@@ -184,9 +184,9 @@ namespace mage {
 			             U32 height, 
 			             U32 nb_samples, 
 			             DXGI_FORMAT format,
-			             ID3D11ShaderResourceView **srv, 
-			             ID3D11RenderTargetView **rtv, 
-			             ID3D11UnorderedAccessView **uav);
+			             ID3D11ShaderResourceView** srv, 
+			             ID3D11RenderTargetView** rtv, 
+			             ID3D11UnorderedAccessView** uav);
 
 		void SetupDepthBuffer(U32 width, 
 			                  U32 height, 

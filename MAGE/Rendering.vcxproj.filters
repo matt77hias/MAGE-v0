@@ -374,6 +374,15 @@
     <ClInclude Include="Rendering\src\scene\model\model.hpp">
       <Filter>Header Files\scene\model</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\swap_chain.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\output_manager.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\state_manager.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -554,6 +563,15 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\scene\model\model.cpp">
       <Filter>Source Files\scene\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\output_manager.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\state_manager.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\swap_chain.cpp">
+      <Filter>Source Files\renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

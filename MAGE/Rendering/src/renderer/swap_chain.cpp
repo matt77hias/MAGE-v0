@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\swap_chain.hpp"
+#include "renderer\swap_chain.hpp"
+#include "renderer\pipeline.hpp"
 #include "loaders\texture_loader.hpp"
 #include "exception\exception.hpp"
 
@@ -12,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
 	// SwapChain::Impl
@@ -182,7 +183,7 @@ namespace mage {
 						of this swap chain.
 		 */
 		[[nodiscard]]
-		ID3D11RenderTargetView *GetRTV() const noexcept {
+		NotNull< ID3D11RenderTargetView* > GetRTV() const noexcept {
 			return m_rtv.Get();
 		}
 
@@ -364,8 +365,7 @@ namespace mage {
 		{
 			const HRESULT result 
 				= m_display_configuration.get().GetAdapter()->GetParent(
-					__uuidof(IDXGIFactory2), 
-					(void **)dxgi_factory.GetAddressOf());
+					__uuidof(IDXGIFactory2), (void**)dxgi_factory.GetAddressOf());
 			ThrowIfFailed(result, "IDXGIFactory2 creation failed: %08X.", result);
 		}
 	
@@ -395,15 +395,20 @@ namespace mage {
 
 		// Create a fullscreen swap chain descriptor.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
-		swap_chain_fullscreen_desc.RefreshRate = m_display_configuration.get().GetDisplayRefreshRate();
-		swap_chain_fullscreen_desc.Windowed    = TRUE;
+		swap_chain_fullscreen_desc.RefreshRate 
+			= m_display_configuration.get().GetDisplayRefreshRate();
+		swap_chain_fullscreen_desc.Windowed = TRUE;
 
 		ComPtr< IDXGISwapChain1 > swap_chain;
 		{
 			// Get the IDXGISwapChain1.
-			const HRESULT result = dxgi_factory->CreateSwapChainForHwnd(
-				&m_device.get(), m_window, &swap_chain_desc, &swap_chain_fullscreen_desc, 
-				nullptr, swap_chain.ReleaseAndGetAddressOf());
+			const HRESULT result 
+				= dxgi_factory->CreateSwapChainForHwnd(&m_device.get(), 
+													   m_window, 
+													   &swap_chain_desc, 
+													   &swap_chain_fullscreen_desc, 
+													   nullptr, 
+													   swap_chain.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: %08X.", result);
 		}
 		{
@@ -420,12 +425,11 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result 
-				= m_swap_chain->GetBuffer(0u, 
-					                      __uuidof(ID3D11Texture2D), 
-				                          (void **)back_buffer.GetAddressOf());
-			ThrowIfFailed(result,
-				"Back buffer texture creation failed: %08X.", result);
+			const HRESULT result = m_swap_chain->GetBuffer(0u, 
+														   __uuidof(ID3D11Texture2D), 
+														   (void**)back_buffer.GetAddressOf());
+			ThrowIfFailed(result, 
+						  "Back buffer texture creation failed: %08X.", result);
 		}
 
 		{
@@ -435,7 +439,7 @@ namespace mage {
 														nullptr,
 														m_rtv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
-				"Back buffer RTV creation failed: %08X.", result);
+						  "Back buffer RTV creation failed: %08X.", result);
 		}
 	}
 
@@ -455,16 +459,16 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result 
-				= m_swap_chain->GetBuffer(0u, __uuidof(ID3D11Texture2D),
-				                          (void **)back_buffer.GetAddressOf());
-			ThrowIfFailed(result,
-				"Back buffer texture creation failed: %08X.", result);
+			const HRESULT result = m_swap_chain->GetBuffer(0u, 
+														   __uuidof(ID3D11Texture2D), 
+														   (void**)back_buffer.GetAddressOf());
+			ThrowIfFailed(result, 
+						  "Back buffer texture creation failed: %08X.", result);
 		}
 		
 		loader::ExportTextureToFile(fname,
-			                        &m_device_context.get(),
-			                        back_buffer.Get());
+			                        m_device_context,
+			                        *back_buffer.Get());
 	}
 
 	void SwapChain::Impl::SwitchMode(bool toggle) {
@@ -524,7 +528,7 @@ namespace mage {
 	}
 
 	void SwapChain::SetInitialMode() {
-		m_impl->SetInitialMode;
+		m_impl->SetInitialMode();
 	}
 
 	void SwapChain::SwitchMode(bool toggle) {
@@ -532,7 +536,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	ID3D11RenderTargetView *SwapChain::GetRTV() const noexcept {
+	NotNull< ID3D11RenderTargetView* > SwapChain::GetRTV() const noexcept {
 		return m_impl->GetRTV();
 	}
 

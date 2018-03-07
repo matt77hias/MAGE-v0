@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\state_manager.hpp"
-#include "rendering\rendering_factory.hpp"
+#include "renderer\state_manager.hpp"
+#include "renderer\factory.hpp"
 #include "exception\exception.hpp"
 
 // Include HLSL bindings.
@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	StateManager::StateManager(ID3D11Device& device)
 		: m_device(device),
@@ -56,7 +56,7 @@ namespace mage {
 	void StateManager::SetupBlendStates() {
 		{
 			const HRESULT result = CreateOpaqueBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::Opaque));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::Opaque));
 			ThrowIfFailed(result, 
 						  "Opaque blend state creation failed: %08X.", 
 						  result);
@@ -64,7 +64,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAlphaBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::Alpha));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::Alpha));
 			ThrowIfFailed(result, 
 						  "Alpha blend state creation failed: %08X.",
 						  result);
@@ -72,14 +72,14 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAdditiveBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::Additive));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::Additive));
 			ThrowIfFailed(result, "Additive blend state creation failed: %08X.", 
 						  result);
 		}
 
 		{
 			const HRESULT result = CreateMultiplicativeBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::Multiplicative));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::Multiplicative));
 			ThrowIfFailed(result, 
 						  "Multiplicative blend state creation failed: %08X.", 
 						  result);
@@ -87,7 +87,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateBiMultiplicativeBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::BiMultiplicative));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::BiMultiplicative));
 			ThrowIfFailed(result, 
 						  "Bi-multiplicative blend state creation failed: %08X.", 
 						  result);
@@ -95,7 +95,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateTransparencyBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::Transparency));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::Transparency));
 			ThrowIfFailed(result, 
 						  "Transparency blend state creation failed: %08X.", 
 						  result);
@@ -103,7 +103,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAlphaToCoverageBlendState(
-				m_device, ReleaseAndGetAddressOf(BlendStateIndex::AlphaToCoverage));
+				m_device, ReleaseAndGetAddressOf(BlendStateID::AlphaToCoverage));
 			ThrowIfFailed(result, 
 						  "Alpha-to-coverage blend state creation failed: %08X.", 
 						  result);
@@ -113,55 +113,15 @@ namespace mage {
 	void StateManager::SetupDepthStencilStates() {
 		{
 			const HRESULT result = CreateDepthNoneDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::DepthNone));
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::DepthNone));
 			ThrowIfFailed(result, 
 						  "No-read-no-write depth stencil state creation failed: %08X.", 
 						  result);
 		}
 
-		#ifdef DISABLE_INVERTED_Z_BUFFER
-
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::LessEqualDepthReadWrite),
-				D3D11_COMPARISON_LESS_EQUAL);
-			ThrowIfFailed(result, 
-						  "Less-equal, read-write depth stencil state creation failed: %08X.", 
-						  result);
-		}
-
-		{
-			const HRESULT result = CreateDepthReadDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::LessEqualDepthRead),
-				D3D11_COMPARISON_LESS_EQUAL);
-			ThrowIfFailed(result, 
-						  "Less-equal, read depth stencil state creation failed: %08X.", 
-						  result);
-		}
-
-		{
-			const HRESULT result = CreateDepthReadWriteDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::LessDepthReadWrite),
-				D3D11_COMPARISON_LESS);
-			ThrowIfFailed(result, 
-						  "Less, read-write depth stencil state creation failed: %08X.", 
-						  result);
-		}
-
-		{
-			const HRESULT result = CreateDepthReadDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::LessDepthRead),
-				D3D11_COMPARISON_LESS);
-			ThrowIfFailed(result, 
-						  "Less, read depth stencil state creation failed: %08X.", 
-						  result);
-		}
-
-		#else  // DISABLE_INVERTED_Z_BUFFER
-
-		{
-			const HRESULT result = CreateDepthReadWriteDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::GreaterEqualDepthReadWrite),
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::GreaterEqualDepthReadWrite),
 				D3D11_COMPARISON_GREATER_EQUAL);
 			ThrowIfFailed(result, 
 						  "Greater-equal, read-write depth stencil state creation failed: %08X.", 
@@ -170,7 +130,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateDepthReadDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::GreaterEqualDepthRead),
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::GreaterEqualDepthRead),
 				D3D11_COMPARISON_GREATER_EQUAL);
 			ThrowIfFailed(result, 
 						  "Greater-equal, read depth stencil state creation failed: %08X.", 
@@ -179,7 +139,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::GreaterDepthReadWrite),
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::GreaterDepthReadWrite),
 				D3D11_COMPARISON_GREATER);
 			ThrowIfFailed(result, 
 						  "Greater, read-write depth stencil state creation failed: %08X.", 
@@ -188,20 +148,54 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateDepthReadDepthStencilState(
-				m_device, ReleaseAndGetAddressOf(DepthStencilStateIndex::GreaterDepthRead),
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::GreaterDepthRead),
 				D3D11_COMPARISON_GREATER);
 			ThrowIfFailed(result, 
 						  "Greater, read depth stencil state creation failed: %08X.", 
 						  result);
 		}
 
-		#endif // DISABLE_INVERTED_Z_BUFFER
+		{
+			const HRESULT result = CreateDepthReadWriteDepthStencilState(
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::LessEqualDepthReadWrite),
+				D3D11_COMPARISON_LESS_EQUAL);
+			ThrowIfFailed(result,
+						  "Less-equal, read-write depth stencil state creation failed: %08X.",
+						  result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadDepthStencilState(
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::LessEqualDepthRead),
+				D3D11_COMPARISON_LESS_EQUAL);
+			ThrowIfFailed(result,
+						  "Less-equal, read depth stencil state creation failed: %08X.",
+						  result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadWriteDepthStencilState(
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::LessDepthReadWrite),
+				D3D11_COMPARISON_LESS);
+			ThrowIfFailed(result,
+						  "Less, read-write depth stencil state creation failed: %08X.",
+						  result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadDepthStencilState(
+				m_device, ReleaseAndGetAddressOf(DepthStencilStateID::LessDepthRead),
+				D3D11_COMPARISON_LESS);
+			ThrowIfFailed(result,
+						  "Less, read depth stencil state creation failed: %08X.",
+						  result);
+		}
 	}
 
 	void StateManager::SetupRasterizerStates() {
 		{
 			const HRESULT result = CreateCullNoneRasterizerState(
-				m_device, ReleaseAndGetAddressOf(RasterizerStateIndex::NoCulling));
+				m_device, ReleaseAndGetAddressOf(RasterizerStateID::NoCulling));
 			ThrowIfFailed(result, 
 						  "No-culling rasterizer state creation failed: %08X.", 
 						  result);
@@ -209,7 +203,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateCullClockwiseRasterizerState(
-				m_device, ReleaseAndGetAddressOf(RasterizerStateIndex::ClockwiseCulling));
+				m_device, ReleaseAndGetAddressOf(RasterizerStateID::ClockwiseCulling));
 			ThrowIfFailed(result, 
 						  "Clockwise-culling rasterizer state creation failed: %08X.", 
 						  result);
@@ -217,7 +211,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateCullCounterClockwiseRasterizerState(
-				m_device, ReleaseAndGetAddressOf(RasterizerStateIndex::CounterClockwiseCulling));
+				m_device, ReleaseAndGetAddressOf(RasterizerStateID::CounterClockwiseCulling));
 			ThrowIfFailed(result, 
 						  "Counter-clockwise-culling rasterizer state creation failed: %08X.", 
 						  result);
@@ -225,7 +219,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateWireframeRasterizerState(
-				m_device, ReleaseAndGetAddressOf(RasterizerStateIndex::Wireframe));
+				m_device, ReleaseAndGetAddressOf(RasterizerStateID::Wireframe));
 			ThrowIfFailed(result, 
 						  "Wireframe rasterizer state creation failed: %08X.", 
 						  result);
@@ -235,7 +229,7 @@ namespace mage {
 	void StateManager::SetupSamplerStates() {
 		{
 			const HRESULT result = CreatePointWrapSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::PointWrap));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::PointWrap));
 			ThrowIfFailed(result, 
 						  "Point sampling state with wrapping creation failed: %08X.", 
 						  result);
@@ -243,7 +237,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreatePointClampSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::PointClamp));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::PointClamp));
 			ThrowIfFailed(result, 
 						  "Point sampling state with clamping creation failed: %08X.", 
 						  result);
@@ -251,7 +245,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreatePointMirrorSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::PointMirror));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::PointMirror));
 			ThrowIfFailed(result, 
 						  "Point sampling state with mirroring creation failed: %08X.", 
 						  result);
@@ -259,7 +253,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateLinearWrapSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::LinearWrap));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::LinearWrap));
 			ThrowIfFailed(result, 
 						  "Linear sampling state with wrapping creation failed: %08X.", 
 						  result);
@@ -267,7 +261,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateLinearClampSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::LinearClamp));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::LinearClamp));
 			ThrowIfFailed(result, 
 						  "Linear sampling state with clamping creation failed: %08X.", 
 						  result);
@@ -275,7 +269,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateLinearMirrorSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::LinearMirror));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::LinearMirror));
 			ThrowIfFailed(result, 
 						  "Linear sampling state with mirroring creation failed: %08X.", 
 						  result);
@@ -283,7 +277,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAnisotropicWrapSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::AnisotropicWrap));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::AnisotropicWrap));
 			ThrowIfFailed(result, 
 						  "Anisotropic sampling state with wrapping creation failed: %08X.", 
 						  result);
@@ -291,7 +285,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAnisotropicClampSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::AnisotropicClamp));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::AnisotropicClamp));
 			ThrowIfFailed(result, 
 						  "Anisotropic sampling state with clamping creation failed: %08X.", 
 						  result);
@@ -299,7 +293,7 @@ namespace mage {
 
 		{
 			const HRESULT result = CreateAnisotropicMirrorSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::AnisotropicMirror));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::AnisotropicMirror));
 			ThrowIfFailed(result, 
 						  "Anisotropic sampling state with mirroring creation failed: %08X.", 
 						  result);
@@ -307,15 +301,15 @@ namespace mage {
 
 		{
 			const HRESULT result = CreatePCFSamplerState(
-				m_device, ReleaseAndGetAddressOf(SamplerStateIndex::PCF));
+				m_device, ReleaseAndGetAddressOf(SamplerStateID::PCF));
 			ThrowIfFailed(result, 
 						  "PCF sampling state creation failed: %08X.", 
 						  result);
 		}
 	}
 
-	void StateManager::BindPersistentState(ID3D11DeviceContext& 
-										   device_context) const noexcept {
+	void StateManager::BindPersistentState(
+		ID3D11DeviceContext& device_context) const noexcept {
 
 		static_assert(SLOT_SAMPLER_POINT_CLAMP        == SLOT_SAMPLER_POINT_WRAP + 1);
 		static_assert(SLOT_SAMPLER_POINT_MIRROR       == SLOT_SAMPLER_POINT_WRAP + 2);
@@ -329,16 +323,16 @@ namespace mage {
 
 		// Collect the samplers.
 		ID3D11SamplerState* const samplers[] = {
-			Get(SamplerStateIndex::PointWrap),
-			Get(SamplerStateIndex::PointClamp),
-			Get(SamplerStateIndex::PointMirror),
-			Get(SamplerStateIndex::LinearWrap),
-			Get(SamplerStateIndex::LinearClamp),
-			Get(SamplerStateIndex::LinearMirror),
-			Get(SamplerStateIndex::AnisotropicWrap),
-			Get(SamplerStateIndex::AnisotropicClamp),
-			Get(SamplerStateIndex::AnisotropicMirror),
-			Get(SamplerStateIndex::PCF),
+			Get(SamplerStateID::PointWrap),
+			Get(SamplerStateID::PointClamp),
+			Get(SamplerStateID::PointMirror),
+			Get(SamplerStateID::LinearWrap),
+			Get(SamplerStateID::LinearClamp),
+			Get(SamplerStateID::LinearMirror),
+			Get(SamplerStateID::AnisotropicWrap),
+			Get(SamplerStateID::AnisotropicClamp),
+			Get(SamplerStateID::AnisotropicMirror),
+			Get(SamplerStateID::PCF),
 		};
 
 		// Bind the samplers.

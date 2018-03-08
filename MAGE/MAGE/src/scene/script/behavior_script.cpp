@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
+#include "core\engine.hpp"
 
 #pragma endregion
 
@@ -15,14 +15,17 @@ namespace mage {
 	BehaviorScript::BehaviorScript() noexcept = default;
 
 	BehaviorScript::BehaviorScript(
-		const BehaviorScript &script) noexcept = default;
+		const BehaviorScript& script) noexcept = default;
 
-	BehaviorScript::BehaviorScript(BehaviorScript &&script) noexcept = default;
+	BehaviorScript::BehaviorScript(BehaviorScript&& script) noexcept = default;
 
 	BehaviorScript::~BehaviorScript() = default;
 
-	BehaviorScript &BehaviorScript
-		::operator=(BehaviorScript &&script) noexcept = default;
+	BehaviorScript& BehaviorScript
+		::operator=(const BehaviorScript& script) noexcept = default;
+
+	BehaviorScript& BehaviorScript
+		::operator=(BehaviorScript&& script) noexcept = default;
 
 	void BehaviorScript::Load() {}
 

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "core\engine.hpp"
 
 #pragma endregion
 
@@ -24,22 +24,13 @@ namespace mage {
 	Scene::Scene(string name)
 		: m_name(std::move(name)),
 		m_nodes(),
-		m_perspective_cameras(),
-		m_orthographic_cameras(),
-		m_ambient_lights(),
-		m_directional_lights(),
-		m_omni_lights(),
-		m_spot_lights(),
-		m_models(),
-		m_sprite_images(),
-		m_sprite_texts(),
 		m_scripts() {}
 
-	Scene::Scene(Scene &&scene) noexcept = default;
+	Scene::Scene(Scene&& scene) noexcept = default;
 
 	Scene::~Scene() = default;
 
-	Scene &Scene::operator=(Scene &&scene) noexcept = default;
+	Scene& Scene::operator=(Scene&& scene) noexcept = default;
 	
 	//-------------------------------------------------------------------------
 	// Scene Member Methods: Lifecycle
@@ -50,14 +41,14 @@ namespace mage {
 		Load();
 
 		// Loads the behavior scripts of this scene.
-		ForEach< BehaviorScript >([](BehaviorScript &script) {
+		ForEach< BehaviorScript >([](BehaviorScript& script) {
 			script.Load();
 		});
 	}
 	
 	void Scene::Uninitialize() {
 		// Closes the behavior scripts of this scene.
-		ForEach< BehaviorScript >([](BehaviorScript &script) {
+		ForEach< BehaviorScript >([](BehaviorScript& script) {
 			script.Close();
 		});
 		
@@ -74,15 +65,6 @@ namespace mage {
 
 	void Scene::Clear() noexcept {
 		m_nodes.clear();
-		m_perspective_cameras.clear();
-		m_orthographic_cameras.clear();
-		m_ambient_lights.clear();
-		m_directional_lights.clear();
-		m_omni_lights.clear();
-		m_spot_lights.clear();
-		m_models.clear();
-		m_sprite_images.clear();
-		m_sprite_texts.clear();
 		m_scripts.clear();
 	}
 
@@ -90,14 +72,15 @@ namespace mage {
 	// Scene Member Methods
 	//-------------------------------------------------------------------------
 
-	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc) {
+	ProxyPtr< Node > Scene::Import(const rendering::ModelDescriptor &desc) {
 		std::vector< ProxyPtr< Node > > nodes;
 		return Import(desc, nodes);
 	}
 
-	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc, 
-		std::vector< ProxyPtr< Node > > &nodes) {
+	ProxyPtr< Node > Scene::Import(const rendering::ModelDescriptor &desc, 
+								   std::vector< ProxyPtr< Node > > &nodes) {
 
+		using Model    = rendering::Model;
 		using ModelPtr = ProxyPtr< Model >;
 		using NodePtr  = ProxyPtr< Node >;
 		using NodePair = std::pair< NodePtr, string >;
@@ -107,7 +90,7 @@ namespace mage {
 		size_t nb_root_childs = 0;
 
 		// Create the nodes with their model components.
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
+		desc.ForEachModelPart([&](const rendering::ModelPart& model_part) {
 			// Create the node.
 			auto node = Create< Node >(model_part.m_child);
 			

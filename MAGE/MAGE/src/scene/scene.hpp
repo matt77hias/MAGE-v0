@@ -5,8 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "resource\model\model_descriptor.hpp"
 #include "scene\node.hpp"
-#include "collection\vector.hpp"
+#include "scene\scene_utils.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -78,9 +80,9 @@ namespace mage {
 		// Member Methods: Nodes and Components
 		//---------------------------------------------------------------------
 
-		ProxyPtr< Node > Import(const ModelDescriptor &desc);
-		ProxyPtr< Node > Import(const ModelDescriptor &desc,
-			std::vector< ProxyPtr< Node > > &nodes);
+		ProxyPtr< Node > Import(const rendering::ModelDescriptor &desc);
+		ProxyPtr< Node > Import(const rendering::ModelDescriptor &desc, 
+								std::vector< ProxyPtr< Node > > &nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< Node, ElementT >,
@@ -91,13 +93,8 @@ namespace mage {
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
 		template< typename ElementT >
-		[[nodiscard]]ElementT &Get(size_t index) noexcept;
-
-		template< typename ElementT >
-		[[nodiscard]]const ElementT &Get(size_t index) const noexcept;
-
-		template< typename ElementT >
-		[[nodiscard]]size_t GetNumberOf() const noexcept;
+		[[nodiscard]]
+		size_t GetNumberOf() const noexcept;
 
 		template< typename ElementT, typename ActionT >
 		void ForEach(ActionT action);

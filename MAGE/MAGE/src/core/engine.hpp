@@ -5,17 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\targetver.hpp"
-
-#include "input\input_manager.hpp"
-#include "rendering\rendering_manager.hpp"
-#include "rendering\resource_manager.hpp"
-#include "scene\scene_manager.hpp"
-#include "system\timer.hpp"
-#include "ui\main_window.hpp"
+#include "meta\targetver.hpp"
 
 #include "core\engine_setup.hpp"
-#include "core\engine_statistics.hpp"
+
+#include "input_manager.hpp"
+#include "rendering_manager.hpp"
+#include "scene\scene.hpp"
+#include "system\timer.hpp"
 
 #pragma endregion
 

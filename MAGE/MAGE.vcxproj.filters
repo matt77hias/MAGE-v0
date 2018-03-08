@@ -19,17 +19,17 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{d6c229ab-ecab-4540-9656-b550419eb073}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\scripting">
-      <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\scripting">
-      <UniqueIdentifier>{69b1cee0-5512-4d9b-ab9a-f0dbb346243b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\script">
+      <UniqueIdentifier>{aa779a81-ea06-46f3-9cc8-8f28d8b95fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\script">
+      <UniqueIdentifier>{6b8b2a38-358c-42e1-9a64-ea824cf5c2e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,14 +39,14 @@
     <ClInclude Include="MAGE\src\core\engine_setup.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\behavior_script.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp">
+      <Filter>Header Files\scene\script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -59,8 +59,8 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
-      <Filter>Source Files\scripting</Filter>
+    <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp">
+      <Filter>Source Files\scene\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

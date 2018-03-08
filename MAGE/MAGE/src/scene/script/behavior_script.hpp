@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	// Forward declaration.
+	class Engine;
+
 	/**
 	 A class of behavior scripts.
 	 */
@@ -42,7 +45,7 @@ namespace mage {
 		 @return		A reference to the copy of the given behavior script 
 						(i.e. this behavior script).
 		 */
-		BehaviorScript &operator=(const BehaviorScript &script) = delete;
+		BehaviorScript& operator=(const BehaviorScript& script) noexcept;
 
 		/**
 		 Moves the given behavior script to this behavior script.
@@ -52,11 +55,11 @@ namespace mage {
 		 @return		A reference to the moved behavior script (i.e. this 
 						behavior script).
 		 */
-		BehaviorScript &operator=(BehaviorScript &&script) noexcept;
+		BehaviorScript& operator=(BehaviorScript&& script) noexcept;
 
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 		// Member Methods: Lifecycle
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 
 		/**
 		 Loads this behavior script. Allows this behavior script to preform any 
@@ -70,8 +73,8 @@ namespace mage {
 		/**
 		 Updates this behavior script.
 		 
-		 This method can be called zero, one or multiple times per frame depending 
-		 on the fixed delta time used by the engine.
+		 This method can be called zero, one or multiple times per frame 
+		 depending on the fixed delta time used by the engine.
 
 		 @throws		Exception
 						Failed to update this behavior script.
@@ -99,6 +102,30 @@ namespace mage {
 		 */
 		virtual void Close();
 
+		//---------------------------------------------------------------------
+		// Member Methods: Scripting API
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the engine belonging to this behavior script.
+
+		 @return		The engine belonging to this behavior script.
+		 */
+		[[nodiscard]]
+		Engine& GetEngine() noexcept {
+			return m_engine;
+		}
+
+		/**
+		 Returns the engine belonging to this behavior script.
+
+		 @return		The engine belonging to this behavior script.
+		 */
+		[[nodiscard]]
+		const Engine& GetEngine() const noexcept {
+			return m_engine;
+		}
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -107,8 +134,11 @@ namespace mage {
 
 		/**
 		 Constructs a behavior script.
+
+		 @param[in]		engine
+						A reference to the engine.
 		 */
-		BehaviorScript() noexcept;
+		BehaviorScript(Engine& engine) noexcept;
 
 		/**
 		 Constructs a behavior script from the given behavior script.
@@ -116,7 +146,7 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to copy.
 		 */
-		BehaviorScript(const BehaviorScript &script) noexcept;
+		BehaviorScript(const BehaviorScript& script) noexcept;
 
 		/**
 		 Constructs a behavior script by moving the given behavior script.
@@ -124,6 +154,11 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to move.
 		 */
-		BehaviorScript(BehaviorScript &&script) noexcept;
+		BehaviorScript(BehaviorScript&& script) noexcept;
+
+		/**
+		 The engine belonging to this behavior script.
+		 */
+		std::reference_wrapper< Engine > m_engine;
 	};
 }

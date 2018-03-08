@@ -454,7 +454,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the device of this state manager.
 		 */
-		std::reference_wrapper< ID3D11Device > m_device;
+		ID3D11Device& m_device;
 
 		/**
 		 An array containing pointers to the blend states of this state 

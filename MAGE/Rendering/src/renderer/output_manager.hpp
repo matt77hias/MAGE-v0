@@ -196,9 +196,9 @@ namespace mage::rendering {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
-		std::reference_wrapper< ID3D11Device > m_device;
-		std::reference_wrapper< SwapChain > m_swap_chain;
+		DisplayConfiguration& m_display_configuration;
+		ID3D11Device& m_device;
+		SwapChain& m_swap_chain;
 
 		ComPtr< ID3D11ShaderResourceView > m_srvs[
 			static_cast< size_t >(SRVIndex::Count)];

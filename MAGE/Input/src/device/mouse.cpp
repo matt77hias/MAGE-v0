@@ -242,7 +242,7 @@ namespace mage::input {
 		/**
 		 A reference to the DirectInput object of this mouse.
 		 */
-		std::reference_wrapper< IDirectInput8 > m_di;
+		IDirectInput8& m_di;
 
 		/**
 		 A pointer to the DirectInput mouse device of this mouse.
@@ -303,9 +303,9 @@ namespace mage::input {
 		//    aggregated.
 		{
 			const HRESULT result 
-				= m_di.get().CreateDevice(GUID_SysMouse, 
-										  m_mouse.ReleaseAndGetAddressOf(), 
-										  nullptr);
+				= m_di.CreateDevice(GUID_SysMouse, 
+									m_mouse.ReleaseAndGetAddressOf(), 
+									nullptr);
 			ThrowIfFailed(result,
 						  "Failed to create mouse device: %08X.",
 						  result);

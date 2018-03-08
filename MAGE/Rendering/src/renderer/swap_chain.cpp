@@ -152,7 +152,7 @@ namespace mage::rendering {
 						Failed to reset up the swap chain.
 		 */
 		void SetInitialMode() {
-			if (m_display_configuration.get().IsFullScreen()) {
+			if (m_display_configuration.IsFullScreen()) {
 				SwitchMode(true);
 			}
 		}
@@ -224,7 +224,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool IsTrackedFullScreen() const noexcept {
-			return m_display_configuration.get().IsFullScreen();
+			return m_display_configuration.IsFullScreen();
 		}
 
 		/**
@@ -235,7 +235,7 @@ namespace mage::rendering {
 						mode. @c false otherwise.
 		 */
 		void SetTrackedFullScreen(bool fullscreen) noexcept {
-			m_display_configuration.get().SetFullScreen(fullscreen);
+			m_display_configuration.SetFullScreen(fullscreen);
 		}
 
 		//---------------------------------------------------------------------
@@ -290,7 +290,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the display configuration of this swap chain.
 		 */
-		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
+		DisplayConfiguration& m_display_configuration;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Swap Chain
@@ -299,12 +299,12 @@ namespace mage::rendering {
 		/**
 		 A reference to the device.
 		 */
-		std::reference_wrapper< ID3D11Device > m_device;
+		ID3D11Device& m_device;
 
 		/**
 		 A reference to the device context.
 		 */
-		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+		ID3D11DeviceContext& m_device_context;
 
 		/**
 		 A pointer to the swap chain.
@@ -364,7 +364,7 @@ namespace mage::rendering {
 		ComPtr< IDXGIFactory2 > dxgi_factory;
 		{
 			const HRESULT result 
-				= m_display_configuration.get().GetAdapter()->GetParent(
+				= m_display_configuration.GetAdapter()->GetParent(
 					__uuidof(IDXGIFactory2), (void**)dxgi_factory.GetAddressOf());
 			ThrowIfFailed(result, "IDXGIFactory2 creation failed: %08X.", result);
 		}
@@ -385,9 +385,9 @@ namespace mage::rendering {
 
 		// Create a swap chain descriptor.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width       = m_display_configuration.get().GetDisplayWidth();
-		swap_chain_desc.Height      = m_display_configuration.get().GetDisplayHeight();
-		swap_chain_desc.Format      = m_display_configuration.get().GetDisplayFormat();
+		swap_chain_desc.Width       = m_display_configuration.GetDisplayWidth();
+		swap_chain_desc.Height      = m_display_configuration.GetDisplayHeight();
+		swap_chain_desc.Format      = m_display_configuration.GetDisplayFormat();
 		swap_chain_desc.SampleDesc.Count = 1u;
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swap_chain_desc.BufferCount = 1u;
@@ -396,14 +396,14 @@ namespace mage::rendering {
 		// Create a fullscreen swap chain descriptor.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
 		swap_chain_fullscreen_desc.RefreshRate 
-			= m_display_configuration.get().GetDisplayRefreshRate();
+			= m_display_configuration.GetDisplayRefreshRate();
 		swap_chain_fullscreen_desc.Windowed = TRUE;
 
 		ComPtr< IDXGISwapChain1 > swap_chain;
 		{
 			// Get the IDXGISwapChain1.
 			const HRESULT result 
-				= dxgi_factory->CreateSwapChainForHwnd(&m_device.get(), 
+				= dxgi_factory->CreateSwapChainForHwnd(&m_device, 
 													   m_window, 
 													   &swap_chain_desc, 
 													   &swap_chain_fullscreen_desc, 
@@ -435,7 +435,7 @@ namespace mage::rendering {
 		{
 			// Create the RTV.
 			const HRESULT result 
-				= m_device.get().CreateRenderTargetView(back_buffer.Get(), 
+				= m_device.CreateRenderTargetView(back_buffer.Get(), 
 														nullptr,
 														m_rtv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
@@ -450,7 +450,7 @@ namespace mage::rendering {
 
 	void SwapChain::Impl::Present() const noexcept {
 		// Present the back buffer to the front buffer.
-		const U32 sync_interval = (m_display_configuration.get().IsVSynced()) 
+		const U32 sync_interval = (m_display_configuration.IsVSynced()) 
 			                      ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 	}

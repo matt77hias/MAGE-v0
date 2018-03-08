@@ -154,7 +154,7 @@ namespace mage::input {
 		/**
 		 A reference to the DirectInput object of this keyboard.
 		 */
-		std::reference_wrapper< IDirectInput8 > m_di;
+		IDirectInput8& m_di;
 
 		/**
 		 A pointer to the DirectInput keyboard device of this keyboard.
@@ -206,9 +206,9 @@ namespace mage::input {
 		//    aggregated.
 		{
 			const HRESULT result 
-				= m_di.get().CreateDevice(GUID_SysKeyboard, 
-										  m_keyboard.ReleaseAndGetAddressOf(), 
-										  nullptr);
+				= m_di.CreateDevice(GUID_SysKeyboard, 
+									m_keyboard.ReleaseAndGetAddressOf(), 
+									nullptr);
 			ThrowIfFailed(result, 
 						  "Failed to create keyboard device: %08X.", 
 						  result);

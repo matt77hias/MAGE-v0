@@ -360,7 +360,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the device context of this sprite batch.
 		 */
-		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
+		ID3D11DeviceContext& m_device_context;
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch for 
@@ -541,7 +541,7 @@ namespace mage::rendering {
 	}
 
 	void SpriteBatch::Impl::BindFixedState() {
-		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context.get().GetType()) {
+		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context.GetType()) {
 			m_mesh_position = 0;
 		}
 

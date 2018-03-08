@@ -271,7 +271,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the device of this resource manager.
 		 */
-		std::reference_wrapper< ID3D11Device > m_device;
+		ID3D11Device& m_device;
 
 		/**
 		 The model descriptor resource pool of this resource manager.

@@ -383,6 +383,12 @@
     <ClInclude Include="Rendering\src\renderer\state_manager.hpp">
       <Filter>Header Files\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_factory.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\model\material_factory.hpp">
+      <Filter>Header Files\resource\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -572,6 +578,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\renderer\swap_chain.cpp">
       <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\font\sprite_font_factory.cpp">
+      <Filter>Source Files\resource\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\model\material_factory.cpp">
+      <Filter>Source Files\resource\model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

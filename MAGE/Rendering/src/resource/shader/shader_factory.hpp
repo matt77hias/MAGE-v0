@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\shader\shader.hpp"
 #include "renderer\configuration.hpp"
+#include "resource\rendering_resource_manager.hpp"
 
 #pragma endregion
 
@@ -14,9 +14,6 @@
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-
-	// Forward declaration.
-	class ResourceManager;
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Anti-aliasing

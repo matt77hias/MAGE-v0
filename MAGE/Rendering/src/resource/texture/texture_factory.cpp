@@ -4,7 +4,6 @@
 #pragma region
 
 #include "resource\texture\texture_factory.hpp"
-#include "resource\rendering_resource_manager.hpp"
 
 #pragma endregion
 

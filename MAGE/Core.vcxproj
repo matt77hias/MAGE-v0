@@ -28,6 +28,7 @@
     <ClInclude Include="Core\src\meta\version.hpp" />
     <ClInclude Include="Core\src\scene\component.hpp" />
     <ClInclude Include="Core\src\scene\node.hpp" />
+    <ClInclude Include="Core\src\scene\scene_utils.hpp" />
     <ClInclude Include="Core\src\scene\state.hpp" />
     <ClInclude Include="Core\src\scene\transform.hpp" />
     <ClInclude Include="Core\src\scripting\variable_value.hpp" />
@@ -46,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\src\scene\node.tpp" />
+    <None Include="Core\src\scene\scene_utils.tpp" />
     <None Include="Core\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

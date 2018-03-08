@@ -59,7 +59,7 @@ namespace mage::rendering::loader {
 	void OBJReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
 		const auto* const token 
-			= strtok_s(line, GetDelimiters().c_str(),& m_context);
+			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || g_obj_token_comment == token[0]) {
 			return;

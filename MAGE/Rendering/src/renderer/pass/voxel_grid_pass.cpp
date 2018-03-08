@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\voxel_grid_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\voxel_grid_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	VoxelGridPass::VoxelGridPass(ID3D11DeviceContext& device_context,
 								 StateManager& state_manager,
@@ -29,6 +29,9 @@ namespace mage {
 
 	VoxelGridPass::~VoxelGridPass() = default;
 
+	VoxelGridPass& VoxelGridPass
+		::operator=(VoxelGridPass&& pass) noexcept = default;
+
 	void VoxelGridPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context, 
@@ -42,18 +45,21 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullNoneRasterizerState(m_device_context);
-		//StateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessEqualDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterEqualDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void VoxelGridPass::Render(size_t resolution) const noexcept {

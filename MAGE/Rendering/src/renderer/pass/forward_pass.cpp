@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\forward_pass.hpp"
-#include "shader\shader_factory.hpp"
-#include "texture\texture_factory.hpp"
+#include "renderer\pass\forward_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
+#include "resource\texture\texture_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -24,7 +24,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	ForwardPass::ForwardPass(ID3D11Device& device,
 							 ID3D11DeviceContext& device_context,
@@ -41,6 +41,8 @@ namespace mage {
 
 	ForwardPass::~ForwardPass() = default;
 
+	ForwardPass& ForwardPass::operator=(ForwardPass&& pass) noexcept = default;
+
 	void ForwardPass::BindFixedOpaqueState() const noexcept {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
@@ -51,15 +53,19 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessEqualDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterEqualDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void ForwardPass::BindFixedTransparentState() const noexcept {
@@ -72,15 +78,19 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().BindTransparencyBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Transparency);
 	}
 
 	void ForwardPass::BindFixedWireframeState() const noexcept {
@@ -93,15 +103,19 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindWireframeRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::Wireframe);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessEqualDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterEqualDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void ForwardPass::BindColor(const RGBA& color) {
@@ -111,7 +125,7 @@ namespace mage {
 		m_color_buffer.Bind< Pipeline::PS >(m_device_context, SLOT_CBUFFER_COLOR);
 	}
 
-	void XM_CALLCONV ForwardPass::Render(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::Render(const World& world, 
 										 FXMMATRIX world_to_projection, 
 										 BRDFType brdf, bool vct) const {
 		// Bind the fixed opaque state.
@@ -130,7 +144,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
 			const auto& material = model.GetMaterial();
 
@@ -155,7 +169,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -181,7 +195,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -196,7 +210,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderSolid(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderSolid(const World& world, 
 											  FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
@@ -211,7 +225,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -220,7 +234,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderGBuffer(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderGBuffer(const World& world, 
 												FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
@@ -236,7 +250,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -261,7 +275,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -276,7 +290,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderEmissive(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderEmissive(const World& world, 
 												 FXMMATRIX world_to_projection) const {
 		constexpr bool transparency = false;
 
@@ -294,7 +308,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -308,7 +322,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderTransparent(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderTransparent(const World& world, 
 													FXMMATRIX world_to_projection, 
 													BRDFType brdf, 
 													bool vct) const {
@@ -328,7 +342,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
 			const auto& material = model.GetMaterial();
 
@@ -354,7 +368,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -381,7 +395,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -397,7 +411,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderFalseColor(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderFalseColor(const World& world, 
 												   FXMMATRIX world_to_projection, 
 												   FalseColor false_color) const {
 		// Bind the fixed opaque state.
@@ -418,7 +432,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -427,7 +441,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV ForwardPass::RenderWireframe(const Scene& scene, 
+	void XM_CALLCONV ForwardPass::RenderWireframe(const World& world, 
 												  FXMMATRIX world_to_projection) {
 		// Bind the fixed opaque state.
 		BindFixedWireframeState();
@@ -447,7 +461,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}
@@ -459,16 +473,16 @@ namespace mage {
 	void XM_CALLCONV ForwardPass::Render(const Model& model, 
 										 FXMMATRIX world_to_projection) const noexcept {
 
-		const auto& transform           = model.GetOwner()->GetTransform();
-		const auto object_to_world      = transform.GetObjectToWorldMatrix();
-		const auto object_to_projection = object_to_world * world_to_projection;
+		const auto& transform            = model.GetOwner()->GetTransform();
+		const auto  object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
 		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
 			return;
 		}
 
-		const auto& material            = model.GetMaterial();
+		const auto& material             = model.GetMaterial();
 
 		// Bind the constant buffer of the model.
 		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);

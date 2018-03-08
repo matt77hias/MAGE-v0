@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\viewport.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of DOF passes for performing DOF.
@@ -85,7 +85,7 @@ namespace mage {
 						A reference to the DOF pass to move.
 		 @return		A reference to the moved DOF pass (i.e. this DOF pass).
 		 */
-		DOFPass& operator=(DOFPass&& pass) = delete;
+		DOFPass& operator=(DOFPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

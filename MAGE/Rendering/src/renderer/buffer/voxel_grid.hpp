@@ -20,11 +20,11 @@ namespace mage::rendering {
 
 		explicit VoxelGrid(ID3D11Device& device, size_t resolution);
 		VoxelGrid(const VoxelGrid& voxel_grid) = delete;
-		VoxelGrid(VoxelGrid&& voxel_grid) = default;
-		~VoxelGrid() = default;
+		VoxelGrid(VoxelGrid&& voxel_grid) noexcept;
+		~VoxelGrid();
 
 		VoxelGrid& operator=(const VoxelGrid& voxel_grid) = delete;
-		VoxelGrid& operator=(VoxelGrid&& voxel_grid) = delete;
+		VoxelGrid& operator=(VoxelGrid&& voxel_grid) noexcept;
 
 		[[nodiscard]]
 		size_t GetResolution() const noexcept {

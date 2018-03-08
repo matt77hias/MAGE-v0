@@ -13,19 +13,14 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	Model::Model(ID3D11Device& device, 
-				 SharedPtr< const Mesh > mesh,
-		         size_t start_index, 
-		         size_t nb_indices,
-		         const AABB& aabb, 
-		         const BoundingSphere& bs) 
+	Model::Model(ID3D11Device& device) 
 		: Component(),
 		m_buffer(device),
-		m_aabb(aabb),
-		m_sphere(bs),
-		m_mesh(std::move(mesh)), 
-		m_start_index(start_index), 
-		m_nb_indices(nb_indices),
+		m_aabb(),
+		m_sphere(),
+		m_mesh(), 
+		m_start_index(0u), 
+		m_nb_indices(0u),
 		m_texture_transform(),
 		m_material(),
 		m_light_occlusion(true) {}
@@ -35,6 +30,19 @@ namespace mage::rendering {
 	Model::~Model() = default;
 
 	Model& Model::operator=(Model&& model) noexcept = default;
+
+	void Model::SetMesh(SharedPtr< const Mesh > mesh, 
+						size_t start_index,
+						size_t nb_indices, 
+						const AABB& aabb, 
+						const BoundingSphere& bs) {
+
+		m_aabb        = aabb;
+		m_sphere      = bs;
+		m_mesh        = std::move(mesh);
+		m_start_index = start_index;
+		m_nb_indices  = nb_indices;
+	}
 
 	void Model::UpdateBuffer(ID3D11DeviceContext& device_context) const {
 		const auto& transform         = GetOwner()->GetTransform();

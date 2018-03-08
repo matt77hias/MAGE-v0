@@ -134,7 +134,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved sprite batch (i.e. this sprite 
 						batch).
 		 */
-		SpriteBatch& operator=(SpriteBatch&& sprite_batch) = delete;
+		SpriteBatch& operator=(SpriteBatch&& sprite_batch) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lifecycle

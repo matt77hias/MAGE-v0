@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of bounding volume passes for rendering model and finite light 
@@ -89,23 +89,23 @@ namespace mage {
 		 @return		A reference to the moved bounding volume pass (i.e. 
 						this bounding volume pass).
 		 */
-		BoundingVolumePass& operator=(BoundingVolumePass&& pass) = delete;
+		BoundingVolumePass& operator=(BoundingVolumePass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Renders the scene.
+		 Renders the world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection);
 
 	private:

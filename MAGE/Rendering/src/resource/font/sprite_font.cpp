@@ -27,70 +27,68 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	// GlyphLessThan
 	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of glyph "less than" comparators.
-	 */
-	struct GlyphLessThan final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
+	namespace {
 		/**
-		 Checks whether the first given glyph's character is smaller than the 
-		 second given glyph's character.
-
-		 @param[in]		lhs
-						A reference to the first glyph.
-		 @param[in]		rhs
-						A reference to the second glyph.
-		 @return		@c true if the first given glyph's character is smaller 
-						than the second given glyph's character. @c false 
-						otherwise.
+		 A struct of glyph "less than" comparators.
 		 */
-		[[nodiscard]]
-		bool operator()(const Glyph& lhs, const Glyph& rhs) noexcept {
-			return lhs.m_character < rhs.m_character;
-		}
+		struct GlyphLessThan final {
 
-		/**
-		 Checks whether the given glyph's character is smaller than the given 
-		 character.
+		public:
 
-		 @param[in]		lhs
-						A reference to the glyph.
-		 @param[in]		rhs
-						The character.
-		 @return		@c true if the given glyph's character is smaller than 
-						the given character. @c false otherwise.
-		 */
-		[[nodiscard]]
-		bool operator()(const Glyph& lhs, wchar_t rhs) noexcept {
-			return lhs.m_character < static_cast< U32 >(rhs);
-		}
+			//---------------------------------------------------------------------
+			// Member Methods
+			//---------------------------------------------------------------------
 
-		/**
-		 Checks whether the given character is smaller than the given glyph's 
-		 character.
+			/**
+			 Checks whether the first given glyph's character is smaller than the 
+			 second given glyph's character.
 
-		 @param[in]		lhs
-						The character.
-		 @param[in]		rhs
-						A reference to the glyph.
-		 @return		@c true if the given character is smaller than the 
-						given glyph's character. @c false otherwise.
-		 */
-		[[nodiscard]]
-		bool operator()(wchar_t lhs, const Glyph& rhs) noexcept {
-			return static_cast< U32 >(lhs) < rhs.m_character;
-		}
-	};
+			 @param[in]		lhs
+							A reference to the first glyph.
+			 @param[in]		rhs
+							A reference to the second glyph.
+			 @return		@c true if the first given glyph's character is smaller 
+							than the second given glyph's character. @c false 
+							otherwise.
+			 */
+			[[nodiscard]]
+			bool operator()(const Glyph& lhs, const Glyph& rhs) noexcept {
+				return lhs.m_character < rhs.m_character;
+			}
 
-	#pragma endregion
+			/**
+			 Checks whether the given glyph's character is smaller than the given 
+			 character.
+
+			 @param[in]		lhs
+							A reference to the glyph.
+			 @param[in]		rhs
+							The character.
+			 @return		@c true if the given glyph's character is smaller than 
+							the given character. @c false otherwise.
+			 */
+			[[nodiscard]]
+			bool operator()(const Glyph& lhs, wchar_t rhs) noexcept {
+				return lhs.m_character < static_cast< U32 >(rhs);
+			}
+
+			/**
+			 Checks whether the given character is smaller than the given glyph's 
+			 character.
+
+			 @param[in]		lhs
+							The character.
+			 @param[in]		rhs
+							A reference to the glyph.
+			 @return		@c true if the given character is smaller than the 
+							given glyph's character. @c false otherwise.
+			 */
+			[[nodiscard]]
+			bool operator()(wchar_t lhs, const Glyph& rhs) noexcept {
+				return static_cast< U32 >(lhs) < rhs.m_character;
+			}
+		};
+	}
 
 	//-------------------------------------------------------------------------
 	// SpriteFont

@@ -1890,7 +1890,7 @@ namespace mage::rendering {
 				                U32 initial_count = 0u) noexcept {
 					
 				ID3D11UnorderedAccessView* const uavs[] = { uav };
-				BindUAVs(device_context, slot, 1u, uavs,& initial_count);
+				BindUAVs(device_context, slot, 1u, uavs, &initial_count);
 			}
 			
 			/**

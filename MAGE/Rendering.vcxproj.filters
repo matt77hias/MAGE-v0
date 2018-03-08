@@ -389,6 +389,45 @@
     <ClInclude Include="Rendering\src\resource\model\material_factory.hpp">
       <Filter>Header Files\resource\model</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\scene\rendering_world.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\dof_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\forward_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\lbuffer_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sky_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sprite_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\voxel_grid_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\voxelization_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\aa_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\back_buffer_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\bounding_volume_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\deferred_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\depth_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -459,6 +498,9 @@
     </None>
     <None Include="Rendering\src\scene\model\model.tpp">
       <Filter>Header Files\scene\model</Filter>
+    </None>
+    <None Include="Rendering\src\scene\rendering_world.tpp">
+      <Filter>Header Files\scene</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -584,6 +626,45 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\model\material_factory.cpp">
       <Filter>Source Files\resource\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\rendering_world.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\depth_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\dof_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\forward_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\lbuffer_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sky_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sprite_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\voxel_grid_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\voxelization_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\aa_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\back_buffer_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\bounding_volume_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\deferred_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

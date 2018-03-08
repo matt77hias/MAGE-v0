@@ -3,15 +3,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\back_buffer_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\back_buffer_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	BackBufferPass::BackBufferPass(ID3D11DeviceContext& device_context,
 								   StateManager& state_manager,
@@ -24,6 +24,9 @@ namespace mage {
 	BackBufferPass::BackBufferPass(BackBufferPass&& pass) noexcept = default;
 
 	BackBufferPass::~BackBufferPass() = default;
+
+	BackBufferPass& BackBufferPass
+		::operator=(BackBufferPass&& pass) noexcept = default;
 
 	void BackBufferPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
@@ -38,13 +41,16 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void BackBufferPass::Render() const noexcept {

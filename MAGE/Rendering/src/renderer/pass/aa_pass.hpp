@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\viewport.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of AA passes for performing AA.
@@ -85,7 +85,7 @@ namespace mage {
 						A reference to the AA pass to move.
 		 @return		A reference to the moved AA pass (i.e. this AA pass).
 		 */
-		AAPass& operator=(AAPass&& pass) = delete;
+		AAPass& operator=(AAPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -99,7 +99,7 @@ namespace mage {
 		 @param[in]		desc
 						The AA descriptor.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
 		void DispatchPreprocess(const Viewport& viewport, AADescriptor desc);
 
@@ -111,7 +111,7 @@ namespace mage {
 		 @param[in]		desc
 						The AA descriptor.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
 		void Dispatch(const Viewport& viewport, AADescriptor desc);
 

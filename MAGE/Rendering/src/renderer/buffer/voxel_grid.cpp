@@ -29,6 +29,12 @@ namespace mage::rendering {
 		SetupVoxelGrid(device);
 	}
 
+	VoxelGrid::VoxelGrid(VoxelGrid&& voxel_grid) noexcept = default;
+
+	VoxelGrid::~VoxelGrid() = default;
+
+	VoxelGrid& VoxelGrid::operator=(VoxelGrid&& voxel_grid) noexcept = default;
+
 	void VoxelGrid::SetupVoxelGrid(ID3D11Device& device) {
 		SetupStructuredBuffer(device);
 		SetupTexture(device);

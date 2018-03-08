@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\aa_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\aa_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	AAPass::AAPass(ID3D11DeviceContext& device_context,
 				   StateManager& state_manager,
@@ -26,6 +26,8 @@ namespace mage {
 	AAPass::AAPass(AAPass&& pass) noexcept = default;
 
 	AAPass::~AAPass() = default;
+
+	AAPass& AAPass::operator=(AAPass&& pass) noexcept = default;
 
 	void AAPass::DispatchPreprocess(const Viewport& viewport, AADescriptor desc) {
 		// CS: Bind the compute shader.

@@ -37,26 +37,10 @@ namespace mage::rendering {
 		/**
 		 Constructs a model.
 
-		 @pre			@a mesh is not equal to @c nullptr.
 		 @param[in]		device
 						A reference to the device.
-		 @param[in]		mesh
-						A pointer to the mesh.
-		 @param[in]		start_index
-						The start index in the mesh.
-		 @param[in]		nb_indices
-						The number of indices in the mesh.
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @param[in]		bs
-						A reference to the BoundingSphere.
 		 */
-		explicit Model(ID3D11Device& device, 
-					   SharedPtr< const Mesh > mesh, 
-			           size_t start_index, 
-			           size_t nb_indices, 
-			           const AABB& aabb, 
-			           const BoundingSphere& bs);
+		explicit Model(ID3D11Device& device);
 
 		/**
 		 Constructs a model from the given model.
@@ -105,6 +89,26 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Methods: Geometry
 		//---------------------------------------------------------------------
+
+		/**
+		 Sets the mesh of this model to the given mesh.
+
+		 @param[in]		mesh
+						A pointer to the mesh.
+		 @param[in]		start_index
+						The start index in the mesh.
+		 @param[in]		nb_indices
+						The number of indices in the mesh.
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		bs
+						A reference to the BoundingSphere.
+		 */
+		void SetMesh(SharedPtr< const Mesh > mesh,
+					 size_t start_index,
+					 size_t nb_indices,
+					 const AABB& aabb,
+					 const BoundingSphere& bs);
 
 		/**
 		 Returns the AABB of this model.

@@ -36,6 +36,14 @@ namespace mage::rendering {
 		SetupShadowMapBuffer(device, nb_shadow_maps);
 	}
 
+	ShadowMapBuffer::ShadowMapBuffer(
+		ShadowMapBuffer&& buffer) noexcept = default;
+	
+	ShadowMapBuffer::~ShadowMapBuffer() = default;
+	
+	ShadowMapBuffer& ShadowMapBuffer
+		::operator=(ShadowMapBuffer&& buffer) noexcept = default;
+
 	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
 			                       device, 
@@ -162,6 +170,14 @@ namespace mage::rendering {
 		// Setup the resource, DSVs and SRV.
 		SetupShadowCubeMapBuffer(device, nb_shadow_cube_maps);
 	}
+
+	ShadowCubeMapBuffer::ShadowCubeMapBuffer(
+		ShadowCubeMapBuffer&& buffer) noexcept = default;
+
+	ShadowCubeMapBuffer::~ShadowCubeMapBuffer() = default;
+
+	ShadowCubeMapBuffer& ShadowCubeMapBuffer
+		::operator=(ShadowCubeMapBuffer&& buffer) noexcept = default;
 
 	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(

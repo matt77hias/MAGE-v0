@@ -5,17 +5,17 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\depth_pass.hpp"
-#include "rendering\buffer\structured_buffer.hpp"
-#include "rendering\buffer\light_buffer.hpp"
-#include "rendering\buffer\shadow_map_buffer.hpp"
+#include "renderer\buffer\structured_buffer.hpp"
+#include "renderer\buffer\light_buffer.hpp"
+#include "renderer\buffer\shadow_map_buffer.hpp"
+#include "renderer\pass\depth_pass.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	class LBufferPass final {
 
@@ -50,32 +50,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		LBufferPass& operator=(const LBufferPass& buffer) = delete;
-		LBufferPass& operator=(LBufferPass&& buffer) = delete;
+		LBufferPass& operator=(LBufferPass&& buffer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		size_t GetNumberOfDirectionalLights() const noexcept {
-			return m_directional_lights.size();
-		}
-		size_t GetNumberOfOmniLights() const noexcept {
-			return m_omni_lights.size();
-		}
-		size_t GetNumberOfSpotLights() const noexcept {
-			return m_spot_lights.size();
-		}
-		size_t GetNumberOfShadowMappedDirectionalLights() const noexcept {
-			return m_sm_directional_lights.size();
-		}
-		size_t GetNumberOfShadowMappedOmniLights() const noexcept {
-			return m_sm_omni_lights.size();
-		}
-		size_t GetNumberOfShadowMappedSpotLights() const noexcept {
-			return m_sm_spot_lights.size();
-		}
-
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
 								const Fog& fog);
 		
@@ -88,17 +69,17 @@ namespace mage {
 		void UnbindShadowMaps() const noexcept;
 		void BindLBuffer() const noexcept;
 
-		void ProcessLightsData(const Scene& scene, const Fog& fog);
+		void ProcessLightsData(const World& world, const Fog& fog);
 
-		void XM_CALLCONV ProcessDirectionalLights(const Scene& scene);
-		void XM_CALLCONV ProcessOmniLights(const Scene& scene, 
+		void XM_CALLCONV ProcessDirectionalLights(const World& world);
+		void XM_CALLCONV ProcessOmniLights(const World& world, 
 										   FXMMATRIX world_to_projection);
-		void XM_CALLCONV ProcessSpotLights(const Scene& scene, 
+		void XM_CALLCONV ProcessSpotLights(const World& world, 
 										   FXMMATRIX world_to_projection);
 
 		void SetupShadowMaps();
 
-		void XM_CALLCONV RenderShadowMaps(const Scene& scene);
+		void XM_CALLCONV RenderShadowMaps(const World& world);
 
 		//---------------------------------------------------------------------
 		// Member Variables

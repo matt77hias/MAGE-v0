@@ -65,15 +65,15 @@ namespace mage::rendering {
 			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                     DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer& buffer) = delete;
-		ShadowMapBuffer(ShadowMapBuffer&& buffer) noexcept = default;
-		~ShadowMapBuffer() = default;
+		ShadowMapBuffer(ShadowMapBuffer&& buffer) noexcept;
+		~ShadowMapBuffer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		ShadowMapBuffer& operator=(const ShadowMapBuffer& buffer) = delete;
-		ShadowMapBuffer& operator=(ShadowMapBuffer&& buffer) = delete;
+		ShadowMapBuffer& operator=(ShadowMapBuffer&& buffer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -159,15 +159,15 @@ namespace mage::rendering {
 			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
 			                         DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer& buffer) = delete;
-		ShadowCubeMapBuffer(ShadowCubeMapBuffer&& buffer) noexcept = default;
-		~ShadowCubeMapBuffer() = default;
+		ShadowCubeMapBuffer(ShadowCubeMapBuffer&& buffer) noexcept;
+		~ShadowCubeMapBuffer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		ShadowCubeMapBuffer& operator=(const ShadowCubeMapBuffer& buffer) = delete;
-		ShadowCubeMapBuffer& operator=(ShadowCubeMapBuffer&& buffer) = delete;
+		ShadowCubeMapBuffer& operator=(ShadowCubeMapBuffer&& buffer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

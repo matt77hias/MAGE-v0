@@ -5,17 +5,17 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-#include "rendering\false_color.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\configuration.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of forward passes for performing light calculations.
@@ -90,17 +90,17 @@ namespace mage {
 		 @return		A reference to the moved forward pass (i.e. this 
 						forward pass).
 		 */
-		ForwardPass& operator=(ForwardPass&& pass) = delete;
+		ForwardPass& operator=(ForwardPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Renders the given scene.
+		 Renders the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		brdf
@@ -109,56 +109,56 @@ namespace mage {
 						@c true if voxel cone tracing should be enabled. @c false 
 						otherwise.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 								FXMMATRIX world_to_projection,
 								BRDFType brdf, bool vct) const;
 
 		/**
-		 Renders the given scene as solid.
+		 Renders the given world as solid.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderSolid(const Scene& scene, 
+		void XM_CALLCONV RenderSolid(const World& world, 
 									 FXMMATRIX world_to_projection) const;
 
 		/**
-		 Renders the given scene to a GBuffer.
+		 Renders the given world to a GBuffer.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderGBuffer(const Scene& scene, 
+		void XM_CALLCONV RenderGBuffer(const World& world, 
 									   FXMMATRIX world_to_projection) const;
 
 		/**
-		 Renders the emissive models of the given scene.
+		 Renders the emissive models of the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderEmissive(const Scene& scene,
+		void XM_CALLCONV RenderEmissive(const World& world,
 										FXMMATRIX world_to_projection) const;
 
 		/**
-		 Renders the transparent models of the given scene.
+		 Renders the transparent models of the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		brdf
@@ -167,39 +167,39 @@ namespace mage {
 						@c true if voxel cone tracing should be enabled. @c false 
 						otherwise.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderTransparent(const Scene& scene,
+		void XM_CALLCONV RenderTransparent(const World& world,
 										   FXMMATRIX world_to_projection,
 										   BRDFType brdf, bool vct) const;
 		
 		/**
-		 Renders the given scene as a false color.
+		 Renders the given world as a false color.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		false_color
 						The false color.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderFalseColor(const Scene& scene,
+		void XM_CALLCONV RenderFalseColor(const World& world,
 										  FXMMATRIX world_to_projection,
 										  FalseColor false_color) const;
 
 		/**
-		 Renders the given scene as a wireframe.
+		 Renders the given world as a wireframe.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderWireframe(const Scene& scene, 
+		void XM_CALLCONV RenderWireframe(const World& world, 
 										 FXMMATRIX world_to_projection);
 
 	private:

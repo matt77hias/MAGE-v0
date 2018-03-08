@@ -65,7 +65,7 @@ namespace mage::rendering {
 		}
 		if (m_capacity < m_size) {
 			ComPtr< ID3D11Device > device;
-			device_context->GetDevice(device.ReleaseAndGetAddressOf());
+			device_context.GetDevice(device.ReleaseAndGetAddressOf());
 			SetupStructuredBuffer(*device.Get(), m_size);
 		}
 

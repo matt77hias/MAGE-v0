@@ -59,7 +59,19 @@
     <ClInclude Include="Rendering\src\renderer\configuration.hpp" />
     <ClInclude Include="Rendering\src\renderer\factory.hpp" />
     <ClInclude Include="Rendering\src\renderer\output_manager.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\aa_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\back_buffer_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\bounding_volume_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\deferred_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\depth_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\dof_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\forward_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\lbuffer_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\sky_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\sprite_batch.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\sprite_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\voxelization_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\voxel_grid_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pipeline.hpp" />
     <ClInclude Include="Rendering\src\renderer\state_manager.hpp" />
     <ClInclude Include="Rendering\src\renderer\swap_chain.hpp" />
@@ -100,6 +112,7 @@
     <ClInclude Include="Rendering\src\scene\model\model.hpp" />
     <ClInclude Include="Rendering\src\scene\sprite\sprite_image.hpp" />
     <ClInclude Include="Rendering\src\scene\sprite\sprite_text.hpp" />
+    <ClInclude Include="Rendering\src\scene\rendering_world.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp" />
@@ -125,6 +138,7 @@
     <None Include="Rendering\src\scene\camera\camera.tpp" />
     <None Include="Rendering\src\scene\model\model.tpp" />
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp" />
+    <None Include="Rendering\src\scene\rendering_world.tpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp" />
@@ -142,7 +156,19 @@
     <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp" />
     <ClCompile Include="Rendering\src\renderer\factory.cpp" />
     <ClCompile Include="Rendering\src\renderer\output_manager.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\aa_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\back_buffer_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\bounding_volume_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\deferred_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\depth_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\dof_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\forward_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\lbuffer_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\sky_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\sprite_batch.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\sprite_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\voxelization_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\voxel_grid_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\state_manager.cpp" />
     <ClCompile Include="Rendering\src\renderer\swap_chain.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp" />
@@ -168,6 +194,7 @@
     <ClCompile Include="Rendering\src\scene\model\model.cpp" />
     <ClCompile Include="Rendering\src\scene\sprite\sprite_image.cpp" />
     <ClCompile Include="Rendering\src\scene\sprite\sprite_text.cpp" />
+    <ClCompile Include="Rendering\src\scene\rendering_world.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

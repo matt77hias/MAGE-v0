@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\voxelization_pass.hpp"
-#include "rendering\state_manager.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\voxelization_pass.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -15,9 +15,9 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
-	VoxelizationPass::VoxelizationPass(ID3D11Device &device,
+	VoxelizationPass::VoxelizationPass(ID3D11Device& device,
 									   ID3D11DeviceContext& device_context,
 									   StateManager& state_manager,
 									   ResourceManager& resource_manager)
@@ -33,9 +33,14 @@ namespace mage {
 
 	VoxelizationPass::~VoxelizationPass() = default;
 
+	VoxelizationPass& VoxelizationPass
+		::operator=(VoxelizationPass&& pass) noexcept = default;
+
 	void VoxelizationPass::SetupVoxelGrid(size_t resolution) {
 		if (m_voxel_grid->GetResolution() != resolution) {
-			m_voxel_grid = MakeUnique< VoxelGrid >(resolution);
+			ComPtr< ID3D11Device > device;
+			m_device_context.get().GetDevice(device.ReleaseAndGetAddressOf());
+			m_voxel_grid = MakeUnique< VoxelGrid >(*device.Get(), resolution);
 		}
 	}
 
@@ -49,14 +54,17 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Scene& scene,
+	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection,
 											  BRDFType brdf,
 											  size_t resolution) {
@@ -64,7 +72,7 @@ namespace mage {
 
 		m_voxel_grid->BindBeginVoxelizationBuffer(m_device_context);
 		m_voxel_grid->BindViewport(m_device_context);
-		Render(scene, world_to_projection, brdf);
+		Render(world, world_to_projection, brdf);
 		m_voxel_grid->BindEndVoxelizationBuffer(m_device_context);
 
 		m_voxel_grid->BindBeginVoxelizationTexture(m_device_context);
@@ -72,7 +80,7 @@ namespace mage {
 		m_voxel_grid->BindEndVoxelizationTexture(m_device_context);
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Scene& scene,
+	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection, 
 											  BRDFType brdf) const {
 		// Bind the fixed opaque state.
@@ -92,7 +100,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -118,7 +126,7 @@ namespace mage {
 		}
 
 		// Process the models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 
 			const auto& material = model.GetMaterial();
 
@@ -136,16 +144,16 @@ namespace mage {
 	void XM_CALLCONV VoxelizationPass::Render(const Model& model, 
 											  FXMMATRIX world_to_projection) const noexcept {
 
-		const auto& transform           = model.GetOwner()->GetTransform();
-		const auto object_to_world      = transform.GetObjectToWorldMatrix();
-		const auto object_to_projection = object_to_world * world_to_projection;
+		const auto& transform            = model.GetOwner()->GetTransform();
+		const auto  object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
 		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
 			return;
 		}
 
-		const auto& material            = model.GetMaterial();
+		const auto& material             = model.GetMaterial();
 
 		// Bind the constant buffer of the model.
 		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
@@ -171,8 +179,9 @@ namespace mage {
 		m_cs->BindShader(m_device_context);
 
 		// Dispatch.
-		const auto nb_groups = GetNumberOfGroups(static_cast< U32 >(m_voxel_grid->GetResolution()), 
-												 GROUP_SIZE_3D_DEFAULT);
+		const auto nb_groups = GetNumberOfGroups(
+			static_cast< U32 >(m_voxel_grid->GetResolution()), 
+			GROUP_SIZE_3D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups, nb_groups, nb_groups);
 	}
 }

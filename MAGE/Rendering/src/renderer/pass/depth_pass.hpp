@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of depth passes for rendering models to a depth buffer only.
@@ -87,7 +87,7 @@ namespace mage {
 		 @return		A reference to the moved depth pass (i.e. this depth 
 						pass).
 		 */
-		DepthPass& operator=(DepthPass&& pass) = delete;
+		DepthPass& operator=(DepthPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -102,34 +102,34 @@ namespace mage {
 		void BindFixedState() const noexcept;
 
 		/**
-		 Renders the scene.
+		 Renders the world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_camera
 						The world-to-camera transformation matrix.
 		 @param[in]		camera_to_projection
 						The camera-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 								FXMMATRIX world_to_camera,
 								CXMMATRIX camera_to_projection);
 
 		/**
-		 Renders the occluders of the scene.
+		 Renders the occluders of the world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_camera
 						The world-to-camera transformation matrix.
 		 @param[in]		camera_to_projection
 						The camera-to-projection transformation matrix.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderOccluders(const Scene& scene,
+		void XM_CALLCONV RenderOccluders(const World& world,
 										 FXMMATRIX world_to_camera,
 										 CXMMATRIX camera_to_projection);
 

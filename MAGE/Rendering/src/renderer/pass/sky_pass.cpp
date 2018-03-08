@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\sky_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\sky_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	SkyPass::SkyPass(ID3D11DeviceContext& device_context,
 					 StateManager& state_manager,
@@ -27,6 +27,8 @@ namespace mage {
 	SkyPass::SkyPass(SkyPass&& pass) noexcept = default;
 
 	SkyPass::~SkyPass() = default;
+
+	SkyPass& SkyPass::operator=(SkyPass&& pass) noexcept = default;
 
 	void SkyPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
@@ -41,17 +43,21 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessEqualDepthReadDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessEqualDepthRead);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterEqualDepthReadDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterEqualDepthRead);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void SkyPass::Render(const Sky& sky) const noexcept {

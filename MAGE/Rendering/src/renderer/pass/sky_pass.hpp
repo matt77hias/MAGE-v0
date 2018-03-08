@@ -5,21 +5,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\camera\sky.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
-	 A class of back buffer passes for tone mapping and gamma correcting HDR 
-	 images.
+	 A class of sky passes for rendering sky domes to screen.
 	 */
-	class BackBufferPass final {
+	class SkyPass final {
 
 	public:
 
@@ -28,7 +28,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a back buffer pass.
+		 Constructs a sky pass.
 
 		 @param[in]		device_context
 						A reference to the device context.
@@ -37,63 +37,65 @@ namespace mage {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit BackBufferPass(ID3D11DeviceContext& device_context, 
-								StateManager& state_manager, 
-								ResourceManager& resource_manager);
+		explicit SkyPass(ID3D11DeviceContext& device_context, 
+						 StateManager& state_manager, 
+						 ResourceManager& resource_manager);
 
 		/**
-		 Constructs an back buffer pass from the given back buffer pass.
+		 Constructs a sky pass from the given sky pass.
 
 		 @param[in]		pass
-						A reference to the back buffer pass to copy.
+						A reference to the sky pass to copy.
 		 */
-		BackBufferPass(const BackBufferPass& pass) = delete;
+		SkyPass(const SkyPass& pass) = delete;
 
 		/**
-		 Constructs an back buffer pass by moving the given back buffer pass.
+		 Constructs a sky pass by moving the given sky pass.
 
 		 @param[in]		pass
-						A reference to the Image pass to move.
+						A reference to the sky pass to move.
 		 */
-		BackBufferPass(BackBufferPass&& pass) noexcept;
+		SkyPass(SkyPass&& pass) noexcept;
 
 		/**
-		 Destructs this back buffer pass.
+		 Destructs this sky pass.
 		 */
-		~BackBufferPass();
+		~SkyPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given back buffer pass to this back buffer pass.
+		 Copies the given sky pass to this sky pass.
 
 		 @param[in]		pass
-						A reference to the back buffer pass to copy.
-		 @return		A reference to the copy of the given back buffer pass 
-						(i.e. this back buffer pass).
+						A reference to the sky pass to copy.
+		 @return		A reference to the copy of the given sky pass (i.e. 
+						this sky pass).
 		 */
-		BackBufferPass& operator=(const BackBufferPass& pass) = delete;
+		SkyPass& operator=(const SkyPass& pass) = delete;
 
 		/**
-		 Moves the given back buffer pass to this back buffer pass.
+		 Moves the given sky pass to this sky pass.
 
 		 @param[in]		pass
-						A reference to the back buffer pass to move.
-		 @return		A reference to the moved back buffer pass (i.e. this 
-						back buffer pass).
+						A reference to the sky pass to move.
+		 @return		A reference to the moved sky pass (i.e. this sky pass).
 		 */
-		BackBufferPass& operator=(BackBufferPass&& pass) = delete;
+		SkyPass& operator=(SkyPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Renders.
+		 Renders the given world.
+
+		 @param[in]		sky
+						A reference to the sky.
 		 */
-		void Render() const noexcept;
+		void Render(const Sky& sky) const noexcept;
 		
 	private:
 
@@ -102,7 +104,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed state of this back buffer pass.
+		 Binds the fixed state of this sky pass.
 		 */
 		void BindFixedState() const noexcept;
 
@@ -111,22 +113,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to the device context of this back buffer pass.
+		 A reference to the device context of this sky pass.
 		 */
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A reference to the state manager of this back buffer pass.
+		 A reference to the state manager of this sky pass.
 		 */
 		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
-		 A pointer to the vertex shader of this back buffer pass.
+		 A pointer to the vertex shader of this sky pass.
 		 */
 		VertexShaderPtr m_vs;
 
 		/**
-		 A pointer to the pixel shader of this back buffer pass.
+		 A pointer to the pixel shader of this sky pass.
 		 */
 		PixelShaderPtr m_ps;
 	};

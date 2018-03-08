@@ -5,17 +5,17 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
-#include "rendering\buffer\voxel_grid.hpp"
+#include "renderer\buffer\voxel_grid.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of voxelization passes for rendering models using a variable 
@@ -89,17 +89,17 @@ namespace mage {
 		 @return		A reference to the moved voxelization pass (i.e. 
 						this voxelization pass).
 		 */
-		VoxelizationPass& operator=(VoxelizationPass&& pass) = delete;
+		VoxelizationPass& operator=(VoxelizationPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Renders the scene.
+		 Renders the world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		brdf
@@ -107,9 +107,9 @@ namespace mage {
 		 @param[in]		resolution
 						The resolution of the regular voxel grid.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
 								BRDFType brdf, size_t resolution);
 
@@ -125,7 +125,7 @@ namespace mage {
 		 @param[in]		resolution
 						The resolution of the regular voxel grid.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
 		void SetupVoxelGrid(size_t resolution);
 
@@ -135,10 +135,10 @@ namespace mage {
 		void BindFixedState() const noexcept;
 
 		/**
-		 Renders the given scene.
+		 Renders the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
 		 @param[in]		brdf
@@ -147,9 +147,9 @@ namespace mage {
 						@c true if voxel cone tracing should be enabled. @c false 
 						otherwise.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void XM_CALLCONV Render(const Scene& scene,
+		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
 								BRDFType brdf) const;
 

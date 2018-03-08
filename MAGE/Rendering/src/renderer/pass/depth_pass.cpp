@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\depth_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\depth_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
-	DepthPass::DepthPass(ID3D11Device &device,
+	DepthPass::DepthPass(ID3D11Device& device,
 						 ID3D11DeviceContext& device_context,
 						 StateManager& state_manager,
 						 ResourceManager& resource_manager)
@@ -30,6 +30,8 @@ namespace mage {
 	DepthPass::DepthPass(DepthPass&& pass) noexcept = default;
 
 	DepthPass::~DepthPass() = default;
+
+	DepthPass &DepthPass::operator=(DepthPass&& pass) noexcept = default;
 
 	void DepthPass::BindOpaqueShaders() const noexcept {
 		// Bind the vertex shader.
@@ -53,12 +55,15 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindLessDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::LessDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::GreaterDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
 
@@ -75,7 +80,7 @@ namespace mage {
 											 SLOT_CBUFFER_SECONDARY_CAMERA);
 	}
 
-	void XM_CALLCONV DepthPass::Render(const Scene& scene, 
+	void XM_CALLCONV DepthPass::Render(const World& world, 
 									   FXMMATRIX world_to_camera, 
 									   CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
@@ -91,7 +96,7 @@ namespace mage {
 		BindOpaqueShaders();
 
 		// Process the opaque models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()
 				|| model.GetMaterial().IsTransparant()) {
 				return;
@@ -108,7 +113,7 @@ namespace mage {
 		BindTransparentShaders();
 
 		// Process the transparent models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
 			const auto& material = model.GetMaterial();
 			
@@ -122,7 +127,7 @@ namespace mage {
 		});
 	}
 
-	void XM_CALLCONV DepthPass::RenderOccluders(const Scene& scene, 
+	void XM_CALLCONV DepthPass::RenderOccluders(const World& world, 
 												FXMMATRIX world_to_camera, 
 												CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
@@ -138,7 +143,7 @@ namespace mage {
 		BindOpaqueShaders();
 
 		// Process the opaque models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()
 				|| !model.OccludesLight()
 				|| model.GetMaterial().IsTransparant()) {
@@ -156,7 +161,7 @@ namespace mage {
 		BindTransparentShaders();
 
 		// Process the transparent models.
-		scene.ForEach< Model >([this, world_to_projection](const Model& model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			
 			const auto& material = model.GetMaterial();
 			
@@ -174,9 +179,9 @@ namespace mage {
 	void XM_CALLCONV DepthPass::RenderOpaque(const Model& model,
 											 FXMMATRIX world_to_projection) const noexcept {
 
-		const auto& transform           = model.GetOwner()->GetTransform();
-		const auto object_to_world      = transform.GetObjectToWorldMatrix();
-		const auto object_to_projection = object_to_world * world_to_projection;
+		const auto& transform            = model.GetOwner()->GetTransform();
+		const auto  object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
 		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
@@ -194,9 +199,9 @@ namespace mage {
 	void XM_CALLCONV DepthPass::RenderTransparent(const Model& model,
 												  FXMMATRIX world_to_projection) const noexcept {
 
-		const auto& transform           = model.GetOwner()->GetTransform();
-		const auto object_to_world      = transform.GetObjectToWorldMatrix();
-		const auto object_to_projection = object_to_world * world_to_projection;
+		const auto& transform            = model.GetOwner()->GetTransform();
+		const auto  object_to_world      = transform.GetObjectToWorldMatrix();
+		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
 		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 

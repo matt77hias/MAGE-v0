@@ -5,17 +5,17 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\viewport.hpp"
-#include "material\brdf.hpp"
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\configuration.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of deferred passes for unpacking GBuffers and performing light 
@@ -86,7 +86,7 @@ namespace mage {
 		 @return		A reference to the moved deferred pass (i.e. this 
 						deferred pass).
 		 */
-		DeferredPass& operator=(DeferredPass&& pass) = delete;
+		DeferredPass& operator=(DeferredPass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -101,7 +101,7 @@ namespace mage {
 						@c true if voxel cone tracing should be enabled. @c false 
 						otherwise.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
 		void Render(BRDFType brdf, bool vct);
 

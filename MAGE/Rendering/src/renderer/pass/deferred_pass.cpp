@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\deferred_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\deferred_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	DeferredPass::DeferredPass(ID3D11DeviceContext& device_context,
 							   StateManager& state_manager,
@@ -27,6 +27,8 @@ namespace mage {
 	DeferredPass::DeferredPass(DeferredPass&& pass) noexcept = default;
 
 	DeferredPass::~DeferredPass() = default;
+
+	DeferredPass& DeferredPass::operator=(DeferredPass&& pass) noexcept = default;
 
 	void DeferredPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
@@ -41,13 +43,14 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
-		// PS: Bind the pixel shader.
-		m_msaa_ps->BindShader(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().BindOpaqueBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Opaque);
 	}
 
 	void DeferredPass::Render(BRDFType brdf, bool vct) {

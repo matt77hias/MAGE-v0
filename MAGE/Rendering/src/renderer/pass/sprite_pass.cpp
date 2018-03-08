@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\pass\sprite_pass.hpp"
-#include "shader\shader_factory.hpp"
+#include "renderer\pass\sprite_pass.hpp"
+#include "resource\shader\shader_factory.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	SpritePass::SpritePass(ID3D11Device& device,
 						   ID3D11DeviceContext& device_context,
@@ -30,6 +30,8 @@ namespace mage {
 
 	SpritePass::~SpritePass() = default;
 
+	SpritePass& SpritePass::operator=(SpritePass&& pass) noexcept = default;
+
 	void SpritePass::BindFixedState() const noexcept {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
@@ -40,23 +42,27 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().BindCullCounterClockwiseRasterizerState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   RasterizerStateID::CounterClockwiseCulling);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().BindDepthNoneDepthStencilState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().BindAlphaBlendState(m_device_context);
+		m_state_manager.get().Bind(m_device_context, 
+								   BlendStateID::Alpha);
 	}
 
-	void SpritePass::Render(const Scene& scene) {
+	void SpritePass::Render(const World& world) {
 		// Bind the fixed state.
 		BindFixedState();
 
 		m_sprite_batch.Begin();
 
 		// Processes the sprite images.
-		scene.ForEach< SpriteImage >([&sprite_batch(m_sprite_batch)](const SpriteImage& sprite) {
+		world.ForEach< SpriteImage >([&sprite_batch(m_sprite_batch)]
+		(const SpriteImage& sprite) {
 			if (State::Active != sprite.GetState()) {
 				return;
 			}
@@ -66,7 +72,8 @@ namespace mage {
 		});
 
 		// Processes the sprite texts.
-		scene.ForEach< SpriteText >([&sprite_batch(m_sprite_batch)](const SpriteText& sprite) {
+		world.ForEach< SpriteText >([&sprite_batch(m_sprite_batch)]
+		(const SpriteText& sprite) {
 			if (State::Active != sprite.GetState()) {
 				return;
 			}

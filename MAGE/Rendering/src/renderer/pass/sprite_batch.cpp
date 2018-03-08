@@ -23,137 +23,136 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	// SpriteInfo
 	//-------------------------------------------------------------------------
-	#pragma region
+	namespace {
 
-	/**
-	 A struct of sprite info for a single sprite.
-	 */
-	struct alignas(16) SpriteInfo final {
+		/**
+		 A struct of sprite info for a single sprite.
+		 */
+		struct alignas(16) SpriteInfo final {
 
-	public:
+		public:
 
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
+			//---------------------------------------------------------------------
+			// Class Member Variables
+			//---------------------------------------------------------------------
 		
-		// Combine values from SpriteEffect with these internal-only flags.
+			// Combine values from SpriteEffect with these internal-only flags.
 
-		/**
-		 Mask indicating whether the source region (top left, width and height) 
-		 of sprite info structures is expressed in texels.
-		 */
-		static constexpr U32 s_source_in_texels = 4u;
+			/**
+			 Mask indicating whether the source region (top left, width and height) 
+			 of sprite info structures is expressed in texels.
+			 */
+			static constexpr U32 s_source_in_texels = 4u;
 
-		/**
-		 Mask indicating whether the destination size (width and height) of 
-		 sprite info structures is expressed in pixels.
-		 */
-		static constexpr U32 s_destination_size_in_pixels = 8u;
+			/**
+			 Mask indicating whether the destination size (width and height) of 
+			 sprite info structures is expressed in pixels.
+			 */
+			static constexpr U32 s_destination_size_in_pixels = 8u;
 
-		static_assert(((s_source_in_texels | s_destination_size_in_pixels)
-			          & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
-			          "Flag bits must not overlap");
+			static_assert(((s_source_in_texels | s_destination_size_in_pixels)
+						  & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
+						  "Flag bits must not overlap");
 		
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
+			//---------------------------------------------------------------------
+			// Constructors and Destructors
+			//---------------------------------------------------------------------
 
-		/**
-		 Constructs a sprite info.
-		 */
-		SpriteInfo() noexcept
-			: m_source{}, 
-			m_destination{},
-			m_color{}, 
-			m_origin_rotation_depth{},
-			m_texture(nullptr), 
-			m_flags(0u) {}
+			/**
+			 Constructs a sprite info.
+			 */
+			SpriteInfo() noexcept
+				: m_source{}, 
+				m_destination{},
+				m_color{}, 
+				m_origin_rotation_depth{},
+				m_texture(nullptr), 
+				m_flags(0u) {}
 
-		/**
-		 Constructs a sprite info from the given sprite info.
+			/**
+			 Constructs a sprite info from the given sprite info.
 
-		 @param[in]		sprite_info
-						A reference to the sprite info to copy.
-		 */
-		SpriteInfo(const SpriteInfo& sprite_info) noexcept = default;
+			 @param[in]		sprite_info
+							A reference to the sprite info to copy.
+			 */
+			SpriteInfo(const SpriteInfo& sprite_info) noexcept = default;
 
-		/**
-		 Constructs a sprite info by moving the given sprite info.
+			/**
+			 Constructs a sprite info by moving the given sprite info.
 
-		 @param[in]		sprite_info
-						A reference to the sprite info to move.
-		 */
-		SpriteInfo(SpriteInfo&& sprite_info) noexcept = default;
+			 @param[in]		sprite_info
+							A reference to the sprite info to move.
+			 */
+			SpriteInfo(SpriteInfo&& sprite_info) noexcept = default;
 
-		/**
-		 Destructs this sprite info.
-		 */
-		~SpriteInfo() = default;
+			/**
+			 Destructs this sprite info.
+			 */
+			~SpriteInfo() = default;
 
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
+			//---------------------------------------------------------------------
+			// Assignment Operators
+			//---------------------------------------------------------------------
 
-		/**
-		 Copies the given sprite info to this sprite info.
+			/**
+			 Copies the given sprite info to this sprite info.
 
-		 @param[in]		sprite_info
-						A reference to the sprite info to copy.
-		 @return		A reference to the copy of the given sprite info (i.e. 
-						this sprite info).
-		 */
-		SpriteInfo& operator=(const SpriteInfo& sprite_info) noexcept = default;
+			 @param[in]		sprite_info
+							A reference to the sprite info to copy.
+			 @return		A reference to the copy of the given sprite info (i.e. 
+							this sprite info).
+			 */
+			SpriteInfo& operator=(const SpriteInfo& sprite_info) noexcept = default;
 
-		/**
-		 Moves the given sprite info to this sprite info.
+			/**
+			 Moves the given sprite info to this sprite info.
 
-		 @param[in]		sprite_info
-						A reference to the sprite info to move.
-		 @return		A reference to the moved sprite info (i.e. this sprite 
-						info).
-		 */
-		SpriteInfo& operator=(SpriteInfo&& sprite_info) noexcept = default;
+			 @param[in]		sprite_info
+							A reference to the sprite info to move.
+			 @return		A reference to the moved sprite info (i.e. this sprite 
+							info).
+			 */
+			SpriteInfo& operator=(SpriteInfo&& sprite_info) noexcept = default;
 
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
+			//---------------------------------------------------------------------
+			// Member Variables
+			//---------------------------------------------------------------------
 
-		/**
-		 The texture source region (Left Top Width Height) of the sprite 
-		 associated with this sprite info.
-		 */
-		F32x4A m_source;
+			/**
+			 The texture source region (Left Top Width Height) of the sprite 
+			 associated with this sprite info.
+			 */
+			F32x4A m_source;
 
-		/**
-		 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
-		 this sprite info.
-		 */
-		F32x4A m_destination;
+			/**
+			 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
+			 this sprite info.
+			 */
+			F32x4A m_destination;
 
-		/**
-		 The (sRGB) color of the sprite associated with this sprite info.
-		 */
-		F32x4A m_color;
+			/**
+			 The (sRGB) color of the sprite associated with this sprite info.
+			 */
+			F32x4A m_color;
 
-		/**
-		 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
-		 with this sprite info.
-		 */
-		F32x4A m_origin_rotation_depth;
+			/**
+			 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
+			 with this sprite info.
+			 */
+			F32x4A m_origin_rotation_depth;
 
-		/**
-		 A pointer to the shader resource view of the texture associated with 
-		 this sprite info.
-		 */
-		ID3D11ShaderResourceView *m_texture;
+			/**
+			 A pointer to the shader resource view of the texture associated with 
+			 this sprite info.
+			 */
+			ID3D11ShaderResourceView *m_texture;
 
-		/**
-		 The flags of the sprite associated with this sprite info.
-		 */
-		U32 m_flags;
-	};
-
-	#pragma endregion
+			/**
+			 The flags of the sprite associated with this sprite info.
+			 */
+			U32 m_flags;
+		};
+	}
 
 	//-------------------------------------------------------------------------
 	// SpriteBatch::Impl
@@ -224,7 +223,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved sprite batch (i.e. this sprite 
 						batch).
 		 */
-		Impl& operator=(Impl&& sprite_batch) = delete;
+		Impl& operator=(Impl&& sprite_batch) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Lifecycle
@@ -360,7 +359,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the device context of this sprite batch.
 		 */
-		ID3D11DeviceContext& m_device_context;
+		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch for 
@@ -425,6 +424,9 @@ namespace mage::rendering {
 	SpriteBatch::Impl::Impl(Impl&& sprite_batch) noexcept = default;
 
 	SpriteBatch::Impl::~Impl() = default;
+
+	SpriteBatch::Impl& SpriteBatch::Impl
+		::operator=(Impl&& sprite_batch) noexcept = default;
 
 	void SpriteBatch::Impl::Begin(SpriteSortMode sort_mode) {
 		
@@ -541,7 +543,7 @@ namespace mage::rendering {
 	}
 
 	void SpriteBatch::Impl::BindFixedState() {
-		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context.GetType()) {
+		if (D3D11_DEVICE_CONTEXT_DEFERRED == m_device_context.get().GetType()) {
 			m_mesh_position = 0;
 		}
 
@@ -820,6 +822,9 @@ namespace mage::rendering {
 	SpriteBatch::SpriteBatch(SpriteBatch&& sprite_batch) noexcept = default;
 
 	SpriteBatch::~SpriteBatch() = default;
+
+	SpriteBatch& SpriteBatch
+		::operator=(SpriteBatch&& sprite_batch) noexcept = default;
 
 	void SpriteBatch::Begin(SpriteSortMode sort_mode) {
 		m_impl->Begin(sort_mode);

@@ -5,20 +5,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\state_manager.hpp"
-#include "rendering\resource_manager.hpp"
+#include "renderer\state_manager.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations end Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
-	 A class of voxel grid passes for rendering voxel grids to screen.
+	 A class of sprite passes for rendering sprites.
 	 */
-	class VoxelGridPass final {
+	class SpritePass final {
 
 	public:
 
@@ -27,8 +28,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a voxel grid pass.
+		 Constructs a sprite pass.
 
+		 @param[in]		device
+						A reference to the device.
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		state_manager
@@ -36,67 +39,70 @@ namespace mage {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit VoxelGridPass(ID3D11DeviceContext& device_context, 
-							   StateManager& state_manager, 
-							   ResourceManager& resource_manager);
+		explicit SpritePass(ID3D11Device& device, 
+							ID3D11DeviceContext& device_context, 
+							StateManager& state_manager, 
+							ResourceManager& resource_manager);
 
 		/**
-		 Constructs a voxel grid pass from the given voxel grid pass.
+		 Constructs a sprite pass from the given sprite pass.
 
 		 @param[in]		pass
-						A reference to the voxel grid pass to copy.
+						A reference to the sprite pass to copy.
 		 */
-		VoxelGridPass(const VoxelGridPass& pass) = delete;
+		SpritePass(const SpritePass& pass) = delete;
 
 		/**
-		 Constructs a voxel grid pass by moving the given voxel grid pass.
+		 Constructs a sprite pass by moving the given sprite pass.
 
 		 @param[in]		pass
-						A reference to the voxel grid pass to move.
+						A reference to the sprite pass to move.
 		 */
-		VoxelGridPass(VoxelGridPass&& pass) noexcept;
+		SpritePass(SpritePass&& pass) noexcept;
 
 		/**
-		 Destructs this voxel grid pass.
+		 Destructs this sprite pass.
 		 */
-		~VoxelGridPass();
+		~SpritePass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given voxel grid pass to this voxel grid pass.
+		 Copies the given sprite pass to this sprite pass.
 
 		 @param[in]		pass
-						A reference to the voxel grid pass to copy.
-		 @return		A reference to the copy of the given voxel grid pass 
-						(i.e. this voxel grid pass).
+						A reference to the sprite pass to copy.
+		 @return		A reference to the copy of the given sprite pass (i.e. 
+						this sprite pass).
 		 */
-		VoxelGridPass& operator=(const VoxelGridPass& pass) = delete;
+		SpritePass& operator=(const SpritePass& pass) = delete;
 
 		/**
-		 Moves the given voxel grid pass to this voxel grid pass.
+		 Moves the given sprite pass to this sprite pass.
 
 		 @param[in]		pass
-						A reference to the voxel grid pass to move.
-		 @return		A reference to the moved voxel grid pass (i.e. this 
-						voxel grid pass).
+						A reference to the sprite pass to move.
+		 @return		A reference to the moved sprite pass (i.e. this sprite 
+						pass).
 		 */
-		VoxelGridPass& operator=(VoxelGridPass&& pass) = delete;
+		SpritePass& operator=(SpritePass&& pass) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Renders the given scene.
+		 Renders the world.
 
-		 @param[in]		resolution
-						The resolution of the regular voxel grid.
+		 @param[in]		world
+						A reference to the world.
+		 @throws		Exception
+						Failed to render the world.
 		 */
-		void Render(size_t resolution) const noexcept;
-		
+		void Render(const World& world);
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -104,37 +110,37 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed state of this voxel grid pass.
+		 Binds the fixed state of this sprite pass.
 		 */
 		void BindFixedState() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-
+		
 		/**
-		 A reference to the device context of this voxel grid pass.
+		 A reference to the device context of this sprite pass.
 		 */
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A reference to the state manager of this voxel grid pass.
+		 A reference to the state manager of this sprite pass.
 		 */
 		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
-		 A pointer to the vertex shader of this voxel grid pass.
+		 A pointer to the vertex shader of this sprite pass.
 		 */
 		VertexShaderPtr m_vs;
 
 		/**
-		 A pointer to the geometry shader of this voxel grid pass.
-		 */
-		GeometryShaderPtr m_gs;
-
-		/**
-		 A pointer to the pixel shader of this voxel grid pass.
+		 A pointer to the pixel shader of this sprite pass.
 		 */
 		PixelShaderPtr m_ps;
+
+		/**
+		 The sprite batch of this sprite pass.
+		 */
+		SpriteBatch m_sprite_batch;
 	};
 }

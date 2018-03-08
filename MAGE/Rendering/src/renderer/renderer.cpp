@@ -319,56 +319,56 @@ namespace mage::rendering {
 
 	void Renderer::Impl::InitializePasses() {
 		m_aa_pass = MakeUnique< AAPass >(m_device_context,
-										 m_state_manager,
+										 *m_state_manager.get(),
 										 m_resource_manager);
 
 		m_back_buffer_pass = MakeUnique< BackBufferPass >(m_device_context,
-														  m_state_manager,
+														  *m_state_manager.get(),
 														  m_resource_manager);
 
 		m_bounding_volume_pass = MakeUnique< BoundingVolumePass >(m_device,
 																  m_device_context,
-																  m_state_manager,
+																  *m_state_manager.get(),
 																  m_resource_manager);
 		m_deferred_pass = MakeUnique< DeferredPass >(m_device_context,
-													 m_state_manager,
+													 *m_state_manager.get(),
 													 m_resource_manager);
 
 		m_depth_pass = MakeUnique< DepthPass >(m_device,
 											   m_device_context,
-											   m_state_manager,
+											   *m_state_manager.get(),
 											   m_resource_manager);
 
 		m_dof_pass = MakeUnique< DOFPass >(m_device_context,
-										   m_state_manager,
+										   *m_state_manager.get(),
 										   m_resource_manager);
 
 		m_forward_pass = MakeUnique< ForwardPass >(m_device,
 												   m_device_context,
-												   m_state_manager,
+												   *m_state_manager.get(),
 												   m_resource_manager);
 
 		m_lbuffer_pass = MakeUnique< LBufferPass >(m_device,
 												   m_device_context,
-												   m_state_manager,
+												   *m_state_manager.get(),
 												   m_resource_manager);
 
 		m_sky_pass = MakeUnique< SkyPass >(m_device_context,
-										   m_state_manager,
+										   *m_state_manager.get(),
 										   m_resource_manager);
 
 		m_sprite_pass = MakeUnique< SpritePass >(m_device,
 												 m_device_context,
-												 m_state_manager,
+												 *m_state_manager.get(),
 												 m_resource_manager);
 
 		m_voxel_grid_pass = MakeUnique< VoxelGridPass >(m_device_context,
-														m_state_manager,
+														*m_state_manager.get(),
 														m_resource_manager);
 
 		m_voxelization_pass = MakeUnique< VoxelizationPass >(m_device,
 															 m_device_context,
-															 m_state_manager,
+															 *m_state_manager.get(),
 															 m_resource_manager);
 	}
 

@@ -570,7 +570,7 @@ namespace mage::rendering {
 
 		default: {
 			const Viewport viewport(camera.GetViewport(), 
-									m_display_configuration.get().GetAADescriptor);
+									m_display_configuration.get().GetAADescriptor());
 			viewport.Bind(m_device_context);
 			m_output_manager->BindBeginForward(m_device_context);
 
@@ -640,7 +640,7 @@ namespace mage::rendering {
 		}
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor);
+								m_display_configuration.get().GetAADescriptor());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -688,7 +688,7 @@ namespace mage::rendering {
 		}
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor);
+								m_display_configuration.get().GetAADescriptor());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginGBuffer(m_device_context);
 
@@ -742,7 +742,7 @@ namespace mage::rendering {
 							   camera.GetSettings().GetFog());
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor);
+								m_display_configuration.get().GetAADescriptor());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -758,7 +758,7 @@ namespace mage::rendering {
 													  FalseColor false_color) {
 		
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor);
+								m_display_configuration.get().GetAADescriptor());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -792,7 +792,7 @@ namespace mage::rendering {
 
 	
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor);
+								m_display_configuration.get().GetAADescriptor());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 		

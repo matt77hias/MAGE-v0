@@ -5,21 +5,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\resource_manager.hpp"
-#include "rendering\swap_chain.hpp"
-#include "scene\scene.hpp"
+#include "renderer\swap_chain.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of rendering managers.
 	 */
-	class RenderingManager final {
+	class Manager final {
 
 	public:
 
@@ -35,8 +35,8 @@ namespace mage {
 		 @param[in]		configuration
 						The display configuration.
 		 */
-		explicit RenderingManager(NotNull< HWND > window, 
-								  DisplayConfiguration configuration);
+		explicit Manager(NotNull< HWND > window, 
+						 DisplayConfiguration configuration);
 
 		/**
 		 Constructs a rendering manager from the given rendering manager.
@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to copy.
 		 */
-		RenderingManager(const RenderingManager& manager) = delete;
+		Manager(const Manager& manager) = delete;
 
 		/**
 		 Constructs a rendering manager by moving the given rendering manager.
@@ -52,12 +52,12 @@ namespace mage {
 		 @param[in]		manager
 						A reference to a rendering manager to move.
 		 */
-		RenderingManager(RenderingManager&& manager) noexcept;
+		Manager(Manager&& manager) noexcept;
 
 		/**
 		 Destructs this rendering manager.
 		 */
-		~RenderingManager();
+		~Manager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -71,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering manager 
 						(i.e. this rendering manager).
 		 */
-		RenderingManager& operator=(const RenderingManager& manager) = delete;
+		Manager& operator=(const Manager& manager) = delete;
 
 		/**
 		 Moves the given rendering manager to this rendering manager.
@@ -81,7 +81,7 @@ namespace mage {
 		 @return		A reference to the moved rendering manager (i.e. this 
 						rendering manager).
 		 */
-		RenderingManager& operator=(RenderingManager&& manager) = delete;
+		Manager& operator=(Manager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -105,13 +105,21 @@ namespace mage {
 		SwapChain& GetSwapChain() const noexcept;
 
 		/**
-		 Returns the state manager of this rendering manager.
+		 Returns the resource manager of this rendering manager.
 
 		 @return		A reference to the state manager of this 
 						rendering manager.
 		 */
 		[[nodiscard]]
 		ResourceManager& GetResourceManager() const noexcept;
+
+		/**
+		 Returns the world of this rendering manager.
+
+		 @return		A reference to the world of this rendering manager.
+		 */
+		[[nodiscard]]
+		World& GetWorld() const noexcept;
 
 		/**
 		 Binds the persistent state of this rendering manager.
@@ -128,12 +136,10 @@ namespace mage {
 		/**
 		 Renders the given scene.
 
-		 @param[in]		scene
-						A reference to the scene.
 		 @throws		Exception
 						Failed to render the scene.
 		 */
-		void Render(const Scene& scene);
+		void Render();
 
 	private:
 

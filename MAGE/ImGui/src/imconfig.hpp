@@ -47,8 +47,7 @@
 //---- Pack colors to BGRA8 instead of RGBA8 (if you needed to convert from one to another anyway)
 //#define IMGUI_USE_BGRA_PACKED_COLOR
 
-//---- Implement STB libraries in a namespace to avoid linkage conflicts (defaults to global namespace)
-//#define IMGUI_STB_NAMESPACE     ImGuiStb
+#define IMGUI_STB_NAMESPACE     ImGuiStb
 
 #define IM_VEC2_CLASS_EXTRA \
         ImVec2(const mage::F32x2 &f) { x = f.m_x; y = f.m_y; } \

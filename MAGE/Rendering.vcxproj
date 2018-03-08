@@ -76,6 +76,7 @@
     <ClInclude Include="Rendering\src\renderer\renderer.hpp" />
     <ClInclude Include="Rendering\src\renderer\state_manager.hpp" />
     <ClInclude Include="Rendering\src\renderer\swap_chain.hpp" />
+    <ClInclude Include="Rendering\src\rendering_manager.hpp" />
     <ClInclude Include="Rendering\src\resource\font\color_string.hpp" />
     <ClInclude Include="Rendering\src\resource\font\glyph.hpp" />
     <ClInclude Include="Rendering\src\resource\font\sprite_font.hpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Rendering\src\renderer\renderer.cpp" />
     <ClCompile Include="Rendering\src\renderer\state_manager.cpp" />
     <ClCompile Include="Rendering\src\renderer\swap_chain.cpp" />
+    <ClCompile Include="Rendering\src\rendering_manager.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font_factory.cpp" />
     <ClCompile Include="Rendering\src\resource\mesh\mesh.cpp" />
@@ -255,20 +257,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;ImGui\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;ImGui\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;ImGui\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;ImGui\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

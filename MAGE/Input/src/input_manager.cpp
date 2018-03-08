@@ -14,14 +14,14 @@
 namespace mage::input {
 
 	//-------------------------------------------------------------------------
-	// InputManager::Impl
+	// Manager::Impl
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	/**
 	 A class of input managers.
 	 */
-	class InputManager::Impl final {
+	class Manager::Impl final {
 
 	public:
 
@@ -178,7 +178,7 @@ namespace mage::input {
 		UniquePtr< Mouse > m_mouse;
 	};
 
-	InputManager::Impl::Impl(NotNull< HWND > window)
+	Manager::Impl::Impl(NotNull< HWND > window)
 		: m_window(window), 
 		m_di(), 
 		m_keyboard(), 
@@ -188,11 +188,11 @@ namespace mage::input {
 		InitializeInputSystems();
 	}
 
-	InputManager::Impl::Impl(Impl&& manager) noexcept = default;
+	Manager::Impl::Impl(Impl&& manager) noexcept = default;
 
-	InputManager::Impl::~Impl() = default;
+	Manager::Impl::~Impl() = default;
 
-	void InputManager::Impl::InitializeDI() {
+	void Manager::Impl::InitializeDI() {
 		// Create a DirectInput interface.
 		// 1. Instance handle to the application that is creating the 
 		//    DirectInput object.
@@ -214,7 +214,7 @@ namespace mage::input {
 		ThrowIfFailed(result, "DirectInput initialization failed: %ld", result);
 	}
 
-	void InputManager::Impl::InitializeInputSystems() {
+	void Manager::Impl::InitializeInputSystems() {
 		m_keyboard = MakeUnique< Keyboard >(m_window, *m_di.Get());
 		m_mouse    = MakeUnique< Mouse >(   m_window, *m_di.Get());
 	}
@@ -222,32 +222,32 @@ namespace mage::input {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// InputManager
+	// Manager
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	InputManager::InputManager(NotNull< HWND > window) 
+	Manager::Manager(NotNull< HWND > window) 
 		: m_impl(MakeUnique< Impl >(std::move(window))) {}
 
-	InputManager::InputManager(InputManager&& manager) noexcept = default;
+	Manager::Manager(Manager&& manager) noexcept = default;
 
-	InputManager::~InputManager() = default;
+	Manager::~Manager() = default;
 
-	NotNull< HWND > InputManager::GetWindow() noexcept {
+	NotNull< HWND > Manager::GetWindow() noexcept {
 		return m_impl->GetWindow();
 	}
 
-	void InputManager::Update() noexcept {
+	void Manager::Update() noexcept {
 		m_impl->Update();
 	}
 
 	[[nodiscard]]
-	const Keyboard& InputManager::GetKeyboard() const noexcept {
+	const Keyboard& Manager::GetKeyboard() const noexcept {
 		return m_impl->GetKeyboard();
 	}
 
 	[[nodiscard]]
-	const Mouse& InputManager::GetMouse() const noexcept {
+	const Mouse& Manager::GetMouse() const noexcept {
 		return m_impl->GetMouse();
 	}
 

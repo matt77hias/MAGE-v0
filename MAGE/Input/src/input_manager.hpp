@@ -18,7 +18,7 @@ namespace mage::input {
 	/**
 	 A class of input managers.
 	 */
-	class InputManager final {
+	class Manager final {
 
 	public:
 
@@ -36,7 +36,7 @@ namespace mage::input {
 		 @throws		Exception
 						Failed to initialize the input systems.
 		 */
-		explicit InputManager(NotNull< HWND > window);
+		explicit Manager(NotNull< HWND > window);
 
 		/**
 		 Constructs an input manager from the given input manager.
@@ -44,7 +44,7 @@ namespace mage::input {
 		 @param[in]		manager
 						A reference to the input manager to copy.
 		 */
-		InputManager(const InputManager& manager) = delete;
+		Manager(const Manager& manager) = delete;
 
 		/**
 		 Constructs an input manager by moving the given input manager.
@@ -52,12 +52,12 @@ namespace mage::input {
 		 @param[in]		manager
 						A reference to the input manager to move.
 		 */
-		InputManager(InputManager&& manager) noexcept;
+		Manager(Manager&& manager) noexcept;
 
 		/**
 		 Destructs this input manager.
 		 */
-		~InputManager();
+		~Manager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -71,7 +71,7 @@ namespace mage::input {
 		 @return		A reference to the copy of the given input manager 
 						(i.e. this input manager).
 		 */
-		InputManager& operator=(const InputManager& manager) = delete;
+		Manager& operator=(const Manager& manager) = delete;
 
 		/**
 		 Moves the given input manager to this input manager.
@@ -81,7 +81,7 @@ namespace mage::input {
 		 @return		A reference to the moved input manager (i.e. this 
 						input manager).
 		 */
-		InputManager& operator=(InputManager&& manager) = delete;
+		Manager& operator=(Manager&& manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

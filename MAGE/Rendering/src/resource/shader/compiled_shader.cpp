@@ -44,13 +44,13 @@ namespace mage::rendering {
 								  const  string& shader_target, 
 								  NotNull< ID3DBlob** > output_blob) {
 		
-		#ifndef _DEBUG
+		#ifdef NDEBUG
 		const DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;
-		#else  // _DEBUG
+		#else  // NDEBUG
 		const DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS 
 			                     | D3DCOMPILE_DEBUG 
 			                     | D3DCOMPILE_SKIP_OPTIMIZATION;
-		#endif // _DEBUG
+		#endif // NDEBUG
 
 		// Compiles Microsoft High Level Shader Language (HLSL) code into 
 		// bytecode for a given target.

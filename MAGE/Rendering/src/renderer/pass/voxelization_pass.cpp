@@ -71,7 +71,7 @@ namespace mage::rendering {
 		SetupVoxelGrid(resolution);
 
 		m_voxel_grid->BindBeginVoxelizationBuffer(m_device_context);
-		m_voxel_grid->BindViewport(m_device_context);
+		m_voxel_grid->Bind(m_device_context);
 		Render(world, world_to_projection, brdf);
 		m_voxel_grid->BindEndVoxelizationBuffer(m_device_context);
 

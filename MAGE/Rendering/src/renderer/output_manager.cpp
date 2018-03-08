@@ -47,15 +47,18 @@ namespace mage::rendering {
 
 	OutputManager::~OutputManager() = default;
 
+	OutputManager &OutputManager
+		::operator=(OutputManager&& manager) noexcept = default;
+
 	void OutputManager::SetupBuffers() {
 		U32 nb_samples = 1u;
-		auto width     = m_display_configuration.GetDisplayWidth();
-		auto height    = m_display_configuration.GetDisplayHeight();
+		auto width     = m_display_configuration.get().GetDisplayWidth();
+		auto height    = m_display_configuration.get().GetDisplayHeight();
 		auto ss_width  = width;
 		auto ss_height = height;
 		auto aa        = true;
 		
-		switch (m_display_configuration.GetAADescriptor()) {
+		switch (m_display_configuration.get().GetAADescriptor()) {
 
 		case AADescriptor::MSAA_2x: {
 			m_msaa     = true;
@@ -205,7 +208,7 @@ namespace mage::rendering {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = m_device.CheckMultisampleQualityLevels(
+			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result,
@@ -219,7 +222,7 @@ namespace mage::rendering {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = m_device.CreateTexture2D(
+			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
@@ -227,7 +230,7 @@ namespace mage::rendering {
 		// SRV
 		{
 			// Create the SRV.
-			const HRESULT result = m_device.CreateShaderResourceView(
+			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), nullptr, srv);
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
 		}
@@ -235,7 +238,7 @@ namespace mage::rendering {
 		// RTV
 		if (rtv) {
 			// Create the RTV.
-			const HRESULT result = m_device.CreateRenderTargetView(
+			const HRESULT result = m_device.get().CreateRenderTargetView(
 				texture.Get(), nullptr, rtv);
 			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
 		}
@@ -243,7 +246,7 @@ namespace mage::rendering {
 		// UAV
 		if (uav) {
 			// Create the UAV.
-			const HRESULT result = m_device.CreateUnorderedAccessView(
+			const HRESULT result = m_device.get().CreateUnorderedAccessView(
 				texture.Get(), nullptr, uav);
 			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
@@ -266,7 +269,7 @@ namespace mage::rendering {
 
 		// Sample quality
 		if (1u != nb_samples) {
-			const HRESULT result = m_device.CheckMultisampleQualityLevels(
+			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result, 
@@ -280,7 +283,7 @@ namespace mage::rendering {
 		// Texture
 		{
 			// Create the texture.
-			const HRESULT result = m_device.CreateTexture2D(
+			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, 
 				texture.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
@@ -300,7 +303,7 @@ namespace mage::rendering {
 			}
 			
 			// Create the SRV.
-			const HRESULT result = m_device.CreateShaderResourceView(
+			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), &srv_desc,
 				ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Depth));
 			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
@@ -316,7 +319,7 @@ namespace mage::rendering {
 				                     D3D11_DSV_DIMENSION_TEXTURE2D;
 
 			// Create the DSV.
-			const HRESULT result = m_device.CreateDepthStencilView(
+			const HRESULT result = m_device.get().CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "DSV creation failed: %08X.", result);
@@ -551,7 +554,7 @@ namespace mage::rendering {
 
 		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context, 
-									m_swap_chain.GetRTV(), 
+									m_swap_chain.get().GetRTV(),
 									nullptr);
 		
 		// Bind no HDR UAV.

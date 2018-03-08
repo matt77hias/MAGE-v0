@@ -37,12 +37,6 @@
     <Filter Include="Source Files\rendering">
       <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\rendering\pass">
-      <UniqueIdentifier>{c4f4ed46-d8c8-4387-a29a-8e35cd0146ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\rendering\pass">
-      <UniqueIdentifier>{88555923-d4c3-4d24-8c8d-8f000bb4d0b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{f7674e16-9496-4272-b5f9-97de57a51a8d}</UniqueIdentifier>
     </Filter>
@@ -75,30 +69,6 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\sky_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\aa_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\back_buffer_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
@@ -123,18 +93,6 @@
     <ClInclude Include="MAGE\src\editor\widget.hpp">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp">
-      <Filter>Header Files\rendering\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -155,30 +113,6 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\lbuffer_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\sky_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\back_buffer_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\bounding_volume_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
@@ -196,18 +130,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\editor\widget.cpp">
       <Filter>Source Files\editor</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp">
-      <Filter>Source Files\rendering\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,9 @@ namespace mage::rendering {
 
 	StateManager::~StateManager() = default;
 
+	StateManager &StateManager
+		::operator=(StateManager&& manager) noexcept = default;
+
 	void StateManager::SetupRenderingStates() {
 		// Setup the blend states.
 		SetupBlendStates();

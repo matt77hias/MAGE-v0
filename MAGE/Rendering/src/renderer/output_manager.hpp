@@ -85,7 +85,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved output manager (i.e. this 
 						output manager).
 		 */
-		OutputManager& operator=(OutputManager&& manager) = delete;
+		OutputManager& operator=(OutputManager&& manager) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -196,9 +196,9 @@ namespace mage::rendering {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		DisplayConfiguration& m_display_configuration;
-		ID3D11Device& m_device;
-		SwapChain& m_swap_chain;
+		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
+		std::reference_wrapper< ID3D11Device > m_device;
+		std::reference_wrapper< SwapChain > m_swap_chain;
 
 		ComPtr< ID3D11ShaderResourceView > m_srvs[
 			static_cast< size_t >(SRVIndex::Count)];

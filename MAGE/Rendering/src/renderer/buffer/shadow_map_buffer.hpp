@@ -84,8 +84,8 @@ namespace mage::rendering {
 			return m_dsvs.size();
 		}
 
-		void BindViewport(ID3D11DeviceContext& device_context) const noexcept {
-			m_viewport.BindViewport(device_context);
+		void Bind(ID3D11DeviceContext& device_context) const noexcept {
+			m_viewport.Bind(device_context);
 		}
 		void BindRasterizerState(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());
@@ -182,8 +182,8 @@ namespace mage::rendering {
 			return m_dsvs.size() / 6u;
 		}
 
-		void BindViewport(ID3D11DeviceContext& device_context) const noexcept {
-			m_viewport.BindViewport(device_context);
+		void Bind(ID3D11DeviceContext& device_context) const noexcept {
+			m_viewport.Bind(device_context);
 		}
 		void BindRasterizerState(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());

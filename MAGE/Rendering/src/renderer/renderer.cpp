@@ -3,21 +3,21 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\renderer.hpp"
-#include "rendering\output_manager.hpp"
-#include "rendering\pass\aa_pass.hpp"
-#include "rendering\pass\back_buffer_pass.hpp"
-#include "rendering\pass\bounding_volume_pass.hpp"
-#include "rendering\pass\deferred_pass.hpp"
-#include "rendering\pass\depth_pass.hpp"
-#include "rendering\pass\dof_pass.hpp"
-#include "rendering\pass\forward_pass.hpp"
-#include "rendering\pass\lbuffer_pass.hpp"
-#include "rendering\pass\sky_pass.hpp"
-#include "rendering\pass\sprite_pass.hpp"
-#include "rendering\pass\voxelization_pass.hpp"
-#include "rendering\pass\voxel_grid_pass.hpp"
-#include "rendering\buffer\game_buffer.hpp"
+#include "renderer\renderer.hpp"
+#include "renderer\output_manager.hpp"
+#include "renderer\pass\aa_pass.hpp"
+#include "renderer\pass\back_buffer_pass.hpp"
+#include "renderer\pass\bounding_volume_pass.hpp"
+#include "renderer\pass\deferred_pass.hpp"
+#include "renderer\pass\depth_pass.hpp"
+#include "renderer\pass\dof_pass.hpp"
+#include "renderer\pass\forward_pass.hpp"
+#include "renderer\pass\lbuffer_pass.hpp"
+#include "renderer\pass\sky_pass.hpp"
+#include "renderer\pass\sprite_pass.hpp"
+#include "renderer\pass\voxelization_pass.hpp"
+#include "renderer\pass\voxel_grid_pass.hpp"
+#include "renderer\buffer\game_buffer.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	//TODO
 	constexpr U32 g_voxel_grid_resolution = 128u;
@@ -111,7 +111,7 @@ namespace mage {
 						A reference to the renderer to move.
 		 @return		A reference to the moved renderer (i.e. this renderer).
 		 */
-		Impl& operator=(Impl&& renderer) = delete;
+		Impl& operator=(Impl&& renderer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -126,14 +126,14 @@ namespace mage {
 		void BindPersistentState();
 
 		/**
-		 Renders the given scene.
+		 Renders the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void Render(const Scene& scene);
+		void Render(const World& world);
 
 	private:
 
@@ -143,28 +143,28 @@ namespace mage {
 
 		void InitializePasses();
 
-		void UpdateBuffers(const Scene& scene) const;
+		void UpdateBuffers(const World& world) const;
 		
-		void Render(const Scene& scene, const Camera& camera);
+		void Render(const World& world, const Camera& camera);
 		
-		void XM_CALLCONV RenderForward(const Scene& scene, 
+		void XM_CALLCONV RenderForward(const World& world, 
 									   const Camera& camera, 
 									   FXMMATRIX world_to_projection);
 		
-		void XM_CALLCONV RenderDeferred(const Scene& scene, 
+		void XM_CALLCONV RenderDeferred(const World& world, 
 										const Camera& camera, 
 										FXMMATRIX world_to_projection);
 		
-		void XM_CALLCONV RenderSolid(const Scene& scene, 
+		void XM_CALLCONV RenderSolid(const World& world, 
 									 const Camera& camera, 
 									 FXMMATRIX world_to_projection);
 
-		void XM_CALLCONV RenderFalseColor(const Scene& scene, 
+		void XM_CALLCONV RenderFalseColor(const World& world, 
 										  const Camera& camera,
 										  FXMMATRIX world_to_projection, 
 										  FalseColor false_color);
 		
-		void XM_CALLCONV RenderVoxelGrid(const Scene& scene, 
+		void XM_CALLCONV RenderVoxelGrid(const World& world, 
 										 const Camera& camera, 
 										 FXMMATRIX world_to_projection);
 		
@@ -177,22 +177,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the display configuration of this renderer.
+		 A reference to the display configuration of this renderer.
 		 */
 		std::reference_wrapper< DisplayConfiguration > m_display_configuration;
 
 		/**
-		 A pointer to the device of this renderer.
+		 A reference to the device of this renderer.
 		 */
 		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
-		 A pointer to the device context of this renderer.
+		 A reference to the device context of this renderer.
 		 */
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A pointer to the resource manager of this renderer.
+		 A reference to the resource manager of this renderer.
 		 */
 		std::reference_wrapper< ResourceManager > m_resource_manager;
 
@@ -310,9 +310,12 @@ namespace mage {
 		InitializePasses();
 	}
 	
-	Renderer::Impl::Impl(Impl &&scene_renderer) noexcept = default;
+	Renderer::Impl::Impl(Impl&& world_renderer) noexcept = default;
 	
 	Renderer::Impl::~Impl() = default;
+
+	Renderer::Impl &Renderer::Impl
+		::operator=(Impl&& world_renderer) noexcept = default;
 
 	void Renderer::Impl::InitializePasses() {
 		m_aa_pass = MakeUnique< AAPass >(m_device_context,
@@ -367,8 +370,6 @@ namespace mage {
 															 m_device_context,
 															 m_state_manager,
 															 m_resource_manager);
-
-
 	}
 
 	void Renderer::Impl::BindPersistentState() {
@@ -400,62 +401,59 @@ namespace mage {
 		m_game_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_GAME);
 	}
 
-	void Renderer::Impl::Render(const Scene& scene) {
+	void Renderer::Impl::Render(const World& world) {
 		// Update the buffers.
-		UpdateBuffers(scene);
+		UpdateBuffers(world);
 
-		// Render the scene for each camera.
-		scene.ForEach< Camera >([this, &scene](const Camera& camera) {
+		// Render the world for each camera.
+		world.ForEach< Camera >([this, &world](const Camera& camera) {
 			if (State::Active != camera.GetState()) {
 				return;
 			}
 
-			// Render the scene.
-			Render(scene, camera);
+			// Render the world.
+			Render(world, camera);
 		});
 
 		// Bind the maximum viewport.
 		const Viewport viewport(m_display_configuration.get().GetDisplayWidth(),
 								m_display_configuration.get().GetDisplayHeight());
-		viewport.BindViewport(m_device_context);
+		viewport.Bind(m_device_context);
 
 		// Perform a sprite pass.
-		m_sprite_pass->Render(scene);
+		m_sprite_pass->Render(world);
 	}
 
-	void Renderer::Impl::UpdateBuffers(const Scene& scene) const {
+	void Renderer::Impl::UpdateBuffers(const World& world) const {
 		// Update the buffer of each camera.
-		scene.ForEach< Camera >(
-			[device_context(m_device_context)](const Camera& camera) {
-				if (State::Active == camera.GetState()) {
-					camera.UpdateBuffer(device_context);
-				}
+		world.ForEach< Camera >([this](const Camera& camera) {
+			if (State::Active == camera.GetState()) {
+				camera.UpdateBuffer(m_device_context, 
+									m_display_configuration.get().GetAADescriptor());
 			}
-		);
+		});
 
 		// Update the buffer of each model.
-		scene.ForEach< Model >(
-			[device_context(m_device_context)](const Model& model) {
-				if (State::Active == model.GetState()) {
-					model.UpdateBuffer(device_context);
-				}
+		world.ForEach< Model >([this](const Model& model) {
+			if (State::Active == model.GetState()) {
+				model.UpdateBuffer(m_device_context);
 			}
-		);
+		});
 	}
 
-	void Renderer::Impl::Render(const Scene& scene, const Camera& camera) {
+	void Renderer::Impl::Render(const World& world, const Camera& camera) {
 		// Bind the camera to the pipeline.
 		camera.BindBuffer< Pipeline >(m_device_context,
 									  SLOT_CBUFFER_PRIMARY_CAMERA);
 
 		// Obtain the world-to-projection transformation matrix of the 
 		// camera for view frustum culling.
-		const auto& transform           = camera.GetOwner()->GetTransform();
-		const auto world_to_camera      = transform.GetWorldToObjectMatrix();
-		const auto camera_to_projection = camera.GetCameraToProjectionMatrix();
-		const auto world_to_projection  = world_to_camera * camera_to_projection;
+		const auto& transform            = camera.GetOwner()->GetTransform();
+		const auto  world_to_camera      = transform.GetWorldToObjectMatrix();
+		const auto  camera_to_projection = camera.GetCameraToProjectionMatrix();
+		const auto  world_to_projection  = world_to_camera * camera_to_projection;
 
-		const auto render_mode          = camera.GetSettings().GetRenderMode();
+		const auto  render_mode          = camera.GetSettings().GetRenderMode();
 
 		m_output_manager->BindBegin(m_device_context);
 
@@ -465,113 +463,115 @@ namespace mage {
 		switch (render_mode) {
 
 		case RenderMode::Forward: {
-			RenderForward(scene, camera, world_to_projection);
+			RenderForward(world, camera, world_to_projection);
 			break;
 		}
 		
 		case RenderMode::Deferred: {
-			RenderDeferred(scene, camera, world_to_projection);
+			RenderDeferred(world, camera, world_to_projection);
 			break;
 		}
 		
 		case RenderMode::Solid: {
-			RenderSolid(scene, camera, world_to_projection);
+			RenderSolid(world, camera, world_to_projection);
 			break;
 		}
 		
 		case RenderMode::VoxelGrid: {
-			RenderVoxelGrid(scene, camera, world_to_projection);
+			RenderVoxelGrid(world, camera, world_to_projection);
 			break;
 		}
 
 		case RenderMode::FalseColor_BaseColor: {
-			RenderFalseColor(scene, camera, world_to_projection, 
+			RenderFalseColor(world, camera, world_to_projection, 
 							 FalseColor::BaseColor);
 			break;
 		}
 		case RenderMode::FalseColor_BaseColorCoefficient: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::BaseColorCoefficient);
 			break;
 		}
 		case RenderMode::FalseColor_BaseColorTexture: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::BaseColorTexture);
 			break;
 		}
 		case RenderMode::FalseColor_Material: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::Material);
 			break;
 		}
 		case RenderMode::FalseColor_MaterialCoefficient: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::MaterialCoefficient);
 			break;
 		}
 		case RenderMode::FalseColor_MaterialTexture: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::MaterialTexture);
 			break;
 		}
 		case RenderMode::FalseColor_Roughness: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::Roughness);
 			break;
 		}
 		case RenderMode::FalseColor_RoughnessCoefficient: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::RoughnessCoefficient);
 			break;
 		}
 		case RenderMode::FalseColor_RoughnessTexture: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::RoughnessTexture);
 			break;
 		}
 		case RenderMode::FalseColor_Metalness: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::Metalness);
 			break;
 		}
 		case RenderMode::FalseColor_MetalnessCoefficient: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::MetalnessCoefficient);
 			break;
 		}
 		case RenderMode::FalseColor_MetalnessTexture: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::MetalnessTexture);
 			break;
 		}
 		case RenderMode::FalseColor_ShadingNormal: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::ShadingNormal);
 			break;
 		}
 		case RenderMode::FalseColor_TSNMShadingNormal: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::TSNMShadingNormal);
 			break;
 		}
 		case RenderMode::FalseColor_Depth: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::Depth);
 			break;
 		}
 		case RenderMode::FalseColor_Distance: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::Distance);
 			break;
 		}
 		case RenderMode::FalseColor_UV: {
-			RenderFalseColor(scene, camera, world_to_projection,
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::UV);
 			break;
 		}
 
 		default: {
-			camera.BindSSViewport(m_device_context);
+			const Viewport viewport(camera.GetViewport(), 
+									m_display_configuration.get().GetAADescriptor);
+			viewport.Bind(m_device_context);
 			m_output_manager->BindBeginForward(m_device_context);
 
 			break;
@@ -584,10 +584,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		const auto& settings = camera.GetSettings();
 		if (settings.ContainsRenderLayer(RenderLayer::Wireframe)) {
-			m_forward_pass->RenderWireframe(scene, world_to_projection);
+			m_forward_pass->RenderWireframe(world, world_to_projection);
 		}
 		if (settings.ContainsRenderLayer(RenderLayer::AABB)) {
-			m_bounding_volume_pass->Render(scene, world_to_projection);
+			m_bounding_volume_pass->Render(world, world_to_projection);
 		}
 
 		m_output_manager->BindEndForward(m_device_context);
@@ -614,7 +614,7 @@ namespace mage {
 		m_back_buffer_pass->Render();
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderForward(const Scene& scene,
+	void XM_CALLCONV Renderer::Impl::RenderForward(const World& world,
 												   const Camera& camera,
 												   FXMMATRIX world_to_projection) {
 		const auto vct = false;
@@ -622,7 +622,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(scene, world_to_projection,
+		m_lbuffer_pass->Render(world, world_to_projection,
 							   camera.GetSettings().GetFog());
 
 		//---------------------------------------------------------------------
@@ -634,18 +634,20 @@ namespace mage {
 			const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
 																		-r, r,
 																		-r, r);
-			m_voxelization_pass->Render(scene, world_to_voxel,
+			m_voxelization_pass->Render(world, world_to_voxel,
 										camera.GetSettings().GetBRDF(),
 										g_voxel_grid_resolution);
 		}
 
-		camera.BindSSViewport(m_device_context);
+		const Viewport viewport(camera.GetViewport(),
+								m_display_configuration.get().GetAADescriptor);
+		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward: opaque fragments
 		//---------------------------------------------------------------------
-		m_forward_pass->Render(scene, world_to_projection,
+		m_forward_pass->Render(world, world_to_projection,
 							   camera.GetSettings().GetBRDF(), vct);
 
 		//---------------------------------------------------------------------
@@ -656,11 +658,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Forward: transparent fragments
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderTransparent(scene, world_to_projection,
+		m_forward_pass->RenderTransparent(world, world_to_projection,
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderDeferred(const Scene& scene, 
+	void XM_CALLCONV Renderer::Impl::RenderDeferred(const World& world, 
 													const Camera& camera, 
 													FXMMATRIX world_to_projection) {
 		const auto vct = false;
@@ -668,7 +670,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(scene, world_to_projection,
+		m_lbuffer_pass->Render(world, world_to_projection,
 							   camera.GetSettings().GetFog());
 
 		//---------------------------------------------------------------------
@@ -680,18 +682,20 @@ namespace mage {
 			const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
 																		-r, r,
 																		-r, r);
-			m_voxelization_pass->Render(scene, world_to_voxel,
+			m_voxelization_pass->Render(world, world_to_voxel,
 										camera.GetSettings().GetBRDF(),
 										g_voxel_grid_resolution);
 		}
 
-		camera.BindSSViewport(m_device_context);
+		const Viewport viewport(camera.GetViewport(),
+								m_display_configuration.get().GetAADescriptor);
+		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginGBuffer(m_device_context);
 
 		//---------------------------------------------------------------------
 		// GBuffer: opaque fragments
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderGBuffer(scene, world_to_projection);
+		m_forward_pass->RenderGBuffer(world, world_to_projection);
 
 		m_output_manager->BindEndGBuffer(m_device_context);
 		m_output_manager->BindBeginDeferred(m_device_context);
@@ -699,11 +703,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Deferred: opaque fragments
 		//---------------------------------------------------------------------
-		if (m_display_configuration->UsesMSAA()) {
+		if (m_display_configuration.get().UsesMSAA()) {
 			m_deferred_pass->Render(camera.GetSettings().GetBRDF(), vct);
 		}
 		else {
-			m_deferred_pass->Dispatch(camera.GetSSViewport(), 
+			m_deferred_pass->Dispatch(viewport, 
 									  camera.GetSettings().GetBRDF(), vct);
 		}
 
@@ -713,7 +717,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Forward: emissive fragments.
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderEmissive(scene, world_to_projection);
+		m_forward_pass->RenderEmissive(world, world_to_projection);
 
 		//---------------------------------------------------------------------
 		// Perform a sky pass.
@@ -723,51 +727,55 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Forward: transparent fragments
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderTransparent(scene, world_to_projection, 
+		m_forward_pass->RenderTransparent(world, world_to_projection, 
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderSolid(const Scene& scene, 
+	void XM_CALLCONV Renderer::Impl::RenderSolid(const World& world, 
 												 const Camera& camera, 
 												 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(scene, world_to_projection,
+		m_lbuffer_pass->Render(world, world_to_projection,
 							   camera.GetSettings().GetFog());
 
-		camera.BindSSViewport(m_device_context);
+		const Viewport viewport(camera.GetViewport(),
+								m_display_configuration.get().GetAADescriptor);
+		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderSolid(scene, world_to_projection);
+		m_forward_pass->RenderSolid(world, world_to_projection);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const Scene& scene, 
+	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const World& world, 
 													  const Camera& camera, 
 													  FXMMATRIX world_to_projection, 
 													  FalseColor false_color) {
 		
-		camera.BindSSViewport(m_device_context);
+		const Viewport viewport(camera.GetViewport(),
+								m_display_configuration.get().GetAADescriptor);
+		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
 		//---------------------------------------------------------------------
 		// Forward
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderFalseColor(scene, world_to_projection, false_color);
+		m_forward_pass->RenderFalseColor(world, world_to_projection, false_color);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const Scene& scene, 
+	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const World& world, 
 													 const Camera& camera, 
 													 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(scene, world_to_projection,
+		m_lbuffer_pass->Render(world, world_to_projection,
 							   camera.GetSettings().GetFog());
 
 		//---------------------------------------------------------------------
@@ -778,12 +786,14 @@ namespace mage {
 		const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r, 
 																	-r, r, 
 																	-r, r);
-		m_voxelization_pass->Render(scene, world_to_voxel, 
+		m_voxelization_pass->Render(world, world_to_voxel, 
 									camera.GetSettings().GetBRDF(), 
 									g_voxel_grid_resolution);
 
 	
-		camera.BindSSViewport(m_device_context);
+		const Viewport viewport(camera.GetViewport(),
+								m_display_configuration.get().GetAADescriptor);
+		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 		
 		//---------------------------------------------------------------------
@@ -793,7 +803,9 @@ namespace mage {
 	}
 
 	void Renderer::Impl::RenderPostProcessing(const Camera& camera) {
-		camera.BindViewport(m_device_context);
+		const auto& viewport = camera.GetViewport();
+		viewport.Bind(m_device_context);
+
 		m_output_manager->BindBeginPostProcessing(m_device_context);
 
 		//---------------------------------------------------------------------
@@ -803,13 +815,13 @@ namespace mage {
 			m_output_manager->BindPingPong(m_device_context);
 
 			// Perform a depth-of-field pass.
-			m_dof_pass->Dispatch(camera.GetViewport());
+			m_dof_pass->Dispatch(viewport);
 		}
 	}
 
 	void Renderer::Impl::RenderAA(const Camera& camera) {
-		const auto desc     = m_display_configuration.get().GetAADescriptor();
-		const auto viewport = camera.GetSSViewport();
+		const auto desc = m_display_configuration.get().GetAADescriptor();
+		const Viewport viewport(camera.GetViewport(), desc);
 
 		switch (desc) {
 
@@ -874,12 +886,14 @@ namespace mage {
 
 	Renderer::~Renderer() = default;
 
+	Renderer &Renderer::operator=(Renderer&& renderer) noexcept = default;
+
 	void Renderer::BindPersistentState() {
 		m_impl->BindPersistentState();
 	}
 
-	void Renderer::Render(const Scene& scene) {
-		m_impl->Render(scene);
+	void Renderer::Render(const World& world) {
+		m_impl->Render(world);
 	}
 
 	#pragma endregion

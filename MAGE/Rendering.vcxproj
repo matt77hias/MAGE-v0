@@ -73,6 +73,7 @@
     <ClInclude Include="Rendering\src\renderer\pass\voxelization_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\voxel_grid_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pipeline.hpp" />
+    <ClInclude Include="Rendering\src\renderer\renderer.hpp" />
     <ClInclude Include="Rendering\src\renderer\state_manager.hpp" />
     <ClInclude Include="Rendering\src\renderer\swap_chain.hpp" />
     <ClInclude Include="Rendering\src\resource\font\color_string.hpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Rendering\src\renderer\pass\sprite_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\voxelization_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\voxel_grid_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\renderer.cpp" />
     <ClCompile Include="Rendering\src\renderer\state_manager.cpp" />
     <ClCompile Include="Rendering\src\renderer\swap_chain.cpp" />
     <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp" />

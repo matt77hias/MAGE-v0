@@ -428,6 +428,9 @@
     <ClInclude Include="Rendering\src\renderer\pass\depth_pass.hpp">
       <Filter>Header Files\renderer\pass</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\renderer.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -665,6 +668,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\renderer\pass\deferred_pass.cpp">
       <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\swap_chain.hpp"
-#include "rendering\resource_manager.hpp"
-#include "scene\scene.hpp"
+#include "renderer\swap_chain.hpp"
+#include "resource\rendering_resource_manager.hpp"
+#include "scene\rendering_world.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::rendering {
 
 	/**
 	 A class of renderers.
@@ -89,7 +89,7 @@ namespace mage {
 						A reference to the renderer to move.
 		 @return		A reference to the moved renderer (i.e. this renderer).
 		 */
-		Renderer& operator=(Renderer&& renderer) = delete;
+		Renderer& operator=(Renderer&& renderer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -104,14 +104,14 @@ namespace mage {
 		void BindPersistentState();
 
 		/**
-		 Renders the given scene.
+		 Renders the given world.
 
-		 @param[in]		scene
-						A reference to the scene.
+		 @param[in]		world
+						A reference to the world.
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world.
 		 */
-		void Render(const Scene& scene);
+		void Render(const World& world);
 
 	private:
 

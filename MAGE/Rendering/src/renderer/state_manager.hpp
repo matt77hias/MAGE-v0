@@ -187,7 +187,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved state manager (i.e. this state 
 						manager).
 		 */
-		StateManager& operator=(StateManager&& manager) = delete;
+		StateManager& operator=(StateManager&& manager) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -454,7 +454,7 @@ namespace mage::rendering {
 		/**
 		 A reference to the device of this state manager.
 		 */
-		ID3D11Device& m_device;
+		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
 		 An array containing pointers to the blend states of this state 

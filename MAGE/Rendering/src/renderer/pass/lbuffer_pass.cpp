@@ -404,7 +404,7 @@ namespace mage::rendering {
 		// Render the shadow maps of the directional lights.
 		{
 			// Bind the viewport.
-			m_directional_sms->BindViewport(m_device_context);
+			m_directional_sms->Bind(m_device_context);
 			// Bind the rasterizer state.
 			m_directional_sms->BindRasterizerState(m_device_context);
 
@@ -423,7 +423,7 @@ namespace mage::rendering {
 		// Render the shadow maps of the omni lights.
 		{
 			// Bind the viewport.
-			m_omni_sms->BindViewport(m_device_context);
+			m_omni_sms->Bind(m_device_context);
 			// Bind the rasterizer state.
 			m_omni_sms->BindRasterizerState(m_device_context);
 
@@ -442,7 +442,7 @@ namespace mage::rendering {
 		// Render the shadow maps of the spotlights.
 		{
 			// Bind the viewport.
-			m_spot_sms->BindViewport(m_device_context);
+			m_spot_sms->Bind(m_device_context);
 			// Bind the rasterizer state.
 			m_spot_sms->BindRasterizerState(m_device_context);
 

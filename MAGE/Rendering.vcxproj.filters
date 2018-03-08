@@ -15,12 +15,6 @@
     <Filter Include="Source Files\display">
       <UniqueIdentifier>{5c2f0522-77d6-403e-9538-d3c9d8b515c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui">
-      <UniqueIdentifier>{85b0c90a-55ab-4745-8b6a-155ecfcdcab7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui">
-      <UniqueIdentifier>{411082a4-8f4a-44aa-a5f8-3a815bd9e7ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\loaders">
       <UniqueIdentifier>{a9bcd999-09c0-4a84-8422-d8153d2b3056}</UniqueIdentifier>
     </Filter>

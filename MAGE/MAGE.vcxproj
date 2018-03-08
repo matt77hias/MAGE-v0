@@ -22,13 +22,6 @@
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
     <ClInclude Include="MAGE\src\editor\widget.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imconfig.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui_impl_dx11.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_rect_pack.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_textedit.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
@@ -38,10 +31,6 @@
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\editor\widget.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />

@@ -19,21 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Input\src\device\keyboard.hpp" />
-    <ClInclude Include="Input\src\device\mouse.hpp" />
-    <ClInclude Include="Input\src\direct_input.hpp" />
-    <ClInclude Include="Input\src\input_manager.hpp" />
+    <ClInclude Include="ImGui\src\imconfig.hpp" />
+    <ClInclude Include="ImGui\src\imgui.hpp" />
+    <ClInclude Include="ImGui\src\imgui_impl_dx11.hpp" />
+    <ClInclude Include="ImGui\src\imgui_internal.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Input\src\device\keyboard.cpp" />
-    <ClCompile Include="Input\src\device\mouse.cpp" />
-    <ClCompile Include="Input\src\input_manager.cpp" />
+    <ClCompile Include="ImGui\src\imgui.cpp" />
+    <ClCompile Include="ImGui\src\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\src\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{52FE3AC1-DA44-4E0C-A79E-1507FE0EB625}</ProjectGuid>
+    <ProjectGuid>{0330E3AA-6BA7-44FF-8B91-2AD562C0770C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Input</RootNamespace>
+    <RootNamespace>ImGui</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -86,20 +87,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;GSL\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;GSL\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;GSL\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Core\src\;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Utilities\src\;GSL\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,23 +25,11 @@
     <Filter Include="Source Files\scripting">
       <UniqueIdentifier>{69b1cee0-5512-4d9b-ab9a-f0dbb346243b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\rendering">
-      <UniqueIdentifier>{3f617a84-2fd4-45a3-9bea-c3e24f4d948b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\rendering">
-      <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\editor">
-      <UniqueIdentifier>{f8427fd3-9d1c-484b-9b1e-581a9e67c7f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\editor">
-      <UniqueIdentifier>{da8f04b2-df39-4183-8245-a2d235c6ca37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,15 +48,6 @@
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\renderer.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\editor\widget.hpp">
-      <Filter>Header Files\editor</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -77,20 +56,11 @@
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scripting\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\editor\widget.cpp">
-      <Filter>Source Files\editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

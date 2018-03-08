@@ -6,16 +6,6 @@
 #pragma region
 
 #include "type\types.hpp"
-#include "logging\error.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_APPLICATION_NAME L"Game"
 
 #pragma endregion
 
@@ -38,19 +28,15 @@ namespace mage {
 		/**
 		 Constructs an engine setup.
 
-		 @pre			@a instance is not equal to @c nullptr.
 		 @param[in]		instance
 						The application instance handle.
 		 @param[in]		name
 						The name of the application.
 		 */
-		explicit EngineSetup(HINSTANCE instance, 
-			                 wstring name = MAGE_DEFAULT_APPLICATION_NAME)
+		explicit EngineSetup(NotNull< HINSTANCE > instance, 
+			                 wstring name = L"MAGE")
 			: m_instance(instance),
-			m_name(std::move(name)) {
-
-			Assert(m_instance);
-		}
+			m_name(std::move(name)) {}
 
 		/**
 		 Constructs an engine setup from the given engine setup.
@@ -58,7 +44,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to copy.
 		 */
-		EngineSetup(const EngineSetup &setup) = default;
+		EngineSetup(const EngineSetup& setup) = default;
 
 		/**
 		 Constructs an engine setup by moving the given engine setup.
@@ -66,7 +52,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to move.
 		 */
-		EngineSetup(EngineSetup &&setup) noexcept = default;
+		EngineSetup(EngineSetup&& setup) noexcept = default;
 
 		/**
 		 Destructs this engine setup.
@@ -85,7 +71,7 @@ namespace mage {
 		 @return		A reference to the copy of the given engine setup (i.e. 
 						this engine setup).
 		 */
-		EngineSetup &operator=(const EngineSetup &setup) = default;
+		EngineSetup& operator=(const EngineSetup& setup) = default;
 
 		/**
 		 Moves the given engine setup to this engine setup.
@@ -95,30 +81,32 @@ namespace mage {
 		 @return		A reference to the moved engine setup (i.e. this engine 
 						setup).
 		 */
-		EngineSetup &operator=(EngineSetup &&setup) noexcept = default;
+		EngineSetup& operator=(EngineSetup&& setup) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the name of the application.
-
-		 @return		A reference to the name of the application.
-		 */
-		[[nodiscard]]const wstring &GetApplicationName() const noexcept {
-			return m_name;
-		}
-
-		/**
 		 Returns the application instance handle.
 
 		 @return		The application instance handle.
 		 */
-		[[nodiscard]]HINSTANCE GetApplicationInstance() const noexcept {
+		[[nodiscard]]
+		NotNull< HINSTANCE > GetApplicationInstance() const noexcept {
 			return m_instance;
 		}
-	
+
+		/**
+		 Returns the name of the application.
+
+		 @return		A reference to the name of the application.
+		 */
+		[[nodiscard]]
+		const wstring& GetApplicationName() const noexcept {
+			return m_name;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -128,7 +116,7 @@ namespace mage {
 		/**
 		 The application instance handle.
 		 */
-		HINSTANCE m_instance;
+		NotNull< HINSTANCE > m_instance;
 
 		/**
 		 The name of the application.

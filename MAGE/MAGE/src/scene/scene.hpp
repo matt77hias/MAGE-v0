@@ -6,17 +6,6 @@
 #pragma region
 
 #include "scene\node.hpp"
-#include "camera\orthographic_camera.hpp"
-#include "camera\perspective_camera.hpp"
-#include "light\ambient_light.hpp"
-#include "light\directional_light.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
-#include "model\model.hpp"
-#include "model\model_descriptor.hpp"
-#include "scripting\behavior_script.hpp"
-#include "sprite\sprite_image.hpp"
-#include "sprite\sprite_text.hpp"
 #include "collection\vector.hpp"
 
 #pragma endregion
@@ -54,7 +43,7 @@ namespace mage {
 		 @return		A reference to the copy of the given scene (i.e. this 
 						scene).
 		 */
-		Scene &operator=(const Scene &scene) = delete;
+		Scene& operator=(const Scene& scene) = delete;
 
 		/**
 		 Moves the given scene to this scene.
@@ -63,7 +52,7 @@ namespace mage {
 						A reference to the scene to move.
 		 @return		A reference to the moved scene (i.e. this scene).
 		 */
-		Scene &operator=(Scene &&scene) noexcept;
+		Scene& operator=(Scene&& scene) noexcept;
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle
@@ -98,42 +87,6 @@ namespace mage {
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
 		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< PerspectiveCamera, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< OrthographicCamera, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< AmbientLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< DirectionalLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< OmniLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpotLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< Model, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpriteImage, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpriteText, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_base_of_v< BehaviorScript, ElementT >,
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
@@ -161,7 +114,8 @@ namespace mage {
 
 		 @return		A reference to the name of this scene.
 		 */
-		[[nodiscard]]const string &GetName() const noexcept {
+		[[nodiscard]]
+		const string& GetName() const noexcept {
 			return m_name;
 		}
 
@@ -195,7 +149,7 @@ namespace mage {
 		 @param[in]		scene
 						A reference to the scene.
 		 */
-		Scene(const Scene &scene) = delete;
+		Scene(const Scene& scene) = delete;
 
 		/**
 		 Constructs a scene by moving the given scene.
@@ -203,7 +157,7 @@ namespace mage {
 		 @param[in]		scene
 						A reference to the scene to move.
 		 */
-		Scene(Scene &&scene) noexcept;
+		Scene(Scene&& scene) noexcept;
 
 	private:
 
@@ -242,51 +196,6 @@ namespace mage {
 		 A vector containing the nodes of this scene.
 		 */
 		AlignedVector< Node > m_nodes;
-
-		/**
-		 A vector containing the perspective cameras of this scene.
-		 */
-		AlignedVector< PerspectiveCamera > m_perspective_cameras;
-
-		/**
-		 A vector containing the orthographic cameras of this scene.
-		 */
-		AlignedVector< OrthographicCamera > m_orthographic_cameras;
-
-		/**
-		 A vector containing the ambient lights of this scene.
-		 */
-		AlignedVector< AmbientLight > m_ambient_lights;
-
-		/**
-		 A vector containing the directional lights of this scene.
-		 */
-		AlignedVector< DirectionalLight > m_directional_lights;
-
-		/**
-		 A vector containing the omni lights of this scene.
-		 */
-		AlignedVector< OmniLight > m_omni_lights;
-
-		/**
-		 A vector containing the spot lights of this scene.
-		 */
-		AlignedVector< SpotLight > m_spot_lights;
-
-		/**
-		 A vector containing the models of this scene.
-		 */
-		AlignedVector< Model > m_models;
-
-		/**
-		 A vector containing the sprite images of this scene.
-		 */
-		AlignedVector< SpriteImage > m_sprite_images;
-
-		/**
-		 A vector containing the sprite texts of this scene.
-		 */
-		AlignedVector< SpriteText > m_sprite_texts;
 
 		/**
 		 A vector containing the pointers to the scripts of this scene.

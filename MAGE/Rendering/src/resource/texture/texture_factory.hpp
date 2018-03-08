@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\texture\texture.hpp"
+#include "resource\rendering_resource_manager.hpp"
 
 #pragma endregion
 
@@ -13,9 +13,6 @@
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-
-	// Forward declaration.
-	class ResourceManager;
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Flat

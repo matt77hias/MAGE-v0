@@ -10,6 +10,7 @@
 #include "scene\scene_utils.hpp"
 #include "scene\script\behavior_script.hpp"
 
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -63,25 +64,31 @@ namespace mage {
 		/**
 		 Initializes this scene.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to initialize this scene.
 		 */
-		void Initialize();
+		void Initialize(Engine& engine);
 
 		/**
 		 Uninitializes this scene.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to unitialize this scene.
 		 */
-		void Uninitialize();
+		void Uninitialize(Engine& engine);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Nodes and Components
 		//---------------------------------------------------------------------
 
-		ProxyPtr< Node > Import(const rendering::ModelDescriptor &desc);
-		ProxyPtr< Node > Import(const rendering::ModelDescriptor &desc, 
+		ProxyPtr< Node > Import(Engine& engine, 
+								const rendering::ModelDescriptor &desc);
+		ProxyPtr< Node > Import(Engine& engine, 
+								const rendering::ModelDescriptor &desc,
 								std::vector< ProxyPtr< Node > > &nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
@@ -166,19 +173,23 @@ namespace mage {
 		 Loads this scene. Allows this scene to preform any pre-processing 
 		 construction.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to load this scene.
 		 */
-		virtual void Load();
+		virtual void Load([[maybe_unused]] Engine& engine);
 
 		/**
 		 Closes this scene. Allows this scene to preform any post-processing 
 		 destruction.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to close this scene.
 		 */
-		virtual void Close();
+		virtual void Close([[maybe_unused]] Engine& engine);
 
 		/**
 		 Clears this scene.

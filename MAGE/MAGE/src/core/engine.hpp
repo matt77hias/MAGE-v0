@@ -5,16 +5,16 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "meta\targetver.hpp"
-
 #include "core\engine_setup.hpp"
 #include "input_manager.hpp"
 #include "rendering_manager.hpp"
+#include "system\timer.hpp"
+#include "ui\window.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -119,7 +119,9 @@ namespace mage {
 		 @return		A reference to the input manager of this engine.
 		 */
 		[[nodiscard]]
-		input::Manager& GetInputManager() noexcept;
+		input::Manager& GetInputManager() noexcept {
+			return *m_input_manager;
+		}
 
 		/**
 		 Returns the input manager of this engine.
@@ -127,7 +129,9 @@ namespace mage {
 		 @return		A reference to the input manager of this engine.
 		 */
 		[[nodiscard]]
-		const input::Manager& GetInputManager() const noexcept;
+		const input::Manager& GetInputManager() const noexcept {
+			return *m_input_manager;
+		}
 
 		/**
 		 Returns the rendering manager of this engine.
@@ -135,7 +139,9 @@ namespace mage {
 		 @return		A reference to the rendering manager of this engine.
 		 */
 		[[nodiscard]]
-		rendering::Manager& GetRenderingManager() noexcept;
+		rendering::Manager& GetRenderingManager() noexcept {
+			return *m_rendering_manager;
+		}
 
 		/**
 		 Returns the rendering manager of this engine.
@@ -143,7 +149,9 @@ namespace mage {
 		 @return		A reference to the rendering manager of this engine.
 		 */
 		[[nodiscard]]
-		const rendering::Manager& GetRenderingManager() const noexcept;
+		const rendering::Manager& GetRenderingManager() const noexcept {
+			return *m_rendering_manager;
+		}
 
 		/**
 		 Sets the scene of this engine to the given scene.
@@ -156,15 +164,123 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes the different systems of this engine.
+
+		 @param[in]		setup
+						A reference to an engine setup.
+		 @param[in]		display_config
+						The display configuration.
+		 @throws		Exception
+						Failed to initialize at least one of the different 
+						systems of this engine.
+		 */
+		void InitializeSystems(const EngineSetup& setup,
+							   rendering::DisplayConfiguration display_config);
+
+		/**
+		 Uninitializes the different systems of this engine.
+		 */
+		void UninitializeSystems() noexcept;
+
+		/**
+		 Notifies this engine of a change in activeness.
+
+		 Call this method when the engine becomes active or deactive.
+
+		 @param[in]		deactive
+						@c true if this engine becomes deactive. @c false
+						otherwise.
+		 */
+		void OnActiveChange(bool deactive) noexcept;
+
+		/**
+		 Notifies this engine of a change in display mode.
+
+		 Call this method when the engine needs to switch its current
+		 (windowed|fullscreen) display mode.
+		 */
+		void OnModeSwitch() noexcept;
+
+		void ApplyRequestedScene();
+
+		[[nodiscard]]
+		bool UpdateInput();
+		
+		[[nodiscard]]
+		bool UpdateRendering();
+		
+		[[nodiscard]]
+		bool UpdateScripting();
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		class Impl;
+		/**
+		 A pointer to the window of this engine.
+		 */
+		UniquePtr< Window > m_window;
 
 		/**
-		 The implementation of this engine.
+		 A pointer to the input manager of this engine.
 		 */
-		UniquePtr< Impl > m_impl;
+		UniquePtr< input::Manager > m_input_manager;
+
+		/**
+		 A pointer to the rendering manager of this engine.
+		 */
+		UniquePtr< rendering::Manager > m_rendering_manager;
+
+		/**
+		 A pointer to the current scene of this engine.
+		 */
+		UniquePtr< Scene > m_scene;
+
+		/**
+		 A pointer to the requested scene of this engine.
+		 */
+		UniquePtr< Scene > m_requested_scene;
+
+		/**
+		 The timer of this engine.
+		 */
+		WallClockTimer m_timer;
+
+		/**
+		 The fixed delta time of this engine.
+
+		 If the fixed delta time is equal to zero, fixed delta time updates
+		 will be treated as non-fixed delta time updates by this engine.
+		 */
+		F64 m_fixed_delta_time;
+
+		/**
+		 The fixed time budget of this engine.
+		 */
+		F64 m_fixed_time_budget;
+
+		/**
+		 Flag indicating whether the application is active or not.
+		 */
+		bool m_deactive;
+
+		/**
+		 Flag indicating whether the application should switch between full
+		 screen and windowed mode.
+		 */
+		bool m_mode_switch;
+
+		/**
+		 A flag indicating whether this engine has a requested scene.
+		 
+		 A separate flag is needed, because the requested scene maybe 
+		 @c nullptr.
+		 */
+		bool m_has_requested_scene;
 	};
 
 	#pragma endregion

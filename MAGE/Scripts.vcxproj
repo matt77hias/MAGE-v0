@@ -18,28 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Scripts\src\character_motor_script.hpp" />
-    <ClInclude Include="Scripts\src\manhattan_motor_script.hpp" />
-    <ClInclude Include="Scripts\src\mouse_look_script.hpp" />
-    <ClInclude Include="Scripts\src\editor_script.hpp" />
-    <ClInclude Include="Scripts\src\rotation_script.hpp" />
-    <ClInclude Include="Scripts\src\stats_script.hpp" />
-    <ClInclude Include="Scripts\src\switch_scene_script.hpp" />
-    <ClInclude Include="Scripts\src\text_console_script.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\src\switch_scene_script.tpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Scripts\src\character_motor_script.cpp" />
-    <ClCompile Include="Scripts\src\manhattan_motor_script.cpp" />
-    <ClCompile Include="Scripts\src\mouse_look_script.cpp" />
-    <ClCompile Include="Scripts\src\editor_script.cpp" />
-    <ClCompile Include="Scripts\src\rotation_script.cpp" />
-    <ClCompile Include="Scripts\src\stats_script.cpp" />
-    <ClCompile Include="Scripts\src\text_console_script.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{61311FE7-441D-4FF2-B861-E312A1569899}</ProjectGuid>

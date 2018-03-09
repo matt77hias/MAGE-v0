@@ -19,6 +19,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Engine
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	Engine::Engine(const EngineSetup& setup, 
 				   rendering::DisplayConfiguration display_config)
 		: m_window(), 
@@ -256,8 +261,10 @@ namespace mage {
 		return static_cast< int >(msg.wParam);
 	}
 
+	#pragma endregion
+
 	//-------------------------------------------------------------------------
-	// Factory Method
+	// Factory
 	//-------------------------------------------------------------------------
 	#pragma region
 

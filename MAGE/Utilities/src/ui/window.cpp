@@ -32,11 +32,11 @@ namespace mage {
 
 	WindowMessageListener::WindowMessageListener() noexcept = default;
 
-	WindowMessageListener::WindowMessageListener(const WindowMessageListener& 
-												 listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(
+		const WindowMessageListener& listener) noexcept = default;
 
-	WindowMessageListener::WindowMessageListener(WindowMessageListener&& 
-												 listener) noexcept = default;
+	WindowMessageListener::WindowMessageListener(
+		WindowMessageListener&& listener) noexcept = default;
 
 	WindowMessageListener::~WindowMessageListener() = default;
 

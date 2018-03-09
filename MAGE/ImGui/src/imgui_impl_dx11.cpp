@@ -23,7 +23,6 @@
 //  2016-11-12: Inputs: Only call Win32 ::SetCursor(NULL) when io.MouseDrawCursor is set.
 //  2016-05-07: DirectX11: Disabling depth-write.
 
-#include "imgui.hpp"
 #include "imgui_impl_dx11.hpp"
 
 // DirectX

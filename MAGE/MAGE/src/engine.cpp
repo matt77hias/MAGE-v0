@@ -5,6 +5,7 @@
 
 #include "display\display_configurator.hpp"
 #include "exception\exception.hpp"
+#include "imgui_window_message_listener.hpp"
 #include "logging\dump.hpp"
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
@@ -20,6 +21,103 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// EngineMessageHandler
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	EngineMessageHandler::EngineMessageHandler() = default;
+
+	EngineMessageHandler::EngineMessageHandler(
+		const EngineMessageHandler& handler) = default;
+
+	EngineMessageHandler::EngineMessageHandler(
+		EngineMessageHandler&& handler) noexcept 
+		: WindowMessageHandler(std::move(handler)), 
+		m_on_active_change(std::move(handler.m_on_active_change)),
+		m_on_mode_switch(std::move(handler.m_on_mode_switch)),
+		m_on_print_screen(std::move(handler.m_on_print_screen)) {}
+
+	EngineMessageHandler::~EngineMessageHandler() = default;
+
+	EngineMessageHandler& EngineMessageHandler
+		::operator=(const EngineMessageHandler& handler) = default;
+
+	EngineMessageHandler& EngineMessageHandler
+		::operator=(EngineMessageHandler&& handler) noexcept {
+		WindowMessageHandler::operator=(std::move(handler));
+
+		m_on_active_change = std::move(handler.m_on_active_change);
+		m_on_mode_switch   = std::move(handler.m_on_mode_switch);
+		m_on_print_screen  = std::move(handler.m_on_print_screen);
+		return *this;
+	}
+
+	[[nodiscard]]
+	bool EngineMessageHandler
+		::HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
+							  UINT message, 
+							  [[maybe_unused]] WPARAM wParam, 
+							  [[maybe_unused]] LPARAM lParam, 
+							  LRESULT& result) {
+
+		switch (message) {
+		
+		case WM_ACTIVATEAPP: {
+			// Sent when a window belonging to a different application 
+			// than the active window is about to be activated. 
+			// The message is sent to the application whose window is being 
+			// activated and to the application whose window is being 
+			// deactivated.
+
+			const auto deactive = static_cast< bool >(!wParam);
+			m_on_active_change(deactive);
+			
+			result = 0;
+			return true;
+		}
+		
+		case WM_HOTKEY: {
+			// Posted when the user presses a hot key registered by the 
+			// RegisterHotKey function.
+
+			switch(wParam) {
+
+			case static_cast< WPARAM >(HotKey::PrintScreen) :
+			case static_cast< WPARAM >(HotKey::AltPrintScreen): {
+				m_on_print_screen();
+
+				result = 0;
+				return true;
+			}
+
+			}
+		}
+
+		case WM_SYSKEYDOWN: {
+			// Sent to the window with the keyboard focus when the user presses 
+			// the F10 key (which activates the menu bar) or holds down the ALT 
+			// key and then presses another key.
+
+			switch (wParam) {
+
+			case VK_RETURN: {
+				m_on_mode_switch();
+
+				result = 0;
+				return true;
+			}
+
+			}
+		}
+
+		}
+
+		return false;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Engine
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -27,6 +125,7 @@ namespace mage {
 	Engine::Engine(const EngineSetup& setup, 
 				   rendering::DisplayConfiguration display_config)
 		: m_window(), 
+		m_message_handler(), 
 		m_input_manager(), 
 		m_rendering_manager(), 
 		m_scene(), 
@@ -55,13 +154,37 @@ namespace mage {
 		// Initialize the window.
 		{
 			auto window_desc
-				= MakeShared< WindowDescriptor >(setup.GetApplicationInstance(),
-													L"MAGE");
-
+				= MakeShared< WindowDescriptor >(setup.GetApplicationInstance(), 
+												 L"MAGE");
 			m_window = MakeUnique< Window >(std::move(window_desc),
 											setup.GetApplicationName(),
 											display_config.GetDisplayWidth(),
 											display_config.GetDisplayHeight());
+			
+			m_message_handler.m_on_active_change = [this](bool deactive) {
+				m_deactive = deactive;
+
+				if (m_deactive) {
+					m_timer.Stop();
+				}
+				else {
+					m_timer.Resume();
+				}
+			};
+
+			m_message_handler.m_on_mode_switch   = [this]() {
+				m_mode_switch = true;
+			};
+			
+			m_message_handler.m_on_print_screen  = [this]() {
+				auto& swap_chain = m_rendering_manager->GetSwapChain();
+				const auto fname = L"screenshot-" + GetLocalSystemDateAndTimeAsString() 
+					             + L".png";
+				swap_chain.TakeScreenShot(fname);
+			};
+		
+			m_window->AddListener(&ImGuiWindowMessageListener::s_listener);
+			m_window->AddHandler(&m_message_handler);
 		}
 		
 		// Initialize the input system.
@@ -89,21 +212,6 @@ namespace mage {
 		m_input_manager.reset();
 		// Uninitialize the window system.
 		m_window.reset();
-	}
-
-	void Engine::OnActiveChange(bool deactive) noexcept {
-		m_deactive = deactive;
-		
-		if (m_deactive) {
-			m_timer.Stop();
-		}
-		else {
-			m_timer.Resume();
-		}
-	}
-
-	void Engine::OnModeSwitch() noexcept {
-		m_mode_switch = true;
 	}
 
 	void Engine::RequestScene(UniquePtr< Scene >&& scene) noexcept {

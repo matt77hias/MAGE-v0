@@ -102,7 +102,15 @@ namespace mage::rendering {
 		 @return		A reference to the swap chain of this rendering manager.
 		 */
 		[[nodiscard]]
-		SwapChain& GetSwapChain() const noexcept;
+		SwapChain& GetSwapChain() noexcept;
+
+		/**
+		 Returns the swap chain of this rendering manager.
+
+		 @return		A reference to the swap chain of this rendering manager.
+		 */
+		[[nodiscard]]
+		const SwapChain& GetSwapChain() const noexcept;
 
 		/**
 		 Returns the resource manager of this rendering manager.

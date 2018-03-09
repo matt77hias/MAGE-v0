@@ -5,7 +5,6 @@
 
 #include "rendering_manager.hpp"
 #include "renderer\renderer.hpp"
-#include "imgui.hpp"
 #include "imgui_impl_dx11.hpp"
 
 #pragma endregion
@@ -118,7 +117,18 @@ namespace mage::rendering {
 						manager.
 		 */
 		[[nodiscard]]
-		SwapChain& GetSwapChain() const noexcept {
+		SwapChain& GetSwapChain() noexcept {
+			return *m_swap_chain;
+		}
+
+		/**
+		 Returns the swap chain of this rendering manager.
+
+		 @return		A reference to the swap chain of this rendering 
+						manager.
+		 */
+		[[nodiscard]]
+		const SwapChain& GetSwapChain() const noexcept {
 			return *m_swap_chain;
 		}
 
@@ -397,7 +407,12 @@ namespace mage::rendering {
 	}
 	
 	[[nodiscard]]
-	SwapChain& Manager::GetSwapChain() const noexcept {
+	SwapChain& Manager::GetSwapChain() noexcept {
+		return m_impl->GetSwapChain();
+	}
+
+	[[nodiscard]]
+	const SwapChain& Manager::GetSwapChain() const noexcept {
 		return m_impl->GetSwapChain();
 	}
 	

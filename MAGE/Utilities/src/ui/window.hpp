@@ -1,3 +1,5 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -99,8 +101,8 @@ namespace mage {
 		 @return		A reference to the copy of the given window message 
 						listener (i.e. this window message listener).
 		 */
-		WindowMessageListener& operator=(const WindowMessageListener& 
-										 listener) noexcept;
+		WindowMessageListener& operator=(
+			const WindowMessageListener& listener) noexcept;
 
 		/**
 		 Moves the given window message listener to this window message 
@@ -111,8 +113,8 @@ namespace mage {
 		 @return		A reference to the moved window message listener (i.e. 
 						this window message listener).
 		 */
-		WindowMessageListener& operator=(WindowMessageListener&& 
-										 listener) noexcept;
+		WindowMessageListener& operator=(
+			WindowMessageListener&& listener) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -132,10 +134,10 @@ namespace mage {
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
 		 */
-		virtual void ProcessWindowMessage(NotNull< HWND > window,
+		virtual void ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window,
 										  UINT message, 
-										  WPARAM wParam, 
-										  LPARAM lParam) const = 0;
+										  [[maybe_unused]] WPARAM wParam,
+										  [[maybe_unused]] LPARAM lParam) = 0;
 	};
 
 	#pragma endregion
@@ -197,8 +199,8 @@ namespace mage {
 		 @return		A reference to the copy of the given window message 
 						handler (i.e. this window message handler).
 		 */
-		WindowMessageHandler& operator=(const WindowMessageHandler& 
-										handler) noexcept;
+		WindowMessageHandler& operator=(
+			const WindowMessageHandler& handler) noexcept;
 
 		/**
 		 Moves the given window message handler to this window message handler.
@@ -208,8 +210,8 @@ namespace mage {
 		 @return		A reference to the moved window message handler (i.e. 
 						this window message handler).
 		 */
-		WindowMessageHandler& operator=(WindowMessageHandler&& 
-										handler) noexcept;
+		WindowMessageHandler& operator=(
+			WindowMessageHandler&& handler) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -235,11 +237,11 @@ namespace mage {
 						message handler. @c false otherwise.
 		 */
 		[[nodiscard]]
-		virtual bool HandleWindowMessage(NotNull< HWND > window,
+		virtual bool HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
 										 UINT message, 
-										 WPARAM wParam, 
-										 LPARAM lParam, 
-										 LRESULT& result) const = 0;
+										 [[maybe_unused]] WPARAM wParam,
+										 [[maybe_unused]] LPARAM lParam,
+										 LRESULT& result) = 0;
 	};
 
 	#pragma endregion
@@ -384,9 +386,9 @@ namespace mage {
 
 		using WindowDescriptorPtr = SharedPtr< const WindowDescriptor >;
 
-		using WindowMessageListenerPtr = NotNull< const WindowMessageListener* >;
+		using WindowMessageListenerPtr = NotNull< WindowMessageListener* >;
 
-		using WindowMessageHandlerPtr = NotNull< const WindowMessageHandler* >;
+		using WindowMessageHandlerPtr = NotNull< WindowMessageHandler* >;
 
 		//---------------------------------------------------------------------
 		// Class Member Methods

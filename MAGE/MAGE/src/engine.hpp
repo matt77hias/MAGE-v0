@@ -19,6 +19,118 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// EngineMessageHandler
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of engine message handlers.
+	 */
+	class EngineMessageHandler final : public WindowMessageHandler {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a engine message handler.
+		 */
+		EngineMessageHandler();
+
+		/**
+		 Constructs a engine message handler from the given engine message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the engine message handler to copy.
+		 */
+		EngineMessageHandler(const EngineMessageHandler& handler);
+
+		/**
+		 Constructs a engine message handler by moving the given engine message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the engine message handler to move.
+		 */
+		EngineMessageHandler(EngineMessageHandler&& handler) noexcept;
+
+		/**
+		 Destructs this engine message handler.
+		 */
+		virtual ~EngineMessageHandler();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given engine message handler to this engine message 
+		 handler.
+
+		 @param[in]		handler
+						A reference to the engine message handler to copy.
+		 @return		A reference to the copy of the given engine message 
+						handler (i.e. this engine message handler).
+		 */
+		EngineMessageHandler& operator=(const EngineMessageHandler& handler);
+
+		/**
+		 Moves the given engine message handler to this engine message handler.
+
+		 @param[in]		handler
+						A reference to the engine message handler to move.
+		 @return		A reference to the moved engine message handler (i.e. 
+						this engine message handler).
+		 */
+		EngineMessageHandler& operator=(EngineMessageHandler&& handler) noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Handles the given message sent to a window.
+
+		 @param[in]		window
+						A handle to the window.
+		 @param[in]		message
+						The message.
+		 @param[in]		wParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[in]		lParam
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @param[out]	result
+						The result of the message processing in case the 
+						message is handled by this engine message handler.
+		 @return		@c true if the given message is handled by this engine 
+						message handler. @c false otherwise.
+		 */
+		[[nodiscard]]
+		virtual bool HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
+										 UINT message, 
+										 [[maybe_unused]] WPARAM wParam,
+										 [[maybe_unused]] LPARAM lParam,
+										 LRESULT& result) override;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		std::function< void(bool) > m_on_active_change;
+
+		std::function< void() > m_on_mode_switch;
+
+		std::function< void() > m_on_print_screen;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Engine
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -119,28 +231,8 @@ namespace mage {
 		 @return		A reference to the input manager of this engine.
 		 */
 		[[nodiscard]]
-		input::Manager& GetInputManager() noexcept {
-			return *m_input_manager;
-		}
-
-		/**
-		 Returns the input manager of this engine.
-
-		 @return		A reference to the input manager of this engine.
-		 */
-		[[nodiscard]]
 		const input::Manager& GetInputManager() const noexcept {
 			return *m_input_manager;
-		}
-
-		/**
-		 Returns the rendering manager of this engine.
-
-		 @return		A reference to the rendering manager of this engine.
-		 */
-		[[nodiscard]]
-		rendering::Manager& GetRenderingManager() noexcept {
-			return *m_rendering_manager;
 		}
 
 		/**
@@ -186,25 +278,6 @@ namespace mage {
 		 */
 		void UninitializeSystems() noexcept;
 
-		/**
-		 Notifies this engine of a change in activeness.
-
-		 Call this method when the engine becomes active or deactive.
-
-		 @param[in]		deactive
-						@c true if this engine becomes deactive. @c false
-						otherwise.
-		 */
-		void OnActiveChange(bool deactive) noexcept;
-
-		/**
-		 Notifies this engine of a change in display mode.
-
-		 Call this method when the engine needs to switch its current
-		 (windowed|fullscreen) display mode.
-		 */
-		void OnModeSwitch() noexcept;
-
 		void ApplyRequestedScene();
 
 		[[nodiscard]]
@@ -224,6 +297,11 @@ namespace mage {
 		 A pointer to the window of this engine.
 		 */
 		UniquePtr< Window > m_window;
+
+		/**
+		 The window message handler of this engine.
+		 */
+		EngineMessageHandler m_message_handler;
 
 		/**
 		 A pointer to the input manager of this engine.

@@ -23,12 +23,14 @@
     <ClInclude Include="ImGui\src\imgui.hpp" />
     <ClInclude Include="ImGui\src\imgui_impl_dx11.hpp" />
     <ClInclude Include="ImGui\src\imgui_internal.hpp" />
+    <ClInclude Include="ImGui\src\imgui_window_message_listener.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\src\imgui.cpp" />
     <ClCompile Include="ImGui\src\imgui_demo.cpp" />
     <ClCompile Include="ImGui\src\imgui_draw.cpp" />
     <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGui\src\imgui_window_message_listener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

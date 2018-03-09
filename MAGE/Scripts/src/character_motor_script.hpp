@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\script\behavior_script.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -23,29 +23,33 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 		
 		CharacterMotorScript();
-		CharacterMotorScript(const CharacterMotorScript &script) noexcept;
-		CharacterMotorScript(CharacterMotorScript &&script) noexcept;
+		CharacterMotorScript(const CharacterMotorScript& script) noexcept;
+		CharacterMotorScript(CharacterMotorScript&& script) noexcept;
 		virtual ~CharacterMotorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		CharacterMotorScript &operator=(
-			const CharacterMotorScript &script) = delete;
-		CharacterMotorScript &operator=(
-			CharacterMotorScript &&script) = delete;
+		CharacterMotorScript& operator=(
+			const CharacterMotorScript& script) noexcept;
+		CharacterMotorScript& operator=(
+			CharacterMotorScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+		
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 
-		[[nodiscard]]F32 GetVelocity() const noexcept {
+		[[nodiscard]]
+		F32 GetVelocity() const noexcept {
 			return m_velocity;
 		}
+
 		void SetVelocity(F32 velocity) noexcept {
 			m_velocity = velocity;
 		}

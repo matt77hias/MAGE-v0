@@ -4,7 +4,6 @@
 #pragma region
 
 #include "rotation_script.hpp"
-#include "scene\scene.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -18,18 +17,27 @@ namespace mage::script {
 		: BehaviorScript(), 
 		m_axis(RotationAxis::Y) {}
 
-	RotationScript::RotationScript(const RotationScript &script) noexcept = default;
+	RotationScript::RotationScript(
+		const RotationScript& script) noexcept = default;
 
-	RotationScript::RotationScript(RotationScript &&script) noexcept = default;
+	RotationScript::RotationScript(
+		RotationScript&& script) noexcept = default;
 
 	RotationScript::~RotationScript() = default;
 
-	void RotationScript::Load() {
-		ThrowIfFailed(HasOwner(),
-			"This script needs to be attached to a node.");
+	RotationScript& RotationScript
+		::operator=(const RotationScript& script) noexcept = default;
+	
+	RotationScript& RotationScript
+		::operator=(RotationScript&& script) noexcept = default;
+
+	void RotationScript::Load([[maybe_unused]] Engine& engine) {
+		ThrowIfFailed(HasOwner(), 
+					  "This script needs to be attached to a node.");
 	}
 
-	void RotationScript::Update([[maybe_unused]] F64 delta_time) {
+	void RotationScript::Update([[maybe_unused]] Engine& engine, 
+								[[maybe_unused]] F64 delta_time) {
 		switch (m_axis) {
 		
 		case RotationAxis::X: {

@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\script\behavior_script.hpp"
-#include "sprite\sprite_text.hpp"
+#include "scene\script\behavior_script.hpp"
+#include "scene\sprite\sprite_text.hpp"
 #include "system\cpu_monitor.hpp"
 
 #pragma endregion
@@ -31,23 +31,25 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		StatsScript();
-		StatsScript(const StatsScript &script) noexcept;
-		StatsScript(StatsScript &&script) noexcept;
+		StatsScript(const StatsScript& script) noexcept;
+		StatsScript(StatsScript&& script) noexcept;
 		virtual ~StatsScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		StatsScript &operator=(const StatsScript &script) = delete;
-		StatsScript &operator=(StatsScript &&script) = delete;
+		StatsScript& operator=(const StatsScript& script) noexcept;
+		StatsScript& operator=(StatsScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+		
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 
 	private:
 
@@ -55,7 +57,7 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ProxyPtr< SpriteText > m_text;
+		ProxyPtr< rendering::SpriteText > m_text;
 
 		F64 m_accumulated_time;
 		U32 m_accumulated_nb_frames;

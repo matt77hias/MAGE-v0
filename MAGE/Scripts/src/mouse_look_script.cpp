@@ -4,9 +4,6 @@
 #pragma region
 
 #include "mouse_look_script.hpp"
-#include "scene\scene.hpp"
-#include "input\keyboard.hpp"
-#include "input\mouse.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -33,29 +30,40 @@ namespace mage::script {
 	
 	MouseLookScript::~MouseLookScript() = default;
 
-	void MouseLookScript::Load() {
-		ThrowIfFailed(HasOwner(),
-			"This script needs to be attached to a node.");
+	MouseLookScript& MouseLookScript::operator=(
+		const MouseLookScript& script) noexcept = default;
+
+	MouseLookScript& MouseLookScript::operator=(
+		MouseLookScript&& script) noexcept = default;
+
+	void MouseLookScript::Load([[maybe_unused]] Engine& engine) {
+		ThrowIfFailed(HasOwner(), 
+					  "This script needs to be attached to a node.");
 	}
 
-	void MouseLookScript::Update([[maybe_unused]] F64 delta_time)	 {
-		if (Keyboard::Get()->GetKeyPress(DIK_F2)) {
+	void MouseLookScript::Update([[maybe_unused]] Engine& engine,
+								 [[maybe_unused]] F64 delta_time) {
+		
+		const auto& input_manager = engine.GetInputManager();
+		const auto& keyboard      = input_manager.GetKeyboard();
+
+		if (keyboard.GetKeyPress(DIK_F2)) {
 			m_locked = !m_locked;
 		}
 		if (m_locked) {
 			return;
 		}
 		
-		const auto mouse = Mouse::Get();
-		auto &transform = GetOwner()->GetTransform();
+		const auto& mouse         = input_manager.GetMouse();
+		auto &transform           = GetOwner()->GetTransform();
 
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
 			
-			const auto rotation_x = m_direction.m_x * mouse->GetDeltaY() * delta_time 
+			const auto rotation_x = m_direction.m_x * mouse.GetDeltaY() * delta_time 
 				                  * m_sensitivity.m_x;
-			const auto rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time 
+			const auto rotation_y = m_direction.m_y * mouse.GetDeltaX() * delta_time 
 				                  * m_sensitivity.m_y;
 			transform.AddAndClampRotationX(static_cast< F32 >(rotation_x),
 				                           m_minimum_rotation.m_x,
@@ -68,7 +76,7 @@ namespace mage::script {
 		
 		case RotationAxes::MouseX: {
 			
-			const auto rotation_y = m_direction.m_y * mouse->GetDeltaX() * delta_time
+			const auto rotation_y = m_direction.m_y * mouse.GetDeltaX() * delta_time
 				                  * m_sensitivity.m_y;
 			transform.AddAndClampRotationY(static_cast< F32 >(rotation_y),
 				                           m_minimum_rotation.m_y,
@@ -78,7 +86,7 @@ namespace mage::script {
 		
 		case RotationAxes::MouseY: {
 			
-			const auto rotation_x = m_direction.m_x * mouse->GetDeltaY() * delta_time
+			const auto rotation_x = m_direction.m_x * mouse.GetDeltaY() * delta_time
 				                  * m_sensitivity.m_x;
 			transform.AddAndClampRotationX(static_cast< F32 >(rotation_x),
 				                           m_minimum_rotation.m_x,

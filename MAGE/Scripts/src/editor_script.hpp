@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\script\behavior_script.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -23,22 +23,24 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		EditorScript();
-		EditorScript(const EditorScript &script);
-		EditorScript(EditorScript &&script) noexcept;
+		EditorScript(const EditorScript& script) noexcept;
+		EditorScript(EditorScript&& script) noexcept;
 		virtual ~EditorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		EditorScript &operator=(const EditorScript &script) = delete;
-		EditorScript &operator=(EditorScript &&script) = delete;
+		EditorScript& operator=(const EditorScript& script) noexcept;
+		EditorScript& operator=(EditorScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
-		virtual void Close() override;
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
+
+		virtual void Close([[maybe_unused]] Engine& engine) override;
 	};
 }

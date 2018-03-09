@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\script\behavior_script.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -29,27 +29,31 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		RotationScript();
-		RotationScript(const RotationScript &script) noexcept;
-		RotationScript(RotationScript &&script) noexcept;
+		RotationScript(const RotationScript& script) noexcept;
+		RotationScript(RotationScript&& script) noexcept;
 		virtual ~RotationScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		RotationScript &operator=(const RotationScript &script) = delete;
-		RotationScript &operator=(RotationScript &&script) = delete;
+		RotationScript& operator=(const RotationScript& script) noexcept;
+		RotationScript& operator=(RotationScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+		
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 
-		[[nodiscard]]RotationAxis GetRotationAxis() const noexcept {
+		[[nodiscard]]
+		RotationAxis GetRotationAxis() const noexcept {
 			return m_axis;
 		}
+
 		void SetRotationAxis(RotationAxis axis) noexcept {
 			m_axis = axis;
 		}

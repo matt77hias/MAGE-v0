@@ -4,8 +4,6 @@
 #pragma region
 
 #include "text_console_script.hpp"
-#include "scene\scene.hpp"
-#include "logging\error.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -29,7 +27,7 @@ namespace mage::script {
 		Clear();
 	}
 
-	TextConsoleScript::TextConsoleScript(const TextConsoleScript &script) 
+	TextConsoleScript::TextConsoleScript(const TextConsoleScript& script) 
 		: BehaviorScript(script),
 		m_text(),
 		m_nb_rows(script.m_nb_rows),
@@ -45,7 +43,7 @@ namespace mage::script {
 
 	}
 
-	TextConsoleScript::TextConsoleScript(TextConsoleScript &&script) noexcept 
+	TextConsoleScript::TextConsoleScript(TextConsoleScript&& script) noexcept 
 		: BehaviorScript(std::move(script)),
 		m_text(std::move(script.m_text)),
 		m_nb_rows(script.m_nb_rows),
@@ -58,16 +56,18 @@ namespace mage::script {
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
-	void TextConsoleScript::Load() {
-		ThrowIfFailed(HasOwner(),
-			"This script needs to be attached to a node.");
+	void TextConsoleScript::Load([[maybe_unused]] Engine& engine) {
+		ThrowIfFailed(HasOwner(), 
+					  "This script needs to be attached to a node.");
 
-		m_text = GetOwner()->Get< SpriteText >();
-		ThrowIfFailed((nullptr != m_text),
-			"This script needs a sprite text component.");
+		m_text = GetOwner()->Get< rendering::SpriteText >();
+		ThrowIfFailed((nullptr != m_text), 
+					  "This script needs a sprite text component.");
 	}
 
-	void TextConsoleScript::Update([[maybe_unused]] F64 delta_time) {
+	void TextConsoleScript::Update([[maybe_unused]] Engine& engine, 
+								   [[maybe_unused]] F64 delta_time) {
+
 		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
@@ -81,25 +81,26 @@ namespace mage::script {
 		m_current_column = 0;
 	}
 
-	void TextConsoleScript::Write(const wchar_t *str) {
+	void TextConsoleScript::Write(NotNull< const_wzstring > str) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
 		
 		ProcessString(str);
 	}
 
-	void TextConsoleScript::WriteLine(const wchar_t *str) {
+	void TextConsoleScript::WriteLine(NotNull< const_wzstring > str) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
 		
 		ProcessString(str);
 		IncrementRow();
 	}
 
-	void TextConsoleScript::Format(const wchar_t *format, ...) {
+	void TextConsoleScript::Format(NotNull< const_wzstring > format, ...) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		va_list args;
 		// Retrieve the additional arguments after format
-		va_start(args, format);
+		const wchar_t* const c_str = format;
+		va_start(args, c_str);
 
 		const auto nb_characters 
 			= static_cast< size_t >(_vscwprintf(format, args) + 1);
@@ -116,8 +117,9 @@ namespace mage::script {
 		ProcessString(m_temp_buffer.data());
 	}
 
-	void TextConsoleScript::ProcessString(const wchar_t *str) {
-		for (auto character = str; 
+	void TextConsoleScript::ProcessString(NotNull< const_wzstring > str) {
+		const wchar_t* const c_str = str;
+		for (auto character = c_str;
 			*character != L'\0'; ++character, ++m_current_column) {
 			
 			if (L'\n' == *character) {

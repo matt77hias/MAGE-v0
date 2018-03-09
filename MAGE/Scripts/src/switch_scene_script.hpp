@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\script\behavior_script.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -26,22 +26,23 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		SwitchSceneScript();
-		SwitchSceneScript(const SwitchSceneScript &script) noexcept;
-		SwitchSceneScript(SwitchSceneScript &&script) noexcept;
+		SwitchSceneScript(const SwitchSceneScript& script) noexcept;
+		SwitchSceneScript(SwitchSceneScript&& script) noexcept;
 		virtual ~SwitchSceneScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SwitchSceneScript &operator=(const SwitchSceneScript &script) = delete;
-		SwitchSceneScript &operator=(SwitchSceneScript &&script) = delete;
+		SwitchSceneScript& operator=(const SwitchSceneScript& script) noexcept;
+		SwitchSceneScript& operator=(SwitchSceneScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 	};
 }
 

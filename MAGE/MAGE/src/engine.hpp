@@ -246,6 +246,16 @@ namespace mage {
 		}
 
 		/**
+		 Returns the current scene of this engine.
+
+		 @return		A reference to the current scene of this engine.
+		 */
+		[[nodiscard]]
+		Scene* GetScene() const noexcept {
+			return m_scene.get();
+		}
+
+		/**
 		 Sets the scene of this engine to the given scene.
 
 		 @param[in]		scene

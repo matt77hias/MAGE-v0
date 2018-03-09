@@ -22,7 +22,7 @@ namespace mage::script {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		EditorScript();
+		EditorScript() noexcept;
 		EditorScript(const EditorScript& script) noexcept;
 		EditorScript(EditorScript&& script) noexcept;
 		virtual ~EditorScript();
@@ -38,9 +38,17 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update([[maybe_unused]] Engine& engine, 
+		virtual void Update([[maybe_unused]] Engine& engine,
 							[[maybe_unused]] F64 delta_time) override;
 
 		virtual void Close([[maybe_unused]] Engine& engine) override;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		ProxyPtr< Node > m_selected;
 	};
 }

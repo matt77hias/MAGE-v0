@@ -156,6 +156,18 @@ namespace mage::rendering {
 		}
 		
 		/**
+		 Returns the display resolution in pixels of this display 
+		 configuration.
+
+		 @return		The display resolution in pixels of this display 
+						configuration.
+		 */
+		[[nodiscard]]
+		const U32x2 GetDisplayResolution() const noexcept {
+			return U32x2(GetDisplayWidth(), GetDisplayHeight());
+		}
+
+		/**
 		 Returns the super-sampled display width in pixels of this display 
 		 configuration.
 
@@ -168,17 +180,29 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Returns the super-sampled height in pixels of this display 
+		 Returns the super-sampled display height in pixels of this display 
 		 configuration.
 
-		 @return		The super-sampled height in pixels of this display 
-						configuration.
+		 @return		The super-sampled display height in pixels of this 
+						display configuration.
 		 */
 		[[nodiscard]]
 		U32 GetSSDisplayHeight() const noexcept {
 			return GetResolutionMultiplier(m_aa_desc) * GetDisplayHeight();
 		}
 		
+		/**
+		 Returns the super-sampled display resolution in pixels of this display 
+		 configuration.
+
+		 @return		The super-sampled display resolution in pixels of this 
+						display configuration.
+		 */
+		[[nodiscard]]
+		const U32x2 GetSSDisplayResolution() const noexcept {
+			return U32x2(GetSSDisplayWidth(), GetSSDisplayHeight());
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Display Refresh Rate
 		//---------------------------------------------------------------------

@@ -23,28 +23,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAGE\src\scene\scene.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp">
-      <Filter>Header Files\scene\script</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\engine_setup.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="MAGE\src\scene\scene.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp">
+      <Filter>Header Files\scene\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MAGE\src\scene\scene.cpp">
+    <ClCompile Include="MAGE\src\engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp">
       <Filter>Source Files\scene\script</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\engine.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

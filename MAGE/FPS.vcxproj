@@ -35,9 +35,6 @@
     <ProjectReference Include="Math.vcxproj">
       <Project>{b6fab106-b50e-4340-9458-146e624420df}</Project>
     </ProjectReference>
-    <ProjectReference Include="Scripts.vcxproj">
-      <Project>{61311fe7-441d-4ff2-b861-e312a1569899}</Project>
-    </ProjectReference>
     <ProjectReference Include="Utilities.vcxproj">
       <Project>{e7f1c114-0904-40ed-9e9d-97fd842334c6}</Project>
     </ProjectReference>

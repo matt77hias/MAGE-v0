@@ -123,10 +123,16 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const key_type< ResourceT >& guid,
 			                         ConstructorArgsT&&... args) {
 
-		return GetPool< ResourceT >().template 
-			GetOrCreate< ID3D11Device&, key_type< ResourceT >, ConstructorArgsT... >(
-				guid, m_device, key_type< ResourceT >(guid),
-				std::forward< ConstructorArgsT >(args)...);
+		if constexpr (std::is_same_v< ModelDescriptor, ResourceT >) {
+			return GetPool< ResourceT >().template 
+				GetOrCreate< ID3D11Device&, ResourceManager&, key_type< ResourceT >, ConstructorArgsT... >(
+					guid, m_device, *this, key_type< ResourceT >(guid), std::forward< ConstructorArgsT >(args)...);
+		}
+		else {
+			return GetPool< ResourceT >().template 
+				GetOrCreate< ID3D11Device&, key_type< ResourceT >, ConstructorArgsT... >(
+					guid, m_device, key_type< ResourceT >(guid), std::forward< ConstructorArgsT >(args)...);
+		}
 	}
 
 	#pragma endregion

@@ -40,7 +40,7 @@ namespace mage {
 		using namespace rendering;
 
 		const auto& rendering_manager = engine.GetRenderingManager();
-		const auto& display_config = rendering_manager.GetDisplayConfiguration();
+		//const auto& display_config = rendering_manager.GetDisplayConfiguration();
 		auto& rendering_world = rendering_manager.GetWorld();
 		auto& rendering_factory = rendering_manager.GetResourceManager();
 

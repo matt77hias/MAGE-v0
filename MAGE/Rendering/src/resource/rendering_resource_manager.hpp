@@ -80,12 +80,13 @@ namespace mage::rendering {
 			/**
 			 The pool type of resource pools containing vertex shaders.
 			 */
-			using pool_type  = PersistentResourcePool< wstring, const ResourceT >;
+			using pool_type = PersistentResourcePool< wstring, const ResourceT >;
 		};
 
 		/**
 		 The pool type of resource pools containing resources of the given 
 		 type.
+
 		 @tparam		ResourceT
 						The resource type.
 		 */
@@ -95,20 +96,22 @@ namespace mage::rendering {
 		/**
 		 The key type of resource pools containing resources of the given 
 		 type.
+
 		 @tparam		ResourceT
 						The resource type.
 		 */
 		template< typename ResourceT >
-		using key_type = typename ResourceRecord< ResourceT >::pool_type::key_type;
+		using key_type = typename pool_type< ResourceT >::key_type;
 		
 		/**
 		 The value type of resource pools containing resources of the given 
 		 type.
+
 		 @tparam		ResourceT
 						The resource type.
 		 */
 		template< typename ResourceT >
-		using value_type = typename ResourceRecord< ResourceT >::pool_type::value_type;
+		using value_type = typename pool_type< ResourceT >::value_type;
 
 		#pragma endregion
 

@@ -20,11 +20,11 @@ namespace mage::script {
 	SwitchSceneScript< SceneT >::~SwitchSceneScript() = default;
 	
 	template< typename SceneT >
-	SwitchSceneScript< SceneT >::SwitchSceneScript& SwitchSceneScript< SceneT >
+	SwitchSceneScript< SceneT >& SwitchSceneScript< SceneT >
 		::operator=(const SwitchSceneScript& script) noexcept = default;
 
 	template< typename SceneT >
-	SwitchSceneScript< SceneT >::SwitchSceneScript& SwitchSceneScript< SceneT >
+	SwitchSceneScript< SceneT >& SwitchSceneScript< SceneT >
 		::operator=(SwitchSceneScript&& script) noexcept = default;
 
 	template< typename SceneT >

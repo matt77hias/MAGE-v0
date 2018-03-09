@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\node.hpp"
 #include "scene\sprite\sprite_image.hpp"
 
 #pragma endregion

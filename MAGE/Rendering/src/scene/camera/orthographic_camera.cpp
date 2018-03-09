@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\node.hpp"
 #include "scene\camera\orthographic_camera.hpp"
 
 #pragma endregion

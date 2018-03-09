@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\node.hpp"
 #include "scene\light\directional_light.hpp"
 
 #pragma endregion

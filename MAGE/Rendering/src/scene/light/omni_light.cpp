@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\node.hpp"
 #include "scene\light\omni_light.hpp"
 
 #pragma endregion

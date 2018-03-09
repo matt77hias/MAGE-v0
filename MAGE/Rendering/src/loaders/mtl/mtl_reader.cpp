@@ -5,6 +5,7 @@
 
 #include "loaders\mtl\mtl_reader.hpp"
 #include "loaders\mtl\mtl_tokens.hpp"
+#include "resource\model\material_factory.hpp"
 
 #pragma endregion
 
@@ -72,7 +73,9 @@ namespace mage::rendering::loader {
 	}
 
 	void MTLReader::ReadMTLMaterialName() {
-		m_material_buffer.emplace_back(Read< string >());
+		auto& material = m_material_buffer.emplace_back(
+			CreateDefaultMaterial(m_resource_manager));
+		material.SetName(Read< string >());
 	}
 
 	void MTLReader::ReadMTLBaseColor() {

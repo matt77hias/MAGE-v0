@@ -134,10 +134,15 @@ namespace mage::rendering {
 		void BindPersistentState();
 
 		/**
-		 Renders the given scene.
+		 Updates this rendering manager.
+		 */
+		void Update();
+
+		/**
+		 Renders.
 
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world of this rendering manager.
 		 */
 		void Render();
 

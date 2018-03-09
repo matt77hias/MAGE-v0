@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -27,11 +27,12 @@ namespace mage {
 	BehaviorScript& BehaviorScript
 		::operator=(BehaviorScript&& script) noexcept = default;
 
-	void BehaviorScript::Load() {}
+	void BehaviorScript::Load([[maybe_unused]] Engine& engine) {}
 
-	void BehaviorScript::FixedUpdate() {}
+	void BehaviorScript::FixedUpdate([[maybe_unused]] Engine& engine) {}
 
-	void BehaviorScript::Update([[maybe_unused]] F64 delta_time) {}
+	void BehaviorScript::Update([[maybe_unused]] Engine& engine, 
+								[[maybe_unused]] F64 delta_time) {}
 
-	void BehaviorScript::Close() {}
+	void BehaviorScript::Close([[maybe_unused]] Engine& engine) {}
 }

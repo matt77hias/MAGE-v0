@@ -156,10 +156,15 @@ namespace mage::rendering {
 		void BindPersistentState();
 
 		/**
-		 Renders the given scene.
+		 Updates this rendering manager.
+		 */
+		void Update();
+
+		/**
+		 Renders.
 
 		 @throws		Exception
-						Failed to render the scene.
+						Failed to render the world of this rendering manager.
 		 */
 		void Render();
 		
@@ -354,13 +359,15 @@ namespace mage::rendering {
 		m_renderer->BindPersistentState();
 	}
 
+	void Manager::Impl::Update() {
+		ImGui_ImplDX11_NewFrame();
+	}
+
 	void Manager::Impl::Render() {
 		m_swap_chain->Clear();
 
-		ImGui_ImplDX11_NewFrame();
-		
+		Pipeline::s_nb_draws = 0u;
 		m_renderer->Render(GetWorld());
-
 		ImGui::Render();
 
 		m_swap_chain->Present();
@@ -406,6 +413,10 @@ namespace mage::rendering {
 
 	void Manager::BindPersistentState() {
 		m_impl->BindPersistentState();
+	}
+
+	void Manager::Update() {
+		m_impl->Update();
 	}
 
 	void Manager::Render() {

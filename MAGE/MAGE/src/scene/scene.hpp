@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\model\model_descriptor.hpp"
+#include "core\engine.hpp"
 #include "scene\node.hpp"
 #include "scene\scene_utils.hpp"
 #include "scene\script\behavior_script.hpp"

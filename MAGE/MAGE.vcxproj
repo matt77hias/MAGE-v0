@@ -22,13 +22,11 @@
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
-    <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
   </ItemGroup>
   <ItemGroup>

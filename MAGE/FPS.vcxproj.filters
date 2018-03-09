@@ -79,15 +79,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MAGE\res\engine_settings.rc">
+    <ResourceCompile Include="Core\res\engine_settings.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="MAGE\res\display_settings.rc">
+    <ResourceCompile Include="Rendering\res\display_settings.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MAGE\res\mage.ico">
+    <Image Include="Core\res\mage.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

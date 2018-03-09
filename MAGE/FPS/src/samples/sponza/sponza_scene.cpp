@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "texture\texture_factory.hpp"
+#include "resource\texture\texture_factory.hpp"
 
 #include "character_motor_script.hpp"
 #include "mouse_look_script.hpp"
@@ -32,68 +32,68 @@ namespace mage {
 	SponzaScene::SponzaScene()
 		: Scene("sponza_scene") {}
 
-	SponzaScene::SponzaScene(SponzaScene &&scene) = default;
+	SponzaScene::SponzaScene(SponzaScene&& scene) = default;
 
 	SponzaScene::~SponzaScene() = default;
 
-	void SponzaScene::Load() {
+	void SponzaScene::Load([[maybe_unused]] Engine& engine) {
+		using namespace rendering;
 		
+		const auto& rendering_manager = engine.GetRenderingManager();
+		const auto& display_config    = rendering_manager.GetDisplayConfiguration();
+		auto& rendering_world         = rendering_manager.GetWorld();
+		auto& rendering_factory       = rendering_manager.GetResourceManager();
+
 		//---------------------------------------------------------------------
 		// Resources
 		//---------------------------------------------------------------------
-		ResourceManager * const factory = ResourceManager::Get();
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		
-		auto sponza_model_desc = factory->GetOrCreate< ModelDescriptor >(
-			L"assets/models/sponza/sponza.mdl",    mesh_desc);
-		auto tree_model_desc_tree = factory->GetOrCreate< ModelDescriptor >(
-			L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
-		auto sky_texture = factory->GetOrCreate< Texture >(
-			L"assets/textures/sky/sky.dds");
+		const auto sponza_model_desc
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/sponza/sponza.mdl",    mesh_desc);
+		const auto tree_model_desc_tree
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
+		const auto sky_texture
+			= rendering_factory.GetOrCreate< Texture >(
+				L"assets/textures/sky/sky.dds");
+		const auto logo_texture = CreateMAGETexture(rendering_factory);
 
 		//---------------------------------------------------------------------
 		// Cameras
 		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCamera >();
-		
-		// Camera: Lens
-		// camera->GetLens().SetLensRadius(0.01f);
-		// camera->GetLens().SetFocalLength(3.0f);
-		// camera->GetLens().SetMaximumCoCRadius(2.0f);
-		// Camera: Viewport
-		// camera->GetViewport().SetNormalizedWidth(0.5f);
-		// Camera: Fog
+		const auto camera = rendering_world.Create< PerspectiveCamera >();
 		camera->GetSettings().GetFog().SetDensity(0.001f);
-		// Camera: Sky
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 		
-		auto camera_node = Create< Node >("Player");
+		const auto camera_node = Create< Node >("Player");
 		camera_node->Add(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto sponza_node = Import(*sponza_model_desc);
+		const auto sponza_node = Import(engine, *sponza_model_desc);
 		sponza_node->GetTransform().SetScale(10.0f);
 		sponza_node->GetTransform().SetTranslationY(2.1f);
 		
-		auto tree_node = Import(*tree_model_desc_tree);
+		const auto tree_node = Import(engine, *tree_model_desc_tree);
 		tree_node->GetTransform().AddTranslationY(1.0f);
 		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLight >();
+		const auto omni_light = rendering_world.Create< OmniLight >();
 		omni_light->SetRange(5.0f);
 		omni_light->SetIntensity(4.0f);
 		omni_light->EnableShadows();
 		
-		auto omni_light_node = Create< Node >("Omni Light");
+		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
 		omni_light_node->GetTransform().SetTranslationY(2.0f);
 		
-		auto spot_light = Create< SpotLight >();
+		const auto spot_light = rendering_world.Create< SpotLight >();
 		spot_light->SetRange(5.0f);
 		spot_light->SetAngularCutoff(1.0f, 0.5f);
 
@@ -102,14 +102,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Sprites
 		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImage >();
-		logo->SetBaseColorTexture(CreateMAGETexture());
+		const auto logo = rendering_world.Create< SpriteImage >();
+		const auto logo_tex_resolution = GetTexture2DSize(*logo_texture->Get());
+		
+		logo->SetBaseColorTexture(logo_texture);
 		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform().SetTranslation(NormalizedToAbsolutePixel(0.90f, 0.88f));
+		logo->GetSpriteTransform().SetTranslation(
+			NormalizedToAbsolute(F32x2(0.90f, 0.88f), 
+								 static_cast< F32x2 >(logo_tex_resolution)));
 
 		camera_node->Add(logo);
 
-		auto text = Create< SpriteText >();
+		const auto text = rendering_world.Create< SpriteText >();
 
 		camera_node->Add(text);
 

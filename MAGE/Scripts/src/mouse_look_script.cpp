@@ -23,10 +23,10 @@ namespace mage::script {
 		m_direction(F32x2(1.0f, 1.0f)) {}
 
 	MouseLookScript::MouseLookScript(
-		const MouseLookScript &script) noexcept = default;
+		const MouseLookScript& script) noexcept = default;
 
 	MouseLookScript::MouseLookScript(
-		MouseLookScript &&script) noexcept = default;
+		MouseLookScript&& script) noexcept = default;
 	
 	MouseLookScript::~MouseLookScript() = default;
 
@@ -55,7 +55,7 @@ namespace mage::script {
 		}
 		
 		const auto& mouse         = input_manager.GetMouse();
-		auto &transform           = GetOwner()->GetTransform();
+		auto& transform           = GetOwner()->GetTransform();
 
 		switch (m_axes) {
 

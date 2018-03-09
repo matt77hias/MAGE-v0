@@ -21,11 +21,11 @@ using namespace mage;
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine setup.
-	EngineSetup setup(instance, L"MAGE");
+	EngineSetup setup(instance);
+	
 	// Create the engine.
-	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
-
-	if (engine->IsLoaded()) {
+	UniquePtr< Engine > engine = CreateEngine(setup);
+	if (engine) {
 		// Run the engine.
 		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);
 	}

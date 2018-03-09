@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -20,18 +20,18 @@ namespace mage {
 
 		SibenikScene();
 
-		SibenikScene(const SibenikScene &scene) = delete;
+		SibenikScene(const SibenikScene& scene) = delete;
 
-		SibenikScene(SibenikScene &&scene);
+		SibenikScene(SibenikScene&& scene);
 
 		virtual ~SibenikScene();
 
-		SibenikScene &operator=(const SibenikScene &scene) = delete;
+		SibenikScene& operator=(const SibenikScene& scene) = delete;
 
-		SibenikScene &operator=(SibenikScene &&scene) = delete;
+		SibenikScene& operator=(SibenikScene&& scene) = delete;
 
 	private:
 
-		virtual void Load() override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
 	};
 }

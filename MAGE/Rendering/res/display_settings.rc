@@ -2,7 +2,6 @@
 
 #define APSTUDIO_READONLY_SYMBOLS
 #include "WinResrc.h"
-//#include "afxres.h"
 #define IDC_STATIC -1
 #undef APSTUDIO_READONLY_SYMBOLS
 

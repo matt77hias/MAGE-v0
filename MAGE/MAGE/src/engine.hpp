@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine_setup.hpp"
+#include "engine_setup.hpp"
 #include "input_manager.hpp"
 #include "rendering_manager.hpp"
 #include "system\timer.hpp"

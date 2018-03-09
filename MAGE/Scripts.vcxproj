@@ -97,20 +97,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;MAGE\src;Math\src\;Utilities\src\;GSL\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);MAGE\src;Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>MAGE\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

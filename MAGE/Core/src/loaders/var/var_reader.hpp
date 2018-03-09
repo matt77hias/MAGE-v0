@@ -6,7 +6,7 @@
 #pragma region
 
 #include "io\line_reader.hpp"
-#include "scripting\variable_value.hpp"
+#include "resource\script\variable_value.hpp"
 
 #pragma endregion
 

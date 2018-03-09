@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable_value.hpp"
+#include "resource\script\variable_value.hpp"
 
 #pragma endregion
 

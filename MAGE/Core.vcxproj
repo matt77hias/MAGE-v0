@@ -26,13 +26,13 @@
     <ClInclude Include="Core\src\loaders\var\var_writer.hpp" />
     <ClInclude Include="Core\src\meta\targetver.hpp" />
     <ClInclude Include="Core\src\meta\version.hpp" />
+    <ClInclude Include="Core\src\resource\script\variable_script.hpp" />
+    <ClInclude Include="Core\src\resource\script\variable_value.hpp" />
     <ClInclude Include="Core\src\scene\component.hpp" />
     <ClInclude Include="Core\src\scene\node.hpp" />
     <ClInclude Include="Core\src\scene\scene_utils.hpp" />
     <ClInclude Include="Core\src\scene\state.hpp" />
     <ClInclude Include="Core\src\scene\transform.hpp" />
-    <ClInclude Include="Core\src\scripting\variable_value.hpp" />
-    <ClInclude Include="Core\src\scripting\variable_script.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\src\loaders\variable_script_loader.cpp" />
@@ -40,15 +40,15 @@
     <ClCompile Include="Core\src\loaders\var\var_reader.cpp" />
     <ClCompile Include="Core\src\loaders\var\var_writer.cpp" />
     <ClCompile Include="Core\src\meta\version.cpp" />
+    <ClCompile Include="Core\src\resource\script\variable_script.cpp" />
     <ClCompile Include="Core\src\scene\component.cpp" />
     <ClCompile Include="Core\src\scene\node.cpp" />
     <ClCompile Include="Core\src\scene\transform.cpp" />
-    <ClCompile Include="Core\src\scripting\variable_script.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Core\src\resource\script\variable_script.tpp" />
     <None Include="Core\src\scene\node.tpp" />
     <None Include="Core\src\scene\scene_utils.tpp" />
-    <None Include="Core\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

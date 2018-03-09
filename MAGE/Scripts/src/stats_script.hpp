@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
+#include "resource\script\behavior_script.hpp"
 #include "sprite\sprite_text.hpp"
 #include "system\cpu_monitor.hpp"
 

@@ -6,7 +6,7 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "scripting\variable_value.hpp"
+#include "resource\script\variable_value.hpp"
 
 #pragma endregion
 
@@ -253,6 +253,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable_script.tpp"
+#include "resource\script\variable_script.tpp"
 
 #pragma endregion

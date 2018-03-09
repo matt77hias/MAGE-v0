@@ -5,7 +5,7 @@
 
 #include "display\display_configurator.hpp"
 #include "display\display_settings.hpp"
-#include "scripting\variable_script.hpp"
+#include "resource\script\variable_script.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"

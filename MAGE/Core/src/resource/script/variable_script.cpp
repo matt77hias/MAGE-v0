@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable_script.hpp"
+#include "resource\script\variable_script.hpp"
 #include "loaders\variable_script_loader.hpp"
 
 #pragma endregion

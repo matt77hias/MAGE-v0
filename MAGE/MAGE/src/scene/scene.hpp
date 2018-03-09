@@ -10,7 +10,6 @@
 #include "scene\scene_utils.hpp"
 #include "scene\script\behavior_script.hpp"
 
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------

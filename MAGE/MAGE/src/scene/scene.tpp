@@ -15,7 +15,7 @@ namespace mage {
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
 
 		auto ptr = AddElement(m_nodes, std::forward< ConstructorArgsT >(args)...);
-		NodeClient::Set(*ptr, ptr);
+		ptr->Set(ptr);
 		return ptr;
 	}
 

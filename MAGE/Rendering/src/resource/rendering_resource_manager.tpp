@@ -139,8 +139,8 @@ namespace mage::rendering {
 									 gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 									 input_element_descs) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
-												  key_type< ResourceT >(fname), 
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader, 
 												  input_element_descs);
 	}
@@ -151,8 +151,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 		
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
-												  key_type< ResourceT >(fname),
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader);
 	}
 
@@ -162,8 +162,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
-												  key_type< ResourceT >(fname),
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader);
 	}
 
@@ -173,8 +173,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
-												  key_type< ResourceT >(fname),
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader);
 	}
 
@@ -184,8 +184,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
-												  key_type< ResourceT >(fname),
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader);
 	}
 
@@ -195,8 +195,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
-												  key_type< ResourceT >(fname), 
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  compiled_shader);
 	}
 
@@ -227,8 +227,8 @@ namespace mage::rendering {
 									 const D3D11_TEXTURE2D_DESC& desc,
 									 const D3D11_SUBRESOURCE_DATA& initial_data) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
-												  key_type< ResourceT >(fname), 
+		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
+												  key_type< ResourceT >(guid),
 												  desc, initial_data);
 	}
 

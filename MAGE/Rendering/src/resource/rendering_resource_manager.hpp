@@ -213,27 +213,198 @@ namespace mage::rendering {
 			Get(const typename key_type< ResourceT >& guid) noexcept;
 
 		/**
-		 Creates a resource of the given type (if not existing).
+		 Creates a model descriptor (if not existing).
 
 		 @tparam		ResourceT
 						The resource type.
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the resource 
-						(excluding the type of the globally unique identifier).
-		 @param[in]		guid
-						A reference to the globally unique identifier of the 
-						resource.
-		 @param[in]		args
-						A reference to the constructor arguments for the 
-						resource (excluding the globally unique identifier).
-		 @return		A pointer to the resource.
+		 @tparam		VertexT
+						The vertex type.
+		 @tparam		IndexT
+						The index type.
+		 @param[in]		fname
+						The filename (the globally unique identifier).
+		 @param[in]		desc
+						A reference to the mesh descriptor.
+		 @param[in]		export_as_MDL
+						@c true if the model descriptor needs to be exported as 
+						MDL file. @c false otherwise.
+		 @return		A pointer to the model descriptor.
 		 @throws		Exception
-						Failed to create the resource.
+						Failed to create the model descriptor.
 		 */
-		template< typename ResourceT, typename... ConstructorArgsT >
-		SharedPtr< typename value_type< ResourceT > >
-			GetOrCreate(const typename key_type< ResourceT >& guid,
-				        ConstructorArgsT&&... args);
+		template< typename ResourceT, typename VertexT, typename IndexT >
+		typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >,
+			ModelDescriptorPtr > GetOrCreate(const wstring& fname, 
+											 const  MeshDescriptor< VertexT, IndexT >& 
+											 desc = MeshDescriptor< VertexT, IndexT >(), 
+											 bool export_as_MDL = false);
+
+		/**
+		 Creates a vertex shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled vertex shader.
+		 @param[in]		input_element_descs
+						The input element descriptors.
+		 @return		A pointer to the vertex shader.
+		 @throws		Exception
+						Failed to create the vertex shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
+			VertexShaderPtr > GetOrCreate(const wstring& guid, 
+										  const CompiledShader& compiled_shader, 
+										  gsl::span< const D3D11_INPUT_ELEMENT_DESC > 
+										  input_element_descs);
+
+		/**
+		 Creates a hull shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled shader.
+		 @return		A pointer to the hull shader.
+		 @throws		Exception
+						Failed to create the hull shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
+			HullShaderPtr > GetOrCreate(const wstring& guid, 
+										const CompiledShader& compiled_shader);
+
+		/**
+		 Creates a domain shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled shader.
+		 @return		A pointer to the domain shader.
+		 @throws		Exception
+						Failed to create the domain shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
+			DomainShaderPtr > GetOrCreate(const wstring& guid, 
+										  const CompiledShader& compiled_shader);
+
+		/**
+		 Creates a geometry shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled shader.
+		 @return		A pointer to the geometry shader.
+		 @throws		Exception
+						Failed to create the geometry shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
+			GeometryShaderPtr > GetOrCreate(const wstring& guid, 
+											const CompiledShader& compiled_shader);
+
+		/**
+		 Creates a pixel shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled shader.
+		 @return		A pointer to the pixel shader.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
+			PixelShaderPtr > GetOrCreate(const wstring& guid, 
+										 const CompiledShader& compiled_shader);
+
+		/**
+		 Creates a compute shader (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		compiled_shader
+						A reference to the compiled shader.
+		 @return		A pointer to the hull shader.
+		 @throws		Exception
+						Failed to create the compute shader.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
+			ComputeShaderPtr > GetOrCreate(const wstring& guid, 
+										   const CompiledShader& compiled_shader);
+
+		/**
+		 Creates a sprite font (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		fname
+						The filename (the globally unique identifier).
+		 @param[in]		desc
+						A reference to the sprite font descriptor.
+		 @return		A pointer to the sprite font.
+		 @throws		Exception
+						Failed to create the sprite font.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
+			SpriteFontPtr > GetOrCreate(const wstring& fname, 
+										const SpriteFontDescriptor& desc 
+										    = SpriteFontDescriptor());
+
+		/**
+		 Creates a texture (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		fname
+						The filename (the globally unique identifier).
+		 @return		A pointer to the texture.
+		 @throws		Exception
+						Failed to create the texture.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
+			TexturePtr > GetOrCreate(const wstring& fname);
+
+		/**
+		 Creates a texture (if not existing).
+
+		 @tparam		ResourceT
+						The resource type.
+		 @param[in]		guid
+						The globally unique identifier.
+		 @param[in]		desc
+						A reference to the texture descriptor.
+		 @param[in]		initial_data
+						A reference to the initial data.
+		 @return		A pointer to the texture.
+		 @throws		Exception
+						Failed to create the texture.
+		 */
+		template< typename ResourceT >
+		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
+			TexturePtr > GetOrCreate(const wstring& guid, 
+									 const D3D11_TEXTURE2D_DESC& desc, 
+									 const D3D11_SUBRESOURCE_DATA& initial_data);
 
 	private:
 

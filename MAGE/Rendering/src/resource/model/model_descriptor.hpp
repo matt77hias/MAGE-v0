@@ -41,8 +41,6 @@ namespace mage::rendering {
 						The vertex type.
 		 @tparam		IndexT
 						The index type.
-		 @tparam		VertexT
-						The vertex type.
 		 @param[in]		device
 						A reference to the device.
 		 @param[in]		resource_manager

@@ -29,7 +29,12 @@ namespace mage {
 	VariableScript::~VariableScript() = default;
 
 	VariableScript& VariableScript
-		::operator=(VariableScript&& variable_script) noexcept = default;
+		::operator=(VariableScript&& variable_script) noexcept {
+		Resource< VariableScript >::operator=(std::move(variable_script));
+
+		m_variables = std::move(variable_script.m_variables);
+		return *this;
+	}
 
 	void VariableScript::ImportScript(const wstring& fname) {
 		loader::ImportVariableScriptFromFile(fname, m_variables);

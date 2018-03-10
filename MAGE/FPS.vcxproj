@@ -32,14 +32,6 @@
     <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Math.vcxproj">
-      <Project>{b6fab106-b50e-4340-9458-146e624420df}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Utilities.vcxproj">
-      <Project>{e7f1c114-0904-40ed-9e9d-97fd842334c6}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Core\res\engine_settings.rc">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </AdditionalIncludeDirectories>
@@ -54,6 +46,32 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Core\res\mage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Core.vcxproj">
+      <Project>{43eec29a-593d-4598-92f7-325ef4b75428}</Project>
+    </ProjectReference>
+    <ProjectReference Include="ImGui.vcxproj">
+      <Project>{0330e3aa-6ba7-44ff-8b91-2ad562c0770c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Input.vcxproj">
+      <Project>{52fe3ac1-da44-4e0c-a79e-1507fe0eb625}</Project>
+    </ProjectReference>
+    <ProjectReference Include="MAGE.vcxproj">
+      <Project>{28dc5fac-c856-43e1-828e-beaa8a0e2ce4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Math.vcxproj">
+      <Project>{b6fab106-b50e-4340-9458-146e624420df}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Rendering.vcxproj">
+      <Project>{06c6e5c6-63df-4c50-9820-3a2fa8f6b88c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Scripts.vcxproj">
+      <Project>{1c23d59a-7350-48ab-ad25-a5eccdae0bae}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Utilities.vcxproj">
+      <Project>{e7f1c114-0904-40ed-9e9d-97fd842334c6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D39C1F4F-089B-4306-B1EF-513096942C28}</ProjectGuid>

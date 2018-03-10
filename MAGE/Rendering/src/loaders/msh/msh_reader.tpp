@@ -53,7 +53,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
 	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
-		for (auto magic = g_font_token_magic; *magic != L'\0'; ++magic) {
+		for (auto magic = g_msh_token_magic; *magic != L'\0'; ++magic) {
 			if (*magic != Read< U8 >()) {
 				return false;
 			}

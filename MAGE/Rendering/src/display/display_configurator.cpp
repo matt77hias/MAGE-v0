@@ -344,8 +344,13 @@ namespace mage::rendering {
 
 		const auto configurator = GetDialogCaller< DisplayConfigurator::Impl >
 			                      (dialog, message, wParam, lParam);
-		
-		return configurator->DisplayDialogProc(dialog, message, wParam, lParam);
+
+		if (configurator) {
+			return configurator->DisplayDialogProc(dialog, message, wParam, lParam);
+		}
+		else {
+			return TRUE;
+		}
 	}
 
 	DisplayConfigurator::Impl::Impl(DXGI_FORMAT pixel_format)

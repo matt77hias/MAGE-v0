@@ -35,10 +35,10 @@ namespace mage {
 	 */
 	template< typename CallerT >
 	[[nodiscard]]
-	NotNull< CallerT* > GetWindowCaller(NotNull< HWND > window,
-										UINT message, 
-										[[maybe_unused]] WPARAM wParam, 
-										LPARAM lParam) noexcept;
+	CallerT* GetWindowCaller(NotNull< HWND > window, 
+							 UINT message, 
+							 [[maybe_unused]] WPARAM wParam, 
+							 LPARAM lParam) noexcept;
 
 	/**
 	 Returns the caller of @c DialogBoxParam.
@@ -60,10 +60,10 @@ namespace mage {
 	 */
 	template< typename CallerT >
 	[[nodiscard]]
-	NotNull< CallerT* > GetDialogCaller(NotNull< HWND > window, 
-										UINT message, 
-										[[maybe_unused]] WPARAM wParam, 
-										LPARAM lParam) noexcept;
+	CallerT* GetDialogCaller(NotNull< HWND > window, 
+							 UINT message, 
+							 [[maybe_unused]] WPARAM wParam, 
+							 LPARAM lParam) noexcept;
 }
 
 //-----------------------------------------------------------------------------

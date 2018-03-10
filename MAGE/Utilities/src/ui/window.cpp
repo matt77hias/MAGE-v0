@@ -134,10 +134,14 @@ namespace mage {
 		{
 			const auto caller = GetWindowCaller< Window >
 				                (window, message, wParam, lParam);
-			LRESULT result;
-			if (caller->HandleWindowMessage(window, message, wParam, lParam, 
-											result)) {
-				return result;
+			if (caller) {
+				LRESULT result;
+				if (caller->HandleWindowMessage(window, message, 
+												wParam, lParam, 
+												result)) {
+					return result;
+				}
+
 			}
 		}
 

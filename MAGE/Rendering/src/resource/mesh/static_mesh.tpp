@@ -22,7 +22,7 @@ namespace mage::rendering {
 		             std::vector< IndexT >  indices,
 		             D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: Mesh(sizeof(VertexT), 
-			   mage::GetIndexFormat< IndexT >(),
+			   mage::rendering::GetIndexFormat< IndexT >(),
 			   primitive_topology),
 	    m_vertices(std::move(vertices)), 
 		m_indices(std::move(indices)) {
@@ -49,7 +49,7 @@ namespace mage::rendering {
 		
 		const HRESULT result = CreateStaticVertexBuffer(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
-			gsl::as_span(m_vertices));
+			gsl::make_span(m_vertices));
 		ThrowIfFailed(result, "Vertex buffer creation failed: %08X.", result);
 
 		SetNumberOfVertices(m_vertices.size());
@@ -61,7 +61,7 @@ namespace mage::rendering {
 		
 		const HRESULT result = CreateStaticIndexBuffer(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), 
-			gsl::as_span(m_indices));
+			gsl::make_span(m_indices));
 		ThrowIfFailed(result, "Index buffer creation failed: %08X.", result);
 
 		SetNumberOfIndices(m_indices.size());

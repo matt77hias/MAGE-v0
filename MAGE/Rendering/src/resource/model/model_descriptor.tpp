@@ -12,7 +12,7 @@ namespace mage::rendering {
 									 const MeshDescriptor< VertexT, IndexT >& desc, 
 									 bool export_as_MDL)
 		: Resource< ModelDescriptor >(std::move(fname)), 
-		m_mesh(device),
+		m_mesh(),
 		m_materials(), 
 		m_model_parts() {
 

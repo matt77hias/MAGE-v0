@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -20,18 +20,18 @@ namespace mage {
 
 		SponzaScene();
 
-		SponzaScene(const SponzaScene &scene) = delete;
+		SponzaScene(const SponzaScene& scene) = delete;
 
-		SponzaScene(SponzaScene &&scene);
+		SponzaScene(SponzaScene&& scene);
 
 		virtual ~SponzaScene();
 
-		SponzaScene &operator=(const SponzaScene &scene) = delete;
+		SponzaScene& operator=(const SponzaScene& scene) = delete;
 
-		SponzaScene &operator=(SponzaScene &&scene) = delete;
+		SponzaScene& operator=(SponzaScene&& scene) = delete;
 
 	private:
 
-		virtual void Load() override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
 	};
 }

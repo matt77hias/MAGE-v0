@@ -17,23 +17,26 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	TokenResult ReadQuotedString(char *str, char **context, string &result, 
-		                         const char *delimiters) {
+	TokenResult ReadQuotedString(zstring str, zstring* context, string& result,
+								 NotNull< const_zstring > delimiters) noexcept {
 		
 		Assert(str || context);
-		Assert(delimiters);
 		
-		const auto start = (str) ? SkipDelimiters(str, delimiters) 
-			                     : SkipDelimiters(*context, delimiters);
+		const auto start = (str) ? SkipDelimiters(NotNull< zstring >(str), 
+												  delimiters)
+			                     : SkipDelimiters(NotNull< zstring >(*context), 
+												  delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
 
-		const auto first_quote = str_escape_first(start, '"');
+		const auto first_quote = str_escape_first(NotNull< zstring >(start), 
+												  '"');
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
-		const auto last_quote = str_escape_first(first_quote + 1, '"');
+		const auto last_quote  = str_escape_first(NotNull< zstring >(first_quote + 1), 
+												  '"');
 		if (!last_quote) {
 			return TokenResult::Invalid;
 		}
@@ -43,7 +46,7 @@ namespace mage {
 		}
 
 		*last_quote = '\0';
-		result = first_quote + 1;
+		 result = first_quote + 1;
 		*context = last_quote + 1;
 		return TokenResult::Valid;
 	}
@@ -55,26 +58,27 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	TokenResult ContainsQuotedString(const char *str, const char *delimiters) noexcept {
-		Assert(str);
-		Assert(delimiters);
+	TokenResult ContainsQuotedString(NotNull< zstring > str,
+									 NotNull< const_zstring > delimiters) noexcept {
 		
 		const auto start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
 		
-		const auto first_quote = str_escape_first(start, '"');
+		const auto first_quote = str_escape_first(NotNull< zstring >(start), 
+												  '"');
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
-		const auto last_quote = str_escape_first(first_quote + 1, '"');
+		const auto last_quote  = str_escape_first(NotNull< zstring >(first_quote + 1), 
+												  '"');
 		if (!last_quote) {
 			return TokenResult::Invalid;
 		}
 		
-		return str_contains(delimiters, *(last_quote + 1)) ? 
-			TokenResult::Valid : TokenResult::Invalid;
+		return str_contains(delimiters, *(last_quote + 1)) ? TokenResult::Valid 
+			                                               : TokenResult::Invalid;
 	}
 
 	#pragma endregion
@@ -84,56 +88,52 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	[[nodiscard]] char *
-		SkipDelimiters(char *str, const char *delimiters) noexcept {
-		
-		Assert(str);
-		Assert(delimiters);
+	[[nodiscard]]
+	zstring SkipDelimiters(NotNull< zstring > str, 
+						   NotNull< const_zstring > delimiters) noexcept {
 
-		while ('\0' != *str && str_contains(delimiters, *str)) {
-			++str;
+		char* buffer = str;
+		while ('\0' != *buffer && str_contains(delimiters, *buffer)) {
+			++buffer;
 		}
 		
-		return ('\0' != *str) ? str : nullptr;
+		return ('\0' != *buffer) ? buffer : nullptr;
 	}
 	
-	[[nodiscard]] const char *
-		SkipDelimiters(const char *str, const char *delimiters) noexcept {
+	[[nodiscard]]
+	const_zstring SkipDelimiters(NotNull< const_zstring > str, 
+								 NotNull< const_zstring > delimiters) noexcept {
 		
-		Assert(str);
-		Assert(delimiters);
-		
-		while ('\0' != *str && str_contains(delimiters, *str)) {
-			++str;
+		const char* buffer = str;
+		while ('\0' != *buffer && str_contains(delimiters, *buffer)) {
+			++buffer;
 		}
 		
-		return ('\0' != *str) ? str : nullptr;
+		return ('\0' != *buffer) ? buffer : nullptr;
 	}
 	
-	[[nodiscard]] char *
-		GotoDelimiters(char *str, const char *delimiters) noexcept {
-		
-		Assert(str);
-		Assert(delimiters);
-		
-		while (*str != '\0' && !str_contains(delimiters, *str)) {
-			++str;
+	[[nodiscard]]
+	zstring GotoDelimiters(NotNull< zstring > str, 
+						   NotNull< const_zstring > delimiters) noexcept {
+
+		char* buffer = str;
+		while ('\0' != *buffer && !str_contains(delimiters, *buffer)) {
+			++buffer;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *buffer) ? buffer : nullptr;
 	}
 	
-	[[nodiscard]] const char *
-		GotoDelimiters(const char *str, const char *delimiters) noexcept {
-		
-		Assert(str);
-		Assert(delimiters);
-		
-		while (*str != '\0' && !str_contains(delimiters, *str)) {
-			++str;
+	[[nodiscard]]
+	const_zstring GotoDelimiters(NotNull< const_zstring > str, 
+								 NotNull< const_zstring > delimiters) noexcept {
+
+		const char* buffer = str;
+		while ('\0' != *buffer && !str_contains(delimiters, *buffer)) {
+			++buffer;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *buffer) ? buffer : nullptr;
 	}
 
 	#pragma endregion

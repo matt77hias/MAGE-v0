@@ -33,21 +33,24 @@ namespace mage {
 
 	 @return		The current local system date as a string.
 	 */
-	[[nodiscard]] const wstring GetLocalSystemDateAsString();
+	[[nodiscard]]
+	const wstring GetLocalSystemDateAsString();
 
 	/**
 	 Returns the current local system time as a string.
 
 	 @return		The current local system time as a string.
 	 */
-	[[nodiscard]] const wstring GetLocalSystemTimeAsString();
+	[[nodiscard]]
+	const wstring GetLocalSystemTimeAsString();
 
 	/**
 	 Returns the current local system date and time as a string.
 
 	 @return		The current local system date and time as a string.
 	 */
-	[[nodiscard]] const wstring GetLocalSystemDateAndTimeAsString();
+	[[nodiscard]]
+	const wstring GetLocalSystemDateAndTimeAsString();
 
 	struct SystemClock final {
 		using rep        = U64;
@@ -57,7 +60,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	#pragma endregion
@@ -75,7 +79,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	struct KernelModeCoreClock final {
@@ -86,7 +91,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	struct UserModeCoreClock final {
@@ -97,7 +103,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	struct CoreClockPerCore final {
@@ -108,7 +115,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	struct KernelModeCoreClockPerCore final {
@@ -119,7 +127,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	struct UserModeCoreClockPerCore final {
@@ -130,7 +139,8 @@ namespace mage {
 
 		static constexpr bool is_steady = true;
 
-		[[nodiscard]] static time_point now() noexcept;
+		[[nodiscard]]
+		static const time_point now() noexcept;
 	};
 
 	#pragma endregion

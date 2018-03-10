@@ -19,251 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAGE\src\camera\camera.hpp" />
-    <ClInclude Include="MAGE\src\camera\camera_settings.hpp" />
-    <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
-    <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
-    <ClInclude Include="MAGE\src\camera\fog.hpp" />
-    <ClInclude Include="MAGE\src\camera\sky.hpp" />
-    <ClInclude Include="MAGE\src\camera\viewport.hpp" />
-    <ClInclude Include="MAGE\src\core\engine.hpp" />
-    <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
-    <ClInclude Include="MAGE\src\core\engine_statistics.hpp" />
-    <ClInclude Include="MAGE\src\core\targetver.hpp" />
-    <ClInclude Include="MAGE\src\core\version.hpp" />
-    <ClInclude Include="MAGE\src\editor\widget.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imconfig.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui_impl_dx11.hpp" />
-    <ClInclude Include="MAGE\src\imgui\imgui_internal.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_rect_pack.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_textedit.hpp" />
-    <ClInclude Include="MAGE\src\imgui\stb_truetype.hpp" />
-    <ClInclude Include="MAGE\src\input\input.hpp" />
-    <ClInclude Include="MAGE\src\input\input_manager.hpp" />
-    <ClInclude Include="MAGE\src\input\keyboard.hpp" />
-    <ClInclude Include="MAGE\src\input\mouse.hpp" />
-    <ClInclude Include="MAGE\src\light\ambient_light.hpp" />
-    <ClInclude Include="MAGE\src\light\directional_light.hpp" />
-    <ClInclude Include="MAGE\src\light\omni_light.hpp" />
-    <ClInclude Include="MAGE\src\light\spot_light.hpp" />
-    <ClInclude Include="MAGE\src\loaders\dds\dds_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\dds\screen_grab.hpp" />
-    <ClInclude Include="MAGE\src\loaders\font\font_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\font\font_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\font\font_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\material_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mdl\mdl_writer.hpp" />
-    <ClInclude Include="MAGE\src\loaders\model_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\msh\msh_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\msh\msh_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\msh\msh_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\msh\msh_writer.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\mtl\mtl_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\obj\obj_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\obj\obj_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\obj\obj_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\sprite_font_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\texture_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\variable_script_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\var\var_loader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\var\var_reader.hpp" />
-    <ClInclude Include="MAGE\src\loaders\var\var_tokens.hpp" />
-    <ClInclude Include="MAGE\src\loaders\var\var_writer.hpp" />
-    <ClInclude Include="MAGE\src\loaders\wic\wic_loader.hpp" />
-    <ClInclude Include="MAGE\src\material\brdf.hpp" />
-    <ClInclude Include="MAGE\src\material\material.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\primitive_batch_mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\static_mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
-    <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\vertex.hpp" />
-    <ClInclude Include="MAGE\src\model\model.hpp" />
-    <ClInclude Include="MAGE\src\model\model_output.hpp" />
-    <ClInclude Include="MAGE\src\model\model_descriptor.hpp" />
-    <ClInclude Include="MAGE\src\rendering\aa_descriptor.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\buffer_lock.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\camera_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\constant_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\game_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\light_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\model_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\shadow_map_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\structured_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\buffer\voxel_grid.hpp" />
-    <ClInclude Include="MAGE\src\rendering\configuration.hpp" />
-    <ClInclude Include="MAGE\src\rendering\conversion.hpp" />
-    <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
-    <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
-    <ClInclude Include="MAGE\src\rendering\display_settings.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\aa_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\back_buffer_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\bounding_volume_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\deferred_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\depth_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\dof_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\lbuffer_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\sky_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\sprite_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\forward_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\voxelization_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pass\voxel_grid_pass.hpp" />
-    <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
-    <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\output_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
-    <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
-    <ClInclude Include="MAGE\src\rendering\state_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\resource_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\swap_chain.hpp" />
-    <ClInclude Include="MAGE\src\scene\component.hpp" />
-    <ClInclude Include="MAGE\src\scene\node.hpp" />
+    <ClInclude Include="MAGE\src\engine.hpp" />
+    <ClInclude Include="MAGE\src\engine_setup.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
-    <ClInclude Include="MAGE\src\scene\state.hpp" />
-    <ClInclude Include="MAGE\src\scene\transform.hpp" />
-    <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
-    <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\shader_factory.hpp" />
-    <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
-    <ClInclude Include="MAGE\src\shader\shading.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\color_string.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\glyph.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font_descriptor.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\sprite_font_output.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_text.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
-    <ClInclude Include="MAGE\src\texture\guids.hpp" />
-    <ClInclude Include="MAGE\src\texture\texture.hpp" />
-    <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
-    <ClInclude Include="MAGE\src\ui\main_window.hpp" />
-    <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
+    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MAGE\src\camera\camera.cpp" />
-    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
-    <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
-    <ClCompile Include="MAGE\src\camera\viewport.cpp" />
-    <ClCompile Include="MAGE\src\core\engine.cpp" />
-    <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
-    <ClCompile Include="MAGE\src\core\version.cpp" />
-    <ClCompile Include="MAGE\src\editor\widget.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_demo.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_draw.cpp" />
-    <ClCompile Include="MAGE\src\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="MAGE\src\input\input_manager.cpp" />
-    <ClCompile Include="MAGE\src\input\keyboard.cpp" />
-    <ClCompile Include="MAGE\src\input\mouse.cpp" />
-    <ClCompile Include="MAGE\src\light\ambient_light.cpp" />
-    <ClCompile Include="MAGE\src\light\directional_light.cpp" />
-    <ClCompile Include="MAGE\src\light\omni_light.cpp" />
-    <ClCompile Include="MAGE\src\light\spot_light.cpp" />
-    <ClCompile Include="MAGE\src\loaders\dds\dds_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\dds\screen_grab.cpp" />
-    <ClCompile Include="MAGE\src\loaders\font\font_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\font\font_reader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\material_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\mtl\mtl_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\mtl\mtl_reader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\sprite_font_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\texture_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\variable_script_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\var\var_loader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\var\var_reader.cpp" />
-    <ClCompile Include="MAGE\src\loaders\var\var_writer.cpp" />
-    <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp" />
-    <ClCompile Include="MAGE\src\material\material.cpp" />
-    <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
-    <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
-    <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
-    <ClCompile Include="MAGE\src\model\model.cpp" />
-    <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
-    <ClCompile Include="MAGE\src\rendering\buffer\shadow_map_buffer.cpp" />
-    <ClCompile Include="MAGE\src\rendering\buffer\voxel_grid.cpp" />
-    <ClCompile Include="MAGE\src\rendering\conversion.cpp" />
-    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
-    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\aa_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\back_buffer_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\bounding_volume_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\deferred_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\depth_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\dof_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\lbuffer_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\sky_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\sprite_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\forward_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\voxelization_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pass\voxel_grid_pass.cpp" />
-    <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
-    <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
-    <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
-    <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\output_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\state_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\resource_manager.cpp" />
-    <ClCompile Include="MAGE\src\rendering\swap_chain.cpp" />
-    <ClCompile Include="MAGE\src\scene\component.cpp" />
-    <ClCompile Include="MAGE\src\scene\node.cpp" />
+    <ClCompile Include="MAGE\src\engine.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
-    <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
-    <ClCompile Include="MAGE\src\scene\transform.cpp" />
-    <ClCompile Include="MAGE\src\scripting\behavior_script.cpp" />
-    <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
-    <ClCompile Include="MAGE\src\shader\shader_factory.cpp" />
-    <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
-    <ClCompile Include="MAGE\src\shader\shader.cpp" />
-    <ClCompile Include="MAGE\src\sprite\font\sprite_font.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_text.cpp" />
-    <ClCompile Include="MAGE\src\texture\texture.cpp" />
-    <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
-    <ClCompile Include="MAGE\src\ui\main_window.cpp" />
+    <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\camera\camera.tpp" />
-    <None Include="MAGE\src\loaders\mdl\mdl_loader.tpp" />
-    <None Include="MAGE\src\loaders\mdl\mdl_reader.tpp" />
-    <None Include="MAGE\src\loaders\mdl\mdl_writer.tpp" />
-    <None Include="MAGE\src\loaders\model_loader.tpp" />
-    <None Include="MAGE\src\loaders\msh\msh_loader.tpp" />
-    <None Include="MAGE\src\loaders\msh\msh_reader.tpp" />
-    <None Include="MAGE\src\loaders\msh\msh_writer.tpp" />
-    <None Include="MAGE\src\loaders\obj\obj_loader.tpp" />
-    <None Include="MAGE\src\loaders\obj\obj_reader.tpp" />
-    <None Include="MAGE\src\mesh\mesh.tpp" />
-    <None Include="MAGE\src\mesh\primitive_batch_mesh.tpp" />
-    <None Include="MAGE\src\mesh\static_mesh.tpp" />
-    <None Include="MAGE\src\model\model.tpp" />
-    <None Include="MAGE\src\model\model_descriptor.tpp" />
-    <None Include="MAGE\src\model\model_output.tpp" />
-    <None Include="MAGE\src\rendering\buffer\constant_buffer.tpp" />
-    <None Include="MAGE\src\rendering\buffer\structured_buffer.tpp" />
-    <None Include="MAGE\src\rendering\rendering_factory.tpp" />
-    <None Include="MAGE\src\rendering\state_manager.tpp" />
-    <None Include="MAGE\src\rendering\resource_manager.tpp" />
-    <None Include="MAGE\src\scene\node.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
-    <None Include="MAGE\src\scripting\variable_script.tpp" />
-    <None Include="MAGE\src\shader\shader.tpp" />
-    <None Include="MAGE\src\sprite\sprite_text.tpp" />
-    <None Include="MAGE\src\texture\texture.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
@@ -322,20 +89,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Math\src\;Utilities\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(VC_SourcePath);Math\src\;Utilities\src\;</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;GSL\src\;ImGui\src\;stb\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

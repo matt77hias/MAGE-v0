@@ -15,6 +15,7 @@
 #pragma region
 
 #include <functional>
+#include <gsl/gsl>
 #include <memory>
 #include <wrl.h>
 
@@ -40,6 +41,22 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	//-------------------------------------------------------------------------
+	// NonNull
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of not-null values.
+
+	 @tparam		T
+					The null-assignable value or pointer type.
+	 */
+	template< typename T >
+	using NotNull = gsl::not_null< T >;
+
+	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// ComPtr
@@ -83,7 +100,7 @@ namespace mage {
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	SharedPtr< T > MakeShared(ConstructorArgsT &&...args);
+	SharedPtr< T > MakeShared(ConstructorArgsT&&... args);
 
 	/**
 	 Constructs an object of type T.
@@ -97,7 +114,7 @@ namespace mage {
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	SharedPtr< T > MakeAllocatedShared(ConstructorArgsT &&...args);
+	SharedPtr< T > MakeAllocatedShared(ConstructorArgsT&&... args);
 
 	#pragma endregion
 
@@ -143,7 +160,7 @@ namespace mage {
 	 @return		A unique pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
-	UniquePtr< T > MakeUnique(ConstructorArgsT &&...args);
+	UniquePtr< T > MakeUnique(ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by statically 
@@ -158,7 +175,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename ToT, typename FromT >
-	UniquePtr< ToT > static_pointer_cast(UniquePtr< FromT > &&ptr) noexcept;
+	UniquePtr< ToT > static_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by dynamically 
@@ -173,7 +190,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename ToT, typename FromT >
-	UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT > &&ptr) noexcept;
+	UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by const 
@@ -188,7 +205,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename ToT, typename FromT >
-	UniquePtr< ToT > const_pointer_cast(UniquePtr< FromT > &&ptr) noexcept;
+	UniquePtr< ToT > const_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
 	 Creates a unique pointer whose stored pointer is obtained by reinterpret 
@@ -203,7 +220,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename ToT, typename FromT >
-	UniquePtr< ToT > reinterpret_pointer_cast(UniquePtr< FromT > &&ptr) noexcept;
+	UniquePtr< ToT > reinterpret_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	#pragma endregion
 
@@ -261,7 +278,8 @@ namespace mage {
 	 @return		Otherwise, the given handle is returned.
 
 	 */
-	[[nodiscard]] static inline HANDLE SafeHandle(HANDLE handle) noexcept {
+	[[nodiscard]]
+	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (INVALID_HANDLE_VALUE == handle) ? nullptr : handle;
 	}
 
@@ -305,7 +323,7 @@ namespace mage {
 		 @param[in]		stream
 						A pointer to a file stream to destruct.
 		 */
-		void operator()(FILE *stream) const noexcept {
+		void operator()(FILE* stream) const noexcept {
 			if (stream) {
 				fclose(stream);
 			}
@@ -343,7 +361,7 @@ namespace mage {
 		 Constructs a proxy pointer.
 		 */
 		ProxyPtr() noexcept
-			: ProxyPtr([]() noexcept -> T * {
+			: ProxyPtr([]() noexcept -> T* {
 				return nullptr;
 			}) {}
 
@@ -364,7 +382,7 @@ namespace mage {
 						The index into the container.
 		 */
 		template< typename ContainerT >
-		explicit ProxyPtr(ContainerT &container, size_t index) noexcept
+		explicit ProxyPtr(ContainerT& container, size_t index) noexcept
 			: ProxyPtr([&container, index]() noexcept {
 				return &container[index];
 			}) {}
@@ -375,7 +393,7 @@ namespace mage {
 		 @param[in]		getter
 						The getter function.
 		 */
-		explicit ProxyPtr(std::function< T *() > getter) noexcept
+		explicit ProxyPtr(std::function< T*() > getter) noexcept
 			: m_getter(std::move(getter)) {}
 
 		/**
@@ -384,7 +402,7 @@ namespace mage {
 		 @param[in]		ptr
 						A reference to the proxy pointer.
 		 */
-		ProxyPtr(const ProxyPtr &ptr) noexcept
+		ProxyPtr(const ProxyPtr& ptr) noexcept
 			: m_getter(ptr.m_getter) {}
 		
 		/**
@@ -393,7 +411,7 @@ namespace mage {
 		 @param[in]		ptr
 						A reference to the proxy pointer to move.
 		 */
-		ProxyPtr(ProxyPtr &&ptr) noexcept
+		ProxyPtr(ProxyPtr&& ptr) noexcept
 			: m_getter(std::move(ptr.m_getter)) {}
 
 		/**
@@ -405,7 +423,7 @@ namespace mage {
 						A reference to the proxy pointer.
 		 */
 		template< typename U >
-		ProxyPtr(const ProxyPtr< U > &ptr) noexcept
+		ProxyPtr(const ProxyPtr< U >& ptr) noexcept
 			: ProxyPtr(ptr.m_getter) {}
 
 		/**
@@ -417,7 +435,7 @@ namespace mage {
 						A reference to the proxy pointer to move.
 		 */
 		template< typename U >
-		ProxyPtr(ProxyPtr< U > &&ptr) noexcept
+		ProxyPtr(ProxyPtr< U >&& ptr) noexcept
 			: ProxyPtr(std::move(ptr.m_getter)) {}
 	
 		/**
@@ -437,7 +455,7 @@ namespace mage {
 		 @return		A reference to the copy of the given proxy pointer 
 						(i.e. this proxy pointer).
 		 */
-		ProxyPtr &operator=(const ProxyPtr &ptr) noexcept {
+		ProxyPtr& operator=(const ProxyPtr& ptr) noexcept {
 			m_getter = ptr.m_getter;
 			return *this;
 		}
@@ -450,7 +468,7 @@ namespace mage {
 		 @return		A reference to the moved proxy pointer (i.e. this proxy 
 						pointer).
 		 */
-		ProxyPtr &operator=(ProxyPtr &&ptr) noexcept {
+		ProxyPtr& operator=(ProxyPtr&& ptr) noexcept {
 			m_getter = std::move(ptr.m_getter);
 			return *this;
 		}
@@ -472,7 +490,7 @@ namespace mage {
 		 @return		A reference to the memory resource pointed to by this 
 						proxy pointer.
 		 */
-		T &operator*() const noexcept {
+		T& operator*() const noexcept {
 			return *Get();
 		}
 
@@ -482,7 +500,7 @@ namespace mage {
 		 @return		A pointer to the memory resource pointed to by this 
 						proxy pointer.
 		 */
-		T *operator->() const noexcept {
+		T* operator->() const noexcept {
 			return Get();
 		}
 
@@ -492,7 +510,8 @@ namespace mage {
 		 @return		A pointer to the memory resource pointed to by this 
 						proxy pointer.
 		 */
-		[[nodiscard]] T *Get() const noexcept {
+		[[nodiscard]]
+		T* Get() const noexcept {
 			return m_getter();
 		}
 
@@ -507,7 +526,8 @@ namespace mage {
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
-		[[nodiscard]] bool operator==(const ProxyPtr< U >& rhs) const noexcept {
+		[[nodiscard]]
+		bool operator==(const ProxyPtr< U >& rhs) const noexcept {
 			return Get() == rhs.Get(); 
 		}
 		
@@ -523,7 +543,8 @@ namespace mage {
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
-		[[nodiscard]] bool operator!=(const ProxyPtr< U >& rhs) const noexcept {
+		[[nodiscard]]
+		bool operator!=(const ProxyPtr< U >& rhs) const noexcept {
 			return !(*this == rhs);
 		}
 
@@ -534,7 +555,7 @@ namespace mage {
 		/**
 		 The getter of this proxy pointer. 
 		 */
-		std::function< T *() > m_getter;
+		std::function< T*() > m_getter;
 	};
 
 	/**
@@ -548,8 +569,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator==(const ProxyPtr< T >& lhs,
-		                                 std::nullptr_t) noexcept {
+	[[nodiscard]]
+	inline bool operator==(const ProxyPtr< T >& lhs, std::nullptr_t) noexcept {
 		return !bool(lhs);
 	}
 
@@ -564,8 +585,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator!=(const ProxyPtr< T >& lhs,
-		                                 std::nullptr_t) noexcept {
+	[[nodiscard]]
+	inline bool operator!=(const ProxyPtr< T >& lhs, std::nullptr_t) noexcept {
 		return bool(lhs);
 	}
 
@@ -580,8 +601,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator==(std::nullptr_t,
-		                                 const ProxyPtr< T >& rhs) noexcept {
+	[[nodiscard]]
+	inline bool operator==(std::nullptr_t, const ProxyPtr< T >& rhs) noexcept {
 		return !bool(rhs);
 	}
 
@@ -596,8 +617,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	template< typename T >
-	[[nodiscard]] inline bool operator!=(std::nullptr_t,
-		                                 const ProxyPtr< T >& rhs) noexcept {
+	[[nodiscard]]
+	inline bool operator!=(std::nullptr_t, const ProxyPtr< T >& rhs) noexcept {
 		return bool(rhs);
 	}
 
@@ -614,7 +635,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept;
+	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by statically 
@@ -629,7 +650,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept;
+	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by dynamically 
@@ -644,7 +665,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > dynamic_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept;
+	ProxyPtr< ToT > dynamic_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by dynamically 
@@ -659,7 +680,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > dynamic_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept;
+	ProxyPtr< ToT > dynamic_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by const 
@@ -674,7 +695,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > const_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept;
+	ProxyPtr< ToT > const_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by const 
@@ -689,7 +710,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > const_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept;
+	ProxyPtr< ToT > const_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by reinterpret 
@@ -704,7 +725,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > reinterpret_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept;
+	ProxyPtr< ToT > reinterpret_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
 	 Creates a proxy pointer whose stored getter is obtained by reinterpret 
@@ -719,7 +740,7 @@ namespace mage {
 	 @return		The moved proxy pointer.
 	 */
 	template< typename ToT, typename FromT >
-	ProxyPtr< ToT > reinterpret_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept;
+	ProxyPtr< ToT > reinterpret_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept;
 
 	#pragma endregion
 }

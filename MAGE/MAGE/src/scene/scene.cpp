@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "resource\model\material_factory.hpp"
 
 #pragma endregion
 
@@ -24,65 +25,49 @@ namespace mage {
 	Scene::Scene(string name)
 		: m_name(std::move(name)),
 		m_nodes(),
-		m_perspective_cameras(),
-		m_orthographic_cameras(),
-		m_ambient_lights(),
-		m_directional_lights(),
-		m_omni_lights(),
-		m_spot_lights(),
-		m_models(),
-		m_sprite_images(),
-		m_sprite_texts(),
 		m_scripts() {}
 
-	Scene::Scene(Scene &&scene) noexcept = default;
+	Scene::Scene(Scene&& scene) noexcept = default;
 
 	Scene::~Scene() = default;
 
-	Scene &Scene::operator=(Scene &&scene) noexcept = default;
+	Scene& Scene::operator=(Scene&& scene) noexcept = default;
 	
 	//-------------------------------------------------------------------------
 	// Scene Member Methods: Lifecycle
 	//-------------------------------------------------------------------------
 
-	void Scene::Initialize() {
+	void Scene::Initialize(Engine& engine) {
 		// Loads this scene.
-		Load();
+		Load(engine);
 
 		// Loads the behavior scripts of this scene.
-		ForEach< BehaviorScript >([](BehaviorScript &script) {
-			script.Load();
+		ForEach< BehaviorScript >([&engine](BehaviorScript& script) {
+			script.Load(engine);
 		});
 	}
 	
-	void Scene::Uninitialize() {
+	void Scene::Uninitialize(Engine& engine) {
 		// Closes the behavior scripts of this scene.
-		ForEach< BehaviorScript >([](BehaviorScript &script) {
-			script.Close();
+		ForEach< BehaviorScript >([&engine](BehaviorScript& script) {
+			script.Close(engine);
 		});
 		
 		// Closes this scene.
-		Close();
+		Close(engine);
+
+		engine.GetRenderingManager().GetWorld().Clear();
 
 		// Clears this scene.
 		Clear();
 	}
 
-	void Scene::Load() {}
+	void Scene::Load([[maybe_unused]] Engine& engine) {}
 	
-	void Scene::Close() {}
+	void Scene::Close([[maybe_unused]] Engine& engine) {}
 
 	void Scene::Clear() noexcept {
 		m_nodes.clear();
-		m_perspective_cameras.clear();
-		m_orthographic_cameras.clear();
-		m_ambient_lights.clear();
-		m_directional_lights.clear();
-		m_omni_lights.clear();
-		m_spot_lights.clear();
-		m_models.clear();
-		m_sprite_images.clear();
-		m_sprite_texts.clear();
 		m_scripts.clear();
 	}
 
@@ -90,47 +75,51 @@ namespace mage {
 	// Scene Member Methods
 	//-------------------------------------------------------------------------
 
-	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc) {
+	ProxyPtr< Node > Scene::Import(Engine& engine, 
+								   const rendering::ModelDescriptor &desc) {
 		std::vector< ProxyPtr< Node > > nodes;
-		return Import(desc, nodes);
+		return Import(engine, desc, nodes);
 	}
 
-	ProxyPtr< Node > Scene::Import(const ModelDescriptor &desc, 
-		std::vector< ProxyPtr< Node > > &nodes) {
+	ProxyPtr< Node > Scene::Import(Engine& engine, 
+								   const rendering::ModelDescriptor &desc,
+								   std::vector< ProxyPtr< Node > > &nodes) {
 
+		using namespace rendering;
 		using ModelPtr = ProxyPtr< Model >;
 		using NodePtr  = ProxyPtr< Node >;
 		using NodePair = std::pair< NodePtr, string >;
-		
+
 		std::map< string, NodePair > mapping;
 		NodePtr root;
 		size_t nb_root_childs = 0;
 
+		auto& rendering_manager = engine.GetRenderingManager();
+		auto& world             = rendering_manager.GetWorld();
+		auto& resource_manager  = rendering_manager.GetResourceManager();
+		auto default_material   = CreateDefaultMaterial(resource_manager);
+		
 		// Create the nodes with their model components.
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
+		desc.ForEachModelPart([&](const rendering::ModelPart& model_part) {
 			// Create the node.
 			auto node = Create< Node >(model_part.m_child);
 			
 			// Create the model component.
-			const auto model = Create< Model >(desc.GetMesh(),
-				                               model_part.m_start_index,
-				                               model_part.m_nb_indices,
-				                               model_part.m_aabb,
-				                               model_part.m_sphere);
+			auto model = world.Create< Model >();
+			
+			// Set the mesh of the model component.
+			model->SetMesh(desc.GetMesh(), 
+						   model_part.m_start_index, 
+						   model_part.m_nb_indices, 
+						   model_part.m_aabb, 
+						   model_part.m_sphere);
 			
 			// Set the material of the model component.
-			if (!model_part.HasDefaultMaterial()) {
-				const Material * const material 
-					= desc.GetMaterial(model_part.m_material);
-				ThrowIfFailed((nullptr != material),
-					"%ls: material '%s' not found.",
-					desc.GetGuid().c_str(), model_part.m_material.c_str());
-				
-				model->GetMaterial() = *material;
-			}
+			const auto material = desc.GetMaterial(model_part.m_material);
+			model->GetMaterial() = (material) ? *material : default_material;
 
 			// Set the transform of the node.
-			auto &transform = node->GetTransform();
+			auto& transform = node->GetTransform();
 			transform.SetLocalTransform(model_part.m_transform);
 
 			// Add the model component to the node.
@@ -150,8 +139,8 @@ namespace mage {
 		});
 
 		// There must be at least one root node.
-		ThrowIfFailed((0 != nb_root_childs),
-			"%ls: no root node fount.", desc.GetGuid().c_str());
+		ThrowIfFailed((0 != nb_root_childs), 
+					  "%ls: no root node fount.", desc.GetGuid().c_str());
 
 		// An additional root node needs to be created if multiple root nodes 
 		// are present.
@@ -165,9 +154,9 @@ namespace mage {
 		}
 
 		// Connect the nodes.
-		for (const auto &model_pair : mapping) {
-			const auto &[child, parent] = model_pair.second;
-			if (MAGE_MDL_PART_DEFAULT_PARENT == parent) {
+		for (const auto& model_pair : mapping) {
+			const auto& [child, parent] = model_pair.second;
+			if (ModelPart::s_default_parent == parent) {
 				if (create_root_model_node) {
 					root->AddChild(child);
 				}

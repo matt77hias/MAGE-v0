@@ -22,7 +22,8 @@ namespace mage {
 	 @return		@c true if a file with the given filename exists. @c false 
 					otherwise.
 	 */
-	[[nodiscard]] bool FileExists(const wstring &fname) noexcept;
+	[[nodiscard]]
+	bool FileExists(const wstring& fname) noexcept;
 
 	/**
 	 Returns the filename of the given file.
@@ -37,8 +38,8 @@ namespace mage {
 	 @return		The filename of the given file.
 	 */
 	template< typename StringT >
-	[[nodiscard]] const StringT 
-		GetFilename(const StringT &path, const StringT &name);
+	[[nodiscard]]
+	const StringT GetFilename(const StringT& path, const StringT& name);
 
 	/**
 	 Returns the extension of the given file.
@@ -52,7 +53,8 @@ namespace mage {
 					The filename does not have a file extension.
 	 */
 	template< typename StringT >
-	[[nodiscard]] const StringT GetFileExtension(const StringT &fname);
+	[[nodiscard]]
+	const StringT GetFileExtension(const StringT& fname);
 
 	/**
 	 Returns the name of the given file.
@@ -66,7 +68,8 @@ namespace mage {
 					The filename does not have a file path.
 	 */
 	template< typename StringT >
-	[[nodiscard]] const StringT GetFileName(const StringT &fname);
+	[[nodiscard]]
+	const StringT GetFileName(const StringT& fname);
 
 	/**
 	 Returns the path of the given file.
@@ -80,7 +83,8 @@ namespace mage {
 					The filename does not have a file path.
 	 */
 	template< typename StringT >
-	[[nodiscard]] const StringT GetPathName(const StringT &fname);
+	[[nodiscard]]
+	const StringT GetPathName(const StringT& fname);
 
 	/**
 	 Returns the filename of the given file without its file extension.
@@ -94,8 +98,8 @@ namespace mage {
 					The filename does not have a file extension.
 	 */
 	template< typename StringT >
-	[[nodiscard]] const StringT
-		GetFilenameWithoutFileExtension(const StringT &fname);
+	[[nodiscard]]
+	const StringT GetFilenameWithoutFileExtension(const StringT& fname);
 }
 
 //-----------------------------------------------------------------------------

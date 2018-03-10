@@ -1,5 +1,4 @@
 #include "samples\sponza\sponza_scene.hpp"
-#include "logging\dump.hpp"
 
 using namespace mage;
 
@@ -21,22 +20,12 @@ using namespace mage;
  */
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 
-	#ifdef _DEBUG
-	const int debug_flags = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
-	// Perform automatic leak checking at program exit through a call to 
-	// _CrtDumpMemoryLeaks and generate an error report if the application 
-	// failed to free all the memory it allocated.
-	_CrtSetDbgFlag(debug_flags | _CRTDBG_LEAK_CHECK_DF);
-	#endif
-
-	AddUnhandledExceptionFilter();
-
 	// Create the engine setup.
-	EngineSetup setup(instance, L"MAGE");
+	EngineSetup setup(instance);
+	
 	// Create the engine.
-	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
-
-	if (engine->IsLoaded()) {
+	UniquePtr< Engine > engine = CreateEngine(setup);
+	if (engine) {
 		// Run the engine.
 		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);
 	}

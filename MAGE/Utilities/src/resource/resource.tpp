@@ -19,26 +19,24 @@ namespace mage {
 		: m_guid(std::move(guid)) {}
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(Resource &&resource) noexcept = default;
+	Resource< ResourceT >::Resource(Resource&& resource) noexcept = default;
 
 	template< typename ResourceT >
 	Resource< ResourceT >::~Resource() = default;
 
 	template< typename ResourceT >
-	Resource< ResourceT > &Resource< ResourceT >
-		::operator=(Resource &&resource) noexcept = default;
+	Resource< ResourceT >& Resource< ResourceT >
+		::operator=(Resource&& resource) noexcept = default;
 
 	template< typename ResourceT >
-	[[nodiscard]] inline const wstring Resource< ResourceT >
-		::GetName() const {
-		
+	[[nodiscard]]
+	inline const wstring Resource< ResourceT >::GetName() const {
 		return GetFileName(GetFilename());
 	}
 
 	template< typename ResourceT >
-	[[nodiscard]] inline const wstring Resource< ResourceT >
-		::GetPath() const {
-		
+	[[nodiscard]]
+	inline const wstring Resource< ResourceT >::GetPath() const {
 		return GetPathName(GetFilename());
 	}
 }

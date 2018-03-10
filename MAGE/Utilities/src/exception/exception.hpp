@@ -47,22 +47,20 @@ namespace mage {
 		/**
 		 Constructs a formatted exception.
 
-		 @pre			@a format is not equal to @c nullptr.
 		 @param[in]		format
 						Pointer to the message format.
 		 */
-		explicit Exception(const char *format, ...);
+		explicit Exception(NotNull< const_zstring > format, ...);
 
 		/**
 		 Constructs a formatted exception.
 
-		 @pre			@a format is not equal to @c nullptr.
 		 @param[in]		format
 						Pointer to the message format.
 		 @param[in]		args
 						The variable argument list.
 		 */
-		explicit Exception(const char *format, va_list args);
+		explicit Exception(NotNull< const_zstring > format, va_list args);
 
 		/**
 		 Constructs a formatted exception from the given formatted exception.
@@ -70,7 +68,7 @@ namespace mage {
 		 @param[in]		exception
 						A reference to a formatted exception to copy.
 		 */
-		Exception(const Exception &exception);
+		Exception(const Exception& exception);
 
 		/**
 		 Constructs a formatted exception by moving the given formatted 
@@ -79,7 +77,7 @@ namespace mage {
 		 @param[in]		exception
 						A reference to a formatted exception to move.
 		 */
-		Exception(Exception &&exception);
+		Exception(Exception&& exception);
 		
 		/**
 		 Destructs this formatted exception.
@@ -98,7 +96,7 @@ namespace mage {
 		 @return		A reference to the copy of the given formatted 
 						exception (i.e. this formatted exception).
 		 */
-		Exception &operator=(const Exception &exception);
+		Exception& operator=(const Exception& exception);
 		
 		/**
 		 Moves the given formatted exception to this formatted exception.
@@ -108,7 +106,7 @@ namespace mage {
 		 @return		A reference to the moved formatted exception (i.e. 
 						this formatted exception).
 		 */
-		Exception &operator=(Exception &&exception);
+		Exception& operator=(Exception&& exception);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -121,9 +119,7 @@ namespace mage {
 		 @return		A null-terminated byte string that may be used to 
 						identify the exception.
 		 */
-		virtual const char *what() const noexcept override {
-			return m_text;
-		}
+		virtual const char* what() const noexcept override;
 
 	private:
 
@@ -153,10 +149,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	static_assert(!std::is_same< bool, BOOL >::value,
-		"MAGE/Windows primitive type mismatch");
-	static_assert(!std::is_same< BOOL, HRESULT >::value,
-		"MAGE/Windows primitive type mismatch");
+	static_assert(!std::is_same< bool, BOOL >::value, 
+				  "MAGE/Windows primitive type mismatch");
+	static_assert(!std::is_same< BOOL, HRESULT >::value, 
+				  "MAGE/Windows primitive type mismatch");
 
 	/**
 	 Throws if the given result correspond to a failure.
@@ -171,7 +167,6 @@ namespace mage {
 	/**
 	 Throws if the given result correspond to a failure.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
@@ -179,7 +174,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(bool result, const char *format, ...);
+	void ThrowIfFailed(bool result, NotNull< const_zstring > format, ...);
 
 	/**
 	 Throws if the given result correspond to a failure.
@@ -194,7 +189,6 @@ namespace mage {
 	/**
 	 Throws if the given result correspond to a failure.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
@@ -202,7 +196,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(BOOL result, const char *format, ...);
+	void ThrowIfFailed(BOOL result, NotNull< const_zstring > format, ...);
 
 	/**
 	 Throws if the given result correspond to a failure.
@@ -217,7 +211,6 @@ namespace mage {
 	/**
 	 Throws if the given result correspond to a failure.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		result
 					The result value.
 	 @param[in]		format
@@ -225,7 +218,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(HRESULT result, const char *format, ...);
+	void ThrowIfFailed(HRESULT result, NotNull< const_zstring > format, ...);
 
 	#pragma endregion
 }

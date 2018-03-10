@@ -5,6 +5,7 @@
 
 #include "logging\progress_reporter.hpp"
 #include "logging\logging.hpp"
+#include "system\timer.hpp"
 
 #pragma endregion
 
@@ -14,18 +15,190 @@
 #pragma region
 
 #include <algorithm>
+#include <mutex>
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ProgressReporter::ProgressReporter(const string &title, 
-		                               U32 nb_work, 
-		                               char progress_char, 
-		                               U16 bar_length)
+	//-------------------------------------------------------------------------
+	// ProgressReporter::Impl
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of progress reporters.
+	 */
+	class ProgressReporter::Impl final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a progress reporter.
+
+		 @param[in]		title
+						A reference to the title.
+		 @param[in]		nb_work
+						The total number of work units.
+		 @param[in]		progress_char
+						The character representing the progress.
+		 @param[in]		bar_length
+						The length of the progress bar. If @a bar_length is 
+						equal to 0 the default length will be chosen.
+		 */
+		explicit Impl(const string& title, 
+					  U32 nb_work, 
+					  char progress_char = '+', 
+					  U16 bar_length = 0u);
+
+		/**
+		 Constructs a progress reporter from the given progress reporter.
+
+		 @param[in]		reporter
+						A reference to the progress reporter to copy.
+		 */
+		Impl(const Impl& reporter) = delete;
+
+		/**
+		 Constructs a progress reporter by moving the given progress reporter.
+
+		 @param[in]		reporter
+						A reference to the progress reporter to move.
+		 */
+		Impl(Impl&& reporter) noexcept;
+
+		/**
+		 Destructs this progress reporter.
+		 */
+		~Impl();
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given progress reporter to this progress reporter.
+
+		 @param[in]		reporter
+						A reference to the progress reporter to copy.
+		 @return		A reference to the copy of the given progress reporter
+						(i.e. this progress reporter).
+		 */
+		Impl& operator=(const Impl& reporter) = delete;
+
+		/**
+		 Copies the given progress reporter to this progress reporter.
+
+		 @param[in]		reporter
+						A reference to the progress reporter to move.
+		 @return		A reference to moved progress reporter (i.e. this 
+						progress reporter).
+		 */
+		Impl& operator=(Impl&& reporter) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates this progress reporter.
+
+		 @param[in]		nb_work
+						The number of work units that are done.
+		 */
+		void Update(U32 nb_work = 1u);
+		
+		/**
+		 Finishes this progress reporter.
+		 */
+		void Done();
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes this progress reporter.
+
+		 @param[in]		title
+						A reference to the title.
+		 @param[in]		bar_length
+						The length of the progress bar. If @a bar_length is 
+						equal to 0 the default length will be chosen.
+		 */
+		void Initialize(const string& title, U16 bar_length = 0u);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The total number of work units that need to be done.
+		 */
+		U32 m_nb_work_total;
+
+		/**
+		 The number of work units that are currently done.
+		 */
+		U32 m_nb_work_done;
+
+		/**
+		 The total number of progress characters that need to be outputted by 
+		 this progress reporter.
+		 */
+		U16 m_nb_progress_total;
+
+		/**
+		 The total number of progress characters that are currently outputted 
+		 by this progress reporter.
+		 */
+		U16 m_nb_progress_printed;
+
+		/**
+		 The progress character of this progress reporter.
+		 */
+		char m_progress_char;
+
+		/**
+		 A pointer to the output file stream of this progress reporter.
+		 */
+		FILE* m_fout;
+
+		/**
+		 A pointer to the output buffer of this progress reporter.
+		 */
+		UniquePtr< char[] > m_buffer;
+
+		/**
+		 A pointer to the current character in the output buffer of this progress 
+		 reporter.
+		 */
+		char* m_current_pos;
+
+		/**
+		 The timer of this progress reporter.
+		 */
+		WallClockTimer m_timer;
+
+		/**
+		 The mutex of this progress reporter.
+		 */
+		std::mutex m_mutex;
+	};
+
+	ProgressReporter::Impl::Impl(const string& title, 
+								 U32 nb_work, 
+								 char progress_char, 
+								 U16 bar_length)
 		: m_nb_work_total(nb_work), 
 		m_nb_work_done(0u), 
 		m_nb_progress_total(),
@@ -40,14 +213,36 @@ namespace mage {
 		Initialize(title, bar_length);
 	}
 
-	ProgressReporter::~ProgressReporter() = default;
+	ProgressReporter::Impl::Impl(Impl&& reporter) noexcept 
+		: m_mutex() {
+		
+		const std::lock_guard< std::mutex > lock(reporter.m_mutex);
 
-	void ProgressReporter::Initialize(const string &title, U16 bar_length) {
+		m_nb_work_total       = reporter.m_nb_work_total;
+		m_nb_work_done        = reporter.m_nb_work_done;
+		m_nb_progress_total   = reporter.m_nb_progress_total;
+		m_nb_progress_printed = reporter.m_nb_progress_printed;
+		m_progress_char       = reporter.m_progress_char;
+		m_fout                = reporter.m_fout;
+		m_buffer              = std::move(reporter.m_buffer);
+		m_current_pos         = reporter.m_current_pos;
+		m_timer               = std::move(reporter.m_timer);
+	}
+
+	ProgressReporter::Impl::~Impl() = default;
+
+	void ProgressReporter::Impl::Initialize(const string& title, 
+											U16 bar_length) {
+		
+		const std::lock_guard< std::mutex > lock(m_mutex);
+		
 		if (0u == bar_length) {
 			bar_length = ConsoleWidth() - U16(28u);
 		}
 
-		m_nb_progress_total = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
+		m_nb_work_done        = 0u;
+		m_nb_progress_printed = 0u;
+		m_nb_progress_total   = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
 		
 		// Initialize the output buffer.
 		const size_t buffer_length = title.size() + m_nb_progress_total + 64;
@@ -76,7 +271,7 @@ namespace mage {
 		m_timer.Start();
 	}
 
-	void ProgressReporter::Update(U32 nb_work) {
+	void ProgressReporter::Impl::Update(U32 nb_work) {
 		if (0u == nb_work || LoggingConfiguration::Get().IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
@@ -114,7 +309,7 @@ namespace mage {
 		fflush(m_fout);
 	}
 
-	void ProgressReporter::Done() {
+	void ProgressReporter::Impl::Done() {
 		if (LoggingConfiguration::Get().IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
@@ -138,4 +333,35 @@ namespace mage {
 	
 		fflush(m_fout);
 	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// ProgressReporter
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	ProgressReporter::ProgressReporter(const string& title, 
+									   U32 nb_work, 
+									   char progress_char, 
+									   U16 bar_length)
+		: m_impl(MakeUnique< Impl >(title, 
+									nb_work, 
+									progress_char, 
+									bar_length)) {}
+
+	ProgressReporter::ProgressReporter(
+		ProgressReporter&& reporter) noexcept = default;
+	
+	ProgressReporter::~ProgressReporter() = default;
+
+	void ProgressReporter::Update(U32 nb_work) {
+		m_impl->Update(nb_work);
+	}
+
+	void ProgressReporter::Done() {
+		m_impl->Done();
+	}
+
+	#pragma endregion
 }

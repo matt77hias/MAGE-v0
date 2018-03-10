@@ -3,9 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "logging\logging.hpp"
 #include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 
@@ -24,122 +23,132 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 An enumeration of error dispositions.
+	namespace {
+
+		/**
+		 An enumeration of error dispositions.
 	
-	This contains: 
-	 @c Ignore, 
-	 @c Continue and 
-	 @c Abort.
-	 */
-	enum class [[nodiscard]] ErrorDisposition : U8 {
-		Ignore,	  // Ignore and continue execution.
-		Continue, // Report and continue execution.
-		Abort     // Report and abort exceution.
-	};
+		This contains: 
+		 @c Ignore, 
+		 @c Continue and 
+		 @c Abort.
+		 */
+		enum class [[nodiscard]] ErrorDisposition : U8 {
+			Ignore,	  // Ignore and continue execution.
+			Continue, // Report and continue execution.
+			Abort     // Report and abort exceution.
+		};
 
-	/**
-	 Finds the start of a word.
+		/**
+		 Finds the start of the next word.
 
-	 @pre			@a buffer is not equal to @c nullptr.
-	 @param[in]		buffer
-					A pointer to the first character.
-	 @return		A pointer to the start of the word.
-					(i.e. pointer to a space or null-terminating character)
-	 */
-	[[nodiscard]] static const char *FindWordStart(const char *buffer) {
-		while ('\0' != *buffer && isspace(*buffer)) {
-			++buffer;
-		}
+		 @param[in]		str
+						A pointer to the null-terminated string.
+		 @return		A pointer to the null-terminating character if the end of 
+						the given string is reached.
+		 @return		A pointer to the start of the next word.
+		 */
+		[[nodiscard]]
+		inline NotNull< const_zstring > 
+			FindWordStart(NotNull< const_zstring > str) noexcept {
 
-		return buffer;
-	}
-
-	/**
-	 Finds the end of a word.
-
-	 @pre			@a buffer is not equal to @c nullptr.
-	 @param[in]		buffer
-					A pointer to the first character.
-	 @return		A pointer to the end of the word.
-					(i.e. pointer to a space or null-terminating character)
-	 */
-	[[nodiscard]] static const char *FindWordEnd(const char *buffer) {
-		while ('\0' != *buffer && !isspace(*buffer)) {
-			++buffer;
-		}
-
-		return buffer;
-	}
-
-	/**
-	 Process the given error.
-
-	 @pre			@a format is not equal to @c nullptr.
-	 @param[in]		format
-					The format of the error string.
-	 @param[in]		args
-					The arguments of the format string.
-	 @param[in]		error_type
-					The type of the error.
-	 @param[in]		disposition
-					The disposition of the error.
-	 */
-	static void ProcessError(const char *format, 
-		                     const va_list args,
-		                     const string &error_type, 
-		                     ErrorDisposition disposition) {
-
-		if (ErrorDisposition::Ignore == disposition) {
-			return;
-		}
-
-		// Print formatted error message
-		const size_t width  = std::max(20, ConsoleWidth() - 2);
-		string error_string = error_type + ": ";
-		auto error_pos    = error_string.size();
-
-		char error_buffer[2048];
-		vsnprintf_s(error_buffer, std::size(error_buffer), 
-			        _TRUNCATE, format, args);
-
-		const auto *msg_pos = error_buffer;
-		while (true) {
-			msg_pos = FindWordStart(msg_pos);
-
-			if ('\0' == *msg_pos) {
-				break;
+			const char* buffer = str;
+			while ('\0' != *buffer && isspace(*buffer)) {
+				++buffer;
 			}
 
-			// false == isspace(*msg_pos)
+			return buffer;
+		}
 
-			const auto word_end  = FindWordEnd(msg_pos);
-			if (const auto word_length 
-				= static_cast< size_t >(word_end - msg_pos);
-				width < error_pos + word_length) {
+		/**
+		 Finds the end of the current word.
 
-				error_string += "\n    ";
-				error_pos     = 4;
+		 @param[in]		buffer
+						A pointer to the null-terminated string.
+		 @return		A pointer to the null-terminating character if the end of 
+						the given string is reached.
+		 @return		A pointer to the end of the current word (i.e. space).
+		 */
+		[[nodiscard]]
+		inline NotNull< const_zstring > 
+			FindWordEnd(NotNull< const_zstring > str) noexcept {
+		
+			const char* buffer = str;
+			while ('\0' != *buffer && !isspace(*buffer)) {
+				++buffer;
 			}
 
-			while (word_end != msg_pos) {
-				error_string += *msg_pos;
-				++msg_pos;
+			return buffer;
+		}
+
+		/**
+		 Process the given error.
+
+		 @param[in]		format
+						The format of the error string.
+		 @param[in]		args
+						The arguments of the format string.
+		 @param[in]		error_type
+						The type of the error.
+		 @param[in]		disposition
+						The disposition of the error.
+		 */
+		void ProcessError(NotNull< const_zstring > format, 
+						  const va_list args, 
+						  const string& error_type, 
+						  ErrorDisposition disposition) {
+
+			if (ErrorDisposition::Ignore == disposition) {
+				return;
+			}
+
+			// Print formatted error message
+			const size_t width  = std::max(20, ConsoleWidth() - 2);
+			string error_string = error_type + ": ";
+			auto error_pos      = error_string.size();
+
+			char error_buffer[2048];
+			vsnprintf_s(error_buffer, std::size(error_buffer), 
+						_TRUNCATE, format, args);
+
+			const auto* msg_pos = error_buffer;
+			while (true) {
+				msg_pos = FindWordStart(msg_pos);
+
+				if ('\0' == *msg_pos) {
+					break;
+				}
+
+				// false == isspace(*msg_pos)
+
+				const auto word_end  = FindWordEnd(msg_pos);
+				if (const auto word_length 
+					= static_cast< size_t >(word_end - msg_pos);
+					width < error_pos + word_length) {
+
+					error_string += "\n    ";
+					error_pos     = 4;
+				}
+
+				while (word_end != msg_pos) {
+					error_string += *msg_pos;
+					++msg_pos;
+					++error_pos;
+				}
+
+				error_string += ' ';
 				++error_pos;
 			}
 
-			error_string += ' ';
-			++error_pos;
-		}
+			fprintf(stderr, "%s\n", error_string.c_str());
 
-		fprintf(stderr, "%s\n", error_string.c_str());
-
-		if (ErrorDisposition::Abort == disposition) {
-			__debugbreak();
+			if (ErrorDisposition::Abort == disposition) {
+				__debugbreak();
+			}
 		}
 	}
 
-	void Debug([[maybe_unused]] const char *format, ...) {
+	void Debug([[maybe_unused]] NotNull< const_zstring > format, ...) {
 		#ifdef _DEBUG
 		if (!LoggingConfiguration::Get().IsVerbose() 
 			|| LoggingConfiguration::Get().IsQuiet()) {
@@ -151,7 +160,8 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
+		const char* const c_str = format;
+		va_start(args, c_str);
 		
 		ProcessError(format, args, "Debug Info", ErrorDisposition::Continue);
 		
@@ -160,7 +170,7 @@ namespace mage {
 		#endif
 	}
 
-	void Info(const char *format, ...) {
+	void Info(NotNull< const_zstring > format, ...) {
 		if (!LoggingConfiguration::Get().IsVerbose() 
 			|| LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process info in non-verbose mode.
@@ -171,7 +181,8 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
+		const char* const c_str = format;
+		va_start(args, c_str);
 		
 		ProcessError(format, args, "Info", ErrorDisposition::Continue);
 		
@@ -179,7 +190,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Warning(const char *format, ...) {
+	void Warning(NotNull< const_zstring > format, ...) {
 		if (LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
@@ -188,7 +199,8 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
+		const char* const c_str = format;
+		va_start(args, c_str);
 		
 		ProcessError(format, args, "Warning", ErrorDisposition::Continue);
 		
@@ -196,11 +208,12 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Error(const char *format, ...) {
+	void Error(NotNull< const_zstring > format, ...) {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
+		const char* const c_str = format;
+		va_start(args, c_str);
 		
 		ProcessError(format, args, "Error", ErrorDisposition::Continue);
 		
@@ -208,12 +221,13 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Fatal(const char *format, ...) {
+	void Fatal(NotNull< const_zstring > format, ...) {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		va_start(args, format);
-		
+		const char* const c_str = format;
+		va_start(args, c_str);
+
 		ProcessError(format, args, "Fatal Error", ErrorDisposition::Abort);
 		
 		// End using variable argument list.

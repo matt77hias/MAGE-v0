@@ -22,11 +22,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	[[nodiscard]] char *
-		str_escape_first(char *str, char c) noexcept {
-		
-		Assert(str);
-		
+	[[nodiscard]]
+	zstring str_escape_first(NotNull< zstring > str, char c) noexcept {
 		auto input = str;
 		while (true) {
 			auto result = strchr(input, static_cast< int >(c));
@@ -49,11 +46,9 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const char *
-		str_escape_first(const char *str, char c) noexcept {
-		
-		Assert(str);
-		
+	[[nodiscard]]
+	const_zstring str_escape_first(NotNull< const_zstring > str, 
+								   char c) noexcept {
 		auto input = str;
 		while (true) {
 			const auto result = strchr(input, static_cast< int >(c));
@@ -76,11 +71,8 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] wchar_t *
-		str_escape_first(wchar_t *str, wchar_t c) noexcept {
-		
-		Assert(str);
-		
+	[[nodiscard]]
+	wzstring str_escape_first(NotNull< wzstring > str, wchar_t c) noexcept {
 		auto input = str;
 		while (true) {
 			auto result = wcschr(input, c);
@@ -103,11 +95,9 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] const wchar_t *
-		str_escape_first(const wchar_t *str, wchar_t c) noexcept {
-		
-		Assert(str);
-		
+	[[nodiscard]]
+	const_wzstring str_escape_first(NotNull< const_wzstring > str, 
+									wchar_t c) noexcept {
 		auto input = str;
 		while (true) {
 			const auto result = wcschr(input, c);
@@ -130,19 +120,20 @@ namespace mage {
 		}
 	}
 
-	[[nodiscard]] char *
-		str_gets(char *str, size_t num, const char **input) noexcept {
-		
-		Assert(str);
-		Assert(input);
+	[[nodiscard]]
+	zstring str_gets(NotNull< char* > str,
+					 size_t num,
+					 NotNull< NotNull< const_zstring >* > input) noexcept {
 
-		auto next = *input;
-		size_t num_read = 0u;
+		char* buffer     = str;
+		const char* next = *input;
+		size_t num_read  = 0u;
+		
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
 			const auto is_new_line = ('\n' == *next);
 
-			*str++ = *next++;
+			*buffer++ = *next++;
 			++num_read;
 
 			if (is_new_line) {
@@ -155,24 +146,25 @@ namespace mage {
 			return nullptr;
 		}
 
-		*str = '\0';
+		*str   = '\0';
 		*input = next;
 		return str;
 	}
 
-	[[nodiscard]] wchar_t *
-		str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
+	[[nodiscard]]
+	wzstring str_gets(NotNull< wchar_t* > str,
+					  size_t num,
+					  NotNull< NotNull< const_wzstring >* > input) noexcept {
+
+		wchar_t* buffer     = str;
+		const wchar_t* next = *input;
+		size_t num_read     = 0u;
 		
-		Assert(str);
-		Assert(input);
-		
-		auto next = *input;
-		size_t num_read = 0u;
 		while (num_read + 1u < num && *next) {
 			// '\n' terminates the line but is included.
 			const auto is_new_line = (L'\n' == *next);
 
-			*str++ = *next++;
+			*buffer++ = *next++;
 			++num_read;
 
 			if (is_new_line) {
@@ -185,16 +177,18 @@ namespace mage {
 			return nullptr;
 		}
 
-		*str = L'\0';
+		*str   = L'\0';
 		*input = next;
 		return str;
 	}
 
-	[[nodiscard]] const wstring str_convert(const string &str) {
+	[[nodiscard]]
+	const wstring str_convert(const string& str) {
 		return wstring(CA2W(str.c_str()));
 	}
 
-	[[nodiscard]] const string str_convert(const wstring &str) {
+	[[nodiscard]]
+	const string str_convert(const wstring& str) {
 		return string(CW2A(str.c_str()));
 	}
 }

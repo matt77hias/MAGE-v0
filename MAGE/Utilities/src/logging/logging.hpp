@@ -35,7 +35,8 @@ namespace mage {
 
 		 @return		A reference to the global logging configuration.
 		 */
-		[[nodiscard]] static LoggingConfiguration &Get() noexcept {
+		[[nodiscard]]
+		static LoggingConfiguration& Get() noexcept {
 			return s_logging_configuration;
 		}
 
@@ -51,7 +52,7 @@ namespace mage {
 		 @param[in]		verbose
 						Flag indicating whether verbose logging is preferred.
 		 */
-		constexpr explicit LoggingConfiguration(bool quiet = false, 
+		constexpr explicit LoggingConfiguration(bool quiet   = false, 
 			                                    bool verbose = false) noexcept
 			: m_quiet(quiet), m_verbose(verbose) {}
 
@@ -62,8 +63,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to the logging configuration to copy.
 		 */
-		constexpr LoggingConfiguration(
-			const LoggingConfiguration &configuration) noexcept = default;
+		constexpr LoggingConfiguration(const LoggingConfiguration& 
+									   configuration) noexcept = default;
 
 		/**
 		 Constructs a logging configuration by moving the given logging 
@@ -72,8 +73,8 @@ namespace mage {
 		 @param[in]		configuration
 						A reference to the logging configuration to move.
 		 */
-		constexpr LoggingConfiguration(
-			LoggingConfiguration &&configuration) noexcept = default;
+		constexpr LoggingConfiguration(LoggingConfiguration&& 
+									   configuration) noexcept = default;
 
 		/**
 		 Destructs this logging configuration.
@@ -92,8 +93,8 @@ namespace mage {
 		 @return		A reference to the copy of the given logging 
 						configuration (i.e. this logging configuration).
 		 */
-		constexpr LoggingConfiguration &operator=(
-			const LoggingConfiguration &configuration) noexcept = default;
+		constexpr LoggingConfiguration& operator=(
+			const LoggingConfiguration& configuration) noexcept = default;
 
 		/**
 		 Moves the given logging configuration to this logging configuration.
@@ -103,8 +104,8 @@ namespace mage {
 		 @return		A reference to the moved logging configuration (i.e. 
 						this logging configuration).
 		 */
-		constexpr LoggingConfiguration &operator=(
-			LoggingConfiguration &&configuration) noexcept = default;
+		constexpr LoggingConfiguration& operator=(
+			LoggingConfiguration&& configuration) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -116,7 +117,8 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is 
 						quiet. @c false otherwise.
 		 */
-		[[nodiscard]] constexpr bool IsQuiet() const noexcept {
+		[[nodiscard]]
+		constexpr bool IsQuiet() const noexcept {
 			return m_quiet;
 		}
 
@@ -126,7 +128,8 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is 
 						verbose. @c false otherwise.
 		 */
-		[[nodiscard]] constexpr bool IsVerbose() const noexcept {
+		[[nodiscard]]
+		constexpr bool IsVerbose() const noexcept {
 			return m_verbose;
 		}
 
@@ -170,7 +173,8 @@ namespace mage {
 	 @throws		Exception
 					Failed to retrieve a handle to the standard output device.
 	 */
-	[[nodiscard]] U16 ConsoleWidth();
+	[[nodiscard]]
+	U16 ConsoleWidth();
 
 	/**
 	 Allocates a console to this engine for basic io and redirects @c stdin, 

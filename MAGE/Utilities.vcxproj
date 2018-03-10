@@ -18,30 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <BuildLog />
-    <BuildLog>
-      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
-    </BuildLog>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <BuildLog />
-    <BuildLog>
-      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
-    </BuildLog>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <BuildLog />
-    <BuildLog>
-      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
-    </BuildLog>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <BuildLog />
-    <BuildLog>
-      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
-    </BuildLog>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Utilities\src\collection\vector.hpp" />
     <ClInclude Include="Utilities\src\exception\exception.hpp" />
@@ -77,6 +53,8 @@
     <ClInclude Include="Utilities\src\type\types.hpp" />
     <ClInclude Include="Utilities\src\type\vector_types.hpp" />
     <ClInclude Include="Utilities\src\ui\combo_box.hpp" />
+    <ClInclude Include="Utilities\src\ui\window.hpp" />
+    <ClInclude Include="Utilities\src\ui\window_settings.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp" />
@@ -98,6 +76,7 @@
     <ClCompile Include="Utilities\src\system\system_time.cpp" />
     <ClCompile Include="Utilities\src\system\system_usage.cpp" />
     <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
+    <ClCompile Include="Utilities\src\ui\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Utilities\src\file\file_utils.tpp" />
@@ -170,6 +149,18 @@
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectName)\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectName)\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectName)\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectName)\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -20,18 +20,18 @@ namespace mage {
 
 		ForrestScene();
 
-		ForrestScene(const ForrestScene &scene) = delete;
+		ForrestScene(const ForrestScene& scene) = delete;
 
-		ForrestScene(ForrestScene &&scene);
+		ForrestScene(ForrestScene&& scene);
 
 		virtual ~ForrestScene();
 
-		ForrestScene &operator=(const ForrestScene &scene) = delete;
+		ForrestScene& operator=(const ForrestScene& scene) = delete;
 
-		ForrestScene &operator=(ForrestScene &&scene) = delete;
+		ForrestScene& operator=(ForrestScene&& scene) = delete;
 
 	private:
 
-		virtual void Load() override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
 	};
 }

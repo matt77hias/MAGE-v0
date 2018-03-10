@@ -4,8 +4,6 @@
 #pragma region
 
 #include "stats_script.hpp"
-#include "scene\scene.hpp"
-#include "core\engine_statistics.hpp"
 #include "system\system_usage.hpp"
 #include "exception\exception.hpp"
 
@@ -36,24 +34,32 @@ namespace mage::script {
 		m_last_ram_usage(0),
 		m_monitor() {}
 
-	StatsScript::StatsScript(const StatsScript &script) noexcept = default;
+	StatsScript::StatsScript(const StatsScript& script) noexcept = default;
 
-	StatsScript::StatsScript(StatsScript &&script) noexcept = default;
+	StatsScript::StatsScript(StatsScript&& script) noexcept = default;
 	
 	StatsScript::~StatsScript() = default;
 
-	void StatsScript::Load() {
-		ThrowIfFailed(HasOwner(),
-			"This script needs to be attached to a node.");
+	StatsScript& StatsScript
+		::operator=(const StatsScript& script) noexcept = default;
+
+	StatsScript& StatsScript
+		::operator=(StatsScript&& script) noexcept = default;
+
+	void StatsScript::Load([[maybe_unused]] Engine& engine) {
+		ThrowIfFailed(HasOwner(), 
+					  "This script needs to be attached to a node.");
 		
-		m_text = GetOwner()->Get< SpriteText >();
-		ThrowIfFailed((nullptr != m_text),
-			"This script needs a sprite text component.");
+		m_text = GetOwner()->Get< rendering::SpriteText >();
+		ThrowIfFailed((nullptr != m_text), 
+					  "This script needs a sprite text component.");
 
 		m_monitor.Start();
 	}
 
-	void StatsScript::Update([[maybe_unused]] F64 delta_time) {
+	void StatsScript::Update([[maybe_unused]] Engine& engine, 
+							 [[maybe_unused]] F64 delta_time) {
+
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;
 
@@ -63,7 +69,7 @@ namespace mage::script {
 				= static_cast< U32 >(m_accumulated_nb_frames / m_accumulated_time);
 			m_last_milliseconds_per_frame 
 				= 1000.0 * m_accumulated_time / m_accumulated_nb_frames;
-			m_accumulated_time = 0.0;
+			m_accumulated_time      = 0.0;
 			m_accumulated_nb_frames = 0;
 			
 			// CPU
@@ -77,8 +83,9 @@ namespace mage::script {
 		SRGBA color = (m_last_frames_per_second > 120) ? color::Green : color::Red;
 
 		m_text->SetText(wstring(L"FPS: "));
-		m_text->AppendText(ColorString(std::to_wstring(m_last_frames_per_second), 
-			                           std::move(color)));
+		m_text->AppendText(rendering::ColorString(
+			std::to_wstring(m_last_frames_per_second), 
+			std::move(color)));
 		
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, std::size(buffer), 
@@ -86,7 +93,7 @@ namespace mage::script {
 			         m_last_milliseconds_per_frame, 
 			         m_last_cpu_usage, 
 			         m_last_ram_usage, 
-			         EngineStatistics::Get()->GetNumberOfDrawCalls());
+			         rendering::Pipeline::s_nb_draws);
 		m_text->AppendText(wstring(buffer));
 	}
 }

@@ -10,20 +10,11 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Linker Directives
-//-----------------------------------------------------------------------------
-#pragma region
-
-#pragma comment ( lib, "dbghelp.lib" )
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	void AddUnhandledExceptionFilter() noexcept;
 
-	void CreateMiniDump(EXCEPTION_POINTERS *exception_record) noexcept;
+	void CreateMiniDump(EXCEPTION_POINTERS* exception_record) noexcept;
 }

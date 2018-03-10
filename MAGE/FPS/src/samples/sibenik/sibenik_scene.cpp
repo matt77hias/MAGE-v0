@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "texture\texture_factory.hpp"
+#include "resource\texture\texture_factory.hpp"
 
 #include "character_motor_script.hpp"
 #include "mouse_look_script.hpp"
@@ -32,69 +32,70 @@ namespace mage {
 	SibenikScene::SibenikScene()
 		: Scene("sibenik_scene") {}
 
-	SibenikScene::SibenikScene(SibenikScene &&scene) = default;
+	SibenikScene::SibenikScene(SibenikScene&& scene) = default;
 
 	SibenikScene::~SibenikScene() = default;
 
-	void SibenikScene::Load() {
+	void SibenikScene::Load([[maybe_unused]] Engine& engine) {
+		using namespace rendering;
+		
+		const auto& rendering_manager = engine.GetRenderingManager();
+		const auto& display_config    = rendering_manager.GetDisplayConfiguration();
+		auto& rendering_world         = rendering_manager.GetWorld();
+		auto& rendering_factory       = rendering_manager.GetResourceManager();
+		const auto display_resolution = display_config.GetDisplayResolution();
 
 		//---------------------------------------------------------------------
 		// Resources
 		//---------------------------------------------------------------------
-		ResourceManager * const factory = ResourceManager::Get();
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		auto sibenik_model_desc = factory->GetOrCreate< ModelDescriptor >(
-			L"assets/models/sibenik/sibenik.mdl", mesh_desc);
-		auto tree_model_desc_tree = factory->GetOrCreate< ModelDescriptor >(
-			L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
-		auto sky_texture = factory->GetOrCreate< Texture >(
-			L"assets/textures/sky/sky.dds");
+		const auto sibenik_model_desc
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/sibenik/sibenik.mdl",  mesh_desc);
+		const auto tree_model_desc_tree
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
+		const auto sky_texture
+			= rendering_factory.GetOrCreate< Texture >(
+				L"assets/textures/sky/sky.dds");
+		const auto logo_texture = CreateMAGETexture(rendering_factory);
 
 		//---------------------------------------------------------------------
 		// Cameras
 		//---------------------------------------------------------------------
-		auto camera = Create< PerspectiveCamera >();
-
-		// Camera: Lens
-		// camera->GetLens().SetLensRadius(0.01f);
-		// camera->GetLens().SetFocalLength(3.0f);
-		// camera->GetLens().SetMaximumCoCRadius(2.0f);
-		// Camera: Viewport
-		// camera->GetViewport().SetNormalizedWidth(0.5f);
-		// Camera: Fog
+		const auto camera = rendering_world.Create< PerspectiveCamera >();
 		camera->GetSettings().GetFog().SetDensity(0.001f);
-		// Camera: Sky
 		camera->GetSettings().GetSky().SetTexture(sky_texture);
 
-		auto camera_node = Create< Node >("Player");
+		const auto camera_node = Create< Node >("Player");
 		camera_node->Add(camera);
 		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto sibenik_node = Import(*sibenik_model_desc);
+		const auto sibenik_node = Import(engine, *sibenik_model_desc);
 		sibenik_node->GetTransform().SetScale(30.0f);
 		sibenik_node->GetTransform().SetTranslationY(12.1f);
 
-		auto tree_node = Import(*tree_model_desc_tree);
+		const auto tree_node = Import(engine, *tree_model_desc_tree);
 		tree_node->GetTransform().SetScale(5.0f);
 		tree_node->GetTransform().AddTranslationY(2.5f);
 		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLight >();
+		const auto omni_light = rendering_world.Create< OmniLight >();
 		omni_light->SetRange(20.0f);
 		omni_light->SetIntensity(20.0f);
 		omni_light->EnableShadows();
 
-		auto omni_light_node = Create< Node >("Omni Light");
+		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
 		omni_light_node->GetTransform().SetTranslationY(7.0f);
 
-		auto spot_light = Create< SpotLight >();
+		const auto spot_light = rendering_world.Create< SpotLight >();
 		spot_light->SetRange(15.0f);
 		spot_light->SetAngularCutoff(1.0f, 0.5f);
 
@@ -103,12 +104,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Sprites
 		//---------------------------------------------------------------------
-		auto logo = Create< SpriteImage >();
-		logo->SetBaseColorTexture(CreateMAGETexture());
-		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
-		logo->GetSpriteTransform().SetTranslation(NormalizedToAbsolutePixel(0.90f, 0.88f));
+		const auto logo = rendering_world.Create< SpriteImage >();
 
-		auto text = Create< SpriteText >();
+		logo->SetBaseColorTexture(logo_texture);
+		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform().SetTranslation(
+			NormalizedToAbsolute(F32x2(0.90f, 0.88f),
+								 static_cast< F32x2 >(display_resolution)));
+
+		camera_node->Add(logo);
+
+		const auto text = rendering_world.Create< SpriteText >();
 
 		camera_node->Add(text);
 

@@ -5,16 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "system\timer.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <mutex>
+#include "type\types.hpp"
 
 #pragma endregion
 
@@ -47,7 +38,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string &title, 
+		explicit ProgressReporter(const string& title, 
 			                      U32 nb_work, 
 			                      char progress_char = '+', 
 			                      U16 bar_length = 0u);
@@ -58,7 +49,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to copy.
 		 */
-		ProgressReporter(const ProgressReporter &reporter) = delete;
+		ProgressReporter(const ProgressReporter& reporter) = delete;
 
 		/**
 		 Constructs a progress reporter by moving the given progress reporter.
@@ -66,7 +57,7 @@ namespace mage {
 		 @param[in]		reporter
 						A reference to the progress reporter to move.
 		 */
-		ProgressReporter(ProgressReporter &&reporter) = delete;
+		ProgressReporter(ProgressReporter&& reporter) noexcept;
 
 		/**
 		 Destructs this progress reporter.
@@ -85,7 +76,7 @@ namespace mage {
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
-		ProgressReporter &operator=(const ProgressReporter &reporter) = delete;
+		ProgressReporter& operator=(const ProgressReporter& reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
@@ -95,7 +86,7 @@ namespace mage {
 		 @return		A reference to moved progress reporter (i.e. this 
 						progress reporter).
 		 */
-		ProgressReporter &operator=(ProgressReporter &&reporter) = delete;
+		ProgressReporter& operator=(ProgressReporter&& reporter) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -117,75 +108,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes this progress reporter.
-
-		 @param[in]		title
-						A reference to the title.
-		 @param[in]		bar_length
-						The length of the progress bar. If @a bar_length is 
-						equal to 0 the default length will be chosen.
-		 */
-		void Initialize(const string &title, U16 bar_length = 0u);
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		/**
-		 The total number of work units that need to be done.
-		 */
-		U32 m_nb_work_total;
+		class Impl;
 
 		/**
-		 The number of work units that are currently done.
+		 A pointer to the implementation of this progress reporter.
 		 */
-		U32 m_nb_work_done;
-
-		/**
-		 The total number of progress characters that need to be outputted by 
-		 this progress reporter.
-		 */
-		U16 m_nb_progress_total;
-
-		/**
-		 The total number of progress characters that are currently outputted 
-		 by this progress reporter.
-		 */
-		U16 m_nb_progress_printed;
-
-		/**
-		 The progress character of this progress reporter.
-		 */
-		char m_progress_char;
-
-		/**
-		 A pointer to the output file stream of this progress reporter.
-		 */
-		FILE *m_fout;
-
-		/**
-		 A pointer to the output buffer of this progress reporter.
-		 */
-		UniquePtr< char[] > m_buffer;
-
-		/**
-		 A pointer to the current character in the output buffer of this progress 
-		 reporter.
-		 */
-		char *m_current_pos;
-
-		/**
-		 The timer of this progress reporter.
-		 */
-		WallClockTimer m_timer;
-
-		/**
-		 The mutex of this progress reporter.
-		 */
-		std::mutex m_mutex;
+		UniquePtr< Impl > m_impl;
 	};
 }

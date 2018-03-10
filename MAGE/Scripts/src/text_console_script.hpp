@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
-#include "sprite\sprite_text.hpp"
+#include "scene\script\behavior_script.hpp"
+#include "scene\sprite\sprite_text.hpp"
 
 #pragma endregion
 
@@ -33,28 +33,30 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		explicit TextConsoleScript(U32 nb_rows, U32 nb_columns);
-		TextConsoleScript(const TextConsoleScript &script);
-		TextConsoleScript(TextConsoleScript &&script) noexcept;
+		TextConsoleScript(const TextConsoleScript& script);
+		TextConsoleScript(TextConsoleScript&& script) noexcept;
 		virtual ~TextConsoleScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		TextConsoleScript &operator=(const TextConsoleScript &script) = delete;
-		TextConsoleScript &operator=(TextConsoleScript &&script) = delete;
+		TextConsoleScript& operator=(const TextConsoleScript& script) = delete;
+		TextConsoleScript& operator=(TextConsoleScript&& script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 		
 		void Clear();
-		void Write(const wchar_t *str);
-		void WriteLine(const wchar_t *str);
-		void Format(const wchar_t *format, ...);
+		void Write(NotNull< const_wzstring > str);
+		void WriteLine(NotNull< const_wzstring > str);
+		void Format(NotNull< const_wzstring > format, ...);
 
 	private:
 
@@ -62,7 +64,7 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void ProcessString(const wchar_t *str);
+		void ProcessString(NotNull< const_wzstring > str);
 		void IncrementRow();
 
 		void SetCharacter(wchar_t character, U32 row, U32 column);
@@ -71,7 +73,7 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ProxyPtr< SpriteText > m_text;
+		ProxyPtr< rendering::SpriteText > m_text;
 
 		const U32 m_nb_rows;
 		const U32 m_nb_columns;

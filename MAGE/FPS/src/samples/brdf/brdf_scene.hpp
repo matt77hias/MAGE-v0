@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -20,18 +20,18 @@ namespace mage {
 
 		BRDFScene();
 
-		BRDFScene(const BRDFScene &scene) = delete;
+		BRDFScene(const BRDFScene& scene) = delete;
 
-		BRDFScene(BRDFScene &&scene);
+		BRDFScene(BRDFScene&& scene);
 
 		virtual ~BRDFScene();
 
-		BRDFScene &operator=(const BRDFScene &scene) = delete;
+		BRDFScene& operator=(const BRDFScene& scene) = delete;
 
-		BRDFScene &operator=(BRDFScene &&scene) = delete;
+		BRDFScene& operator=(BRDFScene&& scene) = delete;
 
 	private:
 
-		virtual void Load() override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
 	};
 }

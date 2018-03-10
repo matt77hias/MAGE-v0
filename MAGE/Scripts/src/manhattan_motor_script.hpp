@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -23,29 +23,33 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		ManhattanMotorScript();
-		ManhattanMotorScript(const ManhattanMotorScript &script) noexcept;
-		ManhattanMotorScript(ManhattanMotorScript &&script) noexcept;
+		ManhattanMotorScript(const ManhattanMotorScript& script) noexcept;
+		ManhattanMotorScript(ManhattanMotorScript&& script) noexcept;
 		virtual ~ManhattanMotorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		ManhattanMotorScript &operator=(
-			const ManhattanMotorScript &script) = delete;
-		ManhattanMotorScript &operator=(
-			ManhattanMotorScript &&script) = delete;
+		ManhattanMotorScript& operator=(
+			const ManhattanMotorScript& script) noexcept;
+		ManhattanMotorScript& operator=(
+			ManhattanMotorScript&& script) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update([[maybe_unused]] F64 delta_time) override;
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+		
+		virtual void Update([[maybe_unused]] Engine& engine, 
+							[[maybe_unused]] F64 delta_time) override;
 
-		[[nodiscard]] F32 GetVelocity() const noexcept {
+		[[nodiscard]]
+		F32 GetVelocity() const noexcept {
 			return m_velocity;
 		}
+
 		void SetVelocity(F32 velocity) noexcept {
 			m_velocity = velocity;
 		}

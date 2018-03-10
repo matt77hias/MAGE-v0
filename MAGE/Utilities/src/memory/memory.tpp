@@ -11,12 +11,12 @@ namespace mage {
 	#pragma region
 
 	template< typename T, typename... ConstructorArgsT >
-	inline SharedPtr< T > MakeShared(ConstructorArgsT &&...args) {
+	inline SharedPtr< T > MakeShared(ConstructorArgsT&&... args) {
 		return std::make_shared< T >(std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename T, typename... ConstructorArgsT >
-	inline SharedPtr< T > MakeAllocatedShared(ConstructorArgsT &&...args) {
+	inline SharedPtr< T > MakeAllocatedShared(ConstructorArgsT&&... args) {
 		return SharedPtr< T >(new T(std::forward< ConstructorArgsT >(args)...));
 	}
 
@@ -28,19 +28,19 @@ namespace mage {
 	#pragma region
 
 	template< typename T, typename... ConstructorArgsT >
-	inline UniquePtr< T > MakeUnique(ConstructorArgsT &&...args) {
+	inline UniquePtr< T > MakeUnique(ConstructorArgsT&&... args) {
 		return std::make_unique< T >(std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename ToT, typename FromT >
-	inline UniquePtr< ToT > static_pointer_cast(UniquePtr< FromT > &&ptr) noexcept {
-		return UniquePtr< ToT >(static_cast< ToT * >(ptr.release()));
+	inline UniquePtr< ToT > static_pointer_cast(UniquePtr< FromT >&& ptr) noexcept {
+		return UniquePtr< ToT >(static_cast< ToT* >(ptr.release()));
 	}
 
 	template< typename ToT, typename FromT >
-	inline UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT > &&ptr) noexcept {
-		FromT * const stored_ptr = ptr.release();
-		ToT   * const converted_stored_ptr = dynamic_cast< ToT * >(stored_ptr);
+	inline UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT >&& ptr) noexcept {
+		const auto stored_ptr = ptr.release();
+		const auto converted_stored_ptr = dynamic_cast< ToT* >(stored_ptr);
 		if (converted_stored_ptr) {
 			return UniquePtr< ToT >(converted_stored_ptr);
 		}
@@ -51,13 +51,13 @@ namespace mage {
 	}
 
 	template< typename ToT, typename FromT >
-	inline UniquePtr< ToT > const_pointer_cast(UniquePtr< FromT > &&ptr) noexcept {
-		return UniquePtr< ToT >(const_cast< ToT * >(ptr.release()));
+	inline UniquePtr< ToT > const_pointer_cast(UniquePtr< FromT >&& ptr) noexcept {
+		return UniquePtr< ToT >(const_cast< ToT* >(ptr.release()));
 	}
 
 	template< typename ToT, typename FromT >
-	inline UniquePtr< ToT > reinterpret_pointer_cast(UniquePtr< FromT > &&ptr) noexcept {
-		return UniquePtr< ToT >(reinterpret_cast< ToT * >(ptr.release()));
+	inline UniquePtr< ToT > reinterpret_pointer_cast(UniquePtr< FromT >&& ptr) noexcept {
+		return UniquePtr< ToT >(reinterpret_cast< ToT* >(ptr.release()));
 	}
 
 	#pragma endregion
@@ -68,58 +68,58 @@ namespace mage {
 	#pragma region
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept {
+	inline ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(ptr.m_getter)]() noexcept {
-			return static_cast< ToT * >(getter());
+			return static_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > static_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept {
+	inline ProxyPtr< ToT > static_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(std::move(ptr.m_getter))]() noexcept {
-			return static_cast< ToT * >(getter());
+			return static_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > dynamic_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept {
+	inline ProxyPtr< ToT > dynamic_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(ptr.m_getter)]() noexcept {
-			return dynamic_cast< ToT * >(getter());
+			return dynamic_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > dynamic_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept {
+	inline ProxyPtr< ToT > dynamic_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(std::move(ptr.m_getter))]() noexcept {
-			return dynamic_cast< ToT * >(getter());
+			return dynamic_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > const_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept {
+	inline ProxyPtr< ToT > const_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(ptr.m_getter)]() noexcept {
-			return const_cast< ToT * >(getter());
+			return const_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > const_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept {
+	inline ProxyPtr< ToT > const_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(std::move(ptr.m_getter))]() noexcept {
-			return const_cast< ToT * >(getter());
+			return const_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > reinterpret_pointer_cast(const ProxyPtr< FromT > &ptr) noexcept {
+	inline ProxyPtr< ToT > reinterpret_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(ptr.m_getter)]() noexcept {
-			return reinterpret_cast< ToT * >(getter());
+			return reinterpret_cast< ToT* >(getter());
 		});
 	}
 
 	template< typename ToT, typename FromT >
-	inline ProxyPtr< ToT > reinterpret_pointer_cast(ProxyPtr< FromT > &&ptr) noexcept {
+	inline ProxyPtr< ToT > reinterpret_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept {
 		return ProxyPtr< ToT >([getter(std::move(ptr.m_getter))]() noexcept {
-			return reinterpret_cast< ToT * >(getter());
+			return reinterpret_cast< ToT* >(getter());
 		});
 	}
 

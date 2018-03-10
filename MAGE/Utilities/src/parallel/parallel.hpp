@@ -19,12 +19,14 @@ namespace mage {
 
 	 @return		The number of physical cores (i.e. physical processors).
 	 */
-	[[nodiscard]] U16 NumberOfPhysicalCores() noexcept;
+	[[nodiscard]]
+	U16 NumberOfPhysicalCores();
 
 	/**
 	 Returns the number of system cores (i.e. logical processors).
 
 	 @return		The number of system cores (i.e. logical processors).
 	 */
-	[[nodiscard]] U16 NumberOfSystemCores() noexcept;
+	[[nodiscard]]
+	U16 NumberOfSystemCores() noexcept;
 }

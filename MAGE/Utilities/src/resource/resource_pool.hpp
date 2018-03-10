@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the resource pool to copy.
 		 */
-		ResourcePool(const ResourcePool &pool) = delete;
+		ResourcePool(const ResourcePool& pool) = delete;
 
 		/**
 		 Constructs a resource pool by moving the given resource pool.
@@ -79,7 +79,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool &&pool) = delete;
+		ResourcePool(ResourcePool&& pool) noexcept;
 
 		/**
 		 Destructs this resource pool.
@@ -100,7 +100,7 @@ namespace mage {
 		 @return		A reference to the copy of the given resource pool 
 						(i.e. this resource pool).
 		 */
-		ResourcePool &operator=(const ResourcePool &pool) = delete;
+		ResourcePool& operator=(const ResourcePool& pool) = delete;
 
 		/**
 		 Moves the given resource pool to this resource pool.
@@ -110,7 +110,7 @@ namespace mage {
 		 @return		A reference to the moved resource pool (i.e. this 
 						resource pool).
 		 */
-		ResourcePool &operator=(ResourcePool &&pool) = delete;
+		ResourcePool& operator=(ResourcePool&& pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -122,12 +122,14 @@ namespace mage {
 		 @return		@c true if this resource pool is empty. @c false 
 						otherwise.
 		 */
-		[[nodiscard]] bool empty() const noexcept;
+		[[nodiscard]]
+		bool empty() const noexcept;
 
 		/**
 		 Returns the number of resources contained in this resource pool.
 		 */
-		[[nodiscard]] size_t size() const noexcept;
+		[[nodiscard]]
+		size_t size() const noexcept;
 
 		/**
 		 Checks whether this resource pool contains a resource corresponding 
@@ -139,7 +141,8 @@ namespace mage {
 						pool corresponding to the given key. @c false, 
 						otherwise.
 		 */
-		[[nodiscard]] bool Contains(const KeyT &key) noexcept;
+		[[nodiscard]]
+		bool Contains(const KeyT& key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -152,7 +155,8 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to the given key 
 						from this resource pool.
 		 */
-		[[nodiscard]] SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
+		[[nodiscard]]
+		SharedPtr< ResourceT > Get(const KeyT& key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource 
@@ -174,8 +178,8 @@ namespace mage {
 						key from this resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreate(const KeyT &key, 
-			                               ConstructorArgsT &&...args);
+		SharedPtr< ResourceT > GetOrCreate(const KeyT& key, 
+			                               ConstructorArgsT&&... args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource 
@@ -200,8 +204,8 @@ namespace mage {
 						key from this resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT &key, 
-			                                      ConstructorArgsT &&...args);
+		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT& key, 
+			                                      ConstructorArgsT&&... args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this resource 
@@ -210,12 +214,12 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource to remove.
 		 */
-		void Remove(const KeyT &key);
+		void Remove(const KeyT& key);
 
 		/**
 		 Removes all resources from this resource pool.
 		 */
-		void RemoveAll();
+		void RemoveAll() noexcept;
 		
 	private:
 
@@ -276,9 +280,9 @@ namespace mage {
 							@c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
-			Resource(ResourcePool &resource_pool,
-				     const KeyT &resource_key, 
-				     ConstructorArgsT &&...args);
+			Resource(ResourcePool& resource_pool,
+				     const KeyT& resource_key, 
+				     ConstructorArgsT&&... args);
 			
 			/**
 			 Constructs a resource from the given resource.
@@ -286,7 +290,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to copy.
 			 */
-			Resource(const Resource &resource) = delete;
+			Resource(const Resource& resource) = delete;
 
 			/**
 			 Constructs a resource by moving the given resource poolentry .
@@ -294,7 +298,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to move.
 			 */
-			Resource(Resource &&resource);
+			Resource(Resource&& resource);
 
 			/**
 			 Destructs this resource.
@@ -313,7 +317,7 @@ namespace mage {
 			 @return		A reference to the copy of the given resource (i.e. 
 							this resource).
 			 */
-			Resource &operator=(const Resource &resource) = delete;
+			Resource& operator=(const Resource& resource) = delete;
 			
 			/**
 			 Moves the given resource to this resource.
@@ -323,7 +327,7 @@ namespace mage {
 			 @return		A reference to the moved resource (i.e. this 
 							resource).
 			 */
-			Resource &operator=(Resource &&resource) = delete;
+			Resource& operator=(Resource&& resource) = delete;
 
 		private:
 
@@ -334,7 +338,7 @@ namespace mage {
 			/**
 			 A reference to the resource pool map containing this resource.
 			 */
-			ResourcePool &m_resource_pool;
+			ResourcePool& m_resource_pool;
 
 			/**
 			 The key of this resource in the resource pool map containing
@@ -394,7 +398,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the persistent resource pool to copy.
 		 */
-		PersistentResourcePool(const PersistentResourcePool &pool) = delete;
+		PersistentResourcePool(const PersistentResourcePool& pool) = delete;
 
 		/**
 		 Constructs a persistent resource pool by moving the given persistent 
@@ -403,7 +407,7 @@ namespace mage {
 		 @param[in]		pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool &&pool) = delete;
+		PersistentResourcePool(PersistentResourcePool&& pool) noexcept;
 
 		/**
 		 Destructs this persistent resource pool.
@@ -425,8 +429,8 @@ namespace mage {
 		 @return		A reference to the copy of the given persistent resource 
 						pool (i.e. this persistent resource pool).
 		 */
-		PersistentResourcePool &operator=(
-			const PersistentResourcePool &pool) = delete;
+		PersistentResourcePool& operator=(const PersistentResourcePool& 
+										  pool) = delete;
 
 		/**
 		 Moves the given persistent resource pool to this persistent resource 
@@ -437,8 +441,8 @@ namespace mage {
 		 @return		A reference to the moved persistent resource pool (i.e. 
 						this persistent resource pool).
 		 */
-		PersistentResourcePool &operator=(
-			PersistentResourcePool &&pool) = delete;
+		PersistentResourcePool& operator=(PersistentResourcePool&& 
+										  pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -450,13 +454,15 @@ namespace mage {
 		 @return		@c true if this persistent resource pool is empty. 
 						@c false otherwise.
 		 */
-		[[nodiscard]] bool empty() const noexcept;
+		[[nodiscard]]
+		bool empty() const noexcept;
 
 		/**
 		 Returns the number of resources contained in this persistent resource 
 		 pool.
 		 */
-		[[nodiscard]] size_t size() const noexcept;
+		[[nodiscard]]
+		size_t size() const noexcept;
 
 		/**
 		 Checks whether this persistent resource pool contains a resource 
@@ -468,7 +474,8 @@ namespace mage {
 						this persistent resource pool corresponding to the 
 						given key. @c false, otherwise.
 		 */
-		[[nodiscard]] bool Contains(const KeyT &key) noexcept;
+		[[nodiscard]]
+		bool Contains(const KeyT& key) noexcept;
 		
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -482,7 +489,8 @@ namespace mage {
 		 @return		A pointer to the resource corresponding to
 						the given key from this persistent resource pool.
 		 */
-		[[nodiscard]] SharedPtr< ResourceT > Get(const KeyT &key) noexcept;
+		[[nodiscard]]
+		SharedPtr< ResourceT > Get(const KeyT& key) noexcept;
 
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -504,8 +512,8 @@ namespace mage {
 						key from this persistent resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreate(const KeyT &key, 
-			                               ConstructorArgsT &&...args);
+		SharedPtr< ResourceT > GetOrCreate(const KeyT& key, 
+			                               ConstructorArgsT&&... args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this 
@@ -530,8 +538,8 @@ namespace mage {
 						key from this persistent resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT &key, 
-			                                      ConstructorArgsT &&...args);
+		SharedPtr< ResourceT > GetOrCreateDerived(const KeyT& key, 
+			                                      ConstructorArgsT&&... args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this 
@@ -540,12 +548,12 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource to remove.
 		 */
-		void Remove(const KeyT &key);
+		void Remove(const KeyT& key);
 
 		/**
 		 Removes all resources from this persistent resource pool.
 		 */
-		void RemoveAll();
+		void RemoveAll() noexcept;
 		
 	private:
 

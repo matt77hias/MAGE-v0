@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "type\types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -20,22 +29,20 @@ namespace mage {
 	 A debug message is associated with generally useful information to log 
 	 only in debug builds.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Debug([[maybe_unused]] const char *format, ...);
+	void Debug([[maybe_unused]] NotNull< const_zstring > format, ...);
 
 	/**
 	 Notifies an info message.
 
 	 An info message is associated with generally useful information to log.
 	 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.	
 	 */
-	void Info(const char *format, ...);
+	void Info(NotNull< const_zstring > format, ...);
 	
 	/**
 	 Notifies a warning message.
@@ -43,11 +50,10 @@ namespace mage {
 	 A warning message is associated with anything that can potentially cause 
 	 application oddities.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Warning(const char *format, ...);
+	void Warning(NotNull< const_zstring >, ...);
 	
 	/**
 	 Notifies an error message.
@@ -55,11 +61,10 @@ namespace mage {
 	 An error message is associated with any error which is fatal to the 
 	 operation, but not the service or application.
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Error(const char *format, ...);
+	void Error(NotNull< const_zstring >, ...);
 	
 	/**
 	 Notifies a fatal message.
@@ -67,11 +72,10 @@ namespace mage {
 	 A fatal message is associated with any error that is forcing a shutdown of 
 	 the service or application to prevent data loss (or further data loss).
 
-	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Fatal(const char *format, ...);
+	void Fatal(NotNull< const_zstring >, ...);
 }
 
 //-----------------------------------------------------------------------------

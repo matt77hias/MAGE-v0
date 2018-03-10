@@ -23,7 +23,7 @@
  A struct of directional lights.
  */
 struct DirectionalLight {
-	// The irradiance of this directional light.
+	// The (perpendicular) irradiance of this directional light.
 	float3 E;
 	uint padding0;
 	// The (normalized) negated direction of this directional light expressed 
@@ -172,7 +172,8 @@ float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) 
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution of the given directional light.
+				The (perpendicular) irradiance contribution of the given 
+				directional light.
  */
 void Contribution(DirectionalLight light, out float3 l, out float3 E) {
 	l = light.neg_d;
@@ -189,7 +190,8 @@ void Contribution(DirectionalLight light, out float3 l, out float3 E) {
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution of the given omni light.
+				The (perpendicular) irradiance contribution of the given omni 
+				light.
  */
 void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
 	const float3 l_direction    = light.p - p;
@@ -212,7 +214,8 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution of the given spotlight.
+				The (perpendicular) irradiance contribution of the given 
+				spotlight.
  */
 void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
 	const float3 l_direction    = light.p - p;
@@ -297,7 +300,8 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution.
+				The (perpendicular) irradiance contribution of the given 
+				directional light.
  */
 void Contribution(ShadowMappedDirectionalLight light, 
 				  SamplerComparisonState pcf_sampler, 
@@ -330,7 +334,8 @@ void Contribution(ShadowMappedDirectionalLight light,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution.
+				The (perpendicular) irradiance contribution of the given omni 
+				light.
  */
 void Contribution(ShadowMappedOmniLight light, 
 				  SamplerComparisonState pcf_sampler, 
@@ -363,7 +368,8 @@ void Contribution(ShadowMappedOmniLight light,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The irradiance contribution.
+				The (perpendicular) irradiance contribution of the given 
+				spotlight.
  */
 void Contribution(ShadowMappedSpotLight light, 
 				  SamplerComparisonState pcf_sampler, 

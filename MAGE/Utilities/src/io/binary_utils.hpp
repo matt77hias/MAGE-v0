@@ -6,7 +6,6 @@
 #pragma region
 
 #include "type\types.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -18,7 +17,6 @@ namespace mage {
 	/**
 	 Reads a @c DataT element from the given big endian byte array.
 
-	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
 	 @tparam		DataT
@@ -29,15 +27,14 @@ namespace mage {
 					array @a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] inline const DataT BytesBigEndianTo(const U8 *bytes) noexcept {
-		Assert(bytes);
-		return *reinterpret_cast< const DataT * >(bytes);
+	[[nodiscard]]
+	inline const DataT BytesBigEndianTo(NotNull< const U8* > bytes) noexcept {
+		return *reinterpret_cast< const DataT* >(bytes.get());
 	}
 
 	/**
 	 Reads a @c DataT element from the given little endian byte array.
 
-	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
 	 @tparam		DataT
@@ -48,12 +45,12 @@ namespace mage {
 					array @a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] const DataT BytesLittleEndianTo(const U8 *bytes) noexcept;
+	[[nodiscard]]
+	const DataT BytesLittleEndianTo(NotNull< const U8* > bytes) noexcept;
 
 	/**
 	 Reads a @c DataT element from the given byte array.
 
-	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) 
 					bytes.
 	 @tparam		DataT
@@ -67,10 +64,10 @@ namespace mage {
 					@a bytes.
 	 */
 	template< typename DataT >
-	[[nodiscard]] inline const DataT BytesTo(const U8 *bytes, 
-		                                     bool big_endian) noexcept {
-
-		Assert(bytes);
+	[[nodiscard]]
+	inline const DataT BytesTo(NotNull< const U8* > bytes, 
+							   bool big_endian) noexcept {
+		
 		return (big_endian) ? BytesBigEndianTo< DataT >(bytes)
 			                : BytesLittleEndianTo< DataT >(bytes);
 	}

@@ -5,19 +5,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "engine.hpp"
 #include "scene\node.hpp"
-#include "camera\orthographic_camera.hpp"
-#include "camera\perspective_camera.hpp"
-#include "light\ambient_light.hpp"
-#include "light\directional_light.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
-#include "model\model.hpp"
-#include "model\model_descriptor.hpp"
-#include "scripting\behavior_script.hpp"
-#include "sprite\sprite_image.hpp"
-#include "sprite\sprite_text.hpp"
-#include "collection\vector.hpp"
+#include "scene\scene_utils.hpp"
+#include "scene\script\behavior_script.hpp"
 
 #pragma endregion
 
@@ -54,7 +45,7 @@ namespace mage {
 		 @return		A reference to the copy of the given scene (i.e. this 
 						scene).
 		 */
-		Scene &operator=(const Scene &scene) = delete;
+		Scene& operator=(const Scene& scene) = delete;
 
 		/**
 		 Moves the given scene to this scene.
@@ -63,7 +54,7 @@ namespace mage {
 						A reference to the scene to move.
 		 @return		A reference to the moved scene (i.e. this scene).
 		 */
-		Scene &operator=(Scene &&scene) noexcept;
+		Scene& operator=(Scene&& scene) noexcept;
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle
@@ -72,65 +63,35 @@ namespace mage {
 		/**
 		 Initializes this scene.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to initialize this scene.
 		 */
-		void Initialize();
+		void Initialize(Engine& engine);
 
 		/**
 		 Uninitializes this scene.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to unitialize this scene.
 		 */
-		void Uninitialize();
+		void Uninitialize(Engine& engine);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Nodes and Components
 		//---------------------------------------------------------------------
 
-		ProxyPtr< Node > Import(const ModelDescriptor &desc);
-		ProxyPtr< Node > Import(const ModelDescriptor &desc,
-			std::vector< ProxyPtr< Node > > &nodes);
+		ProxyPtr< Node > Import(Engine& engine, 
+								const rendering::ModelDescriptor &desc);
+		ProxyPtr< Node > Import(Engine& engine, 
+								const rendering::ModelDescriptor &desc,
+								std::vector< ProxyPtr< Node > > &nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< Node, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< PerspectiveCamera, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< OrthographicCamera, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< AmbientLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< DirectionalLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< OmniLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpotLight, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< Model, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpriteImage, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
-
-		template< typename ElementT, typename... ConstructorArgsT >
-		typename std::enable_if_t< std::is_same_v< SpriteText, ElementT >,
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
 		template< typename ElementT, typename... ConstructorArgsT >
@@ -138,13 +99,8 @@ namespace mage {
 			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
 
 		template< typename ElementT >
-		[[nodiscard]] ElementT &Get(size_t index) noexcept;
-
-		template< typename ElementT >
-		[[nodiscard]] const ElementT &Get(size_t index) const noexcept;
-
-		template< typename ElementT >
-		[[nodiscard]] size_t GetNumberOf() const noexcept;
+		[[nodiscard]]
+		size_t GetNumberOf() const noexcept;
 
 		template< typename ElementT, typename ActionT >
 		void ForEach(ActionT action);
@@ -161,7 +117,8 @@ namespace mage {
 
 		 @return		A reference to the name of this scene.
 		 */
-		[[nodiscard]] const string &GetName() const noexcept {
+		[[nodiscard]]
+		const string& GetName() const noexcept {
 			return m_name;
 		}
 
@@ -195,7 +152,7 @@ namespace mage {
 		 @param[in]		scene
 						A reference to the scene.
 		 */
-		Scene(const Scene &scene) = delete;
+		Scene(const Scene& scene) = delete;
 
 		/**
 		 Constructs a scene by moving the given scene.
@@ -203,7 +160,7 @@ namespace mage {
 		 @param[in]		scene
 						A reference to the scene to move.
 		 */
-		Scene(Scene &&scene) noexcept;
+		Scene(Scene&& scene) noexcept;
 
 	private:
 
@@ -215,19 +172,23 @@ namespace mage {
 		 Loads this scene. Allows this scene to preform any pre-processing 
 		 construction.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to load this scene.
 		 */
-		virtual void Load();
+		virtual void Load([[maybe_unused]] Engine& engine);
 
 		/**
 		 Closes this scene. Allows this scene to preform any post-processing 
 		 destruction.
 
+		 @param[in]		engine
+						A reference to the engine.
 		 @throws		Exception
 						Failed to close this scene.
 		 */
-		virtual void Close();
+		virtual void Close([[maybe_unused]] Engine& engine);
 
 		/**
 		 Clears this scene.
@@ -242,51 +203,6 @@ namespace mage {
 		 A vector containing the nodes of this scene.
 		 */
 		AlignedVector< Node > m_nodes;
-
-		/**
-		 A vector containing the perspective cameras of this scene.
-		 */
-		AlignedVector< PerspectiveCamera > m_perspective_cameras;
-
-		/**
-		 A vector containing the orthographic cameras of this scene.
-		 */
-		AlignedVector< OrthographicCamera > m_orthographic_cameras;
-
-		/**
-		 A vector containing the ambient lights of this scene.
-		 */
-		AlignedVector< AmbientLight > m_ambient_lights;
-
-		/**
-		 A vector containing the directional lights of this scene.
-		 */
-		AlignedVector< DirectionalLight > m_directional_lights;
-
-		/**
-		 A vector containing the omni lights of this scene.
-		 */
-		AlignedVector< OmniLight > m_omni_lights;
-
-		/**
-		 A vector containing the spot lights of this scene.
-		 */
-		AlignedVector< SpotLight > m_spot_lights;
-
-		/**
-		 A vector containing the models of this scene.
-		 */
-		AlignedVector< Model > m_models;
-
-		/**
-		 A vector containing the sprite images of this scene.
-		 */
-		AlignedVector< SpriteImage > m_sprite_images;
-
-		/**
-		 A vector containing the sprite texts of this scene.
-		 */
-		AlignedVector< SpriteText > m_sprite_texts;
 
 		/**
 		 A vector containing the pointers to the scripts of this scene.

@@ -27,8 +27,8 @@ namespace mage {
 					The third basis vector of the orthonormal basis.
 	 */
 	inline void XM_CALLCONV OrthonormalBasis_HughesMoller(FXMVECTOR n, 
-		                                                  XMVECTOR &b1, 
-		                                                  XMVECTOR &b2) noexcept {
+		                                                  XMVECTOR& b1, 
+		                                                  XMVECTOR& b2) noexcept {
 
 		const auto u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
@@ -50,9 +50,9 @@ namespace mage {
 					The third basis vector of the orthonormal basis.
 	 */
 	inline void XM_CALLCONV OrthonormalBasis_Frisvad(FXMVECTOR n, 
-		                                             XMVECTOR &b1, 
-		                                             XMVECTOR &b2) noexcept {
-		const F32x3 nf = XMStore< F32x3 >(n);
+		                                             XMVECTOR& b1, 
+		                                             XMVECTOR& b2) noexcept {
+		const auto nf = XMStore< F32x3 >(n);
 
 		if (nf.m_z < -0.9999999f) {
 			b1 = XMVectorSet( 0.0f, -1.0f, 0.0f, 0.0f);
@@ -83,9 +83,9 @@ namespace mage {
 					The third basis vector of the orthonormal basis.
 	 */
 	inline void XM_CALLCONV OrthonormalBasis_Duff(FXMVECTOR n, 
-		                                          XMVECTOR &b1, 
-		                                          XMVECTOR &b2) noexcept {
-		const F32x3 nf = XMStore< F32x3 >(n);
+		                                          XMVECTOR& b1, 
+		                                          XMVECTOR& b2) noexcept {
+		const auto nf = XMStore< F32x3 >(n);
 
 		const auto sign = copysignf(1.0f, nf.m_z);
 		const auto a = -1.0f / (sign + nf.m_z);
@@ -110,8 +110,8 @@ namespace mage {
 					The third basis vector of the orthonormal basis.
 	 */
 	inline void XM_CALLCONV OrthonormalBasis(FXMVECTOR n, 
-		                                     XMVECTOR &b1, 
-		                                     XMVECTOR &b2) noexcept {
+		                                     XMVECTOR& b1, 
+		                                     XMVECTOR& b2) noexcept {
 		OrthonormalBasis_Duff(n, b1, b2);
 	}
 }

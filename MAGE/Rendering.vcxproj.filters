@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\display">
+      <UniqueIdentifier>{ab0dc6e8-07b4-4041-8125-14214a4d3c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\display">
+      <UniqueIdentifier>{5c2f0522-77d6-403e-9538-d3c9d8b515c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders">
+      <UniqueIdentifier>{a9bcd999-09c0-4a84-8422-d8153d2b3056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders">
+      <UniqueIdentifier>{6737e293-dd04-4f52-a9a4-34b712fb5017}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer">
+      <UniqueIdentifier>{2c6e8811-224b-4fb5-8a7f-e3a742d0af0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer">
+      <UniqueIdentifier>{eee98d0e-b136-43f7-8324-ed19a734a43c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\buffer">
+      <UniqueIdentifier>{cc71e4f3-319e-4eef-be72-c15bcc829f12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\pass">
+      <UniqueIdentifier>{f8691763-a97f-4f84-81ea-09e1f8ef30f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\buffer">
+      <UniqueIdentifier>{9eb45c4d-8dad-4f24-8494-f4bf1d1d67e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\pass">
+      <UniqueIdentifier>{6d2ce3b0-493c-4535-a116-b73b400d627a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource">
+      <UniqueIdentifier>{8d4c7304-3858-4420-8268-42803ffa8223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{d9dd21ca-f602-46bb-9126-cd10b8ed37dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource\font">
+      <UniqueIdentifier>{78e3017b-d8f4-448e-a035-dbd766d57d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource\mesh">
+      <UniqueIdentifier>{d8008602-a6b5-48d0-9ebd-98be2032b262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource\model">
+      <UniqueIdentifier>{3ab4799a-6a07-4414-af8b-72604b72a472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource\shader">
+      <UniqueIdentifier>{1c38ae73-f050-4ba8-ba32-1427cc8a1a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource\texture">
+      <UniqueIdentifier>{81d413c1-4641-41f5-99db-7f1e2b03f351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\font">
+      <UniqueIdentifier>{d479181d-9166-414f-8309-b57f167241a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\mesh">
+      <UniqueIdentifier>{62338bda-2b2a-4af9-838a-35c8e5bb0c0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\model">
+      <UniqueIdentifier>{c10ce50a-c638-427b-814b-ad95a498da97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\shader">
+      <UniqueIdentifier>{681df624-70e1-4ead-b8ee-7a155930b1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\texture">
+      <UniqueIdentifier>{a1fc77e1-fced-4e58-9528-278de0b72441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene">
+      <UniqueIdentifier>{65e95e18-757f-46ed-a124-f03dde8b6c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{40f78a43-934e-4f2e-b172-9a85dde02b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\model">
+      <UniqueIdentifier>{5dec8b5c-1759-45fc-a94f-aa30893c01ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\light">
+      <UniqueIdentifier>{065b5693-cb71-49dc-88ce-e3a60ce4cfdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\sprite">
+      <UniqueIdentifier>{c6fe413a-2ec1-444d-a274-9ac19e4af6ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\camera">
+      <UniqueIdentifier>{88405a2c-7a32-4af4-9c19-550c03a79733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\model">
+      <UniqueIdentifier>{4d40ad1c-0510-4ce8-b499-4cfce884d94e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\light">
+      <UniqueIdentifier>{6d940267-cc87-4307-a1d0-cd353c232831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\camera">
+      <UniqueIdentifier>{bc0ff8d9-4399-4798-8b28-2a74a0fc4471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\sprite">
+      <UniqueIdentifier>{86231918-9fe9-4b96-a1c8-1d0e6169c124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\dds">
+      <UniqueIdentifier>{2054780c-6de7-4f10-81ec-942be5188a29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\font">
+      <UniqueIdentifier>{33c3df01-8af4-4a0d-b7e0-20bf10e43b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\mdl">
+      <UniqueIdentifier>{d8dfb1d1-5a60-4cf1-8157-297f4ead939c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\msh">
+      <UniqueIdentifier>{3d170e9c-ebcb-4f4a-8d47-100485ba3529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\mtl">
+      <UniqueIdentifier>{7a3a6a6b-b4ed-4d57-ad5d-1e55d91574f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\obj">
+      <UniqueIdentifier>{ad190163-e404-4df8-aa2b-d587e391390e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\wic">
+      <UniqueIdentifier>{8728aee0-29a9-4b5c-bf27-c528273e78cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\dds">
+      <UniqueIdentifier>{ac0c90d1-6973-4739-96dd-327c02ff5e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\font">
+      <UniqueIdentifier>{eba952a8-de59-4241-ac3b-0f8e471d247c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\mtl">
+      <UniqueIdentifier>{af5eb275-d6cf-4287-a17a-6a4c98af5c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\wic">
+      <UniqueIdentifier>{460e8227-22c0-45c4-94cd-fdf2292a8c59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Rendering\src\renderer\pipeline.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\direct3d11.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\shader\shader_factory.hpp">
+      <Filter>Header Files\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\shader\compiled_shader.hpp">
+      <Filter>Header Files\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\shader\shader.hpp">
+      <Filter>Header Files\resource\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\rendering_resource_manager.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\configuration.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\sprite_batch_mesh.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\static_mesh.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\vertex.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\mesh.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\mesh_descriptor.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\mesh\primitive_batch_mesh.hpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\factory.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp">
+      <Filter>Header Files\resource\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\texture\texture.hpp">
+      <Filter>Header Files\resource\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\model\material.hpp">
+      <Filter>Header Files\resource\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\model\model_descriptor.hpp">
+      <Filter>Header Files\resource\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\model\model_output.hpp">
+      <Filter>Header Files\resource\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\model_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\sprite_font_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\texture_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\material_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
+      <Filter>Header Files\loaders\wic</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_reader.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_tokens.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\obj\obj_loader.hpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_loader.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_reader.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mtl\mtl_tokens.hpp">
+      <Filter>Header Files\loaders\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_tokens.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_writer.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_loader.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\msh\msh_reader.hpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_reader.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_tokens.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_writer.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\mdl\mdl_loader.hpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_loader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_reader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\font\font_tokens.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp">
+      <Filter>Header Files\loaders\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\dds\screen_grab.hpp">
+      <Filter>Header Files\loaders\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\color_string.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\glyph.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_descriptor.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_output.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp">
+      <Filter>Header Files\resource\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_configuration.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_configurator.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\display\display_settings.hpp">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sprite_batch.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\fog.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\sky.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\viewport.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\camera_settings.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\light\omni_light.hpp">
+      <Filter>Header Files\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\light\spot_light.hpp">
+      <Filter>Header Files\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\light\ambient_light.hpp">
+      <Filter>Header Files\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\light\directional_light.hpp">
+      <Filter>Header Files\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\model_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\shadow_map_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\structured_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\camera_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\game_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_image.hpp">
+      <Filter>Header Files\scene\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\sprite\sprite_text.hpp">
+      <Filter>Header Files\scene\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\orthographic_camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\perspective_camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\camera\camera.hpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\model\model.hpp">
+      <Filter>Header Files\scene\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\swap_chain.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\output_manager.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\state_manager.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\font\sprite_font_factory.hpp">
+      <Filter>Header Files\resource\font</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\resource\model\material_factory.hpp">
+      <Filter>Header Files\resource\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\scene\rendering_world.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\dof_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\forward_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\lbuffer_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sky_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\sprite_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\voxel_grid_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\voxelization_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\aa_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\back_buffer_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\bounding_volume_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\deferred_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\depth_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\renderer.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\rendering_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rendering\src\resource\shader\shader.tpp">
+      <Filter>Header Files\resource\shader</Filter>
+    </None>
+    <None Include="Rendering\src\resource\rendering_resource_manager.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="Rendering\src\resource\mesh\mesh.tpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </None>
+    <None Include="Rendering\src\resource\mesh\primitive_batch_mesh.tpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </None>
+    <None Include="Rendering\src\resource\mesh\static_mesh.tpp">
+      <Filter>Header Files\resource\mesh</Filter>
+    </None>
+    <None Include="Rendering\src\renderer\factory.tpp">
+      <Filter>Header Files\renderer</Filter>
+    </None>
+    <None Include="Rendering\src\resource\texture\texture.tpp">
+      <Filter>Header Files\resource\texture</Filter>
+    </None>
+    <None Include="Rendering\src\resource\model\model_descriptor.tpp">
+      <Filter>Header Files\resource\model</Filter>
+    </None>
+    <None Include="Rendering\src\resource\model\model_output.tpp">
+      <Filter>Header Files\resource\model</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\model_loader.tpp">
+      <Filter>Header Files\loaders</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\obj\obj_loader.tpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\obj\obj_reader.tpp">
+      <Filter>Header Files\loaders\obj</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_reader.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_writer.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\msh\msh_loader.tpp">
+      <Filter>Header Files\loaders\msh</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_reader.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_writer.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\loaders\mdl\mdl_loader.tpp">
+      <Filter>Header Files\loaders\mdl</Filter>
+    </None>
+    <None Include="Rendering\src\renderer\buffer\constant_buffer.tpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </None>
+    <None Include="Rendering\src\renderer\buffer\structured_buffer.tpp">
+      <Filter>Header Files\renderer\buffer</Filter>
+    </None>
+    <None Include="Rendering\src\scene\sprite\sprite_text.tpp">
+      <Filter>Header Files\scene\sprite</Filter>
+    </None>
+    <None Include="Rendering\src\scene\camera\camera.tpp">
+      <Filter>Header Files\scene\camera</Filter>
+    </None>
+    <None Include="Rendering\src\scene\model\model.tpp">
+      <Filter>Header Files\scene\model</Filter>
+    </None>
+    <None Include="Rendering\src\scene\rendering_world.tpp">
+      <Filter>Header Files\scene</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Rendering\src\resource\shader\shader.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\compiled_shader.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\mesh\sprite_batch_mesh.cpp">
+      <Filter>Source Files\resource\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\mesh\vertex.cpp">
+      <Filter>Source Files\resource\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\mesh\mesh.cpp">
+      <Filter>Source Files\resource\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\rendering_resource_manager.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\factory.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\texture\texture.cpp">
+      <Filter>Source Files\resource\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp">
+      <Filter>Source Files\resource\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\model\model_descriptor.cpp">
+      <Filter>Source Files\resource\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\material_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\sprite_font_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\texture_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp">
+      <Filter>Source Files\loaders\wic</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_loader.cpp">
+      <Filter>Source Files\loaders\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\mtl\mtl_reader.cpp">
+      <Filter>Source Files\loaders\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\font\font_loader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\font\font_reader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp">
+      <Filter>Source Files\loaders\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp">
+      <Filter>Source Files\loaders\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\display\display_configurator.cpp">
+      <Filter>Source Files\display</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sprite_batch.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\font\sprite_font.cpp">
+      <Filter>Source Files\resource\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\light\ambient_light.cpp">
+      <Filter>Source Files\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\light\directional_light.cpp">
+      <Filter>Source Files\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\light\omni_light.cpp">
+      <Filter>Source Files\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\light\spot_light.cpp">
+      <Filter>Source Files\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\buffer\shadow_map_buffer.cpp">
+      <Filter>Source Files\renderer\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp">
+      <Filter>Source Files\renderer\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_image.cpp">
+      <Filter>Source Files\scene\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\sprite\sprite_text.cpp">
+      <Filter>Source Files\scene\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\orthographic_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\perspective_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\camera\camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\model\model.cpp">
+      <Filter>Source Files\scene\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\output_manager.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\state_manager.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\swap_chain.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\font\sprite_font_factory.cpp">
+      <Filter>Source Files\resource\font</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\model\material_factory.cpp">
+      <Filter>Source Files\resource\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\scene\rendering_world.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\depth_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\dof_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\forward_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\lbuffer_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sky_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\sprite_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\voxel_grid_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\voxelization_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\aa_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\back_buffer_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\bounding_volume_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\deferred_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\rendering_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

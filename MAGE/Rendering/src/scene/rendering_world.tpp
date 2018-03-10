@@ -25,16 +25,31 @@ namespace mage::rendering {
 
 	template<>
 	inline ProxyPtr< PerspectiveCamera > World::Create() {
-		auto ptr = AddElement(m_perspective_cameras, m_device);
-		ptr->SetAspectRatio(
-			static_cast< F32 >(m_display_configuration.get().GetDisplayWidth()), 
-			static_cast< F32 >(m_display_configuration.get().GetDisplayHeight()));
+		const auto ptr = AddElement(m_perspective_cameras, m_device);
+
+		const auto width  
+			= static_cast< F32 >(m_display_configuration.get().GetDisplayWidth());
+		const auto height 
+			= static_cast< F32 >(m_display_configuration.get().GetDisplayHeight());
+
+		ptr->SetAspectRatio(width, height);
+		ptr->GetViewport() = Viewport(width, height);
+
 		return ptr;
 	}
 
 	template<>
 	inline ProxyPtr< OrthographicCamera > World::Create() {
-		return AddElement(m_orthographic_cameras, m_device);
+		const auto ptr = AddElement(m_orthographic_cameras, m_device);
+
+		const auto width
+			= static_cast< F32 >(m_display_configuration.get().GetDisplayWidth());
+		const auto height
+			= static_cast< F32 >(m_display_configuration.get().GetDisplayHeight());
+
+		ptr->GetViewport() = Viewport(width, height);
+
+		return ptr;
 	}
 
 	template<>
@@ -65,15 +80,19 @@ namespace mage::rendering {
 
 	template<>
 	inline ProxyPtr< SpriteImage > World::Create() {
-		auto ptr = AddElement(m_sprite_images);
+		const auto ptr = AddElement(m_sprite_images);
+
 		ptr->SetBaseColorTexture(CreateWhiteTexture(m_resource_manager));
+		
 		return ptr;
 	}
 
 	template<>
 	inline ProxyPtr< SpriteText > World::Create() {
-		auto ptr = AddElement(m_sprite_texts);
+		const auto ptr = AddElement(m_sprite_texts);
+		
 		ptr->SetFont(CreateConsolasFont(m_resource_manager));
+		
 		return ptr;
 	}
 

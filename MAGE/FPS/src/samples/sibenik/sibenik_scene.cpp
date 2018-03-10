@@ -121,7 +121,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		Create< script::SwitchSceneScript< SibenikScene > >();
+		Create< script::SwitchSceneScript< ForrestScene > >();
 		Create< script::EditorScript >();
 
 		camera_node->Add(Create< script::StatsScript >());

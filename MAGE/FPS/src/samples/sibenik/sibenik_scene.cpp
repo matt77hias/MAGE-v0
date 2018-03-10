@@ -40,9 +40,10 @@ namespace mage {
 		using namespace rendering;
 		
 		const auto& rendering_manager = engine.GetRenderingManager();
-		//const auto& display_config    = rendering_manager.GetDisplayConfiguration();
+		const auto& display_config    = rendering_manager.GetDisplayConfiguration();
 		auto& rendering_world         = rendering_manager.GetWorld();
 		auto& rendering_factory       = rendering_manager.GetResourceManager();
+		const auto display_resolution = display_config.GetDisplayResolution();
 
 		//---------------------------------------------------------------------
 		// Resources
@@ -104,13 +105,12 @@ namespace mage {
 		// Sprites
 		//---------------------------------------------------------------------
 		const auto logo = rendering_world.Create< SpriteImage >();
-		const auto logo_tex_resolution = GetTexture2DSize(*logo_texture->Get());
 
 		logo->SetBaseColorTexture(logo_texture);
 		logo->GetSpriteTransform().SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform().SetTranslation(
 			NormalizedToAbsolute(F32x2(0.90f, 0.88f),
-								 static_cast< F32x2 >(logo_tex_resolution)));
+								 static_cast< F32x2 >(display_resolution)));
 
 		camera_node->Add(logo);
 

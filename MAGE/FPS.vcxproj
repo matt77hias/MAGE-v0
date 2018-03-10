@@ -19,10 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\res\engine_settings.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp" />
     <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp" />
     <ClInclude Include="FPS\src\samples\sibenik\sibenik_scene.hpp" />
     <ClInclude Include="FPS\src\samples\sponza\sponza_scene.hpp" />
+    <ClInclude Include="Rendering\res\display_settings.hpp" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp" />
@@ -30,22 +33,6 @@
     <ClCompile Include="FPS\src\samples\forrest\forrest_scene.cpp" />
     <ClCompile Include="FPS\src\samples\sibenik\sibenik_scene.cpp" />
     <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Core\res\engine_settings.rc">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <ResourceCompile Include="Rendering\res\display_settings.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Core\res\mage.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Core.vcxproj">
@@ -72,6 +59,13 @@
     <ProjectReference Include="Utilities.vcxproj">
       <Project>{e7f1c114-0904-40ed-9e9d-97fd842334c6}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Core\res\engine_settings.rc" />
+    <ResourceCompile Include="Rendering\src\display\display_settings.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Core\res\mage.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D39C1F4F-089B-4306-B1EF-513096942C28}</ProjectGuid>

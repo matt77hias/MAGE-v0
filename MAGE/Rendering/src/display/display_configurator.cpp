@@ -359,7 +359,7 @@ namespace mage::rendering {
 		// Load the settings script.
 		const auto file_exists = FileExists(s_display_settings_fname);
 		m_script = MakeUnique< VariableScript >
-			                             (s_display_settings_fname, file_exists);
+			       (s_display_settings_fname, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -380,7 +380,7 @@ namespace mage::rendering {
 		// Load the settings script.
 		const auto file_exists = FileExists(s_display_settings_fname);
 		m_script = MakeUnique< VariableScript >
-			                             (s_display_settings_fname, file_exists);
+			       (s_display_settings_fname, file_exists);
 
 		// Initialize the display modes.
 		InitializeDisplayModes();

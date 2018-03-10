@@ -60,6 +60,15 @@
     <ClInclude Include="FPS\src\samples\sibenik\sibenik_scene.hpp">
       <Filter>Header Files\samples\sibenik</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\res\display_settings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\res\engine_settings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp">
@@ -79,10 +88,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Core\res\engine_settings.rc">
+    <ResourceCompile Include="Rendering\src\display\display_settings.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="Rendering\res\display_settings.rc">
+    <ResourceCompile Include="Core\res\engine_settings.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

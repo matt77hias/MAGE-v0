@@ -219,7 +219,7 @@ namespace mage {
 		/**
 		 Removes all resources from this resource pool.
 		 */
-		void RemoveAll();
+		void RemoveAll() noexcept;
 		
 	private:
 
@@ -553,7 +553,7 @@ namespace mage {
 		/**
 		 Removes all resources from this persistent resource pool.
 		 */
-		void RemoveAll();
+		void RemoveAll() noexcept;
 		
 	private:
 

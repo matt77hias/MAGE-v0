@@ -312,12 +312,14 @@ namespace mage::rendering {
 											*m_resource_manager);
 
 		// Setup ImGui.
+		ImGui::CreateContext();
 		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());
 	}
 
 	void Manager::Impl::UninitializeSystems() noexcept {
 		// Uninitialize ImGui.
 		ImGui_ImplDX11_Shutdown();
+		ImGui::DestroyContext();
 
 		// Uninitialize the swap chain.
 		m_swap_chain.reset();

@@ -47,7 +47,7 @@ namespace mage::rendering {
 		const HRESULT result
 			= CreateDynamicVertexBuffer< VertexT >(
 				device, m_vertex_buffer.ReleaseAndGetAddressOf(),
-				gsl::span< const VertexT >());
+				nb_vertices);
 		ThrowIfFailed(result, "Vertex buffer creation failed: %08X.", result);
 
 		SetNumberOfVertices(nb_vertices);

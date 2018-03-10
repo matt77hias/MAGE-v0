@@ -307,6 +307,10 @@ namespace mage {
 						  m_listeners.end());
 	}
 
+	void Window::RemoveAllListeners() noexcept {
+		m_listeners.clear();
+	}
+
 	void Window::AddHandler(WindowMessageHandlerPtr handler) {
 		m_handlers.push_back(handler);
 	}
@@ -314,6 +318,10 @@ namespace mage {
 	void Window::RemoveHandler(WindowMessageHandlerPtr handler) {
 		m_handlers.erase(std::remove(m_handlers.begin(), m_handlers.end(), handler),
 						 m_handlers.end());
+	}
+
+	void Window::RemoveAllHandlers() noexcept {
+		m_handlers.clear();
 	}
 
 	[[nodiscard]]

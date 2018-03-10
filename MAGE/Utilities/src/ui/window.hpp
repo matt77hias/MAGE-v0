@@ -578,6 +578,11 @@ namespace mage {
 		void RemoveListener(WindowMessageListenerPtr listener);
 
 		/**
+		 Removes all the window message listeners from this window.
+		 */
+		void RemoveAllListeners() noexcept;
+
+		/**
 		 Adds the given window message handler to this window.
 
 		 @param[in]		handler
@@ -592,6 +597,11 @@ namespace mage {
 						A pointer to the window message handler to remove.
 		 */
 		void RemoveHandler(WindowMessageHandlerPtr handler);
+
+		/**
+		 Removes all the window message handlers from this window.
+		 */
+		void RemoveAllHandlers() noexcept;
 
 	private:
 

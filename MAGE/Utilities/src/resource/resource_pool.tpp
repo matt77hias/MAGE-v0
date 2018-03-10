@@ -125,7 +125,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void ResourcePool< KeyT, ResourceT >::RemoveAll() {
+	inline void ResourcePool< KeyT, ResourceT >::RemoveAll() noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		m_resource_map.clear();
@@ -252,7 +252,9 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	void PersistentResourcePool< KeyT, ResourceT >::Remove(const KeyT& key) {
+	void PersistentResourcePool< KeyT, ResourceT >
+		::Remove(const KeyT& key) {
+
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		if (const auto it = m_resource_map.find(key); 
@@ -263,7 +265,9 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	inline void PersistentResourcePool< KeyT, ResourceT >::RemoveAll() {
+	inline void PersistentResourcePool< KeyT, ResourceT >
+		::RemoveAll() noexcept {
+
 		std::lock_guard< std::mutex > lock(m_mutex);
 
 		m_resource_map.clear();

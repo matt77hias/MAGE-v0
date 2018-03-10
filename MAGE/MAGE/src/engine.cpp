@@ -201,6 +201,9 @@ namespace mage {
 	}
 
 	void Engine::UninitializeSystems() noexcept {
+		m_window->RemoveAllListeners();
+		m_window->RemoveAllHandlers();
+		
 		// Uninitialize the COM library.
 		CoUninitialize();
 

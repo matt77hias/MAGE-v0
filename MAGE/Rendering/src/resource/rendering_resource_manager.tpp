@@ -126,9 +126,9 @@ namespace mage::rendering {
 									 const MeshDescriptor< VertexT, IndexT >& desc,
 									 bool export_as_MDL) {
 
-		return GetPool< ResourceT >().template 
-			GetOrCreate(fname, m_device, *this, key_type< ResourceT >(fname), 
-						desc, export_as_MDL);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, *this, 
+												  key_type< ResourceT >(fname), 
+												  desc, export_as_MDL);
 	}
 
 	template< typename ResourceT >
@@ -139,9 +139,10 @@ namespace mage::rendering {
 									 gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 									 input_element_descs) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname), 
-						compiled_shader, input_element_descs);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+												  key_type< ResourceT >(fname), 
+												  compiled_shader, 
+												  input_element_descs);
 	}
 
 	template< typename ResourceT >
@@ -150,9 +151,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 		
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname), 
-						compiled_shader);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
+												  key_type< ResourceT >(fname),
+												  compiled_shader);
 	}
 
 	template< typename ResourceT >
@@ -161,9 +162,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname),
-						compiled_shader);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
+												  key_type< ResourceT >(fname),
+												  compiled_shader);
 	}
 
 	template< typename ResourceT >
@@ -172,9 +173,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname),
-						compiled_shader);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
+												  key_type< ResourceT >(fname),
+												  compiled_shader);
 	}
 
 	template< typename ResourceT >
@@ -183,9 +184,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname),
-						compiled_shader);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
+												  key_type< ResourceT >(fname),
+												  compiled_shader);
 	}
 
 	template< typename ResourceT >
@@ -194,9 +195,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname),
-						compiled_shader);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+												  key_type< ResourceT >(fname), 
+												  compiled_shader);
 	}
 
 	template< typename ResourceT >
@@ -205,8 +206,9 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const wstring& fname,
 									 const SpriteFontDescriptor& desc) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname), desc);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+												  key_type< ResourceT >(fname), 
+												  desc);
 	}
 
 	template< typename ResourceT >
@@ -214,8 +216,8 @@ namespace mage::rendering {
 		TexturePtr >
 		ResourceManager::GetOrCreate(const wstring& fname) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname));
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+												  key_type< ResourceT >(fname));
 	}
 
 	template< typename ResourceT >
@@ -225,9 +227,9 @@ namespace mage::rendering {
 									 const D3D11_TEXTURE2D_DESC& desc,
 									 const D3D11_SUBRESOURCE_DATA& initial_data) {
 
-		return GetPool< ResourceT >().template
-			GetOrCreate(fname, m_device, key_type< ResourceT >(fname),
-						desc, initial_data);
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+												  key_type< ResourceT >(fname), 
+												  desc, initial_data);
 	}
 
 	#pragma endregion

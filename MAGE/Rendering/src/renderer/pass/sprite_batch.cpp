@@ -145,7 +145,7 @@ namespace mage::rendering {
 			 A pointer to the shader resource view of the texture associated with 
 			 this sprite info.
 			 */
-			ID3D11ShaderResourceView *m_texture;
+			ID3D11ShaderResourceView* m_texture;
 
 			/**
 			 The flags of the sprite associated with this sprite info.
@@ -319,7 +319,7 @@ namespace mage::rendering {
 						The number of sprites which need to be rendered.
 		 */
 		void Render(ID3D11ShaderResourceView* texture,
-					const SpriteInfo * const *sprites,
+					const SpriteInfo* const* sprites,
 					size_t nb_sprites);
 		
 		/**

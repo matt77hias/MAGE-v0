@@ -3,7 +3,7 @@
 ## Logging scripts (2D)
 
 ### `StatsScript`
-A script displaying statistics like `FPS` (frames per second), `CPU` (CPU usage percentage between frames), and `RAM` (physical main memory usage between frames).
+A script displaying statistics like `FPS` (frames per second), `CPU` (CPU usage percentage), `RAM` (physical main memory) and `DCs` (number of draw calls).
 
 ### `TextConsoleScript`
 A script displaying a console/terminal with a fixed number of rows and colums.
@@ -11,19 +11,16 @@ A script displaying a console/terminal with a fixed number of rows and colums.
 ## Movement and Orientation
 
 ### `CharacterMotorScript`
-A script handling a `NodeTransform`'s translation based on the keyboard's input.
-
-### `ManhattanInputControllerScript`
-A script combining a `NodeTransform`'s translation and rotation via a `ManhattanMotorScript` and `MouseLookScript`.
+A script handling a `Node`'s translation based on the keyboard's input.
 
 ### `ManhattanMotorScript`
-A script handling a `NodeTransform`'s translation (object coodinate space axis-aligned) based on the keyboard's input.
+A script handling a `Node`'s translation based on the keyboard's input.
 
 ### `MouseLookScript`
-A script handling a `NodeTransform`'s rotation based on the mouse's input.
+A script handling a `Node`'s rotation based on the mouse's input.
 
 ### `RotationScript`
-A script rotating a `NodeTransform`'s around one of its principal axes.
+A script rotating a `Node`'s around one of its principal axes.
 
 ## Scene
 

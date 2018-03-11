@@ -45,7 +45,7 @@
 * **IDE**: Visual Studio 2017
 * **Debuggers/Profilers**:
   * NVidia Nsight 5.5
-  * RenderDoc v0.91
+  * RenderDoc v1.0
 
 ## Use
 

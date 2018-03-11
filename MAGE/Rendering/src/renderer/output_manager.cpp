@@ -54,7 +54,7 @@ namespace mage::rendering {
 		const auto display_resolution 
 			= m_display_configuration.get().GetDisplayResolution();
 		const auto ss_display_resolution
-			= m_display_configuration.get().GetDisplayResolution();
+			= m_display_configuration.get().GetSSDisplayResolution();
 		const auto nb_samples = GetSampleMultiplier(
 			m_display_configuration.get().GetAADescriptor());
 		

@@ -824,7 +824,6 @@ namespace mage::rendering {
 
 	void Renderer::Impl::RenderAA(const Camera& camera) {
 		const auto desc = m_display_configuration.get().GetAADescriptor();
-		const Viewport viewport(camera.GetViewport(), desc);
 
 		switch (desc) {
 
@@ -834,7 +833,8 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// AA pre-processing
 			//-----------------------------------------------------------------
-			m_aa_pass->DispatchPreprocess(viewport, AADescriptor::FXAA);
+			m_aa_pass->DispatchPreprocess(camera.GetViewport(), 
+										  AADescriptor::FXAA);
 
 			m_output_manager->BindEndResolve(m_device_context);
 			m_output_manager->BindPingPong(m_device_context);
@@ -842,7 +842,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// FXAA
 			//-----------------------------------------------------------------
-			m_aa_pass->Dispatch(viewport, AADescriptor::FXAA);
+			m_aa_pass->Dispatch(camera.GetViewport(), AADescriptor::FXAA);
 
 			break;
 		}
@@ -858,7 +858,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// MSAA/SSAA
 			//-----------------------------------------------------------------
-			m_aa_pass->Dispatch(viewport, desc);
+			m_aa_pass->Dispatch(camera.GetViewport(), desc);
 
 			m_output_manager->BindEndResolve(m_device_context);
 			break;

@@ -30,8 +30,6 @@ namespace mage::rendering {
 		/**
 		 Constructs a material.
 
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
 		 @param[in]		name
 						The name of the material.		
 		 */

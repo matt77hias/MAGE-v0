@@ -37,8 +37,6 @@ namespace mage::rendering {
 		/**
 		 Constructs a sprite font.
 
-		 @pre			The renderer associated with the current engine
-						must be loaded.
 		 @param[in]		device
 						A reference to the device.
 		 @param[in]		fname

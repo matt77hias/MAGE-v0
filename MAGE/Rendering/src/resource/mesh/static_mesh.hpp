@@ -43,8 +43,6 @@ namespace mage::rendering {
 		/**
 		 Constructs a static mesh.
 
-		 @pre			The number of vertices must be greater than zero.
-		 @pre			The number of indices must be greater than zero.
 		 @param[in]		device
 						A reference to the device.
 		 @param[in]		vertices

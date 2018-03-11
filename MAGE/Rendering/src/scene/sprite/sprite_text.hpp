@@ -49,9 +49,6 @@ namespace mage::rendering {
 
 		/**
 		 Constructs a sprite text.
-
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
 		 */
 		SpriteText();
 

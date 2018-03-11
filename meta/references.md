@@ -354,7 +354,7 @@ THOMPSON A.: [*Archetype System 2.0*](http://www.ademolathompson.com/archetypesy
 Uses:
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
-* FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/MAGE/shaders/aa/fxaa3_11.hlsli)]
+* FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/Shaders/shaders/aa/fxaa3_11.hlsli)]
 * [GSL](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
 * [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
 * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]

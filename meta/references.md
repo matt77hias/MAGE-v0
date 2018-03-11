@@ -48,6 +48,8 @@ FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/
 
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
+GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppguide.html), 2018.
+
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
 KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.
@@ -65,6 +67,8 @@ MÜLLER J.: [Lazy evaluation of function arguments in C++](http://foonathan.net/
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
+
+STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
 WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
@@ -351,8 +355,9 @@ Uses:
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 * FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/MAGE/shaders/aa/fxaa3_11.hlsli)]
+* [GSL](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
 * [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
-  * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
+* [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)

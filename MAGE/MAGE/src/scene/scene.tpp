@@ -12,7 +12,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_same_v< Node, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
 
 		const auto ptr = AddElement(m_nodes, 
 									std::forward< ConstructorArgsT >(args)...);
@@ -24,7 +24,7 @@ namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
 	inline typename std::enable_if_t< std::is_base_of_v< BehaviorScript, ElementT >,
-		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT &&...args) {
+		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
 
 		return AddElementPtr< ElementT >(m_scripts,
 			                             std::forward< ConstructorArgsT >(args)...);

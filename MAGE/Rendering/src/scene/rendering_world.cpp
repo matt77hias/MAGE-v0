@@ -37,11 +37,11 @@ namespace mage::rendering {
 		m_sprite_images(),
 		m_sprite_texts() {}
 
-	World::World(World &&world) noexcept = default;
+	World::World(World&& world) noexcept = default;
 
 	World::~World() = default;
 
-	World &World::operator=(World &&world) noexcept = default;
+	World& World::operator=(World&& world) noexcept = default;
 	
 	void World::Clear() noexcept {
 		m_perspective_cameras.clear();

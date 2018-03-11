@@ -85,18 +85,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		ProxyPtr< Node > Import(Engine& engine, 
-								const rendering::ModelDescriptor &desc);
+								const rendering::ModelDescriptor& desc);
 		ProxyPtr< Node > Import(Engine& engine, 
-								const rendering::ModelDescriptor &desc,
+								const rendering::ModelDescriptor& desc,
 								std::vector< ProxyPtr< Node > > &nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< Node, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
 
 		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_base_of_v< BehaviorScript, ElementT >,
-			ProxyPtr< ElementT > > Create(ConstructorArgsT &&...args);
+			ProxyPtr< ElementT > > Create(ConstructorArgsT&&... args);
 
 		template< typename ElementT >
 		[[nodiscard]]

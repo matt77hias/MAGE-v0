@@ -16,13 +16,13 @@ namespace mage {
 		: m_file_stream(nullptr), 
 		m_fname() {}
 
-	BigEndianBinaryWriter::BigEndianBinaryWriter(BigEndianBinaryWriter
-												 && writer) noexcept = default;
+	BigEndianBinaryWriter::BigEndianBinaryWriter(
+		BigEndianBinaryWriter&& writer) noexcept = default;
 
 	BigEndianBinaryWriter::~BigEndianBinaryWriter() = default;
 
-	BigEndianBinaryWriter& BigEndianBinaryWriter::operator=(BigEndianBinaryWriter&& 
-															writer) noexcept = default;
+	BigEndianBinaryWriter& BigEndianBinaryWriter
+		::operator=(BigEndianBinaryWriter&& writer) noexcept = default;
 
 	void BigEndianBinaryWriter::WriteToFile(wstring fname) {
 		m_fname = std::move(fname);

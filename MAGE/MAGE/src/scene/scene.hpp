@@ -88,7 +88,7 @@ namespace mage {
 								const rendering::ModelDescriptor& desc);
 		ProxyPtr< Node > Import(Engine& engine, 
 								const rendering::ModelDescriptor& desc,
-								std::vector< ProxyPtr< Node > > &nodes);
+								std::vector< ProxyPtr< Node > >& nodes);
 
 		template< typename ElementT, typename... ConstructorArgsT >
 		typename std::enable_if_t< std::is_same_v< Node, ElementT >,

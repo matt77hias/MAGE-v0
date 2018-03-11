@@ -40,7 +40,7 @@ namespace mage::rendering::loader {
 	 */
 	template< typename VertexT, typename IndexT >
 	void ImportOBJMeshFromFile(const wstring& fname, 
-							   ResourceManager &resource_manager, 
+							   ResourceManager& resource_manager, 
 							   ModelOutput< VertexT, IndexT >& model_output, 
 							   const MeshDescriptor< VertexT, IndexT >& 
 							   mesh_desc = MeshDescriptor< VertexT, IndexT >());

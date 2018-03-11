@@ -42,7 +42,7 @@ namespace mage::rendering {
 
 	StateManager::~StateManager() = default;
 
-	StateManager &StateManager
+	StateManager& StateManager
 		::operator=(StateManager&& manager) noexcept = default;
 
 	void StateManager::SetupRenderingStates() {

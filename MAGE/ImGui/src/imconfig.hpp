@@ -50,11 +50,11 @@
 #define IMGUI_STB_NAMESPACE     ImGuiStb
 
 #define IM_VEC2_CLASS_EXTRA \
-        ImVec2(const mage::F32x2 &f) { x = f.m_x; y = f.m_y; } \
+        ImVec2(const mage::F32x2& f) noexcept { x = f.m_x; y = f.m_y; } \
         operator mage::F32x2() const noexcept { return mage::F32x2(x, y); }
 
 #define IM_VEC4_CLASS_EXTRA \
-        ImVec4(const mage::F32x4 &f) { x = f.m_x; y = f.m_y; z = f.m_z; w = f.m_w; } \
+        ImVec4(const mage::F32x4& f) noexcept { x = f.m_x; y = f.m_y; z = f.m_z; w = f.m_w; } \
         operator mage::F32x4() const noexcept { return mage::F32x4(x, y, z, w); }
 
 //---- Use 32-bit vertex indices (instead of default 16-bit) to allow meshes with more than 64K vertices. Render function needs to support it.

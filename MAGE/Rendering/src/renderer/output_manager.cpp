@@ -47,7 +47,7 @@ namespace mage::rendering {
 
 	OutputManager::~OutputManager() = default;
 
-	OutputManager &OutputManager
+	OutputManager& OutputManager
 		::operator=(OutputManager&& manager) noexcept = default;
 
 	void OutputManager::SetupBuffers() {

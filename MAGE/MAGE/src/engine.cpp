@@ -297,7 +297,7 @@ namespace mage {
 		}
 		
 		// Perform the non-fixed delta time updates of the current scene.
-		m_scene->ForEach< BehaviorScript >([this, delta_time](BehaviorScript &script) {
+		m_scene->ForEach< BehaviorScript >([this, delta_time](BehaviorScript& script) {
 			if (State::Active == script.GetState()
 				&& !m_has_requested_scene) {
 

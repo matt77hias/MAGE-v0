@@ -144,7 +144,7 @@ namespace mage::rendering {
 		BindModelColor();
 
 		// Process the models.
-		world.ForEach< Model >([this, world_to_projection](const Model &model) {
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
 			if (State::Active != model.GetState()) {
 				return;
 			}

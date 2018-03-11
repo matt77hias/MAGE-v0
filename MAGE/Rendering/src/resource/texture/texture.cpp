@@ -20,7 +20,7 @@ namespace mage::rendering {
 	#pragma region
 
 	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &srv) {
+	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView& srv) {
 		ComPtr< ID3D11Resource > resource;
 		srv.GetResource(&resource);
 
@@ -34,7 +34,7 @@ namespace mage::rendering {
 	}
 
 	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept {
+	const U32x2 GetTexture2DSize(ID3D11Texture2D& texture) noexcept {
 		// Query the texture size.
 		D3D11_TEXTURE2D_DESC desc;
 		texture.GetDesc(&desc);
@@ -85,7 +85,7 @@ namespace mage::rendering {
 
 	Texture::~Texture() = default;
 
-	Texture &Texture::operator=(Texture&& texture) noexcept = default;
+	Texture& Texture::operator=(Texture&& texture) noexcept = default;
 
 	#pragma endregion
 }

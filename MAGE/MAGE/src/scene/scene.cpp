@@ -76,14 +76,14 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ProxyPtr< Node > Scene::Import(Engine& engine, 
-								   const rendering::ModelDescriptor &desc) {
+								   const rendering::ModelDescriptor& desc) {
 		std::vector< ProxyPtr< Node > > nodes;
 		return Import(engine, desc, nodes);
 	}
 
 	ProxyPtr< Node > Scene::Import(Engine& engine, 
-								   const rendering::ModelDescriptor &desc,
-								   std::vector< ProxyPtr< Node > > &nodes) {
+								   const rendering::ModelDescriptor& desc,
+								   std::vector< ProxyPtr< Node > >& nodes) {
 
 		using namespace rendering;
 		using ModelPtr = ProxyPtr< Model >;

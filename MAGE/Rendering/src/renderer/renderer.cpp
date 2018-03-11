@@ -314,7 +314,7 @@ namespace mage::rendering {
 	
 	Renderer::Impl::~Impl() = default;
 
-	Renderer::Impl &Renderer::Impl
+	Renderer::Impl& Renderer::Impl
 		::operator=(Impl&& world_renderer) noexcept = default;
 
 	void Renderer::Impl::InitializePasses() {
@@ -886,7 +886,7 @@ namespace mage::rendering {
 
 	Renderer::~Renderer() = default;
 
-	Renderer &Renderer::operator=(Renderer&& renderer) noexcept = default;
+	Renderer& Renderer::operator=(Renderer&& renderer) noexcept = default;
 
 	void Renderer::BindPersistentState() {
 		m_impl->BindPersistentState();

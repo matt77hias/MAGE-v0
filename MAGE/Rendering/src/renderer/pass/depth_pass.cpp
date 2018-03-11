@@ -31,7 +31,7 @@ namespace mage::rendering {
 
 	DepthPass::~DepthPass() = default;
 
-	DepthPass &DepthPass::operator=(DepthPass&& pass) noexcept = default;
+	DepthPass& DepthPass::operator=(DepthPass&& pass) noexcept = default;
 
 	void DepthPass::BindOpaqueShaders() const noexcept {
 		// Bind the vertex shader.

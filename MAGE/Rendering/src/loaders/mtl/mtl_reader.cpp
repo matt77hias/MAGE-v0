@@ -15,12 +15,12 @@
 namespace mage::rendering::loader {
 
 	MTLReader::MTLReader(ResourceManager& resource_manager, 
-						 std::vector< Material > &material_buffer)
+						 std::vector< Material >& material_buffer)
 		: LineReader(), 
 		m_resource_manager(resource_manager), 
 		m_material_buffer(material_buffer) {}
 
-	MTLReader::MTLReader(MTLReader &&reader) noexcept = default;
+	MTLReader::MTLReader(MTLReader&& reader) noexcept = default;
 
 	MTLReader::~MTLReader() = default;
 

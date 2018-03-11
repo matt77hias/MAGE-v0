@@ -38,8 +38,8 @@ namespace mage::rendering::loader {
 						A reference to the sprite font descriptor.
 		*/
 		explicit SpriteFontReader(ID3D11Device& device, 
-								  SpriteFontOutput &output, 
-								  const SpriteFontDescriptor &desc);
+								  SpriteFontOutput& output, 
+								  const SpriteFontDescriptor& desc);
 		
 		/**
 		 Constructs a FONT reader from the given FONT reader.

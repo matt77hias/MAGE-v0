@@ -31,7 +31,7 @@ namespace mage::rendering {
 					convertible to a @c ID3D11Texture2D.
 	 */
 	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView &texture_srv);
+	const U32x2 GetTexture2DSize(ID3D11ShaderResourceView& texture_srv);
 
 	/**
 	 Returns the size of the given 2D texture.
@@ -41,7 +41,7 @@ namespace mage::rendering {
 	 @return		The size [width, height] of the given 2D texture.
 	 */
 	[[nodiscard]]
-	const U32x2 GetTexture2DSize(ID3D11Texture2D &texture) noexcept;
+	const U32x2 GetTexture2DSize(ID3D11Texture2D& texture) noexcept;
 
 	#pragma endregion
 

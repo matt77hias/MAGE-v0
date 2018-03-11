@@ -50,7 +50,7 @@ namespace mage::rendering::loader {
 						A reference to a vector containing the indices.
 		 */
 		explicit MSHWriter(const std::vector< VertexT >& vertices, 
-			               const std::vector< IndexT > & indices);
+			               const std::vector< IndexT >& indices);
 		
 		/**
 		 Constructs a MSH writer from the given MSH writer.

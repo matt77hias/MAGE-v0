@@ -455,7 +455,7 @@ namespace mage::rendering {
 		m_swap_chain->Present(sync_interval, 0u);
 	}
 
-	void SwapChain::Impl::TakeScreenShot(const wstring &fname) const {
+	void SwapChain::Impl::TakeScreenShot(const wstring& fname) const {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.

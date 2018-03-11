@@ -39,7 +39,7 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit VoxelizationPass(ID3D11Device &device, 
+		explicit VoxelizationPass(ID3D11Device& device, 
 								  ID3D11DeviceContext& device_context, 
 								  StateManager& state_manager, 
 								  ResourceManager& resource_manager);

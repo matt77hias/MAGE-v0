@@ -41,7 +41,7 @@ namespace mage::script {
 
 		const auto& input_manager = engine.GetInputManager();
 		const auto& keyboard      = input_manager.GetKeyboard();
-		auto &transform           = GetOwner()->GetTransform();
+		auto& transform           = GetOwner()->GetTransform();
 
 		const auto movement_magnitude 
 			= static_cast< F32 >(delta_time * m_velocity);

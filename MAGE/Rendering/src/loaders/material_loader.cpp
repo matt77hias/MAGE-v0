@@ -24,9 +24,9 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportMaterialFromFile(const wstring &fname, 
-								ResourceManager &resource_manaer, 
-								std::vector< Material > &materials) {
+	void ImportMaterialFromFile(const wstring& fname, 
+								ResourceManager& resource_manaer, 
+								std::vector< Material >& materials) {
 		
 		auto extension = GetFileExtension(fname);
 		std::transform(extension.begin(), extension.end(), extension.begin(),

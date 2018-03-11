@@ -462,7 +462,7 @@ namespace mage::rendering {
 		}
 		
 		// Create a sprite.
-		auto &sprite = m_sprites.emplace_back();
+		auto& sprite = m_sprites.emplace_back();
 
 		// destination: [Tx Ty Sx Sy]
 		const auto destination = XMVectorSet(transform.GetTranslation().m_x,

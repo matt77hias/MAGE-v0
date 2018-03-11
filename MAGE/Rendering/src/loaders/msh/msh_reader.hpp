@@ -51,7 +51,7 @@ namespace mage::rendering::loader {
 						from file.
 		 */
 		explicit MSHReader(std::vector< VertexT >& vertices, 
-			               std::vector< IndexT > & indices);
+			               std::vector< IndexT >& indices);
 
 		/**
 		 Constructs a MSH reader from the given MSH reader.

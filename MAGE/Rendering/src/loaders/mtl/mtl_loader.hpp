@@ -26,7 +26,7 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to import the mesh from file.
 	 */
-	void ImportMTLMaterialFromFile(const wstring &fname, 
+	void ImportMTLMaterialFromFile(const wstring& fname, 
 								   ResourceManager& resource_manager, 
 		                           std::vector< Material >& materials);
 }

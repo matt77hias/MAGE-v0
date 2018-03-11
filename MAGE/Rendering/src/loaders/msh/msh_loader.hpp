@@ -43,7 +43,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring& fname, 
 		                       std::vector< VertexT >& vertices, 
-		                       std::vector< IndexT > & indices);
+		                       std::vector< IndexT >& indices);
 
 	/**
 	 Exports the given mesh to the given MSH file.
@@ -65,7 +65,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void ExportMSHMeshToFile(const wstring& fname, 
 		                     const std::vector< VertexT >& vertices, 
-		                     const std::vector< IndexT > & indices);
+		                     const std::vector< IndexT >& indices);
 }
 
 //-----------------------------------------------------------------------------

@@ -57,7 +57,7 @@ namespace mage::rendering {
 		 */
 		template< typename VertexT, typename IndexT >
 		explicit ModelDescriptor(ID3D11Device& device, 
-								 ResourceManager &resource_manager, 
+								 ResourceManager& resource_manager, 
 								 wstring fname, 
 								 const  MeshDescriptor< VertexT, IndexT >& 
 								 desc = MeshDescriptor< VertexT, IndexT >(), 

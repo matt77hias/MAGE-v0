@@ -18,7 +18,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring& fname, 
 		                       std::vector< VertexT >& vertices, 
-		                       std::vector< IndexT > & indices) {
+		                       std::vector< IndexT >& indices) {
 		
 		MSHReader< VertexT, IndexT > reader(vertices, indices);
 		reader.ReadFromFile(fname);
@@ -27,7 +27,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void ExportMSHMeshToFile(const wstring& fname,
 		                     const std::vector< VertexT >& vertices, 
-		                     const std::vector< IndexT > & indices) {
+		                     const std::vector< IndexT >& indices) {
 		
 		MSHWriter< VertexT, IndexT > writer(vertices, indices);
 		writer.WriteToFile(fname);

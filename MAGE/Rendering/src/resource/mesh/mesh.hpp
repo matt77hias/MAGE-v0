@@ -65,7 +65,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given mesh (i.e. this 
 						mesh).
 		 */
-		Mesh &operator=(const Mesh& mesh) = delete;
+		Mesh& operator=(const Mesh& mesh) = delete;
 
 		/**
 		 Moves the given mesh to this mesh.
@@ -74,7 +74,7 @@ namespace mage::rendering {
 						A reference to the mesh to move.
 		 @return		A reference to the moved mesh (i.e. this mesh).
 		 */
-		Mesh &operator=(Mesh&& mesh) noexcept;
+		Mesh& operator=(Mesh&& mesh) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

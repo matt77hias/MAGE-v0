@@ -37,9 +37,9 @@ namespace mage {
 	 @c AltPrintScreen.
 	 */
 	enum class HotKey : U8 {
-		Unused         = 0,
-		PrintScreen    = 1,
-		AltPrintScreen = 2,
+		Unused = 0,
+		PrintScreen,
+		AltPrintScreen,
 	};
 
 	#pragma endregion
@@ -440,10 +440,8 @@ namespace mage {
 						A pointer to the window descriptor.
 		 @param[in]		title_text
 						A reference to the title text.
-		 @param[in]		width
-						The width of the window.
-		 @param[in]		height
-						The height of the window.
+		 @param[in]		resolution
+						The resolution of the window.
 		 @param[in]		style
 						The style of the window.
 		 @throws		Exception
@@ -451,8 +449,7 @@ namespace mage {
 		 */
 		explicit Window(WindowDescriptorPtr window_desc,
 						const wstring& title_text, 
-						U32 width, 
-						U32 height,
+						const U32x2& resolution, 
 						DWORD style = s_default_window_style);
 
 		/**
@@ -614,18 +611,15 @@ namespace mage {
 
 		 @param[in]		title_text
 						A reference to the title text.
-		 @param[in]		width
-						The width of the client rectangle of the window.
-		 @param[in]		height
-						The height of the client rectangle of the window.
+		 @param[in]		resolution
+						The resolution of the client rectangle of the window.
 		 @param[in]		style
 						The style of the window.
 		 @throws		Exception
 						Failed to create the window.
 		 */
 		void InitializeWindow(const wstring& title_text, 
-							  U32 width, 
-							  U32 height, 
+							  const U32x2& resolution, 
 							  DWORD style);
 
 		/**

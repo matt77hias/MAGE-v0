@@ -23,8 +23,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION 512
-
 //TODO: make configurable
 #define MAGE_DEFAULT_DEPTH_BIAS               100
 #define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS  1.0f
@@ -61,8 +59,7 @@ namespace mage::rendering {
 
 		explicit ShadowMapBuffer(ID3D11Device& device,
 			                     size_t nb_shadow_maps, 
-			                     U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                     U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+								 const U32x2& resolution = { 512u, 512u }, 
 			                     DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer& buffer) = delete;
 		ShadowMapBuffer(ShadowMapBuffer&& buffer) noexcept;
@@ -155,8 +152,7 @@ namespace mage::rendering {
 
 		explicit ShadowCubeMapBuffer(ID3D11Device& device,
 			                         size_t nb_shadow_cube_maps,
-			                         U32 width  = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
-			                         U32 height = MAGE_DEFAULT_SHADOW_MAPPED_RESOLUTION,
+									 const U32x2& resolution = { 512u, 512u },
 			                         DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer& buffer) = delete;
 		ShadowCubeMapBuffer(ShadowCubeMapBuffer&& buffer) noexcept;

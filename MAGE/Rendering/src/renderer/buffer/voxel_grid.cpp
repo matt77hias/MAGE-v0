@@ -19,8 +19,7 @@ namespace mage::rendering {
 
 	VoxelGrid::VoxelGrid(ID3D11Device& device, size_t resolution)
 		: m_resolution(resolution), 
-		m_viewport(static_cast< F32 >(resolution), 
-				   static_cast< F32 >(resolution)),
+		m_viewport(U32x2(static_cast< U32 >(resolution))),
 		m_buffer_srv(), 
 		m_buffer_uav(), 
 		m_texture_srv(), 

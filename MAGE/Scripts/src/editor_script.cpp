@@ -211,42 +211,44 @@ namespace mage::script {
 				//-------------------------------------------------------------
 				// Top Left
 				//-------------------------------------------------------------
-				auto top_left = AbsoluteToNormalized(viewport.GetTopLeft(), 
-													 display_resolution);
+				auto top_left 
+					= AbsoluteToNormalized(F32x2(viewport.GetTopLeft()), 
+										   display_resolution);
 				ImGui::InputFloat2("Top Left", top_left.GetData());
-				viewport.SetTopLeft(
-					NormalizedToAbsolute(top_left, display_resolution));
+				viewport.SetTopLeft(U32x2(
+					NormalizedToAbsolute(top_left, display_resolution)));
 
 				//-------------------------------------------------------------
 				// Width and Height
 				//-------------------------------------------------------------
-				auto resolution = AbsoluteToNormalized(viewport.GetWidthAndHeight(),
-													   display_resolution);
+				auto resolution 
+					= AbsoluteToNormalized(F32x2(viewport.GetResolution()),
+										   display_resolution);
 				ImGui::InputFloat2("Resolution", resolution.GetData());
-				viewport.SetWidthAndHeight(
-					NormalizedToAbsolute(resolution, display_resolution));
+				viewport.SetResolution(U32x2(
+					NormalizedToAbsolute(resolution, display_resolution)));
 			}
 			else {
 				//-------------------------------------------------------------
 				// Top Left
 				//-------------------------------------------------------------
-				auto top_left = viewport.GetTopLeft();
-				ImGui::InputFloat2("Top Left", top_left.GetData());
-				viewport.SetTopLeft(top_left);
+				auto top_left = S32x2(viewport.GetTopLeft());
+				ImGui::InputInt2("Top Left", top_left.GetData());
+				viewport.SetTopLeft(U32x2(top_left));
 
 				//-------------------------------------------------------------
 				// Width and Height
 				//-------------------------------------------------------------
-				auto resolution = viewport.GetWidthAndHeight();
-				ImGui::InputFloat2("Resolution", resolution.GetData());
-				viewport.SetWidthAndHeight(resolution);
+				auto resolution = S32x2(viewport.GetResolution());
+				ImGui::InputInt2("Resolution", resolution.GetData());
+				viewport.SetResolution(U32x2(resolution));
 			}
 
 			ImGui::Checkbox("Normalization", &normalization);
 		}
 
 		void DrawWidget(rendering::Camera& camera,
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 
 			//-----------------------------------------------------------------
 			// Near and Far
@@ -267,7 +269,8 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Viewport
 			//-----------------------------------------------------------------
-			DrawWidget(camera.GetViewport(), display_resolution);
+			DrawWidget(camera.GetViewport(), 
+					   static_cast< F32x2 >(display_resolution));
 
 			ImGui::Separator();
 
@@ -278,7 +281,7 @@ namespace mage::script {
 		}
 
 		void DrawWidget(rendering::OrthographicCamera& camera,
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 			
 			//-----------------------------------------------------------------
 			// Width and Height
@@ -297,7 +300,7 @@ namespace mage::script {
 		}
 	
 		void DrawWidget(rendering::PerspectiveCamera& camera,
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 			
 			//-----------------------------------------------------------------
 			// Aspect Ratio
@@ -626,7 +629,7 @@ namespace mage::script {
 		}
 
 		void DrawWidget(rendering::SpriteImage& sprite,
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 			
 			using rendering::SpriteEffect;
 			
@@ -638,7 +641,7 @@ namespace mage::script {
 			// Sprite transform
 			//-----------------------------------------------------------------
 			DrawWidget(sprite.GetSpriteTransform(), 
-					   display_resolution, 
+					   static_cast< F32x2 >(display_resolution),
 					   static_cast< F32x2 >(texture_resolution));
 
 			ImGui::Separator();
@@ -686,7 +689,7 @@ namespace mage::script {
 		}
 	
 		void DrawWidget(rendering::SpriteText& sprite,
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 
 			using rendering::SpriteEffect;
 			using rendering::SpriteText;
@@ -699,7 +702,7 @@ namespace mage::script {
 			// Sprite transform
 			//-----------------------------------------------------------------
 			DrawWidget(sprite.GetSpriteTransform(),
-					   display_resolution,
+					   static_cast< F32x2 >(display_resolution),
 					   static_cast< F32x2 >(texture_resolution));
 
 			ImGui::Separator();
@@ -796,7 +799,7 @@ namespace mage::script {
 		}
 
 		void DrawWidget(Node& node, 
-						const F32x2& display_resolution) {
+						const U32x2& display_resolution) {
 			
 			using rendering::OrthographicCamera;
 			using rendering::PerspectiveCamera;
@@ -1023,7 +1026,7 @@ namespace mage::script {
 		}
 
 		void DrawInspector(ProxyPtr< Node >& selected,
-						   const F32x2& display_resolution) {
+						   const U32x2& display_resolution) {
 
 			ImGui::Begin("Inspector");
 
@@ -1054,6 +1057,9 @@ namespace mage::script {
 	EditorScript& EditorScript
 		::operator=(EditorScript&& script) noexcept = default;
 
+	void EditorScript::Load([[maybe_unused]] Engine& engine) {
+		m_selected = nullptr;
+	}
 
 	void EditorScript::Update([[maybe_unused]] Engine& engine,
 							  [[maybe_unused]] F64 delta_time) {
@@ -1063,11 +1069,7 @@ namespace mage::script {
 
 		const auto config = engine.GetRenderingManager().GetDisplayConfiguration();
 		const auto display_resolution = config.GetDisplayResolution();
-		DrawInspector(m_selected, static_cast< F32x2 >(display_resolution));
-	}
-
-	void EditorScript::Close([[maybe_unused]] Engine& engine) {
-		m_selected = nullptr;
+		DrawInspector(m_selected, display_resolution);
 	}
 
 	#pragma endregion

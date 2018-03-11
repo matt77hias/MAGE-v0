@@ -156,10 +156,9 @@ namespace mage {
 			auto window_desc
 				= MakeShared< WindowDescriptor >(setup.GetApplicationInstance(), 
 												 L"MAGE");
-			m_window = MakeUnique< Window >(std::move(window_desc),
-											setup.GetApplicationName(),
-											display_config.GetDisplayWidth(),
-											display_config.GetDisplayHeight());
+			m_window = MakeUnique< Window >(std::move(window_desc), 
+											setup.GetApplicationName(), 
+											display_config.GetDisplayResolution());
 			
 			m_message_handler.m_on_active_change = [this](bool deactive) {
 				m_deactive = deactive;

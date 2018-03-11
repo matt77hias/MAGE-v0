@@ -180,17 +180,13 @@ namespace mage::rendering {
 
 		void SetupBuffers();
 
-		void SetupBuffer(U32 width, 
-			             U32 height, 
-			             U32 nb_samples, 
+		void SetupBuffer(const U32x3& resolution, 
 			             DXGI_FORMAT format,
 			             ID3D11ShaderResourceView** srv, 
 			             ID3D11RenderTargetView** rtv, 
 			             ID3D11UnorderedAccessView** uav);
 
-		void SetupDepthBuffer(U32 width, 
-			                  U32 height, 
-			                  U32 nb_samples);
+		void SetupDepthBuffer(const U32x3& resolution);
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -375,25 +375,28 @@ namespace mage::rendering {
 	void Renderer::Impl::BindPersistentState() {
 		m_state_manager->BindPersistentState(m_device_context);
 		
+		const auto display_resolution 
+			= m_display_configuration.get().GetDisplayResolution();
+		const auto ss_display_resolution 
+			= m_display_configuration.get().GetSSDisplayResolution();
+
 		GameBuffer buffer;
-		buffer.m_display_width                = m_display_configuration.get().GetDisplayWidth();
-		buffer.m_display_height               = m_display_configuration.get().GetDisplayHeight();
-		buffer.m_display_inv_width_minus1     = 1.0f / (buffer.m_display_width  - 1.0f);
-		buffer.m_display_inv_height_minus1    = 1.0f / (buffer.m_display_height - 1.0f);
+		buffer.m_display_resolution               = display_resolution;
+		buffer.m_display_inv_resolution_minus1    = F32x2(1.0f / (display_resolution.m_x - 1u), 
+														  1.0f / (display_resolution.m_y - 1u));
+
+		buffer.m_ss_display_resolution            = ss_display_resolution;
+		buffer.m_ss_display_inv_resolution_minus1 = F32x2(1.0f / (ss_display_resolution.m_x - 1u), 
+														  1.0f / (ss_display_resolution.m_y - 1u));
 		
-		buffer.m_ss_display_width             = m_display_configuration.get().GetSSDisplayWidth();
-		buffer.m_ss_display_height            = m_display_configuration.get().GetSSDisplayHeight();
-		buffer.m_ss_display_inv_width_minus1  = 1.0f / (buffer.m_ss_display_width  - 1.0f);
-		buffer.m_ss_display_inv_height_minus1 = 1.0f / (buffer.m_ss_display_height - 1.0f);
-		
-		buffer.m_gamma                        = m_display_configuration.get().GetGamma();
-		buffer.m_inv_gamma                    = 1.0f / buffer.m_gamma;
+		buffer.m_gamma                            = m_display_configuration.get().GetGamma();
+		buffer.m_inv_gamma                        = 1.0f / buffer.m_gamma;
 
 		//TODO
-		buffer.m_voxel_grid_resolution        = g_voxel_grid_resolution;
-		buffer.m_voxel_grid_inv_resolution    = 1.0f / buffer.m_voxel_grid_resolution;
-		buffer.m_voxel_size                   = g_voxel_size;
-		buffer.m_voxel_inv_size               = 1.0f / buffer.m_voxel_size;
+		buffer.m_voxel_grid_resolution            = g_voxel_grid_resolution;
+		buffer.m_voxel_grid_inv_resolution        = 1.0f / buffer.m_voxel_grid_resolution;
+		buffer.m_voxel_size                       = g_voxel_size;
+		buffer.m_voxel_inv_size                   = 1.0f / buffer.m_voxel_size;
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, buffer);
@@ -416,8 +419,8 @@ namespace mage::rendering {
 		});
 
 		// Bind the maximum viewport.
-		const Viewport viewport(m_display_configuration.get().GetDisplayWidth(),
-								m_display_configuration.get().GetDisplayHeight());
+		const Viewport viewport(
+			m_display_configuration.get().GetDisplayResolution());
 		viewport.Bind(m_device_context);
 
 		// Perform a sprite pass.

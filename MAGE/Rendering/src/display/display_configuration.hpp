@@ -141,7 +141,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		U32 GetDisplayWidth() const noexcept {
-			return static_cast< U32 >(m_display_mode.Width);
+			return m_display_mode.Width;
 		}
 		
 		/**
@@ -152,7 +152,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		U32 GetDisplayHeight() const noexcept {
-			return static_cast< U32 >(m_display_mode.Height);
+			return m_display_mode.Height;
 		}
 		
 		/**
@@ -275,6 +275,17 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Methods: Anti-Aliasing
 		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this display configuration uses AA.
+
+		 @return		@c true if this display configuration uses AA. 
+						@c false otherwise.
+		 */
+		[[nodiscard]]
+		bool UsesAA() const noexcept {
+			return AADescriptor::None != m_aa_desc;
+		}
 
 		/**
 		 Checks whether this display configuration uses MSAA.

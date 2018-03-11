@@ -37,8 +37,8 @@ namespace mage::rendering {
 		m_uavs{}, 
 		m_dsv(), 
 		m_hdr0_to_hdr1(true), 
-		m_msaa(false), 
-		m_ssaa(false) {
+		m_msaa(m_display_configuration.get().UsesMSAA()),
+		m_ssaa(m_display_configuration.get().UsesSSAA()) {
 
 		SetupBuffers();
 	}
@@ -51,72 +51,31 @@ namespace mage::rendering {
 		::operator=(OutputManager&& manager) noexcept = default;
 
 	void OutputManager::SetupBuffers() {
-		U32 nb_samples = 1u;
-		auto width     = m_display_configuration.get().GetDisplayWidth();
-		auto height    = m_display_configuration.get().GetDisplayHeight();
-		auto ss_width  = width;
-		auto ss_height = height;
-		auto aa        = true;
+		const auto display_resolution 
+			= m_display_configuration.get().GetDisplayResolution();
+		const auto ss_display_resolution
+			= m_display_configuration.get().GetDisplayResolution();
+		const auto nb_samples = GetSampleMultiplier(
+			m_display_configuration.get().GetAADescriptor());
 		
-		switch (m_display_configuration.get().GetAADescriptor()) {
-
-		case AADescriptor::MSAA_2x: {
-			m_msaa     = true;
-			nb_samples = 2u;
-			break;
-		}
-		case AADescriptor::MSAA_4x: {
-			m_msaa     = true;
-			nb_samples = 4u;
-			break;
-		}
-		case AADescriptor::MSAA_8x: {
-			m_msaa     = true;
-			nb_samples = 8u;
-			break;
-		}
+		const U32x3 setup(display_resolution, 1u);
+		const U32x3 ss_setup(ss_display_resolution, nb_samples);
 		
-		case AADescriptor::SSAA_2x: {
-			m_ssaa     = true;
-			ss_width  *= 2u;
-			ss_height *= 2u;
-			break;
-		}
-		case AADescriptor::SSAA_3x: {
-			m_ssaa     = true;
-			ss_width  *= 3u;
-			ss_height *= 3u;
-			break;
-		}
-		case AADescriptor::SSAA_4x: {
-			m_ssaa     = true;
-			ss_width  *= 4u;
-			ss_height *= 4u;
-			break;
-		}
-
-		case AADescriptor::None: {
-			aa = false;
-			break;
-		}
-
-		}
-
 		// Setup the depth buffer.
-		SetupDepthBuffer(ss_width, ss_height, nb_samples);
+		SetupDepthBuffer(ss_setup);
 
 		// Setup the GBuffer buffers.
-		SetupBuffer(ss_width, ss_height, nb_samples, 
+		SetupBuffer(ss_setup,
 			        DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
 			        nullptr);
-		SetupBuffer(ss_width, ss_height, nb_samples, 
+		SetupBuffer(ss_setup,
 			        DXGI_FORMAT_R8G8B8A8_UNORM,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
 			        nullptr);
-		SetupBuffer(ss_width, ss_height, nb_samples, 
+		SetupBuffer(ss_setup,
 					DXGI_FORMAT_R11G11B10_FLOAT,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
@@ -124,22 +83,22 @@ namespace mage::rendering {
 
 		// Setup the HDR buffer.
 		if (m_msaa) {
-			SetupBuffer(ss_width, ss_height, nb_samples, 
+			SetupBuffer(ss_setup,
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
 				        nullptr);
 		}
 		else {
-			SetupBuffer(ss_width, ss_height, 1u, 
+			SetupBuffer(ss_setup,
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
 				        ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
 		}
 		
-		if (aa) {
-			SetupBuffer(width, height, 1u, 
+		if (m_display_configuration.get().UsesAA()) {
+			SetupBuffer(setup,
 				        DXGI_FORMAT_R16G16B16A16_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
 				        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
@@ -154,20 +113,20 @@ namespace mage::rendering {
 				= m_uavs[static_cast< size_t >(UAVIndex::HDR)];
 		}
 
-		SetupBuffer(width, height, 1u, 
+		SetupBuffer(setup,
 			        DXGI_FORMAT_R16G16B16A16_FLOAT,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR1),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR1),
 			        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR1));
 
 		if (m_msaa || m_ssaa) {
-			SetupBuffer(width, height, 1u,
+			SetupBuffer(setup,
 				        DXGI_FORMAT_R32_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
 				        nullptr,
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
 			
-			SetupBuffer(width, height, 1u, 
+			SetupBuffer(setup,
 				        DXGI_FORMAT_R11G11B10_FLOAT,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
 				        nullptr,
@@ -181,9 +140,7 @@ namespace mage::rendering {
 		}
 	}
 
-	void OutputManager::SetupBuffer(U32 width, 
-		                            U32 height, 
-		                            U32 nb_samples, 
+	void OutputManager::SetupBuffer(const U32x3& resolution, 
 		                            DXGI_FORMAT format, 
 		                            ID3D11ShaderResourceView** srv, 
 		                            ID3D11RenderTargetView** rtv, 
@@ -191,12 +148,12 @@ namespace mage::rendering {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = width;
-		texture_desc.Height           = height;
+		texture_desc.Width            = resolution.m_x;
+		texture_desc.Height           = resolution.m_y;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 1u;
 		texture_desc.Format           = format;
-		texture_desc.SampleDesc.Count = nb_samples;
+		texture_desc.SampleDesc.Count = resolution.m_z;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE;
 		if (rtv) {
@@ -207,7 +164,7 @@ namespace mage::rendering {
 		}
 
 		// Sample quality
-		if (1u != nb_samples) {
+		if (1u != texture_desc.SampleDesc.Count) {
 			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
@@ -252,23 +209,22 @@ namespace mage::rendering {
 		}
 	}
 
-	void OutputManager::SetupDepthBuffer(U32 width, 
-		                                 U32 height, 
-		                                 U32 nb_samples) {
+	void OutputManager::SetupDepthBuffer(const U32x3& resolution) {
+
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = width;
-		texture_desc.Height           = height;
+		texture_desc.Width            = resolution.m_x;
+		texture_desc.Height           = resolution.m_y;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 1u;
 		texture_desc.Format           = DXGI_FORMAT_R32_TYPELESS;
-		texture_desc.SampleDesc.Count = nb_samples;
+		texture_desc.SampleDesc.Count = resolution.m_z;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE 
 			                          | D3D11_BIND_DEPTH_STENCIL;
 
 		// Sample quality
-		if (1u != nb_samples) {
+		if (1u != texture_desc.SampleDesc.Count) {
 			const HRESULT result = m_device.get().CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
@@ -294,7 +250,7 @@ namespace mage::rendering {
 			// Create the SRV descriptor.
 			D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
 			srv_desc.Format = DXGI_FORMAT_R32_FLOAT;
-			if (1u != nb_samples) {
+			if (1u != texture_desc.SampleDesc.Count) {
 				srv_desc.ViewDimension       = D3D11_SRV_DIMENSION_TEXTURE2DMS;
 			}
 			else {
@@ -314,7 +270,7 @@ namespace mage::rendering {
 			// Create the DSV descriptor.
 			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 			dsv_desc.Format = DXGI_FORMAT_D32_FLOAT;
-			dsv_desc.ViewDimension = (1u != nb_samples) ?
+			dsv_desc.ViewDimension = (1u != texture_desc.SampleDesc.Count) ?
 				                     D3D11_DSV_DIMENSION_TEXTURE2DMS :
 				                     D3D11_DSV_DIMENSION_TEXTURE2D;
 

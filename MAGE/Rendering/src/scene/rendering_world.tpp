@@ -27,13 +27,11 @@ namespace mage::rendering {
 	inline ProxyPtr< PerspectiveCamera > World::Create() {
 		const auto ptr = AddElement(m_perspective_cameras, m_device);
 
-		const auto width  
-			= static_cast< F32 >(m_display_configuration.get().GetDisplayWidth());
-		const auto height 
-			= static_cast< F32 >(m_display_configuration.get().GetDisplayHeight());
-
-		ptr->SetAspectRatio(width, height);
-		ptr->GetViewport() = Viewport(width, height);
+		const auto resolution 
+			= m_display_configuration.get().GetDisplayResolution();
+		ptr->SetAspectRatio(static_cast< F32 >(resolution.m_x), 
+							static_cast< F32 >(resolution.m_y));
+		ptr->GetViewport() = Viewport(resolution);
 
 		return ptr;
 	}
@@ -42,12 +40,9 @@ namespace mage::rendering {
 	inline ProxyPtr< OrthographicCamera > World::Create() {
 		const auto ptr = AddElement(m_orthographic_cameras, m_device);
 
-		const auto width
-			= static_cast< F32 >(m_display_configuration.get().GetDisplayWidth());
-		const auto height
-			= static_cast< F32 >(m_display_configuration.get().GetDisplayHeight());
-
-		ptr->GetViewport() = Viewport(width, height);
+		const auto resolution
+			= m_display_configuration.get().GetDisplayResolution();
+		ptr->GetViewport() = Viewport(resolution);
 
 		return ptr;
 	}

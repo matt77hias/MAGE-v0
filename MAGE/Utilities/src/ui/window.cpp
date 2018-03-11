@@ -196,8 +196,7 @@ namespace mage {
 
 	Window::Window(WindowDescriptorPtr window_desc,
 				   const wstring& title_text, 
-				   U32 width, 
-				   U32 height, 
+				   const U32x2& resolution, 
 				   DWORD style) 
 		: m_window_desc(std::move(window_desc)), 
 		m_window(nullptr), 
@@ -207,7 +206,7 @@ namespace mage {
 		Assert(m_window_desc);
 
 		//Initialize a window.
-		InitializeWindow(title_text, width, height, style);
+		InitializeWindow(title_text, resolution, style);
 	}
 
 	Window::Window(Window&& window) noexcept = default;
@@ -215,15 +214,14 @@ namespace mage {
 	Window::~Window() = default;
 	
 	void Window::InitializeWindow(const wstring& title_text, 
-								  U32 width, 
-								  U32 height, 
+								  const U32x2& resolution, 
 								  DWORD style) {
 		
 		const RECT rectangle = { 
 			0, 
 			0, 
-			static_cast< LONG >(width), 
-			static_cast< LONG >(height) 
+			static_cast< LONG >(resolution.m_x), 
+			static_cast< LONG >(resolution.m_y) 
 		};
 		
 		return InitializeWindow(title_text, rectangle, style);

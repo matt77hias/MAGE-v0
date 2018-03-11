@@ -38,10 +38,10 @@ namespace mage::script {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load([[maybe_unused]] Engine& engine) override;
+
 		virtual void Update([[maybe_unused]] Engine& engine,
 							[[maybe_unused]] F64 delta_time) override;
-
-		virtual void Close([[maybe_unused]] Engine& engine) override;
 
 	private:
 

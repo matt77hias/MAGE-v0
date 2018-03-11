@@ -21,11 +21,10 @@ namespace mage::rendering {
 
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device& device,
 		                             size_t nb_shadow_maps, 
-		                             U32 width, 
-		                             U32 height, 
+		                             const U32x2& resolution, 
 		                             DepthFormat format)
 		: m_format(format), 
-		m_viewport(width, height), 
+		m_viewport(resolution),
 		m_rasterizer_state(), 
 		m_dsvs(), 
 		m_srv() {
@@ -156,11 +155,10 @@ namespace mage::rendering {
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device& device,
 		                                     size_t nb_shadow_cube_maps, 
-		                                     U32 width, 
-		                                     U32 height, 
+											 const U32x2& resolution, 
 		                                     DepthFormat format)
 		: m_format(format),
-		m_viewport(width, height), 
+		m_viewport(resolution),
 		m_rasterizer_state(), 
 		m_dsvs(), 
 		m_srv() {

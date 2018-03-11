@@ -38,18 +38,12 @@ namespace mage::rendering {
 			m_camera_to_projection{},
 			m_projection_to_camera{},
 			m_camera_to_world{},
-			m_viewport_top_left_x(0u), 
-			m_viewport_top_left_y(0u), 
-			m_viewport_width(0u), 
-			m_viewport_height(0u), 
-			m_ss_viewport_top_left_x(0u), 
-			m_ss_viewport_top_left_y(0u), 
-			m_ss_viewport_width(0u), 
-			m_ss_viewport_height(0u), 
-			m_viewport_inv_width_minus1(0.0f), 
-			m_viewport_inv_height_minus1(0.0f), 
-			m_ss_viewport_inv_width_minus1(0.0f), 
-			m_ss_viewport_inv_height_minus1(0.0f), 
+			m_viewport_top_left(),
+			m_viewport_resolution(),
+			m_ss_viewport_top_left(),
+			m_ss_viewport_resolution(),
+			m_viewport_inv_resolution_minus1(),
+			m_ss_viewport_inv_resolution_minus1(),
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
@@ -136,70 +130,38 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The x coordinate of the left hand side of the viewport of this camera 
+		 The top left corner of the camera viewport of this camera buffer.
+		 */
+		U32x2 m_viewport_top_left;
+
+		/**
+		 The resolution of the camera viewport of this camera buffer. 
+		 */
+		U32x2 m_viewport_resolution;
+
+		/**
+		 The top left corner of the super-sampled camera viewport of this 
+		 camera buffer.
+		 */
+		U32x2 m_ss_viewport_top_left;
+
+		/**
+		 The resolution of the super-sampled camera viewport of this camera 
 		 buffer.
 		 */
-		U32 m_viewport_top_left_x;
+		U32x2 m_ss_viewport_resolution;
 
 		/**
-		 The y coordinate of the left hand side of the viewport of this camera 
-		 buffer.
+		 The inverse of the resolution of the camera viewport minus one of this 
+		 camera buffer. 
 		 */
-		U32 m_viewport_top_left_y;
+		F32x2 m_viewport_inv_resolution_minus1;
 
 		/**
-		 The width of the viewport of this camera buffer. 
+		 The inverse of the resolution of the super-sampled camera viewport 
+		 minus one of this camera buffer.
 		 */
-		U32 m_viewport_width;
-
-		/**
-		 The height of the viewport of this camera buffer. 
-		 */
-		U32 m_viewport_height;
-
-		/**
-		 The x coordinate of the left hand side of the super-sampled viewport of this 
-		 camera buffer.
-		 */
-		U32 m_ss_viewport_top_left_x;
-
-		/**
-		 The y coordinate of the left hand side of the super-sampled viewport of this 
-		 camera buffer.
-		 */
-		U32 m_ss_viewport_top_left_y;
-
-		/**
-		 The width of the super-sampled viewport of this camera buffer. 
-		 */
-		U32 m_ss_viewport_width;
-
-		/**
-		 The height of the super-sampled viewport of this camera buffer. 
-		 */
-		U32 m_ss_viewport_height;
-
-		/**
-		 The inverse width of the viewport minus 1 of this camera buffer. 
-		 */
-		F32 m_viewport_inv_width_minus1;
-
-		/**
-		 The inverse height of the viewport minus 1 of this camera buffer. 
-		 */
-		F32 m_viewport_inv_height_minus1;
-
-		/**
-		 The inverse width of the super-sampled viewport minus 1 of this 
-		 camera buffer.
-		 */
-		F32 m_ss_viewport_inv_width_minus1;
-
-		/**
-		 The inverse height of the super-sampled viewport minus 1 of this 
-		 camera buffer.
-		 */
-		F32 m_ss_viewport_inv_height_minus1;
+		F32x2 m_ss_viewport_inv_resolution_minus1;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Post-processing

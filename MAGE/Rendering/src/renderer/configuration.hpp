@@ -55,6 +55,23 @@ namespace mage::rendering {
 	}
 
 	[[nodiscard]]
+	constexpr U32 GetSampleMultiplier(AADescriptor desc) noexcept {
+
+		switch (desc) {
+
+		case AADescriptor::MSAA_2x:
+			return 2u;
+		case AADescriptor::MSAA_4x:
+			return 4u;
+		case AADescriptor::MSAA_8x:
+			return 8u;
+		default:
+			return 1u;
+
+		}
+	}
+
+	[[nodiscard]]
 	constexpr U32 GetResolutionMultiplier(AADescriptor desc) noexcept {
 
 		switch (desc) {

@@ -1,7 +1,5 @@
 #include "samples\sponza\sponza_scene.hpp"
 
-using namespace mage;
-
 /**
  The user-provided entry point for MAGE.
 
@@ -11,14 +9,16 @@ using namespace mage;
 				A handle to the previous instance of the application.
 				This parameter is always @c nullptr.
  @param[in]		lpCmdLine
-				The command line for the application, excluding the program name.
+				The command line for the application, excluding the program 
+				name.
  @param[in]		nCmdShow
 				Controls how the window is to be shown.
- @return		If the function succeeds, terminating when it receives a @c WM_QUIT message, 
-				it returns the exit value contained in that message's @c wParam parameter. 
-				If the function terminates before entering the message loop, it returns 0.
+ @return		@c 0, if the function terminates before entering the message 
+				loop.
+ @return		The @c wParam parameter contained in the @c WM_QUIT message.
  */
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
+	using namespace mage;
 
 	// Create the engine setup.
 	EngineSetup setup(instance);

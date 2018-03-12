@@ -54,7 +54,6 @@
     <ClInclude Include="Utilities\src\type\vector_types.hpp" />
     <ClInclude Include="Utilities\src\ui\combo_box.hpp" />
     <ClInclude Include="Utilities\src\ui\window.hpp" />
-    <ClInclude Include="Utilities\src\ui\window_settings.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp" />

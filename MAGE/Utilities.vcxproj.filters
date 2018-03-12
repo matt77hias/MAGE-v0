@@ -48,7 +48,7 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{f7ea1007-c471-417d-b7f5-7da347bdd5fa}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Source Files\exception">
+    <Filter Include="Source Files\exception">
       <UniqueIdentifier>{945f6804-6d57-46a5-9818-ea67fb90d46a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\file">
@@ -69,7 +69,7 @@
     <Filter Include="Source Files\string">
       <UniqueIdentifier>{a1e53004-a6bc-4cb2-a605-547a244482d5}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Source Files\system">
+    <Filter Include="Source Files\system">
       <UniqueIdentifier>{4c78bd7f-6f11-4827-801e-b6d0d0bbeff8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ui">
@@ -89,7 +89,7 @@
     <ClInclude Include="Utilities\src\io\binary_reader.hpp">
       <Filter>Header Files\io</Filter>
     </ClInclude>
-	<ClInclude Include="Utilities\src\io\binary_utils.hpp">
+    <ClInclude Include="Utilities\src\io\binary_utils.hpp">
       <Filter>Header Files\io</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\io\binary_writer.hpp">
@@ -167,7 +167,7 @@
     <ClInclude Include="Utilities\src\system\timer.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
-	<ClInclude Include="Utilities\src\type\scalar_types.hpp">
+    <ClInclude Include="Utilities\src\type\scalar_types.hpp">
       <Filter>Header Files\type</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\type\types.hpp">
@@ -180,9 +180,6 @@
       <Filter>Header Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\ui\window.hpp">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\ui\window_settings.hpp">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -249,7 +246,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-	<None Include="Utilities\src\file\file_utils.tpp">
+    <None Include="Utilities\src\file\file_utils.tpp">
       <Filter>Header Files\file</Filter>
     </None>
     <None Include="Utilities\src\io\binary_reader.tpp">

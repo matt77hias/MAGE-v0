@@ -4,7 +4,6 @@
 #pragma region
 
 #include "ui\window.hpp"
-#include "ui\window_settings.hpp"
 #include "platform\windows_utils.hpp"
 #include "exception\exception.hpp"
 #include "logging\error.hpp"
@@ -17,6 +16,15 @@
 #pragma region
 
 #include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define IDI_APPLICATION_ICON  102
 
 #pragma endregion
 

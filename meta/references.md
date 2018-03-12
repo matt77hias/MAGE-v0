@@ -208,6 +208,10 @@ BURLEY B.: *Physically Based Shading at Disney*, *SIGGRAPH 2012 Course: Practica
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
 
+COURRÈGES A.: [*GTA V - Graphics Study - Part 1: Dissecting a Frame*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study/), 2015.
+
+COURRÈGES A.: [*GTA V - Graphics Study - Part 2: Level of Detail*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-2/), 2015.
+
 CRASSIN C., NEYRET F., SAINZ M., GREEN S., EISEMANN E.: Interactive Indirect Illumination Using Voxel Cone Tracing, *Computer Graphics Forum (Proceedings of Pacific Graphics 2011)* 30, 7 (2011).
 
 DÜR A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
@@ -272,6 +276,8 @@ YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/
 
 ### Post-processing
 
+COURRÈGES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-3/), 2015.
+
 INTEL: [*Compute Shader HDR and Bloom*](https://software.intel.com/en-us/articles/compute-shader-hdr-and-bloom), 2012.
 
 JIMENEZ J.: Next Generation Post Processing in Call of Duty Advanced Warfare, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
@@ -313,6 +319,8 @@ WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-
 ### Tone Mapping
 
 DRAGO F., MYSZKOWSKI K., ANNEN T., CHIBA N.: *Adaptive Logarithmic Mapping For Displaying High Contrast Scenes*, *Computer Graphics Forum* 22, 3, 2003.
+
+DUIKER RESEARCH CORP.: [*Filmic Tonemapping and Color In Games*](http://duikerresearch.com/2015/09/filmic-tonemapping-ea-2006/), 2006.
 
 HABLE J.: [*Filmic Tonemapping Operators*](http://filmicworlds.com/blog/filmic-tonemapping-operators/), 2010.
 

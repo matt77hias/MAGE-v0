@@ -55,7 +55,7 @@ namespace mage::rendering {
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
 		m_state_manager.get().Bind(m_device_context, 
-								   RasterizerStateID::CounterClockwiseCulling);
+								   RasterizerStateID::NoCulling);
 		// OM: Bind the depth-stencil state.
 		m_state_manager.get().Bind(m_device_context, 
 								   DepthStencilStateID::DepthNone);

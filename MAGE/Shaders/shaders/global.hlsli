@@ -174,6 +174,9 @@ int3 WorldToVoxelIndex(float3 p_world) {
  */
 float3 VoxelIndexToWorld(uint3 voxel_index) {
 	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
+
+	voxel_index.y += 1u;
+
 	const float3 voxel = voxel_index - 0.5f * g_voxel_grid_resolution;
 	return voxel * g_voxel_size * float3(1.0f, -1.0f, 1.0f) + g_voxel_grid_center;
 }

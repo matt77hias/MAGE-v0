@@ -15,7 +15,7 @@ void GS(point GSInputPositionColor input[1],
 	const float4 color = input[0].color;
 
 	[branch]
-	if (0.0 != color.a) {
+	if (0.0f != color.a) {
 		for (uint i = 0u; i < 14u; ++i) {
 			const float3 offset  = OffsettedUnitCube(i) * g_voxel_size;
 			const float3 p_world = input[0].p_world + offset;

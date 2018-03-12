@@ -56,6 +56,8 @@ KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/1
 
 KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflection2.html), 2017.
 
+KNATTEN A. S.: [*lvalues, rvalues, glvalues, prvalues, xvalues, help!*](https://blog.knatten.org/2018/03/09/lvalues-rvalues-glvalues-prvalues-xvalues-help/), 2018.
+
 KRZEMIEŃSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08/20/noexcept-destructors/), 2013.
 
 MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.

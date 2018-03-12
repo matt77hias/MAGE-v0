@@ -301,8 +301,11 @@ namespace mage::rendering {
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void BindBuffer(ID3D11DeviceContext& device_context, 
-						U32 slot) const noexcept;
+		void BindBuffer(ID3D11DeviceContext& device_context,
+						U32 slot) const noexcept {
+
+			m_buffer.Bind< PipelineStageT >(device_context, slot);
+		}
 
 	private:
 
@@ -370,12 +373,3 @@ namespace mage::rendering {
 
 	#pragma warning( pop )
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "scene\model\model.tpp"
-
-#pragma endregion

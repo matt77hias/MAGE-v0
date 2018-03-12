@@ -493,12 +493,6 @@
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp">
       <Filter>Header Files\scene\sprite</Filter>
     </None>
-    <None Include="Rendering\src\scene\camera\camera.tpp">
-      <Filter>Header Files\scene\camera</Filter>
-    </None>
-    <None Include="Rendering\src\scene\model\model.tpp">
-      <Filter>Header Files\scene\model</Filter>
-    </None>
     <None Include="Rendering\src\scene\rendering_world.tpp">
       <Filter>Header Files\scene</Filter>
     </None>

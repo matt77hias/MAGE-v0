@@ -137,8 +137,6 @@
     <None Include="Rendering\src\resource\rendering_resource_manager.tpp" />
     <None Include="Rendering\src\resource\shader\shader.tpp" />
     <None Include="Rendering\src\resource\texture\texture.tpp" />
-    <None Include="Rendering\src\scene\camera\camera.tpp" />
-    <None Include="Rendering\src\scene\model\model.tpp" />
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp" />
     <None Include="Rendering\src\scene\rendering_world.tpp" />
   </ItemGroup>

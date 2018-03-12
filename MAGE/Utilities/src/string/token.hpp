@@ -169,7 +169,7 @@ namespace mage {
 	 */
 	TokenResult ReadQuotedString(zstring str, zstring* context, string& result,
 								 NotNull< const_zstring > delimiters
-								 = g_default_delimiters) noexcept;
+								 = g_default_delimiters);
 	
 	/**
 	 Reads and converts the next token in the given string to a @c DataT 

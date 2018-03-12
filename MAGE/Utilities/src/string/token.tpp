@@ -494,7 +494,7 @@ namespace mage {
 
 	template<>
 	inline TokenResult Read(zstring str, zstring* context, string& result,
-							NotNull< const_zstring > delimiters) {
+							NotNull< const_zstring > delimiters) noexcept {
 
 		Assert(str || context);
 
@@ -503,6 +503,7 @@ namespace mage {
 			return TokenResult::None;
 		}
 
+		// Copy assignment forced to be noexcept.
 		result = token;
 
 		return TokenResult::Valid;

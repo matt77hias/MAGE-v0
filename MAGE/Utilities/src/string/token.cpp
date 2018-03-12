@@ -18,7 +18,7 @@ namespace mage {
 	#pragma region
 
 	TokenResult ReadQuotedString(zstring str, zstring* context, string& result,
-								 NotNull< const_zstring > delimiters) noexcept {
+								 NotNull< const_zstring > delimiters) {
 		
 		Assert(str || context);
 		

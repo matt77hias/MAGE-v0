@@ -60,7 +60,7 @@ namespace mage {
 	 */
 	template< typename CallerT >
 	[[nodiscard]]
-	CallerT* GetDialogCaller(NotNull< HWND > window, 
+	CallerT* GetDialogCaller(NotNull< HWND > dialog, 
 							 UINT message, 
 							 [[maybe_unused]] WPARAM wParam, 
 							 LPARAM lParam) noexcept;

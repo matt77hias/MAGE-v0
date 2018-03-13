@@ -32,6 +32,8 @@ namespace mage::rendering {
 		/**
 		 Constructs a voxelization pass.
 
+		 @param[in]		device
+						A reference to the device.
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		state_manager
@@ -143,9 +145,6 @@ namespace mage::rendering {
 						The world-to-projection transformation matrix.
 		 @param[in]		brdf
 						The BRDF.
-		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
-						otherwise.
 		 @throws		Exception
 						Failed to render the world.
 		 */

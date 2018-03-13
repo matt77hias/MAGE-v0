@@ -327,7 +327,7 @@ namespace mage::rendering {
 
 		 @pre			@a vertices is not equal to @c nullptr.
 		 @pre			@a vertices points to an array containing at least 
-						{@link mage::SpriteBatchMesh::s_vertices_per_sprite}.
+						{@link mage::rendering::SpriteBatchMesh::s_vertices_per_sprite}.
 		 @param[in]		sprite
 						A reference to the sprite info data.
 		 @param[in]		vertices

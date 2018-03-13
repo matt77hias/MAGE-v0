@@ -354,7 +354,7 @@ namespace mage::rendering {
 		 Returns the depth stencil state of this state manager associated to 
 		 the given identifier.
 
-		 @param[in]		state
+		 @param[in]		id
 						The depth stencil identifier.
 		 @return		A pointer to the depth stencil state of this state 
 						manager associated to the given identifier.
@@ -370,7 +370,7 @@ namespace mage::rendering {
 		 Returns and releases the address of the depth stencil state of this 
 		 state manager associated to the given identifier.
 
-		 @param[in]		state
+		 @param[in]		id
 						The depth stencil identifier.
 		 @return		A pointer to a pointer to the depth stencil state of 
 						this state manager associated to the given identifier.
@@ -387,7 +387,7 @@ namespace mage::rendering {
 		 Returns the rasterizer state of this state manager associated to the 
 		 given identifier.
 
-		 @param[in]		state
+		 @param[in]		id
 						The rasterizer identifier.
 		 @return		A pointer to the rasterizer state of this state manager 
 						associated to the given identifier.
@@ -402,7 +402,7 @@ namespace mage::rendering {
 		 Returns and releases the address of the rasterizer state of this state 
 		 manager associated to the given identifier.
 
-		 @param[in]		index
+		 @param[in]		id
 						The rasterizer state identifier.
 		 @return		A pointer to a pointer to the rasterizer state of this 
 						state manager associated to the given identifier.
@@ -419,7 +419,7 @@ namespace mage::rendering {
 		 Returns the sampler state of this state manager associated to the 
 		 given identifier.
 
-		 @param[in]		index
+		 @param[in]		id
 						The sampler state identifier.
 		 @return		A pointer to the sampler state of this state manager 
 						associated to the given identifier.
@@ -434,7 +434,7 @@ namespace mage::rendering {
 		 Returns and releases the address of the sampler state of this state 
 		 manager associated to the given identifier.
 
-		 @param[in]		index
+		 @param[in]		id
 						The sampler state identifier.
 		 @return		A pointer to a pointer to the sampler state of this 
 						state manager associated to the given identifier.

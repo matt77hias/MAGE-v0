@@ -131,7 +131,7 @@ namespace mage::rendering {
 		 Unmaps the buffer of this buffer lock.
 
 		 @pre			The buffer of this buffer lock must be mapped with
-						{@link mage::BufferLock::MapBuffer(D3D11_MAP, D3D11_MAPPED_SUBRESOURCE*)} 
+						{@link mage::rendering::BufferLock::MapBuffer(D3D11_MAP, D3D11_MAPPED_SUBRESOURCE&)} 
 						before it can be unmapped.
 		 */
 		void UnmapBuffer() const noexcept {

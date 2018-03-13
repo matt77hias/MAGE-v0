@@ -228,9 +228,6 @@ namespace mage::rendering {
 
 	 @param[in]		resource_manager
 					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
 	 @return		A pointer to the deferred MSAA emissive pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
@@ -422,12 +419,6 @@ namespace mage::rendering {
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
 	 @return		A pointer to the forward emissive pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.

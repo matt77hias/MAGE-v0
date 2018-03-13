@@ -75,7 +75,7 @@ namespace mage::rendering {
 		/**
 		 Moves the given camera settings to this camera settings.
 
-		 @param[in]		scene_settings
+		 @param[in]		settings
 						A reference to the camera settings to move.
 		 @return		A reference to the moved camera settings (i.e. this 
 						camera settings).

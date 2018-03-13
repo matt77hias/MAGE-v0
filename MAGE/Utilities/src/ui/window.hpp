@@ -269,7 +269,7 @@ namespace mage {
 						The application instance handle.
 		 @param[in]		window_class_name
 						The window class name.
-		 @param[in]		style
+		 @param[in]		window_class_style
 						The window class style.
 		 @throws		Exception
 						Failed to register the window class.

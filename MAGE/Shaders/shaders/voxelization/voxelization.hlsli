@@ -24,7 +24,6 @@
 // DISABLE_SHADOW_MAPPED_DIRECTIONAL_LIGHTS | not defined
 // DISABLE_SHADOW_MAPPED_OMNI_LIGHTS        | not defined
 // DISABLE_SHADOW_MAPPED_SPOT_LIGHTS        | not defined
-// DISABLE_FOG                              | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -32,6 +31,7 @@
 #include "forward\forward_input.hlsli"
 
 #define DISABLE_AMBIENT_LIGHT
+#define DISABLE_FOG
 #define DISABLE_VCT  
 #include "lighting.hlsli"
 

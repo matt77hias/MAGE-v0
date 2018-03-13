@@ -157,11 +157,9 @@ float3 GetCameraPosition() {
  @return		The voxel index.
  */
 int3 WorldToVoxelIndex(float3 p_world) {
-	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
-	const float3 voxel = (p_world - g_voxel_grid_center) 
-		               * g_voxel_inv_size * float3(1.0f, -1.0f, 1.0f);
-	// Valid range: [0,R)x(R,0]x[0,R)
-	return floor(voxel + 0.5f * g_voxel_grid_resolution);
+	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size 
+		               + 0.5f * g_voxel_grid_resolution;
+	return int3(0, g_voxel_grid_resolution, 0) + int3(1, -1, 1) * floor(voxel);
 }
 
 /**
@@ -173,12 +171,10 @@ int3 WorldToVoxelIndex(float3 p_world) {
  @return		The voxel index.
  */
 float3 VoxelIndexToWorld(uint3 voxel_index) {
-	// Valid range: [-R/2,R/2]x[R/2,-R/2]x[-R/2,R/2]
-
-	voxel_index.y += 1u;
-
-	const float3 voxel = voxel_index - 0.5f * g_voxel_grid_resolution;
-	return voxel * g_voxel_size * float3(1.0f, -1.0f, 1.0f) + g_voxel_grid_center;
+	const uint3 voxel = int3(0, g_voxel_grid_resolution, 0) 
+		              + int3(1, -1, 1) * (int3)voxel_index;
+	return (voxel - 0.5f * g_voxel_grid_resolution) * g_voxel_size 
+		   + g_voxel_grid_center;
 }
 
 /**

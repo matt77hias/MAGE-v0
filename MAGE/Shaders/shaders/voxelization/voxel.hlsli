@@ -9,8 +9,9 @@ struct Voxel {
 static const float g_max_length = 1.0f;
 
 uint EncodeRadiance(float3 L) {
-	const float L_length     = length(L);
-	const float L_inv_length = 1.0f / L_length;
+	static const float epsilon = g_max_length / 255.0f;
+	const float L_length       = max(length(L), epsilon);
+	const float L_inv_length   = 1.0f / L_length;
 
 	// [0, inf) -> [0,1] -> [0,255]
 	const uint length = uint(255.0f * saturate(L_length / g_max_length));

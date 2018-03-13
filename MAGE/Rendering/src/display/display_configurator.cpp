@@ -35,14 +35,14 @@
  @pre NVIDIA Control Panel > Preferred graphics processor > "Auto-select"
  */
 extern "C" {
-	__declspec(dllexport) DWORD NvOptimusEnablement;
+	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }
 
 /**
  AMD "Optimus" enablement
  */
 extern "C" {
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance;
+	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 
 #pragma endregion
@@ -408,14 +408,14 @@ namespace mage::rendering {
 		ComPtr< IDXGIAdapter > iterated_adapter;
 		SIZE_T max_vram = 0;
 		for (U32 i = 0u; 
-			 factory->EnumAdapters(i, iterated_adapter.GetAddressOf()) 
+			 factory->EnumAdapters(i, iterated_adapter.ReleaseAndGetAddressOf()) 
 			 != DXGI_ERROR_NOT_FOUND; ++i) {
 			
 			// Get the primary IDXGIOutput.
 			ComPtr< IDXGIOutput > iterated_output;
 			{
 				const HRESULT result = 
-					iterated_adapter->EnumOutputs(0u, iterated_output.GetAddressOf());
+					iterated_adapter->EnumOutputs(0u, iterated_output.ReleaseAndGetAddressOf());
 				if (FAILED(result)) {
 					// EnumAdapters order:
 					// 1. The adapter with the primary desktop output.

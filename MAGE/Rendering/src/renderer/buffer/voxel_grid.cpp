@@ -104,8 +104,10 @@ namespace mage::rendering {
 		{
 			// Create the texture descriptor.
 			D3D11_TEXTURE3D_DESC texture_desc = {};
-			texture_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE
+			texture_desc.BindFlags = D3D11_BIND_RENDER_TARGET 
+				                   | D3D11_BIND_SHADER_RESOURCE
 								   | D3D11_BIND_UNORDERED_ACCESS;
+			texture_desc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 			texture_desc.Width     = static_cast< U32 >(m_resolution);
 			texture_desc.Height    = static_cast< U32 >(m_resolution);
 			texture_desc.Depth     = static_cast< U32 >(m_resolution);

@@ -168,7 +168,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			static constexpr const char* tone_mapping_names[] = {
 				"Default",
-				"ACESFilmic",
+				"ACES Filmic",
 				"Reinhard",
 				"Uncharted"
 			};

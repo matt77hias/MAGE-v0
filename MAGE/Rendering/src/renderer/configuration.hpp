@@ -181,11 +181,11 @@ namespace mage::rendering {
 	#pragma region
 
 	/**
-	 An enumeration of the different Bidirectional Reflection
-	 Distribution Functions (BRDFs).
+	 An enumeration of the different Bidirectional Reflection Distribution 
+	 Functions (BRDFs).
 
 	 This contains:
-	 @c Unknown,
+	 @c Default,
 	 @c Lambertian,
 	 @c BlinnPhong,
 	 @c CookTorrance,
@@ -193,7 +193,7 @@ namespace mage::rendering {
 	 @c WardDuer.
 	 */
 	enum class BRDFType : U8 {
-		Unknown      = 0,
+		Default      = 0,
 		Lambertian   = 1,
 		BlinnPhong   = 2,
 		CookTorrance = 3,
@@ -253,6 +253,29 @@ namespace mage::rendering {
 		Depth,
 		Distance,
 		UV
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// FalseColor
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 An enumeration of the different Tone Mapping Functions.
+
+	 This contains:
+	 @c Default,
+	 @c ACESFilmic,
+	 @c Reinhard, and
+	 @c Uncharted.
+	 */
+	enum class ToneMapping : U8 {
+		Default    = 0,
+		ACESFilmic = 1,
+		Reinhard   = 2,
+		Uncharted  = 3
 	};
 
 	#pragma endregion

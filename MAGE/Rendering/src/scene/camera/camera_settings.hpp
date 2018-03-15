@@ -32,7 +32,7 @@ namespace mage::rendering {
 		 */
 		CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
-			m_brdf(BRDFType::Unknown),
+			m_brdf(BRDFType::Default),
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
 			m_fog(), 
 			m_sky() {}
@@ -115,7 +115,7 @@ namespace mage::rendering {
 		}
 
 		void ResetBRDF() noexcept {
-			SetBRDF(BRDFType::Unknown);
+			SetBRDF(BRDFType::Default);
 		}
 
 		[[nodiscard]]

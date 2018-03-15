@@ -148,7 +148,7 @@ namespace mage::script {
 				"Ward-Duer"
 			};
 			static constexpr BRDFType brdfs[] = {
-				BRDFType::Unknown,
+				BRDFType::Default,
 				BRDFType::Lambertian,
 				BRDFType::BlinnPhong,
 				BRDFType::CookTorrance,

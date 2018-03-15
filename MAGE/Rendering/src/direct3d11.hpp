@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <d3d11.h>
+#include <d3d11_3.h>
 #include <DXGI1_2.h>
 
 #pragma endregion

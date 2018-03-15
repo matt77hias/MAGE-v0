@@ -47,8 +47,9 @@ void GS(triangle GSInputPositionNormalTexture input[3],
 			break;
 		}
 
-		// [m_view] * [voxels/m_view] -> [voxels]
-		output[i].p.xy        *= g_voxel_inv_size;
+		// [m_view] * [voxels/m_view]  -> [voxels]
+		// [voxels] * [2 m_ndc/voxels] -> [-1,1]
+		output[i].p.xy        *= g_voxel_inv_size * 2.0f * g_voxel_grid_inv_resolution;
 		#ifdef DISABLE_INVERTED_Z_BUFFER
 		output[i].p.zw         = float2(0.0f, 1.0f);
 		#else  // DISABLE_INVERTED_Z_BUFFER
@@ -58,28 +59,11 @@ void GS(triangle GSInputPositionNormalTexture input[3],
 		output[i].n_world      = input[i].n_world;
 		output[i].tex_material = input[i].tex_material;
 		output[i].tex_geometry = input[i].tex_geometry;
-	}
-	
-	// For each projected triangle, a slightly larger bounding triangle ensures 
-	// that any projected triangle touching a pixel will necessarily touch the 
-	// center of this pixel and thus will get a fragment emitted by the rasterizer.
-	const float2 delta_10 = normalize(output[1].p.xy - output[0].p.xy);
-	const float2 delta_21 = normalize(output[2].p.xy - output[1].p.xy);
-	const float2 delta_02 = normalize(output[0].p.xy - output[2].p.xy);
-	// [voxels] * [2 m_ndc/voxels] -> [-1,1]
-	const float voxel_to_ndc = 2.0f * g_voxel_grid_inv_resolution;
-	// Move vertices for conservative rasterization.
-	output[0].p.xy = (output[0].p.xy + normalize(delta_02 - delta_10)) * voxel_to_ndc;
-	output[1].p.xy = (output[1].p.xy + normalize(delta_10 - delta_21)) * voxel_to_ndc;
-	output[2].p.xy = (output[2].p.xy + normalize(delta_21 - delta_02)) * voxel_to_ndc;
-	
-	// Output a triangle strip of three vertices.
-	[unroll]
-	for (uint j = 0u; j < 3u; ++j) {
-		// Output a vertex.
-		output_stream.Append(output[j]);
-	}
 
+		// Output a vertex.
+		output_stream.Append(output[i]);
+	}
+	
 	// End the current triangle strip.
 	output_stream.RestartStrip();
 }

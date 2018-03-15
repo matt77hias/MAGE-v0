@@ -121,6 +121,8 @@ namespace mage::rendering {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		void SetupRasterizerState(ID3D11Device& device);
+
 		/**
 		 Sets up the voxel grid of this voxelization pass.
 
@@ -186,6 +188,11 @@ namespace mage::rendering {
 		 A reference to the resource manager of this voxelization pass.
 		 */
 		std::reference_wrapper< ResourceManager > m_resource_manager;
+
+		/**
+		 A pointer to the rasterizer state of this voxelization pass.
+		 */
+		ComPtr< ID3D11RasterizerState2 > m_rs;
 
 		/**
 		 A pointer to the vertex shader of this voxelization pass.

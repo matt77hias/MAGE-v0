@@ -24,10 +24,14 @@ namespace mage::rendering {
 		: m_device_context(device_context),
 		m_state_manager(state_manager),
 		m_resource_manager(resource_manager),
+		m_rs(),
 		m_vs(CreateVoxelizationVS(resource_manager)),
 		m_gs(CreateVoxelizationGS(resource_manager)),
 		m_cs(CreateVoxelizationCS(resource_manager)),
-		m_voxel_grid(MakeUnique< VoxelGrid >(device, 1u)) {}
+		m_voxel_grid(MakeUnique< VoxelGrid >(device, 1u)) {
+
+		SetupRasterizerState(device);
+	}
 
 	VoxelizationPass::VoxelizationPass(VoxelizationPass&& pass) noexcept = default;
 
@@ -35,6 +39,26 @@ namespace mage::rendering {
 
 	VoxelizationPass& VoxelizationPass
 		::operator=(VoxelizationPass&& pass) noexcept = default;
+
+	void VoxelizationPass::SetupRasterizerState(ID3D11Device& device) {
+		D3D11_RASTERIZER_DESC2 desc = {};
+		desc.CullMode          = D3D11_CULL_NONE;
+		desc.FillMode          = D3D11_FILL_SOLID;
+		desc.DepthClipEnable   = TRUE;
+		desc.MultisampleEnable = TRUE;
+		desc.ForcedSampleCount = 8u;
+
+		ComPtr< ID3D11Device  > device0(&device);
+		ComPtr< ID3D11Device3 > device3;
+		{
+			// Get the ID3D11Device3.
+			const HRESULT result = device0.As(&device3);
+			ThrowIfFailed(result,
+						  "ID3D11Device3 creation failed: %08X.", result);
+		}
+
+		device3->CreateRasterizerState2(&desc, m_rs.ReleaseAndGetAddressOf());
+	}
 
 	void VoxelizationPass::SetupVoxelGrid(size_t resolution) {
 		if (m_voxel_grid->GetResolution() != resolution) {
@@ -54,8 +78,7 @@ namespace mage::rendering {
 		// GS: Bind the geometry shader.
 		m_gs->BindShader(m_device_context);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().Bind(m_device_context, 
-								   RasterizerStateID::NoCulling);
+		Pipeline::RS::BindState(m_device_context, m_rs.Get());
 		// OM: Bind the depth-stencil state.
 		m_state_manager.get().Bind(m_device_context, 
 								   DepthStencilStateID::DepthNone);

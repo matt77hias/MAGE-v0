@@ -389,9 +389,6 @@ namespace mage::rendering {
 		buffer.m_ss_display_inv_resolution_minus1 = F32x2(1.0f / (ss_display_resolution.m_x - 1u), 
 														  1.0f / (ss_display_resolution.m_y - 1u));
 		
-		buffer.m_gamma                            = m_display_configuration.get().GetGamma();
-		buffer.m_inv_gamma                        = 1.0f / buffer.m_gamma;
-
 		//TODO
 		buffer.m_voxel_grid_resolution            = g_voxel_grid_resolution;
 		buffer.m_voxel_grid_inv_resolution        = 1.0f / buffer.m_voxel_grid_resolution;
@@ -614,7 +611,7 @@ namespace mage::rendering {
 		m_output_manager->BindEnd(m_device_context);
 
 		// Perform a back buffer pass.
-		m_back_buffer_pass->Render();
+		m_back_buffer_pass->Render(settings.GetToneMapping());
 	}
 
 	void XM_CALLCONV Renderer::Impl::RenderForward(const World& world,

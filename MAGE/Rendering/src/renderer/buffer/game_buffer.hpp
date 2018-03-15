@@ -38,10 +38,7 @@ namespace mage::rendering {
 			m_display_resolution(), 
 			m_display_inv_resolution_minus1(), 
 			m_ss_display_resolution(), 
-			m_ss_display_inv_resolution_minus1(), 
-			m_gamma(0.0f), 
-			m_inv_gamma(0.0f), 
-			m_padding1{} {}
+			m_ss_display_inv_resolution_minus1() {}
 
 		/**
 		 Constructs a game buffer from the given game buffer.
@@ -150,26 +147,7 @@ namespace mage::rendering {
 		 of this game buffer.
 		 */
 		F32x2 m_ss_display_inv_resolution_minus1;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Gamma Correction
-		//---------------------------------------------------------------------
-
-		/**
-		 The gamma exponent of this game buffer.
-		 */
-		F32 m_gamma;
-
-		/**
-		 The inverse gamma exponent of this game buffer.
-		 */
-		F32 m_inv_gamma;
-
-		/**
-		 The padding of this game buffer.
-		 */
-		U32 m_padding1[2];
 	};
 
-	static_assert(80 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
+	static_assert(64 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
 }

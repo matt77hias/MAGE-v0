@@ -70,17 +70,6 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
 	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
 	float2 g_ss_display_inv_resolution_minus1    : packoffset(c3.z);
-
-	//-------------------------------------------------------------------------
-	// Member Variables: Gamma Correction
-	//-------------------------------------------------------------------------
-
-	// The gamma exponent used for gamma recovery.
-	// C  = pow(C', g_gamma)
-	float g_gamma                                : packoffset(c4);
-	// The inverse of the gamma exponent used for gamma correction.
-	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
-	float g_inv_gamma                            : packoffset(c4.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -133,6 +122,13 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float   g_focal_length                       : packoffset(c19.y);
 	// The maximum circle-of-confusion radius of this camera.
 	float   g_max_coc_radius                     : packoffset(c19.z);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Gamma Correction
+	//-------------------------------------------------------------------------
+
+	// The inverse of the gamma exponent used for gamma correction.
+	float g_inv_gamma                            : packoffset(c19.w);
 }
 
 //-----------------------------------------------------------------------------

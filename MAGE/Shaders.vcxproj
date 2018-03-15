@@ -99,7 +99,35 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_PS.hlsl">
+    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_aces_filmic_PS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_reinhard_PS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\backbuffer\%(Filename).hpp</HeaderFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_uncharted_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
@@ -295,6 +323,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <None Include="Shaders\shaders\backbuffer\back_buffer.hlsli" />
     <None Include="Shaders\shaders\depth\depth_input.hlsli" />
     <FxCompile Include="Shaders\shaders\depth\depth_VS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
@@ -2208,7 +2237,9 @@
     <ClInclude Include="Shaders\src\aa\fxaa_CS.hpp" />
     <ClInclude Include="Shaders\src\aa\msaa_resolve_CS.hpp" />
     <ClInclude Include="Shaders\src\aa\ssaa_resolve_CS.hpp" />
-    <ClInclude Include="Shaders\src\backbuffer\back_buffer_PS.hpp" />
+    <ClInclude Include="Shaders\src\backbuffer\back_buffer_aces_filmic_PS.hpp" />
+    <ClInclude Include="Shaders\src\backbuffer\back_buffer_reinhard_PS.hpp" />
+    <ClInclude Include="Shaders\src\backbuffer\back_buffer_uncharted_PS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_blinn_phong_CS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_cook_torrance_CS.hpp" />
     <ClInclude Include="Shaders\src\deferred\deferred_emissive_CS.hpp" />
@@ -2323,6 +2354,9 @@
     <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_ward_duer_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_VS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxelization_ward_duer_PS.hpp" />
+    <ClInclude Include="Shaders\src\voxelization\voxel_grid_GS.hpp" />
+    <ClInclude Include="Shaders\src\voxelization\voxel_grid_PS.hpp" />
+    <ClInclude Include="Shaders\src\voxelization\voxel_grid_VS.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -2332,7 +2366,7 @@
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>

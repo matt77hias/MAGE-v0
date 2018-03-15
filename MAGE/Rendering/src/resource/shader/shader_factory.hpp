@@ -76,11 +76,14 @@ namespace mage::rendering {
 
 	 @param[in]		resource_manager
 					A reference to the resource manager.
+	 @param[in]		tone_mapping
+					The tone mapping type.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager);
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager, 
+									  ToneMapping tone_mapping);
 
 	#pragma endregion
 	
@@ -88,36 +91,6 @@ namespace mage::rendering {
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
 	#pragma region
-
-	/**
-	 Creates a deferred Blinn-Phong compute shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred Blinn-Phong compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
-												bool vct);
-
-	/**
-	 Creates a deferred Cook-Torrance compute shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred Cook-Torrance compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
-												  bool vct);
 
 	/**
 	 Creates a deferred emissive compute shader.
@@ -129,51 +102,6 @@ namespace mage::rendering {
 					Failed to create the compute shader.
 	 */
 	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager& resource_manager);
-
-	/**
-	 Creates a deferred Frostbite compute shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred Frostbite compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
-											   bool vct);
-
-	/**
-	 Creates a deferred Ward-Duer compute shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false
-					otherwise.
-	 @return		A pointer to the deferred Ward-Duer compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
-											  bool vct);
-
-	/**
-	 Creates a deferred Lambertian compute shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred Lambertian compute shader.
-	 @throws		Exception
-					Failed to create the compute shader.
-	 */
-	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
-												bool vct);
 
 	/**
 	 Creates a deferred compute shader matching the given BRDF.
@@ -194,36 +122,6 @@ namespace mage::rendering {
 									  BRDFType brdf, bool vct);
 
 	/**
-	 Creates a deferred MSAA Blinn-Phong pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred MSAA Blinn-Phong pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager, 
-												  bool vct);
-
-	/**
-	 Creates a deferred MSAA Cook-Torrance pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred MSAA Cook-Torrance pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager, 
-													bool vct);
-
-	/**
 	 Creates a deferred MSAA emissive pixel shader.
 
 	 @param[in]		resource_manager
@@ -233,51 +131,6 @@ namespace mage::rendering {
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager& resource_manager);
-
-	/**
-	 Creates a deferred MSAA Frostbite pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred MSAA Frostbite pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager, 
-												 bool vct);
-
-	/**
-	 Creates a deferred MSAA Ward-Duer pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred MSAA Ward-Duer pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager, 
-												bool vct);
-
-	/**
-	 Creates a deferred MSAA Lambertian pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @return		A pointer to the deferred MSAA Lambertian pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager, 
-												  bool vct);
 
 	/**
 	 Creates a deferred MSAA pixel shader matching the given BRDF.
@@ -366,52 +219,6 @@ namespace mage::rendering {
 	#pragma region
 
 	/**
-	 Creates a forward Blinn-Phong pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
-					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the forward Blinn-Phong pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
-											 bool transparency,
-											 bool vct, 
-											 bool tsnm);
-
-	/**
-	 Creates a forward Cook-Torrance pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
-					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the forward Cook-Torrance pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
-											   bool transparency,
-											   bool vct,
-											   bool tsnm);
-
-	/**
 	 Creates an forward emissive pixel shader.
 
 	 @param[in]		resource_manager
@@ -425,75 +232,6 @@ namespace mage::rendering {
 	 */
 	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
 										   bool transparency);
-
-	/**
-	 Creates a forward Frostbite pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
-					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the forward Frostbite pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
-											bool transparency,
-											bool vct,
-											bool tsnm);
-
-	/**
-	 Creates a forward Lambertian pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
-					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the forward Lambertian pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
-											 bool transparency,
-											 bool vct,
-											 bool tsnm);
-
-	/**
-	 Creates a forward Ward-Duer pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
-					otherwise.
-	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
-					otherwise.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the forward Ward-Duer pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
-										   bool transparency,
-										   bool vct,
-										   bool tsnm);
 
 	/**
 	 Creates a forward pixel shader matching the given BRDF.
@@ -728,81 +466,6 @@ namespace mage::rendering {
 					Failed to create the geometry shader.
 	 */
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager);
-
-	/**
-	 Creates a voxelization Blinn-Phong pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the voxelization Blinn-Phong pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
-												  bool tsnm);
-
-	/**
-	 Creates a voxelization Cook-Torrance pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the voxelization Cook-Torrance pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
-													bool tsnm);
-
-	/**
-	 Creates a voxelization Frostbite pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the voxelization Frostbite pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
-												 bool tsnm);
-
-	/**
-	 Creates a voxelization Lambertian pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the voxelization Lambertian pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
-												  bool tsnm);
-
-	/**
-	 Creates a voxelization Ward-Duer pixel shader.
-
-	 @param[in]		resource_manager
-					A reference to the resource manager.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
-					@c false otherwise.
-	 @return		A pointer to the voxelization Ward-Duer pixel shader.
-	 @throws		Exception
-					Failed to create the pixel shader.
-	 */
-	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
-												bool tsnm);
 
 	/**
 	 Creates a voxelization pixel shader matching the given BRDF.

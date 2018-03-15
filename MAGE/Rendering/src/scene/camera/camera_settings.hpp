@@ -32,7 +32,9 @@ namespace mage::rendering {
 		 */
 		CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
-			m_brdf(BRDFType::Default),
+			m_brdf(BRDFType::Default), 
+			m_tone_mapping(ToneMapping::Default), 
+			m_gamma(2.2f), 
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
 			m_fog(), 
 			m_sky() {}
@@ -83,14 +85,8 @@ namespace mage::rendering {
 		CameraSettings& operator=(CameraSettings&& settings) noexcept = default;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Render Mode
 		//---------------------------------------------------------------------
-
-		void Reset() noexcept {
-			ResetRenderMode();
-			ResetBRDF();
-			ResetRenderLayers();
-		}
 
 		[[nodiscard]]
 		RenderMode GetRenderMode() const noexcept {
@@ -101,9 +97,9 @@ namespace mage::rendering {
 			m_render_mode = render_mode;
 		}
 
-		void ResetRenderMode() noexcept {
-			SetRenderMode(RenderMode::Forward);
-		}
+		//---------------------------------------------------------------------
+		// Member Methods: BRDF
+		//---------------------------------------------------------------------
 
 		[[nodiscard]]
 		BRDFType GetBRDF() const noexcept {
@@ -114,9 +110,22 @@ namespace mage::rendering {
 			m_brdf = brdf;
 		}
 
-		void ResetBRDF() noexcept {
-			SetBRDF(BRDFType::Default);
+		//---------------------------------------------------------------------
+		// Member Methods: Tone Mapping
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		ToneMapping GetToneMapping() const noexcept {
+			return m_tone_mapping;
 		}
+
+		void SetToneMapping(ToneMapping tone_mapping) noexcept {
+			m_tone_mapping = tone_mapping;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Render Layers
+		//---------------------------------------------------------------------
 
 		[[nodiscard]]
 		bool ContainsRenderLayers() const noexcept {
@@ -145,6 +154,23 @@ namespace mage::rendering {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Tone Mapping
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		F32 GetGamma() const noexcept {
+			return m_gamma;
+		}
+
+		void SetGamma(F32 gamma) noexcept {
+			m_gamma = gamma;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Fog
+		//---------------------------------------------------------------------
+
 		[[nodiscard]]
 		Fog& GetFog() noexcept {
 			return m_fog;
@@ -154,6 +180,10 @@ namespace mage::rendering {
 		const Fog& GetFog() const noexcept {
 			return m_fog;
 		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Sky
+		//---------------------------------------------------------------------
 
 		[[nodiscard]]
 		Sky& GetSky() noexcept {
@@ -177,9 +207,19 @@ namespace mage::rendering {
 		RenderMode m_render_mode;
 
 		/**
-		 The BRDF type used for normal rendering of this camera settings.
+		 The BRDF of this camera settings.
 		 */
 		BRDFType m_brdf;
+
+		/**
+		 The Tone Mapping of this camera settings.
+		 */
+		ToneMapping m_tone_mapping;
+
+		/**
+		 The gamma exponent of this camera settings.
+		 */
+		F32 m_gamma;
 
 		/**
 		 The render layer mask of this camera settings.

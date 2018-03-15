@@ -15,7 +15,9 @@
 #include "aa\ssaa_resolve_CS.hpp"
 
 // Back Buffer
-#include "backbuffer\back_buffer_PS.hpp"
+#include "backbuffer\back_buffer_aces_filmic_PS.hpp"
+#include "backbuffer\back_buffer_reinhard_PS.hpp"
+#include "backbuffer\back_buffer_uncharted_PS.hpp"
 
 // Deferred: Opaque
 #include "deferred\deferred_blinn_phong_CS.hpp"
@@ -361,13 +363,28 @@ namespace mage::rendering {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Miscellaneous
+	// Factory Methods: Back Buffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
-						MAGE_SHADER_ARGS(g_back_buffer_PS));
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager, 
+									  ToneMapping tone_mapping) {
+		
+		switch (tone_mapping) {
+
+		case ToneMapping::ACESFilmic:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_aces_filmic_PS));
+		case ToneMapping::Reinhard:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_reinhard_PS));
+		case ToneMapping::Uncharted:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_uncharted_PS));
+		default:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_uncharted_PS));
+		}
 	}
 
 	#pragma endregion
@@ -377,54 +394,57 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
-												bool vct) {
-		
-		return vct ? CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_vct_blinn_phong_CS))
-			       : CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
-	}
-
-	ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
-												  bool vct) {
-		
-		return vct ? CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_vct_cook_torrance_CS))
-			       : CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
-	}
-
 	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
 						MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
-	ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
-											   bool vct) {
-		
-		return vct ? CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_vct_frostbite_CS))
-			       : CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
-	}
+	namespace {
 
-	ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
-												bool vct) {
+		ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
+													bool vct) {
 		
-		return vct ? CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_vct_lambertian_CS))
-			       : CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
-	}
+			return vct ? CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_vct_blinn_phong_CS))
+					   : CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
+		}
 
-	ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
-											  bool vct) {
+		ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
+													  bool vct) {
 		
-		return vct ? CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_vct_ward_duer_CS))
-			       : CreateCS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
+			return vct ? CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_vct_cook_torrance_CS))
+					   : CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
+		}
+
+		ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
+												   bool vct) {
+		
+			return vct ? CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_vct_frostbite_CS))
+					   : CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
+		}
+
+		ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
+													bool vct) {
+		
+			return vct ? CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_vct_lambertian_CS))
+					   : CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
+		}
+
+		ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
+												  bool vct) {
+		
+			return vct ? CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_vct_ward_duer_CS))
+					   : CreateCS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
+		}
 	}
 
 	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
@@ -444,54 +464,58 @@ namespace mage::rendering {
 		}
 	}
 
-	PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager, 
-												  bool vct) {
-
-		return vct ? CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_vct_blinn_phong_PS))
-			       : CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
-	}
-
-	PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager, 
-													bool vct) {
-
-		return vct ? CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_vct_cook_torrance_PS))
-		           : CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
-	}
-
 	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
 	}
 
-	PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager, 
-												 bool vct) {
+	namespace {
 
-		return vct ? CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_vct_frostbite_PS))
-		           : CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
-	}
+		PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager,
+													  bool vct) {
 
-	PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager, 
-												  bool vct) {
+			return vct ? CreatePS(resource_manager,
+								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_blinn_phong_PS))
+				: CreatePS(resource_manager,
+						   MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
+		}
 
-		return vct ? CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_vct_lambertian_PS))
-		           : CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
-	}
+		PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager,
+														bool vct) {
 
-	PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager, 
-												bool vct) {
+			return vct ? CreatePS(resource_manager,
+								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_cook_torrance_PS))
+				: CreatePS(resource_manager,
+						   MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
+		}
 
-		return vct ? CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_vct_ward_duer_PS))
-		           : CreatePS(resource_manager, 
-							  MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
+
+		PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager,
+													 bool vct) {
+
+			return vct ? CreatePS(resource_manager,
+								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_frostbite_PS))
+				: CreatePS(resource_manager,
+						   MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
+		}
+
+		PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager,
+													  bool vct) {
+
+			return vct ? CreatePS(resource_manager,
+								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_lambertian_PS))
+				: CreatePS(resource_manager,
+						   MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
+		}
+
+		PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager,
+													bool vct) {
+
+			return vct ? CreatePS(resource_manager,
+								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_ward_duer_PS)) 
+				       : CreatePS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
+		}
 	}
 
 	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
@@ -616,86 +640,6 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
-											 bool transparency,
-											 bool vct, 
-											 bool tsnm) {
-
-		const auto config = static_cast< U32 >(transparency) << 2u
-		                  | static_cast< U32 >(vct)          << 1u
-						  | static_cast< U32 >(tsnm);
-		
-		switch(config) {
-			
-		case 0b000:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_blinn_phong_PS));
-		case 0b001:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS));
-		case 0b010:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_blinn_phong_PS));
-		case 0b011:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_tsnm_blinn_phong_PS));
-		case 0b100:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS));
-		case 0b101:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS));
-		case 0b110:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_blinn_phong_PS));
-		case 0b111:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_blinn_phong_PS));
-		default:
-			return nullptr;
-		}
-	}
-
-	PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
-											   bool transparency,
-											   bool vct, 
-											   bool tsnm) {
-		
-		const auto config = static_cast< U32 >(transparency) << 2u
-		                  | static_cast< U32 >(vct)          << 1u
-						  | static_cast< U32 >(tsnm);
-		
-		switch(config) {
-			
-		case 0b000:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_cook_torrance_PS));
-		case 0b001:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS));
-		case 0b010:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_cook_torrance_PS));
-		case 0b011:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_tsnm_cook_torrance_PS));
-		case 0b100:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS));
-		case 0b101:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS));
-		case 0b110:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_cook_torrance_PS));
-		case 0b111:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_cook_torrance_PS));
-		default:
-			return nullptr;
-		}
-	}
-
 	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
 										   bool transparency) {
 
@@ -705,123 +649,207 @@ namespace mage::rendering {
 									   MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
-	PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
-											bool transparency,
-											bool vct, 
-											bool tsnm) {
-		
-		const auto config = static_cast< U32 >(transparency) << 2u
-		                  | static_cast< U32 >(vct)          << 1u
-						  | static_cast< U32 >(tsnm);
-		
-		switch(config) {
-			
-		case 0b000:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_frostbite_PS));
-		case 0b001:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS));
-		case 0b010:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_frostbite_PS));
-		case 0b011:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_tsnm_frostbite_PS));
-		case 0b100:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS));
-		case 0b101:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS));
-		case 0b110:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_frostbite_PS));
-		case 0b111:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_frostbite_PS));
-		default:
-			return nullptr;
-		}
-	}
+	namespace {
 
-	PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
-											 bool transparency,
-											 bool vct, 
-											 bool tsnm) {
-		
-		const auto config = static_cast< U32 >(transparency) << 2u
-		                  | static_cast< U32 >(vct)          << 1u
-						  | static_cast< U32 >(tsnm);
-		
-		switch(config) {
-			
-		case 0b000:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_lambertian_PS));
-		case 0b001:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS));
-		case 0b010:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_lambertian_PS));
-		case 0b011:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_tsnm_lambertian_PS));
-		case 0b100:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS));
-		case 0b101:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS));
-		case 0b110:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_lambertian_PS));
-		case 0b111:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_lambertian_PS));
-		default:
-			return nullptr;
-		}
-	}
+		PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
+												 bool transparency,
+												 bool vct, 
+												 bool tsnm) {
 
-	PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
-										   bool transparency,
-										   bool vct, 
-										   bool tsnm) {
+			const auto config = static_cast< U32 >(transparency) << 2u
+							  | static_cast< U32 >(vct)          << 1u
+							  | static_cast< U32 >(tsnm);
 		
-		const auto config = static_cast< U32 >(transparency) << 2u
-		                  | static_cast< U32 >(vct)          << 1u
-						  | static_cast< U32 >(tsnm);
-		
-		switch(config) {
+			switch(config) {
 			
-		case 0b000:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_ward_duer_PS));
-		case 0b001:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS));
-		case 0b010:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_ward_duer_PS));
-		case 0b011:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_vct_tsnm_ward_duer_PS));
-		case 0b100:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS));
-		case 0b101:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS));
-		case 0b110:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_ward_duer_PS));
-		case 0b111:
-			return CreatePS(resource_manager, 
-							MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_ward_duer_PS));
-		default:
-			return nullptr;
+			case 0b000:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_blinn_phong_PS));
+			case 0b001:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS));
+			case 0b010:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_blinn_phong_PS));
+			case 0b011:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_tsnm_blinn_phong_PS));
+			case 0b100:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS));
+			case 0b101:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS));
+			case 0b110:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_blinn_phong_PS));
+			case 0b111:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_blinn_phong_PS));
+			default:
+				return nullptr;
+			}
+		}
+
+		PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
+												   bool transparency,
+												   bool vct, 
+												   bool tsnm) {
+		
+			const auto config = static_cast< U32 >(transparency) << 2u
+							  | static_cast< U32 >(vct)          << 1u
+							  | static_cast< U32 >(tsnm);
+		
+			switch(config) {
+			
+			case 0b000:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_cook_torrance_PS));
+			case 0b001:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS));
+			case 0b010:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_cook_torrance_PS));
+			case 0b011:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_tsnm_cook_torrance_PS));
+			case 0b100:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS));
+			case 0b101:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS));
+			case 0b110:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_cook_torrance_PS));
+			case 0b111:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_cook_torrance_PS));
+			default:
+				return nullptr;
+			}
+		}
+
+	
+		PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
+												bool transparency,
+												bool vct, 
+												bool tsnm) {
+		
+			const auto config = static_cast< U32 >(transparency) << 2u
+							  | static_cast< U32 >(vct)          << 1u
+							  | static_cast< U32 >(tsnm);
+		
+			switch(config) {
+			
+			case 0b000:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_frostbite_PS));
+			case 0b001:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS));
+			case 0b010:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_frostbite_PS));
+			case 0b011:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_tsnm_frostbite_PS));
+			case 0b100:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS));
+			case 0b101:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS));
+			case 0b110:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_frostbite_PS));
+			case 0b111:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_frostbite_PS));
+			default:
+				return nullptr;
+			}
+		}
+
+		PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
+												 bool transparency,
+												 bool vct, 
+												 bool tsnm) {
+		
+			const auto config = static_cast< U32 >(transparency) << 2u
+							  | static_cast< U32 >(vct)          << 1u
+							  | static_cast< U32 >(tsnm);
+		
+			switch(config) {
+			
+			case 0b000:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_lambertian_PS));
+			case 0b001:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS));
+			case 0b010:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_lambertian_PS));
+			case 0b011:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_tsnm_lambertian_PS));
+			case 0b100:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS));
+			case 0b101:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS));
+			case 0b110:
+				return CreatePS(resource_manager,
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_lambertian_PS));
+			case 0b111:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_lambertian_PS));
+			default:
+				return nullptr;
+			}
+		}
+
+		PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
+											   bool transparency,
+											   bool vct, 
+											   bool tsnm) {
+		
+			const auto config = static_cast< U32 >(transparency) << 2u
+							  | static_cast< U32 >(vct)          << 1u
+							  | static_cast< U32 >(tsnm);
+		
+			switch(config) {
+			
+			case 0b000:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_ward_duer_PS));
+			case 0b001:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_tsnm_ward_duer_PS));
+			case 0b010:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_ward_duer_PS));
+			case 0b011:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_vct_tsnm_ward_duer_PS));
+			case 0b100:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_ward_duer_PS));
+			case 0b101:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_ward_duer_PS));
+			case 0b110:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_ward_duer_PS));
+			case 0b111:
+				return CreatePS(resource_manager, 
+								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_ward_duer_PS));
+			default:
+				return nullptr;
+			}
 		}
 	}
 
@@ -978,49 +1006,52 @@ namespace mage::rendering {
 						MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
-	PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
-												  bool tsnm) {
+	namespace {
 
-		return tsnm ? CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_tsnm_blinn_phong_PS))
-					: CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_blinn_phong_PS));
-	}
+		PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
+													  bool tsnm) {
 
-	PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
+			return tsnm ? CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_tsnm_blinn_phong_PS))
+						: CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_blinn_phong_PS));
+		}
+
+		PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
+														bool tsnm) {
+
+			return tsnm ? CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_tsnm_cook_torrance_PS))
+						: CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_cook_torrance_PS));
+		}
+
+		PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
+													 bool tsnm) {
+
+			return tsnm ? CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_tsnm_frostbite_PS))
+						: CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_frostbite_PS));
+		}
+
+		PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
+													  bool tsnm) {
+
+			return tsnm ? CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_tsnm_lambertian_PS))
+						: CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
+		}
+
+		PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
 													bool tsnm) {
 
-		return tsnm ? CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_tsnm_cook_torrance_PS))
-					: CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_cook_torrance_PS));
-	}
-
-	PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
-												 bool tsnm) {
-
-		return tsnm ? CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_tsnm_frostbite_PS))
-					: CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_frostbite_PS));
-	}
-
-	PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
-												  bool tsnm) {
-
-		return tsnm ? CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_tsnm_lambertian_PS))
-					: CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
-	}
-
-	PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
-												bool tsnm) {
-
-		return tsnm ? CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_tsnm_ward_duer_PS))
-					: CreatePS(resource_manager, 
-							   MAGE_SHADER_ARGS(g_voxelization_ward_duer_PS));
+			return tsnm ? CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_tsnm_ward_duer_PS))
+						: CreatePS(resource_manager, 
+								   MAGE_SHADER_ARGS(g_voxelization_ward_duer_PS));
+		}
 	}
 
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 

@@ -73,8 +73,9 @@ namespace mage::script {
 
 		void DrawWidget(rendering::CameraSettings& settings) {
 			using rendering::RenderMode;
-			using rendering::RenderLayer;
 			using rendering::BRDFType;
+			using rendering::ToneMapping;
+			using rendering::RenderLayer;
 			
 			ImGui::Text("Settings:");
 		
@@ -133,7 +134,7 @@ namespace mage::script {
 
 			auto render_mode_index = static_cast< int >(settings.GetRenderMode());
 			ImGui::Combo("Render Mode", &render_mode_index, render_mode_names,
-						 static_cast<int>(std::size(render_mode_names)));
+						 static_cast< int >(std::size(render_mode_names)));
 			settings.SetRenderMode(render_modes[render_mode_index]);
 
 			//-----------------------------------------------------------------
@@ -159,9 +160,38 @@ namespace mage::script {
 		
 			auto brdf_index = static_cast< int >(settings.GetBRDF());
 			ImGui::Combo("BRDF", &brdf_index, brdf_names,
-						 static_cast<int>(std::size(brdf_names)));
+						 static_cast< int >(std::size(brdf_names)));
 			settings.SetBRDF(brdfs[brdf_index]);
 	
+			//-----------------------------------------------------------------
+			// Tone Mapping
+			//-----------------------------------------------------------------
+			static constexpr const char* tone_mapping_names[] = {
+				"Default",
+				"ACESFilmic",
+				"Reinhard",
+				"Uncharted"
+			};
+			static constexpr ToneMapping tone_mappings[] = {
+				ToneMapping::Default,
+				ToneMapping::ACESFilmic,
+				ToneMapping::Reinhard,
+				ToneMapping::Uncharted
+			};
+			static_assert(std::size(tone_mapping_names) == std::size(tone_mappings));
+		
+			auto tone_mapping_index = static_cast< int >(settings.GetToneMapping());
+			ImGui::Combo("Tone Mapping", &tone_mapping_index, tone_mapping_names,
+						 static_cast< int >(std::size(tone_mappings)));
+			settings.SetToneMapping(tone_mappings[tone_mapping_index]);
+
+			//-----------------------------------------------------------------
+			// Gamma Exponent
+			//-----------------------------------------------------------------
+			auto gamma = settings.GetGamma();
+			ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.01f, 4.0f, "%.2f");
+			settings.SetGamma(gamma);
+
 			//-----------------------------------------------------------------
 			// Render Layers
 			//-----------------------------------------------------------------
@@ -684,7 +714,7 @@ namespace mage::script {
 
 			auto sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
 			ImGui::Combo("Sprite Effects", &sprite_effect_index, sprite_effect_names,
-						 static_cast<int>(std::size(sprite_effect_names)));
+						 static_cast< int >(std::size(sprite_effect_names)));
 			sprite.SetSpriteEffects(sprite_effects[sprite_effect_index]);
 		}
 	
@@ -740,7 +770,7 @@ namespace mage::script {
 
 			auto sprite_effect_index = static_cast< int >(sprite.GetSpriteEffects());
 			ImGui::Combo("Sprite Effects", &sprite_effect_index, sprite_effect_names,
-						 static_cast<int>(std::size(sprite_effect_names)));
+						 static_cast< int >(std::size(sprite_effect_names)));
 			sprite.SetSpriteEffects(sprite_effects[sprite_effect_index]);
 
 			//-----------------------------------------------------------------
@@ -765,7 +795,7 @@ namespace mage::script {
 
 			auto text_effect_index = static_cast< int >(sprite.GetTextEffect());
 			ImGui::Combo("Text Effect", &text_effect_index, text_effect_names,
-						 static_cast<int>(std::size(text_effect_names)));
+						 static_cast< int >(std::size(text_effect_names)));
 			sprite.SetTextEffect(text_effects[text_effect_index]);
 		}
 

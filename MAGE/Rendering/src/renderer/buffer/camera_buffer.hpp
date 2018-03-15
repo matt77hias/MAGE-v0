@@ -47,7 +47,7 @@ namespace mage::rendering {
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
-			m_padding0(0u) {}
+			m_inv_gamma(0.0f) {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -184,9 +184,9 @@ namespace mage::rendering {
 		F32 m_max_coc_radius;
 
 		/**
-		 The padding of the camera of this camera buffer.
+		 The inverse gamma exponent of the camera of this camera buffer.
 		 */
-		U32 m_padding0;
+		F32 m_inv_gamma;
 	};
 
 	static_assert(320 == sizeof(CameraBuffer), 

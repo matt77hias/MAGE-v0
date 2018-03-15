@@ -17,9 +17,9 @@ namespace mage::rendering {
 								   StateManager& state_manager,
 								   ResourceManager& resource_manager)
 		: m_device_context(device_context),
-		m_state_manager(state_manager),
-		m_vs(CreateNearFullscreenTriangleVS(resource_manager)),
-		m_ps(CreateBackBufferPS(resource_manager)) {}
+		m_state_manager(state_manager), 
+		m_resource_manager(resource_manager), 
+		m_vs(CreateNearFullscreenTriangleVS(resource_manager)) {}
 
 	BackBufferPass::BackBufferPass(BackBufferPass&& pass) noexcept = default;
 
@@ -43,8 +43,6 @@ namespace mage::rendering {
 		// RS: Bind the rasterization state.
 		m_state_manager.get().Bind(m_device_context, 
 								   RasterizerStateID::CounterClockwiseCulling);
-		// PS: Bind the pixel shader.
-		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
 		m_state_manager.get().Bind(m_device_context, 
 								   DepthStencilStateID::DepthNone);
@@ -53,9 +51,12 @@ namespace mage::rendering {
 								   BlendStateID::Opaque);
 	}
 
-	void BackBufferPass::Render() const noexcept {
+	void BackBufferPass::Render(ToneMapping tone_mapping) {
 		// Bind the fixed state.
 		BindFixedState();
+		// PS: Bind the pixel shader.
+		const auto ps = CreateBackBufferPS(m_resource_manager, tone_mapping);
+		ps->BindShader(m_device_context);
 
 		// Draw the fullscreen triangle.
 		Pipeline::Draw(m_device_context, 3u, 0u);

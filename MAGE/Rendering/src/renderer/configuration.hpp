@@ -168,9 +168,9 @@ namespace mage::rendering {
 	 @c AABB.
 	 */
 	enum class RenderLayer : U32 {
-		None = 0,  // No layer.
-		Wireframe, // Wirframe layer.
-		AABB,      // AABB layer.
+		None      = 0, // No layer.
+		Wireframe = 1, // Wirframe layer.
+		AABB      = 2, // AABB layer.
 	};
 
 	#pragma endregion

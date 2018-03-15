@@ -84,94 +84,32 @@ namespace mage::rendering {
 		OrthographicCamera& operator=(OrthographicCamera&& camera) noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Projection
+		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the width of the camera projection plane of this orthographic 
-		 camera in view space.
+		 Returns the size of the projection plane of this orthographic camera 
+		 expressed in camera space.
 
-		 @return		The width of the camera projection plane of this 
-						orthographic camera in view space.
+		 @return		The size of the projection plane of this orthographic 
+						camera expressed in camera space.
 		 */
 		[[nodiscard]]
-		F32 GetWidth() const noexcept {
-			return m_width;
+		const F32x2 GetSize() const noexcept {
+			return m_size;
 		}
 
 		/**
-		 Sets the width of the camera projection plane of this orthographic 
-		 camera to the given value.
+		 Sets the size of the projection plane of this orthographic camera 
+		 expressed in camera space to the given size.
 
-		 @param[in]		width
-						The width of the camera projection plane in camera 
-						space.
+		 @param[in]		size
+						The size.
 		 */
-		void SetWidth(F32 width) noexcept {
-			m_width = width;
+		void SetSize(F32x2 size) noexcept {
+			m_size = std::move(size);
 		}
 
-		/**
-		 Returns the height of the camera projection plane of this orthographic 
-		 camera in view space.
-
-		 @return		The height of the camera projection plane of this 
-						orthographic camera in view space.
-		 */
-		[[nodiscard]]
-		F32 GetHeight() const noexcept {
-			return m_height;
-		}
-		
-		/**
-		 Sets the height of the camera projection plane of this orthographic 
-		 camera to the given value.
-
-		 @param[in]		height
-						The height of the camera projection plane in camera 
-						space.
-		 */
-		void SetHeight(F32 height) noexcept {
-			m_height = height;
-		}
-		
-		/**
-		 Sets the width and height of the camera projection plane of this 
-		 orthographic camera to the given values.
-
-		 @param[in]		width
-						The width of the camera projection plane in camera 
-						space.
-		 @param[in]		height
-						The height of the camera projection plane in camera 
-						space.
-		 */
-		void SetWidthAndHeight(F32 width, F32 height) noexcept {
-			m_width  = width;
-			m_height = height;
-		}
-		
-		/**
-		 Sets the camera-to-projection matrix of this orthographic camera.
-
-		 @param[in]		width
-						The width of the camera projection plane in camera 
-						space.
-		 @param[in]		height
-						The height of the camera projection plane in camera 
-						space.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		*/
-		void SetCameraToProjectionMatrix(F32 width,  F32 height, 
-										 F32 near_z, F32 far_z) noexcept {
-			
-			SetWidthAndHeight(width, height);
-			SetNearAndFarZ(near_z, far_z);
-		}
-	
 		/**
 		 Returns the camera-to-projection matrix of this orthographic camera.
 
@@ -184,10 +122,10 @@ namespace mage::rendering {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
-				GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
+				m_size.m_x, m_size.m_y, GetNearZ(), GetFarZ());
 			#else  // DISABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
-				GetWidth(), GetHeight(), GetFarZ(), GetNearZ());
+				m_size.m_x, m_size.m_y, GetFarZ(), GetNearZ());
 			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 
@@ -223,16 +161,10 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The width of the camera projection plane of this orthographic camera 
-		 in view space.
+		 The size of the projection plane of this orthographic camera expressed 
+		 in camera space.
 		 */
-		F32 m_width;
-
-		/**
-		 The height of the camera projection plane of this orthographic camera 
-		 in view space.
-		 */
-		F32 m_height;
+		F32x2 m_size;
 	};
 
 	#pragma warning( pop )

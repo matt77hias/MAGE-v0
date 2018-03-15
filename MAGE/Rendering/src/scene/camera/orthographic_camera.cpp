@@ -14,8 +14,7 @@ namespace mage::rendering {
 
 	OrthographicCamera::OrthographicCamera(ID3D11Device& device)
 		: Camera(device),
-		m_width(1.0f), 
-		m_height(1.0f) {}
+		m_size(1.0f) {}
 
 	OrthographicCamera::OrthographicCamera(
 		OrthographicCamera&& camera) noexcept = default;

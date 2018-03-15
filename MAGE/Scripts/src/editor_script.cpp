@@ -314,13 +314,11 @@ namespace mage::script {
 						const U32x2& display_resolution) {
 			
 			//-----------------------------------------------------------------
-			// Width and Height
+			// Size
 			//-----------------------------------------------------------------
-			auto width = camera.GetWidth();
-			ImGui::InputFloat("Width", &width);
-			auto height = camera.GetHeight();
-			ImGui::InputFloat("Height", &height);
-			camera.SetWidthAndHeight(width, height);
+			auto size = camera.GetSize();
+			ImGui::InputFloat2("Resolution", size.GetData());
+			camera.SetSize(std::move(size));
 
 			//-----------------------------------------------------------------
 			// Camera
@@ -468,14 +466,14 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto translation = transform.GetTranslation();
 			ImGui::InputFloat2("Translation", translation.GetData());
-			transform.SetTranslation(translation);
+			transform.SetTranslation(std::move(translation));
 
 			//-----------------------------------------------------------------
 			// Rotation Origin
 			//-----------------------------------------------------------------
 			auto rotation_origin = transform.GetRotationOrigin();
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
-			transform.SetRotationOrigin(rotation_origin);
+			transform.SetRotationOrigin(std::move(rotation_origin));
 
 			//-----------------------------------------------------------------
 			// Rotation
@@ -489,7 +487,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScale();
 			ImGui::InputFloat2("Scale", scale.GetData());
-			transform.SetScale(scale);
+			transform.SetScale(std::move(scale));
 		}
 
 		void DrawWidget(rendering::Material& material) {
@@ -615,7 +613,7 @@ namespace mage::script {
 			else {
 				auto translation = transform.GetTranslation();
 				ImGui::InputFloat2("Translation", translation.GetData());
-				transform.SetTranslation(translation);
+				transform.SetTranslation(std::move(translation));
 			}
 
 			//-----------------------------------------------------------------
@@ -638,7 +636,7 @@ namespace mage::script {
 			else {
 				auto rotation_origin = transform.GetRotationOrigin();
 				ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
-				transform.SetRotationOrigin(rotation_origin);
+				transform.SetRotationOrigin(std::move(rotation_origin));
 			}
 
 			//-----------------------------------------------------------------
@@ -653,7 +651,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScale();
 			ImGui::InputFloat2("Scale", scale.GetData());
-			transform.SetScale(scale);
+			transform.SetScale(std::move(scale));
 
 			ImGui::Checkbox("Normalization", &normalization);
 		}
@@ -806,7 +804,7 @@ namespace mage::script {
 			if (auto translation = transform.GetTranslation();
 				ImGui::InputFloat3("Translation", translation.GetData())) {
 
-				transform.SetTranslation(translation);
+				transform.SetTranslation(std::move(translation));
 			}
 		
 			//-----------------------------------------------------------------
@@ -815,7 +813,7 @@ namespace mage::script {
 			if (auto rotation = transform.GetRotation();
 				ImGui::InputFloat3("Rotation", rotation.GetData())) {
 
-				transform.SetRotation(rotation);
+				transform.SetRotation(std::move(rotation));
 			}
 		
 			//-----------------------------------------------------------------
@@ -824,7 +822,7 @@ namespace mage::script {
 			if (auto scale = transform.GetScale();
 				ImGui::InputFloat3("Scale", scale.GetData())) {
 
-				transform.SetScale(scale);
+				transform.SetScale(std::move(scale));
 			}
 		}
 

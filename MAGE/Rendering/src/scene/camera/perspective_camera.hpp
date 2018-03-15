@@ -227,50 +227,6 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Sets the view-to-projection matrix of this perspective camera.
-
-		 @param[in]		aspect_ratio
-						The aspect ratio.
-		 @param[in]		fov_y
-						The vertical field-of-view.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		void SetViewToProjectionMatrix(F32 aspect_ratio,
-			                           F32 fov_y, 
-			                           F32 near_z, 
-			                           F32 far_z) noexcept {
-
-			SetAspectRatio(aspect_ratio);
-			SetFOVY(fov_y);
-			SetNearAndFarZ(near_z, far_z);
-		}
-		
-		/**
-		 Sets the camera-to-projection matrix of this perspective camera.
-
-		 @param[in]		width
-						The width.
-		 @param[in]		height
-						The height.
-		 @param[in]		fov_y
-						The vertical field-of-view.
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		void SetCameraToProjectionMatrix(F32 width,  F32 height, F32 fov_y, 
-										 F32 near_z, F32 far_z) noexcept {
-			
-			SetAspectRatio(width, height);
-			SetFOVY(fov_y);
-			SetNearAndFarZ(near_z, far_z);
-		}
-		
-		/**
 		 Returns the camera-to-projection matrix of this perspective camera.
 
 		 @return		The camera-to-projection matrix of this perspective 

@@ -283,7 +283,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Clipping Planes
 			//-----------------------------------------------------------------
-			auto clipping_planes = camera.GetClippingPlanes;
+			auto clipping_planes = camera.GetClippingPlanes();
 			ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
 			camera.SetClippingPlanes(std::move(clipping_planes));
 

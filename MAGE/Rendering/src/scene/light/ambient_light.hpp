@@ -123,7 +123,7 @@ namespace mage::rendering {
 						The radiance in watts per square meter per steradians.
 		 */
 		void SetRadiance(F32 radiance) noexcept {
-			m_radiance = radiance;
+			m_radiance = std::abs(radiance);
 		}
 
 		/**

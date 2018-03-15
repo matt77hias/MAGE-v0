@@ -123,7 +123,7 @@ namespace mage::rendering {
 						The irradiance in watts per square meter.
 		 */
 		void SetIrradiance(F32 irradiance) noexcept {
-			m_irradiance = irradiance;
+			m_irradiance = std::abs(irradiance);
 		}
 
 		/**

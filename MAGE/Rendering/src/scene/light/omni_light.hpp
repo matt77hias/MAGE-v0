@@ -154,7 +154,7 @@ namespace mage::rendering {
 						The radiant intensity in watts per steradians.
 		 */
 		void SetIntensity(F32 intensity) noexcept {
-			m_intensity = intensity;
+			m_intensity = std::abs(intensity);
 		}
 
 		/**

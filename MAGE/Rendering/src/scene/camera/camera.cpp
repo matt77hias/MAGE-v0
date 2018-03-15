@@ -16,8 +16,7 @@ namespace mage::rendering {
 	Camera::Camera(ID3D11Device& device) 
 		: Component(), 
 		m_buffer(device),
-		m_near_z(0.01f),
-		m_far_z(100.0f),
+		m_clipping_planes(0.01f, 100.0f), 
 		m_lens(),
 		m_viewport(),
 		m_settings() {}

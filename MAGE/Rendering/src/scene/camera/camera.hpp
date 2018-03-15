@@ -238,65 +238,27 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the position of the near z-plane of this camera in camera 
-		 view space.
+		 Returns the clipping planes of this camera expressed in camera space.
 
-		 @return		The position of the near z-plane of this camera in 
-						camera view space.
+		 @return		The clipping planes of this camera expressed in camera 
+						space.
 		 */
 		[[nodiscard]]
-		F32 GetNearZ() const noexcept {
-			return m_near_z;
+		const F32x2 GetClippingPlanes() const noexcept {
+			return m_clipping_planes;
 		}
 		
 		/**
-		 Sets the position of the near z-plane of this camera to the given 
-		 value.
+		 Sets the clipping planes of this camera expressed in camera space to 
+		 the given clipping planes.
 
-		 @param[in]		near_z
-						The position of the near z-plane in camera view space.
+		 @param[in]		clipping_planes
+						The clipping planes.
 		 */
-		void SetNearZ(F32 near_z) noexcept {
-			m_near_z = near_z;
+		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
+			m_clipping_planes = std::move(clipping_planes);
 		}
 		
-		/**
-		 Returns the position of the far z-plane of this camera in camera 
-		 view space.
-
-		 @return		The position of the far z-plane of this camera in 
-						camera view space.
-		 */
-		[[nodiscard]]
-		F32 GetFarZ() const noexcept {
-			return m_far_z;
-		}
-		
-		/**
-		 Sets the position of the far z-plane of this camera to the given 
-		 value.
-
-		 @param[in]		far_z
-						The position of the far z-plane in camera view space.
-		 */
-		void SetFarZ(F32 far_z) noexcept {
-			m_far_z = far_z;
-		}
-		
-		/**
-		 Sets the position of the near and far z-plane of this camera to the 
-		 given values.
-
-		 @param[in]		near_z
-						The position of the near z-plane in view space.
-		 @param[in]		far_z
-						The position of the far z-plane in view space.
-		 */
-		void SetNearAndFarZ(F32 near_z, F32 far_z) noexcept {
-			SetNearZ(near_z);
-			SetFarZ(far_z);
-		}
-
 		/**
 		 Returns the camera-to-projection matrix of this camera.
 
@@ -467,14 +429,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the near z-plane of this camera in view space. 
+		 The clipping planes of this camera expressed in camera space.
 		 */
-		F32 m_near_z;
-
-		/**
-		 The position of the far z-plane of this camera in view space.
-		 */
-		F32 m_far_z;
+		F32x2 m_clipping_planes;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Lens

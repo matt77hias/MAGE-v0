@@ -236,12 +236,18 @@ namespace mage::rendering {
 		virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
+			const auto clipping_planes = GetClippingPlanes();
+
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(
-				GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
+			return XMMatrixPerspectiveFovLH(GetFOVY(), 
+											GetAspectRatio(), 
+											clipping_planes.m_x, 
+											clipping_planes.m_y);
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(
-				GetFOVY(), GetAspectRatio(), GetFarZ(), GetNearZ());
+			return XMMatrixPerspectiveFovLH(GetFOVY(), 
+											GetAspectRatio(), 
+											clipping_planes.m_y, 
+											clipping_planes.m_x);
 			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 

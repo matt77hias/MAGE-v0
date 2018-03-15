@@ -281,11 +281,11 @@ namespace mage::script {
 						const U32x2& display_resolution) {
 
 			//-----------------------------------------------------------------
-			// Near and Far
+			// Clipping Planes
 			//-----------------------------------------------------------------
-			F32x2 clipping_planes(camera.GetNearZ(), camera.GetFarZ());
+			auto clipping_planes = camera.GetClippingPlanes;
 			ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
-			camera.SetNearAndFarZ(clipping_planes.m_x, clipping_planes.m_y);
+			camera.SetClippingPlanes(std::move(clipping_planes));
 
 			ImGui::Separator();
 

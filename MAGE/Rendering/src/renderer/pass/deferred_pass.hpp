@@ -107,7 +107,7 @@ namespace mage::rendering {
 		/**
 		 Dispatches.
 
-		 @param[in]		resolution
+		 @param[in]		viewport_size
 						A reference to the viewport size.
 		 @param[in]		brdf
 						The BRDF.

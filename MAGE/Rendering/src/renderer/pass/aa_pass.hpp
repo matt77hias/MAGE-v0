@@ -94,7 +94,7 @@ namespace mage::rendering {
 		/**
 		 Dispatches an AA preprocess.
 
-		 @param[in]		resolution
+		 @param[in]		viewport_size
 						A reference to the viewport size.
 		 @param[in]		desc
 						The AA descriptor.
@@ -106,7 +106,7 @@ namespace mage::rendering {
 		/**
 		 Dispatches an AA pass.
 
-		 @param[in]		resolution
+		 @param[in]		viewport_size
 						A reference to the viewport size.
 		 @param[in]		desc
 						The AA descriptor.

@@ -93,7 +93,7 @@ namespace mage::rendering {
 		/**
 		 Dispatches an DOF pass.
 
-		 @param[in]		resolution
+		 @param[in]		viewport_size
 						A reference to the viewport size.
 		 */
 		void Dispatch(const U32x2& viewport_size) const noexcept;

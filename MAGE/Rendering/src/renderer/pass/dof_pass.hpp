@@ -7,7 +7,6 @@
 
 #include "renderer\state_manager.hpp"
 #include "resource\rendering_resource_manager.hpp"
-#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
@@ -94,10 +93,10 @@ namespace mage::rendering {
 		/**
 		 Dispatches an DOF pass.
 
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @param[in]		resolution
+						A reference to the viewport size.
 		 */
-		void Dispatch(const Viewport& viewport) const noexcept;
+		void Dispatch(const U32x2& viewport_size) const noexcept;
 
 	private:
 

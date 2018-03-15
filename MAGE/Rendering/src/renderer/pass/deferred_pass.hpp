@@ -8,7 +8,6 @@
 #include "renderer\configuration.hpp"
 #include "renderer\state_manager.hpp"
 #include "resource\rendering_resource_manager.hpp"
-#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
@@ -108,8 +107,8 @@ namespace mage::rendering {
 		/**
 		 Dispatches.
 
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @param[in]		resolution
+						A reference to the viewport size.
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		vct
@@ -118,7 +117,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to dispatch.
 		 */
-		void Dispatch(const Viewport& viewport, BRDFType brdf, bool vct);
+		void Dispatch(const U32x2& viewport_size, BRDFType brdf, bool vct);
 		
 	private:
 

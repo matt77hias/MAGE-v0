@@ -707,7 +707,7 @@ namespace mage::rendering {
 			m_deferred_pass->Render(camera.GetSettings().GetBRDF(), vct);
 		}
 		else {
-			m_deferred_pass->Dispatch(viewport, 
+			m_deferred_pass->Dispatch(viewport.GetSize(), 
 									  camera.GetSettings().GetBRDF(), vct);
 		}
 
@@ -815,7 +815,7 @@ namespace mage::rendering {
 			m_output_manager->BindPingPong(m_device_context);
 
 			// Perform a depth-of-field pass.
-			m_dof_pass->Dispatch(viewport);
+			m_dof_pass->Dispatch(viewport.GetSize());
 		}
 	}
 
@@ -830,7 +830,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// AA pre-processing
 			//-----------------------------------------------------------------
-			m_aa_pass->DispatchPreprocess(camera.GetViewport(), 
+			m_aa_pass->DispatchPreprocess(camera.GetViewport().GetSize(), 
 										  AADescriptor::FXAA);
 
 			m_output_manager->BindEndResolve(m_device_context);
@@ -839,7 +839,8 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// FXAA
 			//-----------------------------------------------------------------
-			m_aa_pass->Dispatch(camera.GetViewport(), AADescriptor::FXAA);
+			m_aa_pass->Dispatch(camera.GetViewport().GetSize(), 
+								AADescriptor::FXAA);
 
 			break;
 		}
@@ -855,7 +856,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// MSAA/SSAA
 			//-----------------------------------------------------------------
-			m_aa_pass->Dispatch(camera.GetViewport(), desc);
+			m_aa_pass->Dispatch(camera.GetViewport().GetSize(), desc);
 
 			m_output_manager->BindEndResolve(m_device_context);
 			break;

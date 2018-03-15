@@ -43,18 +43,18 @@ namespace mage::rendering {
 		buffer.m_projection_to_camera              = XMMatrixTranspose(projection_to_camera);
 		buffer.m_camera_to_world                   = XMMatrixTranspose(camera_to_world);
 
-		const auto viewport_resolution             = m_viewport.GetResolution();
 		buffer.m_viewport_top_left                 = m_viewport.GetTopLeft();
-		buffer.m_viewport_resolution               = viewport_resolution;
+		auto viewport_resolution                   = m_viewport.GetSize();
 		buffer.m_viewport_inv_resolution_minus1    = F32x2(1.0f / (viewport_resolution.m_x - 1u),
 														   1.0f / (viewport_resolution.m_y - 1u));
+		buffer.m_viewport_resolution               = std::move(viewport_resolution);
 		
 		const auto ss_viewport                     = Viewport(m_viewport, desc);
-		const auto ss_viewport_resolution          = ss_viewport.GetResolution();
 		buffer.m_ss_viewport_top_left              = ss_viewport.GetTopLeft();
-		buffer.m_ss_viewport_resolution            = ss_viewport_resolution;
+		auto ss_viewport_resolution                = ss_viewport.GetSize();
 		buffer.m_ss_viewport_inv_resolution_minus1 = F32x2(1.0f / (ss_viewport_resolution.m_x - 1u),
 														   1.0f / (ss_viewport_resolution.m_y - 1u));
+		buffer.m_ss_viewport_resolution            = std::move(ss_viewport_resolution);
 		
 		buffer.m_lens_radius                       = m_lens.GetLensRadius();
 		buffer.m_focal_length                      = m_lens.GetFocalLength();

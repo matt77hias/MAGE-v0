@@ -86,12 +86,14 @@ namespace mage::rendering {
 		// Clear the DSV vector.
 		m_dsvs.clear();
 
+		const auto resolution = m_viewport.GetSize();
+
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
 			                          | D3D11_BIND_SHADER_RESOURCE;
-		texture_desc.Width            = static_cast< U32 >(m_viewport.GetWidth());
-		texture_desc.Height           = static_cast< U32 >(m_viewport.GetHeight());
+		texture_desc.Width            = resolution.m_x;
+		texture_desc.Height           = resolution.m_y;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = static_cast< U32 >(nb_shadow_maps);
 		texture_desc.Format           = texture_format;
@@ -219,13 +221,15 @@ namespace mage::rendering {
 		// Clear the DSV vector.
 		m_dsvs.clear();
 
+		const auto resolution = m_viewport.GetSize();
+
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL 
 			                          | D3D11_BIND_SHADER_RESOURCE;
 		texture_desc.MiscFlags        = D3D11_RESOURCE_MISC_TEXTURECUBE;
-		texture_desc.Width            = static_cast< U32 >(m_viewport.GetWidth());
-		texture_desc.Height           = static_cast< U32 >(m_viewport.GetHeight());
+		texture_desc.Width            = resolution.m_x;
+		texture_desc.Height           = resolution.m_y;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 6u * static_cast< U32 >(nb_shadow_cube_maps);
 		texture_desc.Format           = texture_format;

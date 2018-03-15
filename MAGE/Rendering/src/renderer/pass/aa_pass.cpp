@@ -29,7 +29,9 @@ namespace mage::rendering {
 
 	AAPass& AAPass::operator=(AAPass&& pass) noexcept = default;
 
-	void AAPass::DispatchPreprocess(const Viewport& viewport, AADescriptor desc) {
+	void AAPass::DispatchPreprocess(const U32x2& viewport_size, 
+									AADescriptor desc) {
+
 		// CS: Bind the compute shader.
 		switch (desc) {
 
@@ -45,14 +47,16 @@ namespace mage::rendering {
 		}
 
 		// Dispatch the pass.
-		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
+		const auto nb_groups_x = GetNumberOfGroups(viewport_size.m_x,
 												   GROUP_SIZE_2D_DEFAULT);
-		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
+		const auto nb_groups_y = GetNumberOfGroups(viewport_size.m_y,
 												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 
-	void AAPass::Dispatch(const Viewport& viewport, AADescriptor desc) {
+	void AAPass::Dispatch(const U32x2& viewport_size, 
+						  AADescriptor desc) {
+		
 		// CS: Bind the compute shader.
 		switch (desc) {
 
@@ -84,9 +88,9 @@ namespace mage::rendering {
 		}
 
 		// Dispatch the pass.
-		const auto nb_groups_x = GetNumberOfGroups(viewport.GetWidth(),
+		const auto nb_groups_x = GetNumberOfGroups(viewport_size.m_x,
 												   GROUP_SIZE_2D_DEFAULT);
-		const auto nb_groups_y = GetNumberOfGroups(viewport.GetHeight(),
+		const auto nb_groups_y = GetNumberOfGroups(viewport_size.m_y,
 												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}

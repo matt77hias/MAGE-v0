@@ -252,10 +252,10 @@ namespace mage::script {
 				// Width and Height
 				//-------------------------------------------------------------
 				auto resolution 
-					= AbsoluteToNormalized(F32x2(viewport.GetResolution()),
+					= AbsoluteToNormalized(F32x2(viewport.GetSize()),
 										   display_resolution);
 				ImGui::InputFloat2("Resolution", resolution.GetData());
-				viewport.SetResolution(U32x2(
+				viewport.SetSize(U32x2(
 					NormalizedToAbsolute(resolution, display_resolution)));
 			}
 			else {
@@ -269,9 +269,9 @@ namespace mage::script {
 				//-------------------------------------------------------------
 				// Width and Height
 				//-------------------------------------------------------------
-				auto resolution = S32x2(viewport.GetResolution());
+				auto resolution = S32x2(viewport.GetSize());
 				ImGui::InputInt2("Resolution", resolution.GetData());
-				viewport.SetResolution(U32x2(resolution));
+				viewport.SetSize(U32x2(resolution));
 			}
 
 			ImGui::Checkbox("Normalization", &normalization);

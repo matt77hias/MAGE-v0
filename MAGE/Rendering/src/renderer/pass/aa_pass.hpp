@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "renderer\configuration.hpp"
 #include "renderer\state_manager.hpp"
 #include "resource\rendering_resource_manager.hpp"
-#include "scene\camera\viewport.hpp"
 
 #pragma endregion
 
@@ -94,26 +94,26 @@ namespace mage::rendering {
 		/**
 		 Dispatches an AA preprocess.
 
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @param[in]		resolution
+						A reference to the viewport size.
 		 @param[in]		desc
 						The AA descriptor.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void DispatchPreprocess(const Viewport& viewport, AADescriptor desc);
+		void DispatchPreprocess(const U32x2& viewport_size, AADescriptor desc);
 
 		/**
 		 Dispatches an AA pass.
 
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @param[in]		resolution
+						A reference to the viewport size.
 		 @param[in]		desc
 						The AA descriptor.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void Dispatch(const Viewport& viewport, AADescriptor desc);
+		void Dispatch(const U32x2& viewport_size, AADescriptor desc);
 
 	private:
 

@@ -57,7 +57,14 @@ namespace mage::rendering {
 						  "ID3D11Device3 creation failed: %08X.", result);
 		}
 
-		device3->CreateRasterizerState2(&desc, m_rs.ReleaseAndGetAddressOf());
+		// Create the ID3D11RasterizerState2.
+		{
+			const HRESULT result 
+				= device3->CreateRasterizerState2(&desc, 
+												  m_rs.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result,
+						  "ID3D11RasterizerState2 creation failed: %08X.", result);
+		}
 	}
 
 	void VoxelizationPass::SetupVoxelGrid(size_t resolution) {

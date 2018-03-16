@@ -164,7 +164,9 @@ namespace mage::rendering {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept;
+		void Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept {
+			PipelineStageT::BindSRV(device_context, slot, Get());
+		}
 
 	private:
 
@@ -192,12 +194,3 @@ namespace mage::rendering {
 
 	#pragma endregion
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "resource\texture\texture.tpp"
-
-#pragma endregion

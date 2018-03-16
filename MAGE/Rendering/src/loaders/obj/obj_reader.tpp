@@ -233,7 +233,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
-	inline const UV OBJReader< VertexT, IndexT >
+	const UV OBJReader< VertexT, IndexT >
 		::ReadOBJVertexTextureCoordinates() {
 
 		const UV result(Read< F32x2 >());

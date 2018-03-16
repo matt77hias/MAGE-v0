@@ -475,11 +475,7 @@ namespace mage {
 		Assert(str || context);
 		
 		*result = strtok_s(str, delimiters, context);
-		if (!result) {
-			return TokenResult::None;
-		}
-
-		return TokenResult::Valid;
+		return result ? TokenResult::Valid : TokenResult::None;
 	}
 	
 	template< typename DataT >
@@ -623,8 +619,8 @@ namespace mage {
 	}
 	
 	template< typename DataT >
-	inline TokenResult Contains(NotNull< zstring > str,
-								NotNull< const_zstring > delimiters) noexcept {
+	TokenResult Contains(NotNull< zstring > str, 
+						 NotNull< const_zstring > delimiters) noexcept {
 
 		const auto start = SkipDelimiters(str, delimiters);
 		if (!start) {

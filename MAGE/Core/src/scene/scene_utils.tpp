@@ -15,8 +15,8 @@
 namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
-	inline ProxyPtr< ElementT > AddElement(AlignedVector< ElementT >& elements, 
-										   ConstructorArgsT&&... args) {
+	ProxyPtr< ElementT > AddElement(AlignedVector< ElementT >& elements, 
+									ConstructorArgsT&&... args) {
 		size_t index = 0;
 		for (auto& element : elements) {
 			if (State::Terminated == element.GetState()) {
@@ -32,8 +32,8 @@ namespace mage {
 	}
 
 	template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
-	inline ProxyPtr< ElementT > AddElementPtr(AlignedVector< UniquePtr< BaseT > >& elements, 
-											  ConstructorArgsT&&... args) {
+	ProxyPtr< ElementT > AddElementPtr(AlignedVector< UniquePtr< BaseT > >& elements, 
+									   ConstructorArgsT&&... args) {
 		size_t index = 0;
 		for (auto& element : elements) {
 			if (State::Terminated == element->GetState()) {

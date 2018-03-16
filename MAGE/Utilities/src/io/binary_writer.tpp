@@ -20,7 +20,7 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	inline void BigEndianBinaryWriter::WriteArray(gsl::span< const DataT > data) {
+	void BigEndianBinaryWriter::WriteArray(gsl::span< const DataT > data) {
 		const size_t count         = data.size();
 		const size_t count_written = fwrite(data.data(), 
 											sizeof(DataT), 

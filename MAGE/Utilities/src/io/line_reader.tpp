@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename DataT >
-	inline const DataT LineReader::Read() {
+	const DataT LineReader::Read() {
 		DataT result;
 		const auto token_result = mage::Read< DataT >(nullptr, 
 			                                          &m_context, 

@@ -448,9 +448,6 @@
     <None Include="Rendering\src\renderer\factory.tpp">
       <Filter>Header Files\renderer</Filter>
     </None>
-    <None Include="Rendering\src\resource\texture\texture.tpp">
-      <Filter>Header Files\resource\texture</Filter>
-    </None>
     <None Include="Rendering\src\resource\model\model_descriptor.tpp">
       <Filter>Header Files\resource\model</Filter>
     </None>

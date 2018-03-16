@@ -372,7 +372,7 @@ Uses:
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
 * [Baldur Karlsson](https://github.com/baldurk)
-* [Naiwen Xie](https://github.com/sienaiwun)
+* [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
@@ -397,7 +397,7 @@ Uses:
 * Maxest
 * [Mike Lewis](https://github.com/apoch)
 * Mike2343
-* [Naiwen Xie](https://github.com/sienaiwun)
+* [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)

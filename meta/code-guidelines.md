@@ -58,7 +58,7 @@ Enumerate all member variables in the initializer list of constructors in order.
 * Do not use `new`, `new[]`, `delete`, `delete[]`.
 * Use `MakeUnique` for assigning to `UniquePtr`.
 * Use `MakeShared` for assigning to `SharedPtr` in case the data does not require custom allocaters.
-* Use `MakeAllocatedShared` for assigning to `SharedPtr` in case the data requires custom allocaters.
+* Use `MakeAllocatedShared` for assigning to `SharedPtr` in case the data requires custom allocaters and/or deallocation needs to happen as early as possible.
 
 ### Smart pointers
 * Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership.

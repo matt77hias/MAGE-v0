@@ -1581,11 +1581,12 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
 	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
+	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
+
 	#ifdef DISABLE_SPECULAR_BRDF
 	const float3 Fs      = 0.0f;
 	#else // DISABLE_SPECULAR_BRDF
-	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	const float3 Fs      = F_spec * 0.25f * D * V;

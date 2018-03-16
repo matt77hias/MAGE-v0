@@ -150,6 +150,8 @@ namespace mage::rendering {
 		Pipeline::OM::BindRTVAndDSVAndUAV(device_context, nullptr, nullptr, 
 										  SLOT_UAV_VOXEL_BUFFER, 
 										  m_buffer_uav.Get());
+
+		m_viewport.Bind(device_context);
 	}
 
 	void VoxelGrid::BindEndVoxelizationBuffer(

@@ -31,9 +31,6 @@ namespace mage::rendering {
 			return m_resolution;
 		}
 
-		void Bind(ID3D11DeviceContext& device_context) const noexcept {
-			m_viewport.Bind(device_context);
-		}
 		void BindBeginVoxelizationBuffer(
 			ID3D11DeviceContext& device_context) const noexcept;
 		void BindEndVoxelizationBuffer(

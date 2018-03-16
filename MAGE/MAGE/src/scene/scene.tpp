@@ -58,7 +58,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ElementT, typename ActionT >
-	inline void Scene::ForEach(ActionT action) {
+	void Scene::ForEach(ActionT action) {
 
 		if constexpr (std::is_same_v< Node, ElementT >) {
 			for (auto& element : m_nodes) {
@@ -78,7 +78,7 @@ namespace mage {
 	}
 
 	template< typename ElementT, typename ActionT >
-	inline void Scene::ForEach(ActionT action) const {
+	void Scene::ForEach(ActionT action) const {
 
 		if constexpr (std::is_same_v< Node, ElementT >) {
 			for (const auto& element : m_nodes) {

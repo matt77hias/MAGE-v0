@@ -69,8 +69,7 @@ namespace mage::rendering {
 
 	template<>
 	inline ProxyPtr< Model > World::Create() {
-		auto ptr = AddElement(m_models, m_device);
-		return ptr;
+		return AddElement(m_models, m_device);
 	}
 
 	template<>
@@ -119,7 +118,7 @@ namespace mage::rendering {
 	#pragma region
 
 	template< typename ComponentT, typename ActionT >
-	inline void World::ForEach(ActionT action) {
+	void World::ForEach(ActionT action) {
 
 		if constexpr (std::is_same_v< PerspectiveCamera, ComponentT >) {
 			for (auto& component : m_perspective_cameras) {
@@ -211,7 +210,7 @@ namespace mage::rendering {
 	}
 
 	template< typename ComponentT, typename ActionT >
-	inline void World::ForEach(ActionT action) const {
+	void World::ForEach(ActionT action) const {
 
 		if constexpr (std::is_same_v< PerspectiveCamera, ComponentT >) {
 			for (const auto& component : m_perspective_cameras) {

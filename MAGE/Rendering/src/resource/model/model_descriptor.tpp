@@ -34,14 +34,14 @@ namespace mage::rendering {
 	}
 
 	template< typename ActionT >
-	inline void ModelDescriptor::ForEachMaterial(ActionT action) const {
+	void ModelDescriptor::ForEachMaterial(ActionT action) const {
 		for (const auto& material : m_materials) {
 			action(material);
 		}
 	}
 
 	template< typename ActionT >
-	inline void ModelDescriptor::ForEachModelPart(ActionT action) const {
+	void ModelDescriptor::ForEachModelPart(ActionT action) const {
 		for (const auto& model_part : m_model_parts) {
 			action(model_part);
 		}

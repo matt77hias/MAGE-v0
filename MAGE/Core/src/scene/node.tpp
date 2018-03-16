@@ -20,7 +20,7 @@ namespace mage {
 	#pragma region
 
 	template< typename ActionT >
-	inline void Node::ForEachChild(ActionT action) const {
+	void Node::ForEachChild(ActionT action) const {
 		for (const auto& child : m_childs) {
 			// Visit child node.
 			action(*child);
@@ -28,7 +28,7 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Node::ForEachDescendant(ActionT action) const {
+	void Node::ForEachDescendant(ActionT action) const {
 		for (const auto& child : m_childs) {
 			// Visit child node.
 			action(*child);
@@ -117,7 +117,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT, typename ActionT >
-	inline void Node::ForEach(ActionT action) {
+	void Node::ForEach(ActionT action) {
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
 			[&action](decltype(m_components)::value_type& x) {
@@ -127,7 +127,7 @@ namespace mage {
 	}
 
 	template< typename ComponentT, typename ActionT >
-	inline void Node::ForEach(ActionT action) const {
+	void Node::ForEach(ActionT action) const {
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
 			[&action](decltype(m_components)::value_type& x) {
@@ -137,7 +137,7 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Node::ForEachComponent(ActionT action) {
+	void Node::ForEachComponent(ActionT action) {
 		for (const auto& [key, value] : m_components) {
 			(void)key; // Unused
 			action(*value);
@@ -145,7 +145,7 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Node::ForEachComponent(ActionT action) const {
+	void Node::ForEachComponent(ActionT action) const {
 		for (const auto& [key, value] : m_components) {
 			(void)key; // Unused
 			action(static_cast< const Component& >(*value));

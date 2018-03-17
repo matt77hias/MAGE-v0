@@ -67,8 +67,18 @@ namespace mage::script {
 		void DrawWidget(rendering::Sky& sky) {
 			ImGui::Text("Sky:");
 
+			//-----------------------------------------------------------------
+			// Texture
+			//-----------------------------------------------------------------
 			const auto& guid = sky.GetTexture()->GetGuid();
 			ImGui::LabelText("Sky Texture", str_convert(guid).c_str());
+
+			//-----------------------------------------------------------------
+			// Density
+			//-----------------------------------------------------------------
+			auto scale_z = sky.GetScaleZ();
+			ImGui::DragFloat("Stretching", &scale_z, 0.01f, 1.0f, 10.0f, "%.2f");
+			sky.SetScaleZ(scale_z);
 		}
 
 		void DrawWidget(rendering::CameraSettings& settings) {
@@ -189,7 +199,7 @@ namespace mage::script {
 			// Gamma Exponent
 			//-----------------------------------------------------------------
 			auto gamma = settings.GetGamma();
-			ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.01f, 4.0f, "%.2f");
+			ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.01f, 10.0f, "%.2f");
 			settings.SetGamma(gamma);
 
 			//-----------------------------------------------------------------

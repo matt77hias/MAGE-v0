@@ -20,7 +20,11 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(Model, SLOT_CBUFFER_MODEL) {
-	// TRANSFORM
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Transformations
+	//-------------------------------------------------------------------------
+
 	// The object-to-world transformation matrix.
 	float4x4 g_object_to_world         : packoffset(c0);
 	// The object-to-world inverse transpose transformation matrix
@@ -29,13 +33,16 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 	// The texture transformation matrix.
 	float4x4 g_texture_transform       : packoffset(c8);
 
-	// MATERIAL
-	// The base color of the material in linear space.
-	float4 g_base_color                : packoffset(c12);
+	//-------------------------------------------------------------------------
+	// Member Variables: Material
+	//-------------------------------------------------------------------------
+
+	// The (linear) base color of the material.
+	float4   g_base_color              : packoffset(c12);
 	// The (linear) roughness of the material.
-	float  g_roughness                 : packoffset(c13.x);
+	float    g_roughness               : packoffset(c13.x);
 	// The (linear) metalness of the material.
-	float  g_metalness                 : packoffset(c13.y);
+	float    g_metalness               : packoffset(c13.y);
 }
 
 //-----------------------------------------------------------------------------

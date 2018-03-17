@@ -113,17 +113,17 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The linear base color of the material of this model buffer.
+		 The (linear) base color of the material of this model buffer.
 		 */
 		RGBA m_base_color;
 
 		/**
-		 The roughness of the material of this model buffer.
+		 The (linear) roughness of the material of this model buffer.
 		 */
 		F32 m_roughness;
 
 		/**
-		 The metalness of the material of this model buffer.
+		 The (linear) metalness of the material of this model buffer.
 		 */
 		F32 m_metalness;
 

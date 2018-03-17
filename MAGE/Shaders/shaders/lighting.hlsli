@@ -45,43 +45,33 @@
 CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 	
 	//-------------------------------------------------------------------------
-	// Member Variables: Ambient Light
-	//-------------------------------------------------------------------------
-	
-	// The radiance of the ambient light in the scene. 
-	float3 g_La                     : packoffset(c0);
-	uint g_padding0                 : packoffset(c0.w);
-	
-	//-------------------------------------------------------------------------
-	// Member Variables: Fog
-	//-------------------------------------------------------------------------
-	
-	// The color of the fog in linear space.
-	float3 g_fog_color              : packoffset(c1);
-	// The density of the fog.
-	float g_fog_density             : packoffset(c1.w);
-
-	//-------------------------------------------------------------------------
 	// Member Variables: Lights without Shadow Mapping
 	//-------------------------------------------------------------------------
 
 	// The number of directional lights in the scene.
-	uint g_nb_directional_lights    : packoffset(c2.x);
+	uint g_nb_directional_lights    : packoffset(c0.x);
 	// The number of omni lights in the scene.
-	uint g_nb_omni_lights           : packoffset(c2.y);
+	uint g_nb_omni_lights           : packoffset(c0.y);
 	// The number of spotlights in the scene.
-	uint g_nb_spot_lights           : packoffset(c2.z);
+	uint g_nb_spot_lights           : packoffset(c0.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Lights with Shadow Mapping
 	//-------------------------------------------------------------------------
 
 	// The number of shaodw mapped directional lights in the scene.
-	uint g_nb_sm_directional_lights : packoffset(c3.x);
+	uint g_nb_sm_directional_lights : packoffset(c1.x);
 	// The number of shaodw mapped omni lights in the scene.
-	uint g_nb_sm_omni_lights        : packoffset(c3.y);
+	uint g_nb_sm_omni_lights        : packoffset(c1.y);
 	// The number of shaodw mapped spotlights in the scene.
-	uint g_nb_sm_spot_lights        : packoffset(c3.z);
+	uint g_nb_sm_spot_lights        : packoffset(c1.z);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Ambient Light
+	//-------------------------------------------------------------------------
+
+	// The radiance of the ambient light in the scene. 
+	float3 g_La                     : packoffset(c2);
 }
 
 //-----------------------------------------------------------------------------

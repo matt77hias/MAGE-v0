@@ -57,8 +57,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		void XM_CALLCONV Render(const World& world,
-			                    FXMMATRIX world_to_projection,
-								const Fog& fog);
+			                    FXMMATRIX world_to_projection);
 		
 	private:
 
@@ -69,7 +68,7 @@ namespace mage::rendering {
 		void UnbindShadowMaps() const noexcept;
 		void BindLBuffer() const noexcept;
 
-		void ProcessLightsData(const World& world, const Fog& fog);
+		void ProcessLightsData(const World& world);
 
 		void XM_CALLCONV ProcessDirectionalLights(const World& world);
 		void XM_CALLCONV ProcessOmniLights(const World& world, 

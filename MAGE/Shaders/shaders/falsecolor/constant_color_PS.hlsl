@@ -7,7 +7,7 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(Color, SLOT_CBUFFER_COLOR) {
-	// The color in linear space.
+	// The (linear) color.
 	float4 g_color : packoffset(c0);
 };
 

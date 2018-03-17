@@ -15,7 +15,7 @@
 namespace mage::rendering {
 
 	/**
-	 A class of skies.
+	 A class of sky domes.
 	 */
 	class Sky final {
 
@@ -28,7 +28,9 @@ namespace mage::rendering {
 		/**
 		 Constructs a sky.
 		 */
-		Sky() = default;
+		Sky() 
+			: m_texture(), 
+			m_scale_z(1.5f) {}
 
 		/**
 		 Constructs a sky from the given sky.
@@ -110,6 +112,29 @@ namespace mage::rendering {
 			m_texture = std::move(texture);
 		}
 
+		/**
+		 Returns the scaling factor of the z component of the sky domes of this 
+		 sky.
+		
+		 @return		The scaling factor of the z component of the sky domes 
+						of this sky.
+		 */
+		[[nodiscard]]
+		F32 GetScaleZ() const noexcept {
+			return m_scale_z;
+		}
+
+		/**
+		 Sets scaling factor of the z component of the sky domes of this sky to 
+		 the given value.
+
+		 @param[in]		scale_z
+						The scaling factor.
+		 */
+		void SetScaleZ(F32 scale_z) noexcept {
+			m_scale_z = std::abs(scale_z);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -120,5 +145,10 @@ namespace mage::rendering {
 		 The cube map texture of this sky.
 		 */
 		TexturePtr m_texture;
+
+		/**
+		 The scaling factor of the z component of the sky domes of this sky.
+		 */
+		F32 m_scale_z;
 	};
 }

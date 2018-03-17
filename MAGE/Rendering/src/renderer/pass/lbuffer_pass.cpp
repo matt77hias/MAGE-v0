@@ -54,8 +54,7 @@ namespace mage::rendering {
 	LBufferPass& LBufferPass::operator=(LBufferPass&& pass) noexcept = default;
 
 	void XM_CALLCONV LBufferPass::Render(const World& world, 
-										 FXMMATRIX world_to_projection, 
-										 const Fog& fog) {
+										 FXMMATRIX world_to_projection) {
 		// Process the lights.
 		ProcessDirectionalLights(world);
 		ProcessOmniLights(world, world_to_projection);
@@ -69,7 +68,7 @@ namespace mage::rendering {
 		RenderShadowMaps(world);
 
 		// Process the lights' data.
-		ProcessLightsData(world, fog);
+		ProcessLightsData(world);
 
 		// Bind the LBuffer.
 		BindLBuffer();
@@ -126,19 +125,8 @@ namespace mage::rendering {
 							   static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
-	void LBufferPass::ProcessLightsData(const World& world, const Fog& fog) {
+	void LBufferPass::ProcessLightsData(const World& world) {
 		LightBuffer buffer;
-		
-		world.ForEach< AmbientLight >([&buffer](const AmbientLight& light) {
-			if (State::Active != light.GetState()) {
-				return;
-			}
-			
-			buffer.m_La = light.GetRadianceSpectrum();
-		});
-
-		buffer.m_fog_color                = RGB(fog.GetBaseColor());
-		buffer.m_fog_density              = fog.GetDensity();
 
 		buffer.m_nb_directional_lights    = static_cast< U32 >(m_directional_lights.size());
 		buffer.m_nb_omni_lights           = static_cast< U32 >(m_omni_lights.size());
@@ -146,6 +134,14 @@ namespace mage::rendering {
 		buffer.m_nb_sm_directional_lights = static_cast< U32 >(m_sm_directional_lights.size());
 		buffer.m_nb_sm_omni_lights        = static_cast< U32 >(m_sm_omni_lights.size());
 		buffer.m_nb_sm_spot_lights        = static_cast< U32 >(m_sm_spot_lights.size());
+
+		world.ForEach< AmbientLight >([&buffer](const AmbientLight& light) {
+			if (State::Active != light.GetState()) {
+				return;
+			}
+
+			buffer.m_La = light.GetRadianceSpectrum();
+		});
 		
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);

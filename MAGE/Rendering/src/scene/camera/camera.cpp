@@ -55,6 +55,10 @@ namespace mage::rendering {
 														   1.0f / (ss_viewport_resolution.m_y - 1u));
 		buffer.m_ss_viewport_resolution            = std::move(ss_viewport_resolution);
 		
+		buffer.m_fog_color                         = RGB(m_settings.GetFog().GetBaseColor());
+		buffer.m_fog_density                       = m_settings.GetFog().GetDensity();
+		buffer.m_sky_dome_scale_z                  = m_settings.GetSky().GetScaleZ();
+
 		buffer.m_lens_radius                       = m_lens.GetLensRadius();
 		buffer.m_focal_length                      = m_lens.GetFocalLength();
 		buffer.m_max_coc_radius                    = m_lens.GetMaximumCoCRadius();

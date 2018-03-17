@@ -35,18 +35,16 @@ namespace mage::rendering {
 		 Constructs a light buffer.
 		 */
 		LightBuffer() noexcept
-			: m_La(), 
-			m_padding0(0.0f),
-			m_fog_color(), 
-			m_fog_density(0.0f),
-			m_nb_directional_lights(0u), 
+			: m_nb_directional_lights(0u), 
 			m_nb_omni_lights(0u), 
 			m_nb_spot_lights(0u), 
-			m_padding1(0u),
+			m_padding0(0u),
 			m_nb_sm_directional_lights(0u), 
 			m_nb_sm_omni_lights(0u), 
 			m_nb_sm_spot_lights(0u), 
-			m_padding2(0u) {}
+			m_padding1(0u), 
+			m_La(),
+			m_padding2(0.0f) {}
 		
 		/**
 		 Constructs a light buffer from the given light buffer.
@@ -94,35 +92,6 @@ namespace mage::rendering {
 		LightBuffer& operator=(LightBuffer&& buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Ambient Light
-		//---------------------------------------------------------------------
-
-		/**
-		 The ambient radiance in watts per square meter per steradians of this 
-		 light buffer.
-		 */
-		RGB m_La;
-
-		/**
-		 The padding of this light buffer.
-		 */
-		F32 m_padding0;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Fog
-		//---------------------------------------------------------------------
-	
-		/**
-		 The linear color of the fog of this light buffer.
-		 */
-		RGB m_fog_color;
-		
-		/**
-		 The density of the fog of this light buffer.
-		 */
-		F32 m_fog_density;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Lights without Shadow Mapping
 		//---------------------------------------------------------------------
 
@@ -144,7 +113,7 @@ namespace mage::rendering {
 		/**
 		 The padding of this light buffer. 
 		 */
-		U32 m_padding1;
+		U32 m_padding0;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Lights with Shadow Mapping
@@ -168,10 +137,25 @@ namespace mage::rendering {
 		/**
 		 The padding of this light buffer. 
 		 */
-		U32 m_padding2;
+		U32 m_padding1;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Ambient Light
+		//---------------------------------------------------------------------
+
+		/**
+		 The ambient radiance in watts per square meter per steradians of this 
+		 light buffer.
+		 */
+		RGB m_La;
+
+		/**
+		 The padding of this light buffer.
+		 */
+		F32 m_padding2;
 	};
 
-	static_assert(64 == sizeof(LightBuffer), 
+	static_assert(48 == sizeof(LightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

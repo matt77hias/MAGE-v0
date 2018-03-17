@@ -42,7 +42,7 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// The center of the voxel grid expressed in world space.
 	float3   g_voxel_grid_center                 : packoffset(c0);
 	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c1);
+	uint     g_voxel_grid_resolution             : packoffset(c1.x);
 	// The inverse resolution of the voxel grid for all dimensions.
 	float    g_voxel_grid_inv_resolution         : packoffset(c1.y);
 	// The size of a voxel for all dimensions. [m/voxel]
@@ -113,22 +113,38 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
 	
 	//-------------------------------------------------------------------------
+	// Member Variables: Fog
+	//-------------------------------------------------------------------------
+
+	// The (linear) color of the fog.
+	float3   g_fog_color                         : packoffset(c19);
+	// The density of the fog.
+	float    g_fog_density                       : packoffset(c19.w);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Sky
+	//-------------------------------------------------------------------------
+
+	// The scaling factor of the z component of sky domes.
+	float    g_sky_dome_scale_z                  : packoffset(c20.x);
+
+	//-------------------------------------------------------------------------
 	// Member Variables: Post-processing
 	//-------------------------------------------------------------------------
 
 	// The lens radius of this camera.
-	float   g_lens_radius                        : packoffset(c19);
+	float    g_lens_radius                       : packoffset(c20.y);
 	// The focal length of this camera.
-	float   g_focal_length                       : packoffset(c19.y);
+	float    g_focal_length                      : packoffset(c20.z);
 	// The maximum circle-of-confusion radius of this camera.
-	float   g_max_coc_radius                     : packoffset(c19.z);
+	float    g_max_coc_radius                    : packoffset(c20.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
 	//-------------------------------------------------------------------------
 
 	// The inverse of the gamma exponent used for gamma correction.
-	float g_inv_gamma                            : packoffset(c19.w);
+	float    g_inv_gamma                         : packoffset(c21.x);
 }
 
 //-----------------------------------------------------------------------------

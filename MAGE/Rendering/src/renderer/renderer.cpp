@@ -622,8 +622,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection,
-							   camera.GetSettings().GetFog());
+		m_lbuffer_pass->Render(world, world_to_projection);
 
 		//---------------------------------------------------------------------
 		// Voxelization
@@ -670,8 +669,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection,
-							   camera.GetSettings().GetFog());
+		m_lbuffer_pass->Render(world, world_to_projection);
 
 		//---------------------------------------------------------------------
 		// Voxelization
@@ -738,8 +736,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection,
-							   camera.GetSettings().GetFog());
+		m_lbuffer_pass->Render(world, world_to_projection);
 
 		const Viewport viewport(camera.GetViewport(),
 								m_display_configuration.get().GetAADescriptor());
@@ -775,8 +772,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// LBuffer
 		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection,
-							   camera.GetSettings().GetFog());
+		m_lbuffer_pass->Render(world, world_to_projection);
 
 		//---------------------------------------------------------------------
 		// Voxelization

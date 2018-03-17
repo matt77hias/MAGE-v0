@@ -44,6 +44,9 @@ namespace mage::rendering {
 			m_ss_viewport_resolution(),
 			m_viewport_inv_resolution_minus1(),
 			m_ss_viewport_inv_resolution_minus1(),
+			m_fog_color(), 
+			m_fog_density(0.0f), 
+			m_sky_dome_scale_z(1.0f),
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
@@ -164,6 +167,30 @@ namespace mage::rendering {
 		F32x2 m_ss_viewport_inv_resolution_minus1;
 
 		//---------------------------------------------------------------------
+		// Member Variables: Fog
+		//---------------------------------------------------------------------
+	
+		/**
+		 The (linear) color of the fog of this camera buffer.
+		 */
+		RGB m_fog_color;
+		
+		/**
+		 The density of the fog of this camera buffer.
+		 */
+		F32 m_fog_density;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Sky
+		//---------------------------------------------------------------------
+
+		/**
+		 The scaling factor of the z component of sky domes of this camera 
+		 buffer. 
+		 */
+		F32 m_sky_dome_scale_z;
+
+		//---------------------------------------------------------------------
 		// Member Variables: Post-processing
 		//---------------------------------------------------------------------
 
@@ -183,13 +210,17 @@ namespace mage::rendering {
 		 */
 		F32 m_max_coc_radius;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Gamma Correction
+		//---------------------------------------------------------------------
+
 		/**
 		 The inverse gamma exponent of the camera of this camera buffer.
 		 */
 		F32 m_inv_gamma;
 	};
 
-	static_assert(320 == sizeof(CameraBuffer), 
+	static_assert(352 == sizeof(CameraBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

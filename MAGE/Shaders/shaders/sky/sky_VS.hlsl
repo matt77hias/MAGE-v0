@@ -5,15 +5,6 @@
 #include "primitive\icosphere.hlsli"
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
-//-----------------------------------------------------------------------------
-
-/**
- The scaling factor of the z component of sky domes.
- */
-static const float g_sky_dome_z_scale = 1.5f;
-
-//-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
 
@@ -34,7 +25,7 @@ PSInputWorldPosition VS(uint vertex_id : SV_VertexID) {
 	
 	const float3 p_camera = mul(output.p_world, (float3x3)g_world_to_camera);
 	const float4 p_proj   = mul(float4(p_camera.xy,
-									   g_sky_dome_z_scale * p_camera.z,
+									   g_sky_dome_scale_z * p_camera.z,
 									   1.0f), 
 								g_camera_to_projection);
 

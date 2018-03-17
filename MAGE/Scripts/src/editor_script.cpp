@@ -22,8 +22,6 @@ namespace mage::script {
 		void DrawWidget(rendering::CameraLens& lens,
 						const F32x2& clipping_planes) {
 
-			ImGui::Text("Lens:");
-		
 			//-----------------------------------------------------------------
 			// Lens Radius
 			//-----------------------------------------------------------------
@@ -49,8 +47,6 @@ namespace mage::script {
 		}
 
 		void DrawWidget(rendering::Fog& fog) {
-			ImGui::Text("Fog:");
-
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
@@ -65,8 +61,6 @@ namespace mage::script {
 		}
 
 		void DrawWidget(rendering::Sky& sky) {
-			ImGui::Text("Sky:");
-
 			//-----------------------------------------------------------------
 			// Texture
 			//-----------------------------------------------------------------
@@ -87,8 +81,6 @@ namespace mage::script {
 			using rendering::ToneMapping;
 			using rendering::RenderLayer;
 			
-			ImGui::Text("Settings:");
-		
 			//-----------------------------------------------------------------
 			// Render Mode
 			//-----------------------------------------------------------------
@@ -224,28 +216,12 @@ namespace mage::script {
 
 				ImGui::EndPopup();
 			}
-	
-			ImGui::Separator();
-
-			//-----------------------------------------------------------------
-			// Fog
-			//-----------------------------------------------------------------
-			DrawWidget(settings.GetFog());
-
-			ImGui::Separator();
-
-			//-----------------------------------------------------------------
-			// Sky
-			//-----------------------------------------------------------------
-			DrawWidget(settings.GetSky());
 		}
 
 		void DrawWidget(rendering::Viewport& viewport, 
 						const F32x2& display_resolution) {
 			
 			static bool normalization = false;
-
-			ImGui::Text("Viewport:");
 
 			if (normalization) {
 				//-------------------------------------------------------------
@@ -297,27 +273,46 @@ namespace mage::script {
 			ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
 			camera.SetClippingPlanes(std::move(clipping_planes));
 
-			ImGui::Separator();
-
 			//-----------------------------------------------------------------
 			// Lens
 			//-----------------------------------------------------------------
-			DrawWidget(camera.GetLens(), clipping_planes);
-
-			ImGui::Separator();
+			if (ImGui::TreeNode("Lens")) {
+				DrawWidget(camera.GetLens(), clipping_planes);
+				ImGui::TreePop();
+			}
 
 			//-----------------------------------------------------------------
 			// Viewport
 			//-----------------------------------------------------------------
-			DrawWidget(camera.GetViewport(), 
-					   static_cast< F32x2 >(display_resolution));
-
-			ImGui::Separator();
+			if (ImGui::TreeNode("Viewport")) {
+				DrawWidget(camera.GetViewport(),
+						   static_cast< F32x2 >(display_resolution));
+				ImGui::TreePop();
+			}
 
 			//-----------------------------------------------------------------
 			// Settings
 			//-----------------------------------------------------------------
-			DrawWidget(camera.GetSettings());
+			if (ImGui::TreeNode("Settings")) {
+				DrawWidget(camera.GetSettings());
+				ImGui::TreePop();
+			}
+
+			//-----------------------------------------------------------------
+			// Fog
+			//-----------------------------------------------------------------
+			if (ImGui::TreeNode("Fog")) {
+				DrawWidget(camera.GetSettings().GetFog());
+				ImGui::TreePop();
+			}
+
+			//-----------------------------------------------------------------
+			// Sky
+			//-----------------------------------------------------------------
+			if (ImGui::TreeNode("Sky")) {
+				DrawWidget(camera.GetSettings().GetSky());
+				ImGui::TreePop();
+			}
 		}
 
 		void DrawWidget(rendering::OrthographicCamera& camera,

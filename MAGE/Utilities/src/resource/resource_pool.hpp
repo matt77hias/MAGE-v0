@@ -429,8 +429,8 @@ namespace mage {
 		 @return		A reference to the copy of the given persistent resource 
 						pool (i.e. this persistent resource pool).
 		 */
-		PersistentResourcePool& operator=(const PersistentResourcePool& 
-										  pool) = delete;
+		PersistentResourcePool& operator=(
+			const PersistentResourcePool& pool) = delete;
 
 		/**
 		 Moves the given persistent resource pool to this persistent resource 
@@ -441,8 +441,8 @@ namespace mage {
 		 @return		A reference to the moved persistent resource pool (i.e. 
 						this persistent resource pool).
 		 */
-		PersistentResourcePool& operator=(PersistentResourcePool&& 
-										  pool) = delete;
+		PersistentResourcePool& operator=(
+			PersistentResourcePool&& pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

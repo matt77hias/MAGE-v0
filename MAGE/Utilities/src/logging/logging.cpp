@@ -36,19 +36,19 @@ namespace mage {
 	[[nodiscard]]
 	U16 ConsoleWidth() {
 		// Retrieve a handle to the standard output device.
-		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		ThrowIfFailed((nullptr != handle),
-			"Obtained no handle to the standard output device.");
-		ThrowIfFailed((INVALID_HANDLE_VALUE != handle),
-			"Obtained invalid handle to the standard output device.");
+		const auto handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		ThrowIfFailed((nullptr != handle), 
+					  "Obtained no handle to the standard output device.");
+		ThrowIfFailed((INVALID_HANDLE_VALUE != handle), 
+					  "Obtained invalid handle to the standard output device.");
 		
 		// Structure containing information about a console screen buffer.
 		CONSOLE_SCREEN_BUFFER_INFO buffer_info = {};
 		{
 			const BOOL result = GetConsoleScreenBufferInfo(handle, 
 														   &buffer_info);
-			ThrowIfFailed(result,
-				"Retrieving console screen buffer info failed.");
+			ThrowIfFailed(result, 
+						  "Retrieving console screen buffer info failed.");
 		}
 		
 		// dwSize:	a COORD structure that contains the size of the console

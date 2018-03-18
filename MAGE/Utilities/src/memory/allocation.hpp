@@ -143,8 +143,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to copy.
 		 */
-		constexpr AlignedAllocator(const AlignedAllocator& 
-								   allocator) noexcept = default;
+		constexpr AlignedAllocator(
+			const AlignedAllocator& allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator by moving the given aligned allocator.
@@ -152,8 +152,8 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to move.
 		 */
-		constexpr AlignedAllocator(AlignedAllocator&&
-								   allocator) noexcept = default;
+		constexpr AlignedAllocator(
+			AlignedAllocator&& allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator from the given aligned allocator.
@@ -184,8 +184,8 @@ namespace mage {
 		 @return		A reference to the copy of the given aligned allocator 
 						(i.e. this aligned allocator).
 		 */
-		AlignedAllocator& operator=(const AlignedAllocator& 
-									allocator) = delete;
+		AlignedAllocator& operator=(
+			const AlignedAllocator& allocator) = delete;
 
 		/**
 		 Moves the given aligned allocator to this aligned allocator.
@@ -195,8 +195,8 @@ namespace mage {
 		 @return		A reference to the moved aligned allocator (i.e. this 
 						aligned allocator).
 		 */
-		AlignedAllocator& operator=(AlignedAllocator&& 
-									allocator) noexcept = default;
+		AlignedAllocator& operator=(
+			AlignedAllocator&& allocator) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

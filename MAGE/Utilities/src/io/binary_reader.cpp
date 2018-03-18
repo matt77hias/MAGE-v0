@@ -16,11 +16,12 @@ namespace mage {
 						UniquePtr< U8[] >& data,
 						size_t& size) {
 
-		auto file_handle = CreateUniqueHandle(CreateFile2(fname.c_str(), 
-														  GENERIC_READ, 
-														  FILE_SHARE_READ, 
-														  OPEN_EXISTING, 
-														  nullptr));
+		const auto file_handle 
+			= CreateUniqueHandle(CreateFile2(fname.c_str(), 
+											 GENERIC_READ, 
+											 FILE_SHARE_READ, 
+											 OPEN_EXISTING, 
+											 nullptr));
 		
 		FILE_STANDARD_INFO file_info;
 		{
@@ -71,7 +72,8 @@ namespace mage {
 
 	BinaryReader::~BinaryReader() = default;
 
-	BinaryReader& BinaryReader::operator=(BinaryReader&& reader) noexcept = default;
+	BinaryReader& BinaryReader
+		::operator=(BinaryReader&& reader) noexcept = default;
 
 	void BinaryReader::ReadFromFile(wstring fname, bool big_endian) {
 		m_fname = std::move(fname);
@@ -86,7 +88,9 @@ namespace mage {
 		ReadData();
 	}
 	
-	void BinaryReader::ReadFromMemory(gsl::span< const U8 > input, bool big_endian) {
+	void BinaryReader::ReadFromMemory(gsl::span< const U8 > input, 
+									  bool big_endian) {
+
 		m_fname = L"input string";
 		m_big_endian = big_endian;
 		
@@ -126,8 +130,8 @@ namespace mage {
 		m_end(nullptr), 
 		m_data() {}
 
-	BigEndianBinaryReader::BigEndianBinaryReader(BigEndianBinaryReader&& 
-												 reader) noexcept = default;
+	BigEndianBinaryReader::BigEndianBinaryReader(
+		BigEndianBinaryReader&& reader) noexcept = default;
 
 	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
 

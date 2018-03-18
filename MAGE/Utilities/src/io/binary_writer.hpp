@@ -34,8 +34,8 @@ namespace mage {
 		 @return		A reference to the copy of the given big endian binary 
 						writer (i.e. this big endian binary writer).
 		 */
-		BigEndianBinaryWriter& operator=(const BigEndianBinaryWriter& 
-										 writer) = delete;
+		BigEndianBinaryWriter& operator=(
+			const BigEndianBinaryWriter& writer) = delete;
 
 		/**
 		 Moves the given big endian binary writer to this big endian binary writer.
@@ -45,8 +45,8 @@ namespace mage {
 		 @return		A reference to the moved big endian binary writer (i.e. 
 						this big endian binary writer).
 		 */
-		BigEndianBinaryWriter& operator=(BigEndianBinaryWriter&& 
-										 writer) noexcept;
+		BigEndianBinaryWriter& operator=(
+			BigEndianBinaryWriter&& writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

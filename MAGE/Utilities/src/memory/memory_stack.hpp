@@ -78,8 +78,8 @@ namespace mage {
 		 @return		A reference to the copy of the given single-ended memory 
 						stack (i.e. this single-ended memory stack).
 		 */
-		SingleEndedMemoryStack& operator=(const SingleEndedMemoryStack& 
-										  stack) = delete;
+		SingleEndedMemoryStack& operator=(
+			const SingleEndedMemoryStack& stack) = delete;
 
 		/**
 		 Moves the given single-ended memory stack to this single-ended memory 
@@ -90,8 +90,8 @@ namespace mage {
 		 @return		A reference to the moved single-ended memory stack 
 						(i.e. this single-ended memory stack).
 		 */
-		SingleEndedMemoryStack& operator=(SingleEndedMemoryStack&& 
-										  stack) = delete;
+		SingleEndedMemoryStack& operator=(
+			SingleEndedMemoryStack&& stack) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -538,8 +538,8 @@ namespace mage {
 		 @return		A reference to the copy of the given double-ended 
 						memory stack (i.e. this double-ended memory stack).
 		 */
-		DoubleEndedMemoryStack& operator=(const DoubleEndedMemoryStack& 
-										  stack) = delete;
+		DoubleEndedMemoryStack& operator=(
+			const DoubleEndedMemoryStack& stack) = delete;
 
 		/**
 		 Moves the given double-ended memory stack to this double-ended memory 
@@ -550,8 +550,8 @@ namespace mage {
 		 @return		A reference to the moved double-ended memory stack 
 						(i.e. this memory stack).
 		 */
-		DoubleEndedMemoryStack& operator=(DoubleEndedMemoryStack&& 
-										  stack) = delete;
+		DoubleEndedMemoryStack& operator=(
+			DoubleEndedMemoryStack&& stack) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

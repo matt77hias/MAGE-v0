@@ -250,8 +250,8 @@ namespace mage {
 		 @return		A reference to the copy of the given big endian binary 
 						reader (i.e. this big endian binary reader).
 		 */
-		BigEndianBinaryReader& operator=(const BigEndianBinaryReader& 
-										 reader) = delete;
+		BigEndianBinaryReader& operator=(
+			const BigEndianBinaryReader& reader) = delete;
 		
 		/**
 		 Moves the given big endian binary reader to this big endian binary 
@@ -262,8 +262,8 @@ namespace mage {
 		 @return		A reference to the moved big endian binary reader
 						(i.e. this big endian binary reader).
 		 */
-		BigEndianBinaryReader& operator=(BigEndianBinaryReader&& 
-										 reader) noexcept;
+		BigEndianBinaryReader& operator=(
+			BigEndianBinaryReader&& reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

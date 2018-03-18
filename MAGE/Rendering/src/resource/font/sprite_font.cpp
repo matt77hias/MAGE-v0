@@ -100,7 +100,7 @@ namespace mage::rendering {
 		                   const SpriteFontDescriptor& desc)
 		: Resource< SpriteFont >(std::move(fname)), 
 		m_texture_srv(), 
-		m_glyphs(),
+		m_glyphs(), 
 		m_default_glyph(nullptr), 
 		m_line_spacing(0.0f) {
 

@@ -63,9 +63,9 @@ namespace mage::rendering {
 			 */
 			SpriteInfo() noexcept
 				: m_source{}, 
-				m_destination{},
+				m_destination{}, 
 				m_color{}, 
-				m_origin_rotation_depth{},
+				m_origin_rotation_depth{}, 
 				m_texture(nullptr), 
 				m_flags(0u) {}
 
@@ -418,7 +418,6 @@ namespace mage::rendering {
 		m_sorted_sprites() {
 
 		m_sprites.reserve(s_initial_capacity);
-		m_sorted_sprites.reserve(m_sprites.capacity());
 	}
 
 	SpriteBatch::Impl::Impl(Impl&& sprite_batch) noexcept = default;
@@ -457,8 +456,6 @@ namespace mage::rendering {
 
 		if (m_sprites.size() == m_sprites.capacity()) {
 			m_sprites.reserve(2 * m_sprites.capacity());
-			m_sorted_sprites.clear();
-			m_sorted_sprites.reserve(m_sprites.capacity());
 		}
 		
 		// Create a sprite.
@@ -523,9 +520,6 @@ namespace mage::rendering {
 			const auto sprites = &sprite;
 			Render(texture, &sprites, 1u);
 		}
-		else {
-			m_sorted_sprites.push_back(&sprite);
-		}
 	}
 
 	void SpriteBatch::Impl::End() {
@@ -555,7 +549,7 @@ namespace mage::rendering {
 		if (0u == m_sprites.size()) {
 			return;
 		}
-		
+
 		// Sort the sprites of this sprite batch.
 		SortSprites();
 
@@ -585,6 +579,11 @@ namespace mage::rendering {
 	}
 
 	void SpriteBatch::Impl::SortSprites() {
+		m_sorted_sprites.reserve(m_sprites.capacity());
+		for (const auto& sprite : m_sprites) {
+			m_sorted_sprites.push_back(&sprite);
+		}
+		
 		switch (m_sort_mode) {
 
 		case SpriteSortMode::Texture: {

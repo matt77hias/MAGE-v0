@@ -51,7 +51,7 @@ namespace mage::rendering {
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
 			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings),
+							 gsl::make_span(m_strings), 
 				             effect_transform, 
 							 m_sprite_effects, 
 							 &m_text_effect_color);
@@ -80,7 +80,7 @@ namespace mage::rendering {
 
 		default: {
 			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings),
+							 gsl::make_span(m_strings), 
 				             m_sprite_transform, 
 							 m_sprite_effects);
 		}

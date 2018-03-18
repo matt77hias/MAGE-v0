@@ -18,13 +18,7 @@
 ## About
 
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
-
-<p align="center">
-<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="214">
-<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="214">
-<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 4.png" width="214">
-<img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 5.png" width="214">
-</p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png"></p>
 
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Architecture/Pipeline.png"></p>
 

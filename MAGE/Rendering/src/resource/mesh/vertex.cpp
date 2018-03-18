@@ -12,11 +12,12 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	static constexpr const char* g_vertex_semantic_name_color    = "COLOR";
-	static constexpr const char* g_vertex_semantic_name_normal   = "NORMAL";
-	static constexpr const char* g_vertex_semantic_name_position = "POSITION";
-	static constexpr const char* g_vertex_semantic_name_texture  = "TEXCOORD";
-
+	namespace {
+		constexpr const_zstring g_vertex_semantic_name_color    = "COLOR";
+		constexpr const_zstring g_vertex_semantic_name_normal   = "NORMAL";
+		constexpr const_zstring g_vertex_semantic_name_position = "POSITION";
+		constexpr const_zstring g_vertex_semantic_name_texture  = "TEXCOORD";
+	}
 
 	const D3D11_INPUT_ELEMENT_DESC VertexPosition::s_input_element_descs[] = {
 		{ g_vertex_semantic_name_position, 0u, DXGI_FORMAT_R32G32B32_FLOAT,    0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }

@@ -31,17 +31,17 @@ namespace mage::rendering {
 		/**
 		 The default child name for model parts.
 		 */
-		static constexpr const char* s_default_child = "default";
+		static constexpr const_zstring s_default_child = "default";
 
 		/**
 		 The default parent name for model parts.
 		 */
-		static constexpr const char* s_default_parent = "root";
+		static constexpr const_zstring s_default_parent = "root";
 
 		/**
 		 The default material name for model parts.
 		 */
-		static constexpr const char* s_default_material = "none";
+		static constexpr const_zstring s_default_material = "none";
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

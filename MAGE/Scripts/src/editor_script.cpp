@@ -84,7 +84,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Render Mode
 			//-----------------------------------------------------------------
-			static constexpr const char* render_mode_names[] = {
+			static constexpr const_zstring render_mode_names[] = {
 				"None",
 				"Forward",
 				"Deferred",
@@ -142,7 +142,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// BRDF
 			//-----------------------------------------------------------------
-			static constexpr const char* brdf_names[] = {
+			static constexpr const_zstring brdf_names[] = {
 				"Default",
 				"Lambertian",
 				"Blinn-Phong",
@@ -168,7 +168,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Tone Mapping
 			//-----------------------------------------------------------------
-			static constexpr const char* tone_mapping_names[] = {
+			static constexpr const_zstring tone_mapping_names[] = {
 				"Default",
 				"ACES Filmic",
 				"Reinhard",
@@ -701,7 +701,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Sprite Effects
 			//-----------------------------------------------------------------
-			static constexpr const char* sprite_effect_names[] = {
+			static constexpr const_zstring sprite_effect_names[] = {
 				"None",
 				"Mirror X",
 				"Mirror Y",
@@ -757,7 +757,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Sprite effects
 			//-----------------------------------------------------------------
-			static constexpr const char* sprite_effect_names[] = {
+			static constexpr const_zstring sprite_effect_names[] = {
 				{ "None"    },
 				{ "Flip X"  },
 				{ "Flip Y"  },
@@ -784,7 +784,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Text effects
 			//-----------------------------------------------------------------
-			static constexpr const char* text_effect_names[] = {
+			static constexpr const_zstring text_effect_names[] = {
 				"None",
 				"Drop Shadow",
 				"Outline"

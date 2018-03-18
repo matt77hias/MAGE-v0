@@ -5,5 +5,5 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	constexpr const char* g_msh_token_magic = "MAGEmesh";
+	constexpr const_zstring g_msh_token_magic = "MAGEmesh";
 }

@@ -241,18 +241,18 @@ namespace mage::rendering {
 		// Class Member Variables
 		//---------------------------------------------------------------------
 
-		static constexpr const wchar_t* 
-			s_display_settings_fname = L"./DisplaySettings.var";
+		static constexpr const_wzstring s_display_settings_fname 
+			                            = L"./DisplaySettings.var";
 
-		static constexpr const char* s_display_variable_aa = "anti-aliasing";
+		static constexpr const_zstring s_display_variable_aa = "anti-aliasing";
 		
-		static constexpr const char* s_display_variable_refresh_rate = "refresh";
+		static constexpr const_zstring s_display_variable_refresh_rate = "refresh";
 		
-		static constexpr const char* s_display_variable_resolution = "resolution";
+		static constexpr const_zstring s_display_variable_resolution = "resolution";
 		
-		static constexpr const char* s_display_variable_vsync = "vsync";
+		static constexpr const_zstring s_display_variable_vsync = "vsync";
 		
-		static constexpr const char* s_display_variable_windowed = "windowed";
+		static constexpr const_zstring s_display_variable_windowed = "windowed";
 
 		//---------------------------------------------------------------------
 		// Member Methods

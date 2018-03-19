@@ -534,6 +534,9 @@
     <None Include="Shaders\shaders\backbuffer\back_buffer.hlsli">
       <Filter>Shader Files\backbuffer</Filter>
     </None>
+    <None Include="Shaders\shaders\vct.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\hlsl.hpp">

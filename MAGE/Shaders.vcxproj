@@ -2229,6 +2229,7 @@
     <None Include="Shaders\shaders\structures.hlsli" />
     <None Include="Shaders\shaders\tone_mapping.hlsli" />
     <None Include="Shaders\shaders\transform\transform.hlsli" />
+    <None Include="Shaders\shaders\vct.hlsli" />
     <None Include="Shaders\shaders\voxelization\voxel.hlsli" />
     <None Include="Shaders\shaders\voxelization\voxelization.hlsli" />
   </ItemGroup>

@@ -162,6 +162,20 @@ float3 GetCameraPosition() {
 
 /**
  Converts the given position expressed in world space to the corresponding 
+ UVW coordinates.
+
+ @param[in]		p_world
+				the position expressed in world space.
+ @return		The UVW coordinates.
+ */
+float3 WorldToVoxelUVW(float3 p_world) {
+	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size 
+		               * g_voxel_grid_inv_resolution + 0.5f;
+	return float3(0.0f, 1.0f, 0.0f) + float3(1.0f, -1.0f, 1.0f) * voxel;
+}
+
+/**
+ Converts the given position expressed in world space to the corresponding 
  voxel index.
 
  @param[in]		p_world

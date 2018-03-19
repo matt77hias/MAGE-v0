@@ -10,6 +10,37 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#ifdef RGB
+	#error Illegal symbol definition.
+#endif
+
+#ifdef SRGB
+	#error Illegal symbol definition.
+#endif
+
+#ifdef XYZ
+	#error Illegal symbol definition.
+#endif
+
+#ifdef RGBA
+	#error Illegal symbol definition.
+#endif
+
+#ifdef SRGBA
+	#error Illegal symbol definition.
+#endif
+
+#ifdef XYZA
+	#error Illegal symbol definition.
+#endif
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {

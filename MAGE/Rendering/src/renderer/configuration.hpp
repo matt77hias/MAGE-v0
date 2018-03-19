@@ -186,7 +186,7 @@ namespace mage::rendering {
 
 	/**
 	 An enumeration of the different Bidirectional Reflection Distribution 
-	 functions (BRDFs).
+	 Functions (BRDFs).
 
 	 This contains:
 	 @c Default,

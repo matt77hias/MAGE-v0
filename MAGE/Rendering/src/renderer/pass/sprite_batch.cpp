@@ -454,13 +454,6 @@ namespace mage::rendering {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
-		if (m_sprites.size() == m_sprites.capacity()) {
-			m_sprites.reserve(2 * m_sprites.capacity());
-		}
-		
-		// Create a sprite.
-		auto& sprite = m_sprites.emplace_back();
-
 		// destination: [Tx Ty Sx Sy]
 		const auto destination = XMVectorSet(transform.GetTranslation().m_x,
 										     transform.GetTranslation().m_y,
@@ -474,6 +467,8 @@ namespace mage::rendering {
 		auto flags = static_cast< U32 >(effects);
 		auto dst   = destination;
 		
+		SpriteInfo sprite;
+
 		if (source) {
 			// If a source is given, the source region is represented in 
 			// (absolute) texel coordinates.
@@ -509,7 +504,6 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 		}
 
-		// Store sprite parameters.
 		sprite.m_destination           = XMStore< F32x4A >(dst);
 		sprite.m_color                 = XMStore< F32x4A >(color);
 		sprite.m_origin_rotation_depth = XMStore< F32x4A >(origin_rotation_depth);
@@ -519,6 +513,14 @@ namespace mage::rendering {
 		if (SpriteSortMode::Immediate == m_sort_mode) {
 			const auto sprites = &sprite;
 			Render(texture, &sprites, 1u);
+		}
+		else {
+			
+			if (m_sprites.size() == m_sprites.capacity()) {
+				m_sprites.reserve(2 * m_sprites.capacity());
+			}
+
+			m_sprites.push_back(std::move(sprite));
 		}
 	}
 

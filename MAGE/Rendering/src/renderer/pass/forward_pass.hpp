@@ -113,7 +113,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV Render(const World& world,
 								FXMMATRIX world_to_projection,
-								BRDFType brdf, bool vct) const;
+								BRDF brdf, bool vct) const;
 
 		/**
 		 Renders the given world as solid.
@@ -171,7 +171,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV RenderTransparent(const World& world,
 										   FXMMATRIX world_to_projection,
-										   BRDFType brdf, bool vct) const;
+										   BRDF brdf, bool vct) const;
 		
 		/**
 		 Renders the given world as a false color.

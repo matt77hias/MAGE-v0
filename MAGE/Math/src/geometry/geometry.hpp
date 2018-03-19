@@ -10,17 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#ifdef UV
-	#error Illegal symbol definition.
-#endif
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -29,6 +18,10 @@ namespace mage {
 	// UV
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	#ifdef UV
+		#error Illegal symbol definition.
+	#endif
 
 	/**
 	 A struct of UV texture coordinates.

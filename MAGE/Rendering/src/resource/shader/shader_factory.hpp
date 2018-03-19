@@ -119,7 +119,7 @@ namespace mage::rendering {
 					Failed to create the compute shader.
 	 */
 	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
-									  BRDFType brdf, bool vct);
+									  BRDF brdf, bool vct);
 
 	/**
 	 Creates a deferred MSAA emissive pixel shader.
@@ -148,7 +148,7 @@ namespace mage::rendering {
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
-										BRDFType brdf, bool vct);
+										BRDF brdf, bool vct);
 
 	#pragma endregion
 
@@ -255,7 +255,7 @@ namespace mage::rendering {
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
-								   BRDFType brdf,
+								   BRDF brdf,
 								   bool transparency, 
 								   bool vct, 
 								   bool tsnm);
@@ -483,7 +483,7 @@ namespace mage::rendering {
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
-										BRDFType brdf, bool tsnm);
+										BRDF brdf, bool tsnm);
 
 	/**
 	 Creates a voxelization compute shader.

@@ -448,16 +448,16 @@ namespace mage::rendering {
 	}
 
 	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
-									  BRDFType brdf, bool vct) {
+									  BRDF brdf, bool vct) {
 		switch (brdf) {
 
-		case BRDFType::BlinnPhong:
+		case BRDF::BlinnPhong:
 			return CreateDeferredBlinnPhongCS(resource_manager, vct);
-		case BRDFType::CookTorrance:
+		case BRDF::CookTorrance:
 			return CreateDeferredCookTorranceCS(resource_manager, vct);
-		case BRDFType::Lambertian:
+		case BRDF::Lambertian:
 			return CreateDeferredLambertianCS(resource_manager, vct);
-		case BRDFType::WardDuer:
+		case BRDF::WardDuer:
 			return CreateDeferredWardDuerCS(resource_manager, vct);
 		default:
 			return CreateDeferredFrostbiteCS(resource_manager, vct);
@@ -474,44 +474,44 @@ namespace mage::rendering {
 		PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager,
 													  bool vct) {
 
-			return vct ? CreatePS(resource_manager,
+			return vct ? CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_blinn_phong_PS))
-				: CreatePS(resource_manager,
-						   MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
+				       : CreatePS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 		}
 
 		PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager,
 														bool vct) {
 
-			return vct ? CreatePS(resource_manager,
+			return vct ? CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_cook_torrance_PS))
-				: CreatePS(resource_manager,
-						   MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
+				       : CreatePS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 		}
 
 
 		PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager,
 													 bool vct) {
 
-			return vct ? CreatePS(resource_manager,
+			return vct ? CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_frostbite_PS))
-				: CreatePS(resource_manager,
-						   MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
+				       : CreatePS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 		}
 
 		PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager,
 													  bool vct) {
 
-			return vct ? CreatePS(resource_manager,
+			return vct ? CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_lambertian_PS))
-				: CreatePS(resource_manager,
-						   MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
+				       : CreatePS(resource_manager, 
+								  MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 		}
 
 		PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager,
 													bool vct) {
 
-			return vct ? CreatePS(resource_manager,
+			return vct ? CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_ward_duer_PS)) 
 				       : CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
@@ -519,16 +519,16 @@ namespace mage::rendering {
 	}
 
 	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
-										BRDFType brdf, bool vct) {
+										BRDF brdf, bool vct) {
 		switch (brdf) {
 
-		case BRDFType::BlinnPhong:
+		case BRDF::BlinnPhong:
 			return CreateDeferredMSAABlinnPhongPS(resource_manager, vct);
-		case BRDFType::CookTorrance:
+		case BRDF::CookTorrance:
 			return CreateDeferredMSAACookTorrancePS(resource_manager, vct);
-		case BRDFType::Lambertian:
+		case BRDF::Lambertian:
 			return CreateDeferredMSAALambertianPS(resource_manager, vct);
-		case BRDFType::WardDuer:
+		case BRDF::WardDuer:
 			return CreateDeferredMSAAWardDuerPS(resource_manager, vct);
 		default:
 			return CreateDeferredMSAAFrostbitePS(resource_manager, vct);
@@ -854,20 +854,20 @@ namespace mage::rendering {
 	}
 
 	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
-								   BRDFType brdf,
+								   BRDF brdf,
 								   bool transparency, 
 								   bool vct, 
 								   bool tsnm) {
 		
 		switch (brdf) {
 
-		case BRDFType::BlinnPhong:
+		case BRDF::BlinnPhong:
 			return CreateForwardBlinnPhongPS(resource_manager, transparency, vct, tsnm);
-		case BRDFType::CookTorrance:
+		case BRDF::CookTorrance:
 			return CreateForwardCookTorrancePS(resource_manager, transparency, vct, tsnm);
-		case BRDFType::Lambertian:
+		case BRDF::Lambertian:
 			return CreateForwardLambertianPS(resource_manager, transparency, vct, tsnm);
-		case BRDFType::WardDuer:
+		case BRDF::WardDuer:
 			return CreateForwardWardDuerPS(resource_manager, transparency, vct, tsnm);
 		default:
 			return CreateForwardFrostbitePS(resource_manager, transparency, vct, tsnm);
@@ -1055,16 +1055,16 @@ namespace mage::rendering {
 	}
 
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
-										BRDFType brdf, bool tsnm) {
+										BRDF brdf, bool tsnm) {
 		switch (brdf) {
 
-		case BRDFType::BlinnPhong:
+		case BRDF::BlinnPhong:
 			return CreateVoxelizationBlinnPhongPS(resource_manager, tsnm);
-		case BRDFType::CookTorrance:
+		case BRDF::CookTorrance:
 			return CreateVoxelizationCookTorrancePS(resource_manager, tsnm);
-		case BRDFType::Lambertian:
+		case BRDF::Lambertian:
 			return CreateVoxelizationLambertianPS(resource_manager, tsnm);
-		case BRDFType::WardDuer:
+		case BRDF::WardDuer:
 			return CreateVoxelizationWardDuerPS(resource_manager, tsnm);
 		default:
 			return CreateVoxelizationFrostbitePS(resource_manager, tsnm);

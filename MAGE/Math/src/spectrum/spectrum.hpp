@@ -10,37 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#ifdef RGB
-	#error Illegal symbol definition.
-#endif
-
-#ifdef SRGB
-	#error Illegal symbol definition.
-#endif
-
-#ifdef XYZ
-	#error Illegal symbol definition.
-#endif
-
-#ifdef RGBA
-	#error Illegal symbol definition.
-#endif
-
-#ifdef SRGBA
-	#error Illegal symbol definition.
-#endif
-
-#ifdef XYZA
-	#error Illegal symbol definition.
-#endif
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -49,6 +18,10 @@ namespace mage {
 	// (linear) RGB
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	#ifdef RGB
+		#error Illegal symbol definition.
+	#endif
 
 	// Forward declaration
 	struct SRGB;
@@ -167,6 +140,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
+	#ifdef SRGB
+		#error Illegal symbol definition.
+	#endif
+
 	/**
 	 A struct of sRGB color spectra.
 	 */
@@ -272,6 +249,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
+	#ifdef XYZ
+		#error Illegal symbol definition.
+	#endif
+
 	/**
 	 A struct of XYZ color spectra.
 	 */
@@ -376,6 +357,10 @@ namespace mage {
 	// (linear) RGBA
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	#ifdef RGBA
+		#error Illegal symbol definition.
+	#endif
 
 	// Forward declaration
 	struct SRGBA;
@@ -507,6 +492,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
+	#ifdef SRGBA
+		#error Illegal symbol definition.
+	#endif
+
 	/**
 	 A struct of sRGBA color spectra.
 	 */
@@ -624,6 +613,10 @@ namespace mage {
 	// XYZA
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	#ifdef XYZA
+		#error Illegal symbol definition.
+	#endif
 
 	/**
 	 A struct of XYZA color spectra.

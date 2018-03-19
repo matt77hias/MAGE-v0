@@ -53,7 +53,7 @@ namespace mage::rendering {
 								   BlendStateID::Opaque);
 	}
 
-	void DeferredPass::Render(BRDFType brdf, bool vct) {
+	void DeferredPass::Render(BRDF brdf, bool vct) {
 		// Binds the fixed state.
 		BindFixedState();
 
@@ -66,7 +66,7 @@ namespace mage::rendering {
 	}
 
 	void DeferredPass::Dispatch(const U32x2& viewport_size,
-								BRDFType brdf, bool vct) {
+								BRDF brdf, bool vct) {
 		
 		const auto cs = CreateDeferredCS(m_resource_manager, brdf, vct);
 		// CS: Bind the compute shader.

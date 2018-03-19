@@ -102,7 +102,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void Render(BRDFType brdf, bool vct);
+		void Render(BRDF brdf, bool vct);
 
 		/**
 		 Dispatches.
@@ -117,7 +117,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to dispatch.
 		 */
-		void Dispatch(const U32x2& viewport_size, BRDFType brdf, bool vct);
+		void Dispatch(const U32x2& viewport_size, BRDF brdf, bool vct);
 		
 	private:
 

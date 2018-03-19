@@ -176,9 +176,13 @@ namespace mage::rendering {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// BRDFType
+	// BRDF
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	#ifdef BRDF
+		#error Illegal symbol definition.
+	#endif
 
 	/**
 	 An enumeration of the different Bidirectional Reflection Distribution 
@@ -192,7 +196,7 @@ namespace mage::rendering {
 	 @c Frostbite, and
 	 @c WardDuer.
 	 */
-	enum class BRDFType : U8 {
+	enum class BRDF : U8 {
 		Default      = 0,
 		Lambertian   = 1,
 		BlinnPhong   = 2,
@@ -258,7 +262,7 @@ namespace mage::rendering {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// FalseColor
+	// ToneMapping
 	//-------------------------------------------------------------------------
 	#pragma region
 

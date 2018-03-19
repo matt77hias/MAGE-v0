@@ -127,7 +127,7 @@ namespace mage::rendering {
 
 	void XM_CALLCONV ForwardPass::Render(const World& world, 
 										 FXMMATRIX world_to_projection, 
-										 BRDFType brdf, bool vct) const {
+										 BRDF brdf, bool vct) const {
 		// Bind the fixed opaque state.
 		BindFixedOpaqueState();
 
@@ -324,7 +324,7 @@ namespace mage::rendering {
 
 	void XM_CALLCONV ForwardPass::RenderTransparent(const World& world, 
 													FXMMATRIX world_to_projection, 
-													BRDFType brdf, 
+													BRDF brdf, 
 													bool vct) const {
 		// Bind the fixed transparent state.
 		BindFixedTransparentState();

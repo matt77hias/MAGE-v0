@@ -113,7 +113,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
-								BRDFType brdf, size_t resolution);
+								BRDF brdf, size_t resolution);
 
 	private:
 
@@ -152,7 +152,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
-								BRDFType brdf) const;
+								BRDF brdf) const;
 
 		/**
 		 Renders the given model.

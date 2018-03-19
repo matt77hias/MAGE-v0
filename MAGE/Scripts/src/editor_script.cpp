@@ -77,7 +77,7 @@ namespace mage::script {
 
 		void DrawWidget(rendering::CameraSettings& settings) {
 			using rendering::RenderMode;
-			using rendering::BRDFType;
+			using rendering::BRDF;
 			using rendering::ToneMapping;
 			using rendering::RenderLayer;
 			
@@ -150,13 +150,13 @@ namespace mage::script {
 				"Frostbite",
 				"Ward-Duer"
 			};
-			static constexpr BRDFType brdfs[] = {
-				BRDFType::Default,
-				BRDFType::Lambertian,
-				BRDFType::BlinnPhong,
-				BRDFType::CookTorrance,
-				BRDFType::Frostbite,
-				BRDFType::WardDuer
+			static constexpr BRDF brdfs[] = {
+				BRDF::Default,
+				BRDF::Lambertian,
+				BRDF::BlinnPhong,
+				BRDF::CookTorrance,
+				BRDF::Frostbite,
+				BRDF::WardDuer
 			};
 			static_assert(std::size(brdf_names) == std::size(brdfs));
 		

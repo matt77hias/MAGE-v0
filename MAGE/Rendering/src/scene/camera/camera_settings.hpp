@@ -32,7 +32,7 @@ namespace mage::rendering {
 		 */
 		CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
-			m_brdf(BRDFType::Default), 
+			m_brdf(BRDF::Default), 
 			m_tone_mapping(ToneMapping::Default), 
 			m_gamma(2.2f), 
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
@@ -102,11 +102,11 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
-		BRDFType GetBRDF() const noexcept {
+		BRDF GetBRDF() const noexcept {
 			return m_brdf;
 		}
 
-		void SetBRDF(BRDFType brdf) noexcept {
+		void SetBRDF(BRDF brdf) noexcept {
 			m_brdf = brdf;
 		}
 
@@ -209,7 +209,7 @@ namespace mage::rendering {
 		/**
 		 The BRDF of this camera settings.
 		 */
-		BRDFType m_brdf;
+		BRDF m_brdf;
 
 		/**
 		 The Tone Mapping of this camera settings.

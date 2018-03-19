@@ -96,7 +96,7 @@ namespace mage::rendering {
 
 	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection,
-											  BRDFType brdf,
+											  BRDF brdf,
 											  size_t resolution) {
 		SetupVoxelGrid(resolution);
 
@@ -111,7 +111,7 @@ namespace mage::rendering {
 
 	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection, 
-											  BRDFType brdf) const {
+											  BRDF brdf) const {
 		// Bind the fixed opaque state.
 		BindFixedState();
 

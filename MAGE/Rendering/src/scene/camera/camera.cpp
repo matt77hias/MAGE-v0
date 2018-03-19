@@ -28,7 +28,7 @@ namespace mage::rendering {
 	Camera& Camera::operator=(Camera&& camera) noexcept = default;
 
 	void Camera::UpdateBuffer(ID3D11DeviceContext& device_context, 
-							  AADescriptor desc) const {
+							  AntiAliasing aa) const {
 
 		const auto& transform                      = GetOwner()->GetTransform();
 		const auto  world_to_camera                = transform.GetWorldToObjectMatrix();
@@ -48,7 +48,7 @@ namespace mage::rendering {
 														   1.0f / (viewport_resolution.m_y - 1u));
 		buffer.m_viewport_resolution               = std::move(viewport_resolution);
 		
-		const auto ss_viewport                     = Viewport(m_viewport, desc);
+		const auto ss_viewport                     = Viewport(m_viewport, aa);
 		buffer.m_ss_viewport_top_left              = ss_viewport.GetTopLeft();
 		auto ss_viewport_resolution                = ss_viewport.GetSize();
 		buffer.m_ss_viewport_inv_resolution_minus1 = F32x2(1.0f / (ss_viewport_resolution.m_x - 1u),

@@ -429,7 +429,7 @@ namespace mage::rendering {
 		world.ForEach< Camera >([this](const Camera& camera) {
 			if (State::Active == camera.GetState()) {
 				camera.UpdateBuffer(m_device_context, 
-									m_display_configuration.get().GetAADescriptor());
+									m_display_configuration.get().GetAA());
 			}
 		});
 
@@ -570,7 +570,7 @@ namespace mage::rendering {
 
 		default: {
 			const Viewport viewport(camera.GetViewport(), 
-									m_display_configuration.get().GetAADescriptor());
+									m_display_configuration.get().GetAA());
 			viewport.Bind(m_device_context);
 			m_output_manager->BindBeginForward(m_device_context);
 
@@ -639,7 +639,7 @@ namespace mage::rendering {
 		}
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor());
+								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -686,7 +686,7 @@ namespace mage::rendering {
 		}
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor());
+								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginGBuffer(m_device_context);
 
@@ -739,7 +739,7 @@ namespace mage::rendering {
 		m_lbuffer_pass->Render(world, world_to_projection);
 
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor());
+								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -755,7 +755,7 @@ namespace mage::rendering {
 													  FalseColor false_color) {
 		
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor());
+								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 
@@ -788,7 +788,7 @@ namespace mage::rendering {
 
 	
 		const Viewport viewport(camera.GetViewport(),
-								m_display_configuration.get().GetAADescriptor());
+								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
 		
@@ -816,18 +816,18 @@ namespace mage::rendering {
 	}
 
 	void Renderer::Impl::RenderAA(const Camera& camera) {
-		const auto desc = m_display_configuration.get().GetAADescriptor();
+		const auto desc = m_display_configuration.get().GetAA();
 
 		switch (desc) {
 
-		case AADescriptor::FXAA: {
+		case AntiAliasing::FXAA: {
 			m_output_manager->BindBeginResolve(m_device_context);
 
 			//-----------------------------------------------------------------
 			// AA pre-processing
 			//-----------------------------------------------------------------
 			m_aa_pass->DispatchPreprocess(camera.GetViewport().GetSize(), 
-										  AADescriptor::FXAA);
+										  AntiAliasing::FXAA);
 
 			m_output_manager->BindEndResolve(m_device_context);
 			m_output_manager->BindPingPong(m_device_context);
@@ -836,17 +836,17 @@ namespace mage::rendering {
 			// FXAA
 			//-----------------------------------------------------------------
 			m_aa_pass->Dispatch(camera.GetViewport().GetSize(), 
-								AADescriptor::FXAA);
+								AntiAliasing::FXAA);
 
 			break;
 		}
 
-		case AADescriptor::MSAA_2x:
-		case AADescriptor::MSAA_4x:
-		case AADescriptor::MSAA_8x:
-		case AADescriptor::SSAA_2x:
-		case AADescriptor::SSAA_3x:
-		case AADescriptor::SSAA_4x: {
+		case AntiAliasing::MSAA_2x:
+		case AntiAliasing::MSAA_4x:
+		case AntiAliasing::MSAA_8x:
+		case AntiAliasing::SSAA_2x:
+		case AntiAliasing::SSAA_3x:
+		case AntiAliasing::SSAA_4x: {
 			m_output_manager->BindBeginResolve(m_device_context);
 
 			//-----------------------------------------------------------------

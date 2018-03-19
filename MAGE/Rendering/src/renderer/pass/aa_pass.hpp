@@ -96,24 +96,24 @@ namespace mage::rendering {
 
 		 @param[in]		viewport_size
 						A reference to the viewport size.
-		 @param[in]		desc
-						The AA descriptor.
+		 @param[in]		aa
+						The anti-aliasing mode.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void DispatchPreprocess(const U32x2& viewport_size, AADescriptor desc);
+		void DispatchPreprocess(const U32x2& viewport_size, AntiAliasing aa);
 
 		/**
 		 Dispatches an AA pass.
 
 		 @param[in]		viewport_size
 						A reference to the viewport size.
-		 @param[in]		desc
-						The AA descriptor.
+		 @param[in]		aa
+						The anti-aliasing mode.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void Dispatch(const U32x2& viewport_size, AADescriptor desc);
+		void Dispatch(const U32x2& viewport_size, AntiAliasing aa);
 
 	private:
 

@@ -30,12 +30,12 @@ namespace mage::rendering {
 	AAPass& AAPass::operator=(AAPass&& pass) noexcept = default;
 
 	void AAPass::DispatchPreprocess(const U32x2& viewport_size, 
-									AADescriptor desc) {
+									AntiAliasing aa) {
 
 		// CS: Bind the compute shader.
-		switch (desc) {
+		switch (aa) {
 
-		case AADescriptor::FXAA: {
+		case AntiAliasing::FXAA: {
 			const auto cs = CreateAAPreprocessCS(m_resource_manager);
 			cs->BindShader(m_device_context);
 			break;
@@ -55,28 +55,28 @@ namespace mage::rendering {
 	}
 
 	void AAPass::Dispatch(const U32x2& viewport_size, 
-						  AADescriptor desc) {
+						  AntiAliasing aa) {
 		
 		// CS: Bind the compute shader.
-		switch (desc) {
+		switch (aa) {
 
-		case AADescriptor::FXAA: {
+		case AntiAliasing::FXAA: {
 			const auto cs = CreateFXAACS(m_resource_manager);
 			cs->BindShader(m_device_context);
 			break;
 		}
 
-		case AADescriptor::MSAA_2x:
-		case AADescriptor::MSAA_4x:
-		case AADescriptor::MSAA_8x: {
+		case AntiAliasing::MSAA_2x:
+		case AntiAliasing::MSAA_4x:
+		case AntiAliasing::MSAA_8x: {
 			const auto cs = CreateMSAAResolveCS(m_resource_manager);
 			cs->BindShader(m_device_context);
 			break;
 		}
 
-		case AADescriptor::SSAA_2x:
-		case AADescriptor::SSAA_3x:
-		case AADescriptor::SSAA_4x: {
+		case AntiAliasing::SSAA_2x:
+		case AntiAliasing::SSAA_3x:
+		case AntiAliasing::SSAA_4x: {
 			const auto cs = CreateSSAAResolveCS(m_resource_manager);
 			cs->BindShader(m_device_context);
 			break;

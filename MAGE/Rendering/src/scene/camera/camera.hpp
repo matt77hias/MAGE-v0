@@ -358,11 +358,11 @@ namespace mage::rendering {
 
 		 @param[in]		device_context
 						A reference to the device context.
-		 @param[in]		desc
-						The anti-aliasing descriptor.
+		 @param[in]		aa
+						The anti-aliasing mode.
 		 */
 		void UpdateBuffer(ID3D11DeviceContext& device_context,
-						  AADescriptor desc) const;
+						  AntiAliasing aa) const;
 
 		/**
 		 Binds the buffer of this camera to the given pipeline stage.

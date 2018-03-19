@@ -45,7 +45,7 @@ namespace mage::rendering {
 			: m_adapter(std::move(adapter)),
 			m_output(std::move(output)),
 			m_display_mode(display_mode),
-			m_aa_desc(AADescriptor::None),
+			m_aa(AntiAliasing::None),
 			m_windowed(true),
 			m_vsync(false),
 			m_gamma(2.2f) {}
@@ -176,7 +176,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		U32 GetSSDisplayWidth() const noexcept {
-			return GetResolutionMultiplier(m_aa_desc) * GetDisplayWidth();
+			return GetResolutionMultiplier(m_aa) * GetDisplayWidth();
 		}
 		
 		/**
@@ -188,7 +188,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		U32 GetSSDisplayHeight() const noexcept {
-			return GetResolutionMultiplier(m_aa_desc) * GetDisplayHeight();
+			return GetResolutionMultiplier(m_aa) * GetDisplayHeight();
 		}
 		
 		/**
@@ -284,7 +284,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool UsesAA() const noexcept {
-			return AADescriptor::None != m_aa_desc;
+			return AntiAliasing::None != m_aa;
 		}
 
 		/**
@@ -295,11 +295,11 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool UsesMSAA() const noexcept {
-			switch (m_aa_desc) {
+			switch (m_aa) {
 
-			case AADescriptor::MSAA_2x:
-			case AADescriptor::MSAA_4x:
-			case AADescriptor::MSAA_8x:
+			case AntiAliasing::MSAA_2x:
+			case AntiAliasing::MSAA_4x:
+			case AntiAliasing::MSAA_8x:
 				return true;
 			default:
 				return false;
@@ -315,11 +315,11 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool UsesSSAA() const noexcept {
-			switch (m_aa_desc) {
+			switch (m_aa) {
 
-			case AADescriptor::SSAA_2x:
-			case AADescriptor::SSAA_3x:
-			case AADescriptor::SSAA_4x:
+			case AntiAliasing::SSAA_2x:
+			case AntiAliasing::SSAA_3x:
+			case AntiAliasing::SSAA_4x:
 				return true;
 			default:
 				return false;
@@ -328,25 +328,24 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the Anti-Aliasing descriptor of this display configuration.
+		 Returns the anti-aliasing mode of this display configuration.
 
-		 @return		The Anti-Aliasing descriptor of this display 
-						configuration.
+		 @return		The anti-aliasing mode of this display configuration.
 		 */
 		[[nodiscard]]
-		AADescriptor GetAADescriptor() const noexcept {
-			return m_aa_desc;
+		AntiAliasing GetAA() const noexcept {
+			return m_aa;
 		}
 		
 		/**
-		 Sets the Anti-Aliasing descriptor of this display configuration to the
-		 given Anti-Aliasing descriptor.
+		 Sets the anti-aliasing mode of this display configuration to the given 
+		 anti-aliasing mode.
 
-		 @param[in]		desc
-						A reference to the Anti-Aliasing descriptor.
+		 @param[in]		aa
+						The anti-aliasing mode.
 		 */
-		void SetAADescriptor(AADescriptor desc) noexcept {
-			m_aa_desc = desc;
+		void SetAA(AntiAliasing aa) noexcept {
+			m_aa = aa;
 		}
 		
 		//---------------------------------------------------------------------
@@ -490,9 +489,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The Anti-Aliasing sample descriptor of this display configuration.
+		 The Anti-Aliasing mode of this display configuration.
 		 */
-		AADescriptor m_aa_desc;
+		AntiAliasing m_aa;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Windowed/Fullscreen Mode

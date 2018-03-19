@@ -77,7 +77,7 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		tone_mapping
-					The tone mapping type.
+					The tone mapping function.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
@@ -109,7 +109,7 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
-					The BRDF type.
+					The BRDF function.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -138,7 +138,7 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
-					The BRDF type.
+					The BRDF function.
 	 @param[in]		vct
 					@c true if voxel cone tracing should be enabled. @c false 
 					otherwise.
@@ -239,7 +239,7 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
-					The BRDF type.
+					The BRDF function.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false 
 					otherwise.
@@ -473,7 +473,7 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
-					The BRDF type.
+					The BRDF function.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.

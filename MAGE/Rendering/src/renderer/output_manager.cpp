@@ -56,7 +56,7 @@ namespace mage::rendering {
 		const auto ss_display_resolution
 			= m_display_configuration.get().GetSSDisplayResolution();
 		const auto nb_samples = GetSampleMultiplier(
-			m_display_configuration.get().GetAADescriptor());
+			m_display_configuration.get().GetAA());
 		
 		const U32x3 setup(display_resolution, 1u);
 		const U32x3 ss_setup(ss_display_resolution, nb_samples);

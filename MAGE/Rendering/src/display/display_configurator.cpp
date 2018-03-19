@@ -587,21 +587,21 @@ namespace mage::rendering {
 				
 				// Fill in the anti-aliasing combo box.
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::None),     L"None");
+					static_cast< size_t >(AntiAliasing::None),     L"None");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::FXAA),     L"FXAA");
+					static_cast< size_t >(AntiAliasing::FXAA),     L"FXAA");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::MSAA_2x),  L"MSAA 2x");
+					static_cast< size_t >(AntiAliasing::MSAA_2x),  L"MSAA 2x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::MSAA_4x),  L"MSAA 4x");
+					static_cast< size_t >(AntiAliasing::MSAA_4x),  L"MSAA 4x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::MSAA_8x),  L"MSAA 8x");
+					static_cast< size_t >(AntiAliasing::MSAA_8x),  L"MSAA 8x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::SSAA_2x),  L"SSAA 2x");
+					static_cast< size_t >(AntiAliasing::SSAA_2x),  L"SSAA 2x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::SSAA_3x),  L"SSAA 3x");
+					static_cast< size_t >(AntiAliasing::SSAA_3x),  L"SSAA 3x");
 				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AADescriptor::SSAA_4x),  L"SSAA 4x");
+					static_cast< size_t >(AntiAliasing::SSAA_4x),  L"SSAA 4x");
 				
 				const auto index 
 					= *m_script->GetValue< S32 >(s_display_variable_aa);
@@ -672,7 +672,7 @@ namespace mage::rendering {
 				
 				// Load all the settings.
 				const auto selected_aa
-					= RetrieveAADescriptor(ComboBoxSelectedValue(dialog, IDC_AA));
+					= RetrieveAntiAliasing(ComboBoxSelectedValue(dialog, IDC_AA));
 				const auto selected_refresh_rate
 					= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
 				const auto selected_resolution
@@ -715,7 +715,7 @@ namespace mage::rendering {
 						                                 *selected_diplay_mode);
 				m_display_configuration->SetWindowed(windowed);
 				m_display_configuration->SetVSync(vsync);
-				m_display_configuration->SetAADescriptor(selected_aa);
+				m_display_configuration->SetAA(selected_aa);
 
 				// Get the selected index from each combo box.
 				const auto aa_index

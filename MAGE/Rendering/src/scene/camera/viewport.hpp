@@ -75,9 +75,9 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size,
-												   AADescriptor desc) noexcept {
+												   AntiAliasing aa) noexcept {
 			
-			const auto multiplier = GetResolutionMultiplier(desc);
+			const auto multiplier = GetResolutionMultiplier(aa);
 
 			D3D11_VIEWPORT viewport = GetMaxViewport(size);
 			viewport.Width  *= multiplier;
@@ -95,8 +95,8 @@ namespace mage::rendering {
 		explicit Viewport(const U32x2& size) noexcept
 			: Viewport(GetMaxViewport(size)) {}
 		
-		explicit Viewport(const U32x2& size, AADescriptor desc) noexcept
-			: Viewport(GetMaxViewport(size, desc)) {}
+		explicit Viewport(const U32x2& size, AntiAliasing aa) noexcept
+			: Viewport(GetMaxViewport(size, aa)) {}
 
 		explicit Viewport(D3D11_VIEWPORT viewport) noexcept
 			: m_viewport(std::move(viewport)) {}
@@ -105,10 +105,10 @@ namespace mage::rendering {
 		
 		Viewport(Viewport&& viewport) noexcept = default;
 
-		explicit Viewport(Viewport viewport, AADescriptor desc) noexcept
+		explicit Viewport(Viewport viewport, AntiAliasing aa) noexcept
 			: Viewport(std::move(viewport)) {
 
-			const auto multiplier = GetResolutionMultiplier(desc);
+			const auto multiplier = GetResolutionMultiplier(aa);
 			m_viewport.TopLeftX *= multiplier;
 			m_viewport.TopLeftY *= multiplier;
 			m_viewport.Width    *= multiplier;

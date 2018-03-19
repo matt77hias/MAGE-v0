@@ -15,11 +15,11 @@
 namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
-	// AADescriptor
+	// AntiAliasing
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	enum class AADescriptor : U8 {
+	enum class AntiAliasing : U8 {
 		None = 0,
 		FXAA,
 		MSAA_2x,
@@ -31,39 +31,39 @@ namespace mage::rendering {
 	};
 
 	[[nodiscard]]
-	constexpr AADescriptor RetrieveAADescriptor(size_t desc) noexcept {
+	constexpr AntiAliasing RetrieveAntiAliasing(size_t desc) noexcept {
 
 		switch (desc) {
 		
-		case static_cast< size_t >(AADescriptor::FXAA):
-			return AADescriptor::FXAA;
-		case static_cast< size_t >(AADescriptor::MSAA_2x):
-			return AADescriptor::MSAA_2x;
-		case static_cast< size_t >(AADescriptor::MSAA_4x):
-			return AADescriptor::MSAA_4x;
-		case static_cast< size_t >(AADescriptor::MSAA_8x):
-			return AADescriptor::MSAA_8x;
-		case static_cast< size_t >(AADescriptor::SSAA_2x):
-			return AADescriptor::SSAA_2x;
-		case static_cast< size_t >(AADescriptor::SSAA_3x):
-			return AADescriptor::SSAA_3x;
-		case static_cast< size_t >(AADescriptor::SSAA_4x):
-			return AADescriptor::SSAA_4x;
+		case static_cast< size_t >(AntiAliasing::FXAA):
+			return AntiAliasing::FXAA;
+		case static_cast< size_t >(AntiAliasing::MSAA_2x):
+			return AntiAliasing::MSAA_2x;
+		case static_cast< size_t >(AntiAliasing::MSAA_4x):
+			return AntiAliasing::MSAA_4x;
+		case static_cast< size_t >(AntiAliasing::MSAA_8x):
+			return AntiAliasing::MSAA_8x;
+		case static_cast< size_t >(AntiAliasing::SSAA_2x):
+			return AntiAliasing::SSAA_2x;
+		case static_cast< size_t >(AntiAliasing::SSAA_3x):
+			return AntiAliasing::SSAA_3x;
+		case static_cast< size_t >(AntiAliasing::SSAA_4x):
+			return AntiAliasing::SSAA_4x;
 		default:
-			return AADescriptor::None;
+			return AntiAliasing::None;
 		}
 	}
 
 	[[nodiscard]]
-	constexpr U32 GetSampleMultiplier(AADescriptor desc) noexcept {
+	constexpr U32 GetSampleMultiplier(AntiAliasing desc) noexcept {
 
 		switch (desc) {
 
-		case AADescriptor::MSAA_2x:
+		case AntiAliasing::MSAA_2x:
 			return 2u;
-		case AADescriptor::MSAA_4x:
+		case AntiAliasing::MSAA_4x:
 			return 4u;
-		case AADescriptor::MSAA_8x:
+		case AntiAliasing::MSAA_8x:
 			return 8u;
 		default:
 			return 1u;
@@ -72,15 +72,15 @@ namespace mage::rendering {
 	}
 
 	[[nodiscard]]
-	constexpr U32 GetResolutionMultiplier(AADescriptor desc) noexcept {
+	constexpr U32 GetResolutionMultiplier(AntiAliasing desc) noexcept {
 
 		switch (desc) {
 
-		case AADescriptor::SSAA_2x:
+		case AntiAliasing::SSAA_2x:
 			return 2u;
-		case AADescriptor::SSAA_3x:
+		case AntiAliasing::SSAA_3x:
 			return 3u;
-		case AADescriptor::SSAA_4x:
+		case AntiAliasing::SSAA_4x:
 			return 4u;
 		default:
 			return 1u;
@@ -186,7 +186,7 @@ namespace mage::rendering {
 
 	/**
 	 An enumeration of the different Bidirectional Reflection Distribution 
-	 Functions (BRDFs).
+	 functions (BRDFs).
 
 	 This contains:
 	 @c Default,
@@ -267,7 +267,7 @@ namespace mage::rendering {
 	#pragma region
 
 	/**
-	 An enumeration of the different Tone Mapping Functions.
+	 An enumeration of the different Tone Mapping functions.
 
 	 This contains:
 	 @c Default,

@@ -402,6 +402,7 @@ Uses:
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)
 * Styves
+* [Vilem Otte](https://github.com/Zgragselus)
 * Zipster
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

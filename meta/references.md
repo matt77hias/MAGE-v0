@@ -42,6 +42,8 @@ BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
 
 CORENTIN B.: [Undefining the C++ Pre-processor](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.
 
+CPPDEPEND TEAM: [What made John Carmack a legend in C++ programming? And which lessons to learn from him when adopting the new standards?](http://cppdepend.com/blog/?p=744), 2018.
+
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
@@ -49,6 +51,8 @@ FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppguide.html), 2018.
+
+HALDAR D.: [C++ 11 Auto: How to use and avoid abuse](http://www.acodersjourney.com/2016/02/c-11-auto/), 2016.
 
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 

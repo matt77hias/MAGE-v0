@@ -318,6 +318,11 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
+		constexpr bool UsesVCT() const noexcept {
+			return 0u != GetNumberOfCones();
+		}
+
+		[[nodiscard]]
 		constexpr U32 GetNumberOfCones() const noexcept {
 			return m_nb_cones;
 		}

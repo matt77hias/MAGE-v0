@@ -29,15 +29,15 @@ namespace mage::rendering {
 		 Constructs a game buffer.
 		 */
 		GameBuffer() noexcept
-			: m_voxel_grid_center(0.0f),
-			m_padding0(0u),
-			m_voxel_grid_resolution(0u),
-			m_voxel_grid_inv_resolution(0.0f),
-			m_voxel_size(0.0f),
-			m_voxel_inv_size(0.0f),
+			: m_voxel_grid_center(0.0f), 
+			m_voxel_texture_max_mip_level(0u), 
+			m_voxel_grid_resolution(0u), 
+			m_voxel_grid_inv_resolution(0.0f), 
+			m_voxel_size(0.0f), 
+			m_voxel_inv_size(0.0f), 
 			m_display_resolution(), 
 			m_display_inv_resolution_minus1(), 
-			m_ss_display_resolution(), 
+			m_ss_display_resolution(),  
 			m_ss_display_inv_resolution_minus1() {}
 
 		/**
@@ -96,9 +96,9 @@ namespace mage::rendering {
 		F32x3 m_voxel_grid_center;
 
 		/**
-		 The padding of this game buffer.
+		 The maximum mip level of the voxel texture of this game buffer.
 		 */
-		U32 m_padding0;
+		U32 m_voxel_texture_max_mip_level;
 
 		/**
 		 The resolution of the voxel grid for all dimensions of this game 

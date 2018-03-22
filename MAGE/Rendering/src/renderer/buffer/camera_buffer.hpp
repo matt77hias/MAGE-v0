@@ -34,19 +34,22 @@ namespace mage::rendering {
 		 Constructs a camera buffer.
 		 */
 		CameraBuffer() noexcept 
-			: m_world_to_camera{},
-			m_camera_to_projection{},
-			m_projection_to_camera{},
-			m_camera_to_world{},
-			m_viewport_top_left(),
-			m_viewport_resolution(),
-			m_ss_viewport_top_left(),
-			m_ss_viewport_resolution(),
-			m_viewport_inv_resolution_minus1(),
-			m_ss_viewport_inv_resolution_minus1(),
+			: m_world_to_camera{}, 
+			m_camera_to_projection{}, 
+			m_projection_to_camera{}, 
+			m_camera_to_world{}, 
+			m_viewport_top_left(), 
+			m_viewport_resolution(), 
+			m_ss_viewport_top_left(), 
+			m_ss_viewport_resolution(), 
+			m_viewport_inv_resolution_minus1(), 
+			m_ss_viewport_inv_resolution_minus1(), 
 			m_fog_color(), 
 			m_fog_density(0.0f), 
-			m_sky_dome_scale_z(1.0f),
+			m_sky_dome_scale_z(1.0f), 
+			m_nb_cones(0), 
+			m_cone_step_multiplier(1.0f), 
+			m_max_cone_distance(1.0f), 
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
@@ -189,6 +192,27 @@ namespace mage::rendering {
 		 buffer. 
 		 */
 		F32 m_sky_dome_scale_z;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Voxel Cone Tracing
+		//---------------------------------------------------------------------
+
+		/**
+		 The number of cones to trace for each shading point of this camera 
+		 buffer.
+		 */
+		U32 m_nb_cones;
+
+		/**
+		 The step multiplier of the cone while marching of this camera buffer.
+		 */
+		F32 m_cone_step_multiplier;
+		
+		/**
+		 The maximal cone distance expressed in normalized texture coordinates 
+		 of this camera buffer.
+		 */
+		F32 m_max_cone_distance;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Post-processing

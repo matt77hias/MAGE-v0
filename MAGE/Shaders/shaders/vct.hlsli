@@ -10,8 +10,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-static const float XXX = 1.0f;
-
 struct Cone {
 	float3 apex;
 	float3 d; 
@@ -26,9 +24,7 @@ float4 GetRadiance(Texture3D< float4 > voxel_texture, Cone cone) {
 	// sampling the voxel containing the given position.
 	float distance = 1.414213562f * g_voxel_grid_inv_resolution;
 
-	// A maximum distance enables early termination in large voxel grids.
-	const float max_distance = XXX * g_voxel_grid_inv_resolution;
-	while (max_distance > distance && 1.0f > L.w) {
+	while (g_max_cone_distance > distance && 1.0f > L.w) {
 
 		// Obtain the diameter (expressed in normalized texture coordinates).
 		//
@@ -46,7 +42,8 @@ float4 GetRadiance(Texture3D< float4 > voxel_texture, Cone cone) {
 		const float3 uvw = cone.apex + distance * cone.d;
 		
 		[branch]
-		if (any(uvw - saturate(uvw)) || XXX <= mip_level) {
+		if ((float)g_voxel_texture_max_mip_level <= mip_level 
+			|| any(uvw - saturate(uvw))) {
 			break;
 		}
 
@@ -58,7 +55,7 @@ float4 GetRadiance(Texture3D< float4 > voxel_texture, Cone cone) {
 		const float inv_alpha = 1.0f - L.w;
 		L += inv_alpha * L_voxel;
 
-		distance += XXX * diameter;
+		distance += g_cone_step_multiplier * diameter;
 	}
 }
 

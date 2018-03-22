@@ -13,6 +13,24 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
+	//-------------------------------------------------------------------------
+	// VoxelizationSettings
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	Point3 VoxelizationSettings::s_voxel_grid_center;
+
+	U32 VoxelizationSettings::s_voxel_grid_resolution = 0u;
+
+	F32 VoxelizationSettings::s_voxel_size = 1.0f;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Camera
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	Camera::Camera(ID3D11Device& device) 
 		: Component(), 
 		m_buffer(device),
@@ -68,4 +86,6 @@ namespace mage::rendering {
 		// Update the camera buffer.
 		m_buffer.UpdateData(device_context, buffer);
 	}
+
+	#pragma endregion
 }

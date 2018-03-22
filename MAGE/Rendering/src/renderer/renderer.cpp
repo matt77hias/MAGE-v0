@@ -652,7 +652,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Sky
 		//---------------------------------------------------------------------
-		m_sky_pass->Render(camera.GetSettings().GetSky());
+		m_sky_pass->Render(camera.GetSettings().GetSky().GetSRV());
 
 		//---------------------------------------------------------------------
 		// Forward: transparent fragments
@@ -720,7 +720,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Perform a sky pass.
 		//---------------------------------------------------------------------
-		m_sky_pass->Render(camera.GetSettings().GetSky());
+		m_sky_pass->Render(camera.GetSettings().GetSky().GetSRV());
 
 		//---------------------------------------------------------------------
 		// Forward: transparent fragments

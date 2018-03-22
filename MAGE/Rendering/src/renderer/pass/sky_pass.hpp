@@ -7,7 +7,6 @@
 
 #include "renderer\state_manager.hpp"
 #include "resource\rendering_resource_manager.hpp"
-#include "scene\camera\sky.hpp"
 
 #pragma endregion
 
@@ -93,9 +92,9 @@ namespace mage::rendering {
 		 Renders the given world.
 
 		 @param[in]		sky
-						A reference to the sky.
+						A pointer to the SRV of the sky.
 		 */
-		void Render(const Sky& sky) const noexcept;
+		void Render(ID3D11ShaderResourceView* sky) const noexcept;
 		
 	private:
 

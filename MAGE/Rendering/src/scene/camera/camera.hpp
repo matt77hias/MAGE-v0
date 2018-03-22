@@ -6,12 +6,14 @@
 #pragma region
 
 #include "scene\component.hpp"
-#include "scene\camera\fog.hpp"
-#include "scene\camera\sky.hpp"
 #include "scene\camera\viewport.hpp"
 #include "renderer\configuration.hpp"
 #include "renderer\buffer\constant_buffer.hpp"
 #include "renderer\buffer\camera_buffer.hpp"
+#include "resource\texture\texture.hpp"
+#include "math_utils.hpp"
+#include "geometry\geometry.hpp"
+#include "spectrum\color.hpp"
 
 #pragma endregion
 
@@ -192,6 +194,478 @@ namespace mage::rendering {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
+	// VoxelizationSettings
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of voxelization settingss.
+	 */
+	class VoxelizationSettings final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------	
+
+		[[nodiscard]]
+		static const Point3 GetVoxelGridCenter() noexcept {
+			return s_voxel_grid_center;
+		}
+
+		static void SetVoxelGridCenter(Point3 voxel_grid_center) noexcept {
+			s_voxel_grid_center = std::move(voxel_grid_center);
+		}
+
+		[[nodiscard]]
+		static U32 GetVoxelGridResolution() noexcept {
+			return s_voxel_grid_resolution;
+		}
+
+		static void SetVoxelGridResolution(U32 exponent) noexcept {
+			s_voxel_grid_resolution = 2u << exponent;
+		}
+
+		[[nodiscard]]
+		static F32 GetVoxelGridSize() noexcept {
+			return s_voxel_size;
+		}
+
+		static void SetVoxelGridSize(F32 voxel_size) noexcept {
+			s_voxel_size = std::abs(voxel_size);
+		}
+
+		[[nodiscard]]
+		static U32 GetMaxVoxelTextureMipLevel() noexcept {
+			return static_cast< U32 >(std::log2(s_voxel_grid_resolution));
+		}
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------	
+
+		/**
+		 The maximal number of cones to trace for each shading point.
+		 */
+		static constexpr U32 s_max_nb_cones = 16u;
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------	
+
+		/**
+		 Constructs a voxelization settings.
+		 */
+		constexpr VoxelizationSettings()
+			: m_nb_cones(0u), 
+			m_cone_step_multiplier(1.0f), 
+			m_max_cone_distance(1.0f) {}
+
+		/**
+		 Constructs a voxelization settings from the given voxelization 
+		 settings.
+
+		 @param[in]		settings
+						A reference to the voxelization settings to copy.
+		 */
+		constexpr VoxelizationSettings(
+			const VoxelizationSettings& settings) = default;
+
+		/**
+		 Constructs a voxelization settings by moving the given voxelization 
+		 settings.
+
+		 @param[in]		settings
+						A reference to the voxelization settings to move.
+		 */
+		constexpr VoxelizationSettings(
+			VoxelizationSettings&& settings) noexcept = default;
+
+		/**
+		 Destructs this voxelization settings.
+		 */
+		~VoxelizationSettings() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		/**
+		 Copies the given voxelization settings to this voxelization settings.
+
+		 @param[in]		settings
+						A reference to the voxelization settings to copy.
+		 @return		A reference to the copy of the given voxelization 
+						settings (i.e. this voxelization settings).
+		 */
+		constexpr VoxelizationSettings& operator=(
+			const VoxelizationSettings& settings) noexcept = default;
+
+		/**
+		 Moves the given voxelization settings to this voxelization settings.
+
+		 @param[in]		settings
+						A reference to the voxelization settings to move.
+		 @return		A reference to the moved voxelization settings (i.e. 
+						this voxelization settings).
+		 */
+		constexpr VoxelizationSettings& operator=(
+			VoxelizationSettings&& settings) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		constexpr U32 GetNumberOfCones() const noexcept {
+			return m_nb_cones;
+		}
+
+		constexpr void SetNumberOfCones(U32 nb_cones) noexcept {
+			m_nb_cones = std::clamp(nb_cones, 0u, s_max_nb_cones);
+		}
+
+		[[nodiscard]]
+		constexpr F32 GetConeStepMultiplier() const noexcept {
+			return m_cone_step_multiplier;
+		}
+
+		void SetConeStepMultiplier(F32 cone_step_multiplier) noexcept {
+			m_cone_step_multiplier = std::abs(cone_step_multiplier);
+		}
+
+		[[nodiscard]]
+		constexpr F32 GetMaxConeDistance() const noexcept {
+			return m_max_cone_distance;
+		}
+
+		void SetMaxConeDistance(F32 max_cone_distance) noexcept {
+			m_max_cone_distance = std::abs(max_cone_distance);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The center of the voxel grid expressed in world space.
+		 */
+		static Point3 s_voxel_grid_center;
+
+		/**
+		 The resolution of the voxel grid for all dimensions.
+		 */
+		static U32 s_voxel_grid_resolution;
+
+		/**
+		 The size of a voxel for all dimensions expressed in world space.
+		 */
+		static F32 s_voxel_size;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+		
+		/**
+		 The number of cones to trace for each shading point of this 
+		 voxelization settings.
+		 */
+		U32 m_nb_cones;
+		
+		/**
+		 The step multiplier of the cone while marching of this voxelization 
+		 settings.
+		 */
+		F32 m_cone_step_multiplier;
+		
+		/**
+		 The maximal cone distance expressed in normalized texture coordinates 
+		 of this voxelization settings.
+		 */
+		F32 m_max_cone_distance;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Fog
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of fog with respect to the camera position (eye) to avoid popping 
+	 artifacts while moving.
+	 */
+	class Fog final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a fog.
+		 */
+		constexpr Fog() noexcept
+			: m_base_color(color::Silver), 
+			m_density(0.0) {}
+
+		/**
+		 Constructs a fog from the given fog.
+
+		 @param[in]		fog
+						A reference to the fog to copy.
+		 */
+		constexpr Fog(const Fog& fog) noexcept = default;
+
+		/**
+		 Constructs a fog by moving the given fog.
+
+		 @param[in]		fog
+						A reference to the fog to move.
+		 */
+		constexpr Fog(Fog&& fog) noexcept = default;
+
+		/**
+		 Destructs this fog.
+		 */
+		~Fog() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		/**
+		 Copies the given fog to this fog.
+
+		 @param[in]		fog
+						A reference to the fog to copy.
+		 @return		A reference to the copy of the given fog (i.e. this fog).
+		 */
+		constexpr Fog& operator=(const Fog& fog) noexcept = default;
+
+		/**
+		 Moves the given fog to this fog.
+
+		 @param[in]		fog
+						A reference to the fog to move.
+		 @return		A reference to the moved fog (i.e. this fog).
+		 */
+		constexpr Fog& operator=(Fog&& fog) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the sRGB base color of this fog.
+
+		 @return		A reference to the sRGB base color of this fog.
+		 */
+		[[nodiscard]]
+		constexpr SRGB& GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this fog.
+
+		 @return		A reference to the sRGB base color of this fog.
+		 */
+		[[nodiscard]]
+		constexpr const SRGB& GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the density of this fog.
+		
+		 @return		The density of this fog.
+		 */
+		[[nodiscard]]
+		constexpr F32 GetDensity() const noexcept {
+			return m_density;
+		}
+
+		/**
+		 Sets the density of this fog to the given value.
+
+		 @param[in]		density
+						The density.
+		 */
+		constexpr void SetDensity(F32 density) noexcept {
+			m_density = Saturate(density);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The sRGB base color of this fog.
+		 */
+		SRGB m_base_color;
+
+		/**
+		 The density of this fog.
+		 */
+		F32 m_density;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Sky
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A class of sky domes.
+	 */
+	class Sky final {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------	
+
+		/**
+		 Constructs a sky.
+		 */
+		Sky() 
+			: m_texture(), 
+			m_scale_z(1.5f) {}
+
+		/**
+		 Constructs a sky from the given sky.
+
+		 @param[in]		sky
+						A reference to the sky to copy.
+		 */
+		Sky(const Sky& sky) = default;
+
+		/**
+		 Constructs a sky by moving the given sky.
+
+		 @param[in]		sky
+						A reference to the sky to move.
+		 */
+		Sky(Sky&& sky) noexcept = default;
+
+		/**
+		 Destructs this sky.
+		 */
+		~Sky() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		/**
+		 Copies the given sky to this sky.
+
+		 @param[in]		sky
+						A reference to the sky to copy.
+		 @return		A reference to the copy of the given sky (i.e. this 
+						sky).
+		 */
+		Sky& operator=(const Sky& sky) noexcept = default;
+
+		/**
+		 Moves the given sky to this sky.
+
+		 @param[in]		sky
+						A reference to the sky to move.
+		 @return		A reference to the moved sky (i.e. this sky).
+		 */
+		Sky& operator=(Sky&& sky) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the texture of this sky.
+
+		 @return		A pointer to the texture of this sky.
+		 */
+		[[nodiscard]]
+		TexturePtr GetTexture() const noexcept {
+			return m_texture;
+		}
+		
+		/**
+		 Returns the shader resource view of the texture of this sky.
+
+		 @return		@c nullptr, if this sky has no texture.
+		 @return		A pointer to the shader resource view of the texture of 
+						this sky.
+		 */
+		[[nodiscard]]
+		ID3D11ShaderResourceView* GetSRV() const noexcept {
+			return m_texture ? m_texture->Get() : nullptr;
+		}
+		
+		/**
+		 Sets the texture of this sky to the given texture.
+
+		 @param[in]		texture
+						The texture of this sky.
+		 */
+		void SetTexture(TexturePtr texture) {
+			m_texture = std::move(texture);
+		}
+
+		/**
+		 Returns the scaling factor of the z component of the sky domes of this 
+		 sky.
+		
+		 @return		The scaling factor of the z component of the sky domes 
+						of this sky.
+		 */
+		[[nodiscard]]
+		F32 GetScaleZ() const noexcept {
+			return m_scale_z;
+		}
+
+		/**
+		 Sets scaling factor of the z component of the sky domes of this sky to 
+		 the given value.
+
+		 @param[in]		scale_z
+						The scaling factor.
+		 */
+		void SetScaleZ(F32 scale_z) noexcept {
+			m_scale_z = std::abs(scale_z);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The cube map texture of this sky.
+		 */
+		TexturePtr m_texture;
+
+		/**
+		 The scaling factor of the z component of the sky domes of this sky.
+		 */
+		F32 m_scale_z;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// CameraSettings
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -304,6 +778,34 @@ namespace mage::rendering {
 		}
 
 		//---------------------------------------------------------------------
+		// Member Methods: Voxelization
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		VoxelizationSettings GetVoxelizationSettings() const noexcept {
+			return m_voxelization_settings;
+		}
+
+		void SetVoxelizationSettings(
+			VoxelizationSettings voxelization_settings) noexcept {
+
+			m_voxelization_settings = voxelization_settings;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Gamma Correction
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		F32 GetGamma() const noexcept {
+			return m_gamma;
+		}
+
+		void SetGamma(F32 gamma) noexcept {
+			m_gamma = gamma;
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods: Render Layers
 		//---------------------------------------------------------------------
 
@@ -332,19 +834,6 @@ namespace mage::rendering {
 
 		void ResetRenderLayers() noexcept {
 			m_render_layer_mask = static_cast< U32 >(RenderLayer::None);
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Tone Mapping
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		F32 GetGamma() const noexcept {
-			return m_gamma;
-		}
-
-		void SetGamma(F32 gamma) noexcept {
-			m_gamma = gamma;
 		}
 
 		//---------------------------------------------------------------------
@@ -378,7 +867,7 @@ namespace mage::rendering {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Render Mode
 		//---------------------------------------------------------------------
 
 		/**
@@ -386,30 +875,63 @@ namespace mage::rendering {
 		 */
 		RenderMode m_render_mode;
 
+		//---------------------------------------------------------------------
+		// Member Variables: BRDF
+		//---------------------------------------------------------------------
+
 		/**
 		 The BRDF of this camera settings.
 		 */
 		BRDF m_brdf;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Tone Mapping
+		//---------------------------------------------------------------------
 
 		/**
 		 The Tone Mapping of this camera settings.
 		 */
 		ToneMapping m_tone_mapping;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Voxelization Settings
+		//---------------------------------------------------------------------
+
+		/**
+		 The voxelization settings of this camera settings.
+		 */
+		VoxelizationSettings m_voxelization_settings;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Gamma Correction
+		//---------------------------------------------------------------------
+
 		/**
 		 The gamma exponent of this camera settings.
 		 */
 		F32 m_gamma;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Render Layers
+		//---------------------------------------------------------------------
 
 		/**
 		 The render layer mask of this camera settings.
 		 */
 		U32 m_render_layer_mask;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Fog
+		//---------------------------------------------------------------------
+
 		/**
 		 The fog of this camera settings. 
 		 */
 		Fog m_fog;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Sky
+		//---------------------------------------------------------------------
 
 		/**
 		 The sky of this camera settings. 

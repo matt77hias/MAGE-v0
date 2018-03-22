@@ -302,12 +302,6 @@
     <ClInclude Include="Rendering\src\resource\font\sprite_font.hpp">
       <Filter>Header Files\resource\font</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\scene\camera\fog.hpp">
-      <Filter>Header Files\scene\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\src\scene\camera\sky.hpp">
-      <Filter>Header Files\scene\camera</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\scene\camera\viewport.hpp">
       <Filter>Header Files\scene\camera</Filter>
     </ClInclude>

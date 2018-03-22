@@ -60,12 +60,12 @@ namespace mage::rendering {
 								   BlendStateID::Opaque);
 	}
 
-	void SkyPass::Render(const Sky& sky) const noexcept {
+	void SkyPass::Render(ID3D11ShaderResourceView* sky) const noexcept {
 		// Bind the fixed state.
 		BindFixedState();
 
 		// Bind the SRV.
-		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_TEXTURE, sky.GetSRV());
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_TEXTURE, sky);
 		
 		// Draw the icosphere.
 		Pipeline::Draw(m_device_context, 240u, 0u);

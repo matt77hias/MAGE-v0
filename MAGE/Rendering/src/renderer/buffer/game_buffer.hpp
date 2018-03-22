@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math.hpp"
+#include "geometry\geometry.hpp"
 
 #pragma endregion
 
@@ -29,7 +29,7 @@ namespace mage::rendering {
 		 Constructs a game buffer.
 		 */
 		GameBuffer() noexcept
-			: m_voxel_grid_center(0.0f), 
+			: m_voxel_grid_center(), 
 			m_voxel_texture_max_mip_level(0u), 
 			m_voxel_grid_resolution(0u), 
 			m_voxel_grid_inv_resolution(0.0f), 
@@ -93,7 +93,7 @@ namespace mage::rendering {
 		 The center of the voxel grid expressed in world space of this game 
 		 buffer.
 		 */
-		F32x3 m_voxel_grid_center;
+		Point3 m_voxel_grid_center;
 
 		/**
 		 The maximum mip level of the voxel texture of this game buffer.

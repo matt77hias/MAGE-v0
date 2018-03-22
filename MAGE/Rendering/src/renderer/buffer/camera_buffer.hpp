@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math.hpp"
+#include "spectrum\spectrum.hpp"
 
 #pragma endregion
 

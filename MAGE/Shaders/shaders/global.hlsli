@@ -47,9 +47,9 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	uint     g_voxel_grid_resolution             : packoffset(c1.x);
 	// The inverse resolution of the voxel grid for all dimensions.
 	float    g_voxel_grid_inv_resolution         : packoffset(c1.y);
-	// The size of a voxel for all dimensions. [m/voxel]
+	// The size of a voxel for all dimensions expressed in world space.
 	float    g_voxel_size                        : packoffset(c1.z);
-	// The inverse size of a voxel for all dimensions. [voxels/m]
+	// The inverse size of a voxel for all dimensions.
 	float    g_voxel_inv_size                    : packoffset(c1.w);
 
 	//-------------------------------------------------------------------------

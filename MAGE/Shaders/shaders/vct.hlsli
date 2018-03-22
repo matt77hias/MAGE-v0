@@ -57,20 +57,55 @@ float4 GetRadiance(Texture3D< float4 > voxel_texture, Cone cone) {
 
 		distance += g_cone_step_multiplier * diameter;
 	}
+
+	return L;
 }
+
+static const float3 g_cone_directions[] = {
+	float3( 0.577350f,  0.577350f,  0.577350f),
+	float3( 0.577350f, -0.577350f, -0.577350f),
+	float3(-0.577350f,  0.577350f, -0.577350f),
+	float3(-0.577350f, -0.577350f,  0.577350f),
+	float3(-0.903007f, -0.182696f, -0.388844f),
+	float3(-0.903007f,  0.182696f,  0.388844f),
+	float3( 0.903007f, -0.182696f,  0.388844f),
+	float3( 0.903007f,  0.182696f, -0.388844f),
+	float3(-0.388844f, -0.903007f, -0.182696f),
+	float3( 0.388844f, -0.903007f,  0.182696f),
+	float3( 0.388844f,  0.903007f, -0.182696f),
+	float3(-0.388844f,  0.903007f,  0.182696f),
+	float3(-0.182696f, -0.388844f, -0.903007f),
+	float3( 0.182696f,  0.388844f, -0.903007f),
+	float3(-0.182696f,  0.388844f,  0.903007f),
+	float3( 0.182696f, -0.388844f,  0.903007f)
+};
 
 float4 GetRadiance(float3 p, float3 n,
 				   Texture3D< float4 > voxel_texture) {
 
+	float4 L = 0.0f;
+
+	Cone cone;
+
 	// Obtain the cone's apex expressed in (expressed in normalized texture 
 	// coordinates)
-	const float3 apex = WorldToVoxelUVW(p);
+	cone.apex = WorldToVoxelUVW(p);
+	// tan(g_pi/8) = sqrt(2) - 1
+	cone.tan_aperture = 0.414213562f;
 
+	const uint nb_cones = min(g_nb_cones, 16u);
+	for (uint i = 0u; i < nb_cones; ++i) {
 
+		//TODO: cosine-weighted sampling instead
+		cone.d = reflect(g_cone_directions[i], n);
+		cone.d *= 0.0f > dot(cone.d, n) ? -1.0f : 1.0f;
+		
+		L += GetRadiance(voxel_texture, cone);
+	}
 
-
-	return 0.0f;
-
+	L /= nb_cones;
+	L.w = saturate(L.w);
+	return L;
 }
 
 #endif //MAGE_HEADER_VCT

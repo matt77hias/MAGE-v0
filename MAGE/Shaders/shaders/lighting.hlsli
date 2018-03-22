@@ -133,24 +133,11 @@ TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-float3 GetDirectRadiance(float3 p, float3 n, 
+#ifdef BRDFxCOS_COMPONENT
+
+float3 GetDirectRadiance(float3 v, float3 p, float3 n, 
 						 float3 base_color, float roughness, float metalness) {
-
-	const float3 v_direction = GetCameraPosition() - p;
-	const float  v_distance  = length(v_direction);
-
-	#ifndef BRDFxCOS_COMPONENT
-	float3 L = base_color;
-	#else // BRDFxCOS_COMPONENT
 	float3 L = 0.0f;
-
-	#ifndef DISABLE_AMBIENT_LIGHT
-	// Ambient light contribution
-	L += g_La;
-	#endif // DISABLE_AMBIENT_LIGHT
-
-	const float inv_v_distance = 1.0f / v_distance;
-	const float3 v = v_direction * inv_v_distance;
 
 	#ifndef DISABLE_DIRECTIONAL_LIGHTS
 	// Directional lights contribution
@@ -228,43 +215,53 @@ float3 GetDirectRadiance(float3 p, float3 n,
 
 	#endif // DISABLE_SHADOW_MAPPING
 
-	#endif // BRDFxCOS_COMPONENT
+	return L;
+}
+
+float3 GetIndirectRadiance(float3 p, float3 n) {
+	float3 L = 0.0f;
+
+	#ifndef DISABLE_AMBIENT_LIGHT
+	// Ambient light contribution
+	L += g_La;
+	#endif // DISABLE_AMBIENT_LIGHT
+
+	#ifndef DISABLE_VCT
+	L += GetRadiance(p, n, g_voxel_texture).xyz;
+	#endif // DISABLE_VCT
+
+	return L;
+}
+
+#endif // BRDFxCOS_COMPONENT
+
+float3 GetRadiance(float3 p, float3 n,
+				   float3 base_color, float roughness, float metalness) {
+
+	#ifdef BRDFxCOS_COMPONENT
+	const float3 v_direction    = GetCameraPosition() - p;
+	const float  v_distance     = length(v_direction);
+	const float  inv_v_distance = 1.0f / v_distance;
+	const float3 v              = v_direction * inv_v_distance;
+
+	// Obtain the direct radiance.
+	const float3 L_direct   = GetDirectRadiance(v, p, n, base_color, 
+												roughness, metalness);
+	// Obtain the indirect radiance.
+	const float3 L_indirect = GetIndirectRadiance(p, n);
+		// Obtain the radiance.
+	float3 L = L_direct + L_indirect;
 
 	#ifndef DISABLE_FOG
 	const float fog_factor = FOG_FACTOR_COMPONENT(v_distance, g_fog_density);
 	L = lerp(g_fog_color, L, fog_factor);
 	#endif // DISABLE_FOG
-	
+
 	return L;
-}
 
-float3 GetIndirectRadiance(float3 p) {
-	#ifndef BRDFxCOS_COMPONENT
-	return 0.0f;
 	#else  // BRDFxCOS_COMPONENT
-
-	#ifdef DISABLE_VCT
-	return 0.0f;
-	#else  // DISABLE_VCT
-	const int3 s_index = WorldToVoxelIndex(p);
-	return g_voxel_texture[s_index].xyz;
-	#endif // DISABLE_VCT
-
+	return base_color;
 	#endif // BRDFxCOS_COMPONENT
-}
-
-float3 GetRadiance(float3 p, float3 n,
-				   float3 base_color, float roughness, float metalness) {
-
-	#ifdef DISABLE_VCT
-	const float3 L_direct   = GetDirectRadiance(p, n, base_color, 
-												roughness, metalness);
-	const float3 L_indirect = GetIndirectRadiance(p);
-	
-	return L_direct + L_indirect;
-	#else  // DISABLE_VCT
-	return GetIndirectRadiance(p); // debugging
-	#endif // DISABLE_VCT
 }
 
 #endif //MAGE_HEADER_LIGHTING

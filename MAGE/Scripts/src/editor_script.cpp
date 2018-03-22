@@ -46,6 +46,54 @@ namespace mage::script {
 			lens.SetMaximumCoCRadius(coc);
 		}
 
+		void DrawWidget(rendering::VoxelizationSettings& settings) {
+			using rendering::VoxelizationSettings;
+
+			//-----------------------------------------------------------------
+			// Voxelization
+			//-----------------------------------------------------------------
+			if (ImGui::TreeNode("Voxelization")) {
+				auto origin = VoxelizationSettings::GetVoxelGridCenter();
+				ImGui::InputFloat3("Origin", origin.GetData());
+				VoxelizationSettings::SetVoxelGridCenter(origin);
+
+				auto exponent = static_cast< S32 >(
+					VoxelizationSettings::GetMaxVoxelTextureMipLevel());
+				ImGui::SliderInt("Voxel Grid Resolution", &exponent, 0, 8);
+				VoxelizationSettings::SetVoxelGridResolution(
+					static_cast< U32 >(exponent));
+
+				auto voxel_size = VoxelizationSettings::GetVoxelSize();
+				ImGui::DragFloat("Voxel Size", &voxel_size,
+								 0.01f, 0.01f, 10.0f, "%.2f");
+				VoxelizationSettings::SetVoxelSize(voxel_size);
+
+				ImGui::TreePop();
+			}
+
+			//-----------------------------------------------------------------
+			// Voxel Cone Tracing
+			//-----------------------------------------------------------------
+			if (ImGui::TreeNode("Voxel Cone Tracing")) {
+				auto nb_cones = static_cast< S32 >(settings.GetNumberOfCones());
+				ImGui::SliderInt("Number of Cones", &nb_cones, 0,
+								 static_cast< S32 >(VoxelizationSettings::s_max_nb_cones));
+				settings.SetNumberOfCones(static_cast< U32 >(nb_cones));
+
+				auto cone_step_multiplier = settings.GetConeStepMultiplier();
+				ImGui::DragFloat("Cone Step Multiplier", &cone_step_multiplier,
+								 0.01f, 0.01f, 1.0f, "%.2f");
+				settings.SetConeStepMultiplier(cone_step_multiplier);
+
+				auto max_cone_distance = settings.GetMaxConeDistance();
+				ImGui::DragFloat("Max Cone Distance", &max_cone_distance,
+								 1.0f / 1024.0f, 0.0f, 1.0f, "%.4f");
+				settings.SetMaxConeDistance(max_cone_distance);
+
+				ImGui::TreePop();
+			}
+		}
+
 		void DrawWidget(rendering::Fog& fog) {
 			//-----------------------------------------------------------------
 			// Base Color
@@ -186,6 +234,17 @@ namespace mage::script {
 			ImGui::Combo("Tone Mapping", &tone_mapping_index, tone_mapping_names,
 						 static_cast< int >(std::size(tone_mappings)));
 			settings.SetToneMapping(tone_mappings[tone_mapping_index]);
+
+			//-----------------------------------------------------------------
+			// Voxelization Settings
+			//-----------------------------------------------------------------
+			auto render_mode = settings.GetRenderMode();
+			if (RenderMode::Forward   == render_mode || 
+				RenderMode::Deferred  == render_mode ||
+				RenderMode::VoxelGrid == render_mode) {
+
+				DrawWidget(settings.GetVoxelizationSettings());
+			}
 
 			//-----------------------------------------------------------------
 			// Gamma Exponent

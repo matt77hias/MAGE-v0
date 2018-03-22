@@ -224,21 +224,27 @@ namespace mage::rendering {
 		}
 
 		static void SetVoxelGridResolution(U32 exponent) noexcept {
-			s_voxel_grid_resolution = 2u << exponent;
+			s_voxel_grid_resolution = 1u << exponent;
 		}
 
 		[[nodiscard]]
-		static F32 GetVoxelGridSize() noexcept {
+		static F32 GetVoxelSize() noexcept {
 			return s_voxel_size;
 		}
 
-		static void SetVoxelGridSize(F32 voxel_size) noexcept {
+		static void SetVoxelSize(F32 voxel_size) noexcept {
 			s_voxel_size = std::abs(voxel_size);
 		}
 
 		[[nodiscard]]
 		static U32 GetMaxVoxelTextureMipLevel() noexcept {
 			return static_cast< U32 >(std::log2(s_voxel_grid_resolution));
+		}
+
+		[[nodiscard]]
+		static const XMMATRIX XM_CALLCONV GetWorldToVoxelMatrix() noexcept {
+			const auto r = s_voxel_grid_resolution * 0.5f * s_voxel_size;
+			return XMMatrixOrthographicOffCenterLH(-r, r, -r, r, -r, r);
 		}
 
 		//---------------------------------------------------------------------
@@ -337,7 +343,8 @@ namespace mage::rendering {
 		}
 
 		void SetConeStepMultiplier(F32 cone_step_multiplier) noexcept {
-			m_cone_step_multiplier = std::abs(cone_step_multiplier);
+			m_cone_step_multiplier = std::max(0.01f, 
+											  std::abs(cone_step_multiplier));
 		}
 
 		[[nodiscard]]
@@ -787,14 +794,13 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
-		VoxelizationSettings GetVoxelizationSettings() const noexcept {
+		VoxelizationSettings& GetVoxelizationSettings() noexcept {
 			return m_voxelization_settings;
 		}
 
-		void SetVoxelizationSettings(
-			VoxelizationSettings voxelization_settings) noexcept {
-
-			m_voxelization_settings = voxelization_settings;
+		[[nodiscard]]
+		const VoxelizationSettings& GetVoxelizationSettings() const noexcept {
+			return m_voxelization_settings;
 		}
 
 		//---------------------------------------------------------------------

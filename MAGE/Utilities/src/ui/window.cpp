@@ -270,15 +270,19 @@ namespace mage {
 			const BOOL result = RegisterHotKey(m_window,
 				                               static_cast< int >(HotKey::AltPrintScreen), 
 				                               MOD_ALT | MOD_NOREPEAT, 
-				                               VK_SNAPSHOT);
-			Warning("Registering Alt+PrintScreen hot key failed.");
+											   VK_SNAPSHOT);
+			if (FALSE == result) {
+				Warning("Registering Alt+PrintScreen hot key failed.");
+			}
 		}
 		{
 			const BOOL result = RegisterHotKey(m_window, 
 											   static_cast< int >(HotKey::PrintScreen), 
 											   MOD_NOREPEAT, 
 											   VK_SNAPSHOT);
-			Warning("Registering PrintScreen hot key failed.");
+			if (FALSE == result) {
+				Warning("Registering PrintScreen hot key failed.");
+			}
 		}
 	}
 

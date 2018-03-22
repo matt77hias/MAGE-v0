@@ -29,10 +29,6 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	//TODO
-	constexpr U32 g_voxel_grid_resolution = 128u;
-	constexpr F32 g_voxel_size = 0.08f;
-
 	//-------------------------------------------------------------------------
 	// Renderer::Impl
 	//-------------------------------------------------------------------------
@@ -375,26 +371,30 @@ namespace mage::rendering {
 	void Renderer::Impl::BindPersistentState() {
 		m_state_manager->BindPersistentState(m_device_context);
 		
-		const auto display_resolution 
-			= m_display_configuration.get().GetDisplayResolution();
-		const auto ss_display_resolution 
-			= m_display_configuration.get().GetSSDisplayResolution();
-
 		GameBuffer buffer;
-		buffer.m_display_resolution               = display_resolution;
-		buffer.m_display_inv_resolution_minus1    = F32x2(1.0f / (display_resolution.m_x - 1u), 
-														  1.0f / (display_resolution.m_y - 1u));
-
-		buffer.m_ss_display_resolution            = ss_display_resolution;
-		buffer.m_ss_display_inv_resolution_minus1 = F32x2(1.0f / (ss_display_resolution.m_x - 1u), 
-														  1.0f / (ss_display_resolution.m_y - 1u));
 		
-		//TODO
-		buffer.m_voxel_grid_resolution            = g_voxel_grid_resolution;
-		buffer.m_voxel_grid_inv_resolution        = 1.0f / buffer.m_voxel_grid_resolution;
-		buffer.m_voxel_size                       = g_voxel_size;
-		buffer.m_voxel_inv_size                   = 1.0f / buffer.m_voxel_size;
+		// Display
+		{
+			auto display_resolution
+				= m_display_configuration.get().GetDisplayResolution();
+			buffer.m_display_inv_resolution_minus1 
+				= F32x2(1.0f / (display_resolution.m_x - 1u),
+						1.0f / (display_resolution.m_y - 1u));
+			buffer.m_display_resolution 
+				= std::move(display_resolution);
+		}
 
+		// SS Display
+		{
+			auto ss_display_resolution
+				= m_display_configuration.get().GetSSDisplayResolution();
+			buffer.m_ss_display_inv_resolution_minus1 
+				= F32x2(1.0f / (ss_display_resolution.m_x - 1u), 
+						1.0f / (ss_display_resolution.m_y - 1u));
+			buffer.m_ss_display_resolution 
+				= std::move(ss_display_resolution);
+		}
+		
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, buffer);
 		// Bind the game buffer.
@@ -617,7 +617,8 @@ namespace mage::rendering {
 	void XM_CALLCONV Renderer::Impl::RenderForward(const World& world,
 												   const Camera& camera,
 												   FXMMATRIX world_to_projection) {
-		const auto vct = false;
+
+		const auto vct = camera.GetSettings().GetVoxelizationSettings().UsesVCT();
 
 		//---------------------------------------------------------------------
 		// LBuffer
@@ -628,20 +629,29 @@ namespace mage::rendering {
 		// Voxelization
 		//---------------------------------------------------------------------
 		if (vct) {
-			//TODO
-			const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
-			const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
-																		-r, r,
-																		-r, r);
+			const auto world_to_voxel
+				= VoxelizationSettings::GetWorldToVoxelMatrix();
+			const auto voxel_grid_resolution
+				= VoxelizationSettings::GetVoxelGridResolution();
 			m_voxelization_pass->Render(world, world_to_voxel,
 										camera.GetSettings().GetBRDF(),
-										g_voxel_grid_resolution);
+										voxel_grid_resolution);
 		}
 
 		const Viewport viewport(camera.GetViewport(),
 								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
+
+		//---------------------------------------------------------------------
+		// Depth
+		//---------------------------------------------------------------------
+		if (vct) {
+			const auto& transform            = camera.GetOwner()->GetTransform();
+			const auto  world_to_camera      = transform.GetWorldToObjectMatrix();
+			const auto  camera_to_projection = camera.GetCameraToProjectionMatrix();
+			m_depth_pass->Render(world, world_to_camera, camera_to_projection);
+		}
 
 		//---------------------------------------------------------------------
 		// Forward: opaque fragments
@@ -664,7 +674,8 @@ namespace mage::rendering {
 	void XM_CALLCONV Renderer::Impl::RenderDeferred(const World& world, 
 													const Camera& camera, 
 													FXMMATRIX world_to_projection) {
-		const auto vct = false;
+
+		const auto vct = camera.GetSettings().GetVoxelizationSettings().UsesVCT();
 
 		//---------------------------------------------------------------------
 		// LBuffer
@@ -675,14 +686,13 @@ namespace mage::rendering {
 		// Voxelization
 		//---------------------------------------------------------------------
 		if (vct) {
-			//TODO
-			const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
-			const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r,
-																		-r, r,
-																		-r, r);
+			const auto world_to_voxel
+				= VoxelizationSettings::GetWorldToVoxelMatrix();
+			const auto voxel_grid_resolution
+				= VoxelizationSettings::GetVoxelGridResolution();
 			m_voxelization_pass->Render(world, world_to_voxel,
 										camera.GetSettings().GetBRDF(),
-										g_voxel_grid_resolution);
+										voxel_grid_resolution);
 		}
 
 		const Viewport viewport(camera.GetViewport(),
@@ -777,14 +787,13 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Voxelization
 		//---------------------------------------------------------------------
-		//TODO
-		const auto r = g_voxel_grid_resolution * 0.5f * g_voxel_size;
-		const auto world_to_voxel = XMMatrixOrthographicOffCenterLH(-r, r, 
-																	-r, r, 
-																	-r, r);
-		m_voxelization_pass->Render(world, world_to_voxel, 
-									camera.GetSettings().GetBRDF(), 
-									g_voxel_grid_resolution);
+		const auto world_to_voxel
+			= VoxelizationSettings::GetWorldToVoxelMatrix();
+		const auto voxel_grid_resolution
+			= VoxelizationSettings::GetVoxelGridResolution();
+		m_voxelization_pass->Render(world, world_to_voxel,
+									camera.GetSettings().GetBRDF(),
+									voxel_grid_resolution);
 
 	
 		const Viewport viewport(camera.GetViewport(),
@@ -795,7 +804,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Voxel Grid
 		//---------------------------------------------------------------------
-		m_voxel_grid_pass->Render(g_voxel_grid_resolution);
+		m_voxel_grid_pass->Render(voxel_grid_resolution);
 	}
 
 	void Renderer::Impl::RenderPostProcessing(const Camera& camera) {

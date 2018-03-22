@@ -67,8 +67,8 @@ void PS(PSInputPositionNormalTexture input) {
 									  input.tex_geometry);
 
 	// Calculate the pixel radiance.
-	const float3 L = GetDirectRadiance(input.p_world, n_world, 
-									   base_color.xyz, material.x, material.y);
+	const float3 L = GetRadiance(input.p_world, n_world, 
+								 base_color.xyz, material.x, material.y);
 
 	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 

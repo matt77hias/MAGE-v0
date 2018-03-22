@@ -311,9 +311,6 @@
     <ClInclude Include="Rendering\src\scene\camera\viewport.hpp">
       <Filter>Header Files\scene\camera</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\scene\camera\camera_settings.hpp">
-      <Filter>Header Files\scene\camera</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\scene\light\omni_light.hpp">
       <Filter>Header Files\scene\light</Filter>
     </ClInclude>

@@ -101,7 +101,6 @@
     <ClInclude Include="Rendering\src\resource\texture\texture_factory.hpp" />
     <ClInclude Include="Rendering\src\resource\texture\texture_format.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\camera.hpp" />
-    <ClInclude Include="Rendering\src\scene\camera\camera_settings.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\fog.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\orthographic_camera.hpp" />
     <ClInclude Include="Rendering\src\scene\camera\perspective_camera.hpp" />

@@ -35,13 +35,14 @@
 
 #ifdef BRDFxCOS_COMPONENT
 	#include "brdf.hlsli"
+
+	#ifndef DISABLE_VCT
+		#include "vct.hlsli"
+	#endif // DISABLE_VCT
+
 #endif // BRDFxCOS_COMPONENT
 
 #include "light.hlsli"
-
-#ifndef DISABLE_VCT
-	#include "vct.hlsli"
-#endif // DISABLE_VCT
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -218,7 +219,8 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n,
 	return L;
 }
 
-float3 GetIndirectRadiance(float3 p, float3 n) {
+float3 GetIndirectRadiance(float3 v, float3 p, float3 n, 
+						   float3 base_color, float roughness, float metalness) {
 	float3 L = 0.0f;
 
 	#ifndef DISABLE_AMBIENT_LIGHT
@@ -227,7 +229,9 @@ float3 GetIndirectRadiance(float3 p, float3 n) {
 	#endif // DISABLE_AMBIENT_LIGHT
 
 	#ifndef DISABLE_VCT
-	L += GetRadiance(p, n, g_voxel_texture).xyz;
+	L += GetRadiance(v, p, n, 
+					 base_color, roughness, metalness, 
+					 g_voxel_texture).xyz;
 	#endif // DISABLE_VCT
 
 	return L;
@@ -235,7 +239,7 @@ float3 GetIndirectRadiance(float3 p, float3 n) {
 
 #endif // BRDFxCOS_COMPONENT
 
-float3 GetRadiance(float3 p, float3 n,
+float3 GetRadiance(float3 p, float3 n, 
 				   float3 base_color, float roughness, float metalness) {
 
 	#ifdef BRDFxCOS_COMPONENT
@@ -248,7 +252,8 @@ float3 GetRadiance(float3 p, float3 n,
 	const float3 L_direct   = GetDirectRadiance(v, p, n, base_color, 
 												roughness, metalness);
 	// Obtain the indirect radiance.
-	const float3 L_indirect = GetIndirectRadiance(p, n);
+	const float3 L_indirect = GetIndirectRadiance(v, p, n, base_color,
+												  roughness, metalness);
 		// Obtain the radiance.
 	float3 L = L_direct + L_indirect;
 

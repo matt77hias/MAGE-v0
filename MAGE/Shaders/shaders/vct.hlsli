@@ -61,50 +61,48 @@ float4 GetRadiance(Texture3D< float4 > voxel_texture, Cone cone) {
 	return L;
 }
 
-static const float3 g_cone_directions[] = {
-	float3( 0.577350f,  0.577350f,  0.577350f),
-	float3( 0.577350f, -0.577350f, -0.577350f),
-	float3(-0.577350f,  0.577350f, -0.577350f),
-	float3(-0.577350f, -0.577350f,  0.577350f),
-	float3(-0.903007f, -0.182696f, -0.388844f),
-	float3(-0.903007f,  0.182696f,  0.388844f),
-	float3( 0.903007f, -0.182696f,  0.388844f),
-	float3( 0.903007f,  0.182696f, -0.388844f),
-	float3(-0.388844f, -0.903007f, -0.182696f),
-	float3( 0.388844f, -0.903007f,  0.182696f),
-	float3( 0.388844f,  0.903007f, -0.182696f),
-	float3(-0.388844f,  0.903007f,  0.182696f),
-	float3(-0.182696f, -0.388844f, -0.903007f),
-	float3( 0.182696f,  0.388844f, -0.903007f),
-	float3(-0.182696f,  0.388844f,  0.903007f),
-	float3( 0.182696f, -0.388844f,  0.903007f)
+static const float4 g_cones[] = {
+	float4( 0.000000f,  0.000000f, 1.0f, 0.785398163f),
+	float4( 0.000000f,  0.866025f, 0.5f, 0.471238898f),
+	float4( 0.823639f,  0.267617f, 0.5f, 0.471238898f),
+	float4( 0.509037f, -0.700629f, 0.5f, 0.471238898f),
+	float4(-0.509037f, -0.700629f, 0.5f, 0.471238898f),
+	float4(-0.823639f,  0.267617f, 0.5f, 0.471238898f)
 };
 
-float4 GetRadiance(float3 p, float3 n,
+float4 GetRadiance(float3 v, float3 p, float3 n, 
+				   float3 base_color, float roughness, float metalness, 
 				   Texture3D< float4 > voxel_texture) {
 
 	float4 L = 0.0f;
 
 	Cone cone;
-
 	// Obtain the cone's apex expressed in (expressed in normalized texture 
 	// coordinates)
 	cone.apex = WorldToVoxelUVW(p);
-	// tan(g_pi/8) = sqrt(2) - 1
-	cone.tan_aperture = 0.414213562f;
+	// tan(pi/3) = sqrt(3)
+	cone.tan_aperture = 1.732050808f;
+
+	//TODO: refactor to separate method
+	const float3 n_ortho = (0.1f < abs(n.x)) ? float3(0.0f, 1.0f, 0.0f) 
+		                                     : float3(1.0f, 0.0f, 0.0f);
+	const float3 t = normalize(cross(n_ortho, n));
+	const float3 b = cross(n, t);
+	const float3x3 TBN = { t, b, n };
 
 	const uint nb_cones = min(g_nb_cones, 16u);
 	for (uint i = 0u; i < nb_cones; ++i) {
+		const float3 d      = g_cones[i].xyz;
+		const float  weight = g_cones[i].w;
 
-		//TODO: cosine-weighted sampling instead
-		cone.d = reflect(g_cone_directions[i], n);
-		cone.d *= 0.0f > dot(cone.d, n) ? -1.0f : 1.0f;
-		
-		L += GetRadiance(voxel_texture, cone);
+		cone.d = normalize(mul(d, TBN));
+
+		L += weight * GetRadiance(voxel_texture, cone) 
+			* float4(BRDFxCOS_COMPONENT(n, cone.d, v, base_color, roughness, metalness), 1.0f);
 	}
 
-	L /= nb_cones;
 	L.w = saturate(L.w);
+	
 	return L;
 }
 

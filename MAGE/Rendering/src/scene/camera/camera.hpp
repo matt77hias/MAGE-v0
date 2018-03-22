@@ -254,7 +254,7 @@ namespace mage::rendering {
 		/**
 		 The maximal number of cones to trace for each shading point.
 		 */
-		static constexpr U32 s_max_nb_cones = 16u;
+		static constexpr U32 s_max_nb_cones = 6u;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

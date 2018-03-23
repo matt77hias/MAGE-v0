@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISABLE_BASE_COLOR_TEXTURE               | not defined
-// DISABLE_MATERIAL_TEXTURE                 | not defined
+// DISABLE_TEXTURE_BASE_COLOR               | not defined
+// DISABLE_TEXTURE_MATERIAL                 | not defined
 // DISABLE_TSNM                             | not defined
 // MSAA_AS_SSAA                             | not defined
 

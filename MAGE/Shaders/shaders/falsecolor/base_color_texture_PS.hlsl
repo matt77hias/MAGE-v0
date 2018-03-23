@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define DISABLE_MATERIAL_TEXTURE
+#define DISABLE_TEXTURE_MATERIAL
 #define DISABLE_TSNM
 #include "forward\forward_input.hlsli"
 

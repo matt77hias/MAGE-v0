@@ -537,6 +537,9 @@
     <None Include="Shaders\shaders\vct.hlsli">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="Shaders\shaders\material.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\hlsl.hpp">

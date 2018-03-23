@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISABLE_BASE_COLOR_TEXTURE               | not defined
-// DISABLE_MATERIAL_TEXTURE                 | not defined
+// DISABLE_TEXTURE_BASE_COLOR               | not defined
+// DISABLE_TEXTURE_MATERIAL                 | not defined
 // DISABLE_TSNM                             | not defined
 
 //-----------------------------------------------------------------------------
@@ -48,13 +48,13 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-#ifndef DISABLE_BASE_COLOR_TEXTURE
+#ifndef DISABLE_TEXTURE_BASE_COLOR
 	TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
-#endif // DISABLE_BASE_COLOR_TEXTURE
+#endif // DISABLE_TEXTURE_BASE_COLOR
 
-#ifndef DISABLE_MATERIAL_TEXTURE
+#ifndef DISABLE_TEXTURE_MATERIAL
 	TEXTURE_2D(g_material_texture,   float4, SLOT_SRV_MATERIAL);
-#endif // DISABLE_MATERIAL_TEXTURE
+#endif // DISABLE_TEXTURE_MATERIAL
 
 #ifndef DISABLE_TSNM
 	TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
@@ -73,13 +73,13 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
  */
 float4 GetMaterialBaseColor(float2 tex) {
 	// Obtain the base color of the material.
-	#ifdef DISABLE_BASE_COLOR_TEXTURE
+	#ifdef DISABLE_TEXTURE_BASE_COLOR
 	return g_base_color;
-	#else  // DISABLE_BASE_COLOR_TEXTURE
+	#else  // DISABLE_TEXTURE_BASE_COLOR
 	const float4 base_color = g_base_color_texture.Sample(g_linear_wrap_sampler,
 														  tex);
 	return g_base_color * base_color;
-	#endif // DISABLE_BASE_COLOR_TEXTURE
+	#endif // DISABLE_TEXTURE_BASE_COLOR
 }
 
 /**
@@ -91,13 +91,13 @@ float4 GetMaterialBaseColor(float2 tex) {
  */
 float2 GetMaterialParameters(float2 tex) {
 	// Obtain the material parameters of the material.
-	#ifdef DISABLE_MATERIAL_TEXTURE
+	#ifdef DISABLE_TEXTURE_MATERIAL
 	return float2(g_roughness, g_metalness);
-	#else  // DISABLE_MATERIAL_TEXTURE
+	#else  // DISABLE_TEXTURE_MATERIAL
 	const float2 material = g_material_texture.Sample(g_linear_wrap_sampler, 
 													  tex).xy;
 	return float2(g_roughness, g_metalness) * material;
-	#endif // DISABLE_MATERIAL_TEXTURE
+	#endif // DISABLE_TEXTURE_MATERIAL
 }
 
 /**

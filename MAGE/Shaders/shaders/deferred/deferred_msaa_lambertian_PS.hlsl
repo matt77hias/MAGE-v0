@@ -2,6 +2,6 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #define MSAA
-#define BRDFxCOS_COMPONENT LambertianBRDFxCos
+#define BRDF_FUNCTION LambertianBRDF
 #define DISABLE_VCT
 #include "deferred\deferred.hlsli"

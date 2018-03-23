@@ -2,164 +2,166 @@
 #define MAGE_HEADER_COLOR
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Gamma Utilities
+// Engine Declarations and Definitions: (linear) RGB <-> Gamma
 //-----------------------------------------------------------------------------
 
 /**
  Converts the given spectrum from linear to gamma space.
 
- @param[in]		linear_color
+ @param[in]		color
 				The spectrum in linear space.
  @param[in]		inv_gamma
 				The inverse of the gamma exponent.
  @return		The spectrum in gamma space.
  */
-float3 LinearToGamma(float3 linear_color, float inv_gamma) {
-	return pow(abs(linear_color), inv_gamma);
+float3 LinearToGamma(float3 color, float inv_gamma) {
+	return pow(abs(color), inv_gamma);
 }
 
 /**
  Converts the given spectrum from linear to gamma space.
 
- @param[in]		linear_color
+ @param[in]		color
 				The spectrum in linear space.
  @param[in]		inv_gamma
 				The inverse of the gamma exponent.
  @return		The spectrum in gamma space.
  @note			The alpha channel of the given spectrum is preserved.
  */
-float4 LinearToGamma(float4 linear_color, float inv_gamma) {
-	return float4(LinearToGamma(linear_color.xyz, inv_gamma), linear_color.w);
+float4 LinearToGamma(float4 color, float inv_gamma) {
+	return float4(LinearToGamma(color.xyz, inv_gamma), color.w);
 }
 
 /**
  Converts the given spectrum from gamma to linear space.
 
- @param[in]		gamma_color
+ @param[in]		color
 				The spectrum in gamma space.
  @param[in]		gamma
 				The gamma exponent.
  @return		The spectrum in linear space.
  */
-float3 GammaToLinear(float3 gamma_color, float gamma) {
-	return pow(abs(gamma_color), gamma);
+float3 GammaToLinear(float3 color, float gamma) {
+	return pow(abs(color), gamma);
 }
 
 /**
  Converts the given spectrum from gamma to linear space.
 
- @param[in]		gamma_color
+ @param[in]		color
 				The spectrum in gamma space.
  @param[in]		gamma
 				The gamma exponent.
  @return		The spectrum in linear space.
  @note			The alpha channel of the given spectrum is preserved.
  */
-float4 GammaToLinear(float4 gamma_color, float gamma) {
-	return float4(GammaToLinear(gamma_color.xyz, gamma), gamma_color.w);
+float4 GammaToLinear(float4 color, float gamma) {
+	return float4(GammaToLinear(color.xyz, gamma), color.w);
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: sRGB Utilities
+// Engine Declarations and Definitions: (linear) RGB <-> sRGB
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given spectrum from linear to sRGB space.
+ Converts the given spectrum from (linear) RGB to sRGB space.
 
- @param[in]		linear_color
-				The spectrum in linear space.
+ @param[in]		rgb
+				The spectrum in (linear) RGB space.
+ @return		The spectrum in sRGB space.
  @return		The spectrum in sRGB space.
  */
-float3 LinearToSRGB_Approximate(float3 linear_color) {
-	return LinearToGamma(linear_color, 1.0f / 2.2f);
+float3 RGBtoSRGB_Approximate(float3 rgb) {
+	return LinearToGamma(rgb, 1.0f / 2.2f);
 }
 
 /**
- Converts the given spectrum from linear to sRGB space.
+ Converts the given spectrum from (linear) RGB to sRGB space.
 
- @param[in]		linear_color
-				The spectrum in linear space.
- @return		The spectrum in sRGB space.
- @note			The alpha channel of the given spectrum is preserved.
- */
-float4 LinearToSRGB_Approximate(float4 linear_color) {
-	return float4(LinearToSRGB_Approximate(linear_color.xyz), linear_color.w);
-}
-
-/**
- Converts the given spectrum from sRGB to linear space.
-
- @param[in]		srgb_color
-				The spectrum in sRGB space.
- @return		The spectrum in linear space.
- */
-float3 SRGBToLinear_Approximate(float3 srgb_color) {
-	return GammaToLinear(srgb_color, 2.2f);
-}
-
-/**
- Converts the given spectrum from sRGB to linear space.
-
- @param[in]		srgb_color
-				The spectrum in sRGB space.
- @return		The spectrum in linear space.
- @note			The alpha channel of the given spectrum is preserved.
- */
-float4 SRGBToLinear_Approximate(float4 srgb_color) {
-	return float4(SRGBToLinear_Approximate(srgb_color.xyz), srgb_color.w);
-}
-
-/**
- Converts the given spectrum from linear to sRGB space.
-
- @param[in]		linear_color
-				The spectrum in linear space.
- @return		The spectrum in sRGB space.
- */
-float3 LinearToSRGB_Accurate(float3 linear_color) {
-	const float3 low  = linear_color * 12.92f;
-	const float3 high = LinearToGamma(linear_color, 1.0f / 2.4f) * 1.055f - 0.055f;
-	return (linear_color <= 0.0031308f) ? low : high;
-}
-
-/**
- Converts the given spectrum from linear to sRGB space.
-
- @param[in]		linear_color
-				The spectrum in linear space.
+ @param[in]		rgb
+				The spectrum in (linear) RGB space.
  @return		The spectrum in sRGB space.
  @note			The alpha channel of the given spectrum is preserved.
  */
-float4 LinearToSRGB_Accurate(float4 linear_color) {
-	return float4(LinearToSRGB_Accurate(linear_color.xyz), linear_color.w);
+float4 RGBtoSRGB_Approximate(float4 rgb) {
+	return float4(RGBtoSRGB_Approximate(rgb.xyz), rgb.w);
 }
 
 /**
- Converts the given spectrum from sRGB to linear space.
+ Converts the given spectrum from sRGB to (linear) RGB space.
 
- @param[in]		srgb_color
+ @param[in]		srgb
 				The spectrum in sRGB space.
- @return		The spectrum in linear space.
+ @return		The spectrum in (linear) RGB space.
  */
-float3 SRGBToLinear_Accurate(float3 srgb_color) {
+float3 SRGBtoRGB_Approximate(float3 srgb) {
+	return GammaToLinear(srgb, 2.2f);
+}
+
+/**
+ Converts the given spectrum from sRGB to (linear) RGB space.
+
+ @param[in]		srgb
+				The spectrum in sRGB space.
+ @return		The spectrum in (linear) RGB space.
+ @note			The alpha channel of the given spectrum is preserved.
+ */
+float4 SRGBtoRGB_Approximate(float4 srgb) {
+	return float4(SRGBtoRGB_Approximate(srgb.xyz), srgb.w);
+}
+
+/**
+ Converts the given spectrum from (linear) RGB to sRGB space.
+
+ @param[in]		rgb
+				The spectrum in (linear) RGB space.
+ @return		The spectrum in sRGB space.
+ @return		The spectrum in sRGB space.
+ */
+float3 RGBtoSRGB_Accurate(float3 rgb) {
+	const float3 low  = rgb * 12.92f;
+	const float3 high = LinearToGamma(rgb, 1.0f / 2.4f) * 1.055f - 0.055f;
+	return (0.0031308f >= rgb) ? low : high;
+}
+
+/**
+ Converts the given spectrum from (linear) RGB to sRGB space.
+
+ @param[in]		rgb
+				The spectrum in (linear) RGB space.
+ @return		The spectrum in sRGB space.
+ @note			The alpha channel of the given spectrum is preserved.
+ */
+float4 RGBtoSRGB_Accurate(float4 rgb) {
+	return float4(RGBtoSRGB_Accurate(rgb.xyz), rgb.w);
+}
+
+/**
+ Converts the given spectrum from sRGB to (linear) RGB space.
+
+ @param[in]		srgb
+				The spectrum in sRGB space.
+ @return		The spectrum in (linear) RGB space.
+ */
+float3 SRGBtoRGB_Accurate(float3 srgb) {
 	static const float mlow  = 1.0f / 12.92f;
 	static const float mhigh = 1.0f / 1.055f;
 
-	const float3 low  = srgb_color * mlow;
-	const float3 high = GammaToLinear((srgb_color + 0.055f) * mhigh, 2.4f);
-	return (srgb_color <= 0.04045f) ? low : high;
+	const float3 low  = srgb * mlow;
+	const float3 high = GammaToLinear((srgb + 0.055f) * mhigh, 2.4f);
+	return (0.04045f >= srgb) ? low : high;
 }
 
 /**
- Converts the given spectrum from sRGB to linear space.
+ Converts the given spectrum from sRGB to (linear) RGB space.
 
- @param[in]		srgb_color
+ @param[in]		srgb
 				The spectrum in sRGB space.
- @return		The spectrum in linear space.
+ @return		The spectrum in (linear) RGB space.
  @note			The alpha channel of the given spectrum is preserved.
  */
-float4 SRGBToLinear_Accurate(float4 srgb_color) {
-	return float4(SRGBToLinear_Accurate(srgb_color.xyz), srgb_color.w);
+float4 SRGBtoRGB_Accurate(float4 srgb) {
+	return float4(SRGBtoRGB_Accurate(srgb.xyz), srgb.w);
 }
 
 #endif //MAGE_HEADER_COLOR

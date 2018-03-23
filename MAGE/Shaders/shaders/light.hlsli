@@ -6,9 +6,9 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// LIGHT_DISTANCE_ATTENUATION_COMPONENT     | DistanceAttenuation
-// LIGHT_ANGULAR_ATTENUATION_COMPONENT      | AngularAttenuation
-// FOG_FACTOR_COMPONENT                     | FogFactor_Exponential
+// FOG_FACTOR_FUNCTION                      | FogFactor_Exponential
+// LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
+// LIGHT_DISTANCE_ATTENUATION_FUNCTION      | DistanceAttenuation
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -16,14 +16,30 @@
 #include "math.hlsli"
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Defines
+//-----------------------------------------------------------------------------
+
+#ifndef LIGHT_DISTANCE_ATTENUATION_FUNCTION
+	#define LIGHT_DISTANCE_ATTENUATION_FUNCTION DistanceAttenuation
+#endif // LIGHT_DISTANCE_ATTENUATION_FUNCTION
+
+#ifndef LIGHT_ANGULAR_ATTENUATION_FUNCTION
+	#define LIGHT_ANGULAR_ATTENUATION_FUNCTION AngularAttenuation
+#endif // LIGHT_ANGULAR_ATTENUATION_FUNCTION
+
+#ifndef FOG_FACTOR_FUNCTION
+	#define FOG_FACTOR_FUNCTION FogFactor_Exponential
+#endif // FOG_FACTOR_FUNCTION
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Lights
 //-----------------------------------------------------------------------------
 
 /**
  A struct of directional lights.
  */
 struct DirectionalLight {
-	// The (perpendicular) irradiance of this directional light.
+	// The (orthogonal) irradiance of this directional light.
 	float3 E;
 	uint padding0;
 	// The (normalized) negated direction of this directional light expressed 
@@ -98,6 +114,10 @@ struct ShadowMappedSpotLight {
 	float4x4 world_to_projection;
 };
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Attenuation
+//-----------------------------------------------------------------------------
+
 /**
  Calculates the distance intensity attenuation smoothing factor of a light.
 
@@ -108,7 +128,8 @@ struct ShadowMappedSpotLight {
 				The inverse squared range of the light.
  @return		The distance intensity attenuation smoothing factor.
  */
-float DistanceAttenuationSmoothingFactor(float sqr_distance, float inv_sqr_range) {
+float DistanceAttenuationSmoothingFactor(float sqr_distance, 
+										 float inv_sqr_range) {
 	// Frostbite's smoothing:
 	//
 	//         [    distance^2]^2
@@ -151,18 +172,17 @@ float DistanceAttenuation(float distance, float inv_sqr_range) {
 				The cosine inverse range of the light.
  @return		The angular intensity attenuation.
  */
-float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) {
+float AngularAttenuation(float cos_theta, 
+						 float cos_umbra, 
+						 float cos_inv_range) {
+
 	// Frostbite's smoothing: sqr
 	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
 }
 
-#ifndef LIGHT_DISTANCE_ATTENUATION_COMPONENT
-	#define LIGHT_DISTANCE_ATTENUATION_COMPONENT DistanceAttenuation
-#endif // LIGHT_DISTANCE_ATTENUATION_COMPONENT
-
-#ifndef LIGHT_ANGULAR_ATTENUATION_COMPONENT
-	#define LIGHT_ANGULAR_ATTENUATION_COMPONENT AngularAttenuation
-#endif // LIGHT_ANGULAR_ATTENUATION_COMPONENT
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Contribution
+//-----------------------------------------------------------------------------
 
 /**
  Calculates the irradiance contribution of the given directional light.
@@ -172,7 +192,7 @@ float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) 
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given 
+				The (orthogonal) irradiance contribution of the given 
 				directional light.
  */
 void Contribution(DirectionalLight light, out float3 l, out float3 E) {
@@ -190,7 +210,7 @@ void Contribution(DirectionalLight light, out float3 l, out float3 E) {
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given omni 
+				The (orthogonal) irradiance contribution of the given omni 
 				light.
  */
 void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
@@ -199,8 +219,8 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
 	const float  inv_l_distance = 1.0f / l_distance;
 	l = l_direction * inv_l_distance;
 
-	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(l_distance,
-														  light.inv_sqr_range);
+	const float da = LIGHT_DISTANCE_ATTENUATION_FUNCTION(l_distance, 
+														 light.inv_sqr_range);
 	E = da * light.I;
 }
 
@@ -214,7 +234,7 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given 
+				The (orthogonal) irradiance contribution of the given 
 				spotlight.
  */
 void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
@@ -223,12 +243,12 @@ void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
 	const float  inv_l_distance = 1.0f / l_distance;
 	l = l_direction * inv_l_distance;
 	
-	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(l_distance,
-														  light.inv_sqr_range);
+	const float da = LIGHT_DISTANCE_ATTENUATION_FUNCTION(l_distance, 
+														 light.inv_sqr_range);
 	const float cos_theta = dot(light.neg_d, l);
-	const float aa = LIGHT_ANGULAR_ATTENUATION_COMPONENT(cos_theta, 
-														 light.cos_umbra, 
-														 light.cos_inv_range);
+	const float aa = LIGHT_ANGULAR_ATTENUATION_FUNCTION(cos_theta, 
+														light.cos_umbra, 
+														light.cos_inv_range);
 	E = aa * da * light.I;
 }
 
@@ -300,7 +320,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given 
+				The (orthogonal) irradiance contribution of the given 
 				directional light.
  */
 void Contribution(ShadowMappedDirectionalLight light, 
@@ -334,7 +354,7 @@ void Contribution(ShadowMappedDirectionalLight light,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given omni 
+				The (orthogonal) irradiance contribution of the given omni 
 				light.
  */
 void Contribution(ShadowMappedOmniLight light, 
@@ -368,7 +388,7 @@ void Contribution(ShadowMappedOmniLight light,
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
-				The (perpendicular) irradiance contribution of the given 
+				The (orthogonal) irradiance contribution of the given 
 				spotlight.
  */
 void Contribution(ShadowMappedSpotLight light, 
@@ -385,6 +405,10 @@ void Contribution(ShadowMappedSpotLight light,
 	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Fog
+//-----------------------------------------------------------------------------
+
 /**
  Calculates the exponential fog factor.
 
@@ -397,9 +421,5 @@ void Contribution(ShadowMappedSpotLight light,
 float FogFactor_Exponential(float distance, float density) {
 	return exp(-distance * density);
 }
-
-#ifndef FOG_FACTOR_COMPONENT
-	#define FOG_FACTOR_COMPONENT FogFactor_Exponential
-#endif // FOG_FACTOR_COMPONENT
 
 #endif //MAGE_HEADER_LIGHT

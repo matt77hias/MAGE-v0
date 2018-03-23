@@ -11,6 +11,13 @@
 #include "global.hlsli"
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#ifndef GROUP_SIZE
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
+#endif
+
+//-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
 TEXTURE_2D(g_input_image_texture,     float4, SLOT_SRV_IMAGE);
@@ -43,10 +50,6 @@ static const float2 g_disk_offsets[12] = {
 float GetBlurFactor(float p_camera_z) {
 	return smoothstep(0.0f, g_lens_radius, abs(p_camera_z - g_focal_length));
 }
-
-#ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
-#endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {

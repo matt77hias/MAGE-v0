@@ -163,7 +163,7 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Transform Utilities
+// Engine Declarations and Definitions: Transformations
 //-----------------------------------------------------------------------------
 
 /**

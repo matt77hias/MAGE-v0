@@ -2,5 +2,5 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #define ENABLE_TRANSPARENCY
-#define BRDFxCOS_COMPONENT FrostbiteBRDFxCos
+#define BRDF_FUNCTION FrostbiteBRDF
 #include "forward\forward.hlsli"

@@ -2,5 +2,5 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #define ENABLE_TRANSPARENCY
-#define BRDFxCOS_COMPONENT CookTorranceBRDFxCos
+#define BRDF_FUNCTION CookTorranceBRDF
 #include "forward\forward.hlsli"

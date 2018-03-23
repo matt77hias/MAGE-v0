@@ -1933,6 +1933,7 @@
     </FxCompile>
     <None Include="Shaders\shaders\hlsl_syntax.hlsli" />
     <None Include="Shaders\shaders\lighting.hlsli" />
+    <None Include="Shaders\shaders\material.hlsli" />
     <None Include="Shaders\shaders\math.hlsli" />
     <FxCompile Include="Shaders\shaders\falsecolor\constant_color_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>

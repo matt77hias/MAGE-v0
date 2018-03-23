@@ -2,5 +2,5 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #define DISABLE_TSNM
-#define BRDFxCOS_COMPONENT CookTorranceBRDFxCos
+#define BRDF_FUNCTION CookTorranceBRDF
 #include "voxelization\voxelization.hlsli"

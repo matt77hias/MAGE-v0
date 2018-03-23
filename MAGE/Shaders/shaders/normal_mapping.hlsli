@@ -20,7 +20,7 @@
 				The texture coordinates.
  @return		The tangent-to-shading transformation matrix.
  */
-float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
+float3x3 CalculateTangentToShadingMatrix(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.
 	const float3 dp_dj   = ddx(p);
 	const float3 dp_di   = ddy(p);
@@ -59,9 +59,10 @@ float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
  */
 float3 PerturbNormal(float3 p, float3 n, float2 tex, float3 n_tangent) {
 	// Calculates the tangent-to-shading transformation matrix.
-	const float3x3 TBN = CalculateTBN(p, n, tex);
+	const float3x3 tangent_to_shading 
+		= CalculateTangentToShadingMatrix(p, n, tex);
 
-	return normalize(mul(n_tangent, TBN));
+	return normalize(mul(n_tangent, tangent_to_shading));
 }
 
 #endif // MAGE_HEADER_NORMAL_MAPPING

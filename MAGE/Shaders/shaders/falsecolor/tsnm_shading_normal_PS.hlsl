@@ -8,8 +8,8 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define DISABLE_BASE_COLOR_TEXTURE
-#define DISABLE_MATERIAL_TEXTURE
+#define DISABLE_TEXTURE_BASE_COLOR
+#define DISABLE_TEXTURE_MATERIAL
 #include "forward\forward_input.hlsli"
 
 //-----------------------------------------------------------------------------

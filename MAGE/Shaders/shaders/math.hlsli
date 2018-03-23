@@ -923,7 +923,7 @@ double4 SNORMtoUNORM(double4 v) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Normal Utilities
+// Engine Declarations and Definitions: Normal Packing/Unpacking
 //-----------------------------------------------------------------------------
 
 /**
@@ -970,7 +970,7 @@ float3 PackNormal(float3 n) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Transform Utilities
+// Engine Declarations and Definitions: Transformations
 //-----------------------------------------------------------------------------
 
 /**
@@ -1028,7 +1028,7 @@ float2 UVtoNDC(float2 uv) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Indexing Utilities
+// Engine Declarations and Definitions: Indexing
 //-----------------------------------------------------------------------------
 
 /**
@@ -1089,7 +1089,7 @@ uint3 UnflattenIndex(uint index, uint3 count) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Trigonometric Utilities
+// Engine Declarations and Definitions: Trigonometry
 //-----------------------------------------------------------------------------
 
 /**
@@ -1112,6 +1112,27 @@ float SqrCosToSqrTan(float sqr_cos) {
  */
 float SqrSinToSqrTan(float sqr_sin) {
 	return sqr_sin / (1.0f - sqr_sin);
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
+/**
+ Calculates an orthonormal basis from a given unit vector with the method 
+ of Hughes and Möller.
+
+ @pre			@a n is normalized.
+ @param[in]		n
+				A basis vector of the orthonormal basis.
+ @return		An orthonormal basis.
+ */
+float3x3 OrthonormalBasis(float3 n) {
+	const float3 n_ortho = (0.1f < abs(n.x)) ? float3(0.0f, 1.0f, 0.0f) 
+		                                     : float3(1.0f, 0.0f, 0.0f);
+	const float3 t = normalize(cross(n_ortho, n));
+	const float3 b = cross(n, t);
+	return float3x3(t, b, n);
 }
 
 #endif //MAGE_HEADER_MATH

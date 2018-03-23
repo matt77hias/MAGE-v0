@@ -6,7 +6,15 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// TONE_MAP_COMPONENT                       | ToneMap_Uncharted
+// TONE_MAP_FUNCTION                        | ToneMap_Uncharted
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+
+#ifndef TONE_MAP_FUNCTION
+	#define TONE_MAP_FUNCTION ToneMap_Uncharted
+#endif // TONE_MAP_FUNCTION
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
@@ -22,6 +30,10 @@
 float Luminance(float3 rgb) {
 	return max(dot(rgb, float3(0.212671f, 0.715160f, 0.072169f)), 0.0001f);
 }
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Max3
+//-----------------------------------------------------------------------------
 
 float3 ToneMap_Max3(float3 hdr) {
 	return hdr * rcp(1.0f + Max(hdr));
@@ -47,6 +59,10 @@ float4 InverseToneMap_Max3(float4 ldr) {
 	return float4(InverseToneMap_Max3(ldr.xyz), ldr.w);
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Reinhard
+//-----------------------------------------------------------------------------
+
 float3 ToneMap_Reinhard(float3 hdr) {
 	return hdr / (1.0f + hdr);
 }
@@ -63,6 +79,10 @@ float4 InverseToneMap_Reinhard(float4 ldr) {
 	return float4(InverseToneMap_Reinhard(ldr.xyz), ldr.w);
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: ACES Filmic
+//-----------------------------------------------------------------------------
+
 float3 ToneMap_ACESFilmic(float3 hdr) {
 	static const float a = 2.51f;
 	static const float b = 0.03f;
@@ -77,6 +97,10 @@ float3 ToneMap_ACESFilmic(float3 hdr) {
 float4 ToneMap_ACESFilmic(float4 hdr) {
 	return float4(ToneMap_ACESFilmic(hdr.xyz), hdr.w);
 }
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Uncharted
+//-----------------------------------------------------------------------------
 
 float3 ToneMap_Uncharted(float3 hdr) {
 	static const float a = 0.22f;
@@ -93,9 +117,5 @@ float3 ToneMap_Uncharted(float3 hdr) {
 float4 ToneMap_Uncharted(float4 hdr) {
 	return float4(ToneMap_Uncharted(hdr.xyz), hdr.w);
 }
-
-#ifndef TONE_MAP_COMPONENT
-	#define TONE_MAP_COMPONENT ToneMap_Uncharted
-#endif // TONE_MAP_COMPONENT
 
 #endif //MAGE_HEADER_TONE_MAPPING

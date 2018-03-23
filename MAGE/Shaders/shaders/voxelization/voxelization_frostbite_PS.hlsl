@@ -2,5 +2,5 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #define DISABLE_TSNM
-#define BRDFxCOS_COMPONENT FrostbiteBRDFxCos
+#define BRDF_FUNCTION FrostbiteBRDF
 #include "voxelization\voxelization.hlsli"

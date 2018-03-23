@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define TONE_MAP_COMPONENT ToneMap_ACESFilmic
+#define TONE_MAP_FUNCTION ToneMap_ACESFilmic
 #include "backbuffer\back_buffer.hlsli"

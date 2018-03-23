@@ -12,6 +12,13 @@
 #include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#ifndef GROUP_SIZE
+	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
+#endif
+
+//-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
 TEXTURE_2D_MS(g_input_image_texture,   float4, SLOT_SRV_IMAGE);
@@ -28,11 +35,6 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 //-----------------------------------------------------------------------------
 // Compute Shader
 //-----------------------------------------------------------------------------
-
-#ifndef GROUP_SIZE
-	#define GROUP_SIZE GROUP_SIZE_2D_DEFAULT
-#endif
-
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 

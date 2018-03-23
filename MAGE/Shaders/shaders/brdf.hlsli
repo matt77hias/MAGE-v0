@@ -6,13 +6,14 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// DISABLE_DIFFUSE_BRDF                     | not defined
-// DISABLE_SPECULAR_BRDF                    | not defined
-// BRDF_F_COMPONENT                         | F_Schlick
-// BRDF_D_COMPONENT                         | D_GGX
-// BRDF_G_COMPONENT                         | G_GXX
-// BRDF_MINIMUM_ALPHA                       | 0.1f
 // BRDF_DOT_EPSILON                         | 0.00001f
+// BRDF_D_FUNCTION                          | D_GGX
+// BRDF_F_FUNCTION                          | F_Schlick
+// BRDF_G_FUNCTION                          | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
+// DISABLE_BRDF_DIFFUSE                     | not defined
+// DISABLE_BRDF_SPECULAR                    | not defined
+
 
 // The input arguments (n, l, v) for evaluating BRDFs and BRDF components must 
 // be expressed in the same coordinate system which can be chosen arbitrarily.
@@ -21,6 +22,31 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "math.hlsli"
+#include "material.hlsli"
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+
+#ifndef BRDF_F_FUNCTION
+	#define BRDF_F_FUNCTION F_Schlick
+#endif // BRDF_F_FUNCTION
+
+#ifndef BRDF_D_FUNCTION
+	#define BRDF_D_FUNCTION D_GGX
+#endif // BRDF_D_FUNCTION
+
+#ifndef BRDF_V_FUNCTION
+	#define BRDF_V_FUNCTION V_GGX
+#endif // BRDF_V_FUNCTION
+
+#ifndef BRDF_MINIMUM_ALPHA
+	#define BRDF_MINIMUM_ALPHA 0.1f
+#endif // BRDF_MINIMUM_ALPHA
+
+#ifndef BRDF_DOT_EPSILON
+	#define BRDF_DOT_EPSILON 0.00001f
+#endif // BRDF_DOT_EPSILON
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants
@@ -1427,7 +1453,7 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the Lambertian BRDFxCos.
+ Calculates the Lambertian BRDF.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
@@ -1438,46 +1464,17 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
 				The view (hit-to-eye) direction expressed in shading space.
- @param[in]		base_color
-				The base color of the material.
- @param[in]		roughness
-				The roughness of the material.
- @param[in]		metalness
-				The metalness of the material.
- @return		The Lambertian BRDFxCos.
+ @param[in]		material
+				The material.
+ @return		The Lambertian BRDF.
  */
-float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
-	                      float3 base_color, 
-	                      float roughness, 
-	                      float metalness) {
-
-	#ifdef DISABLE_DIFFUSE_BRDF
+float3 LambertianBRDF(float3 n, float3 l, float3 v, Material material) {
+	#ifdef DISABLE_BRDF_DIFFUSE
 	return 0.0f;
-	#else // DISABLE_DIFFUSE_BRDF
-	const float n_dot_l = sat_dot(n, l);
-	return base_color * g_inv_pi * n_dot_l;
-	#endif // DISABLE_DIFFUSE_BRDF
+	#else  // DISABLE_BRDF_DIFFUSE
+	return material.base_color * g_inv_pi;
+	#endif // DISABLE_BRDF_DIFFUSE
 }
-
-#ifndef BRDF_F_COMPONENT
-	#define BRDF_F_COMPONENT F_Schlick
-#endif // BRDF_F_COMPONENT
-
-#ifndef BRDF_D_COMPONENT
-	#define BRDF_D_COMPONENT D_GGX
-#endif // BRDF_D_COMPONENT
-
-#ifndef BRDF_V_COMPONENT
-	#define BRDF_V_COMPONENT V_GGX
-#endif // BRDF_V_COMPONENT
-
-#ifndef BRDF_MINIMUM_ALPHA
-	#define BRDF_MINIMUM_ALPHA 0.1f
-#endif // BRDF_MINIMUM_ALPHA
-
-#ifndef BRDF_DOT_EPSILON
-	#define BRDF_DOT_EPSILON 0.00001f
-#endif // BRDF_DOT_EPSILON
 
 float RoughnessToAlpha(float roughness) {
 	return max(BRDF_MINIMUM_ALPHA, sqr(roughness));
@@ -1486,18 +1483,18 @@ float RoughnessToAlpha(float roughness) {
 float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
 	                       float v_dot_h, float roughness) {
 
-	const float energy_factor = lerp(1.0f, 1.0f / 1.51f, roughness);
-
 	const float F0  = 1.0f;
 	const float F90 = (0.5f + 2.0f * sqr(v_dot_h)) * roughness;
-	const float FV  = F_Schlick(n_dot_v, F0, F90);
-	const float FL  = F_Schlick(n_dot_l, F0, F90);
+	const float F_v = F_Schlick(n_dot_v, F0, F90);
+	const float F_l = F_Schlick(n_dot_l, F0, F90);
 
-	return energy_factor * FV * FL;
+	const float energy_factor = lerp(1.0f, 1.0f / 1.51f, roughness);
+
+	return energy_factor * F_v * F_l;
 }
 
 /**
- Calculates the Frostbite BRDFxCos.
+ Calculates the Frostbite BRDF.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
@@ -1508,49 +1505,41 @@ float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
 				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
 				The view (hit-to-eye) direction expressed in shading space.
- @param[in]		base_color
-				The base color of the material.
- @param[in]		roughness
-				The roughness of the material.
- @param[in]		metalness
-				The metalness of the material.
- @return		The Cook-Torrance BRDFxCos.
+ @param[in]		material
+				The material.
+ @return		The Cook-Torrance BRDF.
  */
-float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v, 
-	                     float3 base_color,
-	                     float roughness, 
-	                     float metalness) {
-	
-	const float  alpha   = RoughnessToAlpha(roughness);
-	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
-	const float  n_dot_v = sat_dot(n, v) + BRDF_DOT_EPSILON;
-	const float3 h       = HalfDirection(l, v);
-	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
-	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
+float3 FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
+	const float  alpha     = RoughnessToAlpha(material.roughness);
+	const float  n_dot_l   = sat_dot(n, l) + BRDF_DOT_EPSILON;
+	const float  n_dot_v   = sat_dot(n, v) + BRDF_DOT_EPSILON;
+	const float3 h         = HalfDirection(l, v);
+	const float  n_dot_h   = sat_dot(n, h) + BRDF_DOT_EPSILON;
+	const float  v_dot_h   = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	#ifdef DISABLE_SPECULAR_BRDF
-	const float3 Fs      = 0.0f;
-	#else // DISABLE_SPECULAR_BRDF
-	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
-	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
-	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISABLE_SPECULAR_BRDF
+	#ifdef DISABLE_BRDF_SPECULAR
+	const float3 brdf_spec = 0.0f;
+	#else // DISABLE_BRDF_SPECULAR
+	const float3 F_spec0   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F_spec0);
+	const float  D         = BRDF_D_FUNCTION(n_dot_h, alpha);
+	const float  V         = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
+	const float3 brdf_spec = F_spec * 0.25f * D * V;
+	#endif // DISABLE_BRDF_SPECULAR
 
-	#ifdef DISABLE_DIFFUSE_BRDF
-	const float3 Fd      = 0.0f;
-	#else // DISABLE_DIFFUSE_BRDF
-	const float  F_diff  = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, roughness) 
-		                 * (1.0f - metalness);
-	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_BRDF_DIFFUSE
+	const float3 brdf_diff = 0.0f;
+	#else // DISABLE_BRDF_DIFFUSE
+	const float  F_diff    = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, material.roughness)
+		                   * (1.0f - material.metalness);
+	const float3 brdf_diff = F_diff * material.base_color * g_inv_pi;
+	#endif // DISABLE_BRDF_DIFFUSE
 
-	return (Fd + Fs) * n_dot_l;
+	return brdf_diff + brdf_spec;
 }
 
 /**
- Calculates the Cook-Torrance BRDFxCos.
+ Calculates the Cook-Torrance BRDF.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
@@ -1561,45 +1550,37 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
 				The light (hit-to-light) direction expressed in shading space.
  @param[in]		v
 				The view (hit-to-eye) direction expressed in shading space.
- @param[in]		base_color
-				The base color of the material.
- @param[in]		roughness
-				The roughness of the material.
- @param[in]		metalness
-				The metalness of the material.
- @return		The Cook-Torrance BRDFxCos.
+ @param[in]		material
+				The material.
+ @return		The Cook-Torrance BRDF.
  */
-float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v, 
-	                        float3 base_color, 
-	                        float roughness, 
-	                        float metalness) {
-	
-	const float  alpha   = RoughnessToAlpha(roughness);
-	const float  n_dot_l = sat_dot(n, l) + BRDF_DOT_EPSILON;
-	const float  n_dot_v = sat_dot(n, v) + BRDF_DOT_EPSILON;
-	const float3 h       = HalfDirection(l, v);
-	const float  n_dot_h = sat_dot(n, h) + BRDF_DOT_EPSILON;
-	const float  v_dot_h = sat_dot(v, h) + BRDF_DOT_EPSILON;
+float3 CookTorranceBRDF(float3 n, float3 l, float3 v, Material material) {
+	const float  alpha     = RoughnessToAlpha(material.roughness);
+	const float  n_dot_l   = sat_dot(n, l) + BRDF_DOT_EPSILON;
+	const float  n_dot_v   = sat_dot(n, v) + BRDF_DOT_EPSILON;
+	const float3 h         = HalfDirection(l, v);
+	const float  n_dot_h   = sat_dot(n, h) + BRDF_DOT_EPSILON;
+	const float  v_dot_h   = sat_dot(v, h) + BRDF_DOT_EPSILON;
 
-	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
+	const float3 F_spec0   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F_spec0);
 
-	#ifdef DISABLE_SPECULAR_BRDF
-	const float3 Fs      = 0.0f;
-	#else // DISABLE_SPECULAR_BRDF
-	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
-	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 Fs      = F_spec * 0.25f * D * V;
-	#endif // DISABLE_SPECULAR_BRDF
+	#ifdef DISABLE_BRDF_SPECULAR
+	const float3 brdf_spec = 0.0f;
+	#else // DISABLE_BRDF_SPECULAR
+	const float  D         = BRDF_D_FUNCTION(n_dot_h, alpha);
+	const float  V         = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
+	const float3 brdf_spec = F_spec * 0.25f * D * V;
+	#endif // DISABLE_BRDF_SPECULAR
 
-	#ifdef DISABLE_DIFFUSE_BRDF
-	const float3 Fd      = 0.0f;
-	#else // DISABLE_DIFFUSE_BRDF
-	const float3 F_diff  = (1.0f - F_spec) * (1.0f - metalness);
-	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	#endif // DISABLE_DIFFUSE_BRDF
+	#ifdef DISABLE_BRDF_DIFFUSE
+	const float3 brdf_diff = 0.0f;
+	#else // DISABLE_BRDF_DIFFUSE
+	const float3 F_diff    = (1.0f - F_spec) * (1.0f - material.metalness);
+	const float3 brdf_diff = F_diff * material.base_color * g_inv_pi;
+	#endif // DISABLE_BRDF_DIFFUSE
 
-	return (Fd + Fs) * n_dot_l;
+	return brdf_diff + brdf_spec;
 }
 
 #endif // MAGE_HEADER_BRDF

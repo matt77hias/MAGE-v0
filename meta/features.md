@@ -48,12 +48,12 @@
      * F component: None, Schlick, Cook-Torrance
 * Color spaces
   * All separate colors and textures with color data are expressed in sRGB space.
-  * All light calculations are performed in linear space.
+  * All light calculations are performed in linear RGB space.
   * sRGB colors are converted from gamma to linear space by the CPU (*Frostbite*).
-  * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
-  * Optional custom gamma correction before presenting (i.e. brightness adjustment)
+  * sRGB textures are converted from gamma to linear space by the GPU hardware (ensures correct filtering and blending).
+  * Optional, custom gamma correction before presenting (i.e. brightness adjustment)
 * Culling
-  * Non-hierarchical light and object
+  * Non-hierarchical light and object culling
 * Depth buffer
   * Standard Z-depth
   * Reversed Z-depth
@@ -66,6 +66,7 @@
   * Physically-based and smooth distance attenuation (*Frostbite*)
   * Exponential fog with custom density (avoids popping artifacts)
   * HDR
+  * Direct and indirect illumination (voxel cone tracing).
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)
@@ -77,7 +78,7 @@
 * Render Modes (single render mode/camera)
   * Forward
   * Deferred
-  * Various material and component visualizations
+  * False Color, Voxel Grid, Solid, etc.
 * Shadow Mapping
   * Optional occluding behavior for models
   * Support for both opaque and transparent models
@@ -89,9 +90,9 @@
 * Sprites
 * Tone Mapping
   * AA resolving (SSAA, MSAA, FXAA): Max3
-  * Back buffer: ACES, Reinhard, Uncharted
+  * Back buffer: ACES Filmic, Reinhard, Uncharted
 * Transparency
-  * ~~Alpha-to-Coverage~~ (*not supported any more*)
+  * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending
 
 ### Resource Management
@@ -99,21 +100,17 @@
 * Models
 * Shaders: Vertex, Domain, Hull, Geometry, Pixel, Compute
 * Textures
-* Variables Scripts
 
 ### Scene
 * Camera
   * Orthographic
   * Perspective
-* Fog
-  * Linear
 * Light
   * Ambient
   * Directional
   * Omni (with or without shadow cube mapping)
   * Spot (with or without shadow mapping)
 * Model
-* Sky
 * Sprite
   * Image
   * Text

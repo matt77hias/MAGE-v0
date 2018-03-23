@@ -255,7 +255,7 @@ float3 GetRadiance(float3 p, float3 n, Material material) {
 	L += GetDirectRadiance(v, p, n, material);
 	#endif // DISABLE_ILLUMINATION_DIRECT
 	
-	#ifndef DISABLE_VCT //DISABLE_ILLUMINATION_INDIRECT
+	#ifndef DISABLE_ILLUMINATION_INDIRECT
 	// Obtain the indirect radiance.
 	L += GetIndirectRadiance(v, p, n, material);
 	#endif // DISABLE_ILLUMINATION_INDIRECT

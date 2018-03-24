@@ -248,63 +248,70 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
-	const typename OBJReader< VertexT, IndexT >::Index3
-		OBJReader< VertexT, IndexT >::ReadOBJVertexIndices() {
+	const U32x3 OBJReader< VertexT, IndexT >
+		::ReadOBJVertexIndices() {
 
 		const auto token = ReadChars();
 
-		IndexT vertex_index  = 0;
-		IndexT texture_index = 0;
-		IndexT normal_index  = 0;
+		S32 v_index  = 0;
+		S32 vt_index = 0;
+		S32 vn_index = 0;
 
 		if (str_contains(token, "//")) {
 			// v1//vn1
 			const auto index_end = strchr(token, '/');
-			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
+				throw Exception("%ls: line %u: invalid v index value found in %s.", 
 					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
-			if (StringTo< IndexT >(index_end + 2, normal_index) == TokenResult::Invalid) {
-				throw Exception("%ls: line %u: invalid normal index value found in %s.", 
+			if (TokenResult::Invalid == StringTo< S32 >(index_end + 2, vn_index)) {
+				throw Exception("%ls: line %u: invalid vn index value found in %s.", 
 					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (str_contains(token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
 			const auto index_end = strchr(token, '/');
-			if (StringTo< IndexT >(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
+				throw Exception("%ls: line %u: invalid v index value found in %s.", 
 					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			
 			if (str_contains(index_end + 1, '/')) {
 				const auto texture_end = strchr(index_end + 1, '/');
-				if (StringTo< IndexT >(index_end + 1, texture_end, texture_index) == TokenResult::Invalid) {
-					throw Exception("%ls: line %u: invalid texture index value found in %s.", 
+				if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, texture_end, vt_index)) {
+					throw Exception("%ls: line %u: invalid vt index value found in %s.", 
 						            GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
-				if (StringTo< IndexT >(texture_end + 1, normal_index) == TokenResult::Invalid) {
-					throw Exception("%ls: line %u: invalid normal index value found in %s.", 
+				if (TokenResult::Invalid == StringTo< S32 >(texture_end + 1, vn_index)) {
+					throw Exception("%ls: line %u: invalid vn index value found in %s.", 
 						            GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
-			else if (StringTo< IndexT >(index_end + 1, texture_index) == TokenResult::Invalid) {
-				throw Exception("%ls: line %u: invalid texture index value found in %s.", 
+			else if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, vt_index)) {
+				throw Exception("%ls: line %u: invalid vt index value found in %s.", 
 					            GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
-		else if (StringTo< IndexT >(token, vertex_index) == TokenResult::Invalid) {
-			throw Exception("%ls: line %u: invalid vertex index value found in %s.", 
+		else if (TokenResult::Invalid == StringTo< S32 >(token, v_index)) {
+			throw Exception("%ls: line %u: invalid v index value found in %s.", 
 				            GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		return Index3(vertex_index, texture_index, normal_index);
+		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 
+		              : static_cast< S32 >(m_vertex_coordinates.size())         +  v_index);
+		const auto vt = static_cast< U32 >((0 <= vt_index) ? vt_index 
+		              : static_cast< S32 >(m_vertex_texture_coordinates.size()) + vt_index);
+		const auto vn = static_cast< U32 >((0 <= vn_index) ? vn_index 
+		              : static_cast< S32 >(m_vertex_normal_coordinates.size())  + vn_index);
+
+		return U32x3(v, vt, vn);
 	}
 
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
 	const VertexT OBJReader< VertexT, IndexT >
-		::ConstructVertex(const Index3& vertex_indices) {
+		::ConstructVertex(const U32x3& vertex_indices) {
 		
 		VertexT vertex;
 

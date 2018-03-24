@@ -122,15 +122,6 @@ namespace mage::rendering::loader {
 	private:
 
 		//---------------------------------------------------------------------
-		// Type Declarations and Definitions
-		//---------------------------------------------------------------------
-
-		/**
-		 A struct of three indices.
-		 */
-		using Index3 = Vector3< IndexT >;
-
-		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -280,16 +271,16 @@ namespace mage::rendering::loader {
 		const UV ReadOBJVertexTextureCoordinates();
 
 		/**
-		 Reads a set of face indices.
+		 Reads a set of vertex indices.
 
-		 @return		The face indices represented by the next token of this 
-						OBJ reader.	A zero indicates the absence of a 
+		 @return		The vertex indices represented by the next token of 
+						this OBJ reader. A zero indicates the absence of a 
 						component.
 		 @throws		Exception
-						Failed to read a Bool variable.
+						Failed to read the vertex indices.
 		 */
 		[[nodiscard]]
-		const Index3 ReadOBJVertexIndices();
+		const U32x3 ReadOBJVertexIndices();
 		
 		/**
 		 Constructs or retrieves (if already existing) the vertex matching the 
@@ -301,17 +292,17 @@ namespace mage::rendering::loader {
 						@a vertex_indices.
 		 */
 		[[nodiscard]]
-		const VertexT ConstructVertex(const Index3& vertex_indices);
+		const VertexT ConstructVertex(const U32x3& vertex_indices);
 
 		/**
-		 A struct of @c Index3 comparators for OBJ vertex indices.
+		 A struct of @c U32x3 comparators for OBJ vertex indices.
 		 */
-		struct OBJComparatorIndex3 final {
+		struct OBJComparator final {
 
 		public:
 
 			/**
-			 Compares the two given @c Index3 vectors against each other.
+			 Compares the two given @c U32x3 vectors against each other.
 
 			 @param[in]		lhs
 							A reference to the first vector.
@@ -321,8 +312,7 @@ namespace mage::rendering::loader {
 							@c false otherwise.
 			 */
 			[[nodiscard]]
-			bool operator()(const Index3& lhs, const Index3& rhs) const noexcept {
-
+			bool operator()(const U32x3& lhs, const U32x3& rhs) const noexcept {
 				return (lhs.m_x == rhs.m_x) ? ((lhs.m_y == rhs.m_y) ? (lhs.m_z < rhs.m_z) 
 					                                                : (lhs.m_y < rhs.m_y)) 
 					                        : (lhs.m_x < rhs.m_x);
@@ -356,7 +346,7 @@ namespace mage::rendering::loader {
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		std::map< Index3, IndexT, OBJComparatorIndex3 > m_mapping;
+		std::map< U32x3, IndexT, OBJComparator > m_mapping;
 		
 		/**
 		 A reference to the resource manager of this OBJ reader.

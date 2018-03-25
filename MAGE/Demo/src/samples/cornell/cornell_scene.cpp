@@ -79,7 +79,7 @@ namespace mage {
 		cornell_box_node->AddChild(tall_box_node);
 
 		cornell_box_node->SetName("Cornell Box");
-		cornell_box_node->GetTransform().SetScale(10.0f, 10.0f, 10.0f);
+		cornell_box_node->GetTransform().SetScale(10.0f);
 
 		short_box_node->SetName("Short Box");
 		short_box_node->GetTransform().SetTranslation(0.15f, -0.35f, -0.2f);
@@ -95,7 +95,7 @@ namespace mage {
 		// Lights
 		//---------------------------------------------------------------------
 		const auto omni_light = rendering_world.Create< OmniLight >();
-		omni_light->SetRange(50.0f);
+		omni_light->SetRange(11.0f);
 		omni_light->SetPower(4.0f);
 		omni_light->EnableShadows();
 
@@ -103,6 +103,7 @@ namespace mage {
 		omni_light_node->Add(omni_light);
 		cornell_box_node->AddChild(omni_light_node);
 		omni_light_node->GetTransform().SetTranslationY(0.4f);
+		omni_light_node->GetTransform().SetScale(0.1f);
 		
 		//---------------------------------------------------------------------
 		// Sprites

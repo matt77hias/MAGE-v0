@@ -112,8 +112,14 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Texture
 			//-----------------------------------------------------------------
-			const auto& guid = sky.GetTexture()->GetGuid();
-			ImGui::LabelText("Sky Texture", str_convert(guid).c_str());
+			if (sky.GetTexture()) {
+				const auto& guid = sky.GetTexture()->GetGuid();
+				ImGui::LabelText("Sky Texture", str_convert(guid).c_str());
+			}
+			else {
+				ImGui::Text("mage_black_texture");
+				ImGui::Text("1 x 1 texel");
+			}
 
 			//-----------------------------------------------------------------
 			// Density
@@ -575,7 +581,7 @@ namespace mage::script {
 			}
 			else {
 				ImGui::Text("mage_black_texture");
-				ImGui::Text("1 x 1 texels");
+				ImGui::Text("1 x 1 texel");
 			}
 
 			//-----------------------------------------------------------------
@@ -612,7 +618,7 @@ namespace mage::script {
 			}
 			else {
 				ImGui::Text("mage_black_texture");
-				ImGui::Text("1 x 1 texels");
+				ImGui::Text("1 x 1 texel");
 			}
 
 			//-----------------------------------------------------------------
@@ -754,7 +760,7 @@ namespace mage::script {
 			}
 			else {
 				ImGui::Text("mage_black_texture");
-				ImGui::Text("1 x 1 texels");
+				ImGui::Text("1 x 1 texel");
 			}
 
 			//-----------------------------------------------------------------
@@ -810,7 +816,7 @@ namespace mage::script {
 			}
 			else {
 				ImGui::Text("no font");
-				ImGui::Text("1 x 1 texels");
+				ImGui::Text("1 x 1 texel");
 			}
 
 			//-----------------------------------------------------------------

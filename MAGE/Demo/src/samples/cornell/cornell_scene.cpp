@@ -29,7 +29,7 @@
 namespace mage {
 
 	CornellScene::CornellScene()
-		: Scene("scene_scene") {}
+		: Scene("cornell_scene") {}
 
 	CornellScene::CornellScene(CornellScene&& scene) = default;
 

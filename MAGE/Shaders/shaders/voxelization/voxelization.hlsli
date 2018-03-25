@@ -32,6 +32,7 @@
 //-----------------------------------------------------------------------------
 #include "forward\forward_input.hlsli"
 
+#define DISABLE_BRDF_SPECULAR
 #define DISABLE_FOG
 #define DISABLE_LIGHT_AMBIENT
 #define DISABLE_VCT  

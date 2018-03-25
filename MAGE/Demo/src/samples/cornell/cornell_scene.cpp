@@ -49,9 +49,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		const auto cornell_model_desc 
-			= rendering_factory.GetOrCreate< ModelDescriptor >(
-				L"assets/models/cornell/cornell.obj", mesh_desc);
 		const auto cube_model_desc 
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/cube/cube.obj", mesh_desc);
@@ -72,24 +69,82 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		const auto cornell_box_node = Import(engine, *cornell_model_desc);
-		const auto short_box_node   = Import(engine, *cube_model_desc);
-		const auto tall_box_node    = Import(engine, *cube_model_desc);
-		cornell_box_node->AddChild(short_box_node);
-		cornell_box_node->AddChild(tall_box_node);
+		const auto cornell_node        = Create< Node >("Cornell Box");
+		cornell_node->GetTransform().SetScale(10.0f);
+		
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Left Plane");
+			node->GetTransform().SetTranslationX(-0.5f);
+			node->GetTransform().SetRotation(-XM_PIDIV2, -XM_PIDIV2, 0.0f);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.63f, 0.065f, 0.05f };
+		}
+		
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Right Plane");
+			node->GetTransform().SetTranslationX(0.5f);
+			node->GetTransform().SetRotation(-XM_PIDIV2, XM_PIDIV2, 0.0f);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.14f, 0.45f, 0.091f };
+		}
+		
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Bottom Plane");
+			node->GetTransform().SetTranslationY(-0.5f);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+		}
 
-		cornell_box_node->SetName("Cornell Box");
-		cornell_box_node->GetTransform().SetScale(10.0f);
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Top Plane");
+			node->GetTransform().SetTranslationY(0.5f);
+			node->GetTransform().SetRotation(0.0f, XM_PI, XM_PI);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+		}
 
-		short_box_node->SetName("Short Box");
-		short_box_node->GetTransform().SetTranslation(0.15f, -0.35f, -0.2f);
-		short_box_node->GetTransform().SetRotationY(0.3f);
-		short_box_node->GetTransform().SetScale(0.25f, 0.3f, 0.25f);
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Near Plane");
+			node->GetTransform().SetTranslationZ(-0.5f);
+			node->GetTransform().SetRotation(-XM_PIDIV2, XM_PIDIV2, XM_PIDIV2);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+		}
 
-		tall_box_node->SetName("Tall Box");
-		tall_box_node->GetTransform().SetTranslation(-0.15f, -0.2f, 0.0f);
-		tall_box_node->GetTransform().SetRotationY(-0.35f);
-		tall_box_node->GetTransform().SetScale(0.25f, 0.6f, 0.25f);
+		{
+			const auto node = Import(engine, *plane_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Far Plane");
+			node->GetTransform().SetTranslationZ(0.5f);
+			node->GetTransform().SetRotationX(-XM_PIDIV2);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+		}
+
+		{
+			const auto node = Import(engine, *cube_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Short Box");
+			node->GetTransform().SetTranslation(0.15f, -0.35f, -0.2f);
+			node->GetTransform().SetRotationY(0.3f);
+			node->GetTransform().SetScale(0.25f, 0.3f, 0.25f);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+
+		}
+
+		{
+			const auto node = Import(engine, *cube_model_desc);
+			cornell_node->AddChild(node);
+			node->SetName("Tall Box");
+			node->GetTransform().SetTranslation(-0.15f, -0.2f, 0.0f);
+			node->GetTransform().SetRotationY(-0.35f);
+			node->GetTransform().SetScale(0.25f, 0.6f, 0.25f);
+			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
+		}
 		
 		//---------------------------------------------------------------------
 		// Lights
@@ -101,7 +156,7 @@ namespace mage {
 
 		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
-		cornell_box_node->AddChild(omni_light_node);
+		cornell_node->AddChild(omni_light_node);
 		omni_light_node->GetTransform().SetTranslationY(0.4f);
 		omni_light_node->GetTransform().SetScale(0.1f);
 		

@@ -52,7 +52,7 @@ namespace mage {
 
 		const auto plane_model_desc 
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
-				L"assets/models/plane/plane.mdl", mesh_desc);
+				L"assets/models/plane/plane.obj", mesh_desc);
 		const auto tree1_model_desc 
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);

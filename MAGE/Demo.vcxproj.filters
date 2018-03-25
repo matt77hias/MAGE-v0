@@ -43,6 +43,12 @@
     <Filter Include="Source Files\samples\sponza">
       <UniqueIdentifier>{54c7e7c4-a116-42ff-981b-b28d5f2fd992}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\samples\cornell">
+      <UniqueIdentifier>{30629812-65b0-485d-b8c4-c13939f873b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\samples\cornell">
+      <UniqueIdentifier>{5acb98eb-aa8e-40b0-ae52-b28ffe907eb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demo\src\samples\brdf\brdf_scene.hpp">
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="Demo\src\samples\sponza\sponza_scene.hpp">
       <Filter>Header Files\samples\sponza</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\src\samples\cornell\cornell_scene.hpp">
+      <Filter>Header Files\samples\cornell</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="Demo\src\demo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\src\samples\cornell\cornell_scene.cpp">
+      <Filter>Source Files\samples\cornell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

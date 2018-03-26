@@ -248,6 +248,7 @@ namespace mage::rendering {
 				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
 				buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
 				buffer.m_light.m_I             = light.GetIntensitySpectrum();
+				buffer.m_world_to_light        = XMMatrixTranspose(world_to_light);
 				buffer.m_projection_values     = XMStore< F32x2 >(GetNDCZConstructionValues(
 					                                              light_to_lprojection));
 

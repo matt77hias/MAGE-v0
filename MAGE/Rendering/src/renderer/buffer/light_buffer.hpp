@@ -623,6 +623,7 @@ namespace mage::rendering {
 		 */
 		ShadowMappedOmniLightBuffer() noexcept
 			: m_light(), 
+			m_world_to_light{}, 
 			m_projection_values(), 
 			m_padding0() {}
 		
@@ -701,6 +702,12 @@ namespace mage::rendering {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
+		 The (column-major packed, row-major matrix) world-to-light matrix of 
+		 this shadow mapped omni light buffer.
+		 */
+		XMMATRIX m_world_to_light;
+
+		/**
 		 The projection values of the light-to-projection transformation matrix
 		 of this shadow mapped omni light buffer.
 		 */
@@ -712,7 +719,7 @@ namespace mage::rendering {
 		U32 m_padding0[2];
 	};
 
-	static_assert(48 == sizeof(ShadowMappedOmniLightBuffer), 
+	static_assert(112 == sizeof(ShadowMappedOmniLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

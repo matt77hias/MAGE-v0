@@ -97,6 +97,8 @@ struct ShadowMappedDirectionalLight {
 struct ShadowMappedOmniLight {
 	// The omni light.
 	OmniLight light;
+	// The world-to-light transformation matrix.
+	float4x4 world_to_light;
 	// The projection values of the light-to-projection transformation matrix.
 	// projection_values.x = light_to_projection22
 	// projection_values.y = light_to_projection32
@@ -366,7 +368,7 @@ void Contribution(ShadowMappedOmniLight light,
 	Contribution(light.light, p, l0, E0);
 
 	l = l0;
-	const float3 p_light = p - light.light.p;
+	const float3 p_light = mul(float4(p, 1.0f), light.world_to_light).xyz;
 	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index,
 						  p_light, light.projection_values);
 }

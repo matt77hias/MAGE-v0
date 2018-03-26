@@ -157,8 +157,7 @@ namespace mage {
 		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
 		cornell_node->AddChild(omni_light_node);
-		omni_light_node->GetTransform().SetTranslationY(0.4f);
-		omni_light_node->GetTransform().SetScale(0.1f);
+		omni_light_node->GetTransform().SetTranslationY(0.3f);
 		
 		//---------------------------------------------------------------------
 		// Sprites

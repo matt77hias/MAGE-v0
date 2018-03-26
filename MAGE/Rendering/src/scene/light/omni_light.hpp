@@ -197,9 +197,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the range of this omni light.
+		 Returns the range of this omni light expressed in light space.
 
-		 @return		The range of this omni light.
+		 @return		The range of this omni light expressed in light space.
 		 */
 		[[nodiscard]]
 		F32 GetRange() const noexcept {
@@ -207,10 +207,20 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the range of this omni light to the given value.
+		 Returns the range of this omni light expressed in world space.
+
+		 @return		The range of this omni light expressed in world space.
+		 @note			Non-uniform scaling is not supported for omni lights.
+		 */
+		[[nodiscard]]
+		F32 GetWorldRange() const noexcept;
+
+		/**
+		 Sets the range of this omni light to the given value expressed in 
+		 light space.
 
 		 @param[in]		range
-						The range.
+						The range expressed in light space.
 		 */
 		void SetRange(F32 range) noexcept {
 			m_range = std::max(0.1f, range);
@@ -317,7 +327,7 @@ namespace mage::rendering {
 		bool m_shadows;
 
 		/**
-		 The range of this omni light.
+		 The range of this omni light expressed in light space.
 		 */
 		F32 m_range;
 

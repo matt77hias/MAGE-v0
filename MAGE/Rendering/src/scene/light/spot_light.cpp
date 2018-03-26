@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\light\spot_light.hpp"
+#include "scene\node.hpp"
 
 #pragma endregion
 
@@ -36,6 +37,16 @@ namespace mage::rendering {
 	SpotLight& SpotLight::operator=(const SpotLight& light) noexcept = default;
 
 	SpotLight& SpotLight::operator=(SpotLight&& light) noexcept = default;
+
+	[[nodiscard]]
+	F32 SpotLight::GetWorldRange() const noexcept {
+		Assert(HasOwner());
+
+		const auto& transform = GetOwner()->GetTransform();
+		return XMStore< F32 >(XMVector3Length(
+			transform.TransformObjectToWorldPoint(
+				XMVectorSet(0.0f, 0.0f, m_range, 1.0f))));
+	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const auto a         = 1.0f / (m_cos_umbra * m_cos_umbra);

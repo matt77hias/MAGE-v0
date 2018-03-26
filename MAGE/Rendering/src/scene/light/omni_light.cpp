@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\light\omni_light.hpp"
+#include "scene\node.hpp"
 
 #pragma endregion
 
@@ -35,6 +36,17 @@ namespace mage::rendering {
 
 	OmniLight& OmniLight::operator=(OmniLight&& light) noexcept = default;
 	
+	[[nodiscard]]
+	F32 OmniLight::GetWorldRange() const noexcept {
+		Assert(HasOwner());
+
+		const auto& transform = GetOwner()->GetTransform();
+		return XMStore< F32 >(XMVector3Length(
+			transform.TransformObjectToWorldPoint(
+				XMVectorSet(0.0f, 0.0f, m_range, 1.0f))));
+
+	}
+
 	void OmniLight::UpdateBoundingVolumes() noexcept {
 		m_aabb   = AABB(Point3(-m_range, -m_range, -m_range),
 			            Point3( m_range,  m_range,  m_range));

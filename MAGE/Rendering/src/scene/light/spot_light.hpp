@@ -199,9 +199,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the range of this spotlight.
+		 Returns the range of this spotlight expressed in light space.
 
-		 @return		The range of this spotlight.
+		 @return		The range of this spotlight expressed in light space.
 		 */
 		[[nodiscard]]
 		F32 GetRange() const noexcept {
@@ -209,10 +209,20 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the range of this spotlight to the given value.
+		 Returns the range of this spotlight expressed in world space.
+
+		 @return		The range of this spotlight expressed in world space.
+		 @note			Non-uniform scaling is not supported for spotlights.
+		 */
+		[[nodiscard]]
+		F32 GetWorldRange() const noexcept;
+
+		/**
+		 Sets the range of this spotlight to the given value expressed in light 
+		 space.
 
 		 @param[in]		range
-						The range.
+						The range expressed in light space.
 		 */
 		void SetRange(F32 range) noexcept {
 			m_range = std::max(0.1f, range);
@@ -472,7 +482,7 @@ namespace mage::rendering {
 		F32 m_intensity;
 
 		/**
-		 The range of this spotlight.
+		 The range of this spotlight expressed in light space.
 		 */
 		F32 m_range;
 

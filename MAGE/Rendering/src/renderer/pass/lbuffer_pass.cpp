@@ -227,7 +227,8 @@ namespace mage::rendering {
 				return;
 			}
 
-			const auto p = transform.GetWorldOrigin();
+			const auto p     = transform.GetWorldOrigin();
+			const auto range = light.GetWorldRange();
 
 			if (light.UseShadows()) {
 				// Create six omni light cameras.
@@ -246,7 +247,7 @@ namespace mage::rendering {
 				// Create an omni light buffer.
 				ShadowMappedOmniLightBuffer buffer;
 				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
-				buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_light.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_light.m_I             = light.GetIntensitySpectrum();
 				buffer.m_world_to_light        = XMMatrixTranspose(world_to_light);
 				buffer.m_projection_values     = XMStore< F32x2 >(GetNDCZConstructionValues(
@@ -259,7 +260,7 @@ namespace mage::rendering {
 				// Create an omni light buffer.
 				OmniLightBuffer buffer;
 				buffer.m_p             = Point3(XMStore< F32x3 >(p));
-				buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_I             = light.GetIntensitySpectrum();
 
 				// Add omni light buffer to omni light buffers.
@@ -300,6 +301,7 @@ namespace mage::rendering {
 
 			const auto p     =  transform.GetWorldOrigin();
 			const auto neg_d = -transform.GetWorldAxisZ();
+			const auto range =  light.GetWorldRange();
 
 			if (light.UseShadows()) {
 				const auto world_to_light       = transform.GetWorldToObjectMatrix();
@@ -318,7 +320,7 @@ namespace mage::rendering {
 				ShadowMappedSpotLightBuffer buffer;
 				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
 				buffer.m_light.m_neg_d         = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_light.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_light.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_light.m_I             = light.GetIntensitySpectrum();
 				buffer.m_light.m_cos_umbra     = light.GetEndAngularCutoff();
 				buffer.m_light.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
@@ -332,7 +334,7 @@ namespace mage::rendering {
 				SpotLightBuffer buffer;
 				buffer.m_p             = Point3(XMStore< F32x3 >(p));
 				buffer.m_neg_d         = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_inv_sqr_range = 1.0f / (light.GetRange() * light.GetRange());
+				buffer.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_I             = light.GetIntensitySpectrum();
 				buffer.m_cos_umbra     = light.GetEndAngularCutoff();
 				buffer.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();

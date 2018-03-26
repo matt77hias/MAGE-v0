@@ -297,7 +297,7 @@ namespace mage::rendering {
 				return;
 			}
 
-			const auto p     = transform.GetWorldOrigin();
+			const auto p     =  transform.GetWorldOrigin();
 			const auto neg_d = -transform.GetWorldAxisZ();
 
 			if (light.UseShadows()) {

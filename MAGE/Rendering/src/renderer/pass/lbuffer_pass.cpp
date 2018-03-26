@@ -165,7 +165,7 @@ namespace mage::rendering {
 			}
 
 			const auto& transform = light.GetOwner()->GetTransform();
-			const auto  neg_d     = -XMVector3Normalize(transform.GetWorldAxisZ());
+			const auto  neg_d     = -transform.GetWorldAxisZ();
 
 			if (light.UseShadows()) {
 				// Create a directional light buffer.
@@ -298,7 +298,7 @@ namespace mage::rendering {
 			}
 
 			const auto p     = transform.GetWorldOrigin();
-			const auto neg_d = -XMVector3Normalize(transform.GetWorldAxisZ());
+			const auto neg_d = -transform.GetWorldAxisZ();
 
 			if (light.UseShadows()) {
 				const auto world_to_light       = transform.GetWorldToObjectMatrix();

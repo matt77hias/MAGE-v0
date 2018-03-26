@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define ENABLE_TRANSPARENCY
 #define BRDF_FUNCTION LambertianBRDF
+#define ENABLE_TRANSPARENCY
 #include "forward\forward.hlsli"

@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define MSAA
 #define BRDF_FUNCTION LambertianBRDF
+#define MSAA
 #include "deferred\deferred.hlsli"

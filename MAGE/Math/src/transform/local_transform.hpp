@@ -1096,7 +1096,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return GetObjectToParentMatrix().r[0];
+			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
 		}
 		
 		/**
@@ -1108,7 +1108,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return GetObjectToParentMatrix().r[1];
+			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
 		}
 		
 		/**
@@ -1120,7 +1120,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return GetObjectToParentMatrix().r[2];
+			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
 		}
 		
 		#pragma endregion

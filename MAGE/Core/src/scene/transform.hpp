@@ -1130,7 +1130,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetWorldAxisX() const noexcept {
-			return GetObjectToWorldMatrix().r[0];
+			return XMVector3Normalize(GetObjectToWorldMatrix().r[0]);
 		}
 
 		/**
@@ -1142,7 +1142,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetWorldAxisY() const noexcept {
-			return GetObjectToWorldMatrix().r[1];;
+			return XMVector3Normalize(GetObjectToWorldMatrix().r[1]);
 		}
 
 		/**
@@ -1154,7 +1154,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetWorldAxisZ() const noexcept {
-			return GetObjectToWorldMatrix().r[2];;
+			return XMVector3Normalize(GetObjectToWorldMatrix().r[2]);
 		}
 
 		#pragma endregion

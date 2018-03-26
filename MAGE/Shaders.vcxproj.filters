@@ -400,16 +400,7 @@
     <FxCompile Include="Shaders\shaders\transform\transform_VS.hlsl">
       <Filter>Shader Files\transform</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_cook_torrance_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_CS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_frostbite_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_GS.hlsl">
@@ -418,25 +409,10 @@
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_lambertian_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_cook_torrance_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_frostbite_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_lambertian_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_tsnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxelization_VS.hlsl">
-      <Filter>Shader Files\voxelization</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\voxelization\voxelization_ward_duer_PS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\voxelization\voxel_grid_GS.hlsl">
@@ -857,16 +833,7 @@
     <ClInclude Include="Shaders\src\transform\transform_VS.hpp">
       <Filter>Header Files\transform</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_blinn_phong_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_cook_torrance_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxelization_CS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_frostbite_PS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxelization_GS.hpp">
@@ -875,25 +842,10 @@
     <ClInclude Include="Shaders\src\voxelization\voxelization_lambertian_PS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_blinn_phong_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_cook_torrance_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_frostbite_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_lambertian_PS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_tsnm_ward_duer_PS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxelization_VS.hpp">
-      <Filter>Header Files\voxelization</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\voxelization\voxelization_ward_duer_PS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\voxelization\voxel_grid_PS.hpp">

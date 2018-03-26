@@ -634,7 +634,6 @@ namespace mage::rendering {
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
 			m_voxelization_pass->Render(world, world_to_voxel,
-										camera.GetSettings().GetBRDF(),
 										voxel_grid_resolution);
 		}
 
@@ -691,7 +690,6 @@ namespace mage::rendering {
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
 			m_voxelization_pass->Render(world, world_to_voxel,
-										camera.GetSettings().GetBRDF(),
 										voxel_grid_resolution);
 		}
 
@@ -792,7 +790,6 @@ namespace mage::rendering {
 		const auto voxel_grid_resolution
 			= VoxelizationSettings::GetVoxelGridResolution();
 		m_voxelization_pass->Render(world, world_to_voxel,
-									camera.GetSettings().GetBRDF(),
 									voxel_grid_resolution);
 
 	

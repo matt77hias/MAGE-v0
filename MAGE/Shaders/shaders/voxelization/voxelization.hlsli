@@ -11,6 +11,7 @@
 // BRDF_MINIMUM_ALPHA                       | 0.1f
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
+// DISABLE_FOG                              | not defined
 // DISABLE_ILLUMINATION_DIRECT              | not defined
 // DISABLE_ILLUMINATION_INDIRECT            | not defined
 // DISABLE_LIGHTS_DIRECTIONAL               | not defined
@@ -20,9 +21,8 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
-// DISABLE_TEXTURE_BASE_COLOR               | not defined
-// DISABLE_TEXTURE_MATERIAL                 | not defined
-// DISABLE_TSNM                             | not defined
+// DISABLE_LIGHT_AMBIENT                    | not defined
+// DISABLE_VCT                              | not defined
 // FOG_FACTOR_FUNCTION                      | FogFactor_Exponential
 // LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
 // LIGHT_DISTANCE_ATTENUATION_FUNCTION      | DistanceAttenuation
@@ -31,13 +31,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "forward\forward_input.hlsli"
-
-#define DISABLE_BRDF_SPECULAR
-#define DISABLE_FOG
-#define DISABLE_LIGHT_AMBIENT
-#define DISABLE_VCT  
 #include "lighting.hlsli"
-
 #include "voxelization\voxel.hlsli"
 
 //-----------------------------------------------------------------------------

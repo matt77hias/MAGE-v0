@@ -96,12 +96,11 @@ namespace mage::rendering {
 
 	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection,
-											  BRDF brdf,
 											  size_t resolution) {
 		SetupVoxelGrid(resolution);
 
 		m_voxel_grid->BindBeginVoxelizationBuffer(m_device_context);
-		Render(world, world_to_projection, brdf);
+		Render(world, world_to_projection);
 		m_voxel_grid->BindEndVoxelizationBuffer(m_device_context);
 
 		m_voxel_grid->BindBeginVoxelizationTexture(m_device_context);
@@ -110,8 +109,7 @@ namespace mage::rendering {
 	}
 
 	void XM_CALLCONV VoxelizationPass::Render(const World& world,
-											  FXMMATRIX world_to_projection, 
-											  BRDF brdf) const {
+											  FXMMATRIX world_to_projection) const {
 		// Bind the fixed opaque state.
 		BindFixedState();
 
@@ -123,7 +121,7 @@ namespace mage::rendering {
 		{
 			constexpr bool tsnm = false;
 			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
-														   brdf, tsnm);
+														   tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}
@@ -149,7 +147,7 @@ namespace mage::rendering {
 		{
 			constexpr bool tsnm = true;
 			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
-														   brdf, tsnm);
+														   tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
 		}

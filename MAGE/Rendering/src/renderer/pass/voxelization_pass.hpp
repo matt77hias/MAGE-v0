@@ -104,8 +104,6 @@ namespace mage::rendering {
 						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		brdf
-						The BRDF.
 		 @param[in]		resolution
 						The resolution of the regular voxel grid.
 		 @throws		Exception
@@ -113,7 +111,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
-								BRDF brdf, size_t resolution);
+								size_t resolution);
 
 	private:
 
@@ -145,14 +143,11 @@ namespace mage::rendering {
 						A reference to the world.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
-		 @param[in]		brdf
-						The BRDF.
 		 @throws		Exception
 						Failed to render the world.
 		 */
 		void XM_CALLCONV Render(const World& world,
-			                    FXMMATRIX world_to_projection,
-								BRDF brdf) const;
+			                    FXMMATRIX world_to_projection) const;
 
 		/**
 		 Renders the given model.

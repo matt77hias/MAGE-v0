@@ -468,22 +468,19 @@ namespace mage::rendering {
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager);
 
 	/**
-	 Creates a voxelization pixel shader matching the given BRDF.
+	 Creates a voxelization pixel shader.
 
 	 @param[in]		resource_manager
 					A reference to the resource manager.
-	 @param[in]		brdf
-					The BRDF function.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled. 
 					@c false otherwise.
-	 @return		A pointer to the voxelization pixel shader matching the given 
-					BRDF.
+	 @return		A pointer to the voxelization pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
-										BRDF brdf, bool tsnm);
+										bool tsnm);
 
 	/**
 	 Creates a voxelization compute shader.

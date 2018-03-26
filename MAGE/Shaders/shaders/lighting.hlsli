@@ -41,7 +41,7 @@
 
 	#include "brdf.hlsli"
 
-	#ifndef DISABLE_VCT
+	#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
 		#include "vct.hlsli"
 	#endif // DISABLE_VCT
 
@@ -231,7 +231,7 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	L += g_La;
 	#endif // DISABLE_LIGHT_AMBIENT
 
-	#ifndef DISABLE_VCT
+	#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
 	L += GetVCTRadiance(v, p, n, material);
 	#endif // DISABLE_VCT
 

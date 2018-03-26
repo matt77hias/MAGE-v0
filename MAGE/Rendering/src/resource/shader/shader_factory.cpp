@@ -155,17 +155,9 @@
 #include "voxelization\voxelization_VS.hpp"
 #include "voxelization\voxelization_GS.hpp"
 // Voxelization: Opaque
-#include "voxelization\voxelization_blinn_phong_PS.hpp"
-#include "voxelization\voxelization_cook_torrance_PS.hpp"
-#include "voxelization\voxelization_frostbite_PS.hpp"
 #include "voxelization\voxelization_lambertian_PS.hpp"
-#include "voxelization\voxelization_ward_duer_PS.hpp"
 // Voxelization: Opaque + TSNM
-#include "voxelization\voxelization_tsnm_blinn_phong_PS.hpp"
-#include "voxelization\voxelization_tsnm_cook_torrance_PS.hpp"
-#include "voxelization\voxelization_tsnm_frostbite_PS.hpp"
 #include "voxelization\voxelization_tsnm_lambertian_PS.hpp"
-#include "voxelization\voxelization_tsnm_ward_duer_PS.hpp"
 
 // Voxel Grid
 #include "voxelization\voxel_grid_VS.hpp"
@@ -1006,69 +998,13 @@ namespace mage::rendering {
 						MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
-	namespace {
-
-		PixelShaderPtr CreateVoxelizationBlinnPhongPS(ResourceManager& resource_manager, 
-													  bool tsnm) {
-
-			return tsnm ? CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_tsnm_blinn_phong_PS))
-						: CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_blinn_phong_PS));
-		}
-
-		PixelShaderPtr CreateVoxelizationCookTorrancePS(ResourceManager& resource_manager, 
-														bool tsnm) {
-
-			return tsnm ? CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_tsnm_cook_torrance_PS))
-						: CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_cook_torrance_PS));
-		}
-
-		PixelShaderPtr CreateVoxelizationFrostbitePS(ResourceManager& resource_manager, 
-													 bool tsnm) {
-
-			return tsnm ? CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_tsnm_frostbite_PS))
-						: CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_frostbite_PS));
-		}
-
-		PixelShaderPtr CreateVoxelizationLambertianPS(ResourceManager& resource_manager, 
-													  bool tsnm) {
-
-			return tsnm ? CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_tsnm_lambertian_PS))
-						: CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
-		}
-
-		PixelShaderPtr CreateVoxelizationWardDuerPS(ResourceManager& resource_manager, 
-													bool tsnm) {
-
-			return tsnm ? CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_tsnm_ward_duer_PS))
-						: CreatePS(resource_manager, 
-								   MAGE_SHADER_ARGS(g_voxelization_ward_duer_PS));
-		}
-	}
-
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
-										BRDF brdf, bool tsnm) {
-		switch (brdf) {
+										bool tsnm) {
 
-		case BRDF::BlinnPhong:
-			return CreateVoxelizationBlinnPhongPS(resource_manager, tsnm);
-		case BRDF::CookTorrance:
-			return CreateVoxelizationCookTorrancePS(resource_manager, tsnm);
-		case BRDF::Lambertian:
-			return CreateVoxelizationLambertianPS(resource_manager, tsnm);
-		case BRDF::WardDuer:
-			return CreateVoxelizationWardDuerPS(resource_manager, tsnm);
-		default:
-			return CreateVoxelizationFrostbitePS(resource_manager, tsnm);
-		}
+		return tsnm ? CreatePS(resource_manager, 
+							   MAGE_SHADER_ARGS(g_voxelization_tsnm_lambertian_PS))
+			        : CreatePS(resource_manager, 
+							   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
 	}
 
 	ComputeShaderPtr CreateVoxelizationCS(ResourceManager& resource_manager) {

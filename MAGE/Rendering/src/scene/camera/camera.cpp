@@ -47,6 +47,7 @@ namespace mage::rendering {
 
 	void Camera::UpdateBuffer(ID3D11DeviceContext& device_context, 
 							  AntiAliasing aa) const {
+		Assert(HasOwner());
 
 		CameraBuffer buffer;
 

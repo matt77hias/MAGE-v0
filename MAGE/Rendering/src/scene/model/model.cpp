@@ -45,6 +45,8 @@ namespace mage::rendering {
 	}
 
 	void Model::UpdateBuffer(ID3D11DeviceContext& device_context) const {
+		Assert(HasOwner());
+		
 		const auto& transform         = GetOwner()->GetTransform();
 		const auto  object_to_world   = transform.GetObjectToWorldMatrix();
 		const auto  world_to_object   = transform.GetWorldToObjectMatrix();

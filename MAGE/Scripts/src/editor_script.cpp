@@ -482,6 +482,15 @@ namespace mage::script {
 			auto shadows = light.UseShadows();
 			ImGui::Checkbox("Shadows", &shadows);
 			light.SetShadows(shadows);
+
+			//-----------------------------------------------------------------
+			// Clipping Planes
+			//-----------------------------------------------------------------
+			if (shadows) {
+				auto clipping_planes = light.GetClippingPlanes();
+				ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
+				light.SetClippingPlanes(std::move(clipping_planes));
+			}
 		}
 	
 		void DrawWidget(rendering::SpotLight& light) {
@@ -526,6 +535,15 @@ namespace mage::script {
 			auto shadows = light.UseShadows();
 			ImGui::Checkbox("Shadows", &shadows);
 			light.SetShadows(shadows);
+
+			//-----------------------------------------------------------------
+			// Clipping Planes
+			//-----------------------------------------------------------------
+			if (shadows) {
+				auto clipping_planes = light.GetClippingPlanes();
+				ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
+				light.SetClippingPlanes(std::move(clipping_planes));
+			}
 		}
 
 		void DrawWidget(TextureTransform& transform) {

@@ -205,7 +205,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		F32 GetRange() const noexcept {
-			return m_range;
+			return m_clipping_planes.m_y;
 		}
 
 		/**
@@ -225,7 +225,7 @@ namespace mage::rendering {
 						The range expressed in light space.
 		 */
 		void SetRange(F32 range) noexcept {
-			m_range = std::max(0.1f, range);
+			m_clipping_planes.m_y = range;
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
@@ -409,6 +409,29 @@ namespace mage::rendering {
 		}
 		
 		/**
+		 Returns the clipping planes of this spotlight expressed in light 
+		 space.
+
+		 @return		The clipping planes of this spotlight expressed in 
+						light space.
+		 */
+		[[nodiscard]]
+		const F32x2 GetClippingPlanes() const noexcept {
+			return m_clipping_planes;
+		}
+		
+		/**
+		 Sets the clipping planes of this spotlight expressed in light space to 
+		 the given clipping planes.
+
+		 @param[in]		clipping_planes
+						The clipping planes.
+		 */
+		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
+			m_clipping_planes = std::move(clipping_planes);
+		}
+
+		/**
 		 Returns the (horizontal and vertical) field-of-view of this spotlight.
 
 		 @return		The (horizontal and vertical) field-of-view of this 
@@ -430,14 +453,17 @@ namespace mage::rendering {
 		const XMMATRIX XM_CALLCONV 
 			GetLightToProjectionMatrix() const noexcept {
 
-			static constexpr auto near_plane = 0.1f;
+			#ifdef DISABLE_INVERTED_Z_BUFFER
+			const auto near_plane = m_clipping_planes.m_x;
+			const auto far_plane  = m_clipping_planes.m_y;
+			#else  // DISABLE_INVERTED_Z_BUFFER
+			const auto near_plane = m_clipping_planes.m_y;
+			const auto far_plane  = m_clipping_planes.m_x;
+			#endif // DISABLE_INVERTED_Z_BUFFER
+
 			const auto fov = 2.0f * GetUmbraAngle();
 
-			#ifdef DISABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(fov, 1.0f, near_plane, m_range);
-			#else  // DISABLE_INVERTED_Z_BUFFER
-			return XMMatrixPerspectiveFovLH(fov, 1.0f, m_range, near_plane);
-			#endif // DISABLE_INVERTED_Z_BUFFER
+			return XMMatrixPerspectiveFovLH(fov, 1.0f, near_plane, far_plane);
 		}
 
 	private:
@@ -482,9 +508,9 @@ namespace mage::rendering {
 		F32 m_intensity;
 
 		/**
-		 The range of this spotlight expressed in light space.
+		 The clipping planes of this light expressed in light space.
 		 */
-		F32 m_range;
+		F32x2 m_clipping_planes;
 
 		/**
 		 The cosine of the penumbra angle of this spotlight.

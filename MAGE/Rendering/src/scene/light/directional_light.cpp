@@ -15,8 +15,8 @@ namespace mage::rendering {
 	DirectionalLight::DirectionalLight() noexcept
 		: Component(),
 		m_shadows(false), 
-		m_irradiance(1.0f),
-		m_base_color(SRGB(1.0f)) {}
+		m_base_color(SRGB(1.0f)), 
+		m_irradiance(1.0f) {}
 
 	DirectionalLight::DirectionalLight(
 		const DirectionalLight& light) noexcept = default;

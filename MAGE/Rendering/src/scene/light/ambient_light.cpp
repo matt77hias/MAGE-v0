@@ -14,8 +14,8 @@ namespace mage::rendering {
 
 	AmbientLight::AmbientLight() noexcept
 		: Component(),
-		m_radiance(1.0f),
-		m_base_color(SRGB(1.0f)) {}
+		m_base_color(SRGB(1.0f)), 
+		m_radiance(1.0f) {}
 
 	AmbientLight::AmbientLight(const AmbientLight& light) noexcept = default;
 	

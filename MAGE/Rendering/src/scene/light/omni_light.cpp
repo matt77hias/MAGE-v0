@@ -16,11 +16,11 @@ namespace mage::rendering {
 	OmniLight::OmniLight() noexcept
 		: Component(),
 		m_shadows(false), 
-		m_range(1.0f),
-		m_intensity(1.0f),
+		m_clipping_planes(0.1f, 1.0f),
 		m_aabb(), 
 		m_sphere(), 
-		m_base_color(SRGB(1.0f)) {
+		m_base_color(SRGB(1.0f)), 
+		m_intensity(1.0f) {
 
 		// Update the bounding volumes.
 		UpdateBoundingVolumes();
@@ -43,13 +43,15 @@ namespace mage::rendering {
 		const auto& transform = GetOwner()->GetTransform();
 		return XMStore< F32 >(XMVector3Length(
 			transform.TransformObjectToWorldPoint(
-				XMVectorSet(0.0f, 0.0f, m_range, 1.0f))));
+				XMVectorSet(0.0f, 0.0f, GetRange(), 1.0f))));
 
 	}
 
 	void OmniLight::UpdateBoundingVolumes() noexcept {
-		m_aabb   = AABB(Point3(-m_range, -m_range, -m_range),
-			            Point3( m_range,  m_range,  m_range));
-		m_sphere = BoundingSphere(Point3(), m_range);
+		const auto range = GetRange();
+
+		m_aabb   = AABB(Point3(-range, -range, -range),
+			            Point3( range,  range,  range));
+		m_sphere = BoundingSphere(Point3(), range);
 	}
 }

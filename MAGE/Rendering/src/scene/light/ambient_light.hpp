@@ -144,15 +144,15 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
+		 The sRGB base color of this ambient light.
+		 */
+		SRGB m_base_color;
+
+		/**
 		 The radiance in watts per square meter per steradians of this ambient 
 		 light.
 		 */
 		F32 m_radiance;
-
-		/**
-		 The sRGB base color of this ambient light.
-		 */
-		SRGB m_base_color;
 	};
 
 	#pragma warning( pop )

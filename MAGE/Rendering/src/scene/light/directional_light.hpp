@@ -197,15 +197,15 @@ namespace mage::rendering {
 		bool m_shadows;
 
 		/**
+		 The sRGB base color of this directional light.
+		 */
+		SRGB m_base_color;
+
+		/**
 		 The irradiance (which is equal to the exitant radiance/radiosity) in 
 		 watts per square meter of this directional light.
 		 */
 		F32 m_irradiance;
-
-		/**
-		 The sRGB base color of this directional light.
-		 */
-		SRGB m_base_color;
 	};
 
 	#pragma warning( pop )

@@ -16,6 +16,7 @@
 
 // Back Buffer
 #include "backbuffer\back_buffer_aces_filmic_PS.hpp"
+#include "backbuffer\back_buffer_none_PS.hpp"
 #include "backbuffer\back_buffer_reinhard_PS.hpp"
 #include "backbuffer\back_buffer_uncharted_PS.hpp"
 
@@ -367,6 +368,9 @@ namespace mage::rendering {
 		case ToneMapping::ACESFilmic:
 			return CreatePS(resource_manager,
 							MAGE_SHADER_ARGS(g_back_buffer_aces_filmic_PS));
+		case ToneMapping::None:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_none_PS));
 		case ToneMapping::Reinhard:
 			return CreatePS(resource_manager,
 							MAGE_SHADER_ARGS(g_back_buffer_reinhard_PS));
@@ -374,8 +378,7 @@ namespace mage::rendering {
 			return CreatePS(resource_manager,
 							MAGE_SHADER_ARGS(g_back_buffer_uncharted_PS));
 		default:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_uncharted_PS));
+			return nullptr;
 		}
 	}
 

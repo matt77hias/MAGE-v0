@@ -197,7 +197,6 @@ namespace mage::script {
 			// BRDF
 			//-----------------------------------------------------------------
 			static constexpr const_zstring brdf_names[] = {
-				"Default",
 				"Lambertian",
 				"Blinn-Phong",
 				"Cook-Torrance",
@@ -205,7 +204,6 @@ namespace mage::script {
 				"Ward-Duer"
 			};
 			static constexpr BRDF brdfs[] = {
-				BRDF::Default,
 				BRDF::Lambertian,
 				BRDF::BlinnPhong,
 				BRDF::CookTorrance,
@@ -223,13 +221,13 @@ namespace mage::script {
 			// Tone Mapping
 			//-----------------------------------------------------------------
 			static constexpr const_zstring tone_mapping_names[] = {
-				"Default",
+				"None",
 				"ACES Filmic",
 				"Reinhard",
 				"Uncharted"
 			};
 			static constexpr ToneMapping tone_mappings[] = {
-				ToneMapping::Default,
+				ToneMapping::None,
 				ToneMapping::ACESFilmic,
 				ToneMapping::Reinhard,
 				ToneMapping::Uncharted

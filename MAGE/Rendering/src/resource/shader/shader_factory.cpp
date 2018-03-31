@@ -447,12 +447,14 @@ namespace mage::rendering {
 			return CreateDeferredBlinnPhongCS(resource_manager, vct);
 		case BRDF::CookTorrance:
 			return CreateDeferredCookTorranceCS(resource_manager, vct);
+		case BRDF::Frostbite:
+			return CreateDeferredFrostbiteCS(resource_manager, vct);
 		case BRDF::Lambertian:
 			return CreateDeferredLambertianCS(resource_manager, vct);
 		case BRDF::WardDuer:
 			return CreateDeferredWardDuerCS(resource_manager, vct);
 		default:
-			return CreateDeferredFrostbiteCS(resource_manager, vct);
+			return nullptr;
 		}
 	}
 
@@ -518,12 +520,14 @@ namespace mage::rendering {
 			return CreateDeferredMSAABlinnPhongPS(resource_manager, vct);
 		case BRDF::CookTorrance:
 			return CreateDeferredMSAACookTorrancePS(resource_manager, vct);
+		case BRDF::Frostbite:
+			return CreateDeferredMSAAFrostbitePS(resource_manager, vct);
 		case BRDF::Lambertian:
 			return CreateDeferredMSAALambertianPS(resource_manager, vct);
 		case BRDF::WardDuer:
 			return CreateDeferredMSAAWardDuerPS(resource_manager, vct);
 		default:
-			return CreateDeferredMSAAFrostbitePS(resource_manager, vct);
+			return nullptr;
 		}
 	}
 
@@ -857,12 +861,14 @@ namespace mage::rendering {
 			return CreateForwardBlinnPhongPS(resource_manager, transparency, vct, tsnm);
 		case BRDF::CookTorrance:
 			return CreateForwardCookTorrancePS(resource_manager, transparency, vct, tsnm);
+		case BRDF::Frostbite:
+			return CreateForwardFrostbitePS(resource_manager, transparency, vct, tsnm);
 		case BRDF::Lambertian:
 			return CreateForwardLambertianPS(resource_manager, transparency, vct, tsnm);
 		case BRDF::WardDuer:
 			return CreateForwardWardDuerPS(resource_manager, transparency, vct, tsnm);
 		default:
-			return CreateForwardFrostbitePS(resource_manager, transparency, vct, tsnm);
+			return nullptr;
 		}
 	}
 

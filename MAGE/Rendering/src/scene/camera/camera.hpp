@@ -698,8 +698,8 @@ namespace mage::rendering {
 		 */
 		CameraSettings() noexcept
 			: m_render_mode(RenderMode::Forward), 
-			m_brdf(BRDF::Default), 
-			m_tone_mapping(ToneMapping::Default), 
+			m_brdf(BRDF::Frostbite), 
+			m_tone_mapping(ToneMapping::ACESFilmic), 
 			m_gamma(2.2f), 
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
 			m_fog(), 

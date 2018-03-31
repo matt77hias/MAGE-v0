@@ -189,7 +189,6 @@ namespace mage::rendering {
 	 Functions (BRDFs).
 
 	 This contains:
-	 @c Default,
 	 @c Lambertian,
 	 @c BlinnPhong,
 	 @c CookTorrance,
@@ -197,12 +196,11 @@ namespace mage::rendering {
 	 @c WardDuer.
 	 */
 	enum class BRDF : U8 {
-		Default      = 0,
-		Lambertian   = 1,
-		BlinnPhong   = 2,
-		CookTorrance = 3,
-		Frostbite    = 4,
-		WardDuer     = 5
+		Lambertian   = 0,
+		BlinnPhong   = 1,
+		CookTorrance = 2,
+		Frostbite    = 3,
+		WardDuer     = 4
 	};
 
 	#pragma endregion
@@ -270,13 +268,13 @@ namespace mage::rendering {
 	 An enumeration of the different Tone Mapping functions.
 
 	 This contains:
-	 @c Default,
+	 @c None,
 	 @c ACESFilmic,
 	 @c Reinhard, and
 	 @c Uncharted.
 	 */
 	enum class ToneMapping : U8 {
-		Default    = 0,
+		None       = 0,
 		ACESFilmic = 1,
 		Reinhard   = 2,
 		Uncharted  = 3

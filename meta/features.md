@@ -90,7 +90,7 @@
 * Sprites
 * Tone Mapping
   * AA resolving (SSAA, MSAA, FXAA): Max3
-  * Back buffer: ACES Filmic, Reinhard, Uncharted
+  * Back buffer: None, ACES Filmic, Reinhard, Uncharted
 * Transparency
   * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending

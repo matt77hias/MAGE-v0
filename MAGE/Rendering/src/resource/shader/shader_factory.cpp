@@ -365,12 +365,12 @@ namespace mage::rendering {
 		
 		switch (tone_mapping) {
 
-		case ToneMapping::ACESFilmic:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_aces_filmic_PS));
 		case ToneMapping::None:
 			return CreatePS(resource_manager,
 							MAGE_SHADER_ARGS(g_back_buffer_none_PS));
+		case ToneMapping::ACESFilmic:
+			return CreatePS(resource_manager,
+							MAGE_SHADER_ARGS(g_back_buffer_aces_filmic_PS));
 		case ToneMapping::Reinhard:
 			return CreatePS(resource_manager,
 							MAGE_SHADER_ARGS(g_back_buffer_reinhard_PS));
@@ -446,14 +446,14 @@ namespace mage::rendering {
 									  BRDF brdf, bool vct) {
 		switch (brdf) {
 
+		case BRDF::Lambertian:
+			return CreateDeferredLambertianCS(resource_manager, vct);
 		case BRDF::BlinnPhong:
 			return CreateDeferredBlinnPhongCS(resource_manager, vct);
 		case BRDF::CookTorrance:
 			return CreateDeferredCookTorranceCS(resource_manager, vct);
 		case BRDF::Frostbite:
 			return CreateDeferredFrostbiteCS(resource_manager, vct);
-		case BRDF::Lambertian:
-			return CreateDeferredLambertianCS(resource_manager, vct);
 		case BRDF::WardDuer:
 			return CreateDeferredWardDuerCS(resource_manager, vct);
 		default:
@@ -519,14 +519,14 @@ namespace mage::rendering {
 										BRDF brdf, bool vct) {
 		switch (brdf) {
 
+		case BRDF::Lambertian:
+			return CreateDeferredMSAALambertianPS(resource_manager, vct);
 		case BRDF::BlinnPhong:
 			return CreateDeferredMSAABlinnPhongPS(resource_manager, vct);
 		case BRDF::CookTorrance:
 			return CreateDeferredMSAACookTorrancePS(resource_manager, vct);
 		case BRDF::Frostbite:
 			return CreateDeferredMSAAFrostbitePS(resource_manager, vct);
-		case BRDF::Lambertian:
-			return CreateDeferredMSAALambertianPS(resource_manager, vct);
 		case BRDF::WardDuer:
 			return CreateDeferredMSAAWardDuerPS(resource_manager, vct);
 		default:
@@ -860,14 +860,14 @@ namespace mage::rendering {
 		
 		switch (brdf) {
 
+		case BRDF::Lambertian:
+			return CreateForwardLambertianPS(resource_manager, transparency, vct, tsnm);
 		case BRDF::BlinnPhong:
 			return CreateForwardBlinnPhongPS(resource_manager, transparency, vct, tsnm);
 		case BRDF::CookTorrance:
 			return CreateForwardCookTorrancePS(resource_manager, transparency, vct, tsnm);
 		case BRDF::Frostbite:
 			return CreateForwardFrostbitePS(resource_manager, transparency, vct, tsnm);
-		case BRDF::Lambertian:
-			return CreateForwardLambertianPS(resource_manager, transparency, vct, tsnm);
 		case BRDF::WardDuer:
 			return CreateForwardWardDuerPS(resource_manager, transparency, vct, tsnm);
 		default:

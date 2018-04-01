@@ -395,6 +395,7 @@ Uses:
 * Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
 * JoeJ
+* Krypt0n
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * L. Spiro
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)

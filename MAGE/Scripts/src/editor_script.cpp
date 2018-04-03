@@ -223,12 +223,14 @@ namespace mage::script {
 			static constexpr const_zstring tone_mapping_names[] = {
 				"None",
 				"ACES Filmic",
+				"Max3",
 				"Reinhard",
 				"Uncharted"
 			};
 			static constexpr ToneMapping tone_mappings[] = {
 				ToneMapping::None,
 				ToneMapping::ACESFilmic,
+				ToneMapping::Max3,
 				ToneMapping::Reinhard,
 				ToneMapping::Uncharted
 			};

@@ -436,6 +436,9 @@
     <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_none_PS.hlsl">
       <Filter>Shader Files\backbuffer</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_max3_PS.hlsl">
+      <Filter>Shader Files\backbuffer</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shaders\aa\fxaa3_11.hlsli">

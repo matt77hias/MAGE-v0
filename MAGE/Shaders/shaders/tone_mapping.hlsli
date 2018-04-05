@@ -32,6 +32,25 @@ float Luminance(float3 rgb) {
 }
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: ACES Filmic
+//-----------------------------------------------------------------------------
+
+float3 ToneMap_ACESFilmic(float3 hdr) {
+	static const float a = 2.51f;
+	static const float b = 0.03f;
+	static const float c = 2.43f;
+	static const float d = 0.59f;
+	static const float e = 0.14f;
+
+	return (hdr * (a * hdr + b)) 
+		 / (hdr * (c * hdr + d) + e);
+}
+
+float4 ToneMap_ACESFilmic(float4 hdr) {
+	return float4(ToneMap_ACESFilmic(hdr.xyz), hdr.w);
+}
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Max3
 //-----------------------------------------------------------------------------
 
@@ -80,25 +99,6 @@ float4 InverseToneMap_Reinhard(float4 ldr) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: ACES Filmic
-//-----------------------------------------------------------------------------
-
-float3 ToneMap_ACESFilmic(float3 hdr) {
-	static const float a = 2.51f;
-	static const float b = 0.03f;
-	static const float c = 2.43f;
-	static const float d = 0.59f;
-	static const float e = 0.14f;
-
-	return (hdr * (a * hdr + b)) 
-		 / (hdr * (c * hdr + d) + e);
-}
-
-float4 ToneMap_ACESFilmic(float4 hdr) {
-	return float4(ToneMap_ACESFilmic(hdr.xyz), hdr.w);
-}
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Uncharted
 //-----------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ float4 ToneMap_Uncharted(float4 hdr) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: ACES Filmic
+// Engine Declarations and Definitions: None
 //-----------------------------------------------------------------------------
 
 float3 ToneMap_None(float3 hdr) {

@@ -196,11 +196,11 @@ namespace mage::rendering {
 	 @c WardDuer.
 	 */
 	enum class BRDF : U8 {
-		Lambertian   = 0,
-		BlinnPhong   = 1,
-		CookTorrance = 2,
-		Frostbite    = 3,
-		WardDuer     = 4
+		Lambertian = 0,
+		BlinnPhong,
+		CookTorrance,
+		Frostbite,
+		WardDuer
 	};
 
 	#pragma endregion
@@ -270,14 +270,16 @@ namespace mage::rendering {
 	 This contains:
 	 @c None,
 	 @c ACESFilmic,
+	 @c Max3
 	 @c Reinhard, and
 	 @c Uncharted.
 	 */
 	enum class ToneMapping : U8 {
-		None       = 0,
-		ACESFilmic = 1,
-		Reinhard   = 2,
-		Uncharted  = 3
+		None = 0,
+		ACESFilmic,
+		Max3,
+		Reinhard,
+		Uncharted
 	};
 
 	#pragma endregion

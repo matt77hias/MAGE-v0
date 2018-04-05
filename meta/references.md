@@ -204,6 +204,8 @@ MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog
 
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
 
+WANG T.: [*Integer Hash Function*](https://gist.github.com/badboy/6267743), 1997.
+
 ### PBR and BRDFs
 
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.

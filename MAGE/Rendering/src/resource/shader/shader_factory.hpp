@@ -76,14 +76,11 @@ namespace mage::rendering {
 
 	 @param[in]		resource_manager
 					A reference to the resource manager.
-	 @param[in]		tone_mapping
-					The tone mapping function.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager, 
-									  ToneMapping tone_mapping);
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager);
 
 	#pragma endregion
 	
@@ -310,6 +307,20 @@ namespace mage::rendering {
 					Failed to create the compute shader.
 	 */
 	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager& resource_manager);
+
+	/**
+	 Creates a low-dynamic-range compute shader.
+
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		tone_mapping
+					The tone mapping function.
+	 @return		A pointer to the low-dynamic-range compute shader.
+	 @throws		Exception
+					Failed to create the compute shader.
+	 */
+	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager, 
+											 ToneMapping tone_mapping);
 
 	#pragma endregion
 

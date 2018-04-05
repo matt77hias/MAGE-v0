@@ -15,11 +15,7 @@
 #include "aa\ssaa_resolve_CS.hpp"
 
 // Back Buffer
-#include "backbuffer\back_buffer_aces_filmic_PS.hpp"
-#include "backbuffer\back_buffer_max3_PS.hpp"
-#include "backbuffer\back_buffer_none_PS.hpp"
-#include "backbuffer\back_buffer_reinhard_PS.hpp"
-#include "backbuffer\back_buffer_uncharted_PS.hpp"
+#include "backbuffer\back_buffer_PS.hpp"
 
 // Deferred: Opaque
 #include "deferred\deferred_blinn_phong_CS.hpp"
@@ -133,7 +129,12 @@
 #include "gbuffer\gbuffer_tsnm_PS.hpp"
 
 // Post-processing
-#include "postprocessing\depth_of_field_CS.hpp"
+#include "postprocessing\dof_CS.hpp"
+#include "postprocessing\ldr_aces_filmic_CS.hpp"
+#include "postprocessing\ldr_max3_CS.hpp"
+#include "postprocessing\ldr_none_CS.hpp"
+#include "postprocessing\ldr_reinhard_CS.hpp"
+#include "postprocessing\ldr_uncharted_CS.hpp"
 
 // Primitive
 #include "primitive\line_cube_VS.hpp"
@@ -361,29 +362,9 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager, 
-									  ToneMapping tone_mapping) {
-		
-		switch (tone_mapping) {
-
-		case ToneMapping::None:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_none_PS));
-		case ToneMapping::ACESFilmic:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_aces_filmic_PS));
-		case ToneMapping::Max3:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_max3_PS));
-		case ToneMapping::Reinhard:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_reinhard_PS));
-		case ToneMapping::Uncharted:
-			return CreatePS(resource_manager,
-							MAGE_SHADER_ARGS(g_back_buffer_uncharted_PS));
-		default:
-			return nullptr;
-		}
+	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager) {
+		return CreatePS(resource_manager, 
+						MAGE_SHADER_ARGS(g_back_buffer_PS));
 	}
 
 	#pragma endregion
@@ -909,7 +890,31 @@ namespace mage::rendering {
 
 	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager& resource_manager) {
 		return CreateCS(resource_manager, 
-						MAGE_SHADER_ARGS(g_depth_of_field_CS));
+						MAGE_SHADER_ARGS(g_dof_CS));
+	}
+
+	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager, 
+											 ToneMapping tone_mapping) {
+		switch (tone_mapping) {
+
+		case ToneMapping::None:
+			return CreateCS(resource_manager,
+							MAGE_SHADER_ARGS(g_ldr_none_CS));
+		case ToneMapping::ACESFilmic:
+			return CreateCS(resource_manager,
+							MAGE_SHADER_ARGS(g_ldr_aces_filmic_CS));
+		case ToneMapping::Max3:
+			return CreateCS(resource_manager,
+							MAGE_SHADER_ARGS(g_ldr_max3_CS));
+		case ToneMapping::Reinhard:
+			return CreateCS(resource_manager,
+							MAGE_SHADER_ARGS(g_ldr_reinhard_CS));
+		case ToneMapping::Uncharted:
+			return CreateCS(resource_manager,
+							MAGE_SHADER_ARGS(g_ldr_uncharted_CS));
+		default:
+			return nullptr;
+		}
 	}
 
 	#pragma endregion

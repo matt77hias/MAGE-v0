@@ -118,16 +118,4 @@ float4 ToneMap_Uncharted(float4 hdr) {
 	return float4(ToneMap_Uncharted(hdr.xyz), hdr.w);
 }
 
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: None
-//-----------------------------------------------------------------------------
-
-float3 ToneMap_None(float3 hdr) {
-	return hdr;
-}
-
-float4 ToneMap_None(float4 hdr) {
-	return hdr;
-}
-
 #endif //MAGE_HEADER_TONE_MAPPING

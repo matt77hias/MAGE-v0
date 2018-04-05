@@ -64,7 +64,7 @@
     <ClInclude Include="Rendering\src\renderer\pass\bounding_volume_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\deferred_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\depth_pass.hpp" />
-    <ClInclude Include="Rendering\src\renderer\pass\dof_pass.hpp" />
+    <ClInclude Include="Rendering\src\renderer\pass\postprocess_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\forward_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\lbuffer_pass.hpp" />
     <ClInclude Include="Rendering\src\renderer\pass\sky_pass.hpp" />
@@ -157,7 +157,7 @@
     <ClCompile Include="Rendering\src\renderer\pass\bounding_volume_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\deferred_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\depth_pass.cpp" />
-    <ClCompile Include="Rendering\src\renderer\pass\dof_pass.cpp" />
+    <ClCompile Include="Rendering\src\renderer\pass\postprocess_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\forward_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\lbuffer_pass.cpp" />
     <ClCompile Include="Rendering\src\renderer\pass\sky_pass.cpp" />

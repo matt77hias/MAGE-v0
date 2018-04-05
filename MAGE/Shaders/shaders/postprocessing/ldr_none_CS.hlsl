@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define TONE_MAP_FUNCTION ToneMap_Uncharted
-#include "backbuffer\back_buffer.hlsli"
+#define DISABLE_TONE_MAPPING
+#include "postprocessing\ldr.hlsli"

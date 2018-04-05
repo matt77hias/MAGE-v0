@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "renderer\configuration.hpp"
 #include "renderer\state_manager.hpp"
 #include "resource\rendering_resource_manager.hpp"
 
@@ -17,8 +16,7 @@
 namespace mage::rendering {
 
 	/**
-	 A class of back buffer passes for tone mapping and gamma correcting HDR 
-	 images.
+	 A class of back buffer passes.
 	 */
 	class BackBufferPass final {
 
@@ -93,11 +91,8 @@ namespace mage::rendering {
 
 		/**
 		 Renders.
-
-		 @param[in]		tone_mapping
-						The tone mapping type.
 		 */
-		void Render(ToneMapping tone_mapping);
+		void Render();
 		
 	private:
 
@@ -125,13 +120,13 @@ namespace mage::rendering {
 		std::reference_wrapper< StateManager > m_state_manager;
 
 		/**
-		 A reference to the resource manager of this back buffer pass.
-		 */
-		std::reference_wrapper< ResourceManager > m_resource_manager;
-
-		/**
 		 A pointer to the vertex shader of this back buffer pass.
 		 */
 		VertexShaderPtr m_vs;
+
+		/**
+		 A pointer to the pixel shader of this back buffer pass.
+		 */
+		PixelShaderPtr m_ps;
 	};
 }

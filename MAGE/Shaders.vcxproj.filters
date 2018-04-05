@@ -367,9 +367,6 @@
     <FxCompile Include="Shaders\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
       <Filter>Shader Files\gbuffer</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\postprocessing\depth_of_field_CS.hlsl">
-      <Filter>Shader Files\postprocessing</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\primitive\far_fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitive</Filter>
     </FxCompile>
@@ -424,19 +421,25 @@
     <FxCompile Include="Shaders\shaders\voxelization\voxel_grid_VS.hlsl">
       <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_reinhard_PS.hlsl">
-      <Filter>Shader Files\backbuffer</Filter>
+    <FxCompile Include="Shaders\shaders\postprocessing\ldr_aces_filmic_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_uncharted_PS.hlsl">
-      <Filter>Shader Files\backbuffer</Filter>
+    <FxCompile Include="Shaders\shaders\postprocessing\ldr_max3_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_aces_filmic_PS.hlsl">
-      <Filter>Shader Files\backbuffer</Filter>
+    <FxCompile Include="Shaders\shaders\postprocessing\ldr_none_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_none_PS.hlsl">
-      <Filter>Shader Files\backbuffer</Filter>
+    <FxCompile Include="Shaders\shaders\postprocessing\ldr_reinhard_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_max3_PS.hlsl">
+    <FxCompile Include="Shaders\shaders\postprocessing\ldr_uncharted_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\postprocessing\dof_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\shaders\backbuffer\back_buffer_PS.hlsl">
       <Filter>Shader Files\backbuffer</Filter>
     </FxCompile>
   </ItemGroup>
@@ -513,9 +516,6 @@
     <None Include="Shaders\shaders\voxelization\voxelization.hlsli">
       <Filter>Shader Files\voxelization</Filter>
     </None>
-    <None Include="Shaders\shaders\backbuffer\back_buffer.hlsli">
-      <Filter>Shader Files\backbuffer</Filter>
-    </None>
     <None Include="Shaders\shaders\vct.hlsli">
       <Filter>Shader Files</Filter>
     </None>
@@ -527,6 +527,9 @@
     </None>
     <None Include="Shaders\shaders\rng.hlsli">
       <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shaders\shaders\postprocessing\ldr.hlsli">
+      <Filter>Shader Files\postprocessing</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -812,9 +815,6 @@
     <ClInclude Include="Shaders\src\gbuffer\gbuffer_tsnm_PS.hpp">
       <Filter>Header Files\gbuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\postprocessing\depth_of_field_CS.hpp">
-      <Filter>Header Files\postprocessing</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\primitive\far_fullscreen_triangle_VS.hpp">
       <Filter>Header Files\primitive</Filter>
     </ClInclude>
@@ -869,17 +869,26 @@
     <ClInclude Include="Shaders\src\voxelization\voxel_grid_GS.hpp">
       <Filter>Header Files\voxelization</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\backbuffer\back_buffer_reinhard_PS.hpp">
+    <ClInclude Include="Shaders\src\backbuffer\back_buffer_PS.hpp">
       <Filter>Header Files\backbuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\backbuffer\back_buffer_uncharted_PS.hpp">
-      <Filter>Header Files\backbuffer</Filter>
+    <ClInclude Include="Shaders\src\postprocessing\ldr_max3_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\backbuffer\back_buffer_aces_filmic_PS.hpp">
-      <Filter>Header Files\backbuffer</Filter>
+    <ClInclude Include="Shaders\src\postprocessing\ldr_none_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\backbuffer\back_buffer_none_PS.hpp">
-      <Filter>Header Files\backbuffer</Filter>
+    <ClInclude Include="Shaders\src\postprocessing\ldr_reinhard_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\postprocessing\ldr_uncharted_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\postprocessing\dof_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\src\postprocessing\ldr_aces_filmic_CS.hpp">
+      <Filter>Header Files\postprocessing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

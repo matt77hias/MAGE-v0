@@ -377,9 +377,6 @@
     <ClInclude Include="Rendering\src\scene\rendering_world.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\pass\dof_pass.hpp">
-      <Filter>Header Files\renderer\pass</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\renderer\pass\forward_pass.hpp">
       <Filter>Header Files\renderer\pass</Filter>
     </ClInclude>
@@ -418,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="Rendering\src\rendering_manager.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\pass\postprocess_pass.hpp">
+      <Filter>Header Files\renderer\pass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -615,9 +615,6 @@
     <ClCompile Include="Rendering\src\renderer\pass\depth_pass.cpp">
       <Filter>Source Files\renderer\pass</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\src\renderer\pass\dof_pass.cpp">
-      <Filter>Source Files\renderer\pass</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\src\renderer\pass\forward_pass.cpp">
       <Filter>Source Files\renderer\pass</Filter>
     </ClCompile>
@@ -653,6 +650,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\rendering_manager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\renderer\pass\postprocess_pass.cpp">
+      <Filter>Source Files\renderer\pass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

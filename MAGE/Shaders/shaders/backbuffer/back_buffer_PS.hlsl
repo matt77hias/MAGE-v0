@@ -5,8 +5,6 @@
 //-----------------------------------------------------------------------------
 // DISABLE_DITHERING                        | not defined
 // DISABLE_GAMMA_CORRECTION                 | not defined
-// DISABLE_TONE_MAPPING                     | not defined
-// TONE_MAP_FUNCTION                        | ToneMap_Uncharted
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -14,7 +12,6 @@
 #include "global.hlsli"
 #include "color.hlsli"
 #include "rng.hlsli"
-#include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs
@@ -25,14 +22,8 @@ TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(float4 input : SV_Position) : SV_Target {
-	const float4 hdr    = g_image_texture[input.xy];
+	const float4 ldr    = g_image_texture[input.xy];
 	
-	#ifdef DISABLE_TONE_MAPPING
-	const float4 ldr    = hdr;
-	#else  // DISABLE_TONE_MAPPING
-	const float4 ldr    = TONE_MAP_FUNCTION(hdr);
-	#endif // DISABLE_TONE_MAPPING
-
 	#ifdef DISABLE_GAMMA_CORRECTION
 	const float4 color  = ldr;
 	#else  // DISABLE_GAMMA_CORRECTION

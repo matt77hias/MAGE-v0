@@ -10,9 +10,9 @@
 #include "renderer\pass\bounding_volume_pass.hpp"
 #include "renderer\pass\deferred_pass.hpp"
 #include "renderer\pass\depth_pass.hpp"
-#include "renderer\pass\dof_pass.hpp"
 #include "renderer\pass\forward_pass.hpp"
 #include "renderer\pass\lbuffer_pass.hpp"
+#include "renderer\pass\postprocess_pass.hpp"
 #include "renderer\pass\sky_pass.hpp"
 #include "renderer\pass\sprite_pass.hpp"
 #include "renderer\pass\voxelization_pass.hpp"
@@ -241,11 +241,6 @@ namespace mage::rendering {
 		UniquePtr< DepthPass > m_depth_pass;
 
 		/**
-		 A pointer to the depth-of-field pass of this renderer.
-		 */
-		UniquePtr< DOFPass > m_dof_pass;
-
-		/**
 		 A pointer to the forward pass of this renderer.
 		 */
 		UniquePtr< ForwardPass > m_forward_pass;
@@ -254,6 +249,11 @@ namespace mage::rendering {
 		 A pointer to the LBuffer pass of this renderer.
 		 */
 		UniquePtr< LBufferPass >  m_lbuffer_pass;
+
+		/**
+		 A pointer to the post-process pass of this renderer.
+		 */
+		UniquePtr< PostProcessPass > m_postprocess_pass;
 
 		/**
 		 A pointer to the sky pass of this renderer.
@@ -281,26 +281,26 @@ namespace mage::rendering {
 						 DisplayConfiguration& display_configuration, 
 						 SwapChain& swap_chain, 
 						 ResourceManager& resource_manager)
-		: m_display_configuration(display_configuration),
+		: m_display_configuration(display_configuration), 
 		m_device(device), 
 		m_device_context(device_context), 
-		m_resource_manager(resource_manager),
+		m_resource_manager(resource_manager), 
 		m_output_manager(MakeUnique< OutputManager >(device, 
 													 display_configuration, 
-													 swap_chain)),
-		m_state_manager(MakeUnique< StateManager >(device)),
-		m_game_buffer(device),
-		m_aa_pass(),
-		m_back_buffer_pass(),
-		m_bounding_volume_pass(),
-		m_deferred_pass(),
-		m_depth_pass(),
-		m_dof_pass(),
+													 swap_chain)), 
+		m_state_manager(MakeUnique< StateManager >(device)), 
+		m_game_buffer(device), 
+		m_aa_pass(), 
+		m_back_buffer_pass(), 
+		m_bounding_volume_pass(), 
+		m_deferred_pass(), 
+		m_depth_pass(), 
 		m_forward_pass(),
-		m_lbuffer_pass(),
-		m_sky_pass(),
-		m_sprite_pass(),
-		m_voxel_grid_pass(),
+		m_lbuffer_pass(), 
+		m_postprocess_pass(), 
+		m_sky_pass(), 
+		m_sprite_pass(), 
+		m_voxel_grid_pass(), 
 		m_voxelization_pass() {
 
 		InitializePasses();
@@ -335,10 +335,6 @@ namespace mage::rendering {
 											   *m_state_manager.get(),
 											   m_resource_manager);
 
-		m_dof_pass = MakeUnique< DOFPass >(m_device_context,
-										   *m_state_manager.get(),
-										   m_resource_manager);
-
 		m_forward_pass = MakeUnique< ForwardPass >(m_device,
 												   m_device_context,
 												   *m_state_manager.get(),
@@ -348,6 +344,10 @@ namespace mage::rendering {
 												   m_device_context,
 												   *m_state_manager.get(),
 												   m_resource_manager);
+
+		m_postprocess_pass = MakeUnique< PostProcessPass >(m_device_context,
+														   *m_state_manager.get(),
+														   m_resource_manager);
 
 		m_sky_pass = MakeUnique< SkyPass >(m_device_context,
 										   *m_state_manager.get(),
@@ -611,7 +611,7 @@ namespace mage::rendering {
 		m_output_manager->BindEnd(m_device_context);
 
 		// Perform a back buffer pass.
-		m_back_buffer_pass->Render(settings.GetToneMapping());
+		m_back_buffer_pass->Render();
 	}
 
 	void XM_CALLCONV Renderer::Impl::RenderForward(const World& world,
@@ -817,7 +817,7 @@ namespace mage::rendering {
 			m_output_manager->BindPingPong(m_device_context);
 
 			// Perform a depth-of-field pass.
-			m_dof_pass->Dispatch(viewport.GetSize());
+			m_postprocess_pass->DispatchDOF(viewport.GetSize());
 		}
 	}
 

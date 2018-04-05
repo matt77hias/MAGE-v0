@@ -131,7 +131,8 @@ namespace mage::rendering {
 			F32x4A m_destination;
 
 			/**
-			 The (sRGB) color of the sprite associated with this sprite info.
+			 The (linear) RGBA color of the sprite associated with this sprite 
+			 info.
 			 */
 			F32x4A m_color;
 
@@ -142,8 +143,8 @@ namespace mage::rendering {
 			F32x4A m_origin_rotation_depth;
 
 			/**
-			 A pointer to the shader resource view of the texture associated with 
-			 this sprite info.
+			 A pointer to the shader resource view of the texture associated 
+			 with this sprite info.
 			 */
 			ID3D11ShaderResourceView* m_texture;
 
@@ -247,7 +248,7 @@ namespace mage::rendering {
 						A pointer to the shader resource view of the texture to 
 						draw.
 		 @param[in]		color
-						The sRGB color (multiplier).
+						The (linear) RGBA color (multiplier).
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		transform
@@ -798,7 +799,7 @@ namespace mage::rendering {
 			// Write the position as a F32x4.
 			vertices[i].m_p = Point3(XMStore< F32x3 >(position));
 			// Write the color.
-			vertices[i].m_c = SRGBA(XMStore< F32x4 >(color));
+			vertices[i].m_c = RGBA(XMStore< F32x4 >(color));
 
 			// Compute the texture coordinates.
 			const auto uv = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_mask], 

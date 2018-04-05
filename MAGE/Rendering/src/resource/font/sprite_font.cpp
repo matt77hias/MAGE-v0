@@ -201,8 +201,8 @@ namespace mage::rendering {
 
 						sprite_transform.SetRotationOrigin(offset);
 						
-						const auto srgba = (color) ? XMLoad(*color) 
-							                       : XMLoad(str.GetColor());
+						const auto srgba = (color) ? XMLoad(RGBA(*color)) 
+							                       : XMLoad(RGBA(str.GetColor()));
 						
 						sprite_batch.Draw(m_texture_srv.Get(), 
 							              srgba, 

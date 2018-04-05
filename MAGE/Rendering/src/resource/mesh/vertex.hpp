@@ -361,10 +361,10 @@ namespace mage::rendering {
 		 @param[in]		p
 						The position of the vertex.
 		 @param[in]		c
-						The sRGB color of the vertex.
+						The (linear) RGBA color of the vertex.
 		 */
 		constexpr explicit VertexPositionColor(Point3 p, 
-			                                   SRGBA c) noexcept
+			                                   RGBA c) noexcept
 			: m_p(std::move(p)), 
 			m_c(std::move(c)) {}
 
@@ -426,9 +426,9 @@ namespace mage::rendering {
 		Point3 m_p;
 
 		/**
-		 The sRGB color of this vertex.
+		 The (linear) RGBA color of this vertex.
 		 */
-		SRGBA m_c;
+		RGBA m_c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -654,11 +654,11 @@ namespace mage::rendering {
 		 @param[in]		n
 						The normal of the vertex.
 		 @param[in]		c
-						The sRGB color of the vertex.
+						The (linear) RGBA color of the vertex.
 		 */
 		constexpr explicit VertexPositionNormalColor(Point3 p, 
 			                                         Normal3 n, 
-			                                         SRGBA c) noexcept
+			                                         RGBA c) noexcept
 			: m_p(std::move(p)), 
 			m_n(std::move(n)), 
 			m_c(std::move(c)) {}
@@ -726,9 +726,9 @@ namespace mage::rendering {
 		Normal3 m_n;
 
 		/**
-		 The sRGB color of this vertex.
+		 The (linear) RGBA color of this vertex.
 		 */
-		SRGBA m_c;
+		RGBA m_c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -961,12 +961,12 @@ namespace mage::rendering {
 		 @param[in]		p
 						The position of the vertex.
 		 @param[in]		c
-						The sRGB color of the vertex.
+						The (linear) RGBA color of the vertex.
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
 		constexpr explicit VertexPositionColorTexture(Point3 p, 
-			                                          SRGBA c, 
+			                                          RGBA c, 
 			                                          UV tex) noexcept
 			: m_p(std::move(p)), 
 			m_c(std::move(c)), 
@@ -1030,9 +1030,9 @@ namespace mage::rendering {
 		Point3 m_p;
 
 		/**
-		 The sRGB color of this vertex.
+		 The (linear) RGBA color of this vertex.
 		 */
-		SRGBA m_c;
+		RGBA m_c;
 
 		/**
 		 The texture coordinates of this vertex.
@@ -1118,13 +1118,13 @@ namespace mage::rendering {
 		 @param[in]		n
 						The normal of the vertex.
 		 @param[in]		c
-						The sRGB color of the vertex.
+						The (linear) RGBA color of the vertex.
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
 		constexpr explicit VertexPositionNormalColorTexture(Point3 p, 
 			                                                Normal3 n, 
-			                                                SRGBA c, 
+			                                                RGBA c, 
 			                                                UV tex) noexcept
 			: m_p(std::move(p)), 
 			m_n(std::move(n)), 
@@ -1194,9 +1194,9 @@ namespace mage::rendering {
 		Normal3 m_n;
 
 		/**
-		 The sRGB color of this vertex.
+		 The (linear) RGBA color of this vertex.
 		 */
-		SRGBA m_c;
+		RGBA m_c;
 
 		/**
 		 The texture coordinates of this vertex.

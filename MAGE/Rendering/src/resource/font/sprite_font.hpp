@@ -114,15 +114,16 @@ namespace mage::rendering {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		color
-						A pointer to the color. If this pointer is equal to 
-						@c nullptr, each string will be drawn in its own color.
-						Otherwise, each string is drawn in this color.
+						A pointer to the (linear) RGBA color. If this pointer 
+						is equal to @c nullptr, each string will be drawn in 
+						its own color. Otherwise, each string is drawn in this 
+						color.
 		 */
 		void DrawText(SpriteBatch& sprite_batch, 
 			          gsl::span< const ColorString > strings, 
 			          const SpriteTransform& transform,
 			          SpriteEffect effects = SpriteEffect::None,
-		              const SRGBA* color = nullptr) const;
+		              const RGBA* color = nullptr) const;
 		
 		/**
 		 Returns the size of the given text with this sprite font (in pixels).

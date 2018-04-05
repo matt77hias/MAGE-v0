@@ -138,6 +138,12 @@ namespace mage::rendering {
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Normal)]
 				= m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Normal)];
 		}
+	
+		SetupBuffer(setup,
+					DXGI_FORMAT_R16G16B16A16_FLOAT,
+					ReleaseAndGetAddressOfSRV(SRVIndex::LDR),
+					ReleaseAndGetAddressOfRTV(RTVIndex::LDR),
+					ReleaseAndGetAddressOfUAV(UAVIndex::LDR));
 	}
 
 	void OutputManager::SetupBuffer(const U32x3& resolution, 
@@ -285,17 +291,19 @@ namespace mage::rendering {
 	void OutputManager::BindBegin(
 		ID3D11DeviceContext& device_context) const noexcept {
 
-		static_assert(SLOT_SRV_MATERIAL == SLOT_SRV_BASE_COLOR + 1);
-		static_assert(SLOT_SRV_NORMAL   == SLOT_SRV_BASE_COLOR + 2);
-		static_assert(SLOT_SRV_DEPTH    == SLOT_SRV_BASE_COLOR + 3);
+		// Bind no LDR SRV.
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
+		// Clear the LDR RTV.
+		Pipeline::OM::ClearRTV(device_context, GetRTV(RTVIndex::LDR));
+	}
 
-		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView* const srvs[4] = {};
-		// Bind no GBuffer SRVs.
-		Pipeline::PS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
-							   static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(device_context, SLOT_SRV_BASE_COLOR, 
-							   static_cast< U32 >(std::size(srvs)), srvs);
+	void OutputManager::BindBeginViewport(
+		ID3D11DeviceContext& device_context) const noexcept {
+
+		// Bind no LDR UAV.
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
+		// Bind no LDR SRV.
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
 
 		// Clear the GBuffer RTVs.
 		Pipeline::OM::ClearRTV(device_context, 
@@ -307,10 +315,6 @@ namespace mage::rendering {
 		// Clear the GBuffer DSV.
 		Pipeline::OM::ClearDepthOfDSV(device_context, m_dsv.Get());
 
-		// Bind no HDR SRV.
-		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
-		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE, nullptr);
-		
 		// Clear the HDR RTV.
 		Pipeline::OM::ClearRTV(device_context, GetRTV(RTVIndex::HDR));
 
@@ -439,7 +443,7 @@ namespace mage::rendering {
 		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
 		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
 
-		// Collect the SRVs.
+		// Collect the UAVs.
 		ID3D11UnorderedAccessView* const uavs[] = {
 			GetUAV(UAVIndex::PostProcessing_HDR0),
 			GetUAV(UAVIndex::PostProcessing_Normal),
@@ -454,13 +458,13 @@ namespace mage::rendering {
 	void OutputManager::BindEndResolve(
 		ID3D11DeviceContext& device_context) const noexcept {
 
-		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
-		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
-
 		// Bind no SRVs.
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE,  nullptr);
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, nullptr);
 		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH,  nullptr);
+
+		static_assert(SLOT_UAV_NORMAL == SLOT_UAV_IMAGE + 1);
+		static_assert(SLOT_UAV_DEPTH  == SLOT_UAV_IMAGE + 2);
 
 		// Collect the SRVs.
 		ID3D11UnorderedAccessView* const uavs[3] = {};
@@ -505,6 +509,44 @@ namespace mage::rendering {
 		m_hdr0_to_hdr1 = !m_hdr0_to_hdr1;
 	}
 
+	void OutputManager::BindEndPostProcessing(
+		ID3D11DeviceContext& device_context) const noexcept {
+		
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_NORMAL, nullptr);
+		Pipeline::CS::BindSRV(device_context, SLOT_SRV_DEPTH,  nullptr);
+	}
+
+	void OutputManager::BindEndViewport(
+		ID3D11DeviceContext& device_context) const noexcept {
+
+		// Bind LDR UAV.
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE,
+							  GetUAV(UAVIndex::LDR));
+
+		if (m_hdr0_to_hdr1) {
+			// Bind HDR SRV.
+			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE,
+								  GetSRV(SRVIndex::PostProcessing_HDR0));
+		}
+		else {
+			// Bind HDR SRV.
+			Pipeline::CS::BindSRV(device_context, SLOT_SRV_IMAGE,
+								  GetSRV(SRVIndex::PostProcessing_HDR1));
+		}
+	}
+
+	void OutputManager::BindGUI(
+		ID3D11DeviceContext& device_context) const noexcept {
+
+		// Bind no LDR UAV.
+		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
+
+		// Bind the LDR RTV and no DSV.
+		Pipeline::OM::BindRTVAndDSV(device_context,
+									GetRTV(RTVIndex::LDR),
+									nullptr);
+	}
+
 	void OutputManager::BindEnd(
 		ID3D11DeviceContext& device_context) const noexcept {
 
@@ -513,18 +555,8 @@ namespace mage::rendering {
 									m_swap_chain.get().GetRTV(),
 									nullptr);
 		
-		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context, SLOT_UAV_IMAGE, nullptr);
-
-		if (m_hdr0_to_hdr1) {
-			// Bind HDR SRV.
-			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-								  GetSRV(SRVIndex::PostProcessing_HDR0));
-		}
-		else {
-			// Bind HDR SRV.
-			Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
-								  GetSRV(SRVIndex::PostProcessing_HDR1));
-		}
+		// Bind LDR SRV.
+		Pipeline::PS::BindSRV(device_context, SLOT_SRV_IMAGE, 
+							  GetSRV(SRVIndex::LDR));
 	}
 }

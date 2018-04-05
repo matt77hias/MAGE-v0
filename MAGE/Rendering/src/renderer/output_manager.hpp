@@ -92,6 +92,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		void BindBegin(ID3D11DeviceContext& device_context) const noexcept;
+		void BindBeginViewport(ID3D11DeviceContext& device_context) const noexcept;
 		void BindBeginGBuffer(ID3D11DeviceContext& device_context) const noexcept;
 		void BindEndGBuffer(ID3D11DeviceContext& device_context) const noexcept;
 		void BindBeginDeferred(ID3D11DeviceContext& device_context) const noexcept;
@@ -102,6 +103,9 @@ namespace mage::rendering {
 		void BindEndResolve(ID3D11DeviceContext& device_context) const noexcept;
 		void BindBeginPostProcessing(ID3D11DeviceContext& device_context) const noexcept;
 		void BindPingPong(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndPostProcessing(ID3D11DeviceContext& device_context) const noexcept;
+		void BindEndViewport(ID3D11DeviceContext& device_context) const noexcept;
+		void BindGUI(ID3D11DeviceContext& device_context) const noexcept;
 		void BindEnd(ID3D11DeviceContext& device_context) const noexcept;
 
 	private:
@@ -111,35 +115,38 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		enum class SRVIndex : U8 {
-			HDR                   = 0,
-			GBuffer_BaseColor     = 1,
-			GBuffer_Material      = 2,
-			GBuffer_Normal        = 3,
-			GBuffer_Depth         = 4,
-			PostProcessing_HDR0   = 5,
-			PostProcessing_HDR1   = 6,
-			PostProcessing_Normal = 7,
-			PostProcessing_Depth  = 8,
-			Count                 = 9
+			HDR = 0,
+			GBuffer_BaseColor,
+			GBuffer_Material,
+			GBuffer_Normal,
+			GBuffer_Depth,
+			PostProcessing_HDR0,
+			PostProcessing_HDR1,
+			PostProcessing_Normal,
+			PostProcessing_Depth,
+			LDR,
+			Count
 		};
 
 		enum class RTVIndex : U8 {
-			HDR                 = 0,
-			GBuffer_BaseColor   = 1,
-			GBuffer_Material    = 2,
-			GBuffer_Normal      = 3,
-			PostProcessing_HDR0 = 4,
-			PostProcessing_HDR1 = 5,
-			Count               = 6
+			HDR = 0,
+			GBuffer_BaseColor,
+			GBuffer_Material,
+			GBuffer_Normal,
+			PostProcessing_HDR0,
+			PostProcessing_HDR1,
+			LDR,
+			Count
 		};
 
 		enum class UAVIndex : U8 {
-			HDR                   = 0,
-			PostProcessing_HDR0   = 1,
-			PostProcessing_HDR1   = 2,
-			PostProcessing_Normal = 3,
-			PostProcessing_Depth  = 4,
-			Count                 = 5
+			HDR = 0,
+			PostProcessing_HDR0,
+			PostProcessing_HDR1,
+			PostProcessing_Normal,
+			PostProcessing_Depth,
+			LDR,
+			Count
 		};
 
 		[[nodiscard]]

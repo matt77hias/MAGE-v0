@@ -405,6 +405,8 @@ namespace mage::rendering {
 		// Update the buffers.
 		UpdateBuffers(world);
 
+		m_output_manager->BindBegin(m_device_context);
+
 		// Render the world for each camera.
 		world.ForEach< Camera >([this, &world](const Camera& camera) {
 			if (State::Active != camera.GetState()) {
@@ -415,13 +417,24 @@ namespace mage::rendering {
 			Render(world, camera);
 		});
 
+		m_output_manager->BindGUI(m_device_context);
+
 		// Bind the maximum viewport.
 		const Viewport viewport(
 			m_display_configuration.get().GetDisplayResolution());
 		viewport.Bind(m_device_context);
 
-		// Perform a sprite pass.
+		//---------------------------------------------------------------------
+		// Sprite Pass
+		//---------------------------------------------------------------------
 		m_sprite_pass->Render(world);
+
+		m_output_manager->BindEnd(m_device_context);
+
+		//---------------------------------------------------------------------
+		// Back Buffer
+		//---------------------------------------------------------------------
+		m_back_buffer_pass->Render();
 	}
 
 	void Renderer::Impl::UpdateBuffers(const World& world) const {
@@ -455,7 +468,7 @@ namespace mage::rendering {
 
 		const auto  render_mode          = camera.GetSettings().GetRenderMode();
 
-		m_output_manager->BindBegin(m_device_context);
+		m_output_manager->BindBeginViewport(m_device_context);
 
 		//---------------------------------------------------------------------
 		// RenderMode
@@ -595,23 +608,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Anti-aliasing
 		//---------------------------------------------------------------------
-		
 		RenderAA(camera);
 
 		//---------------------------------------------------------------------
 		// Post-processing
 		//---------------------------------------------------------------------
-		
 		RenderPostProcessing(camera);
-
-		//---------------------------------------------------------------------
-		// Back Buffer
-		//---------------------------------------------------------------------
-		
-		m_output_manager->BindEnd(m_device_context);
-
-		// Perform a back buffer pass.
-		m_back_buffer_pass->Render();
 	}
 
 	void XM_CALLCONV Renderer::Impl::RenderForward(const World& world,
@@ -816,9 +818,17 @@ namespace mage::rendering {
 		if (camera.GetLens().HasFiniteAperture()) {
 			m_output_manager->BindPingPong(m_device_context);
 
-			// Perform a depth-of-field pass.
 			m_postprocess_pass->DispatchDOF(viewport.GetSize());
 		}
+
+		m_output_manager->BindEndPostProcessing(m_device_context);
+		m_output_manager->BindEndViewport(m_device_context);
+
+		//---------------------------------------------------------------------
+		// Low Dynamic Range
+		//---------------------------------------------------------------------
+		m_postprocess_pass->DispatchLDR(viewport.GetSize(), 
+										camera.GetSettings().GetToneMapping());
 	}
 
 	void Renderer::Impl::RenderAA(const Camera& camera) {

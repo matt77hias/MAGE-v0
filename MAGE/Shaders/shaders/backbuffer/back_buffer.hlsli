@@ -3,7 +3,9 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// MSAA_AS_SSAA                             | not defined
+// DISABLE_DITHERING                        | not defined
+// DISABLE_GAMMA_CORRECTION                 | not defined
+// DISABLE_TONE_MAPPING                     | not defined
 // TONE_MAP_FUNCTION                        | ToneMap_Uncharted
 
 //-----------------------------------------------------------------------------
@@ -11,6 +13,7 @@
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
 #include "color.hlsli"
+#include "rng.hlsli"
 #include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
@@ -21,15 +24,28 @@ TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-#ifdef MSAA_AS_SSAA
-float4 PS(float4 input : SV_Position, 
-		  uint index   : SV_SampleIndex) : SV_Target {
-#else  // MSAA_AS_SSAA
 float4 PS(float4 input : SV_Position) : SV_Target {
-#endif // MSAA_AS_SSAA
+	const float4 hdr    = g_image_texture[input.xy];
+	
+	#ifdef DISABLE_TONE_MAPPING
+	const float4 ldr    = hdr;
+	#else  // DISABLE_TONE_MAPPING
+	const float4 ldr    = TONE_MAP_FUNCTION(hdr);
+	#endif // DISABLE_TONE_MAPPING
 
-	const float4 hdr = g_image_texture[input.xy];
-	const float4 ldr = saturate(TONE_MAP_FUNCTION(hdr));
+	#ifdef DISABLE_GAMMA_CORRECTION
+	const float4 color  = ldr;
+	#else  // DISABLE_GAMMA_CORRECTION
+	const float4 color  = LinearToGamma(ldr, g_inv_gamma);
+	#endif // DISABLE_GAMMA_CORRECTION
 
-	return LinearToGamma(ldr, g_inv_gamma);
+	#ifdef DISABLE_DITHERING
+	const float4 output = color;
+	#else  // DISABLE_DITHERING
+	const uint   seed   = FlattenIndex((uint2)input.xy, g_viewport_resolution);
+	const float  noise  = UniformFloat(seed);
+	const float4 output = color + noise * 0.00390625;
+	#endif // DISABLE_DITHERING
+
+	return output;
 }

@@ -1833,6 +1833,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
     </FxCompile>
+    <None Include="Shaders\shaders\hash.hlsli" />
     <None Include="Shaders\shaders\hlsl_syntax.hlsli" />
     <None Include="Shaders\shaders\lighting.hlsli" />
     <None Include="Shaders\shaders\material.hlsli" />
@@ -2129,6 +2130,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
     </FxCompile>
+    <None Include="Shaders\shaders\rng.hlsli" />
     <None Include="Shaders\shaders\structures.hlsli" />
     <None Include="Shaders\shaders\tone_mapping.hlsli" />
     <None Include="Shaders\shaders\transform\transform.hlsli" />

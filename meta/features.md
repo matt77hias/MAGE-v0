@@ -89,8 +89,8 @@
   * Non-uniform stretching in looking direction
 * Sprites
 * Tone Mapping
-  * AA resolving (SSAA, MSAA, FXAA): Max3
-  * Back buffer: None, ACES Filmic, Reinhard, Uncharted
+  * AA resolving (SSAA, MSAA, FXAA): Max3 (*Reinhard is more expensive, but is invertible as well.*)
+  * Back buffer: None, ACES Filmic, Max3, Reinhard, Uncharted
 * Transparency
   * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending

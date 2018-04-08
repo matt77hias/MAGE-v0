@@ -170,10 +170,10 @@ namespace mage::rendering::loader {
 		/**
 		 Reads an sRGB spectrum.
 
-		 @return		The @c SRGB represented by the next token of this 
-						MTL reader.
+		 @return		The sRGB spectrum represented by the next token of 
+						this MTL reader.
 		 @throws		Exception
-						Failed to read a @c SRGB.
+						Failed to read a sRGB spectrum.
 		 */
 		[[nodiscard]]
 		const SRGB ReadMTLSRGB();
@@ -181,10 +181,10 @@ namespace mage::rendering::loader {
 		/**
 		 Reads an sRGBA spectrum.
 
-		 @return		The @c SRGBA represented by the next token of 
+		 @return		The sRGBA spectrum represented by the next token of 
 						this MTL reader.
 		 @throws		Exception
-						Failed to read a @c SRGBA.
+						Failed to read a sRGBA spectrum.
 		 */
 		[[nodiscard]]
 		const SRGBA ReadMTLSRGBA();

@@ -37,7 +37,7 @@ namespace mage::rendering {
 			: m_name(std::move(name)),
 			m_light_interaction(true),
 			m_transparent(false),
-			m_base_color(SRGBA(1.0f)),
+			m_base_color(RGBA(1.0f)),
 			m_base_color_texture(),
 			m_roughness(0.5f),
 			m_metalness(0.0f),

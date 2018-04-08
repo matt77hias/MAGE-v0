@@ -105,7 +105,7 @@ namespace mage::rendering {
 		 this sprite font descriptor. 
 		 
 		 This is helpful for color fonts that are in the sRGB or similar color 
-		 space but are not encoded explicitly as an SRGB format.
+		 space but are not encoded explicitly as a SRGB format.
 		 */
 		bool m_force_srgb;
 	};

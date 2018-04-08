@@ -80,7 +80,7 @@ namespace mage::script {
 				= static_cast< U32 >(GetVirtualMemoryUsage() >> 20);
 		}
 
-		SRGBA color = (m_last_frames_per_second > 120) ? color::Green : color::Red;
+		RGBA color = (m_last_frames_per_second > 120) ? color::Green : color::Red;
 
 		m_text->SetText(wstring(L"FPS: "));
 		m_text->AppendText(rendering::ColorString(

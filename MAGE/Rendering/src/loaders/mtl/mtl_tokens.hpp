@@ -8,7 +8,7 @@ namespace mage::rendering::loader {
 	constexpr const char    g_mtl_token_comment              = '#';
 	constexpr const_zstring g_mtl_token_material_declaration = "newmtl";
 
-	// RGBAs
+	// sRGBA spectra
 	constexpr const_zstring g_mtl_token_base_color           = "base_color";
 
 	// Scalars

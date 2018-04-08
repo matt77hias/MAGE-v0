@@ -84,7 +84,11 @@ WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](
 
 A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github.com/ampas/aces-dev), 2011.
 
+ERICSON C.: [*Converting RGB to LogLuv in a fragment shader*](http://realtimecollisiondetection.net/blog/?p=15), 2007.
+
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
+
+PETTINEO M.: [*LogLuv Encoding for HDR*](https://mynameismjp.wordpress.com/2008/12/12/logluv-encoding-for-hdr/), 2008.
 
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
 

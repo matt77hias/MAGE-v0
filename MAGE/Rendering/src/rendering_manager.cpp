@@ -383,10 +383,7 @@ namespace mage::rendering {
 		Pipeline::s_nb_draws = 0u;
 		
 		m_renderer->Render(GetWorld());
-
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
+		
 		m_swap_chain->Present();
 	}
 

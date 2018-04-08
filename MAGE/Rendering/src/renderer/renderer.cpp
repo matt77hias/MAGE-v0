@@ -18,6 +18,7 @@
 #include "renderer\pass\voxelization_pass.hpp"
 #include "renderer\pass\voxel_grid_pass.hpp"
 #include "renderer\buffer\game_buffer.hpp"
+#include "imgui_impl_dx11.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"
@@ -428,6 +429,9 @@ namespace mage::rendering {
 		// Sprite Pass
 		//---------------------------------------------------------------------
 		m_sprite_pass->Render(world);
+
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 		m_output_manager->BindEnd(m_device_context);
 

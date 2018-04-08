@@ -79,7 +79,7 @@ namespace mage::rendering::loader {
 	}
 
 	void MTLReader::ReadMTLBaseColor() {
-		m_material_buffer.back().GetBaseColor() = ReadMTLSRGBA();
+		m_material_buffer.back().GetBaseColor() = RGBA(ReadMTLSRGBA());
 	}
 
 	void MTLReader::ReadMTLRoughness() {

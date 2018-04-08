@@ -210,30 +210,29 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this material.
+		 Returns the (linear) base color of this material.
 
-		 @return		A reference to the sRGB base color of this material.
+		 @return		A reference to the (linear) base color of this material.
 		 */
 		[[nodiscard]]
-		SRGBA& GetBaseColor() noexcept {
+		RGBA& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this material.
+		 Returns the (linear) base color of this material.
 
-		 @return		A reference to the sRGB base color of this material.
+		 @return		A reference to the (linear) base color of this material.
 		 */
 		[[nodiscard]]
-		const SRGBA& GetBaseColor() const noexcept {
+		const RGBA& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color texture of this material.
+		 Returns the base color texture of this material.
 
-		 @return		A pointer to the sRGB base color texture of this 
-						material.
+		 @return		A pointer to the base color texture of this material.
 		 */
 		[[nodiscard]]
 		TexturePtr GetBaseColorTexture() const noexcept {
@@ -241,13 +240,12 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Returns the shader resource view of the sRGB base color texture of 
-		 this material.
+		 Returns the shader resource view of the base color texture of this 
+		 material.
 
-		 @return		@c nullptr, if this material has no sRGB base color 
-						texture.
-		 @return		A pointer to the shader resource view of the sRGB base 
-						color texture of this material.
+		 @return		@c nullptr, if this material has no base color texture.
+		 @return		A pointer to the shader resource view of the base color 
+						texture of this material.
 		 */
 		[[nodiscard]]
 		ID3D11ShaderResourceView* GetBaseColorSRV() const noexcept {
@@ -255,11 +253,11 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Sets the sRGB base color texture of this material to the given base 
-		 color texture.
+		 Sets the base color texture of this material to the given base color 
+		 texture.
 
 		 @param[in]		base_color_texture
-						A pointer to the sRGB base color texture.
+						A pointer to the base color texture.
 		 */
 		void SetBaseColorTexture(TexturePtr base_color_texture) noexcept {
 			m_base_color_texture = std::move(base_color_texture);
@@ -427,12 +425,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB base color of this material.
+		 The (linear) base color of this material.
 		 */
-		SRGBA m_base_color;
+		RGBA m_base_color;
 
 		/**
-		 A pointer to the sRGB base color texture of this material.
+		 A pointer to the base color texture of this material.
 		 */
 		TexturePtr m_base_color_texture;
 

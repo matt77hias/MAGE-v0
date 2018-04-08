@@ -474,22 +474,22 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this fog.
+		 Returns the (linear) base color of this fog.
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
 		[[nodiscard]]
-		constexpr SRGB& GetBaseColor() noexcept {
+		constexpr RGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this fog.
+		 Returns the (linear) base color of this fog.
 
 		 @return		A reference to the sRGB base color of this fog.
 		 */
 		[[nodiscard]]
-		constexpr const SRGB& GetBaseColor() const noexcept {
+		constexpr const RGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -520,9 +520,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB base color of this fog.
+		 The (linear) base color of this fog.
 		 */
-		SRGB m_base_color;
+		RGB m_base_color;
 
 		/**
 		 The density of this fog.

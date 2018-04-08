@@ -89,7 +89,7 @@ namespace mage::rendering {
 		// Fog and Sky
 		{
 			const auto& fog           = m_settings.GetFog();
-			buffer.m_fog_color        = RGB(fog.GetBaseColor());
+			buffer.m_fog_color        = fog.GetBaseColor();
 			buffer.m_fog_density      = fog.GetDensity();
 
 			const auto& sky           = m_settings.GetSky();

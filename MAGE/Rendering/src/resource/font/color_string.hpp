@@ -31,9 +31,9 @@ namespace mage::rendering {
 		 @param[in]		str
 						The string.
 		 @param[in]		color
-						A reference to the sRGB color.
+						A reference to the (linear) color.
 		 */
-		ColorString(wstring str, SRGBA color = color::White) noexcept
+		ColorString(wstring str, RGBA color = color::White) noexcept
 			: m_str(std::move(str)), 
 			m_color(std::move(color)) {}
 		
@@ -117,22 +117,22 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the sRGB color of this color string.
+		 Returns the (linear) color of this color string.
 
-		 @return		A reference to sRGB color of this color string.
+		 @return		A reference to (linear) color of this color string.
 		 */
 		[[nodiscard]]
-		SRGBA& GetColor() noexcept {
+		RGBA& GetColor() noexcept {
 			return m_color;
 		}
 
 		/**
-		 Returns the sRGB color of this color string.
+		 Returns the (linear) color of this color string.
 
-		 @return		A reference to sRGB color of this color string.
+		 @return		A reference to (linear) color of this color string.
 		 */
 		[[nodiscard]]
-		const SRGBA& GetColor() const noexcept {
+		const RGBA& GetColor() const noexcept {
 			return m_color;
 		}
 
@@ -148,8 +148,8 @@ namespace mage::rendering {
 		wstring m_str;
 
 		/**
-		 The sRGB color of this color string. 
+		 The (linear) color of this color string. 
 		 */
-		SRGBA m_color;
+		RGBA m_color;
 	};
 }

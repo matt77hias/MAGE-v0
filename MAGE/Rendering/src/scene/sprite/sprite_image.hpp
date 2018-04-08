@@ -150,24 +150,24 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this sprite image.
+		 Returns the (linear) base color of this sprite image.
 
-		 @return		A reference to the sRGB base color of this sprite 
+		 @return		A reference to the (linear) base color of this sprite 
 						image.
 		 */
 		[[nodiscard]]
-		SRGBA& GetBaseColor() noexcept {
+		RGBA& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this sprite image.
+		 Returns the (linear) base color of this sprite image.
 
-		 @return		A reference to the sRGB base color of this sprite 
+		 @return		A reference to the (linear) base color of this sprite 
 						image.
 		 */
 		[[nodiscard]]
-		const SRGBA& GetBaseColor() const noexcept {
+		const RGBA& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -217,9 +217,9 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the sRGB base color texture of this sprite image.
+		 Returns the base color texture of this sprite image.
 
-		 @return		A pointer to the sRGB base color texture of this sprite 
+		 @return		A pointer to the base color texture of this sprite 
 						image.
 		 */
 		[[nodiscard]]
@@ -228,12 +228,12 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Returns the shader resource view of the sRGB base color texture of 
-		 this sprite image.
+		 Returns the shader resource view of the base color texture of this 
+		 sprite image.
 
-		 @return		@c nullptr, if this sprite image has no sRGB base 
-						color texture.
-		 @return		A pointer to the shader resource view of the sRGB base 
+		 @return		@c nullptr, if this sprite image has no base color 
+						texture.
+		 @return		A pointer to the shader resource view of the base 
 						color texture of this sprite image.
 		 */
 		[[nodiscard]]
@@ -242,11 +242,11 @@ namespace mage::rendering {
 		}
 		
 		/**
-		 Sets the sRGB base color texture of this sprite image to the given 
-		 base color texture.
+		 Sets the base color texture of this sprite image to the given base 
+		 color texture.
 
 		 @param[in]		base_color_texture
-						A pointer to the sRGB base color texture.
+						A pointer to the base color texture.
 		 */
 		void SetBaseColorTexture(TexturePtr base_color_texture) noexcept {
 			m_base_color_texture = std::move(base_color_texture);
@@ -277,9 +277,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB base color of this sprite image.
+		 The (linear) base color of this sprite image.
 		 */
-		SRGBA m_base_color;
+		RGBA m_base_color;
 
 		/**
 		 A pointer to the base color texture region of this sprite image.
@@ -290,7 +290,7 @@ namespace mage::rendering {
 		RECT m_base_color_texture_region;
 
 		/**
-		 A pointer to the sRGB base color texture of this sprite image.
+		 A pointer to the base color texture of this sprite image.
 		 */
 		TexturePtr m_base_color_texture;
 	};

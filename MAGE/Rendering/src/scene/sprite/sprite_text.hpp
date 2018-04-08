@@ -235,24 +235,24 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB text effect color of this sprite text.
+		 Returns the (linear) text effect color of this sprite text.
 
-		 @return		A reference to the sRGB text effect color of this 
+		 @return		A reference to the (linear) text effect color of this 
 						sprite text.
 		 */
 		[[nodiscard]]
-		SRGBA& GetTextEffectColor() noexcept {
+		RGBA& GetTextEffectColor() noexcept {
 			return m_text_effect_color;
 		}
 
 		/**
-		 Returns the sRGB text effect color of this sprite text.
+		 Returns the (linear) text effect color of this sprite text.
 
-		 @return		A reference to the sRGB text effect color of this 
+		 @return		A reference to the (linear) text effect color of this 
 						sprite text.
 		 */
 		[[nodiscard]]
-		const SRGBA& GetTextEffectColor() const noexcept {
+		const RGBA& GetTextEffectColor() const noexcept {
 			return m_text_effect_color;
 		}
 
@@ -345,9 +345,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB text effect color of this sprite text.
+		 The (linear) text effect color of this sprite text.
 		 */
-		SRGBA m_text_effect_color;
+		RGBA m_text_effect_color;
 
 		/**
 		 The text effect of this sprite text.

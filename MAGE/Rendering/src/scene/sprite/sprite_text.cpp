@@ -17,7 +17,7 @@ namespace mage::rendering {
 		m_sprite_transform(),
 		m_sprite_effects(SpriteEffect::None),
 		m_strings(),
-		m_text_effect_color(SRGB(1.0f)),
+		m_text_effect_color(RGBA(1.0f)),
 		m_text_effect(TextEffect::None),
 		m_font() {}
 
@@ -37,7 +37,6 @@ namespace mage::rendering {
 		}
 		
 		SpriteTransform effect_transform(m_sprite_transform);
-		RGBA effect_color(m_text_effect_color);
 		
 		switch (m_text_effect) {
 		
@@ -48,14 +47,14 @@ namespace mage::rendering {
 							 gsl::make_span(m_strings), 
 				             effect_transform, 
 							 m_sprite_effects, 
-							 &effect_color);
+							 &m_text_effect_color);
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
 			m_font->DrawText(sprite_batch, 
 							 gsl::make_span(m_strings), 
 				             effect_transform, 
 							 m_sprite_effects, 
-							 &effect_color);
+							 &m_text_effect_color);
 			
 			[[fallthrough]];
 		}
@@ -67,14 +66,14 @@ namespace mage::rendering {
 							 gsl::make_span(m_strings), 
 				             effect_transform, 
 							 m_sprite_effects, 
-							 &effect_color);
+							 &m_text_effect_color);
 			// -1, +1
 			effect_transform.AddTranslationX(-2.0f);
 			m_font->DrawText(sprite_batch, 
 							 gsl::make_span(m_strings), 
 				             effect_transform, 
 							 m_sprite_effects, 
-							 &effect_color);
+							 &m_text_effect_color);
 
 			[[fallthrough]];
 		}

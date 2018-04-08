@@ -248,7 +248,7 @@ namespace mage::rendering {
 						A pointer to the shader resource view of the texture to 
 						draw.
 		 @param[in]		color
-						The (linear) RGBA color (multiplier).
+						The (linear) RGBA color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		transform

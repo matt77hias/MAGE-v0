@@ -114,9 +114,9 @@ namespace mage::rendering {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		color
-						A pointer to the (linear) RGBA color. If this pointer 
-						is equal to @c nullptr, each string will be drawn in 
-						its own color. Otherwise, each string is drawn in this 
+						A pointer to the (linear) color. If this pointer is 
+						equal to @c nullptr, each string will be drawn in its 
+						own color. Otherwise, each string is drawn in this 
 						color.
 		 */
 		void DrawText(SpriteBatch& sprite_batch, 

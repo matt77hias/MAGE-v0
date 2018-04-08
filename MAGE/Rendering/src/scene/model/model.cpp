@@ -58,7 +58,7 @@ namespace mage::rendering {
 		buffer.m_normal_to_world      = world_to_object;
 		buffer.m_texture_transform    = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_base_color           = RGBA(m_material.GetBaseColor());
+		buffer.m_base_color           = m_material.GetBaseColor();
 		buffer.m_roughness            = m_material.GetRoughness();
 		buffer.m_metalness            = m_material.GetMetalness();
 

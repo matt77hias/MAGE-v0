@@ -361,7 +361,7 @@ namespace mage::rendering {
 		 @param[in]		p
 						The position of the vertex.
 		 @param[in]		c
-						The (linear) RGBA color of the vertex.
+						The (linear) color of the vertex.
 		 */
 		constexpr explicit VertexPositionColor(Point3 p, 
 			                                   RGBA c) noexcept
@@ -426,7 +426,7 @@ namespace mage::rendering {
 		Point3 m_p;
 
 		/**
-		 The (linear) RGBA color of this vertex.
+		 The (linear) color of this vertex.
 		 */
 		RGBA m_c;
 
@@ -654,7 +654,7 @@ namespace mage::rendering {
 		 @param[in]		n
 						The normal of the vertex.
 		 @param[in]		c
-						The (linear) RGBA color of the vertex.
+						The (linear) color of the vertex.
 		 */
 		constexpr explicit VertexPositionNormalColor(Point3 p, 
 			                                         Normal3 n, 
@@ -726,7 +726,7 @@ namespace mage::rendering {
 		Normal3 m_n;
 
 		/**
-		 The (linear) RGBA color of this vertex.
+		 The (linear) color of this vertex.
 		 */
 		RGBA m_c;
 
@@ -961,7 +961,7 @@ namespace mage::rendering {
 		 @param[in]		p
 						The position of the vertex.
 		 @param[in]		c
-						The (linear) RGBA color of the vertex.
+						The (linear) color of the vertex.
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
@@ -1030,7 +1030,7 @@ namespace mage::rendering {
 		Point3 m_p;
 
 		/**
-		 The (linear) RGBA color of this vertex.
+		 The (linear) color of this vertex.
 		 */
 		RGBA m_c;
 
@@ -1118,7 +1118,7 @@ namespace mage::rendering {
 		 @param[in]		n
 						The normal of the vertex.
 		 @param[in]		c
-						The (linear) RGBA color of the vertex.
+						The (linear) color of the vertex.
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
@@ -1194,7 +1194,7 @@ namespace mage::rendering {
 		Normal3 m_n;
 
 		/**
-		 The (linear) RGBA color of this vertex.
+		 The (linear) color of this vertex.
 		 */
 		RGBA m_c;
 

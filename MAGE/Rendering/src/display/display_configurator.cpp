@@ -125,7 +125,7 @@ namespace mage::rendering {
 		 @param[in]		pixel_format
 						The pixel format.
 		 */
-		explicit Impl(DXGI_FORMAT pixel_format);
+		explicit Impl(DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator.
@@ -139,7 +139,7 @@ namespace mage::rendering {
 		 */
 		explicit Impl(ComPtr< DXGIAdapter > adapter, 
 					  ComPtr< DXGIOutput > output, 
-					  DXGI_FORMAT pixel_format);
+					  DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator from the given display configurator.

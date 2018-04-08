@@ -32,7 +32,7 @@ namespace mage::rendering {
 						The pixel format.
 		 */
 		explicit DisplayConfigurator(DXGI_FORMAT pixel_format 
-			                         = DXGI_FORMAT_R10G10B10A2_UNORM);
+			                         = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator.
@@ -47,7 +47,7 @@ namespace mage::rendering {
 		explicit DisplayConfigurator(ComPtr< DXGIAdapter > adapter,
 			                         ComPtr< DXGIOutput > output,
 			                         DXGI_FORMAT pixel_format 
-			                         = DXGI_FORMAT_R10G10B10A2_UNORM);
+			                         = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator from the given display configurator.

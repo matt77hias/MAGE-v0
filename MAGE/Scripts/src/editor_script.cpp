@@ -98,7 +98,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit3("Base Color", fog.GetBaseColor().GetData());
+			SRGB color(fog.GetBaseColor());
+			ImGui::ColorEdit3("Base Color", color.GetData());
+			fog.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
 			// Density
@@ -425,7 +427,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
+			SRGB color(light.GetBaseColor());
+			ImGui::ColorEdit3("Base Color", color.GetData());
+			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
 			// Radiance
@@ -439,7 +443,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
+			SRGB color(light.GetBaseColor());
+			ImGui::ColorEdit3("Base Color", color.GetData());
+			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
 			// Irradiance
@@ -453,7 +459,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
+			SRGB color(light.GetBaseColor());
+			ImGui::ColorEdit3("Base Color", color.GetData());
+			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
 			// Intensity
@@ -497,7 +505,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit3("Base Color", light.GetBaseColor().GetData());
+			SRGB color(light.GetBaseColor());
+			ImGui::ColorEdit3("Base Color", color.GetData());
+			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
 			// Intensity
@@ -584,7 +594,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit4("Base Color", material.GetBaseColor().GetData());
+			SRGBA color(material.GetBaseColor());
+			ImGui::ColorEdit4("Base Color", color.GetData());
+			material.GetBaseColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
 			// Base Color Texture
@@ -765,7 +777,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit4("Base Color", sprite.GetBaseColor().GetData());
+			SRGBA color(sprite.GetBaseColor());
+			ImGui::ColorEdit4("Base Color", color.GetData());
+			sprite.GetBaseColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
 			// Base Color Texture
@@ -862,7 +876,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Text effect color
 			//-----------------------------------------------------------------
-			ImGui::ColorEdit4("Text Effect Color", sprite.GetTextEffectColor().GetData());
+			SRGBA color(sprite.GetTextEffectColor());
+			ImGui::ColorEdit4("Text Effect Color", color.GetData());
+			sprite.GetTextEffectColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
 			// Text effects

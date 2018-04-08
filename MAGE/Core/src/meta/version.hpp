@@ -17,7 +17,7 @@
 // The version numbers (major/minor/patch) are macros to support the use of 
 // these numbers in conditional macro statements (e.g. if).
 #define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 141
+#define MAGE_VERSION_MINOR 142
 #define MAGE_VERSION_PATCH 0
 
 #define MAGE_QUOTE(S) #S

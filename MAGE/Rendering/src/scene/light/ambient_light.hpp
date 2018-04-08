@@ -84,24 +84,24 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this ambient light.
+		 Returns the (linear) base color of this ambient light.
 
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
 		[[nodiscard]]
-		SRGB& GetBaseColor() noexcept {
+		RGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this ambient light.
+		 Returns the (linear) base color of this ambient light.
 
 		 @return		A reference to the sRGB base color of this ambient 
 						light.
 		 */
 		[[nodiscard]]
-		const SRGB& GetBaseColor() const noexcept {
+		const RGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -133,7 +133,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const RGB GetRadianceSpectrum() const noexcept {
-			const auto L = m_radiance * SRGBtoRGB(XMLoad(m_base_color));
+			const auto L = m_radiance * XMLoad(m_base_color);
 			return RGB(XMStore< F32x3 >(L));
 		}
 
@@ -144,9 +144,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sRGB base color of this ambient light.
+		 The (linear) base color of this ambient light.
 		 */
-		SRGB m_base_color;
+		RGB m_base_color;
 
 		/**
 		 The radiance in watts per square meter per steradians of this ambient 

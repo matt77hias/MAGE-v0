@@ -19,7 +19,7 @@ namespace mage::rendering {
 		m_clipping_planes(0.1f, 1.0f),
 		m_aabb(), 
 		m_sphere(), 
-		m_base_color(SRGB(1.0f)), 
+		m_base_color(RGB(1.0f)), 
 		m_intensity(1.0f) {
 
 		// Update the bounding volumes.

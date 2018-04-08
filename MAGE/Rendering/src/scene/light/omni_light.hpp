@@ -85,22 +85,24 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the sRGB base color of this spotlight.
+		 Returns the (linear) RGB base color of this spotlight.
 
-		 @return		A reference to the sRGB base color of this spotlight.
+		 @return		A reference to the (linear) base color of this 
+						spotlight.
 		 */
 		[[nodiscard]]
-		SRGB& GetBaseColor() noexcept {
+		RGB& GetBaseColor() noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Returns the sRGB base color of this spotlight.
+		 Returns the (linear) base color of this spotlight.
 
-		 @return		A reference to the sRGB base color of this spotlight.
+		 @return		A reference to the (linear) base color of this 
+						spotlight.
 		 */
 		[[nodiscard]]
-		const SRGB& GetBaseColor() const noexcept {
+		const RGB& GetBaseColor() const noexcept {
 			return m_base_color;
 		}
 
@@ -131,7 +133,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const RGB GetPowerSpectrum() const noexcept {
-			const auto P = GetPower() * SRGBtoRGB(XMLoad(m_base_color));
+			const auto P = GetPower() * XMLoad(m_base_color);
 			return RGB(XMStore< F32x3 >(P));
 		}
 
@@ -164,7 +166,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const RGB GetIntensitySpectrum() const noexcept {
-			const auto I = GetIntensity() * SRGBtoRGB(XMLoad(m_base_color));
+			const auto I = GetIntensity() * XMLoad(m_base_color);
 			return RGB(XMStore< F32x3 >(I));
 		}
 
@@ -366,9 +368,9 @@ namespace mage::rendering {
 		BoundingSphere m_sphere;
 
 		/**
-		 The sRGB base color of this omni light.
+		 The (linear) base color of this omni light.
 		 */
-		SRGB m_base_color;
+		RGB m_base_color;
 
 		/**
 		 The radiant intensity in watts per steradians of this omni light.

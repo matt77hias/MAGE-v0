@@ -390,7 +390,8 @@ namespace mage::rendering {
 		swap_chain_desc.Format      = m_display_configuration.GetDisplayFormat();
 		swap_chain_desc.SampleDesc.Count = 1u;
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swap_chain_desc.BufferCount = 1u;
+		swap_chain_desc.BufferCount = 2u;
+		swap_chain_desc.SwapEffect  = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		// Create a fullscreen swap chain descriptor.

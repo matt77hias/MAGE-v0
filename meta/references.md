@@ -172,9 +172,13 @@ FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
 GRUEN H.: [*Constant Buffers without Constant Pain*](https://developer.nvidia.com/content/constant-buffers-without-constant-pain-0), 2015.
 
+HARGREAVES S.: [*For best performance, use DXGI flip model*](https://blogs.msdn.microsoft.com/directx/2018/04/09/dxgi-flip-model/), 2018.
+
 LUNA F.: *Introduction to 3D Game Programming with DirectX 11*, 1st Edition, Mercury Learning & Information, 2012.
 
 MICROSOFT CORP.: [*Direct3D 11 Graphics*](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx).
+
+MICROSOFT CORP.: [*DXGI flip model*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh706346(v=vs.85).aspx).
 
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
 

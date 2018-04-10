@@ -172,6 +172,12 @@ namespace mage::rendering {
 		void Clear() const noexcept;
 
 		/**
+		 Blocks the current thread until this swap chain has finished 
+		 presenting.
+		 */
+		void Wait() const noexcept;
+
+		/**
 		 Presents the back buffer of this swap chain.
 		 */
 		void Present() const noexcept;

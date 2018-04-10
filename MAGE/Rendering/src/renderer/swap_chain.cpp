@@ -193,6 +193,12 @@ namespace mage::rendering {
 		void Clear() const noexcept;
 
 		/**
+		 Blocks the current thread until this swap chain has finished 
+		 presenting.
+		 */
+		void Wait() const noexcept;
+
+		/**
 		 Presents the back buffer of this swap chain.
 		 */
 		void Present() const noexcept;
@@ -316,6 +322,11 @@ namespace mage::rendering {
 		 chain.
 		 */
 		ComPtr< ID3D11RenderTargetView > m_rtv;
+
+		/**
+		 A handle to the frame latency waitable object of this swap chain.
+		 */
+		HANDLE m_frame_latency_waitable_object;
 	};
 
 	SwapChain::Impl::Impl(ID3D11Device& device,
@@ -327,7 +338,8 @@ namespace mage::rendering {
 		m_device(device), 
 		m_device_context(device_context), 
 		m_swap_chain(), 
-		m_rtv() {
+		m_rtv(), 
+		m_frame_latency_waitable_object(nullptr) {
 
 		// Setup the swap chain.
 		SetupSwapChain();
@@ -352,10 +364,13 @@ namespace mage::rendering {
 	}
 
 	void SwapChain::Impl::ResetSwapChain() {
+		UINT flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+		if (!m_display_configuration.IsVSynced()) {
+			flags |= DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING;
+		}
+
 		// Recreate the swap chain buffers.
-		m_swap_chain->ResizeBuffers(0u, 0u, 0u,
-			                        DXGI_FORMAT_UNKNOWN, 
-			                        DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		m_swap_chain->ResizeBuffers(0u, 0u, 0u, DXGI_FORMAT_UNKNOWN, flags);
 		// Create the back buffer RTV.
 		CreateRTV();
 	}
@@ -392,7 +407,11 @@ namespace mage::rendering {
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swap_chain_desc.BufferCount = 2u;
 		swap_chain_desc.SwapEffect  = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+		swap_chain_desc.AlphaMode   = DXGI_ALPHA_MODE_IGNORE;
 		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+		if (!m_display_configuration.IsVSynced()) {
+			swap_chain_desc.Flags  |= DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING;
+		}
 
 		// Create a fullscreen swap chain descriptor.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
@@ -400,7 +419,7 @@ namespace mage::rendering {
 			= m_display_configuration.GetDisplayRefreshRate();
 		swap_chain_fullscreen_desc.Windowed = TRUE;
 
-		ComPtr< IDXGISwapChain1 > swap_chain;
+		ComPtr< IDXGISwapChain1 > swap_chain1;
 		{
 			// Get the IDXGISwapChain1.
 			const HRESULT result 
@@ -409,17 +428,34 @@ namespace mage::rendering {
 													   &swap_chain_desc, 
 													   &swap_chain_fullscreen_desc, 
 													   nullptr, 
-													   swap_chain.ReleaseAndGetAddressOf());
+													   swap_chain1.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: %08X.", result);
 		}
 		{
 			// Get the DXGISwapChain.
-			const HRESULT result = swap_chain.As(&m_swap_chain);
+			const HRESULT result = swap_chain1.As(&m_swap_chain);
 			ThrowIfFailed(result, "DXGISwapChain creation failed: %08X.", result);
 		}
 
-		// Set to windowed mode.
+		// MSDN recommends to create a windowed swap chain and allow the end 
+		// user to change the swap chain to full screen through 
+		// SetFullscreenState
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
+
+		return;
+
+		ComPtr< IDXGISwapChain2 > swap_chain2;
+		{
+			// Get the IDXGISwapChain2.
+			const HRESULT result = m_swap_chain.As(&swap_chain2);
+			ThrowIfFailed(result, "IDXGISwapChain2 creation failed: %08X.", result);
+		}
+		{
+			const HRESULT result = swap_chain2->SetMaximumFrameLatency(3u);
+			ThrowIfFailed(result, "Failed to set maximum frame latency: %08X.", result);
+		}
+
+		m_frame_latency_waitable_object = swap_chain2->GetFrameLatencyWaitableObject();
 	}
 
 	void SwapChain::Impl::CreateRTV() {
@@ -447,6 +483,12 @@ namespace mage::rendering {
 	void SwapChain::Impl::Clear() const noexcept {
 		// Clear the back buffer.
 		Pipeline::OM::ClearRTV(m_device_context, m_rtv.Get());
+	}
+
+	void SwapChain::Impl::Wait() const noexcept {
+		WaitForSingleObjectEx(m_frame_latency_waitable_object,
+							  INFINITE, 
+							  true);
 	}
 
 	void SwapChain::Impl::Present() const noexcept {
@@ -543,6 +585,10 @@ namespace mage::rendering {
 
 	void SwapChain::Clear() const noexcept {
 		m_impl->Clear();
+	}
+
+	void SwapChain::Wait() const noexcept {
+		m_impl->Wait();
 	}
 
 	void SwapChain::Present() const noexcept {

@@ -193,12 +193,6 @@ namespace mage::rendering {
 		void Clear() const noexcept;
 
 		/**
-		 Blocks the current thread until this swap chain has finished 
-		 presenting.
-		 */
-		void Wait() const noexcept;
-
-		/**
 		 Presents the back buffer of this swap chain.
 		 */
 		void Present() const noexcept;
@@ -322,11 +316,6 @@ namespace mage::rendering {
 		 chain.
 		 */
 		ComPtr< ID3D11RenderTargetView > m_rtv;
-
-		/**
-		 A handle to the frame latency waitable object of this swap chain.
-		 */
-		HANDLE m_frame_latency_waitable_object;
 	};
 
 	SwapChain::Impl::Impl(ID3D11Device& device,
@@ -338,8 +327,7 @@ namespace mage::rendering {
 		m_device(device), 
 		m_device_context(device_context), 
 		m_swap_chain(), 
-		m_rtv(), 
-		m_frame_latency_waitable_object(nullptr) {
+		m_rtv() {
 
 		// Setup the swap chain.
 		SetupSwapChain();
@@ -441,21 +429,6 @@ namespace mage::rendering {
 		// user to change the swap chain to full screen through 
 		// SetFullscreenState
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
-
-		return;
-
-		ComPtr< IDXGISwapChain2 > swap_chain2;
-		{
-			// Get the IDXGISwapChain2.
-			const HRESULT result = m_swap_chain.As(&swap_chain2);
-			ThrowIfFailed(result, "IDXGISwapChain2 creation failed: %08X.", result);
-		}
-		{
-			const HRESULT result = swap_chain2->SetMaximumFrameLatency(3u);
-			ThrowIfFailed(result, "Failed to set maximum frame latency: %08X.", result);
-		}
-
-		m_frame_latency_waitable_object = swap_chain2->GetFrameLatencyWaitableObject();
 	}
 
 	void SwapChain::Impl::CreateRTV() {
@@ -483,12 +456,6 @@ namespace mage::rendering {
 	void SwapChain::Impl::Clear() const noexcept {
 		// Clear the back buffer.
 		Pipeline::OM::ClearRTV(m_device_context, m_rtv.Get());
-	}
-
-	void SwapChain::Impl::Wait() const noexcept {
-		WaitForSingleObjectEx(m_frame_latency_waitable_object,
-							  INFINITE, 
-							  true);
 	}
 
 	void SwapChain::Impl::Present() const noexcept {
@@ -585,10 +552,6 @@ namespace mage::rendering {
 
 	void SwapChain::Clear() const noexcept {
 		m_impl->Clear();
-	}
-
-	void SwapChain::Wait() const noexcept {
-		m_impl->Wait();
 	}
 
 	void SwapChain::Present() const noexcept {

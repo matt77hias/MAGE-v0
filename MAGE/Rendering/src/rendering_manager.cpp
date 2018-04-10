@@ -378,8 +378,6 @@ namespace mage::rendering {
 	}
 
 	void Manager::Impl::Render() {
-		//m_swap_chain->Wait();
-		
 		m_swap_chain->Clear();
 		Pipeline::s_nb_draws = 0u;
 		m_renderer->Render(GetWorld());

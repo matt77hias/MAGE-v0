@@ -420,6 +420,7 @@ Uses:
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)
+* SoldierOfLight
 * Styves
 * [Vilem Otte](https://github.com/Zgragselus)
 * Zipster

@@ -182,6 +182,8 @@ MICROSOFT CORP.: [*DXGI flip model*](https://msdn.microsoft.com/en-us/library/wi
 
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
 
+NVIDIA GAMEWORKS: [DX12 Do's And Don'ts](https://developer.nvidia.com/dx12-dos-and-donts), s.d.
+
 RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
 RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).

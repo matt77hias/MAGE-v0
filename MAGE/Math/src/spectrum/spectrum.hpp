@@ -830,7 +830,7 @@ namespace mage {
 	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
 		static const XMMATRIX transform = {
 			 3.240479f, -0.969256f,  0.055648f, 0.0f,
-			-1.537150f,  1.875991f, -0.204043f, 0.0f, 
+			-1.537150f,  1.875992f, -0.204043f, 0.0f, 
 			-0.498535f,  0.041556f,  1.057311f, 0.0f,
 			 0.0f,       0.0f,       0.0f,      1.0f
 		};

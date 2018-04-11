@@ -808,6 +808,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV RGBtoXYZ(FXMVECTOR rgb) noexcept {
+		// Convert ITU-R Rec.BT.709 linear RGB to XYZ tristimulus values.
 		static const XMMATRIX transform = {
 			0.412453f, 0.212671f, 0.019334f, 0.0f,
 			0.357580f, 0.715160f, 0.119193f, 0.0f,
@@ -828,6 +829,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
+		// Convert XYZ tristimulus values to ITU-R Rec.BT.709 linear RGB.
 		static const XMMATRIX transform = {
 			 3.240479f, -0.969256f,  0.055648f, 0.0f,
 			-1.537150f,  1.875992f, -0.204043f, 0.0f, 

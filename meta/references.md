@@ -424,5 +424,3 @@ Uses:
 * Styves
 * [Vilem Otte](https://github.com/Zgragselus)
 * Zipster
-* [GameDev.net](https://www.gamedev.net/) community
-* [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

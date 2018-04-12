@@ -97,14 +97,14 @@ float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
 	// tan(pi/6) = sqrt(3)/3
 	cone.tan_half_aperture = 0.577350269f;
 
-	const float3x3 TBN = OrthonormalBasis(n);
+	const float3x3 tangent_to_world = OrthonormalBasis(n);
 
 	const uint nb_cones = min(g_nb_cones, 6u);
 	for (uint i = 0u; i < nb_cones; ++i) {
 		const float3 d      = g_cones[i].xyz;
 		const float  weight = g_cones[i].w;
 
-		cone.d = normalize(mul(d, TBN));
+		cone.d = normalize(mul(d, tangent_to_world));
 
 		L += BRDF_FUNCTION(n, cone.d, v, material) * GetVCTRadiance(cone) * weight;
 	}

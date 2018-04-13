@@ -592,6 +592,13 @@ namespace mage::script {
 			ImGui::Text("Material:");
 
 			//-----------------------------------------------------------------
+			// Transparency
+			//-----------------------------------------------------------------
+			auto transparency = material.IsTransparant();
+			ImGui::Checkbox("Transparency", &transparency);
+			material.SetTransparent(transparency);
+
+			//-----------------------------------------------------------------
 			// Radiance
 			//-----------------------------------------------------------------
 			auto radiance = material.GetRadiance();
@@ -620,13 +627,6 @@ namespace mage::script {
 				ImGui::Text("mage_black_texture");
 				ImGui::Text("1 x 1 texel");
 			}
-
-			//-----------------------------------------------------------------
-			// Transparency
-			//-----------------------------------------------------------------
-			auto transparency = material.IsTransparant();
-			ImGui::Checkbox("Transparency", &transparency);
-			material.SetTransparent(transparency);
 
 			//-----------------------------------------------------------------
 			// Roughness

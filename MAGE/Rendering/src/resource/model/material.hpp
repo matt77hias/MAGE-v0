@@ -34,15 +34,15 @@ namespace mage::rendering {
 						The name of the material.		
 		 */
 		explicit Material(string name = "material")
-			: m_name(std::move(name)),
-			m_light_interaction(true),
-			m_transparent(false),
-			m_base_color(RGBA(1.0f)),
+			: m_base_color(RGBA(1.0f)),
 			m_base_color_texture(),
 			m_roughness(0.5f),
 			m_metalness(0.0f),
 			m_material_texture(),
-			m_normal_texture() {}
+			m_normal_texture(),
+			m_transparent(false),
+			m_radiance(0.0f),
+			m_name(std::move(name)) {}
 		
 		/**
 		 Constructs a material from the given material.
@@ -88,123 +88,6 @@ namespace mage::rendering {
 		 */
 		Material& operator=(Material&& material) noexcept = default;
 
-		//---------------------------------------------------------------------
-		// Member Methods: Name
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the name of this material.
-
-		 @return		A reference to the name of this material.
-		 */
-		[[nodiscard]]
-		const string& GetName() const noexcept {
-			return m_name;
-		}
-		
-		/**
-		 Sets the name of this material to the given name.
-
-		 @param[in]		name
-						The name.
-		 */
-		void SetName(string name) noexcept {
-			m_name = std::move(name);
-		}
-		
-		//---------------------------------------------------------------------
-		// Member Methods: Light Interaction
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this material interacts with light and light sources.
-
-		 @return		@c true if this material interacts with light and 
-						light sources. @c false otherwise.
-		 */
-		[[nodiscard]]
-		bool InteractsWithLight() const noexcept {
-			return m_light_interaction;
-		}
-
-		/**
-		 Enables this material to interact with light and light sources.
-		 */
-		void EnableLightInteraction() noexcept {
-			SetLightInteraction(true);
-		}
-
-		/**
-		 Dissables this material to interact with light and light sources.
-		 */
-		void DissableLightInteraction() noexcept {
-			SetLightInteraction(false);
-		}
-		
-		/**
-		 Toggles the light interaction of this material.
-		 */
-		void ToggleLightInteraction() noexcept {
-			SetLightInteraction(!InteractsWithLight());
-		}
-
-		/**
-		 Sets the light interaction of this material to the given value.
-
-		 @param[in]		light_interaction
-						@c true if this material needs to interact with light 
-						and light sources. @c false otherwise.
-		 */
-		void SetLightInteraction(bool light_interaction) noexcept {
-			m_light_interaction = light_interaction;
-		}
-		
-		//---------------------------------------------------------------------
-		// Member Methods: Opacity/Transparency
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this material is opaque (i.e. contains alpha channel 
-		 equal to 1.0).
-
-		 @return		@c true if and only if this material is opaque. 
-						@c false otherwise.
-		 */
-		[[nodiscard]]
-		bool IsOpaque() const noexcept {
-			return !IsTransparant();
-		}
-		
-		/**
-		 Checks whether this material is transparent (i.e. contains alpha 
-		 channel not equal to 1.0).
-
-		 @return		@c true if and only if this material is transparent.
-						@c false otherwise.
-		 */
-		[[nodiscard]]
-		bool IsTransparant() const noexcept {
-			return m_transparent;
-		}
-		
-		/**
-		 Makes this material opaque.
-		 */
-		void SetOpaque() noexcept {
-			SetTransparent(false);
-		}
-
-		/**
-		 Makes this material transparent.
-
-		 @param[in]		transparent
-						@c true if and only if this material is transparent.
-						@c false otherwise.
-		 */
-		void SetTransparent(bool transparent = true) noexcept {
-			m_transparent = transparent;
-		}
-		
 		//---------------------------------------------------------------------
 		// Member Methods: Base Color and Base Color Texture
 		//---------------------------------------------------------------------
@@ -388,37 +271,124 @@ namespace mage::rendering {
 			m_normal_texture = std::move(normal_texture);
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Opacity/Transparency
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this material is opaque (i.e. contains alpha channel 
+		 equal to 1.0).
+
+		 @return		@c true if and only if this material is opaque. 
+						@c false otherwise.
+		 */
+		[[nodiscard]]
+		bool IsOpaque() const noexcept {
+			return !IsTransparant();
+		}
+		
+		/**
+		 Checks whether this material is transparent (i.e. contains alpha 
+		 channel not equal to 1.0).
+
+		 @return		@c true if and only if this material is transparent.
+						@c false otherwise.
+		 */
+		[[nodiscard]]
+		bool IsTransparant() const noexcept {
+			return m_transparent;
+		}
+		
+		/**
+		 Makes this material opaque.
+		 */
+		void SetOpaque() noexcept {
+			SetTransparent(false);
+		}
+
+		/**
+		 Makes this material transparent.
+
+		 @param[in]		transparent
+						@c true if and only if this material is transparent.
+						@c false otherwise.
+		 */
+		void SetTransparent(bool transparent = true) noexcept {
+			m_transparent = transparent;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Emission Parameters
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the radiance of this material.
+
+		 @return		The radiance in watts per square meter per steradians 
+						of this material.
+		 */
+		[[nodiscard]]
+		F32 GetRadiance() const noexcept {
+			return m_radiance;
+		}
+
+		/**
+		 Sets the radiance of this material to the given radiance.
+		 
+		 @param[in]		radiance
+						The radiance in watts per square meter per steradians.
+		 */
+		void SetRadiance(F32 radiance) noexcept {
+			m_radiance = std::abs(radiance);
+		}
+
+		/**
+		 Returns the radiance spectrum of this material.
+
+		 @return		The radiance spectrum of this material.
+		 */
+		[[nodiscard]]
+		const RGB GetRadianceSpectrum() const noexcept {
+			const auto L = m_radiance * XMLoad(m_base_color);
+			return RGB(XMStore< F32x3 >(L));
+		}
+
+		/**
+		 Checks whether this material is emissive and acts as a black body.
+
+		 @return		@c true if this material is emissive and acts as a 
+						black body. @c false otherwise.
+		 */
+		[[nodiscard]]
+		bool IsEmissive() const noexcept {
+			return 0.0f < m_radiance;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Identification
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the name of this material.
+
+		 @return		A reference to the name of this material.
+		 */
+		[[nodiscard]]
+		const string& GetName() const noexcept {
+			return m_name;
+		}
+		
+		/**
+		 Sets the name of this material to the given name.
+
+		 @param[in]		name
+						The name.
+		 */
+		void SetName(string name) noexcept {
+			m_name = std::move(name);
+		}
+
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Variables: Name
-		//---------------------------------------------------------------------
-
-		/**
-		 The name of this material.
-		 */
-		string m_name;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Light Interaction
-		//---------------------------------------------------------------------
-
-		/**
-		 Flag indicating whether this material interacts with light and light 
-		 sources.
-		 */
-		bool m_light_interaction;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Opacity/Transparency
-		//---------------------------------------------------------------------
-
-		/**
-		 Flag indicating whether this material is transparent. This flag is 
-		 @c true if this material could contain transparent parts. @c false 
-		 otherwise.
-		 */
-		bool m_transparent;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Base Color and Base Color Texture
@@ -464,5 +434,35 @@ namespace mage::rendering {
 		 A pointer to the normal texture of this material.
 		 */
 		TexturePtr m_normal_texture;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Opacity/Transparency
+		//---------------------------------------------------------------------
+
+		/**
+		 Flag indicating whether this material is transparent. This flag is 
+		 @c true if this material could contain transparent parts. @c false 
+		 otherwise.
+		 */
+		bool m_transparent;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Emission Parameters
+		//---------------------------------------------------------------------
+
+		/**
+		 The radiance in watts per square meter per steradians of this 
+		 material.
+		 */
+		F32 m_radiance;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Identification
+		//---------------------------------------------------------------------
+
+		/**
+		 The name of this material.
+		 */
+		string m_name;
 	};
 }

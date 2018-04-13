@@ -45,6 +45,9 @@ namespace mage::rendering::loader {
 		else if (str_equals(token, g_mtl_token_metalness)) {
 			ReadMTLMetalness();
 		}
+		else if (str_equals(token, g_mtl_token_radiance)) {
+			ReadMTLRadiance();
+		}
 		else if (str_equals(token, g_mtl_token_base_color_texture)) {
 			ReadMTLBaseColorTexture();
 		}
@@ -59,9 +62,6 @@ namespace mage::rendering::loader {
 		}
 		else if (str_equals(token, g_mtl_token_opaque)) {
 			m_material_buffer.back().SetOpaque();
-		}
-		else if (str_equals(token, g_mtl_token_emissive)) {
-			m_material_buffer.back().DissableLightInteraction();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
@@ -90,6 +90,11 @@ namespace mage::rendering::loader {
 	void MTLReader::ReadMTLMetalness() {
 		const auto metalness = Read< F32 >();
 		m_material_buffer.back().SetMetalness(metalness);
+	}
+
+	void MTLReader::ReadMTLRadiance() {
+		const auto radiance = Read< F32 >();
+		m_material_buffer.back().SetRadiance(radiance);
 	}
 
 	void MTLReader::ReadMTLBaseColorTexture() {

@@ -14,6 +14,7 @@ namespace mage::rendering::loader {
 	// Scalars
 	constexpr const_zstring g_mtl_token_roughness            = "roughness";
 	constexpr const_zstring g_mtl_token_metalness            = "metalness";
+	constexpr const_zstring g_mtl_token_radiance             = "radiance";
 
 	// Textures
 	constexpr const_zstring g_mtl_token_base_color_texture   = "texture_base_color";
@@ -23,5 +24,4 @@ namespace mage::rendering::loader {
 	// Flags
 	constexpr const_zstring g_mtl_token_transparent          = "transparent";
 	constexpr const_zstring g_mtl_token_opaque               = "opaque";
-	constexpr const_zstring g_mtl_token_emissive             = "emissive";
 }

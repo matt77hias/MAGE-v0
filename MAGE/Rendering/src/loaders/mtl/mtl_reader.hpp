@@ -144,6 +144,14 @@ namespace mage::rendering::loader {
 		void ReadMTLMetalness();
 
 		/**
+		 Reads a Radiance definition.
+
+		 @throws		Exception
+						Failed to read a Radiance definition.
+		 */
+		void ReadMTLRadiance();
+
+		/**
 		 Reads a Base Color Texture definition.
 
 		 @throws		Exception

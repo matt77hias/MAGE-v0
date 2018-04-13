@@ -132,7 +132,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr != material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
@@ -158,7 +158,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr == material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;

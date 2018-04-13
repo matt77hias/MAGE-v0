@@ -149,7 +149,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| material.InteractsWithLight()
+				|| !material.IsEmissive()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
 			}
@@ -174,7 +174,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr != material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
@@ -200,7 +200,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr == material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
@@ -255,7 +255,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr != material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
@@ -280,7 +280,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr == material.GetNormalSRV()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
@@ -313,7 +313,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| material.InteractsWithLight()
+				|| !material.IsEmissive()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
 				return;
 			}
@@ -347,7 +347,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| material.InteractsWithLight()
+				|| !material.IsEmissive()
 				|| !material.IsTransparant()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
@@ -373,7 +373,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr != material.GetNormalSRV()
 				|| !material.IsTransparant()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
@@ -400,7 +400,7 @@ namespace mage::rendering {
 			const auto& material = model.GetMaterial();
 
 			if (State::Active != model.GetState()
-				|| !material.InteractsWithLight()
+				|| material.IsEmissive()
 				|| nullptr == material.GetNormalSRV()
 				|| !material.IsTransparant()
 				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {

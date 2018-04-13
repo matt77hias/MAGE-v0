@@ -592,6 +592,13 @@ namespace mage::script {
 			ImGui::Text("Material:");
 
 			//-----------------------------------------------------------------
+			// Radiance
+			//-----------------------------------------------------------------
+			auto radiance = material.GetRadiance();
+			ImGui::InputFloat("Radiance", &radiance);
+			material.SetRadiance(radiance);
+
+			//-----------------------------------------------------------------
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGBA color(material.GetBaseColor());
@@ -662,13 +669,6 @@ namespace mage::script {
 					= rendering::GetTexture2DSize(*material.GetNormalSRV());
 				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
 			}
-
-			//-----------------------------------------------------------------
-			// Light Interaction
-			//-----------------------------------------------------------------
-			auto light_interaction = material.InteractsWithLight();
-			ImGui::Checkbox("Interacts with Light", &light_interaction);
-			material.SetLightInteraction(light_interaction);
 		}
 
 		void DrawWidget(rendering::Model& model) {

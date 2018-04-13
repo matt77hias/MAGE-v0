@@ -30,7 +30,7 @@
 | base color         | `base_color <F32> <F32> <F32>`              | R, G, B channels (A=1)       [0,1] |
 | base color         | `base_color <F32> <F32> <F32> <F32>`        | R, G, B, A channels          [0,1] |
 | base color texture | `texture_base_color <string>`               | relative file name                 |
-| emissive           | `emissive`                                  | no light interaction               |
+| radiance           | `radiance <F32>`                            | radiance value                     |
 | metalness          | `metalness <F32>`                           | metalness value              [0,1] |
 | material texture   | `material_base_color <string>`              | relative file name                 |
 | new material       | `newmtl <string>`                           | material name                      |

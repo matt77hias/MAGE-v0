@@ -38,6 +38,8 @@ ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-b
 
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
 
+BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
+
 BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
 
 CORENTIN B.: [Undefining the C++ Pre-processor](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.

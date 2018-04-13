@@ -531,6 +531,9 @@
     <None Include="Shaders\shaders\postprocessing\ldr.hlsli">
       <Filter>Shader Files\postprocessing</Filter>
     </None>
+    <None Include="Shaders\shaders\basis.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\hlsl.hpp">

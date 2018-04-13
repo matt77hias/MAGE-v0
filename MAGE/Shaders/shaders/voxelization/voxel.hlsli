@@ -1,6 +1,16 @@
 #ifndef MAGE_HEADER_VOXEL
 #define MAGE_HEADER_VOXEL
 
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "color.hlsli"
+#include "math.hlsli"
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 struct Voxel {
 	uint encoded_L;
 	uint encoded_n;
@@ -9,41 +19,11 @@ struct Voxel {
 static const float g_max_length = 1.0f;
 
 uint EncodeRadiance(float3 L) {
-	static const float epsilon = g_max_length / 255.0f;
-	const float L_length       = max(length(L), epsilon);
-	const float L_inv_length   = 1.0f / L_length;
-
-	// [0, inf) -> [0,1] -> [0,255]
-	const uint length = uint(255.0f * saturate(L_length / g_max_length));
-	// [0, L_inv_length)^3 -> [0,1]^3 -> [0,255]^3
-	const uint3 color = uint3(255.0f * L * L_inv_length);
-	
-	// |........|........|........|........|
-	// | length |  red   |  green |  blue  |
-	const uint encoded_L = (length  << 24u)
-		                 | (color.x << 16u) 
-		                 | (color.y <<  8u) 
-		                 |  color.z;
-	return encoded_L;
+	return PackR8G8B8A8(RGBtoLogLuv(L));
 }
 
 float3 DecodeRadiance(uint encoded_L) {
-	static const float u_to_f = 1.0f / 255.0f;
-	
-	// [0,2^32-1] -> [0,255]^4
-	const uint4 uL = 0xFF & uint4(encoded_L >> 24u,
-		                          encoded_L >> 16u,
-		                          encoded_L >>  8u,
-		                          encoded_L);
-	// [0,255]^4 -> [0,1]^4
-	const float4 fL = uL * u_to_f;
-	
-	// [0,1] -> [0, g_max_length]
-	const float L_length = fL.x * g_max_length;
-	// [0,1]^3 -> [0, L_length]^3
-	const float3 L = fL.yzw * L_length;
-	
-	return L;
+	return LogLuvToRGB(UnpackR8G8B8A8(encoded_L));
 }
 
 uint EncodeNormal(float3 n) {

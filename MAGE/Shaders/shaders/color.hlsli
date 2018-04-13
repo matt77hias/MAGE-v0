@@ -69,7 +69,6 @@ float4 GammaToLinear(float4 color, float gamma) {
  @param[in]		rgb
 				The spectrum in (linear) RGB space.
  @return		The spectrum in sRGB space.
- @return		The spectrum in sRGB space.
  */
 float3 RGBtoSRGB_Approximate(float3 rgb) {
 	return LinearToGamma(rgb, 1.0f / 2.2f);
@@ -116,7 +115,6 @@ float4 SRGBtoRGB_Approximate(float4 srgb) {
  @param[in]		rgb
 				The spectrum in (linear) RGB space.
  @return		The spectrum in sRGB space.
- @return		The spectrum in sRGB space.
  */
 float3 RGBtoSRGB_Accurate(float3 rgb) {
 	const float3 low  = rgb * 12.92f;
@@ -162,6 +160,54 @@ float3 SRGBtoRGB_Accurate(float3 srgb) {
  */
 float4 SRGBtoRGB_Accurate(float4 srgb) {
 	return float4(SRGBtoRGB_Accurate(srgb.xyz), srgb.w);
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: (linear) RGB <-> LogLuv
+//-----------------------------------------------------------------------------
+
+/**
+ Converts the given spectrum from (linear) RGB to LogLuv space.
+
+ @param[in]		rgb
+				The spectrum in (linear) RGB space.
+ @return		The spectrum in LogLuv space.
+ */
+float4 RGBtoLogLuv(float3 rgb) {
+	static const float3x3 s_rgb_to_x1yd1 
+		= float3x3(0.22088889f, 0.339f, 0.41843111f, 
+				   0.11377778f, 0.678f, 0.73187556f, 
+				   0.01022222f, 0.113f, 0.29691111f);
+
+	const float3 x1yd1  = max(mul(rgb, s_rgb_to_x1yd1), 1e-6f);
+	const float2 uv     = x1yd1.xy / x1yd1.z;
+	const float  L      = 2.0f * log2(x1yd1.y) + 127.0f;
+	const float  L_low  = frac(L);
+	const float  L_high = (L - floor(L_low * 255.0f) / 255.0f) / 255.0f;
+	
+	return float4(L_high, L_low, uv);
+}
+
+/**
+ Converts the given spectrum from LogLuv to (linear) RGB space.
+
+ @param[in]		logluv
+				The spectrum in LogLuv space.
+ @return		The spectrum in (linear) RGB space.
+ */
+float3 LogLuvToRGB(float4 logluv) {
+	static const float3x3 s_x1yd1_to_rgb 
+		= float3x3( 6.00157563f, -2.70063025f, -1.80094538f, 
+				   -1.33085447f,  3.10225329f, -5.77139883f, 
+				    0.29987802f, -1.08769314f,  5.62652480f);
+
+	const float  L = 255.0f * logluv.x + logluv.y;
+	float3 x1yd1;
+	x1yd1.y = exp2((L - 127.0f) * 0.5f);
+	x1yd1.z = x1yd1.y / logluv.w;
+	x1yd1.x = logluv.z * x1yd1.z;
+	
+	return max(mul(x1yd1, s_x1yd1_to_rgb), 0.0f);
 }
 
 #endif //MAGE_HEADER_COLOR

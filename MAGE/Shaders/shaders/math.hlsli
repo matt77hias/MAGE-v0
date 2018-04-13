@@ -923,6 +923,35 @@ double4 SNORMtoUNORM(double4 v) {
 }
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: R8G8B8A8 Packing/Unpacking
+//-----------------------------------------------------------------------------
+
+/**
+ Unpacks the given @c uint (R8G8B8A8) to a @c float4.
+
+ @param		u
+			The @c uint (R8G8B8A8) to unpack.
+ @return	The corresponding unpacked @c float4.
+ */
+float4 UnpackR8G8B8A8(uint u) {
+	const float4 f = 0xFF & uint4(u >> 24u, u >> 16u, u >> 8u, u);
+	return f * (1.0f / 255.0f);
+}
+
+/**
+ Unpacks the given @c float4 to a @c uint (R8G8B8A8).
+
+ @pre		@a f lies in [0.0,1.0]^4
+ @param		u
+			The @c float4 to pack.
+ @return	The corresponding packed @c uint (R8G8B8A8).
+ */
+uint PackR8G8B8A8(float4 f) {
+	const uint4 u = 255.0f * f;
+	return (u.x << 24u) | (u.y << 16u) | (u.z << 8u) | u.w;
+}
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Normal Packing/Unpacking
 //-----------------------------------------------------------------------------
 
@@ -1112,27 +1141,6 @@ float SqrCosToSqrTan(float sqr_cos) {
  */
 float SqrSinToSqrTan(float sqr_sin) {
 	return sqr_sin / (1.0f - sqr_sin);
-}
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
-//-----------------------------------------------------------------------------
-
-/**
- Calculates an orthonormal basis from a given unit vector with the method 
- of Hughes and Möller.
-
- @pre			@a n is normalized.
- @param[in]		n
-				A basis vector of the orthonormal basis.
- @return		An orthonormal basis.
- */
-float3x3 OrthonormalBasis(float3 n) {
-	const float3 n_ortho = (0.1f < abs(n.x)) ? float3(0.0f, 1.0f, 0.0f) 
-		                                     : float3(1.0f, 0.0f, 0.0f);
-	const float3 t = normalize(cross(n_ortho, n));
-	const float3 b = cross(n, t);
-	return float3x3(t, b, n);
 }
 
 #endif //MAGE_HEADER_MATH

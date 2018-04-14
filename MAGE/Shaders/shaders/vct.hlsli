@@ -72,10 +72,10 @@ float3 GetVCTRadiance(Cone cone) {
 }
 
 /**
- The cones to trace for voxel cone tracing. The first three components 
- represent the direction of the cone over a hemisphere about the z-axis. The 
- last component represents the weight of the cone (solid angle/pdf). The cones 
- are obtained after cosine-weighted hemisphere sampling. The aperture angle is 
+ The cones to trace for computing the diffuse indirect illumination using voxel 
+ cone tracing. The first three components represent the direction of the cone 
+ over a hemisphere about the z-axis. The last component represents the weight 
+ of the cone (e.g cosine-weighted solid angle). The cone aperture angle is 
  equal to pi/3.
  */
 static const float4 g_cones[] = {

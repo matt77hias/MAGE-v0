@@ -116,6 +116,29 @@ namespace mage::rendering {
 		constexpr bool transparency = false;
 		
 		//---------------------------------------------------------------------
+		// All emissive models.
+		//---------------------------------------------------------------------
+		{
+			const PixelShaderPtr ps = CreateVoxelizationEmissivePS(m_resource_manager);
+			// PS: Bind the pixel shader.
+			ps->BindShader(m_device_context);
+		}
+
+		// Process the models.
+		world.ForEach< Model >([this, world_to_projection](const Model& model) {
+
+			const auto& material = model.GetMaterial();
+
+			if (State::Active != model.GetState()
+				|| !material.IsEmissive()
+				|| material.GetBaseColor().m_w < TRANSPARENCY_THRESHOLD) {
+				return;
+			}
+
+			Render(model, world_to_projection);
+		});
+
+		//---------------------------------------------------------------------
 		// All models with no TSNM.
 		//---------------------------------------------------------------------
 		{

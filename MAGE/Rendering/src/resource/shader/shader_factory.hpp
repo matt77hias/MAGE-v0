@@ -479,6 +479,17 @@ namespace mage::rendering {
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager);
 
 	/**
+	 Creates a voxelization emissive pixel shader.
+
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @return		A pointer to the voxelization emissive pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	PixelShaderPtr CreateVoxelizationEmissivePS(ResourceManager& resource_manager);
+
+	/**
 	 Creates a voxelization pixel shader.
 
 	 @param[in]		resource_manager

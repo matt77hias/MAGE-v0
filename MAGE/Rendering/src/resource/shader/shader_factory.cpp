@@ -158,6 +158,7 @@
 #include "voxelization\voxelization_VS.hpp"
 #include "voxelization\voxelization_GS.hpp"
 // Voxelization: Opaque
+#include "voxelization\voxelization_emissive_PS.hpp"
 #include "voxelization\voxelization_lambertian_PS.hpp"
 // Voxelization: Opaque + TSNM
 #include "voxelization\voxelization_tsnm_lambertian_PS.hpp"
@@ -1014,6 +1015,11 @@ namespace mage::rendering {
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager) {
 		return CreateGS(resource_manager, 
 						MAGE_SHADER_ARGS(g_voxelization_GS));
+	}
+
+	PixelShaderPtr CreateVoxelizationEmissivePS(ResourceManager& resource_manager) {
+		return CreatePS(resource_manager,
+						MAGE_SHADER_ARGS(g_voxelization_emissive_PS));
 	}
 
 	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 

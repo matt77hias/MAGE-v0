@@ -75,16 +75,16 @@ float3 GetVCTRadiance(Cone cone) {
  The cones to trace for computing the diffuse indirect illumination using voxel 
  cone tracing. The first three components represent the direction of the cone 
  over a hemisphere about the z-axis. The last component represents the weight 
- of the cone (e.g cosine-weighted solid angle). The cone aperture angle is 
- equal to pi/3.
+ of the cone (e.g cosine-weighted solid angle) divided by pi. The cone aperture 
+ angle is equal to pi/3.
  */
 static const float4 g_cones[] = {
-	float4( 0.000000f,  0.000000f, 1.0f, 0.785398163f),
-	float4( 0.000000f,  0.866025f, 0.5f, 0.471238898f),
-	float4( 0.823639f,  0.267617f, 0.5f, 0.471238898f),
-	float4( 0.509037f, -0.700629f, 0.5f, 0.471238898f),
-	float4(-0.509037f, -0.700629f, 0.5f, 0.471238898f),
-	float4(-0.823639f,  0.267617f, 0.5f, 0.471238898f)
+	float4( 0.000000f,  0.000000f, 1.0f, 0.25f),
+	float4( 0.000000f,  0.866025f, 0.5f, 0.15f),
+	float4( 0.823639f,  0.267617f, 0.5f, 0.15f),
+	float4( 0.509037f, -0.700629f, 0.5f, 0.15f),
+	float4(-0.509037f, -0.700629f, 0.5f, 0.15f),
+	float4(-0.823639f,  0.267617f, 0.5f, 0.15f)
 };
 
 float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
@@ -107,10 +107,10 @@ float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
 
 		cone.d = normalize(mul(d, tangent_to_world));
 
-		L += BRDF_FUNCTION(n, cone.d, v, material) * GetVCTRadiance(cone) * weight;
+		L += weight * GetVCTRadiance(cone);
 	}
 
-	return L;
+	return material.base_color * L;
 }
 
 #endif //MAGE_HEADER_VCT

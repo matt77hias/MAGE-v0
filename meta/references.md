@@ -94,6 +94,8 @@ PETTINEO M.: [*LogLuv Encoding for HDR*](https://mynameismjp.wordpress.com/2008/
 
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
 
+WARD G.: *The LogLuv Encoding for Full Gamut, High Dynamic Range Images*, *J. Graph. Tools* 3, 1, 1998.
+
 ### Data Structures
 
 ARNEBÄCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.

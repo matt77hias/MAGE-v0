@@ -140,7 +140,9 @@ namespace mage::rendering {
 
 		void InitializePasses();
 
-		void UpdateBuffers(const World& world) const;
+		void UpdateBuffers(const World& world);
+
+		void UpdateWorldBuffer();
 		
 		void Render(const World& world, const Camera& camera);
 		
@@ -208,9 +210,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the game buffer of this renderer.
+		 A pointer to the world buffer of this renderer.
 		 */
-		ConstantBuffer< GameBuffer > m_game_buffer;
+		ConstantBuffer< GameBuffer > m_world_buffer;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes
@@ -290,7 +292,7 @@ namespace mage::rendering {
 													 display_configuration, 
 													 swap_chain)), 
 		m_state_manager(MakeUnique< StateManager >(device)), 
-		m_game_buffer(device), 
+		m_world_buffer(device),
 		m_aa_pass(), 
 		m_back_buffer_pass(), 
 		m_bounding_volume_pass(), 
@@ -371,40 +373,14 @@ namespace mage::rendering {
 
 	void Renderer::Impl::BindPersistentState() {
 		m_state_manager->BindPersistentState(m_device_context);
-		
-		GameBuffer buffer;
-		
-		// Display
-		{
-			auto display_resolution
-				= m_display_configuration.get().GetDisplayResolution();
-			buffer.m_display_inv_resolution_minus1 
-				= F32x2(1.0f / (display_resolution.m_x - 1u),
-						1.0f / (display_resolution.m_y - 1u));
-			buffer.m_display_resolution 
-				= std::move(display_resolution);
-		}
-
-		// SS Display
-		{
-			auto ss_display_resolution
-				= m_display_configuration.get().GetSSDisplayResolution();
-			buffer.m_ss_display_inv_resolution_minus1 
-				= F32x2(1.0f / (ss_display_resolution.m_x - 1u), 
-						1.0f / (ss_display_resolution.m_y - 1u));
-			buffer.m_ss_display_resolution 
-				= std::move(ss_display_resolution);
-		}
-		
-		// Update the game buffer.
-		m_game_buffer.UpdateData(m_device_context, buffer);
-		// Bind the game buffer.
-		m_game_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_GAME);
 	}
 
 	void Renderer::Impl::Render(const World& world) {
 		// Update the buffers.
 		UpdateBuffers(world);
+
+		// Bind the world buffer.
+		m_world_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_WORLD);
 
 		m_output_manager->BindBegin(m_device_context);
 
@@ -441,7 +417,10 @@ namespace mage::rendering {
 		m_back_buffer_pass->Render();
 	}
 
-	void Renderer::Impl::UpdateBuffers(const World& world) const {
+	void Renderer::Impl::UpdateBuffers(const World& world) {
+		// Update the world buffer.
+		UpdateWorldBuffer();
+		
 		// Update the buffer of each camera.
 		world.ForEach< Camera >([this](const Camera& camera) {
 			if (State::Active == camera.GetState()) {
@@ -456,6 +435,51 @@ namespace mage::rendering {
 				model.UpdateBuffer(m_device_context);
 			}
 		});
+	}
+
+	void Renderer::Impl::UpdateWorldBuffer() {
+		GameBuffer buffer;
+
+		// Display
+		{
+			auto display_resolution
+				= m_display_configuration.get().GetDisplayResolution();
+			buffer.m_display_inv_resolution_minus1
+				= F32x2(1.0f / (display_resolution.m_x - 1u),
+						1.0f / (display_resolution.m_y - 1u));
+			buffer.m_display_resolution
+				= std::move(display_resolution);
+		}
+
+		// SS Display
+		{
+			auto ss_display_resolution
+				= m_display_configuration.get().GetSSDisplayResolution();
+			buffer.m_ss_display_inv_resolution_minus1
+				= F32x2(1.0f / (ss_display_resolution.m_x - 1u),
+						1.0f / (ss_display_resolution.m_y - 1u));
+			buffer.m_ss_display_resolution
+				= std::move(ss_display_resolution);
+		}
+
+		// Voxelization
+		{
+			buffer.m_voxel_grid_center
+				= VoxelizationSettings::GetVoxelGridCenter();
+			buffer.m_voxel_texture_max_mip_level
+				= VoxelizationSettings::GetMaxVoxelTextureMipLevel();
+			buffer.m_voxel_grid_resolution
+				= VoxelizationSettings::GetVoxelGridResolution();
+			buffer.m_voxel_grid_inv_resolution
+				= 1.0f / buffer.m_voxel_grid_resolution;
+			buffer.m_voxel_size
+				= VoxelizationSettings::GetVoxelSize();
+			buffer.m_voxel_inv_size
+				= 1.0f / buffer.m_voxel_size;
+		}
+
+		// Update the world buffer.
+		m_world_buffer.UpdateData(m_device_context, buffer);
 	}
 
 	void Renderer::Impl::Render(const World& world, const Camera& camera) {

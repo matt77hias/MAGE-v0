@@ -96,21 +96,8 @@ namespace mage::rendering {
 			buffer.m_sky_dome_scale_z = sky.GetScaleZ();
 		}
 
-		// Voxelization and Voxel Cone Tracing
+		// Voxel Cone Tracing
 		{
-			buffer.m_voxel_grid_center 
-				= VoxelizationSettings::GetVoxelGridCenter();
-			buffer.m_voxel_grid_resolution  
-				= VoxelizationSettings::GetVoxelGridResolution();
-			buffer.m_voxel_grid_inv_resolution 
-				= 1.0f / buffer.m_voxel_grid_resolution;
-			buffer.m_voxel_size 
-				= VoxelizationSettings::GetVoxelSize();
-			buffer.m_voxel_inv_size 
-				= 1.0f / buffer.m_voxel_size;
-			buffer.m_voxel_texture_max_mip_level 
-				= VoxelizationSettings::GetMaxVoxelTextureMipLevel();
-			
 			const auto& vct               = m_settings.GetVoxelizationSettings();
 			buffer.m_nb_cones             = vct.GetNumberOfCones();
 			buffer.m_cone_step_multiplier = vct.GetConeStepMultiplier();

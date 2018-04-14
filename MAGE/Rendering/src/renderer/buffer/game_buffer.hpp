@@ -31,8 +31,14 @@ namespace mage::rendering {
 		GameBuffer() noexcept
 			: m_display_resolution(), 
 			m_display_inv_resolution_minus1(), 
-			m_ss_display_resolution(),  
-			m_ss_display_inv_resolution_minus1() {}
+			m_ss_display_resolution(), 
+			m_ss_display_inv_resolution_minus1(), 
+			m_voxel_grid_center(), 
+			m_voxel_texture_max_mip_level(0u), 
+			m_voxel_grid_resolution(0u), 
+			m_voxel_grid_inv_resolution(0.0f), 
+			m_voxel_size(0.0f), 
+			m_voxel_inv_size(0.0f) {}
 
 		/**
 		 Constructs a game buffer from the given game buffer.
@@ -104,7 +110,44 @@ namespace mage::rendering {
 		 of this game buffer.
 		 */
 		F32x2 m_ss_display_inv_resolution_minus1;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Voxelization
+		//---------------------------------------------------------------------
+
+		/**
+		 The center of the voxel grid expressed in world space of this game 
+		 buffer.
+		 */
+		Point3 m_voxel_grid_center;
+
+		/**
+		 The maximum mip level of the voxel texture of this game buffer.
+		 */
+		U32 m_voxel_texture_max_mip_level;
+
+		/**
+		 The resolution of the voxel grid for all dimensions of this game 
+		 buffer.
+		 */
+		U32 m_voxel_grid_resolution;
+
+		/**
+		 The inverse resolution of the voxel grid for all dimensions of this 
+		 game buffer.
+		 */
+		F32 m_voxel_grid_inv_resolution;
+
+		/**
+		 The size of a voxel for all dimensions of this game buffer.
+		 */
+		F32 m_voxel_size;
+
+		/**
+		 The inverse size of a voxel for all dimensions of this game buffer.
+		 */
+		F32 m_voxel_inv_size;
 	};
 
-	static_assert(32 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
+	static_assert(64 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
 }

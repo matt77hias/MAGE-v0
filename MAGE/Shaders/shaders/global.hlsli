@@ -33,7 +33,7 @@ SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
 // Constant Buffers 
 //-----------------------------------------------------------------------------
 
-CBUFFER(Game, SLOT_CBUFFER_GAME) {
+CBUFFER(World, SLOT_CBUFFER_WORLD) {
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Display Resolution
@@ -55,6 +55,23 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
 	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
 	float2   g_ss_display_inv_resolution_minus1  : packoffset(c1.z);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Voxelization
+	//-------------------------------------------------------------------------
+
+	// The center of the voxel grid expressed in world space.
+	float3   g_voxel_grid_center                 : packoffset(c2.x);
+	// The maximum mip level of the voxel texture.
+	uint     g_voxel_texture_max_mip_level       : packoffset(c2.w);
+	// The resolution of the voxel grid for all dimensions.
+	uint     g_voxel_grid_resolution             : packoffset(c3.x);
+	// The inverse resolution of the voxel grid for all dimensions.
+	float    g_voxel_grid_inv_resolution         : packoffset(c3.y);
+	// The size of a voxel for all dimensions expressed in world space.
+	float    g_voxel_size                        : packoffset(c3.z);
+	// The inverse size of a voxel for all dimensions.
+	float    g_voxel_inv_size                    : packoffset(c3.w);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -114,52 +131,35 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float    g_sky_dome_scale_z                  : packoffset(c20.x);
 
 	//-------------------------------------------------------------------------
-	// Member Variables: Voxelization
-	//-------------------------------------------------------------------------
-
-	// The center of the voxel grid expressed in world space.
-	float3   g_voxel_grid_center                 : packoffset(c20.y);
-	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c21.x);
-	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c21.y);
-	// The size of a voxel for all dimensions expressed in world space.
-	float    g_voxel_size                        : packoffset(c21.z);
-	// The inverse size of a voxel for all dimensions.
-	float    g_voxel_inv_size                    : packoffset(c21.w);
-	// The maximum mip level of the voxel texture.
-	uint     g_voxel_texture_max_mip_level       : packoffset(c22.x);
-
-	//-------------------------------------------------------------------------
 	// Member Variables: Voxel Cone Tracing
 	//-------------------------------------------------------------------------
 
 	// The number of cones to trace for each shading point.
-	uint     g_nb_cones                          : packoffset(c22.y);
+	uint     g_nb_cones                          : packoffset(c20.y);
 	// The step multiplier of the cone while marching.
 	// A high step multiplier results in faster, but less-precise marching.
 	// A low  step multiplier results in slower, but more-precise marching.
-	float    g_cone_step_multiplier              : packoffset(c22.z);
+	float    g_cone_step_multiplier              : packoffset(c20.z);
 	// The maximal cone distance expressed in normalized texture coordinates.
-	float    g_max_cone_distance                 : packoffset(c22.w);
+	float    g_max_cone_distance                 : packoffset(c20.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Post-processing
 	//-------------------------------------------------------------------------
 
 	// The lens radius of this camera.
-	float    g_lens_radius                       : packoffset(c23.x);
+	float    g_lens_radius                       : packoffset(c21.x);
 	// The focal length of this camera.
-	float    g_focal_length                      : packoffset(c23.y);
+	float    g_focal_length                      : packoffset(c21.y);
 	// The maximum circle-of-confusion radius of this camera.
-	float    g_max_coc_radius                    : packoffset(c23.z);
+	float    g_max_coc_radius                    : packoffset(c21.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
 	//-------------------------------------------------------------------------
 
 	// The inverse of the gamma exponent used for gamma correction.
-	float    g_inv_gamma                         : packoffset(c23.w);
+	float    g_inv_gamma                         : packoffset(c21.w);
 }
 
 //-----------------------------------------------------------------------------

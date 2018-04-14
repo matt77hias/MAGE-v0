@@ -48,12 +48,6 @@ namespace mage::rendering {
 			m_fog_color(), 
 			m_fog_density(0.0f), 
 			m_sky_dome_scale_z(1.0f), 
-			m_voxel_grid_center(), 
-			m_voxel_grid_resolution(0u), 
-			m_voxel_grid_inv_resolution(0.0f), 
-			m_voxel_size(0.0f), 
-			m_voxel_inv_size(0.0f), 
-			m_voxel_texture_max_mip_level(0u), 
 			m_nb_cones(0), 
 			m_cone_step_multiplier(1.0f), 
 			m_max_cone_distance(1.0f), 
@@ -201,43 +195,6 @@ namespace mage::rendering {
 		F32 m_sky_dome_scale_z;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Voxelization
-		//---------------------------------------------------------------------
-
-		/**
-		 The center of the voxel grid expressed in world space of this camera 
-		 buffer.
-		 */
-		Point3 m_voxel_grid_center;
-
-		/**
-		 The resolution of the voxel grid for all dimensions of this camera 
-		 buffer.
-		 */
-		U32 m_voxel_grid_resolution;
-
-		/**
-		 The inverse resolution of the voxel grid for all dimensions of this 
-		 camera buffer.
-		 */
-		F32 m_voxel_grid_inv_resolution;
-
-		/**
-		 The size of a voxel for all dimensions of this camera buffer.
-		 */
-		F32 m_voxel_size;
-
-		/**
-		 The inverse size of a voxel for all dimensions of this camera buffer.
-		 */
-		F32 m_voxel_inv_size;
-
-		/**
-		 The maximum mip level of the voxel texture of this camera buffer.
-		 */
-		U32 m_voxel_texture_max_mip_level;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Voxel Cone Tracing
 		//---------------------------------------------------------------------
 
@@ -288,7 +245,7 @@ namespace mage::rendering {
 		F32 m_inv_gamma;
 	};
 
-	static_assert(384 == sizeof(CameraBuffer), 
+	static_assert(352 == sizeof(CameraBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

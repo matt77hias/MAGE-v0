@@ -35,7 +35,7 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 	#else  // DISABLE_DITHERING
 	const uint   seed   = FlattenIndex((uint2)input.xy, g_viewport_resolution);
 	const float  noise  = UniformFloat(seed);
-	const float4 output = color + noise * 0.00390625;
+	const float4 output = color + noise / 255.0f;
 	#endif // DISABLE_DITHERING
 
 	return output;

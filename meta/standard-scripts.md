@@ -3,7 +3,7 @@
 ## Logging scripts (2D)
 
 ### `StatsScript`
-A script displaying statistics like `FPS` (frames per second), `CPU` (CPU usage percentage), `RAM` (physical main memory) and `DCs` (number of draw calls).
+A script displaying statistics like `FPS` (frames per second), `SPF` (seconds per frame), `CPU` (CPU usage), `RAM` (physical main memory usage) and `DCs` (number of draw calls).
 
 ### `TextConsoleScript`
 A script displaying a console/terminal with a fixed number of rows and colums.

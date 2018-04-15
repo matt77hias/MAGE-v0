@@ -8,7 +8,6 @@
 #include "engine_setup.hpp"
 #include "input_manager.hpp"
 #include "rendering_manager.hpp"
-#include "system\timer.hpp"
 #include "ui\window.hpp"
 
 #pragma endregion
@@ -297,7 +296,7 @@ namespace mage {
 		bool UpdateRendering();
 		
 		[[nodiscard]]
-		bool UpdateScripting();
+		bool UpdateScripting(const GameTime& time);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -336,7 +335,7 @@ namespace mage {
 		/**
 		 The timer of this engine.
 		 */
-		WallClockTimer m_timer;
+		GameTimer m_timer;
 
 		/**
 		 The fixed delta time of this engine.

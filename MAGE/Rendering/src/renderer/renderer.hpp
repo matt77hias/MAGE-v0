@@ -8,6 +8,7 @@
 #include "renderer\swap_chain.hpp"
 #include "resource\rendering_resource_manager.hpp"
 #include "scene\rendering_world.hpp"
+#include "system\game_timer.hpp"
 
 #pragma endregion
 
@@ -108,10 +109,12 @@ namespace mage::rendering {
 
 		 @param[in]		world
 						A reference to the world.
+		 @param[in]		time
+						A reference to the game time.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void Render(const World& world);
+		void Render(const World& world, const GameTime& time);
 
 	private:
 

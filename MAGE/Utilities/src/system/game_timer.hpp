@@ -55,10 +55,10 @@ namespace mage {
 									F64 wall_total_delta_time, 
 									F64 core_delta_time, 
 									F64 core_total_delta_time) noexcept
-			: m_wall_delta_time(0.0), 
-			m_wall_total_delta_time(0.0), 
-			m_core_delta_time(0.0), 
-			m_core_total_delta_time(0.0) {}
+			: m_wall_delta_time(wall_delta_time),
+			m_wall_total_delta_time(wall_total_delta_time),
+			m_core_delta_time(core_delta_time),
+			m_core_total_delta_time(core_total_delta_time) {}
 
 		/**
 		 Constructs a game time from the given game time.

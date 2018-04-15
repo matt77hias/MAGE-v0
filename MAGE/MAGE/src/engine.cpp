@@ -270,9 +270,9 @@ namespace mage {
 	}
 	
 	[[nodiscard]]
-	bool Engine::UpdateScripting() {
+	bool Engine::UpdateScripting(const GameTime& time) {
 		// Calculate the elapsed time.
-		const auto delta_time = m_timer.GetDeltaTime();
+		const auto delta_time = time.GetWallClockDeltaTime();
 		
 		// Perform the fixed delta time updates of the current scene.
 		if (m_fixed_delta_time) {
@@ -357,15 +357,18 @@ namespace mage {
 				continue;
 			}
 
+			// Calculate the elapsed time.
+			const auto time = m_timer.GetTime();
+
 			if (UpdateRendering()) {
 				continue;
 			}
 
-			if (UpdateScripting()) {
+			if (UpdateScripting(time)) {
 				continue;
 			}
 
-			m_rendering_manager->Render();
+			m_rendering_manager->Render(time);
 		}
 
 		return static_cast< int >(msg.wParam);

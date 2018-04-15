@@ -175,10 +175,12 @@ namespace mage::rendering {
 		/**
 		 Renders.
 
+		 @param[in]		time
+						A reference to the game time.
 		 @throws		Exception
 						Failed to render the world of this rendering manager.
 		 */
-		void Render();
+		void Render(const GameTime& time);
 		
 	private:
 
@@ -377,10 +379,10 @@ namespace mage::rendering {
 		ImGui_ImplDX11_NewFrame();
 	}
 
-	void Manager::Impl::Render() {
+	void Manager::Impl::Render(const GameTime& time) {
 		m_swap_chain->Clear();
 		Pipeline::s_nb_draws = 0u;
-		m_renderer->Render(GetWorld());
+		m_renderer->Render(GetWorld(), time);
 		
 		m_swap_chain->Present();
 	}
@@ -436,8 +438,8 @@ namespace mage::rendering {
 		m_impl->Update();
 	}
 
-	void Manager::Render() {
-		m_impl->Render();
+	void Manager::Render(const GameTime& time) {
+		m_impl->Render(time);
 	}
 
 	#pragma endregion

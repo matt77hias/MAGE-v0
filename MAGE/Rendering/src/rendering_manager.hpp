@@ -8,6 +8,7 @@
 #include "renderer\swap_chain.hpp"
 #include "resource\rendering_resource_manager.hpp"
 #include "scene\rendering_world.hpp"
+#include "system\game_timer.hpp"
 
 #pragma endregion
 
@@ -149,10 +150,12 @@ namespace mage::rendering {
 		/**
 		 Renders.
 
+		 @param[in]		time
+						A reference to the game time.
 		 @throws		Exception
 						Failed to render the world of this rendering manager.
 		 */
-		void Render();
+		void Render(const GameTime& time);
 
 	private:
 

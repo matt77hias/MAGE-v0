@@ -127,10 +127,12 @@ namespace mage::rendering {
 
 		 @param[in]		world
 						A reference to the world.
+		 @param[in]		time
+						A reference to the game time.
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void Render(const World& world);
+		void Render(const World& world, const GameTime& time);
 
 	private:
 
@@ -140,9 +142,9 @@ namespace mage::rendering {
 
 		void InitializePasses();
 
-		void UpdateBuffers(const World& world);
+		void UpdateBuffers(const World& world, const GameTime& time);
 
-		void UpdateWorldBuffer();
+		void UpdateWorldBuffer(const GameTime& time);
 		
 		void Render(const World& world, const Camera& camera);
 		
@@ -375,9 +377,9 @@ namespace mage::rendering {
 		m_state_manager->BindPersistentState(m_device_context);
 	}
 
-	void Renderer::Impl::Render(const World& world) {
+	void Renderer::Impl::Render(const World& world, const GameTime& time) {
 		// Update the buffers.
-		UpdateBuffers(world);
+		UpdateBuffers(world, time);
 
 		// Bind the world buffer.
 		m_world_buffer.Bind< Pipeline >(m_device_context, SLOT_CBUFFER_WORLD);
@@ -417,9 +419,10 @@ namespace mage::rendering {
 		m_back_buffer_pass->Render();
 	}
 
-	void Renderer::Impl::UpdateBuffers(const World& world) {
+	void Renderer::Impl::UpdateBuffers(const World& world, 
+									   const GameTime& time) {
 		// Update the world buffer.
-		UpdateWorldBuffer();
+		UpdateWorldBuffer(time);
 		
 		// Update the buffer of each camera.
 		world.ForEach< Camera >([this](const Camera& camera) {
@@ -437,7 +440,7 @@ namespace mage::rendering {
 		});
 	}
 
-	void Renderer::Impl::UpdateWorldBuffer() {
+	void Renderer::Impl::UpdateWorldBuffer(const GameTime& time) {
 		GameBuffer buffer;
 
 		// Display
@@ -933,8 +936,8 @@ namespace mage::rendering {
 		m_impl->BindPersistentState();
 	}
 
-	void Renderer::Render(const World& world) {
-		m_impl->Render(world);
+	void Renderer::Render(const World& world, const GameTime& time) {
+		m_impl->Render(world, time);
 	}
 
 	#pragma endregion

@@ -265,9 +265,9 @@ namespace mage {
 		/**
 		 Returns the game time of this game engine.
 
-		 @return		The game time of this game engine.
+		 @return		A reference to the game time of this game engine.
 		 */
-		const GameTime GetTime() const noexcept {
+		const GameTime& GetTime() const noexcept {
 			return m_time;
 		}
 

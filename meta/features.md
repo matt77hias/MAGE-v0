@@ -34,6 +34,9 @@
 * Properties
   * .VAR   (Variable Script) **[MAGE Dedicated Format]**
 
+### GUI
+* ImGui integration
+
 ### Rendering
 * AA (for HDR, normal and depth buffer)
   * No AA
@@ -47,34 +50,36 @@
      * G|V component: Implicit, Ward, Neumann, Ashikhmin-Premoze, Kelemann, Cook Torrance, (Correlated) GGX, Smith GGX, Smith Schlick-GGX, Smith Beckmann, Smith Schlick-Beckmann
      * F component: None, Schlick, Cook-Torrance
 * Color spaces
-  * All separate colors and textures with color data are expressed in sRGB color space.
-  * All calculations are performed in linear color space.
-  * sRGB colors are converted from gamma to linear color space by the CPU (*Frostbite*).
-  * sRGB textures are converted from gamma to linear color space by the GPU hardware (ensures correct filtering and blending).
-  * Optional, custom gamma correction before presenting (i.e. brightness adjustment)
+  * All separate colors from material files are expressed in sRGB color space.
+  * All separate colors from color pickers (i.e. ImGui) are expressed in sRGB color space.
+  * All separate textures (inc. fonts) are expressed in linear or sRGB color space.
+  * All internally stored separate colors are expressed in linear color space (for both C++ and HLSL).
+    Exceptions: All internally stored separate colors of ImGui are expressed in sRGB color space. 
+    All internally stored separate colors of the voexelization are expressed in LogLuv color space.
+  * All color calculations (inc. filtering and blending) are performed in linear color space (for both C++ and HLSL).
+  * Final outputted colors are expressed in a custom gamma encoded color space (i.e. brightness adjustment).
 * Culling
   * Non-hierarchical light and object culling
 * Depth buffer
-  * Standard Z-depth
-  * Reversed Z-depth
+  * Standard and Reversed Z-depth
   * 32bit float for depth buffer
   * 16bit unorm|32bit float for shadow (cube) maps
 * (Temporal) Dithering
 * Lighting
-  * Optional light interaction for materials
+  * Optional light interaction for materials (i.e. HDR emissive/black body or not)
   * Single pass for all lights (incl. shadow mapping)
-  * Physically-based and smooth angular attenuation (*Frostbite*)
-  * Physically-based and smooth distance attenuation (*Frostbite*)
+  * Physically-based and smooth angular attenuation for point lights (i.e. omni lights and spotlights)
+  * Physically-based and smooth distance attenuation for point lights (i.e. omni lights and spotlights)
   * Exponential fog with custom density (avoids popping artifacts)
   * HDR
-  * Direct and indirect illumination (voxel cone tracing).
+  * Direct and indirect illumination (voxel cone tracing)
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)
 * Post-processing
   * Depth-of-field
   * Tone Mapping
-    * AA resolving (SSAA, MSAA, FXAA): Max3 (*Reinhard is more expensive, but is invertible as well.*)
+    * AA resolving (SSAA, MSAA, FXAA): Max3, Reinhard
     * Back buffer: None, ACES Filmic, Max3, Reinhard, Uncharted
 * Render Layers (multiple render layers/camera)
   * Bounding volumes
@@ -88,10 +93,11 @@
   * Support for both opaque and transparent models
   * Depth and slope scaled biasing
   * PCF filtering
-  * Omni lights and spotlights
+  * Omni lights (shadow cube maps) and spotlights (shadow maps)
 * Sky Domes
   * Non-uniform stretching in looking direction
 * Sprites
+  * Fonts, images, ImGui
 * Transparency
   * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending
@@ -112,6 +118,8 @@
   * Omni (with or without shadow cube mapping)
   * Spot (with or without shadow mapping)
 * Model
+  * Non-emissive
+  * Emissive (direct illumination supported using VCT)
 * Sprite
   * Image
   * Text
@@ -125,6 +133,3 @@
 * Normal transformations
 * Sprite transformations
 * Texture transformations
-
-### GUI
-* ImGui integration

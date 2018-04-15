@@ -128,7 +128,7 @@ namespace mage::rendering {
 		F32 m_metalness;
 
 		/**
-		 The padding of this game buffer.
+		 The padding of this world buffer.
 		 */
 		U32 m_padding[2];
 	};

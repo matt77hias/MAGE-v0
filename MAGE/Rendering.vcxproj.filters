@@ -335,9 +335,6 @@
     <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\buffer\game_buffer.hpp">
-      <Filter>Header Files\renderer\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
@@ -418,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="Rendering\src\renderer\pass\postprocess_pass.hpp">
       <Filter>Header Files\renderer\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\world_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

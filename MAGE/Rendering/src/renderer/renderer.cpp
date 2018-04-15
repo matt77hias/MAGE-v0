@@ -17,7 +17,7 @@
 #include "renderer\pass\sprite_pass.hpp"
 #include "renderer\pass\voxelization_pass.hpp"
 #include "renderer\pass\voxel_grid_pass.hpp"
-#include "renderer\buffer\game_buffer.hpp"
+#include "renderer\buffer\world_buffer.hpp"
 #include "imgui_impl_dx11.hpp"
 
 // Include HLSL bindings.
@@ -214,7 +214,7 @@ namespace mage::rendering {
 		/**
 		 A pointer to the world buffer of this renderer.
 		 */
-		ConstantBuffer< GameBuffer > m_world_buffer;
+		ConstantBuffer< WorldBuffer > m_world_buffer;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes
@@ -441,7 +441,7 @@ namespace mage::rendering {
 	}
 
 	void Renderer::Impl::UpdateWorldBuffer(const GameTime& time) {
-		GameBuffer buffer;
+		WorldBuffer buffer;
 
 		// Display
 		{

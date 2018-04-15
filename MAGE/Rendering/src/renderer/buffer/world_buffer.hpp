@@ -15,9 +15,9 @@
 namespace mage::rendering {
 
 	/**
-	 A struct of game buffers.
+	 A struct of world buffers.
 	 */
-	struct alignas(16) GameBuffer final {
+	struct alignas(16) WorldBuffer final {
 
 	public:
 
@@ -26,9 +26,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a game buffer.
+		 Constructs a world buffer.
 		 */
-		GameBuffer() noexcept
+		WorldBuffer() noexcept
 			: m_display_resolution(), 
 			m_display_inv_resolution_minus1(), 
 			m_ss_display_resolution(), 
@@ -41,56 +41,56 @@ namespace mage::rendering {
 			m_voxel_inv_size(0.0f) {}
 
 		/**
-		 Constructs a game buffer from the given game buffer.
+		 Constructs a world buffer from the given world buffer.
 
 		 @param[in]		buffer
-						A reference to the game buffer to copy.
+						A reference to the world buffer to copy.
 		 */
-		GameBuffer(const GameBuffer& buffer) noexcept = default;
+		WorldBuffer(const WorldBuffer& buffer) noexcept = default;
 		
 		/**
-		 Constructs a game buffer by moving the given game buffer.
+		 Constructs a world buffer by moving the given world buffer.
 
 		 @param[in]		buffer
-						A reference to the game buffer to move.
+						A reference to the world buffer to move.
 		 */
-		GameBuffer(GameBuffer&& buffer) noexcept = default;
+		WorldBuffer(WorldBuffer&& buffer) noexcept = default;
 
 		/**
-		 Destructs this game buffer.
+		 Destructs this world buffer.
 		 */
-		~GameBuffer() = default;
+		~WorldBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 		
 		/**
-		 Copies the given game buffer to this game buffer.
+		 Copies the given world buffer to this world buffer.
 
 		 @param[in]		buffer
-						A reference to the game buffer to copy.
-		 @return		A reference to the copy of the given game buffer (i.e. 
-						this game buffer).
+						A reference to the world buffer to copy.
+		 @return		A reference to the copy of the given world buffer (i.e. 
+						this world buffer).
 		 */
-		GameBuffer& operator=(const GameBuffer& buffer) noexcept = default;
+		WorldBuffer& operator=(const WorldBuffer& buffer) noexcept = default;
 
 		/**
-		 Moves the given game buffer to this game buffer.
+		 Moves the given world buffer to this world buffer.
 
 		 @param[in]		buffer
-						A reference to the game buffer to move.
-		 @return		A reference to the moved game buffer (i.e. this game 
+						A reference to the world buffer to move.
+		 @return		A reference to the moved world buffer (i.e. this game 
 						buffer).
 		 */
-		GameBuffer& operator=(GameBuffer&& buffer) noexcept = default;
+		WorldBuffer& operator=(WorldBuffer&& buffer) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Display Resolution
 		//---------------------------------------------------------------------
 
 		/**
-		 The resolution of the display of this game buffer.
+		 The resolution of the display of this world buffer.
 		 */
 		U32x2 m_display_resolution;
 
@@ -101,13 +101,13 @@ namespace mage::rendering {
 		F32x2 m_display_inv_resolution_minus1;
 
 		/**
-		 The resolution of the super-sampled display of this game buffer.
+		 The resolution of the super-sampled display of this world buffer.
 		 */
 		U32x2 m_ss_display_resolution;
 
 		/**
 		 The inverse of the resolution of the super-sampled display minus one 
-		 of this game buffer.
+		 of this world buffer.
 		 */
 		F32x2 m_ss_display_inv_resolution_minus1;
 
@@ -122,7 +122,7 @@ namespace mage::rendering {
 		Point3 m_voxel_grid_center;
 
 		/**
-		 The maximum mip level of the voxel texture of this game buffer.
+		 The maximum mip level of the voxel texture of this world buffer.
 		 */
 		U32 m_voxel_texture_max_mip_level;
 
@@ -134,20 +134,20 @@ namespace mage::rendering {
 
 		/**
 		 The inverse resolution of the voxel grid for all dimensions of this 
-		 game buffer.
+		 world buffer.
 		 */
 		F32 m_voxel_grid_inv_resolution;
 
 		/**
-		 The size of a voxel for all dimensions of this game buffer.
+		 The size of a voxel for all dimensions of this world buffer.
 		 */
 		F32 m_voxel_size;
 
 		/**
-		 The inverse size of a voxel for all dimensions of this game buffer.
+		 The inverse size of a voxel for all dimensions of this world buffer.
 		 */
 		F32 m_voxel_inv_size;
 	};
 
-	static_assert(64 == sizeof(GameBuffer), "CPU/GPU struct mismatch");
+	static_assert(64 == sizeof(WorldBuffer), "CPU/GPU struct mismatch");
 }

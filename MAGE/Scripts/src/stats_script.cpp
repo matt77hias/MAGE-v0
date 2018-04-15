@@ -77,8 +77,7 @@ namespace mage::script {
 			m_last_cpu_usage = 100.0f * core_clock_delta_time / wall_clock_delta_time;
 			
 			// MEM
-			m_last_ram_usage 
-				= static_cast< U32 >(GetVirtualMemoryUsage() >> 20u);
+			m_last_ram_usage = static_cast< U32 >(GetVirtualMemoryUsage() >> 20u);
 		}
 
 		RGBA color = (m_last_frames_per_second > 120u) ? color::Green : color::Red;

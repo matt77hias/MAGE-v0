@@ -2,12 +2,12 @@
 
 ## Current iteration' TODOs
 * Voxel Cone Tracing (WIP)
-* Post-processing: Bloom, God rays
+* Depth-of-Field (WIP)
+* Shadow maps for directional lights (WIP)
+* Post-processing: God rays
 * Displacement Maps, Parallax Occlusion Maps
 * TAA
-* Shadow Mapping
-  * Directional lights
-  * Cascaded, Variance
+* Cascaded and Variance Shadow Mapping
 * SSAO, HBAO
 * SSR
 * Tiled and Clustered Shading

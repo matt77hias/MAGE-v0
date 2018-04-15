@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 // DISABLE_DITHERING                        | not defined
 // DISABLE_GAMMA_CORRECTION                 | not defined
+// DISABLE_TEMPORAL_DITHERING               | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -33,10 +34,16 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 	#ifdef DISABLE_DITHERING
 	const float4 output = color;
 	#else  // DISABLE_DITHERING
+	
+	#ifdef DISABLE_TEMPORAL_DITHERING
 	const uint   seed   = FlattenIndex((uint2)input.xy, g_viewport_resolution);
-	const float  noise  = UniformFloat(seed + 13u * g_time);
-	const float4 output = noise;
-	//const float4 output = color + noise / 255.0f; // For 8 bit quantization.
+	#else  // DISABLE_TEMPORAL_DITHERING
+	const uint   seed   = FlattenIndex((uint2)input.xy, g_viewport_resolution) 
+		                ^ asuint(g_time);
+	#endif // DISABLE_TEMPORAL_DITHERING
+	
+	const float  noise  = UniformFloat(seed);
+	const float4 output = color + noise / 255.0f; // For 8 bit quantization.
 	#endif // DISABLE_DITHERING
 
 	return output;

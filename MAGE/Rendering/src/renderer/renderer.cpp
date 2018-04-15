@@ -481,6 +481,11 @@ namespace mage::rendering {
 				= 1.0f / buffer.m_voxel_size;
 		}
 
+		// Time
+		{
+			buffer.m_time = static_cast< F32 >(time.GetWallClockTotalDeltaTime());
+		}
+
 		// Update the world buffer.
 		m_world_buffer.UpdateData(m_device_context, buffer);
 	}

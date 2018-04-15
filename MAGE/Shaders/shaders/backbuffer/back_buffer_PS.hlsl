@@ -34,8 +34,9 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 	const float4 output = color;
 	#else  // DISABLE_DITHERING
 	const uint   seed   = FlattenIndex((uint2)input.xy, g_viewport_resolution);
-	const float  noise  = UniformFloat(seed);
-	const float4 output = color + noise / 255.0f; // For 8 bit quantization.
+	const float  noise  = UniformFloat(seed + 13u * g_time);
+	const float4 output = noise;
+	//const float4 output = color + noise / 255.0f; // For 8 bit quantization.
 	#endif // DISABLE_DITHERING
 
 	return output;

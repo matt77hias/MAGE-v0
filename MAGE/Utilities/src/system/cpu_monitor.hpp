@@ -83,32 +83,32 @@ namespace mage {
 		 Starts this CPU monitor.
 		 */
 		void Start() noexcept {
-			m_wall_timer.Start();
-			m_core_timer.Start();
+			m_wall_clock_timer.Start();
+			m_core_clock_timer.Start();
 		}
 
 		/**
 		 Stops this CPU monitor.
 		 */
 		void Stop() noexcept {
-			m_wall_timer.Stop();
-			m_core_timer.Stop();
+			m_wall_clock_timer.Stop();
+			m_core_clock_timer.Stop();
 		}
 
 		/**
 		 Restarts this CPU monitor.
 		 */
 		void Restart() noexcept {
-			m_wall_timer.Restart();
-			m_core_timer.Restart();
+			m_wall_clock_timer.Restart();
+			m_core_clock_timer.Restart();
 		}
 
 		/**
 		 Resumes this CPU monitor.
 		 */
 		void Resume() noexcept {
-			m_wall_timer.Resume();
-			m_core_timer.Resume();
+			m_wall_clock_timer.Resume();
+			m_core_clock_timer.Resume();
 		}
 
 		/**
@@ -117,8 +117,8 @@ namespace mage {
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
 		F64 GetCPUDeltaPercentage() const noexcept {
-			const auto wall_time = m_wall_timer.GetDeltaTime();
-			const auto core_time = m_core_timer.GetDeltaTime();
+			const auto wall_time = m_wall_clock_timer.GetDeltaTime();
+			const auto core_time = m_core_clock_timer.GetDeltaTime();
 			return 100.0 * (core_time / wall_time);
 		}
 
@@ -129,8 +129,8 @@ namespace mage {
 						process.
 		 */
 		F64 GetTotalCPUDeltaPercentage() const noexcept {
-			const auto wall_time = m_wall_timer.GetTotalDeltaTime();
-			const auto core_time = m_core_timer.GetTotalDeltaTime();
+			const auto wall_time = m_wall_clock_timer.GetTotalDeltaTime();
+			const auto core_time = m_core_clock_timer.GetTotalDeltaTime();
 			return 100.0 * (core_time / wall_time);
 		}
 
@@ -143,11 +143,11 @@ namespace mage {
 		/**
 		 The wall clock timer of this CPU monitor.
 		 */
-		WallClockTimer m_wall_timer;
+		WallClockTimer m_wall_clock_timer;
 
 		/**
 		 The core clock per core timer of this CPU monitor.
 		 */
-		CPUTimer m_core_timer;
+		CPUTimer m_core_clock_timer;
 	};
 }

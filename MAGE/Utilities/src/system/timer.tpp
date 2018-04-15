@@ -9,8 +9,8 @@ namespace mage {
 	Timer< ClockT >::Timer() noexcept
 		: m_clock(),
 		m_last_timestamp(TimeStamp::min()),
-		m_delta_time(TimeInterval::min()),
-		m_total_delta_time(TimeInterval::min()),
+		m_delta_time(TimeInterval::zero()),
+		m_total_delta_time(TimeInterval::zero()),
 		m_running(false) {}
 
 	template< typename ClockT >
@@ -86,9 +86,9 @@ namespace mage {
 	template< typename ClockT >
 	inline void Timer< ClockT >::ResetDeltaTime() const noexcept {
 		// Resets the delta time of this timer.
-		m_delta_time       = TimeInterval::min();
+		m_delta_time       = TimeInterval::zero();
 		// Resets the total delta time of this timer.
-		m_total_delta_time = TimeInterval::min();
+		m_total_delta_time = TimeInterval::zero();
 		// Resets the last timestamp of this timer.
 		m_last_timestamp   = m_clock.now();
 	}

@@ -72,6 +72,13 @@ CBUFFER(World, SLOT_CBUFFER_WORLD) {
 	float    g_voxel_size                        : packoffset(c3.z);
 	// The inverse size of a voxel for all dimensions.
 	float    g_voxel_inv_size                    : packoffset(c3.w);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Time
+	//-------------------------------------------------------------------------
+
+	// The time.
+	float    g_time                              : packoffset(c4.x);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {

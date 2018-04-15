@@ -38,7 +38,9 @@ namespace mage::rendering {
 			m_voxel_grid_resolution(0u), 
 			m_voxel_grid_inv_resolution(0.0f), 
 			m_voxel_size(0.0f), 
-			m_voxel_inv_size(0.0f) {}
+			m_voxel_inv_size(0.0f), 
+			m_time(0.0f), 
+			m_padding() {}
 
 		/**
 		 Constructs a world buffer from the given world buffer.
@@ -147,7 +149,21 @@ namespace mage::rendering {
 		 The inverse size of a voxel for all dimensions of this world buffer.
 		 */
 		F32 m_voxel_inv_size;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Time
+		//---------------------------------------------------------------------
+
+		/**
+		 The time of this world buffer. 
+		 */
+		F32 m_time;
+
+		/**
+		 The passing of this world buffer.
+		 */
+		U32x3 m_padding;
 	};
 
-	static_assert(64 == sizeof(WorldBuffer), "CPU/GPU struct mismatch");
+	static_assert(80 == sizeof(WorldBuffer), "CPU/GPU struct mismatch");
 }

@@ -21,12 +21,6 @@ namespace mage::script {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		static constexpr F32 s_resource_fetch_period = 1.0f;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -56,12 +50,13 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		ProxyPtr< rendering::SpriteText > m_text;
-
-		F32 m_accumulated_wall_clock_time;
+		
 		U32 m_accumulated_nb_frames;
-		U32 m_last_frames_per_second;
-		F32 m_last_ms_per_frame;
-		F32 m_last_cpu_usage;
-		U32 m_last_ram_usage;
+		F64 m_prev_wall_clock_time;
+		F64 m_prev_core_clock_time;
+		U32 m_fps;
+		F32 m_spf;
+		F32 m_cpu;
+		U32 m_ram;
 	};
 }

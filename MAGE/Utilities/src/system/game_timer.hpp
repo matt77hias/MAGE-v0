@@ -34,31 +34,31 @@ namespace mage {
 		 Constructs a game time.
 		 */
 		constexpr GameTime() noexcept
-			: m_wall_delta_time(0.0),
-			m_wall_total_delta_time(0.0),
-			m_core_delta_time(0.0),
-			m_core_total_delta_time(0.0) {}
+			: m_wall_clock_delta_time(0.0),
+			m_wall_clock_total_delta_time(0.0),
+			m_core_clock_delta_time(0.0),
+			m_core_clock_total_delta_time(0.0) {}
 
 		/**
 		 Constructs a game time.
 
-		 @param[in]		wall_delta_time
+		 @param[in]		wall_clock_delta_time
 						The wall clock delta time (in seconds).
-		 @param[in]		wall_total_delta_time
+		 @param[in]		wall_clock_total_delta_time
 						The wall clock total delta time (in seconds).
-		 @param[in]		core_delta_time
+		 @param[in]		core_clock_delta_time
 						The core clock delta time (in seconds).
-		 @param[in]		core_total_delta_time
+		 @param[in]		core_clock_total_delta_time
 						The core clock total delta time (in seconds).
 		 */
-		constexpr explicit GameTime(F64 wall_delta_time, 
-									F64 wall_total_delta_time, 
-									F64 core_delta_time, 
-									F64 core_total_delta_time) noexcept
-			: m_wall_delta_time(wall_delta_time),
-			m_wall_total_delta_time(wall_total_delta_time),
-			m_core_delta_time(core_delta_time),
-			m_core_total_delta_time(core_total_delta_time) {}
+		constexpr explicit GameTime(F64 wall_clock_delta_time,
+									F64 wall_clock_total_delta_time,
+									F64 core_clock_delta_time,
+									F64 core_clock_total_delta_time) noexcept
+			: m_wall_clock_delta_time(wall_clock_delta_time),
+			m_wall_clock_total_delta_time(wall_clock_total_delta_time),
+			m_core_clock_delta_time(core_clock_delta_time),
+			m_core_clock_total_delta_time(core_clock_total_delta_time) {}
 
 		/**
 		 Constructs a game time from the given game time.
@@ -116,7 +116,7 @@ namespace mage {
 						time.
 		 */
 		constexpr F64 GetWallClockDeltaTime() const noexcept {
-			return m_wall_delta_time;
+			return m_wall_clock_delta_time;
 		}
 
 		/**
@@ -126,7 +126,7 @@ namespace mage {
 						game time.
 		 */
 		constexpr F64 GetWallClockTotalDeltaTime() const noexcept {
-			return m_wall_total_delta_time;
+			return m_wall_clock_total_delta_time;
 		}
 
 		/**
@@ -136,7 +136,7 @@ namespace mage {
 						time.
 		 */
 		constexpr F64 GetCoreClockDeltaTime() const noexcept {
-			return m_core_delta_time;
+			return m_core_clock_delta_time;
 		}
 
 		/**
@@ -146,7 +146,7 @@ namespace mage {
 						game time.
 		 */
 		constexpr F64 GetCoreClockTotalDeltaTime() const noexcept {
-			return m_core_total_delta_time;
+			return m_core_clock_total_delta_time;
 		}
 
 	private:
@@ -158,22 +158,22 @@ namespace mage {
 		/**
 		 The wall clock delta time (in seconds) of this game time.
 		 */
-		F64 m_wall_delta_time;
+		F64 m_wall_clock_delta_time;
 		
 		/**
 		 The wall clock total delta time (in seconds) of this game time.
 		 */
-		F64 m_wall_total_delta_time;
+		F64 m_wall_clock_total_delta_time;
 
 		/**
 		 The core clock delta time (in seconds) of this game time.
 		 */
-		F64 m_core_delta_time;
+		F64 m_core_clock_delta_time;
 		
 		/**
 		 The core clock total delta time (in seconds) of this game time.
 		 */
-		F64 m_core_total_delta_time;
+		F64 m_core_clock_total_delta_time;
 	};
 
 	#pragma endregion
@@ -252,32 +252,32 @@ namespace mage {
 		 Starts this game timer.
 		 */
 		void Start() noexcept {
-			m_wall_timer.Start();
-			m_core_timer.Start();
+			m_wall_clock_timer.Start();
+			m_core_clock_timer.Start();
 		}
 
 		/**
 		 Stops this game timer.
 		 */
 		void Stop() noexcept {
-			m_wall_timer.Stop();
-			m_core_timer.Stop();
+			m_wall_clock_timer.Stop();
+			m_core_clock_timer.Stop();
 		}
 
 		/**
 		 Restarts this game timer.
 		 */
 		void Restart() noexcept {
-			m_wall_timer.Restart();
-			m_core_timer.Restart();
+			m_wall_clock_timer.Restart();
+			m_core_clock_timer.Restart();
 		}
 
 		/**
 		 Resumes this game timer.
 		 */
 		void Resume() noexcept {
-			m_wall_timer.Resume();
-			m_core_timer.Resume();
+			m_wall_clock_timer.Resume();
+			m_core_clock_timer.Resume();
 		}
 
 		/**
@@ -286,16 +286,20 @@ namespace mage {
 		 @return		The game time of this game timer.
 		 */
 		const GameTime GetTime() const noexcept {
-			F64 wall_delta_time;
-			F64 wall_total_delta_time;
-			m_wall_timer.GetTime(wall_delta_time, wall_total_delta_time);
-			
-			F64 core_delta_time;
-			F64 core_total_delta_time;
-			m_core_timer.GetTime(core_delta_time, core_total_delta_time);
+			F64 wall_clock_delta_time;
+			F64 wall_clock_total_delta_time;
+			m_wall_clock_timer.GetTime(wall_clock_delta_time, 
+									   wall_clock_total_delta_time);
 
-			return GameTime(wall_delta_time, wall_total_delta_time, 
-							core_delta_time, core_total_delta_time);
+			F64 core_clock_delta_time;
+			F64 core_clock_total_delta_time;
+			m_core_clock_timer.GetTime(core_clock_delta_time, 
+									   core_clock_total_delta_time);
+
+			return GameTime(wall_clock_delta_time, 
+							wall_clock_total_delta_time,
+							core_clock_delta_time, 
+							core_clock_total_delta_time);
 		}
 
 	private:
@@ -307,12 +311,12 @@ namespace mage {
 		/**
 		 The wall clock timer of this game timer.
 		 */
-		WallClockTimer m_wall_timer;
+		WallClockTimer m_wall_clock_timer;
 
 		/**
 		 The core clock per core timer of this game timer.
 		 */
-		CPUTimer m_core_timer;
+		CPUTimer m_core_clock_timer;
 	};
 
 	#pragma endregion

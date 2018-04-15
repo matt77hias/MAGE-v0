@@ -46,6 +46,7 @@
     <ClInclude Include="Utilities\src\string\string_utils.hpp" />
     <ClInclude Include="Utilities\src\string\token.hpp" />
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
+    <ClInclude Include="Utilities\src\system\game_timer.hpp" />
     <ClInclude Include="Utilities\src\system\system_time.hpp" />
     <ClInclude Include="Utilities\src\system\system_usage.hpp" />
     <ClInclude Include="Utilities\src\system\timer.hpp" />

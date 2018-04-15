@@ -70,6 +70,20 @@ namespace mage {
 	}
 
 	template< typename ClockT >
+	inline void Timer< ClockT >::GetTime(F64& delta_time, 
+										 F64& total_delta_time) const noexcept {
+		if (m_running) {
+			UpdateDeltaTime();
+		}
+
+		using Seconds = std::chrono::duration< F64 >;
+		delta_time 
+			= std::chrono::duration_cast< Seconds >(m_delta_time).count();
+		total_delta_time 
+			= std::chrono::duration_cast< Seconds >(m_total_delta_time).count();
+	}
+
+	template< typename ClockT >
 	inline void Timer< ClockT >::ResetDeltaTime() const noexcept {
 		// Resets the delta time of this timer.
 		m_delta_time       = TimeInterval::min();

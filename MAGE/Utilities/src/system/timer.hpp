@@ -108,27 +108,35 @@ namespace mage {
 		void Resume() noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Delta Time
+		// Member Methods: (Total) Delta Time
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the wall clock delta time (in seconds) of this timer.
+		 Returns the delta time (in seconds) of this timer.
 
-		 @return		The wall clock delta time (in seconds) of this timer.
+		 @return		The delta time (in seconds) of this timer.
 		 */
 		F64 GetDeltaTime() const noexcept;
 
-		//---------------------------------------------------------------------
-		// Member Methods: Total Delta Time
-		//---------------------------------------------------------------------
-
 		/**
-		 Returns the total wall clock delta time (in seconds) of this timer.
+		 Returns the total delta time (in seconds) of this timer.
 
-		 @return		The total wall clock delta time (in seconds) of this 
-						timer.
+		 @return		The total delta time (in seconds) of this timer.
 		 */
 		F64 GetTotalDeltaTime() const noexcept;
+
+		/**
+		 Returns the delta time (in seconds) and the the total wall 
+		 clock delta time (in seconds) of this timer.
+
+		 @param[out]	delta_time
+						A reference to the delta time (in seconds) of this 
+						timer.
+		 @param[out]	total_delta_time
+						A reference to the total delta time (in seconds) of 
+						this timer.
+		 */
+		void GetTime(F64& delta_time, F64& total_delta_time) const noexcept;
 
 	private:
 

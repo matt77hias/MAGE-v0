@@ -182,6 +182,9 @@
     <ClInclude Include="Utilities\src\ui\window.hpp">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\system\game_timer.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">

@@ -89,13 +89,10 @@ namespace mage {
 
 		 @param[in]		engine
 						A reference to the engine.
-		 @param[in]		delta_time
-						The elapsed time since the previous update.
 		 @throws		Exception
 						Failed to update this behavior script.
 		 */
-		virtual void Update([[maybe_unused]] Engine& engine, 
-							[[maybe_unused]] F64 delta_time);
+		virtual void Update([[maybe_unused]] Engine& engine);
 
 		/**
 		 Closes this behavior script. Allows this behavior script to preform any 

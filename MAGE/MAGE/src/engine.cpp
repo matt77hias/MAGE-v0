@@ -131,6 +131,7 @@ namespace mage {
 		m_scene(), 
 		m_requested_scene(), 
 		m_timer(), 
+		m_time(), 
 		m_fixed_delta_time(0.0), 
 		m_fixed_time_budget(0.0),
 		m_deactive(false), 
@@ -234,6 +235,7 @@ namespace mage {
 			m_scene->Initialize(*this);
 
 			m_timer.Restart();
+			m_time = GameTime();
 			m_fixed_time_budget = 0.0;
 		}
 	}
@@ -270,9 +272,9 @@ namespace mage {
 	}
 	
 	[[nodiscard]]
-	bool Engine::UpdateScripting(const GameTime& time) {
+	bool Engine::UpdateScripting() {
 		// Calculate the elapsed time.
-		const auto delta_time = time.GetWallClockDeltaTime();
+		const auto delta_time = m_time.GetWallClockDeltaTime();
 		
 		// Perform the fixed delta time updates of the current scene.
 		if (m_fixed_delta_time) {
@@ -300,7 +302,7 @@ namespace mage {
 			if (State::Active == script.GetState()
 				&& !m_has_requested_scene) {
 
-				script.Update(*this, delta_time);
+				script.Update(*this);
 			}
 		});
 
@@ -357,18 +359,18 @@ namespace mage {
 				continue;
 			}
 
-			// Calculate the elapsed time.
-			const auto time = m_timer.GetTime();
+			// Calculate the time.
+			m_time = m_timer.GetTime();
 
 			if (UpdateRendering()) {
 				continue;
 			}
 
-			if (UpdateScripting(time)) {
+			if (UpdateScripting()) {
 				continue;
 			}
 
-			m_rendering_manager->Render(time);
+			m_rendering_manager->Render(m_time);
 		}
 
 		return static_cast< int >(msg.wParam);

@@ -36,20 +36,19 @@ namespace mage::script {
 					  "This script needs to be attached to a node.");
 	}
 
-	void ManhattanMotorScript::Update([[maybe_unused]] Engine& engine, 
-									  [[maybe_unused]] F64 delta_time) {
-
+	void ManhattanMotorScript::Update([[maybe_unused]] Engine& engine) {
+		const auto delta_time
+			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime());
 		const auto& input_manager = engine.GetInputManager();
 		const auto& keyboard      = input_manager.GetKeyboard();
 		auto& transform           = GetOwner()->GetTransform();
 
-		const auto movement_magnitude 
-			= static_cast< F32 >(delta_time * m_velocity);
+		const auto movement_magnitude = delta_time * m_velocity;
 
 		if (     keyboard.GetKeyPress(DIK_UP,     true) 
 			  || keyboard.GetKeyPress(DIK_W,      true)) {
 			
-			transform.AddTranslationZ(movement_magnitude);
+			transform.AddTranslationZ( movement_magnitude);
 		}
 		else if (keyboard.GetKeyPress(DIK_DOWN,   true) 
 			  || keyboard.GetKeyPress(DIK_S,      true)) {
@@ -59,7 +58,7 @@ namespace mage::script {
 		else if (keyboard.GetKeyPress(DIK_RIGHT,  true) 
 			  || keyboard.GetKeyPress(DIK_D,      true)) {
 			
-			transform.AddTranslationX(movement_magnitude);
+			transform.AddTranslationX( movement_magnitude);
 		}
 		else if (keyboard.GetKeyPress(DIK_LEFT,   true) 
 			  || keyboard.GetKeyPress(DIK_A,      true)) {
@@ -70,7 +69,7 @@ namespace mage::script {
 			transform.AddTranslationY(-movement_magnitude);
 		}
 		else if (keyboard.GetKeyPress(DIK_RSHIFT, true)) {
-			transform.AddTranslationY(movement_magnitude);
+			transform.AddTranslationY( movement_magnitude);
 		}
 	}
 }

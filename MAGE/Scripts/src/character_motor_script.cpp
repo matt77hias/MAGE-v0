@@ -36,50 +36,50 @@ namespace mage::script {
 					  "This script needs to be attached to a node.");
 	}
 
-	void CharacterMotorScript::Update([[maybe_unused]] Engine& engine,
-									  [[maybe_unused]] F64 delta_time) {
-
+	void CharacterMotorScript::Update([[maybe_unused]] Engine& engine) {
+		const auto delta_time
+			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime());
 		const auto& input_manager = engine.GetInputManager();
 		const auto& keyboard      = input_manager.GetKeyboard();
 		auto& transform           = GetOwner()->GetTransform();
 
 		const auto movement_magnitude = delta_time * m_velocity;
-		const auto movement_cos 
-			= cos(transform.GetRotationY()) * movement_magnitude;
-		const auto movement_sin 
-			= sin(transform.GetRotationY()) * movement_magnitude;
+		const auto movement_cos       = cos(transform.GetRotationY()) 
+			                          * movement_magnitude;
+		const auto movement_sin       = sin(transform.GetRotationY()) 
+			                          * movement_magnitude;
 		
 		if (     keyboard.GetKeyPress(DIK_UP,     true) 
 			  || keyboard.GetKeyPress(DIK_W,      true)) {
 			
-			transform.AddTranslationX(static_cast< F32 >(movement_sin));
-			transform.AddTranslationZ(static_cast< F32 >(movement_cos));
+			transform.AddTranslationX( movement_sin);
+			transform.AddTranslationZ( movement_cos);
 		}
 		else if (keyboard.GetKeyPress(DIK_DOWN,   true) 
 			  || keyboard.GetKeyPress(DIK_S,      true)) {
 			
-			transform.AddTranslationX(static_cast< F32 >(-movement_sin));
-			transform.AddTranslationZ(static_cast< F32 >(-movement_cos));
+			transform.AddTranslationX(-movement_sin);
+			transform.AddTranslationZ(-movement_cos);
 		}
 
 		if (     keyboard.GetKeyPress(DIK_RIGHT,  true) 
 			  || keyboard.GetKeyPress(DIK_D,      true)) {
 			
-			transform.AddTranslationX(static_cast< F32 >( movement_cos));
-			transform.AddTranslationZ(static_cast< F32 >(-movement_sin));
+			transform.AddTranslationX( movement_cos);
+			transform.AddTranslationZ(-movement_sin);
 		}
 		else if (keyboard.GetKeyPress(DIK_LEFT,   true) 
 			  || keyboard.GetKeyPress(DIK_A,      true)) {
 			
-			transform.AddTranslationX(static_cast< F32 >(-movement_cos));
-			transform.AddTranslationZ(static_cast< F32 >( movement_sin));
+			transform.AddTranslationX(-movement_cos);
+			transform.AddTranslationZ( movement_sin);
 		}
 
 		if (     keyboard.GetKeyPress(DIK_LSHIFT, true)) {
-			transform.AddTranslationY(static_cast< F32 >(-movement_magnitude));
+			transform.AddTranslationY(-movement_magnitude);
 		}
 		else if (keyboard.GetKeyPress(DIK_RSHIFT, true)) {
-			transform.AddTranslationY(static_cast< F32 >(movement_magnitude));
+			transform.AddTranslationY( movement_magnitude);
 		}
 	}
 }

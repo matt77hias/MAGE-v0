@@ -65,8 +65,7 @@ namespace mage::script {
 					  "This script needs a sprite text component.");
 	}
 
-	void TextConsoleScript::Update([[maybe_unused]] Engine& engine, 
-								   [[maybe_unused]] F64 delta_time) {
+	void TextConsoleScript::Update([[maybe_unused]] Engine& engine) {
 
 		const std::lock_guard< std::mutex > lock(m_mutex);
 

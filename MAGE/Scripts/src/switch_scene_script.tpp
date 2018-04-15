@@ -28,9 +28,7 @@ namespace mage::script {
 		::operator=(SwitchSceneScript&& script) noexcept = default;
 
 	template< typename SceneT >
-	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] Engine& engine, 
-											 [[maybe_unused]] F64 delta_time) {
-		
+	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] Engine& engine) {
 		const auto& keyboard = engine.GetInputManager().GetKeyboard();
 		
 		if (keyboard.GetKeyPress(DIK_F3)) {

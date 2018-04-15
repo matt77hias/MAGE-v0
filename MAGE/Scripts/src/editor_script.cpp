@@ -1193,9 +1193,7 @@ namespace mage::script {
 		m_selected = nullptr;
 	}
 
-	void EditorScript::Update([[maybe_unused]] Engine& engine,
-							  [[maybe_unused]] F64 delta_time) {
-		
+	void EditorScript::Update([[maybe_unused]] Engine& engine) {
 		const auto scene = engine.GetScene();
 		DrawGraph(*scene, m_selected);
 

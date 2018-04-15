@@ -31,8 +31,7 @@ namespace mage {
 
 	void BehaviorScript::FixedUpdate([[maybe_unused]] Engine& engine) {}
 
-	void BehaviorScript::Update([[maybe_unused]] Engine& engine, 
-								[[maybe_unused]] F64 delta_time) {}
+	void BehaviorScript::Update([[maybe_unused]] Engine& engine) {}
 
 	void BehaviorScript::Close([[maybe_unused]] Engine& engine) {}
 }

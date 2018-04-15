@@ -47,9 +47,7 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 
 		virtual void Load([[maybe_unused]] Engine& engine) override;
-		
-		virtual void Update([[maybe_unused]] Engine& engine, 
-							[[maybe_unused]] F64 delta_time) override;
+		virtual void Update([[maybe_unused]] Engine& engine) override;
 
 	private:
 
@@ -59,12 +57,11 @@ namespace mage::script {
 
 		ProxyPtr< rendering::SpriteText > m_text;
 
-		F64 m_accumulated_time;
+		F32 m_accumulated_wall_clock_time;
 		U32 m_accumulated_nb_frames;
 		U32 m_last_frames_per_second;
-		F64 m_last_milliseconds_per_frame;
-		F64 m_last_cpu_usage;
+		F32 m_last_ms_per_frame;
+		F32 m_last_cpu_usage;
 		U32 m_last_ram_usage;
-		CPUMonitor m_monitor;
 	};
 }

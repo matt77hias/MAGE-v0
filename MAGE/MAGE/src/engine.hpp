@@ -262,6 +262,15 @@ namespace mage {
 		 */
 		void RequestScene(UniquePtr< Scene >&& scene) noexcept;
 
+		/**
+		 Returns the game time of this game engine.
+
+		 @return		The game time of this game engine.
+		 */
+		const GameTime GetTime() const noexcept {
+			return m_time;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -296,7 +305,7 @@ namespace mage {
 		bool UpdateRendering();
 		
 		[[nodiscard]]
-		bool UpdateScripting(const GameTime& time);
+		bool UpdateScripting();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -336,6 +345,11 @@ namespace mage {
 		 The timer of this engine.
 		 */
 		GameTimer m_timer;
+
+		/**
+		 The current time of this engine.
+		 */
+		GameTime m_time;
 
 		/**
 		 The fixed delta time of this engine.

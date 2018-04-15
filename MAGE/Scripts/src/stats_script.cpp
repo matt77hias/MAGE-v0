@@ -26,11 +26,11 @@ namespace mage::script {
 	StatsScript::StatsScript()
 		: BehaviorScript(),
 		m_text(),
-		m_accumulated_wall_clock_time(0.0),
+		m_accumulated_wall_clock_time(0.0f),
 		m_accumulated_nb_frames(0),
 		m_last_frames_per_second(0), 
-		m_last_ms_per_frame(0.0),
-		m_last_cpu_usage(0.0), 
+		m_last_ms_per_frame(0.0f),
+		m_last_cpu_usage(0.0f), 
 		m_last_ram_usage(0) {}
 
 	StatsScript::StatsScript(const StatsScript& script) noexcept = default;
@@ -55,7 +55,8 @@ namespace mage::script {
 	}
 
 	void StatsScript::Update([[maybe_unused]] Engine& engine) {
-		const auto wall_clock_delta_time = engine.GetTime().GetWallClockDeltaTime();
+		const auto wall_clock_delta_time 
+			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime());
 		
 		m_accumulated_wall_clock_time += wall_clock_delta_time;
 		++m_accumulated_nb_frames;
@@ -64,15 +65,16 @@ namespace mage::script {
 			// FPS + SPF
 			m_last_frames_per_second = static_cast< U32 >(m_accumulated_nb_frames 
 														  / m_accumulated_wall_clock_time);
-			m_last_ms_per_frame = 1000.0 * m_accumulated_wall_clock_time 
-				                         / m_accumulated_nb_frames;
+			m_last_ms_per_frame = 1000.0f * m_accumulated_wall_clock_time 
+				                          / m_accumulated_nb_frames;
 			
-			m_accumulated_wall_clock_time = 0.0;
+			m_accumulated_wall_clock_time = 0.0f;
 			m_accumulated_nb_frames       = 0u;
 			
 			// CPU
-			const auto core_clock_delta_time = engine.GetTime().GetCoreClockDeltaTime();
-			m_last_cpu_usage = 100.0 * core_clock_delta_time / wall_clock_delta_time;
+			const auto core_clock_delta_time 
+				= static_cast< F32 >(engine.GetTime().GetCoreClockDeltaTime());
+			m_last_cpu_usage = 100.0f * core_clock_delta_time / wall_clock_delta_time;
 			
 			// MEM
 			m_last_ram_usage = static_cast< U32 >(GetVirtualMemoryUsage() >> 20u);
@@ -87,7 +89,7 @@ namespace mage::script {
 		
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, std::size(buffer), 
-			         L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB\nDCs: %u", 
+			         L"\nSPF: %.2fms\nCPU: %.1f%%\nRAM: %uMB\nDCs: %u", 
 			         m_last_ms_per_frame, 
 			         m_last_cpu_usage, 
 			         m_last_ram_usage, 

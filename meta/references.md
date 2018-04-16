@@ -56,6 +56,8 @@ GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppg
 
 HALDAR D.: [C++ 11 Auto: How to use and avoid abuse](http://www.acodersjourney.com/2016/02/c-11-auto/), 2016.
 
+IGNATCHENKO S.: [*5 Reasons NOT to Use std::ostream for Human-Readable Output*](https://accu.org/index.php/journals/2486), 2018.
+
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
 KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.

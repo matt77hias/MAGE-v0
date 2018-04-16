@@ -297,7 +297,7 @@ namespace mage::script {
 					= AbsoluteToNormalized(F32x2(viewport.GetTopLeft()), 
 										   display_resolution);
 				ImGui::InputFloat2("Top Left", top_left.GetData());
-				viewport.SetTopLeft(U32x2(
+				viewport.SetTopLeft(S32x2(
 					NormalizedToAbsolute(top_left, display_resolution)));
 
 				//-------------------------------------------------------------
@@ -316,7 +316,7 @@ namespace mage::script {
 				//-------------------------------------------------------------
 				auto top_left = S32x2(viewport.GetTopLeft());
 				ImGui::InputInt2("Top Left", top_left.GetData());
-				viewport.SetTopLeft(U32x2(top_left));
+				viewport.SetTopLeft(top_left);
 
 				//-------------------------------------------------------------
 				// Width and Height

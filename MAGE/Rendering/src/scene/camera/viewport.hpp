@@ -32,8 +32,8 @@ namespace mage::rendering {
 	inline const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(const U32x2& resolution) noexcept {
 
-		const auto width  = (0 < resolution.m_x) ? 2.0f / resolution.m_x : 0.0f;
-		const auto height = (0 < resolution.m_y) ? 2.0f / resolution.m_y : 0.0f;
+		const auto width  = (0u < resolution.m_x) ? 2.0f / resolution.m_x : 0.0f;
+		const auto height = (0u < resolution.m_y) ? 2.0f / resolution.m_y : 0.0f;
 
 		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
 		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
@@ -59,31 +59,6 @@ namespace mage::rendering {
 	class Viewport final {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size) noexcept {
-			D3D11_VIEWPORT viewport = {};
-			viewport.Width    = static_cast< F32 >(size.m_x);
-			viewport.Height   = static_cast< F32 >(size.m_y);
-			viewport.MaxDepth = 1.0f;
-			return viewport;
-		}
-
-		[[nodiscard]]
-		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size,
-												   AntiAliasing aa) noexcept {
-			
-			const auto multiplier = GetResolutionMultiplier(aa);
-
-			D3D11_VIEWPORT viewport = GetMaxViewport(size);
-			viewport.Width  *= multiplier;
-			viewport.Height *= multiplier;
-			return viewport;
-		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -154,17 +129,17 @@ namespace mage::rendering {
 		}
 
 		[[nodiscard]]
-		const U32x2 GetTopLeft() const noexcept {
-			return U32x2(static_cast< U32 >(m_viewport.TopLeftX), 
-						 static_cast< U32 >(m_viewport.TopLeftY));
+		const S32x2 GetTopLeft() const noexcept {
+			return S32x2(static_cast< S32 >(m_viewport.TopLeftX), 
+						 static_cast< S32 >(m_viewport.TopLeftY));
 		}
 
-		void SetTopLeft(U32 x, U32 y) noexcept {
+		void SetTopLeft(S32 x, S32 y) noexcept {
 			m_viewport.TopLeftX = static_cast< F32 >(x);
 			m_viewport.TopLeftY = static_cast< F32 >(y);
 		}
 
-		void SetTopLeft(const U32x2& top_left) noexcept {
+		void SetTopLeft(const S32x2& top_left) noexcept {
 			SetTopLeft(top_left.m_x, top_left.m_y);
 		}
 
@@ -203,6 +178,32 @@ namespace mage::rendering {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size) noexcept {
+			D3D11_VIEWPORT viewport = {};
+			viewport.Width    = static_cast< F32 >(size.m_x);
+			viewport.Height   = static_cast< F32 >(size.m_y);
+			viewport.MaxDepth = 1.0f;
+			return viewport;
+		}
+
+		[[nodiscard]]
+		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size,
+												   AntiAliasing aa) noexcept {
+			
+			const auto multiplier = GetResolutionMultiplier(aa);
+
+			D3D11_VIEWPORT viewport = GetMaxViewport(size);
+			viewport.Width  *= multiplier;
+			viewport.Height *= multiplier;
+			return viewport;
+		}
+
 
 		//---------------------------------------------------------------------
 		// Member Variables

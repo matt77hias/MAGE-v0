@@ -75,10 +75,9 @@ namespace mage::script {
 			// Voxel Cone Tracing
 			//-----------------------------------------------------------------
 			if (ImGui::TreeNode("Voxel Cone Tracing")) {
-				auto nb_cones = static_cast< S32 >(settings.GetNumberOfCones());
-				ImGui::SliderInt("Number of Cones", &nb_cones, 0,
-								 static_cast< S32 >(VoxelizationSettings::s_max_nb_cones));
-				settings.SetNumberOfCones(static_cast< U32 >(nb_cones));
+				auto vct = settings.UsesVCT();
+				ImGui::Checkbox("VCT", &vct);
+				settings.SetVCT(vct);
 
 				auto cone_step_multiplier = settings.GetConeStepMultiplier();
 				ImGui::DragFloat("Cone Step Multiplier", &cone_step_multiplier,

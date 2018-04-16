@@ -248,15 +248,6 @@ namespace mage::rendering {
 		}
 
 		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------	
-
-		/**
-		 The maximal number of cones to trace for each shading point.
-		 */
-		static constexpr U32 s_max_nb_cones = 6u;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------	
 
@@ -264,7 +255,7 @@ namespace mage::rendering {
 		 Constructs a voxelization settings.
 		 */
 		constexpr VoxelizationSettings()
-			: m_nb_cones(0u), 
+			: m_vct(false), 
 			m_cone_step_multiplier(1.0f), 
 			m_max_cone_distance(1.0f) {}
 
@@ -325,16 +316,23 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		constexpr bool UsesVCT() const noexcept {
-			return 0u != GetNumberOfCones();
+			return m_vct;
 		}
 
-		[[nodiscard]]
-		constexpr U32 GetNumberOfCones() const noexcept {
-			return m_nb_cones;
+		void EnableVCT() noexcept {
+			SetVCT(true);
 		}
 
-		constexpr void SetNumberOfCones(U32 nb_cones) noexcept {
-			m_nb_cones = std::clamp(nb_cones, 0u, s_max_nb_cones);
+		void DisableVCT() noexcept {
+			SetVCT(false);
+		}
+
+		void ToggleVCT() noexcept {
+			SetVCT(!UsesVCT());
+		}
+
+		void SetVCT(bool vct = true) noexcept {
+			m_vct = vct;
 		}
 
 		[[nodiscard]]
@@ -382,10 +380,10 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		
 		/**
-		 The number of cones to trace for each shading point of this 
+		 A flag indicating whether voxel cone tracing should be used for this 
 		 voxelization settings.
 		 */
-		U32 m_nb_cones;
+		bool m_vct;
 		
 		/**
 		 The step multiplier of the cone while marching of this voxelization 

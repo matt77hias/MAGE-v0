@@ -141,32 +141,30 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// Member Variables: Voxel Cone Tracing
 	//-------------------------------------------------------------------------
 
-	// The number of cones to trace for each shading point.
-	uint     g_nb_cones                          : packoffset(c20.y);
 	// The step multiplier of the cone while marching.
 	// A high step multiplier results in faster, but less-precise marching.
 	// A low  step multiplier results in slower, but more-precise marching.
-	float    g_cone_step_multiplier              : packoffset(c20.z);
+	float    g_cone_step_multiplier              : packoffset(c20.y);
 	// The maximal cone distance expressed in normalized texture coordinates.
-	float    g_max_cone_distance                 : packoffset(c20.w);
+	float    g_max_cone_distance                 : packoffset(c20.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Post-processing
 	//-------------------------------------------------------------------------
 
 	// The lens radius of this camera.
-	float    g_lens_radius                       : packoffset(c21.x);
+	float    g_lens_radius                       : packoffset(c20.w);
 	// The focal length of this camera.
-	float    g_focal_length                      : packoffset(c21.y);
+	float    g_focal_length                      : packoffset(c21.x);
 	// The maximum circle-of-confusion radius of this camera.
-	float    g_max_coc_radius                    : packoffset(c21.z);
+	float    g_max_coc_radius                    : packoffset(c21.y);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
 	//-------------------------------------------------------------------------
 
 	// The inverse of the gamma exponent used for gamma correction.
-	float    g_inv_gamma                         : packoffset(c21.w);
+	float    g_inv_gamma                         : packoffset(c21.z);
 }
 
 //-----------------------------------------------------------------------------

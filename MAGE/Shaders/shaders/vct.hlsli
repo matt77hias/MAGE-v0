@@ -100,8 +100,8 @@ float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
 
 	const float3x3 tangent_to_world = OrthonormalBasis(n);
 
-	const uint nb_cones = min(g_nb_cones, 6u);
-	for (uint i = 0u; i < nb_cones; ++i) {
+	[unroll]
+	for (uint i = 0u; i < 6u; ++i) {
 		const float3 d      = g_cones[i].xyz;
 		const float  weight = g_cones[i].w;
 

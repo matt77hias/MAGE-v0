@@ -48,13 +48,13 @@ namespace mage::rendering {
 			m_fog_color(), 
 			m_fog_density(0.0f), 
 			m_sky_dome_scale_z(1.0f), 
-			m_nb_cones(0), 
 			m_cone_step_multiplier(1.0f), 
 			m_max_cone_distance(1.0f), 
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
-			m_inv_gamma(0.0f) {}
+			m_inv_gamma(0.0f), 
+			m_padding(0u) {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -199,12 +199,6 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The number of cones to trace for each shading point of this camera 
-		 buffer.
-		 */
-		U32 m_nb_cones;
-
-		/**
 		 The step multiplier of the cone while marching of this camera buffer.
 		 */
 		F32 m_cone_step_multiplier;
@@ -243,6 +237,11 @@ namespace mage::rendering {
 		 The inverse gamma exponent of the camera of this camera buffer.
 		 */
 		F32 m_inv_gamma;
+
+		/**
+		 The padding of this camera buffer.
+		 */
+		U32 m_padding;
 	};
 
 	static_assert(352 == sizeof(CameraBuffer), 

@@ -107,10 +107,12 @@ float4 PS(float4 input : SV_POSITION) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 p_ss_display = g_ss_viewport_top_left + thread_id.xy;
+	const uint2 p_ss_viewport = thread_id.xy;
+	const uint2 p_ss_display  = g_ss_viewport_top_left + p_ss_viewport;
 	
 	[branch]
-	if (any(p_ss_display >= g_ss_display_resolution)) {
+	if (   any(p_ss_viewport >= g_ss_viewport_resolution) 
+		|| any(p_ss_display  >= g_ss_display_resolution)) {
 		return;
 	}
 

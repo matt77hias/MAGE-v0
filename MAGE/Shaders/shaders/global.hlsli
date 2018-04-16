@@ -101,13 +101,13 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	//-------------------------------------------------------------------------
 
 	// The top left corner of the camera viewport.
-	uint2    g_viewport_top_left                 : packoffset(c16);
+	int2     g_viewport_top_left                 : packoffset(c16);
 	// The resolution of the camera viewport.
 	// g_viewport_resolution.x = the viewport width
 	// g_viewport_resolution.y = the viewport height
 	uint2    g_viewport_resolution               : packoffset(c16.z);
 	// The top left corner of the super-sampled camera viewport.
-	uint2    g_ss_viewport_top_left              : packoffset(c17);
+	int2     g_ss_viewport_top_left              : packoffset(c17);
 	// The resolution of the super-sampled camera viewport.
 	// g_ss_viewport_resolution.x = the super-sampled viewport width
 	// g_ss_viewport_resolution.y = the super-sampled viewport height

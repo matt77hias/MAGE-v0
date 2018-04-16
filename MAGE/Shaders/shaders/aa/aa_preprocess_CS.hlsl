@@ -34,12 +34,14 @@ RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 p_viewport = thread_id.xy;
-	const uint2 p_display  = g_viewport_top_left + p_viewport;
+	const uint2 p_viewport  = thread_id.xy;
+	const  int2 p_display_s = g_viewport_top_left + int2(p_viewport);
+	const uint2 p_display   = uint2(p_display_s);
 
 	[branch]
-	if (   any(p_viewport >= g_viewport_resolution) 
-		|| any(p_display  >= g_display_resolution)) {
+	if (   any(p_display_s < 0)
+		|| any(p_display  >= g_display_resolution)
+		|| any(p_viewport >= g_viewport_resolution)) {
 		return;
 	}
 

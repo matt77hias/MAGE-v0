@@ -48,7 +48,7 @@ void PS(PSInputPositionNormalTexture input) {
 	const uint3   index = (uint3)s_index;
 
 	[branch]
-	if (any(s_index < 0 || index >= g_voxel_grid_resolution)) {
+	if (any(0 > s_index || g_voxel_grid_resolution <= index)) {
 		return;
 	}
 

@@ -42,9 +42,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const uint2 p_display   = uint2(p_display_s);
 
 	[branch]
-	if (   any(p_display_s < 0)
-		|| any(p_display  >= g_display_resolution)
-		|| any(p_viewport >= g_viewport_resolution)) {
+	if (any(0 > p_display_s 
+			|| g_display_resolution  <= p_display 
+			|| g_viewport_resolution <= p_viewport)) {
 		return;
 	}
 

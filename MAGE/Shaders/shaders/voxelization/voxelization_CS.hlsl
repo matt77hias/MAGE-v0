@@ -29,7 +29,7 @@ RW_TEXTURE_3D(voxel_texture,     float4, SLOT_UAV_VOXEL_TEXTURE);
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	[branch]
-	if (any(thread_id >= g_voxel_grid_resolution)) {
+	if (any(g_voxel_grid_resolution <= thread_id)) {
 		return;
 	}
 

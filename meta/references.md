@@ -218,6 +218,8 @@ MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](ht
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
 
+REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.
+
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
 
 WANG T.: [*Integer Hash Function*](https://gist.github.com/badboy/6267743), 1997.

@@ -86,6 +86,8 @@ WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](
 
 ### Color Spaces
 
+ALDRIDGE G.: [*The difference between RGBM and RGBD*](http://iwasbeingirony.blogspot.be/2010/06/difference-between-rgbm-and-rgbd.html), 2010.
+
 A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github.com/ampas/aces-dev), 2011.
 
 ERICSON C.: [*Converting RGB to LogLuv in a fragment shader*](http://realtimecollisiondetection.net/blog/?p=15), 2007.
@@ -94,9 +96,13 @@ GUERTAULT J.: [*Gamma correct and HDR rendering in a 32 bits buffer*](http://lou
 
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
 
+KARIS B.: [*RGBM color encoding*](http://graphicrants.blogspot.be/2009/04/rgbm-color-encoding.html), 2009.
+
 PETTINEO M.: [*LogLuv Encoding for HDR*](https://mynameismjp.wordpress.com/2008/12/12/logluv-encoding-for-hdr/), 2008.
 
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
+
+SUPNIK B.: [*The Value Of Gamma Compression*](http://hacksoflife.blogspot.be/2010/11/value-of-gamma-compression.html), 2010.
 
 WARD G.: *The LogLuv Encoding for Full Gamut, High Dynamic Range Images*, *J. Graph. Tools* 3, 1, 1998.
 

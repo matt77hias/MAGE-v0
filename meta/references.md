@@ -90,6 +90,8 @@ A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github
 
 ERICSON C.: [*Converting RGB to LogLuv in a fragment shader*](http://realtimecollisiondetection.net/blog/?p=15), 2007.
 
+GUERTAULT J.: [*Gamma correct and HDR rendering in a 32 bits buffer*](http://lousodrome.net/blog/light/tag/logluv/), 2013.
+
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
 
 PETTINEO M.: [*LogLuv Encoding for HDR*](https://mynameismjp.wordpress.com/2008/12/12/logluv-encoding-for-hdr/), 2008.

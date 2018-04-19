@@ -260,8 +260,8 @@ float DepthToCameraZ(float depth) {
  @return		The UV u and v coordinates.
  */
 float2 DisplayToUV(float2 p_display) {
-	// x: [0.5, g_display_resolution.x - 0.5] -> [0,1]
-	// y: [0.5, g_display_resolution.y - 0.5] -> [0,1]
+	// .x: [0.5, g_display_resolution.x - 0.5] -> [0,1]
+	// .y: [0.5, g_display_resolution.y - 0.5] -> [0,1]
 	return p_display * g_display_inv_resolution_minus_half;
 }
 
@@ -273,8 +273,8 @@ float2 DisplayToUV(float2 p_display) {
  @return		The UV u and v coordinates.
  */
 float2 SSDisplayToUV(float2 p_ss_display) {
-	// x: [0.5, g_ss_display_resolution.x - 0.5] -> [0,1]
-	// y: [0.5, g_ss_display_resolution.y - 0.5] -> [0,1]
+	// .x: [0.5, g_ss_display_resolution.x - 0.5] -> [0,1]
+	// .y: [0.5, g_ss_display_resolution.y - 0.5] -> [0,1]
 	return p_ss_display * g_ss_display_inv_resolution_minus_half;
 }
 
@@ -286,8 +286,8 @@ float2 SSDisplayToUV(float2 p_ss_display) {
  @return		The UV u and v coordinates.
  */
 float2 ViewportToUV(float2 p_viewport) {
-	// x: [0.5, g_viewport_resolution.x - 0.5] -> [0,1]
-	// y: [0.5, g_viewport_resolution.y - 0.5] -> [0,1]
+	// .x: [0.5, g_viewport_resolution.x - 0.5] -> [0,1]
+	// .y: [0.5, g_viewport_resolution.y - 0.5] -> [0,1]
 	return p_viewport * g_viewport_inv_resolution_minus_half;
 }
 
@@ -299,8 +299,8 @@ float2 ViewportToUV(float2 p_viewport) {
  @return		The UV u and v coordinates.
  */
 float2 SSViewportToUV(float2 p_ss_viewport) {
-	// x: [0.5, g_ss_viewport_resolution.x - 0.5] -> [0,1]
-	// y: [0.5, g_ss_viewport_resolution.y - 0.5] -> [0,1]
+	// .x: [0.5, g_ss_viewport_resolution.x - 0.5] -> [0,1]
+	// .y: [0.5, g_ss_viewport_resolution.y - 0.5] -> [0,1]
 	return p_ss_viewport * g_ss_viewport_inv_resolution_minus_half;
 }
 

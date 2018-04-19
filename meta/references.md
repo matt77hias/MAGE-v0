@@ -26,6 +26,8 @@ LOTTES T.: [FXAA](https://developer.download.nvidia.com/assets/gamedev/files/sdk
 
 PETTINEO M.: [*Deferred MSAA*](https://mynameismjp.wordpress.com/2010/08/16/deferred-msaa/), 2010.
 
+PRANCKEVIČIUS A.: [*HDR with MSAA demo (2005)*](http://aras-p.info/projHDR.html), 2005.
+
 TURÁNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpress.com/2016/11/13/how-to-resolve-an-msaa-depthbuffer/), 2016.
 
 ### Assembly
@@ -226,6 +228,8 @@ MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](ht
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
 
+PRANCKEVIČIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
+
 REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.
 
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
@@ -345,6 +349,8 @@ MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/window
 CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
 
 JERSILD J.: [*Understanding Half-Pixel and Half-Texel Offsets*](http://drilian.com/2008/11/25/understanding-half-pixel-and-half-texel-offsets/), 2008.
+
+PRANCKEVIČIUS A.: [*Solving DX9 Half-Pixel Offset*](https://aras-p.info/blog/2016/04/08/solving-dx9-half-pixel-offset/), 2016.
 
 REED N.: [*Understanding BCn Texture Compression Formats*](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/), 2012.
 

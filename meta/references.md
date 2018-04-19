@@ -344,6 +344,8 @@ MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/window
 
 CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
 
+JERSILD J.: [*Understanding Half-Pixel and Half-Texel Offsets*](http://drilian.com/2008/11/25/understanding-half-pixel-and-half-texel-offsets/), 2008.
+
 REED N.: [*Understanding BCn Texture Compression Formats*](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/), 2012.
 
 SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.

@@ -350,9 +350,13 @@ CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKD
 
 JERSILD J.: [*Understanding Half-Pixel and Half-Texel Offsets*](http://drilian.com/2008/11/25/understanding-half-pixel-and-half-texel-offsets/), 2008.
 
+MICROSOFT CORP.: [*Directly Mapping Texels to Pixels (Direct3D 9)*](https://msdn.microsoft.com/en-us/library/windows/desktop/bb219690%28v=vs.85%29.aspx).
+
 PRANCKEVIČIUS A.: [*Solving DX9 Half-Pixel Offset*](https://aras-p.info/blog/2016/04/08/solving-dx9-half-pixel-offset/), 2016.
 
 REED N.: [*Understanding BCn Texture Compression Formats*](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/), 2012.
+
+SAWICKI A.: [*Half-Pixel Offset in DirectX 11*](http://www.asawicki.info/news_1516_half-pixel_offset_in_directx_11.html), 2012.
 
 SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.
 

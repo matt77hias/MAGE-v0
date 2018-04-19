@@ -196,6 +196,8 @@ MICROSOFT CORP.: [*Direct3D 11 Graphics*](https://msdn.microsoft.com/en-us/libra
 
 MICROSOFT CORP.: [*DXGI flip model*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh706346(v=vs.85).aspx).
 
+MICROSOFT CORP.: [*Semantics*](https://msdn.microsoft.com/en-us/library/windows/desktop/bb509647(v=vs.85).aspx).
+
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
 
 NVIDIA GAMEWORKS: [DX12 Do's And Don'ts](https://developer.nvidia.com/dx12-dos-and-donts), s.d.

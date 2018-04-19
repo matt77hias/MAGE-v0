@@ -30,9 +30,9 @@ namespace mage::rendering {
 		 */
 		WorldBuffer() noexcept
 			: m_display_resolution(), 
-			m_display_inv_resolution_minus1(), 
+			m_display_inv_resolution_minus_half(),
 			m_ss_display_resolution(), 
-			m_ss_display_inv_resolution_minus1(), 
+			m_ss_display_inv_resolution_minus_half(),
 			m_voxel_grid_center(), 
 			m_voxel_texture_max_mip_level(0u), 
 			m_voxel_grid_resolution(0u), 
@@ -97,10 +97,10 @@ namespace mage::rendering {
 		U32x2 m_display_resolution;
 
 		/**
-		  The inverse of the resolution of the display minus one of this game 
-		  buffer.
+		 The inverse of the resolution of the display minus one half of this 
+		 game buffer.
 		 */
-		F32x2 m_display_inv_resolution_minus1;
+		F32x2 m_display_inv_resolution_minus_half;
 
 		/**
 		 The resolution of the super-sampled display of this world buffer.
@@ -109,9 +109,9 @@ namespace mage::rendering {
 
 		/**
 		 The inverse of the resolution of the super-sampled display minus one 
-		 of this world buffer.
+		 half of this world buffer.
 		 */
-		F32x2 m_ss_display_inv_resolution_minus1;
+		F32x2 m_ss_display_inv_resolution_minus_half;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Voxelization

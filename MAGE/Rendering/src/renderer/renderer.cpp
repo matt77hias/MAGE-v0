@@ -447,9 +447,9 @@ namespace mage::rendering {
 		{
 			auto display_resolution
 				= m_display_configuration.get().GetDisplayResolution();
-			buffer.m_display_inv_resolution_minus1
-				= F32x2(1.0f / (display_resolution.m_x - 1u),
-						1.0f / (display_resolution.m_y - 1u));
+			buffer.m_display_inv_resolution_minus_half
+				= F32x2(1.0f / (display_resolution.m_x - 0.5f),
+						1.0f / (display_resolution.m_y - 0.5f));
 			buffer.m_display_resolution
 				= std::move(display_resolution);
 		}
@@ -458,9 +458,9 @@ namespace mage::rendering {
 		{
 			auto ss_display_resolution
 				= m_display_configuration.get().GetSSDisplayResolution();
-			buffer.m_ss_display_inv_resolution_minus1
-				= F32x2(1.0f / (ss_display_resolution.m_x - 1u),
-						1.0f / (ss_display_resolution.m_y - 1u));
+			buffer.m_ss_display_inv_resolution_minus_half
+				= F32x2(1.0f / (ss_display_resolution.m_x - 0.5f),
+						1.0f / (ss_display_resolution.m_y - 0.5f));
 			buffer.m_ss_display_resolution
 				= std::move(ss_display_resolution);
 		}

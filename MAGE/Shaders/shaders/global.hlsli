@@ -40,45 +40,46 @@ CBUFFER(World, SLOT_CBUFFER_WORLD) {
 	//-------------------------------------------------------------------------
 
 	// The resolution of the display.
-	// g_display_resolution.x = the display width
-	// g_display_resolution.y = the display height
-	uint2    g_display_resolution                : packoffset(c0);
-	// The inverse of the resolution of the display minus 1.
-	// g_display_inv_resolution_minus1.x = 1 / (g_display_resolution.x - 1)
-	// g_display_inv_resolution_minus1.y = 1 / (g_display_resolution.y - 1)
-	float2   g_display_inv_resolution_minus1     : packoffset(c0.z);
+	// .x = the display width
+	// .y = the display height
+	uint2    g_display_resolution                    : packoffset(c0);
+	// The inverse of the resolution of the display minus one half.
+	// .x = 1 / (g_display_resolution.x - 0.5)
+	// .y = 1 / (g_display_resolution.y - 0.5)
+	float2   g_display_inv_resolution_minus_half     : packoffset(c0.z);
 	// The resolution of the super-sampled display.
-	// g_ss_display_resolution.x = the super-sampled display width
-	// g_ss_display_resolution.y = the super-sampled display height
-	uint2    g_ss_display_resolution             : packoffset(c1);
-	// The inverse of the resolution of the super-sampled display minus 1.
-	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
-	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
-	float2   g_ss_display_inv_resolution_minus1  : packoffset(c1.z);
+	// .x = the super-sampled display width
+	// .y = the super-sampled display height
+	uint2    g_ss_display_resolution                 : packoffset(c1);
+	// The inverse of the resolution of the super-sampled display minus one 
+	// half.
+	// .x = 1 / (g_ss_display_resolution.x - 0.5)
+	// .y = 1 / (g_ss_display_resolution.y - 0.5)
+	float2   g_ss_display_inv_resolution_minus_half  : packoffset(c1.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Voxelization
 	//-------------------------------------------------------------------------
 
 	// The center of the voxel grid expressed in world space.
-	float3   g_voxel_grid_center                 : packoffset(c2.x);
+	float3   g_voxel_grid_center                     : packoffset(c2.x);
 	// The maximum mip level of the voxel texture.
-	uint     g_voxel_texture_max_mip_level       : packoffset(c2.w);
+	uint     g_voxel_texture_max_mip_level           : packoffset(c2.w);
 	// The resolution of the voxel grid for all dimensions.
-	uint     g_voxel_grid_resolution             : packoffset(c3.x);
+	uint     g_voxel_grid_resolution                 : packoffset(c3.x);
 	// The inverse resolution of the voxel grid for all dimensions.
-	float    g_voxel_grid_inv_resolution         : packoffset(c3.y);
+	float    g_voxel_grid_inv_resolution             : packoffset(c3.y);
 	// The size of a voxel for all dimensions expressed in world space.
-	float    g_voxel_size                        : packoffset(c3.z);
+	float    g_voxel_size                            : packoffset(c3.z);
 	// The inverse size of a voxel for all dimensions.
-	float    g_voxel_inv_size                    : packoffset(c3.w);
+	float    g_voxel_inv_size                        : packoffset(c3.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Time
 	//-------------------------------------------------------------------------
 
 	// The time.
-	float    g_time                              : packoffset(c4.x);
+	float    g_time                                  : packoffset(c4.x);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -88,54 +89,55 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	//-------------------------------------------------------------------------
 	
 	// The world-to-camera transformation matrix.
-	float4x4 g_world_to_camera                   : packoffset(c0);
+	float4x4 g_world_to_camera                       : packoffset(c0);
 	// The camera-to-projection transformation matrix.
-	float4x4 g_camera_to_projection              : packoffset(c4);
+	float4x4 g_camera_to_projection                  : packoffset(c4);
 	// The projection-to-camera transformation matrix.
-	float4x4 g_projection_to_camera              : packoffset(c8);
+	float4x4 g_projection_to_camera                  : packoffset(c8);
 	// The camera-to-world transformation matrix.
-	float4x4 g_camera_to_world                   : packoffset(c12);
+	float4x4 g_camera_to_world                       : packoffset(c12);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Viewports
 	//-------------------------------------------------------------------------
 
 	// The top left corner of the camera viewport.
-	int2     g_viewport_top_left                 : packoffset(c16);
+	int2     g_viewport_top_left                     : packoffset(c16);
 	// The resolution of the camera viewport.
-	// g_viewport_resolution.x = the viewport width
-	// g_viewport_resolution.y = the viewport height
-	uint2    g_viewport_resolution               : packoffset(c16.z);
+	// .x = the viewport width
+	// .y = the viewport height
+	uint2    g_viewport_resolution                   : packoffset(c16.z);
 	// The top left corner of the super-sampled camera viewport.
-	int2     g_ss_viewport_top_left              : packoffset(c17);
+	int2     g_ss_viewport_top_left                  : packoffset(c17);
 	// The resolution of the super-sampled camera viewport.
-	// g_ss_viewport_resolution.x = the super-sampled viewport width
-	// g_ss_viewport_resolution.y = the super-sampled viewport height
-	uint2    g_ss_viewport_resolution            : packoffset(c17.z);
-	// The inverse of the resolution of the camera viewport minus 1.
-	// g_viewport_inv_resolution_minus1.x = 1 / (g_viewport_resolution.x - 1)
-	// g_viewport_inv_resolution_minus1.y = 1 / (g_viewport_resolution.y - 1)
-	float2   g_viewport_inv_resolution_minus1    : packoffset(c18);
-	// The inverse of the resolution of the super-sampled camera viewport minus 1.
-	// g_ss_viewport_inv_resolution_minus1.x = 1 / (g_ss_viewport_resolution.x - 1)
-	// g_ss_viewport_inv_resolution_minus1.y = 1 / (g_ss_viewport_resolution.y - 1)
-	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
+	// .x = the super-sampled viewport width
+	// .y = the super-sampled viewport height
+	uint2    g_ss_viewport_resolution                : packoffset(c17.z);
+	// The inverse of the resolution of the camera viewport minus one half.
+	// .x = 1 / (g_viewport_resolution.x - 0.5)
+	// .y = 1 / (g_viewport_resolution.y - 0.5)
+	float2   g_viewport_inv_resolution_minus_half    : packoffset(c18);
+	// The inverse of the resolution of the super-sampled camera viewport minus 
+	// one half.
+	// .x = 1 / (g_ss_viewport_resolution.x - 0.5)
+	// .y = 1 / (g_ss_viewport_resolution.y - 0.5)
+	float2   g_ss_viewport_inv_resolution_minus_half : packoffset(c18.z);
 	
 	//-------------------------------------------------------------------------
 	// Member Variables: Fog
 	//-------------------------------------------------------------------------
 
 	// The (linear) color of the fog.
-	float3   g_fog_color                         : packoffset(c19);
+	float3   g_fog_color                             : packoffset(c19);
 	// The density of the fog.
-	float    g_fog_density                       : packoffset(c19.w);
+	float    g_fog_density                           : packoffset(c19.w);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Sky
 	//-------------------------------------------------------------------------
 
 	// The scaling factor of the z component of sky domes.
-	float    g_sky_dome_scale_z                  : packoffset(c20.x);
+	float    g_sky_dome_scale_z                      : packoffset(c20.x);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Voxel Cone Tracing
@@ -144,27 +146,27 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// The step multiplier of the cone while marching.
 	// A high step multiplier results in faster, but less-precise marching.
 	// A low  step multiplier results in slower, but more-precise marching.
-	float    g_cone_step_multiplier              : packoffset(c20.y);
+	float    g_cone_step_multiplier                  : packoffset(c20.y);
 	// The maximal cone distance expressed in normalized texture coordinates.
-	float    g_max_cone_distance                 : packoffset(c20.z);
+	float    g_max_cone_distance                     : packoffset(c20.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Post-processing
 	//-------------------------------------------------------------------------
 
 	// The lens radius of this camera.
-	float    g_lens_radius                       : packoffset(c20.w);
+	float    g_lens_radius                           : packoffset(c20.w);
 	// The focal length of this camera.
-	float    g_focal_length                      : packoffset(c21.x);
+	float    g_focal_length                          : packoffset(c21.x);
 	// The maximum circle-of-confusion radius of this camera.
-	float    g_max_coc_radius                    : packoffset(c21.y);
+	float    g_max_coc_radius                        : packoffset(c21.y);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Gamma Correction
 	//-------------------------------------------------------------------------
 
 	// The inverse of the gamma exponent used for gamma correction.
-	float    g_inv_gamma                         : packoffset(c21.z);
+	float    g_inv_gamma                             : packoffset(c21.z);
 }
 
 //-----------------------------------------------------------------------------
@@ -258,9 +260,9 @@ float DepthToCameraZ(float depth) {
  @return		The UV u and v coordinates.
  */
 float2 DisplayToUV(float2 p_display) {
-	// x: [0,g_display_resolution.x-1] -> [0,1]
-	// y: [0,g_display_resolution.y-1] -> [0,1]
-	return p_display * g_display_inv_resolution_minus1;
+	// x: [0.5, g_display_resolution.x - 0.5] -> [0,1]
+	// y: [0.5, g_display_resolution.y - 0.5] -> [0,1]
+	return p_display * g_display_inv_resolution_minus_half;
 }
 
 /**
@@ -271,9 +273,9 @@ float2 DisplayToUV(float2 p_display) {
  @return		The UV u and v coordinates.
  */
 float2 SSDisplayToUV(float2 p_ss_display) {
-	// x: [0,g_ss_display_resolution.x-1] -> [0,1]
-	// y: [0,g_ss_display_resolution.y-1] -> [0,1]
-	return p_ss_display * g_ss_display_inv_resolution_minus1;
+	// x: [0.5, g_ss_display_resolution.x - 0.5] -> [0,1]
+	// y: [0.5, g_ss_display_resolution.y - 0.5] -> [0,1]
+	return p_ss_display * g_ss_display_inv_resolution_minus_half;
 }
 
 /**
@@ -284,9 +286,9 @@ float2 SSDisplayToUV(float2 p_ss_display) {
  @return		The UV u and v coordinates.
  */
 float2 ViewportToUV(float2 p_viewport) {
-	// x: [0,g_viewport_resolution.x-1] -> [0,1]
-	// y: [0,g_viewport_resolution.y-1] -> [0,1]
-	return p_viewport * g_viewport_inv_resolution_minus1;
+	// x: [0.5, g_viewport_resolution.x - 0.5] -> [0,1]
+	// y: [0.5, g_viewport_resolution.y - 0.5] -> [0,1]
+	return p_viewport * g_viewport_inv_resolution_minus_half;
 }
 
 /**
@@ -297,9 +299,9 @@ float2 ViewportToUV(float2 p_viewport) {
  @return		The UV u and v coordinates.
  */
 float2 SSViewportToUV(float2 p_ss_viewport) {
-	// x: [0,g_ss_viewport_resolution.x-1] -> [0,1]
-	// y: [0,g_ss_viewport_resolution.y-1] -> [0,1]
-	return p_ss_viewport * g_ss_viewport_inv_resolution_minus1;
+	// x: [0.5, g_ss_viewport_resolution.x - 0.5] -> [0,1]
+	// y: [0.5, g_ss_viewport_resolution.y - 0.5] -> [0,1]
+	return p_ss_viewport * g_ss_viewport_inv_resolution_minus_half;
 }
 
 /**

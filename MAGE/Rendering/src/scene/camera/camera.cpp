@@ -69,9 +69,9 @@ namespace mage::rendering {
 		{
 			buffer.m_viewport_top_left   = m_viewport.GetTopLeft();
 			auto viewport_resolution     = m_viewport.GetSize();
-			buffer.m_viewport_inv_resolution_minus1 
-				= F32x2(1.0f / (viewport_resolution.m_x - 1u), 
-						1.0f / (viewport_resolution.m_y - 1u));
+			buffer.m_viewport_inv_resolution_minus_half
+				= F32x2(1.0f / (viewport_resolution.m_x - 0.5f), 
+						1.0f / (viewport_resolution.m_y - 0.5f));
 			buffer.m_viewport_resolution = std::move(viewport_resolution);
 		}
 		
@@ -80,9 +80,9 @@ namespace mage::rendering {
 			const auto ss_viewport          = Viewport(m_viewport, aa);
 			buffer.m_ss_viewport_top_left   = ss_viewport.GetTopLeft();
 			auto ss_viewport_resolution     = ss_viewport.GetSize();
-			buffer.m_ss_viewport_inv_resolution_minus1 
-				= F32x2(1.0f / (ss_viewport_resolution.m_x - 1u), 
-						1.0f / (ss_viewport_resolution.m_y - 1u));
+			buffer.m_ss_viewport_inv_resolution_minus_half
+				= F32x2(1.0f / (ss_viewport_resolution.m_x - 0.5f),
+						1.0f / (ss_viewport_resolution.m_y - 0.5f));
 			buffer.m_ss_viewport_resolution = std::move(ss_viewport_resolution);
 		}
 		

@@ -10,11 +10,11 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "global.hlsli"
-
 #ifndef DISABLE_TONE_MAPPING
 	#include "tone_mapping.hlsli"
 #endif // DISABLE_TONE_MAPPING
+
+#include "global.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Defines
@@ -36,7 +36,6 @@ RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 //-----------------------------------------------------------------------------
 // Compute Shader
 //-----------------------------------------------------------------------------
-
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const uint2 p_viewport = thread_id.xy;

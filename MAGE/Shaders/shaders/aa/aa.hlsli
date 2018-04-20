@@ -1,5 +1,5 @@
-#ifndef MAGE_HEADER_BASIS
-#define MAGE_HEADER_BASIS
+#ifndef MAGE_HEADER_AA
+#define MAGE_HEADER_AA
 
 //-----------------------------------------------------------------------------
 // Engine Configuration
@@ -217,4 +217,4 @@ void ResolveSSAA(uint2 p_display,
 
 #endif // SSAA
 
-#endif //MAGE_HEADER_BASIS
+#endif // MAGE_HEADER_AA

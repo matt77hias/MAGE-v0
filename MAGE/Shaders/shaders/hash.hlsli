@@ -20,4 +20,4 @@ uint Hash_Elias(uint key) {
 	return key;
 }
 
-#endif //MAGE_HEADER_HASH
+#endif // MAGE_HEADER_HASH

@@ -55,4 +55,4 @@ float3x3 OrthonormalBasis(float3 n) {
 	return OrthonormalBasis_Duff(n);
 }
 
-#endif //MAGE_HEADER_BASIS
+#endif // MAGE_HEADER_BASIS

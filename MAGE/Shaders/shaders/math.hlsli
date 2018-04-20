@@ -1143,4 +1143,4 @@ float SqrSinToSqrTan(float sqr_sin) {
 	return sqr_sin / (1.0f - sqr_sin);
 }
 
-#endif //MAGE_HEADER_MATH
+#endif // MAGE_HEADER_MATH

@@ -37,7 +37,7 @@ float3x3 CalculateTangentToShadingMatrix(float3 p, float3 n, float2 tex) {
 
 	// Construct a scale-invariant frame.
 	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
-	const float3x3 TBN  = { t * inv_det, b * inv_det, n };
+	const float3x3 tangent_to_shading = { t * inv_det, b * inv_det, n };
 
 	return TBN;
 }

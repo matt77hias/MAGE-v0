@@ -21,4 +21,4 @@ float UniformFloat(uint seed) {
 	return frac(float(u & mantissa_mask) / float(mantissa_mask));
 }
 
-#endif //MAGE_HEADER_RNG
+#endif // MAGE_HEADER_RNG

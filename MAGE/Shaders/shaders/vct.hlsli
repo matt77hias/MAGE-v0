@@ -4,9 +4,10 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "global.hlsli"
 #include "basis.hlsli"
 #include "material.hlsli"
+
+#include "global.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs
@@ -112,4 +113,4 @@ float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
 	return material.base_color * L;
 }
 
-#endif //MAGE_HEADER_VCT
+#endif // MAGE_HEADER_VCT

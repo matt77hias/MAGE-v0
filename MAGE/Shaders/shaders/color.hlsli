@@ -210,4 +210,4 @@ float3 LogLuvToRGB(float4 logluv) {
 	return max(mul(x1yd1, s_x1yd1_to_rgb), 0.0f);
 }
 
-#endif //MAGE_HEADER_COLOR
+#endif // MAGE_HEADER_COLOR

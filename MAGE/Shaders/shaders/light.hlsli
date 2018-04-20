@@ -424,4 +424,4 @@ float FogFactor_Exponential(float distance, float density) {
 	return exp(-distance * density);
 }
 
-#endif //MAGE_HEADER_LIGHT
+#endif // MAGE_HEADER_LIGHT

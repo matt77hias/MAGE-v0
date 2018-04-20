@@ -33,7 +33,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "global.hlsli"
 #include "light.hlsli"
 #include "material.hlsli"
 
@@ -46,6 +45,8 @@
 	#endif // DISABLE_VCT
 
 #endif // BRDF_FUNCTION
+
+#include "global.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -272,4 +273,4 @@ float3 GetRadiance(float3 p, float3 n, Material material) {
 	return L;
 }
 
-#endif //MAGE_HEADER_LIGHTING
+#endif // MAGE_HEADER_LIGHTING

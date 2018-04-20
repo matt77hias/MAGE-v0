@@ -118,4 +118,4 @@ float4 ToneMap_Uncharted(float4 hdr) {
 	return float4(ToneMap_Uncharted(hdr.xyz), hdr.w);
 }
 
-#endif //MAGE_HEADER_TONE_MAPPING
+#endif // MAGE_HEADER_TONE_MAPPING

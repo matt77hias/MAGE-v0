@@ -39,8 +39,8 @@ namespace mage::rendering {
 		 @param[in]		display_mode
 						A reference to the display mode.
 		 */
-		explicit DisplayConfiguration(ComPtr< DXGIAdapter > adapter,
-			                          ComPtr< DXGIOutput >  output,
+		explicit DisplayConfiguration(ComPtr< DXGIAdapter > adapter, 
+									  ComPtr< DXGIOutput >  output,
 			                          const DXGI_MODE_DESC& display_mode)
 			: m_adapter(std::move(adapter)),
 			m_output(std::move(output)),

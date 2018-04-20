@@ -53,15 +53,11 @@ float GetBlurFactor(float p_camera_z) {
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
-
-	const uint2 p_viewport  = thread_id.xy;
-	const  int2 p_display_s = ViewportToDisplay(p_viewport);
-	const uint2 p_display   = uint2(p_display_s);
+	const uint2 p_viewport = thread_id.xy;
+	uint2 p_display;
 
 	[branch]
-	if (any(0 > p_display_s 
-			|| g_display_resolution  <= p_display 
-			|| g_viewport_resolution <= p_viewport)) {
+	if (IsViewportOutOfBounds(p_viewport, p_display)) {
 		return;
 	}
 

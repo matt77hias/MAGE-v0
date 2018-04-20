@@ -436,4 +436,42 @@ float2 UVtoSSViewport(float2 uv) {
 	return uv * g_ss_viewport_resolution;
 }
 
+/**
+ Checks whether the given position expressed in viewport space is out of 
+ bounds.
+
+ @param[in]		p_viewport
+				The position expressed in viewport space.
+ @return		@c true if the given position expressed in viewport space 
+				is out of bounds.
+ */
+bool IsViewportOutOfBounds(uint2 p_viewport) {
+	const  int2 p_display_s = ViewportToDisplay(p_viewport);
+	const uint2 p_display   = uint2(p_display_s);
+
+	return any(0 > p_display_s 
+			   || g_display_resolution  <= p_display 
+			   || g_viewport_resolution <= p_viewport);
+}
+
+/**
+ Checks whether the given position expressed in viewport space is out of 
+ bounds.
+
+ @param[in]		p_viewport
+				The position expressed in viewport space.
+ @param[out]	p_display
+				The position expressed in display space.
+ @return		@c true if the given position expressed in viewport space 
+				is out of bounds.
+ */
+bool IsViewportOutOfBounds(uint2 p_viewport, out uint2 p_display) {
+	const int2 p_display_s = ViewportToDisplay(p_viewport);
+	p_display = uint2(p_display_s);
+
+	return any(0 > p_display_s 
+			   || g_display_resolution  <= p_display 
+			   || g_viewport_resolution <= p_viewport);
+}
+
 #endif // MAGE_HEADER_GLOBAL

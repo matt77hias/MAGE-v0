@@ -393,6 +393,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <None Include="Shaders\shaders\aa\aa.hlsli" />
     <None Include="Shaders\shaders\basis.hlsli" />
     <None Include="Shaders\shaders\depth\depth_input.hlsli" />
     <FxCompile Include="Shaders\shaders\depth\depth_VS.hlsl">

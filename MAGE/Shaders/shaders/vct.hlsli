@@ -88,7 +88,6 @@ static const float4 g_cones[] = {
 };
 
 float3 GetVCTRadiance(float3 v, float3 p, float3 n, Material material) {
-
 	float3 L = 0.0f;
 
 	Cone cone;

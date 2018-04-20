@@ -39,7 +39,7 @@ float3x3 CalculateTangentToShadingMatrix(float3 p, float3 n, float2 tex) {
 	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
 	const float3x3 tangent_to_shading = { t * inv_det, b * inv_det, n };
 
-	return TBN;
+	return tangent_to_shading;
 }
 
 /**

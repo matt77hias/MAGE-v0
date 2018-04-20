@@ -33,6 +33,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "global.hlsli"
 #include "basis.hlsli"
 #include "light.hlsli"
 #include "material.hlsli"
@@ -46,8 +47,6 @@
 	#endif // DISABLE_VCT
 
 #endif // BRDF_FUNCTION
-
-#include "global.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers

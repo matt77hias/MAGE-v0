@@ -33,6 +33,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "basis.hlsli"
 #include "light.hlsli"
 #include "material.hlsli"
 
@@ -127,6 +128,10 @@ TEXTURE_2D_ARRAY(g_spot_sms, float,
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT
 
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED
+
+#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
+TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
+#endif // DISABLE_VCT
 
 #endif // BRDF_FUNCTION
 
@@ -233,7 +238,21 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	#endif // DISABLE_LIGHT_AMBIENT
 
 	#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
-	L += GetVCTRadiance(v, p, n, material);
+
+	const float3   uvw              = WorldToVoxelUVW(p);
+	const float3x3 tangent_to_world = OrthonormalBasis(n);
+
+	const VCTConfig config = {
+		g_voxel_texture_max_mip_level,
+		g_voxel_grid_resolution,
+		g_voxel_grid_inv_resolution,
+		g_cone_step_multiplier,
+		g_max_cone_distance,
+		g_linear_clamp_sampler,
+		g_voxel_texture
+	};
+
+	L += GetVCTRadiance(uvw, tangent_to_world, material, config);
 	#endif // DISABLE_VCT
 
 	return L;

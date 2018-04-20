@@ -10,11 +10,11 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "global.hlsli"
+
 #ifndef DISABLE_TONE_MAPPING
 	#include "tone_mapping.hlsli"
 #endif // DISABLE_TONE_MAPPING
-
-#include "global.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Defines

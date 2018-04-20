@@ -46,7 +46,7 @@ RW_TEXTURE_2D(g_output,             float4, SLOT_UAV_IMAGE);
  @return		The base color of the material from the GBuffer corresponding 
 				to the given super-sampled display position.
  */
-float3 GetGBufferMaterialBaseColor(uint2 p_ss_display, uint index) {
+float3 GetGBufferMaterialBaseColor(float2 p_ss_display, uint index) {
 	// Load the base color from the GBuffer base color texture.
 	return g_base_color_texture.sample[index][p_ss_display].xyz;
 }
@@ -63,7 +63,7 @@ float3 GetGBufferMaterialBaseColor(uint2 p_ss_display, uint index) {
 				GBuffer corresponding to the given super-sampled display 
 				position.
  */
-float2 GetGBufferMaterialParameters(uint2 p_ss_display, uint index) {
+float2 GetGBufferMaterialParameters(float2 p_ss_display, uint index) {
 	// Load the material data the GBuffer material texture.
 	return g_material_texture.sample[index][p_ss_display].xy;
 }
@@ -79,7 +79,7 @@ float2 GetGBufferMaterialParameters(uint2 p_ss_display, uint index) {
  @return		The surface normal from the GBuffer expressed in world space 
 				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferNormal(uint2 p_ss_display, uint index) {
+float3 GetGBufferNormal(float2 p_ss_display, uint index) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
 	return UnpackNormal(g_normal_texture.sample[index][p_ss_display]);
 }
@@ -95,11 +95,11 @@ float3 GetGBufferNormal(uint2 p_ss_display, uint index) {
  @return		The surface position from the GBuffer expressed in world space 
 				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferPosition(uint2 p_ss_display, uint index) {
+float3 GetGBufferPosition(float2 p_ss_display, uint index) {
 	// Load the depth from the GBuffer depth texture.
 	const float  depth         = g_depth_texture.sample[index][p_ss_display];
 	// Obtain the NDC space coordinates.
-	const float2 p_ss_viewport = p_ss_display - float2(g_ss_viewport_top_left);
+	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
 	const float3 p_ndc         = float3(p_ndc_xy, depth);
 	// Obtain the world space coodinates.
@@ -117,7 +117,7 @@ float3 GetGBufferPosition(uint2 p_ss_display, uint index) {
  @return		The base color of the material from the GBuffer corresponding 
 				to the given super-sampled display position.
  */
-float3 GetGBufferMaterialBaseColor(uint2 p_ss_display) {
+float3 GetGBufferMaterialBaseColor(float2 p_ss_display) {
 	// Load the base color from the GBuffer base color texture.
 	return g_base_color_texture[p_ss_display].xyz;
 }
@@ -132,7 +132,7 @@ float3 GetGBufferMaterialBaseColor(uint2 p_ss_display) {
 				GBuffer corresponding to the given super-sampled display 
 				position.
  */
-float2 GetGBufferMaterialParameters(uint2 p_ss_display) {
+float2 GetGBufferMaterialParameters(float2 p_ss_display) {
 	// Load the material data the GBuffer material texture.
 	return g_material_texture[p_ss_display].xy;
 }
@@ -146,7 +146,7 @@ float2 GetGBufferMaterialParameters(uint2 p_ss_display) {
  @return		The surface normal from the GBuffer expressed in world space 
 				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferNormal(uint2 p_ss_display) {
+float3 GetGBufferNormal(float2 p_ss_display) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
 	return UnpackNormal(g_normal_texture[p_ss_display]);
 }
@@ -160,11 +160,11 @@ float3 GetGBufferNormal(uint2 p_ss_display) {
  @return		The surface position from the GBuffer expressed in world space 
 				corresponding to the given super-sampled display position.
  */
-float3 GetGBufferPosition(uint2 p_ss_display) {
+float3 GetGBufferPosition(float2 p_ss_display) {
 	// Load the depth from the GBuffer depth texture.
 	const float  depth         = g_depth_texture[p_ss_display];
 	// Obtain the NDC space coordinates.
-	const float2 p_ss_viewport = p_ss_display - float2(g_ss_viewport_top_left);
+	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
 	const float3 p_ndc         = float3(p_ndc_xy, depth);
 	// Obtain the world space coodinates.

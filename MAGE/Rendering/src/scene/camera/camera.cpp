@@ -67,7 +67,7 @@ namespace mage::rendering {
 
 		// Viewport
 		{
-			buffer.m_viewport_top_left       = m_viewport.GetTopLeft();
+			buffer.m_viewport_top_left       = static_cast< F32x2 >(m_viewport.GetTopLeft());
 			buffer.m_viewport_resolution     = m_viewport.GetSize();
 			buffer.m_viewport_inv_resolution = XMStore< F32x2 >(
 				XMVectorReciprocal(XMLoad(buffer.m_viewport_resolution)));
@@ -76,7 +76,7 @@ namespace mage::rendering {
 		// SS Viewport
 		{
 			const auto ss_viewport              = Viewport(m_viewport, aa);
-			buffer.m_ss_viewport_top_left       = ss_viewport.GetTopLeft();
+			buffer.m_ss_viewport_top_left       = static_cast< F32x2 >(ss_viewport.GetTopLeft());
 			buffer.m_ss_viewport_resolution     = ss_viewport.GetSize();
 			buffer.m_ss_viewport_inv_resolution = XMStore< F32x2 >(
 				XMVectorReciprocal(XMLoad(buffer.m_ss_viewport_resolution)));

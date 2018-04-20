@@ -39,7 +39,7 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 p_viewport  = thread_id.xy;
-	const  int2 p_display_s = g_viewport_top_left + int2(p_viewport);
+	const  int2 p_display_s = ViewportToDisplay(p_viewport);
 	const uint2 p_display   = uint2(p_display_s);
 
 	[branch]
@@ -49,14 +49,10 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		return;
 	}
 
-	uint2 input_dim;
-	g_input_image_texture.GetDimensions(input_dim.x, input_dim.y);
-	uint2 output_dim;
-	g_output_image_texture.GetDimensions(output_dim.x, output_dim.y);
-
-	const uint2 nb_samples   = input_dim / output_dim;
-	const float weight       = 1.0f / (nb_samples.x * nb_samples.y);
-	const uint2 p_ss_display = p_display * nb_samples;
+	const uint2  nb_samples   = g_ss_viewport_resolution * g_viewport_inv_resolution;
+	const float2 weights      = g_viewport_resolution * g_ss_viewport_inv_resolution;
+	const float  weight       = weights.x * weights.y;
+	const uint2  p_ss_display = p_display * nb_samples;
 	
 	float4 ldr        = 0.0f;
 	float3 normal_sum = 0.0f;

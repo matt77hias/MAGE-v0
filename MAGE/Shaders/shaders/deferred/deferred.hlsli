@@ -44,7 +44,7 @@
 float4 PS(float4 input : SV_POSITION, 
 		  uint index : SV_SampleIndex) : SV_Target {
 
-	const uint2 p_ss_display = input.xy;
+	const float2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
 	const float3 base_color = GetGBufferMaterialBaseColor(p_ss_display, index);
@@ -72,7 +72,7 @@ float4 PS(float4 input : SV_POSITION,
 //-----------------------------------------------------------------------------
 
 float4 PS(float4 input : SV_POSITION) : SV_Target {
-	const uint2 p_ss_display = input.xy;
+	const float2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
 	const float3 base_color = GetGBufferMaterialBaseColor(p_ss_display);
@@ -107,14 +107,15 @@ float4 PS(float4 input : SV_POSITION) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 p_ss_viewport  = thread_id.xy;
-	const  int2 p_ss_display_s = g_ss_viewport_top_left + int2(p_ss_viewport);
-	const uint2 p_ss_display   = uint2(p_ss_display_s);
-
+	// Texture2D::operator[] requires a uint2 index.
+	// For the computation of p_ndc/p_world, a float2 is required.
+	const float2 p_ss_viewport = thread_id.xy;
+	const float2 p_ss_display  = SSViewportToSSDisplay(p_ss_viewport);
+		
 	[branch]
-	if (any(0 > p_ss_display_s
-			|| g_ss_display_resolution  <= p_ss_display
-			|| g_ss_viewport_resolution <= p_ss_viewport)) {
+	if (any(0.0f > p_ss_display
+			|| g_ss_display_resolution  <= (uint2)p_ss_display
+			|| g_ss_viewport_resolution <= (uint2)p_ss_viewport)) {
 		return;
 	}
 

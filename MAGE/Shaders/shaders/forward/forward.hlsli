@@ -74,9 +74,9 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	OMInputForward output;
 	// Store the radiance.
 	output.color = float4(L, base_color.w);
-	// Pack and store the normal.
 	#pragma warning( push )
 	#pragma warning( disable : 3578 ) // Partial initialization.
+	// Pack and store the normal.
 	output.n.xyz = PackNormal(n_world);
 	#pragma warning( pop )
 								

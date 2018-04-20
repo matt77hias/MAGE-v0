@@ -29,20 +29,20 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 	clip(base_color.w - TRANSPARENCY_THRESHOLD);
 
 	// Obtain the material parameters [roughness, metalness] of the material.
-	const float2 material = GetMaterialParameters(input.tex_material);
+	const float2 material_params = GetMaterialParameters(input.tex_material);
 	// Obtain the surface normal expressed in world space.
-	const float3 n_world  = GetNormal(input.p_world, input.n_world,
-									  input.tex_geometry);
+	const float3 n_world = GetNormal(input.p_world, input.n_world, 
+		                             input.tex_geometry);
 
 	OMInputDeferred output;
+	// Store the base color of the material.
+	output.base_color  = float4(base_color.xyz, 1.0f);
 	#pragma warning( push )
 	#pragma warning( disable : 3578 ) // Partial initialization.
-	// Store the base color of the material.
-	output.base_color.xyz = base_color.xyz;
 	// Store the material parameters [roughness, metalness] of the material.
-	output.material.xy    = material;
+	output.material.xy = material_params;
 	// Pack and store the normal.
-	output.n.xyz          = PackNormal(n_world);
+	output.n.xyz       = PackNormal(n_world);
 	#pragma warning( pop )
 	
 	return output;

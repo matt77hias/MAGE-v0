@@ -9,7 +9,8 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 void PS(PSInputTexture input) {
-	const float alpha = g_base_color.a 
-		* g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex).a;
+	// Obtain the base color of the material.
+	const float alpha = GetMaterialBaseColor(input.tex).a;
+
 	clip(alpha - TRANSPARENCY_SHADOW_THRESHOLD);
 }

@@ -38,7 +38,7 @@ RW_TEXTURE_2D(g_output_image_texture,  float4, SLOT_UAV_IMAGE);
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 p_viewport  = thread_id.xy;
-	const  int2 p_display_s = g_viewport_top_left + int2(p_viewport);
+	const  int2 p_display_s = ViewportToDisplay(p_viewport);
 	const uint2 p_display   = uint2(p_display_s);
 
 	[branch]

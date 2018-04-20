@@ -121,7 +121,7 @@ struct PSInputWorldPosition {
 
 /**
  A pixel shader input struct of fragments having a position expressed in 
- viewport space and a color.
+ viewport space and a (linear) color.
  */
 struct PSInputColor {
 	float4 p            : SV_POSITION;
@@ -139,7 +139,7 @@ struct PSInputTexture {
 
 /**
  A pixel shader input struct of fragments having a position expressed in
- viewport space, a color and a pair of texture coordinates.
+ viewport space, a (linear) color and a pair of texture coordinates.
  */
 struct PSInputColorTexture {
 	float4 p            : SV_POSITION;
@@ -165,8 +165,8 @@ struct PSInputPositionNormalTexture {
 //-----------------------------------------------------------------------------
 
 /**
- An ouput merger input struct of fragments having a base color, a material and 
- a normal for deferred rendering.
+ An ouput merger input struct of fragments having a (linear) base color, a 
+ material and a normal for deferred rendering.
  */
 struct OMInputDeferred {
 	float4 base_color : SV_Target0;
@@ -175,8 +175,8 @@ struct OMInputDeferred {
 };
 
 /**
- An ouput merger input struct of fragments having a color and normal for 
- forward rendering.
+ An ouput merger input struct of fragments having a (linear) color and normal 
+ for forward rendering.
  */
 struct OMInputForward {
 	float4 color      : SV_Target0;

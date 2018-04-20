@@ -139,7 +139,7 @@ namespace mage::rendering {
 		/**
 		 The top left corner of the camera viewport of this camera buffer.
 		 */
-		S32x2 m_viewport_top_left;
+		F32x2 m_viewport_top_left;
 
 		/**
 		 The resolution of the camera viewport of this camera buffer. 
@@ -150,7 +150,7 @@ namespace mage::rendering {
 		 The top left corner of the super-sampled camera viewport of this 
 		 camera buffer.
 		 */
-		S32x2 m_ss_viewport_top_left;
+		F32x2 m_ss_viewport_top_left;
 
 		/**
 		 The resolution of the super-sampled camera viewport of this camera 

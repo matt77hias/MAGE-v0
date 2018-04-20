@@ -26,7 +26,7 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 
 	// Obtain the NDC space coodinates.
 	const float2 p_ss_display  = input.xy;
-	const float2 p_ss_viewport = p_ss_display - float2(g_ss_viewport_top_left);
+	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
 	const float3 p_ndc         = float3(p_ndc_xy, input.z);
 	// Obtain the world space coordinates.

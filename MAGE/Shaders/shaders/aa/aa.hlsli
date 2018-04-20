@@ -63,7 +63,7 @@ void ApplyFXAA(uint2 p_display,
 			   Texture2D< float4 > input_image, 
 			   RWTexture2D< float4 > output_image) {
 
-	const float2 uv = (p_display + 0.5f) * display_inv_resolution;
+	const float2 uv = ((float2)p_display + 0.5f) * display_inv_resolution;
 	const FxaaTex fxaa_tex = { input_sampler, input_image };
 
 	const float4 ldr = FxaaPixelShader(

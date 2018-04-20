@@ -43,8 +43,8 @@ namespace mage::rendering {
 			m_viewport_resolution(), 
 			m_ss_viewport_top_left(), 
 			m_ss_viewport_resolution(), 
-			m_viewport_inv_resolution_minus_half(),
-			m_ss_viewport_inv_resolution_minus_half(),
+			m_viewport_inv_resolution(),
+			m_ss_viewport_inv_resolution(),
 			m_fog_color(), 
 			m_fog_density(0.0f), 
 			m_sky_dome_scale_z(1.0f), 
@@ -159,16 +159,16 @@ namespace mage::rendering {
 		U32x2 m_ss_viewport_resolution;
 
 		/**
-		 The inverse of the resolution of the camera viewport minus one half of 
-		 this camera buffer. 
+		 The inverse of the resolution of the camera viewport of this camera 
+		 buffer. 
 		 */
-		F32x2 m_viewport_inv_resolution_minus_half;
+		F32x2 m_viewport_inv_resolution;
 
 		/**
-		 The inverse of the resolution of the super-sampled camera viewport 
-		 minus one half of this camera buffer.
+		 The inverse of the resolution of the super-sampled camera viewport of 
+		 this camera buffer.
 		 */
-		F32x2 m_ss_viewport_inv_resolution_minus_half;
+		F32x2 m_ss_viewport_inv_resolution;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Fog

@@ -2,9 +2,11 @@
 #define MAGE_HEADER_FULLSCREEN_TRIANGLE
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// Engine Configuration
 //-----------------------------------------------------------------------------
-#include "..\src\hlsl.hpp"
+// Defines			                        | Default
+//-----------------------------------------------------------------------------
+// DISABLE_INVERTED_Z_BUFFER                | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions

@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
+// DISABLE_INVERTED_Z_BUFFER                | not defined
 // FXAA                                     | not defined
 // MSAA                                     | not defined
 // PRESERVE_ALPHA                           | not defined

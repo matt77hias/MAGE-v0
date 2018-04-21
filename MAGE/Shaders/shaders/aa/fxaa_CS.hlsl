@@ -10,9 +10,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-
-#define FXAA
-#include "aa\aa.hlsli"
+#include "aa\fxaa.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Defines

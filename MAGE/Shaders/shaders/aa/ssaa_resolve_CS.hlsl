@@ -9,9 +9,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-
-#define SSAA
-#include "aa\aa.hlsli"
+#include "aa\ssaa.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Defines

@@ -540,6 +540,15 @@
     <None Include="Shaders\shaders\aa\aa.hlsli">
       <Filter>Shader Files\aa</Filter>
     </None>
+    <None Include="Shaders\shaders\aa\msaa.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="Shaders\shaders\aa\ssaa.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="Shaders\shaders\aa\fxaa.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\src\hlsl.hpp">

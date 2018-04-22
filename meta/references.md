@@ -233,6 +233,8 @@ KAPLANYAN A.: *Cryengine 3: Reaching the speed of light*, *SIGGRAPH: Advances in
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
+MITTRING M.: *A bit more deferred – CryEngine3*, *Triangle Game Conference*, 2009.
+
 MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](https://matt77hias.github.io/blog/culling/2017/08/24/creating-a-view-frustum.html), 2017.
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
@@ -250,6 +252,8 @@ REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
 
 WANG T.: [*Integer Hash Function*](https://gist.github.com/badboy/6267743), 1997.
+
+WILSON P.: [*G-Buffer Normals and Trig Lookup Textures*](http://www.garagegames.com/community/blogs/view/15340), 2008.
 
 WRONSKI B.: [*Small float formats – R11G11B10F precision*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
 

@@ -230,6 +230,8 @@ MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](ht
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
 
+PESCE A.: [*Notes on G-Buffer normal encodings*](http://c0de517e.blogspot.be/2015/01/notes-on-g-buffer-normal-encodings.html), 2015.
+
 PRANCKEVIČIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
 
 REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.

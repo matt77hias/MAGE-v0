@@ -239,6 +239,8 @@ MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog
 
 PESCE A.: [*Notes on G-Buffer normal encodings*](http://c0de517e.blogspot.be/2015/01/notes-on-g-buffer-normal-encodings.html), 2015.
 
+PETTINEO M.: [*Scintillating Snippets: Storing Normals Using Spherical Coordinates*](https://mynameismjp.wordpress.com/2009/06/17/storing-normals-using-spherical-coordinates/), 2009.
+
 PRANCKEVIČIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
 
 REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.

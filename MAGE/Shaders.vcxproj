@@ -1994,7 +1994,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <None Include="Shaders\shaders\normal_mapping.hlsli" />
+    <None Include="Shaders\shaders\normal.hlsli" />
     <FxCompile Include="Shaders\shaders\forward\forward_cook_torrance_PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

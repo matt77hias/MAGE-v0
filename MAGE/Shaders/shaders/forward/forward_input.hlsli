@@ -11,10 +11,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-
-#ifndef DISABLE_TSNM
-	#include "normal_mapping.hlsli"
-#endif // DISABLE_TSNM
+#include "normal.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -117,7 +114,7 @@ float3 GetNormal(float3 p, float3 n, float2 tex) {
 	return normalize(n);
 	#else  // DISABLE_TSNM
 	// Obtain the normal expressed in tangent space.
-	const float3 n_tangent = UnpackNormal(
+	const float3 n_tangent = DecodeNormal_XY(
 		g_normal_texture.Sample(g_linear_wrap_sampler, tex));
 	// Perturb the normal expressed in world space.
 	return PerturbNormal(p, normalize(n), tex, n_tangent);

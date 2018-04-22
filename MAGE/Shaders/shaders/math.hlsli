@@ -952,53 +952,6 @@ uint PackR8G8B8A8(float4 f) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Normal Packing/Unpacking
-//-----------------------------------------------------------------------------
-
-/**
- Converts the given normal from the [0,1] range to the [-1,1] range.
-
- The z component will be positive and will be calculated from the x and y 
- components.
-
- @pre			The given normal is in the [0,1] range.
- @param[in]		n
-				The normal in the [0,1] range to convert.
- @return		The converted normal in the [-1,1] range.
- */
-float3 UnpackNormal(float2 n) {
-	const float2 c_xy = UNORMtoSNORM(n);
-	const float  c_z  = sqrt(1.0f - dot(c_xy, c_xy));
-	return float3(c_xy, c_z);
-}
-
-/**
- Converts the given normal from the [0,1] range to the [-1,1] range.
-
- @pre			The given normal is in the [0,1] range.
- @param[in]		n
-				The normal in the [0,1] range to convert.
- @return		The converted normal in the [-1,1] range.
- @post			If the given normal was normalized before packing, the converted 
-				normal will be normalized after unpacking.
- */
-float3 UnpackNormal(float3 n) {
-	return UNORMtoSNORM(n);
-}
-
-/**
- Converts the given normal from the [-1,1] range to the [0,1] range.
-
- @pre			The given normal is in the [-1,1] range.
- @param[in]		n
-				The normal in the [-1,1] range to convert.
- @return		The converted normal in the [0,1] range.
- */
-float3 PackNormal(float3 n) {
-	return SNORMtoUNORM(n);
-}
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Transformations
 //-----------------------------------------------------------------------------
 
@@ -1122,25 +1075,47 @@ uint3 UnflattenIndex(uint index, uint3 count) {
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the squared tangent from the given squared cosine.
+ Computes the sine of the given cosine.
 
- @param[in]		sqr_cos
-				The squared cosine.
- @return		The squared tangent corresponding to the given squared cosine.
+ @param[in]		c
+				The cosine.
+ @return		The sine corresponding to the given cosine.
  */
-float SqrCosToSqrTan(float sqr_cos) {
-	return (1.0f - sqr_cos) / sqr_cos;
+float CosToSin(float c) {
+	return sqrt(1.0f - sqr(c));
 }
 
 /**
- Calculates the squared tangent from the given squared sine.
+ Computes the cosine of the given sine.
 
- @param[in]		sqr_sin
+ @param[in]		s
+				The sine.
+ @return		The cosine corresponding to the given sine.
+ */
+float SinToCos(float s) {
+	return sqrt(1.0f - sqr(s));
+}
+
+/**
+ Computes the squared tangent from the given squared cosine.
+
+ @param[in]		sqr_c
+				The squared cosine.
+ @return		The squared tangent corresponding to the given squared cosine.
+ */
+float SqrCosToSqrTan(float sqr_c) {
+	return (1.0f - sqr_c) / sqr_c;
+}
+
+/**
+ Computes the squared tangent from the given squared sine.
+
+ @param[in]		sqr_s
 				The squared sine.
  @return		The squared tangent corresponding to the given squared sine.
  */
-float SqrSinToSqrTan(float sqr_sin) {
-	return sqr_sin / (1.0f - sqr_sin);
+float SqrSinToSqrTan(float sqr_s) {
+	return sqr_s / (1.0f - sqr_s);
 }
 
 #endif // MAGE_HEADER_MATH

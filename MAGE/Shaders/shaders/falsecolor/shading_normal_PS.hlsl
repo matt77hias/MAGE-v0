@@ -27,5 +27,5 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 n_world = GetNormal(input.p_world, input.n_world,
 									 input.tex_geometry);
 	
-	return float4(PackNormal(n_world), 1.0f);
+	return float4(EncodeNormal_XYZ(n_world), 1.0f);
 }

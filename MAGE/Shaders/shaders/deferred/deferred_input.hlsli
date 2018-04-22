@@ -9,6 +9,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
+#include "normal.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs
@@ -81,7 +82,7 @@ float2 GetGBufferMaterialParameters(float2 p_ss_display, uint index) {
  */
 float3 GetGBufferNormal(float2 p_ss_display, uint index) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return UnpackNormal(g_normal_texture.sample[index][p_ss_display]);
+	return DecodeNormal_XYZ(g_normal_texture.sample[index][p_ss_display]);
 }
 
 /**
@@ -148,7 +149,7 @@ float2 GetGBufferMaterialParameters(float2 p_ss_display) {
  */
 float3 GetGBufferNormal(float2 p_ss_display) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return UnpackNormal(g_normal_texture[p_ss_display]);
+	return DecodeNormal_XYZ(g_normal_texture[p_ss_display]);
 }
 
 /**

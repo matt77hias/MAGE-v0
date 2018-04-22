@@ -489,9 +489,6 @@
     <None Include="Shaders\shaders\math.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="Shaders\shaders\normal_mapping.hlsli">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="Shaders\shaders\primitive\cube.hlsli">
       <Filter>Shader Files\primitive</Filter>
     </None>
@@ -548,6 +545,9 @@
     </None>
     <None Include="Shaders\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="Shaders\shaders\normal.hlsli">
+      <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

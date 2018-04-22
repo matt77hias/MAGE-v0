@@ -42,7 +42,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 	// Store the material parameters [roughness, metalness] of the material.
 	output.material.xy = material_params;
 	// Pack and store the normal.
-	output.n.xyz       = PackNormal(n_world);
+	output.n.xyz       = EncodeNormal_XYZ(n_world);
 	#pragma warning( pop )
 	
 	return output;

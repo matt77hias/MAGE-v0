@@ -77,7 +77,7 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	#pragma warning( push )
 	#pragma warning( disable : 3578 ) // Partial initialization.
 	// Pack and store the normal.
-	output.n.xyz = PackNormal(n_world);
+	output.n.xyz = EncodeNormal_XYZ(n_world);
 	#pragma warning( pop )
 								
 	return output;

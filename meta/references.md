@@ -251,7 +251,7 @@ UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J
 
 WANG T.: [*Integer Hash Function*](https://gist.github.com/badboy/6267743), 1997.
 
-WRONSKI B.: [*https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
+WRONSKI B.: [*Small float formats – R11G11B10F precision*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
 
 ### PBR and BRDFs
 

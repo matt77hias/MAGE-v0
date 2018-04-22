@@ -114,7 +114,7 @@ float3 GetNormal(float3 p, float3 n, float2 tex) {
 	return normalize(n);
 	#else  // DISABLE_TSNM
 	// Obtain the normal expressed in tangent space.
-	const float3 n_tangent = DecodeNormal_XY(
+	const float3 n_tangent = TSNM_DECODE_FUNCTION(
 		g_normal_texture.Sample(g_linear_wrap_sampler, tex));
 	// Perturb the normal expressed in world space.
 	return PerturbNormal(p, normalize(n), tex, n_tangent);

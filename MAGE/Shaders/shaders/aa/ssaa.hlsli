@@ -11,6 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "normal.hlsli"
 #include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
@@ -18,13 +19,13 @@
 //-----------------------------------------------------------------------------
 struct InputTexturesSSAA {
 	Texture2D< float4 > image;
-	Texture2D< float3 > normal;
+	Texture2D< float2 > normal;
 	Texture2D< float  > depth;
 };
 
 struct OutputTexturesSSAA {
 	RWTexture2D< float4 > image;
-	RWTexture2D< float3 > normal;
+	RWTexture2D< float2 > normal;
 	RWTexture2D< float  > depth;
 };
 
@@ -53,7 +54,8 @@ void ResolveSSAA(uint2 p_display,
 			const float4 hdr = input_textures.image[p_ss_display_ij];
 			ldr += ToneMap_Max3(hdr, weight);
 			
-			normal_sum += input_textures.normal[p_ss_display_ij];
+			const float2 encoded_n = input_textures.normal[p_ss_display_ij];
+			normal_sum += NORMAL_DECODE_FUNCTION(encoded_n);
 			
 			#ifdef DISABLE_INVERTED_Z_BUFFER
 			depth = min(depth, input_textures.depth[p_ss_display_ij]);
@@ -63,13 +65,14 @@ void ResolveSSAA(uint2 p_display,
 		}
 	}
 
-	const float4 hdr    = InverseToneMap_Max3(ldr);
-	const float3 normal = normalize(normal_sum);
+	const float4 hdr       = InverseToneMap_Max3(ldr);
+	const float3 n         = normalize(normal_sum);
+	const float2 encoded_n = NORMAL_ENCODE_FUNCTION(n);
 
 	// Store the resolved radiance.
 	output_textures.image[p_display]  = hdr;
 	// Store the resolved normal.
-	output_textures.normal[p_display] = normal;
+	output_textures.normal[p_display] = encoded_n;
 	// Store the resolved depth.
 	output_textures.depth[p_display]  = depth;
 }

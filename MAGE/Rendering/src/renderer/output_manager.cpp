@@ -76,7 +76,7 @@ namespace mage::rendering {
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
 			        nullptr);
 		SetupBuffer(ss_setup,
-					DXGI_FORMAT_R11G11B10_FLOAT,
+					DXGI_FORMAT_R16G16_UNORM,
 			        ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
 			        ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
 			        nullptr);
@@ -127,7 +127,7 @@ namespace mage::rendering {
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
 			
 			SetupBuffer(setup,
-				        DXGI_FORMAT_R11G11B10_FLOAT,
+				        DXGI_FORMAT_R16G16_UNORM,
 				        ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
 				        nullptr,
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Normal));

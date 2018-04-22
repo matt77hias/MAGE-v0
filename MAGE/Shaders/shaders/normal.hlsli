@@ -2,9 +2,39 @@
 #define MAGE_HEADER_NORMAL
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                        | Default
+//-----------------------------------------------------------------------------
+// NORMAL_DECODE_FUNCTION                   | DecodeNormal_Octahedron
+// NORMAL_ENCODE_FUNCTION                   | EncodeNormal_Octahedron
+// TSNM_DECODE_FUNCTION                     | DecodeNormal_XY
+// TSNM_ENCODE_FUNCTION                     | EncodeNormal_XY
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "math.hlsli"
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+
+#ifndef NORMAL_ENCODE_FUNCTION
+	#define NORMAL_ENCODE_FUNCTION EncodeNormal_Octahedron
+#endif // NORMAL_ENCODE_FUNCTION
+
+#ifndef NORMAL_DECODE_FUNCTION
+	#define NORMAL_DECODE_FUNCTION DecodeNormal_Octahedron
+#endif // NORMAL_DECODE_FUNCTION
+
+#ifndef TSNM_ENCODE_FUNCTION
+	#define TSNM_ENCODE_FUNCTION EncodeNormal_XY
+#endif // TSNM_ENCODE_FUNCTION
+
+#ifndef TSNM_DECODE_FUNCTION
+	#define TSNM_DECODE_FUNCTION DecodeNormal_XY
+#endif // TSNM_DECODE_FUNCTION
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Normal Encoding/Decoding

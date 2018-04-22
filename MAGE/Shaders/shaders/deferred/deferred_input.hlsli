@@ -17,12 +17,12 @@
 #ifdef MSAA
 TEXTURE_2D_MS(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D_MS(g_material_texture,   float4, SLOT_SRV_MATERIAL);
-TEXTURE_2D_MS(g_normal_texture,     float3, SLOT_SRV_NORMAL);
+TEXTURE_2D_MS(g_normal_texture,     float2, SLOT_SRV_NORMAL);
 TEXTURE_2D_MS(g_depth_texture,      float,  SLOT_SRV_DEPTH);
 #else  // MSAA
 TEXTURE_2D(g_base_color_texture,    float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D(g_material_texture,      float4, SLOT_SRV_MATERIAL);
-TEXTURE_2D(g_normal_texture,        float3, SLOT_SRV_NORMAL);
+TEXTURE_2D(g_normal_texture,        float2, SLOT_SRV_NORMAL);
 TEXTURE_2D(g_depth_texture,         float,  SLOT_SRV_DEPTH);
 #endif // MSAA
 
@@ -82,7 +82,7 @@ float2 GetGBufferMaterialParameters(float2 p_ss_display, uint index) {
  */
 float3 GetGBufferNormal(float2 p_ss_display, uint index) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return DecodeNormal_XYZ(g_normal_texture.sample[index][p_ss_display]);
+	return NORMAL_DECODE_FUNCTION(g_normal_texture.sample[index][p_ss_display]);
 }
 
 /**
@@ -149,7 +149,7 @@ float2 GetGBufferMaterialParameters(float2 p_ss_display) {
  */
 float3 GetGBufferNormal(float2 p_ss_display) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
-	return DecodeNormal_XYZ(g_normal_texture[p_ss_display]);
+	return NORMAL_DECODE_FUNCTION(g_normal_texture[p_ss_display]);
 }
 
 /**

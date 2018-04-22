@@ -22,14 +22,14 @@
 // SRVs
 //-----------------------------------------------------------------------------
 TEXTURE_2D_MS(g_input_image_texture,   float4, SLOT_SRV_IMAGE);
-TEXTURE_2D_MS(g_input_normal_texture,  float3, SLOT_SRV_NORMAL);
+TEXTURE_2D_MS(g_input_normal_texture,  float2, SLOT_SRV_NORMAL);
 TEXTURE_2D_MS(g_input_depth_texture,   float,  SLOT_SRV_DEPTH);
 
 //-----------------------------------------------------------------------------
 // UAVs
 //-----------------------------------------------------------------------------
 RW_TEXTURE_2D(g_output_image_texture,  float4, SLOT_UAV_IMAGE);
-RW_TEXTURE_2D(g_output_normal_texture, float3, SLOT_UAV_NORMAL);
+RW_TEXTURE_2D(g_output_normal_texture, float2, SLOT_UAV_NORMAL);
 RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 
 //-----------------------------------------------------------------------------

@@ -6,6 +6,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
+// AA_INVERSE_TONE_MAP_FUNCTION             | InverseToneMap_Max3
+// AA_TONE_MAP_FUNCTION                     | ToneMap_Max3
 // DISABLE_INVERTED_Z_BUFFER                | not defined
 
 //-----------------------------------------------------------------------------
@@ -52,7 +54,7 @@ void ResolveSSAA(uint2 p_display,
 			const uint2 p_ss_display_ij = p_ss_display + uint2(i,j);
 			
 			const float4 hdr = input_textures.image[p_ss_display_ij];
-			ldr += ToneMap_Max3(hdr, weight);
+			ldr += AA_TONE_MAP_FUNCTION(hdr, weight);
 			
 			const float2 encoded_n = input_textures.normal[p_ss_display_ij];
 			normal_sum += NORMAL_DECODE_FUNCTION(encoded_n);
@@ -65,7 +67,7 @@ void ResolveSSAA(uint2 p_display,
 		}
 	}
 
-	const float4 hdr       = InverseToneMap_Max3(ldr);
+	const float4 hdr       = AA_INVERSE_TONE_MAP_FUNCTION(ldr);
 	const float3 n         = normalize(normal_sum);
 	const float2 encoded_n = NORMAL_ENCODE_FUNCTION(n);
 

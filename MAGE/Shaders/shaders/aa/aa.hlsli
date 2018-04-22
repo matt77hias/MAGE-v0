@@ -6,6 +6,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
+// AA_INVERSE_TONE_MAP_FUNCTION             | InverseToneMap_Max3
+// AA_TONE_MAP_FUNCTION                     | ToneMap_Max3
 // PRESERVE_ALPHA                           | not defined
 
 //-----------------------------------------------------------------------------
@@ -23,7 +25,7 @@ void PreprocessAA(uint2 p_display,
 	#ifdef PRESERVE_ALPHA
 
 	const float4 hdr = input_image[p_display];
-	const float4 ldr = ToneMap_Max3(hdr);
+	const float4 ldr = AA_TONE_MAP_FUNCTION(hdr);
 
 	// Store the resolved radiance.
 	output_image[p_display] = ldr;
@@ -31,7 +33,7 @@ void PreprocessAA(uint2 p_display,
 	#else  // PRESERVE_ALPHA
 
 	const float3 hdr = input_image[p_display].xyz;
-	const float3 ldr = ToneMap_Max3(hdr);
+	const float3 ldr = AA_TONE_MAP_FUNCTION(hdr);
 	const float luminance = Luminance(hdr);
 
 	// Store the resolved radiance.

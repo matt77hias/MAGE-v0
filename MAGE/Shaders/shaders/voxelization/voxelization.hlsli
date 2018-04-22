@@ -78,5 +78,5 @@ void PS(PSInputPositionNormalTexture input) {
 	const uint endoced_n = EncodeNormal(n_world);
 	// Store the encoded radiance and normal.
 	InterlockedMax(voxel_grid[flat_index].encoded_L, encoded_L);
-	InterlockedMax(voxel_grid[flat_index].encoded_n, endoced_n);
+	InterlockedMax(voxel_grid[flat_index].encoded_n, endoced_n); //TODO
 }

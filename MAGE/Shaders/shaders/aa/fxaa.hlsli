@@ -2,6 +2,14 @@
 #define MAGE_HEADER_FXAA
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                        | Default
+//-----------------------------------------------------------------------------
+// AA_INVERSE_TONE_MAP_FUNCTION             | InverseToneMap_Max3
+// AA_TONE_MAP_FUNCTION                     | ToneMap_Max3
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "tone_mapping.hlsli"
@@ -42,7 +50,7 @@ void ApplyFXAA(uint2 p_display,
 		0.0f                    // FxaaFloat4 fxaaConsole360ConstDir
 	);
 	
-	const float4 hdr = InverseToneMap_Max3(ldr);
+	const float4 hdr = AA_INVERSE_TONE_MAP_FUNCTION(ldr);
 
 	// Store the resolved radiance.
 	output_image[p_display] = hdr;

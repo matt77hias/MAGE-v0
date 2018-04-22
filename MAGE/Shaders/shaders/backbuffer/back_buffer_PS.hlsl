@@ -12,6 +12,7 @@
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
 #include "color.hlsli"
+#include "hash.hlsli"
 #include "rng.hlsli"
 
 //-----------------------------------------------------------------------------
@@ -43,8 +44,8 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 		                   ^ asuint(g_time);
 	#endif // DISABLE_TEMPORAL_DITHERING
 	
-	const float  noise  = UniformFloat(seed);
-	const float4 output = color + noise / 255.0f; // For 8 bit quantization.
+	const float  noise     = UniformUintToFloat(Hash_Wang(seed));
+	const float4 output    = color + noise / 255.0f; // For 8 bit quantization.
 	#endif // DISABLE_DITHERING
 
 	return output;

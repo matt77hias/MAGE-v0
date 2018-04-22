@@ -923,8 +923,33 @@ double4 SNORMtoUNORM(double4 v) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: R8G8B8A8 Packing/Unpacking
+// Engine Declarations and Definitions: Packing/Unpacking
 //-----------------------------------------------------------------------------
+
+/**
+ Unpacks the given @c uint (R16G16) to a @c float2.
+
+ @param		u
+			The @c uint (R16G16) to unpack.
+ @return	The corresponding unpacked @c float2.
+ */
+float2 UnpackR16G16(uint u) {
+	const float2 f = 0xFFFF & uint2(u >> 16u, u);
+	return f * (1.0f / 65535.0f);
+}
+
+/**
+ Unpacks the given @c float2 to a @c uint (R16G16).
+
+ @pre		@a f lies in [0.0,1.0]^2
+ @param		u
+			The @c float2 to pack.
+ @return	The corresponding packed @c uint (R16G16).
+ */
+uint PackR16G16(float2 f) {
+	const uint2 u = 65535.0f * f;
+	return (u.x << 16u) | u.y;
+}
 
 /**
  Unpacks the given @c uint (R8G8B8A8) to a @c float4.

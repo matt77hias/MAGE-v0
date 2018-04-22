@@ -38,11 +38,15 @@
 #include "light.hlsli"
 #include "material.hlsli"
 
+#ifdef DISABLE_ILLUMINATION_INDIRECT
+	#define DISABLE_VCT
+#endif // DISABLE_ILLUMINATION_INDIRECT
+
 #ifdef BRDF_FUNCTION
 
 	#include "brdf.hlsli"
 
-	#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
+	#ifndef DISABLE_VCT
 		#include "vct.hlsli"
 	#endif // DISABLE_VCT
 
@@ -128,7 +132,7 @@ TEXTURE_2D_ARRAY(g_spot_sms, float,
 
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED
 
-#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
+#ifndef DISABLE_VCT
 TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
 #endif // DISABLE_VCT
 
@@ -188,9 +192,10 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	// Directional lights with shadow mapping contribution
 	for (uint i3 = 0u; i3 < g_nb_sm_directional_lights; ++i3) {
 		const ShadowMappedDirectionalLight light = g_sm_directional_lights[i3];
-		
+		const ShadowMap shadow_map = { g_pcf_sampler, g_directional_sms, i3 };
+
 		float3 l, E;
-		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, E);
+		Contribution(light, shadow_map, p, l, E);
 		const float n_dot_l = sat_dot(n, l);
 
 		L += BRDF_FUNCTION(n, l, v, material) * E * n_dot_l;
@@ -201,9 +206,10 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	// Omni lights with shadow mapping contribution
 	for (uint i4 = 0u; i4 < g_nb_sm_omni_lights; ++i4) {
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
-		
+		const ShadowCubeMap shadow_cube_map = { g_pcf_sampler, g_omni_sms, i4 };
+
 		float3 l, E;
-		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, E);
+		Contribution(light, shadow_cube_map, p, l, E);
 		const float n_dot_l = sat_dot(n, l);
 		
 		L += BRDF_FUNCTION(n, l, v, material) * E * n_dot_l;
@@ -214,9 +220,10 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	// Spotlights with shadow mapping contribution
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
+		const ShadowMap shadow_map = { g_pcf_sampler, g_spot_sms, i5 };
 		
 		float3 l, E;
-		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, E);
+		Contribution(light, shadow_map, p, l, E);
 		const float n_dot_l = sat_dot(n, l);
 
 		L += BRDF_FUNCTION(n, l, v, material) * E * n_dot_l;
@@ -236,8 +243,7 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	L += g_La;
 	#endif // DISABLE_LIGHT_AMBIENT
 
-	#if !defined(DISABLE_VCT) && !defined(DISABLE_ILLUMINATION_INDIRECT)
-
+	#ifndef DISABLE_VCT
 	const float3   uvw              = WorldToVoxelUVW(p);
 	const float3x3 tangent_to_world = OrthonormalBasis(n);
 

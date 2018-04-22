@@ -38,7 +38,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	voxel_grid[flat_index].encoded_L = 0u;
 	voxel_grid[flat_index].encoded_n = 0u;
 
-	const float3 L    = DecodeRadiance(encoded_L);
-	const float alpha = (0u != encoded_L) ? 1.0f : 0.0f;
+	const float3 L     = DecodeRadiance(encoded_L);
+	const float  alpha = float(0u != encoded_L);
 	voxel_texture[thread_id] = float4(L, alpha);
 }

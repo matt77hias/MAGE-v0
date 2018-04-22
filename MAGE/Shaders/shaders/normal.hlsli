@@ -44,7 +44,7 @@
  Encodes the given normal from the [0,1] range to the [-1,1] range using a XYZ 
  encoding.
 
- @pre			The given normal is in the [0,1] range.
+ @pre			@a n is normalized.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -57,7 +57,6 @@ float3 EncodeNormal_XYZ(float3 n) {
  Decodes the given normal from the [0,1] range to the [-1,1] range using a XYZ 
  decoding.
 
- @pre			The given normal is in the [0,1] range.
  @param[in]		n_unorm
 				The normal in the [0,1] range to convert.
  @return		The decoded normal in the [-1,1] range.
@@ -70,7 +69,7 @@ float3 DecodeNormal_XYZ(float3 n_unorm) {
  Encodes the given normal from the [0,1] range to the [-1,1] range using a XY 
  encoding.
 
- @pre			The given normal is in the [0,1] range.
+ @pre			@a n is normalized.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -86,7 +85,6 @@ float2 EncodeNormal_XY(float3 n) {
  The z component will be positive and will be calculated from the x and y
  components.
 
- @pre			The given normal is in the [0,1] range.
  @param[in]		n_unorm
 				The normal in the [0,1] range to convert.
  @return		The decoded normal in the [-1,1] range.
@@ -101,7 +99,7 @@ float3 DecodeNormal_XY(float2 n_unorm) {
  Encodes the given normal from the [0,1] range to the [-1,1] range using a 
  spherical encoding.
 
- @pre			The given normal is in the [0,1] range.
+ @pre			@a n is normalized.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -116,7 +114,6 @@ float2 EncodeNormal_Spherical(float3 n) {
  Decodes the given normal from the [0,1] range to the [-1,1] range using a 
  spherical decoding.
 
- @pre			The given normal is in the [0,1] range.
  @param[in]		n_unorm
 				The normal in the [0,1] range to convert.
  @return		The decoded normal in the [-1,1] range.
@@ -141,7 +138,7 @@ float3 DecodeNormal_Spherical(float2 n_unorm) {
  Encodes the given normal from the [0,1] range to the [-1,1] range using a 
  spheremap encoding.
 
- @pre			The given normal is in the [0,1] range.
+ @pre			@a n is normalized.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -155,7 +152,6 @@ float2 EncodeNormal_SphereMap(float3 n) {
  Decodes the given normal from the [0,1] range to the [-1,1] range using a 
  spheremap decoding.
 
- @pre			The given normal is in the [0,1] range.
  @param[in]		n_unorm
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -175,7 +171,7 @@ float2 OctahedronWrap(float2 v) {
  Encodes the given normal from the [0,1] range to the [-1,1] range using a 
  octahedron encoding.
 
- @pre			The given normal is in the [0,1] range.
+ @pre			@a n is normalized.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.
@@ -191,7 +187,6 @@ float2 EncodeNormal_Octahedron(float3 n) {
  Decodes the given normal from the [0,1] range to the [-1,1] range using a 
  octahedron decoding.
 
- @pre			The given normal is in the [0,1] range.
  @param[in]		n_unorm
 				The normal in the [0,1] range to convert.
  @return		The encoded normal in the [-1,1] range.

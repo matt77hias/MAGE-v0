@@ -32,6 +32,141 @@
 #endif // FOG_FACTOR_FUNCTION
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Attenuation
+//-----------------------------------------------------------------------------
+
+/**
+ Computes the distance intensity attenuation smoothing factor of a light.
+
+ @param[in]		sqr_distance
+				The squared distance between the lit point and the center of 
+				the light.
+ @param[in]		inv_sqr_range
+				The inverse squared range of the light.
+ @return		The distance intensity attenuation smoothing factor.
+ */
+float DistanceAttenuationSmoothingFactor(float sqr_distance, 
+										 float inv_sqr_range) {
+	// Frostbite's smoothing:
+	//
+	//         [    distance^2]^2
+	// saturate[1 - ----------]
+	//         [      range^2 ]
+
+	return sqr(saturate(1.0f - sqr_distance * inv_sqr_range));
+}
+
+/**
+ Computes the distance intensity attenuation of a light.
+
+ @param[in]		distance
+				The distance between the lit point and the center of the light.
+ @param[in]		inv_sqr_range
+				The inverse squared range of the light.
+ @return		The distance intensity attenuation.
+ */
+float DistanceAttenuation(float distance, float inv_sqr_range) {
+	//                 1
+	// df := -----------------------
+	//       max(distance^2, 0.01^2)
+
+	const float sqr_distance = sqr(distance);
+	const float attenuation  = 1.0f / max(sqr_distance, 0.0001f);
+	const float smoothing    = DistanceAttenuationSmoothingFactor(sqr_distance, inv_sqr_range);
+	
+	return attenuation * smoothing;
+}
+
+/**
+ Computes the angular intensity attenuation of a light.
+
+ @param[in]		cos_theta
+				The cosine of the angle between the direction from the center 
+				of the light to the lit point, and the light direction.
+ @param[in]		cos_umbra
+				The cosine of the umbra angle of the light.
+ @param[in]		cos_inv_range
+				The cosine inverse range of the light.
+ @return		The angular intensity attenuation.
+ */
+float AngularAttenuation(float cos_theta, 
+						 float cos_umbra, 
+						 float cos_inv_range) {
+
+	// Frostbite's smoothing: sqr
+	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Shadow (Cube) Maps
+//-----------------------------------------------------------------------------
+
+/**
+ A struct of shadow maps.
+ */
+struct ShadowMap {
+	// The PCF sampler comparison state.
+	SamplerComparisonState pcf_sampler;
+	// The array of shadow maps.
+	Texture2DArray< float > maps;
+	// The index into the array of shadow maps.
+	uint index;
+};
+
+/**
+ A struct of shadow cube maps.
+ */
+struct ShadowCubeMap {
+	// The PCF sampler comparison state.
+	SamplerComparisonState pcf_sampler;
+	// The array of shadow cube maps.
+	TextureCubeArray< float > maps;
+	// The index into the array of shadow cube maps.
+	uint index;
+};
+
+/**
+ Computes the shadow factor.
+
+ @pre			@a shadow_maps must contain a shadow map at index @a index.
+ @param[in]		shadow_map
+				The shadow map.
+ @param[in]		p_ndc
+				The hit position expressed in light NDC space.
+ @return		The shadow factor.
+ */
+float ShadowFactor(ShadowMap shadow_map, float3 p_ndc) {
+	const float3 location = float3(NDCtoUV(p_ndc.xy), shadow_map.index);
+
+	return shadow_map.maps
+		.SampleCmpLevelZero(shadow_map.pcf_sampler, location, p_ndc.z);
+}
+
+/**
+ Computes the shadow factor.
+
+ @pre			@a shadow_maps must contain a shadow cube map at index @a index.
+ @param[in]		shadow_cube_map
+				The shadow cube map.
+ @param[in]		p_light
+				The hit position expressed in light space.
+ @param[in]		projection_values
+				The projection values of the light-to-projection matrix
+				[light_to_projection22, light_to_projection32].
+ @return		The shadow factor.
+ */
+float ShadowFactor(ShadowCubeMap shadow_cube_map, float3 p_light, 
+				   float2 projection_values) {
+
+	const float  p_light_z = Max(abs(p_light));
+	const float  p_ndc_z   = ViewZtoNDCZ(p_light_z, projection_values);
+	const float4 location  = float4(p_light, shadow_cube_map.index);
+
+	return shadow_cube_map.maps
+		.SampleCmpLevelZero(shadow_cube_map.pcf_sampler, location, p_ndc_z);
+}
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Lights
 //-----------------------------------------------------------------------------
 
@@ -41,11 +176,11 @@
 struct DirectionalLight {
 	// The (orthogonal) irradiance of this directional light.
 	float3 E;
-	uint padding0;
+	uint   padding0;
 	// The (normalized) negated direction of this directional light expressed 
 	// in world space.
 	float3 neg_d;
-	uint padding1;
+	uint   padding1;
 };
 
 /**
@@ -55,10 +190,10 @@ struct OmniLight {
 	// The position of this omni light expressed in world space.
 	float3 p;
 	// The inverse squared range of this omni light.
-	float inv_sqr_range;
+	float  inv_sqr_range;
 	// The radiant intensity of this omni light.
 	float3 I;
-	uint padding0;
+	uint   padding0;
 };
 
 /**
@@ -68,17 +203,17 @@ struct SpotLight {
 	// The position of this omni light expressed in world space.
 	float3 p;
 	// The inverse squared range of this spotlight.
-	float inv_sqr_range;
+	float  inv_sqr_range;
 	// The radiant intensity of this spotlight.
 	float3 I;
 	// The cosine of the umbra angle of this spotlight.
-	float cos_umbra;
+	float  cos_umbra;
 	// The (normalized) negated direction of this directional light expressed 
 	// in world space.
 	float3 neg_d;
 	// The cosine inverse range of this spotlight.
 	// cos_inv_range = 1 / (cos_penumbra - cos_umbra)
-	float cos_inv_range;
+	float  cos_inv_range;
 };
 
 /**
@@ -102,8 +237,8 @@ struct ShadowMappedOmniLight {
 	// The projection values of the light-to-projection transformation matrix.
 	// projection_values.x = light_to_projection22
 	// projection_values.y = light_to_projection32
-	float2 projection_values;
-	uint2 padding0;
+	float2   projection_values;
+	uint2    padding0;
 };
 
 /**
@@ -116,78 +251,8 @@ struct ShadowMappedSpotLight {
 	float4x4 world_to_projection;
 };
 
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Attenuation
-//-----------------------------------------------------------------------------
-
 /**
- Calculates the distance intensity attenuation smoothing factor of a light.
-
- @param[in]		sqr_distance
-				The squared distance between the lit point and the center of 
-				the light.
- @param[in]		inv_sqr_range
-				The inverse squared range of the light.
- @return		The distance intensity attenuation smoothing factor.
- */
-float DistanceAttenuationSmoothingFactor(float sqr_distance, 
-										 float inv_sqr_range) {
-	// Frostbite's smoothing:
-	//
-	//         [    distance^2]^2
-	// saturate[1 - ----------]
-	//         [      range^2 ]
-
-	return sqr(saturate(1.0f - sqr_distance * inv_sqr_range));
-}
-
-/**
- Calculates the distance intensity attenuation of a light.
-
- @param[in]		distance
-				The distance between the lit point and the center of the light.
- @param[in]		inv_sqr_range
-				The inverse squared range of the light.
- @return		The distance intensity attenuation.
- */
-float DistanceAttenuation(float distance, float inv_sqr_range) {
-	//                 1
-	// df := -----------------------
-	//       max(distance^2, 0.01^2)
-
-	const float sqr_distance = sqr(distance);
-	const float attenuation  = 1.0f / max(sqr_distance, 0.0001f);
-	const float smoothing    = DistanceAttenuationSmoothingFactor(sqr_distance, inv_sqr_range);
-	
-	return attenuation * smoothing;
-}
-
-/**
- Calculates the angular intensity attenuation of a light.
-
- @param[in]		cos_theta
-				The cosine of the angle between the direction from the center 
-				of the light to the lit point, and the light direction.
- @param[in]		cos_umbra
-				The cosine of the umbra angle of the light.
- @param[in]		cos_inv_range
-				The cosine inverse range of the light.
- @return		The angular intensity attenuation.
- */
-float AngularAttenuation(float cos_theta, 
-						 float cos_umbra, 
-						 float cos_inv_range) {
-
-	// Frostbite's smoothing: sqr
-	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
-}
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Contribution
-//-----------------------------------------------------------------------------
-
-/**
- Calculates the irradiance contribution of the given directional light.
+ Computes the irradiance contribution of the given directional light.
 
  @param[in]		light
 				The directional light.
@@ -203,7 +268,7 @@ void Contribution(DirectionalLight light, out float3 l, out float3 E) {
 }
 
 /**
- Calculates the irradiance contribution of the given omni light.
+ Computes the irradiance contribution of the given omni light.
 
  @param[in]		light
 				The omni light.
@@ -227,7 +292,7 @@ void Contribution(OmniLight light, float3 p, out float3 l, out float3 E) {
 }
 
 /**
- Calculates the irradiance contribution of the given spotlight.
+ Computes the irradiance contribution of the given spotlight.
 
  @param[in]		light
 				The spotlight.
@@ -255,68 +320,13 @@ void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
 }
 
 /**
- Calculates the shadow factor.
-
- @pre			@a shadow_maps must contain a shadow map at index @a index.
- @param[in]		pcf_sampler
-				The PCF sampler comparison state.
- @param[in]		shadow_maps
-				The array of shadow maps.
- @param[in]		index
-				The index into the array of shadow maps.
- @param[in]		p_ndc
-				The hit position expressed in light NDC space.
- @return		The shadow factor.
- */
-float ShadowFactor(SamplerComparisonState pcf_sampler, 
-				   Texture2DArray< float > shadow_maps, uint index, 
-				   float3 p_ndc) {
-
-	const float3 location = float3(NDCtoUV(p_ndc.xy), index);
-
-	return shadow_maps.SampleCmpLevelZero(pcf_sampler, location, p_ndc.z);
-}
-
-/**
- Calculates the shadow factor.
-
- @pre			@a shadow_maps must contain a shadow cube map at index @a index.
- @param[in]		pcf_sampler
-				The PCF sampler comparison state.
- @param[in]		shadow_maps
-				The array of shadow cube maps.
- @param[in]		index
-				The index into the array of shadow cube maps.
- @param[in]		p_light
-				The hit position expressed in light space.
- @param[in]		projection_values
-				The projection values of the light-to-projection matrix
-				[light_to_projection22, light_to_projection32].
- @return		The shadow factor.
- */
-float ShadowFactor(SamplerComparisonState pcf_sampler, 
-				   TextureCubeArray< float > shadow_maps, uint index, 
-				   float3 p_light, float2 projection_values) {
-
-	const float  p_light_z = Max(abs(p_light));
-	const float  p_ndc_z   = ViewZtoNDCZ(p_light_z, projection_values);
-	const float4 location  = float4(p_light, index);
-
-	return shadow_maps.SampleCmpLevelZero(pcf_sampler, location, p_ndc_z);
-}
-
-/**
- Calculates the irradiance contribution of the given directional light.
+ Computes the irradiance contribution of the given directional light.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
 				The directional light.
- @param[in]		pcf_sampler
-				The PCF sampler comparison state.
- @param[in]		shadow_maps
-				The array of shadow maps.
- @param[in]		index
-				The light index into the array of shadow maps.
+ @param[in]		shadow_map
+				The shadow map.
  @param[in]		p
 				The hit position expressed in world space.
  @param[out]	l
@@ -325,9 +335,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 				The (orthogonal) irradiance contribution of the given 
 				directional light.
  */
-void Contribution(ShadowMappedDirectionalLight light, 
-				  SamplerComparisonState pcf_sampler, 
-				  Texture2DArray< float > shadow_maps, uint index, 
+void Contribution(ShadowMappedDirectionalLight light, ShadowMap shadow_map,
 				  float3 p, out float3 l, out float3 E) {
 
 	float3 l0, E0;
@@ -336,21 +344,17 @@ void Contribution(ShadowMappedDirectionalLight light,
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	E = E0 * ShadowFactor(shadow_map, p_ndc);
 }
 
 /**
- Calculates the irradiance contribution of the given omni light.
+ Computes the irradiance contribution of the given omni light.
 
  @pre			@a shadow_maps must contain a shadow cube map at index @a index.
  @param[in]		light
 				The omni light.
- @param[in]		pcf_sampler
-				The PCF sampler comparison state.
- @param[in]		shadow_maps
-				The array of shadow cube maps.
- @param[in]		index
-				The light index into the array of shadow cube maps.
+ @param[in]		shadow_cube_map
+				The shadow cube map.
  @param[in]		p
 				The hit position expressed in world space.
  @param[out]	l
@@ -359,9 +363,7 @@ void Contribution(ShadowMappedDirectionalLight light,
 				The (orthogonal) irradiance contribution of the given omni 
 				light.
  */
-void Contribution(ShadowMappedOmniLight light, 
-				  SamplerComparisonState pcf_sampler, 
-				  TextureCubeArray< float > shadow_maps, uint index, 
+void Contribution(ShadowMappedOmniLight light, ShadowCubeMap shadow_cube_map,
 				  float3 p, out float3 l, out float3 E) {
 
 	float3 l0, E0;
@@ -369,22 +371,17 @@ void Contribution(ShadowMappedOmniLight light,
 
 	l = l0;
 	const float3 p_light = mul(float4(p, 1.0f), light.world_to_light).xyz;
-	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index,
-						  p_light, light.projection_values);
+	E = E0 * ShadowFactor(shadow_cube_map, p_light, light.projection_values);
 }
 
 /**
- Calculates the irradiance contribution of the given spotlight.
+ Computes the irradiance contribution of the given spotlight.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
 				The spotlight.
- @param[in]		pcf_sampler
-				The PCF sampler comparison state.
- @param[in]		shadow_maps
-				The array of shadow maps.
- @param[in]		index
-				The light index into the array of shadow maps.
+ @param[in]		shadow_map
+				The shadow map.
  @param[in]		p
 				The hit position expressed in world space.
  @param[out]	l
@@ -393,9 +390,7 @@ void Contribution(ShadowMappedOmniLight light,
 				The (orthogonal) irradiance contribution of the given 
 				spotlight.
  */
-void Contribution(ShadowMappedSpotLight light, 
-				  SamplerComparisonState pcf_sampler, 
-				  Texture2DArray< float > shadow_maps, uint index, 
+void Contribution(ShadowMappedSpotLight light, ShadowMap shadow_map,
 				  float3 p, out float3 l, out float3 E) {
 
 	float3 l0, E0;
@@ -404,7 +399,7 @@ void Contribution(ShadowMappedSpotLight light,
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
 	const float3 p_ndc  = HomogeneousDivide(p_proj);
-	E = E0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_ndc);
+	E = E0 * ShadowFactor(shadow_map, p_ndc);
 }
 
 //-----------------------------------------------------------------------------
@@ -412,7 +407,7 @@ void Contribution(ShadowMappedSpotLight light,
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the exponential fog factor.
+ Computes the exponential fog factor.
 
  @param[in]		distance
 				The distance between the lit point and the eye.

@@ -109,7 +109,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	// Texture2D::operator[] requires a uint2 index.
 	// For the computation of p_ndc/p_world, a float2 is required.
-	const float2 p_ss_viewport = thread_id.xy;
+	const float2 p_ss_viewport = (float2)thread_id.xy + 0.5f;
 	const float2 p_ss_display  = SSViewportToSSDisplay(p_ss_viewport);
 		
 	[branch]

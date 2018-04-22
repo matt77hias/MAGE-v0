@@ -339,18 +339,6 @@ float2 DisplayToUV(float2 p_display) {
 }
 
 /**
- Converts the given position expressed in display space to the corresponding 
- position expressed in UV space.
-
- @param[in]		p_display
-				The position expressed in display space.
- @return		The position expressed in UV space.
- */
-float2 DisplayToUV(uint2 p_display) {
-	return DisplayToUV((float2)p_display + 0.5f);
-}
-
-/**
  Converts the given position expressed in super-sampled display space to the 
  corresponding position expressed in UV space.
 
@@ -365,18 +353,6 @@ float2 SSDisplayToUV(float2 p_ss_display) {
 }
 
 /**
- Converts the given position expressed in super-sampled display space to the 
- corresponding position expressed in UV space.
-
- @param[in]		p_ss_display
-				The position expressed in super-sampled display space.
- @return		The position expressed in UV space.
- */
-float2 SSDisplayToUV(uint2 p_ss_display) {
-	return SSDisplayToUV((float2)p_ss_display + 0.5f);
-}
-
-/**
  Converts the given position expressed in viewport space to the corresponding 
  position expressed in UV space.
 
@@ -388,18 +364,6 @@ float2 ViewportToUV(float2 p_viewport) {
 	// .x: [0, g_viewport_resolution.x] -> [0,1]
 	// .y: [0, g_viewport_resolution.y] -> [0,1]
 	return p_viewport * g_viewport_inv_resolution;
-}
-
-/**
- Converts the given position expressed in viewport space to the corresponding 
- position expressed in UV space.
-
- @param[in]		p_viewport
-				The position expressed in viewport space.
- @return		The position expressed in UV space.
- */
-float2 ViewportToUV(uint2 p_viewport) {
-	return ViewportToUV((float2)p_viewport + 0.5f);
 }
 
 /**

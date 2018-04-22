@@ -218,11 +218,18 @@ ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direc
 
 CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambridge University Press, 1998.
 
+CIGOLLE Z. H., DONOW S., EVANGELAKOS D., MARA M., MCGUIRE M., MEYER Q.: *A Survey of Efficient Representations
+for Independent Unit Vectors*, *Journal of Computer Graphics Techniques* 3, 2, 2014.
+
 DUFF T., BURGESS J., CHRISTENSEN P., HERY C., KENSLER A., LIANI M., VILLEMIN R.: *Building an Orthonormal Basis, Revisited*, *Journal of Computer Graphics Techniques* 6, 1, 2017.
 
 FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.
 
+HILLAIRE S.: [*Crytek's Best Fit Normals*](http://sebh-blog.blogspot.be/2010/08/cryteks-best-fit-normals.html), 2010.
+
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
+
+KAPLANYAN A.: *Cryengine 3: Reaching the speed of light*, *SIGGRAPH: Advances in Real-time Rendering*, 2010.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 

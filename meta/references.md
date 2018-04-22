@@ -237,6 +237,8 @@ MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](ht
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
 
+NARKOWICZ K.: [*Octahedron normal vector encoding*](https://knarkowicz.wordpress.com/2014/04/16/octahedron-normal-vector-encoding/), 2014.
+
 PESCE A.: [*Notes on G-Buffer normal encodings*](http://c0de517e.blogspot.be/2015/01/notes-on-g-buffer-normal-encodings.html), 2015.
 
 PETTINEO M.: [*Scintillating Snippets: Storing Normals Using Spherical Coordinates*](https://mynameismjp.wordpress.com/2009/06/17/storing-normals-using-spherical-coordinates/), 2009.

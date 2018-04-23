@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------------
 
 float UniformUintToFloat(uint u) {
+	// IEEE-754: 2^-24 = 0x33800000
 	return float(u & 0xFFFFFF) * asfloat(0x33800000);
 }
 

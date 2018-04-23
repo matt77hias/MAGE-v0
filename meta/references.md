@@ -118,7 +118,7 @@ CRASSIN C.: *GigaVoxels: A Voxel-Based Rendering Pipeline For Efficient Explorat
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
-GLATZEL B.: [*everse Z Cheat Sheet*(http://www.intrinsic-engine.com/reverse-z-cheat-sheet/), 2018.
+GLATZEL B.: [*Reverse Z Cheat Sheet*(http://www.intrinsic-engine.com/reverse-z-cheat-sheet/), 2018.
 
 KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspot.be/2012/11/maximizing-depth-buffer-range-and.html), 2012.
 

@@ -75,9 +75,10 @@ float3 DecodeUnitVector_XY(float2 e_unorm) {
  @return		The encoded unit vector in the [-1,1] range.
  */
 float2 EncodeUnitVector_Spherical(float3 u) {
-	const float phi       = atan2(u.y, u.x);
-	const float cos_theta = u.z;
-	return SNORMtoUNORM(float2(phi * g_inv_pi, cos_theta));
+	const float  phi       = atan2(u.y, u.x);
+	const float  cos_theta = u.z;
+	const float2 e_snorm   = float2(phi * g_inv_pi, cos_theta);
+	return SNORMtoUNORM(e_snorm);
 }
 
 /**
@@ -165,8 +166,8 @@ float3 DecodeUnitVector_Octahedron(float2 e_unorm) {
 	const float2 e_snorm = UNORMtoSNORM(e_unorm);
 	const float3 e0      = float3(e_snorm.x, e_snorm.y,
 								  1.0f - abs(e_snorm.x) - abs(e_snorm.y));
-	const float  t       = saturate(-e0.z);
-	const float2 u_xy    = e0.xy + (0.0f <= e0.xy ? -t : t);
+	const float  s       = saturate(-e0.z);
+	const float2 u_xy    = e0.xy + (0.0f <= e0.xy ? -s : s);
 	return normalize(float3(u_xy, e0.z));
 }
 

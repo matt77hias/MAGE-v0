@@ -6,8 +6,7 @@
 //-----------------------------------------------------------------------------
 
 float UniformUintToFloat(uint u) {
-	static const uint mantissa_mask = 0x7FFFFF;
-	return frac(float(u & mantissa_mask) / float(mantissa_mask));
+	return float(u & 0xFFFFFF) * asfloat(0x33800000);
 }
 
 uint UniformUint_LCG(uint state) {

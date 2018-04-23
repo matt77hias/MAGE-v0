@@ -245,6 +245,8 @@ PESCE A.: [*Notes on G-Buffer normal encodings*](http://c0de517e.blogspot.be/201
 
 PETTINEO M.: [*Scintillating Snippets: Storing Normals Using Spherical Coordinates*](https://mynameismjp.wordpress.com/2009/06/17/storing-normals-using-spherical-coordinates/), 2009.
 
+PHARR M.: [*Rendering in Camera Space(ish)*](http://pharr.org/matt/blog/2018/03/02/rendering-in-camera-space.html), 2018.
+
 PRANCKEVIČIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
 
 REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.

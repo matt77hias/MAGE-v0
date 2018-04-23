@@ -221,6 +221,8 @@ CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambr
 CIGOLLE Z. H., DONOW S., EVANGELAKOS D., MARA M., MCGUIRE M., MEYER Q.: *A Survey of Efficient Representations
 for Independent Unit Vectors*, *Journal of Computer Graphics Techniques* 3, 2, 2014.
 
+DAWSON B.: [*Tricks With the Floating-Point Format*](https://randomascii.wordpress.com/2012/01/11/tricks-with-the-floating-point-format/), 2011.
+
 DUFF T., BURGESS J., CHRISTENSEN P., HERY C., KENSLER A., LIANI M., VILLEMIN R.: *Building an Orthonormal Basis, Revisited*, *Journal of Computer Graphics Techniques* 6, 1, 2017.
 
 FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.

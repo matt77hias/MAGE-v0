@@ -24,12 +24,12 @@ float3 DecodeRadiance(uint encoded_L) {
 	return LogLuvToRGB(UnpackR8G8B8A8(encoded_L));
 }
 
-uint EncodeNormal(float3 n) {
-	return PackR16G16(EncodeNormal_Octahedron(n));
+uint EncodeUnitVector(float3 n) {
+	return PackR16G16(NORMAL_ENCODE_FUNCTION(n));
 }
 
-float3 DecodeNormal(uint encoded_n) {
-	return DecodeNormal_Octahedron(UnpackR16G16(encoded_n));
+float3 DecodeUnitVector(uint encoded_n) {
+	return NORMAL_DECODE_FUNCTION(UnpackR16G16(encoded_n));
 }
 
 #endif // MAGE_HEADER_VOXEL

@@ -22,7 +22,7 @@
 
 ### Anti-aliasing
 
-LOTTES T.: [FXAA](https://developer.download.nvidia.com/assets/gamedev/files/sdk/11/FXAA_WhitePaper.pdf), 2009.
+LOTTES T.: [*FXAA*](https://developer.download.nvidia.com/assets/gamedev/files/sdk/11/FXAA_WhitePaper.pdf), 2009.
 
 PETTINEO M.: [*Deferred MSAA*](https://mynameismjp.wordpress.com/2010/08/16/deferred-msaa/), 2010.
 
@@ -32,7 +32,7 @@ TURÁNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpres
 
 ### Assembly
 
-FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [x86 Assembly Guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html), 2017.
+FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html), 2017.
 
 ### C++
 
@@ -44,9 +44,9 @@ BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https:/
 
 BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
 
-CORENTIN B.: [Undefining the C++ Pre-processor](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.
+CORENTIN B.: [*Undefining the C++ Pre-processor*](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.
 
-CPPDEPEND TEAM: [What made John Carmack a legend in C++ programming? And which lessons to learn from him when adopting the new standards?](http://cppdepend.com/blog/?p=744), 2018.
+CPPDEPEND TEAM: [*What made John Carmack a legend in C++ programming? And which lessons to learn from him when adopting the new standards?*](http://cppdepend.com/blog/?p=744), 2018.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
@@ -56,7 +56,7 @@ GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsboroug
 
 GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppguide.html), 2018.
 
-HALDAR D.: [C++ 11 Auto: How to use and avoid abuse](http://www.acodersjourney.com/2016/02/c-11-auto/), 2016.
+HALDAR D.: [*C++ 11 Auto: How to use and avoid abuse*](http://www.acodersjourney.com/2016/02/c-11-auto/), 2016.
 
 IGNATCHENKO S.: [*5 Reasons NOT to Use std::ostream for Human-Readable Output*](https://accu.org/index.php/journals/2486), 2018.
 
@@ -74,9 +74,9 @@ MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
-MÜLLER J.: [Guidelines For Rvalue References In APIs](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
+MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
 
-MÜLLER J.: [Lazy evaluation of function arguments in C++](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
+MÜLLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
@@ -84,7 +84,7 @@ PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
-WILLIAMS A.: [Locks, Mutexes, and Semaphores: Types of Synchronization Objects](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
+WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
 ### Color Spaces
 
@@ -112,13 +112,13 @@ WARD G.: *The LogLuv Encoding for Full Gamut, High Dynamic Range Images*, *J. Gr
 
 ARNEBÄCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.
 
-CRASSIN C.: GigaVoxels: *A Voxel-Based Rendering Pipeline For Efficient Exploration Of Large And Detailed Scenes*, PhD Thesis, 2011.
+CRASSIN C.: *GigaVoxels: A Voxel-Based Rendering Pipeline For Efficient Exploration Of Large And Detailed Scenes*, PhD Thesis, 2011.
 
 ### Depth Test
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
-GLATZEL B.: [Reverse Z Cheat Sheet](http://www.intrinsic-engine.com/reverse-z-cheat-sheet/), 2018.
+GLATZEL B.: [*everse Z Cheat Sheet*(http://www.intrinsic-engine.com/reverse-z-cheat-sheet/), 2018.
 
 KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspot.be/2012/11/maximizing-depth-buffer-range-and.html), 2012.
 
@@ -166,7 +166,7 @@ ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River
 
 MCGUIRE M.: [*The Graphics Codex*](http://www.graphicscodex.com), 2016.
 
-SANGLARD F.: Game Engine Black Book: Wolfenstein 3D, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
+SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
@@ -182,7 +182,7 @@ YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Developm
 
 COZZI P., RICCIO P.: *OpenGL Insights*, 1st Edition, A K Peters/CRC Press, 2012.
 
-DE VRIES J.: [Learn OpenGL](https://learnopengl.com/), 2014.
+DE VRIES J.: [*Learn OpenGL*](https://learnopengl.com/), 2014.
 
 FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
@@ -200,7 +200,7 @@ MICROSOFT CORP.: [*Semantics*](https://msdn.microsoft.com/en-us/library/windows/
 
 MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
 
-NVIDIA GAMEWORKS: [DX12 Do's And Don'ts](https://developer.nvidia.com/dx12-dos-and-donts), s.d.
+NVIDIA GAMEWORKS: [*DX12 Do's And Don'ts*](https://developer.nvidia.com/dx12-dos-and-donts), s.d.
 
 RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
@@ -210,7 +210,7 @@ TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/co
 
 TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
 
-YUSOV E.: [Designing A Modern Cross-Platform Graphics Library](https://www.gamedev.net/articles/programming/graphics/designing-a-modern-cross-platform-graphics-library-r4807/), 2017.
+YUSOV E.: [*Designing A Modern Cross-Platform Graphics Library*](https://www.gamedev.net/articles/programming/graphics/designing-a-modern-cross-platform-graphics-library-r4807/), 2017.
 
 ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direct3D 11*, 1st Edition, A K Peters/CRC Press, 2011.
 
@@ -271,7 +271,7 @@ COURRÈGES A.: [*GTA V - Graphics Study - Part 1: Dissecting a Frame*](http://ww
 
 COURRÈGES A.: [*GTA V - Graphics Study - Part 2: Level of Detail*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-2/), 2015.
 
-CRASSIN C., NEYRET F., SAINZ M., GREEN S., EISEMANN E.: Interactive Indirect Illumination Using Voxel Cone Tracing, *Computer Graphics Forum (Proceedings of Pacific Graphics 2011)* 30, 7 (2011).
+CRASSIN C., NEYRET F., SAINZ M., GREEN S., EISEMANN E.: *Interactive Indirect Illumination Using Voxel Cone Tracing*, *Computer Graphics Forum (Proceedings of Pacific Graphics 2011)* 30, 7 (2011).
 
 DÜR A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
 
@@ -339,7 +339,7 @@ COURRÈGES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http
 
 INTEL: [*Compute Shader HDR and Bloom*](https://software.intel.com/en-us/articles/compute-shader-hdr-and-bloom), 2012.
 
-JIMENEZ J.: Next Generation Post Processing in Call of Duty Advanced Warfare, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
+JIMENEZ J.: *Next Generation Post Processing in Call of Duty Advanced Warfare*, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
 
 PETTINEO M.: [*Average Luminance Calculation Using a Compute Shader*](https://mynameismjp.wordpress.com/2011/08/10/average-luminance-compute-shader/), 2011.
 
@@ -367,7 +367,7 @@ MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/window
 
 ### Textures
 
-CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
+CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
 
 JERSILD J.: [*Understanding Half-Pixel and Half-Texel Offsets*](http://drilian.com/2008/11/25/understanding-half-pixel-and-half-texel-offsets/), 2008.
 

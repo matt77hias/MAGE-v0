@@ -6,8 +6,8 @@
 //-----------------------------------------------------------------------------
 
 float UniformUintToFloat(uint u) {
-	// IEEE-754: 2^-24 = 0x33800000
-	return float(u & 0xFFFFFF) * asfloat(0x33800000);
+	// IEEE-754: 2^-32 = 0x2F800000
+	return float(u) * asfloat(0x2F800000);
 }
 
 uint UniformUint_LCG(uint state) {

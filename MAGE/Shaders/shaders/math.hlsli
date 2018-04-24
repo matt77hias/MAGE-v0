@@ -603,7 +603,7 @@ uint Min(uint4 v) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: UNORMtoSNORM
+// Engine Declarations and Definitions: UNormToSNorm
 //-----------------------------------------------------------------------------
 
 /**
@@ -611,12 +611,12 @@ uint Min(uint4 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-half UNORMtoSNORM(half v) {
-	return 2.0h * v - 1.0h;
+half UNormToSNorm(half v_unorm) {
+	return 2.0h * v_unorm - 1.0h;
 }
 
 /**
@@ -624,12 +624,12 @@ half UNORMtoSNORM(half v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-half2 UNORMtoSNORM(half2 v) {
-	return 2.0h * v - 1.0h;
+half2 UNormToSNorm(half2 v_unorm) {
+	return 2.0h * v_unorm - 1.0h;
 }
 
 /**
@@ -637,12 +637,12 @@ half2 UNORMtoSNORM(half2 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-half3 UNORMtoSNORM(half3 v) {
-	return 2.0h * v - 1.0h;
+half3 UNormToSNorm(half3 v_unorm) {
+	return 2.0h * v_unorm - 1.0h;
 }
 
 /**
@@ -650,12 +650,12 @@ half3 UNORMtoSNORM(half3 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		x
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-half4 UNORMtoSNORM(half4 v) {
-	return 2.0h * v - 1.0h;
+half4 UNormToSNorm(half4 v_unorm) {
+	return 2.0h * v_unorm - 1.0h;
 }
 
 /**
@@ -663,12 +663,12 @@ half4 UNORMtoSNORM(half4 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-float UNORMtoSNORM(float v) {
-	return 2.0f * v - 1.0f;
+float UNormToSNorm(float v_unorm) {
+	return 2.0f * v_unorm - 1.0f;
 }
 
 /**
@@ -676,12 +676,12 @@ float UNORMtoSNORM(float v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-float2 UNORMtoSNORM(float2 v) {
-	return 2.0f * v - 1.0f;
+float2 UNormToSNorm(float2 v_unorm) {
+	return 2.0f * v_unorm - 1.0f;
 }
 
 /**
@@ -689,12 +689,12 @@ float2 UNORMtoSNORM(float2 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-float3 UNORMtoSNORM(float3 v) {
-	return 2.0f * v - 1.0f;
+float3 UNormToSNorm(float3 v_unorm) {
+	return 2.0f * v_unorm - 1.0f;
 }
 
 /**
@@ -702,12 +702,12 @@ float3 UNORMtoSNORM(float3 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		x
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-float4 UNORMtoSNORM(float4 v) {
-	return 2.0f * v - 1.0f;
+float4 UNormToSNorm(float4 v_unorm) {
+	return 2.0f * v_unorm - 1.0f;
 }
 
 /**
@@ -715,12 +715,12 @@ float4 UNORMtoSNORM(float4 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-double UNORMtoSNORM(double v) {
-	return 2.0l * v - 1.0l;
+double UNormToSNorm(double v_unorm) {
+	return 2.0l * v_unorm - 1.0l;
 }
 
 /**
@@ -728,12 +728,12 @@ double UNORMtoSNORM(double v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-double2 UNORMtoSNORM(double2 v) {
-	return 2.0l * v - 1.0l;
+double2 UNormToSNorm(double2 v_unorm) {
+	return 2.0l * v_unorm - 1.0l;
 }
 
 /**
@@ -741,12 +741,12 @@ double2 UNORMtoSNORM(double2 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		v
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-double3 UNORMtoSNORM(double3 v) {
-	return 2.0l * v - 1.0l;
+double3 UNormToSNorm(double3 v_unorm) {
+	return 2.0l * v_unorm - 1.0l;
 }
 
 /**
@@ -754,16 +754,16 @@ double3 UNORMtoSNORM(double3 v) {
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
- @param[in]		x
+ @param[in]		v_unorm
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
  */
-double4 UNORMtoSNORM(double4 v) {
-	return 2.0l * v - 1.0l;
+double4 UNormToSNorm(double4 v_unorm) {
+	return 2.0l * v_unorm - 1.0l;
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: SNORMtoUNORM
+// Engine Declarations and Definitions: SNormToUNorm
 //-----------------------------------------------------------------------------
 
 /**
@@ -771,12 +771,12 @@ double4 UNORMtoSNORM(double4 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		x
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-half SNORMtoUNORM(half v) {
-	return 0.5h * v + 0.5h;
+half SNormToUNorm(half v_snorm) {
+	return 0.5h * v_snorm + 0.5h;
 }
 
 /**
@@ -784,12 +784,12 @@ half SNORMtoUNORM(half v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-half2 SNORMtoUNORM(half2 v) {
-	return 0.5h * v + 0.5h;
+half2 SNormToUNorm(half2 v_snorm) {
+	return 0.5h * v_snorm + 0.5h;
 }
 
 /**
@@ -797,12 +797,12 @@ half2 SNORMtoUNORM(half2 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-half3 SNORMtoUNORM(half3 v) {
-	return 0.5h * v + 0.5h;
+half3 SNormToUNorm(half3 v_snorm) {
+	return 0.5h * v_snorm + 0.5h;
 }
 
 /**
@@ -810,12 +810,12 @@ half3 SNORMtoUNORM(half3 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-half4 SNORMtoUNORM(half4 v) {
-	return 0.5h * v + 0.5h;
+half4 SNormToUNorm(half4 v_snorm) {
+	return 0.5h * v_snorm + 0.5h;
 }
 
 /**
@@ -823,12 +823,12 @@ half4 SNORMtoUNORM(half4 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		x
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-float SNORMtoUNORM(float v) {
-	return 0.5f * v + 0.5f;
+float SNormToUNorm(float v_snorm) {
+	return 0.5f * v_snorm + 0.5f;
 }
 
 /**
@@ -836,12 +836,12 @@ float SNORMtoUNORM(float v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-float2 SNORMtoUNORM(float2 v) {
-	return 0.5f * v + 0.5f;
+float2 SNormToUNorm(float2 v_snorm) {
+	return 0.5f * v_snorm + 0.5f;
 }
 
 /**
@@ -849,12 +849,12 @@ float2 SNORMtoUNORM(float2 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-float3 SNORMtoUNORM(float3 v) {
-	return 0.5f * v + 0.5f;
+float3 SNormToUNorm(float3 v_snorm) {
+	return 0.5f * v_snorm + 0.5f;
 }
 
 /**
@@ -862,12 +862,12 @@ float3 SNORMtoUNORM(float3 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-float4 SNORMtoUNORM(float4 v) {
-	return 0.5f * v + 0.5f;
+float4 SNormToUNorm(float4 v_snorm) {
+	return 0.5f * v_snorm + 0.5f;
 }
 
 /**
@@ -875,12 +875,12 @@ float4 SNORMtoUNORM(float4 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		x
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-double SNORMtoUNORM(double v) {
-	return 0.5l * v + 0.5l;
+double SNormToUNorm(double v_snorm) {
+	return 0.5l * v_snorm + 0.5l;
 }
 
 /**
@@ -888,12 +888,12 @@ double SNORMtoUNORM(double v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-double2 SNORMtoUNORM(double2 v) {
-	return 0.5l * v + 0.5l;
+double2 SNormToUNorm(double2 v_snorm) {
+	return 0.5l * v_snorm + 0.5l;
 }
 
 /**
@@ -901,12 +901,12 @@ double2 SNORMtoUNORM(double2 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-double3 SNORMtoUNORM(double3 v) {
-	return 0.5l * v + 0.5l;
+double3 SNormToUNorm(double3 v_snorm) {
+	return 0.5l * v_snorm + 0.5l;
 }
 
 /**
@@ -914,12 +914,12 @@ double3 SNORMtoUNORM(double3 v) {
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
- @param[in]		v
+ @param[in]		v_snorm
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
  */
-double4 SNORMtoUNORM(double4 v) {
-	return 0.5l * v + 0.5l;
+double4 SNormToUNorm(double4 v_snorm) {
+	return 0.5l * v_snorm + 0.5l;
 }
 
 //-----------------------------------------------------------------------------

@@ -25,6 +25,8 @@
       <ConformanceMode>true</ConformanceMode>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>

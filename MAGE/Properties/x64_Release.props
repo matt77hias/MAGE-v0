@@ -25,6 +25,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>

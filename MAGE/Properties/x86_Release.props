@@ -25,7 +25,7 @@
       <ConformanceMode>true</ConformanceMode>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Xdcmake>

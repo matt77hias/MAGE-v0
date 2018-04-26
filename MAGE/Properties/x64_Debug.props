@@ -29,6 +29,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

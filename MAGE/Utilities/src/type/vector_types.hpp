@@ -24,16 +24,19 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	template< typename T, size_t S, typename Enable = void >
+	struct Vector;
+
+	template< typename T, size_t S, typename Enable = void >
+	struct alignas(16) VectorA;
+
 	//-------------------------------------------------------------------------
 	// Vector2
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	template< typename T, typename Enable = void >
-	struct Vector2;
-
 	template< typename T >
-	struct Vector2< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 2, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -41,33 +44,33 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector2(T xy = 0) noexcept
-			: Vector2(xy, xy) {}
+		constexpr explicit Vector(T xy = 0) noexcept
+			: Vector(xy, xy) {}
 		
-		constexpr Vector2(T x, T y) noexcept
+		constexpr Vector(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
 		
-		Vector2(const T* v) noexcept
-			: Vector2(v[0], v[1]) {}
+		Vector(const T* v) noexcept
+			: Vector(v[0], v[1]) {}
 		
-		constexpr Vector2(const Vector2& v) noexcept = default;
+		constexpr Vector(const Vector& v) noexcept = default;
 		
-		constexpr Vector2(Vector2&& v) noexcept = default;
+		constexpr Vector(Vector&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector2(const Vector2< U >& v) noexcept
-			: Vector2(static_cast< T >(v.m_x), 
-				      static_cast< T >(v.m_y)) {}
+		constexpr explicit Vector(const Vector< U, 2 >& v) noexcept
+			: Vector(static_cast< T >(v.m_x), 
+					 static_cast< T >(v.m_y)) {}
 		
-		~Vector2() = default;
+		~Vector() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2& operator=(const Vector2& v) noexcept = default;
+		constexpr Vector& operator=(const Vector& v) noexcept = default;
 		
-		constexpr Vector2& operator=(Vector2&& v) noexcept = default;
+		constexpr Vector& operator=(Vector&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -109,11 +112,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	template< typename T, typename Enable = void >
-	struct Vector3;
-
 	template< typename T >
-	struct Vector3< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 3, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -121,37 +121,37 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector3(T xyz = 0) noexcept
-			: Vector3(xyz, xyz, xyz) {}
+		constexpr explicit Vector(T xyz = 0) noexcept
+			: Vector(xyz, xyz, xyz) {}
 		
-		constexpr Vector3(T x, T y, T z) noexcept
+		constexpr Vector(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
 		
-		Vector3(const T* v) noexcept
-			: Vector3(v[0], v[1], v[2]) {}
+		Vector(const T* v) noexcept
+			: Vector(v[0], v[1], v[2]) {}
 		
-		constexpr explicit Vector3(const Vector2< T >& v, T z = 0) noexcept
-			: Vector3(v.m_x, v.m_y, z) {}
+		constexpr explicit Vector(const Vector< T, 2 >& v, T z = 0) noexcept
+			: Vector(v.m_x, v.m_y, z) {}
 		
-		constexpr Vector3(const Vector3& v) noexcept = default;
+		constexpr Vector(const Vector& v) noexcept = default;
 		
-		constexpr Vector3(Vector3&& v) noexcept = default;
+		constexpr Vector(Vector&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector3(const Vector3< U >& v) noexcept
-			: Vector3(static_cast< T >(v.m_x),
-				      static_cast< T >(v.m_y),
-				      static_cast< T >(v.m_z)) {}
+		constexpr explicit Vector(const Vector< U, 3 >& v) noexcept
+			: Vector(static_cast< T >(v.m_x), 
+					 static_cast< T >(v.m_y), 
+					 static_cast< T >(v.m_z)) {}
 		
-		~Vector3() = default;
+		~Vector() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3& operator=(const Vector3& v) noexcept = default;
+		constexpr Vector& operator=(const Vector& v) noexcept = default;
 		
-		constexpr Vector3& operator=(Vector3&& v) noexcept = default;
+		constexpr Vector& operator=(Vector&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -195,11 +195,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	template< typename T, typename Enable = void >
-	struct Vector4;
-
 	template< typename T >
-	struct Vector4< T, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 4, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -207,41 +204,41 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector4(T xyzw = 0) noexcept
-			: Vector4(xyzw, xyzw, xyzw, xyzw) {}
+		constexpr explicit Vector(T xyzw = 0) noexcept
+			: Vector(xyzw, xyzw, xyzw, xyzw) {}
 		
-		constexpr Vector4(T x, T y, T z, T w) noexcept
+		constexpr Vector(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
 		
-		Vector4(const T* v) noexcept
-			: Vector4(v[0], v[1], v[2], v[3]) {}
+		Vector(const T* v) noexcept
+			: Vector(v[0], v[1], v[2], v[3]) {}
 		
-		constexpr explicit Vector4(const Vector2< T >& v, T z = 0, T w = 0) noexcept
-			: Vector4(v.m_x, v.m_y, z, w) {}
+		constexpr explicit Vector(const Vector< T, 2 >& v, T z = 0, T w = 0) noexcept
+			: Vector(v.m_x, v.m_y, z, w) {}
 		
-		constexpr explicit Vector4(const Vector3< T >& v, T w = 0) noexcept
-			: Vector4(v.m_x, v.m_y, v.m_z, w) {}
+		constexpr explicit Vector(const Vector< T, 3 >& v, T w = 0) noexcept
+			: Vector(v.m_x, v.m_y, v.m_z, w) {}
 		
-		constexpr Vector4(const Vector4& v) noexcept = default;
+		constexpr Vector(const Vector& v) noexcept = default;
 		
-		constexpr Vector4(Vector4&& v) noexcept = default;
+		constexpr Vector(Vector&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector4(const Vector4< U >& v) noexcept
-			: Vector4(static_cast< T >(v.m_x),
-				      static_cast< T >(v.m_y),
-				      static_cast< T >(v.m_z),
-				      static_cast< T >(v.m_w)) {}
+		constexpr explicit Vector(const Vector< U, 4 >& v) noexcept
+			: Vector(static_cast< T >(v.m_x),
+					 static_cast< T >(v.m_y), 
+					 static_cast< T >(v.m_z), 
+					 static_cast< T >(v.m_w)) {}
 		
-		~Vector4() = default;
+		~Vector() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4& operator=(const Vector4& v) noexcept = default;
+		constexpr Vector& operator=(const Vector& v) noexcept = default;
 
-		constexpr Vector4& operator=(Vector4&& v) noexcept = default;
+		constexpr Vector& operator=(Vector&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -290,11 +287,8 @@ namespace mage {
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
 
-	template< typename T, typename Enable = void >
-	struct alignas(16) Vector2A;
-
 	template< typename T >
-	struct alignas(16) Vector2A< T,
+	struct alignas(16) VectorA< T, 2, 
 		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
@@ -303,38 +297,38 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector2A(T xy = 0) noexcept
-			: Vector2A(xy, xy) {}
+		constexpr explicit VectorA(T xy = 0) noexcept
+			: VectorA(xy, xy) {}
 		
-		constexpr Vector2A(T x, T y) noexcept
+		constexpr VectorA(T x, T y) noexcept
 			: m_x(x), m_y(y) {}
 		
-		Vector2A(const T* v) noexcept
-			: Vector2A(v[0], v[1]) {}
+		VectorA(const T* v) noexcept
+			: VectorA(v[0], v[1]) {}
 		
-		constexpr Vector2A(const Vector2A& v) noexcept = default;
+		constexpr VectorA(const VectorA& v) noexcept = default;
 		
-		constexpr Vector2A(Vector2A&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector2A(const Vector2< U >& v) noexcept
-			: Vector2A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y)) {}
+		constexpr VectorA(VectorA&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector2A(const Vector2A< U >& v) noexcept
-			: Vector2A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y)) {}
+		constexpr explicit VectorA(const Vector< U, 2 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x), 
+					  static_cast< T >(v.m_y)) {}
 		
-		~Vector2A() = default;
+		template< typename U >
+		constexpr explicit VectorA(const VectorA< U, 2 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x),
+					  static_cast< T >(v.m_y)) {}
+		
+		~VectorA() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector2A& operator=(const Vector2A& v) noexcept = default;
+		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
 		
-		constexpr Vector2A& operator=(Vector2A&& v) noexcept = default;
+		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -381,11 +375,8 @@ namespace mage {
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
 
-	template< typename T, typename Enable = void >
-	struct alignas(16) Vector3A;
-
 	template< typename T >
-	struct alignas(16) Vector3A< T,
+	struct alignas(16) VectorA< T, 3, 
 		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
@@ -394,43 +385,43 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector3A(T xyz = 0) noexcept
-			: Vector3A(xyz, xyz, xyz) {}
+		constexpr explicit VectorA(T xyz = 0) noexcept
+			: VectorA(xyz, xyz, xyz) {}
 		
-		constexpr Vector3A(T x, T y, T z) noexcept
+		constexpr VectorA(T x, T y, T z) noexcept
 			: m_x(x), m_y(y), m_z(z) {}
 		
-		Vector3A(const T* v) noexcept
-			: Vector3A(v[0], v[1], v[2]) {}
+		VectorA(const T* v) noexcept
+			: VectorA(v[0], v[1], v[2]) {}
 		
-		constexpr explicit Vector3A(const Vector2A< T >& v, T z = 0) noexcept
-			: Vector3A(v.m_x, v.m_y, z) {}
+		constexpr explicit VectorA(const VectorA< T, 2 >& v, T z = 0) noexcept
+			: VectorA(v.m_x, v.m_y, z) {}
 		
-		constexpr Vector3A(const Vector3A& v) noexcept = default;
+		constexpr VectorA(const VectorA& v) noexcept = default;
 		
-		constexpr Vector3A(Vector3A&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector3A(const Vector3< U >& v) noexcept
-			: Vector3A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y),
-				       static_cast< T >(v.m_z)) {}
+		constexpr VectorA(VectorA&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector3A(const Vector3A< U >& v) noexcept
-			: Vector3A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y),
-				       static_cast< T >(v.m_z)) {}
+		constexpr explicit VectorA(const Vector< U, 3 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x), 
+					  static_cast< T >(v.m_y), 
+					  static_cast< T >(v.m_z)) {}
 		
-		~Vector3A() = default;
+		template< typename U >
+		constexpr explicit VectorA(const VectorA< U, 3 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x), 
+					  static_cast< T >(v.m_y), 
+					  static_cast< T >(v.m_z)) {}
+		
+		~VectorA() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector3A& operator=(const Vector3A& v) noexcept = default;
+		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
 		
-		constexpr Vector3A& operator=(Vector3A&& v) noexcept = default;
+		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -479,11 +470,8 @@ namespace mage {
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
 
-	template< typename T, typename Enable = void >
-	struct alignas(16) Vector4A;
-
 	template< typename T >
-	struct alignas(16) Vector4A< T,
+	struct alignas(16) VectorA< T, 4, 
 		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
@@ -492,48 +480,48 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		constexpr explicit Vector4A(T xyzw = 0) noexcept
-			: Vector4A(xyzw, xyzw, xyzw, xyzw) {}
+		constexpr explicit VectorA(T xyzw = 0) noexcept
+			: VectorA(xyzw, xyzw, xyzw, xyzw) {}
 		
-		constexpr Vector4A(T x, T y, T z, T w) noexcept
+		constexpr VectorA(T x, T y, T z, T w) noexcept
 			: m_x(x), m_y(y), m_z(z), m_w(w) {}
 		
-		Vector4A(const T* v) noexcept
-			: Vector4A(v[0], v[1], v[2], v[3]) {}
+		VectorA(const T* v) noexcept
+			: VectorA(v[0], v[1], v[2], v[3]) {}
 		
-		constexpr explicit Vector4A(const Vector2A< T >& v, T z = 0, T w = 0) noexcept
-			: Vector4A(v.m_x, v.m_y, z, w) {}
+		constexpr explicit VectorA(const VectorA< T, 2 >& v, T z = 0, T w = 0) noexcept
+			: VectorA(v.m_x, v.m_y, z, w) {}
 		
-		constexpr explicit Vector4A(const Vector3A< T >& v, T w = 0) noexcept
-			: Vector4A(v.m_x, v.m_y, v.m_z, w) {}
+		constexpr explicit VectorA(const VectorA< T, 3 >& v, T w = 0) noexcept
+			: VectorA(v.m_x, v.m_y, v.m_z, w) {}
 		
-		constexpr Vector4A(const Vector4A& v) noexcept = default;
+		constexpr VectorA(const VectorA& v) noexcept = default;
 		
-		constexpr Vector4A(Vector4A&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector4A(const Vector4< U >& v) noexcept
-			: Vector4A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y),
-				       static_cast< T >(v.m_z),
-				       static_cast< T >(v.m_w)) {}
+		constexpr VectorA(VectorA&& v) noexcept = default;
 		
 		template< typename U >
-		constexpr explicit Vector4A(const Vector4A< U >& v) noexcept
-			: Vector4A(static_cast< T >(v.m_x),
-				       static_cast< T >(v.m_y),
-				       static_cast< T >(v.m_z),
-				       static_cast< T >(v.m_w)) {}
+		constexpr explicit VectorA(const Vector< U, 4 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x), 
+					  static_cast< T >(v.m_y), 
+					  static_cast< T >(v.m_z), 
+					  static_cast< T >(v.m_w)) {}
 		
-		~Vector4A() = default;
+		template< typename U >
+		constexpr explicit VectorA(const VectorA< U, 4 >& v) noexcept
+			: VectorA(static_cast< T >(v.m_x),
+					  static_cast< T >(v.m_y),
+					  static_cast< T >(v.m_z), 
+					  static_cast< T >(v.m_w)) {}
+		
+		~VectorA() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		constexpr Vector4A& operator=(const Vector4A& v) noexcept = default;
+		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
 		
-		constexpr Vector4A& operator=(Vector4A&& v) noexcept = default;
+		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -584,32 +572,32 @@ namespace mage {
 	/**
 	 A 2x1 32-bit floating point vector type.
 	 */
-	using F32x2 = Vector2< F32 >;
+	using F32x2 = Vector< F32, 2 >;
 
 	/**
 	 A 3x1 32-bit floating point vector type.
 	 */
-	using F32x3 = Vector3< F32 >;
+	using F32x3 = Vector< F32, 3 >;
 
 	/**
 	 A 4x1 32-bit floating point vector type.
 	 */
-	using F32x4 = Vector4< F32 >;
+	using F32x4 = Vector< F32, 4 >;
 
 	/**
 	 A 2x1 32-bit floating point aligned vector type.
 	 */
-	using F32x2A = Vector2A< F32 >;
+	using F32x2A = VectorA< F32, 2 >;
 
 	/**
 	 A 3x1 32-bit floating point aligned vector type.
 	 */
-	using F32x3A = Vector3A< F32 >;
+	using F32x3A = VectorA< F32, 3 >;
 
 	/**
 	 A 4x1 32-bit floating point aligned vector type.
 	 */
-	using F32x4A = Vector4A< F32 >;
+	using F32x4A = VectorA< F32, 4 >;
 
 	static_assert(8  == sizeof(F32x2));
 	static_assert(12 == sizeof(F32x3));
@@ -629,17 +617,17 @@ namespace mage {
 	/**
 	 A 2x1 signed 32-bit integer vector type.
 	 */
-	using S32x2 = Vector2< S32 >;
+	using S32x2 = Vector< S32, 2 >;
 
 	/**
 	 A 3x1 signed 32-bit integer vector type.
 	 */
-	using S32x3 = Vector3< S32 >;
+	using S32x3 = Vector< S32, 3 >;
 
 	/**
 	 A 4x1 signed 32-bit integer vector type.
 	 */
-	using S32x4 = Vector4< S32 >;
+	using S32x4 = Vector< S32, 4 >;
 
 	static_assert(8  == sizeof(S32x2));
 	static_assert(12 == sizeof(S32x3));
@@ -655,17 +643,17 @@ namespace mage {
 	/**
 	 An 2x1 unsigned 32-bit integer vector type.
 	 */
-	using U32x2 = Vector2< U32 >;
+	using U32x2 = Vector< U32, 2 >;
 
 	/**
 	 An 3x1 unsigned 32-bit integer vector type.
 	 */
-	using U32x3 = Vector3< U32 >;
+	using U32x3 = Vector< U32, 3 >;
 
 	/**
 	 An 4x1 unsigned 32-bit integer vector type.
 	 */
-	using U32x4 = Vector4< U32 >;
+	using U32x4 = Vector< U32, 4 >;
 
 	static_assert(8  == sizeof(U32x2));
 	static_assert(12 == sizeof(U32x3));

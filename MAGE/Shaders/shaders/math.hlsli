@@ -298,7 +298,7 @@ half Max(half3 v) {
  @return		The maximum component value of the given value.
  */
 half Max(half4 v) {
-	return max(max(v.x, v.y), max(v.z, v.w));
+	return Max(max(v.xy, v.zw));
 }
 
 /**
@@ -331,7 +331,7 @@ float Max(float3 v) {
  @return		The maximum component value of the given value.
  */
 float Max(float4 v) {
-	return max(max(v.x, v.y), max(v.z, v.w));
+	return Max(max(v.xy, v.zw));
 }
 
 /**
@@ -364,7 +364,7 @@ double Max(double3 v) {
  @return		The maximum component value of the given value.
  */
 double Max(double4 v) {
-	return max(max(v.x, v.y), max(v.z, v.w));
+	return Max(max(v.xy, v.zw));
 }
 
 /**
@@ -397,7 +397,7 @@ int Max(int3 v) {
  @return		The maximum component value of the given value.
  */
 int Max(int4 v) {
-	return max(max(v.x, v.y), max(v.z, v.w));
+	return Max(max(v.xy, v.zw));
 }
 
 /**
@@ -430,7 +430,7 @@ uint Max(uint3 v) {
  @return		The maximum component value of the given value.
  */
 uint Max(uint4 v) {
-	return max(max(v.x, v.y), max(v.z, v.w));
+	return Max(max(v.xy, v.zw));
 }
 
 //-----------------------------------------------------------------------------
@@ -467,7 +467,7 @@ half Min(half3 v) {
  @return		The minimum component value of the given value.
  */
 half Min(half4 v) {
-	return min(min(v.x, v.y), min(v.z, v.w));
+	return Min(min(v.xy, v.zw));
 }
 
 /**
@@ -500,7 +500,7 @@ float Min(float3 v) {
  @return		The minimum component value of the given value.
  */
 float Min(float4 v) {
-	return min(min(v.x, v.y), min(v.z, v.w));
+	return Min(min(v.xy, v.zw));
 }
 
 /**
@@ -533,7 +533,7 @@ double Min(double3 v) {
  @return		The minimum component value of the given value.
  */
 double Min(double4 v) {
-	return min(min(v.x, v.y), min(v.z, v.w));
+	return Min(min(v.xy, v.zw));
 }
 
 /**
@@ -566,7 +566,7 @@ int Min(int3 v) {
  @return		The minimum component value of the given value.
  */
 int Min(int4 v) {
-	return min(min(v.x, v.y), min(v.z, v.w));
+	return Min(min(v.xy, v.zw));
 }
 
 /**
@@ -599,7 +599,7 @@ uint Min(uint3 v) {
  @return		The minimum component value of the given value.
  */
 uint Min(uint4 v) {
-	return min(min(v.x, v.y), min(v.z, v.w));
+	return Min(min(v.xy, v.zw));
 }
 
 //-----------------------------------------------------------------------------

@@ -511,7 +511,7 @@ namespace mage {
 		
 		Assert(str || context);
 		
-		// read the x component.
+		// Read the x component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -519,7 +519,7 @@ namespace mage {
 			}
 		}
 
-		// read the y component.
+		// Read the y component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -536,7 +536,7 @@ namespace mage {
 		
 		Assert(str || context);
 		
-		// read the x component.
+		// Read the x component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -544,7 +544,7 @@ namespace mage {
 			}
 		}
 
-		// read the y component.
+		// Read the y component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -552,7 +552,7 @@ namespace mage {
 			}
 		}
 
-		// read the z component.
+		// Read the z component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -569,7 +569,7 @@ namespace mage {
 		
 		Assert(str || context);
 		
-		// read the x component.
+		// Read the x component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -577,7 +577,7 @@ namespace mage {
 			}
 		}
 
-		// read the y component.
+		// Read the y component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -585,7 +585,7 @@ namespace mage {
 			}
 		}
 
-		// read the z component.
+		// Read the z component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
 			if (TokenResult::Valid != tr) {
@@ -593,7 +593,7 @@ namespace mage {
 			}
 		}
 
-		// read the w component.
+		// Read the w component.
 		{
 			const auto tr = Read< F32 >(str, context, result.m_w, delimiters);
 			if (TokenResult::Valid != tr) {

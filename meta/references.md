@@ -369,6 +369,24 @@ ASTHANA A.: [*Introducing ‘Vector Calling Convention’*](https://blogs.msdn.m
 
 MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833(v=vs.85).aspx).
 
+### SPMD
+
+PHARR M.: [*The story of ispc: Origins (part 1)*](http://pharr.org/matt/blog/2018/04/18/ispc-origins.html), 2018.
+
+PHARR M.: [*The story of ispc: volta is born (part 2)*](http://pharr.org/matt/blog/2018/04/19/ispc-volta-is-born.html), 2018.
+
+PHARR M.: [*The story of ispc: going all in on volta (part 3)*](http://pharr.org/matt/blog/2018/04/20/ispc-volta-going-all-in.html), 2018.
+
+PHARR M.: [*The story of ispc: C's influence and implementing SPMD on SIMD (part 4)*](http://pharr.org/matt/blog/2018/04/21/ispc-volta-c-and-spmd.html), 2018.
+
+PHARR M.: [*The story of ispc: first benchmark results (part 5)*](http://pharr.org/matt/blog/2018/04/22/ispc-volta-first-results.html), 2018.
+
+PHARR M.: [*The story of ispc: first users and modern CPUs coming through (part 6)*](http://pharr.org/matt/blog/2018/04/23/ispc-volta-users-and-ooo.html), 2018.
+
+PHARR M.: [*The story of ispc: Bringing up AVX and giving something back to LLVM (part 7)*](http://pharr.org/matt/blog/2018/04/25/ispc-volta-avx.html), 2018.
+
+PHARR M.: [*The story of ispc: more on optimizations and performance (part 8)*](http://pharr.org/matt/blog/2018/04/26/ispc-volta-more-on-performance.html), 2018.
+
 ### Textures
 
 CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.

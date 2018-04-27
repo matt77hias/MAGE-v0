@@ -24,16 +24,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename T, size_t S, typename Enable = void >
-	struct Vector;
-
-	template< typename T, size_t S, typename Enable = void >
-	struct alignas(16) VectorA;
-
 	//-------------------------------------------------------------------------
-	// Vector2
+	// Vector
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	template< typename T, size_t N, typename Enable = void >
+	struct Vector;
 
 	template< typename T >
 	struct Vector< T, 2, 
@@ -105,13 +102,6 @@ namespace mage {
 		
 		T m_y;
 	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Vector3
-	//-------------------------------------------------------------------------
-	#pragma region
 
 	template< typename T >
 	struct Vector< T, 3, 
@@ -189,13 +179,6 @@ namespace mage {
 		
 		T m_z;
 	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Vector4
-	//-------------------------------------------------------------------------
-	#pragma region
 
 	template< typename T >
 	struct Vector< T, 4, 
@@ -283,9 +266,13 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Vector2A
+	// VectorA
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	template< typename T, size_t N, typename Enable = void >
+	struct alignas(16) VectorA;
+
 
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
@@ -365,18 +352,6 @@ namespace mage {
 
 		T m_y;
 	};
-
-	#pragma warning( pop )
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Vector3A
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	#pragma warning( push )
-	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T >
 	struct alignas(16) VectorA< T, 3, 
@@ -460,18 +435,6 @@ namespace mage {
 
 		T m_z;
 	};
-
-	#pragma warning( pop )
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Vector4A
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	#pragma warning( push )
-	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T >
 	struct alignas(16) VectorA< T, 4, 

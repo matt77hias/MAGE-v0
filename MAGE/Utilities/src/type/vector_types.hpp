@@ -36,7 +36,8 @@ namespace mage {
 	#pragma region
 
 	template< typename T >
-	struct Vector< T, 2, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 2, 
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -113,7 +114,8 @@ namespace mage {
 	#pragma region
 
 	template< typename T >
-	struct Vector< T, 3, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 3, 
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 
@@ -196,7 +198,8 @@ namespace mage {
 	#pragma region
 
 	template< typename T >
-	struct Vector< T, 4, typename std::enable_if_t< std::is_arithmetic_v< T > > > {
+	struct Vector< T, 4, 
+		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
 
 	public:
 

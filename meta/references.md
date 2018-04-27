@@ -192,6 +192,8 @@ HARGREAVES S.: [*For best performance, use DXGI flip model*](https://blogs.msdn.
 
 LUNA F.: *Introduction to 3D Game Programming with DirectX 11*, 1st Edition, Mercury Learning & Information, 2012.
 
+LUNA F.: *Introduction to 3D Game Programming with DirectX 12*, 1st Edition, Mercury Learning & Information, 2016.
+
 MICROSOFT CORP.: [*Direct3D 11 Graphics*](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx).
 
 MICROSOFT CORP.: [*DXGI flip model*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh706346(v=vs.85).aspx).

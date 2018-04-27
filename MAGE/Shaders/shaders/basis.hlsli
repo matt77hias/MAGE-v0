@@ -37,8 +37,8 @@ float3x3 OrthonormalBasis_Duff(float3 n) {
 	const float  a0 = -1.0f / (s + n.z);
 	const float  a1 = n.x * n.y * a0;
 
-	const float3 t  = float3(1.0f + s * n.x * n.x * a0, s * a1, -s * n.x);
-	const float3 b  = float3(a1, s + n.y * n.y * a0, -n.y);
+	const float3 t  = { 1.0f + s * n.x * n.x * a0, s * a1, -s * n.x };
+	const float3 b  = { a1, s + n.y * n.y * a0, -n.y };
 
 	return float3x3(t, b, n);
 }

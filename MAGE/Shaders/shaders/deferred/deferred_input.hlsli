@@ -102,7 +102,7 @@ float3 GetGBufferPosition(float2 p_ss_display, uint index) {
 	// Obtain the NDC space coordinates.
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
-	const float3 p_ndc         = float3(p_ndc_xy, depth);
+	const float3 p_ndc         = { p_ndc_xy, depth };
 	// Obtain the world space coodinates.
 	return NDCToWorld(p_ndc);
 }
@@ -167,7 +167,7 @@ float3 GetGBufferPosition(float2 p_ss_display) {
 	// Obtain the NDC space coordinates.
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
-	const float3 p_ndc         = float3(p_ndc_xy, depth);
+	const float3 p_ndc         = { p_ndc_xy, depth };
 	// Obtain the world space coodinates.
 	return NDCToWorld(p_ndc);
 }

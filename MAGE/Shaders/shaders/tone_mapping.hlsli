@@ -43,7 +43,7 @@
  @return		The luminance of the given RGB color.
  */
 float Luminance(float3 rgb) {
-	static const float3 rgb_to_y = float3(0.212671f, 0.715160f, 0.072169f);
+	static const float3 rgb_to_y = { 0.212671f, 0.715160f, 0.072169f };
 	return dot(rgb, rgb_to_y);
 }
 

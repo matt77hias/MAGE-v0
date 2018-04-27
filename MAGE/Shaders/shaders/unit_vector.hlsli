@@ -77,7 +77,7 @@ float3 DecodeUnitVector_XY(float2 e_unorm) {
 float2 EncodeUnitVector_Spherical(float3 u) {
 	const float  phi       = atan2(u.y, u.x);
 	const float  cos_theta = u.z;
-	const float2 e_snorm   = float2(phi * g_inv_pi, cos_theta);
+	const float2 e_snorm   = { phi * g_inv_pi, cos_theta };
 	return SNormToUNorm(e_snorm);
 }
 
@@ -129,7 +129,7 @@ float2 EncodeUnitVector_SphereMap(float3 u) {
  */
 float3 DecodeUnitVector_SphereMap(float2 e_unorm) {
 	const float2 e_snorm = UNormToSNorm(e_unorm);
-	const float4 e0      = float4(e_snorm, 1.0f, -1.0f);
+	const float4 e0      = { e_snorm, 1.0f, -1.0f};
 	const float  l       = dot(e0.xyz, -e0.xyw);
 	return 2.0f * float3(e0.xy * sqrt(l), l - 0.5f);
 }
@@ -164,8 +164,8 @@ float2 EncodeUnitVector_Octahedron(float3 u) {
  */
 float3 DecodeUnitVector_Octahedron(float2 e_unorm) {
 	const float2 e_snorm = UNormToSNorm(e_unorm);
-	const float3 e0      = float3(e_snorm.x, e_snorm.y,
-								  1.0f - abs(e_snorm.x) - abs(e_snorm.y));
+	const float3 e0      = { e_snorm.x, e_snorm.y, 
+		                     1.0f - abs(e_snorm.x) - abs(e_snorm.y) };
 	const float  s       = saturate(-e0.z);
 	const float2 u_xy    = e0.xy + (0.0f <= e0.xy ? -s : s);
 	return normalize(float3(u_xy, e0.z));

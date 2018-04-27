@@ -82,12 +82,12 @@ float3 GetVCTRadiance(Cone cone, VCTConfig config) {
  angle is equal to pi/3.
  */
 static const float4 g_cones[] = {
-	float4( 0.000000f,  0.000000f, 1.0f, 0.25f),
-	float4( 0.000000f,  0.866025f, 0.5f, 0.15f),
-	float4( 0.823639f,  0.267617f, 0.5f, 0.15f),
-	float4( 0.509037f, -0.700629f, 0.5f, 0.15f),
-	float4(-0.509037f, -0.700629f, 0.5f, 0.15f),
-	float4(-0.823639f,  0.267617f, 0.5f, 0.15f)
+	{ 0.000000f,  0.000000f, 1.0f, 0.25f },
+	{ 0.000000f,  0.866025f, 0.5f, 0.15f },
+	{ 0.823639f,  0.267617f, 0.5f, 0.15f },
+	{ 0.509037f, -0.700629f, 0.5f, 0.15f },
+	{-0.509037f, -0.700629f, 0.5f, 0.15f },
+	{-0.823639f,  0.267617f, 0.5f, 0.15f },
 };
 
 float3 GetVCTRadiance(float3 uvw, float3x3 tangent_to_world, 

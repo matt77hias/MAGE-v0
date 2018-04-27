@@ -136,7 +136,7 @@ struct ShadowCubeMap {
  @return		The shadow factor.
  */
 float ShadowFactor(ShadowMap shadow_map, float3 p_ndc) {
-	const float3 location = float3(NDCtoUV(p_ndc.xy), shadow_map.index);
+	const float3 location = { NDCtoUV(p_ndc.xy), shadow_map.index };
 
 	return shadow_map.maps
 		.SampleCmpLevelZero(shadow_map.pcf_sampler, location, p_ndc.z);

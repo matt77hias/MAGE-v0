@@ -389,6 +389,10 @@ PHARR M.: [*The story of ispc: Bringing up AVX and giving something back to LLVM
 
 PHARR M.: [*The story of ispc: more on optimizations and performance (part 8)*](http://pharr.org/matt/blog/2018/04/26/ispc-volta-more-on-performance.html), 2018.
 
+PHARR M.: [*The story of ispc: the open source release and the end of volta (part 9)*](http://pharr.org/matt/blog/2018/04/27/ispc-volta-open-source.html), 2018.
+
+PHARR M.: [*The story of ispc: spreading the world and leaving Intel (part 10)*](http://pharr.org/matt/blog/2018/04/28/ispc-talks-and-departure.html), 2018.
+
 ### Textures
 
 CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.

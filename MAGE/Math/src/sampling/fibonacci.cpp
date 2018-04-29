@@ -25,20 +25,20 @@ namespace mage {
 		// alpha == 0.0f -> jagged boundary.
 		// alpha == 2.0f -> smooth boundary.
 		const auto n_boundary = static_cast< U32 >(
-			                    alpha * sqrt(static_cast< F32 >(n))) + 1;
+			                    alpha * std::sqrt(static_cast< F32 >(n))) + 1;
 		
 		size_t j = 0;
 		for (size_t i = j; i <= n - n_boundary; ++i, ++j, ++sample) {
-			const auto r   = sqrt((i + 0.5f) / (n - 0.5f * n_boundary));
+			const auto r   = std::sqrt((i + 0.5f) / (n - 0.5f * n_boundary));
 			const auto phi = XM_GA * (i + shift);
 			
-			*sample = F32x2(r * cos(phi), r * sin(phi));
+			*sample = F32x2(r * std::cos(phi), r * std::sin(phi));
 		}
 		for (size_t i = j + 1; i < n; ++i, ++sample) {
 			const auto r   = 1.0f;
 			const auto phi = XM_GA * (i + shift);
 			
-			*sample = F32x2(r * cos(phi), r * sin(phi));
+			*sample = F32x2(r * std::cos(phi), r * std::sin(phi));
 		}
 	}
 
@@ -53,11 +53,11 @@ namespace mage {
 			const auto phi       = XM_GA * fmodf((i + shift),
 				                                static_cast< F32 >(n));
 			const auto cos_theta = ((i + 0.5f) * offset) - 1.0f;
-			const auto sin_theta = sqrt(1.0f - cos_theta * cos_theta);
+			const auto sin_theta = std::sqrt(1.0f - cos_theta * cos_theta);
 			
-			sample = F32x3(cos(phi) * sin_theta, 
+			sample = F32x3(std::cos(phi) * sin_theta,
 						   cos_theta, 
-						   sin(phi) * sin_theta);
+						   std::sin(phi) * sin_theta);
 		}
 	}
 
@@ -73,7 +73,7 @@ namespace mage {
 			const auto phi       = XM_GA * fmodf((i + shift), 
 												 static_cast< F32 >(n));
 			const auto cos_theta = ((i + 0.5f) * offset) - 1.0f;
-			const auto sin_theta = sqrt(1.0f - cos_theta * cos_theta);
+			const auto sin_theta = std::sqrt(1.0f - cos_theta * cos_theta);
 			
 			sample = F32x3(cos(phi) * sin_theta, 
 						   cos_theta,
@@ -87,12 +87,12 @@ namespace mage {
 		size_t i = 0;
 		for (auto& sample : samples) {
 			const auto phi       = XM_GA * (i + shift);
-			const auto sin_theta = sqrt((i + 0.5f) / (samples.size() - 0.5f));
-			const auto cos_theta = sqrt(1.0f - sin_theta * sin_theta);
+			const auto sin_theta = std::sqrt((i + 0.5f) / (samples.size() - 0.5f));
+			const auto cos_theta = std::sqrt(1.0f - sin_theta * sin_theta);
 			
-			sample = F32x3(cos(phi) * sin_theta, 
+			sample = F32x3(std::cos(phi) * sin_theta,
 						   cos_theta, 
-						   sin(phi) * sin_theta);
+						   std::sin(phi) * sin_theta);
 		}
 	}
 }

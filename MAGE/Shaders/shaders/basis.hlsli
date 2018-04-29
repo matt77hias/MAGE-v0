@@ -15,8 +15,9 @@
  @return		An orthonormal basis.
  */
 float3x3 OrthonormalBasis_HughesMoller(float3 n) {
-	const float3 n_ortho = (0.1f < abs(n.x)) ? float3(0.0f, 1.0f, 0.0f) 
-		                                     : float3(1.0f, 0.0f, 0.0f);
+	const float3 abs_n   = abs(n);
+	const float3 n_ortho = (abs_n.x > abs_n.z) ? float3(-n.y,  n.x, 0.0f)
+		                                       : float3(1.0f, -n.z,  n.y);
 	const float3 t = normalize(cross(n_ortho, n));
 	const float3 b = cross(n, t);
 

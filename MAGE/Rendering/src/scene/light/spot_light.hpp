@@ -310,7 +310,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		F32 GetPenumbraAngle() const noexcept {
-			return acos(m_cos_penumbra);
+			return std::acos(m_cos_penumbra);
 		}
 		
 		/**
@@ -321,7 +321,7 @@ namespace mage::rendering {
 						The penumbra angle (in radians).
 		 */
 		void SetPenumbraAngle(F32 penumbra) noexcept {
-			SetStartAngularCutoff(cos(penumbra));
+			SetStartAngularCutoff(std::cos(penumbra));
 		}
 
 		/**
@@ -331,7 +331,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		F32 GetUmbraAngle() const noexcept {
-			return acos(m_cos_umbra);
+			return std::acos(m_cos_umbra);
 		}
 		
 		/**
@@ -343,7 +343,7 @@ namespace mage::rendering {
 						The umbra angle (in radians).
 		 */
 		void SetUmbraAngle(F32 umbra) noexcept {
-			SetEndAngularCutoff(cos(umbra));
+			SetEndAngularCutoff(std::cos(umbra));
 		}
 		
 		/**

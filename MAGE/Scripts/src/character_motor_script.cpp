@@ -44,9 +44,9 @@ namespace mage::script {
 		auto& transform           = GetOwner()->GetTransform();
 
 		const auto movement_magnitude = delta_time * m_velocity;
-		const auto movement_cos       = cos(transform.GetRotationY()) 
+		const auto movement_cos       = std::cos(transform.GetRotationY())
 			                          * movement_magnitude;
-		const auto movement_sin       = sin(transform.GetRotationY()) 
+		const auto movement_sin       = std::sin(transform.GetRotationY())
 			                          * movement_magnitude;
 		
 		if (     keyboard.GetKeyPress(DIK_UP,     true) 

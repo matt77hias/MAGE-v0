@@ -138,7 +138,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		const auto light = rendering_world.Create< SpotLight >();
 		light->SetRange(20.0f);
-		light->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
+		light->SetAngularCutoff(1.0f, std::sqrt(2.0f) / 2.0f);
 		light->SetIntensity(40.0f);
 		light->EnableShadows();
 

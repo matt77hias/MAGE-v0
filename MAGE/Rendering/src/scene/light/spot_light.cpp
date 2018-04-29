@@ -51,10 +51,10 @@ namespace mage::rendering {
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const auto range     = GetRange();
 		const auto a         = 1.0f / (m_cos_umbra * m_cos_umbra);
-		const auto tan_umbra = sqrt(a - 1.0f);
+		const auto tan_umbra = std::sqrt(a - 1.0f);
 		const auto rxy       = range * tan_umbra;
 		const auto rz        = range * 0.5f;
-		const auto r         = sqrt(rxy * rxy + rz * rz);
+		const auto r         = std::sqrt(rxy * rxy + rz * rz);
 
 		m_aabb   = AABB(Point3(-rxy, -rxy, 0.0f),
 				        Point3( rxy,  rxy, range));

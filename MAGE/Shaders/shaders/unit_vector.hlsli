@@ -75,7 +75,7 @@ float3 DecodeUnitVector_XY(float2 e_unorm) {
  @return		The encoded unit vector in the [-1,1] range.
  */
 float2 EncodeUnitVector_Spherical(float3 u) {
-	const float  phi       = atan2(u.y, u.x);
+	const float  phi       = all(0.0f == u.xy) ? 0.0f : atan2(u.y, u.x);
 	const float  cos_theta = u.z;
 	const float2 e_snorm   = { phi * g_inv_pi, cos_theta };
 	return SNormToUNorm(e_snorm);

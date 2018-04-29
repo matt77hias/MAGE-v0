@@ -29,8 +29,8 @@ namespace mage {
 	inline void XM_CALLCONV OrthonormalBasis_HughesMoller(FXMVECTOR n, 
 		                                                  XMVECTOR& b1, 
 		                                                  XMVECTOR& b2) noexcept {
-
-		const auto u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
+		const auto abs_n = XMVectorAbs(n);
+		const auto u     = (XMVectorGetX(abs_n) > XMVectorGetZ(abs_n))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
 			: XMVectorSet(0.0f, -XMVectorGetZ(n), XMVectorGetY(n), 0.0f);
 		b2 = XMVector3Normalize(u);

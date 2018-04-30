@@ -30,8 +30,8 @@ namespace mage {
 		return details::ArrayToTupple(a, std::make_index_sequence< N >());
 	}
 
-	template< typename... Ts >
-	constexpr decltype(auto) ArgsToTuple(Ts&&... args) noexcept {
-		return std::make_tuple(std::forward< Ts >(args)...);
+	template< typename... ArgsT >
+	constexpr decltype(auto) ArgsToTuple(ArgsT&&... args) noexcept {
+		return std::make_tuple(std::forward< ArgsT >(args)...);
 	}
 }

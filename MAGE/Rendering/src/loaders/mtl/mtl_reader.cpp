@@ -143,7 +143,7 @@ namespace mage::rendering::loader {
 	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
 		const auto texture_path  = mage::GetPathName(GetFilename());
-		const auto texture_name  = str_convert(Read< string >());
+		const auto texture_name  = StringToWString(Read< string >());
 		const auto texture_fname = mage::GetFilename(texture_path, texture_name);
 		return m_resource_manager.GetOrCreate< Texture >(texture_fname);
 	}

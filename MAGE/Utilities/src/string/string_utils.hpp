@@ -323,7 +323,7 @@ namespace mage {
 	 @return		The wide string copy of the given string.
 	 */
 	[[nodiscard]]
-	const wstring str_convert(const string& str);
+	const wstring StringToWString(const string& str);
 	
 	/**
 	 Converts the given wide string to a string.
@@ -333,7 +333,7 @@ namespace mage {
 	 @return		The string copy of the given wide string.
 	 */
 	[[nodiscard]]
-	const string str_convert(const wstring& str);
+	const string WStringToString(const wstring& str);
 
 	#pragma endregion
 }

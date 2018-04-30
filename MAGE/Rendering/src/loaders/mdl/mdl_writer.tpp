@@ -78,7 +78,7 @@ namespace mage::rendering::loader {
 		sprintf_s(output, std::size(output), 
 			      "%s %s.mtl",
 			      g_mdl_token_material_library, 
-			      str_convert(file_name_we).c_str());
+				  WStringToString(file_name_we).c_str());
 
 		WriteStringLine(output);
 	}

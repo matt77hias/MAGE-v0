@@ -22,6 +22,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
+	//-------------------------------------------------------------------------
+	// Engine Declarations and Definitions: zstring, wzstring
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	[[nodiscard]]
 	zstring str_escape_first(NotNull< zstring > str, char c) noexcept {
 		auto input = str;
@@ -182,13 +187,22 @@ namespace mage {
 		return str;
 	}
 
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Engine Declarations and Definitions: string, wstring
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	[[nodiscard]]
-	const wstring str_convert(const string& str) {
+	const wstring StringToWString(const string& str) {
 		return wstring(CA2W(str.c_str()));
 	}
 
 	[[nodiscard]]
-	const string str_convert(const wstring& str) {
+	const string WStringToString(const wstring& str) {
 		return string(CW2A(str.c_str()));
 	}
+
+	#pragma endregion
 }

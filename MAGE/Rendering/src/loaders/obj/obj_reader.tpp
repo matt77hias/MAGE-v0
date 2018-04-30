@@ -104,7 +104,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
 		const auto mtl_path  = mage::GetPathName(GetFilename());
-		const auto mtl_name  = str_convert(Read< string >());
+		const auto mtl_name  = StringToWString(Read< string >());
 		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname,

@@ -85,6 +85,9 @@ namespace mage {
 	}
 
 	void Node::RemoveChild(NodePtr node) {
+		using std::cbegin;
+		using std::cend;
+		
 		if (  nullptr == node
 			|| m_this != node->m_parent) {
 			return;
@@ -93,9 +96,8 @@ namespace mage {
 		node->m_parent = nullptr;
 		node->m_transform.SetDirty();
 
-		if (const auto it = std::find(std::cbegin(m_childs), 
-									  std::cend(m_childs), node); 
-			it != std::cend(m_childs)) {
+		if (const auto it = std::find(cbegin(m_childs), cend(m_childs), node); 
+			it != cend(m_childs)) {
 
 			m_childs.erase(it);
 		}

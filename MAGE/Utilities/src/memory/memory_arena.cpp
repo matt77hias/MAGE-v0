@@ -60,13 +60,17 @@ namespace mage {
 	}
 
 	void MemoryArena::Reset() {
+		using std::begin;
+
 		m_current_block_pos = 0;
 		m_current_block     = MemoryBlock(0, nullptr);
-		m_available_blocks.splice(std::begin(m_available_blocks), 
-								  m_used_blocks);
+		m_available_blocks.splice(begin(m_available_blocks), m_used_blocks);
 	}
 
 	void* MemoryArena::Alloc(size_t size) {
+		using std::begin;
+		using std::end;
+		
 		// Round up the given size to minimum machine alignment.
 		size = ((size + 15) & (~15));
 
@@ -78,8 +82,8 @@ namespace mage {
 			}
 
 			// Fetch new block from available blocks.
-			for (auto it = std::begin(m_available_blocks); 
-				 it != std::end(m_available_blocks); ++it) {
+			for (auto it = begin(m_available_blocks); 
+				 it != end(m_available_blocks); ++it) {
 				
 				if (it->first >= size) {
 					m_current_block = *it;

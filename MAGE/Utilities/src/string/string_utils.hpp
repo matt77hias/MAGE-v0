@@ -270,10 +270,14 @@ namespace mage {
 					A reference to the string to transform.
 	 */
 	inline void TransformToLowerCase(string& str) {
+		using std::begin;
+		using std::cbegin;
+		using std::cend;
+
 		const auto f = [](char c) noexcept {
 			return static_cast< char >(std::tolower(c));
 		};
-		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+		std::transform(cbegin(str), cend(str), begin(str), f);
 	}
 
 	/**
@@ -283,10 +287,14 @@ namespace mage {
 					A reference to the string to transform.
 	 */
 	inline void TransformToLowerCase(wstring& str) {
+		using std::begin;
+		using std::cbegin;
+		using std::cend;
+		
 		const auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towlower(c));
 		};
-		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+		std::transform(cbegin(str), cend(str), begin(str), f);
 	}
 
 	/**
@@ -296,10 +304,14 @@ namespace mage {
 					A reference to the string to transform.
 	 */
 	inline void TransformToUpperCase(string& str) {
+		using std::begin;
+		using std::cbegin;
+		using std::cend;
+		
 		const auto f = [](char c) noexcept {
 			return static_cast< char >(std::toupper(c));
 		};
-		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+		std::transform(cbegin(str), cend(str), begin(str), f);
 	}
 
 	/**
@@ -309,10 +321,14 @@ namespace mage {
 					A reference to the string to transform.
 	 */
 	inline void TransformToUpperCase(wstring& str) {
+		using std::begin;
+		using std::cbegin;
+		using std::cend;
+		
 		const auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towupper(c));
 		};
-		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+		std::transform(cbegin(str), cend(str), begin(str), f);
 	}
 
 	/**

@@ -83,6 +83,8 @@ namespace mage {
 
 	inline void Hammersley(size_t index, gsl::span< F32 > sample, 
 						   size_t nb_samples) noexcept {
+		using std::begin;
+		using std::end;
 		
 		Assert(index < nb_samples);
 		
@@ -90,10 +92,10 @@ namespace mage {
 		const auto nb_dims = static_cast< size_t >(size(sample));
 		Assert(0 < nb_dims && nb_dims - 1 <= size(g_primes));
 		
-		*std::begin(sample) = index / static_cast< F32 >(nb_samples);
+		*begin(sample) = index / static_cast< F32 >(nb_samples);
 		
 		size_t i = 0;
-		for (auto it = std::begin(sample) + 1; it != std::end(sample); ++it) {
+		for (auto it = begin(sample) + 1; it != end(sample); ++it) {
 			*it = RadicalInverse(index, static_cast< F32 >(g_primes[i++]));
 		}
 	}

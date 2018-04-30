@@ -582,6 +582,9 @@ namespace mage::rendering {
 	}
 
 	void SpriteBatch::Impl::SortSprites() {
+		using std::begin;
+		using std::end;
+		
 		m_sorted_sprites.reserve(m_sprites.capacity());
 		for (const auto& sprite : m_sprites) {
 			m_sorted_sprites.push_back(&sprite);
@@ -590,22 +593,16 @@ namespace mage::rendering {
 		switch (m_sort_mode) {
 
 		case SpriteSortMode::Texture: {
-			
-			std::sort(std::begin(m_sorted_sprites), 
-				      std::end(m_sorted_sprites), 
-				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept {
+			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites), 
+				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
 					     return lhs->m_texture < rhs->m_texture;
 				      });
 			break;
 		}
 		
 		case SpriteSortMode::BackToFront: {
-			
-			std::sort(std::begin(m_sorted_sprites),
-					  std::end(m_sorted_sprites),
-				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept {
+			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
+				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
 					     return lhs->m_origin_rotation_depth.m_w 
 							  > rhs->m_origin_rotation_depth.m_w;
 				      });
@@ -613,11 +610,8 @@ namespace mage::rendering {
 		}
 		
 		case SpriteSortMode::FrontToBack: {
-			
-			std::sort(std::begin(m_sorted_sprites),
-					  std::end(m_sorted_sprites),
-				      [](const SpriteInfo *lhs, 
-						 const SpriteInfo *rhs) noexcept {
+			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
+				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
 					     return lhs->m_origin_rotation_depth.m_w 
 							  < rhs->m_origin_rotation_depth.m_w;
 				      });

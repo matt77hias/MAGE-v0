@@ -313,10 +313,12 @@ namespace mage {
 	}
 
 	void Window::RemoveListener(WindowMessageListenerPtr listener) {
-		m_listeners.erase(std::remove(std::begin(m_listeners), 
-									  std::end(m_listeners), 
+		using std::begin;
+		using std::end;
+
+		m_listeners.erase(std::remove(begin(m_listeners), end(m_listeners), 
 									  listener), 
-						  std::end(m_listeners));
+						  end(m_listeners));
 	}
 
 	void Window::RemoveAllListeners() noexcept {
@@ -328,10 +330,12 @@ namespace mage {
 	}
 
 	void Window::RemoveHandler(WindowMessageHandlerPtr handler) {
-		m_handlers.erase(std::remove(std::begin(m_handlers), 
-									 std::end(m_handlers),
+		using std::begin;
+		using std::end;
+		
+		m_handlers.erase(std::remove(begin(m_handlers), end(m_handlers), 
 									 handler), 
-						 std::end(m_handlers));
+						 end(m_handlers));
 	}
 
 	void Window::RemoveAllHandlers() noexcept {

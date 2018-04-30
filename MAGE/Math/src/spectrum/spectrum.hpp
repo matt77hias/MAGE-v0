@@ -129,6 +129,64 @@ namespace mage {
 						spectrum).
 		 */
 		constexpr RGB& operator=(RGB&& rgb) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the red component of this RGB spectrum.
+
+		 @return		A reference to the red component of this RGB spectrum.
+		 */
+		constexpr F32& GetR() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the red component of this RGB spectrum.
+
+		 @return		The red component of this RGB spectrum.
+		 */
+		constexpr F32 GetR() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the green component of this RGB spectrum.
+
+		 @return		A reference to the green component of this RGB spectrum.
+		 */
+		constexpr F32& GetG() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the green component of this RGB spectrum.
+
+		 @return		The green component of this RGB spectrum.
+		 */
+		constexpr F32 GetG() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the blue component of this RGB spectrum.
+
+		 @return		A reference to the blue component of this RGB spectrum.
+		 */
+		constexpr F32& GetB() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the blue component of this RGB spectrum.
+
+		 @return		The blue component of this RGB spectrum.
+		 */
+		constexpr F32 GetB() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
@@ -238,6 +296,64 @@ namespace mage {
 						spectrum).
 		 */
 		constexpr SRGB& operator=(SRGB&& srgb) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the red component of this sRGB spectrum.
+
+		 @return		A reference to the red component of this sRGB spectrum.
+		 */
+		constexpr F32& GetR() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the red component of this sRGB spectrum.
+
+		 @return		The red component of this sRGB spectrum.
+		 */
+		constexpr F32 GetR() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the green component of this sRGB spectrum.
+
+		 @return		A reference to the green component of this sRGB spectrum.
+		 */
+		constexpr F32& GetG() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the green component of this sRGB spectrum.
+
+		 @return		The green component of this sRGB spectrum.
+		 */
+		constexpr F32 GetG() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the blue component of this sRGB spectrum.
+
+		 @return		A reference to the blue component of this sRGB spectrum.
+		 */
+		constexpr F32& GetB() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the blue component of this sRGB spectrum.
+
+		 @return		The blue component of this sRGB spectrum.
+		 */
+		constexpr F32 GetB() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
@@ -481,6 +597,82 @@ namespace mage {
 						spectrum).
 		 */
 		constexpr RGBA& operator=(RGBA&& rgba) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the red component of this RGB spectrum.
+
+		 @return		A reference to the red component of this RGB spectrum.
+		 */
+		constexpr F32& GetR() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the red component of this RGB spectrum.
+
+		 @return		The red component of this RGB spectrum.
+		 */
+		constexpr F32 GetR() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the green component of this RGB spectrum.
+
+		 @return		A reference to the green component of this RGB spectrum.
+		 */
+		constexpr F32& GetG() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the green component of this RGB spectrum.
+
+		 @return		The green component of this RGB spectrum.
+		 */
+		constexpr F32 GetG() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the blue component of this RGB spectrum.
+
+		 @return		A reference to the blue component of this RGB spectrum.
+		 */
+		constexpr F32& GetB() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the blue component of this RGB spectrum.
+
+		 @return		The blue component of this RGB spectrum.
+		 */
+		constexpr F32 GetB() const noexcept {
+			return operator[](2);
+		}
+	
+		/**
+		 Returns the alpha component of this RGB spectrum.
+
+		 @return		A reference to the alpha component of this RGB spectrum.
+		 */
+		constexpr F32& GetA() noexcept {
+			return operator[](3);
+		}
+
+		/**
+		 Returns the alpha component of this RGB spectrum.
+
+		 @return		The alpha component of this RGB spectrum.
+		 */
+		constexpr F32 GetA() const noexcept {
+			return operator[](3);
+		}
 	};
 
 	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
@@ -603,6 +795,82 @@ namespace mage {
 						spectrum).
 		 */
 		constexpr SRGBA& operator=(SRGBA&& rgba) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the red component of this sRGB spectrum.
+
+		 @return		A reference to the red component of this sRGB spectrum.
+		 */
+		constexpr F32& GetR() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the red component of this sRGB spectrum.
+
+		 @return		The red component of this sRGB spectrum.
+		 */
+		constexpr F32 GetR() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the green component of this sRGB spectrum.
+
+		 @return		A reference to the green component of this sRGB spectrum.
+		 */
+		constexpr F32& GetG() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the green component of this sRGB spectrum.
+
+		 @return		The green component of this sRGB spectrum.
+		 */
+		constexpr F32 GetG() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the blue component of this sRGB spectrum.
+
+		 @return		A reference to the blue component of this sRGB spectrum.
+		 */
+		constexpr F32& GetB() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the blue component of this sRGB spectrum.
+
+		 @return		The blue component of this sRGB spectrum.
+		 */
+		constexpr F32 GetB() const noexcept {
+			return operator[](2);
+		}
+	
+		/**
+		 Returns the alpha component of this sRGB spectrum.
+
+		 @return		A reference to the alpha component of this sRGB spectrum.
+		 */
+		constexpr F32& GetA() noexcept {
+			return operator[](3);
+		}
+
+		/**
+		 Returns the alpha component of this sRGB spectrum.
+
+		 @return		The alpha component of this sRGB spectrum.
+		 */
+		constexpr F32 GetA() const noexcept {
+			return operator[](3);
+		}
 	};
 
 	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
@@ -725,6 +993,28 @@ namespace mage {
 						XYZA spectrum).
 		 */
 		constexpr XYZA& operator=(XYZA&& xyza) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the alpha component of this XYZA spectrum.
+
+		 @return		A reference to the alpha component of this XYZA spectrum.
+		 */
+		constexpr F32& GetA() noexcept {
+			return operator[](3);
+		}
+
+		/**
+		 Returns the alpha component of this XYZA spectrum.
+
+		 @return		The alpha component of this XYZA spectrum.
+		 */
+		constexpr F32 GetA() const noexcept {
+			return operator[](3);
+		}
 	};
 
 	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");

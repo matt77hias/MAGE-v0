@@ -43,9 +43,9 @@ namespace mage {
 		 Constructs a set of UV texture coordinates.
 
 		 @param[in]		u
-						The u texture coordinate.
+						The U component.
 		 @param[in]		v
-						The v texture coordinate.			
+						The V component.			
 		 */
 		constexpr UV(F32 u, F32 v) noexcept
 			: F32x2(u, v) {}
@@ -111,6 +111,48 @@ namespace mage {
 						(i.e. this set of UV texture coordinates).
 		 */
 		constexpr UV& operator=(UV&& uv) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the U component of this set of texture coordinates.
+
+		 @return		A reference to the U component of this set of texture 
+						coordinates.
+		 */
+		constexpr F32& GetU() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the U component of this set of texture coordinates.
+
+		 @return		The U component of this set of texture coordinates.
+		 */
+		constexpr F32 GetU() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the V component of this set of texture coordinates.
+
+		 @return		A reference to the V component of this set of texture 
+						coordinates.
+		 */
+		constexpr F32& GetV() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the V component of this set of texture coordinates.
+
+		 @return		The V component of this set of texture coordinates.
+		 */
+		constexpr F32 GetV() const noexcept {
+			return operator[](1);
+		}
 	};
 
 	static_assert(sizeof(UV) == sizeof(F32x2));

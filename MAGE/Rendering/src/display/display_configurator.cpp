@@ -545,7 +545,8 @@ namespace mage::rendering {
 			m_adapter->GetDesc(&desc);
 			Edit_SetText(GetDlgItem(dialog, IDC_DISPLAY_ADAPTER), desc.Description);
 
-			if (m_script->empty()) {
+			using std::empty;
+			if (empty(*m_script)) {
 				m_script->Add(s_display_variable_aa, 0);
 				m_script->Add(s_display_variable_refresh_rate, 0);
 				m_script->Add(s_display_variable_resolution, 0);

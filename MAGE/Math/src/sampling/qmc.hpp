@@ -44,7 +44,8 @@ namespace mage {
 	}
 
 	inline void Halton(size_t index, gsl::span< F32 > sample) noexcept {
-		const size_t nb_dims = sample.size();
+		using std::size;
+		const auto nb_dims = static_cast< size_t >(size(sample));
 		Assert(nb_dims <= std::size(g_primes));
 
 		size_t i = 0;
@@ -85,8 +86,9 @@ namespace mage {
 		
 		Assert(index < nb_samples);
 		
-		const size_t nb_dims = sample.size();
-		Assert(0 < nb_dims && nb_dims - 1 <= std::size(g_primes));
+		using std::size;
+		const auto nb_dims = static_cast< size_t >(size(sample));
+		Assert(0 < nb_dims && nb_dims - 1 <= size(g_primes));
 		
 		*std::begin(sample) = index / static_cast< F32 >(nb_samples);
 		

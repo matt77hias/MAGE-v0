@@ -24,7 +24,8 @@ namespace mage {
 	inline bool ResourcePool< KeyT, ResourceT >::empty() const noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 
-		return m_resource_map.empty();
+		using std::empty;
+		return empty(m_resource_map);
 	}
 
 	template< typename KeyT, typename ResourceT >
@@ -32,7 +33,8 @@ namespace mage {
 	inline size_t ResourcePool< KeyT, ResourceT >::size() const noexcept {
 		std::lock_guard< std::mutex > lock(m_mutex);
 		
-		return m_resource_map.size();
+		using std::size;
+		return size(m_resource_map);
 	}
 
 	template< typename KeyT, typename ResourceT >
@@ -187,7 +189,8 @@ namespace mage {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
 
-		return m_resource_map.empty();
+		using std::empty;
+		return empty(m_resource_map);
 	}
 
 	template< typename KeyT, typename ResourceT >
@@ -197,7 +200,8 @@ namespace mage {
 		
 		std::lock_guard< std::mutex > lock(m_mutex);
 		
-		return m_resource_map.size();
+		using std::size;
+		return size(m_resource_map);
 	}
 
 	template< typename KeyT, typename ResourceT >

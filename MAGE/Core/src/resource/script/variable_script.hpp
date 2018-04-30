@@ -146,7 +146,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		bool empty() const noexcept {
-			return m_variables.empty();
+			using std::empty;
+			return empty(m_variables);
 		}
 
 		/**
@@ -156,7 +157,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		size_t size() const noexcept {
-			return m_variables.size();
+			using std::size;
+			return size(m_variables);
 		}
 
 		/**

@@ -158,7 +158,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		size_t GetNumberOfChilds() const noexcept {
-			return m_childs.size();
+			using std::size;
+			return size(m_childs);
 		}
 		
 		/**
@@ -169,7 +170,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		bool ContainsChilds() const {
-			return !m_childs.empty();
+			using std::empty;
+			return !empty(m_childs);
 		}
 
 		/**
@@ -255,7 +257,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		bool ContainsComponents() const noexcept {
-			return !m_components.empty();
+			using std::empty;
+			return !empty(m_components);
 		}
 
 		/**
@@ -265,7 +268,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		size_t GetNumberOfComponents() const noexcept {
-			return m_components.size();
+			using std::size;
+			return size(m_components);
 		}
 
 		/**

@@ -32,10 +32,11 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::Preprocess() {
-		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(), 
+		using std::empty;
+		ThrowIfFailed(empty(m_model_output.m_vertex_buffer), 
 					  "%ls: vertex buffer must be empty.", 
 					  GetFilename().c_str());
-		ThrowIfFailed(m_model_output.m_index_buffer.empty(), 
+		ThrowIfFailed(empty(m_model_output.m_index_buffer), 
 					  "%ls: index buffer must be empty.", 
 					  GetFilename().c_str());
 

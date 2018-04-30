@@ -162,7 +162,8 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool empty() const noexcept {
-			return m_glyphs.empty();
+			using std::empty;
+			return empty(m_glyphs);
 		}
 
 		/**
@@ -172,7 +173,8 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		size_t size() const noexcept {
-			return m_glyphs.size();
+			using std::size;
+			return size(m_glyphs);
 		}
 
 		/**

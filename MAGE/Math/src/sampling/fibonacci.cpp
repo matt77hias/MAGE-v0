@@ -18,8 +18,9 @@ namespace mage {
 											F32 shift, 
 											F32 alpha) noexcept {
 
+		using std::size;
 		auto sample    = samples.data();
-		const size_t n = samples.size();
+		const auto n   = static_cast< size_t >(size(samples));
 
 		// Boundary points
 		// alpha == 0.0f -> jagged boundary.
@@ -45,8 +46,10 @@ namespace mage {
 	void FibonacciSpiralSamplesOnUnitSphere(gsl::span< F32x3 > samples, 
 											F32 shift) noexcept {
 
-		const auto offset = 2.0f / samples.size();
-		const size_t n    = samples.size();
+		
+		using std::size;
+		const auto offset = 2.0f / size(samples);
+		const auto n      = static_cast< size_t >(size(samples));
 		
 		size_t i = 0;
 		for (auto& sample : samples) {
@@ -65,10 +68,11 @@ namespace mage {
 												F32 shift, 
 												bool positive) noexcept {
 
-		const auto offset = 1.0f / samples.size();
-		const size_t n    = 2 * samples.size();
+		using std::size;
+		const auto offset = 1.0f / size(samples);
+		const auto n      = 2 * static_cast< size_t >(size(samples));
 		
-		size_t i = (positive) ? samples.size() : 0;
+		size_t i = positive ? size(samples) : 0;
 		for (auto& sample : samples) {
 			const auto phi       = XM_GA * fmodf((i + shift), 
 												 static_cast< F32 >(n));
@@ -84,10 +88,12 @@ namespace mage {
 	void FibonacciSpiralCosineWeightedSamplesOnUnitHemisphere(
 		gsl::span< F32x3 > samples, F32 shift) noexcept {
 
+		using std::size;
+
 		size_t i = 0;
 		for (auto& sample : samples) {
 			const auto phi       = XM_GA * (i + shift);
-			const auto sin_theta = std::sqrt((i + 0.5f) / (samples.size() - 0.5f));
+			const auto sin_theta = std::sqrt((i + 0.5f) / (size(samples) - 0.5f));
 			const auto cos_theta = std::sqrt(1.0f - sin_theta * sin_theta);
 			
 			sample = F32x3(std::cos(phi) * sin_theta,

@@ -78,7 +78,8 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		size_t GetNumberOfShadowMaps() const noexcept {
-			return m_dsvs.size();
+			using std::size;
+			return size(m_dsvs);
 		}
 
 		void Bind(ID3D11DeviceContext& device_context) const noexcept {
@@ -171,11 +172,13 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		size_t GetNumberOfShadowMaps() const noexcept {
-			return m_dsvs.size();
+			using std::size;
+			return size(m_dsvs);
 		}
 		[[nodiscard]]
 		size_t GetNumberOfShadowCubeMaps() const noexcept {
-			return m_dsvs.size() / 6u;
+			using std::size;
+			return size(m_dsvs) / 6u;
 		}
 
 		void Bind(ID3D11DeviceContext& device_context) const noexcept {

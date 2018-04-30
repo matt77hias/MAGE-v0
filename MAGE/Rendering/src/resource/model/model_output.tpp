@@ -52,7 +52,8 @@ namespace mage::rendering {
 	void ModelOutput< VertexT, IndexT >
 		::SetMaterial(string material) {
 		
-		Assert(!m_model_parts.empty());
+		using std::empty;
+		Assert(!empty(m_model_parts));
 
 		auto& current = m_model_parts.back();
 		current.m_material = std::move(material);
@@ -62,7 +63,8 @@ namespace mage::rendering {
 	void ModelOutput< VertexT, IndexT >
 		::EndModelPart(bool create_bounding_volumes) noexcept {
 		
-		Assert(!m_model_parts.empty());
+		using std::empty;
+		Assert(!empty(m_model_parts));
 
 		auto& current        = m_model_parts.back();
 		const auto start     = current.m_start_index;

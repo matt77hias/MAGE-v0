@@ -441,7 +441,7 @@ namespace mage {
 			
 			// cos instead of sin in case the angles are not in [-1,1]
 			m_rotation[1] = -std::asin(XMVectorGetY(rotation.r[2]));
-			const F32 cp  = std::cos(m_rotation[2]);
+			const F32 cp  = std::cos(m_rotation[1]);
 			const F32 cr  = XMVectorGetY(rotation.r[1]) / cp;
 			m_rotation[2] = std::acos(cr);
 			const F32 cy  = XMVectorGetZ(rotation.r[2]) / cp;

@@ -40,6 +40,8 @@ ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-b
 
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
 
+BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/decltype-and-declval/), 2011.
+
 BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
 
 BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
@@ -55,6 +57,8 @@ FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppguide.html), 2018.
+
+GUEGANT J.: [*An introduction to C++'s SFINAE concept: compile-time introspection of a class member*](https://jguegant.github.io/blogs/tech/sfinae-introduction.html), 2015.
 
 HALDAR D.: [*C++ 11 Auto: How to use and avoid abuse*](http://www.acodersjourney.com/2016/02/c-11-auto/), 2016.
 
@@ -73,6 +77,8 @@ KRZEMIEŃSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08
 MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
+
+METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
 

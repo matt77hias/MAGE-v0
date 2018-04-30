@@ -19,7 +19,7 @@ namespace mage {
 	namespace details {
 
 		template< typename ActionT, typename FromT, size_t...I >
-		constexpr auto TransformArray(ActionT action, 
+		constexpr auto TransformArray(ActionT&& action, 
 									  const std::array< FromT, sizeof...(I) >& a, 
 									  std::index_sequence< I... >) {
 
@@ -48,10 +48,10 @@ namespace mage {
 	}
 
 	template< typename ActionT, typename FromT, size_t N >
-	constexpr auto TransformArray(ActionT action, 
+	constexpr auto TransformArray(ActionT&& action, 
 								  const std::array< FromT, N >& a) {
 		
-		return details::TransformArray(std::move(action), a,
+		return details::TransformArray(std::forward< ActionT >(action), a,
 									   std::make_index_sequence< N >());
 	}
 

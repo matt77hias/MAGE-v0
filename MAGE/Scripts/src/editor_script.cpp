@@ -115,7 +115,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (sky.GetTexture()) {
 				const auto& guid = sky.GetTexture()->GetGuid();
-				ImGui::LabelText("Sky Texture", str_convert(guid).c_str());
+				ImGui::LabelText("Sky Texture", WStringToString(guid).c_str());
 			}
 			else {
 				ImGui::Text("mage_black_texture");
@@ -617,7 +617,7 @@ namespace mage::script {
 			const auto base_color_tex = material.GetBaseColorTexture();
 			if (base_color_tex) {
 				const auto& guid = base_color_tex->GetGuid();
-				ImGui::Text(str_convert(guid).c_str());
+				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetBaseColorSRV());
 				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
@@ -647,7 +647,7 @@ namespace mage::script {
 			const auto material_tex = material.GetMaterialTexture();
 			if (material_tex) {
 				const auto& guid = material_tex->GetGuid();
-				ImGui::Text(str_convert(guid).c_str());
+				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetMaterialSRV());
 				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
@@ -663,7 +663,7 @@ namespace mage::script {
 			const auto normal_tex = material.GetNormalTexture();
 			if (normal_tex) {
 				const auto& guid = normal_tex->GetGuid();
-				ImGui::Text(str_convert(guid).c_str());
+				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetNormalSRV());
 				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
@@ -785,7 +785,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (base_color_tex) {
 				const auto& guid = base_color_tex->GetGuid();
-				ImGui::Text(str_convert(guid).c_str());
+				ImGui::Text(WStringToString(guid).c_str());
 				ImGui::Text("%u x %u texels", 
 							texture_resolution.m_x, texture_resolution.m_y);
 			}
@@ -841,7 +841,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (font) {
 				const auto& guid = font->GetGuid();
-				ImGui::Text(str_convert(guid).c_str());
+				ImGui::Text(WStringToString(guid).c_str());
 				ImGui::Text("%u x %u texels",
 							texture_resolution.m_x, texture_resolution.m_y);
 			}

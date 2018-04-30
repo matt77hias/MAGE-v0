@@ -88,10 +88,10 @@ namespace mage {
 		const size_t nb_dims = sample.size();
 		Assert(0 < nb_dims && nb_dims - 1 <= std::size(g_primes));
 		
-		*sample.begin() = index / static_cast< F32 >(nb_samples);
+		*std::begin(sample) = index / static_cast< F32 >(nb_samples);
 		
 		size_t i = 0;
-		for (auto it = sample.begin() + 1; it != sample.end(); ++it) {
+		for (auto it = std::begin(sample) + 1; it != std::end(sample); ++it) {
 			*it = RadicalInverse(index, static_cast< F32 >(g_primes[i++]));
 		}
 	}

@@ -182,8 +182,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		bool ContainsChild(ProxyPtr< const Node > node) const {
-			return std::find(m_childs.begin(), m_childs.end(), node) 
-				   != m_childs.end();
+			return std::find(std::cbegin(m_childs), std::cend(m_childs), node)
+				   != std::cend(m_childs);
 		}
 
 		/**

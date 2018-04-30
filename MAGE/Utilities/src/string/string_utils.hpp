@@ -10,9 +10,25 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+#include <cctype>
+#include <cwctype>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	//-------------------------------------------------------------------------
+	// Engine Declarations and Definitions: zstring, wzstring
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
 	 Checks whether the given null-terminated strings are equal.
@@ -240,6 +256,65 @@ namespace mage {
 					  size_t num, 
 					  NotNull< NotNull< const_wzstring >* > input) noexcept;
 
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Engine Declarations and Definitions: string, wstring
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Transforms the given string to lower case.
+
+	 @param[in,out] str
+					A reference to the string to transform.
+	 */
+	inline void TransformToLowerCase(string& str) {
+		const auto f = [](char c) noexcept {
+			return static_cast< char >(std::tolower(c));
+		};
+		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+	}
+
+	/**
+	 Transforms the given string to lower case.
+
+	 @param[in,out] str
+					A reference to the string to transform.
+	 */
+	inline void TransformToLowerCase(wstring& str) {
+		const auto f = [](wchar_t c) noexcept {
+			return static_cast< wchar_t >(std::towlower(c));
+		};
+		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+	}
+
+	/**
+	 Transforms the given string to upper case.
+
+	 @param[in,out] str
+					A reference to the string to transform.
+	 */
+	inline void TransformToUpperCase(string& str) {
+		const auto f = [](char c) noexcept {
+			return static_cast< char >(std::toupper(c));
+		};
+		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+	}
+
+	/**
+	 Transforms the given string to upper case.
+
+	 @param[in,out] str
+					A reference to the string to transform.
+	 */
+	inline void TransformToUpperCase(wstring& str) {
+		const auto f = [](wchar_t c) noexcept {
+			return static_cast< wchar_t >(std::towupper(c));
+		};
+		std::transform(std::cbegin(str), std::cend(str), std::begin(str), f);
+	}
+
 	/**
 	 Converts the given string to a wide string.
 
@@ -259,4 +334,6 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	const string str_convert(const wstring& str);
+
+	#pragma endregion
 }

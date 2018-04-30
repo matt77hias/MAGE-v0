@@ -118,8 +118,8 @@ namespace mage::rendering {
 
 	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput& output) {
 		m_glyphs = std::move(output.m_glyphs);
-		const auto sorted = std::is_sorted(m_glyphs.cbegin(), 
-			                               m_glyphs.cend(), 
+		const auto sorted = std::is_sorted(std::cbegin(m_glyphs), 
+			                               std::cend(m_glyphs), 
 			                               GlyphLessThan());
 		ThrowIfFailed(sorted, "Sprite font glyphs are not sorted.");
 
@@ -331,16 +331,16 @@ namespace mage::rendering {
 
 	[[nodiscard]]
 	bool SpriteFont::ContainsCharacter(wchar_t character) const {
-		return std::binary_search(m_glyphs.cbegin(), 
-			                      m_glyphs.cend(), 
+		return std::binary_search(std::cbegin(m_glyphs), 
+			                      std::cend(m_glyphs), 
 			                      character, 
 			                      GlyphLessThan());
 	}
 	
 	[[nodiscard]]
 	const Glyph* SpriteFont::GetGlyph(wchar_t character) const {
-		if (const auto it = std::lower_bound(m_glyphs.cbegin(), 
-			                                 m_glyphs.cend(), 
+		if (const auto it = std::lower_bound(std::cbegin(m_glyphs), 
+			                                 std::cend(m_glyphs), 
 			                                 character, 
 			                                 GlyphLessThan()); 
 			it != m_glyphs.cend() && it->m_character == character) {

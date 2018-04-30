@@ -6,17 +6,8 @@
 #include "loaders\sprite_font_loader.hpp"
 #include "loaders\font\font_loader.hpp"
 #include "file\file_utils.hpp"
+#include "string\string_utils.hpp"
 #include "exception\exception.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <algorithm>
-#include <cwctype>
 
 #pragma endregion
 
@@ -31,8 +22,7 @@ namespace mage::rendering::loader {
 		                          const SpriteFontDescriptor& desc) {
 		
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(),
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"font" == extension) {
 			ImportFontFromFile(fname, device, output, desc);

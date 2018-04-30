@@ -6,17 +6,8 @@
 #include "loaders\variable_script_loader.hpp"
 #include "loaders\var\var_loader.hpp"
 #include "file\file_utils.hpp"
+#include "string\string_utils.hpp"
 #include "exception\exception.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <algorithm>
-#include <cwctype>
 
 #pragma endregion
 
@@ -30,8 +21,7 @@ namespace mage::loader {
 									  variable_buffer) {
 		
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(), 
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"var" == extension) {
 			ImportVARFromFile(fname, variable_buffer);
@@ -47,8 +37,7 @@ namespace mage::loader {
 									variable_buffer) {
 		
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(),
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"var" == extension) {
 			ExportVARToFile(fname, variable_buffer);

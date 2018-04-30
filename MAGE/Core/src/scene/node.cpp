@@ -93,8 +93,9 @@ namespace mage {
 		node->m_parent = nullptr;
 		node->m_transform.SetDirty();
 
-		if (const auto it = std::find(m_childs.begin(), m_childs.end(), node); 
-			it != m_childs.end()) {
+		if (const auto it = std::find(std::cbegin(m_childs), 
+									  std::cend(m_childs), node); 
+			it != std::cend(m_childs)) {
 
 			m_childs.erase(it);
 		}

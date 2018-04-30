@@ -6,16 +6,7 @@
 #include "loaders\material_loader.hpp"
 #include "loaders\mtl\mtl_loader.hpp"
 #include "resource\rendering_resource_manager.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <algorithm>
-#include <cwctype>
+#include "string\string_utils.hpp"
 
 #pragma endregion
 
@@ -29,8 +20,7 @@ namespace mage::rendering::loader {
 								std::vector< Material >& materials) {
 		
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(),
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"mtl" == extension) {
 			ImportMTLMaterialFromFile(fname, resource_manaer, materials);

@@ -8,6 +8,7 @@
 #include "loaders\dds\screen_grab.hpp"
 #include "loaders\wic\wic_loader.hpp"
 #include "file\file_utils.hpp"
+#include "string\string_utils.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion
@@ -17,8 +18,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <algorithm>
-#include <cwctype>
 #include <wincodec.h>
 
 #pragma endregion
@@ -33,8 +32,7 @@ namespace mage::rendering::loader {
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
 		
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(),
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"dds" == extension) {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
@@ -100,8 +98,7 @@ namespace mage::rendering::loader {
 		                     ID3D11Resource& texture) {
 
 		auto extension = GetFileExtension(fname);
-		std::transform(extension.begin(), extension.end(), extension.begin(),
-					   std::towlower);
+		TransformToLowerCase(extension);
 
 		if (L"dds" == extension) {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(

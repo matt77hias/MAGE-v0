@@ -274,7 +274,7 @@ namespace mage {
 		using std::cbegin;
 		using std::cend;
 
-		const auto f = [](char c) noexcept {
+		constexpr auto f = [](char c) noexcept {
 			return static_cast< char >(std::tolower(c));
 		};
 		std::transform(cbegin(str), cend(str), begin(str), f);
@@ -291,7 +291,7 @@ namespace mage {
 		using std::cbegin;
 		using std::cend;
 		
-		const auto f = [](wchar_t c) noexcept {
+		constexpr auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towlower(c));
 		};
 		std::transform(cbegin(str), cend(str), begin(str), f);
@@ -308,7 +308,7 @@ namespace mage {
 		using std::cbegin;
 		using std::cend;
 		
-		const auto f = [](char c) noexcept {
+		constexpr auto f = [](char c) noexcept {
 			return static_cast< char >(std::toupper(c));
 		};
 		std::transform(cbegin(str), cend(str), begin(str), f);
@@ -325,7 +325,7 @@ namespace mage {
 		using std::cbegin;
 		using std::cend;
 		
-		const auto f = [](wchar_t c) noexcept {
+		constexpr auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towupper(c));
 		};
 		std::transform(cbegin(str), cend(str), begin(str), f);

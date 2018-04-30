@@ -185,6 +185,12 @@
     <ClInclude Include="Utilities\src\system\game_timer.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\collection\array.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\collection\tupple.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">

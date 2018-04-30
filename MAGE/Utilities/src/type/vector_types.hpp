@@ -8,6 +8,9 @@
 // Scalar types.
 #include "type\scalar_types.hpp"
 
+#include "collection\array.hpp"
+#include "collection\tupple.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------

@@ -14,9 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	#pragma warning( push )
-	#pragma warning( disable : 4201 ) // Anonymous struct.
-
 	/**
 	 A struct of glyphs.
 	 */
@@ -143,31 +140,14 @@ namespace mage::rendering {
 		 */
 		RECT m_sub_rectangle;
 		
-		union {
-			struct {
-
-				/**
-				 The offset of this glyph from the left.
-				 */
-				F32 m_offset_x;
-
-				/**
-				 The offset of this glyph from the top.
-				 */
-				F32 m_offset_y;
-			};
-
-			/**
-			 The offsets of this glyph.
-			 */
-			F32 m_offsets[2];
-		};
+		/**
+		 The offset of this glyph [from the left, from the top].
+		 */
+		F32x2 m_offset;
 
 		/**
 		 The offset of this glyph to the right.
 		 */
 		F32 m_advance_x;
 	};
-
-	#pragma warning( pop )
 }

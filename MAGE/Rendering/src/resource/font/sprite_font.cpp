@@ -183,12 +183,12 @@ namespace mage::rendering {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::max(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset[0]);
 
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-						const auto top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
+						const auto top_left = XMVectorSet(x, y + glyph->m_offset[1], 0.0f, 0.0f);
 						const auto& flip    = axis_direction_table[index];
 						auto offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
@@ -246,14 +246,14 @@ namespace mage::rendering {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::max(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset[0]);
 
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
 						result = XMVectorMax(result, 
 							XMVectorSet(x + width, 
-								        y + std::max(m_line_spacing, height + glyph->m_offset_y), 
+								        y + std::max(m_line_spacing, height + glyph->m_offset[1]), 
 								        0.0f, 
 								        0.0f));
 					}
@@ -299,13 +299,13 @@ namespace mage::rendering {
 
 				default: {
 					const auto glyph = GetGlyph(character);
-					x = std::max(0.0f, x + glyph->m_offset_x);
+					x = std::max(0.0f, x + glyph->m_offset[0]);
 					
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
 						const auto min_x = top_left[0] + x;
-						const auto min_y = top_left[1] + y + glyph->m_offset_y;
+						const auto min_y = top_left[1] + y + glyph->m_offset[1];
 						const auto max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
 						const auto max_y = min_y + height;
 

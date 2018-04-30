@@ -32,8 +32,8 @@ namespace mage::rendering {
 	inline const XMMATRIX XM_CALLCONV 
 		GetViewportTransform(const U32x2& resolution) noexcept {
 
-		const auto width  = (0u < resolution.m_x) ? 2.0f / resolution.m_x : 0.0f;
-		const auto height = (0u < resolution.m_y) ? 2.0f / resolution.m_y : 0.0f;
+		const auto width  = (0u < resolution[0]) ? 2.0f / resolution[0] : 0.0f;
+		const auto height = (0u < resolution[1]) ? 2.0f / resolution[1] : 0.0f;
 
 		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
 		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
@@ -140,7 +140,7 @@ namespace mage::rendering {
 		}
 
 		void SetTopLeft(const S32x2& top_left) noexcept {
-			SetTopLeft(top_left.m_x, top_left.m_y);
+			SetTopLeft(top_left[0], top_left[1]);
 		}
 
 		[[nodiscard]]
@@ -155,7 +155,7 @@ namespace mage::rendering {
 		}
 
 		void SetSize(const U32x2& size) noexcept {
-			SetSize(size.m_x, size.m_y);
+			SetSize(size[0], size[1]);
 		}
 
 		[[nodiscard]]
@@ -169,7 +169,7 @@ namespace mage::rendering {
 		}
 
 		void SetDepthRange(const F32x2& range) noexcept {
-			SetDepthRange(range.m_x, range.m_y);
+			SetDepthRange(range[0], range[1]);
 		}
 
 		[[nodiscard]]
@@ -186,8 +186,8 @@ namespace mage::rendering {
 		[[nodiscard]]
 		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size) noexcept {
 			D3D11_VIEWPORT viewport = {};
-			viewport.Width    = static_cast< F32 >(size.m_x);
-			viewport.Height   = static_cast< F32 >(size.m_y);
+			viewport.Width    = static_cast< F32 >(size[0]);
+			viewport.Height   = static_cast< F32 >(size[1]);
 			viewport.MaxDepth = 1.0f;
 			return viewport;
 		}

@@ -59,12 +59,12 @@ namespace mage::script {
 
 		[[nodiscard]]
 		F32 GetSensitivityX() const noexcept {
-			return m_sensitivity.m_x;
+			return m_sensitivity[0];
 		}
 		
 		[[nodiscard]]
 		F32 GetSensitivityY() const noexcept {
-			return m_sensitivity.m_y;
+			return m_sensitivity[1];
 		}
 		
 		[[nodiscard]]const F32x2 GetSensitivity() const noexcept {
@@ -72,16 +72,16 @@ namespace mage::script {
 		}
 
 		void SetSensitivityX(F32 x) noexcept {
-			m_sensitivity.m_x = x;
+			m_sensitivity[0] = x;
 		}
 		
 		void SetSensitivityY(F32 y) noexcept {
-			m_sensitivity.m_y = y;
+			m_sensitivity[1] = y;
 		}
 		
 		void SetSensitivity(F32 x, F32 y) {
-			m_sensitivity.m_x = x;
-			m_sensitivity.m_y = y;
+			m_sensitivity[0] = x;
+			m_sensitivity[1] = y;
 		}
 		
 		void SetSensitivity(F32x2 sensitivity) noexcept {
@@ -94,12 +94,12 @@ namespace mage::script {
 
 		[[nodiscard]]
 		F32 GetMinimumRotationX() const noexcept {
-			return m_minimum_rotation.m_x;
+			return m_minimum_rotation[0];
 		}
 		
 		[[nodiscard]]
 		F32 GetMinimumRotationY() const noexcept {
-			return m_minimum_rotation.m_y;
+			return m_minimum_rotation[1];
 		}
 		
 		[[nodiscard]]
@@ -108,16 +108,16 @@ namespace mage::script {
 		}
 		
 		void SetMinimumRotationX(F32 x) noexcept {
-			m_minimum_rotation.m_x = x;
+			m_minimum_rotation[0] = x;
 		}
 		
 		void SetMinimumRotationY(F32 y) noexcept {
-			m_minimum_rotation.m_y = y;
+			m_minimum_rotation[1] = y;
 		}
 		
 		void SetMinimumRotation(F32 x, F32 y) noexcept {
-			m_minimum_rotation.m_x = x;
-			m_minimum_rotation.m_y = y;
+			m_minimum_rotation[0] = x;
+			m_minimum_rotation[1] = y;
 		}
 		
 		void SetMinimumRotation(F32x2 minimum_rotation) noexcept {
@@ -130,12 +130,12 @@ namespace mage::script {
 
 		[[nodiscard]]
 		F32 GetMaximumRotationX() const noexcept {
-			return m_maximum_rotation.m_x;
+			return m_maximum_rotation[0];
 		}
 
 		[[nodiscard]]
 		F32 GetMaximumRotationY() const noexcept {
-			return m_maximum_rotation.m_y;
+			return m_maximum_rotation[1];
 		}
 
 		[[nodiscard]]
@@ -144,16 +144,16 @@ namespace mage::script {
 		}
 		
 		void SetMaximumRotationX(F32 x) noexcept {
-			m_maximum_rotation.m_x = x;
+			m_maximum_rotation[0] = x;
 		}
 		
 		void SetMaximumRotationY(F32 y) noexcept {
-			m_maximum_rotation.m_y = y;
+			m_maximum_rotation[1] = y;
 		}
 		
 		void SetMaximumRotation(F32 x, F32 y) noexcept {
-			m_maximum_rotation.m_x = x;
-			m_maximum_rotation.m_y = y;
+			m_maximum_rotation[0] = x;
+			m_maximum_rotation[1] = y;
 		}
 		
 		void SetMaximumRotation(F32x2 maximum_rotation) noexcept {
@@ -165,11 +165,11 @@ namespace mage::script {
 		}
 
 		void InvertDirectionX() noexcept {
-			m_direction.m_x *= -1.0f;
+			m_direction[0] *= -1.0f;
 		}
 		
 		void InvertDirectionY() noexcept {
-			m_direction.m_y *= -1.0f;
+			m_direction[1] *= -1.0f;
 		}
 
 	private:

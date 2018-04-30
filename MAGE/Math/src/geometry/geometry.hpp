@@ -422,7 +422,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const UV InvertHandness(const UV& uv) noexcept {
-		return UV(uv.m_x, 1.0f - uv.m_y);
+		return UV(uv[0], 1.0f - uv[1]);
 	}
 	
 	/**
@@ -434,7 +434,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const Point3 InvertHandness(const Point3& point) noexcept {
-		return Point3(point.m_x, point.m_y, -point.m_z);
+		return Point3(point[0], point[1], -point[2]);
 	}
 	
 	/**
@@ -446,7 +446,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const Normal3 InvertHandness(const Normal3& normal) noexcept {
-		return Normal3(normal.m_x, normal.m_y, -normal.m_z);
+		return Normal3(normal[0], normal[1], -normal[2]);
 	}
 
 	/**
@@ -458,7 +458,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const Direction3 InvertHandness(const Direction3& direction) noexcept {
-		return Direction3(direction.m_x, direction.m_y, -direction.m_z);
+		return Direction3(direction[0], direction[1], -direction[2]);
 	}
 
 	#pragma endregion

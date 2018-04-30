@@ -76,7 +76,7 @@ namespace mage::loader {
 					sprintf_s(output, std::size(output),
 						      "%s %s %d %d",
 						      g_var_token_int2, key.c_str(), 
-						      v->m_x, v->m_y);
+						      (*v)[0], (*v)[1]);
 					WriteStringLine(output);
 					continue;
 				}
@@ -89,7 +89,7 @@ namespace mage::loader {
 					sprintf_s(output, std::size(output),
 						      "%s %s %d %d %d",
 						      g_var_token_int3, key.c_str(), 
-						      v->m_x, v->m_y, v->m_z);
+						      (*v)[0], (*v)[1], (*v)[2]);
 					WriteStringLine(output);
 					continue;
 				}
@@ -115,7 +115,7 @@ namespace mage::loader {
 					sprintf_s(output, std::size(output),
 						      "%s %s %f %f", 
 						      g_var_token_float2, key.c_str(),
-						      v->m_x, v->m_y);
+						      (*v)[0], (*v)[1]);
 					WriteStringLine(output);
 					continue;
 				}
@@ -128,7 +128,7 @@ namespace mage::loader {
 					sprintf_s(output, std::size(output),
 						      "%s %s %f %f %f", 
 						      g_var_token_float3, key.c_str(),
-						      v->m_x, v->m_y, v->m_z);
+						      (*v)[0], (*v)[1], (*v)[2]);
 					WriteStringLine(output);
 					continue;
 				}
@@ -141,7 +141,7 @@ namespace mage::loader {
 					sprintf_s(output, std::size(output),
 						      "%s %s %f %f %f %f", 
 						      g_var_token_float4, key.c_str(), 
-						      v->m_x, v->m_y, v->m_z, v->m_w);
+						      (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
 					WriteStringLine(output);
 					continue;
 				}

@@ -36,9 +36,9 @@ namespace mage::rendering {
 		m_dof_cs->BindShader(m_device_context);
 
 		// Dispatch the pass.
-		const auto nb_groups_x = GetNumberOfGroups(viewport_size.m_x,
+		const auto nb_groups_x = GetNumberOfGroups(viewport_size[0],
 												   GROUP_SIZE_2D_DEFAULT);
-		const auto nb_groups_y = GetNumberOfGroups(viewport_size.m_y,
+		const auto nb_groups_y = GetNumberOfGroups(viewport_size[1],
 												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
@@ -52,9 +52,9 @@ namespace mage::rendering {
 		cs->BindShader(m_device_context);
 
 		// Dispatch the pass.
-		const auto nb_groups_x = GetNumberOfGroups(viewport_size.m_x,
+		const auto nb_groups_x = GetNumberOfGroups(viewport_size[0],
 												   GROUP_SIZE_2D_DEFAULT);
-		const auto nb_groups_y = GetNumberOfGroups(viewport_size.m_y,
+		const auto nb_groups_y = GetNumberOfGroups(viewport_size[1],
 												   GROUP_SIZE_2D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}

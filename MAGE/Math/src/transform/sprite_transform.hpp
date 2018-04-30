@@ -140,7 +140,7 @@ namespace mage {
 						The x-value of the translation component.
 		 */
 		void SetTranslationX(F32 x) noexcept {
-			m_translation.m_x = x;
+			m_translation[0] = x;
 		}
 
 		/**
@@ -151,7 +151,7 @@ namespace mage {
 						The y-value of the translation component.
 		 */
 		void SetTranslationY(F32 y) noexcept {
-			m_translation.m_y = y;
+			m_translation[1] = y;
 		}
 
 		/**
@@ -198,7 +198,7 @@ namespace mage {
 						The x-value of the translation component to add.
 		 */
 		void AddTranslationX(F32 x) noexcept {
-			m_translation.m_x += x;
+			m_translation[0] += x;
 		}
 
 		/**
@@ -209,7 +209,7 @@ namespace mage {
 						The y-value of the translation component to add.
 		 */
 		void AddTranslationY(F32 y) noexcept {
-			m_translation.m_y += y;
+			m_translation[1] += y;
 		}
 
 		/**
@@ -234,7 +234,7 @@ namespace mage {
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const F32x2& translation) noexcept {
-			AddTranslation(translation.m_x, translation.m_y);
+			AddTranslation(translation[0], translation[1]);
 		}
 
 		/**
@@ -258,7 +258,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetTranslationX() const noexcept {
-			return m_translation.m_x;
+			return m_translation[0];
 		}
 
 		/**
@@ -270,7 +270,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetTranslationY() const noexcept {
-			return m_translation.m_y;
+			return m_translation[1];
 		}
 
 		/**
@@ -410,7 +410,7 @@ namespace mage {
 						The x-value of the rotation origin.
 		 */
 		void SetRotationOriginX(F32 x) noexcept {
-			m_rotation_origin.m_x = x;
+			m_rotation_origin[0] = x;
 		}
 
 		/**
@@ -421,7 +421,7 @@ namespace mage {
 						The y-value of the rotation origin.
 		 */
 		void SetRotationOriginY(F32 y) noexcept {
-			m_rotation_origin.m_y = y;
+			m_rotation_origin[1] = y;
 		}
 
 		/**
@@ -468,7 +468,7 @@ namespace mage {
 						The x-value of the rotation origin to add.
 		 */
 		void AddRotationOriginX(F32 x) noexcept {
-			m_rotation_origin.m_x += x;
+			m_rotation_origin[0] += x;
 		}
 
 		/**
@@ -479,7 +479,7 @@ namespace mage {
 						The y-value of the rotation origin to add.
 		 */
 		void AddRotationOriginY(F32 y) noexcept {
-			m_rotation_origin.m_y += y;
+			m_rotation_origin[1] += y;
 		}
 
 		/**
@@ -504,7 +504,7 @@ namespace mage {
 						A reference to the rotation origin to add.
 		 */
 		void AddRotationOrigin(const F32x2& rotation_origin) noexcept {
-			AddRotationOrigin(rotation_origin.m_x, rotation_origin.m_y);
+			AddRotationOrigin(rotation_origin[0], rotation_origin[1]);
 		}
 
 		/**
@@ -527,7 +527,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetRotationOriginX() const noexcept {
-			return m_rotation_origin.m_x;
+			return m_rotation_origin[0];
 		}
 
 		/**
@@ -538,7 +538,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetRotationOriginY() const noexcept {
-			return m_rotation_origin.m_y;
+			return m_rotation_origin[1];
 		}
 
 		/**
@@ -576,7 +576,7 @@ namespace mage {
 						The x-value of the scale component.
 		 */
 		void SetScaleX(F32 x) noexcept {
-			m_scale.m_x = x;
+			m_scale[0] = x;
 		}
 
 		/**
@@ -587,7 +587,7 @@ namespace mage {
 						The y-value of the scale component.
 		 */
 		void SetScaleY(F32 y) noexcept {
-			m_scale.m_y = y;
+			m_scale[1] = y;
 		}
 
 		/**
@@ -645,7 +645,7 @@ namespace mage {
 						The x-value of the scale component to add.
 		 */
 		void AddScaleX(F32 x) noexcept {
-			m_scale.m_x += x;
+			m_scale[0] += x;
 		}
 
 		/**
@@ -656,7 +656,7 @@ namespace mage {
 						The y-value of the scale component to add.
 		 */
 		void AddScaleY(F32 y) noexcept {
-			m_scale.m_y += y;
+			m_scale[1] += y;
 		}
 
 		/**
@@ -692,7 +692,7 @@ namespace mage {
 						A reference to the scale component to add.
 		 */
 		void AddScale(const F32x2& scale) noexcept {
-			AddScale(scale.m_x, scale.m_y);
+			AddScale(scale[0], scale[1]);
 		}
 
 		/**
@@ -715,7 +715,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetScaleX() const noexcept {
-			return m_scale.m_x;
+			return m_scale[0];
 		}
 
 		/**
@@ -726,7 +726,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		F32 GetScaleY() const noexcept {
-			return m_scale.m_y;
+			return m_scale[1];
 		}
 
 		/**

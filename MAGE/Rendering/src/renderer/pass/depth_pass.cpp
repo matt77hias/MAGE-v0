@@ -119,7 +119,7 @@ namespace mage::rendering {
 			
 			if (State::Active != model.GetState()
 				|| !material.IsTransparant()
-				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
+				|| material.GetBaseColor()[3] < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 			
@@ -168,7 +168,7 @@ namespace mage::rendering {
 			if (State::Active != model.GetState()
 				|| !model.OccludesLight()
 				|| !material.IsTransparant()
-				|| material.GetBaseColor().m_w < TRANSPARENCY_SHADOW_THRESHOLD) {
+				|| material.GetBaseColor()[3] < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
 			

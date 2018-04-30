@@ -456,13 +456,13 @@ namespace mage::rendering {
 		Assert(m_in_begin_end_pair);
 
 		// destination: [Tx Ty Sx Sy]
-		const auto destination = XMVectorSet(transform.GetTranslation().m_x,
-										     transform.GetTranslation().m_y,
-										     transform.GetScale().m_x,
-										     transform.GetScale().m_y);
+		const auto destination = XMVectorSet(transform.GetTranslation()[0],
+										     transform.GetTranslation()[1],
+										     transform.GetScale()[0],
+										     transform.GetScale()[1]);
 		// origin_rotation_depth: [ROx ROy R D]
-		const auto origin_rotation_depth = XMVectorSet(transform.GetRotationOrigin().m_x, 
-										               transform.GetRotationOrigin().m_y, 
+		const auto origin_rotation_depth = XMVectorSet(transform.GetRotationOrigin()[0], 
+										               transform.GetRotationOrigin()[1], 
 										               transform.GetRotation(), 
 										               transform.GetDepth());
 		auto flags = static_cast< U32 >(effects);
@@ -603,8 +603,8 @@ namespace mage::rendering {
 		case SpriteSortMode::BackToFront: {
 			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
 				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
-					     return lhs->m_origin_rotation_depth.m_w 
-							  > rhs->m_origin_rotation_depth.m_w;
+					     return lhs->m_origin_rotation_depth[3] 
+							  > rhs->m_origin_rotation_depth[3];
 				      });
 			break;
 		}
@@ -612,8 +612,8 @@ namespace mage::rendering {
 		case SpriteSortMode::FrontToBack: {
 			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
 				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
-					     return lhs->m_origin_rotation_depth.m_w 
-							  < rhs->m_origin_rotation_depth.m_w;
+					     return lhs->m_origin_rotation_depth[3] 
+							  < rhs->m_origin_rotation_depth[3];
 				      });
 			break;
 		}
@@ -694,8 +694,8 @@ namespace mage::rendering {
 		const auto destination           = XMLoad(sprite.m_destination);
 		const auto color                 = XMLoad(sprite.m_color);
 		const auto origin_rotation_depth = XMLoad(sprite.m_origin_rotation_depth);
-		const auto rotation              = sprite.m_origin_rotation_depth.m_z;
-		const auto depth                 = sprite.m_origin_rotation_depth.m_w;
+		const auto rotation              = sprite.m_origin_rotation_depth[2];
+		const auto depth                 = sprite.m_origin_rotation_depth[3];
 		const auto flags                 = sprite.m_flags;
 		auto source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		auto destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);

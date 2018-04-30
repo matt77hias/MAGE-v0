@@ -239,11 +239,11 @@ namespace mage::rendering {
 			const auto clipping_planes = GetClippingPlanes();
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes.m_x;
-			const auto far_plane  = clipping_planes.m_y;
+			const auto near_plane = clipping_planes[0];
+			const auto far_plane  = clipping_planes[1];
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes.m_y;
-			const auto far_plane  = clipping_planes.m_x;
+			const auto near_plane = clipping_planes[1];
+			const auto far_plane  = clipping_planes[0];
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
 			return XMMatrixPerspectiveFovLH(GetFOVY(), 

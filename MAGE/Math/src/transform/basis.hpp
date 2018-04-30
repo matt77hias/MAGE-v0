@@ -54,20 +54,16 @@ namespace mage {
 		                                             XMVECTOR& b2) noexcept {
 		const auto nf = XMStore< F32x3 >(n);
 
-		if (nf.m_z < -0.9999999f) {
+		if (nf[2] < -0.9999999f) {
 			b1 = XMVectorSet( 0.0f, -1.0f, 0.0f, 0.0f);
 			b2 = XMVectorSet(-1.0f,  0.0f, 0.0f, 0.0f);
 			return;
 		}
 
-		const auto a = 1.0f / (1.0f + nf.m_z);
-		const auto b = -nf.m_x * nf.m_y * a;
-		b1 = XMVectorSet(1.0f - nf.m_x * nf.m_x * a, 
-			             b, 
-			             -nf.m_x, 0.0f);
-		b2 = XMVectorSet(b, 
-			             1.0f - nf.m_y * nf.m_y * a, 
-			             -nf.m_y, 0.0f);
+		const auto a = 1.0f / (1.0f + nf[2]);
+		const auto b = -nf[0] * nf[1] * a;
+		b1 = XMVectorSet(1.0f - nf[0] * nf[0] * a, b, -nf[0], 0.0f);
+		b2 = XMVectorSet(b, 1.0f - nf[1] * nf[1] * a, -nf[1], 0.0f);
 	}
 
 	/**
@@ -87,15 +83,11 @@ namespace mage {
 		                                          XMVECTOR& b2) noexcept {
 		const auto nf = XMStore< F32x3 >(n);
 
-		const auto sign = copysignf(1.0f, nf.m_z);
-		const auto a = -1.0f / (sign + nf.m_z);
-		const auto b = nf.m_x * nf.m_y * a;
-		b1 = XMVectorSet(1.0f + sign * nf.m_x * nf.m_x * a, 
-			             sign * b, 
-			             -sign * nf.m_x, 0.0f);
-		b2 = XMVectorSet(b, sign + nf.m_y * nf.m_y * a, 
-			             -nf.m_y, 
-			             0.0f);
+		const auto s = copysignf(1.0f, nf[2]);
+		const auto a = -1.0f / (s + nf[2]);
+		const auto b = nf[0] * nf[1] * a;
+		b1 = XMVectorSet(1.0f + s * nf[0] * nf[0] * a, s * b, -s * nf[0], 0.0f);
+		b2 = XMVectorSet(b, s + nf[1] * nf[1] * a, -nf[1], 0.0f);
 	}
 
 	/**

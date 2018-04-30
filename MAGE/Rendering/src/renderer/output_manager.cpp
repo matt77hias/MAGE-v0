@@ -154,12 +154,12 @@ namespace mage::rendering {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = resolution.m_x;
-		texture_desc.Height           = resolution.m_y;
+		texture_desc.Width            = resolution[0];
+		texture_desc.Height           = resolution[1];
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 1u;
 		texture_desc.Format           = format;
-		texture_desc.SampleDesc.Count = resolution.m_z;
+		texture_desc.SampleDesc.Count = resolution[2];
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE;
 		if (rtv) {
@@ -219,12 +219,12 @@ namespace mage::rendering {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = resolution.m_x;
-		texture_desc.Height           = resolution.m_y;
+		texture_desc.Width            = resolution[0];
+		texture_desc.Height           = resolution[1];
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 1u;
 		texture_desc.Format           = DXGI_FORMAT_R32_TYPELESS;
-		texture_desc.SampleDesc.Count = resolution.m_z;
+		texture_desc.SampleDesc.Count = resolution[2];
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE 
 			                          | D3D11_BIND_DEPTH_STENCIL;

@@ -28,7 +28,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Array
+	// Array, AlignedArray
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -49,13 +49,13 @@ namespace mage {
 		template< size_t FromN, 
 			      typename = std::enable_if_t< (FromN < N) > >
 		constexpr Array(const Array< T, FromN >& a) noexcept
-			: Array(EnlargeArray< N >(a)) {}
+			: std::array< T, N >(EnlargeArray< N >(a)) {}
 
 		template< size_t FromN, typename... ArgsT, 
 			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > >
 		constexpr Array(const Array< T, FromN >& a, ArgsT&&... args) noexcept
-			: Array(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
-												 ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
+			: std::array< T, N >(TuppleToArray(
+				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
 
 		constexpr Array(const Array& a) noexcept = default;
 		
@@ -63,7 +63,7 @@ namespace mage {
 
 		template< typename U >
 		constexpr explicit Array(const Array< U, N >& a) noexcept
-			: Array(StaticCastArray< T >(a)) {}
+			: std::array< T, N >(StaticCastArray< T >(a)) {}
 
 		~Array() = default;
 		
@@ -71,6 +71,9 @@ namespace mage {
 
 		constexpr Array& operator=(Array&& a) noexcept = default;
 	};
+
+	#pragma warning( push )
+	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T, size_t N, size_t AlignmentS = alignof(T), 
 		      typename = std::enable_if_t< (N != 1) > >
@@ -89,25 +92,24 @@ namespace mage {
 		template< size_t FromN, 
 			      typename = std::enable_if_t< (FromN <= N) > > 
 		constexpr explicit AlignedArray(const Array< T, FromN >& a) noexcept
-			: AlignedArray(EnlargeArray< N >(a)) {}
+			: std::array< T, N >(EnlargeArray< N >(a)) {}
 
 		template< size_t FromN, 
 			      typename = std::enable_if_t< (FromN < N) > > 
 		constexpr AlignedArray(const AlignedArray< T, FromN >& a) noexcept
-			: AlignedArray(EnlargeArray< N >(a)) {}
+			: std::array< T, N >(EnlargeArray< N >(a)) {}
 
 		template< size_t FromN, typename... ArgsT,
 		          typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > > 
 		constexpr explicit AlignedArray(const Array< T, FromN >& a, ArgsT&&... args) noexcept
-			: AlignedArray(TuppleToArray(
-				std::tuple_cat(ArrayToTupple(a),
-							   ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
+			: std::array< T, N >(TuppleToArray(
+				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
 
 		template< size_t FromN, typename... ArgsT, 
 		          typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > > 
 		constexpr AlignedArray(const AlignedArray< T, FromN >& a, ArgsT&&... args) noexcept
-			: AlignedArray(TuppleToArray(std::tuple_cat(ArrayToTupple(a),
-														ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
+			: std::array< T, N >(TuppleToArray(
+				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
 
 		constexpr AlignedArray(const AlignedArray& a) noexcept = default;
 
@@ -115,517 +117,13 @@ namespace mage {
 
 		template< typename U >
 		constexpr explicit AlignedArray(const AlignedArray< U, N >& a) noexcept
-			: AlignedArray(StaticCastArray< T >(a)) {}
+			: std::array< T, N >(StaticCastArray< T >(a)) {}
 
 		~AlignedArray() = default;
 
 		constexpr AlignedArray& operator=(const AlignedArray& a) noexcept = default;
 
 		constexpr AlignedArray& operator=(AlignedArray&& a) noexcept = default;
-	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Vector
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	template< typename T, size_t N, typename Enable = void >
-	struct Vector;
-
-	template< typename T >
-	struct Vector< T, 2, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit Vector(T xy = 0) noexcept
-			: Vector(xy, xy) {}
-		
-		constexpr Vector(T x, T y) noexcept
-			: m_x(x), m_y(y) {}
-		
-		Vector(const T* v) noexcept
-			: Vector(v[0], v[1]) {}
-		
-		constexpr Vector(const Vector& v) noexcept = default;
-		
-		constexpr Vector(Vector&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector(const Vector< U, 2 >& v) noexcept
-			: Vector(static_cast< T >(v.m_x), 
-					 static_cast< T >(v.m_y)) {}
-		
-		~Vector() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr Vector& operator=(const Vector& v) noexcept = default;
-		
-		constexpr Vector& operator=(Vector&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-		
-		T m_y;
-	};
-
-	template< typename T >
-	struct Vector< T, 3, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit Vector(T xyz = 0) noexcept
-			: Vector(xyz, xyz, xyz) {}
-		
-		constexpr Vector(T x, T y, T z) noexcept
-			: m_x(x), m_y(y), m_z(z) {}
-		
-		Vector(const T* v) noexcept
-			: Vector(v[0], v[1], v[2]) {}
-		
-		constexpr explicit Vector(const Vector< T, 2 >& v, T z = 0) noexcept
-			: Vector(v.m_x, v.m_y, z) {}
-		
-		constexpr Vector(const Vector& v) noexcept = default;
-		
-		constexpr Vector(Vector&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector(const Vector< U, 3 >& v) noexcept
-			: Vector(static_cast< T >(v.m_x), 
-					 static_cast< T >(v.m_y), 
-					 static_cast< T >(v.m_z)) {}
-		
-		~Vector() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr Vector& operator=(const Vector& v) noexcept = default;
-		
-		constexpr Vector& operator=(Vector&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-		
-		T m_y;
-		
-		T m_z;
-	};
-
-	template< typename T >
-	struct Vector< T, 4, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit Vector(T xyzw = 0) noexcept
-			: Vector(xyzw, xyzw, xyzw, xyzw) {}
-		
-		constexpr Vector(T x, T y, T z, T w) noexcept
-			: m_x(x), m_y(y), m_z(z), m_w(w) {}
-		
-		Vector(const T* v) noexcept
-			: Vector(v[0], v[1], v[2], v[3]) {}
-		
-		constexpr explicit Vector(const Vector< T, 2 >& v, T z = 0, T w = 0) noexcept
-			: Vector(v.m_x, v.m_y, z, w) {}
-		
-		constexpr explicit Vector(const Vector< T, 3 >& v, T w = 0) noexcept
-			: Vector(v.m_x, v.m_y, v.m_z, w) {}
-		
-		constexpr Vector(const Vector& v) noexcept = default;
-		
-		constexpr Vector(Vector&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit Vector(const Vector< U, 4 >& v) noexcept
-			: Vector(static_cast< T >(v.m_x),
-					 static_cast< T >(v.m_y), 
-					 static_cast< T >(v.m_z), 
-					 static_cast< T >(v.m_w)) {}
-		
-		~Vector() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr Vector& operator=(const Vector& v) noexcept = default;
-
-		constexpr Vector& operator=(Vector&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-
-		T m_y;
-
-		T m_z;
-
-		T m_w;
-	};
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// VectorA
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	template< typename T, size_t N, typename Enable = void >
-	struct alignas(16) VectorA;
-
-
-	#pragma warning( push )
-	#pragma warning( disable : 4324 ) // Added padding.
-
-	template< typename T >
-	struct alignas(16) VectorA< T, 2, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit VectorA(T xy = 0) noexcept
-			: VectorA(xy, xy) {}
-		
-		constexpr VectorA(T x, T y) noexcept
-			: m_x(x), m_y(y) {}
-		
-		VectorA(const T* v) noexcept
-			: VectorA(v[0], v[1]) {}
-		
-		constexpr VectorA(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA(VectorA&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit VectorA(const Vector< U, 2 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x), 
-					  static_cast< T >(v.m_y)) {}
-		
-		template< typename U >
-		constexpr explicit VectorA(const VectorA< U, 2 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x),
-					  static_cast< T >(v.m_y)) {}
-		
-		~VectorA() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-
-		T m_y;
-	};
-
-	template< typename T >
-	struct alignas(16) VectorA< T, 3, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit VectorA(T xyz = 0) noexcept
-			: VectorA(xyz, xyz, xyz) {}
-		
-		constexpr VectorA(T x, T y, T z) noexcept
-			: m_x(x), m_y(y), m_z(z) {}
-		
-		VectorA(const T* v) noexcept
-			: VectorA(v[0], v[1], v[2]) {}
-		
-		constexpr explicit VectorA(const VectorA< T, 2 >& v, T z = 0) noexcept
-			: VectorA(v.m_x, v.m_y, z) {}
-		
-		constexpr VectorA(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA(VectorA&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit VectorA(const Vector< U, 3 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x), 
-					  static_cast< T >(v.m_y), 
-					  static_cast< T >(v.m_z)) {}
-		
-		template< typename U >
-		constexpr explicit VectorA(const VectorA< U, 3 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x), 
-					  static_cast< T >(v.m_y), 
-					  static_cast< T >(v.m_z)) {}
-		
-		~VectorA() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-
-		T m_y;
-
-		T m_z;
-	};
-
-	template< typename T >
-	struct alignas(16) VectorA< T, 4, 
-		typename std::enable_if_t< std::is_arithmetic_v< T > > > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		constexpr explicit VectorA(T xyzw = 0) noexcept
-			: VectorA(xyzw, xyzw, xyzw, xyzw) {}
-		
-		constexpr VectorA(T x, T y, T z, T w) noexcept
-			: m_x(x), m_y(y), m_z(z), m_w(w) {}
-		
-		VectorA(const T* v) noexcept
-			: VectorA(v[0], v[1], v[2], v[3]) {}
-		
-		constexpr explicit VectorA(const VectorA< T, 2 >& v, T z = 0, T w = 0) noexcept
-			: VectorA(v.m_x, v.m_y, z, w) {}
-		
-		constexpr explicit VectorA(const VectorA< T, 3 >& v, T w = 0) noexcept
-			: VectorA(v.m_x, v.m_y, v.m_z, w) {}
-		
-		constexpr VectorA(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA(VectorA&& v) noexcept = default;
-		
-		template< typename U >
-		constexpr explicit VectorA(const Vector< U, 4 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x), 
-					  static_cast< T >(v.m_y), 
-					  static_cast< T >(v.m_z), 
-					  static_cast< T >(v.m_w)) {}
-		
-		template< typename U >
-		constexpr explicit VectorA(const VectorA< U, 4 >& v) noexcept
-			: VectorA(static_cast< T >(v.m_x),
-					  static_cast< T >(v.m_y),
-					  static_cast< T >(v.m_z), 
-					  static_cast< T >(v.m_w)) {}
-		
-		~VectorA() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		constexpr VectorA& operator=(const VectorA& v) noexcept = default;
-		
-		constexpr VectorA& operator=(VectorA&& v) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		constexpr const T operator[](size_t i) noexcept {
-			return GetData()[i];
-		}
-		
-		[[nodiscard]]
-		constexpr const T& operator[](size_t i) const noexcept {
-			return GetData()[i];
-		}
-
-		[[nodiscard]]
-		constexpr T* GetData() noexcept {
-			return &m_x;
-		}
-		
-		[[nodiscard]]
-		constexpr const T* GetData() const noexcept {
-			return &m_x;
-		}
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		T m_x;
-
-		T m_y;
-
-		T m_z;
-
-		T m_w;
 	};
 
 	#pragma warning( pop )
@@ -640,40 +138,59 @@ namespace mage {
 	/**
 	 A 2x1 32-bit floating point vector type.
 	 */
-	using F32x2 = Vector< F32, 2 >;
+	using F32x2 = Array< F32, 2 >;
 
 	/**
 	 A 3x1 32-bit floating point vector type.
 	 */
-	using F32x3 = Vector< F32, 3 >;
+	using F32x3 = Array< F32, 3 >;
 
 	/**
 	 A 4x1 32-bit floating point vector type.
 	 */
-	using F32x4 = Vector< F32, 4 >;
-
-	/**
-	 A 2x1 32-bit floating point aligned vector type.
-	 */
-	using F32x2A = VectorA< F32, 2 >;
-
-	/**
-	 A 3x1 32-bit floating point aligned vector type.
-	 */
-	using F32x3A = VectorA< F32, 3 >;
-
-	/**
-	 A 4x1 32-bit floating point aligned vector type.
-	 */
-	using F32x4A = VectorA< F32, 4 >;
+	using F32x4 = Array< F32, 4 >;
 
 	static_assert(8  == sizeof(F32x2));
 	static_assert(12 == sizeof(F32x3));
 	static_assert(16 == sizeof(F32x4));
 
+	/**
+	 A 2x1 32-bit floating point aligned vector type.
+	 */
+	using F32x2A = AlignedArray< F32, 2, 16 >;
+
+	/**
+	 A 3x1 32-bit floating point aligned vector type.
+	 */
+	using F32x3A = AlignedArray< F32, 3, 16 >;
+
+	/**
+	 A 4x1 32-bit floating point aligned vector type.
+	 */
+	using F32x4A = AlignedArray< F32, 4, 16 >;
+
 	static_assert(16 == sizeof(F32x2A));
 	static_assert(16 == sizeof(F32x3A));
 	static_assert(16 == sizeof(F32x4A));
+
+	/**
+	 A 2x1 64-bit floating point vector type.
+	 */
+	using F64x2 = Array< F64, 2 >;
+
+	/**
+	 A 3x1 64-bit floating point vector type.
+	 */
+	using F64x3 = Array< F64, 3 >;
+
+	/**
+	 A 4x1 64-bit floating point vector type.
+	 */
+	using F64x4 = Array< F64, 4 >;
+
+	static_assert(16 == sizeof(F64x2));
+	static_assert(24 == sizeof(F64x3));
+	static_assert(32 == sizeof(F64x4));
 
 	#pragma endregion
 
@@ -683,23 +200,80 @@ namespace mage {
 	#pragma region
 
 	/**
+	 A 2x1 signed 8-bit integer vector type.
+	 */
+	using S8x2 = Array< S8, 2 >;
+
+	/**
+	 A 3x1 signed 8-bit integer vector type.
+	 */
+	using S8x3 = Array< S8, 3 >;
+
+	/**
+	 A 4x1 signed 8-bit integer vector type.
+	 */
+	using S8x4 = Array< S8, 4 >;
+
+	static_assert(2 == sizeof(S8x2));
+	static_assert(3 == sizeof(S8x3));
+	static_assert(4 == sizeof(S8x4));
+
+	/**
+	 A 2x1 signed 16-bit integer vector type.
+	 */
+	using S16x2 = Array< S16, 2 >;
+
+	/**
+	 A 3x1 signed 16-bit integer vector type.
+	 */
+	using S16x3 = Array< S16, 3 >;
+
+	/**
+	 A 4x1 signed 16-bit integer vector type.
+	 */
+	using S16x4 = Array< S16, 4 >;
+
+	static_assert(4 == sizeof(S16x2));
+	static_assert(6 == sizeof(S16x3));
+	static_assert(8 == sizeof(S16x4));
+
+	/**
 	 A 2x1 signed 32-bit integer vector type.
 	 */
-	using S32x2 = Vector< S32, 2 >;
+	using S32x2 = Array< S32, 2 >;
 
 	/**
 	 A 3x1 signed 32-bit integer vector type.
 	 */
-	using S32x3 = Vector< S32, 3 >;
+	using S32x3 = Array< S32, 3 >;
 
 	/**
 	 A 4x1 signed 32-bit integer vector type.
 	 */
-	using S32x4 = Vector< S32, 4 >;
+	using S32x4 = Array< S32, 4 >;
 
 	static_assert(8  == sizeof(S32x2));
 	static_assert(12 == sizeof(S32x3));
 	static_assert(16 == sizeof(S32x4));
+
+	/**
+	 A 2x1 signed 64-bit integer vector type.
+	 */
+	using S64x2 = Array< S64, 2 >;
+
+	/**
+	 A 3x1 signed 64-bit integer vector type.
+	 */
+	using S64x3 = Array< S64, 3 >;
+
+	/**
+	 A 4x1 signed 64-bit integer vector type.
+	 */
+	using S64x4 = Array< S64, 4 >;
+
+	static_assert(16 == sizeof(S64x2));
+	static_assert(24 == sizeof(S64x3));
+	static_assert(32 == sizeof(S64x4));
 
 	#pragma endregion
 
@@ -709,23 +283,80 @@ namespace mage {
 	#pragma region
 
 	/**
-	 An 2x1 unsigned 32-bit integer vector type.
+	 A 2x1 unsigned 8-bit integer vector type.
 	 */
-	using U32x2 = Vector< U32, 2 >;
+	using U8x2 = Array< U8, 2 >;
 
 	/**
-	 An 3x1 unsigned 32-bit integer vector type.
+	 A 3x1 unsigned 8-bit integer vector type.
 	 */
-	using U32x3 = Vector< U32, 3 >;
+	using U8x3 = Array< U8, 3 >;
 
 	/**
-	 An 4x1 unsigned 32-bit integer vector type.
+	 A 4x1 unsigned 8-bit integer vector type.
 	 */
-	using U32x4 = Vector< U32, 4 >;
+	using U8x4 = Array< U8, 4 >;
+
+	static_assert(2 == sizeof(U8x2));
+	static_assert(3 == sizeof(U8x3));
+	static_assert(4 == sizeof(U8x4));
+
+	/**
+	 A 2x1 unsigned 16-bit integer vector type.
+	 */
+	using U16x2 = Array< U16, 2 >;
+
+	/**
+	 A 3x1 unsigned 16-bit integer vector type.
+	 */
+	using U16x3 = Array< U16, 3 >;
+
+	/**
+	 A 4x1 unsigned 16-bit integer vector type.
+	 */
+	using U16x4 = Array< U16, 4 >;
+
+	static_assert(4 == sizeof(U16x2));
+	static_assert(6 == sizeof(U16x3));
+	static_assert(8 == sizeof(U16x4));
+
+	/**
+	 A 2x1 unsigned 32-bit integer vector type.
+	 */
+	using U32x2 = Array< U32, 2 >;
+
+	/**
+	 A 3x1 unsigned 32-bit integer vector type.
+	 */
+	using U32x3 = Array< U32, 3 >;
+
+	/**
+	 A 4x1 unsigned 32-bit integer vector type.
+	 */
+	using U32x4 = Array< U32, 4 >;
 
 	static_assert(8  == sizeof(U32x2));
 	static_assert(12 == sizeof(U32x3));
 	static_assert(16 == sizeof(U32x4));
+
+	/**
+	 A 2x1 unsigned 64-bit integer vector type.
+	 */
+	using U64x2 = Array< U64, 2 >;
+
+	/**
+	 A 3x1 unsigned 64-bit integer vector type.
+	 */
+	using U64x3 = Array< U64, 3 >;
+
+	/**
+	 A 4x1 unsigned 64-bit integer vector type.
+	 */
+	using U64x4 = Array< U64, 4 >;
+
+	static_assert(16 == sizeof(U64x2));
+	static_assert(24 == sizeof(U64x3));
+	static_assert(32 == sizeof(U64x4));
 
 	#pragma endregion
 }

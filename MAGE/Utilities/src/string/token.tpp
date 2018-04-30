@@ -513,7 +513,7 @@ namespace mage {
 		
 		// Read the x component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			const auto tr = Read< F32 >(str, context, result[0], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -521,7 +521,7 @@ namespace mage {
 
 		// Read the y component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			const auto tr = Read< F32 >(str, context, result[1], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -538,7 +538,7 @@ namespace mage {
 		
 		// Read the x component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			const auto tr = Read< F32 >(str, context, result[0], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -546,7 +546,7 @@ namespace mage {
 
 		// Read the y component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			const auto tr = Read< F32 >(str, context, result[1], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -554,7 +554,7 @@ namespace mage {
 
 		// Read the z component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
+			const auto tr = Read< F32 >(str, context, result[2], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -571,7 +571,7 @@ namespace mage {
 		
 		// Read the x component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_x, delimiters);
+			const auto tr = Read< F32 >(str, context, result[0], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -579,7 +579,7 @@ namespace mage {
 
 		// Read the y component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_y, delimiters);
+			const auto tr = Read< F32 >(str, context, result[1], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -587,7 +587,7 @@ namespace mage {
 
 		// Read the z component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_z, delimiters);
+			const auto tr = Read< F32 >(str, context, result[2], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -595,7 +595,7 @@ namespace mage {
 
 		// Read the w component.
 		{
-			const auto tr = Read< F32 >(str, context, result.m_w, delimiters);
+			const auto tr = Read< F32 >(str, context, result[3], delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}

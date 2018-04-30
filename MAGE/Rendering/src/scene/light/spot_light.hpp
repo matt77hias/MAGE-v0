@@ -205,7 +205,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		F32 GetRange() const noexcept {
-			return m_clipping_planes.m_y;
+			return m_clipping_planes[1];
 		}
 
 		/**
@@ -225,7 +225,7 @@ namespace mage::rendering {
 						The range expressed in light space.
 		 */
 		void SetRange(F32 range) noexcept {
-			m_clipping_planes.m_y = range;
+			m_clipping_planes[1] = range;
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
@@ -454,11 +454,11 @@ namespace mage::rendering {
 			GetLightToProjectionMatrix() const noexcept {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes.m_x;
-			const auto far_plane  = m_clipping_planes.m_y;
+			const auto near_plane = m_clipping_planes[0];
+			const auto far_plane  = m_clipping_planes[1];
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes.m_y;
-			const auto far_plane  = m_clipping_planes.m_x;
+			const auto near_plane = m_clipping_planes[1];
+			const auto far_plane  = m_clipping_planes[0];
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
 			const auto fov = 2.0f * GetUmbraAngle();

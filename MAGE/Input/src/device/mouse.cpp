@@ -34,8 +34,8 @@ namespace mage::input {
 			// to client-area coordinates.
 			ScreenToClient(window, &position);
 
-			return S32x2(static_cast<S32>(position.x),
-						 static_cast<S32>(position.y));
+			return S32x2(static_cast< S32 >(position.x),
+						 static_cast< S32 >(position.y));
 		}
 
 	}
@@ -153,7 +153,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		S32 GetPositionX() const noexcept {
-			return m_position.m_x;
+			return m_position[0];
 		}
 
 		/**
@@ -163,7 +163,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		S32 GetPositionY() const noexcept {
-			return m_position.m_y;
+			return m_position[1];
 		}
 
 		/**

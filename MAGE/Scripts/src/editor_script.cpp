@@ -34,8 +34,8 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto focal_length = lens.GetFocalLength();
 			ImGui::SliderFloat("Focal Length", &focal_length, 
-							   clipping_planes.m_x, 
-							   clipping_planes.m_y);
+							   clipping_planes[0], 
+							   clipping_planes[1]);
 			lens.SetFocalLength(focal_length);
 
 			//-----------------------------------------------------------------
@@ -54,7 +54,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (ImGui::TreeNode("Voxelization")) {
 				auto origin = VoxelizationSettings::GetVoxelGridCenter();
-				ImGui::InputFloat3("Origin", origin.GetData());
+				ImGui::InputFloat3("Origin", origin.data());
 				VoxelizationSettings::SetVoxelGridCenter(origin);
 
 				auto exponent = static_cast< S32 >(
@@ -98,7 +98,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGB color(fog.GetBaseColor());
-			ImGui::ColorEdit3("Base Color", color.GetData());
+			ImGui::ColorEdit3("Base Color", color.data());
 			fog.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
@@ -296,7 +296,7 @@ namespace mage::script {
 				auto top_left 
 					= AbsoluteToNormalized(F32x2(viewport.GetTopLeft()), 
 										   display_resolution);
-				ImGui::InputFloat2("Top Left", top_left.GetData());
+				ImGui::InputFloat2("Top Left", top_left.data());
 				viewport.SetTopLeft(S32x2(
 					NormalizedToAbsolute(top_left, display_resolution)));
 
@@ -306,7 +306,7 @@ namespace mage::script {
 				auto resolution 
 					= AbsoluteToNormalized(F32x2(viewport.GetSize()),
 										   display_resolution);
-				ImGui::InputFloat2("Resolution", resolution.GetData());
+				ImGui::InputFloat2("Resolution", resolution.data());
 				viewport.SetSize(U32x2(
 					NormalizedToAbsolute(resolution, display_resolution)));
 			}
@@ -315,14 +315,14 @@ namespace mage::script {
 				// Top Left
 				//-------------------------------------------------------------
 				auto top_left = S32x2(viewport.GetTopLeft());
-				ImGui::InputInt2("Top Left", top_left.GetData());
+				ImGui::InputInt2("Top Left", top_left.data());
 				viewport.SetTopLeft(top_left);
 
 				//-------------------------------------------------------------
 				// Width and Height
 				//-------------------------------------------------------------
 				auto resolution = S32x2(viewport.GetSize());
-				ImGui::InputInt2("Resolution", resolution.GetData());
+				ImGui::InputInt2("Resolution", resolution.data());
 				viewport.SetSize(U32x2(resolution));
 			}
 
@@ -336,7 +336,7 @@ namespace mage::script {
 			// Clipping Planes
 			//-----------------------------------------------------------------
 			auto clipping_planes = camera.GetClippingPlanes();
-			ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
+			ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
 			camera.SetClippingPlanes(std::move(clipping_planes));
 
 			//-----------------------------------------------------------------
@@ -388,7 +388,7 @@ namespace mage::script {
 			// Size
 			//-----------------------------------------------------------------
 			auto size = camera.GetSize();
-			ImGui::InputFloat2("Resolution", size.GetData());
+			ImGui::InputFloat2("Resolution", size.data());
 			camera.SetSize(std::move(size));
 
 			//-----------------------------------------------------------------
@@ -427,7 +427,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGB color(light.GetBaseColor());
-			ImGui::ColorEdit3("Base Color", color.GetData());
+			ImGui::ColorEdit3("Base Color", color.data());
 			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
@@ -443,7 +443,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGB color(light.GetBaseColor());
-			ImGui::ColorEdit3("Base Color", color.GetData());
+			ImGui::ColorEdit3("Base Color", color.data());
 			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
@@ -459,7 +459,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGB color(light.GetBaseColor());
-			ImGui::ColorEdit3("Base Color", color.GetData());
+			ImGui::ColorEdit3("Base Color", color.data());
 			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
@@ -495,7 +495,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (shadows) {
 				auto clipping_planes = light.GetClippingPlanes();
-				ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
+				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
 				light.SetClippingPlanes(std::move(clipping_planes));
 			}
 		}
@@ -505,7 +505,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGB color(light.GetBaseColor());
-			ImGui::ColorEdit3("Base Color", color.GetData());
+			ImGui::ColorEdit3("Base Color", color.data());
 			light.GetBaseColor() = RGB(color);
 
 			//-----------------------------------------------------------------
@@ -550,7 +550,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (shadows) {
 				auto clipping_planes = light.GetClippingPlanes();
-				ImGui::InputFloat2("Clipping Planes", clipping_planes.GetData());
+				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
 				light.SetClippingPlanes(std::move(clipping_planes));
 			}
 		}
@@ -562,14 +562,14 @@ namespace mage::script {
 			// Translation
 			//-----------------------------------------------------------------
 			auto translation = transform.GetTranslation();
-			ImGui::InputFloat2("Translation", translation.GetData());
+			ImGui::InputFloat2("Translation", translation.data());
 			transform.SetTranslation(std::move(translation));
 
 			//-----------------------------------------------------------------
 			// Rotation Origin
 			//-----------------------------------------------------------------
 			auto rotation_origin = transform.GetRotationOrigin();
-			ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
+			ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 			transform.SetRotationOrigin(std::move(rotation_origin));
 
 			//-----------------------------------------------------------------
@@ -583,7 +583,7 @@ namespace mage::script {
 			// Scale
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScale();
-			ImGui::InputFloat2("Scale", scale.GetData());
+			ImGui::InputFloat2("Scale", scale.data());
 			transform.SetScale(std::move(scale));
 		}
 
@@ -608,7 +608,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGBA color(material.GetBaseColor());
-			ImGui::ColorEdit4("Base Color", color.GetData());
+			ImGui::ColorEdit4("Base Color", color.data());
 			material.GetBaseColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
@@ -620,7 +620,7 @@ namespace mage::script {
 				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetBaseColorSRV());
-				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
+				ImGui::Text("%u x %u texels", resolution[0], resolution[1]);
 			}
 			else {
 				ImGui::Text("mage_black_texture");
@@ -650,7 +650,7 @@ namespace mage::script {
 				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetMaterialSRV());
-				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
+				ImGui::Text("%u x %u texels", resolution[0], resolution[1]);
 			}
 			else {
 				ImGui::Text("mage_black_texture");
@@ -666,7 +666,7 @@ namespace mage::script {
 				ImGui::Text(WStringToString(guid).c_str());
 				const auto resolution
 					= rendering::GetTexture2DSize(*material.GetNormalSRV());
-				ImGui::Text("%u x %u texels", resolution.m_x, resolution.m_y);
+				ImGui::Text("%u x %u texels", resolution[0], resolution[1]);
 			}
 		}
 
@@ -705,13 +705,13 @@ namespace mage::script {
 			if (normalization) {
 				auto translation = AbsoluteToNormalized(transform.GetTranslation(), 
 														display_resolution);
-				ImGui::InputFloat2("Translation", translation.GetData());
+				ImGui::InputFloat2("Translation", translation.data());
 				transform.SetTranslation(
 					NormalizedToAbsolute(translation, display_resolution));
 			}
 			else {
 				auto translation = transform.GetTranslation();
-				ImGui::InputFloat2("Translation", translation.GetData());
+				ImGui::InputFloat2("Translation", translation.data());
 				transform.SetTranslation(std::move(translation));
 			}
 
@@ -728,13 +728,13 @@ namespace mage::script {
 			if (normalization) {
 				auto rotation_origin = AbsoluteToNormalized(
 					transform.GetRotationOrigin(), texture_resolution);
-				ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
+				ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 				transform.SetRotationOrigin(
 					NormalizedToAbsolute(rotation_origin, texture_resolution));
 			}
 			else {
 				auto rotation_origin = transform.GetRotationOrigin();
-				ImGui::InputFloat2("Rotation Origin", rotation_origin.GetData());
+				ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 				transform.SetRotationOrigin(std::move(rotation_origin));
 			}
 
@@ -749,7 +749,7 @@ namespace mage::script {
 			// Scale
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScale();
-			ImGui::InputFloat2("Scale", scale.GetData());
+			ImGui::InputFloat2("Scale", scale.data());
 			transform.SetScale(std::move(scale));
 
 			ImGui::Checkbox("Normalization", &normalization);
@@ -777,7 +777,7 @@ namespace mage::script {
 			// Base Color
 			//-----------------------------------------------------------------
 			SRGBA color(sprite.GetBaseColor());
-			ImGui::ColorEdit4("Base Color", color.GetData());
+			ImGui::ColorEdit4("Base Color", color.data());
 			sprite.GetBaseColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
@@ -787,7 +787,7 @@ namespace mage::script {
 				const auto& guid = base_color_tex->GetGuid();
 				ImGui::Text(WStringToString(guid).c_str());
 				ImGui::Text("%u x %u texels", 
-							texture_resolution.m_x, texture_resolution.m_y);
+							texture_resolution[0], texture_resolution[1]);
 			}
 			else {
 				ImGui::Text("mage_black_texture");
@@ -824,7 +824,7 @@ namespace mage::script {
 			using rendering::SpriteText;
 			
 			const auto font = sprite.GetFont();
-			const auto texture_resolution = !font ? U32x2(1, 1)
+			const auto texture_resolution = !font ? U32x2(1u, 1u)
 				: rendering::GetTexture2DSize(*sprite.GetFontSRV());
 
 			//-----------------------------------------------------------------
@@ -843,7 +843,7 @@ namespace mage::script {
 				const auto& guid = font->GetGuid();
 				ImGui::Text(WStringToString(guid).c_str());
 				ImGui::Text("%u x %u texels",
-							texture_resolution.m_x, texture_resolution.m_y);
+							texture_resolution[0], texture_resolution[1]);
 			}
 			else {
 				ImGui::Text("no font");
@@ -876,7 +876,7 @@ namespace mage::script {
 			// Text effect color
 			//-----------------------------------------------------------------
 			SRGBA color(sprite.GetTextEffectColor());
-			ImGui::ColorEdit4("Text Effect Color", color.GetData());
+			ImGui::ColorEdit4("Text Effect Color", color.data());
 			sprite.GetTextEffectColor() = RGBA(color);
 
 			//-----------------------------------------------------------------
@@ -905,7 +905,7 @@ namespace mage::script {
 			// Translation
 			//-----------------------------------------------------------------
 			if (auto translation = transform.GetTranslation();
-				ImGui::InputFloat3("Translation", translation.GetData())) {
+				ImGui::InputFloat3("Translation", translation.data())) {
 
 				transform.SetTranslation(std::move(translation));
 			}
@@ -914,7 +914,7 @@ namespace mage::script {
 			// Rotation
 			//-----------------------------------------------------------------
 			if (auto rotation = transform.GetRotation();
-				ImGui::InputFloat3("Rotation", rotation.GetData())) {
+				ImGui::InputFloat3("Rotation", rotation.data())) {
 
 				transform.SetRotation(std::move(rotation));
 			}
@@ -923,7 +923,7 @@ namespace mage::script {
 			// Scale
 			//-----------------------------------------------------------------
 			if (auto scale = transform.GetScale();
-				ImGui::InputFloat3("Scale", scale.GetData())) {
+				ImGui::InputFloat3("Scale", scale.data())) {
 
 				transform.SetScale(std::move(scale));
 			}

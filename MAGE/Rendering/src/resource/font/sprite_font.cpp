@@ -304,8 +304,8 @@ namespace mage::rendering {
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-						const auto min_x = top_left.m_x + x;
-						const auto min_y = top_left.m_y + y + glyph->m_offset_y;
+						const auto min_x = top_left[0] + x;
+						const auto min_y = top_left[1] + y + glyph->m_offset_y;
 						const auto max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
 						const auto max_y = min_y + height;
 

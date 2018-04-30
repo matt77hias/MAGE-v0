@@ -313,9 +313,9 @@ namespace mage::rendering::loader {
 			 */
 			[[nodiscard]]
 			bool operator()(const U32x3& lhs, const U32x3& rhs) const noexcept {
-				return (lhs.m_x == rhs.m_x) ? ((lhs.m_y == rhs.m_y) ? (lhs.m_z < rhs.m_z) 
-					                                                : (lhs.m_y < rhs.m_y)) 
-					                        : (lhs.m_x < rhs.m_x);
+				return (lhs[0] == rhs[0]) ? ((lhs[1] == rhs[1]) ? (lhs[2] < rhs[2])
+					                                            : (lhs[1] < rhs[1]))
+					                      : (lhs[0] < rhs[0]);
 			}
 		};
 

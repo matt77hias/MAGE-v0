@@ -130,8 +130,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2 NormalizedToAbsolute(const F32x2& p,
 											const F32x2& resolution) noexcept {
-
-		return F32x2(p.m_x * resolution.m_x, p.m_y * resolution.m_y);
+		return F32x2(XMStore< F32x2 >(XMLoad(p) * XMLoad(resolution)));
 
 	}
 
@@ -150,8 +149,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2 AbsoluteToNormalized(const F32x2& p,
 											const F32x2& resolution) noexcept {
-
-		return F32x2(p.m_x / resolution.m_x, p.m_y / resolution.m_y);
+		return F32x2(XMStore< F32x2 >(XMLoad(p) / XMLoad(resolution)));
 	}
 
 	[[nodiscard]]

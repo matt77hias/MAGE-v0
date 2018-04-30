@@ -123,17 +123,15 @@ namespace mage::rendering {
 			const auto clipping_planes = GetClippingPlanes();
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes.m_x;
-			const auto far_plane  = clipping_planes.m_y;
+			const auto near_plane = clipping_planes[0];
+			const auto far_plane  = clipping_planes[1];
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes.m_y;
-			const auto far_plane  = clipping_planes.m_x;
+			const auto near_plane = clipping_planes[1];
+			const auto far_plane  = clipping_planes[0];
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
-			return XMMatrixOrthographicLH(m_size.m_x, 
-										  m_size.m_y, 
-										  near_plane,
-										  far_plane);
+			return XMMatrixOrthographicLH(m_size[0], m_size[1], 
+										  near_plane, far_plane);
 		}
 
 		/**

@@ -228,8 +228,8 @@ namespace mage {
 		const RECT rectangle = { 
 			0, 
 			0, 
-			static_cast< LONG >(resolution.m_x), 
-			static_cast< LONG >(resolution.m_y) 
+			static_cast< LONG >(resolution[0]), 
+			static_cast< LONG >(resolution[1]) 
 		};
 		
 		return InitializeWindow(title_text, rectangle, style);

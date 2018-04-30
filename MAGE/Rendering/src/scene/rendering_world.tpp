@@ -29,8 +29,8 @@ namespace mage::rendering {
 
 		const auto resolution 
 			= m_display_configuration.get().GetDisplayResolution();
-		ptr->SetAspectRatio(static_cast< F32 >(resolution.m_x), 
-							static_cast< F32 >(resolution.m_y));
+		ptr->SetAspectRatio(static_cast< F32 >(resolution[0]), 
+							static_cast< F32 >(resolution[1]));
 		ptr->GetViewport() = Viewport(resolution);
 
 		return ptr;

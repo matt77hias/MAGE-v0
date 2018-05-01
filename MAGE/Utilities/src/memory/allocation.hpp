@@ -83,10 +83,10 @@ namespace mage {
 
 	 @tparam		DataT
 					The data type.
-	 @tparam		AlignmentS
+	 @tparam		A
 					The alignment size in bytes.
 	 */
-	template< typename DataT, size_t AlignmentS = alignof(DataT) >
+	template< typename DataT, size_t A = alignof(DataT) >
 	class AlignedAllocator final {
 		
 	public:
@@ -125,7 +125,7 @@ namespace mage {
 			 the same alignment as the aligned allocator for elements of type 
 			 @c DataT.
 			 */
-			using other = AlignedAllocator< DataU, AlignmentS >;
+			using other = AlignedAllocator< DataU, A >;
 		};
 
 		//---------------------------------------------------------------------
@@ -165,7 +165,7 @@ namespace mage {
 		 */
 		template< typename DataU >
 		constexpr AlignedAllocator([[maybe_unused]]
-			const AlignedAllocator< DataU, AlignmentS >& allocator) noexcept {}
+			const AlignedAllocator< DataU, A >& allocator) noexcept {}
 		
 		/**
 		 Destructs this aligned allocator.
@@ -211,13 +211,13 @@ namespace mage {
 						The number of element objects of type @c DataT to 
 						allocate in memory.
 		 @return		A pointer to the memory block that was allocated. The 
-						pointer is a multiple of the alignment @c AlignmentS.
+						pointer is a multiple of the alignment @c A.
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
 		DataT* allocate(size_t count) const {
-			DataT* const data = AllocAlignedData< DataT >(count, AlignmentS);
+			DataT* const data = AllocAlignedData< DataT >(count, A);
 			if (!data) {
 				throw std::bad_alloc();
 			}
@@ -247,7 +247,7 @@ namespace mage {
 						The address of an adjacent element is often a good 
 						choice.
 		 @return		A pointer to the memory block that was allocated. The 
-						pointer is a multiple of the alignment @c AlignmentS.
+						pointer is a multiple of the alignment @c A.
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
@@ -293,7 +293,7 @@ namespace mage {
 		template< typename DataU >
 		[[nodiscard]]
 		constexpr bool operator==([[maybe_unused]] 
-								  const AlignedAllocator< DataU, AlignmentS >& 
+								  const AlignedAllocator< DataU, A >& 
 								  rhs) const noexcept {
 			return true;
 		}
@@ -314,7 +314,7 @@ namespace mage {
 		template< typename DataU >
 		[[nodiscard]]
 		constexpr bool operator!=([[maybe_unused]] 
-								  const AlignedAllocator< DataU, AlignmentS >& 
+								  const AlignedAllocator< DataU, A >& 
 								  rhs) const noexcept {
 			return false;
 		}

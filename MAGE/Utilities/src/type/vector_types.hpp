@@ -9,7 +9,6 @@
 #include "type\scalar_types.hpp"
 
 #include "collection\array.hpp"
-#include "collection\tupple.hpp"
 
 #pragma endregion
 
@@ -26,109 +25,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	//-------------------------------------------------------------------------
-	// Array, AlignedArray
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	template< typename T, size_t N, 
-		      typename = std::enable_if_t< (N != 1) > >
-	struct Array : public std::array< T, N > {
-
-	public:
-
-		constexpr Array() noexcept
-			: std::array< T, N >{} {}
-
-		template< typename... ArgsT, 
-			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >
-		constexpr Array(ArgsT&&... args) noexcept
-			: std::array< T, N >{ std::forward< ArgsT >(args)... } {}
-
-		template< size_t FromN, 
-			      typename = std::enable_if_t< (FromN < N) > >
-		constexpr Array(const Array< T, FromN >& a) noexcept
-			: std::array< T, N >(EnlargeArray< N >(a)) {}
-
-		template< size_t FromN, typename... ArgsT, 
-			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > >
-		constexpr Array(const Array< T, FromN >& a, ArgsT&&... args) noexcept
-			: std::array< T, N >(TuppleToArray(
-				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
-
-		constexpr Array(const Array& a) noexcept = default;
-		
-		constexpr Array(Array&& a) noexcept = default;
-
-		template< typename U >
-		constexpr explicit Array(const Array< U, N >& a) noexcept
-			: std::array< T, N >(StaticCastArray< T >(a)) {}
-
-		~Array() = default;
-		
-		constexpr Array& operator=(const Array& a) noexcept = default;
-
-		constexpr Array& operator=(Array&& a) noexcept = default;
-	};
-
-	#pragma warning( push )
-	#pragma warning( disable : 4324 ) // Added padding.
-
-	template< typename T, size_t N, size_t AlignmentS = alignof(T), 
-		      typename = std::enable_if_t< (N != 1) > >
-	struct alignas(AlignmentS) AlignedArray : public std::array< T, N > {
-
-	public:
-
-		constexpr AlignedArray() noexcept
-			: std::array< T, N >{} {}
-
-		template< typename... ArgsT, 
-			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >
-		constexpr AlignedArray(ArgsT&&... args) noexcept 
-			: std::array< T, N >{ std::forward< ArgsT >(args)... } {}
-
-		template< size_t FromN, 
-			      typename = std::enable_if_t< (FromN <= N) > > 
-		constexpr explicit AlignedArray(const Array< T, FromN >& a) noexcept
-			: std::array< T, N >(EnlargeArray< N >(a)) {}
-
-		template< size_t FromN, 
-			      typename = std::enable_if_t< (FromN < N) > > 
-		constexpr AlignedArray(const AlignedArray< T, FromN >& a) noexcept
-			: std::array< T, N >(EnlargeArray< N >(a)) {}
-
-		template< size_t FromN, typename... ArgsT,
-		          typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > > 
-		constexpr explicit AlignedArray(const Array< T, FromN >& a, ArgsT&&... args) noexcept
-			: std::array< T, N >(TuppleToArray(
-				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
-
-		template< size_t FromN, typename... ArgsT, 
-		          typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > > 
-		constexpr AlignedArray(const AlignedArray< T, FromN >& a, ArgsT&&... args) noexcept
-			: std::array< T, N >(TuppleToArray(
-				std::tuple_cat(ArrayToTupple(a), ArgsToTuple(std::forward< ArgsT >(args)...)))) {}
-
-		constexpr AlignedArray(const AlignedArray& a) noexcept = default;
-
-		constexpr AlignedArray(AlignedArray&& a) noexcept = default;
-
-		template< typename U >
-		constexpr explicit AlignedArray(const AlignedArray< U, N >& a) noexcept
-			: std::array< T, N >(StaticCastArray< T >(a)) {}
-
-		~AlignedArray() = default;
-
-		constexpr AlignedArray& operator=(const AlignedArray& a) noexcept = default;
-
-		constexpr AlignedArray& operator=(AlignedArray&& a) noexcept = default;
-	};
-
-	#pragma warning( pop )
-
-	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Floating Point Vectors
@@ -157,17 +53,17 @@ namespace mage {
 	/**
 	 A 2x1 32-bit floating point aligned vector type.
 	 */
-	using F32x2A = AlignedArray< F32, 2, 16 >;
+	using F32x2A = Array< F32, 2, 16 >;
 
 	/**
 	 A 3x1 32-bit floating point aligned vector type.
 	 */
-	using F32x3A = AlignedArray< F32, 3, 16 >;
+	using F32x3A = Array< F32, 3, 16 >;
 
 	/**
 	 A 4x1 32-bit floating point aligned vector type.
 	 */
-	using F32x4A = AlignedArray< F32, 4, 16 >;
+	using F32x4A = Array< F32, 4, 16 >;
 
 	static_assert(16 == sizeof(F32x2A));
 	static_assert(16 == sizeof(F32x3A));

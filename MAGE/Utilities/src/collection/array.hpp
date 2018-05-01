@@ -16,6 +16,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Engine Declarations and Definitions: Array Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	namespace details {
 
 		template< typename ActionT, typename FromT, size_t...I >
@@ -44,6 +49,13 @@ namespace mage {
 									 std::index_sequence< I... >) {
 
 			return std::array< T, sizeof...(I) >{ std::get< I >(t)... };
+		}
+	
+		template< typename T, size_t...I >
+		constexpr auto ArrayToTupple(const std::array< T, sizeof...(I) >& a,
+									 std::index_sequence< I... >) noexcept {
+			
+			return std::make_tuple(a[I]...);
 		}
 	}
 
@@ -102,4 +114,74 @@ namespace mage {
 		constexpr auto N = sizeof...(Ts) + 1u;
 		return details::TuppleToArray< T >(t, std::make_index_sequence< N >());
 	}
+
+	template< typename T, size_t N >
+	constexpr auto ArrayToTupple(const std::array< T, N >& a) noexcept {
+		return details::ArrayToTupple(a, std::make_index_sequence< N >());
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Array
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	#pragma warning( push )
+	#pragma warning( disable : 4324 ) // Added padding.
+
+	template< typename T, size_t N, size_t A = alignof(T), 
+		      typename = std::enable_if_t< (N != 1) > >
+	struct alignas(A) Array : public std::array< T, N > {
+
+	public:
+
+		constexpr Array() noexcept
+			: std::array< T, N >{} {}
+
+		template< typename... ArgsT, 
+			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >
+		constexpr Array(ArgsT&&... args) noexcept
+			: std::array< T, N >{ std::forward< ArgsT >(args)... } {}
+
+		template< size_t FromN, 
+			      typename = std::enable_if_t< (FromN < N) > >
+		constexpr Array(const Array< T, FromN, A >& a) noexcept
+			: std::array< T, N >(EnlargeArray< N >(a)) {}
+
+		template< size_t FromN, size_t FromA,
+			      typename = std::enable_if_t< (FromN < N && FromA != A) > >
+		constexpr explicit Array(const Array< T, FromN, FromA >& a) noexcept
+			: std::array< T, N >(EnlargeArray< N >(a)) {}
+
+		template< size_t FromN, typename... ArgsT, 
+			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > >
+		constexpr Array(const Array< T, FromN, A >& a, ArgsT&&... args) noexcept
+			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
+							     std::make_tuple(std::forward< ArgsT >(args)...)))) {}
+		
+		template< size_t FromN, size_t FromA, typename... ArgsT, 
+			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N && FromA != A) > >
+		constexpr explicit Array(const Array< T, FromN, FromA >& a, ArgsT&&... args) noexcept
+			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
+							     std::make_tuple(std::forward< ArgsT >(args)...)))) {}
+
+		constexpr Array(const Array& a) noexcept = default;
+		
+		constexpr Array(Array&& a) noexcept = default;
+
+		template< typename U, size_t FromA >
+		constexpr explicit Array(const Array< U, N, FromA >& a) noexcept
+			: std::array< T, N >(StaticCastArray< T >(a)) {}
+
+		~Array() = default;
+		
+		constexpr Array& operator=(const Array& a) noexcept = default;
+
+		constexpr Array& operator=(Array&& a) noexcept = default;
+	};
+
+	#pragma warning( pop )
+
+	#pragma endregion
 }

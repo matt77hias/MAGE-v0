@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities\src\collection\array.hpp" />
-    <ClInclude Include="Utilities\src\collection\tupple.hpp" />
     <ClInclude Include="Utilities\src\collection\vector.hpp" />
     <ClInclude Include="Utilities\src\exception\exception.hpp" />
     <ClInclude Include="Utilities\src\file\file_utils.hpp" />

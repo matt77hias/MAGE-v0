@@ -123,7 +123,7 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Array
+	// Engine Declarations and Definitions: Array
 	//-------------------------------------------------------------------------
 	#pragma region
 

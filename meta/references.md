@@ -399,6 +399,10 @@ PHARR M.: [*The story of ispc: the open source release and the end of volta (par
 
 PHARR M.: [*The story of ispc: spreading the world and leaving Intel (part 10)*](http://pharr.org/matt/blog/2018/04/28/ispc-talks-and-departure.html), 2018.
 
+PHARR M.: [*The story of ispc: retrospective (part 11)*](http://pharr.org/matt/blog/2018/04/29/ispc-retrospective.html), 2018.
+
+PHARR M.: [*The story of ispc: postscript (part 12)*](http://pharr.org/matt/blog/2018/04/30/ispc-fin.html), 2018.
+
 ### Textures
 
 CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
@@ -487,6 +491,7 @@ Uses:
 * [Eric Richards](https://github.com/ericrrichards)
 * [Finalspace](https://github.com/f1nalspace)
 * frob
+* Incomputable
 * Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
 * JoeJ

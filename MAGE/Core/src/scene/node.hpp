@@ -222,7 +222,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ActionT >
-		void ForEachChild(ActionT action) const;
+		void ForEachChild(ActionT&& action) const;
 		
 		/**
 		 Traverses all descendants (childs included) of this node.
@@ -234,7 +234,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ActionT >
-		void ForEachDescendant(ActionT action) const;
+		void ForEachDescendant(ActionT&& action) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Components
@@ -363,7 +363,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ComponentT, typename ActionT >
-		void ForEach(ActionT action);
+		void ForEach(ActionT&& action);
 
 		/**
 		 Traverses all components of the given type of this node.
@@ -378,7 +378,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ComponentT, typename ActionT >
-		void ForEach(ActionT action) const;
+		void ForEach(ActionT&& action) const;
 
 		/**
 		 Traverses all components of this node.
@@ -390,7 +390,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ActionT >
-		void ForEachComponent(ActionT action);
+		void ForEachComponent(ActionT&& action);
 
 		/**
 		 Traverses all components of this node.
@@ -402,7 +402,7 @@ namespace mage {
 						The action.
 		 */
 		template< typename ActionT >
-		void ForEachComponent(ActionT action) const;
+		void ForEachComponent(ActionT&& action) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: State

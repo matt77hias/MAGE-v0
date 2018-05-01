@@ -103,10 +103,10 @@ namespace mage {
 		size_t GetNumberOf() const noexcept;
 
 		template< typename ElementT, typename ActionT >
-		void ForEach(ActionT action);
+		void ForEach(ActionT&& action);
 
 		template< typename ElementT, typename ActionT >
-		void ForEach(ActionT action) const;
+		void ForEach(ActionT&& action) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Identification

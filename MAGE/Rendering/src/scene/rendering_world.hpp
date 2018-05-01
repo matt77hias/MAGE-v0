@@ -106,10 +106,10 @@ namespace mage::rendering {
 		size_t GetNumberOf() const noexcept;
 
 		template< typename ComponentT, typename ActionT >
-		void ForEach(ActionT action);
+		void ForEach(ActionT&& action);
 
 		template< typename ComponentT, typename ActionT >
-		void ForEach(ActionT action) const;
+		void ForEach(ActionT&& action) const;
 		
 		/**
 		 Clears this world.

@@ -215,7 +215,7 @@ namespace mage::rendering {
 						The action.
 		 */
 		template< typename ActionT >
-		inline void ForEachColorString(ActionT action);
+		inline void ForEachColorString(ActionT&& action);
 
 		/**
 		 Traverses all color strings of this sprite text.
@@ -228,7 +228,7 @@ namespace mage::rendering {
 						The action.
 		 */
 		template< typename ActionT >
-		inline void ForEachColorString(ActionT action) const;
+		inline void ForEachColorString(ActionT&& action) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Text Effect

@@ -140,7 +140,7 @@ namespace mage::rendering {
 						@c Material& values.
 		*/
 		template< typename ActionT >
-		void ForEachMaterial(ActionT action) const;
+		void ForEachMaterial(ActionT&& action) const;
 		
 		/**
 		 Returns the model part corresponding to the given name.
@@ -164,7 +164,7 @@ namespace mage::rendering {
 						@c ModelPart& values.
 		 */
 		template< typename ActionT >
-		void ForEachModelPart(ActionT action) const;
+		void ForEachModelPart(ActionT&& action) const;
 
 	private:
 

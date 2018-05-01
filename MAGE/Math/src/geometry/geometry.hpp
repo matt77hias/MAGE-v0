@@ -245,6 +245,64 @@ namespace mage {
 		 @return		A reference to the moved point (i.e. this point).
 		 */
 		constexpr Point3& operator=(Point3&& point) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------	
+
+		/**
+		 Returns the X component of this point.
+
+		 @return		A reference to the X component of this point.
+		 */
+		constexpr F32& GetX() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the X component of this point.
+
+		 @return		The X component of this point.
+		 */
+		constexpr F32 GetX() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the Y component of this point.
+
+		 @return		A reference to the Y component of this point.
+		 */
+		constexpr F32& GetY() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Y component of this point.
+
+		 @return		The Y component of this point.
+		 */
+		constexpr F32 GetY() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Z component of this point.
+
+		 @return		A reference to the Z component of this point.
+		 */
+		constexpr F32& GetZ() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the Z component of this point.
+
+		 @return		The Z component of this point.
+		 */
+		constexpr F32 GetZ() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(Point3) == sizeof(F32x3));
@@ -341,6 +399,64 @@ namespace mage {
 		 @return		A reference to the moved normal (i.e. this normal).
 		 */
 		constexpr Normal3& operator=(Normal3&& normal) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------	
+
+		/**
+		 Returns the X component of this normal.
+
+		 @return		A reference to the X component of this normal.
+		 */
+		constexpr F32& GetX() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the X component of this normal.
+
+		 @return		The X component of this normal.
+		 */
+		constexpr F32 GetX() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the Y component of this normal.
+
+		 @return		A reference to the Y component of this normal.
+		 */
+		constexpr F32& GetY() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Y component of this normal.
+
+		 @return		The Y component of this normal.
+		 */
+		constexpr F32 GetY() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Z component of this normal.
+
+		 @return		A reference to the Z component of this normal.
+		 */
+		constexpr F32& GetZ() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the Z component of this normal.
+
+		 @return		The Z component of this normal.
+		 */
+		constexpr F32 GetZ() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(Normal3) == sizeof(F32x3));
@@ -432,8 +548,8 @@ namespace mage {
 		 @return		A reference to the copy of the given direction (i.e. 
 						this direction).
 		 */
-		constexpr Direction3& operator=(const Direction3& 
-										direction) noexcept = default;
+		constexpr Direction3& operator=(
+			const Direction3& direction) noexcept = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -442,8 +558,66 @@ namespace mage {
 						A reference to the direction to move.
 		 @return		A reference to the moved direction (i.e. this direction).
 		 */
-		constexpr Direction3& operator=(Direction3&& 
-										direction) noexcept = default;
+		constexpr Direction3& operator=(
+			Direction3&& direction) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------	
+
+		/**
+		 Returns the X component of this direction.
+
+		 @return		A reference to the X component of this direction.
+		 */
+		constexpr F32& GetX() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the X component of this direction.
+
+		 @return		The X component of this direction.
+		 */
+		constexpr F32 GetX() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the Y component of this direction.
+
+		 @return		A reference to the Y component of this direction.
+		 */
+		constexpr F32& GetY() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Y component of this direction.
+
+		 @return		The Y component of this direction.
+		 */
+		constexpr F32 GetY() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Z component of this direction.
+
+		 @return		A reference to the Z component of this direction.
+		 */
+		constexpr F32& GetZ() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the Z component of this direction.
+
+		 @return		The Z component of this direction.
+		 */
+		constexpr F32 GetZ() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(Direction3) == sizeof(F32x3));

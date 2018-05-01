@@ -463,6 +463,64 @@ namespace mage {
 						spectrum).
 		 */
 		constexpr XYZ& operator=(XYZ&& xyz) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------	
+
+		/**
+		 Returns the X component of this XYZ spectrum.
+
+		 @return		A reference to the X component of this XYZ spectrum.
+		 */
+		constexpr F32& GetX() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the X component of this XYZ spectrum.
+
+		 @return		The X component of this XYZ spectrum.
+		 */
+		constexpr F32 GetX() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the Y component of this XYZ spectrum.
+
+		 @return		A reference to the Y component of this XYZ spectrum.
+		 */
+		constexpr F32& GetY() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Y component of this XYZ spectrum.
+
+		 @return		The Y component of this XYZ spectrum.
+		 */
+		constexpr F32 GetY() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Z component of this XYZ spectrum.
+
+		 @return		A reference to the Z component of this XYZ spectrum.
+		 */
+		constexpr F32& GetZ() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the Z component of this XYZ spectrum.
+
+		 @return		The Z component of this XYZ spectrum.
+		 */
+		constexpr F32 GetZ() const noexcept {
+			return operator[](2);
+		}
 	};
 
 	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
@@ -997,6 +1055,60 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the X component of this XYZA spectrum.
+
+		 @return		A reference to the X component of this XYZA spectrum.
+		 */
+		constexpr F32& GetX() noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the X component of this XYZA spectrum.
+
+		 @return		The X component of this XYZA spectrum.
+		 */
+		constexpr F32 GetX() const noexcept {
+			return operator[](0);
+		}
+
+		/**
+		 Returns the Y component of this XYZA spectrum.
+
+		 @return		A reference to the Y component of this XYZA spectrum.
+		 */
+		constexpr F32& GetY() noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Y component of this XYZA spectrum.
+
+		 @return		The Y component of this XYZA spectrum.
+		 */
+		constexpr F32 GetY() const noexcept {
+			return operator[](1);
+		}
+
+		/**
+		 Returns the Z component of this XYZA spectrum.
+
+		 @return		A reference to the Z component of this XYZA spectrum.
+		 */
+		constexpr F32& GetZ() noexcept {
+			return operator[](2);
+		}
+
+		/**
+		 Returns the Z component of this XYZA spectrum.
+
+		 @return		The Z component of this XYZA spectrum.
+		 */
+		constexpr F32 GetZ() const noexcept {
+			return operator[](2);
+		}
 
 		/**
 		 Returns the alpha component of this XYZA spectrum.

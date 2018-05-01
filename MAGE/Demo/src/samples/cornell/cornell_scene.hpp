@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class CornellScene final : public Scene {
+	class CornellScene : public Scene {
 
 	public:
 

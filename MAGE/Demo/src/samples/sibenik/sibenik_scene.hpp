@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SibenikScene final : public Scene {
+	class SibenikScene : public Scene {
 
 	public:
 

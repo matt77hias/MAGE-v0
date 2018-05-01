@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class ForrestScene final : public Scene {
+	class ForrestScene : public Scene {
 
 	public:
 

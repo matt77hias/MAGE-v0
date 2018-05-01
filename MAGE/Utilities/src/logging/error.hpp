@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <assert.h>
+#include <cassert>
 
 #pragma endregion
 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SponzaScene final : public Scene {
+	class SponzaScene : public Scene {
 
 	public:
 

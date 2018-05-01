@@ -14,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <algorithm>
 #include <limits>
 
 #pragma endregion

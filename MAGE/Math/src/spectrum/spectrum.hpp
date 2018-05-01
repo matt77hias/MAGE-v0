@@ -137,28 +137,21 @@ namespace mage {
 		/**
 		 Returns the red component of this RGB spectrum.
 
-		 @return		A reference to the red component of this RGB spectrum.
-		 */
-		constexpr F32& GetR() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the red component of this RGB spectrum.
-
 		 @return		The red component of this RGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetR() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the green component of this RGB spectrum.
+		 Sets the red component of this RGB spectrum to the given value.
 
-		 @return		A reference to the green component of this RGB spectrum.
+		 @param[in]		r
+						The red component.
 		 */
-		constexpr F32& GetG() noexcept {
-			return operator[](1);
+		constexpr void SetR(F32 r) noexcept {
+			operator[](0) = r;
 		}
 
 		/**
@@ -166,17 +159,19 @@ namespace mage {
 
 		 @return		The green component of this RGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetG() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the blue component of this RGB spectrum.
+		 Sets the green component of this RGB spectrum to the given value.
 
-		 @return		A reference to the blue component of this RGB spectrum.
+		 @param[in]		g
+						The green component.
 		 */
-		constexpr F32& GetB() noexcept {
-			return operator[](2);
+		constexpr void SetG(F32 g) noexcept {
+			operator[](1) = g;
 		}
 
 		/**
@@ -184,8 +179,19 @@ namespace mage {
 
 		 @return		The blue component of this RGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetB() const noexcept {
 			return operator[](2);
+		}
+	
+		/**
+		 Sets the blue component of this RGB spectrum to the given value.
+
+		 @param[in]		b
+						The blue component.
+		 */
+		constexpr void SetB(F32 b) noexcept {
+			operator[](2) = b;
 		}
 	};
 
@@ -304,28 +310,21 @@ namespace mage {
 		/**
 		 Returns the red component of this sRGB spectrum.
 
-		 @return		A reference to the red component of this sRGB spectrum.
-		 */
-		constexpr F32& GetR() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the red component of this sRGB spectrum.
-
 		 @return		The red component of this sRGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetR() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the green component of this sRGB spectrum.
+		 Sets the red component of this sRGB spectrum to the given value.
 
-		 @return		A reference to the green component of this sRGB spectrum.
+		 @param[in]		r
+						The red component.
 		 */
-		constexpr F32& GetG() noexcept {
-			return operator[](1);
+		constexpr void SetR(F32 r) noexcept {
+			operator[](0) = r;
 		}
 
 		/**
@@ -333,17 +332,19 @@ namespace mage {
 
 		 @return		The green component of this sRGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetG() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the blue component of this sRGB spectrum.
+		 Sets the green component of this sRGB spectrum to the given value.
 
-		 @return		A reference to the blue component of this sRGB spectrum.
+		 @param[in]		g
+						The green component.
 		 */
-		constexpr F32& GetB() noexcept {
-			return operator[](2);
+		constexpr void SetG(F32 g) noexcept {
+			operator[](1) = g;
 		}
 
 		/**
@@ -351,8 +352,19 @@ namespace mage {
 
 		 @return		The blue component of this sRGB spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetB() const noexcept {
 			return operator[](2);
+		}
+	
+		/**
+		 Sets the blue component of this sRGB spectrum to the given value.
+
+		 @param[in]		b
+						The blue component.
+		 */
+		constexpr void SetB(F32 b) noexcept {
+			operator[](2) = b;
 		}
 	};
 
@@ -466,33 +478,26 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Member Methods
-		//---------------------------------------------------------------------	
-
-		/**
-		 Returns the X component of this XYZ spectrum.
-
-		 @return		A reference to the X component of this XYZ spectrum.
-		 */
-		constexpr F32& GetX() noexcept {
-			return operator[](0);
-		}
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the X component of this XYZ spectrum.
 
 		 @return		The X component of this XYZ spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetX() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the Y component of this XYZ spectrum.
+		 Sets the X component of this XYZ spectrum to the given value.
 
-		 @return		A reference to the Y component of this XYZ spectrum.
+		 @param[in]		x
+						The X component.
 		 */
-		constexpr F32& GetY() noexcept {
-			return operator[](1);
+		constexpr void SetX(F32 x) noexcept {
+			operator[](0) = x;
 		}
 
 		/**
@@ -500,17 +505,19 @@ namespace mage {
 
 		 @return		The Y component of this XYZ spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetY() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the Z component of this XYZ spectrum.
+		 Sets the Y component of this XYZ spectrum to the given value.
 
-		 @return		A reference to the Z component of this XYZ spectrum.
+		 @param[in]		y
+						The Y component.
 		 */
-		constexpr F32& GetZ() noexcept {
-			return operator[](2);
+		constexpr void SetY(F32 y) noexcept {
+			operator[](1) = y;
 		}
 
 		/**
@@ -518,8 +525,19 @@ namespace mage {
 
 		 @return		The Z component of this XYZ spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
+		}
+	
+		/**
+		 Sets the Z component of this XYZ spectrum to the given value.
+
+		 @param[in]		z
+						The Z component.
+		 */
+		constexpr void SetZ(F32 z) noexcept {
+			operator[](2) = z;
 		}
 	};
 
@@ -661,75 +679,83 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the red component of this RGB spectrum.
+		 Returns the red component of this RGBA spectrum.
 
-		 @return		A reference to the red component of this RGB spectrum.
+		 @return		The red component of this RGBA spectrum.
 		 */
-		constexpr F32& GetR() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the red component of this RGB spectrum.
-
-		 @return		The red component of this RGB spectrum.
-		 */
+		[[nodiscard]]
 		constexpr F32 GetR() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the green component of this RGB spectrum.
+		 Sets the red component of this RGBA spectrum to the given value.
 
-		 @return		A reference to the green component of this RGB spectrum.
+		 @param[in]		r
+						The red component.
 		 */
-		constexpr F32& GetG() noexcept {
-			return operator[](1);
+		constexpr void SetR(F32 r) noexcept {
+			operator[](0) = r;
 		}
 
 		/**
-		 Returns the green component of this RGB spectrum.
+		 Returns the green component of this RGBA spectrum.
 
-		 @return		The green component of this RGB spectrum.
+		 @return		The green component of this RGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetG() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the blue component of this RGB spectrum.
+		 Sets the green component of this RGBA spectrum to the given value.
 
-		 @return		A reference to the blue component of this RGB spectrum.
+		 @param[in]		g
+						The green component.
 		 */
-		constexpr F32& GetB() noexcept {
-			return operator[](2);
+		constexpr void SetG(F32 g) noexcept {
+			operator[](1) = g;
 		}
 
 		/**
-		 Returns the blue component of this RGB spectrum.
+		 Returns the blue component of this RGBA spectrum.
 
-		 @return		The blue component of this RGB spectrum.
+		 @return		The blue component of this RGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetB() const noexcept {
 			return operator[](2);
 		}
 	
 		/**
-		 Returns the alpha component of this RGB spectrum.
+		 Sets the blue component of this RGBA spectrum to the given value.
 
-		 @return		A reference to the alpha component of this RGB spectrum.
+		 @param[in]		b
+						The blue component.
 		 */
-		constexpr F32& GetA() noexcept {
-			return operator[](3);
+		constexpr void SetB(F32 b) noexcept {
+			operator[](2) = b;
 		}
 
 		/**
-		 Returns the alpha component of this RGB spectrum.
+		 Returns the alpha component of this RGBA spectrum.
 
-		 @return		The alpha component of this RGB spectrum.
+		 @return		The alpha component of this RGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetA() const noexcept {
 			return operator[](3);
+		}
+	
+		/**
+		 Sets the alpha component of this RGBA spectrum to the given value.
+
+		 @param[in]		a
+						The alpha component.
+		 */
+		constexpr void SetA(F32 a) noexcept {
+			operator[](3) = a;
 		}
 	};
 
@@ -859,75 +885,83 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the red component of this sRGB spectrum.
+		 Returns the red component of this sRGBA spectrum.
 
-		 @return		A reference to the red component of this sRGB spectrum.
+		 @return		The red component of this sRGBA spectrum.
 		 */
-		constexpr F32& GetR() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the red component of this sRGB spectrum.
-
-		 @return		The red component of this sRGB spectrum.
-		 */
+		[[nodiscard]]
 		constexpr F32 GetR() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the green component of this sRGB spectrum.
+		 Sets the red component of this sRGBA spectrum to the given value.
 
-		 @return		A reference to the green component of this sRGB spectrum.
+		 @param[in]		r
+						The red component.
 		 */
-		constexpr F32& GetG() noexcept {
-			return operator[](1);
+		constexpr void SetR(F32 r) noexcept {
+			operator[](0) = r;
 		}
 
 		/**
-		 Returns the green component of this sRGB spectrum.
+		 Returns the green component of this sRGBA spectrum.
 
-		 @return		The green component of this sRGB spectrum.
+		 @return		The green component of this sRGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetG() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the blue component of this sRGB spectrum.
+		 Sets the green component of this sRGBA spectrum to the given value.
 
-		 @return		A reference to the blue component of this sRGB spectrum.
+		 @param[in]		g
+						The green component.
 		 */
-		constexpr F32& GetB() noexcept {
-			return operator[](2);
+		constexpr void SetG(F32 g) noexcept {
+			operator[](1) = g;
 		}
 
 		/**
-		 Returns the blue component of this sRGB spectrum.
+		 Returns the blue component of this sRGBA spectrum.
 
-		 @return		The blue component of this sRGB spectrum.
+		 @return		The blue component of this sRGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetB() const noexcept {
 			return operator[](2);
 		}
 	
 		/**
-		 Returns the alpha component of this sRGB spectrum.
+		 Sets the blue component of this sRGBA spectrum to the given value.
 
-		 @return		A reference to the alpha component of this sRGB spectrum.
+		 @param[in]		b
+						The blue component.
 		 */
-		constexpr F32& GetA() noexcept {
-			return operator[](3);
+		constexpr void SetB(F32 b) noexcept {
+			operator[](2) = b;
 		}
 
 		/**
-		 Returns the alpha component of this sRGB spectrum.
+		 Returns the alpha component of this sRGBA spectrum.
 
-		 @return		The alpha component of this sRGB spectrum.
+		 @return		The alpha component of this sRGBA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetA() const noexcept {
 			return operator[](3);
+		}
+	
+		/**
+		 Sets the alpha component of this sRGBA spectrum to the given value.
+
+		 @param[in]		a
+						The alpha component.
+		 */
+		constexpr void SetA(F32 a) noexcept {
+			operator[](3) = a;
 		}
 	};
 
@@ -1059,28 +1093,21 @@ namespace mage {
 		/**
 		 Returns the X component of this XYZA spectrum.
 
-		 @return		A reference to the X component of this XYZA spectrum.
-		 */
-		constexpr F32& GetX() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the X component of this XYZA spectrum.
-
 		 @return		The X component of this XYZA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetX() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the Y component of this XYZA spectrum.
+		 Sets the X component of this XYZA spectrum to the given value.
 
-		 @return		A reference to the Y component of this XYZA spectrum.
+		 @param[in]		x
+						The X component.
 		 */
-		constexpr F32& GetY() noexcept {
-			return operator[](1);
+		constexpr void SetX(F32 x) noexcept {
+			operator[](0) = x;
 		}
 
 		/**
@@ -1088,17 +1115,19 @@ namespace mage {
 
 		 @return		The Y component of this XYZA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetY() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the Z component of this XYZA spectrum.
+		 Sets the Y component of this XYZA spectrum to the given value.
 
-		 @return		A reference to the Z component of this XYZA spectrum.
+		 @param[in]		y
+						The Y component.
 		 */
-		constexpr F32& GetZ() noexcept {
-			return operator[](2);
+		constexpr void SetY(F32 y) noexcept {
+			operator[](1) = y;
 		}
 
 		/**
@@ -1106,17 +1135,19 @@ namespace mage {
 
 		 @return		The Z component of this XYZA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
 		}
-
+	
 		/**
-		 Returns the alpha component of this XYZA spectrum.
+		 Sets the Z component of this XYZA spectrum to the given value.
 
-		 @return		A reference to the alpha component of this XYZA spectrum.
+		 @param[in]		z
+						The Z component.
 		 */
-		constexpr F32& GetA() noexcept {
-			return operator[](3);
+		constexpr void SetZ(F32 z) noexcept {
+			operator[](2) = z;
 		}
 
 		/**
@@ -1124,8 +1155,19 @@ namespace mage {
 
 		 @return		The alpha component of this XYZA spectrum.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetA() const noexcept {
 			return operator[](3);
+		}
+	
+		/**
+		 Sets the alpha component of this XYZA spectrum to the given value.
+
+		 @param[in]		a
+						The alpha component.
+		 */
+		constexpr void SetA(F32 a) noexcept {
+			operator[](3) = a;
 		}
 	};
 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class BRDFScene final : public Scene {
+	class BRDFScene : public Scene {
 
 	public:
 

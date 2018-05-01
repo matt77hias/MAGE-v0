@@ -117,41 +117,46 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the U component of this set of texture coordinates.
+		 Returns the U component of this set of UV texture coordinates.
 
-		 @return		A reference to the U component of this set of texture 
-						coordinates.
+		 @return		The U component of this set of UV texture coordinates.
 		 */
-		constexpr F32& GetU() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the U component of this set of texture coordinates.
-
-		 @return		The U component of this set of texture coordinates.
-		 */
+		[[nodiscard]]
 		constexpr F32 GetU() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the V component of this set of texture coordinates.
+		 Sets the U component of this set of UV texture coordinates to the 
+		 given value.
 
-		 @return		A reference to the V component of this set of texture 
+		 @param[in]		u
+						The U component.
+		 */
+		constexpr void SetU(F32 u) noexcept {
+			operator[](0) = u;
+		}
+
+		/**
+		 Returns the V component of this set of UV texture coordinates.
+
+		 @return		The V component of this set of UV texture 
 						coordinates.
 		 */
-		constexpr F32& GetV() noexcept {
+		[[nodiscard]]
+		constexpr F32 GetV() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the V component of this set of texture coordinates.
+		 Sets the V component of this set of UV texture coordinates to the 
+		 given value.
 
-		 @return		The V component of this set of texture coordinates.
+		 @param[in]		v
+						The V component.
 		 */
-		constexpr F32 GetV() const noexcept {
-			return operator[](1);
+		constexpr void SetV(F32 v) noexcept {
+			operator[](1) = v;
 		}
 	};
 
@@ -253,28 +258,21 @@ namespace mage {
 		/**
 		 Returns the X component of this point.
 
-		 @return		A reference to the X component of this point.
-		 */
-		constexpr F32& GetX() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the X component of this point.
-
 		 @return		The X component of this point.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetX() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the Y component of this point.
+		 Sets the X component of this point to the given value.
 
-		 @return		A reference to the Y component of this point.
+		 @param[in]		x
+						The X component.
 		 */
-		constexpr F32& GetY() noexcept {
-			return operator[](1);
+		constexpr void SetX(F32 x) noexcept {
+			operator[](0) = x;
 		}
 
 		/**
@@ -282,17 +280,19 @@ namespace mage {
 
 		 @return		The Y component of this point.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetY() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the Z component of this point.
+		 Sets the Y component of this point to the given value.
 
-		 @return		A reference to the Z component of this point.
+		 @param[in]		y
+						The Y component.
 		 */
-		constexpr F32& GetZ() noexcept {
-			return operator[](2);
+		constexpr void SetY(F32 y) noexcept {
+			operator[](1) = y;
 		}
 
 		/**
@@ -300,8 +300,19 @@ namespace mage {
 
 		 @return		The Z component of this point.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
+		}
+	
+		/**
+		 Sets the Z component of this point to the given value.
+
+		 @param[in]		z
+						The Z component.
+		 */
+		constexpr void SetZ(F32 z) noexcept {
+			operator[](2) = z;
 		}
 	};
 
@@ -405,28 +416,21 @@ namespace mage {
 		/**
 		 Returns the X component of this direction.
 
-		 @return		A reference to the X component of this direction.
-		 */
-		constexpr F32& GetX() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the X component of this direction.
-
 		 @return		The X component of this direction.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetX() const noexcept {
 			return operator[](0);
 		}
 
 		/**
-		 Returns the Y component of this direction.
+		 Sets the X component of this direction to the given value.
 
-		 @return		A reference to the Y component of this direction.
+		 @param[in]		x
+						The X component.
 		 */
-		constexpr F32& GetY() noexcept {
-			return operator[](1);
+		constexpr void SetX(F32 x) noexcept {
+			operator[](0) = x;
 		}
 
 		/**
@@ -434,17 +438,19 @@ namespace mage {
 
 		 @return		The Y component of this direction.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetY() const noexcept {
 			return operator[](1);
 		}
 
 		/**
-		 Returns the Z component of this direction.
+		 Sets the Y component of this direction to the given value.
 
-		 @return		A reference to the Z component of this direction.
+		 @param[in]		y
+						The Y component.
 		 */
-		constexpr F32& GetZ() noexcept {
-			return operator[](2);
+		constexpr void SetY(F32 y) noexcept {
+			operator[](1) = y;
 		}
 
 		/**
@@ -452,8 +458,19 @@ namespace mage {
 
 		 @return		The Z component of this direction.
 		 */
+		[[nodiscard]]
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
+		}
+	
+		/**
+		 Sets the Z component of this direction to the given value.
+
+		 @param[in]		z
+						The Z component.
+		 */
+		constexpr void SetZ(F32 z) noexcept {
+			operator[](2) = z;
 		}
 	};
 

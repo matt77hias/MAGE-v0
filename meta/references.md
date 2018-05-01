@@ -50,6 +50,8 @@ CORENTIN B.: [*Undefining the C++ Pre-processor*](https://medium.com/@corentin.j
 
 CPPDEPEND TEAM: [*What made John Carmack a legend in C++ programming? And which lessons to learn from him when adopting the new standards?*](http://cppdepend.com/blog/?p=744), 2018.
 
+ELVERT M.: [*C++ header-only libraries are bad*](https://schneide.wordpress.com/2018/04/30/c-header-only-libraries-are-bad/), 2018.
+
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
@@ -73,6 +75,8 @@ KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflecti
 KNATTEN A. S.: [*lvalues, rvalues, glvalues, prvalues, xvalues, help!*](https://blog.knatten.org/2018/03/09/lvalues-rvalues-glvalues-prvalues-xvalues-help/), 2018.
 
 KRZEMIEŃSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08/20/noexcept-destructors/), 2013.
+
+KRZEMIEŃSKI A.: [*Why make your classes final?*](https://akrzemi1.wordpress.com/2012/09/30/why-make-your-classes-final/), 2012.
 
 MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 

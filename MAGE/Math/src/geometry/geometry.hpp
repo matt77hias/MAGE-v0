@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A struct of UV texture coordinates.
 	 */
-	struct UV final : public F32x2 {
+	struct UV : public F32x2 {
 
 	public:
 
@@ -167,7 +167,7 @@ namespace mage {
 	/**
 	 A struct of points in 3D space.
 	 */
-	struct Point3 final : public F32x3 {
+	struct Point3 : public F32x3 {
 
 	public:
 
@@ -310,160 +310,6 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Normal3
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of normals in 3D space.
-
-	 @note			@c Normal3 does not guarantee or force normalized 
-					directions. This should be guaranteed and enforced by the 
-					user.
-	 */
-	struct Normal3 final : public F32x3 {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a normal.
-		 */
-		constexpr Normal3() noexcept = default;
-		
-		/**
-		 Constructs a normal from the given coordinates.
-
-		 @param[in]		x
-						The x-coordinate.
-		 @param[in]		y
-						The y-coordinate.
-		 @param[in]		z
-						The z-coordinate.
-		 */
-		constexpr Normal3(F32 x, F32 y, F32 z) noexcept
-			: F32x3(x, y, z) {}
-		
-		/**
-		 Constructs a normal from the given normal.
-
-		 @param[in]		normal
-						A reference to the normal to copy.
-		 */
-		constexpr Normal3(const Normal3& normal) noexcept = default;
-		
-		/**
-		 Constructs a normal by moving the given normal.
-
-		 @param[in]		normal
-						A reference to the normal to move.
-		 */
-		constexpr Normal3(Normal3&& normal) noexcept = default;
-		
-		/**
-		 Constructs a normal from the given vector.
-
-		 @param[in]		v
-						The vector.
-		 */
-		constexpr explicit Normal3(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
-
-		/**
-		 Destructs this normal.
-		 */
-		~Normal3() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given normal to this normal.
-
-		 @param[in]		normal
-						A reference to the normal to copy.
-		 @return		A reference to the copy of the given normal (i.e. this 
-						normal).
-		 */
-		constexpr Normal3& operator=(const Normal3& normal) noexcept = default;
-		
-		/**
-		 Moves the given normal to this normal.
-
-		 @param[in]		normal
-						A reference to the normal to move.
-		 @return		A reference to the moved normal (i.e. this normal).
-		 */
-		constexpr Normal3& operator=(Normal3&& normal) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------	
-
-		/**
-		 Returns the X component of this normal.
-
-		 @return		A reference to the X component of this normal.
-		 */
-		constexpr F32& GetX() noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the X component of this normal.
-
-		 @return		The X component of this normal.
-		 */
-		constexpr F32 GetX() const noexcept {
-			return operator[](0);
-		}
-
-		/**
-		 Returns the Y component of this normal.
-
-		 @return		A reference to the Y component of this normal.
-		 */
-		constexpr F32& GetY() noexcept {
-			return operator[](1);
-		}
-
-		/**
-		 Returns the Y component of this normal.
-
-		 @return		The Y component of this normal.
-		 */
-		constexpr F32 GetY() const noexcept {
-			return operator[](1);
-		}
-
-		/**
-		 Returns the Z component of this normal.
-
-		 @return		A reference to the Z component of this normal.
-		 */
-		constexpr F32& GetZ() noexcept {
-			return operator[](2);
-		}
-
-		/**
-		 Returns the Z component of this normal.
-
-		 @return		The Z component of this normal.
-		 */
-		constexpr F32 GetZ() const noexcept {
-			return operator[](2);
-		}
-	};
-
-	static_assert(sizeof(Normal3) == sizeof(F32x3));
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
 	// Direction3
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -471,7 +317,7 @@ namespace mage {
 	/**
 	 A struct of directions in 3D space.
 	 */
-	struct Direction3 final : public F32x3 {
+	struct Direction3 : public F32x3 {
 
 	public:
 
@@ -513,15 +359,6 @@ namespace mage {
 		 */
 		constexpr Direction3(Direction3&& direction) noexcept = default;
 		
-		/**
-		 Constructs a direction from the given normal.
-
-		 @param[in]		normal
-						The normal.
-		 */
-		constexpr Direction3(Normal3 normal) noexcept
-			: F32x3(std::move(normal)) {}
-
 		/**
 		 Constructs a direction from the given vector.
 
@@ -621,6 +458,102 @@ namespace mage {
 	};
 
 	static_assert(sizeof(Direction3) == sizeof(F32x3));
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Normal3
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A struct of normals in 3D space.
+
+	 @note			@c Normal3 does not guarantee or force normalized 
+					directions. This should be guaranteed and enforced by the 
+					user.
+	 */
+	struct Normal3 : public Direction3 {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a normal.
+		 */
+		constexpr Normal3() noexcept = default;
+		
+		/**
+		 Constructs a normal from the given coordinates.
+
+		 @param[in]		x
+						The x-coordinate.
+		 @param[in]		y
+						The y-coordinate.
+		 @param[in]		z
+						The z-coordinate.
+		 */
+		constexpr Normal3(F32 x, F32 y, F32 z) noexcept
+			: Direction3(x, y, z) {}
+		
+		/**
+		 Constructs a normal from the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to copy.
+		 */
+		constexpr Normal3(const Normal3& normal) noexcept = default;
+		
+		/**
+		 Constructs a normal by moving the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to move.
+		 */
+		constexpr Normal3(Normal3&& normal) noexcept = default;
+		
+		/**
+		 Constructs a normal from the given vector.
+
+		 @param[in]		v
+						The vector.
+		 */
+		constexpr explicit Normal3(F32x3 v) noexcept
+			: Direction3(std::move(v)) {}
+
+		/**
+		 Destructs this normal.
+		 */
+		~Normal3() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given normal to this normal.
+
+		 @param[in]		normal
+						A reference to the normal to copy.
+		 @return		A reference to the copy of the given normal (i.e. this 
+						normal).
+		 */
+		constexpr Normal3& operator=(const Normal3& normal) noexcept = default;
+		
+		/**
+		 Moves the given normal to this normal.
+
+		 @param[in]		normal
+						A reference to the normal to move.
+		 @return		A reference to the moved normal (i.e. this normal).
+		 */
+		constexpr Normal3& operator=(Normal3&& normal) noexcept = default;
+	};
+
+	static_assert(sizeof(Normal3) == sizeof(F32x3));
 
 	#pragma endregion
 

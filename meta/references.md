@@ -487,6 +487,7 @@ Uses:
 * [Eric Richards](https://github.com/ericrrichards)
 * [Finalspace](https://github.com/f1nalspace)
 * frob
+* Incomputable
 * Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
 * JoeJ

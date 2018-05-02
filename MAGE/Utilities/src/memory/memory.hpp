@@ -417,25 +417,27 @@ namespace mage {
 		/**
 		 Constructs a proxy pointer from the given proxy pointer.
 
-		 @tparam		U
+		 @tparam		FromT
 						The memory resource type.
 		 @param[in]		ptr
 						A reference to the proxy pointer.
 		 */
-		template< typename U >
-		ProxyPtr(const ProxyPtr< U >& ptr) noexcept
+		template< typename FromT, 
+			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
+		ProxyPtr(const ProxyPtr< FromT >& ptr) noexcept
 			: ProxyPtr(ptr.m_getter) {}
 
 		/**
 		 Constructs a proxy pointer by moving the given proxy pointer.
 
-		 @tparam		U
+		 @tparam		FromT
 						The memory resource type.
 		 @param[in]		ptr
 						A reference to the proxy pointer to move.
 		 */
-		template< typename U >
-		ProxyPtr(ProxyPtr< U >&& ptr) noexcept
+		template< typename FromT,
+			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
+		ProxyPtr(ProxyPtr< FromT >&& ptr) noexcept
 			: ProxyPtr(std::move(ptr.m_getter)) {}
 	
 		/**

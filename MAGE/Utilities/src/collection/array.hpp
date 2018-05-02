@@ -138,8 +138,8 @@ namespace mage {
 		constexpr Array() noexcept
 			: std::array< T, N >{} {}
 
-		constexpr Array(const T& value) noexcept
-			: std::array< T, N >(FillArray< N >(value)) {}
+		constexpr explicit Array(const T& value) noexcept
+			: std::array< T, N >(FillArray< T, N >(value)) {}
 
 		template< typename... ArgsT, 
 			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >

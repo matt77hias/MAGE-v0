@@ -32,7 +32,7 @@ namespace mage {
 		}
 
 		template< typename T, size_t...I >
-		constexpr auto FillArray(T value, std::index_sequence< I... >) {
+		constexpr auto FillArray(const T& value, std::index_sequence< I... >) {
 			return std::array< T, sizeof...(I) >{ (static_cast< void >(I), value)... };
 		}
 	
@@ -99,7 +99,7 @@ namespace mage {
 	}
 
 	template< typename T, size_t N >
-	constexpr auto FillArray(T value) {
+	constexpr auto FillArray(const T& value) {
 		return details::FillArray(value, std::make_index_sequence< N >());
 	}
 
@@ -137,6 +137,9 @@ namespace mage {
 
 		constexpr Array() noexcept
 			: std::array< T, N >{} {}
+
+		constexpr Array(const T& value) noexcept
+			: std::array< T, N >(FillArray< N >(value)) {}
 
 		template< typename... ArgsT, 
 			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >

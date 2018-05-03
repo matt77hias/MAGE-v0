@@ -82,6 +82,8 @@ MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
+MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers), 2012.
+
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.

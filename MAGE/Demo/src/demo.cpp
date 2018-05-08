@@ -23,8 +23,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 	// Create the engine setup.
 	EngineSetup setup(instance);
 	
-	ThrowIfFailed(false, "Lalla %s", "123");
-
 	// Create the engine.
 	UniquePtr< Engine > engine = CreateEngine(setup);
 	if (engine) {

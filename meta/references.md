@@ -82,6 +82,8 @@ MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
+MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers), 2012.
+
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
@@ -353,6 +355,8 @@ YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/
 
 COURRÈGES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-3/), 2015.
 
+GUSTAFSSON D.: [*Bokeh depth of field in a single pass*](http://tuxedolabs.blogspot.be/2018/05/bokeh-depth-of-field-in-single-pass.html), 2018.
+
 INTEL: [*Compute Shader HDR and Bloom*](https://software.intel.com/en-us/articles/compute-shader-hdr-and-bloom), 2012.
 
 JIMENEZ J.: *Next Generation Post Processing in Call of Duty Advanced Warfare*, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
@@ -360,6 +364,12 @@ JIMENEZ J.: *Next Generation Post Processing in Call of Duty Advanced Warfare*, 
 PETTINEO M.: [*Average Luminance Calculation Using a Compute Shader*](https://mynameismjp.wordpress.com/2011/08/10/average-luminance-compute-shader/), 2011.
 
 PETTINEO M.: [*Depth of Field Sample*](https://mynameismjp.wordpress.com/the-museum/samples-tutorials-tools/depth-of-field-sample/#comment-127104), 2009.
+
+REED N.: [Circle of Confusion From The Depth Buffer](http://www.reedbeta.com/blog/circle-of-confusion-from-the-depth-buffer/), 2012.
+
+ROCKWELL K.: [*Bokeh*](https://kenrockwell.com/tech/bokeh.htm), 2008.
+
+SHARMA S.: [*Bokeh Vs DOF — The Difference Between The Two*](https://www.apnphotographyschool.com/concepts/bokeh-vs-dof-the-difference-between-the-two/), 2011.
 
 ### Scene Graphs
 

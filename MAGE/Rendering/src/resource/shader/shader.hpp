@@ -367,7 +367,7 @@ namespace mage::rendering {
 	struct is_shader< ComputeShader >  : public std::true_type {};
 
 	template< typename T >
-	inline constexpr bool is_shader_v = is_shader< T >::value;
+	constexpr bool is_shader_v = is_shader< T >::value;
 
 	#pragma endregion
 }

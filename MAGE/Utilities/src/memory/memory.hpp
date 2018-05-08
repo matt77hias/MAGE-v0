@@ -29,10 +29,8 @@
 // Pointer size macros
 #if defined(__amd64__) || defined(_M_X64)
 	#define MAGE_X64
-	#define MAGE_POINTER_SIZE 8
 #elif defined(__i386__) || defined(_M_IX86)
 	#define MAGE_X86
-	#define MAGE_POINTER_SIZE 4
 #endif
 
 #pragma endregion
@@ -417,25 +415,27 @@ namespace mage {
 		/**
 		 Constructs a proxy pointer from the given proxy pointer.
 
-		 @tparam		U
+		 @tparam		FromT
 						The memory resource type.
 		 @param[in]		ptr
 						A reference to the proxy pointer.
 		 */
-		template< typename U >
-		ProxyPtr(const ProxyPtr< U >& ptr) noexcept
+		template< typename FromT, 
+			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
+		ProxyPtr(const ProxyPtr< FromT >& ptr) noexcept
 			: ProxyPtr(ptr.m_getter) {}
 
 		/**
 		 Constructs a proxy pointer by moving the given proxy pointer.
 
-		 @tparam		U
+		 @tparam		FromT
 						The memory resource type.
 		 @param[in]		ptr
 						A reference to the proxy pointer to move.
 		 */
-		template< typename U >
-		ProxyPtr(ProxyPtr< U >&& ptr) noexcept
+		template< typename FromT,
+			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
+		ProxyPtr(ProxyPtr< FromT >&& ptr) noexcept
 			: ProxyPtr(std::move(ptr.m_getter)) {}
 	
 		/**

@@ -172,8 +172,9 @@ namespace mage {
 		
 		constexpr Array(Array&& a) noexcept = default;
 
-		template< typename U, size_t FromA >
-		constexpr explicit Array(const Array< U, N, FromA >& a) noexcept
+		template< typename FromT, size_t FromA, 
+			      typename = std::enable_if_t< std::is_convertible_v< FromT, T > > >
+		constexpr explicit Array(const Array< FromT, N, FromA >& a) noexcept
 			: std::array< T, N >(StaticCastArray< T >(a)) {}
 
 		~Array() = default;

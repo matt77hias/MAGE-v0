@@ -65,7 +65,7 @@ namespace mage::rendering::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetPath().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -142,9 +142,10 @@ namespace mage::rendering::loader {
 	[[nodiscard]]
 	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const auto texture_path  = mage::GetPathName(GetFilename());
-		const auto texture_name  = StringToWString(Read< string >());
-		const auto texture_fname = mage::GetFilename(texture_path, texture_name);
-		return m_resource_manager.GetOrCreate< Texture >(texture_fname);
+		const auto texture_name = StringToWString(Read< string >());
+		auto texture_path       = GetPath();
+		texture_path.replace_filename(texture_name);
+
+		return m_resource_manager.GetOrCreate< Texture >(texture_path);
 	}
 }

@@ -53,7 +53,7 @@ namespace mage::rendering {
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
 
-		loader::ImportTextureFromFile(GetFilename(), 
+		loader::ImportTextureFromFile(GetPath(), 
 									  device, 
 									  m_texture_srv.ReleaseAndGetAddressOf());
 	}

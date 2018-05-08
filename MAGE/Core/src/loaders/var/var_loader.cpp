@@ -14,17 +14,17 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 	
-	void ImportVARFromFile(const wstring& fname, 
+	void ImportVARFromFile(const std::filesystem::path& path,
 		                   std::map< string, Value >& variable_buffer) {
 
 		VARReader reader(variable_buffer);
-		reader.ReadFromFile(fname);
+		reader.ReadFromFile(path);
 	}
 
-	void ExportVARToFile(const wstring& fname, 
+	void ExportVARToFile(const std::filesystem::path& path,
 		                 const std::map< string, Value >& variable_buffer) {
 
 		VARWriter writer(variable_buffer);
-		writer.WriteToFile(fname);
+		writer.WriteToFile(path);
 	}
 }

@@ -103,7 +103,7 @@ namespace mage::rendering::loader {
 
 		using BigEndianBinaryWriter::WriteToFile;
 
-		using BigEndianBinaryWriter::GetFilename;
+		using BigEndianBinaryWriter::GetPath;
 
 	private:
 

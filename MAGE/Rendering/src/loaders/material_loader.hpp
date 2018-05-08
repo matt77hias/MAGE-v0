@@ -14,6 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <filesystem>
 #include <vector>
 
 #pragma endregion
@@ -29,10 +30,10 @@ namespace mage::rendering {
 namespace mage::rendering::loader {
 
 	/**
-	 Imports the materials from the given file.
+	 Imports the materials from the file associated with the given path.
 
-	 @param[in]		fname
-					A reference to the filename.
+	 @param[in]		path
+					A reference to the path.
 	 @param[in]		resource_manaer
 					A reference to the resource manager.
 	 @param[out]	materials
@@ -40,7 +41,7 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to import the materials from file.
 	 */
-	void ImportMaterialFromFile(const wstring& fname, 
+	void ImportMaterialFromFile(const std::filesystem::path& path, 
 								ResourceManager &resource_manaer, 
 		                        std::vector< Material >& materials);
 }

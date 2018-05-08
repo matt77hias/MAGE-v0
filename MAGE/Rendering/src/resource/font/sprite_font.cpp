@@ -104,7 +104,7 @@ namespace mage::rendering {
 		m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
-		loader::ImportSpriteFontFromFile(GetFilename(), device, output, desc);
+		loader::ImportSpriteFontFromFile(GetPath(), device, output, desc);
 
 		InitializeSpriteFont(output);
 	}

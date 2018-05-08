@@ -16,19 +16,19 @@
 namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
-	void ImportMDLModelFromFile(const wstring& fname, 
+	void ImportMDLModelFromFile(const std::filesystem::path& path, 
 								ResourceManager& resource_manager, 
 								ModelOutput< VertexT, IndexT >& model_output) {
 		
 		MDLReader< VertexT, IndexT > reader(resource_manager, model_output);
-		reader.ReadFromFile(fname);
+		reader.ReadFromFile(path);
 	}
 
 	template< typename VertexT, typename IndexT >
-	void ExportMDLModelToFile(const wstring& fname, 
+	void ExportMDLModelToFile(const std::filesystem::path& path, 
 							  const ModelOutput< VertexT, IndexT >& model_output) {
 		
 		MDLWriter< VertexT, IndexT > writer(model_output);
-		writer.WriteToFile(fname);
+		writer.WriteToFile(path);
 	}
 }

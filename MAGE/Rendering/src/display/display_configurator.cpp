@@ -8,7 +8,6 @@
 #include "resource\script\variable_script.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
-#include "file\file_utils.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -18,6 +17,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <filesystem>
 #include <vector>
 #include <windowsx.h>
 
@@ -361,9 +361,8 @@ namespace mage::rendering {
 		m_display_modes() {
 
 		// Load the settings script.
-		const auto file_exists = FileExists(s_display_settings_fname);
-		m_script = MakeUnique< VariableScript >
-			       (s_display_settings_fname, file_exists);
+		const auto file_exists = std::filesystem::exists(s_display_settings_fname);
+		m_script = MakeUnique< VariableScript >(s_display_settings_fname, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -382,9 +381,8 @@ namespace mage::rendering {
 		m_display_modes() {
 
 		// Load the settings script.
-		const auto file_exists = FileExists(s_display_settings_fname);
-		m_script = MakeUnique< VariableScript >
-			       (s_display_settings_fname, file_exists);
+		const auto file_exists = std::filesystem::exists(s_display_settings_fname);
+		m_script = MakeUnique< VariableScript >(s_display_settings_fname, file_exists);
 
 		// Initialize the display modes.
 		InitializeDisplayModes();

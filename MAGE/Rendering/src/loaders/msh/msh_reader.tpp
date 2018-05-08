@@ -37,7 +37,7 @@ namespace mage::rendering::loader {
 		{
 			const bool result = IsHeaderValid();
 			ThrowIfFailed(result, 
-						  "%ls: invalid mesh header.", GetFilename().c_str());
+						  "%ls: invalid mesh header.", GetPath().c_str());
 		}
 
 		const auto nb_vertices = Read< U32 >();

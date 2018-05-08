@@ -105,18 +105,19 @@ namespace mage {
 						Failed to import the variable script from file.
 		 */
 		void ImportScript() {
-			ImportScript(GetFilename());
+			ImportScript(GetPath());
 		}
 
 		/**
-		 Imports this variable script from the file with the given filename.
+		 Imports this variable script from the file associated with the given 
+		 path.
 
-		 @param[in]		fname
-						A reference to the filename.
+		 @param[in]		path
+						A reference to the path.
 		 @throws		Exception
 						Failed to import the variable script from file.
 		 */
-		void ImportScript(const wstring& fname);
+		void ImportScript(const std::filesystem::path& path);
 
 		/**
 		 Exports this variable script to the file of this variable script.
@@ -125,18 +126,19 @@ namespace mage {
 						Failed to export the variable script to file.
 		 */
 		void ExportScript() const {
-			ExportScript(GetFilename());
+			ExportScript(GetPath());
 		}
 
 		/**
-		 Exports this variable script to the file with the given filename.
+		 Exports this variable script to the file associated with the given 
+		 path.
 
-		 @param[in]		fname
-						A reference to the filename.
+		 @param[in]		path
+						A reference to the path.
 		 @throws		Exception
 						Failed to export the variable script to file.
 		 */
-		void ExportScript(const wstring& fname) const;
+		void ExportScript(const std::filesystem::path& path) const;
 
 		/**
 		 Checks whether this variable script is empty.

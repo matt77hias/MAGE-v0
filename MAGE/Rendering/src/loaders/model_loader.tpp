@@ -16,37 +16,37 @@
 namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
-	void ImportModelFromFile(const wstring& fname, 
+	void ImportModelFromFile(const std::filesystem::path& path, 
 							 ResourceManager& resource_manager, 
 							 ModelOutput< VertexT, IndexT >& model_output, 
 							 const MeshDescriptor< VertexT, IndexT >& mesh_desc) {
 
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"mdl" == extension) {
-			ImportMDLModelFromFile(fname, resource_manager, model_output);
+			ImportMDLModelFromFile(path, resource_manager, model_output);
 		} 
 		else if (L"obj" == extension) {
-			ImportOBJMeshFromFile(fname, resource_manager, model_output, mesh_desc);
+			ImportOBJMeshFromFile(path, resource_manager, model_output, mesh_desc);
 		}
 		else {
-			throw Exception("Unknown model file extension: %ls", fname.c_str());
+			throw Exception("Unknown model file extension: %ls", path.c_str());
 		}
 	}
 
 	template< typename VertexT, typename IndexT >
-	void ExportModelToFile(const wstring& fname, 
+	void ExportModelToFile(const std::filesystem::path& path, 
 						   const ModelOutput< VertexT, IndexT >& model_output) {
 
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"mdl" == extension) {
-			ExportMDLModelToFile(fname, model_output);
+			ExportMDLModelToFile(path, model_output);
 		}
 		else {
-			throw Exception("Unknown model file extension: %ls", fname.c_str());
+			throw Exception("Unknown model file extension: %ls", path.c_str());
 		}
 	}
 }

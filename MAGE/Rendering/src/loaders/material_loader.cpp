@@ -15,20 +15,20 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportMaterialFromFile(const wstring& fname, 
+	void ImportMaterialFromFile(const std::filesystem::path& path, 
 								ResourceManager& resource_manaer, 
 								std::vector< Material >& materials) {
 		
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"mtl" == extension) {
-			ImportMTLMaterialFromFile(fname, resource_manaer, materials);
+			ImportMTLMaterialFromFile(path, resource_manaer, materials);
 			return;
 		}
 		else {
 			throw Exception("Unknown material file extension: %ls", 
-				            fname.c_str());
+							path.c_str());
 		}
 	}
 }

@@ -36,12 +36,12 @@ namespace mage {
 		return *this;
 	}
 
-	void VariableScript::ImportScript(const wstring& fname) {
-		loader::ImportVariableScriptFromFile(fname, m_variables);
+	void VariableScript::ImportScript(const std::filesystem::path& path) {
+		loader::ImportVariableScriptFromFile(path, m_variables);
 	}
 
-	void VariableScript::ExportScript(const wstring& fname) const {
-		loader::ExportVariableScriptToFile(fname, m_variables);
+	void VariableScript::ExportScript(const std::filesystem::path& path) const {
+		loader::ExportVariableScriptToFile(path, m_variables);
 	}
 
 	void VariableScript::Remove(const string& name) {

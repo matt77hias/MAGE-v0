@@ -41,10 +41,10 @@ namespace mage::rendering::loader {
 		using std::empty;
 		ThrowIfFailed(empty(m_model_output.m_vertex_buffer), 
 					  "%ls: vertex buffer must be empty.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 		ThrowIfFailed(empty(m_model_output.m_index_buffer),
 					  "%ls: index buffer must be empty.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 
 		// Begin current group.
 		m_model_output.StartModelPart(ModelPart());
@@ -95,7 +95,7 @@ namespace mage::rendering::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetPath().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -104,12 +104,12 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const auto mtl_path  = mage::GetPathName(GetFilename());
-		const auto mtl_name  = StringToWString(Read< string >());
-		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
-
-		ImportMaterialFromFile(mtl_fname,
-							   m_resource_manager,
+		const auto mtl_name = StringToWString(Read< string >());
+		auto mtl_path       = GetPath();
+		mtl_path.replace_filename(mtl_name);
+		
+		ImportMaterialFromFile(mtl_path,
+							   m_resource_manager, 
 							   m_model_output.m_material_buffer);
 	}
 
@@ -263,11 +263,11 @@ namespace mage::rendering::loader {
 			const auto index_end = strchr(token, '/');
 			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
 				throw Exception("%ls: line %u: invalid v index value found in %s.", 
-					            GetFilename().c_str(), GetCurrentLineNumber(), token);
+					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 			if (TokenResult::Invalid == StringTo< S32 >(index_end + 2, vn_index)) {
 				throw Exception("%ls: line %u: invalid vn index value found in %s.", 
-					            GetFilename().c_str(), GetCurrentLineNumber(), token);
+					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (str_contains(token, '/')) {
@@ -275,28 +275,28 @@ namespace mage::rendering::loader {
 			const auto index_end = strchr(token, '/');
 			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
 				throw Exception("%ls: line %u: invalid v index value found in %s.", 
-					            GetFilename().c_str(), GetCurrentLineNumber(), token);
+					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 			
 			if (str_contains(index_end + 1, '/')) {
 				const auto texture_end = strchr(index_end + 1, '/');
 				if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, texture_end, vt_index)) {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.", 
-						            GetFilename().c_str(), GetCurrentLineNumber(), token);
+						            GetPath().c_str(), GetCurrentLineNumber(), token);
 				}
 				if (TokenResult::Invalid == StringTo< S32 >(texture_end + 1, vn_index)) {
 					throw Exception("%ls: line %u: invalid vn index value found in %s.", 
-						            GetFilename().c_str(), GetCurrentLineNumber(), token);
+						            GetPath().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
 			else if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, vt_index)) {
 				throw Exception("%ls: line %u: invalid vt index value found in %s.", 
-					            GetFilename().c_str(), GetCurrentLineNumber(), token);
+					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (TokenResult::Invalid == StringTo< S32 >(token, v_index)) {
 			throw Exception("%ls: line %u: invalid v index value found in %s.", 
-				            GetFilename().c_str(), GetCurrentLineNumber(), token);
+				            GetPath().c_str(), GetCurrentLineNumber(), token);
 		}
 
 		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 

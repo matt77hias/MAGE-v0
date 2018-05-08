@@ -35,20 +35,21 @@ namespace mage::rendering::loader {
 		using std::empty;
 		ThrowIfFailed(empty(m_model_output.m_vertex_buffer), 
 					  "%ls: vertex buffer must be empty.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 		ThrowIfFailed(empty(m_model_output.m_index_buffer), 
 					  "%ls: index buffer must be empty.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 
 		ImportMesh();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ImportMesh() {
-		const auto msh_fname
-			= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".msh";
-		ImportMSHMeshFromFile(msh_fname, m_model_output.m_vertex_buffer, 
-			                             m_model_output.m_index_buffer);
+		auto msh_path = GetPath();
+		msh_path.replace_extension(L".msh");
+
+		ImportMSHMeshFromFile(msh_path, m_model_output.m_vertex_buffer,
+							            m_model_output.m_index_buffer);
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -69,7 +70,7 @@ namespace mage::rendering::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetPath().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -93,11 +94,11 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLMaterialLibrary() {
-		const auto mtl_path  = mage::GetPathName(GetFilename());
-		const auto mtl_name  = StringToWString(Read< string >());
-		const auto mtl_fname = mage::GetFilename(mtl_path, mtl_name);
-
-		ImportMaterialFromFile(mtl_fname, 
+		const auto mtl_name = StringToWString(Read< string >());
+		auto mtl_path       = GetPath();
+		mtl_path.replace_filename(mtl_name);
+		
+		ImportMaterialFromFile(mtl_path,
 							   m_resource_manager, 
 							   m_model_output.m_material_buffer);
 	}

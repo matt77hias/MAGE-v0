@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <filesystem>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
@@ -21,14 +30,14 @@ namespace mage::rendering {
 namespace mage::rendering::loader {
 
 	/**
-	 Imports a mesh from the given OBJ file.
+	 Imports a mesh from the OBJ file associated with the given path.
 
 	 @tparam		VertexT
 					The vertex type.
 	 @tparam		IndexT
 					The index type.
-	 @param[in]		fname
-					A reference to the OBJ filename.
+	 @param[in]		path
+					A reference to the path.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in,out]	model_output
@@ -39,7 +48,7 @@ namespace mage::rendering::loader {
 					Failed to import the mesh from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportOBJMeshFromFile(const wstring& fname, 
+	void ImportOBJMeshFromFile(const std::filesystem::path& path, 
 							   ResourceManager& resource_manager, 
 							   ModelOutput< VertexT, IndexT >& model_output, 
 							   const MeshDescriptor< VertexT, IndexT >& 

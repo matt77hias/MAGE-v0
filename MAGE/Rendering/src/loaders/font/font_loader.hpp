@@ -11,15 +11,24 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <filesystem>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
 	/**
-	 Imports the FONT from the given file.
+	 Imports the font from the FONT file associated with the given path.
 
-	 @param[in]		fname
-					A reference to the FONT filename.
+	 @param[in]		path
+					A reference to the path.
 	 @param[in]		device
 					A reference to the device.
 	 @param[out]	output
@@ -29,7 +38,7 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to import the sprite font from file.
 	 */
-	void ImportFontFromFile(const wstring& fname, 
+	void ImportFontFromFile(const std::filesystem::path& path, 
 		                    ID3D11Device& device, 
 		                    SpriteFontOutput& output, 
 		                    const SpriteFontDescriptor& desc 

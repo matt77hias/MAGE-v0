@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <filesystem>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -50,17 +59,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Reads from the given file.
+		 Reads from the file associated with the given path.
 
-		 @param[in]		fname
-						The file name.
+		 @param[in]		path
+						The path.
 		 @param[in]		delimiters
 						The string containing the token delimiters (single 
 						characters).
 		 @throws		Exception
-						Failed to read from the given file.
+						Failed to read from the file.
 		 */
-		void ReadFromFile(wstring fname, 
+		void ReadFromFile(std::filesystem::path path, 
 						  string delimiters = g_default_delimiters);
 		
 		/**
@@ -84,8 +93,8 @@ namespace mage {
 						reader.
 		 */
 		[[nodiscard]]
-		const wstring& GetFilename() const noexcept {
-			return m_fname;
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
 		}
 
 		/**
@@ -269,9 +278,9 @@ namespace mage {
 		UniqueFileStream m_file_stream;
 
 		/**
-		 The current filename of this line reader.
+		 The current path of this line reader.
 		 */
-		wstring m_fname;
+		std::filesystem::path m_path;
 
 		/**
 		 The current delimiters of this line reader.

@@ -5,7 +5,6 @@
 
 #include "loaders\variable_script_loader.hpp"
 #include "loaders\var\var_loader.hpp"
-#include "file\file_utils.hpp"
 #include "string\string_utils.hpp"
 #include "exception\exception.hpp"
 
@@ -16,35 +15,35 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	void ImportVariableScriptFromFile(const wstring& fname, 
+	void ImportVariableScriptFromFile(const std::filesystem::path& path,  
 									  std::map< string, Value >& 
 									  variable_buffer) {
 		
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"var" == extension) {
-			ImportVARFromFile(fname, variable_buffer);
+			ImportVARFromFile(path, variable_buffer);
 		}
 		else {
 			throw Exception("Unknown variable script file extension: %ls", 
-				            fname.c_str());
+							path.c_str());
 		}
 	}
 
-	void ExportVariableScriptToFile(const wstring& fname, 
+	void ExportVariableScriptToFile(const std::filesystem::path& path, 
 									const std::map< string, Value >& 
 									variable_buffer) {
 		
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"var" == extension) {
-			ExportVARToFile(fname, variable_buffer);
+			ExportVARToFile(path, variable_buffer);
 		}
 		else {
 			throw Exception("Unknown variable script file extension: %ls", 
-				            fname.c_str());
+							path.c_str());
 		}
 	}
 }

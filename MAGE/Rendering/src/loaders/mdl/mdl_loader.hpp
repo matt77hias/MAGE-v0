@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <filesystem>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
@@ -20,7 +29,7 @@ namespace mage::rendering {
 namespace mage::rendering::loader {
 
 	/**
-	 Imports the model from the given MDL file.
+	 Imports the model from the MDL file associated with the given path.
 
 	 @tparam		VertexT
 					The vertex type.
@@ -28,34 +37,34 @@ namespace mage::rendering::loader {
 					The index type.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
-	 @param[in]		fname
-					A reference to the MDL filename.
+	 @param[in]		path
+					A reference to the path.
 	 @param[out]	model_output
 					A reference to the model output.
 	 @throws		Exception
 					Failed to import the model from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportMDLModelFromFile(const wstring& fname, 
+	void ImportMDLModelFromFile(const std::filesystem::path& path, 
 								const ResourceManager& resource_manager, 
 								ModelOutput< VertexT, IndexT >& model_output);
 
 	/**
-	 Exports the given model to the given MDL file.
+	 Exports the given model to the MDL file associated with the given path.
 
 	 @tparam		VertexT
 					The vertex type.
 	 @tparam		IndexT
 					The index type.
-	 @param[in]		fname
-					A reference to the MDL filename.
+	 @param[in]		path
+					A reference to the path.
 	 @param[in]		model_output
 					A reference to the model output.
 	 @throws		Exception
 					Failed to export the model to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportMDLModelToFile(const wstring& fname, 
+	void ExportMDLModelToFile(const std::filesystem::path& path, 
 							  const ModelOutput< VertexT, IndexT >& model_output);
 }
 

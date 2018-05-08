@@ -28,6 +28,6 @@ namespace mage {
 											m_file_stream.get());
 		ThrowIfFailed((count_written == count),
 					  "%ls: could not write all data to file.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 	}
 }

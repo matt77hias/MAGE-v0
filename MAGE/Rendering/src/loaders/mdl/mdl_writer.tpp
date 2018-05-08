@@ -42,34 +42,29 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLWriter< VertexT, IndexT >::ExportMesh() {
-		const auto& fname = GetFilename();
-		const auto msh_fname
-			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+		auto msh_path = GetPath();
+		msh_path.replace_extension(L".msh");
 
-		ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, 
-			                           m_model_output.m_index_buffer);
+		ExportMSHMeshToFile(msh_path, m_model_output.m_vertex_buffer,
+			                          m_model_output.m_index_buffer);
 	}
 
 	template< typename VertexT, typename IndexT >
 	void MDLWriter< VertexT, IndexT >::WriteMaterials() {
-		const auto& fname = GetFilename();
+		auto mtl_path = GetPath();
+		mtl_path.replace_extension(L".mtl");
 		
-		const auto mtl_fname
-			= mage::GetFilenameWithoutFileExtension(fname) + L".mtl";
-		if (!FileExists(mtl_fname)) {
+		if (!std::filesystem::is_regular_file(mtl_path)) {
 			return;
 		}
 
-		const auto file_name
-			= mage::GetFileName(fname);
-		const auto file_name_we
-			= mage::GetFilenameWithoutFileExtension(file_name);
+		const auto mtl_fname = mtl_path.filename();
 
 		char output[MAX_PATH];
 		sprintf_s(output, std::size(output), 
-			      "%s %s.mtl",
+			      "%s %ls",
 			      g_mdl_token_material_library, 
-				  WStringToString(file_name_we).c_str());
+				  mtl_fname.c_str());
 
 		WriteStringLine(output);
 	}

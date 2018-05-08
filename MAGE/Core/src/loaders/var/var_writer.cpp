@@ -152,7 +152,7 @@ namespace mage::loader {
 			}
 
 			Warning("%ls: could not export variable: %s", 
-				    GetFilename().c_str(), key.c_str());
+				    GetPath().c_str(), key.c_str());
 		}
 	}
 }

@@ -21,10 +21,10 @@ namespace mage {
 		
 		ThrowIfFailed((m_pos <= new_pos), 
 					  "%ls: overflow: no value found.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 		ThrowIfFailed((new_pos <= m_end), 
 					  "%ls: end of file: no value found.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 
 		m_pos = new_pos;
 		return BytesTo< DataT >(old_pos, m_big_endian);
@@ -42,11 +42,11 @@ namespace mage {
 		
 		ThrowIfFailed((m_pos <= new_pos), 
 					  "%ls: overflow: no %llu values found.", 
-					  GetFilename().c_str(), 
+					  GetPath().c_str(), 
 					  static_cast< U64 >(count));
 		ThrowIfFailed((new_pos <= m_end), 
 					  "%ls: end of file: no %llu values found.", 
-					  GetFilename().c_str(), 
+					  GetPath().c_str(), 
 					  static_cast< U64 >(count));
 
 		m_pos = new_pos;

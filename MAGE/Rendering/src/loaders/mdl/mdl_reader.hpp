@@ -102,7 +102,7 @@ namespace mage::rendering::loader {
 
 		using LineReader::ReadFromMemory;
 
-		using LineReader::GetFilename;
+		using LineReader::GetPath;
 
 		using LineReader::GetDelimiters;
 

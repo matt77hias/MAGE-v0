@@ -95,7 +95,7 @@ namespace mage::loader {
 
 		using Writer::WriteToFile;
 
-		using Writer::GetFilename;
+		using Writer::GetPath;
 
 	private:
 

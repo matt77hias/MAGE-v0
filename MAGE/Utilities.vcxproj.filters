@@ -15,9 +15,6 @@
     <Filter Include="Header Files\exception">
       <UniqueIdentifier>{6229e601-2630-4593-9a4c-b8b7cc0ec7bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\file">
-      <UniqueIdentifier>{bfcb86bc-9d94-46b6-b818-6cff07dc4073}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\io">
       <UniqueIdentifier>{0228defb-ba6e-41c8-9f49-1665af4ff1ac}</UniqueIdentifier>
     </Filter>
@@ -51,9 +48,6 @@
     <Filter Include="Source Files\exception">
       <UniqueIdentifier>{945f6804-6d57-46a5-9818-ea67fb90d46a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\file">
-      <UniqueIdentifier>{0994a1ad-cf09-4c98-a2a4-7ff542cde50b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\io">
       <UniqueIdentifier>{3b70b949-7cdb-4e84-ac06-cd2bc4820fd1}</UniqueIdentifier>
     </Filter>
@@ -82,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\exception\exception.hpp">
       <Filter>Header Files\exception</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\file\file_utils.hpp">
-      <Filter>Header Files\file</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\io\binary_reader.hpp">
       <Filter>Header Files\io</Filter>
@@ -193,9 +184,6 @@
     <ClCompile Include="Utilities\src\exception\exception.cpp">
       <Filter>Source Files\exception</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\src\file\file_utils.cpp">
-      <Filter>Source Files\file</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities\src\io\binary_reader.cpp">
       <Filter>Source Files\io</Filter>
     </ClCompile>
@@ -252,9 +240,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Utilities\src\file\file_utils.tpp">
-      <Filter>Header Files\file</Filter>
-    </None>
     <None Include="Utilities\src\io\binary_reader.tpp">
       <Filter>Header Files\io</Filter>
     </None>

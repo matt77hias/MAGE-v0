@@ -17,12 +17,13 @@ namespace mage::rendering {
 		m_model_parts() {
 
 		ModelOutput< VertexT, IndexT > buffer;
-		loader::ImportModelFromFile(GetFilename(), resource_manager, buffer, desc);
+		loader::ImportModelFromFile(GetPath(), resource_manager, buffer, desc);
 
 		if (export_as_MDL) {
-			const auto mdl_fname 
-				= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".mdl";
-			loader::ExportModelToFile(mdl_fname, buffer);
+			auto mdl_path = GetPath();
+			mdl_path.replace_extension(L".msh");
+
+			loader::ExportModelToFile(mdl_path, buffer);
 		}
 
 		m_mesh = MakeShared< StaticMesh< VertexT, IndexT > >(

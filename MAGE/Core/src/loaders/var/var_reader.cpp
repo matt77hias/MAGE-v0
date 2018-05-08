@@ -60,7 +60,7 @@ namespace mage::loader {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetFilename().c_str(), GetCurrentLineNumber(), token);
+				    GetPath().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 

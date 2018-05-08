@@ -12,12 +12,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ReadBinaryFile(const wstring& fname,
+	void ReadBinaryFile(const std::filesystem::path& path,
 						UniquePtr< U8[] >& data,
 						size_t& size) {
 
 		const auto file_handle 
-			= CreateUniqueHandle(CreateFile2(fname.c_str(), 
+			= CreateUniqueHandle(CreateFile2(path.c_str(),
 											 GENERIC_READ, 
 											 FILE_SHARE_READ, 
 											 OPEN_EXISTING, 
@@ -31,10 +31,10 @@ namespace mage {
 															 sizeof(file_info));
 			ThrowIfFailed(result, 
 						  "%ls: could not retrieve file information.", 
-						  fname.c_str());
+						  path.c_str());
 			ThrowIfFailed((0 == file_info.EndOfFile.HighPart), 
 						  "%ls: file too big for 32-bit allocation.", 
-						  fname.c_str());
+						  path.c_str());
 		}
 		
 		// Allocate buffer.
@@ -42,7 +42,7 @@ namespace mage {
 		size = nb_bytes;
 		data = MakeUnique< U8[] >(nb_bytes);
 		ThrowIfFailed((nullptr != data), 
-					  "%ls: file too big for allocation.", fname.c_str());
+					  "%ls: file too big for allocation.", path.c_str());
 
 		// Populate buffer.
 		{
@@ -50,9 +50,9 @@ namespace mage {
 			const BOOL result = ReadFile(file_handle.get(), data.get(), 
 										 nb_bytes, &nb_bytes_read, nullptr);
 			ThrowIfFailed(result, 
-						  "%ls: could not load file data.", fname.c_str());
+						  "%ls: could not load file data.", path.c_str());
 			ThrowIfFailed((nb_bytes <= nb_bytes_read), 
-						  "%ls: could not load all file data.", fname.c_str());
+						  "%ls: could not load all file data.", path.c_str());
 		}
 	}
 
@@ -62,7 +62,7 @@ namespace mage {
 	#pragma region
 
 	BinaryReader::BinaryReader()
-		: m_fname(), 
+		: m_path(),
 		m_big_endian(true),
 		m_pos(nullptr), 
 		m_end(nullptr), 
@@ -75,12 +75,14 @@ namespace mage {
 	BinaryReader& BinaryReader
 		::operator=(BinaryReader&& reader) noexcept = default;
 
-	void BinaryReader::ReadFromFile(wstring fname, bool big_endian) {
-		m_fname = std::move(fname);
+	void BinaryReader::ReadFromFile(std::filesystem::path path, 
+									bool big_endian) {
+
+		m_path       = std::move(path);
 		m_big_endian = big_endian;
 
 		size_t nb_bytes = 0u;
-		ReadBinaryFile(m_fname, m_data, nb_bytes);
+		ReadBinaryFile(m_path, m_data, nb_bytes);
 		
 		m_pos = m_data.get();
 		m_end = m_data.get() + nb_bytes;
@@ -91,14 +93,14 @@ namespace mage {
 	void BinaryReader::ReadFromMemory(gsl::span< const U8 > input, 
 									  bool big_endian) {
 
-		m_fname = L"input string";
+		m_path       = L"input string";
 		m_big_endian = big_endian;
 		
 		m_pos = input.data();
 		m_end = input.data() + input.size();
 
 		ThrowIfFailed((m_pos <= m_end), 
-					  "%ls: overflow.", GetFilename().c_str());
+					  "%ls: overflow.", GetPath().c_str());
 
 		ReadData();
 	}
@@ -108,10 +110,10 @@ namespace mage {
 		const auto new_pos = m_pos + size;
 		ThrowIfFailed((m_pos <= new_pos), 
 					  "%ls: overflow: no chars value found.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 		ThrowIfFailed((new_pos <= m_end), 
 					  "%ls: end of file: no chars value found.", 
-					  GetFilename().c_str());
+					  GetPath().c_str());
 
 		m_pos = new_pos;
 		return reinterpret_cast< const char* >(old_pos);
@@ -125,7 +127,7 @@ namespace mage {
 	#pragma region
 
 	BigEndianBinaryReader::BigEndianBinaryReader()
-		: m_fname(), 
+		: m_path(), 
 		m_pos(nullptr), 
 		m_end(nullptr), 
 		m_data() {}
@@ -138,26 +140,26 @@ namespace mage {
 	BigEndianBinaryReader& BigEndianBinaryReader
 		::operator=(BigEndianBinaryReader&& reader) noexcept = default;
 
-	void BigEndianBinaryReader::ReadFromFile(wstring fname) {
-		m_fname = std::move(fname);
+	void BigEndianBinaryReader::ReadFromFile(std::filesystem::path path) {
+		m_path = std::move(path);
 
 		size_t nb_bytes = 0u;
-		ReadBinaryFile(m_fname, m_data, nb_bytes);
+		ReadBinaryFile(m_path, m_data, nb_bytes);
 
-		m_pos = m_data.get();
-		m_end = m_data.get() + nb_bytes;
+		m_pos  = m_data.get();
+		m_end  = m_data.get() + nb_bytes;
 		
 		ReadData();
 	}
 	
 	void BigEndianBinaryReader::ReadFromMemory(gsl::span< const U8 > input) {
-		m_fname = L"input string";
+		m_path = L"input string";
 
-		m_pos = input.data();
-		m_end = input.data() + input.size();
+		m_pos  = input.data();
+		m_end  = input.data() + input.size();
 
 		ThrowIfFailed((m_pos <= m_end), 
-					  "%ls: overflow.", GetFilename().c_str());
+					  "%ls: overflow.", GetPath().c_str());
 
 		ReadData();
 	}

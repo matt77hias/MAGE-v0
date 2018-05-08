@@ -7,7 +7,6 @@
 #include "loaders\dds\dds_loader.hpp"
 #include "loaders\dds\screen_grab.hpp"
 #include "loaders\wic\wic_loader.hpp"
-#include "file\file_utils.hpp"
 #include "string\string_utils.hpp"
 #include "exception\exception.hpp"
 
@@ -27,21 +26,21 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportTextureFromFile(const wstring& fname, 
+	void ImportTextureFromFile(const std::filesystem::path& path, 
 		                       ID3D11Device& device, 
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
 		
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"dds" == extension) {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
-				&device, fname.c_str(), nullptr, texture_srv);
+				&device, path.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
 		}
 		else {
 			const HRESULT result = DirectX::CreateWICTextureFromFile(
-				&device, fname.c_str(), nullptr, texture_srv);
+				&device, path.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
 		}
 	}
@@ -93,16 +92,16 @@ namespace mage::rendering::loader {
 		}
 	}
 
-	void ExportTextureToFile(const wstring& fname,
+	void ExportTextureToFile(const std::filesystem::path& path, 
 		                     ID3D11DeviceContext& device_context, 
 		                     ID3D11Resource& texture) {
 
-		auto extension = GetFileExtension(fname);
+		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L"dds" == extension) {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
-				&device_context, &texture, fname.c_str());
+				&device_context, &texture, path.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
 		}
 		else {
@@ -110,10 +109,10 @@ namespace mage::rendering::loader {
 			const auto format = GetGUIDContainerFormat(extension);
 			ThrowIfFailed((GUID_NULL != format), 
 						  "Unknown image file extension: %ls", 
-						  fname.c_str());
+						  path.c_str());
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(
-				&device_context, &texture, format, fname.c_str());
+				&device_context, &texture, format, path.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
 		}
 	}

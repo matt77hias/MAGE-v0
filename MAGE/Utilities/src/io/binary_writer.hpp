@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <filesystem>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -53,23 +62,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Writes to the given file.
+		 Writes to the file associated with the given path.
 
-		 @param[in]		fname
-						The file name.
+		 @param[in]		path
+						The path.
 		 @throws		Exception
-						Failed to write to the given file.
+						Failed to write to the file.
 		 */
-		void WriteToFile(wstring fname);
+		void WriteToFile(std::filesystem::path path);
 
 		/**
-		 Returns the current filename of this writer.
+		 Returns the current path of this big endian binary writer.
 
-		 @return		A reference to the current filename of this writer.
+		 @return		A reference to the current path of this big endian 
+						binary writer.
 		 */
 		[[nodiscard]]
-		const wstring& GetFilename() const noexcept {
-			return m_fname;
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
 		}
 
 	protected:
@@ -181,9 +191,9 @@ namespace mage {
 		UniqueFileStream m_file_stream;
 
 		/**
-		 The current filename of this big endian binary writer.
+		 The current path of this big endian binary writer.
 		 */
-		wstring m_fname;
+		std::filesystem::path m_path;
 	};
 }
 

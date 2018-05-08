@@ -30,13 +30,13 @@ namespace mage {
 
 		case TokenResult::None: {
 			throw Exception("%ls: line %u: no value found.",
-				            GetFilename().c_str(), 
+				            GetPath().c_str(), 
 				            GetCurrentLineNumber());
 		}
 
 		default: {
 			throw Exception("%ls: line %u: invalid value found.",
-				            GetFilename().c_str(), 
+				            GetPath().c_str(), 
 				            GetCurrentLineNumber());
 		}
 		}

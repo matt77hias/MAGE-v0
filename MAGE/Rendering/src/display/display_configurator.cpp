@@ -381,7 +381,7 @@ namespace mage::rendering {
 		m_display_modes() {
 
 		// Load the settings script.
-		const auto file_exists = std::filesystem::exists(s_display_settings_fname);
+		const auto file_exists = std::filesystem::is_regular_file(s_display_settings_fname);
 		m_script = MakeUnique< VariableScript >(s_display_settings_fname, file_exists);
 
 		// Initialize the display modes.

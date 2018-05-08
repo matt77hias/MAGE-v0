@@ -87,10 +87,9 @@ namespace mage {
 							string delimiters = g_default_delimiters);
 
 		/**
-		 Returns the current filename of this line reader.
+		 Returns the current path of this line reader.
 
-		 @return		A reference to the current filename of this line 
-						reader.
+		 @return		A reference to the current path of this line reader.
 		 */
 		[[nodiscard]]
 		const std::filesystem::path& GetPath() const noexcept {

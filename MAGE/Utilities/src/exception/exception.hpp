@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		format
 						Pointer to the message format.
 		 */
-		explicit Exception(NotNull< const_zstring > format, ...);
+		explicit Exception(const_zstring format, ...);
 
 		/**
 		 Constructs a formatted exception.
@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		args
 						The variable argument list.
 		 */
-		explicit Exception(NotNull< const_zstring > format, va_list args);
+		explicit Exception(const_zstring format, va_list args);
 
 		/**
 		 Constructs a formatted exception from the given formatted exception.
@@ -174,7 +174,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(bool result, NotNull< const_zstring > format, ...);
+	void ThrowIfFailed(bool result, const_zstring format, ...);
 
 	/**
 	 Throws if the given result correspond to a failure.
@@ -196,7 +196,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(BOOL result, NotNull< const_zstring > format, ...);
+	void ThrowIfFailed(BOOL result, const_zstring format, ...);
 
 	/**
 	 Throws if the given result correspond to a failure.
@@ -218,7 +218,7 @@ namespace mage {
 	 @throws		Exception
 					The given results correspond to a failure.
 	 */
-	void ThrowIfFailed(HRESULT result, NotNull< const_zstring > format, ...);
+	void ThrowIfFailed(HRESULT result, const_zstring format, ...);
 
 	#pragma endregion
 }

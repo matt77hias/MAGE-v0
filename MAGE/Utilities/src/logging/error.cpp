@@ -83,8 +83,8 @@ namespace mage {
 		 @param[in]		disposition
 						The disposition of the error.
 		 */
-		void ProcessError(NotNull< const_zstring > format, 
-						  const va_list args, 
+		void ProcessError(const_zstring format, 
+						  va_list args, 
 						  const string& error_type, 
 						  ErrorDisposition disposition) {
 
@@ -138,7 +138,7 @@ namespace mage {
 		}
 	}
 
-	void Debug([[maybe_unused]] NotNull< const_zstring > format, ...) {
+	void Debug([[maybe_unused]] const_zstring format, ...) {
 		#ifdef _DEBUG
 		if (!LoggingConfiguration::Get().IsVerbose() 
 			|| LoggingConfiguration::Get().IsQuiet()) {
@@ -150,8 +150,7 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 		
 		ProcessError(format, args, "Debug Info", ErrorDisposition::Continue);
 		
@@ -160,7 +159,7 @@ namespace mage {
 		#endif
 	}
 
-	void Info(NotNull< const_zstring > format, ...) {
+	void Info(const_zstring format, ...) {
 		if (!LoggingConfiguration::Get().IsVerbose() 
 			|| LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process info in non-verbose mode.
@@ -171,8 +170,7 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 		
 		ProcessError(format, args, "Info", ErrorDisposition::Continue);
 		
@@ -180,7 +178,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Warning(NotNull< const_zstring > format, ...) {
+	void Warning(const_zstring format, ...) {
 		if (LoggingConfiguration::Get().IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
@@ -189,8 +187,7 @@ namespace mage {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 		
 		ProcessError(format, args, "Warning", ErrorDisposition::Continue);
 		
@@ -198,12 +195,11 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Error(NotNull< const_zstring > format, ...) {
+	void Error(const_zstring format, ...) {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 		
 		ProcessError(format, args, "Error", ErrorDisposition::Continue);
 		
@@ -211,12 +207,11 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Fatal(NotNull< const_zstring > format, ...) {
+	void Fatal(const_zstring format, ...) {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 
 		ProcessError(format, args, "Fatal Error", ErrorDisposition::Abort);
 		

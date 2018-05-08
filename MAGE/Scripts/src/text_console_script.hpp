@@ -54,7 +54,7 @@ namespace mage::script {
 		void Clear();
 		void Write(NotNull< const_wzstring > str);
 		void WriteLine(NotNull< const_wzstring > str);
-		void Format(NotNull< const_wzstring > format, ...);
+		void Format(const_wzstring format, ...);
 
 	private:
 

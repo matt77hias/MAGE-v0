@@ -93,13 +93,12 @@ namespace mage::script {
 		IncrementRow();
 	}
 
-	void TextConsoleScript::Format(NotNull< const_wzstring > format, ...) {
+	void TextConsoleScript::Format(const_wzstring format, ...) {
 		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		va_list args;
 		// Retrieve the additional arguments after format
-		const wchar_t* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 
 		const auto nb_characters 
 			= static_cast< size_t >(_vscwprintf(format, args) + 1);

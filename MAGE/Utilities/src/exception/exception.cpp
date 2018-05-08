@@ -22,15 +22,13 @@ namespace mage {
 		: std::exception(), 
 		m_text{} {}
 
-	Exception::Exception(NotNull< const_zstring > format, ...)
-		: std::exception(),
-		m_text{} {
+	Exception::Exception(const_zstring format, ...)
+		: Exception() {
 
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
-		const char* const c_str = format;
-		va_start(args, c_str);
+		va_start(args, format);
 
 		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
@@ -40,9 +38,8 @@ namespace mage {
 		Error(m_text);
 	}
 
-	Exception::Exception(NotNull< const_zstring > format, va_list args)
-		: std::exception(), 
-		m_text{} {
+	Exception::Exception(const_zstring format, va_list args)
+		: Exception() {
 
 		vsnprintf_s(m_text, std::size(m_text), _TRUNCATE, format, args);
 		
@@ -76,13 +73,12 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(bool result, NotNull< const_zstring > format, ...) {
+	void ThrowIfFailed(bool result, const_zstring format, ...) {
 		if (false == result) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			const char* const c_str = format;
-			va_start(args, c_str);
+			va_start(args, format);
 
 			const Exception exception(format, args);
 
@@ -99,13 +95,12 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(BOOL result, NotNull< const_zstring > format, ...) {
+	void ThrowIfFailed(BOOL result, const_zstring format, ...) {
 		if (FALSE == result) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			const char* const c_str = format;
-			va_start(args, c_str);
+			va_start(args, format);
 
 			const Exception exception(format, args);
 
@@ -122,13 +117,12 @@ namespace mage {
 		}
 	}
 
-	void ThrowIfFailed(HRESULT result, NotNull< const_zstring > format, ...) {
+	void ThrowIfFailed(HRESULT result, const_zstring format, ...) {
 		if (FAILED(result)) {
 			va_list args;
 
 			// Retrieve the additional arguments after format.
-			const char* const c_str = format;
-			va_start(args, c_str);
+			va_start(args, format);
 
 			const Exception exception(format, args);
 

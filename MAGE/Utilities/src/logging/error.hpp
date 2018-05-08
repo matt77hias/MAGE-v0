@@ -32,7 +32,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Debug([[maybe_unused]] NotNull< const_zstring > format, ...);
+	void Debug([[maybe_unused]] const_zstring format, ...);
 
 	/**
 	 Notifies an info message.
@@ -42,7 +42,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.	
 	 */
-	void Info(NotNull< const_zstring > format, ...);
+	void Info(const_zstring format, ...);
 	
 	/**
 	 Notifies a warning message.
@@ -53,7 +53,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Warning(NotNull< const_zstring > format, ...);
+	void Warning(const_zstring format, ...);
 	
 	/**
 	 Notifies an error message.
@@ -64,7 +64,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Error(NotNull< const_zstring > format, ...);
+	void Error(const_zstring format, ...);
 	
 	/**
 	 Notifies a fatal message.
@@ -75,7 +75,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Fatal(NotNull< const_zstring > format, ...);
+	void Fatal(const_zstring format, ...);
 }
 
 //-----------------------------------------------------------------------------

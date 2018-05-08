@@ -23,7 +23,8 @@ namespace mage {
 		m_text{} {}
 
 	Exception::Exception(NotNull< const_zstring > format, ...)
-		: Exception() {
+		: std::exception(),
+		m_text{} {
 
 		va_list args;
 		

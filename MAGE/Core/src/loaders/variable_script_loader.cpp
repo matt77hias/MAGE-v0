@@ -22,7 +22,7 @@ namespace mage::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"var" == extension) {
+		if (L".var" == extension) {
 			ImportVARFromFile(path, variable_buffer);
 		}
 		else {
@@ -38,7 +38,7 @@ namespace mage::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"var" == extension) {
+		if (L".var" == extension) {
 			ExportVARToFile(path, variable_buffer);
 		}
 		else {

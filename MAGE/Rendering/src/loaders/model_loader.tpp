@@ -24,10 +24,10 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"mdl" == extension) {
+		if (L".mdl" == extension) {
 			ImportMDLModelFromFile(path, resource_manager, model_output);
 		} 
-		else if (L"obj" == extension) {
+		else if (L".obj" == extension) {
 			ImportOBJMeshFromFile(path, resource_manager, model_output, mesh_desc);
 		}
 		else {
@@ -42,7 +42,7 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"mdl" == extension) {
+		if (L".mdl" == extension) {
 			ExportMDLModelToFile(path, model_output);
 		}
 		else {

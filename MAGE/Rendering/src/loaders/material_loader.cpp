@@ -22,7 +22,7 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"mtl" == extension) {
+		if (L".mtl" == extension) {
 			ImportMTLMaterialFromFile(path, resource_manaer, materials);
 			return;
 		}

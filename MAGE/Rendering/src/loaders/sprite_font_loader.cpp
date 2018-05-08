@@ -23,7 +23,7 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"font" == extension) {
+		if (L".font" == extension) {
 			ImportFontFromFile(path, device, output, desc);
 		}
 		else {

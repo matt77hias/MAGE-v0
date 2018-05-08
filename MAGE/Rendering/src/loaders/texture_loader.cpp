@@ -33,7 +33,7 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"dds" == extension) {
+		if (L".dds" == extension) {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
 				&device, path.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
@@ -60,31 +60,31 @@ namespace mage::rendering::loader {
 	static inline const GUID 
 		GetGUIDContainerFormat(const wstring& extension) noexcept {
 
-		if (L"png" == extension) {
+		if (L".png" == extension) {
 			return GUID_ContainerFormatPng;
 		}
-		else if (L"jpe"  == extension
-			  || L"jpeg" == extension
-			  || L"jpg"  == extension) {
+		else if (L".jpe"  == extension
+			  || L".jpeg" == extension
+			  || L".jpg"  == extension) {
 			return GUID_ContainerFormatJpeg;
 		}
-		else if (L"tif"  == extension
-			  || L"tiff" == extension) {
+		else if (L".tif"  == extension
+			  || L".tiff" == extension) {
 			return GUID_ContainerFormatTiff;
 		}
-		else if (L"gif"  == extension) {
+		else if (L".gif"  == extension) {
 			return GUID_ContainerFormatGif;
 		}
-		else if (L"bmp"  == extension
-			  || L"dib"  == extension) {
+		else if (L".bmp"  == extension
+			  || L".dib"  == extension) {
 			return GUID_ContainerFormatBmp;
 		}
-		else if (L"ico"  == extension) {
+		else if (L".ico"  == extension) {
 			return GUID_ContainerFormatIco;
 		}
-		else if (L"hdp"  == extension
-			  || L"wdp"  == extension
-			  || L"jxr"  == extension) {
+		else if (L".hdp"  == extension
+			  || L".wdp"  == extension
+			  || L".jxr"  == extension) {
 			return GUID_ContainerFormatWmp;
 		}
 		else {
@@ -99,7 +99,7 @@ namespace mage::rendering::loader {
 		wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
-		if (L"dds" == extension) {
+		if (L".dds" == extension) {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
 				&device_context, &texture, path.c_str());
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);

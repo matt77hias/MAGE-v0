@@ -21,7 +21,7 @@ namespace mage::rendering {
 
 		if (export_as_MDL) {
 			auto mdl_path = GetPath();
-			mdl_path.replace_extension(L".msh");
+			mdl_path.replace_extension(L".mdl");
 
 			loader::ExportModelToFile(mdl_path, buffer);
 		}

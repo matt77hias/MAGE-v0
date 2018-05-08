@@ -59,13 +59,6 @@ namespace mage {
 	template< typename DataT >
 	TokenResult StringTo(const_zstring str, DataT& result) noexcept;
 
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// String Conversion Utilities: Substring
-	//-------------------------------------------------------------------------
-	#pragma region
-
 	/**
 	 Reads a @c DataT element from the given string.
 
@@ -85,13 +78,6 @@ namespace mage {
 	template< typename DataT >
 	TokenResult StringTo(const_zstring begin, const_zstring end, DataT& result) noexcept;
 	
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// String Conversion Utilities: String Prefix
-	//-------------------------------------------------------------------------
-	#pragma region
-
 	/**
 	 Reads a @c DataT element from the prefix of the given string.
 

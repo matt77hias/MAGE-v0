@@ -10,14 +10,43 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <charconv>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// String Conversion Utilities: Complete String
+	// String Conversion Utilities
 	//-------------------------------------------------------------------------
 	#pragma region
+
+	template< typename DataT >
+	inline TokenResult StringTo(const_zstring str, DataT& result) noexcept {
+		if (!str) {
+			return TokenResult::None;
+		}
+
+		using std::from_chars;
+		const auto r = from_chars(str, nullptr, result);
+		
+		if ('\0' != *r.ptr
+			|| std::errc::invalid_argument    == r.ec
+			|| std::errc::result_out_of_range == r.ec) {
+
+			return TokenResult::Invalid;
+		}
+		else {
+			return TokenResult::Valid;
+		}
+	}
 
 	template<>
 	inline TokenResult StringTo(const_zstring str, bool& result) noexcept {
@@ -30,105 +59,12 @@ namespace mage {
 			return TokenResult::Valid;
 		}
 		
-		result = false;
-		return (str_equals(str, "false")) ? TokenResult::Valid 
-			                              : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, S8& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
+		if (str_equals(str, "false")) {
+			result = false;
+			return TokenResult::Valid;
 		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S8 >(strtol(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, U8& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U8 >(strtoul(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, S16& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S16 >(strtol(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, U16& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U16 >(strtoul(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-
-	template<>
-	inline TokenResult StringTo(const_zstring str, S32& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S32 >(strtol(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, U32& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U32 >(strtoul(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, S64& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S64 >(strtoll(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring str, U64& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U64 >(strtoull(str, &inner_context, 10));
-		return ('\0' == *inner_context) ? TokenResult::Valid 
-			                            : TokenResult::Invalid;
+		
+		return TokenResult::Invalid;
 	}
 	
 	template<>
@@ -155,12 +91,27 @@ namespace mage {
 			                            : TokenResult::Invalid;
 	}
 	
-	#pragma endregion
+	template< typename DataT >
+	inline TokenResult StringTo(const_zstring begin, const_zstring end, 
+								DataT& result) noexcept {
 
-	//-------------------------------------------------------------------------
-	// String Conversion Utilities: Substring
-	//-------------------------------------------------------------------------
-	#pragma region
+		if (!begin || !end) {
+			return TokenResult::None;
+		}
+
+		using std::from_chars;
+		const auto r = from_chars(begin, end, result);
+		
+		if (end != r.ptr
+			|| std::errc::invalid_argument    == r.ec
+			|| std::errc::result_out_of_range == r.ec) {
+
+			return TokenResult::Invalid;
+		}
+		else {
+			return TokenResult::Valid;
+		}
+	}
 
 	template<>
 	inline TokenResult StringTo(const_zstring begin, const_zstring end,
@@ -190,120 +141,7 @@ namespace mage {
 			return TokenResult::Valid;
 		}
 		
-		result = false;
 		return TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								S8& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S8 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								U8& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U8 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								S16& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S16 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								U16& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U16 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								S32& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S32 >(strtol(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								U32& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U32 >(strtoul(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								S64& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S64 >(strtoll(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringTo(const_zstring begin, const_zstring end,
-								U64& result) noexcept {
-
-		if (!begin || !end) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U64 >(strtoull(begin, &inner_context, 10));
-		return (end == inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
 	}
 	
 	template<>
@@ -334,109 +172,26 @@ namespace mage {
 			                          : TokenResult::Invalid;
 	}
 
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// String Conversion Utilities: String Prefix
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, S8& result) noexcept {
+	template< typename DataT >
+	inline TokenResult StringPrefixTo(const_zstring str, DataT& result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
 
-		char* inner_context = nullptr;
-		result = static_cast< S8 >(strtol(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, U8& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
+		using std::from_chars;
+		const auto r = from_chars(str, nullptr, result);
 
-		char* inner_context = nullptr;
-		result = static_cast< U8 >(strtoul(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, S16& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
+		if (str == *r.ptr
+			|| std::errc::invalid_argument    == r.ec
+			|| std::errc::result_out_of_range == r.ec) {
 
-		char* inner_context = nullptr;
-		result = static_cast< S16 >(strtol(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, U16& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
+			return TokenResult::Invalid;
 		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U16 >(strtoul(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, S32& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
+		else {
+			return TokenResult::Valid;
 		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S32 >(strtol(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
 	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, U32& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
 
-		char* inner_context = nullptr;
-		result = static_cast< U32>(strtoul(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, S64& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< S64 >(strtoll(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
-	template<>
-	inline TokenResult StringPrefixTo(const_zstring str, U64& result) noexcept {
-		if (!str) {
-			return TokenResult::None;
-		}
-
-		char* inner_context = nullptr;
-		result = static_cast< U64 >(strtoull(str, &inner_context, 10));
-		return (str != inner_context) ? TokenResult::Valid 
-			                          : TokenResult::Invalid;
-	}
-	
 	template<>
 	inline TokenResult StringPrefixTo(const_zstring str, F32& result) noexcept {
 		if (!str) {

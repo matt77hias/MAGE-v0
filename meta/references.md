@@ -42,6 +42,8 @@ ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/upl
 
 BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/decltype-and-declval/), 2011.
 
+BOCCARA J.: [*std::iterator is deprecated: Why, What It Was, and What to Use Instead*](https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/), 2018.
+
 BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
 
 BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.

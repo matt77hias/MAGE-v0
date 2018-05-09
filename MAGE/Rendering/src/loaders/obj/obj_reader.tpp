@@ -130,10 +130,10 @@ namespace mage::rendering::loader {
 				model_part.m_parent  = Read< string >();
 			}
 			
-			auto translation = InvertHandness(Point3(Read< F32x3 >()));
+			auto translation = InvertHandness(Point3(Read< F32, 3 >()));
 			model_part.m_transform.SetTranslation(std::move(translation));
-			model_part.m_transform.SetRotation(Read< F32x3 >());
-			model_part.m_transform.SetScale(   Read< F32x3 >());
+			model_part.m_transform.SetRotation(Read< F32, 3 >());
+			model_part.m_transform.SetScale(   Read< F32, 3 >());
 		}
 		
 		// Begin current group.
@@ -221,7 +221,7 @@ namespace mage::rendering::loader {
 	inline const Point3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexCoordinates() {
 
-		return Point3(Read< F32x3 >());
+		return Point3(Read< F32, 3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -229,7 +229,7 @@ namespace mage::rendering::loader {
 	inline const Normal3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexNormalCoordinates() {
 
-		return Normal3(Read< F32x3 >());
+		return Normal3(Read< F32, 3 >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -237,7 +237,7 @@ namespace mage::rendering::loader {
 	const UV OBJReader< VertexT, IndexT >
 		::ReadOBJVertexTextureCoordinates() {
 
-		const UV result(Read< F32x2 >());
+		const UV result(Read< F32, 2 >());
 		
 		if (Contains< F32 >()) {
 			// Silently ignore 3D vertex texture coordinates.

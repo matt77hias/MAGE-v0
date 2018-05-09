@@ -186,6 +186,39 @@ namespace mage {
 	TokenResult Read(zstring str, zstring* context, DataT& result,
 					 NotNull< const_zstring > delimiters
 					 = g_default_delimiters) noexcept;
+
+	/**
+	 Reads and converts the next token in the given string to an @c Array.
+
+	 @pre			@a str or @a context is not equal to @c nullptr.
+	 @tparam		DataT
+					The data type.
+	 @tparam		N
+					The number of elements in the array.
+	 @tparam		A
+					The alignment of the array.
+	 @param[in]		str
+					A pointer to the null-terminated string. If @a str is equal 
+					to @c nullptr, reading continues from the beginning of 
+					@a str. Otherwise, reading continues from the current 
+					position.
+	 @param[in,out] context
+					A pointer to the current position in the given string 
+					@a str.
+	 @param[out]	result
+					A reference to the @c Array represented by the next @c N 
+					tokens in the given string @a str.
+	 @param[in]		delimiters
+					A pointer to the null-terminated string containing the 
+					delimiting characters.
+	 @return		A token result indicating whether the conversion of the 
+					next @c N tokens in the given string to a @c Array 
+					succeeded or not.
+	 */
+	template< typename DataT, size_t N, size_t A = alignof(DataT) >
+	TokenResult Read(zstring str, zstring* context, Array< DataT, N, A >& result,
+					 NotNull< const_zstring > delimiters
+					 = g_default_delimiters) noexcept;
 	
 	#pragma endregion
 

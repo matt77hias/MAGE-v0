@@ -42,6 +42,34 @@ namespace mage {
 		}
 	}
 
+	template< typename DataT, size_t N, size_t A >
+	const Array< DataT, N, A > LineReader::Read() {
+		Array< DataT, N, A > result;
+		const auto token_result = mage::Read< DataT, N, A >(nullptr, 
+															&m_context, 
+															result, 
+															GetDelimiters().c_str());
+
+		switch (token_result) {
+
+		case TokenResult::Valid: {
+			return result;
+		}
+
+		case TokenResult::None: {
+			throw Exception("%ls: line %u: no value found.",
+				            GetPath().c_str(), 
+				            GetCurrentLineNumber());
+		}
+
+		default: {
+			throw Exception("%ls: line %u: invalid value found.",
+				            GetPath().c_str(), 
+				            GetCurrentLineNumber());
+		}
+		}
+	}
+
 	template< typename DataT >
 	[[nodiscard]]
 	inline bool LineReader::Contains() const {

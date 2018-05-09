@@ -260,97 +260,15 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 
-	template<>
-	inline TokenResult Read(zstring str, zstring* context, F32x2& result,
+	template< typename DataT, size_t N, size_t A >
+	inline TokenResult Read(zstring str, zstring* context, 
+							Array< DataT, N, A >& result, 
 							NotNull< const_zstring > delimiters) noexcept {
 		
 		Assert(str || context);
 		
-		// Read the x component.
-		{
-			const auto tr = Read< F32 >(str, context, result[0], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the y component.
-		{
-			const auto tr = Read< F32 >(str, context, result[1], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		return TokenResult::Valid;
-	}
-	
-	template<>
-	inline TokenResult Read(zstring str, zstring* context, F32x3& result,
-							NotNull< const_zstring > delimiters) noexcept {
-		
-		Assert(str || context);
-		
-		// Read the x component.
-		{
-			const auto tr = Read< F32 >(str, context, result[0], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the y component.
-		{
-			const auto tr = Read< F32 >(str, context, result[1], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the z component.
-		{
-			const auto tr = Read< F32 >(str, context, result[2], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		return TokenResult::Valid;
-	}
-	
-	template<>
-	inline TokenResult Read(zstring str, zstring* context, F32x4& result,
-							NotNull< const_zstring > delimiters) noexcept {
-		
-		Assert(str || context);
-		
-		// Read the x component.
-		{
-			const auto tr = Read< F32 >(str, context, result[0], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the y component.
-		{
-			const auto tr = Read< F32 >(str, context, result[1], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the z component.
-		{
-			const auto tr = Read< F32 >(str, context, result[2], delimiters);
-			if (TokenResult::Valid != tr) {
-				return tr;
-			}
-		}
-
-		// Read the w component.
-		{
-			const auto tr = Read< F32 >(str, context, result[3], delimiters);
+		for (auto& value : result) {
+			const auto tr = Read< DataT >(str, context, value, delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}

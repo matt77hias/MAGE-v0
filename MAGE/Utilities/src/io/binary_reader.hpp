@@ -36,9 +36,8 @@ namespace mage {
 	 @throws		Exception
 					Failed to read from the file.
 	 */
-	void ReadBinaryFile(const std::filesystem::path& path,
-						UniquePtr< U8[] >& data, 
-						size_t& size);
+	void ReadBinaryFile(const std::filesystem::path& path, 
+						UniquePtr< U8[] >& data, size_t& size);
 
 	//-------------------------------------------------------------------------
 	// BinaryReader
@@ -176,16 +175,16 @@ namespace mage {
 		NotNull< const_zstring > ReadChars(size_t size);
 
 		/**
-		 Reads a @c DataT element.
+		 Reads a @c T value.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
-		 @return		The @c DataT element read.
+		 @return		The @c T value read.
 		 @throws		Exception
-						Failed to read a @c DataT element.
+						Failed to read a @c T value.
 		 */
-		template< typename DataT >
-		const DataT Read();
+		template< typename T >
+		const T Read();
 
 	private:
 
@@ -360,30 +359,30 @@ namespace mage {
 		}
 
 		/**
-		 Reads a @c DataT element.
+		 Reads a @c T value.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
-		 @return		The @c DataT element read.
+		 @return		The @c T value read.
 		 @throws		Exception
-						Failed to read a @c DataT element.
+						Failed to read a @c T value.
 		 */
-		template< typename DataT >
-		const DataT Read();
+		template< typename T >
+		const T Read();
 		
 		/**
-		 Reads an array of @c DataT elements.
+		 Reads an array of @c T values.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 @param			count
-						The number of @c DataT elements to read.
-		 @return		A pointer to the array of @c DataT element read.
+						The number of @c T values to read.
+		 @return		A pointer to the array of @c T value read.
 		 @throws		Exception
-						Failed to read @c count @c DataT elements.
+						Failed to read @c count @c T values.
 		 */
-		template< typename DataT >
-		const DataT* ReadArray(size_t count);
+		template< typename T >
+		const T* ReadArray(size_t count);
 		
 	private:
 

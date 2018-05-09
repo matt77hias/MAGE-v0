@@ -18,10 +18,10 @@ namespace mage::rendering {
 	/**
 	 A class of structured buffers.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 */
-	template< typename DataT >
+	template< typename T >
 	class StructuredBuffer final {
 
 	public:
@@ -117,8 +117,8 @@ namespace mage::rendering {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext& device_context,
-			            const AlignedVector< DataT >& data);
+		void UpdateData(ID3D11DeviceContext& device_context, 
+						const AlignedVector< T >& data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.

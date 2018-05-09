@@ -99,7 +99,7 @@ namespace mage::rendering {
 	/**
 	 Creates a static constant buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -109,16 +109,16 @@ namespace mage::rendering {
 					The data.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateStaticConstantBuffer(ID3D11Device& device, 
 									   NotNull< ID3D11Buffer** > buffer,
-									   gsl::span< const DataT > data) noexcept;
+									   gsl::span< const T > data) noexcept;
 	
 	/**
 	 Creates a dynamic constant buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -128,16 +128,16 @@ namespace mage::rendering {
 					The data.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
 										NotNull< ID3D11Buffer** > buffer,
-										gsl::span< const DataT > data) noexcept;
+										gsl::span< const T > data) noexcept;
 
 	/**
 	 Creates a dynamic constant buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -147,7 +147,7 @@ namespace mage::rendering {
 					The number of data elements.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
 										NotNull< ID3D11Buffer** > buffer,
@@ -156,7 +156,7 @@ namespace mage::rendering {
 	/**
 	 Creates a static structured buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -166,16 +166,16 @@ namespace mage::rendering {
 					The data.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateStaticStructuredBuffer(ID3D11Device& device, 
 										 NotNull< ID3D11Buffer** > buffer,
-										 gsl::span< const DataT > data) noexcept;
+										 gsl::span< const T > data) noexcept;
 	
 	/**
 	 Creates a dynamic structured buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -185,16 +185,16 @@ namespace mage::rendering {
 					The data.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,
-										  gsl::span< const DataT > data) noexcept;
+										  gsl::span< const T > data) noexcept;
 
 	/**
 	 Creates a dynamic structured buffer.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		device
 					A reference to the device.
@@ -204,7 +204,7 @@ namespace mage::rendering {
 					The number of data elements.
 	 @return		A success/error value.
 	 */
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,

@@ -186,10 +186,10 @@ namespace mage {
 		/**
 		 Allocates a block of memory on this single-ended memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c DataT to allocate in 
+						The number of objects of type @c T to allocate in 
 						memory.
 		 @param[in]		initialization
 						Flag indicating whether the objects need to be 
@@ -199,9 +199,8 @@ namespace mage {
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
-		template< typename DataT >
-		DataT* AllocData(size_t count = 1, 
-			             bool initialization = false) noexcept;
+		template< typename T >
+		T* AllocData(size_t count = 1, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -210,10 +209,10 @@ namespace mage {
 		/**
 		 A class of allocators for single-ended memory stacks.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 */
-		template< typename DataT >
+		template< typename T >
 		class Allocator final {
 		
 		public:
@@ -225,7 +224,7 @@ namespace mage {
 			/**
 			 The element type of allocators.
 			 */
-			using value_type = DataT;
+			using value_type = T;
 
 			using propagate_on_container_move_assignment = std::true_type;
 			
@@ -254,13 +253,13 @@ namespace mage {
 			/**
 			 Constructs an allocator from the given allocator.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			template< typename DataU >
-			Allocator(const Allocator< DataU >& allocator) noexcept
+			template< typename U >
+			Allocator(const Allocator< U >& allocator) noexcept
 				: m_memory_stack(allocator.m_memory_stack) {}
 		
 			/**
@@ -297,42 +296,42 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough to 
-			 contain @a count elements of type @c DataT, and returns a pointer 
+			 Attempts to allocate a block of storage with a size large enough 
+			 to contain @a count elements of type @c T, and returns a pointer 
 			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @return		A pointer to the memory block that was allocated.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count) const {
-				const auto data = m_memory_stack->AllocData< DataT >(count);
-				if (!data) {
+			T* allocate(size_t count) const {
+				const auto ptr = m_memory_stack->AllocData< T >(count);
+				if (!ptr) {
 					throw std::bad_alloc();
 				}
 
-				return data;
+				return ptr;
 			}
 
 			/**
 			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c DataT, and returns a 
-			 pointer to the first element.
+			 to contain @a count elements of type @c T, and returns a pointer 
+			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::SingleEndedMemoryStack::Allocator<DataT>::allocate(size_t)}
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(size_t)}
 							or
-							{@link mage::SingleEndedMemoryStack::Allocator<DataT>::allocate<DataU>(size_t, const DataU*)} 
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::SingleEndedMemoryStack::Allocator<DataT>::deallocate(DataT*, size_t)}. 
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::deallocate(T*, size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -342,17 +341,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count, 
-				            [[maybe_unused]] const void* hint) const {
-
+			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::SingleEndedMemoryStack::Allocator<DataT>::allocate(size_t)}
+			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(size_t)}
 			 or 
-			 {@link mage::SingleEndedMemoryStack::Allocator<DataT>::allocate<DataU>(size_t, const DataU*)}
+			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -363,13 +360,13 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT* data, 
+			void deallocate([[maybe_unused]] T* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
@@ -377,16 +374,16 @@ namespace mage {
 							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator==(const Allocator< DataU >& rhs) const noexcept {
+			bool operator==(const Allocator< U >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
 			/**
 			 Compares this allocator to the given allocator for non-equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
@@ -394,9 +391,9 @@ namespace mage {
 							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator!=(const Allocator< DataU >& rhs) const noexcept {
+			bool operator!=(const Allocator< U >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -435,14 +432,14 @@ namespace mage {
 		/**
 		 Returns an allocator for this single-ended memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type of the allocator.
 		 @return		An allocator for this single-ended memory stack.
 		 */
-		template< typename DataT >
+		template< typename T >
 		[[nodiscard]]
-		Allocator< DataT > GetAllocator() const noexcept{
-			return Allocator< DataT >(this);
+		Allocator< T > GetAllocator() const noexcept{
+			return Allocator< T >(this);
 		}
 
 	private:
@@ -705,10 +702,10 @@ namespace mage {
 		/**
 		 Allocates a block of memory on the low side of this memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c DataT to allocate in 
+						The number of objects of type @c T to allocate in 
 						memory.
 		 @param[in]		initialization
 						Flag indicating whether the objects need to be 
@@ -718,17 +715,16 @@ namespace mage {
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
-		template< typename DataT >
-		DataT* AllocDataLow(size_t count = 1, 
-			                bool initialization = false) noexcept;
+		template< typename T >
+		T* AllocDataLow(size_t count = 1, bool initialization = false);
 
 		/**
 		 Allocates a block of memory on the high side of this memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c DataT to allocate in 
+						The number of objects of type @c T to allocate in 
 						memory.
 		 @param[in]		initialization
 						Flag indicating whether the objects need to be 
@@ -738,9 +734,8 @@ namespace mage {
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
-		template< typename DataT >
-		DataT* AllocDataHigh(size_t count = 1, 
-			                 bool initialization = false) noexcept;
+		template< typename T >
+		T* AllocDataHigh(size_t count = 1, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -749,10 +744,10 @@ namespace mage {
 		/**
 		 A class of low allocators for double-ended memory stacks.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 */
-		template< typename DataT >
+		template< typename T >
 		class LowAllocator final {
 		
 		public:
@@ -764,7 +759,7 @@ namespace mage {
 			/**
 			 The element type of low allocators.
 			 */
-			using value_type = DataT;
+			using value_type = T;
 
 			using propagate_on_container_move_assignment = std::true_type;
 			
@@ -793,13 +788,13 @@ namespace mage {
 			/**
 			 Constructs a low allocator from the given low allocator.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		low_allocator
 							A reference to the low allocator to copy.
 			 */
-			template< typename DataU >
-			LowAllocator(const LowAllocator< DataU >& low_allocator) noexcept
+			template< typename U >
+			LowAllocator(const LowAllocator< U >& low_allocator) noexcept
 				: m_memory_stack(low_allocator.m_memory_stack) {}
 		
 			/**
@@ -838,41 +833,41 @@ namespace mage {
 
 			/**
 			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c DataT, and returns a 
-			 pointer to the first element.
+			 to contain @a count elements of type @c T, and returns a pointer 
+			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @return		A pointer to the memory block that was allocated.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count) const {
-				const auto data = m_memory_stack->AllocDataLow< DataT >(count);
-				if (!data) {
+			T* allocate(size_t count) const {
+				const auto ptr = m_memory_stack->AllocDataLow< T >(count);
+				if (!ptr) {
 					throw std::bad_alloc();
 				}
 
-				return data;
+				return ptr;
 			}
 
 			/**
 			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c DataT, and returns a 
-			 pointer to the first element.
+			 to contain @a count elements of type @c T, and returns a pointer 
+			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<DataT>::allocate(size_t)}
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(size_t)}
 							or
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<DataT>::allocate<DataU>(size_t, const DataU*)} 
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<DataT>::deallocate(DataT*, size_t)}. 
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::deallocate(T*, size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -882,17 +877,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count, 
-				            [[maybe_unused]] const void* hint) const {
-
+			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<DataT>::allocate(size_t)}
+			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(size_t)}
 			 or 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<DataT>::allocate<DataU>(size_t, const DataU*)}
+			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -903,14 +896,14 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT* data, 
+			void deallocate([[maybe_unused]] T* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this low allocator to the given low allocator for 
 			 equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the low allocator to compare with.
@@ -918,9 +911,9 @@ namespace mage {
 							low allocator can be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator==(const LowAllocator< DataU >& rhs) const noexcept {
+			bool operator==(const LowAllocator< U >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -928,7 +921,7 @@ namespace mage {
 			 Compares this low allocator to the given low allocator for 
 			 non-equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the low allocator to compare with.
@@ -936,9 +929,9 @@ namespace mage {
 							low allocator cannot be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator!=(const LowAllocator< DataU >& rhs) const noexcept {
+			bool operator!=(const LowAllocator< U >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -977,10 +970,10 @@ namespace mage {
 		/**
 		 A class of high allocators for double-ended memory stacks.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 */
-		template< typename DataT >
+		template< typename T >
 		class HighAllocator final {
 		
 		public:
@@ -992,7 +985,7 @@ namespace mage {
 			/**
 			 The element type of high allocators.
 			 */
-			using value_type = DataT;
+			using value_type = T;
 
 			using propagate_on_container_move_assignment = std::true_type;
 			
@@ -1021,13 +1014,13 @@ namespace mage {
 			/**
 			 Constructs a high allocator from the given high allocator.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		high_allocator
 							A reference to the high_allocator to copy.
 			 */
-			template< typename DataU >
-			HighAllocator(const HighAllocator< DataU >& high_allocator) noexcept
+			template< typename U >
+			HighAllocator(const HighAllocator< U >& high_allocator) noexcept
 				: m_memory_stack(high_allocator.m_memory_stack) {}
 		
 			/**
@@ -1066,42 +1059,42 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough to 
-			 contain @a count elements of type @c DataT, and returns a pointer 
+			 Attempts to allocate a block of storage with a size large enough 
+			 to contain @a count elements of type @c T, and returns a pointer 
 			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @return		A pointer to the memory block that was allocated.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count) const {
-				const auto data = m_memory_stack->AllocDataHigh< DataT >(count);
-				if (!data) {
+			T* allocate(size_t count) const {
+				const auto ptr = m_memory_stack->AllocDataHigh< T >(count);
+				if (!ptr) {
 					throw std::bad_alloc();
 				}
 
-				return data;
+				return ptr;
 			}
 
 			/**
 			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c DataT, and returns a 
-			 pointer to  the first element.
+			 to contain @a count elements of type @c T, and returns a pointer 
+			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<DataT>::allocate(size_t)}
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(size_t)}
 							or
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<DataT>::allocate<DataU>(size_t, const DataU*)} 
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<DataT>::deallocate(DataT*,size_t)}. 
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::deallocate(T*,size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -1111,17 +1104,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count, 
-				            [[maybe_unused]] const void* hint) const {
-
+			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::DoubleEndedMemoryStack::HighAllocator<DataT>::allocate(size_t)}
+			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(size_t)}
 			 or 
-			 {@link mage::DoubleEndedMemoryStack::HighAllocator<DataT>::allocate<DataU>(size_t, const DataU*)}
+			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -1132,14 +1123,14 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT* data, 
+			void deallocate([[maybe_unused]] T* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this high allocator to the given high allocator for 
 			 equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the high allocator to compare with.
@@ -1147,9 +1138,9 @@ namespace mage {
 							high allocator can be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator==(const HighAllocator< DataU >& rhs) const noexcept {
+			bool operator==(const HighAllocator< U >& rhs) const noexcept {
 				return m_memory_stack == rhs.m_memory_stack;
 			}
 
@@ -1157,7 +1148,7 @@ namespace mage {
 			 Compares this high allocator to the given high allocator for 
 			 non-equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the high allocator to compare with.
@@ -1165,9 +1156,9 @@ namespace mage {
 							high allocator cannot be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator!=(const HighAllocator< DataU >& rhs) const noexcept {
+			bool operator!=(const HighAllocator< U >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -1206,27 +1197,27 @@ namespace mage {
 		/**
 		 Returns a low allocator for this single-ended memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type of the allocator.
 		 @return		A low allocator for this single-ended memory stack.
 		 */
-		template< typename DataT >
+		template< typename T >
 		[[nodiscard]]
-		LowAllocator< DataT > GetLowAllocator() const noexcept{
-			return LowAllocator< DataT >(this);
+		LowAllocator< T > GetLowAllocator() const noexcept{
+			return LowAllocator< T >(this);
 		}
 
 		/**
 		 Returns a high allocator for this single-ended memory stack.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type of the allocator.
 		 @return		A high allocator for this single-ended memory stack.
 		 */
-		template< typename DataT >
+		template< typename T >
 		[[nodiscard]]
-		HighAllocator< DataT > GetHighAllocator() const noexcept{
-			return HighAllocator< DataT >(this);
+		HighAllocator< T > GetHighAllocator() const noexcept{
+			return HighAllocator< T >(this);
 		}
 
 	private:

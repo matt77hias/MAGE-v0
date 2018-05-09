@@ -44,56 +44,55 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Reads a @c DataT element from the given string.
+	 Reads a @c T value from the given string.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated string to convert.
 	 @param[out]	result
-					A reference to the @c DataT element represented by the 
-					given string @a str.
+					A reference to the @c T value represented by the given 
+					string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					given string @a str to a @c DataT element succeeded or not.
+					given string @a str to a @c T value succeeded or not.
 	 */
-	template< typename DataT >
-	TokenResult StringTo(const_zstring str, DataT& result) noexcept;
+	template< typename T >
+	TokenResult StringTo(const_zstring str, T& result) noexcept;
 
 	/**
-	 Reads a @c DataT element from the given string.
+	 Reads a @c T value from the given string.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		begin
-					A pointer to the begin (inclusive) of the string to 
-					convert.
+					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c DataT element represented by the 
-					given string @a str.
+					A reference to the @c T value represented by the given 
+					string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					given string @a str to a @c DataT element succeeded or not.
+					given string @a str to a @c T value succeeded or not.
 	 */
-	template< typename DataT >
-	TokenResult StringTo(const_zstring begin, const_zstring end, DataT& result) noexcept;
+	template< typename T >
+	TokenResult StringTo(const_zstring begin, const_zstring end, T& result) noexcept;
 	
 	/**
-	 Reads a @c DataT element from the prefix of the given string.
+	 Reads a @c T value from the prefix of the given string.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated string to convert.
 	 @param[out]	result
-					A reference to the @c DataT element represented by the 
-					prefix of the given string @a str.
+					A reference to the @c T value represented by the prefix of 
+					the given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to a @c DataT element 
+					prefix of the given string @a str to a @c T value 
 					succeeded or not.
 	 */
-	template< typename DataT >
-	TokenResult StringPrefixTo(const_zstring str, DataT& result) noexcept;
+	template< typename T >
+	TokenResult StringPrefixTo(const_zstring str, T& result) noexcept;
 
 	#pragma endregion
 
@@ -158,11 +157,10 @@ namespace mage {
 								 = g_default_delimiters);
 	
 	/**
-	 Reads and converts the next token in the given string to a @c DataT 
-	 element.
+	 Reads and converts the next token in the given string to a @c T value.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated string. If @a str is equal 
@@ -173,17 +171,17 @@ namespace mage {
 					A pointer to the current position in the given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c DataT element represented by the next 
+					A reference to the @c T value represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c DataT element 
-					succeeded or not.
+					next token in the given string to a @c T value succeeded or 
+					not.
 	 */
-	template< typename DataT >
-	TokenResult Read(zstring str, zstring* context, DataT& result,
+	template< typename T >
+	TokenResult Read(zstring str, zstring* context, T& result,
 					 NotNull< const_zstring > delimiters
 					 = g_default_delimiters) noexcept;
 
@@ -191,10 +189,10 @@ namespace mage {
 	 Reads and converts the next token in the given string to an @c Array.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @tparam		N
-					The number of elements in the array.
+					The number of values in the array.
 	 @tparam		A
 					The alignment of the array.
 	 @param[in]		str
@@ -215,8 +213,8 @@ namespace mage {
 					next @c N tokens in the given string to a @c Array 
 					succeeded or not.
 	 */
-	template< typename DataT, size_t N, size_t A = alignof(DataT) >
-	TokenResult Read(zstring str, zstring* context, Array< DataT, N, A >& result,
+	template< typename T, size_t N, size_t A = alignof(T) >
+	TokenResult Read(zstring str, zstring* context, Array< T, N, A >& result,
 					 NotNull< const_zstring > delimiters
 					 = g_default_delimiters) noexcept;
 	
@@ -263,10 +261,10 @@ namespace mage {
 									 = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents a @c DataT 
-	 element.
+	 Checks whether the next token in the given string represents a @c T 
+	 value.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 @param[in]		str
 					A pointer to the null-terminated string.
@@ -274,10 +272,10 @@ namespace mage {
 					A pointer to the null-terminated string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c DataT element 
+					next token in the given string to a @c T value 
 					succeeds or not.
 	 */
-	template< typename DataT >
+	template< typename T >
 	TokenResult Contains(NotNull< zstring > str,
 						 NotNull< const_zstring > delimiters
 						 = g_default_delimiters) noexcept;

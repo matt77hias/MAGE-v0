@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	template< typename DataT >
-	StructuredBuffer< DataT >
+	template< typename T >
+	StructuredBuffer< T >
 		::StructuredBuffer(ID3D11Device& device, size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
@@ -25,13 +25,13 @@ namespace mage::rendering {
 		SetupStructuredBuffer(device, capacity);
 	}
 
-	template< typename DataT >
-	void StructuredBuffer< DataT >
+	template< typename T >
+	void StructuredBuffer< T >
 		::SetupStructuredBuffer(ID3D11Device& device, size_t capacity) {
 
 		// Create the buffer resource.
 		{
-			const HRESULT result = CreateDynamicStructuredBuffer< DataT >(
+			const HRESULT result = CreateDynamicStructuredBuffer< T >(
 				device, m_buffer.ReleaseAndGetAddressOf(), capacity);
 			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
 		}
@@ -53,10 +53,10 @@ namespace mage::rendering {
 		}
 	}
 
-	template< typename DataT >
-	void StructuredBuffer< DataT >
+	template< typename T >
+	void StructuredBuffer< T >
 		::UpdateData(ID3D11DeviceContext& device_context, 
-			         const AlignedVector< DataT >& data) {
+			         const AlignedVector< T >& data) {
 
 		m_size = data.size();
 
@@ -74,12 +74,12 @@ namespace mage::rendering {
 		BufferLock lock(device_context, *m_buffer.Get(), 
 						D3D11_MAP_WRITE_DISCARD, mapped_buffer);
 			
-		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(DataT));
+		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(T));
 	}
 
-	template< typename DataT >
+	template< typename T >
 	template< typename PipelineStageT >
-	inline void StructuredBuffer< DataT >
+	inline void StructuredBuffer< T >
 		::Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());

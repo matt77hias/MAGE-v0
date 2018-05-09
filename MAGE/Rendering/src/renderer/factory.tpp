@@ -93,11 +93,11 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateStaticConstantBuffer(ID3D11Device& device, 
 									   NotNull< ID3D11Buffer** > buffer,
-									   gsl::span< const DataT > data) noexcept {
+									   gsl::span< const T > data) noexcept {
 
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -116,11 +116,11 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
 										NotNull< ID3D11Buffer** > buffer,
-										gsl::span< const DataT > data) noexcept {
+										gsl::span< const T > data) noexcept {
 		
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -139,7 +139,7 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
 										NotNull< ID3D11Buffer** > buffer,
@@ -148,7 +148,7 @@ namespace mage::rendering {
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
-		buffer_desc.ByteWidth      = static_cast< U32 >(sizeof(DataT) * nb_data_elements);
+		buffer_desc.ByteWidth      = static_cast< U32 >(sizeof(T) * nb_data_elements);
 		// GPU:    read + no write
 		// CPU: no read +    write
 		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
@@ -158,18 +158,18 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, nullptr, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateStaticStructuredBuffer(ID3D11Device& device, 
 										 NotNull< ID3D11Buffer** > buffer,
-										 gsl::span< const DataT > data) noexcept {
+										 gsl::span< const T > data) noexcept {
 
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 		buffer_desc.ByteWidth           = static_cast< U32 >(data.size_bytes());
-		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
+		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(T));
 		// GPU:    read + no write
 		// CPU: no read + no write
 		buffer_desc.Usage               = D3D11_USAGE_IMMUTABLE;
@@ -183,18 +183,18 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,
-										  gsl::span< const DataT > data) noexcept {
+										  gsl::span< const T > data) noexcept {
 
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 		buffer_desc.ByteWidth           = static_cast< U32 >(data.size_bytes());
-		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
+		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(T));
 		// GPU:    read + no write
 		// CPU: no read +    write
 		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;
@@ -208,7 +208,7 @@ namespace mage::rendering {
 		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,
@@ -218,8 +218,8 @@ namespace mage::rendering {
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-		buffer_desc.ByteWidth           = static_cast< U32 >(sizeof(DataT) * nb_data_elements);
-		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
+		buffer_desc.ByteWidth           = static_cast< U32 >(sizeof(T) * nb_data_elements);
+		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(T));
 		// GPU:    read + no write
 		// CPU: no read +    write
 		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;

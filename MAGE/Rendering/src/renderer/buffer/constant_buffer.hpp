@@ -17,10 +17,10 @@ namespace mage::rendering {
 	/**
 	 A class of constant buffers.
 
-	 @tparam		DataT
+	 @tparam		T
 					The data type.
 	 */
-	template< typename DataT >
+	template< typename T >
 	class ConstantBuffer final {
 
 	public:
@@ -98,8 +98,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext& device_context, 
-			            const DataT& data);
+		void UpdateData(ID3D11DeviceContext& device_context, const T& data);
 		
 		/**
 		 Returns the buffer resource of this constant buffer.

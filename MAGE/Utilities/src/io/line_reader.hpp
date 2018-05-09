@@ -181,38 +181,37 @@ namespace mage {
 		const string ReadQuotedString();
 		
 		/**
-		 Reads and converts the next token of this line reader to @c DataT 
-		 element.
+		 Reads and converts the next token of this line reader to @c T value.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
-		 @return		The @c DataT represented by the next token of this line 
+		 @return		The @c T represented by the next token of this line 
 						reader.
 		 @throws		Exception
 						There is no next token or the next token does not 
-						represent a @c DataT element.
+						represent a @c T value.
 		 */
-		template< typename DataT >
-		const DataT Read();
+		template< typename T >
+		const T Read();
 
 		/**
 		 Reads and converts the next @c N tokens of this line reader to an 
 		 @c Array.
 
-		 @@tparam		DataT
+		 @@tparam		T
 						The data type.
 		 @tparam		N
-						The number of elements in the array.
+						The number of values in the array.
 		 @tparam		A
 						The alignment of the array.
 		 @return		The @c Array represented by the next @c N tokens of 
 						this line reader.
 		 @throws		Exception
 						There are no @c N next tokens or the next @c N tokens 
-						do not represent a @c DataT element.
+						do not represent a @c T value.
 		 */
-		template< typename DataT, size_t N, size_t A = alignof(DataT) >
-		const Array< DataT, N, A > Read();
+		template< typename T, size_t N, size_t A = alignof(T) >
+		const Array< T, N, A > Read();
 
 		/**
 		 Checks whether this line reader has a next token.
@@ -233,15 +232,14 @@ namespace mage {
 		bool ContainsQuotedString() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c DataT 
-		 element.
+		 Checks whether the next token of this line reader is a @c T value.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 @return		@c true if the next token of this line reader is a 
-						@c DataT element. @c false otherwise.
+						@c T value. @c false otherwise.
 		 */
-		template< typename DataT >
+		template< typename T >
 		[[nodiscard]]
 		bool Contains() const;
 

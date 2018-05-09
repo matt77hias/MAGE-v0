@@ -201,7 +201,7 @@ namespace mage {
 	 @param[in]		id
 					The identifier of the control to be retrieved.
 	 @return		The pointer associated with the selected item in a combo box.
-	 @note			This function converts the @c void * data to @c DataT* data.
+	 @note			This function converts the @c void * data to @c T* data.
 	 */
 	template< typename T >
 	[[nodiscard]]

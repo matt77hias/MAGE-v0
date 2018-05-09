@@ -5,10 +5,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename DataT >
-	DataT* MemoryArena::AllocData(size_t count, bool initialization) {
+	template< typename T >
+	T* MemoryArena::AllocData(size_t count, bool initialization) {
 		// Allocation
-		const auto ptr = static_cast< DataT* >(Alloc(count * sizeof(DataT)));
+		const auto ptr = static_cast< T* >(Alloc(count * sizeof(T)));
 
 		if (!ptr) {
 			// The allocation failed.
@@ -18,7 +18,7 @@ namespace mage {
 		// Initialization
 		if (initialization) {
 			for (size_t i = 0; i < count; ++i) {
-				new (&ptr[i]) DataT();
+				new (&ptr[i]) T();
 			}
 		}
 

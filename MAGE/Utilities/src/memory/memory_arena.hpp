@@ -141,7 +141,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		void* GetCurrentBlockPtr() const noexcept {
-			return (void*)m_current_block.second;
+			return static_cast< void* >(m_current_block.second);
 		}
 
 		/**
@@ -162,10 +162,10 @@ namespace mage {
 		/**
 		 Allocates a block of memory on this memory arena.
 
-		 @tparam		DataT
+		 @tparam		T
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c DataT to allocate in 
+						The number of objects of type @c T to allocate in 
 						memory.
 		 @param[in]		initialization
 						Flag indicating whether the objects need to be 
@@ -175,8 +175,8 @@ namespace mage {
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
-		template< typename DataT >
-		DataT* AllocData(size_t count = 1, bool initialization = false);
+		template< typename T >
+		T* AllocData(size_t count = 1, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -185,10 +185,10 @@ namespace mage {
 		/**
 		 A class of allocators for memory arenas.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 */
-		template< typename DataT >
+		template< typename T >
 		class Allocator final {
 		
 		public:
@@ -200,7 +200,7 @@ namespace mage {
 			/**
 			 The element type of allocators.
 			 */
-			using value_type = DataT;
+			using value_type = T;
 
 			using propagate_on_container_move_assignment = std::true_type;
 
@@ -229,13 +229,13 @@ namespace mage {
 			/**
 			 Constructs an allocator from the given allocator.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			template< typename DataU >
-			Allocator(const Allocator< DataU >& allocator) noexcept
+			template< typename U >
+			Allocator(const Allocator< U >& allocator) noexcept
 				: m_memory_arena(allocator.m_memory_arena) {}
 		
 			/**
@@ -272,42 +272,42 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough to 
-			 contain @a count elements of type @c DataT, and returns a pointer 
+			 Attempts to allocate a block of storage with a size large enough 
+			 to contain @a count elements of type @c T, and returns a pointer 
 			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @return		A pointer to the memory block that was allocated.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count) const {
-				const auto data = m_memory_arena->AllocData< DataT >(count);
-				if (!data) {
+			T* allocate(size_t count) const {
+				const auto ptr = m_memory_arena->AllocData< T >(count);
+				if (!ptr) {
 					throw std::bad_alloc();
 				}
 
-				return data;
+				return ptr;
 			}
 
 			/**
 			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c DataT, and returns a 
-			 pointer to the first element.
+			 to contain @a count elements of type @c T, and returns a pointer 
+			 to the first element.
 
 			 @param[in]		count
-							The number of element objects of type @c DataT to 
+							The number of element objects of type @c T to 
 							allocate in memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::MemoryArena::Allocator<DataT>::allocate(size_t)}
+							{@link mage::MemoryArena::Allocator<T>::allocate(size_t)}
 							or
-							{@link mage::MemoryArena::Allocator<DataT>::allocate<DataU>(size_t, const DataU*)} 
+							{@link mage::MemoryArena::Allocator<T>::allocate<U>(size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::MemoryArena::Allocator<DataT>::deallocate(DataT*, size_t)}. 
+							{@link mage::MemoryArena::Allocator<T>::deallocate(T*, size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -317,17 +317,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			DataT* allocate(size_t count, 
-				            [[maybe_unused]] const void* hint) const {
-				
+			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::MemoryArena::Allocator<DataT>::allocate(size_t)}
+			 {@link mage::MemoryArena::Allocator<T>::allocate(size_t)}
 			 or 
-			 {@link mage::MemoryArena::Allocator<DataT>::allocate<DataU>(size_t, const DataU*)}
+			 {@link mage::MemoryArena::Allocator<T>::allocate<U>(size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -338,13 +336,13 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] DataT* data, 
+			void deallocate([[maybe_unused]] T* data, 
 				            [[maybe_unused]] size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
@@ -352,16 +350,16 @@ namespace mage {
 							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator==(const Allocator< DataU >& rhs) const noexcept {
+			bool operator==(const Allocator< U >& rhs) const noexcept {
 				return m_memory_arena == rhs.m_memory_arena;
 			}
 
 			/**
 			 Compares this allocator to the given allocator for non-equality.
 
-			 @tparam		DataU
+			 @tparam		U
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
@@ -369,9 +367,9 @@ namespace mage {
 							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			template< typename DataU >
+			template< typename U >
 			[[nodiscard]]
-			bool operator!=(const Allocator< DataU >& rhs) const noexcept {
+			bool operator!=(const Allocator< U >& rhs) const noexcept {
 				return !(*this == rhs);
 			}
 
@@ -409,14 +407,14 @@ namespace mage {
 		/**
 		 Returns an allocator for this memory arena.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type of the allocator.
 		 @return		An allocator for this memory arena.
 		 */
-		template< typename DataT >
+		template< typename T >
 		[[nodiscard]]
-		Allocator< DataT > GetAllocator() const noexcept{
-			return Allocator< DataT >(this);
+		Allocator< T > GetAllocator() const noexcept{
+			return Allocator< T >(this);
 		}
 
 	private:

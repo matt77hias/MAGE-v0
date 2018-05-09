@@ -14,13 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename DataT >
-	const DataT LineReader::Read() {
-		DataT result;
-		const auto token_result = mage::Read< DataT >(nullptr, 
-			                                          &m_context, 
-			                                          result, 
-				                                      GetDelimiters().c_str());
+	template< typename T >
+	const T LineReader::Read() {
+		T result;
+		const auto token_result = mage::Read(nullptr, &m_context, result, 
+											 GetDelimiters().c_str());
 
 		switch (token_result) {
 
@@ -42,13 +40,11 @@ namespace mage {
 		}
 	}
 
-	template< typename DataT, size_t N, size_t A >
-	const Array< DataT, N, A > LineReader::Read() {
-		Array< DataT, N, A > result;
-		const auto token_result = mage::Read< DataT, N, A >(nullptr, 
-															&m_context, 
-															result, 
-															GetDelimiters().c_str());
+	template< typename T, size_t N, size_t A >
+	const Array< T, N, A > LineReader::Read() {
+		Array< T, N, A > result;
+		const auto token_result = mage::Read< T, N, A >(nullptr, &m_context, 
+														result, GetDelimiters().c_str());
 
 		switch (token_result) {
 
@@ -70,10 +66,10 @@ namespace mage {
 		}
 	}
 
-	template< typename DataT >
+	template< typename T >
 	[[nodiscard]]
 	inline bool LineReader::Contains() const {
-		return mage::Contains< DataT >(m_context, GetDelimiters().c_str()) 
+		return mage::Contains< T >(m_context, GetDelimiters().c_str()) 
 			   == TokenResult::Valid;
 	}
 }

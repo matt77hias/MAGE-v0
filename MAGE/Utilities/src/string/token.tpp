@@ -28,8 +28,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	template< typename DataT >
-	inline TokenResult StringTo(const_zstring str, DataT& result) noexcept {
+	template< typename T >
+	inline TokenResult StringTo(const_zstring str, T& result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
@@ -91,9 +91,9 @@ namespace mage {
 			                            : TokenResult::Invalid;
 	}
 	
-	template< typename DataT >
+	template< typename T >
 	inline TokenResult StringTo(const_zstring begin, const_zstring end, 
-								DataT& result) noexcept {
+								T& result) noexcept {
 
 		if (!begin || !end) {
 			return TokenResult::None;
@@ -172,8 +172,8 @@ namespace mage {
 			                          : TokenResult::Invalid;
 	}
 
-	template< typename DataT >
-	inline TokenResult StringPrefixTo(const_zstring str, DataT& result) noexcept {
+	template< typename T >
+	inline TokenResult StringPrefixTo(const_zstring str, T& result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
@@ -233,14 +233,14 @@ namespace mage {
 		return result ? TokenResult::Valid : TokenResult::None;
 	}
 	
-	template< typename DataT >
-	inline TokenResult Read(zstring str, zstring* context, DataT& result,
+	template< typename T >
+	inline TokenResult Read(zstring str, zstring* context, T& result,
 							NotNull< const_zstring > delimiters) noexcept {
 		
 		Assert(str || context);
 		
 		const auto* const token = strtok_s(str, delimiters, context);
-		return StringTo< DataT >(token, result);
+		return StringTo(token, result);
 	}
 
 	template<>
@@ -260,15 +260,15 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 
-	template< typename DataT, size_t N, size_t A >
+	template< typename T, size_t N, size_t A >
 	inline TokenResult Read(zstring str, zstring* context, 
-							Array< DataT, N, A >& result, 
+							Array< T, N, A >& result, 
 							NotNull< const_zstring > delimiters) noexcept {
 		
 		Assert(str || context);
 		
 		for (auto& value : result) {
-			const auto tr = Read< DataT >(str, context, value, delimiters);
+			const auto tr = Read(str, context, value, delimiters);
 			if (TokenResult::Valid != tr) {
 				return tr;
 			}
@@ -291,7 +291,7 @@ namespace mage {
 		return (start) ? TokenResult::Valid : TokenResult::None;
 	}
 	
-	template< typename DataT >
+	template< typename T >
 	TokenResult Contains(NotNull< zstring > str, 
 						 NotNull< const_zstring > delimiters) noexcept {
 
@@ -302,8 +302,8 @@ namespace mage {
 		
 		const auto end = GotoDelimiters(NotNull< zstring >(start), delimiters);
 
-		DataT result;
-		return StringTo< DataT >(start, end, result);
+		T result;
+		return StringTo(start, end, result);
 	}
 
 	template<>

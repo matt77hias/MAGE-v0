@@ -123,28 +123,28 @@ namespace mage {
 		/**
 		 Writes the given data.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 @param[in]		data
 						A reference to the data.
 		 @throws		Exception
 						Failed to write the given data.
 		 */
-		template< typename DataT >
-		void Write(const DataT& data);
+		template< typename T >
+		void Write(const T& data);
 		
 		/**
 		 Writes the given data array.
 
-		 @tparam		DataT
+		 @tparam		T
 						The data type.
 		 @param[in]		data
 						The data array.
 		 @throws		Exception
 						Failed to write the given data.
 		 */
-		template< typename DataT >
-		void WriteArray(gsl::span< const DataT > data);
+		template< typename T >
+		void WriteArray(gsl::span< const T > data);
 
 		/**
 		 Writes the given character.

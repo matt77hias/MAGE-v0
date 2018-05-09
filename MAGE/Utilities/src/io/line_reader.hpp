@@ -205,11 +205,11 @@ namespace mage {
 						The number of elements in the array.
 		 @tparam		A
 						The alignment of the array.
-		 @return		The @c DataT represented by the next token of this line 
-						reader.
+		 @return		The @c Array represented by the next @c N tokens of 
+						this line reader.
 		 @throws		Exception
-						There are no @c N next tokens or the next @c N tokens do 
-						not represent a @c DataT element.
+						There are no @c N next tokens or the next @c N tokens 
+						do not represent a @c DataT element.
 		 */
 		template< typename DataT, size_t N, size_t A = alignof(DataT) >
 		const Array< DataT, N, A > Read();

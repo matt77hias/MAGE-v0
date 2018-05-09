@@ -17,7 +17,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <filesystem>
 #include <vector>
 #include <windowsx.h>
 

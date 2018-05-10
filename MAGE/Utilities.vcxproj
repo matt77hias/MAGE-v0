@@ -94,6 +94,7 @@
     <None Include="Utilities\src\io\binary_utils.tpp" />
     <None Include="Utilities\src\io\binary_writer.tpp" />
     <None Include="Utilities\src\io\line_reader.tpp" />
+    <None Include="Utilities\src\loaders\var\var_reader.tpp" />
     <None Include="Utilities\src\memory\memory.tpp" />
     <None Include="Utilities\src\memory\memory_arena.tpp" />
     <None Include="Utilities\src\memory\memory_stack.tpp" />

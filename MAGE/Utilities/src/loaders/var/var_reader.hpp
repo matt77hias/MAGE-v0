@@ -118,76 +118,30 @@ namespace mage::loader {
 		virtual void ReadLine(NotNull< zstring > line) override;
 
 		/**
-		 Reads a Bool variable definition.
+		 Reads a variable definition.
 
+		 @tparam		T
+						The variable type.
 		 @throws		Exception
-						Failed to read a bool variable definition.
+						Failed to read a variable definition.
 		 */
-		void ReadVARBool();
+		template< typename T >
+		void ReadVARVariable();
 
 		/**
-		 Reads an Int variable definition.
+		 Reads an array variable definition.
 
+		 @tparam		T
+						The variable type.
+		 @tparam		N
+						The number of values in the array.
+		@tparam			A
+						The alignment of the array.
 		 @throws		Exception
-						Failed to read an int variable definition.
+						Failed to read an array variable definition.
 		 */
-		void ReadVARInt();
-
-		/**
-		 Reads an Int2 variable definition.
-
-		 @throws		Exception
-						Failed to read an int2 variable definition.
-		 */
-		void ReadVARInt2();
-
-		/**
-		 Reads an Int variable definition.
-
-		 @throws		Exception
-						Failed to read an int3 variable definition.
-		 */
-		void ReadVARInt3();
-
-		/**
-		 Reads a Float variable definition.
-
-		 @throws		Exception
-						Failed to read a float variable definition.
-		 */
-		void ReadVARFloat();
-
-		/**
-		 Reads a Float2 variable definition.
-
-		 @throws		Exception
-						Failed to read a float2 variable definition.
-		 */
-		void ReadVARFloat2();
-
-		/**
-		 Reads a Float3 variable definition.
-
-		 @throws		Exception
-						Failed to read a float3 variable definition.
-		 */
-		void ReadVARFloat3();
-
-		/**
-		 Reads a Float4 variable definition.
-
-		 @throws		Exception
-						Failed to read a float4 variable definition.
-		 */
-		void ReadVARFloat4();
-
-		/**
-		 Reads a String variable definition.
-
-		 @throws		Exception
-						Failed to read a string variable definition.
-		 */
-		void ReadVARString();
+		template< typename T, size_t N, size_t A = alignof(T) >
+		void ReadVARVariable();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -199,3 +153,12 @@ namespace mage::loader {
 		std::map< string, Value >& m_variable_buffer;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "loaders\var\var_reader.tpp"
+
+#pragma endregion

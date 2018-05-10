@@ -336,5 +336,8 @@
     <None Include="Utilities\src\resource\script\variable_script.tpp">
       <Filter>Header Files\resource\script</Filter>
     </None>
+    <None Include="Utilities\src\loaders\var\var_reader.tpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </None>
   </ItemGroup>
 </Project>

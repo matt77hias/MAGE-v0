@@ -118,8 +118,6 @@ namespace mage {
 		 Returns the path of this resource.
 
 		 @return		The path of this resource.
-		 @throws		Exception
-						This resource does not represent a file resource.
 		 */
 		[[nodiscard]]
 		const std::filesystem::path GetPath() const;

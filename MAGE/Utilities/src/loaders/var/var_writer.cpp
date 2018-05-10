@@ -23,7 +23,6 @@ namespace mage::loader {
 	VARWriter::~VARWriter() = default;
 
 	void VARWriter::Write() {
-		
 		char output[MAX_PATH];
 
 		for (const auto& [key, value] : m_variable_buffer) {
@@ -47,92 +46,157 @@ namespace mage::loader {
 				}
 			}
 
-			// int
-			{
-				const auto v = std::get_if< S32 >(&value);
-				if (nullptr != v) {
-					sprintf_s(output, std::size(output),
-						      "%s %s %d",
-						      g_var_token_int, key.c_str(), 
-						      *v);
-					WriteStringLine(output);
-					continue;
-				}
-			}
-
-			// int2
-			{
-				const auto v = std::get_if< S32x2 >(&value);
-				if (nullptr != v) {
-					sprintf_s(output, std::size(output),
-						      "%s %s %d %d",
-						      g_var_token_int2, key.c_str(), 
-						      (*v)[0], (*v)[1]);
-					WriteStringLine(output);
-					continue;
-				}
-			}
-
-			// int3
-			{
-				const auto v = std::get_if< S32x3 >(&value);
-				if (nullptr != v) {
-					sprintf_s(output, std::size(output),
-						      "%s %s %d %d %d",
-						      g_var_token_int3, key.c_str(), 
-						      (*v)[0], (*v)[1], (*v)[2]);
-					WriteStringLine(output);
-					continue;
-				}
-			}
-
-			// float
+			// F32
 			{
 				const auto v = std::get_if< F32 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, std::size(output),
-						      "%s %s %f",
-						      g_var_token_float, key.c_str(),
-						      *v);
+							  "%s %s %f",
+							  g_var_token_F32, key.c_str(),
+							  *v);
 					WriteStringLine(output);
 					continue;
 				}
 			}
 
-			// float2
+			// F32x2
 			{
 				const auto v = std::get_if< F32x2 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, std::size(output),
-						      "%s %s %f %f", 
-						      g_var_token_float2, key.c_str(),
-						      (*v)[0], (*v)[1]);
+							  "%s %s %f %f",
+							  g_var_token_F32x2, key.c_str(),
+							  (*v)[0], (*v)[1]);
 					WriteStringLine(output);
 					continue;
 				}
 			}
 
-			// float3
+			// F32x3
 			{
 				const auto v = std::get_if< F32x3 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, std::size(output),
-						      "%s %s %f %f %f", 
-						      g_var_token_float3, key.c_str(),
-						      (*v)[0], (*v)[1], (*v)[2]);
+							  "%s %s %f %f %f",
+							  g_var_token_F32x3, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2]);
 					WriteStringLine(output);
 					continue;
 				}
 			}
 
-			// float4
+			// F32x4
 			{
 				const auto v = std::get_if< F32x4 >(&value);
 				if (nullptr != v) {
 					sprintf_s(output, std::size(output),
-						      "%s %s %f %f %f %f", 
-						      g_var_token_float4, key.c_str(), 
-						      (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+							  "%s %s %f %f %f %f",
+							  g_var_token_F32x4, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// S32
+			{
+				const auto v = std::get_if< S32 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %d",
+							  g_var_token_S32, key.c_str(),
+							  *v);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// S32x2
+			{
+				const auto v = std::get_if< S32x2 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %d %d",
+							  g_var_token_S32x2, key.c_str(),
+							  (*v)[0], (*v)[1]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// S32x3
+			{
+				const auto v = std::get_if< S32x3 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %d %d %d",
+							  g_var_token_S32x3, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// S32x4
+			{
+				const auto v = std::get_if< S32x4 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %d %d %d %d",
+							  g_var_token_S32x4, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// U32
+			{
+				const auto v = std::get_if< U32 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %u",
+							  g_var_token_U32, key.c_str(),
+							  *v);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// U32x2
+			{
+				const auto v = std::get_if< U32x2 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %u %u",
+							  g_var_token_U32x2, key.c_str(),
+							  (*v)[0], (*v)[1]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// U32x3
+			{
+				const auto v = std::get_if< U32x3 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %u %u %u",
+							  g_var_token_U32x3, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2]);
+					WriteStringLine(output);
+					continue;
+				}
+			}
+
+			// U32x4
+			{
+				const auto v = std::get_if< U32x4 >(&value);
+				if (nullptr != v) {
+					sprintf_s(output, std::size(output),
+							  "%s %s %u %u %u %u",
+							  g_var_token_U32x4, key.c_str(),
+							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
 					WriteStringLine(output);
 					continue;
 				}

@@ -40,10 +40,6 @@ namespace mage {
 	template< typename ResourceT >
 	[[nodiscard]]
 	inline const std::filesystem::path Resource< ResourceT >::GetPath() const {
-		ThrowIfFailed(IsFileResource(), 
-					  "Resource %ls does not represent a file resource.", 
-					  m_guid.c_str());
-
 		return m_guid;
 	}
 }

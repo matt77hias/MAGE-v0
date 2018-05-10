@@ -58,17 +58,14 @@ namespace mage::rendering {
 		/**
 		 Checks whether the given display mode needs to be rejected.
 
-		 @param[in]		display_mode_desc
+		 @param[in]		desc
 						A reference to a display mode descriptor.
 		 @return		@c true if the given display mode needs to be rejected.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
-		inline bool RejectDisplayMode(
-			const DXGI_MODE_DESC& display_mode_desc) noexcept {
-		
-			return (display_mode_desc.Width  < 512u) 
-				|| (display_mode_desc.Height < 512u);
+		inline bool RejectDisplayMode(const DXGI_MODE_DESC& desc) noexcept {
+			return (desc.Width < 512u) || (desc.Height < 512u);
 		}
 
 		/**

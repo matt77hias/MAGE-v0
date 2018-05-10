@@ -9,23 +9,11 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\loaders">
-      <UniqueIdentifier>{2b0f67d0-9492-48a9-a348-1d4bdcba1708}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\var">
-      <UniqueIdentifier>{afa89a6f-1292-423c-b28f-79d7a1c347f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\meta">
       <UniqueIdentifier>{742b677b-6265-45a9-8a7c-708bc7344b39}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{325c452a-f6e9-48bd-be4e-96c06e675c72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders">
-      <UniqueIdentifier>{82568ba6-e2e9-4a3e-836f-0593a2c58b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\var">
-      <UniqueIdentifier>{86171410-612f-4508-8233-ff74216bbeae}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\meta">
       <UniqueIdentifier>{de40a748-aeb7-4883-8638-a6bfa3472d0a}</UniqueIdentifier>
@@ -33,35 +21,8 @@
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{0a9832e7-430f-4054-8b4a-ceb2865634b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\resource">
-      <UniqueIdentifier>{1d4b0653-5f75-469d-82dd-6ead4904173c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\resource">
-      <UniqueIdentifier>{383fcb38-4419-4d59-b77b-1be61586ab1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\resource\script">
-      <UniqueIdentifier>{ec9268b4-b89a-4c6f-82d3-e1e3ba240044}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\resource\script">
-      <UniqueIdentifier>{1acd0390-38ac-4003-b99b-bf533dff8ea8}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\src\loaders\variable_script_loader.hpp">
-      <Filter>Header Files\loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_loader.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_reader.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_tokens.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\loaders\var\var_writer.hpp">
-      <Filter>Header Files\loaders\var</Filter>
-    </ClInclude>
     <ClInclude Include="Core\src\meta\targetver.hpp">
       <Filter>Header Files\meta</Filter>
     </ClInclude>
@@ -83,26 +44,8 @@
     <ClInclude Include="Core\src\scene\scene_utils.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\src\resource\script\variable_value.hpp">
-      <Filter>Header Files\resource\script</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\resource\script\variable_script.hpp">
-      <Filter>Header Files\resource\script</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\src\loaders\variable_script_loader.cpp">
-      <Filter>Source Files\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\src\loaders\var\var_loader.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\src\loaders\var\var_reader.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\src\loaders\var\var_writer.cpp">
-      <Filter>Source Files\loaders\var</Filter>
-    </ClCompile>
     <ClCompile Include="Core\src\meta\version.cpp">
       <Filter>Source Files\meta</Filter>
     </ClCompile>
@@ -115,9 +58,6 @@
     <ClCompile Include="Core\src\scene\transform.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="Core\src\resource\script\variable_script.cpp">
-      <Filter>Source Files\resource\script</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\src\scene\node.tpp">
@@ -125,9 +65,6 @@
     </None>
     <None Include="Core\src\scene\scene_utils.tpp">
       <Filter>Header Files\scene</Filter>
-    </None>
-    <None Include="Core\src\resource\script\variable_script.tpp">
-      <Filter>Header Files\resource\script</Filter>
     </None>
   </ItemGroup>
 </Project>

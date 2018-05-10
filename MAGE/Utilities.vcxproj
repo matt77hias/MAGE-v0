@@ -27,6 +27,11 @@
     <ClInclude Include="Utilities\src\io\binary_writer.hpp" />
     <ClInclude Include="Utilities\src\io\line_reader.hpp" />
     <ClInclude Include="Utilities\src\io\writer.hpp" />
+    <ClInclude Include="Utilities\src\loaders\variable_script_loader.hpp" />
+    <ClInclude Include="Utilities\src\loaders\var\var_loader.hpp" />
+    <ClInclude Include="Utilities\src\loaders\var\var_reader.hpp" />
+    <ClInclude Include="Utilities\src\loaders\var\var_tokens.hpp" />
+    <ClInclude Include="Utilities\src\loaders\var\var_writer.hpp" />
     <ClInclude Include="Utilities\src\logging\dump.hpp" />
     <ClInclude Include="Utilities\src\logging\error.hpp" />
     <ClInclude Include="Utilities\src\logging\logging.hpp" />
@@ -42,6 +47,8 @@
     <ClInclude Include="Utilities\src\platform\windows_utils.hpp" />
     <ClInclude Include="Utilities\src\resource\resource.hpp" />
     <ClInclude Include="Utilities\src\resource\resource_pool.hpp" />
+    <ClInclude Include="Utilities\src\resource\script\variable_script.hpp" />
+    <ClInclude Include="Utilities\src\resource\script\variable_value.hpp" />
     <ClInclude Include="Utilities\src\string\string.hpp" />
     <ClInclude Include="Utilities\src\string\string_utils.hpp" />
     <ClInclude Include="Utilities\src\string\token.hpp" />
@@ -62,6 +69,10 @@
     <ClCompile Include="Utilities\src\io\binary_writer.cpp" />
     <ClCompile Include="Utilities\src\io\line_reader.cpp" />
     <ClCompile Include="Utilities\src\io\writer.cpp" />
+    <ClCompile Include="Utilities\src\loaders\variable_script_loader.cpp" />
+    <ClCompile Include="Utilities\src\loaders\var\var_loader.cpp" />
+    <ClCompile Include="Utilities\src\loaders\var\var_reader.cpp" />
+    <ClCompile Include="Utilities\src\loaders\var\var_writer.cpp" />
     <ClCompile Include="Utilities\src\logging\dump.cpp" />
     <ClCompile Include="Utilities\src\logging\error.cpp" />
     <ClCompile Include="Utilities\src\logging\logging.cpp" />
@@ -70,6 +81,7 @@
     <ClCompile Include="Utilities\src\memory\memory_stack.cpp" />
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp" />
     <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
+    <ClCompile Include="Utilities\src\resource\script\variable_script.cpp" />
     <ClCompile Include="Utilities\src\string\string_utils.cpp" />
     <ClCompile Include="Utilities\src\string\token.cpp" />
     <ClCompile Include="Utilities\src\system\system_time.cpp" />
@@ -88,6 +100,7 @@
     <None Include="Utilities\src\platform\windows_utils.tpp" />
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
+    <None Include="Utilities\src\resource\script\variable_script.tpp" />
     <None Include="Utilities\src\string\token.tpp" />
     <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>

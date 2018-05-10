@@ -69,6 +69,27 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{3220fcd9-16b6-4223-9847-65e8db4fc197}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\resource\script">
+      <UniqueIdentifier>{54bcc7ac-1f0c-4498-b690-5ea9d34f7f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{7d1923e7-0f3a-45d5-a32f-2d111308cced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource\script">
+      <UniqueIdentifier>{264ec923-9743-45a5-a0b3-ddfe54d36e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders">
+      <UniqueIdentifier>{522ba322-e933-4c40-91d7-f7290112ad08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\var">
+      <UniqueIdentifier>{7294dc3a-7d94-41cc-88d6-26e41d9e919a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders">
+      <UniqueIdentifier>{87446f5f-e556-4c96-a474-7a11f4030fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\var">
+      <UniqueIdentifier>{e81c7ae9-a81e-41a2-9616-11e7ad720853}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities\src\collection\vector.hpp">
@@ -179,6 +200,27 @@
     <ClInclude Include="Utilities\src\collection\array.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\loaders\variable_script_loader.hpp">
+      <Filter>Header Files\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\loaders\var\var_writer.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\loaders\var\var_loader.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\loaders\var\var_reader.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\loaders\var\var_tokens.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\resource\script\variable_script.hpp">
+      <Filter>Header Files\resource\script</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\resource\script\variable_value.hpp">
+      <Filter>Header Files\resource\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">
@@ -238,6 +280,21 @@
     <ClCompile Include="Utilities\src\ui\window.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="Utilities\src\loaders\variable_script_loader.cpp">
+      <Filter>Source Files\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\loaders\var\var_writer.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\loaders\var\var_loader.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\loaders\var\var_reader.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\src\resource\script\variable_script.cpp">
+      <Filter>Source Files\resource\script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Utilities\src\io\binary_reader.tpp">
@@ -275,6 +332,9 @@
     </None>
     <None Include="Utilities\src\system\timer.tpp">
       <Filter>Header Files\system</Filter>
+    </None>
+    <None Include="Utilities\src\resource\script\variable_script.tpp">
+      <Filter>Header Files\resource\script</Filter>
     </None>
   </ItemGroup>
 </Project>

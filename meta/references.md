@@ -80,6 +80,8 @@ KRZEMIEŃSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08
 
 KRZEMIEŃSKI A.: [*Why make your classes final?*](https://akrzemi1.wordpress.com/2012/09/30/why-make-your-classes-final/), 2012.
 
+LEMIRE D.: [*Which is fastest: read, fread, ifstream or mmap?*](https://lemire.me/blog/2012/06/26/which-is-fastest-read-fread-ifstream-or-mmap/), 2012.
+
 MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.

@@ -141,13 +141,18 @@
 |-------------------|--------------------------------------------------------------------|
 | property          | `bool <property-name> true`                                        |
 | property          | `bool <property-name> false`                                       |
-| property          | `int <property-name> <S32>`                                        |  
-| property          | `int2 <property-name> <S32> <S32>`                                 |
-| property          | `int3 <property-name> <S32> <S32> <S32>`                           |
-| property          | `float <property-name> <F32>`                                      |
-| property          | `float2 <property-name> <F32> <F32>`                               |
-| property          | `float3 <property-name> <F32> <F32> <F32>`                         |
-| property          | `float4 <property-name> <F32> <F32> <F32> <F32>`                   |
+| property          | `F32   <property-name> <F32>`                                      |
+| property          | `F32x2 <property-name> <F32> <F32>`                                |
+| property          | `F32x3 <property-name> <F32> <F32> <F32>`                          |
+| property          | `F32x4 <property-name> <F32> <F32> <F32> <F32>`                    |
+| property          | `S32   <property-name> <S32>`                                      |
+| property          | `S32x2 <property-name> <S32> <S32>`                                |
+| property          | `S32x3 <property-name> <S32> <S32> <S32>`                          |
+| property          | `S32x4 <property-name> <S32> <S32> <S32> <S32>`                    |
+| property          | `U32   <property-name> <U32>`                                      |
+| property          | `U32x2 <property-name> <U32> <U32>`                                |
+| property          | `U32x3 <property-name> <U32> <U32> <U32>`                          |
+| property          | `U32x4 <property-name> <U32> <U32> <U32> <U32>`                    |
 | property          | `string <property-name> <string>`                                  |
 | `<property-name>` | `<string>`                                                         |
 | `<string>`        | `<ANSI string without delimiters and EOFs>`                        |

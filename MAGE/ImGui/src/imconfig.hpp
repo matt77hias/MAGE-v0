@@ -23,6 +23,10 @@
 
 #pragma endregion
 
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+
 #define IM_ASSERT(expr)  Assert(expr)
 
 #define IMGUI_DISABLE_OBSOLETE_FUNCTIONS

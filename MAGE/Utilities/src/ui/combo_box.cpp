@@ -27,7 +27,7 @@ namespace mage {
 					 NotNull< const_wzstring > desc) noexcept {
 
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		// Add a string to a list in a combo box and
 		// return the index of the string in the list.
@@ -40,7 +40,7 @@ namespace mage {
 
 	void ComboBoxSelect(NotNull< HWND > dialog, int id, int index) noexcept {
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		// Set the currently selected item in a combo box.
 		ComboBox_SetCurSel(control, index);
@@ -61,7 +61,7 @@ namespace mage {
 
 	void ComboBoxSelect(NotNull< HWND > dialog, int id, const void* data) noexcept {
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		for (int index = 0; index < ComboBoxCount(dialog, id); ++index) {
 			
@@ -93,7 +93,7 @@ namespace mage {
 	[[nodiscard]]
 	const void* ComboBoxSelected(NotNull< HWND > dialog, int id) noexcept {
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		// Get the currently selected item in a combo box.
 		const auto index = ComboBox_GetCurSel(control);
@@ -107,7 +107,7 @@ namespace mage {
 	[[nodiscard]]
 	bool ComboBoxSomethingSelected(NotNull< HWND > dialog, int id) noexcept {
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		// Get the currently selected item in a combo box.
 		const auto index = ComboBox_GetCurSel(control);
@@ -118,7 +118,7 @@ namespace mage {
 	[[nodiscard]]
 	int ComboBoxCount(NotNull< HWND > dialog, int id) noexcept {
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		// Gets the number of items in the list box of a combo box.
 		return ComboBox_GetCount(control);
@@ -130,7 +130,7 @@ namespace mage {
 						  NotNull< const_wzstring > desc) noexcept {
 		
 		// Retrieve a handle to a control in the specified dialog box.
-		NotNull< HWND > control = GetDlgItem(dialog, id);
+		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
 		wchar_t item[MAX_PATH];
 		for (int index = 0; index < ComboBoxCount(dialog, id); ++index) {

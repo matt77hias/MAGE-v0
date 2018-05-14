@@ -23,7 +23,7 @@ namespace mage::loader {
 										   Value(std::move(value)));
 	}
 
-	template< typename T, size_t N, size_t A = alignof(T) >
+	template< typename T, size_t N, size_t A >
 	inline void VARReader::ReadVARVariable() {
 		auto name  = Read< string >();
 		auto value = Read< T, N, A >();

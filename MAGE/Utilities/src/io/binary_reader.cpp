@@ -116,7 +116,7 @@ namespace mage {
 					  GetPath().c_str());
 
 		m_pos = new_pos;
-		return reinterpret_cast< const char* >(old_pos);
+		return NotNull< const_zstring >(reinterpret_cast< const char* >(old_pos));
 	}
 
 	#pragma endregion

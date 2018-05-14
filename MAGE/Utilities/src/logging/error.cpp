@@ -47,7 +47,7 @@ namespace mage {
 				++buffer;
 			}
 
-			return buffer;
+			return NotNull< const_zstring >(buffer);
 		}
 
 		/**
@@ -68,7 +68,7 @@ namespace mage {
 				++buffer;
 			}
 
-			return buffer;
+			return NotNull< const_zstring >(buffer);
 		}
 
 		/**
@@ -103,7 +103,7 @@ namespace mage {
 
 			const auto* msg_pos = error_buffer;
 			while (true) {
-				msg_pos = FindWordStart(msg_pos);
+				msg_pos = FindWordStart(NotNull< const_zstring >(msg_pos));
 
 				if ('\0' == *msg_pos) {
 					break;
@@ -111,7 +111,7 @@ namespace mage {
 
 				// false == isspace(*msg_pos)
 
-				const auto word_end  = FindWordEnd(msg_pos);
+				const auto word_end = FindWordEnd(NotNull< const_zstring >(msg_pos));
 				if (const auto word_length 
 					= static_cast< size_t >(word_end - msg_pos);
 					width < error_pos + word_length) {

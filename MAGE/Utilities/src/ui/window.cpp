@@ -131,13 +131,13 @@ namespace mage {
 												 LPARAM lParam) {
 		// Window dependent message handling.
 		{
+			const auto not_null_window = NotNull< HWND >(window);										 
 			const auto caller = GetWindowCaller< Window >
-				                (window, message, wParam, lParam);
+				                (not_null_window, message, wParam, lParam);
 			if (caller) {
 				LRESULT result;
-				if (caller->HandleWindowMessage(window, message, 
-												wParam, lParam, 
-												result)) {
+				if (caller->HandleWindowMessage(not_null_window, message,
+												wParam, lParam, result)) {
 					return result;
 				}
 

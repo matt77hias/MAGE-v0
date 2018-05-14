@@ -54,12 +54,14 @@ namespace mage {
 			return TokenResult::None;
 		}
 
-		if (str_equals(str, "true")) {
+		const auto not_null_str = NotNull< const_zstring >(str);
+		
+		if (str_equals(not_null_str, NotNull< const_zstring >("true"))) {
 			result = true;
 			return TokenResult::Valid;
 		}
 		
-		if (str_equals(str, "false")) {
+		if (str_equals(not_null_str, NotNull< const_zstring >("false"))) {
 			result = false;
 			return TokenResult::Valid;
 		}

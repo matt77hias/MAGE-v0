@@ -93,7 +93,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		NotNull< const_wzstring > c_str() const noexcept {
-			return m_str.c_str();
+			return NotNull< const_wzstring >(m_str.c_str());
 		}
 
 		/**

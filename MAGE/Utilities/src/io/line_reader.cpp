@@ -98,30 +98,27 @@ namespace mage {
 	
 	NotNull< const_zstring > LineReader::ReadChars() {
 		zstring result = nullptr;
-		const auto token_result = mage::ReadChars(nullptr, 
-												  &m_context, 
-												  &result, 
-												  GetDelimiters().c_str());
+		const auto token_result 
+			= mage::ReadChars(nullptr, &m_context, NotNull< zstring* >(&result),
+							  NotNull< const_zstring >(GetDelimiters().c_str()));
 		switch (token_result) {
 		
 		case TokenResult::Valid: {
-			return result;
+			return NotNull< const_zstring >(result);
 		}
 		
 		default: {
 			throw Exception("%ls: line %u: no char string value found.",
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+							GetPath().c_str(), GetCurrentLineNumber());
 		}
 		}
 	}
 	
 	const string LineReader::ReadQuotedString() {
 		string result;
-		const auto token_result = mage::ReadQuotedString(nullptr, 
-														 &m_context, 
-														 result, 
-														 GetDelimiters().c_str());
+		const auto token_result 
+			= mage::ReadQuotedString(nullptr, &m_context, result, 
+									 NotNull< const_zstring >(GetDelimiters().c_str()));
 		switch (token_result) {
 		
 		case TokenResult::Valid: {
@@ -130,27 +127,27 @@ namespace mage {
 		
 		case TokenResult::None: {
 			throw Exception("%ls: line %u: no quoted string value found.", 
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+							GetPath().c_str(), GetCurrentLineNumber());
 		}
 		
 		default: {
 			throw Exception("%ls: line %u: invalid quoted string value found.", 
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+							GetPath().c_str(), GetCurrentLineNumber());
 		}
 		}
 	}
 	
 	[[nodiscard]]
 	bool LineReader::ContainsChars() const {
-		return mage::ContainsChars(m_context, GetDelimiters().c_str()) 
-			   == TokenResult::Valid;
+		return TokenResult::Valid 
+			== mage::ContainsChars(NotNull< zstring >(m_context), 
+								   NotNull< const_zstring >(GetDelimiters().c_str()));
 	}
 	
 	[[nodiscard]]
 	bool LineReader::ContainsQuotedString() const {
-		return mage::ContainsQuotedString(m_context, GetDelimiters().c_str()) 
-			   == TokenResult::Valid;
+		return TokenResult::Valid 
+			== mage::ContainsQuotedString(NotNull< zstring >(m_context), 
+										  NotNull< const_zstring >(GetDelimiters().c_str()));
 	}
 }

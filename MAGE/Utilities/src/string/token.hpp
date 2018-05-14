@@ -127,7 +127,7 @@ namespace mage {
 	TokenResult ReadChars(zstring str, zstring* context, 
 						  NotNull< zstring* > result,
 						  NotNull< const_zstring > delimiters
-						  = g_default_delimiters) noexcept;
+						  = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a quoted string.
@@ -154,7 +154,7 @@ namespace mage {
 	 */
 	TokenResult ReadQuotedString(zstring str, zstring* context, string& result,
 								 NotNull< const_zstring > delimiters
-								 = g_default_delimiters);
+								 = NotNull< const_zstring >(g_default_delimiters));
 	
 	/**
 	 Reads and converts the next token in the given string to a @c T value.
@@ -183,7 +183,7 @@ namespace mage {
 	template< typename T >
 	TokenResult Read(zstring str, zstring* context, T& result,
 					 NotNull< const_zstring > delimiters
-					 = g_default_delimiters) noexcept;
+					 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Reads and converts the next token in the given string to an @c Array.
@@ -216,7 +216,7 @@ namespace mage {
 	template< typename T, size_t N, size_t A = alignof(T) >
 	TokenResult Read(zstring str, zstring* context, Array< T, N, A >& result,
 					 NotNull< const_zstring > delimiters
-					 = g_default_delimiters) noexcept;
+					 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 	
 	#pragma endregion
 
@@ -240,7 +240,7 @@ namespace mage {
 	 */
 	TokenResult ContainsChars(NotNull< zstring > str,
 							  NotNull< const_zstring > delimiters
-							  = g_default_delimiters) noexcept;
+							  = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a quoted 
@@ -258,7 +258,7 @@ namespace mage {
 	 */
 	TokenResult ContainsQuotedString(NotNull< zstring > str,
 									 NotNull< const_zstring > delimiters
-									 = g_default_delimiters) noexcept;
+									 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c T 
@@ -278,7 +278,7 @@ namespace mage {
 	template< typename T >
 	TokenResult Contains(NotNull< zstring > str,
 						 NotNull< const_zstring > delimiters
-						 = g_default_delimiters) noexcept;
+						 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	#pragma endregion
 
@@ -302,7 +302,7 @@ namespace mage {
 	[[nodiscard]]
 	zstring SkipDelimiters(NotNull< zstring > str, 
 						   NotNull< const_zstring > delimiters 
-						   = g_default_delimiters) noexcept;
+						   = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
@@ -319,7 +319,7 @@ namespace mage {
 	[[nodiscard]]
 	const_zstring SkipDelimiters(NotNull< const_zstring > str, 
 								 NotNull< const_zstring > delimiters 
-								 = g_default_delimiters) noexcept;
+								 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -336,7 +336,7 @@ namespace mage {
 	[[nodiscard]]
 	zstring GotoDelimiters(NotNull< zstring > str, 
 						   NotNull< const_zstring > delimiters 
-						   = g_default_delimiters) noexcept;
+						   = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -353,7 +353,7 @@ namespace mage {
 	[[nodiscard]]
 	const_zstring GotoDelimiters(NotNull< const_zstring > str, 
 								 NotNull< const_zstring > delimiters 
-								 = g_default_delimiters) noexcept;
+								 = NotNull< const_zstring >(g_default_delimiters)) noexcept;
 
 	#pragma endregion
 }

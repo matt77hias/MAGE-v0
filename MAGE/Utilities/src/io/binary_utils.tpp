@@ -24,7 +24,7 @@ namespace mage {
 		
 		const U8 reversed_bytes[] = { bytes_array[1], bytes_array[0] };
 		
-		return BytesBigEndianTo< S16 >(reversed_bytes);
+		return BytesBigEndianTo< S16 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -34,7 +34,7 @@ namespace mage {
 		
 		const U8 reversed_bytes[] = { bytes_array[1], bytes_array[0] };
 		
-		return BytesBigEndianTo< U16 >(reversed_bytes);
+		return BytesBigEndianTo< U16 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -46,7 +46,7 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< S32 >(reversed_bytes);
+		return BytesBigEndianTo< S32 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -58,7 +58,7 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< U32 >(reversed_bytes);
+		return BytesBigEndianTo< U32 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -71,7 +71,7 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< S64 >(reversed_bytes);
+		return BytesBigEndianTo< S64 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -84,7 +84,7 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< U64 >(reversed_bytes);
+		return BytesBigEndianTo< U64 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -96,7 +96,7 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< F32 >(reversed_bytes);
+		return BytesBigEndianTo< F32 >(NotNull< const U8* >(reversed_bytes));
 	}
 	
 	template<>
@@ -109,6 +109,6 @@ namespace mage {
 			bytes_array[3], bytes_array[2], bytes_array[1], bytes_array[0]
 		};
 		
-		return BytesBigEndianTo< F64 >(reversed_bytes);
+		return BytesBigEndianTo< F64 >(NotNull< const U8* >(reversed_bytes));
 	}
 }

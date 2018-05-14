@@ -47,7 +47,7 @@ namespace mage {
 			}
 
 			// Continue search (current match is escaped).
-			input = result + 1;
+			input = NotNull< zstring >(result + 1);
 		}
 	}
 
@@ -72,7 +72,7 @@ namespace mage {
 			}
 
 			// Continue search (current match is escaped).
-			input = result + 1;
+			input = NotNull< const_zstring >(result + 1);
 		}
 	}
 
@@ -96,7 +96,7 @@ namespace mage {
 			}
 
 			// Continue search (current match is escaped).
-			input = result + 1;
+			input = NotNull< wzstring >(result + 1);
 		}
 	}
 
@@ -121,7 +121,7 @@ namespace mage {
 			}
 
 			// Continue search (current match is escaped).
-			input = result + 1;
+			input = NotNull< const_wzstring >(result + 1);
 		}
 	}
 
@@ -152,7 +152,7 @@ namespace mage {
 		}
 
 		*str   = '\0';
-		*input = next;
+		*input = NotNull< const_zstring >(next);
 		return str;
 	}
 
@@ -183,7 +183,7 @@ namespace mage {
 		}
 
 		*str   = L'\0';
-		*input = next;
+		*input = NotNull< const_wzstring >(next);
 		return str;
 	}
 

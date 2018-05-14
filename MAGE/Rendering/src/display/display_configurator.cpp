@@ -523,6 +523,9 @@ namespace mage::rendering {
 
 		wchar_t buffer[16];
 
+		const auto not_null_buffer = NotNull< const_wzstring >(buffer);
+		const auto not_null_dialog = NotNull< HWND >(dialog);
+
 		// color depth (format) affects resolution affects refresh rate.
 
 		switch (message) {
@@ -580,26 +583,34 @@ namespace mage::rendering {
 				ComboBox_ResetContent(GetDlgItem(dialog, IDC_AA));
 				
 				// Fill in the anti-aliasing combo box.
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::None),     L"None");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::FXAA),     L"FXAA");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::MSAA_2x),  L"MSAA 2x");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::MSAA_4x),  L"MSAA 4x");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::MSAA_8x),  L"MSAA 8x");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::SSAA_2x),  L"SSAA 2x");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::SSAA_3x),  L"SSAA 3x");
-				ComboBoxAddValue(dialog, IDC_AA, 
-					static_cast< size_t >(AntiAliasing::SSAA_4x),  L"SSAA 4x");
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::None), 
+								 NotNull< const_wzstring >(L"None"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::FXAA), 
+								 NotNull< const_wzstring >(L"FXAA"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::MSAA_2x), 
+								 NotNull< const_wzstring >(L"MSAA 2x"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::MSAA_4x), 
+								 NotNull< const_wzstring >(L"MSAA 4x"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::MSAA_8x), 
+								 NotNull< const_wzstring >(L"MSAA 8x"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::SSAA_2x), 
+								 NotNull< const_wzstring >(L"SSAA 2x"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::SSAA_3x), 
+								 NotNull< const_wzstring >(L"SSAA 3x"));
+				ComboBoxAddValue(not_null_dialog, IDC_AA, 
+								 static_cast< size_t >(AntiAliasing::SSAA_4x), 
+								 NotNull< const_wzstring >(L"SSAA 4x"));
 				
 				const auto index 
 					= *m_script->GetValue< S32 >(s_display_variable_aa);
-				ComboBoxSelect(dialog, IDC_AA, index);
+				ComboBoxSelect(not_null_dialog, IDC_AA, index);
 			}
 			
 			// Resolution state
@@ -613,21 +624,21 @@ namespace mage::rendering {
 						       L"%u x %u", 
 						       mode.Width, mode.Height);
 
-					if (!ComboBoxContains(dialog, IDC_RESOLUTION, buffer)) {
+					if (!ComboBoxContains(not_null_dialog, IDC_RESOLUTION, not_null_buffer)) {
 						const auto resolution = ConvertResolution(mode);
-						ComboBoxAddValue(dialog, IDC_RESOLUTION, resolution, buffer);
+						ComboBoxAddValue(not_null_dialog, IDC_RESOLUTION, resolution, not_null_buffer);
 					}
 				}
 
 				const auto index 
 					= *m_script->GetValue< S32 >(s_display_variable_resolution);
-				ComboBoxSelect(dialog, IDC_RESOLUTION, index);
+				ComboBoxSelect(not_null_dialog, IDC_RESOLUTION, index);
 			}
 
 			// Refresh rate state
 			{
 				const auto selected_resolution 
-					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
+					= ComboBoxSelectedValue(not_null_dialog, IDC_RESOLUTION);
 
 				// Remove all items from the list box and edit control of a combo box.
 				ComboBox_ResetContent(GetDlgItem(dialog, IDC_REFRESH_RATE));
@@ -642,15 +653,15 @@ namespace mage::rendering {
 							       L"%u Hz",
 							       static_cast< U32 >(refresh_rate));
 
-						if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
-							ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
+						if (!ComboBoxContains(not_null_dialog, IDC_REFRESH_RATE, not_null_buffer)) {
+							ComboBoxAddValue(not_null_dialog, IDC_REFRESH_RATE, refresh_rate, not_null_buffer);
 						}
 					}
 				}
 
 				const auto refresh_rate_index 
 					= *m_script->GetValue< S32 >(s_display_variable_refresh_rate);
-				ComboBoxSelect(dialog, IDC_REFRESH_RATE, refresh_rate_index);
+				ComboBoxSelect(not_null_dialog, IDC_REFRESH_RATE, refresh_rate_index);
 			}
 
 			return TRUE;
@@ -666,11 +677,11 @@ namespace mage::rendering {
 				
 				// Load all the settings.
 				const auto selected_aa
-					= RetrieveAntiAliasing(ComboBoxSelectedValue(dialog, IDC_AA));
+					= RetrieveAntiAliasing(ComboBoxSelectedValue(not_null_dialog, IDC_AA));
 				const auto selected_refresh_rate
-					= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
+					= ComboBoxSelectedValue(not_null_dialog, IDC_REFRESH_RATE);
 				const auto selected_resolution
-					= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
+					= ComboBoxSelectedValue(not_null_dialog, IDC_RESOLUTION);
 				
 				const DXGI_MODE_DESC* selected_diplay_mode = nullptr;
 				for (const auto& display_mode : m_display_modes) {
@@ -747,9 +758,9 @@ namespace mage::rendering {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					
 					const auto selected_resolution
-						= ComboBoxSelectedValue(dialog, IDC_RESOLUTION);
+						= ComboBoxSelectedValue(not_null_dialog, IDC_RESOLUTION);
 					const auto selected_refresh_rate
-						= ComboBoxSelectedValue(dialog, IDC_REFRESH_RATE);
+						= ComboBoxSelectedValue(not_null_dialog, IDC_REFRESH_RATE);
 
 					// Remove all items from the list box and edit control of a 
 					// combo box.
@@ -768,18 +779,18 @@ namespace mage::rendering {
 								       L"%u Hz",
 								       static_cast< U32 >(refresh_rate));
 							
-							if (!ComboBoxContains(dialog, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAddValue(dialog, IDC_REFRESH_RATE, refresh_rate, buffer);
+							if (!ComboBoxContains(not_null_dialog, IDC_REFRESH_RATE, not_null_buffer)) {
+								ComboBoxAddValue(not_null_dialog, IDC_REFRESH_RATE, refresh_rate, not_null_buffer);
 								
 								if (selected_refresh_rate == refresh_rate) {
-									ComboBoxSelectValue(dialog, IDC_REFRESH_RATE, selected_refresh_rate);
+									ComboBoxSelectValue(not_null_dialog, IDC_REFRESH_RATE, selected_refresh_rate);
 								}
 							}
 						}
 					}
 
-					if (ComboBoxSelected(dialog, IDC_REFRESH_RATE) == nullptr) {
-						ComboBoxSelect(dialog, IDC_REFRESH_RATE, 0);
+					if (ComboBoxSelected(not_null_dialog, IDC_REFRESH_RATE) == nullptr) {
+						ComboBoxSelect(not_null_dialog, IDC_REFRESH_RATE, 0);
 					}
 				}
 

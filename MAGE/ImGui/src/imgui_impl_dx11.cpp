@@ -457,10 +457,10 @@ bool    ImGui_ImplDX11_CreateDeviceObjects()
             PS_INPUT main(VS_INPUT input)\
             {\
             PS_INPUT output;\
-            output.pos     = mul( ProjectionMatrix, float4(input.pos.xy, 0.f, 1.f));\
-			output.col.xyz = pow(abs(input.col.xyz), 2.2f);\
+            output.pos = mul( ProjectionMatrix, float4(input.pos.xy, 0.f, 1.f));\
+            output.col.xyz = pow(abs(input.col.xyz), 2.2f);\
             output.col.w   = input.col.w;\
-            output.uv      = input.uv;\
+            output.uv  = input.uv;\
             return output;\
             }";
 
@@ -599,7 +599,7 @@ bool    ImGui_ImplDX11_Init(void* hwnd, ID3D11Device* device, ID3D11DeviceContex
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;   // We can honor GetMouseCursor() values (optional)
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;    // We can honor io.WantSetMousePos requests (optional, rarely used)
 
-    // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array that we will update during the application lifetime.
+    // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array that we will update during the application lifetime.
     io.KeyMap[ImGuiKey_Tab] = VK_TAB;
     io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
     io.KeyMap[ImGuiKey_RightArrow] = VK_RIGHT;

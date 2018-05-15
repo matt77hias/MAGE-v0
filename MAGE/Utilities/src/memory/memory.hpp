@@ -95,6 +95,8 @@ namespace mage {
 					The type.
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
+	 @param[in]		args
+					A reference to the constructor arguments.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -109,6 +111,8 @@ namespace mage {
 					The type.
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
+	 @param[in]		args
+					A reference to the constructor arguments.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -155,6 +159,8 @@ namespace mage {
 					The type.
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
+	 @param[in]		args
+					A reference to the constructor arguments.
 	 @return		A unique pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -233,7 +239,7 @@ namespace mage {
 	 @param[in]		handle
 					The handle to destruct.
 	 */
-	static inline void DestructHandle(HANDLE handle) noexcept {
+	inline void DestructHandle(HANDLE handle) noexcept {
 		if (handle) {
 			CloseHandle(handle);
 		}
@@ -277,7 +283,7 @@ namespace mage {
 
 	 */
 	[[nodiscard]]
-	static inline HANDLE SafeHandle(HANDLE handle) noexcept {
+	inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (INVALID_HANDLE_VALUE == handle) ? nullptr : handle;
 	}
 

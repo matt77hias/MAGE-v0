@@ -337,11 +337,13 @@ namespace mage::rendering {
 			                        WPARAM wParam, 
 									LPARAM lParam) {
 
+		const auto not_null_dialog = NotNull< HWND >(dialog);
 		const auto configurator = GetDialogCaller< DisplayConfigurator::Impl >
-			                      (dialog, message, wParam, lParam);
+			                      (not_null_dialog, message, wParam, lParam);
 
 		if (configurator) {
-			return configurator->DisplayDialogProc(dialog, message, wParam, lParam);
+			return configurator->DisplayDialogProc(not_null_dialog, message, 
+												   wParam, lParam);
 		}
 		else {
 			return TRUE;

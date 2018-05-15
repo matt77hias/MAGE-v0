@@ -291,9 +291,8 @@ namespace mage {
 	// BoundingFrustum: Enclosing = Full Coverage
 	//-------------------------------------------------------------------------
 
-	[[nodiscard]]bool XM_CALLCONV 
-		BoundingFrustum::Encloses(FXMVECTOR point) const noexcept {
-
+	[[nodiscard]]
+	bool XM_CALLCONV BoundingFrustum::Encloses(FXMVECTOR point) const noexcept {
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) < 0.0f) {
@@ -304,9 +303,8 @@ namespace mage {
 		return true;
 	}
 
-	[[nodiscard]]bool XM_CALLCONV 
-		BoundingFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
-		
+	[[nodiscard]]
+	bool XM_CALLCONV BoundingFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
 		for (size_t i = 0; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) <= 0.0f) {

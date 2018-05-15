@@ -59,38 +59,58 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto* const token 
-			= strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
+										   &m_context);
 
 		if (!token || g_obj_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, g_obj_token_vertex)) {
+		const auto not_null_token = NotNull< const_zstring >(token);
+
+		if (     str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_vertex))) {
+
 			ReadOBJVertex();
 		}
-		else if (str_equals(token, g_obj_token_texture)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_texture))) {
+
 			ReadOBJVertexTexture();
 		}
-		else if (str_equals(token, g_obj_token_normal)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_normal))) {
+
 			ReadOBJVertexNormal();
 		}
-		else if (str_equals(token, g_obj_token_face)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_face))) {
+
 			ReadOBJFace();
 		}
-		else if (str_equals(token, g_obj_token_material_library)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_material_library))) {
+
 			ReadOBJMaterialLibrary();
 		}
-		else if (str_equals(token, g_obj_token_material_use)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_material_use))) {
+
 			ReadOBJMaterialUse();
 		}
-		else if (str_equals(token, g_obj_token_group)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_group))) {
+
 			ReadOBJGroup();
 		}
-		else if (str_equals(token, g_obj_token_object)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_object))) {
+
 			ReadOBJObject();
 		}
-		else if (str_equals(token, g_obj_token_smoothing_group)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_obj_token_smoothing_group))) {
+
 			ReadOBJSmoothingGroup();
 		}
 		else {
@@ -253,12 +273,13 @@ namespace mage::rendering::loader {
 		::ReadOBJVertexIndices() {
 
 		const auto token = ReadChars();
+		const auto not_null_token = NotNull< const_zstring >(token);
 
 		S32 v_index  = 0;
 		S32 vt_index = 0;
 		S32 vn_index = 0;
 
-		if (str_contains(token, "//")) {
+		if (str_contains(not_null_token, NotNull< const_zstring >("//"))) {
 			// v1//vn1
 			const auto index_end = strchr(token, '/');
 			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
@@ -270,7 +291,7 @@ namespace mage::rendering::loader {
 					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
-		else if (str_contains(token, '/')) {
+		else if (str_contains(not_null_token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
 			const auto index_end = strchr(token, '/');
 			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
@@ -278,7 +299,7 @@ namespace mage::rendering::loader {
 					            GetPath().c_str(), GetCurrentLineNumber(), token);
 			}
 			
-			if (str_contains(index_end + 1, '/')) {
+			if (str_contains(NotNull< const_zstring >(index_end + 1), '/')) {
 				const auto texture_end = strchr(index_end + 1, '/');
 				if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, texture_end, vt_index)) {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.", 

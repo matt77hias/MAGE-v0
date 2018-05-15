@@ -543,7 +543,7 @@ namespace mage::rendering {
 
 		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context, 
-									m_swap_chain.get().GetRTV(),
+									&(m_swap_chain.get().GetRTV()),
 									nullptr);
 		
 		// Bind LDR SRV.

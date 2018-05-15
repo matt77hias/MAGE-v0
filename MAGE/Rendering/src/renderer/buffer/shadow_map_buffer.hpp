@@ -100,12 +100,12 @@ namespace mage::rendering {
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
 		[[nodiscard]]
-		NotNull< ID3D11DepthStencilView* > GetDSV(size_t dsv_index) const noexcept {
-			return m_dsvs[dsv_index].Get();
+		ID3D11DepthStencilView& GetDSV(size_t dsv_index) const noexcept {
+			return *m_dsvs[dsv_index].Get();
 		}
 		[[nodiscard]]
-		NotNull< ID3D11ShaderResourceView* > GetSRV() const noexcept {
-			return m_srv.Get();
+		ID3D11ShaderResourceView& GetSRV() const noexcept {
+			return *m_srv.Get();
 		}
 
 	private:
@@ -199,12 +199,12 @@ namespace mage::rendering {
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
 		[[nodiscard]]
-		NotNull< ID3D11DepthStencilView* > GetDSV(size_t dsv_index) const noexcept {
-			return m_dsvs[dsv_index].Get();
+		ID3D11DepthStencilView& GetDSV(size_t dsv_index) const noexcept {
+			return *m_dsvs[dsv_index].Get();
 		}
 		[[nodiscard]]
-		NotNull< ID3D11ShaderResourceView* > GetSRV() const noexcept {
-			return m_srv.Get();
+		ID3D11ShaderResourceView& GetSRV() const noexcept {
+			return *m_srv.Get();
 		}
 
 	private:

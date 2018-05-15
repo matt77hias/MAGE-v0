@@ -17,8 +17,9 @@ namespace mage {
 	template< typename T >
 	const T LineReader::Read() {
 		T result;
-		const auto token_result = mage::Read(nullptr, &m_context, result, 
-											 GetDelimiters().c_str());
+		const auto token_result 
+			= mage::Read(nullptr, &m_context, result, 
+						 NotNull< const_zstring >(GetDelimiters().c_str()));
 
 		switch (token_result) {
 
@@ -28,14 +29,12 @@ namespace mage {
 
 		case TokenResult::None: {
 			throw Exception("%ls: line %u: no value found.",
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+				            GetPath().c_str(), GetCurrentLineNumber());
 		}
 
 		default: {
 			throw Exception("%ls: line %u: invalid value found.",
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+				            GetPath().c_str(), GetCurrentLineNumber());
 		}
 		}
 	}
@@ -43,8 +42,9 @@ namespace mage {
 	template< typename T, size_t N, size_t A >
 	const Array< T, N, A > LineReader::Read() {
 		Array< T, N, A > result;
-		const auto token_result = mage::Read< T, N, A >(nullptr, &m_context, 
-														result, GetDelimiters().c_str());
+		const auto token_result 
+			= mage::Read< T, N, A >(nullptr, &m_context, result, 
+									NotNull< const_zstring >(GetDelimiters().c_str()));
 
 		switch (token_result) {
 
@@ -54,14 +54,12 @@ namespace mage {
 
 		case TokenResult::None: {
 			throw Exception("%ls: line %u: no value found.",
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+				            GetPath().c_str(), GetCurrentLineNumber());
 		}
 
 		default: {
 			throw Exception("%ls: line %u: invalid value found.",
-				            GetPath().c_str(), 
-				            GetCurrentLineNumber());
+				            GetPath().c_str(), GetCurrentLineNumber());
 		}
 		}
 	}
@@ -69,7 +67,8 @@ namespace mage {
 	template< typename T >
 	[[nodiscard]]
 	inline bool LineReader::Contains() const {
-		return mage::Contains< T >(m_context, GetDelimiters().c_str()) 
-			   == TokenResult::Valid;
+		return TokenResult::Valid 
+			== mage::Contains< T >(NotNull< zstring >(m_context),
+								   NotNull< const_zstring >(GetDelimiters().c_str()));
 	}
 }

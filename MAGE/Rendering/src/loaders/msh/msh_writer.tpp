@@ -32,7 +32,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void MSHWriter< VertexT, IndexT >::WriteData() {
 
-		WriteString(g_msh_token_magic);
+		WriteString(NotNull< const_zstring >(g_msh_token_magic));
 
 		const auto nb_vertices = static_cast< U32 >(m_vertices.size());
 		Write< U32 >(nb_vertices);

@@ -103,12 +103,12 @@ namespace mage::rendering {
 		/**
 		 Returns the buffer resource of this constant buffer.
 
-		 @return		A pointer to the buffer resource 
-						of this constant buffer.
+		 @return		A reference to the buffer resource of this constant 
+						buffer.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11Buffer* > Get() const noexcept {
-			return m_buffer.Get();
+		ID3D11Buffer& Get() const noexcept {
+			return *m_buffer.Get();
 		}
 		
 		/**

@@ -123,12 +123,12 @@ namespace mage::rendering {
 		/**
 		 Returns the shader resource view of this structured buffer.
 
-		 @return		A pointer to the shader resource view of this 
+		 @return		A reference to the shader resource view of this 
 						structured buffer.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11ShaderResourceView* > Get() const noexcept {
-			return m_buffer_srv.Get();
+		ID3D11ShaderResourceView& Get() const noexcept {
+			return *m_buffer_srv.Get();
 		}
 
 		/**

@@ -21,7 +21,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 	using namespace mage;
 
 	// Create the engine setup.
-	EngineSetup setup(instance);
+	const auto not_null_instance = NotNull< HINSTANCE >(instance);
+	EngineSetup setup(not_null_instance);
 	
 	// Create the engine.
 	UniquePtr< Engine > engine = CreateEngine(setup);

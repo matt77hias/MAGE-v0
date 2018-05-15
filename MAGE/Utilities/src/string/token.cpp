@@ -35,6 +35,7 @@ namespace mage {
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
+		
 		const auto last_quote  = str_escape_first(NotNull< zstring >(first_quote + 1), 
 												  '"');
 		if (!last_quote) {
@@ -71,6 +72,7 @@ namespace mage {
 		if (!first_quote) {
 			return TokenResult::Invalid;
 		}
+		
 		const auto last_quote  = str_escape_first(NotNull< zstring >(first_quote + 1), 
 												  '"');
 		if (!last_quote) {

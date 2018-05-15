@@ -24,7 +24,7 @@ namespace mage::rendering {
 	template< typename T >
 	void ConstantBuffer< T >::SetupConstantBuffer(ID3D11Device& device) {
 		const HRESULT result = CreateDynamicConstantBuffer< T >(
-			device, m_buffer.ReleaseAndGetAddressOf());
+			device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()));
 		ThrowIfFailed(result, "Constant buffer creation failed: %08X.", result);
 	}
 
@@ -45,6 +45,6 @@ namespace mage::rendering {
 	inline void ConstantBuffer< T >
 		::Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept {
 
-		PipelineStageT::BindConstantBuffer(device_context, slot, Get());
+		PipelineStageT::BindConstantBuffer(device_context, slot, m_buffer.Get());
 	}
 }

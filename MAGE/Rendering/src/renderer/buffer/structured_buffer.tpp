@@ -32,7 +32,8 @@ namespace mage::rendering {
 		// Create the buffer resource.
 		{
 			const HRESULT result = CreateDynamicStructuredBuffer< T >(
-				device, m_buffer.ReleaseAndGetAddressOf(), capacity);
+				device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()), 
+				capacity);
 			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
 		}
 
@@ -82,6 +83,6 @@ namespace mage::rendering {
 	inline void StructuredBuffer< T >
 		::Bind(ID3D11DeviceContext& device_context, U32 slot) const noexcept {
 
-		PipelineStageT::BindSRV(device_context, slot, Get());
+		PipelineStageT::BindSRV(device_context, slot, m_buffer_srv.Get());
 	}
 }

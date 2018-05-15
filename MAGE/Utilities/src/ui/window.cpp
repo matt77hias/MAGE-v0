@@ -291,7 +291,7 @@ namespace mage {
 										 text,
 										 static_cast< int >(std::size(text)));
 
-		return 0 == result ? L"" : text;
+		return (0 == result) ? L"" : text;
 	}
 
 	void Window::SetTitleText(NotNull< const_wzstring > title_text) {

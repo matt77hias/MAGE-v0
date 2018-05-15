@@ -46,7 +46,8 @@ namespace mage::rendering {
 	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
 			                       device, 
-			                       m_rasterizer_state.ReleaseAndGetAddressOf(),
+			                       NotNull< ID3D11RasterizerState** >(
+									   m_rasterizer_state.ReleaseAndGetAddressOf()),
 			                       MAGE_DEFAULT_DEPTH_BIAS, 
 			                       MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
 			                       MAGE_DEFAULT_DEPTH_BIAS_CLAMP);
@@ -182,7 +183,8 @@ namespace mage::rendering {
 	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device& device) {
 		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
 			                       device, 
-			                       m_rasterizer_state.ReleaseAndGetAddressOf(),
+			                       NotNull< ID3D11RasterizerState** >(
+									   m_rasterizer_state.ReleaseAndGetAddressOf()),
 			                       MAGE_DEFAULT_DEPTH_BIAS,
 			                       MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
 			                       MAGE_DEFAULT_DEPTH_BIAS_CLAMP);

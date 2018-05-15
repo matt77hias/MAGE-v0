@@ -183,15 +183,19 @@ namespace mage {
 				swap_chain.TakeScreenShot(fname);
 			};
 		
-			m_window->AddListener(&ImGuiWindowMessageListener::s_listener);
-			m_window->AddHandler(&m_message_handler);
+			m_window->AddListener(
+				NotNull< WindowMessageListener* >(&ImGuiWindowMessageListener::s_listener));
+			m_window->AddHandler(
+				NotNull< WindowMessageHandler* >(&m_message_handler));
 		}
 		
+		const auto window = NotNull< HWND >(m_window->GetWindow());
+
 		// Initialize the input system.
-		m_input_manager = MakeUnique< input::Manager >(m_window->GetWindow());
+		m_input_manager = MakeUnique< input::Manager >(window);
 
 		// Initialize the rendering system.
-		m_rendering_manager = MakeUnique< rendering::Manager >(m_window->GetWindow(), 
+		m_rendering_manager = MakeUnique< rendering::Manager >(window, 
 															   std::move(display_config));
 		m_rendering_manager->BindPersistentState();
 		

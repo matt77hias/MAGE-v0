@@ -112,7 +112,7 @@ namespace mage::script {
 		// End using variable argument list
 		va_end(args);
 
-		ProcessString(m_temp_buffer.data());
+		ProcessString(NotNull< const_wzstring >(m_temp_buffer.data()));
 	}
 
 	void TextConsoleScript::ProcessString(NotNull< const_wzstring > str) {

@@ -159,11 +159,11 @@ namespace mage::rendering {
 		/**
 		 Returns the render target view of the back buffer of this swap chain.
 
-		 @return		A pointer to the render target view of the back buffer 
-						of this swap chain.
+		 @return		A reference to the render target view of the back 
+						buffer of this swap chain.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11RenderTargetView* > GetRTV() const noexcept;
+		ID3D11RenderTargetView& GetRTV() const noexcept;
 
 		/**
 		 Clears the render target view of the back buffer of this swap chain.

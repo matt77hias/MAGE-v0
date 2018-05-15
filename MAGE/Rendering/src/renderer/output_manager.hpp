@@ -158,7 +158,8 @@ namespace mage::rendering {
 		NotNull< ID3D11ShaderResourceView** > 
 			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
 
-			return m_srvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+			auto& srv = m_srvs[static_cast< size_t >(index)];
+			return NotNull< ID3D11ShaderResourceView** >(srv.ReleaseAndGetAddressOf());
 		}
 		
 		[[nodiscard]]
@@ -170,7 +171,8 @@ namespace mage::rendering {
 		NotNull< ID3D11RenderTargetView** > 
 			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
 
-			return m_rtvs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+			auto& rtv = m_rtvs[static_cast< size_t >(index)];
+			return NotNull< ID3D11RenderTargetView** >(rtv.ReleaseAndGetAddressOf());
 		}
 		
 		[[nodiscard]]
@@ -182,7 +184,8 @@ namespace mage::rendering {
 		NotNull< ID3D11UnorderedAccessView** > 
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
-			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+			auto& uav = m_uavs[static_cast< size_t >(index)];
+			return NotNull< ID3D11UnorderedAccessView** >(uav.ReleaseAndGetAddressOf());
 		}
 
 		void SetupBuffers();

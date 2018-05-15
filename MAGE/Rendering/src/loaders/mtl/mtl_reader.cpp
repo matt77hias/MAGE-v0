@@ -26,41 +26,63 @@ namespace mage::rendering::loader {
 
 	void MTLReader::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto* const token
-			= strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
+										   &m_context);
 
 		if (!token || g_mtl_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, g_mtl_token_material_declaration)) {
+		const auto not_null_token = NotNull< const_zstring >(token);
+
+		if (     str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_material_declaration))) {
+
 			ReadMTLMaterialName();
 		}
-		else if (str_equals(token, g_mtl_token_base_color)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_base_color))) {
+
 			ReadMTLBaseColor();
 		}
-		else if (str_equals(token, g_mtl_token_roughness)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_roughness))) {
+
 			ReadMTLRoughness();
 		}
-		else if (str_equals(token, g_mtl_token_metalness)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_metalness))) {
+
 			ReadMTLMetalness();
 		}
-		else if (str_equals(token, g_mtl_token_radiance)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_radiance))) {
+
 			ReadMTLRadiance();
 		}
-		else if (str_equals(token, g_mtl_token_base_color_texture)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_base_color_texture))) {
+
 			ReadMTLBaseColorTexture();
 		}
-		else if (str_equals(token, g_mtl_token_material_texture)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_material_texture))) {
+
 			ReadMTLMaterialTexture();
 		}
-		else if (str_equals(token, g_mtl_token_normal_texture)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_normal_texture))) {
+
 			ReadMTLNormalTexture();
 		}
-		else if (str_equals(token, g_mtl_token_transparent)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_transparent))) {
+
 			m_material_buffer.back().SetTransparent();
 		}
-		else if (str_equals(token, g_mtl_token_opaque)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mtl_token_opaque))) {
+
 			m_material_buffer.back().SetOpaque();
 		}
 		else {

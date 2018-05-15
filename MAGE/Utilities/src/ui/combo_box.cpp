@@ -21,16 +21,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ComboBoxAdd(NotNull< HWND > dialog, 
-					 int id, 
-					 const void* data, 
+	void ComboBoxAdd(NotNull< HWND > dialog, int id, const void* data, 
 					 NotNull< const_wzstring > desc) noexcept {
 
 		// Retrieve a handle to a control in the specified dialog box.
 		const auto control = NotNull< HWND >(GetDlgItem(dialog, id));
 		
-		// Add a string to a list in a combo box and
-		// return the index of the string in the list.
+		// Add a string to a list in a combo box and return the index of the 
+		// string in the list.
 		const auto index = ComboBox_AddString(control, desc);
 		
 		// Set the application-defined value associated with the specified list 
@@ -112,7 +110,7 @@ namespace mage {
 		// Get the currently selected item in a combo box.
 		const auto index = ComboBox_GetCurSel(control);
 		
-		return (index >= 0);
+		return (0 <= index);
 	}
 
 	[[nodiscard]]
@@ -125,8 +123,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	bool ComboBoxContains(NotNull< HWND > dialog, 
-						  int id, 
+	bool ComboBoxContains(NotNull< HWND > dialog, int id, 
 						  NotNull< const_wzstring > desc) noexcept {
 		
 		// Retrieve a handle to a control in the specified dialog box.

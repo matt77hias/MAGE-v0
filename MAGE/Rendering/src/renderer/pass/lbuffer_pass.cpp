@@ -89,15 +89,15 @@ namespace mage::rendering {
 		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS                 == SLOT_SRV_DIRECTIONAL_LIGHTS + 8);
 		
 		ID3D11ShaderResourceView* const srvs[] = {
-			m_directional_lights.Get(),
-			m_omni_lights.Get(),
-			m_spot_lights.Get(),
-			m_sm_directional_lights.Get(),
-			m_sm_omni_lights.Get(),
-			m_sm_spot_lights.Get(),
-			m_directional_sms->GetSRV(),
-			m_omni_sms->GetSRV(),
-			m_spot_sms->GetSRV()
+			&m_directional_lights.Get(),
+			&m_omni_lights.Get(),
+			&m_spot_lights.Get(),
+			&m_sm_directional_lights.Get(),
+			&m_sm_omni_lights.Get(),
+			&m_sm_spot_lights.Get(),
+			&m_directional_sms->GetSRV(),
+			&m_omni_sms->GetSRV(),
+			&m_spot_sms->GetSRV()
 		};
 
 		// Bind no RTV and DSV.
@@ -105,9 +105,9 @@ namespace mage::rendering {
 
 		// Bind constant buffer.
 		Pipeline::PS::BindConstantBuffer(m_device_context, 
-										 SLOT_CBUFFER_LIGHTING, m_light_buffer.Get());
+										 SLOT_CBUFFER_LIGHTING, &m_light_buffer.Get());
 		Pipeline::CS::BindConstantBuffer(m_device_context, 
-										 SLOT_CBUFFER_LIGHTING, m_light_buffer.Get());
+										 SLOT_CBUFFER_LIGHTING, &m_light_buffer.Get());
 		
 		// Bind the SRVs.
 		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS, 

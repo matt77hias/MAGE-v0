@@ -53,9 +53,8 @@ namespace mage::rendering {
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
 
-		loader::ImportTextureFromFile(GetPath(), 
-									  device, 
-									  m_texture_srv.ReleaseAndGetAddressOf());
+		loader::ImportTextureFromFile(GetPath(), device, 
+			NotNull< ID3D11ShaderResourceView** >(m_texture_srv.ReleaseAndGetAddressOf()));
 	}
 
 	Texture::Texture(ID3D11Device& device, wstring guid, 

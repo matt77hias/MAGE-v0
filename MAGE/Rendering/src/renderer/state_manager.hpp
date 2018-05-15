@@ -347,7 +347,7 @@ namespace mage::rendering {
 			ReleaseAndGetAddressOf(BlendStateID id) noexcept {
 
 			auto& state = m_blend_states[static_cast< size_t >(id)];
-			return state.ReleaseAndGetAddressOf();
+			return NotNull< ID3D11BlendState** >(state.ReleaseAndGetAddressOf());
 		}
 		
 		/**
@@ -380,7 +380,7 @@ namespace mage::rendering {
 			ReleaseAndGetAddressOf(DepthStencilStateID id) noexcept {
 			
 			auto& state = m_depth_stencil_states[static_cast< size_t >(id)];
-			return state.ReleaseAndGetAddressOf();
+			return NotNull< ID3D11DepthStencilState** >(state.ReleaseAndGetAddressOf());
 		}
 		
 		/**
@@ -412,7 +412,7 @@ namespace mage::rendering {
 			ReleaseAndGetAddressOf(RasterizerStateID id) noexcept {
 			
 			auto& state = m_rasterizer_states[static_cast< size_t >(id)];
-			return state.ReleaseAndGetAddressOf();
+			return NotNull< ID3D11RasterizerState** >(state.ReleaseAndGetAddressOf());
 		}
 		
 		/**
@@ -444,7 +444,7 @@ namespace mage::rendering {
 			ReleaseAndGetAddressOf(SamplerStateID id) noexcept {
 
 			auto& state = m_sampler_states[static_cast< size_t >(id)];
-			return state.ReleaseAndGetAddressOf();
+			return NotNull< ID3D11SamplerState** >(state.ReleaseAndGetAddressOf());
 		}
 
 		//---------------------------------------------------------------------

@@ -51,7 +51,7 @@ namespace mage {
 			         static_cast< int >(std::size(current_line)), 
 			         m_file_stream.get())) {
 
-			ReadLine(current_line);
+			ReadLine(NotNull< zstring >(current_line));
 			++m_line_number;
 		}
 
@@ -74,11 +74,11 @@ namespace mage {
 		m_line_number = 1;
 		// Continue reading from the input until the null-terminating character 
 		// is reached.
-		while (str_gets(current_line, 
+		while (str_gets(NotNull< char* >(current_line),
 			            std::size(current_line), 
-			            &input)) {
+						NotNull< NotNull< const_zstring >* >(&input))) {
 
-			ReadLine(current_line);
+			ReadLine(NotNull< zstring >(current_line));
 			++m_line_number;
 		}
 

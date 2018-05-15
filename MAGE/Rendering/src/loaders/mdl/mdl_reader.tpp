@@ -55,17 +55,23 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
 		m_context = nullptr;
-		const auto* const token
-			= strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
+										   &m_context);
 
 		if (!token || g_mdl_token_comment == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, g_mdl_token_submodel)) {
+		const auto not_null_token = NotNull< const_zstring >(token);
+
+		if (     str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mdl_token_submodel))) {
+
 			ReadMDLSubModel();
 		}
-		else if (str_equals(token, g_mdl_token_material_library)) {
+		else if (str_equals(not_null_token, 
+							NotNull< const_zstring >(g_mdl_token_material_library))) {
+
 			ReadMDLMaterialLibrary();
 		}
 		else {

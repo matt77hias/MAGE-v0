@@ -60,22 +60,25 @@ namespace mage::rendering::loader {
 
 		const auto mtl_fname = WStringToString(wstring(mtl_path.filename()));
 
-		char output[MAX_PATH];
-		sprintf_s(output, std::size(output), 
+		char buffer[MAX_PATH];
+		const auto not_null_buffer = NotNull< const_zstring >(buffer);
+
+		sprintf_s(buffer, std::size(buffer),
 			      "%s %s",
 			      g_mdl_token_material_library, 
 				  mtl_fname.c_str());
 
-		WriteStringLine(output);
+		WriteStringLine(not_null_buffer);
 	}
 
 	template< typename VertexT, typename IndexT >
 	void MDLWriter< VertexT, IndexT >::WriteModelParts() {
-		char output[MAX_PATH];
+		char buffer[MAX_PATH];
+		const auto not_null_buffer = NotNull< const_zstring >(buffer);
 
 		for (const auto& model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, std::size(output),
+			sprintf_s(buffer, std::size(buffer),
 				      "%s %s %s %f %f %f %f %f %f %f %f %f %s %u %u",
 				      g_mdl_token_submodel, 
 				      model_part.m_child.c_str(), 
@@ -93,7 +96,7 @@ namespace mage::rendering::loader {
 				      model_part.m_start_index, 
 				      model_part.m_nb_indices);
 			
-			WriteStringLine(output);
+			WriteStringLine(not_null_buffer);
 		}
 	}
 }

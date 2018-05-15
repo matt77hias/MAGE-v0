@@ -96,6 +96,8 @@ MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/b
 
 MÜLLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
+MÜLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitfall?*](https://foonathan.net/blog/2017/03/22/string_view-temporary.html), 2017.
+
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.

@@ -52,6 +52,8 @@ CORENTIN B.: [*Undefining the C++ Pre-processor*](https://medium.com/@corentin.j
 
 CPPDEPEND TEAM: [*What made John Carmack a legend in C++ programming? And which lessons to learn from him when adopting the new standards?*](http://cppdepend.com/blog/?p=744), 2018.
 
+CUMMING M.: [*C++: std::string_view not so useful when calling C functions*](https://www.murrayc.com/permalink/2017/06/20/c-stdstring_view-not-so-useful-when-calling-c-functions/), 2017.
+
 ELVERT M.: [*C++ header-only libraries are bad*](https://schneide.wordpress.com/2018/04/30/c-header-only-libraries-are-bad/), 2018.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.

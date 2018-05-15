@@ -56,6 +56,10 @@ CUMMING M.: [*C++: std::string_view not so useful when calling C functions*](htt
 
 ELVERT M.: [*C++ header-only libraries are bad*](https://schneide.wordpress.com/2018/04/30/c-header-only-libraries-are-bad/), 2018.
 
+FILIPEK B.: [*Enforcing code contracts with [[nodiscard]]*](https://www.bfilipek.com/2017/11/nodiscard.html), 2017.
+
+FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
+
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.

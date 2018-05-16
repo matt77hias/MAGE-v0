@@ -56,6 +56,8 @@ CUMMING M.: [*C++: std::string_view not so useful when calling C functions*](htt
 
 ELVERT M.: [*C++ header-only libraries are bad*](https://schneide.wordpress.com/2018/04/30/c-header-only-libraries-are-bad/), 2018.
 
+FERNANDES R. M.: [*Rule of Zero*](https://blog.rmf.io/cxx11/rule-of-zero), s.d.
+
 FILIPEK B.: [*Enforcing code contracts with [[nodiscard]]*](https://www.bfilipek.com/2017/11/nodiscard.html), 2017.
 
 FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
@@ -107,6 +109,8 @@ PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
+
+UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2015/12/29/pimpl-and-rule-of-zero.html), 2015.
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 

@@ -34,11 +34,13 @@ TURÁNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpres
 
 FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html), 2017.
 
-### C++
+### C/C++
 
 ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
 
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
+
+ANDERSON D.: [The Clockwise/Spiral Rule](http://c-faq.com/decl/spiral.anderson.html), 1994.
 
 BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/decltype-and-declval/), 2011.
 

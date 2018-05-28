@@ -234,6 +234,8 @@ MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io
 
 NVIDIA GAMEWORKS: [*DX12 Do's And Don'ts*](https://developer.nvidia.com/dx12-dos-and-donts), s.d.
 
+PHARR M.: [*On to the next thing*](http://pharr.org/matt/blog/2018/05/27/nvidia-bound.html), 2018.
+
 RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
 RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).

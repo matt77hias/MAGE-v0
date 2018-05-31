@@ -66,7 +66,6 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Update([[maybe_unused]] Engine& engine) {
-
 		const std::lock_guard< std::mutex > lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);

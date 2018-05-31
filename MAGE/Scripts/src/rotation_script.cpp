@@ -38,7 +38,7 @@ namespace mage::script {
 
 	void RotationScript::Update([[maybe_unused]] Engine& engine) {
 		const auto delta_time 
-			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime());
+			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime().count());
 		
 		switch (m_axis) {
 		

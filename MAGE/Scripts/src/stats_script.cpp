@@ -53,13 +53,13 @@ namespace mage::script {
 		const auto wall_clock_time  = engine.GetTime().GetWallClockTotalDeltaTime();
 		const auto wall_clock_delta = wall_clock_time - m_prev_wall_clock_time;
 
-		if (s_resource_fetch_period <= wall_clock_delta) {
+		if (s_resource_fetch_period <= wall_clock_delta.count()) {
 			const auto core_clock_time  = engine.GetTime().GetCoreClockTotalDeltaTime();
 			const auto core_clock_delta = core_clock_time - m_prev_core_clock_time;
 
-			m_fps = static_cast< U32 >(m_accumulated_nb_frames / wall_clock_delta);
-			m_spf = static_cast< F32 >(wall_clock_delta / m_accumulated_nb_frames) * 1000.0f;
-			m_cpu = static_cast< F32 >(core_clock_delta / wall_clock_delta) * 100.0f;
+			m_fps = static_cast< U32 >(m_accumulated_nb_frames / wall_clock_delta.count());
+			m_spf = static_cast< F32 >(wall_clock_delta.count() / m_accumulated_nb_frames) * 1000.0f;
+			m_cpu = static_cast< F32 >(core_clock_delta.count() / wall_clock_delta.count()) * 100.0f;
 			m_ram = static_cast< U32 >(GetVirtualMemoryUsage() >> 20u);
 
 			m_accumulated_nb_frames = 0u;

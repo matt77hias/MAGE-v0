@@ -352,17 +352,17 @@ namespace mage {
 		GameTime m_time;
 
 		/**
-		 The fixed delta time of this engine.
+		 The fixed delta time (in seconds) of this engine.
 
 		 If the fixed delta time is equal to zero, fixed delta time updates
 		 will be treated as non-fixed delta time updates by this engine.
 		 */
-		F64 m_fixed_delta_time;
+		TimeIntervalSeconds m_fixed_delta_time;
 
 		/**
-		 The fixed time budget of this engine.
+		 The fixed time budget (in seconds) of this engine.
 		 */
-		F64 m_fixed_time_budget;
+		TimeIntervalSeconds m_fixed_time_budget;
 
 		/**
 		 Flag indicating whether the application is active or not.

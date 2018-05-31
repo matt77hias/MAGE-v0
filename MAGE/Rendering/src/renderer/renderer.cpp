@@ -477,7 +477,7 @@ namespace mage::rendering {
 
 		// Time
 		{
-			buffer.m_time = static_cast< F32 >(time.GetWallClockTotalDeltaTime());
+			buffer.m_time = static_cast< F32 >(time.GetWallClockTotalDeltaTime().count());
 		}
 
 		// Update the world buffer.

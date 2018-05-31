@@ -294,7 +294,7 @@ namespace mage {
 		fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time and estimated time to completion
-		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
 		if (1.0f == fraction) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", time);
@@ -326,7 +326,7 @@ namespace mage {
 		fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time
-		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime());
+		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", time);
 	

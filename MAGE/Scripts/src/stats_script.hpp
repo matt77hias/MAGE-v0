@@ -52,8 +52,8 @@ namespace mage::script {
 		ProxyPtr< rendering::SpriteText > m_text;
 		
 		U32 m_accumulated_nb_frames;
-		F64 m_prev_wall_clock_time;
-		F64 m_prev_core_clock_time;
+		TimeIntervalSeconds m_prev_wall_clock_time;
+		TimeIntervalSeconds m_prev_core_clock_time;
 		U32 m_fps;
 		F32 m_spf;
 		F32 m_cpu;

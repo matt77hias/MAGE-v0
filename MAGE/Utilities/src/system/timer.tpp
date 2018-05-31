@@ -50,37 +50,40 @@ namespace mage {
 	}
 
 	template< typename ClockT >
-	inline F64 Timer< ClockT >::GetDeltaTime() const noexcept {
+	inline TimeIntervalSeconds Timer< ClockT >
+		::GetDeltaTime() const noexcept {
+
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		using Seconds = std::chrono::duration< F64 >;
-		return std::chrono::duration_cast< Seconds >(m_delta_time).count();
+		return std::chrono::duration_cast< TimeIntervalSeconds >(m_delta_time);
 	}
 
 	template< typename ClockT >
-	inline F64 Timer< ClockT >::GetTotalDeltaTime() const noexcept {
+	inline TimeIntervalSeconds Timer< ClockT >
+		::GetTotalDeltaTime() const noexcept {
+
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		using Seconds = std::chrono::duration< F64 >;
-		return std::chrono::duration_cast< Seconds >(m_total_delta_time).count();
+		return std::chrono::duration_cast< TimeIntervalSeconds >(m_total_delta_time);
 	}
 
 	template< typename ClockT >
-	inline void Timer< ClockT >::GetTime(F64& delta_time, 
-										 F64& total_delta_time) const noexcept {
+	inline void Timer< ClockT >
+		::GetTime(TimeIntervalSeconds& delta_time, 
+				  TimeIntervalSeconds& total_delta_time) const noexcept {
+
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		using Seconds = std::chrono::duration< F64 >;
 		delta_time 
-			= std::chrono::duration_cast< Seconds >(m_delta_time).count();
+			= std::chrono::duration_cast< TimeIntervalSeconds >(m_delta_time);
 		total_delta_time 
-			= std::chrono::duration_cast< Seconds >(m_total_delta_time).count();
+			= std::chrono::duration_cast< TimeIntervalSeconds >(m_total_delta_time);
 	}
 
 	template< typename ClockT >

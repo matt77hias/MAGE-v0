@@ -15,6 +15,23 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Time
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A time stamp type expressed in seconds.
+	 */
+	using TimeStampSeconds = std::chrono::duration< F64 >;
+
+	/**
+	 A time interval type expressed in seconds.
+	 */
+	using TimeIntervalSeconds = std::chrono::duration< F64 >;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Timer
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -116,14 +133,14 @@ namespace mage {
 
 		 @return		The delta time (in seconds) of this timer.
 		 */
-		F64 GetDeltaTime() const noexcept;
+		TimeIntervalSeconds GetDeltaTime() const noexcept;
 
 		/**
 		 Returns the total delta time (in seconds) of this timer.
 
 		 @return		The total delta time (in seconds) of this timer.
 		 */
-		F64 GetTotalDeltaTime() const noexcept;
+		TimeIntervalSeconds GetTotalDeltaTime() const noexcept;
 
 		/**
 		 Returns the delta time (in seconds) and the the total wall 
@@ -136,7 +153,8 @@ namespace mage {
 						A reference to the total delta time (in seconds) of 
 						this timer.
 		 */
-		void GetTime(F64& delta_time, F64& total_delta_time) const noexcept;
+		void GetTime(TimeIntervalSeconds& delta_time, 
+					 TimeIntervalSeconds& total_delta_time) const noexcept;
 
 	private:
 

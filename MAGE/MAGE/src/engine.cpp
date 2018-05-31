@@ -132,8 +132,8 @@ namespace mage {
 		m_requested_scene(), 
 		m_timer(), 
 		m_time(), 
-		m_fixed_delta_time(0.0), 
-		m_fixed_time_budget(0.0),
+		m_fixed_delta_time(TimeIntervalSeconds::zero()),
+		m_fixed_time_budget(TimeIntervalSeconds::zero()),
 		m_deactive(false), 
 		m_mode_switch(false), 
 		m_has_requested_scene(false) {
@@ -240,7 +240,7 @@ namespace mage {
 
 			m_timer.Restart();
 			m_time = GameTime();
-			m_fixed_time_budget = 0.0;
+			m_fixed_time_budget = TimeIntervalSeconds::zero();
 		}
 	}
 
@@ -278,7 +278,7 @@ namespace mage {
 	[[nodiscard]]
 	bool Engine::UpdateScripting() {
 		// Perform the fixed delta time updates of the current scene.
-		if (m_fixed_delta_time) {
+		if (TimeIntervalSeconds::zero() != m_fixed_delta_time) {
 			m_fixed_time_budget += m_time.GetWallClockDeltaTime();
 			while (m_fixed_time_budget >= m_fixed_delta_time) {
 				m_scene->ForEach< BehaviorScript >([this](BehaviorScript& script) {

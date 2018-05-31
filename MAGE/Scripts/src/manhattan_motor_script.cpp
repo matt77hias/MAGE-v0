@@ -38,7 +38,7 @@ namespace mage::script {
 
 	void ManhattanMotorScript::Update([[maybe_unused]] Engine& engine) {
 		const auto delta_time
-			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime());
+			= static_cast< F32 >(engine.GetTime().GetWallClockDeltaTime().count());
 		const auto& input_manager = engine.GetInputManager();
 		const auto& keyboard      = input_manager.GetKeyboard();
 		auto& transform           = GetOwner()->GetTransform();

@@ -34,10 +34,10 @@ namespace mage {
 		 Constructs a game time.
 		 */
 		constexpr GameTime() noexcept
-			: m_wall_clock_delta_time(0.0),
-			m_wall_clock_total_delta_time(0.0),
-			m_core_clock_delta_time(0.0),
-			m_core_clock_total_delta_time(0.0) {}
+			: m_wall_clock_delta_time(TimeIntervalSeconds::zero()),
+			m_wall_clock_total_delta_time(TimeIntervalSeconds::zero()),
+			m_core_clock_delta_time(TimeIntervalSeconds::zero()),
+			m_core_clock_total_delta_time(TimeIntervalSeconds::zero()) {}
 
 		/**
 		 Constructs a game time.
@@ -51,10 +51,11 @@ namespace mage {
 		 @param[in]		core_clock_total_delta_time
 						The core clock total delta time (in seconds).
 		 */
-		constexpr explicit GameTime(F64 wall_clock_delta_time,
-									F64 wall_clock_total_delta_time,
-									F64 core_clock_delta_time,
-									F64 core_clock_total_delta_time) noexcept
+		constexpr explicit 
+			GameTime(TimeIntervalSeconds wall_clock_delta_time, 
+					 TimeIntervalSeconds wall_clock_total_delta_time, 
+					 TimeIntervalSeconds core_clock_delta_time, 
+					 TimeIntervalSeconds core_clock_total_delta_time) noexcept
 			: m_wall_clock_delta_time(wall_clock_delta_time),
 			m_wall_clock_total_delta_time(wall_clock_total_delta_time),
 			m_core_clock_delta_time(core_clock_delta_time),
@@ -115,7 +116,7 @@ namespace mage {
 		 @return		The wall clock delta time (in seconds) of this game 
 						time.
 		 */
-		constexpr F64 GetWallClockDeltaTime() const noexcept {
+		constexpr TimeIntervalSeconds GetWallClockDeltaTime() const noexcept {
 			return m_wall_clock_delta_time;
 		}
 
@@ -125,7 +126,7 @@ namespace mage {
 		 @return		The wall clock total delta time (in seconds) of this 
 						game time.
 		 */
-		constexpr F64 GetWallClockTotalDeltaTime() const noexcept {
+		constexpr TimeIntervalSeconds GetWallClockTotalDeltaTime() const noexcept {
 			return m_wall_clock_total_delta_time;
 		}
 
@@ -135,7 +136,7 @@ namespace mage {
 		 @return		The core clock delta time (in seconds) of this game 
 						time.
 		 */
-		constexpr F64 GetCoreClockDeltaTime() const noexcept {
+		constexpr TimeIntervalSeconds GetCoreClockDeltaTime() const noexcept {
 			return m_core_clock_delta_time;
 		}
 
@@ -145,7 +146,7 @@ namespace mage {
 		 @return		The core clock total delta time (in seconds) of this 
 						game time.
 		 */
-		constexpr F64 GetCoreClockTotalDeltaTime() const noexcept {
+		constexpr TimeIntervalSeconds GetCoreClockTotalDeltaTime() const noexcept {
 			return m_core_clock_total_delta_time;
 		}
 
@@ -158,22 +159,22 @@ namespace mage {
 		/**
 		 The wall clock delta time (in seconds) of this game time.
 		 */
-		F64 m_wall_clock_delta_time;
+		TimeIntervalSeconds m_wall_clock_delta_time;
 		
 		/**
 		 The wall clock total delta time (in seconds) of this game time.
 		 */
-		F64 m_wall_clock_total_delta_time;
+		TimeIntervalSeconds m_wall_clock_total_delta_time;
 
 		/**
 		 The core clock delta time (in seconds) of this game time.
 		 */
-		F64 m_core_clock_delta_time;
+		TimeIntervalSeconds m_core_clock_delta_time;
 		
 		/**
 		 The core clock total delta time (in seconds) of this game time.
 		 */
-		F64 m_core_clock_total_delta_time;
+		TimeIntervalSeconds m_core_clock_total_delta_time;
 	};
 
 	#pragma endregion
@@ -286,13 +287,13 @@ namespace mage {
 		 @return		The game time of this game timer.
 		 */
 		const GameTime GetTime() const noexcept {
-			F64 wall_clock_delta_time;
-			F64 wall_clock_total_delta_time;
+			TimeIntervalSeconds wall_clock_delta_time;
+			TimeIntervalSeconds wall_clock_total_delta_time;
 			m_wall_clock_timer.GetTime(wall_clock_delta_time, 
 									   wall_clock_total_delta_time);
 
-			F64 core_clock_delta_time;
-			F64 core_clock_total_delta_time;
+			TimeIntervalSeconds core_clock_delta_time;
+			TimeIntervalSeconds core_clock_total_delta_time;
 			m_core_clock_timer.GetTime(core_clock_delta_time, 
 									   core_clock_total_delta_time);
 

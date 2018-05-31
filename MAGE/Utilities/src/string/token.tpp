@@ -35,11 +35,11 @@ namespace mage {
 		}
 
 		using std::from_chars;
-		const auto r = from_chars(str, nullptr, result);
+		const auto [ptr, error_code] = from_chars(str, nullptr, result);
 		
-		if ('\0' != *r.ptr
-			|| std::errc::invalid_argument    == r.ec
-			|| std::errc::result_out_of_range == r.ec) {
+		if ('\0' != *ptr
+			|| std::errc::invalid_argument    == error_code
+			|| std::errc::result_out_of_range == error_code) {
 
 			return TokenResult::Invalid;
 		}
@@ -102,11 +102,11 @@ namespace mage {
 		}
 
 		using std::from_chars;
-		const auto r = from_chars(begin, end, result);
+		const auto [ptr, error_code] = from_chars(begin, end, result);
 		
-		if (end != r.ptr
-			|| std::errc::invalid_argument    == r.ec
-			|| std::errc::result_out_of_range == r.ec) {
+		if (end != ptr
+			|| std::errc::invalid_argument    == error_code
+			|| std::errc::result_out_of_range == error_code) {
 
 			return TokenResult::Invalid;
 		}
@@ -181,11 +181,11 @@ namespace mage {
 		}
 
 		using std::from_chars;
-		const auto r = from_chars(str, nullptr, result);
+		const auto [ptr, error_code] = from_chars(str, nullptr, result);
 
-		if (str == *r.ptr
-			|| std::errc::invalid_argument    == r.ec
-			|| std::errc::result_out_of_range == r.ec) {
+		if (str == *ptr
+			|| std::errc::invalid_argument    == error_code
+			|| std::errc::result_out_of_range == error_code) {
 
 			return TokenResult::Invalid;
 		}

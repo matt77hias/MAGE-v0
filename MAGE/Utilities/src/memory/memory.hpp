@@ -233,22 +233,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	/**
-	 Destructs the given handle.
-
-	 @param[in]		handle
-					The handle to destruct.
-	 */
-	inline void DestructHandle(HANDLE handle) noexcept {
-		if (handle) {
-			CloseHandle(handle);
-		}
-	}
-
-	/**
-	 A struct of handle destructors (i.e. for closing handles).
-	 */
-	struct HandleCloser final {
+	namespace details {
 
 		/**
 		 Destructs the given handle.
@@ -256,16 +241,34 @@ namespace mage {
 		 @param[in]		handle
 						The handle to destruct.
 		 */
-		void operator()(HANDLE handle) const noexcept {
-			DestructHandle(handle);
+		inline void DestructHandle(HANDLE handle) noexcept {
+			if (handle) {
+				CloseHandle(handle);
+			}
 		}
-	};
+
+		/**
+		 A struct of handle destructors (i.e. for closing handles).
+		 */
+		struct HandleCloser final {
+
+			/**
+			 Destructs the given handle.
+
+			 @param[in]		handle
+							The handle to destruct.
+			 */
+			void operator()(HANDLE handle) const noexcept {
+				DestructHandle(handle);
+			}
+		};
+	}
 
 	/**
 	 A class of smart pointers for managing exclusive-ownership handle 
 	 resources.
 	 */
-	using UniqueHandle = UniquePtr< void, HandleCloser >;
+	using UniqueHandle = UniquePtr< void, details::HandleCloser >;
 
 	/**
 	 A class of smart pointers for managing shared-ownership handle resources.
@@ -306,7 +309,7 @@ namespace mage {
 	 @return		A shared handle for the given handle @a handle.
 	 */
 	inline SharedHandle CreateSharedHandle(HANDLE handle) {
-		return SharedHandle(SafeHandle(handle), DestructHandle);
+		return SharedHandle(SafeHandle(handle), details::DestructHandle);
 	}
 
 	#pragma endregion
@@ -316,28 +319,31 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	/**
-	 A struct of file stream destructors (i.e. for closing file streams).
-	 */
-	struct FileStreamCloser final {
+	namespace details {
 
 		/**
-		 Destructs the file stream.
-
-		 @param[in]		stream
-						A pointer to a file stream to destruct.
+		 A struct of file stream destructors (i.e. for closing file streams).
 		 */
-		void operator()(FILE* stream) const noexcept {
-			if (stream) {
-				fclose(stream);
+		struct FileStreamCloser final {
+
+			/**
+			 Destructs the file stream.
+
+			 @param[in]		stream
+							A pointer to a file stream to destruct.
+			 */
+			void operator()(FILE* stream) const noexcept {
+				if (stream) {
+					fclose(stream);
+				}
 			}
-		}
-	};
+		};
+	}
 
 	/**
 	 A class of smart pointers for managing exclusive-ownership file streams.
 	 */
-	using UniqueFileStream = UniquePtr< FILE, FileStreamCloser >;
+	using UniqueFileStream = UniquePtr< FILE, details::FileStreamCloser >;
 
 	#pragma endregion
 

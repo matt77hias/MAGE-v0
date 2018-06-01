@@ -40,6 +40,8 @@ ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-b
 
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
 
+ALLAIN A.: [*C++11 range-based for loops*](https://www.cprogramming.com/c++11/c++11-ranged-for-loop.html), s.d.
+
 ANDERSON D.: [The Clockwise/Spiral Rule](http://c-faq.com/decl/spiral.anderson.html), 1994.
 
 BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/decltype-and-declval/), 2011.

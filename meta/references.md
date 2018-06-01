@@ -48,6 +48,8 @@ BOCCARA J.: [*std::iterator is deprecated: Why, What It Was, and What to Use Ins
 
 BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
 
+BRAND S.: [*Adding C++17 structured bindings support to your classes*](https://blog.tartanllama.xyz/structured-bindings/), 2016.
+
 BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
 
 CORENTIN B.: [*Undefining the C++ Pre-processor*](https://medium.com/@corentin.jabot/undefining-the-c-pre-processor-c4eeb3d06e1f), 2018.

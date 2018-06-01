@@ -33,7 +33,7 @@
   * dinput8.lib
   * dxguid.lib
   * (d3dcompiler.lib)
-* **Compiler**: MSVC++ 15.7.2
+* **Compiler**: MSVC++ 15.7.3
 * **IDE**: Visual Studio 2017
 * **GPU Debuggers/Profilers**:
   * NVidia Nsight 5.5

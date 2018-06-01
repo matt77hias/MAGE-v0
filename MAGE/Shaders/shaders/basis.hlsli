@@ -12,7 +12,7 @@
  @pre			@a n is normalized.
  @param[in]		n
 				A basis vector of the orthonormal basis.
- @return		An orthonormal basis.
+ @return		An orthonormal basis (i.e. object-to-world transformation).
  */
 float3x3 OrthonormalBasis_HughesMoller(float3 n) {
 	const float3 abs_n   = abs(n);
@@ -31,7 +31,7 @@ float3x3 OrthonormalBasis_HughesMoller(float3 n) {
  @pre			@a n is normalized.
  @param[in]		n
 				A basis vector of the orthonormal basis.
- @return		An orthonormal basis.
+ @return		An orthonormal basis (i.e. object-to-world transformation).
  */
 float3x3 OrthonormalBasis_Duff(float3 n) {
 	const float  s  = (0.0f > n.z) ? -1.0f : 1.0f;
@@ -50,7 +50,7 @@ float3x3 OrthonormalBasis_Duff(float3 n) {
  @pre			@a n is normalized.
  @param[in]		n
 				A basis vector of the orthonormal basis.
- @return		An orthonormal basis.
+ @return		An orthonormal basis (i.e. object-to-world transformation).
  */
 float3x3 OrthonormalBasis(float3 n) {
 	return OrthonormalBasis_Duff(n);

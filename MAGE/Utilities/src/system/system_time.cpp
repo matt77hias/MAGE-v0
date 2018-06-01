@@ -176,34 +176,29 @@ namespace mage {
 		const U16 g_nb_system_cores = NumberOfSystemCores();
 
 		/**
-		 Returns the current core timestamp (in 100 ns).
+		 Returns the current core timestamps (in 100 ns).
 
-		 @param[out]	kernel_mode_timestamp
-						A reference to the current kernel mode timestamp of the 
-						calling process.
-		 @param[out]	user_mode_timestamp
-						A reference to the current user mode timestamp of the 
-						calling process.
-		 @note			If the retrieval fails, both @a kernel_mode_timestamp and 
-						@a user_mode_timestamp are zero. To get extended error 
-						information, call @c GetLastError.
+		 @return		A pair containing the current kernel and user mode 
+						timestamp of the calling process.
+		 @note			If the retrieval fails, both the kernel and user mode 
+						timestamp are zero. To get extended error information, 
+						call @c GetLastError.
 		 */
-		void GetCoreTimestamp(U64& kernel_mode_timestamp, 
-							  U64& user_mode_timestamp) noexcept {
+		const std::pair< U64, U64 > GetCoreTimestamps() noexcept {
 		
 			FILETIME ftime;
 			FILETIME kernel_mode_ftime;
 			FILETIME user_mode_ftime;
 			// Retrieves timing information for the specified process.
 			// 1. A handle to the process whose timing information is sought.
-			// 2. A pointer to a FILETIME structure that receives the creation time 
+			// 2. A pointer to a FILETIME structure that receives the creation  
+			//    time of the process.
+			// 3. A pointer to a FILETIME structure that receives the exit time 
 			//    of the process.
-			// 3. A pointer to a FILETIME structure that receives the exit time of 
-			//    the process.
-			// 4. A pointer to a FILETIME structure that receives the amount of time 
-			//    that the process has executed in kernel mode.
-			// 5. A pointer to a FILETIME structure that receives the amount of time 
-			//    that the process has executed in user mode.
+			// 4. A pointer to a FILETIME structure that receives the amount of  
+			//    time that the process has executed in kernel mode.
+			// 5. A pointer to a FILETIME structure that receives the amount of  
+			//    time that the process has executed in user mode.
 			const BOOL result = GetProcessTimes(GetCurrentProcess(),
 												&ftime, 
 												&ftime, 
@@ -211,12 +206,11 @@ namespace mage {
 												&user_mode_ftime);
 		
 			if (TRUE == result) {
-				kernel_mode_timestamp = ConvertTimestamp(kernel_mode_ftime);
-				user_mode_timestamp   = ConvertTimestamp(user_mode_ftime);
+				return std::pair< U64, U64 >(ConvertTimestamp(kernel_mode_ftime), 
+											 ConvertTimestamp(user_mode_ftime));
 			}
 			else {
-				kernel_mode_timestamp = 0ull;
-				user_mode_timestamp   = 0ull;
+				return std::pair< U64, U64 >(0, 0);
 			}
 		}
 
@@ -227,11 +221,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		inline U64 GetCoreTimestamp() noexcept {
-			U64 kernel_mode_timestamp = 0ull;
-			U64 user_mode_timestamp   = 0ull;
-			GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
-		
-			return kernel_mode_timestamp + user_mode_timestamp;
+			const auto timestamps = GetCoreTimestamps();
+			return timestamps.first + timestamps.second;
 		}
 
 		/**
@@ -242,11 +233,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		inline U64 GetKernelModeCoreTimestamp() noexcept {
-			U64 kernel_mode_timestamp = 0ull;
-			U64 user_mode_timestamp   = 0ull;
-			GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
-		
-			return kernel_mode_timestamp;
+			const auto timestamps = GetCoreTimestamps();
+			return timestamps.first;
 		}
 
 		/**
@@ -257,11 +245,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		inline U64 GetUserModeCoreTimestamp() noexcept {
-			U64 kernel_mode_timestamp = 0ull;
-			U64 user_mode_timestamp   = 0ull;
-			GetCoreTimestamp(kernel_mode_timestamp, user_mode_timestamp);
-		
-			return user_mode_timestamp;
+			const auto timestamps = GetCoreTimestamps();
+			return timestamps.second;
 		}
 
 		/**

@@ -16,7 +16,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Engine Declarations and Definitions: Array Utilities
+	// Array Utilities
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -124,7 +124,7 @@ namespace mage {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Engine Declarations and Definitions: Array
+	// Array
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -189,4 +189,19 @@ namespace mage {
 	#pragma warning( pop )
 
 	#pragma endregion
+}
+
+namespace std {
+
+	template< typename T, size_t N, size_t A >
+	struct tuple_size< mage::Array< T, N, A > >
+		: public integral_constant< size_t, N > {};
+
+	template< size_t I, typename T, size_t N, size_t A >
+	struct tuple_element< I, mage::Array< T, N, A > > {
+
+	public:
+
+		using type = T;
+	};
 }

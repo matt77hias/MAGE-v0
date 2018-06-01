@@ -26,6 +26,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const XMMATRIX XM_CALLCONV 
 		OrthonormalBasis_HughesMoller(FXMVECTOR n) noexcept {
+
 		const auto abs_n   = XMVectorAbs(n);
 		const auto n_ortho = (XMVectorGetX(abs_n) > XMVectorGetZ(abs_n))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
@@ -48,19 +49,18 @@ namespace mage {
 	[[nodiscard]]
 	inline const XMMATRIX XM_CALLCONV 
 		OrthonormalBasis_Frisvad(FXMVECTOR n) noexcept {
-		const auto nf = XMStore< F32x3 >(n);
 
-		if (nf[2] < -0.9999999f) {
-			const auto t = XMVectorSet( 0.0f, -1.0f, 0.0f, 0.0f);
-			const auto b = XMVectorSet(-1.0f,  0.0f, 0.0f, 0.0f);
-			return XMMATRIX(t, b, n, g_XMIdentityR3);
+		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
+
+		if (nz < -0.9999999f) {
+			return XMMATRIX(-g_XMIdentityR1, -g_XMIdentityR0, n, g_XMIdentityR3);
 		}
 
-		const auto a0 = 1.0f / (1.0f + nf[2]);
-		const auto a1 = -nf[0] * nf[1] * a0;
+		const auto a0 = 1.0f / (1.0f + nz);
+		const auto a1 = -nx * ny * a0;
 
-		const auto t  = XMVectorSet(1.0f - nf[0] * nf[0] * a0, a1, -nf[0], 0.0f);
-		const auto b  = XMVectorSet(a1, 1.0f - nf[1] * nf[1] * a0, -nf[1], 0.0f);
+		const auto t  = XMVectorSet(1.0f - nx * nx * a0, a1, -nx, 0.0f);
+		const auto b  = XMVectorSet(a1, 1.0f - ny * ny * a0, -ny, 0.0f);
 		return XMMATRIX(t, b, n, g_XMIdentityR3);
 	}
 
@@ -76,14 +76,15 @@ namespace mage {
 	[[nodiscard]]
 	inline const XMMATRIX XM_CALLCONV 
 		OrthonormalBasis_Duff(FXMVECTOR n) noexcept {
-		const auto nf = XMStore< F32x3 >(n);
 
-		const auto s  = copysignf(1.0f, nf[2]);
-		const auto a0 = -1.0f / (s + nf[2]);
-		const auto a1 = nf[0] * nf[1] * a0;
+		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
 
-		const auto t  = XMVectorSet(1.0f + s * nf[0] * nf[0] * a0, s * a1, -s * nf[0], 0.0f);
-		const auto b  = XMVectorSet(a1, s + nf[1] * nf[1] * a0, -nf[1], 0.0f);
+		const auto s  = copysignf(1.0f, nz);
+		const auto a0 = -1.0f / (s + nz);
+		const auto a1 = nx * ny * a0;
+
+		const auto t  = XMVectorSet(1.0f + s * nx * nx * a0, s * a1, -s * nx, 0.0f);
+		const auto b  = XMVectorSet(a1, s + ny * ny * a0, -ny, 0.0f);
 		return XMMATRIX(t, b, n, g_XMIdentityR3);
 	}
 
@@ -98,6 +99,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const XMMATRIX XM_CALLCONV 
 		OrthonormalBasis(FXMVECTOR n) noexcept {
+
 		return OrthonormalBasis_Duff(n);
 	}
 }

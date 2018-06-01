@@ -725,22 +725,21 @@ namespace mage {
 		}
 
 		/**
-		 Returns the minimum point of this AABB along a given normal.
+		 Returns the minimum and maximum point of this AABB along a given 
+		 normal.
 
 		 @param[in]		n
 						The normal.
-		 @param[out]	pmin
-						A reference to the minimum point of this AABB along @a n.
-		 @param[out]	pmax
-						A reference to the maximum point of this AABB along @a n.
+		 @return		A pair containing the minimum and maximum point of this 
+						AABB along @a n.
 		 */
-		void XM_CALLCONV MinAndMaxPointAlongNormal(FXMVECTOR n, 
-			                                       XMVECTOR& pmin, 
-			                                       XMVECTOR& pmax) const noexcept {
+		const std::pair< XMVECTOR, XMVECTOR > XM_CALLCONV 
+			MinAndMaxPointAlongNormal(FXMVECTOR n) const noexcept {
 			
 			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
-			pmin = XMVectorSelect(m_max, m_min, control);
-			pmax = XMVectorSelect(m_min, m_max, control);
+			const auto p_min   = XMVectorSelect(m_max, m_min, control);
+			const auto p_max   = XMVectorSelect(m_min, m_max, control);
+			return std::make_pair(p_min, p_max);
 		}
 
 		/**

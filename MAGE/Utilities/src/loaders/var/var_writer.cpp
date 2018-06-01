@@ -64,10 +64,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< F32x2 >(&value);
 				if (nullptr != v) {
+					const auto [x, y] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %f %f",
 							  g_var_token_F32x2, key.c_str(),
-							  (*v)[0], (*v)[1]);
+							  x, y);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -77,10 +78,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< F32x3 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %f %f %f",
 							  g_var_token_F32x3, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2]);
+							  x, y, z);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -90,10 +92,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< F32x4 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z, w] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %f %f %f %f",
 							  g_var_token_F32x4, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+							  x, y, z, w);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -116,10 +119,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< S32x2 >(&value);
 				if (nullptr != v) {
+					const auto [x, y] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %d %d",
 							  g_var_token_S32x2, key.c_str(),
-							  (*v)[0], (*v)[1]);
+							  x, y);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -129,10 +133,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< S32x3 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %d %d %d",
 							  g_var_token_S32x3, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2]);
+							  x, y, z);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -142,10 +147,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< S32x4 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z, w] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %d %d %d %d",
 							  g_var_token_S32x4, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+							  x, y, z, w);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -168,10 +174,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< U32x2 >(&value);
 				if (nullptr != v) {
+					const auto [x, y] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %u %u",
 							  g_var_token_U32x2, key.c_str(),
-							  (*v)[0], (*v)[1]);
+							  x, y);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -181,10 +188,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< U32x3 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %u %u %u",
 							  g_var_token_U32x3, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2]);
+							  x, y, z);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}
@@ -194,10 +202,11 @@ namespace mage::loader {
 			{
 				const auto v = std::get_if< U32x4 >(&value);
 				if (nullptr != v) {
+					const auto [x, y, z, w] = *v;
 					sprintf_s(buffer, std::size(buffer),
 							  "%s %s %u %u %u %u",
 							  g_var_token_U32x4, key.c_str(),
-							  (*v)[0], (*v)[1], (*v)[2], (*v)[3]);
+							  x, y, z, w);
 					WriteStringLine(not_null_buffer);
 					continue;
 				}

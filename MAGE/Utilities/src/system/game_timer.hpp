@@ -287,20 +287,13 @@ namespace mage {
 		 @return		The game time of this game timer.
 		 */
 		const GameTime GetTime() const noexcept {
-			TimeIntervalSeconds wall_clock_delta_time;
-			TimeIntervalSeconds wall_clock_total_delta_time;
-			m_wall_clock_timer.GetTime(wall_clock_delta_time, 
-									   wall_clock_total_delta_time);
+			const auto wall_clock_time = m_wall_clock_timer.GetTime();
+			const auto core_clock_time = m_core_clock_timer.GetTime();
 
-			TimeIntervalSeconds core_clock_delta_time;
-			TimeIntervalSeconds core_clock_total_delta_time;
-			m_core_clock_timer.GetTime(core_clock_delta_time, 
-									   core_clock_total_delta_time);
-
-			return GameTime(wall_clock_delta_time, 
-							wall_clock_total_delta_time,
-							core_clock_delta_time, 
-							core_clock_total_delta_time);
+			return GameTime(wall_clock_time.first,
+							wall_clock_time.second,
+							core_clock_time.first,
+							core_clock_time.second);
 		}
 
 	private:

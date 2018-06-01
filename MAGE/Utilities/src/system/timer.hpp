@@ -143,18 +143,13 @@ namespace mage {
 		TimeIntervalSeconds GetTotalDeltaTime() const noexcept;
 
 		/**
-		 Returns the delta time (in seconds) and the the total wall 
-		 clock delta time (in seconds) of this timer.
+		 Returns the delta and total delta time (in seconds) of this timer.
 
-		 @param[out]	delta_time
-						A reference to the delta time (in seconds) of this 
-						timer.
-		 @param[out]	total_delta_time
-						A reference to the total delta time (in seconds) of 
-						this timer.
+		 @return		A pair containing the the delta and total delta time 
+						(in seconds) of this timer.
 		 */
-		void GetTime(TimeIntervalSeconds& delta_time, 
-					 TimeIntervalSeconds& total_delta_time) const noexcept;
+		const std::pair< TimeIntervalSeconds, TimeIntervalSeconds >  
+			GetTime() const noexcept;
 
 	private:
 

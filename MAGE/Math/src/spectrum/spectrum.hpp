@@ -1298,3 +1298,120 @@ namespace mage {
 
 	#pragma endregion
 }
+
+namespace std {
+
+	//-------------------------------------------------------------------------
+	// (linear) RGB
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::RGB >
+		: public integral_constant< size_t, mage::RGB::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::RGB > {
+
+	public:
+
+		using type = typename mage::RGB::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SRGB
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::SRGB >
+		: public integral_constant< size_t, mage::SRGB::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::SRGB > {
+
+	public:
+
+		using type = typename mage::SRGB::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// XYZ
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::XYZ >
+		: public integral_constant< size_t, mage::XYZ::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::XYZ > {
+
+	public:
+
+		using type = typename mage::XYZ::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// (linear) RGBA
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::RGBA >
+		: public integral_constant< size_t, mage::RGBA::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::RGBA > {
+
+	public:
+
+		using type = typename mage::RGBA::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// SRGBA
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::SRGBA >
+		: public integral_constant< size_t, mage::SRGBA::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::SRGBA > {
+
+	public:
+
+		using type = typename mage::SRGBA::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// XYZA
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::XYZA >
+		: public integral_constant< size_t, mage::XYZA::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::XYZA > {
+
+	public:
+
+		using type = typename mage::XYZA::value_type;
+	};
+
+	#pragma endregion
+}

@@ -629,3 +629,82 @@ namespace mage {
 
 	#pragma endregion
 }
+
+namespace std {
+
+	//-------------------------------------------------------------------------
+	// UV
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::UV > 
+		: public integral_constant< size_t, mage::UV::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::UV > {
+
+	public:
+
+		using type = typename mage::UV::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Point3
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::Point3 >
+		: public integral_constant< size_t, mage::Point3::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::Point3 > {
+
+	public:
+
+		using type = typename mage::Point3::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Direction3
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::Direction3 >
+		: public integral_constant< size_t, mage::Direction3::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::Direction3 > {
+
+	public:
+
+		using type = typename mage::Direction3::value_type;
+	};
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Normal3
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	template<>
+	struct tuple_size< mage::Normal3 >
+		: public integral_constant< size_t, mage::Normal3::s_size > {};
+
+	template< size_t I >
+	struct tuple_element< I, mage::Normal3 > {
+
+	public:
+
+		using type = typename mage::Normal3::value_type;
+	};
+
+	#pragma endregion
+}

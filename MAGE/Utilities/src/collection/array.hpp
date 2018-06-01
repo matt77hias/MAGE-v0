@@ -137,6 +137,8 @@ namespace mage {
 
 	public:
 
+		static constexpr size_t s_size = N;
+
 		constexpr Array() noexcept
 			: std::array< T, N >{} {}
 

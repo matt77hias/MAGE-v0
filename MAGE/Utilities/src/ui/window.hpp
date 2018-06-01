@@ -14,6 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <optional>
 #include <vector>
 
 #pragma endregion
@@ -134,10 +135,11 @@ namespace mage {
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
 		 */
-		virtual void ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window,
-										  UINT message, 
-										  [[maybe_unused]] WPARAM wParam,
-										  [[maybe_unused]] LPARAM lParam) = 0;
+		virtual void 
+			ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window, 
+								 UINT message, 
+								 [[maybe_unused]] WPARAM wParam, 
+								 [[maybe_unused]] LPARAM lParam) = 0;
 	};
 
 	#pragma endregion
@@ -230,18 +232,15 @@ namespace mage {
 		 @param[in]		lParam
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
-		 @param[out]	result
-						The result of the message processing in case the 
+		 @return		The result of the message processing, if the given 
 						message is handled by this window message handler.
-		 @return		@c true if the given message is handled by this window 
-						message handler. @c false otherwise.
 		 */
 		[[nodiscard]]
-		virtual bool HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
-										 UINT message, 
-										 [[maybe_unused]] WPARAM wParam,
-										 [[maybe_unused]] LPARAM lParam,
-										 LRESULT& result) = 0;
+		virtual const std::optional< LRESULT > 
+			HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
+								UINT message, 
+								[[maybe_unused]] WPARAM wParam, 
+								[[maybe_unused]] LPARAM lParam) = 0;
 	};
 
 	#pragma endregion
@@ -651,18 +650,13 @@ namespace mage {
 		 @param[in]		lParam
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
-		 @param[out]	result
-						The result of the message processing in case the 
+		 @return		The result of the message processing, if the given 
 						message is handled by this window.
-		 @return		@c true if the given message is handled by this window. 
-						@c false otherwise.
 		 */
 		[[nodiscard]]
-		bool HandleWindowMessage(NotNull< HWND > window,
-								 UINT message, 
-								 WPARAM wParam, 
-								 LPARAM lParam, 
-								 LRESULT& result) const;
+		const std::optional< LRESULT > 
+			HandleWindowMessage(NotNull< HWND > window, UINT message, 
+								WPARAM wParam, LPARAM lParam) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

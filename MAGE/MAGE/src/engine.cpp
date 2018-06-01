@@ -53,12 +53,11 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	bool EngineMessageHandler
+	const std::optional< LRESULT > EngineMessageHandler
 		::HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
 							  UINT message, 
 							  [[maybe_unused]] WPARAM wParam, 
-							  [[maybe_unused]] LPARAM lParam, 
-							  LRESULT& result) {
+							  [[maybe_unused]] LPARAM lParam) {
 
 		switch (message) {
 		
@@ -71,9 +70,7 @@ namespace mage {
 
 			const auto deactive = static_cast< bool >(!wParam);
 			m_on_active_change(deactive);
-			
-			result = 0;
-			return true;
+			return 0;
 		}
 		
 		case WM_HOTKEY: {
@@ -85,9 +82,7 @@ namespace mage {
 			case static_cast< WPARAM >(HotKey::PrintScreen) :
 			case static_cast< WPARAM >(HotKey::AltPrintScreen): {
 				m_on_print_screen();
-
-				result = 0;
-				return true;
+				return 0;
 			}
 
 			}
@@ -102,9 +97,7 @@ namespace mage {
 
 			case VK_RETURN: {
 				m_on_mode_switch();
-
-				result = 0;
-				return true;
+				return 0;
 			}
 
 			}
@@ -112,7 +105,7 @@ namespace mage {
 
 		}
 
-		return false;
+		return {};
 	};
 
 	#pragma endregion

@@ -103,18 +103,15 @@ namespace mage {
 		 @param[in]		lParam
 						Additional message information. The contents of this 
 						parameter depend on the value of @a msg.
-		 @param[out]	result
-						The result of the message processing in case the 
-						message is handled by this engine message handler.
-		 @return		@c true if the given message is handled by this engine 
-						message handler. @c false otherwise.
+		 @return		The result of the message processing, if the given 
+						message is handled by this window message handler.
 		 */
 		[[nodiscard]]
-		virtual bool HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
-										 UINT message, 
-										 [[maybe_unused]] WPARAM wParam,
-										 [[maybe_unused]] LPARAM lParam,
-										 LRESULT& result) override;
+		virtual const std::optional< LRESULT >
+			HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
+								UINT message,
+								[[maybe_unused]] WPARAM wParam,
+								[[maybe_unused]] LPARAM lParam) override;
 
 		//---------------------------------------------------------------------
 		// Member Methods

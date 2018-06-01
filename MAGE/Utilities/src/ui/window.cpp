@@ -135,10 +135,12 @@ namespace mage {
 			const auto caller = GetWindowCaller< Window >
 				                (not_null_window, message, wParam, lParam);
 			if (caller) {
-				LRESULT result;
-				if (caller->HandleWindowMessage(not_null_window, message,
-												wParam, lParam, result)) {
-					return result;
+				if (const auto result
+					= caller->HandleWindowMessage(not_null_window, message,
+												  wParam, lParam); 
+					bool(result)) {
+
+					return result.value();
 				}
 
 			}
@@ -334,11 +336,9 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	bool Window::HandleWindowMessage(NotNull< HWND > window,
-									 UINT message, 
-									 WPARAM wParam, 
-									 LPARAM lParam, 
-									 LRESULT& result) const {
+	const std::optional< LRESULT > Window
+		::HandleWindowMessage(NotNull< HWND > window, UINT message, 
+							  WPARAM wParam, LPARAM lParam) const {
 
 		// Notify the window message listeners.
 		for (auto listener : m_listeners) {
@@ -347,8 +347,11 @@ namespace mage {
 
 		// Notify the window message handlers.
 		for (auto handler : m_handlers) {
-			if (handler->HandleWindowMessage(window, message, wParam, lParam, result)) {
-				return true;
+			if (const auto result 
+				= handler->HandleWindowMessage(window, message, wParam, lParam);
+				result) {
+
+				return result;
 			}
 		}
 

@@ -158,7 +158,7 @@ namespace mage {
 			// to terminate (quit) with exit code 0.
 			PostQuitMessage(0);
 			
-			break;
+			return 0;
 		}
 		
 		case WM_MENUCHAR: {
@@ -183,7 +183,7 @@ namespace mage {
 			// Mark the end of painting in the specified window.
 			EndPaint(window, &ps);
 			
-			break;
+			return 0;
 		}
 		
 		default: {
@@ -191,8 +191,6 @@ namespace mage {
 		}
 		
 		}
-
-		return 0;
 	}
 
 	Window::Window(WindowDescriptorPtr window_desc,
@@ -349,13 +347,13 @@ namespace mage {
 		for (auto handler : m_handlers) {
 			if (const auto result 
 				= handler->HandleWindowMessage(window, message, wParam, lParam);
-				result) {
+				bool(result)) {
 
 				return result;
 			}
 		}
 
-		return false;
+		return {};
 	}
 
 	#pragma endregion

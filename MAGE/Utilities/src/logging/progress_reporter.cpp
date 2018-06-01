@@ -215,7 +215,7 @@ namespace mage {
 	ProgressReporter::Impl::Impl(Impl&& reporter) noexcept 
 		: m_mutex() {
 		
-		const std::lock_guard< std::mutex > lock(reporter.m_mutex);
+		const std::scoped_lock lock(reporter.m_mutex);
 
 		m_nb_work_total       = reporter.m_nb_work_total;
 		m_nb_work_done        = reporter.m_nb_work_done;
@@ -233,7 +233,7 @@ namespace mage {
 	void ProgressReporter::Impl::Initialize(const string& title, 
 											U16 bar_length) {
 		
-		const std::lock_guard< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 		
 		if (0u == bar_length) {
 			bar_length = ConsoleWidth() - U16(28u);
@@ -276,7 +276,7 @@ namespace mage {
 			return;
 		}
 
-		const std::lock_guard< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
 		const auto fraction = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
@@ -314,7 +314,7 @@ namespace mage {
 			return;
 		}
 
-		const std::lock_guard< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 		
 		while (m_nb_progress_printed < m_nb_progress_total) {
 			*m_current_pos = m_progress_char;

@@ -212,6 +212,8 @@ SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Pre
 
 ### General Computer Science
 
+HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
+
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 ### General Game Engines

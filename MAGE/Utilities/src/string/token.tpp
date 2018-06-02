@@ -35,7 +35,7 @@ namespace mage {
 		}
 
 		using std::from_chars;
-		const auto [ptr, error_code] = from_chars(str, nullptr, result);
+		const auto [ptr, error_code] = from_chars(str, str + std::strlen(str), result);
 		
 		if ('\0' != *ptr
 			|| std::errc::invalid_argument    == error_code
@@ -181,7 +181,7 @@ namespace mage {
 		}
 
 		using std::from_chars;
-		const auto [ptr, error_code] = from_chars(str, nullptr, result);
+		const auto [ptr, error_code] = from_chars(str, str + std::strlen(str), result);
 
 		if (str == *ptr
 			|| std::errc::invalid_argument    == error_code

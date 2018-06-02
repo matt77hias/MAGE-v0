@@ -25,7 +25,7 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Type Declarations and Definitions
+		// Class Member Types
 		//---------------------------------------------------------------------
 		#pragma region
 
@@ -51,7 +51,7 @@ namespace mage::rendering {
 		public:
 
 			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
+			// Class Member Types
 			//-----------------------------------------------------------------
 
 			/**
@@ -74,7 +74,7 @@ namespace mage::rendering {
 		public:
 
 			//-----------------------------------------------------------------
-			// Type Declarations and Definitions
+			// Class Member Types
 			//-----------------------------------------------------------------
 
 			/**

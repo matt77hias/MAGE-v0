@@ -170,7 +170,7 @@ namespace mage {
 		void UpdateDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
-		// Type Declarations and Definitions
+		// Class Member Types
 		//---------------------------------------------------------------------
 
 		/**

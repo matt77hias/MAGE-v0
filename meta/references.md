@@ -106,11 +106,15 @@ MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/uni
 
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
+MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.
+
 MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
 
 MÜLLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
 MÜLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitfall?*](https://foonathan.net/blog/2017/03/22/string_view-temporary.html), 2017.
+
+PHARR M.: [*CHECK_RARE and making sense of unusual occurrences*](http://pharr.org/matt/blog/2018/05/31/check-rare.html), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
@@ -205,6 +209,12 @@ MCGUIRE M.: [*The Graphics Codex*](http://www.graphicscodex.com), 2016.
 SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
+
+### General Computer Science
+
+HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
+
+REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 ### General Game Engines
 

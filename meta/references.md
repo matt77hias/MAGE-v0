@@ -210,6 +210,10 @@ SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace 
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
+### General Computer Science
+
+REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
+
 ### General Game Engines
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.

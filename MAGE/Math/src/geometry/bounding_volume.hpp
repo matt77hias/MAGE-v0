@@ -739,7 +739,7 @@ namespace mage {
 			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			const auto p_min   = XMVectorSelect(m_max, m_min, control);
 			const auto p_max   = XMVectorSelect(m_min, m_max, control);
-			return std::make_pair(p_min, p_max);
+			return { p_min, p_max };
 		}
 
 		/**

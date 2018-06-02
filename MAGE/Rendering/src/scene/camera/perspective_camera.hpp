@@ -269,7 +269,7 @@ namespace mage::rendering {
 			const auto m23 = 1.0f / XMVectorGetZ(camera_to_projection.r[3]);
 			const auto m33 = -XMVectorGetZ(camera_to_projection.r[2]) * m23;
 
-			return XMMATRIX {
+			return {
 				 m00, 0.0f, 0.0f, 0.0f,
 				0.0f,  m11, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f,  m23,

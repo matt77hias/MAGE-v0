@@ -34,7 +34,7 @@ namespace mage {
 		
 		const auto t = XMVector3Normalize(XMVector3Cross(n_ortho, n));
 		const auto b = XMVector3Cross(n, t);
-		return XMMATRIX(t, b, n, g_XMIdentityR3);
+		return { t, b, n, g_XMIdentityR3 };
 	}
 
 	/**
@@ -53,7 +53,7 @@ namespace mage {
 		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
 
 		if (nz < -0.9999999f) {
-			return XMMATRIX(-g_XMIdentityR1, -g_XMIdentityR0, n, g_XMIdentityR3);
+			return { -g_XMIdentityR1, -g_XMIdentityR0, n, g_XMIdentityR3 };
 		}
 
 		const auto a0 = 1.0f / (1.0f + nz);
@@ -61,7 +61,7 @@ namespace mage {
 
 		const auto t  = XMVectorSet(1.0f - nx * nx * a0, a1, -nx, 0.0f);
 		const auto b  = XMVectorSet(a1, 1.0f - ny * ny * a0, -ny, 0.0f);
-		return XMMATRIX(t, b, n, g_XMIdentityR3);
+		return { t, b, n, g_XMIdentityR3 };
 	}
 
 	/**
@@ -85,7 +85,7 @@ namespace mage {
 
 		const auto t  = XMVectorSet(1.0f + s * nx * nx * a0, s * a1, -s * nx, 0.0f);
 		const auto b  = XMVectorSet(a1, s + ny * ny * a0, -ny, 0.0f);
-		return XMMATRIX(t, b, n, g_XMIdentityR3);
+		return { t, b, n, g_XMIdentityR3 };
 	}
 
 	/**

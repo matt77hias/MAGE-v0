@@ -206,11 +206,11 @@ namespace mage {
 												&user_mode_ftime);
 		
 			if (TRUE == result) {
-				return std::pair< U64, U64 >(ConvertTimestamp(kernel_mode_ftime), 
-											 ConvertTimestamp(user_mode_ftime));
+				return { ConvertTimestamp(kernel_mode_ftime), 
+					     ConvertTimestamp(user_mode_ftime) };
 			}
 			else {
-				return std::pair< U64, U64 >(0, 0);
+				return {};
 			}
 		}
 

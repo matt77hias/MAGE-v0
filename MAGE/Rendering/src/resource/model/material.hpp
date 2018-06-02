@@ -197,7 +197,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const RGBA GetMaterialRGBA() const noexcept {
-			return RGBA(GetRoughness(), GetMetalness(), 0.0f, 0.0f);
+			return { GetRoughness(), GetMetalness(), 0.0f, 0.0f };
 		}
 
 		/**

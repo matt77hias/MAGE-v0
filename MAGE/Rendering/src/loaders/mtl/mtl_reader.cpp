@@ -142,7 +142,7 @@ namespace mage::rendering::loader {
 			blue  = Read< F32 >();
 		}
 
-		return SRGB(red, green, blue);
+		return { red, green, blue };
 	}
 
 	[[nodiscard]]
@@ -158,7 +158,7 @@ namespace mage::rendering::loader {
 
 		const auto alpha = Contains< F32 >() ? Read< F32 >() : 1.0f;
 		
-		return SRGBA(red, green, blue, alpha);
+		return { red, green, blue, alpha };
 	}
 
 	[[nodiscard]]

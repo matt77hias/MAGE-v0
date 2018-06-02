@@ -1029,7 +1029,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectOrigin() const noexcept {
-			return XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+			return { 0.0f, 0.0f, 0.0f, 1.0f };
 		}
 
 		/**
@@ -1041,7 +1041,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisX() const noexcept {
-			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+			return { 1.0f, 0.0f, 0.0f, 0.0f };
 		}
 		
 		/**
@@ -1053,7 +1053,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisY() const noexcept {
-			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+			return { 0.0f, 1.0f, 0.0f, 0.0f };
 		}
 		
 		/**
@@ -1065,7 +1065,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisZ() const noexcept {
-			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+			return { 0.0f, 0.0f, 1.0f, 0.0f };
 		}
 		
 		#pragma endregion

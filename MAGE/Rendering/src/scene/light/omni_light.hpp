@@ -323,7 +323,7 @@ namespace mage::rendering {
 			const auto m22 = far_plane / (far_plane - near_plane);
 			const auto m32 = -near_plane * m22;
 			
-			return XMMATRIX {
+			return {
 				1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f,  m22, 1.0f,

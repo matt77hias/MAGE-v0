@@ -164,7 +164,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const U32x2 GetDisplayResolution() const noexcept {
-			return U32x2(GetDisplayWidth(), GetDisplayHeight());
+			return { GetDisplayWidth(), GetDisplayHeight() };
 		}
 
 		/**
@@ -200,7 +200,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		const U32x2 GetSSDisplayResolution() const noexcept {
-			return U32x2(GetSSDisplayWidth(), GetSSDisplayHeight());
+			return { GetSSDisplayWidth(), GetSSDisplayHeight() };
 		}
 
 		//---------------------------------------------------------------------

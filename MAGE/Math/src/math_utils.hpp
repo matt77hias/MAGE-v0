@@ -121,7 +121,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2 NormalizedToAbsolute(const F32x2& p,
 											const F32x2& resolution) noexcept {
-		return F32x2(XMStore< F32x2 >(XMLoad(p) * XMLoad(resolution)));
+		return XMStore< F32x2 >(XMLoad(p) * XMLoad(resolution));
 
 	}
 
@@ -140,7 +140,7 @@ namespace mage {
 	[[nodiscard]]
 	inline const F32x2 AbsoluteToNormalized(const F32x2& p,
 											const F32x2& resolution) noexcept {
-		return F32x2(XMStore< F32x2 >(XMLoad(p) / XMLoad(resolution)));
+		return XMStore< F32x2 >(XMLoad(p) / XMLoad(resolution));
 	}
 
 	[[nodiscard]]
@@ -217,7 +217,7 @@ namespace mage {
 		const auto x = XMVectorGetZ(projection_matrix.r[2]);
 		const auto y = XMVectorGetZ(projection_matrix.r[3]);
 		
-		return XMVectorSet(x, y, 0.0f, 0.0f);
+		return { x, y, 0.0f, 0.0f };
 	}
 
 	#pragma endregion

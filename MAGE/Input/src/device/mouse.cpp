@@ -34,8 +34,8 @@ namespace mage::input {
 			// to client-area coordinates.
 			ScreenToClient(window, &position);
 
-			return S32x2(static_cast< S32 >(position.x),
-						 static_cast< S32 >(position.y));
+			return { static_cast< S32 >(position.x),
+					 static_cast< S32 >(position.y) };
 		}
 
 	}
@@ -203,7 +203,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		const S32x2 GetDelta() const noexcept {
-			return S32x2(GetDeltaX(), GetDeltaY());
+			return { GetDeltaX(), GetDeltaY() };
 		}
 
 		/**

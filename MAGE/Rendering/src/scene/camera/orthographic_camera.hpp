@@ -151,7 +151,7 @@ namespace mage::rendering {
 			const auto m22 = 1.0f / XMVectorGetZ(camera_to_projection.r[2]);
 			const auto m32 = -XMVectorGetZ(camera_to_projection.r[3]) * m22;
 			
-			return XMMATRIX {
+			return {
 				 m00, 0.0f, 0.0f, 0.0f,
 				0.0f,  m11, 0.0f, 0.0f,
 				0.0f, 0.0f,  m22, 0.0f,

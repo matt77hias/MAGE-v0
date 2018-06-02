@@ -327,7 +327,7 @@ namespace mage::rendering::loader {
 		const auto vn = static_cast< U32 >((0 <= vn_index) ? vn_index 
 		              : static_cast< S32 >(m_vertex_normal_coordinates.size())  + vn_index);
 
-		return U32x3(v, vt, vn);
+		return { v, vt, vn };
 	}
 
 	template< typename VertexT, typename IndexT >

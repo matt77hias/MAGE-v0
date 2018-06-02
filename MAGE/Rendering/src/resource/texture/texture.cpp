@@ -39,7 +39,7 @@ namespace mage::rendering {
 		D3D11_TEXTURE2D_DESC desc;
 		texture.GetDesc(&desc);
 
-		return U32x2(desc.Width, desc.Height);
+		return { desc.Width, desc.Height };
 	}
 
 	#pragma endregion

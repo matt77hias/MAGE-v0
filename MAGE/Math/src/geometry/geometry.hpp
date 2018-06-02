@@ -573,61 +573,6 @@ namespace mage {
 	static_assert(sizeof(Normal3) == sizeof(F32x3));
 
 	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Utilities
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 Inverts the handness of the given set of UV texture coordinates.
-
-	 @param[in]		uv
-					A reference to the set of UV texture coordinates.
-	 @return		The set of UV texture coordinates with inverted handness.
-	 */
-	[[nodiscard]]
-	inline const UV InvertHandness(const UV& uv) noexcept {
-		return UV(uv[0], 1.0f - uv[1]);
-	}
-	
-	/**
-	 Inverts the handness of the given point.
-
-	 @param[in]		point
-					A reference to the point.
-	 @return		The point with inverted handness.
-	 */
-	[[nodiscard]]
-	inline const Point3 InvertHandness(const Point3& point) noexcept {
-		return Point3(point[0], point[1], -point[2]);
-	}
-	
-	/**
-	 Inverts the handness of the given normal.
-
-	 @param[in]		normal
-					A reference to the normal.
-	 @return		The normal with inverted handness.
-	 */
-	[[nodiscard]]
-	inline const Normal3 InvertHandness(const Normal3& normal) noexcept {
-		return Normal3(normal[0], normal[1], -normal[2]);
-	}
-
-	/**
-	 Inverts the handness of the given direction.
-
-	 @param[in]		direction
-					A reference to the direction.
-	 @return		The direction with inverted handness.
-	 */
-	[[nodiscard]]
-	inline const Direction3 InvertHandness(const Direction3& direction) noexcept {
-		return Direction3(direction[0], direction[1], -direction[2]);
-	}
-
-	#pragma endregion
 }
 
 namespace std {
@@ -705,6 +650,68 @@ namespace std {
 
 		using type = typename mage::Normal3::value_type;
 	};
+
+	#pragma endregion
+}
+
+namespace mage {
+
+	//-------------------------------------------------------------------------
+	// Utilities
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Inverts the handness of the given set of UV texture coordinates.
+
+	 @param[in]		uv
+					A reference to the set of UV texture coordinates.
+	 @return		The set of UV texture coordinates with inverted handness.
+	 */
+	[[nodiscard]]
+	constexpr const UV InvertHandness(const UV& uv) noexcept {
+		const auto [u, v] = uv;
+		return { u, 1.0f - v };
+	}
+	
+	/**
+	 Inverts the handness of the given point.
+
+	 @param[in]		point
+					A reference to the point.
+	 @return		The point with inverted handness.
+	 */
+	[[nodiscard]]
+	constexpr const Point3 InvertHandness(const Point3& point) noexcept {
+		const auto [x, y, z] = point;
+		return { x, y, -z };
+	}
+	
+	/**
+	 Inverts the handness of the given normal.
+
+	 @param[in]		normal
+					A reference to the normal.
+	 @return		The normal with inverted handness.
+	 */
+	[[nodiscard]]
+	constexpr const Normal3 InvertHandness(const Normal3& normal) noexcept {
+		const auto [x, y, z] = normal;
+		return { x, y, -z };
+	}
+
+	/**
+	 Inverts the handness of the given direction.
+
+	 @param[in]		direction
+					A reference to the direction.
+	 @return		The direction with inverted handness.
+	 */
+	[[nodiscard]]
+	constexpr const Direction3 InvertHandness(const Direction3& direction) noexcept {
+		const auto [x, y, z] = direction;
+		return { x, y, -z };
+	}
 
 	#pragma endregion
 }

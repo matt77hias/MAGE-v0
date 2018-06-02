@@ -38,7 +38,7 @@ namespace mage::rendering {
 		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
 		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
 		
-		return XMMATRIX {
+		return {
 			width,    0.0f, 0.0f, 0.0f,
 			 0.0f, -height, 0.0f, 0.0f,
 			 0.0f,    0.0f, 1.0f, 0.0f,
@@ -130,8 +130,8 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		const S32x2 GetTopLeft() const noexcept {
-			return S32x2(static_cast< S32 >(m_viewport.TopLeftX), 
-						 static_cast< S32 >(m_viewport.TopLeftY));
+			return { static_cast< S32 >(m_viewport.TopLeftX), 
+				     static_cast< S32 >(m_viewport.TopLeftY) };
 		}
 
 		void SetTopLeft(S32 x, S32 y) noexcept {
@@ -145,8 +145,8 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		const U32x2 GetSize() const noexcept {
-			return U32x2(static_cast< U32 >(m_viewport.Width),
-						 static_cast< U32 >(m_viewport.Height));
+			return { static_cast< U32 >(m_viewport.Width),
+				     static_cast< U32 >(m_viewport.Height) };
 		}
 
 		void SetSize(U32 x, U32 y) noexcept {
@@ -160,7 +160,7 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		const F32x2 GetDepthRange() const noexcept {
-			return F32x2(m_viewport.MinDepth, m_viewport.MaxDepth);
+			return { m_viewport.MinDepth, m_viewport.MaxDepth };
 		}
 
 		void SetDepthRange(F32 min_depth, F32 max_depth) noexcept {

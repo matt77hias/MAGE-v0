@@ -50,7 +50,7 @@ namespace mage {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
 		
-		return F32x2(x, y);
+		return { x, y };
 	}
 
 	[[nodiscard]]
@@ -59,7 +59,7 @@ namespace mage {
 		const auto y = RadicalInverse(index, 3.0f);
 		const auto z = RadicalInverse(index, 5.0f);
 		
-		return F32x3(x, y, z);
+		return { x, y, z };
 	}
 
 	[[nodiscard]]
@@ -69,7 +69,7 @@ namespace mage {
 		const auto z = RadicalInverse(index, 5.0f);
 		const auto w = RadicalInverse(index, 7.0f);
 		
-		return F32x4(x, y, z, w);
+		return { x, y, z, w };
 	}
 
 	inline void Hammersley(size_t index, gsl::span< F32 > sample, 
@@ -98,7 +98,7 @@ namespace mage {
 		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
 		
-		return F32x2(x, y);
+		return { x, y };
 	}
 
 	[[nodiscard]]
@@ -109,7 +109,7 @@ namespace mage {
 		const auto y = RadicalInverse(index, 2.0f);
 		const auto z = RadicalInverse(index, 3.0f);
 		
-		return F32x3(x, y, z);
+		return { x, y, z };
 	}
 
 	[[nodiscard]]
@@ -121,7 +121,7 @@ namespace mage {
 		const auto z = RadicalInverse(index, 3.0f);
 		const auto w = RadicalInverse(index, 5.0f);
 		
-		return F32x4(x, y, z, w);
+		return { x, y, z, w };
 	}
 
 	[[nodiscard]]

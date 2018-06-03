@@ -44,7 +44,13 @@ namespace mage {
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
 
-		const auto result = m_token_iterator->str();
+		auto result = m_token_iterator->str();
+
+		if ('"' == result.front() && '"' == result.back()) {
+			result.erase(std::remove(result.begin(), result.end(), '"'), 
+						 result.end());
+		}
+
 		++m_token_iterator;
 		return result;
 	}

@@ -105,17 +105,6 @@ namespace mage {
 		 */
 		void ReadFromMemory(gsl::span< const U8 > input, bool big_endian);
 
-		/**
-		 Returns the current path of this binary reader.
-
-		 @return		A reference to the current path of this binary 
-						reader.
-		 */
-		[[nodiscard]]
-		const std::filesystem::path& GetPath() const noexcept {
-			return m_path;
-		}
-		
 	protected:
 
 		//---------------------------------------------------------------------
@@ -151,6 +140,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the current path of this binary reader.
+
+		 @return		A reference to the current path of this binary 
+						reader.
+		 */
+		[[nodiscard]]
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
+		}
 
 		/**
 		 Checks if there are characters left to read by this binary reader.
@@ -297,17 +297,6 @@ namespace mage {
 		 */
 		void ReadFromMemory(gsl::span< const U8 > input);
 
-		/**
-		 Returns the current path of this big endian binary reader.
-
-		 @return		A reference to the current path of this big endian 
-						binary reader.
-		 */
-		[[nodiscard]]
-		const std::filesystem::path& GetPath() const noexcept {
-			return m_path;
-		}
-
 	protected:
 
 		//---------------------------------------------------------------------
@@ -345,6 +334,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the current path of this big endian binary reader.
+
+		 @return		A reference to the current path of this big endian 
+						binary reader.
+		 */
+		[[nodiscard]]
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
+		}
 
 		/**
 		 Checks if there are characters left to read by this big endian binary 

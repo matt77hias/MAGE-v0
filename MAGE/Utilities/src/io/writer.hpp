@@ -67,16 +67,6 @@ namespace mage {
 		 */
 		void WriteToFile(std::filesystem::path path);
 
-		/**
-		 Returns the current path of this writer.
-
-		 @return		A reference to the current path of this writer.
-		 */
-		[[nodiscard]]
-		const std::filesystem::path& GetPath() const noexcept {
-			return m_path;
-		}
-
 	protected:
 
 		//---------------------------------------------------------------------
@@ -112,6 +102,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the current path of this writer.
+
+		 @return		A reference to the current path of this writer.
+		 */
+		[[nodiscard]]
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
+		}
 
 		/**
 		 Writes the given character.

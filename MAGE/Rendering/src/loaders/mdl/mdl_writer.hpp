@@ -97,8 +97,6 @@ namespace mage::rendering::loader {
 
 		using Writer::WriteToFile;
 
-		using Writer::GetPath;
-
 	private:
 
 		//---------------------------------------------------------------------

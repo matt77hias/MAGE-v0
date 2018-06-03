@@ -94,8 +94,6 @@ namespace mage::rendering::loader {
 
 		using BigEndianBinaryReader::ReadFromMemory;
 
-		using BigEndianBinaryReader::GetPath;
-
 	private:
 
 		//---------------------------------------------------------------------

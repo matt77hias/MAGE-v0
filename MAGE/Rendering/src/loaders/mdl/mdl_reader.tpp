@@ -32,66 +32,45 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::Preprocess() {
-		using std::empty;
-		ThrowIfFailed(empty(m_model_output.m_vertex_buffer), 
-					  "%ls: vertex buffer must be empty.", 
-					  GetPath().c_str());
-		ThrowIfFailed(empty(m_model_output.m_index_buffer), 
-					  "%ls: index buffer must be empty.", 
-					  GetPath().c_str());
-
-		ImportMesh();
-	}
-
-	template< typename VertexT, typename IndexT >
-	void MDLReader< VertexT, IndexT >::ImportMesh() {
 		auto msh_path = GetPath();
 		msh_path.replace_extension(L".msh");
 
 		ImportMSHMeshFromFile(msh_path, m_model_output.m_vertex_buffer,
-							            m_model_output.m_index_buffer);
+							  m_model_output.m_index_buffer);
 	}
 
 	template< typename VertexT, typename IndexT >
-	void MDLReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
-		m_context = nullptr;
-		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
-										   &m_context);
+	void MDLReader< VertexT, IndexT >::ReadLine() {
+		const auto token = ReadIDString();
 
-		if (!token || g_mdl_token_comment == token[0]) {
+		if (g_mdl_token_comment == token[0]) {
 			return;
 		}
-
-		const auto not_null_token = NotNull< const_zstring >(token);
-
-		if (     str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mdl_token_submodel))) {
-
+		else if (g_mdl_token_submodel         == token) {
 			ReadMDLSubModel();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mdl_token_material_library))) {
-
+		else if (g_mdl_token_material_library == token) {
 			ReadMDLMaterialLibrary();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.",
+					GetPath().c_str(), GetCurrentLineNumber(),
+					token.c_str());
 			return;
 		}
 
-		ReadLineRemaining();
+		ReadRemainingTokens();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.m_child       = Read< string >();
-		model_part.m_parent      = Read< string >();
+		model_part.m_child       = ReadIDString();
+		model_part.m_parent      = ReadIDString();
 		model_part.m_transform.SetTranslation(Read< F32, 3 >());
 		model_part.m_transform.SetRotation(   Read< F32, 3 >());
 		model_part.m_transform.SetScale(      Read< F32, 3 >());
-		model_part.m_material    = Read< string >();
+		model_part.m_material    = ReadIDString();
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();
 		
@@ -100,7 +79,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLMaterialLibrary() {
-		const auto mtl_name = StringToWString(Read< string >());
+		const auto mtl_name = StringToWString(ReadIDString());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		

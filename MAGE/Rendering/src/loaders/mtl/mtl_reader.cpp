@@ -24,80 +24,56 @@ namespace mage::rendering::loader {
 
 	MTLReader::~MTLReader() = default;
 
-	void MTLReader::ReadLine(NotNull< zstring > line) {
-		m_context = nullptr;
-		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
-										   &m_context);
-
-		if (!token || g_mtl_token_comment == token[0]) {
+	void MTLReader::ReadLine() {
+		const auto token = ReadIDString();
+		
+		if (g_mtl_token_comment == token[0]) {
 			return;
-		}
-
-		const auto not_null_token = NotNull< const_zstring >(token);
-
-		if (     str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_material_declaration))) {
-
+		} 
+		else if (g_mtl_token_material_declaration == token) {
 			ReadMTLMaterialName();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_base_color))) {
-
+		else if (g_mtl_token_base_color           == token) {
 			ReadMTLBaseColor();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_roughness))) {
-
+		else if (g_mtl_token_roughness            == token) {
 			ReadMTLRoughness();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_metalness))) {
-
+		else if (g_mtl_token_metalness            == token) {
 			ReadMTLMetalness();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_radiance))) {
-
+		else if (g_mtl_token_radiance             == token) {
 			ReadMTLRadiance();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_base_color_texture))) {
-
+		else if (g_mtl_token_base_color_texture   == token) {
 			ReadMTLBaseColorTexture();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_material_texture))) {
-
+		else if (g_mtl_token_material_texture     == token) {
 			ReadMTLMaterialTexture();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_normal_texture))) {
-
+		else if (g_mtl_token_normal_texture       == token) {
 			ReadMTLNormalTexture();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_transparent))) {
-
+		else if (g_mtl_token_transparent          == token) {
 			m_material_buffer.back().SetTransparent();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_mtl_token_opaque))) {
-
+		else if (g_mtl_token_opaque               == token) {
 			m_material_buffer.back().SetOpaque();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.",
+					GetPath().c_str(), GetCurrentLineNumber(),
+					token.c_str());
 			return;
 		}
 
-		ReadLineRemaining();
+		ReadRemainingTokens();
 	}
 
 	void MTLReader::ReadMTLMaterialName() {
 		auto& material = m_material_buffer.emplace_back(
 			CreateDefaultMaterial(m_resource_manager));
-		material.SetName(Read< string >());
+		material.SetName(ReadIDString());
 	}
 
 	void MTLReader::ReadMTLBaseColor() {
@@ -164,7 +140,7 @@ namespace mage::rendering::loader {
 	[[nodiscard]]
 	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const auto texture_name = StringToWString(Read< string >());
+		const auto texture_name = StringToWString(ReadIDString());
 		auto texture_path       = GetPath();
 		texture_path.replace_filename(texture_name);
 

@@ -16,59 +16,64 @@ namespace mage {
 
 	template< typename T >
 	const T LineReader::Read() {
-		T result;
-		const auto token_result 
-			= mage::Read(nullptr, &m_context, result, 
-						 NotNull< const_zstring >(GetDelimiters().c_str()));
-
-		switch (token_result) {
-
-		case TokenResult::Valid: {
-			return result;
-		}
-
-		case TokenResult::None: {
+		if (m_tokens.cend() == m_token_iterator) {
 			throw Exception("%ls: line %u: no value found.",
-				            GetPath().c_str(), GetCurrentLineNumber());
+							GetPath().c_str(), GetCurrentLineNumber());
 		}
 
-		default: {
-			throw Exception("%ls: line %u: invalid value found.",
-				            GetPath().c_str(), GetCurrentLineNumber());
+		if (const auto result
+			= StringTo< T >(NotNull< const char* >(&(*m_token_iterator->first)),
+							NotNull< const char* >(&(*m_token_iterator->second))); 
+		    bool(result)) {
+
+			++m_token_iterator;
+			return result.value();
 		}
+		else {
+			const auto token = m_token_iterator->str();
+			throw Exception("%ls: line %u: invalid value found: %s.",
+							GetPath().c_str(), GetCurrentLineNumber(), 
+							token.c_str());
 		}
 	}
 
+	template<>
+	inline const string LineReader::Read() {
+		if (m_tokens.cend() == m_token_iterator) {
+			throw Exception("%ls: line %u: no string value found.",
+							GetPath().c_str(), GetCurrentLineNumber());
+		}
+
+		const auto result = m_token_iterator->str();
+		++m_token_iterator;
+		return result;
+	}
+
 	template< typename T, size_t N, size_t A >
-	const Array< T, N, A > LineReader::Read() {
+	inline const Array< T, N, A > LineReader::Read() {
 		Array< T, N, A > result;
-		const auto token_result 
-			= mage::Read< T, N, A >(nullptr, &m_context, result, 
-									NotNull< const_zstring >(GetDelimiters().c_str()));
-
-		switch (token_result) {
-
-		case TokenResult::Valid: {
-			return result;
+		for (auto& element : result) {
+			element = Read< T >();
 		}
 
-		case TokenResult::None: {
-			throw Exception("%ls: line %u: no value found.",
-				            GetPath().c_str(), GetCurrentLineNumber());
-		}
-
-		default: {
-			throw Exception("%ls: line %u: invalid value found.",
-				            GetPath().c_str(), GetCurrentLineNumber());
-		}
-		}
+		return result;
 	}
 
 	template< typename T >
 	[[nodiscard]]
-	inline bool LineReader::Contains() const {
-		return TokenResult::Valid 
-			== mage::Contains< T >(NotNull< zstring >(m_context),
-								   NotNull< const_zstring >(GetDelimiters().c_str()));
+	inline bool LineReader::Contains() const noexcept {
+		if (m_tokens.cend() == m_token_iterator) {
+			return false;
+		}
+
+		return static_cast< bool >(
+			StringTo< T >(NotNull< const char* >(&(*m_token_iterator->first)), 
+						  NotNull< const char* >(&(*m_token_iterator->second))));
+	}
+
+	template<>
+	[[nodiscard]]
+	inline bool LineReader::Contains< string >() const noexcept {
+		return m_tokens.cend() != m_token_iterator;
 	}
 }

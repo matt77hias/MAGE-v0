@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\token.hpp"
+#include "type\types.hpp"
+#include "string\string_utils.hpp"
 
 #pragma endregion
 
@@ -15,6 +16,8 @@
 #pragma region
 
 #include <filesystem>
+#include <istream>
+#include <regex>
 
 #pragma endregion
 
@@ -29,6 +32,24 @@ namespace mage {
 	class LineReader {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Types
+		//---------------------------------------------------------------------
+
+		/**
+		 The token type of line readers.
+		 */
+		using Token = std::ssub_match;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------	
+
+		/**
+		 The default (line) regex for line readers.
+		 */
+		static const std::regex g_default_regex;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -63,49 +84,26 @@ namespace mage {
 
 		 @param[in]		path
 						The path.
-		 @param[in]		delimiters
-						The string containing the token delimiters (single 
-						characters).
+		 @param[in]		regex
+						The (line) regex.
 		 @throws		Exception
 						Failed to read from the file.
 		 */
 		void ReadFromFile(std::filesystem::path path, 
-						  string delimiters = g_default_delimiters);
+						  std::regex regex = g_default_regex);
 		
 		/**
-		 Reads the input string.
+		 Reads from the given input string.
 
 		 @param[in]		input
-						A pointer to the input null-terminated byte string.
-		 @param[in]		delimiters
-						The string containing the token delimiters (single 
-						characters).
+						A reference to the input string.
+		 @param[in]		regex
+						The (line) regex.
 		 @throws		Exception
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(NotNull< const_zstring > input, 
-							string delimiters = g_default_delimiters);
-
-		/**
-		 Returns the current path of this line reader.
-
-		 @return		A reference to the current path of this line reader.
-		 */
-		[[nodiscard]]
-		const std::filesystem::path& GetPath() const noexcept {
-			return m_path;
-		}
-
-		/**
-		 Returns the current delimiters of this line reader.
-
-		 @return		A reference to the current delimiters of this line 
-						reader.
-		 */
-		[[nodiscard]]
-		const string& GetDelimiters() const noexcept {
-			return m_delimiters;
-		}
+		void ReadFromMemory(const string &input,
+							std::regex regex = g_default_regex);
 
 	protected:
 
@@ -144,6 +142,37 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the current path of this line reader.
+
+		 @return		A reference to the current path of this line reader.
+		 */
+		[[nodiscard]]
+		const std::filesystem::path& GetPath() const noexcept {
+			return m_path;
+		}
+
+		/**
+		 Returns the current (line) regex of this line reader.
+
+		 @return		A reference to the current (line) regex of this line 
+						reader.
+		 */
+		[[nodiscard]]
+		const std::regex& GetRegex() const noexcept {
+			return m_regex;
+		}
+
+		/**
+		 Sets the (line) regex of this line reader to the given (line) regex.
+
+		 @param[in]		regex
+						The (line) regex.
+		 */
+		void SetRegex(std::regex regex) {
+			m_regex = std::move(regex);
+		}
+
+		/**
 		 Returns the current line number of this line reader.
 
 		 @return		The current line number of this line reader.
@@ -154,48 +183,22 @@ namespace mage {
 		}
 		
 		/**
-		 Reads the remaining tokens of the current line of this line reader.
-		 */
-		void ReadLineRemaining();
-
-		/**
-		 Reads and converts the next token of this line reader to a string.
-
-		 @return		The string represented by the next token of this line 
-						reader.
-		 @throws		Exception
-						There is no next token.
-		 */
-		NotNull< const_zstring > ReadChars();
-
-		/**
-		 Reads and converts the next token of this line reader to a quoted 
-		 string.
-
-		 @return		The quoted string represented by the next token of this 
-						line reader.
-		 @throws		Exception
-						There is no next token or the next token does not 
-						represent a quoted string.
-		 */
-		const string ReadQuotedString();
-		
-		/**
-		 Reads and converts the next token of this line reader to @c T value.
+		 Reads and converts the current token of this line reader to 
+		 @c T value.
 
 		 @tparam		T
 						The data type.
-		 @return		The @c T represented by the next token of this line 
+		 @return		The @c T represented by the current token of this line 
 						reader.
 		 @throws		Exception
-						There is no next token or the next token does not 
+						There is no current token or the current token does not 
 						represent a @c T value.
 		 */
 		template< typename T >
 		const T Read();
 
 		/**
-		 Reads and converts the next @c N tokens of this line reader to an 
+		 Reads and converts the current @c N tokens of this line reader to an 
 		 @c Array.
 
 		 @@tparam		T
@@ -204,53 +207,61 @@ namespace mage {
 						The number of values in the array.
 		 @tparam		A
 						The alignment of the array.
-		 @return		The @c Array represented by the next @c N tokens of 
+		 @return		The @c Array represented by the current @c N tokens of 
 						this line reader.
 		 @throws		Exception
-						There are no @c N next tokens or the next @c N tokens 
-						do not represent a @c T value.
+						There are no @c N current tokens or the current 
+						@c N tokens do not represent a @c T value.
 		 */
 		template< typename T, size_t N, size_t A = alignof(T) >
 		const Array< T, N, A > Read();
 
 		/**
-		 Checks whether this line reader has a next token.
+		 Reads and converts the current token of this line reader to an id 
+		 string.
 
-		 @return		@c true if this line reader has a next token. @c false
-						otherwise.
+		 @return		The alpha-numeric string represented by the current 
+						token of this line reader.
+		 @throws		Exception
+						There is no current token or the current token does not 
+						represent an id string.
 		 */
-		[[nodiscard]]
-		bool ContainsChars() const;
-		
-		/**
-		 Checks whether the next token of this line reader is a quoted string.
-
-		 @return		@c true if the next token of this line reader is a 
-						quoted string. @c false otherwise.
-		 */
-		[[nodiscard]]
-		bool ContainsQuotedString() const;
+		const string ReadIDString();
 
 		/**
-		 Checks whether the next token of this line reader is a @c T value.
+		 Reads the remaining tokens of the current line of this line reader.
+		 */
+		void ReadRemainingTokens();
+
+		/**
+		 Checks whether the current token of this line reader is a @c T value.
 
 		 @tparam		T
 						The data type.
-		 @return		@c true if the next token of this line reader is a 
+		 @return		@c true if the current token of this line reader is a 
 						@c T value. @c false otherwise.
 		 */
 		template< typename T >
 		[[nodiscard]]
-		bool Contains() const;
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
+		bool Contains() const noexcept;
 
 		/**
-		 The current context of this line reader.
+		 Checks whether the current token of this line reader is an id string.
+
+		 @return		@c true if the current token of this line reader is an 
+						id string. @c false otherwise.
 		 */
-		zstring m_context;
+		[[nodiscard]]
+		bool ContainsIDString() const noexcept;
+
+		/**
+		 Checks whether this line reader has a current token.
+
+		 @return		@c true if this line reader has a current token. 
+						@c false otherwise.
+		 */
+		[[nodiscard]]
+		bool ContainsTokens() const noexcept;
 
 	private:
 
@@ -259,39 +270,47 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Pre-processes before reading the current file of this line reader.
+		 Pre-processes before reading.
 
 		 @throws		Exception
 						Failed to finish the pre-processing successfully.
 		 */
-		virtual void Preprocess() {}
+		virtual void Preprocess();
 
 		/**
-		 Reads the given line.
+		 Processes the given input stream (line by line).
 
-		 @param[in,out] line
-						A pointer to the null-terminated string to read.
+		 @param[in]		stream
+						A reference to the input stream.
 		 @throws		Exception
-						Failed to read the given line.
+						Failed to process the given input stream.
 		 */
-		virtual void ReadLine(NotNull< zstring > line) = 0;
+		void Process(std::istream& stream);
 
 		/**
-		 Post-processes after reading the current file of this line reader.
+		 Reads the current line of this line reader.
+
+		 @throws		Exception
+						Failed to the current line of this line reader.
+		 */
+		virtual void ReadLine() = 0;
+
+		/**
+		 Post-processes after reading.
 
 		 @throws		Exception
 						Failed to finish post-processing successfully.
 		 */
-		virtual void Postprocess() {}
+		virtual void Postprocess();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the file stream of this line reader.
+		 The current (line) regex of this line reader.
 		 */
-		UniqueFileStream m_file_stream;
+		std::regex m_regex;
 
 		/**
 		 The current path of this line reader.
@@ -299,9 +318,16 @@ namespace mage {
 		std::filesystem::path m_path;
 
 		/**
-		 The current delimiters of this line reader.
+		 A vector containing the tokens of the current line of this line 
+		 reader.
 		 */
-		string m_delimiters;
+		std::vector< Token > m_tokens;
+
+		/**
+		 An iterator to the current token of the current line of this line 
+		 reader.
+		 */
+		std::vector< Token >::const_iterator m_token_iterator;
 
 		/**
 		 The current line number of this line reader.

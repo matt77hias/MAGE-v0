@@ -5,7 +5,7 @@
 
 #include "loaders\var\var_reader.hpp"
 #include "loaders\var\var_tokens.hpp"
-#include "string\string_utils.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -22,93 +22,61 @@ namespace mage::loader {
 
 	VARReader::~VARReader() = default;
 
-	void VARReader::ReadLine(NotNull< zstring > line) {
-		m_context = nullptr;
-		const auto* const token = strtok_s(line, GetDelimiters().c_str(), 
-										   &m_context);
+	void VARReader::ReadLine() {
+		const auto token = ReadIDString();
 
-		if (!token || g_var_token_comment == token[0]) {
+		if (g_var_token_comment == token[0]) {
 			return;
-		}
-
-		const auto not_null_token = NotNull< const_zstring >(token);
-
-		if (     str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_bool))) {
-			
+		} 
+		else if (g_var_token_bool   == token) {
 			ReadVARVariable< bool >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_F32))) {
-			
+		else if (g_var_token_F32    == token) {
 			ReadVARVariable< F32 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_F32x2))) {
-			
+		else if (g_var_token_F32x2  == token) {
 			ReadVARVariable< F32, 2 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_F32x3))) {
-			
+		else if (g_var_token_F32x3  == token) {
 			ReadVARVariable< F32, 3 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_F32x4))) {
-			
+		else if (g_var_token_F32x4  == token) {
 			ReadVARVariable< F32, 4 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_S32))) {
-			
+		else if (g_var_token_S32    == token) {
 			ReadVARVariable< S32 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_S32x2))) {
-			
+		else if (g_var_token_S32x2  == token) {
 			ReadVARVariable< S32, 2 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_S32x3))) {
-			
+		else if (g_var_token_S32x3  == token) {
 			ReadVARVariable< S32, 3 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_S32x4))) {
-			
+		else if (g_var_token_S32x4  == token) {
 			ReadVARVariable< S32, 4 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_U32))) {
-			
+		else if (g_var_token_U32    == token) {
 			ReadVARVariable< U32 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_U32x2))) {
-			
+		else if (g_var_token_U32x2  == token) {
 			ReadVARVariable< U32, 2 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_U32x3))) {
-			
+		else if (g_var_token_U32x3  == token) {
 			ReadVARVariable< U32, 3 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_U32x4))) {
-			
+		else if (g_var_token_U32x4  == token) {
 			ReadVARVariable< U32, 4 >();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_var_token_string))) {
-			
+		else if (g_var_token_string == token) {
 			ReadVARVariable< string >();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), token);
+				    GetPath().c_str(), GetCurrentLineNumber(), 
+					token.c_str());
 			return;
 		}
 
-		ReadLineRemaining();
+		ReadRemainingTokens();
 	}
 }

@@ -164,9 +164,6 @@
     <ClInclude Include="Utilities\src\string\string_utils.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\string\token.hpp">
-      <Filter>Header Files\string</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
@@ -265,9 +262,6 @@
     <ClCompile Include="Utilities\src\string\string_utils.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\src\string\token.cpp">
-      <Filter>Source Files\string</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities\src\system\system_time.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
@@ -327,9 +321,6 @@
     <None Include="Utilities\src\resource\resource_pool.tpp">
       <Filter>Header Files\resource</Filter>
     </None>
-    <None Include="Utilities\src\string\token.tpp">
-      <Filter>Header Files\string</Filter>
-    </None>
     <None Include="Utilities\src\system\timer.tpp">
       <Filter>Header Files\system</Filter>
     </None>
@@ -338,6 +329,9 @@
     </None>
     <None Include="Utilities\src\loaders\var\var_reader.tpp">
       <Filter>Header Files\loaders\var</Filter>
+    </None>
+    <None Include="Utilities\src\string\string_utils.tpp">
+      <Filter>Header Files\string</Filter>
     </None>
   </ItemGroup>
 </Project>

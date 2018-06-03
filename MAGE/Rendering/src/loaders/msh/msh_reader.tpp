@@ -32,7 +32,14 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MSHReader< VertexT, IndexT >::ReadData() {
-
+		using std::empty;
+		ThrowIfFailed(empty(m_vertices), 
+					  "%ls: vertex buffer must be empty.",
+					  GetPath().c_str());
+		ThrowIfFailed(empty(m_indices),
+					  "%ls: index buffer must be empty.",
+					  GetPath().c_str());
+		
 		// Read the header.
 		{
 			const bool result = IsHeaderValid();

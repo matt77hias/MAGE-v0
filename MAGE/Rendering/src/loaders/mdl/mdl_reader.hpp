@@ -102,10 +102,6 @@ namespace mage::rendering::loader {
 
 		using LineReader::ReadFromMemory;
 
-		using LineReader::GetPath;
-
-		using LineReader::GetDelimiters;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -121,25 +117,12 @@ namespace mage::rendering::loader {
 		virtual void Preprocess() override;
 
 		/**
-		 Reads the given line.
+		 Reads the current line of this MDL reader.
 
-		 @param[in,out] line
-						A pointer to the null-terminated string to read.
 		 @throws		Exception
-						Failed to read the given line.
+						Failed to the current line of this MDL reader.
 		 */
-		virtual void ReadLine(NotNull< zstring > line) override;
-
-		/**
-		 Reads the Mesh definition and imports the mesh corresponding to the 
-		 model.
-
-		 @throws		Exception
-						Failed to read the Mesh definition.
-		 @throws		Exception
-						Failed to import the mesh.
-		 */
-		void ImportMesh();
+		virtual void ReadLine() override;
 
 		/**
 		 Reads a Submodel definition.

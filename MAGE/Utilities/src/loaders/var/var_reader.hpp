@@ -97,10 +97,6 @@ namespace mage::loader {
 
 		using LineReader::ReadFromMemory;
 
-		using LineReader::GetPath;
-
-		using LineReader::GetDelimiters;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -108,14 +104,12 @@ namespace mage::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 Reads the given line.
+		 Reads the current line of this VAR reader.
 
-		 @param[in,out] line
-						A pointer to the null-terminated string to read.
 		 @throws		Exception
-						Failed to read the given line.
+						Failed to the current line of this VAR reader.
 		 */
-		virtual void ReadLine(NotNull< zstring > line) override;
+		virtual void ReadLine() override;
 
 		/**
 		 Reads a variable definition.

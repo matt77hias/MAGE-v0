@@ -51,7 +51,6 @@
     <ClInclude Include="Utilities\src\resource\script\variable_value.hpp" />
     <ClInclude Include="Utilities\src\string\string.hpp" />
     <ClInclude Include="Utilities\src\string\string_utils.hpp" />
-    <ClInclude Include="Utilities\src\string\token.hpp" />
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
     <ClInclude Include="Utilities\src\system\game_timer.hpp" />
     <ClInclude Include="Utilities\src\system\system_time.hpp" />
@@ -83,7 +82,6 @@
     <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
     <ClCompile Include="Utilities\src\resource\script\variable_script.cpp" />
     <ClCompile Include="Utilities\src\string\string_utils.cpp" />
-    <ClCompile Include="Utilities\src\string\token.cpp" />
     <ClCompile Include="Utilities\src\system\system_time.cpp" />
     <ClCompile Include="Utilities\src\system\system_usage.cpp" />
     <ClCompile Include="Utilities\src\ui\combo_box.cpp" />
@@ -102,7 +100,7 @@
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
     <None Include="Utilities\src\resource\script\variable_script.tpp" />
-    <None Include="Utilities\src\string\token.tpp" />
+    <None Include="Utilities\src\string\string_utils.tpp" />
     <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

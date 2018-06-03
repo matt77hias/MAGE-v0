@@ -115,10 +115,6 @@ namespace mage::rendering::loader {
 
 		using LineReader::ReadFromMemory;
 
-		using LineReader::GetPath;
-
-		using LineReader::GetDelimiters;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -134,14 +130,12 @@ namespace mage::rendering::loader {
 		virtual void Preprocess() override;
 
 		/**
-		 Reads the given line.
+		 Reads the current line of this OBJ reader.
 
-		 @param[in,out] line
-						A pointer to the null-terminated string to read.
 		 @throws		Exception
-						Failed to read the given line.
+						Failed to the current line of this OBJ reader.
 		 */
-		virtual void ReadLine(NotNull< zstring > line) override;
+		virtual void ReadLine() override;
 
 		/**
 		 Post-processes after reading the current file of this OBJ reader.

@@ -57,74 +57,52 @@ namespace mage::rendering::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
-	void OBJReader< VertexT, IndexT >::ReadLine(NotNull< zstring > line) {
-		m_context = nullptr;
-		const auto* const token = strtok_s(line, GetDelimiters().c_str(),
-										   &m_context);
+	void OBJReader< VertexT, IndexT >::ReadLine() {
+		const auto token = ReadIDString();
 
-		if (!token || g_obj_token_comment == token[0]) {
+		if (g_obj_token_comment == token[0]) {
 			return;
 		}
-
-		const auto not_null_token = NotNull< const_zstring >(token);
-
-		if (     str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_vertex))) {
-
+		else if (g_obj_token_vertex           == token) {
 			ReadOBJVertex();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_texture))) {
-
+		else if (g_obj_token_texture          == token) {
 			ReadOBJVertexTexture();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_normal))) {
-
+		else if (g_obj_token_normal           == token) {
 			ReadOBJVertexNormal();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_face))) {
-
+		else if (g_obj_token_face             == token) {
 			ReadOBJFace();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_material_library))) {
-
+		else if (g_obj_token_material_library == token) {
 			ReadOBJMaterialLibrary();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_material_use))) {
-
+		else if (g_obj_token_material_use     == token) {
 			ReadOBJMaterialUse();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_group))) {
-
+		else if (g_obj_token_group            == token) {
 			ReadOBJGroup();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_object))) {
-
+		else if (g_obj_token_object           == token) {
 			ReadOBJObject();
 		}
-		else if (str_equals(not_null_token, 
-							NotNull< const_zstring >(g_obj_token_smoothing_group))) {
-
+		else if (g_obj_token_smoothing_group  == token) {
 			ReadOBJSmoothingGroup();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.",
+					GetPath().c_str(), GetCurrentLineNumber(),
+					token.c_str());
 			return;
 		}
 
-		ReadLineRemaining();
+		ReadRemainingTokens();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const auto mtl_name = StringToWString(Read< string >());
+		const auto mtl_name = StringToWString(ReadIDString());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		
@@ -135,7 +113,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
-		m_model_output.SetMaterial(Read< string >());
+		m_model_output.SetMaterial(ReadIDString());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -144,10 +122,10 @@ namespace mage::rendering::loader {
 		m_model_output.EndModelPart();
 
 		ModelPart model_part;
-		model_part.m_child = Read< string >();
-		if (ContainsChars()) {
+		model_part.m_child = ReadIDString();
+		if (ContainsTokens()) {
 			if (!Contains< F32 >()) {
-				model_part.m_parent  = Read< string >();
+				model_part.m_parent  = ReadIDString();
 			}
 			
 			auto translation = InvertHandness(Point3(Read< F32, 3 >()));
@@ -162,13 +140,13 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJObject() {
-		Read< string >();
+		ReadIDString();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJSmoothingGroup() {
 		// Silently ignore smoothing group declarations
-		Read< string >();
+		ReadIDString();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -202,7 +180,7 @@ namespace mage::rendering::loader {
 	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
 		
 		std::vector< IndexT > indices;
-		while (indices.size() < 3 || ContainsChars()) {
+		while (indices.size() < 3 || ContainsTokens()) {
 			const auto vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices); 
@@ -272,52 +250,110 @@ namespace mage::rendering::loader {
 	const U32x3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexIndices() {
 
-		const auto token = ReadChars();
-		const auto not_null_token = NotNull< const_zstring >(token);
+		const auto token = ReadIDString();
+		const char* const first = &(*token.cbegin());
+		const char* const last  = &(*token.cend());
 
 		S32 v_index  = 0;
 		S32 vt_index = 0;
 		S32 vn_index = 0;
 
-		if (str_contains(not_null_token, NotNull< const_zstring >("//"))) {
-			// v1//vn1
-			const auto index_end = strchr(token, '/');
-			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
-				throw Exception("%ls: line %u: invalid v index value found in %s.", 
-					            GetPath().c_str(), GetCurrentLineNumber(), token);
-			}
-			if (TokenResult::Invalid == StringTo< S32 >(index_end + 2, vn_index)) {
-				throw Exception("%ls: line %u: invalid vn index value found in %s.", 
-					            GetPath().c_str(), GetCurrentLineNumber(), token);
-			}
-		}
-		else if (str_contains(not_null_token, '/')) {
-			// v1/vt1 or v1/vt1/vn1
-			const auto index_end = strchr(token, '/');
-			if (TokenResult::Invalid == StringTo< S32 >(token, index_end, v_index)) {
-				throw Exception("%ls: line %u: invalid v index value found in %s.", 
-					            GetPath().c_str(), GetCurrentLineNumber(), token);
-			}
+		if (const auto slash = token.find("//");
+			std::string::npos != slash) {
 			
-			if (str_contains(NotNull< const_zstring >(index_end + 1), '/')) {
-				const auto texture_end = strchr(index_end + 1, '/');
-				if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, texture_end, vt_index)) {
-					throw Exception("%ls: line %u: invalid vt index value found in %s.", 
-						            GetPath().c_str(), GetCurrentLineNumber(), token);
-				}
-				if (TokenResult::Invalid == StringTo< S32 >(texture_end + 1, vn_index)) {
-					throw Exception("%ls: line %u: invalid vn index value found in %s.", 
-						            GetPath().c_str(), GetCurrentLineNumber(), token);
-				}
+			// v//vn
+			
+			if (const auto result
+				= StringTo< S32 >(NotNull< const char* >(first),
+								  NotNull< const char* >(first + slash));
+				bool(result)) {
+
+				v_index = result.value();
 			}
-			else if (TokenResult::Invalid == StringTo< S32 >(index_end + 1, vt_index)) {
-				throw Exception("%ls: line %u: invalid vt index value found in %s.", 
-					            GetPath().c_str(), GetCurrentLineNumber(), token);
+			else {
+				throw Exception("%ls: line %u: invalid v index value found in %s.",
+								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+			}
+
+			
+			if (const auto result
+				= StringTo< S32 >(NotNull< const char* >(first + slash + 2),
+								  NotNull< const char* >(last));
+				bool(result)) {
+
+				vn_index = result.value();
+			}
+			else {
+				throw Exception("%ls: line %u: invalid vn index value found in %s.",
+								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
 			}
 		}
-		else if (TokenResult::Invalid == StringTo< S32 >(token, v_index)) {
-			throw Exception("%ls: line %u: invalid v index value found in %s.", 
-				            GetPath().c_str(), GetCurrentLineNumber(), token);
+		else if (const auto slash1 = token.find("/"); 
+		         std::string::npos != slash1) {
+
+			// v/vt or v/vt/vn
+
+			if (const auto result
+				= StringTo< S32 >(NotNull< const char* >(first),
+								  NotNull< const char* >(first + slash1));
+			    bool(result)) {
+
+				v_index = result.value();
+			}
+			else {
+				throw Exception("%ls: line %u: invalid v index value found in %s.",
+								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+			}
+
+			if (const auto slash2 = token.find("/", slash1 + 1); 
+			    std::string::npos != slash2) {
+
+				if (const auto result
+					= StringTo< S32 >(NotNull< const char* >(first + slash1 + 1),
+									  NotNull< const char* >(first + slash2));
+				    bool(result)) {
+
+					vt_index = result.value();
+				}
+				else {
+					throw Exception("%ls: line %u: invalid vt index value found in %s.",
+									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+				}
+
+				if (const auto result
+					= StringTo< S32 >(NotNull< const char* >(first + slash2 + 1),
+									  NotNull< const char* >(last));
+				    bool(result)) {
+
+					vn_index = result.value();
+				}
+				else {
+					throw Exception("%ls: line %u: invalid vn index value found in %s.",
+									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+				}
+			}
+			else if (const auto result 
+					 = StringTo< S32 >(NotNull< const char* >(first + slash1 + 1),
+									   NotNull< const char* >(last));
+				     bool(result)) {
+
+					vt_index = result.value();
+			}
+			else {
+					throw Exception("%ls: line %u: invalid vt index value found in %s.",
+									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+			}
+		} 
+		else if (const auto result
+				 = StringTo< S32 >(NotNull< const char* >(first), 
+								   NotNull< const char* >(last));
+		         bool(result)) {
+
+				 v_index = result.value();
+		}
+		else {
+			throw Exception("%ls: line %u: invalid v index value found in %s.",
+							GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
 		}
 
 		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 

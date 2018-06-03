@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cwctype>
+#include <optional>
 
 #pragma endregion
 
@@ -26,7 +27,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Engine Declarations and Definitions: zstring, wzstring
+	// StringEquals, StringContains
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -40,8 +41,8 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_equals(NotNull< const_zstring > str1, 
-						   NotNull< const_zstring > str2) noexcept {
+	inline bool StringEquals(NotNull< const_zstring > str1, 
+							 NotNull< const_zstring > str2) noexcept {
 		
 		return strcmp(str1, str2) ? false : true;
 	}
@@ -56,8 +57,8 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_equals(NotNull< const_wzstring > str1, 
-						   NotNull< const_wzstring > str2) noexcept {
+	inline bool StringEquals(NotNull< const_wzstring > str1, 
+							 NotNull< const_wzstring > str2) noexcept {
 		
 		return wcscmp(str1, str2) ? false : true;
 	}
@@ -75,8 +76,8 @@ namespace mage {
 					otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(NotNull< const_zstring > str1,
-							 NotNull< const_zstring > str2) noexcept {
+	inline bool StringContains(NotNull< const_zstring > str1, 
+							   NotNull< const_zstring > str2) noexcept {
 
 		return strstr(str1, str2) ? true : false;
 	}
@@ -94,8 +95,8 @@ namespace mage {
 					otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(NotNull< const_wzstring > str1,
-							 NotNull< const_wzstring > str2) noexcept {
+	inline bool StringContains(NotNull< const_wzstring > str1,
+							   NotNull< const_wzstring > str2) noexcept {
 		
 		return wcsstr(str1, str2) ? true : false;
 	}
@@ -110,8 +111,8 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(NotNull< const_zstring > str, 
-							 char c) noexcept {
+	inline bool StringContains(NotNull< const_zstring > str, 
+							   char c) noexcept {
 
 		return strchr(str, static_cast< int >(c)) ? true : false;
 	}
@@ -126,140 +127,93 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	[[nodiscard]]
-	inline bool str_contains(NotNull< const_wzstring > str, 
-							 wchar_t c) noexcept {
+	inline bool StringContains(NotNull< const_wzstring > str, 
+							   wchar_t c) noexcept {
 
 		return wcschr(str, c) ? true : false;
 	}
 
-	/**
-	 Finds the first occurrence of the given character in the given 
-	 null-terminated string neglecting the usage of the given character in a 
-	 custom escape sequence.
+	#pragma endregion
 
-	 @param[in]		str
-					The null-terminated string to be scanned.
-	 @param[in]		c
-					The byte character to match.
-	 @return		@c nullptr if @a str does not contain @a c.
-	 @return		A pointer to the first occurrence of @a c in @a str.
-
-	 */
-	[[nodiscard]]
-	zstring str_escape_first(NotNull< zstring > str, 
-							 char c) noexcept;
+	//-------------------------------------------------------------------------
+	// String Conversions
+	//-------------------------------------------------------------------------
+	#pragma region
 
 	/**
-	 Finds the first occurrence of the given character in the given 
-	 null-terminated string neglecting the usage of the given character in a 
-	 custom escape sequence.
+	 Converts the given string range to a @c T value.
 
-	 @param[in]		str
-					The null-terminated string to be scanned.
-	 @param[in]		c
-					The byte character to match.
-	 @return		@c nullptr if @a str does not contain @a c.
-	 @return		A pointer to the first occurrence of @a c in @a str.
-
+	 @tparam		T
+					The data type.
+	 @param[in]		first
+					A pointer to the begin (inclusive) of the string to 
+					convert.
+	 @param[in]		last
+					A pointer to the end (exclusive) of the string to convert.
+	 @return		A @c T value if the the conversion of the given string 
+					range succeeded.
 	 */
-	[[nodiscard]]
-	const_zstring str_escape_first(NotNull< const_zstring > str, 
-								   char c) noexcept;
+	template< typename T >
+	const std::optional< T > StringTo(NotNull< const char* > first, 
+									  NotNull< const char* > last) noexcept;
+	
+	/**
+	 Converts the given string to a @c T value.
+
+	 @tparam		T
+					The data type.
+	 @param[in]		str
+					A pointer to the null-terminated string to convert.
+	 @return		A @c T value if the the conversion of the given string 
+					succeeded.
+	 */
+	template< typename T >
+	const std::optional< T > StringTo(NotNull< const_zstring > str) noexcept;
 
 	/**
-	 Finds the first occurrence of the given character in the given 
-	 null-terminated string neglecting the usage of the given character in a 
-	 custom escape sequence.
+	 Converts the prefix of the string to a @c T value.
 
+	 @tparam		T
+					The data type.
 	 @param[in]		str
-					The null-terminated string to be scanned.
-	 @param[in]		c
-					The wide character to match.
-	 @return		@c nullptr if @a str does not contain @a c.
-	 @return		A pointer to the first occurrence of @a c in @a str.
-
+					A pointer to the null-terminated string to convert.
+	 @return		A @c T value if the the conversion of the prefix of the 
+					given string succeeded.
 	 */
-	[[nodiscard]]
-	wzstring str_escape_first(NotNull< wzstring > str, 
-							  wchar_t c) noexcept;
-
-	/**
-	 Finds the first occurrence of the given character in the given 
-	 null-terminated string neglecting the usage of the given character in a 
-	 custom escape sequence.
-
-	 @param[in]		str
-					The null-terminated string to be scanned.
-	 @param[in]		c
-					The wide character to match.
-	 @return		@c nullptr if @a str does not contain @a c.
-	 @return		A pointer to the first occurrence of @a c in @a str.
-
-	 */
-	[[nodiscard]]
-	const_wzstring str_escape_first(NotNull< const_wzstring > str, 
-									wchar_t c) noexcept;
-
-	/**
-	 Reads characters from the given input string and stores them into @a str 
-	 until (@a num-1) characters have been read or either a newline or the 
-	 null-terminating character is reached, whichever happens first.
-
-	 A newline character makes @c sgets stop reading, but it is considered a 
-	 valid character by the function and included in the string copied to 
-	 @a str.
-
-	 A null-terminating character is automatically appended after the 
-	 characters copied to @a str.
-	 
-	 @param[in]		str
-					A pointer to the string to copy to.
-	 @param[in]		num
-					Maximum number of characters to be copied into @a str 
-					(including the terminating null-character).
-	 @param[in]		input
-					A pointer to a pointer to the input string.
-	 @return		@c nullptr if the null-terminating character is reached.
-	 @return		@a str.
-	 @note			The @c sgets function is the string variant of @c fgets.
-	 */
-	[[nodiscard]] 
-	zstring str_gets(NotNull< char* > str,
-					 size_t num, 
-					 NotNull< NotNull< const_zstring >* > input) noexcept;
-
-	/**
-	 Reads characters from the given input string and stores them into @a str 
-	 until (@a num-1) characters have been read or either a newline or the 
-	 null-terminating character is reached, whichever happens first.
-
-	 A newline character makes @c sgets stop reading, but it is considered a 
-	 valid character by the function and included in the string copied to 
-	 @a str.
-
-	 A null-terminating character is automatically appended after the 
-	 characters copied to @a str.
-
-	 @param[in]		str
-					A pointer to the string to copy to.
-	 @param[in]		num
-					Maximum number of characters to be copied into @a str 
-					(including the terminating null-character).
-	 @param[in]		input
-					A pointer to a pointer to the input string.
-	 @return		@c nullptr if the null-terminating character is reached.
-	 @return		@a str.
-	 @note			The @c sgets function is the string variant of @c fgets.
-	 */
-	[[nodiscard]] 
-	wzstring str_gets(NotNull< wchar_t* > str,
-					  size_t num, 
-					  NotNull< NotNull< const_wzstring >* > input) noexcept;
+	template< typename T >
+	const std::optional< T > StringPrefixTo(NotNull< const_zstring > str) noexcept;
 
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Engine Declarations and Definitions: string, wstring
+	// Inter-string Conversions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 Converts the given string to a wide string.
+
+	 @param[in]		str
+					A reference to the string to copy.
+	 @return		The wide string copy of the given string.
+	 */
+	[[nodiscard]]
+	const wstring StringToWString(const string& str);
+	
+	/**
+	 Converts the given wide string to a string.
+
+	 @param[in]		str
+					A reference to the wide string to copy.
+	 @return		The string copy of the given wide string.
+	 */
+	[[nodiscard]]
+	const string WStringToString(const wstring& str);
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Transformations
 	//-------------------------------------------------------------------------
 	#pragma region
 
@@ -331,25 +285,14 @@ namespace mage {
 		std::transform(cbegin(str), cend(str), begin(str), f);
 	}
 
-	/**
-	 Converts the given string to a wide string.
-
-	 @param[in]		str
-					A reference to the string to copy.
-	 @return		The wide string copy of the given string.
-	 */
-	[[nodiscard]]
-	const wstring StringToWString(const string& str);
-	
-	/**
-	 Converts the given wide string to a string.
-
-	 @param[in]		str
-					A reference to the wide string to copy.
-	 @return		The string copy of the given wide string.
-	 */
-	[[nodiscard]]
-	const string WStringToString(const wstring& str);
-
 	#pragma endregion
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "string\string_utils.tpp"
+
+#pragma endregion

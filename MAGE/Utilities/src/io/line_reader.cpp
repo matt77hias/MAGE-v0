@@ -4,7 +4,17 @@
 #pragma region
 
 #include "io\line_reader.hpp"
-#include "string\string_utils.hpp"
+#include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <fstream>
+#include <sstream>
 
 #pragma endregion
 
@@ -13,11 +23,25 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	namespace {
+
+		[[nodiscard]]
+		inline bool IsValidID(const string& str) noexcept {
+			const auto f = [](char c) { 
+				return false; 
+			};
+			return str.cend() == std::find_if(str.cbegin(), str.cend(), f);
+		}
+	}
+
+	const std::regex LineReader::g_default_regex 
+		= std::regex(R"((\".*?\")|[^\n\r\s\t]+)");
+
 	LineReader::LineReader()
-		: m_context(nullptr), 
-		m_file_stream(nullptr), 
-		m_path(),
-		m_delimiters(g_default_delimiters), 
+		: m_regex(), 
+		m_path(), 
+		m_tokens(), 
+		m_token_iterator(), 
 		m_line_number(0) {}
 
 	LineReader::LineReader(LineReader&& reader) noexcept = default;
@@ -27,127 +51,107 @@ namespace mage {
 	LineReader& LineReader::operator=(LineReader&& reader) noexcept = default;
 
 	void LineReader::ReadFromFile(std::filesystem::path path, 
-								  string delimiters) {
+								  std::regex regex) {
 
-		m_path       = std::move(path);
-		m_delimiters = std::move(delimiters);
-		
-		// Open the file.
-		FILE* file;
-		{
-			const errno_t result = _wfopen_s(&file, m_path.c_str(), L"r");
-			ThrowIfFailed((0 == result), 
-						  "%ls: could not open file.", m_path.c_str());
-		}
+		m_path  = std::move(path);
+		m_regex = std::move(regex);
 
-		m_file_stream.reset(file);
-
+		// Preprocessing
 		Preprocess();
 
-		char current_line[MAX_PATH];
-		m_line_number = 1;
-		// Continue reading from the file until the eof is reached.
-		while (fgets(current_line, 
-			         static_cast< int >(std::size(current_line)), 
-			         m_file_stream.get())) {
+		// Processing
+		std::ifstream stream(m_path.c_str());
+		ThrowIfFailed(stream.is_open(),
+					  "%ls: could not open file.", m_path.c_str());
+		Process(stream);
 
-			ReadLine(NotNull< zstring >(current_line));
+		// Postprocessing
+		Postprocess();
+	}
+
+	void LineReader::ReadFromMemory(const string &input,
+									std::regex regex) {
+
+		m_path    = L"input string";
+		m_regex   = std::move(regex);
+		
+		// Preprocessing
+		Preprocess();
+
+		// Processing
+		std::istringstream stream(input);
+		Process(stream);
+
+		// Postprocessing
+		Postprocess();
+	}
+
+	void LineReader::Preprocess() {}
+
+	void LineReader::Process(std::istream& stream) {
+		m_tokens.clear();
+		m_token_iterator = m_tokens.cbegin();
+		m_line_number = 0;
+		
+		string line;
+		while (std::getline(stream, line)) {
+			m_tokens.clear();
+			std::copy(std::sregex_token_iterator(line.begin(), line.end(), m_regex, 0), 
+					  std::sregex_token_iterator(), std::back_inserter(m_tokens));
+			m_token_iterator = m_tokens.cbegin();
+			
+			if (ContainsTokens()) {
+				ReadLine();
+			}
+			
 			++m_line_number;
 		}
 
-		Postprocess();
-
-		m_context = nullptr;
+		m_tokens.clear();
+		m_token_iterator = m_tokens.cbegin();
 	}
 
-	void LineReader::ReadFromMemory(NotNull< const_zstring > input, 
-									string delimiters) {
+	void LineReader::Postprocess() {}
 
-		m_path       = L"input string";
-		m_delimiters = std::move(delimiters);
-		
-		m_file_stream.reset(nullptr);
-
-		Preprocess();
-
-		char current_line[MAX_PATH];
-		m_line_number = 1;
-		// Continue reading from the input until the null-terminating character 
-		// is reached.
-		while (str_gets(NotNull< char* >(current_line),
-			            std::size(current_line), 
-						NotNull< NotNull< const_zstring >* >(&input))) {
-
-			ReadLine(NotNull< zstring >(current_line));
-			++m_line_number;
-		}
-
-		Postprocess();
-
-		m_context = nullptr;
-	}
-
-	void LineReader::ReadLineRemaining() {
-		auto next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
-		while (next_token) {
-			Warning("%ls: line %u: unused token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), next_token);
-			next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
-		}
-	}
-	
-	NotNull< const_zstring > LineReader::ReadChars() {
-		zstring result = nullptr;
-		const auto token_result 
-			= mage::ReadChars(nullptr, &m_context, NotNull< zstring* >(&result),
-							  NotNull< const_zstring >(GetDelimiters().c_str()));
-		switch (token_result) {
-		
-		case TokenResult::Valid: {
-			return NotNull< const_zstring >(result);
-		}
-		
-		default: {
-			throw Exception("%ls: line %u: no char string value found.",
+	const string LineReader::ReadIDString() {
+		if (m_tokens.cend() == m_token_iterator) {
+			throw Exception("%ls: line %u: no alpha-numeric string value found.",
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
-		}
-	}
-	
-	const string LineReader::ReadQuotedString() {
-		string result;
-		const auto token_result 
-			= mage::ReadQuotedString(nullptr, &m_context, result, 
-									 NotNull< const_zstring >(GetDelimiters().c_str()));
-		switch (token_result) {
+
+		const auto result = m_token_iterator->str();
 		
-		case TokenResult::Valid: {
+		if (IsValidID(result)) {
+			++m_token_iterator;
 			return result;
 		}
-		
-		case TokenResult::None: {
-			throw Exception("%ls: line %u: no quoted string value found.", 
-							GetPath().c_str(), GetCurrentLineNumber());
-		}
-		
-		default: {
-			throw Exception("%ls: line %u: invalid quoted string value found.", 
-							GetPath().c_str(), GetCurrentLineNumber());
-		}
+		else {
+			throw Exception("%ls: line %u: invalid alpha-numeric string value found: %s.",
+							GetPath().c_str(), GetCurrentLineNumber(),
+							result.c_str());
 		}
 	}
-	
-	[[nodiscard]]
-	bool LineReader::ContainsChars() const {
-		return TokenResult::Valid 
-			== mage::ContainsChars(NotNull< zstring >(m_context), 
-								   NotNull< const_zstring >(GetDelimiters().c_str()));
+
+	void LineReader::ReadRemainingTokens() {
+		for (; m_token_iterator != m_tokens.cend(); ++m_token_iterator) {
+			const auto token = m_token_iterator->str();
+			Warning("%ls: line %u: unused token: %s.",
+					GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+		}
 	}
-	
+
 	[[nodiscard]]
-	bool LineReader::ContainsQuotedString() const {
-		return TokenResult::Valid 
-			== mage::ContainsQuotedString(NotNull< zstring >(m_context), 
-										  NotNull< const_zstring >(GetDelimiters().c_str()));
+	bool LineReader::ContainsIDString() const noexcept {
+		if (m_tokens.cend() == m_token_iterator) {
+			return false;
+		}
+
+		const auto result = m_token_iterator->str();
+		return IsValidID(result);
+	}
+
+	[[nodiscard]]
+	bool LineReader::ContainsTokens() const noexcept {
+		return Contains< string >();
 	}
 }

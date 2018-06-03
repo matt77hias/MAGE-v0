@@ -91,10 +91,6 @@ namespace mage::rendering::loader {
 
 		using LineReader::ReadFromMemory;
 
-		using LineReader::GetPath;
-
-		using LineReader::GetDelimiters;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -102,14 +98,12 @@ namespace mage::rendering::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 Reads the given line.
+		 Reads the current line of this MTL reader.
 
-		 @param[in,out] line
-						A pointer to the null-terminated string to read.
 		 @throws		Exception
-						Failed to read the given line.
+						Failed to the current line of this MTL reader.
 		 */
-		virtual void ReadLine(NotNull< zstring > line) override;
+		virtual void ReadLine() override;
 
 		/**
 		 Reads a Material Name definition.

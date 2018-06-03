@@ -23,17 +23,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	namespace {
-
-		[[nodiscard]]
-		inline bool IsValidID(const string& str) noexcept {
-			const auto f = [](char c) { 
-				return false; 
-			};
-			return str.cend() == std::find_if(str.cbegin(), str.cend(), f);
-		}
-	}
-
 	const std::regex LineReader::g_default_regex 
 		= std::regex(R"((\".*?\")|[^\n\r\s\t]+)");
 
@@ -113,41 +102,12 @@ namespace mage {
 
 	void LineReader::Postprocess() {}
 
-	const string LineReader::ReadIDString() {
-		if (m_tokens.cend() == m_token_iterator) {
-			throw Exception("%ls: line %u: no alpha-numeric string value found.",
-							GetPath().c_str(), GetCurrentLineNumber());
-		}
-
-		const auto result = m_token_iterator->str();
-		
-		if (IsValidID(result)) {
-			++m_token_iterator;
-			return result;
-		}
-		else {
-			throw Exception("%ls: line %u: invalid alpha-numeric string value found: %s.",
-							GetPath().c_str(), GetCurrentLineNumber(),
-							result.c_str());
-		}
-	}
-
 	void LineReader::ReadRemainingTokens() {
 		for (; m_token_iterator != m_tokens.cend(); ++m_token_iterator) {
 			const auto token = m_token_iterator->str();
 			Warning("%ls: line %u: unused token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
 		}
-	}
-
-	[[nodiscard]]
-	bool LineReader::ContainsIDString() const noexcept {
-		if (m_tokens.cend() == m_token_iterator) {
-			return false;
-		}
-
-		const auto result = m_token_iterator->str();
-		return IsValidID(result);
 	}
 
 	[[nodiscard]]

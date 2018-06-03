@@ -25,7 +25,7 @@ namespace mage::rendering::loader {
 	MTLReader::~MTLReader() = default;
 
 	void MTLReader::ReadLine() {
-		const auto token = ReadIDString();
+		const auto token = Read< string >();
 		
 		if (g_mtl_token_comment == token[0]) {
 			return;
@@ -73,7 +73,7 @@ namespace mage::rendering::loader {
 	void MTLReader::ReadMTLMaterialName() {
 		auto& material = m_material_buffer.emplace_back(
 			CreateDefaultMaterial(m_resource_manager));
-		material.SetName(ReadIDString());
+		material.SetName(Read< string >());
 	}
 
 	void MTLReader::ReadMTLBaseColor() {
@@ -140,7 +140,7 @@ namespace mage::rendering::loader {
 	[[nodiscard]]
 	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const auto texture_name = StringToWString(ReadIDString());
+		const auto texture_name = StringToWString(Read< string >());
 		auto texture_path       = GetPath();
 		texture_path.replace_filename(texture_name);
 

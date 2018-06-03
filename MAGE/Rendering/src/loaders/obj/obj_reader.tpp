@@ -58,7 +58,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadLine() {
-		const auto token = ReadIDString();
+		const auto token = Read< string >();
 
 		if (g_obj_token_comment == token[0]) {
 			return;
@@ -102,7 +102,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const auto mtl_name = StringToWString(ReadIDString());
+		const auto mtl_name = StringToWString(Read< string >());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		
@@ -113,7 +113,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
-		m_model_output.SetMaterial(ReadIDString());
+		m_model_output.SetMaterial(Read< string >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -122,10 +122,10 @@ namespace mage::rendering::loader {
 		m_model_output.EndModelPart();
 
 		ModelPart model_part;
-		model_part.m_child = ReadIDString();
+		model_part.m_child = Read< string >();
 		if (ContainsTokens()) {
 			if (!Contains< F32 >()) {
-				model_part.m_parent  = ReadIDString();
+				model_part.m_parent  = Read< string >();
 			}
 			
 			auto translation = InvertHandness(Point3(Read< F32, 3 >()));
@@ -140,13 +140,13 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJObject() {
-		ReadIDString();
+		Read< string >();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJSmoothingGroup() {
 		// Silently ignore smoothing group declarations
-		ReadIDString();
+		Read< string >();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -250,7 +250,7 @@ namespace mage::rendering::loader {
 	const U32x3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexIndices() {
 
-		const auto token = ReadIDString();
+		const auto token = Read< string >();
 		const char* const first = &(*token.cbegin());
 		const char* const last  = &(*token.cend());
 

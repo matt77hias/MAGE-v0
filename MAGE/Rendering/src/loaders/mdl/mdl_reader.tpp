@@ -41,7 +41,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadLine() {
-		const auto token = ReadIDString();
+		const auto token = Read< string >();
 
 		if (g_mdl_token_comment == token[0]) {
 			return;
@@ -65,12 +65,12 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.m_child       = ReadIDString();
-		model_part.m_parent      = ReadIDString();
+		model_part.m_child       = Read< string >();
+		model_part.m_parent      = Read< string >();
 		model_part.m_transform.SetTranslation(Read< F32, 3 >());
 		model_part.m_transform.SetRotation(   Read< F32, 3 >());
 		model_part.m_transform.SetScale(      Read< F32, 3 >());
-		model_part.m_material    = ReadIDString();
+		model_part.m_material    = Read< string >();
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();
 		
@@ -79,7 +79,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLMaterialLibrary() {
-		const auto mtl_name = StringToWString(ReadIDString());
+		const auto mtl_name = StringToWString(Read< string >());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		

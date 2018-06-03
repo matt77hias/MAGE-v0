@@ -23,7 +23,7 @@ namespace mage::loader {
 	VARReader::~VARReader() = default;
 
 	void VARReader::ReadLine() {
-		const auto token = ReadIDString();
+		const auto token = Read< string >();
 
 		if (g_var_token_comment == token[0]) {
 			return;

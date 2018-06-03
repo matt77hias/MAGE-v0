@@ -217,18 +217,6 @@ namespace mage {
 		const Array< T, N, A > Read();
 
 		/**
-		 Reads and converts the current token of this line reader to an id 
-		 string.
-
-		 @return		The alpha-numeric string represented by the current 
-						token of this line reader.
-		 @throws		Exception
-						There is no current token or the current token does not 
-						represent an id string.
-		 */
-		const string ReadIDString();
-
-		/**
 		 Reads the remaining tokens of the current line of this line reader.
 		 */
 		void ReadRemainingTokens();
@@ -244,15 +232,6 @@ namespace mage {
 		template< typename T >
 		[[nodiscard]]
 		bool Contains() const noexcept;
-
-		/**
-		 Checks whether the current token of this line reader is an id string.
-
-		 @return		@c true if the current token of this line reader is an 
-						id string. @c false otherwise.
-		 */
-		[[nodiscard]]
-		bool ContainsIDString() const noexcept;
 
 		/**
 		 Checks whether this line reader has a current token.

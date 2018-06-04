@@ -69,7 +69,7 @@ namespace mage::script {
 		const std::scoped_lock lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
-		m_text->SetText(wstring(m_buffer.get()));
+		m_text->SetText(std::wstring(m_buffer.get()));
 	}
 
 	void TextConsoleScript::Clear() {

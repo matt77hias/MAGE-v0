@@ -58,7 +58,7 @@ namespace mage::rendering::loader {
 			return;
 		}
 
-		const auto mtl_fname = WStringToString(wstring(mtl_path.filename()));
+		const auto mtl_fname = WStringToString(std::wstring(mtl_path.filename()));
 
 		char buffer[MAX_PATH];
 		const auto not_null_buffer = NotNull< const_zstring >(buffer);

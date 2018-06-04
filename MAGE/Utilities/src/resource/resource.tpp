@@ -16,7 +16,7 @@
 namespace mage {
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(wstring guid) noexcept
+	Resource< ResourceT >::Resource(std::wstring guid) noexcept
 		: m_guid(std::move(guid)) {
 		TransformToLowerCase(m_guid);
 	}

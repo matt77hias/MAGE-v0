@@ -94,7 +94,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const string &input,
+		void ReadFromMemory(const std::string &input,
 							std::regex regex = g_default_regex);
 
 	protected:

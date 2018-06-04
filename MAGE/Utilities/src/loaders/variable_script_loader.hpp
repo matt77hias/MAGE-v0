@@ -35,7 +35,7 @@ namespace mage::loader {
 					Failed to import the variable script from file.
 	 */
 	void ImportVariableScriptFromFile(const std::filesystem::path& path, 
-									  std::map< string, Value >& 
+									  std::map< std::string, Value >&
 									  variable_buffer);
 
 	/**
@@ -49,6 +49,6 @@ namespace mage::loader {
 					Failed to export the variable script to file.
 	 */
 	void ExportVariableScriptToFile(const std::filesystem::path& path,
-									const std::map< string, Value >& 
+									const std::map< std::string, Value >&
 									variable_buffer);
 }

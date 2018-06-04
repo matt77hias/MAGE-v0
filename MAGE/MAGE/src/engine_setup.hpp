@@ -34,7 +34,7 @@ namespace mage {
 						The name of the application.
 		 */
 		explicit EngineSetup(NotNull< HINSTANCE > instance, 
-			                 wstring name = L"MAGE")
+							 std::wstring name = L"MAGE")
 			: m_instance(instance),
 			m_name(std::move(name)) {}
 
@@ -103,7 +103,7 @@ namespace mage {
 		 @return		A reference to the name of the application.
 		 */
 		[[nodiscard]]
-		const wstring& GetApplicationName() const noexcept {
+		const std::wstring& GetApplicationName() const noexcept {
 			return m_name;
 		}
 
@@ -121,6 +121,6 @@ namespace mage {
 		/**
 		 The name of the application.
 		 */
-		wstring m_name;
+		std::wstring m_name;
 	};
 }

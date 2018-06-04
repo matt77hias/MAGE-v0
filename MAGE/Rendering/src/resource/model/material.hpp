@@ -33,7 +33,7 @@ namespace mage::rendering {
 		 @param[in]		name
 						The name of the material.		
 		 */
-		explicit Material(string name = "material")
+		explicit Material(std::string name = "material")
 			: m_base_color(RGBA(1.0f)),
 			m_base_color_texture(),
 			m_roughness(0.5f),
@@ -374,7 +374,7 @@ namespace mage::rendering {
 		 @return		A reference to the name of this material.
 		 */
 		[[nodiscard]]
-		const string& GetName() const noexcept {
+		const std::string& GetName() const noexcept {
 			return m_name;
 		}
 		
@@ -384,7 +384,7 @@ namespace mage::rendering {
 		 @param[in]		name
 						The name.
 		 */
-		void SetName(string name) noexcept {
+		void SetName(std::string name) noexcept {
 			m_name = std::move(name);
 		}
 
@@ -463,6 +463,6 @@ namespace mage::rendering {
 		/**
 		 The name of this material.
 		 */
-		string m_name;
+		std::string m_name;
 	};
 }

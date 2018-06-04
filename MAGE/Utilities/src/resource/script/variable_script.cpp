@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(wstring fname, bool import)
+	VariableScript::VariableScript(std::wstring fname, bool import)
 		: Resource< VariableScript >(std::move(fname)),
 		m_variables() {
 
@@ -44,7 +44,7 @@ namespace mage {
 		loader::ExportVariableScriptToFile(path, m_variables);
 	}
 
-	void VariableScript::Remove(const string& name) {
+	void VariableScript::Remove(const std::string& name) {
 		if (const auto it = m_variables.find(name); 
 			it != m_variables.end()) {
 

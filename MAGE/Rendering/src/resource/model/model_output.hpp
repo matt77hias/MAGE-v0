@@ -189,12 +189,12 @@ namespace mage::rendering {
 		/**
 		 The name of this model part.
 		 */
-		string m_child;
+		std::string m_child;
 
 		/**
 		 The name of the parent model part of this model part.
 		 */
-		string m_parent;
+		std::string m_parent;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material
@@ -203,7 +203,7 @@ namespace mage::rendering {
 		/**
 		 The name of the material of this model part.
 		 */
-		string m_material;
+		std::string m_material;
 	};
 
 	/**
@@ -297,7 +297,7 @@ namespace mage::rendering {
 						The name of the model part.
 		 */
 		[[nodiscard]]
-		bool ContainsModelPart(const string& name) noexcept;
+		bool ContainsModelPart(const std::string& name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.
@@ -315,7 +315,7 @@ namespace mage::rendering {
 		 @param[in]		material
 						The name of the material.
 		 */
-		void SetMaterial(string material);
+		void SetMaterial(std::string material);
 		
 		/**
 		 Ends the creation of the last model part.

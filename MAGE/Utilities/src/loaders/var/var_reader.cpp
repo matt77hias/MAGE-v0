@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	VARReader::VARReader(std::map< string, Value >& variable_buffer)
+	VARReader::VARReader(std::map< std::string, Value >& variable_buffer)
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 
@@ -68,12 +68,12 @@ namespace mage::loader {
 			ReadVARVariable< U32, 4 >();
 		}
 		else if (g_var_token_string == token) {
-			ReadVARVariable< string >();
+			ReadVARVariable< std::string >();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
 				    GetPath().c_str(), GetCurrentLineNumber(), 
-					string(token).c_str());
+					std::string(token).c_str());
 			return;
 		}
 

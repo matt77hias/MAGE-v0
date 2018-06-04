@@ -42,7 +42,7 @@ namespace mage::loader {
 						A reference to a map containing the variables to write 
 						to file.
 		 */
-		explicit VARWriter(const std::map< string, Value >& variable_buffer);
+		explicit VARWriter(const std::map< std::string, Value >& variable_buffer);
 		
 		/**
 		 Constructs a VAR writer from the given VAR writer.
@@ -119,6 +119,6 @@ namespace mage::loader {
 		 A reference to a map containing the variables to write by this VAR 
 		 writer.
 		 */
-		const std::map< string, Value >& m_variable_buffer;
+		const std::map< std::string, Value >& m_variable_buffer;
 	};
 }

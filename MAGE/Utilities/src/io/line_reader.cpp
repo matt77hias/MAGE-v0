@@ -67,7 +67,7 @@ namespace mage {
 		Postprocess();
 	}
 
-	void LineReader::ReadFromMemory(const string &input,
+	void LineReader::ReadFromMemory(const std::string &input,
 									std::regex regex) {
 
 		m_path    = L"input string";
@@ -89,7 +89,7 @@ namespace mage {
 	void LineReader::Process(std::istream& stream) {
 		m_line_number = 0;
 		
-		string line;
+		std::string line;
 		while (std::getline(stream, line)) {
 			m_token_iterator = std::sregex_token_iterator(line.cbegin(), 
 														  line.cend(), 

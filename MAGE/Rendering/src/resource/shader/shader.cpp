@@ -13,7 +13,7 @@
 namespace mage::rendering {
 
 	VertexShader::VertexShader(ID3D11Device& device, 
-							   wstring guid, 
+							   std::wstring guid,
 		                       const CompiledShader& compiled_shader, 
 							   gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 							   input_element_descs) 

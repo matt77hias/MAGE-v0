@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Scene::Scene(string name)
+	Scene::Scene(std::string name)
 		: m_name(std::move(name)),
 		m_nodes(),
 		m_scripts() {}
@@ -79,9 +79,9 @@ namespace mage {
 		using namespace rendering;
 		using ModelPtr = ProxyPtr< Model >;
 		using NodePtr  = ProxyPtr< Node >;
-		using NodePair = std::pair< NodePtr, string >;
+		using NodePair = std::pair< NodePtr, std::string >;
 
-		std::map< string, NodePair > mapping;
+		std::map< std::string, NodePair > mapping;
 		NodePtr root;
 		size_t nb_root_childs = 0;
 

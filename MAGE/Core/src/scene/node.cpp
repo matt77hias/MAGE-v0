@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Node::Node(string name)
+	Node::Node(std::string name)
 		: m_transform(),
 		m_parent(nullptr),
 		m_childs(),

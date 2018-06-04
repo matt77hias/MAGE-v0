@@ -21,7 +21,7 @@ namespace mage::rendering {
 
 	[[nodiscard]]
 	const Material* ModelDescriptor
-		::GetMaterial(const string& name) const noexcept {
+		::GetMaterial(const std::string& name) const noexcept {
 		
 		for (const auto& material : m_materials) {
 			if (name == material.GetName()) {
@@ -34,7 +34,7 @@ namespace mage::rendering {
 
 	[[nodiscard]]
 	const ModelPart* ModelDescriptor
-		::GetModelPart(const string& name) const noexcept {
+		::GetModelPart(const std::string& name) const noexcept {
 		
 		for (const auto& model_part : m_model_parts) {
 			if (name == model_part.m_child) {

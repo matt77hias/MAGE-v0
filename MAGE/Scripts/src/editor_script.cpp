@@ -948,7 +948,7 @@ namespace mage::script {
 			char buffer[128];
 			sprintf_s(buffer, std::size(buffer), "%s", node.GetName().c_str());
 			if (ImGui::InputText("", buffer, std::size(buffer))) {
-				node.SetName(string(buffer));
+				node.SetName(std::string(buffer));
 			}
 
 			ImGui::SameLine();

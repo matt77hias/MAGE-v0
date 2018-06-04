@@ -16,10 +16,10 @@
 namespace mage::loader {
 
 	void ImportVariableScriptFromFile(const std::filesystem::path& path,  
-									  std::map< string, Value >& 
+									  std::map< std::string, Value >&
 									  variable_buffer) {
 		
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".var" == extension) {
@@ -32,10 +32,10 @@ namespace mage::loader {
 	}
 
 	void ExportVariableScriptToFile(const std::filesystem::path& path, 
-									const std::map< string, Value >& 
+									const std::map< std::string, Value >&
 									variable_buffer) {
 		
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".var" == extension) {

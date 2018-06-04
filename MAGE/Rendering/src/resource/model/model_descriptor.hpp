@@ -58,7 +58,7 @@ namespace mage::rendering {
 		template< typename VertexT, typename IndexT >
 		explicit ModelDescriptor(ID3D11Device& device, 
 								 ResourceManager& resource_manager, 
-								 wstring fname, 
+								 std::wstring fname,
 								 const  MeshDescriptor< VertexT, IndexT >& 
 								 desc = MeshDescriptor< VertexT, IndexT >(), 
 								 bool export_as_MDL = false);
@@ -129,7 +129,7 @@ namespace mage::rendering {
 						descriptor matching the given name @a name.
 		 */
 		[[nodiscard]]
-		const Material* GetMaterial(const string& name) const noexcept;
+		const Material* GetMaterial(const std::string& name) const noexcept;
 
 		/**
 		 Traverses all materials of this model descriptor.
@@ -153,7 +153,7 @@ namespace mage::rendering {
 						matching the given name @a name.
 		 */
 		[[nodiscard]]
-		const ModelPart* GetModelPart(const string& name) const noexcept;
+		const ModelPart* GetModelPart(const std::string& name) const noexcept;
 		
 		/**
 		 Traverses all model parts of this model descriptor.

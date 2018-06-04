@@ -274,7 +274,7 @@ namespace mage {
 						Failed to register the window class.
 		 */
 		explicit WindowDescriptor(NotNull< HINSTANCE > instance,
-								  wstring window_class_name,
+								  std::wstring window_class_name,
 								  U32 window_class_style = CS_CLASSDC);
 
 		/**
@@ -344,7 +344,7 @@ namespace mage {
 						descriptor.
 		 */
 		[[nodiscard]]
-		const wstring& GetWindowClassName() const noexcept {
+		const std::wstring& GetWindowClassName() const noexcept {
 			return m_window_class_name;
 		}
 
@@ -362,7 +362,7 @@ namespace mage {
 		/**
 		 The window class name of this window descriptor.
 		 */
-		wstring m_window_class_name;
+		std::wstring m_window_class_name;
 	};
 
 	#pragma endregion
@@ -447,7 +447,7 @@ namespace mage {
 						Failed to create the window.
 		 */
 		explicit Window(WindowDescriptorPtr window_desc,
-						const wstring& title_text, 
+						const std::wstring& title_text,
 						const U32x2& resolution, 
 						DWORD style = s_default_window_style);
 
@@ -545,7 +545,7 @@ namespace mage {
 		 @return		The title text of this window.
 		 */
 		[[nodiscard]]
-		const wstring GetTitleText() const noexcept;
+		const std::wstring GetTitleText() const noexcept;
 
 		/**
 		 Sets the title text of this window to the given title text.
@@ -617,7 +617,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the window.
 		 */
-		void InitializeWindow(const wstring& title_text, 
+		void InitializeWindow(const std::wstring& title_text,
 							  const U32x2& resolution, 
 							  DWORD style);
 
@@ -633,7 +633,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the window.
 		 */
-		void InitializeWindow(const wstring& title_text, 
+		void InitializeWindow(const std::wstring& title_text,
 							  const RECT& rectangle, 
 							  DWORD style);
 

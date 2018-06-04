@@ -49,7 +49,7 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	Texture::Texture(ID3D11Device& device, wstring fname)
+	Texture::Texture(ID3D11Device& device, std::wstring fname)
 		: Resource< Texture >(std::move(fname)), 
 		m_texture_srv() {
 
@@ -57,7 +57,7 @@ namespace mage::rendering {
 			NotNull< ID3D11ShaderResourceView** >(m_texture_srv.ReleaseAndGetAddressOf()));
 	}
 
-	Texture::Texture(ID3D11Device& device, wstring guid, 
+	Texture::Texture(ID3D11Device& device, std::wstring guid,
 					 const D3D11_TEXTURE2D_DESC& desc, 
 					 const D3D11_SUBRESOURCE_DATA& initial_data)
 		: Resource< Texture >(std::move(guid)), 

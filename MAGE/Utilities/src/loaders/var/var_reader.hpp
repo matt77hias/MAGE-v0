@@ -42,7 +42,7 @@ namespace mage::loader {
 						A reference to a map for storing the read variables 
 						from file.
 		 */
-		explicit VARReader(std::map< string, Value >& variable_buffer);
+		explicit VARReader(std::map< std::string, Value >& variable_buffer);
 		
 		/**
 		 Constructs a VAR reader from the given VAR reader.
@@ -144,7 +144,7 @@ namespace mage::loader {
 		/**
 		 A reference to a map containing the read variables of this VAR reader.
 		 */
-		std::map< string, Value >& m_variable_buffer;
+		std::map< std::string, Value >& m_variable_buffer;
 	};
 }
 

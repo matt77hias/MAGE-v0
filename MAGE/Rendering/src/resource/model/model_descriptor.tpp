@@ -8,7 +8,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	ModelDescriptor::ModelDescriptor(ID3D11Device& device, 
 									 ResourceManager& resource_manager,
-									 wstring fname, 
+									 std::wstring fname,
 									 const MeshDescriptor< VertexT, IndexT >& desc, 
 									 bool export_as_MDL)
 		: Resource< ModelDescriptor >(std::move(fname)), 

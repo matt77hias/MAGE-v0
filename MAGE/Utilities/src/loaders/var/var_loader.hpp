@@ -35,7 +35,7 @@ namespace mage::loader {
 					Failed to import the variable script from file.
 	 */
 	void ImportVARFromFile(const std::filesystem::path& path, 
-		                   std::map< string, Value >& variable_buffer);
+		                   std::map< std::string, Value >& variable_buffer);
 
 	/**
 	 Exports the given variables to the VAR file associated with the given 
@@ -49,5 +49,5 @@ namespace mage::loader {
 					Failed to export the variable script to file.
 	 */
 	void ExportVARToFile(const std::filesystem::path& path, 
-		                 const std::map< string, Value >& variable_buffer);
+		                 const std::map< std::string, Value >& variable_buffer);
 }

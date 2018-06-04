@@ -58,7 +58,7 @@ namespace mage::rendering {
 			 The pool type of resource pools containing resources of the given
 			 type.
 			 */
-			using pool_type = ResourcePool< wstring, const ResourceT >;
+			using pool_type = ResourcePool< std::wstring, const ResourceT >;
 		};
 		
 		/**
@@ -80,7 +80,7 @@ namespace mage::rendering {
 			/**
 			 The pool type of resource pools containing vertex shaders.
 			 */
-			using pool_type = PersistentResourcePool< wstring, const ResourceT >;
+			using pool_type = PersistentResourcePool< std::wstring, const ResourceT >;
 		};
 
 		/**
@@ -234,7 +234,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT, typename VertexT, typename IndexT >
 		typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >,
-			ModelDescriptorPtr > GetOrCreate(const wstring& fname, 
+			ModelDescriptorPtr > GetOrCreate(const std::wstring& fname,
 											 const  MeshDescriptor< VertexT, IndexT >& 
 											 desc = MeshDescriptor< VertexT, IndexT >(), 
 											 bool export_as_MDL = false);
@@ -256,7 +256,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
-			VertexShaderPtr > GetOrCreate(const wstring& guid, 
+			VertexShaderPtr > GetOrCreate(const std::wstring& guid,
 										  const CompiledShader& compiled_shader, 
 										  gsl::span< const D3D11_INPUT_ELEMENT_DESC > 
 										  input_element_descs);
@@ -276,7 +276,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
-			HullShaderPtr > GetOrCreate(const wstring& guid, 
+			HullShaderPtr > GetOrCreate(const std::wstring& guid,
 										const CompiledShader& compiled_shader);
 
 		/**
@@ -294,7 +294,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
-			DomainShaderPtr > GetOrCreate(const wstring& guid, 
+			DomainShaderPtr > GetOrCreate(const std::wstring& guid,
 										  const CompiledShader& compiled_shader);
 
 		/**
@@ -312,7 +312,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
-			GeometryShaderPtr > GetOrCreate(const wstring& guid, 
+			GeometryShaderPtr > GetOrCreate(const std::wstring& guid,
 											const CompiledShader& compiled_shader);
 
 		/**
@@ -330,7 +330,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
-			PixelShaderPtr > GetOrCreate(const wstring& guid, 
+			PixelShaderPtr > GetOrCreate(const std::wstring& guid,
 										 const CompiledShader& compiled_shader);
 
 		/**
@@ -348,7 +348,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
-			ComputeShaderPtr > GetOrCreate(const wstring& guid, 
+			ComputeShaderPtr > GetOrCreate(const std::wstring& guid,
 										   const CompiledShader& compiled_shader);
 
 		/**
@@ -366,7 +366,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
-			SpriteFontPtr > GetOrCreate(const wstring& fname, 
+			SpriteFontPtr > GetOrCreate(const std::wstring& fname,
 										const SpriteFontDescriptor& desc 
 										    = SpriteFontDescriptor());
 
@@ -383,7 +383,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
-			TexturePtr > GetOrCreate(const wstring& fname);
+			TexturePtr > GetOrCreate(const std::wstring& fname);
 
 		/**
 		 Creates a texture (if not existing).
@@ -402,7 +402,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
-			TexturePtr > GetOrCreate(const wstring& guid, 
+			TexturePtr > GetOrCreate(const std::wstring& guid,
 									 const D3D11_TEXTURE2D_DESC& desc, 
 									 const D3D11_SUBRESOURCE_DATA& initial_data);
 

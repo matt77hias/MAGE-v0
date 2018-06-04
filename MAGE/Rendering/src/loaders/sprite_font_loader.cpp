@@ -20,7 +20,7 @@ namespace mage::rendering::loader {
 		                          SpriteFontOutput& output, 
 		                          const SpriteFontDescriptor& desc) {
 		
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".font" == extension) {

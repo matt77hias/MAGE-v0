@@ -198,7 +198,7 @@ namespace mage {
 	 @return		The wide string copy of the given string.
 	 */
 	[[nodiscard]]
-	const wstring StringToWString(const string& str);
+	const std::wstring StringToWString(const std::string& str);
 	
 	/**
 	 Converts the given wide string to a string.
@@ -208,7 +208,7 @@ namespace mage {
 	 @return		The string copy of the given wide string.
 	 */
 	[[nodiscard]]
-	const string WStringToString(const wstring& str);
+	const std::string WStringToString(const std::wstring& str);
 
 	#pragma endregion
 
@@ -223,7 +223,7 @@ namespace mage {
 	 @param[in,out] str
 					A reference to the string to transform.
 	 */
-	inline void TransformToLowerCase(string& str) {
+	inline void TransformToLowerCase(std::string& str) {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
@@ -240,7 +240,7 @@ namespace mage {
 	 @param[in,out] str
 					A reference to the string to transform.
 	 */
-	inline void TransformToLowerCase(wstring& str) {
+	inline void TransformToLowerCase(std::wstring& str) {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
@@ -257,7 +257,7 @@ namespace mage {
 	 @param[in,out] str
 					A reference to the string to transform.
 	 */
-	inline void TransformToUpperCase(string& str) {
+	inline void TransformToUpperCase(std::string& str) {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
@@ -274,7 +274,7 @@ namespace mage {
 	 @param[in,out] str
 					A reference to the string to transform.
 	 */
-	inline void TransformToUpperCase(wstring& str) {
+	inline void TransformToUpperCase(std::wstring& str) {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;

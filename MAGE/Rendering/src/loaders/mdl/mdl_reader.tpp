@@ -55,7 +55,7 @@ namespace mage::rendering::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(),
-					string(token).c_str());
+					std::string(token).c_str());
 			return;
 		}
 
@@ -65,12 +65,12 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.m_child       = Read< string >();
-		model_part.m_parent      = Read< string >();
+		model_part.m_child       = Read< std::string >();
+		model_part.m_parent      = Read< std::string >();
 		model_part.m_transform.SetTranslation(Read< F32, 3 >());
 		model_part.m_transform.SetRotation(   Read< F32, 3 >());
 		model_part.m_transform.SetScale(      Read< F32, 3 >());
-		model_part.m_material    = Read< string >();
+		model_part.m_material    = Read< std::string >();
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();
 		
@@ -79,7 +79,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLMaterialLibrary() {
-		const auto mtl_name = StringToWString(Read< string >());
+		const auto mtl_name = StringToWString(Read< std::string >());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		

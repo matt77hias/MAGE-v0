@@ -6,10 +6,6 @@
 #pragma region
 
 #include <string>
-namespace mage {
-	using std::string;
-	using std::wstring;
-}
 
 #include <gsl/pointers>
 #include <gsl/string_span>

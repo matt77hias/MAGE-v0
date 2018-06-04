@@ -185,7 +185,7 @@ namespace mage::rendering {
 						Failed to take a screenshot of the current back buffer 
 						of this swap chain. 
 		 */
-		void TakeScreenShot(const wstring& fname) const;
+		void TakeScreenShot(const std::wstring& fname) const;
 
 	private:
 

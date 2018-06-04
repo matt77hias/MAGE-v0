@@ -52,7 +52,7 @@ namespace mage {
 	}
 
 	template<>
-	inline const string LineReader::Read() {
+	inline const std::string LineReader::Read() {
 		return std::string(Read< std::string_view >());
 	}
 
@@ -88,7 +88,7 @@ namespace mage {
 
 	template<>
 	[[nodiscard]]
-	inline bool LineReader::Contains< string >() const noexcept {
+	inline bool LineReader::Contains< std::string >() const noexcept {
 		return Contains< std::string_view >();
 	}
 }

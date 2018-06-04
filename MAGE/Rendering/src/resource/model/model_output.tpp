@@ -28,7 +28,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
 	bool ModelOutput< VertexT, IndexT >
-		::ContainsModelPart(const string& name) noexcept {
+		::ContainsModelPart(const std::string& name) noexcept {
 		
 		for (const auto& model_part : m_model_parts) {
 			if (name == model_part.m_child) {
@@ -50,7 +50,7 @@ namespace mage::rendering {
 
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
-		::SetMaterial(string material) {
+		::SetMaterial(std::string material) {
 		
 		using std::empty;
 		Assert(!empty(m_model_parts));

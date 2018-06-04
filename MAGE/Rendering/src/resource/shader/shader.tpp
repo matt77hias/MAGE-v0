@@ -16,7 +16,7 @@ namespace mage::rendering {
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::Shader(ID3D11Device& device, 
-											  wstring guid, 
+											  std::wstring guid,
 											  const CompiledShader& compiled_shader)
 		: Resource< Shader >(std::move(guid)), 
 		m_shader() {

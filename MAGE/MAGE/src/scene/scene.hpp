@@ -118,7 +118,7 @@ namespace mage {
 		 @return		A reference to the name of this scene.
 		 */
 		[[nodiscard]]
-		const string& GetName() const noexcept {
+		const std::string& GetName() const noexcept {
 			return m_name;
 		}
 
@@ -128,7 +128,7 @@ namespace mage {
 		 @param[in]		name
 						The name.
 		 */
-		void SetName(string name) noexcept {
+		void SetName(std::string name) noexcept {
 			m_name = std::move(name);
 		}
 
@@ -144,7 +144,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the scene.
 		 */
-		explicit Scene(string name);
+		explicit Scene(std::string name);
 
 		/**
 		 Constructs a scene from the given scene.
@@ -216,7 +216,7 @@ namespace mage {
 		/**
 		 The name of this scene.
 		 */
-		string m_name;
+		std::string m_name;
 	};
 }
 

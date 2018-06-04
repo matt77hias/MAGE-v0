@@ -95,7 +95,7 @@ namespace mage::rendering {
 	#pragma region
 
 	SpriteFont::SpriteFont(ID3D11Device& device,
-						   wstring fname,
+						   std::wstring fname,
 		                   const SpriteFontDescriptor& desc)
 		: Resource< SpriteFont >(std::move(fname)), 
 		m_texture_srv(), 

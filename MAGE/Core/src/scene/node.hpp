@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the node.
 		 */
-		explicit Node(string name = "");
+		explicit Node(std::string name = "");
 
 		/**
 		 Constructs a node from the given node.
@@ -456,7 +456,7 @@ namespace mage {
 		 @return		A reference to the name of this node.
 		 */
 		[[nodiscard]]
-		const string& GetName() const noexcept {
+		const std::string& GetName() const noexcept {
 			return m_name;
 		}
 
@@ -466,7 +466,7 @@ namespace mage {
 		 @param[in]		name
 						The name.
 		 */
-		void SetName(string name) noexcept {
+		void SetName(std::string name) noexcept {
 			m_name = std::move(name);
 		}
 
@@ -539,7 +539,7 @@ namespace mage {
 		/**
 		 The name of this node.
 		 */
-		string m_name;
+		std::string m_name;
 	};
 }
 

@@ -19,7 +19,7 @@ namespace mage::rendering::loader {
 								ResourceManager& resource_manaer, 
 								std::vector< Material >& materials) {
 		
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".mtl" == extension) {

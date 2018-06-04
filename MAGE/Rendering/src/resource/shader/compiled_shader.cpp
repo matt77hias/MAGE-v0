@@ -39,9 +39,9 @@ namespace mage::rendering {
 	#pragma region
 
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const wstring& fname, 
-								  const  string& entry_point, 
-								  const  string& shader_target, 
+	HRESULT CompileShaderFromFile(const std::wstring& fname,
+								  const std::string& entry_point,
+								  const std::string& shader_target,
 								  NotNull< ID3DBlob** > output_blob) {
 		
 		#ifdef NDEBUG
@@ -152,7 +152,7 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	BlobCompiledShader::BlobCompiledShader(const wstring& fname) noexcept
+	BlobCompiledShader::BlobCompiledShader(const std::wstring& fname) noexcept
 		: CompiledShader(), 
 		m_shader_blob() {
 			

@@ -47,7 +47,7 @@ namespace mage {
 						Failed to import the variable script from file (only 
 						possible if @a import is equal to @c true).
 		 */
-		explicit VariableScript(wstring fname, bool import = true);
+		explicit VariableScript(std::wstring fname, bool import = true);
 
 		/**
 		 Constructs a variable script from the given variable script.
@@ -176,7 +176,7 @@ namespace mage {
 		 */
 		template< typename T = void >
 		[[nodiscard]]
-		bool Contains(const string& name) const noexcept;
+		bool Contains(const std::string& name) const noexcept;
 
 		/**
 		 Adds the given variable to this variable script.
@@ -189,7 +189,7 @@ namespace mage {
 						The value of the variable.
 		 */
 		template< typename T >
-		void Add(string name, T value);
+		void Add(std::string name, T value);
 
 		/**
 		 Removes the given variable from this variable script.
@@ -197,7 +197,7 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the variable.
 		 */
-		void Remove(const string& name);
+		void Remove(const std::string& name);
 
 		/**
 		 Removes all variables from this variable script.
@@ -222,7 +222,7 @@ namespace mage {
 		 */
 		template< typename T >
 		[[nodiscard]]
-		const T* GetValue(const string& name) const;
+		const T* GetValue(const std::string& name) const;
 
 		/**
 		 Sets the value of the given variable in this variable script.
@@ -237,7 +237,7 @@ namespace mage {
 						contain a variable corresponding to the given name.
 		 */
 		template< typename T >
-		void SetValue(const string& name, T value);
+		void SetValue(const std::string& name, T value);
 
 	private:
 
@@ -248,7 +248,7 @@ namespace mage {
 		/**
 		 A map containing the variables of this variable script.
 		 */
-		std::map< string, Value > m_variables;
+		std::map< std::string, Value > m_variables;
 	};
 }
 

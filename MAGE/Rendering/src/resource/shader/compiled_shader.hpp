@@ -42,9 +42,9 @@ namespace mage::rendering {
 					compiled code.
 	 */
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const wstring& fname, 
-								  const  string& entry_point, 
-								  const  string& shader_target, 
+	HRESULT CompileShaderFromFile(const std::wstring& fname,
+								  const std::string& entry_point,
+								  const std::string& shader_target,
 								  NotNull< ID3DBlob** > output_blob);
 
 	#pragma endregion
@@ -291,7 +291,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to load the compiled shader from the given file.
 		 */
-		explicit BlobCompiledShader(const wstring& fname) noexcept;
+		explicit BlobCompiledShader(const std::wstring& fname) noexcept;
 		
 		/**
 		 Constructs a blob compiled shader from the given blob compiled shader.

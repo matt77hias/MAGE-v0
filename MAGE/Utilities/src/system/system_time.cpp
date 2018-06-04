@@ -58,18 +58,18 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const wstring GetLocalSystemDateAsString() {
+	const std::wstring GetLocalSystemDateAsString() {
 		FILETIME ftime;
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		wchar_t str_date[255];
@@ -81,11 +81,11 @@ namespace mage {
 			                             str_date, 
 			                             static_cast< int >(std::size(str_date)));
 		
-		return (result) ? wstring(str_date) : wstring();
+		return (result) ? std::wstring(str_date) : std::wstring();
 	}
 
 	[[nodiscard]]
-	const wstring GetLocalSystemTimeAsString() {
+	const std::wstring GetLocalSystemTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		FILETIME ftime;
@@ -93,12 +93,12 @@ namespace mage {
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		wchar_t str_time[255];
@@ -110,11 +110,11 @@ namespace mage {
 			                             str_time, 
 			                             static_cast< int >(std::size(str_time)));
 		
-		return (result) ? wstring(str_time) : wstring();
+		return (result) ? std::wstring(str_time) : std::wstring();
 	}
 
 	[[nodiscard]]
-	const wstring GetLocalSystemDateAndTimeAsString() {
+	const std::wstring GetLocalSystemDateAndTimeAsString() {
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		FILETIME ftime;
@@ -122,12 +122,12 @@ namespace mage {
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return wstring();
+			return std::wstring();
 		}
 
 		wchar_t str_date[255];
@@ -140,7 +140,7 @@ namespace mage {
 			               str_date, 
 			               static_cast< int >(std::size(str_date)))) {
 
-			return wstring();
+			return std::wstring();
 		}
 		
 		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 
@@ -150,10 +150,10 @@ namespace mage {
 			               str_time, 
 			               static_cast< int >(std::size(str_time)))) {
 
-			return wstring();
+			return std::wstring();
 		}
 
-		return wstring(str_date) + L'-' + wstring(str_time);
+		return std::wstring(str_date) + L'-' + std::wstring(str_time);
 	}
 
 	[[nodiscard]]

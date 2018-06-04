@@ -52,7 +52,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit Impl(const string& title, 
+		explicit Impl(const std::string& title,
 					  U32 nb_work, 
 					  char progress_char = '+', 
 					  U16 bar_length = 0u);
@@ -134,7 +134,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		void Initialize(const string& title, U16 bar_length = 0u);
+		void Initialize(const std::string& title, U16 bar_length = 0u);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -194,7 +194,7 @@ namespace mage {
 		std::mutex m_mutex;
 	};
 
-	ProgressReporter::Impl::Impl(const string& title, 
+	ProgressReporter::Impl::Impl(const std::string& title,
 								 U32 nb_work, 
 								 char progress_char, 
 								 U16 bar_length)
@@ -230,7 +230,7 @@ namespace mage {
 
 	ProgressReporter::Impl::~Impl() = default;
 
-	void ProgressReporter::Impl::Initialize(const string& title, 
+	void ProgressReporter::Impl::Initialize(const std::string& title,
 											U16 bar_length) {
 		
 		const std::scoped_lock lock(m_mutex);
@@ -340,7 +340,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ProgressReporter::ProgressReporter(const string& title, 
+	ProgressReporter::ProgressReporter(const std::string& title,
 									   U32 nb_work, 
 									   char progress_char, 
 									   U16 bar_length)

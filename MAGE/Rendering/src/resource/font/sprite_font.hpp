@@ -47,7 +47,7 @@ namespace mage::rendering {
 						Failed to initialize the sprite font.
 		 */
 		explicit SpriteFont(ID3D11Device& device,
-							wstring fname,
+							std::wstring fname,
 			                const SpriteFontDescriptor& desc 
 			                    = SpriteFontDescriptor());
 

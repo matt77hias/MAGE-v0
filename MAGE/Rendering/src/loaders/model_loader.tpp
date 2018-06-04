@@ -21,7 +21,7 @@ namespace mage::rendering::loader {
 							 ModelOutput< VertexT, IndexT >& model_output, 
 							 const MeshDescriptor< VertexT, IndexT >& mesh_desc) {
 
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".mdl" == extension) {
@@ -39,7 +39,7 @@ namespace mage::rendering::loader {
 	void ExportModelToFile(const std::filesystem::path& path, 
 						   const ModelOutput< VertexT, IndexT >& model_output) {
 
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".mdl" == extension) {

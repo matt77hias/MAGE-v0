@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		guid
 						The globally unique identifier.
 		 */
-		explicit Resource(wstring guid) noexcept;
+		explicit Resource(std::wstring guid) noexcept;
 
 		/**
 		 Constructs a resource from the given resource.
@@ -101,7 +101,7 @@ namespace mage {
 						resource.
 		 */
 		[[nodiscard]]
-		const wstring& GetGuid() const noexcept {
+		const std::wstring& GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -131,7 +131,7 @@ namespace mage {
 		/**
 		 The globally unique identifier of this resource.
 		 */
-		wstring m_guid;
+		std::wstring m_guid;
 	};
 }
 

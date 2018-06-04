@@ -38,7 +38,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string& title, 
+		explicit ProgressReporter(const std::string& title,
 			                      U32 nb_work, 
 			                      char progress_char = '+', 
 			                      U16 bar_length = 0u);

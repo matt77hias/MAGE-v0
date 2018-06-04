@@ -23,12 +23,12 @@
 namespace mage {
 
 	[[nodiscard]]
-	const wstring StringToWString(const string& str) {
-		return wstring(CA2W(str.c_str()));
+	const std::wstring StringToWString(const std::string& str) {
+		return std::wstring(CA2W(str.c_str()));
 	}
 
 	[[nodiscard]]
-	const string WStringToString(const wstring& str) {
-		return string(CW2A(str.c_str()));
+	const std::string WStringToString(const std::wstring& str) {
+		return std::string(CW2A(str.c_str()));
 	}
 }

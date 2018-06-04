@@ -71,7 +71,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to construct the texture.
 		 */
-		explicit Texture(ID3D11Device& device, wstring fname);
+		explicit Texture(ID3D11Device& device, std::wstring fname);
 
 		/**
 		 Constructs a 2D texture.
@@ -88,7 +88,7 @@ namespace mage::rendering {
 						Failed to construct the texture.
 		 */
 		explicit Texture(ID3D11Device& device,
-						 wstring guid, 
+						 std::wstring guid,
 			             const D3D11_TEXTURE2D_DESC& desc,
 			             const D3D11_SUBRESOURCE_DATA& initial_data);
 

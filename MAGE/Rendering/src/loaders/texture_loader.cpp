@@ -30,7 +30,7 @@ namespace mage::rendering::loader {
 		                       ID3D11Device& device, 
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
 		
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".dds" == extension) {
@@ -58,7 +58,7 @@ namespace mage::rendering::loader {
 	 */
 	[[nodiscard]]
 	static inline const GUID 
-		GetGUIDContainerFormat(const wstring& extension) noexcept {
+		GetGUIDContainerFormat(const std::wstring& extension) noexcept {
 
 		if (L".png" == extension) {
 			return GUID_ContainerFormatPng;
@@ -96,7 +96,7 @@ namespace mage::rendering::loader {
 		                     ID3D11DeviceContext& device_context, 
 		                     ID3D11Resource& texture) {
 
-		wstring extension(path.extension());
+		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
 		if (L".dds" == extension) {

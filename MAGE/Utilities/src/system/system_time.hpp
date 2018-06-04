@@ -34,7 +34,7 @@ namespace mage {
 	 @return		The current local system date as a string.
 	 */
 	[[nodiscard]]
-	const wstring GetLocalSystemDateAsString();
+	const std::wstring GetLocalSystemDateAsString();
 
 	/**
 	 Returns the current local system time as a string.
@@ -42,7 +42,7 @@ namespace mage {
 	 @return		The current local system time as a string.
 	 */
 	[[nodiscard]]
-	const wstring GetLocalSystemTimeAsString();
+	const std::wstring GetLocalSystemTimeAsString();
 
 	/**
 	 Returns the current local system date and time as a string.
@@ -50,7 +50,7 @@ namespace mage {
 	 @return		The current local system date and time as a string.
 	 */
 	[[nodiscard]]
-	const wstring GetLocalSystemDateAndTimeAsString();
+	const std::wstring GetLocalSystemDateAndTimeAsString();
 
 	struct SystemClock final {
 		using rep        = U64;

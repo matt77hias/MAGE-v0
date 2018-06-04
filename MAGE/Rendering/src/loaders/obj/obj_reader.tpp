@@ -93,7 +93,7 @@ namespace mage::rendering::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(),
-					string(token).c_str());
+					std::string(token).c_str());
 			return;
 		}
 
@@ -102,7 +102,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const auto mtl_name = StringToWString(Read< string >());
+		const auto mtl_name = StringToWString(Read< std::string >());
 		auto mtl_path       = GetPath();
 		mtl_path.replace_filename(mtl_name);
 		
@@ -113,7 +113,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
-		m_model_output.SetMaterial(Read< string >());
+		m_model_output.SetMaterial(Read< std::string >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -122,10 +122,10 @@ namespace mage::rendering::loader {
 		m_model_output.EndModelPart();
 
 		ModelPart model_part;
-		model_part.m_child = Read< string >();
+		model_part.m_child = Read< std::string >();
 		if (ContainsTokens()) {
 			if (!Contains< F32 >()) {
-				model_part.m_parent  = Read< string >();
+				model_part.m_parent  = Read< std::string >();
 			}
 			
 			auto translation = InvertHandness(Point3(Read< F32, 3 >()));
@@ -273,7 +273,7 @@ namespace mage::rendering::loader {
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
 								GetPath().c_str(), GetCurrentLineNumber(), 
-								string(token).c_str());
+								std::string(token).c_str());
 			}
 
 			
@@ -287,7 +287,7 @@ namespace mage::rendering::loader {
 			else {
 				throw Exception("%ls: line %u: invalid vn index value found in %s.",
 								GetPath().c_str(), GetCurrentLineNumber(), 
-								string(token).c_str());
+								std::string(token).c_str());
 			}
 		}
 		else if (const auto slash1 = token.find("/"); 
@@ -305,7 +305,7 @@ namespace mage::rendering::loader {
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
 								GetPath().c_str(), GetCurrentLineNumber(), 
-								string(token).c_str());
+								std::string(token).c_str());
 			}
 
 			if (const auto slash2 = token.find("/", slash1 + 1); 
@@ -321,7 +321,7 @@ namespace mage::rendering::loader {
 				else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
 									GetPath().c_str(), GetCurrentLineNumber(), 
-									string(token).c_str());
+									std::string(token).c_str());
 				}
 
 				if (const auto result
@@ -334,7 +334,7 @@ namespace mage::rendering::loader {
 				else {
 					throw Exception("%ls: line %u: invalid vn index value found in %s.",
 									GetPath().c_str(), GetCurrentLineNumber(), 
-									string(token).c_str());
+									std::string(token).c_str());
 				}
 			}
 			else if (const auto result 
@@ -347,7 +347,7 @@ namespace mage::rendering::loader {
 			else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
 									GetPath().c_str(), GetCurrentLineNumber(), 
-									string(token).c_str());
+									std::string(token).c_str());
 			}
 		} 
 		else if (const auto result
@@ -360,7 +360,7 @@ namespace mage::rendering::loader {
 		else {
 			throw Exception("%ls: line %u: invalid v index value found in %s.",
 							GetPath().c_str(), GetCurrentLineNumber(), 
-							string(token).c_str());
+							std::string(token).c_str());
 		}
 
 		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 

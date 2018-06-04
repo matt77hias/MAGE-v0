@@ -45,7 +45,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager, 
-											  const wstring& guid, 
+											  const std::wstring& guid,
 											  U32 color) {
 
 			D3D11_TEXTURE2D_DESC texture_desc = {};

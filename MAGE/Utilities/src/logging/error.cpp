@@ -85,7 +85,7 @@ namespace mage {
 		 */
 		void ProcessError(const_zstring format, 
 						  va_list args, 
-						  const string& error_type, 
+						  const std::string& error_type,
 						  ErrorDisposition disposition) {
 
 			if (ErrorDisposition::Ignore == disposition) {
@@ -93,9 +93,9 @@ namespace mage {
 			}
 
 			// Print formatted error message
-			const size_t width  = std::max(20, ConsoleWidth() - 2);
-			string error_string = error_type + ": ";
-			auto error_pos      = error_string.size();
+			const size_t width       = std::max(20, ConsoleWidth() - 2);
+			std::string error_string = error_type + ": ";
+			auto error_pos           = error_string.size();
 
 			char error_buffer[2048];
 			vsnprintf_s(error_buffer, std::size(error_buffer), 

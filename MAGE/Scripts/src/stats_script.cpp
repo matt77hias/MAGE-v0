@@ -69,7 +69,7 @@ namespace mage::script {
 
 		RGBA color = (m_fps > 120u) ? color::Green : color::Red;
 
-		m_text->SetText(wstring(L"FPS: "));
+		m_text->SetText(std::wstring(L"FPS: "));
 		m_text->AppendText(rendering::ColorString(
 			std::to_wstring(m_fps),
 			std::move(color)));
@@ -78,6 +78,6 @@ namespace mage::script {
 		_snwprintf_s(buffer, std::size(buffer), 
 			         L"\nSPF: %.2fms\nCPU: %.1f%%\nRAM: %uMB\nDCs: %u", 
 					 m_spf, m_cpu, m_ram, rendering::Pipeline::s_nb_draws);
-		m_text->AppendText(wstring(buffer));
+		m_text->AppendText(std::wstring(buffer));
 	}
 }

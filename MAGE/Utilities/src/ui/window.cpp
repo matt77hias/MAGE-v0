@@ -76,7 +76,7 @@ namespace mage {
 	#pragma region
 
 	WindowDescriptor::WindowDescriptor(NotNull< HINSTANCE > instance,
-									   wstring window_class_name,
+									   std::wstring window_class_name,
 									   U32 window_class_style)
 		: m_instance(std::move(instance)), 
 		m_window_class_name(std::move(window_class_name)) {
@@ -194,7 +194,7 @@ namespace mage {
 	}
 
 	Window::Window(WindowDescriptorPtr window_desc,
-				   const wstring& title_text, 
+				   const std::wstring& title_text,
 				   const U32x2& resolution, 
 				   DWORD style) 
 		: m_window_desc(std::move(window_desc)), 
@@ -212,7 +212,7 @@ namespace mage {
 
 	Window::~Window() = default;
 	
-	void Window::InitializeWindow(const wstring& title_text, 
+	void Window::InitializeWindow(const std::wstring& title_text,
 								  const U32x2& resolution, 
 								  DWORD style) {
 		
@@ -226,7 +226,7 @@ namespace mage {
 		return InitializeWindow(title_text, rectangle, style);
 	}
 
-	void Window::InitializeWindow(const wstring& title_text, 
+	void Window::InitializeWindow(const std::wstring& title_text,
 								  const RECT& rectangle, 
 								  DWORD style) {
 
@@ -285,7 +285,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	const wstring Window::GetTitleText() const noexcept {
+	const std::wstring Window::GetTitleText() const noexcept {
 		wchar_t text[1024];
 		const int result = GetWindowText(m_window,
 										 text,

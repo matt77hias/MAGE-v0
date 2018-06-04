@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	VARWriter::VARWriter(const std::map< string, Value >& variable_buffer)
+	VARWriter::VARWriter(const std::map< std::string, Value >& variable_buffer)
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 
@@ -212,9 +212,9 @@ namespace mage::loader {
 				}
 			}
 
-			// string
+			// std::string
 			{
-				const auto v = std::get_if< string >(&value);
+				const auto v = std::get_if< std::string >(&value);
 				if (nullptr != v) {
 					sprintf_s(buffer, std::size(buffer), 
 						      "%s %s \"%s\"",

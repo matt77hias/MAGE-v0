@@ -122,7 +122,7 @@ namespace mage::rendering {
 	template< typename ResourceT, typename VertexT, typename IndexT >
 	inline typename std::enable_if_t< std::is_same_v< ModelDescriptor, ResourceT >,
 		ModelDescriptorPtr >
-		ResourceManager::GetOrCreate(const wstring& fname,
+		ResourceManager::GetOrCreate(const std::wstring& fname,
 									 const MeshDescriptor< VertexT, IndexT >& desc,
 									 bool export_as_MDL) {
 
@@ -134,7 +134,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< VertexShader, ResourceT >,
 		VertexShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader,
 									 gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 									 input_element_descs) {
@@ -148,7 +148,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< HullShader, ResourceT >,
 		HullShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
 		
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
@@ -159,7 +159,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< DomainShader, ResourceT >,
 		DomainShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
@@ -170,7 +170,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< GeometryShader, ResourceT >,
 		GeometryShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
@@ -181,7 +181,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< PixelShader, ResourceT >,
 		PixelShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
@@ -192,7 +192,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< ComputeShader, ResourceT >,
 		ComputeShaderPtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
 
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
@@ -203,7 +203,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< SpriteFont, ResourceT >,
 		SpriteFontPtr >
-		ResourceManager::GetOrCreate(const wstring& fname,
+		ResourceManager::GetOrCreate(const std::wstring& fname,
 									 const SpriteFontDescriptor& desc) {
 
 		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
@@ -214,7 +214,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
 		TexturePtr >
-		ResourceManager::GetOrCreate(const wstring& fname) {
+		ResourceManager::GetOrCreate(const std::wstring& fname) {
 
 		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
 												  key_type< ResourceT >(fname));
@@ -223,7 +223,7 @@ namespace mage::rendering {
 	template< typename ResourceT >
 	inline typename std::enable_if_t< std::is_same_v< Texture, ResourceT >,
 		TexturePtr >
-		ResourceManager::GetOrCreate(const wstring& guid,
+		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const D3D11_TEXTURE2D_DESC& desc,
 									 const D3D11_SUBRESOURCE_DATA& initial_data) {
 

@@ -41,7 +41,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadLine() {
-		const auto token = Read< string >();
+		const auto token = Read< std::string_view >();
 
 		if (g_mdl_token_comment == token[0]) {
 			return;
@@ -55,7 +55,7 @@ namespace mage::rendering::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(),
-					token.c_str());
+					string(token).c_str());
 			return;
 		}
 

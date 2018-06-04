@@ -23,7 +23,7 @@ namespace mage::loader {
 	VARReader::~VARReader() = default;
 
 	void VARReader::ReadLine() {
-		const auto token = Read< string >();
+		const auto token = Read< std::string_view >();
 
 		if (g_var_token_comment == token[0]) {
 			return;
@@ -73,7 +73,7 @@ namespace mage::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
 				    GetPath().c_str(), GetCurrentLineNumber(), 
-					token.c_str());
+					string(token).c_str());
 			return;
 		}
 

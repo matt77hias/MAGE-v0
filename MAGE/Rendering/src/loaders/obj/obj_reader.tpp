@@ -58,7 +58,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadLine() {
-		const auto token = Read< string >();
+		const auto token = Read< std::string_view >();
 
 		if (g_obj_token_comment == token[0]) {
 			return;
@@ -93,7 +93,7 @@ namespace mage::rendering::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(),
-					token.c_str());
+					string(token).c_str());
 			return;
 		}
 
@@ -140,13 +140,13 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJObject() {
-		Read< string >();
+		Read< std::string_view >();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJSmoothingGroup() {
 		// Silently ignore smoothing group declarations
-		Read< string >();
+		Read< std::string_view >();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -250,9 +250,9 @@ namespace mage::rendering::loader {
 	const U32x3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexIndices() {
 
-		const auto token = Read< string >();
-		const char* const first = &(*token.cbegin());
-		const char* const last  = &(*token.cend());
+		const auto token = Read< std::string_view >();
+		const auto first = token.data();
+		const auto last  = first + token.size();
 
 		S32 v_index  = 0;
 		S32 vt_index = 0;
@@ -272,7 +272,8 @@ namespace mage::rendering::loader {
 			}
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
-								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+								GetPath().c_str(), GetCurrentLineNumber(), 
+								string(token).c_str());
 			}
 
 			
@@ -285,7 +286,8 @@ namespace mage::rendering::loader {
 			}
 			else {
 				throw Exception("%ls: line %u: invalid vn index value found in %s.",
-								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+								GetPath().c_str(), GetCurrentLineNumber(), 
+								string(token).c_str());
 			}
 		}
 		else if (const auto slash1 = token.find("/"); 
@@ -302,7 +304,8 @@ namespace mage::rendering::loader {
 			}
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
-								GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+								GetPath().c_str(), GetCurrentLineNumber(), 
+								string(token).c_str());
 			}
 
 			if (const auto slash2 = token.find("/", slash1 + 1); 
@@ -317,7 +320,8 @@ namespace mage::rendering::loader {
 				}
 				else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
-									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+									GetPath().c_str(), GetCurrentLineNumber(), 
+									string(token).c_str());
 				}
 
 				if (const auto result
@@ -329,7 +333,8 @@ namespace mage::rendering::loader {
 				}
 				else {
 					throw Exception("%ls: line %u: invalid vn index value found in %s.",
-									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+									GetPath().c_str(), GetCurrentLineNumber(), 
+									string(token).c_str());
 				}
 			}
 			else if (const auto result 
@@ -341,7 +346,8 @@ namespace mage::rendering::loader {
 			}
 			else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
-									GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+									GetPath().c_str(), GetCurrentLineNumber(), 
+									string(token).c_str());
 			}
 		} 
 		else if (const auto result
@@ -353,7 +359,8 @@ namespace mage::rendering::loader {
 		}
 		else {
 			throw Exception("%ls: line %u: invalid v index value found in %s.",
-							GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+							GetPath().c_str(), GetCurrentLineNumber(), 
+							string(token).c_str());
 		}
 
 		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 

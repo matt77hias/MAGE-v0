@@ -25,7 +25,7 @@ namespace mage::rendering::loader {
 	MTLReader::~MTLReader() = default;
 
 	void MTLReader::ReadLine() {
-		const auto token = Read< string >();
+		const auto token = Read< std::string_view >();
 		
 		if (g_mtl_token_comment == token[0]) {
 			return;
@@ -63,7 +63,7 @@ namespace mage::rendering::loader {
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(),
-					token.c_str());
+					string(token).c_str());
 			return;
 		}
 

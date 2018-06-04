@@ -297,16 +297,10 @@ namespace mage {
 		std::filesystem::path m_path;
 
 		/**
-		 A vector containing the tokens of the current line of this line 
-		 reader.
-		 */
-		std::vector< Token > m_tokens;
-
-		/**
 		 An iterator to the current token of the current line of this line 
 		 reader.
 		 */
-		std::vector< Token >::const_iterator m_token_iterator;
+		std::sregex_token_iterator m_token_iterator;
 
 		/**
 		 The current line number of this line reader.

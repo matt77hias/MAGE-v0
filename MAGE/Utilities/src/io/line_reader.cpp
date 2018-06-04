@@ -29,15 +29,24 @@ namespace mage {
 	LineReader::LineReader()
 		: m_regex(), 
 		m_path(), 
-		m_tokens(), 
 		m_token_iterator(), 
 		m_line_number(0) {}
 
-	LineReader::LineReader(LineReader&& reader) noexcept = default;
+	LineReader::LineReader(LineReader&& reader) noexcept 
+		: m_regex(std::move(reader.m_regex)), 
+		m_path(std::move(reader.m_path)), 
+		m_token_iterator(reader.m_token_iterator),
+		m_line_number(reader.m_line_number) {}
 
 	LineReader::~LineReader() = default;
 
-	LineReader& LineReader::operator=(LineReader&& reader) noexcept = default;
+	LineReader& LineReader::operator=(LineReader&& reader) noexcept {
+		m_regex          = std::move(reader.m_regex);
+		m_path           = std::move(reader.m_path);
+		m_token_iterator = reader.m_token_iterator;
+		m_line_number    = reader.m_line_number;
+		return *this;
+	}
 
 	void LineReader::ReadFromFile(std::filesystem::path path, 
 								  std::regex regex) {
@@ -78,17 +87,13 @@ namespace mage {
 	void LineReader::Preprocess() {}
 
 	void LineReader::Process(std::istream& stream) {
-		m_tokens.clear();
-		m_token_iterator = m_tokens.cbegin();
 		m_line_number = 0;
 		
 		string line;
 		while (std::getline(stream, line)) {
-			m_tokens.clear();
-			std::copy(std::sregex_token_iterator(line.begin(), line.end(), m_regex, 0), 
-					  std::sregex_token_iterator(), std::back_inserter(m_tokens));
-			m_token_iterator = m_tokens.cbegin();
-			
+			m_token_iterator = std::sregex_token_iterator(line.cbegin(), 
+														  line.cend(), 
+														  m_regex, 0);
 			if (ContainsTokens()) {
 				ReadLine();
 			}
@@ -96,14 +101,13 @@ namespace mage {
 			++m_line_number;
 		}
 
-		m_tokens.clear();
-		m_token_iterator = m_tokens.cbegin();
+		m_token_iterator = {};
 	}
 
 	void LineReader::Postprocess() {}
 
 	void LineReader::ReadRemainingTokens() {
-		for (; m_token_iterator != m_tokens.cend(); ++m_token_iterator) {
+		for (; ContainsTokens(); ++m_token_iterator) {
 			const auto token = m_token_iterator->str();
 			Warning("%ls: line %u: unused token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
@@ -112,6 +116,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool LineReader::ContainsTokens() const noexcept {
-		return Contains< string >();
+		static const std::sregex_token_iterator token_end_iterator;
+		return token_end_iterator != m_token_iterator;
 	}
 }

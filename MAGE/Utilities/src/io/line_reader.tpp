@@ -16,7 +16,7 @@ namespace mage {
 
 	template< typename T >
 	const T LineReader::Read() {
-		if (m_tokens.cend() == m_token_iterator) {
+		if (!ContainsTokens()) {
 			throw Exception("%ls: line %u: no value found.",
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
@@ -39,7 +39,7 @@ namespace mage {
 
 	template<>
 	inline const string LineReader::Read() {
-		if (m_tokens.cend() == m_token_iterator) {
+		if (!ContainsTokens()) {
 			throw Exception("%ls: line %u: no string value found.",
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
@@ -66,7 +66,7 @@ namespace mage {
 	template< typename T >
 	[[nodiscard]]
 	inline bool LineReader::Contains() const noexcept {
-		if (m_tokens.cend() == m_token_iterator) {
+		if (!ContainsTokens()) {
 			return false;
 		}
 
@@ -78,6 +78,6 @@ namespace mage {
 	template<>
 	[[nodiscard]]
 	inline bool LineReader::Contains< string >() const noexcept {
-		return m_tokens.cend() != m_token_iterator;
+		return ContainsTokens();
 	}
 }

@@ -119,4 +119,15 @@ namespace mage {
 		static const std::sregex_token_iterator token_end_iterator;
 		return token_end_iterator != m_token_iterator;
 	}
+
+	[[nodiscard]]
+	const std::string_view LineReader::GetCurrentToken() const noexcept {
+		if (m_token_iterator->matched) {
+			return { &*m_token_iterator->first, static_cast< size_t >(
+				m_token_iterator->second - m_token_iterator->first) };
+		}
+		else {
+			return {};
+		}
+	}
 }

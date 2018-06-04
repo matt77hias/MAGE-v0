@@ -21,36 +21,39 @@ namespace mage {
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
 
-		if (const auto result
-			= StringTo< T >(NotNull< const char* >(&(*m_token_iterator->first)),
-							NotNull< const char* >(&(*m_token_iterator->second))); 
+		const auto token = GetCurrentToken();
+		const auto first = NotNull< const char* >(token.data());
+		const auto last  = NotNull< const char* >(token.data() + token.size());
+
+		if (const auto result = StringTo< T >(first, last); 
 		    bool(result)) {
 
 			++m_token_iterator;
 			return result.value();
 		}
 		else {
-			const auto token = m_token_iterator->str();
 			throw Exception("%ls: line %u: invalid value found: %s.",
 							GetPath().c_str(), GetCurrentLineNumber(), 
-							token.c_str());
+							m_token_iterator->str().c_str());
 		}
 	}
 
 	template<>
-	inline const string LineReader::Read() {
+	inline const std::string_view LineReader::Read() {
 		if (!ContainsTokens()) {
 			throw Exception("%ls: line %u: no string value found.",
 							GetPath().c_str(), GetCurrentLineNumber());
 		}
 
-		auto result = m_token_iterator->str();
-
-		result.erase(std::remove(result.begin(), result.end(), '"'), 
-					 result.end());
+		const auto result = GetCurrentToken();
 
 		++m_token_iterator;
 		return result;
+	}
+
+	template<>
+	inline const string LineReader::Read() {
+		return std::string(Read< std::string_view >());
 	}
 
 	template< typename T, size_t N, size_t A >
@@ -70,14 +73,22 @@ namespace mage {
 			return false;
 		}
 
-		return static_cast< bool >(
-			StringTo< T >(NotNull< const char* >(&(*m_token_iterator->first)), 
-						  NotNull< const char* >(&(*m_token_iterator->second))));
+		const auto token = GetCurrentToken();
+		const auto first = NotNull< const char* >(token.data());
+		const auto last  = NotNull< const char* >(token.data() + token.size());
+
+		return static_cast< bool >(StringTo< T >(first, last));
+	}
+
+	template<>
+	[[nodiscard]]
+	inline bool LineReader::Contains< std::string_view >() const noexcept {
+		return ContainsTokens();
 	}
 
 	template<>
 	[[nodiscard]]
 	inline bool LineReader::Contains< string >() const noexcept {
-		return ContainsTokens();
+		return Contains< std::string_view >();
 	}
 }

@@ -18,6 +18,7 @@
 #include <filesystem>
 #include <istream>
 #include <regex>
+#include <string_view>
 
 #pragma endregion
 
@@ -32,15 +33,6 @@ namespace mage {
 	class LineReader {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Types
-		//---------------------------------------------------------------------
-
-		/**
-		 The token type of line readers.
-		 */
-		using Token = std::ssub_match;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -281,6 +273,14 @@ namespace mage {
 						Failed to finish post-processing successfully.
 		 */
 		virtual void Postprocess();
+
+		/**
+		 Returns the current token of this line reader.
+
+		 @return		The current token of this line reader.
+		 */
+		[[nodiscard]]
+		const std::string_view GetCurrentToken() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

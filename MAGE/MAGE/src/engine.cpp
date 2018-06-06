@@ -44,6 +44,7 @@ namespace mage {
 
 	EngineMessageHandler& EngineMessageHandler
 		::operator=(EngineMessageHandler&& handler) noexcept {
+
 		WindowMessageHandler::operator=(std::move(handler));
 
 		m_on_active_change = std::move(handler.m_on_active_change);

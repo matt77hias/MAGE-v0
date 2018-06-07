@@ -185,7 +185,6 @@ namespace mage {
 						call @c GetLastError.
 		 */
 		const std::pair< U64, U64 > GetCoreTimestamps() noexcept {
-		
 			FILETIME ftime;
 			FILETIME kernel_mode_ftime;
 			FILETIME user_mode_ftime;

@@ -268,7 +268,7 @@ namespace mage::rendering::loader {
 								  NotNull< const char* >(first + slash));
 				bool(result)) {
 
-				v_index = result.value();
+				v_index = *result;
 			}
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
@@ -282,7 +282,7 @@ namespace mage::rendering::loader {
 								  NotNull< const char* >(last));
 				bool(result)) {
 
-				vn_index = result.value();
+				vn_index = *result;
 			}
 			else {
 				throw Exception("%ls: line %u: invalid vn index value found in %s.",
@@ -300,7 +300,7 @@ namespace mage::rendering::loader {
 								  NotNull< const char* >(first + slash1));
 			    bool(result)) {
 
-				v_index = result.value();
+				v_index = *result;
 			}
 			else {
 				throw Exception("%ls: line %u: invalid v index value found in %s.",
@@ -316,7 +316,7 @@ namespace mage::rendering::loader {
 									  NotNull< const char* >(first + slash2));
 				    bool(result)) {
 
-					vt_index = result.value();
+					vt_index = *result;
 				}
 				else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
@@ -329,7 +329,7 @@ namespace mage::rendering::loader {
 									  NotNull< const char* >(last));
 				    bool(result)) {
 
-					vn_index = result.value();
+					vn_index = *result;
 				}
 				else {
 					throw Exception("%ls: line %u: invalid vn index value found in %s.",
@@ -342,7 +342,7 @@ namespace mage::rendering::loader {
 									   NotNull< const char* >(last));
 				     bool(result)) {
 
-					vt_index = result.value();
+					vt_index = *result;
 			}
 			else {
 					throw Exception("%ls: line %u: invalid vt index value found in %s.",
@@ -355,7 +355,7 @@ namespace mage::rendering::loader {
 								   NotNull< const char* >(last));
 		         bool(result)) {
 
-				 v_index = result.value();
+				 v_index = *result;
 		}
 		else {
 			throw Exception("%ls: line %u: invalid v index value found in %s.",

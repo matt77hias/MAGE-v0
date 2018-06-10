@@ -29,7 +29,7 @@ namespace mage {
 		    bool(result)) {
 
 			++m_token_iterator;
-			return result.value();
+			return *result;
 		}
 		else {
 			throw Exception("%ls: line %u: invalid value found: %s.",

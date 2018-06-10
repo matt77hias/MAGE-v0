@@ -140,7 +140,7 @@ namespace mage {
 												  wParam, lParam); 
 					bool(result)) {
 
-					return result.value();
+					return *result;
 				}
 
 			}

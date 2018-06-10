@@ -70,6 +70,8 @@ FILIPEK B.: [*Enforcing code contracts with [[nodiscard]]*](https://www.bfilipek
 
 FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
 
+FILIPEK B.: [*Using C++17 std::optional*](https://www.bfilipek.com/2018/05/using-optional.html), 2018.
+
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
 FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.

@@ -68,6 +68,10 @@ FERNANDES R. M.: [*Rule of Zero*](https://blog.rmf.io/cxx11/rule-of-zero), s.d.
 
 FILIPEK B.: [*Enforcing code contracts with [[nodiscard]]*](https://www.bfilipek.com/2017/11/nodiscard.html), 2017.
 
+FILIPEK B.: [*Error Handling and std::optional*](https://www.bfilipek.com/2018/05/errors-and-optional.html), 2017.
+
+FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.
+
 FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
 
 FILIPEK B.: [*Using C++17 std::optional*](https://www.bfilipek.com/2018/05/using-optional.html), 2018.

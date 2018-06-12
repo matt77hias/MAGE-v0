@@ -14,7 +14,7 @@ So for me, the logo just represents a mysterious, unknown mage and not some refe
 
 ## Use
 
-### How to build the sample project?
+### How to build the demo project?
 
 1. Open the Solution file `MAGE\MAGE\MAGE.sln` in Visual Studio 2017 (or higher).
 2. Build the Solution (Platform: `x64|x86`, Configuration: `Debug|Release`).

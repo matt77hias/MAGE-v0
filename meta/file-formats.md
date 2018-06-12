@@ -4,10 +4,10 @@
 
 * [Fonts](#SS-Fonts)
 * [Materials](#SS-Materials)
-* [Meshes](##SS-Meshes)
-* [Models](##SS-Models)
-* [Textures](##SS-Textures)
-* [Variable Scripts](##SS-Variable-Scripts)
+* [Meshes](#SS-Meshes)
+* [Models](#SS-Models)
+* [Textures](#SS-Textures)
+* [Variable Scripts](#SS-Variable-Scripts)
 
 ## <a name="SS-Fonts"></a>Fonts
 

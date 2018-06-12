@@ -1,6 +1,15 @@
 # File Formats
 
-## Fonts
+## Table of contents
+
+* [Fonts](#SS-Fonts)
+* [Materials](#SS-Materials)
+* [Meshes](##SS-Meshes)
+* [Models](##SS-Models)
+* [Textures](##SS-Textures)
+* [Variable Scripts](##SS-Variable-Scripts)
+
+## <a name="SS-Fonts"></a>Fonts
 
 ### .font
 * File mode: binary
@@ -9,7 +18,7 @@
 * Magic: `MAGEfont`
 * Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont)
 
-## Materials
+## <a name="SS-Materials"></a>Materials
 
 ### .mtl
 * File mode: ANSI
@@ -40,7 +49,7 @@
 | transparent        | `transparent`                               | transparent base color (= default)       |
 | `<string>`         | `<ANSI string without delimiters and EOFs>` |                                          |
 
-## Meshes
+## <a name="SS-Meshes"></a>Meshes
 
 ### .msh
 * File mode: binary
@@ -84,7 +93,7 @@
 | `<rotation>`      | `<F32> <F32> <F32>`                                             |
 | `<scale>`         | `<F32> <F32> <F32>`                                             |
   
-## Models
+## <a name="SS-Models"></a>Models
   
 ### .mdl
 * File mode: ANSI
@@ -113,7 +122,7 @@
 | `<nb-indices>`    | `<U32>`                                                                                                    |
 | `<string>`        | `<ANSI string without delimiters and EOFs>`                                                                |
  
-## Textures
+## <a name="SS-Textures"></a>Textures
      
 ### .dds
 * File mode: binary
@@ -122,7 +131,7 @@
 * Magic: `DDS`
 * Syntax: see [DDS format](https://msdn.microsoft.com/en-us/library/windows/desktop/bb943991%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#File_Layout1).
 
-## Variable Scripts
+## <a name="SS-Variable-Scripts"></a>Variable Scripts
 
 ### .var
 * File mode: ANSI

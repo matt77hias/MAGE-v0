@@ -11,9 +11,9 @@
 
 ## <a name="SS-How-to-cite"></a>How to cite
 
-### <a name="SSS-BibTeX"></a>BibTeX
-
 * [BibTeX](#SSS-BibTeX)
+
+### <a name="SSS-BibTeX"></a>BibTeX
 
 ```bibtex
 @misc{mage17,

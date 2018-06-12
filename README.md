@@ -22,6 +22,16 @@
 
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
+## Index
+* [Code Guidelines](meta/code-guidelines.md)
+* [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
+* [FAQ](meta/faq.md)
+* [Features](meta/features.md)
+* [File Formats](meta/file-formats.md)
+* [Iterations](meta/iterations.md)
+* [References](meta/references.md)
+* [Standard Scripts](meta/standard-scripts.md)
+
 ## Development
 * **Platform**: Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)
@@ -56,15 +66,5 @@ Sample scene - buttons:
   * F1: terminate
   * F2: toggle freezing camera orientation
   * F3: switch scene
-
-## Index
-* [Code Guidelines](meta/code-guidelines.md)
-* [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
-* [FAQ](meta/faq.md)
-* [Features](meta/features.md)
-* [File Formats](meta/file-formats.md)
-* [Iterations](meta/iterations.md)
-* [References](meta/references.md)
-* [Standard Scripts](meta/standard-scripts.md)
 
 <p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>

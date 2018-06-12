@@ -38,11 +38,11 @@
 * **Shading Model**: Shader Model 5.0
 * **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)
 * **Dependencies**:
-  * d3d11.lib
-  * dxgi.lib
-  * dinput8.lib
+  * [d3d11.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx)
+  * [dxgi.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/hh404534(v=vs.85).aspx)
+  * [dinput8.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ee416842(v=vs.85).aspx)
   * dxguid.lib
-  * (d3dcompiler.lib)
+  * ([d3dcompiler.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/dd607340(v=vs.85).aspx))
 * **Compiler**: MSVC++ 15.7.3
 * **IDE**: Visual Studio 2017
 * **GPU Debuggers/Profilers**:

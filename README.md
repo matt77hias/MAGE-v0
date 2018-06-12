@@ -29,6 +29,7 @@
 * [Features](meta/features.md)
 * [File Formats](meta/file-formats.md)
 * [Iterations](meta/iterations.md)
+* [License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt)
 * [References](meta/references.md)
 * [Standard Scripts](meta/standard-scripts.md)
 

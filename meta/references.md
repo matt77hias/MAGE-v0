@@ -1,8 +1,19 @@
 # References
 
-## How to cite
+## Table of contents
 
-### BibTeX
+* [How to cite](#SS-How-to-cite)
+* [Assets](#SS-Assets)
+* [Bibliography](#SS-Bibliography)
+* [Codebase](#SS-Codebase)
+* [Contributors](#SS-Contributors)
+* [Thanks](#SS-Thanks)
+
+## <a name="SS-How-to-cite"></a>How to cite
+
+### <a name="SSS-BibTeX"></a>BibTeX
+
+* [BibTeX](#SSS-BibTeX)
 
 ```bibtex
 @misc{mage17,
@@ -14,13 +25,37 @@
 }
 ```
 
-## Assets
+## <a name="SS-Assets"></a>Assets
 
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
-## Bibliography
+## <a name="SS-Bibliography"></a>Bibliography
 
-### Anti-aliasing
+* [Anti-aliasing](#SSS-Anti-aliasing)
+* [Assembly](#SSS-Assembly)
+* [C/C++](#SSS-C-Cpp)
+* [Color Spaces](#SSS-Color-Spaces)
+* [Data Structures](#SSS-Data-Structures)
+* [Depth Test](#SSS-Depth-Test)
+* [Design Patterns](#SSS-Design-Patterns)
+* [File Formats](#SSS-File-Formats)
+* [Game Loop](#SSS-Game-Loop)
+* [General Computer Graphics](#SSS-General-Computer-Graphics)
+* [General Computer Science](#SSS-General-Computer-Science)
+* [General Game Engines](#SSS-General-Game-Engines)
+* [Mathematics](#SSS-Mathematics)
+* [PBR and BRDFs](#SSS-PBR-and-BRDFs)
+* [Post-processing](#SSS-Post-processing)
+* [Scene Graphs](#SSS-Scene-Graphs)
+* [Scripting](#SSS-Scripting)
+* [Shadows](#SSS-Shadows)
+* [SIMD](#SSS-SIMD)
+* [SPMD](#SSS-SPMD)
+* [Textures](#SSS-Textures)
+* [Tone Mapping](#SSS-Tone-Mapping)
+* [Tool Kits](#SSS-Tool-Kits)
+
+### <a name="SSS-Anti-aliasing"></a>Anti-aliasing
 
 LOTTES T.: [*FXAA*](https://developer.download.nvidia.com/assets/gamedev/files/sdk/11/FXAA_WhitePaper.pdf), 2009.
 
@@ -30,11 +65,11 @@ PRANCKEVIČIUS A.: [*HDR with MSAA demo (2005)*](http://aras-p.info/projHDR.html
 
 TURÁNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpress.com/2016/11/13/how-to-resolve-an-msaa-depthbuffer/), 2016.
 
-### Assembly
+### <a name="SSS-Assembly"></a>Assembly
 
 FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html), 2017.
 
-### C/C++
+### <a name="SSS-C-Cpp"></a>C/C++
 
 ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
 
@@ -136,7 +171,7 @@ UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
-### Color Spaces
+### <a name="SSS-Color-Spaces"></a>Color Spaces
 
 ALDRIDGE G.: [*The difference between RGBM and RGBD*](http://iwasbeingirony.blogspot.be/2010/06/difference-between-rgbm-and-rgbd.html), 2010.
 
@@ -158,13 +193,13 @@ SUPNIK B.: [*The Value Of Gamma Compression*](http://hacksoflife.blogspot.be/201
 
 WARD G.: *The LogLuv Encoding for Full Gamut, High Dynamic Range Images*, *J. Graph. Tools* 3, 1, 1998.
 
-### Data Structures
+### <a name="SSS-Data-Structures"></a>Data Structures
 
 ARNEBÄCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.
 
 CRASSIN C.: *GigaVoxels: A Voxel-Based Rendering Pipeline For Efficient Exploration Of Large And Detailed Scenes*, PhD Thesis, 2011.
 
-### Depth Test
+### <a name="SSS-Depth-Test"></a>Depth Test
 
 BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
 
@@ -180,13 +215,13 @@ PETTINEO M.: [*Attack of the Depth Buffer*](https://mynameismjp.wordpress.com/20
 
 REED N.: [*Depth Precision Visualized*](https://developer.nvidia.com/content/depth-precision-visualized), 2015.
 
-### Design Patterns
+### <a name="SSS-Design-Patterns"></a>Design Patterns
 
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
 
 NYSTROM R.: *Game Programming Patterns*, 1st Edition, Genever Benning, 2014.
 
-### Entity-Component-Systems
+### <a name="SSS-Entity-Component-Systems"></a>Entity-Component-Systems
 
 BOREAL GAMES: [*Implementing Component-Entity-Systems*](https://www.gamedev.net/articles/programming/general-and-gameplay-programming/implementing-component-entity-systems-r3382), 2013.
 
@@ -196,19 +231,19 @@ GAUL R.: [*Component Based Engine Design*](http://www.randygaul.net/2013/05/20/c
 
 GAUL R.: [*Sane Usage of Components and Entity Systems*](http://www.randygaul.net/2014/06/10/sane-usage-of-components-and-entity-systems/), 2014.
 
-### File Formats
+### <a name="SSS-File-Formats"></a>File Formats
 
 BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/dataformats/mtl/), 1995.
 
 BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
 
-### Game Loop
+### <a name="SSS-Game-Loop"></a>Game Loop
 
 FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
 
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
 
-### General Computer Graphics
+### <a name="SSS-General-Computer-Graphics"></a>General Computer Graphics
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
@@ -220,13 +255,13 @@ SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace 
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
-### General Computer Science
+### <a name="SSS-General-Computer-Science"></a>General Computer Science
 
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
-### General Game Engines
+### <a name="SSS-General-Game-Engines"></a>General Game Engines
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
@@ -234,7 +269,7 @@ PERSSON E.: *Creating Vast Game Worlds*, *ACM SIGGRAPH 2012 Talks*, 2012.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 
-### Graphics Pipeline
+### <a name="SSS-Graphics-Pipeline"></a>Graphics Pipeline
 
 COZZI P., RICCIO P.: *OpenGL Insights*, 1st Edition, A K Peters/CRC Press, 2012.
 
@@ -274,7 +309,7 @@ YUSOV E.: [*Designing A Modern Cross-Platform Graphics Library*](https://www.gam
 
 ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direct3D 11*, 1st Edition, A K Peters/CRC Press, 2011.
 
-### Mathematics
+### <a name="SSS-Mathematics"></a>Mathematics
 
 CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambridge University Press, 1998.
 
@@ -321,7 +356,7 @@ WILSON P.: [*G-Buffer Normals and Trig Lookup Textures*](http://www.garagegames.
 
 WRONSKI B.: [*Small float formats – R11G11B10F precision*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
 
-### PBR and BRDFs
+### <a name="SSS-PBR-and-BRDFs"></a>PBR and BRDFs
 
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.
 
@@ -397,7 +432,7 @@ WRONSKI B.: [*Image dynamic range*](https://bartwronski.com/2016/09/01/dynamic-r
 
 YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/2013/01/implementing-voxel-cone-tracing.html), 2013.
 
-### Post-processing
+### <a name="SSS-Post-processing"></a>Post-processing
 
 COURRÈGES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-3/), 2015.
 
@@ -417,27 +452,27 @@ ROCKWELL K.: [*Bokeh*](https://kenrockwell.com/tech/bokeh.htm), 2008.
 
 SHARMA S.: [*Bokeh Vs DOF — The Difference Between The Two*](https://www.apnphotographyschool.com/concepts/bokeh-vs-dof-the-difference-between-the-two/), 2011.
 
-### Scene Graphs
+### <a name="SSS-Scene-Graphs"></a>Scene Graphs
 
 BAR-ZEEV A.: [*Scenegraphs: Past, Present, and Future*](http://www.realityprime.com/blog/2007/06/scenegraphs-past-present-and-future/), 2007.
 
 SPIRO L.: [*Scene Graphs*](http://lspiroengine.com/?p=566), 2013.
 
-### Scripting
+### <a name="SSS-Scripting"></a>Scripting
 
 ANTE J.: [*Writing High Performance C# Scripts*](https://www.youtube.com/watch?v=tGmnZdY5Y-E), 2017.
 
-### Shadows
+### <a name="SSS-Shadows"></a>Shadows
 
 EISEMANN E., SCHWARZ M., ASSARSSON U., WIMMER M.: Real-Time Shadows, 1st Edition, A K Peters/CRC Press, 2012.
 
-### SIMD
+### <a name="SSS-SIMD"></a>SIMD
 
 ASTHANA A.: [*Introducing ‘Vector Calling Convention’*](https://blogs.msdn.microsoft.com/vcblog/2013/07/11/introducing-vector-calling-convention/), 2013.
 
 MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833(v=vs.85).aspx).
 
-### SPMD
+### <a name="SSS-SPMD"></a>SPMD
 
 PHARR M.: [*The story of ispc: Origins (part 1)*](http://pharr.org/matt/blog/2018/04/18/ispc-origins.html), 2018.
 
@@ -463,7 +498,7 @@ PHARR M.: [*The story of ispc: retrospective (part 11)*](http://pharr.org/matt/b
 
 PHARR M.: [*The story of ispc: postscript (part 12)*](http://pharr.org/matt/blog/2018/04/30/ispc-fin.html), 2018.
 
-### Textures
+### <a name="SSS-Textures"></a>Textures
 
 CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
 
@@ -481,7 +516,7 @@ SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://ww
 
 WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-conversion/), 2015.
 
-### Tone Mapping
+### <a name="SSS-Tone-Mapping"></a>Tone Mapping
 
 DRAGO F., MYSZKOWSKI K., ANNEN T., CHIBA N.: *Adaptive Logarithmic Mapping For Displaying High Contrast Scenes*, *Computer Graphics Forum* 22, 3, 2003.
 
@@ -503,7 +538,7 @@ PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com
 
 REINHARD E., STARK M., SHIRLEY P., FERWERDA J.: *Photographic Tone Reproduction for Digital Images*, *ACM Trans. Graph.* 21, 3, 2002.
 
-### Tool Kits
+### <a name="SSS-Tool-Kits"></a>Tool Kits
 
 MICROSOFT CORP.: [*DirectXTK*](https://github.com/Microsoft/DirectXTK/wiki).
 
@@ -511,7 +546,7 @@ THOMPSON A.: [*Archetype System*](http://www.ademolathompson.com/archetypesystem
 
 THOMPSON A.: [*Archetype System 2.0*](http://www.ademolathompson.com/archetypesystem-20/), s.d.
 
-## Codebase
+## <a name="SS-Codebase"></a>Codebase
 
 *Non-substantially* based on:
 * [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
@@ -534,12 +569,12 @@ Uses:
 * [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
 * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 
-## Contributors
+## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
 * [Baldur Karlsson](https://github.com/baldurk)
 * [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 
-## Thanks
+## <a name="SS-Thanks"></a>Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
 * Adam_42
 * Ademola Thompson

@@ -52,10 +52,10 @@
 * Color spaces
   * All separate colors from material files are expressed in sRGB color space.
   * All separate colors from color pickers (i.e. ImGui) are expressed in sRGB color space.
-  * All separate textures (inc. fonts) are expressed in linear or sRGB color space.
+  * All separate textures (incl. fonts) are expressed in linear or sRGB color space.
   * All internally stored separate colors are expressed in linear color space (for both C++ and HLSL).
     Exceptions: All internally stored separate colors of ImGui are expressed in sRGB color space. 
-    All internally stored separate colors of the voexelization are expressed in LogLuv color space.
+    All internally stored separate colors of the voxelization are expressed in LogLuv color space.
   * All color calculations (inc. filtering and blending) are performed in linear color space (for both C++ and HLSL).
   * Final outputted colors are expressed in a custom gamma encoded color space (i.e. brightness adjustment).
 * Culling

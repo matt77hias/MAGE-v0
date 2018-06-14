@@ -34,6 +34,7 @@
 * [Anti-aliasing](#SSS-Anti-aliasing)
 * [Assembly](#SSS-Assembly)
 * [C/C++](#SSS-C-Cpp)
+* [Collision Detection](#SSS-Collision-Detection)
 * [Color Spaces](#SSS-Color-Spaces)
 * [Data Structures](#SSS-Data-Structures)
 * [Depth Test](#SSS-Depth-Test)
@@ -171,7 +172,7 @@ UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
-### <a name="SSS-Color-Spaces"></a>Collision Detection
+### <a name="SSS-Collision-Detection"></a>Collision Detection
 
 KARRAS T.: [*Thinking Parallel, Part I: Collision Detection on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-i-collision-detection-gpu/), 2012.
 

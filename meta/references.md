@@ -171,6 +171,14 @@ UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
+### <a name="SSS-Color-Spaces"></a>Collision Detection
+
+KARRAS T.: [*Thinking Parallel, Part I: Collision Detection on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-i-collision-detection-gpu/), 2012.
+
+KARRAS T.: [*Thinking Parallel, Part II: Tree Traversal on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-ii-tree-traversal-gpu/), 2012.
+
+KARRAS T.: [*Thinking Parallel, Part III: Tree Construction on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-iii-tree-construction-gpu/), 2012.
+
 ### <a name="SSS-Color-Spaces"></a>Color Spaces
 
 ALDRIDGE G.: [*The difference between RGBM and RGBD*](http://iwasbeingirony.blogspot.be/2010/06/difference-between-rgbm-and-rgbd.html), 2010.

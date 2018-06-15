@@ -93,7 +93,7 @@
   * Support for both opaque and transparent models
   * Depth and slope scaled biasing
   * PCF filtering
-  * Omni lights (shadow cube maps) and spotlights (shadow maps)
+  * Directional lights (shadow maps), omni lights (shadow cube maps) and spotlights (shadow maps)
 * Sky Domes
   * Non-uniform stretching in looking direction
 * Sprites

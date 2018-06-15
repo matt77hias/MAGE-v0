@@ -1,9 +1,8 @@
 # Iterations
 
 ## Current iteration' TODOs
-* Voxel Cone Tracing (WIP)
-* Depth-of-Field (WIP)
-* Shadow maps for directional lights (WIP)
+* Voxel Cone Tracing (WIP: Reflections)
+* Depth-of-Field (WIP: Bokeh)
 * Post-processing: God rays
 * Displacement Maps, Parallax Occlusion Maps
 * TAA

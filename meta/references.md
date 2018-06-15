@@ -19,7 +19,7 @@
 @misc{mage17,
    author = {Matthias Moulin},
    title  = {MAGE - Matthias Advanced Game Engine},
-   year   = {2017},
+   year   = {2016},
    url    = {https://github.com/matt77hias/MAGE},
    note   = {https://github.com/matt77hias/MAGE}
 }

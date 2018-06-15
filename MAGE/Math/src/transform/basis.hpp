@@ -79,7 +79,7 @@ namespace mage {
 
 		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
 
-		const auto s  = copysignf(1.0f, nz);
+		const auto s  = std::copysignf(1.0f, nz);
 		const auto a0 = -1.0f / (s + nz);
 		const auto a1 = nx * ny * a0;
 

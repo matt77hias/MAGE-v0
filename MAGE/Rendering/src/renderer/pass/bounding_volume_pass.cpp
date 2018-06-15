@@ -103,6 +103,25 @@ namespace mage::rendering {
 		// Bind the light color.
 		BindLightColor();
 		
+		// Process the directional lights.
+		world.ForEach< DirectionalLight >([this, world_to_projection](const DirectionalLight& light) {
+			if (State::Active != light.GetState()) {
+				return;
+			}
+			
+			const auto& transform            = light.GetOwner()->GetTransform();
+			const auto  object_to_world      = transform.GetObjectToWorldMatrix();
+			const auto  object_to_projection = object_to_world * world_to_projection;
+			const auto& aabb                 = light.GetAABB();
+
+			// Apply view frustum culling.
+			if (BoundingFrustum::Cull(object_to_projection, aabb)) {
+				return;
+			}
+
+			Render(aabb, object_to_world);
+		});
+
 		// Process the omni lights.
 		world.ForEach< OmniLight >([this, world_to_projection](const OmniLight& light) {
 			if (State::Active != light.GetState()) {

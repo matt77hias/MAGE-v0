@@ -267,7 +267,7 @@ void Contribution(DirectionalLight light, float3 p, out float3 l, out float3 E,
 				  out float3 p_ndc) {
 
 	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
-	p_ndc  = HomogeneousDivide(p_proj);
+	p_ndc = HomogeneousDivide(p_proj);
 	
 	l = light.neg_d;
 	E = any(abs(p_ndc) > 1.0f) ? 0.0f : light.E;

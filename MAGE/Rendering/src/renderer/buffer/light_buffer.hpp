@@ -224,7 +224,7 @@ namespace mage::rendering {
 						buffer (i.e. this directional light buffer).
 		 */
 		DirectionalLightBuffer& operator=(
-			const DirectionalLightBuffer& buffer) noexcept = default;
+			const DirectionalLightBuffer& buffer) = default;
 
 		/**
 		 Moves the given directional light buffer to this directional light 
@@ -236,7 +236,7 @@ namespace mage::rendering {
 						this directional light buffer).
 		 */
 		DirectionalLightBuffer& operator=(
-			DirectionalLightBuffer&& buffer) noexcept = default;
+			DirectionalLightBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -263,9 +263,22 @@ namespace mage::rendering {
 		 The padding of this directional light buffer.
 		 */
 		U32 m_padding1;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (column-major packed, row-major matrix) world-to-projection matrix 
+		 of this directional light buffer.
+		 */
+		XMMATRIX m_world_to_projection;
 	};
 
-	static_assert(32 == sizeof(DirectionalLightBuffer), 
+	static_assert(96 == sizeof(DirectionalLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -487,117 +500,6 @@ namespace mage::rendering {
 	};
 
 	static_assert(48 == sizeof(SpotLightBuffer), 
-				  "CPU/GPU struct mismatch");
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// ShadowMappedDirectionalLightBuffer
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A struct of shadow mapped directional light buffers used by shaders.
-	 */
-	struct alignas(16) ShadowMappedDirectionalLightBuffer final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a shadow mapped directional light buffer.
-		 */
-		ShadowMappedDirectionalLightBuffer() noexcept
-			: m_light(), 
-			m_world_to_projection{} {}
-		
-		/**
-		 Constructs a shadow mapped directional light buffer from the given 
-		 shadow mapped directional light buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light with shadow mapped 
-						directional light buffer to copy.
-		 */
-		ShadowMappedDirectionalLightBuffer(
-			const ShadowMappedDirectionalLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs a shadow mapped directional light buffer by moving the 
-		 given shadow mapped directional light buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light with shadow mapped 
-						directional light buffer to move.
-		 */
-		ShadowMappedDirectionalLightBuffer(
-			ShadowMappedDirectionalLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this shadow mapped directional light buffer.
-		 */
-		~ShadowMappedDirectionalLightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given shadow mapped directional light buffer to this shadow 
-		 mapped directional light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped directional light 
-						buffer to copy.
-		 @return		A reference to the copy of the shadow mapped directional 
-						light buffer (i.e. this shadow mapped directional light 
-						buffer).
-		 */
-		ShadowMappedDirectionalLightBuffer& operator=(
-			const ShadowMappedDirectionalLightBuffer& buffer) = default;
-
-		/**
-		 Moves the given shadow mapped directional light buffer to this shadow 
-		 mapped directional light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped directional light 
-						buffer to move.
-		 @return		A reference to the moved shadow mapped directional 
-						light buffer (i.e. this shadow mapped directional light 
-						buffer).
-		 */
-		ShadowMappedDirectionalLightBuffer& operator=(
-			ShadowMappedDirectionalLightBuffer&& buffer) = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Light
-		//---------------------------------------------------------------------
-
-		/**
-		 The directional light buffer of this shadow mapped directional light 
-		 buffer.
-		 */
-		DirectionalLightBuffer m_light;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transform
-		//---------------------------------------------------------------------
-
-		// HLSL expects column-major packed matrices by default.
-		// DirectXMath expects row-major packed matrices.
-
-		/**
-		 The (column-major packed, row-major matrix) world-to-projection matrix 
-		 of this shadow mapped directional light buffer.
-		 */
-		XMMATRIX m_world_to_projection;
-	};
-
-	static_assert(96 == sizeof(ShadowMappedDirectionalLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

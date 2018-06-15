@@ -94,7 +94,7 @@ namespace mage::rendering {
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights;
-		StructuredBuffer< ShadowMappedDirectionalLightBuffer > m_sm_directional_lights;
+		StructuredBuffer< DirectionalLightBuffer > m_sm_directional_lights;
 		StructuredBuffer< ShadowMappedOmniLightBuffer > m_sm_omni_lights;
 		StructuredBuffer< ShadowMappedSpotLightBuffer > m_sm_spot_lights;
 

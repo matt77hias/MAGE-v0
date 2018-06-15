@@ -147,7 +147,7 @@ namespace mage::rendering {
 		AlignedVector< DirectionalLightBuffer > lights;
 		lights.reserve(m_directional_lights.size());
 
-		AlignedVector< ShadowMappedDirectionalLightBuffer > sm_lights;
+		AlignedVector< DirectionalLightBuffer > sm_lights;
 		sm_lights.reserve(m_sm_directional_lights.size());
 		m_directional_light_cameras.clear();
 
@@ -168,36 +168,30 @@ namespace mage::rendering {
 				return;
 			}
 
-			const auto  neg_d     = -transform.GetWorldAxisZ();
+			const auto  neg_d               = -transform.GetWorldAxisZ();
+			const auto world_to_light       = transform.GetWorldToObjectMatrix();
+			const auto light_to_lprojection = light.GetLightToProjectionMatrix();
+			const auto world_to_lprojection = world_to_light * light_to_lprojection;
+
+			// Create a directional light buffer.
+			DirectionalLightBuffer buffer;
+			buffer.m_neg_d = Direction3(XMStore< F32x3 >(neg_d));
+			buffer.m_E     = light.GetIrradianceSpectrum();
+			buffer.m_world_to_projection = XMMatrixTranspose(world_to_lprojection);
 
 			if (light.UseShadows()) {
-				const auto world_to_light       = transform.GetWorldToObjectMatrix();
-				const auto light_to_lprojection = light.GetLightToProjectionMatrix();
-				const auto world_to_lprojection = world_to_light * light_to_lprojection;
-
 				// Create a spotlight camera.
 				LightCameraInfo camera;
-				camera.world_to_light        = world_to_light;
-				camera.light_to_projection   = light_to_lprojection;
+				camera.world_to_light      = world_to_light;
+				camera.light_to_projection = light_to_lprojection;
 
-				// Add spotlight camera to the spotlight cameras.
+				// Add directional light camera to the directional cameras.
 				m_directional_light_cameras.push_back(std::move(camera));
-
-				// Create a directional light buffer.
-				ShadowMappedDirectionalLightBuffer buffer;
-				buffer.m_light.m_neg_d       = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_light.m_E           = light.GetIrradianceSpectrum();
-				buffer.m_world_to_projection = XMMatrixTranspose(world_to_lprojection);
 
 				// Add directional light buffer to directional light buffers.
 				sm_lights.push_back(std::move(buffer));
 			}
 			else {
-				// Create a directional light buffer.
-				DirectionalLightBuffer buffer;
-				buffer.m_neg_d = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_E     = light.GetIrradianceSpectrum();
-
 				// Add directional light buffer to directional light buffers.
 				lights.push_back(std::move(buffer));
 			}

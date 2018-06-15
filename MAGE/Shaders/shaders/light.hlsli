@@ -181,6 +181,8 @@ struct DirectionalLight {
 	// in world space.
 	float3 neg_d;
 	uint   padding1;
+	// The world-to-projection transformation matrix.
+	float4x4 world_to_projection;
 };
 
 /**
@@ -219,12 +221,7 @@ struct SpotLight {
 /**
  A struct of shadow mapped directional lights.
  */
-struct ShadowMappedDirectionalLight {
-	// The directional light.
-	DirectionalLight light;
-	// The world-to-projection transformation matrix.
-	float4x4 world_to_projection;
-};
+typedef DirectionalLight ShadowMappedDirectionalLight;
 
 /**
  A struct of shadow mapped omni lights.
@@ -256,15 +253,45 @@ struct ShadowMappedSpotLight {
 
  @param[in]		light
 				The directional light.
+ @param[in]		p
+				The hit position expressed in world space.
+ @param[out]	l
+				The light (hit-to-light) direction expressed in world space.
+ @param[out]	E
+				The (orthogonal) irradiance contribution of the given 
+				directional light.
+ @param[in]		p_ndc
+				The hit position expressed in light NDC space.
+ */
+void Contribution(DirectionalLight light, float3 p, out float3 l, out float3 E, 
+				  out float3 p_ndc) {
+
+	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
+	p_ndc  = HomogeneousDivide(p_proj);
+	
+	l = light.neg_d;
+	E = any(abs(p_ndc) > 1.0f) ? 0.0f : light.E;
+}
+
+/**
+ Computes the irradiance contribution of the given directional light.
+
+ @param[in]		light
+				The directional light.
+ @param[in]		p
+				The hit position expressed in world space.
  @param[out]	l
 				The light (hit-to-light) direction expressed in world space.
  @param[out]	E
 				The (orthogonal) irradiance contribution of the given 
 				directional light.
  */
-void Contribution(DirectionalLight light, out float3 l, out float3 E) {
-	l = light.neg_d;
-	E = light.E;
+void Contribution(DirectionalLight light, float3 p, out float3 l, out float3 E) {
+	float3 l0, E0, p_ndc;
+	Contribution(light, p, l0, E0, p_ndc);
+
+	l = l0;
+	E = E0;
 }
 
 /**
@@ -338,12 +365,10 @@ void Contribution(SpotLight light, float3 p, out float3 l, out float3 E) {
 void Contribution(ShadowMappedDirectionalLight light, ShadowMap shadow_map,
 				  float3 p, out float3 l, out float3 E) {
 
-	float3 l0, E0;
-	Contribution(light.light, l0, E0);
+	float3 l0, E0, p_ndc;
+	Contribution(light, p, l0, E0, p_ndc);
 
 	l = l0;
-	const float4 p_proj = mul(float4(p, 1.0f), light.world_to_projection);
-	const float3 p_ndc  = HomogeneousDivide(p_proj);
 	E = E0 * ShadowFactor(shadow_map, p_ndc);
 }
 

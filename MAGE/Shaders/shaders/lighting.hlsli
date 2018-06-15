@@ -110,7 +110,7 @@ STRUCTURED_BUFFER(g_spot_lights, SpotLight,
 #ifndef DISABLE_LIGHTS_SHADOW_MAPPED
 
 #ifndef DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL
-STRUCTURED_BUFFER(g_sm_directional_lights, ShadowMappedDirectionalLight, 
+STRUCTURED_BUFFER(g_sm_directional_lights, ShadowMappedDirectionalLight,
 				  SLOT_SRV_SHADOW_MAPPED_DIRECTIONAL_LIGHTS);
 TEXTURE_2D_ARRAY(g_directional_sms, float, 
 				 SLOT_SRV_DIRECTIONAL_SHADOW_MAPS);
@@ -153,7 +153,7 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n, Material material) {
 		const DirectionalLight light = g_directional_lights[i0];
 		
 		float3 l, E;
-		Contribution(light, l, E);
+		Contribution(light, p, l, E);
 		const float n_dot_l = sat_dot(n, l);
 
 		L += BRDF_FUNCTION(n, l, v, material) * E * n_dot_l;

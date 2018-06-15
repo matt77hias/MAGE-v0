@@ -17,9 +17,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	AABB::AABB(const BoundingSphere& sphere) noexcept {
-		const auto centroid = sphere.Centroid();
-		const auto r        = sphere.Radius();
-		const auto radius   = XMVectorSet(r, r, r, 0.0f);
+		const auto centroid   = sphere.Centroid();
+		const auto r          = sphere.Radius();
+		const XMVECTOR radius = { r, r, r, 0.0f };
 		m_min = centroid - radius;
 		m_max = centroid + radius;
 	}
@@ -30,9 +30,9 @@ namespace mage {
 
 	[[nodiscard]]
 	bool AABB::Encloses(const BoundingSphere& sphere) const noexcept {
-		const auto centroid = sphere.Centroid();
-		const auto r        = sphere.Radius();
-		const auto radius   = XMVectorSet(r, r, r, 0.0f);
+		const auto centroid   = sphere.Centroid();
+		const auto r          = sphere.Radius();
+		const XMVECTOR radius = { r, r, r, 0.0f };
 
 		if (XMVector3Less(m_max - centroid, radius)) {
 			return false;
@@ -46,9 +46,9 @@ namespace mage {
 
 	[[nodiscard]]
 	bool AABB::EnclosesStrict(const BoundingSphere& sphere) const noexcept {
-		const auto centroid = sphere.Centroid();
-		const auto r        = sphere.Radius();
-		const auto radius   = XMVectorSet(r, r, r, 0.0f);
+		const auto centroid   = sphere.Centroid();
+		const auto r          = sphere.Radius();
+		const XMVECTOR radius = { r, r, r, 0.0f };
 
 		if (XMVector3LessOrEqual(m_max - centroid, radius)) {
 			return false;
@@ -66,9 +66,9 @@ namespace mage {
 
 	[[nodiscard]]
 	bool AABB::Overlaps(const BoundingSphere& sphere) const noexcept {
-		const auto centroid = sphere.Centroid();
-		const auto r        = -sphere.Radius();
-		const auto radius   = XMVectorSet(r, r, r, 0.0f);
+		const auto centroid   = sphere.Centroid();
+		const auto r          = -sphere.Radius();
+		const XMVECTOR radius = { r, r, r, 0.0f };
 
 		// Test for no coverage.
 		if (XMVector3Less(m_max - centroid, radius)) {
@@ -83,9 +83,9 @@ namespace mage {
 
 	[[nodiscard]]
 	bool AABB::OverlapsStrict(const BoundingSphere& sphere) const noexcept {
-		const auto centroid = sphere.Centroid();
-		const auto r        = -sphere.Radius();
-		const auto radius   = XMVectorSet(r, r, r, 0.0f);
+		const auto centroid   = sphere.Centroid();
+		const auto r          = -sphere.Radius();
+		const XMVECTOR radius = { r, r, r, 0.0f };
 
 		// Test for no coverage.
 		if (XMVector3LessOrEqual(m_max - centroid, radius)) {

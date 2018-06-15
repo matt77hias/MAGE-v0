@@ -44,8 +44,7 @@ namespace mage::rendering {
 
 		const auto& transform = GetOwner()->GetTransform();
 		return XMStore< F32 >(XMVector3Length(
-			transform.TransformObjectToWorldPoint(
-				XMVectorSet(0.0f, 0.0f, GetRange(), 1.0f))));
+			transform.TransformObjectToWorldPoint({ 0.0f, 0.0f, GetRange(), 1.0f })));
 	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {

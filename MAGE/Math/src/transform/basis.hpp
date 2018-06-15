@@ -59,8 +59,8 @@ namespace mage {
 		const auto a0 = 1.0f / (1.0f + nz);
 		const auto a1 = -nx * ny * a0;
 
-		const auto t  = XMVectorSet(1.0f - nx * nx * a0, a1, -nx, 0.0f);
-		const auto b  = XMVectorSet(a1, 1.0f - ny * ny * a0, -ny, 0.0f);
+		const XMVECTOR t = { 1.0f - nx * nx * a0, a1, -nx, 0.0f };
+		const XMVECTOR b = { a1, 1.0f - ny * ny * a0, -ny, 0.0f };
 		return { t, b, n, g_XMIdentityR3 };
 	}
 
@@ -83,8 +83,8 @@ namespace mage {
 		const auto a0 = -1.0f / (s + nz);
 		const auto a1 = nx * ny * a0;
 
-		const auto t  = XMVectorSet(1.0f + s * nx * nx * a0, s * a1, -s * nx, 0.0f);
-		const auto b  = XMVectorSet(a1, s + ny * ny * a0, -ny, 0.0f);
+		const XMVECTOR t = { 1.0f + s * nx * nx * a0, s * a1, -s * nx, 0.0f };
+		const XMVECTOR b = { a1, s + ny * ny * a0, -ny, 0.0f };
 		return { t, b, n, g_XMIdentityR3 };
 	}
 

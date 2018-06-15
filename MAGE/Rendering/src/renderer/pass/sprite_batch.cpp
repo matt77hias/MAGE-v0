@@ -456,15 +456,15 @@ namespace mage::rendering {
 		Assert(m_in_begin_end_pair);
 
 		// destination: [Tx Ty Sx Sy]
-		const auto destination = XMVectorSet(transform.GetTranslation()[0],
-										     transform.GetTranslation()[1],
-										     transform.GetScale()[0],
-										     transform.GetScale()[1]);
+		const XMVECTOR destination = { transform.GetTranslation()[0],
+			                           transform.GetTranslation()[1],
+			                           transform.GetScale()[0], 
+			                           transform.GetScale()[1] };
 		// origin_rotation_depth: [ROx ROy R D]
-		const auto origin_rotation_depth = XMVectorSet(transform.GetRotationOrigin()[0], 
-										               transform.GetRotationOrigin()[1], 
-										               transform.GetRotation(), 
-										               transform.GetDepth());
+		const XMVECTOR origin_rotation_depth = { transform.GetRotationOrigin()[0],
+												 transform.GetRotationOrigin()[1],
+												 transform.GetRotation(), 
+			                                     transform.GetDepth() };
 		auto flags = static_cast< U32 >(effects);
 		auto dst   = destination;
 		
@@ -728,12 +728,11 @@ namespace mage::rendering {
 		// The four normalized corner offsets needed to compute the position 
 		// coordinates and UV coordinates of each vertex.
 		// [x y _ _]
-		static const XMVECTOR 
-			corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
-			XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
-			XMVectorSet(1.0f, 0.0f, 0.0f, 1.0f),
-			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, 0.0f, 1.0f)
+		static const XMVECTOR corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
+			{ 0.0f, 0.0f, 0.0f, 1.0f }, 
+			{ 1.0f, 0.0f, 0.0f, 1.0f },
+			{ 0.0f, 1.0f, 0.0f, 1.0f },
+			{ 1.0f, 1.0f, 0.0f, 1.0f }
 		};
 		
 

@@ -70,7 +70,8 @@ namespace mage::rendering {
 
 		void ProcessLightsData(const World& world);
 
-		void XM_CALLCONV ProcessDirectionalLights(const World& world);
+		void XM_CALLCONV ProcessDirectionalLights(const World& world, 
+												  FXMMATRIX world_to_projection);
 		void XM_CALLCONV ProcessOmniLights(const World& world, 
 										   FXMMATRIX world_to_projection);
 		void XM_CALLCONV ProcessSpotLights(const World& world, 

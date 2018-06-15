@@ -454,6 +454,20 @@ namespace mage::script {
 			light.SetIrradiance(irradiance);
 
 			//-----------------------------------------------------------------
+			// Size
+			//-----------------------------------------------------------------
+			auto size = light.GetSize();
+			ImGui::InputFloat2("Size", size.data());
+			light.SetSize(std::move(size));
+
+			//-----------------------------------------------------------------
+			// Range
+			//-----------------------------------------------------------------
+			auto range = light.GetRange();
+			ImGui::InputFloat("Range", &range);
+			light.SetRange(range);
+
+			//-----------------------------------------------------------------
 			// Shadows
 			//-----------------------------------------------------------------
 			auto shadows = light.UseShadows();
@@ -467,10 +481,6 @@ namespace mage::script {
 				auto clipping_planes = light.GetClippingPlanes();
 				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
 				light.SetClippingPlanes(std::move(clipping_planes));
-
-				auto size = light.GetSize();
-				ImGui::InputFloat2("Size", size.data());
-				light.SetSize(std::move(size));
 			}
 		}
 	

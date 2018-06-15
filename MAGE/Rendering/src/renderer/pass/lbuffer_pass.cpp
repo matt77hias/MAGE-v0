@@ -44,10 +44,12 @@ namespace mage::rendering {
 
 	LBufferPass& LBufferPass::operator=(LBufferPass&& pass) noexcept = default;
 
-	void XM_CALLCONV LBufferPass::Render(const World& world, 
-										 FXMMATRIX world_to_projection) {
+	void XM_CALLCONV LBufferPass
+		::Render(const World& world, 
+				 FXMMATRIX world_to_projection) {
+
 		// Process the lights.
-		ProcessDirectionalLights(world);
+		ProcessDirectionalLights(world, world_to_projection);
 		ProcessOmniLights(world, world_to_projection);
 		ProcessSpotLights(world, world_to_projection);
 		
@@ -138,7 +140,9 @@ namespace mage::rendering {
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessDirectionalLights(const World& world) {
+	void XM_CALLCONV LBufferPass
+		::ProcessDirectionalLights(const World& world, 
+								   FXMMATRIX world_to_projection) {
 
 		AlignedVector< DirectionalLightBuffer > lights;
 		lights.reserve(m_directional_lights.size());
@@ -148,21 +152,34 @@ namespace mage::rendering {
 		m_directional_light_cameras.clear();
 
 		// Process the directional lights.
-		world.ForEach< DirectionalLight >([this, &lights, &sm_lights]
+		world.ForEach< DirectionalLight >([this, &lights, &sm_lights, world_to_projection]
 		(const DirectionalLight& light) {
 
 			if (State::Active != light.GetState()) {
 				return;
 			}
 
-			const auto& transform = light.GetOwner()->GetTransform();
+			const auto& transform           = light.GetOwner()->GetTransform();
+			const auto  light_to_world      = transform.GetObjectToWorldMatrix();
+			const auto  light_to_projection = light_to_world * world_to_projection;
+
+			// Cull the light against the view frustum.
+			if (BoundingFrustum::Cull(light_to_projection, light.GetAABB())) {
+				return;
+			}
+
 			const auto  neg_d     = -transform.GetWorldAxisZ();
 
 			if (light.UseShadows()) {
+				const auto world_to_light       = transform.GetWorldToObjectMatrix();
+				const auto light_to_lprojection = light.GetLightToProjectionMatrix();
+				const auto world_to_lprojection = world_to_light * light_to_lprojection;
+
 				// Create a directional light buffer.
 				ShadowMappedDirectionalLightBuffer buffer;
-				buffer.m_light.m_neg_d = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_light.m_E     = light.GetIrradianceSpectrum();
+				buffer.m_light.m_neg_d       = Direction3(XMStore< F32x3 >(neg_d));
+				buffer.m_light.m_E           = light.GetIrradianceSpectrum();
+				buffer.m_world_to_projection = XMMatrixTranspose(world_to_lprojection);
 
 				// Add directional light buffer to directional light buffers.
 				sm_lights.push_back(std::move(buffer));
@@ -183,8 +200,9 @@ namespace mage::rendering {
 		m_sm_directional_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessOmniLights(const World& world, 
-													FXMMATRIX world_to_projection) {
+	void XM_CALLCONV LBufferPass
+		::ProcessOmniLights(const World& world, 
+							FXMMATRIX world_to_projection) {
 		AlignedVector< OmniLightBuffer > lights;
 		lights.reserve(m_omni_lights.size());
 
@@ -264,8 +282,9 @@ namespace mage::rendering {
 		m_sm_omni_lights.UpdateData(m_device_context, sm_lights);
 	}
 
-	void XM_CALLCONV LBufferPass::ProcessSpotLights(const World& world, 
-													FXMMATRIX world_to_projection) {
+	void XM_CALLCONV LBufferPass
+		::ProcessSpotLights(const World& world, 
+							FXMMATRIX world_to_projection) {
 		AlignedVector< SpotLightBuffer > lights;
 		lights.reserve(m_spot_lights.size());
 

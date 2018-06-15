@@ -171,7 +171,7 @@ namespace mage::rendering {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Methods: Range
+		// Member Methods: Range and Attenuation
 		//---------------------------------------------------------------------
 
 		/**
@@ -193,10 +193,6 @@ namespace mage::rendering {
 		const BoundingSphere& GetBoundingSphere() const noexcept {
 			return m_sphere;
 		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Attenuation
-		//---------------------------------------------------------------------
 
 		/**
 		 Returns the range of this omni light expressed in light space.
@@ -299,6 +295,9 @@ namespace mage::rendering {
 		 */
 		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
 			m_clipping_planes = std::move(clipping_planes);
+
+			// Update the bounding volumes.
+			UpdateBoundingVolumes();
 		}
 
 		/**

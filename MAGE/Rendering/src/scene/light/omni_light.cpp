@@ -52,6 +52,7 @@ namespace mage::rendering {
 
 		m_aabb   = AABB(Point3(-range, -range, -range),
 			            Point3( range,  range,  range));
+
 		m_sphere = BoundingSphere(Point3(), range);
 	}
 }

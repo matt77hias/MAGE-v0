@@ -388,7 +388,7 @@ namespace mage::script {
 			// Size
 			//-----------------------------------------------------------------
 			auto size = camera.GetSize();
-			ImGui::InputFloat2("Resolution", size.data());
+			ImGui::InputFloat2("Size", size.data());
 			camera.SetSize(std::move(size));
 
 			//-----------------------------------------------------------------
@@ -452,6 +452,26 @@ namespace mage::script {
 			auto irradiance = light.GetIrradiance();
 			ImGui::InputFloat("Irradiance", &irradiance);
 			light.SetIrradiance(irradiance);
+
+			//-----------------------------------------------------------------
+			// Shadows
+			//-----------------------------------------------------------------
+			auto shadows = light.UseShadows();
+			ImGui::Checkbox("Shadows", &shadows);
+			light.SetShadows(shadows);
+
+			//-----------------------------------------------------------------
+			// Clipping Planes and Size
+			//-----------------------------------------------------------------
+			if (shadows) {
+				auto clipping_planes = light.GetClippingPlanes();
+				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
+				light.SetClippingPlanes(std::move(clipping_planes));
+
+				auto size = light.GetSize();
+				ImGui::InputFloat2("Size", size.data());
+				light.SetSize(std::move(size));
+			}
 		}
 	
 		void DrawWidget(rendering::OmniLight& light) {

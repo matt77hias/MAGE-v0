@@ -270,7 +270,7 @@ void Contribution(DirectionalLight light, float3 p, out float3 l, out float3 E,
 	p_ndc = HomogeneousDivide(p_proj);
 	
 	l = light.neg_d;
-	E = any(abs(p_ndc) > 1.0f) ? 0.0f : light.E;
+	E = (any(1.0f < abs(p_ndc)) || 0.0f > p_ndc.z) ? 0.0f : light.E;
 }
 
 /**

@@ -175,6 +175,14 @@ namespace mage::rendering {
 				const auto light_to_lprojection = light.GetLightToProjectionMatrix();
 				const auto world_to_lprojection = world_to_light * light_to_lprojection;
 
+				// Create a spotlight camera.
+				LightCameraInfo camera;
+				camera.world_to_light        = world_to_light;
+				camera.light_to_projection   = light_to_lprojection;
+
+				// Add spotlight camera to the spotlight cameras.
+				m_directional_light_cameras.push_back(std::move(camera));
+
 				// Create a directional light buffer.
 				ShadowMappedDirectionalLightBuffer buffer;
 				buffer.m_light.m_neg_d       = Direction3(XMStore< F32x3 >(neg_d));

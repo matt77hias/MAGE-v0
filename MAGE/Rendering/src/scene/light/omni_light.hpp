@@ -313,11 +313,9 @@ namespace mage::rendering {
 			GetLightToProjectionMatrix() const noexcept {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes[0];
-			const auto far_plane  = m_clipping_planes[1];
+			const auto [near_plane, far_plane] = m_clipping_planes;
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes[1];
-			const auto far_plane  = m_clipping_planes[0];
+			const auto [far_plane, near_plane] = m_clipping_planes;
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
 			const auto m22 = far_plane / (far_plane - near_plane);
@@ -353,7 +351,7 @@ namespace mage::rendering {
 		bool m_shadows;
 
 		/**
-		 The clipping planes of this light expressed in light space.
+		 The clipping planes of this omni light expressed in light space.
 		 */
 		F32x2 m_clipping_planes;
 

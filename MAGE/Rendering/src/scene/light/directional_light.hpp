@@ -184,6 +184,73 @@ namespace mage::rendering {
 			m_shadows = shadows;
 		}
 
+		/**
+		 Returns the clipping planes of this directional light expressed in 
+		 light space.
+
+		 @return		The clipping planes of this directional light expressed 
+						in light space.
+		 */
+		[[nodiscard]]
+		const F32x2 GetClippingPlanes() const noexcept {
+			return m_clipping_planes;
+		}
+		
+		/**
+		 Sets the clipping planes of this directional light expressed in light 
+		 space to the given clipping planes.
+
+		 @param[in]		clipping_planes
+						The clipping planes.
+		 */
+		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
+			m_clipping_planes = std::move(clipping_planes);
+		}
+
+		/**
+		 Returns the size of the projection plane of this directional light 
+		 expressed in directional light.
+
+		 @return		The size of the projection plane of this directional 
+						light expressed in light space.
+		 */
+		[[nodiscard]]
+		const F32x2 GetSize() const noexcept {
+			return m_size;
+		}
+
+		/**
+		 Sets the size of the projection plane of this directional light 
+		 expressed in light space to the given size.
+
+		 @param[in]		size
+						The size.
+		 */
+		void SetSize(F32x2 size) noexcept {
+			m_size = std::move(size);
+		}
+
+		/**
+		 Returns the light-to-projection matrix of the light camera of this 
+		 directional light.
+
+		 @return		The light-to-projection matrix of the light camera of 
+						this directional light.
+		 */
+		[[nodiscard]]
+		const XMMATRIX XM_CALLCONV 
+			GetLightToProjectionMatrix() const noexcept {
+
+			#ifdef DISABLE_INVERTED_Z_BUFFER
+			const auto [near_plane, far_plane] = m_clipping_planes;
+			#else  // DISABLE_INVERTED_Z_BUFFER
+			const auto [far_plane, near_plane] = m_clipping_planes;
+			#endif // DISABLE_INVERTED_Z_BUFFER
+
+			return XMMatrixOrthographicLH(m_size[0], m_size[1],
+										  near_plane, far_plane);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -195,6 +262,18 @@ namespace mage::rendering {
 		 this directional light.
 		 */
 		bool m_shadows;
+
+		/**
+		 The clipping planes of this directional light expressed in light 
+		 space.
+		 */
+		F32x2 m_clipping_planes;
+
+		/**
+		 The size of the projection plane of this directional light expressed 
+		 in light space.
+		 */
+		F32x2 m_size;
 
 		/**
 		 The (linear) base color of this directional light.

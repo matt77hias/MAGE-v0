@@ -15,6 +15,8 @@ namespace mage::rendering {
 	DirectionalLight::DirectionalLight() noexcept
 		: Component(),
 		m_shadows(false), 
+		m_clipping_planes(0.1f, 1.0f), 
+		m_size(1.0f, 1.0f), 
 		m_base_color(RGB(1.0f)), 
 		m_irradiance(1.0f) {}
 

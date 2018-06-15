@@ -454,11 +454,9 @@ namespace mage::rendering {
 			GetLightToProjectionMatrix() const noexcept {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes[0];
-			const auto far_plane  = m_clipping_planes[1];
+			const auto [near_plane, far_plane] = m_clipping_planes;
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = m_clipping_planes[1];
-			const auto far_plane  = m_clipping_planes[0];
+			const auto [far_plane, near_plane] = m_clipping_planes;
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
 			const auto fov = 2.0f * GetUmbraAngle();
@@ -508,7 +506,7 @@ namespace mage::rendering {
 		F32 m_intensity;
 
 		/**
-		 The clipping planes of this light expressed in light space.
+		 The clipping planes of this spotlight expressed in light space.
 		 */
 		F32x2 m_clipping_planes;
 

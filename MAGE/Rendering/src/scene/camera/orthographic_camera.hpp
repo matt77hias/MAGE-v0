@@ -120,14 +120,10 @@ namespace mage::rendering {
 		virtual const XMMATRIX XM_CALLCONV 
 			GetCameraToProjectionMatrix() const noexcept override {
 
-			const auto clipping_planes = GetClippingPlanes();
-
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes[0];
-			const auto far_plane  = clipping_planes[1];
+			const auto [near_plane, far_plane] = GetClippingPlanes();
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			const auto near_plane = clipping_planes[1];
-			const auto far_plane  = clipping_planes[0];
+			const auto [far_plane, near_plane] = GetClippingPlanes();
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
 			return XMMatrixOrthographicLH(m_size[0], m_size[1], 

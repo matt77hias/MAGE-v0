@@ -10,8 +10,8 @@
 
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE
 [do]: https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html
-[gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [li]: https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt
+[gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby
 
 # MAGE - Matthias Advanced Game Engine
 

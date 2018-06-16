@@ -1009,6 +1009,11 @@ namespace mage::script {
 				if (const auto id = std::to_string(camera.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Orthographic Camera")) {
 				
+					if (auto active = (State::Active == camera.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						camera.SetState(active ? State::Active : State::Passive);
+					}
+
 					DrawWidget(camera, display_resolution);
 				
 					ImGui::TreePop();
@@ -1022,6 +1027,11 @@ namespace mage::script {
 			(PerspectiveCamera& camera) {
 				if (const auto id = std::to_string(camera.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Perspective Camera")) {
+
+					if (auto active = (State::Active == camera.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						camera.SetState(active ? State::Active : State::Passive);
+					}
 				
 					DrawWidget(camera, display_resolution);
 				
@@ -1036,6 +1046,11 @@ namespace mage::script {
 				if (const auto id = std::to_string(light.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Ambient Light")) {
 
+					if (auto active = (State::Active == light.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						light.SetState(active ? State::Active : State::Passive);
+					}
+
 					DrawWidget(light);
 
 					ImGui::TreePop();
@@ -1048,6 +1063,11 @@ namespace mage::script {
 			node.ForEach< DirectionalLight >([](DirectionalLight& light) {
 				if (const auto id = std::to_string(light.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Directional Light")) {
+
+					if (auto active = (State::Active == light.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						light.SetState(active ? State::Active : State::Passive);
+					}
 
 					DrawWidget(light);
 
@@ -1062,6 +1082,11 @@ namespace mage::script {
 				if (const auto id = std::to_string(light.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Omni Light")) {
 
+					if (auto active = (State::Active == light.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						light.SetState(active ? State::Active : State::Passive);
+					}
+
 					DrawWidget(light);
 
 					ImGui::TreePop();
@@ -1074,6 +1099,11 @@ namespace mage::script {
 			node.ForEach< SpotLight >([](SpotLight& light) {
 				if (const auto id = std::to_string(light.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Spotlight")) {
+
+					if (auto active = (State::Active == light.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						light.SetState(active ? State::Active : State::Passive);
+					}
 
 					DrawWidget(light);
 
@@ -1088,6 +1118,11 @@ namespace mage::script {
 				if (const auto id = std::to_string(model.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Model")) {
 				
+					if (auto active = (State::Active == model.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						model.SetState(active ? State::Active : State::Passive);
+					}
+
 					DrawWidget(model);
 
 					ImGui::TreePop();
@@ -1102,6 +1137,11 @@ namespace mage::script {
 				if (const auto id = std::to_string(sprite.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Sprite Image")) {
 
+					if (auto active = (State::Active == sprite.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						sprite.SetState(active ? State::Active : State::Passive);
+					}
+
 					DrawWidget(sprite, display_resolution);
 
 					ImGui::TreePop();
@@ -1115,6 +1155,11 @@ namespace mage::script {
 			(SpriteText& sprite) {
 				if (const auto id = std::to_string(sprite.GetGuid());
 					ImGui::TreeNode(id.c_str(), "Sprite Text")) {
+
+					if (auto active = (State::Active == sprite.GetState());
+					ImGui::Checkbox("Active", &active)) {
+						sprite.SetState(active ? State::Active : State::Passive);
+					}
 
 					DrawWidget(sprite, display_resolution);
 

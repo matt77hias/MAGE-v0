@@ -434,6 +434,30 @@ namespace mage::rendering {
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
 		#else  // DISABLE_INVERTED_Z_BUFFER
 		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
+
+		// PCF sampling on shadow map border (i.e. some subsamples will be 
+		// located outside the shadow map).
+		//
+		// src >= dst -> src >= 0.0 (far plane)
+		// -> succeeds for border (sub)sample -> (sub)sample is not in shadow
+		//
+		// src >= dst -> src >= 1.0 (near plane)
+		// -> fails for border (sub)sample    -> (sub)sample is in shadow
+		desc.BorderColor[0] = 1.0f;
+		desc.BorderColor[1] = 1.0f;
+		desc.BorderColor[2] = 1.0f;
+		desc.BorderColor[3] = 1.0f;
+
+		// Alternative:
+		// 1. Generate shadow maps with a larger size (directional lights) or 
+		//    a larger umbra/FOV_y (spotlights), which corresponds to a 
+		//    larger light-to-projection frustum. This ensures depth values 
+		//    will be stored for positions just outside the shadow map borders.
+		// 2. Use the original light-to-projection matrix for lighting 
+		//    computations. This enables smoother and more continuous soft 
+		//    shadows at the shadow map borders (as opposed to the 
+		//    discontinuity introduced by the border color).
+
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;

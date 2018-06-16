@@ -85,15 +85,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		//const auto omni_light = rendering_world.Create< OmniLight >();
-		//omni_light->SetRange(5.0f);
-		//omni_light->SetIntensity(4.0f);
-		//omni_light->EnableShadows();
+		const auto omni_light = rendering_world.Create< OmniLight >();
+		omni_light->SetRange(5.0f);
+		omni_light->SetIntensity(4.0f);
+		omni_light->EnableShadows();
 		
-		//const auto omni_light_node = Create< Node >("Omni Light");
-		//omni_light_node->Add(omni_light);
-		//omni_light_node->GetTransform().SetTranslationY(2.0f);
+		const auto omni_light_node = Create< Node >("Omni Light");
+		omni_light_node->Add(omni_light);
+		omni_light_node->GetTransform().SetTranslationY(2.0f);
 
+		/*
 		const auto directional_light = rendering_world.Create< DirectionalLight >();
 		directional_light->SetRange(5.0f);
 		directional_light->SetIrradiance(4.0f);
@@ -103,6 +104,7 @@ namespace mage {
 		directional_light_node->Add(directional_light);
 		directional_light_node->GetTransform().SetRotationX(XM_PIDIV2);
 		directional_light_node->GetTransform().SetTranslationY(2.0f);
+		*/
 		
 		const auto spot_light = rendering_world.Create< SpotLight >();
 		spot_light->SetRange(5.0f);

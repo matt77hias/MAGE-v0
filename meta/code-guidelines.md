@@ -21,12 +21,12 @@ Always use `const` (member method, method return argument, method input argument
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
 
 ### Constructor and destructor definitions
-Put all constructors and destructors of base and child classes in the `.cpp` file.
+Put all constructors and destructors of non-template base and child classes in the `.cpp` file.
 
-### Explicit constructors
-Make **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).
+### `explicit` constructors
+Prefer `explicit` (non-default, non-copy, non-move) constructors (independent of the number of arguments).
 
-Prefer inheritance with explicit constructors over typedefs to force explicit type conversion between aliases.
+Prefer inheritance with `explicit` child constructors over typedefs to force explicit type conversion between aliases.
 
 ### File extensions
 * Use `.hpp` for C++ header files.

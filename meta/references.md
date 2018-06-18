@@ -509,6 +509,8 @@ PHARR M.: [*The story of ispc: retrospective (part 11)*](http://pharr.org/matt/b
 
 PHARR M.: [*The story of ispc: postscript (part 12)*](http://pharr.org/matt/blog/2018/04/30/ispc-fin.html), 2018.
 
+SANDERS J., KANDROT E.: *CUDA by Example: An Introduction to General-Purpose GPU Programming*, 1st edition, Addison-Wesley Professional, USA, 2010.
+
 ### <a name="SSS-Textures"></a>Textures
 
 CRYENGINE: [*Tangent Space Normal Mapping*](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.

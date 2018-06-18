@@ -108,6 +108,8 @@ FILIPEK B.: [*Enforcing code contracts with [[nodiscard]]*](https://www.bfilipek
 
 FILIPEK B.: [*Error Handling and std::optional*](https://www.bfilipek.com/2018/05/errors-and-optional.html), 2017.
 
+FILIPEK B.: [*Everything You Need to Know About std::any from C++17*](https://www.bfilipek.com/2018/06/any.html), 2018.
+
 FILIPEK B.: [*Everything You Need to Know About std::variant from C++17*](https://www.bfilipek.com/2018/06/variant.html), 2018.
 
 FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.

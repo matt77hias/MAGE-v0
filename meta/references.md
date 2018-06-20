@@ -276,6 +276,8 @@ HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
+SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
+
 ### <a name="SSS-General-Game-Engines"></a>General Game Engines
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.

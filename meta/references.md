@@ -114,6 +114,8 @@ FILIPEK B.: [*Everything You Need to Know About std::variant from C++17*](https:
 
 FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.
 
+FILIPEK B.: [*Simplify code with 'if constexpr' in C++17*](https://www.bfilipek.com/2018/03/ifconstexpr.html), 2018.
+
 FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
 
 FILIPEK B.: [*Using C++17 std::optional*](https://www.bfilipek.com/2018/05/using-optional.html), 2018.
@@ -171,6 +173,8 @@ PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
 UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2015/12/29/pimpl-and-rule-of-zero.html), 2015.
+
+WELLER J.: [*How if constexpr simplifies your code in C++17*](http://meetingcpp.com/blog/items/How-if-constexpr-simplifies-your-code-in-Cpp17.html), 2018.
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 

@@ -46,6 +46,7 @@
 * [General Game Engines](#SSS-General-Game-Engines)
 * [Mathematics](#SSS-Mathematics)
 * [PBR and BRDFs](#SSS-PBR-and-BRDFs)
+* [Perception](#SSS-Perception)
 * [Post-processing](#SSS-Post-processing)
 * [Scene Graphs](#SSS-Scene-Graphs)
 * [Scripting](#SSS-Scripting)
@@ -448,6 +449,10 @@ WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. G
 WRONSKI B.: [*Image dynamic range*](https://bartwronski.com/2016/09/01/dynamic-range-and-evs/comment-page-1/), 2016.
 
 YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/2013/01/implementing-voxel-cone-tracing.html), 2013.
+
+### <a name="SSS-Perception"></a>Perception
+
+MINEAULT P.: [*What’s the maximal frame rate humans can perceive?*](https://xcorr.net/2011/11/20/whats-the-maximal-frame-rate-humans-can-perceive/), 2011.
 
 ### <a name="SSS-Post-processing"></a>Post-processing
 

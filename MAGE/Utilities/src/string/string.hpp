@@ -6,6 +6,7 @@
 #pragma region
 
 #include <string>
+#include <string_view>
 
 #include <gsl/pointers>
 #include <gsl/string_span>

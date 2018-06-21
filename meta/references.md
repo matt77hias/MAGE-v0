@@ -179,6 +179,8 @@ WELLER J.: [*How if constexpr simplifies your code in C++17*](http://meetingcpp.
 
 WILLIAMS A.: [*Locks, Mutexes, and Semaphores: Types of Synchronization Objects*](https://www.justsoftwaresolutions.co.uk/threading/locks-mutexes-semaphores.html), 2014.
 
+WINTERS T.: [*Revisiting Regular Types*](https://abseil.io/blog/20180531-regular-types), 2018.
+
 ### <a name="SSS-Collision-Detection"></a>Collision Detection
 
 KARRAS T.: [*Thinking Parallel, Part I: Collision Detection on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-i-collision-detection-gpu/), 2012.

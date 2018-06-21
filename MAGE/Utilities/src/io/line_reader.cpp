@@ -24,7 +24,7 @@
 namespace mage {
 
 	const std::regex LineReader::g_default_regex 
-		= std::regex(R"((\"[^\"]*\")|[^\n\r\s\t]+)");
+		= std::regex(R"((\"[^\"]*\")|\S+)");
 
 	LineReader::LineReader()
 		: m_regex(), 

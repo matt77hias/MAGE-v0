@@ -113,6 +113,8 @@ FILIPEK B.: [*Everything You Need to Know About std::any from C++17*](https://ww
 
 FILIPEK B.: [*Everything You Need to Know About std::variant from C++17*](https://www.bfilipek.com/2018/06/variant.html), 2018.
 
+FILIPEK B.: [*IIFE for Complex Initialization*](https://www.bfilipek.com/2016/11/iife-for-complex-initialization.html), 2016.
+
 FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.
 
 FILIPEK B.: [*Simplify code with 'if constexpr' in C++17*](https://www.bfilipek.com/2018/03/ifconstexpr.html), 2018.

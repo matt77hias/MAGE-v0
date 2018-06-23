@@ -28,13 +28,13 @@ namespace mage {
 		if (const auto result = StringTo< T >(first, last); 
 		    bool(result)) {
 
-			++m_token_iterator;
+			++m_iterator;
 			return *result;
 		}
 		else {
 			throw Exception("%ls: line %u: invalid value found: %s.",
 							GetPath().c_str(), GetCurrentLineNumber(), 
-							m_token_iterator->str().c_str());
+							m_iterator->str().c_str());
 		}
 	}
 
@@ -47,7 +47,7 @@ namespace mage {
 
 		const auto result = GetCurrentToken();
 
-		++m_token_iterator;
+		++m_iterator;
 		return result;
 	}
 

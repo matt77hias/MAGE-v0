@@ -23,36 +23,46 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const std::regex LineReader::g_default_regex 
-		= std::regex(R"((\"[^\"]*\")|\S+)");
+	const std::regex LineReader::s_default_regex
+		= std::regex(R"((\"([^\"]*)\")|(\S+))");
+
+	const LineReader::SelectionFunction LineReader::s_default_selection_function
+		= [](const std::smatch& match) { 
+		return match[2].length() ? match[2] : match[3]; 
+	};
 
 	LineReader::LineReader()
 		: m_regex(), 
+		m_selection_function(), 
 		m_path(), 
-		m_token_iterator(), 
+		m_iterator(), 
 		m_line_number(0) {}
 
 	LineReader::LineReader(LineReader&& reader) noexcept 
 		: m_regex(std::move(reader.m_regex)), 
+		m_selection_function(std::move(reader.m_selection_function)),
 		m_path(std::move(reader.m_path)), 
-		m_token_iterator(reader.m_token_iterator),
+		m_iterator(reader.m_iterator),
 		m_line_number(reader.m_line_number) {}
 
 	LineReader::~LineReader() = default;
 
 	LineReader& LineReader::operator=(LineReader&& reader) noexcept {
-		m_regex          = std::move(reader.m_regex);
-		m_path           = std::move(reader.m_path);
-		m_token_iterator = reader.m_token_iterator;
-		m_line_number    = reader.m_line_number;
+		m_regex              = std::move(reader.m_regex);
+		m_selection_function = std::move(reader.m_selection_function);
+		m_path               = std::move(reader.m_path);
+		m_iterator           = reader.m_iterator;
+		m_line_number        = reader.m_line_number;
 		return *this;
 	}
 
 	void LineReader::ReadFromFile(std::filesystem::path path, 
-								  std::regex regex) {
+								  std::regex regex, 
+								  SelectionFunction selection_function) {
 
-		m_path  = std::move(path);
-		m_regex = std::move(regex);
+		m_path               = std::move(path);
+		m_regex              = std::move(regex);
+		m_selection_function = std::move(selection_function);
 
 		// Preprocessing
 		Preprocess();
@@ -68,10 +78,12 @@ namespace mage {
 	}
 
 	void LineReader::ReadFromMemory(const std::string &input,
-									std::regex regex) {
+									std::regex regex, 
+									SelectionFunction selection_function) {
 
-		m_path    = L"input string";
-		m_regex   = std::move(regex);
+		m_path               = L"input string";
+		m_regex              = std::move(regex);
+		m_selection_function = std::move(selection_function);
 		
 		// Preprocessing
 		Preprocess();
@@ -91,9 +103,7 @@ namespace mage {
 		
 		std::string line;
 		while (std::getline(stream, line)) {
-			m_token_iterator = std::sregex_token_iterator(line.cbegin(), 
-														  line.cend(), 
-														  m_regex, 0);
+			m_iterator = std::sregex_iterator(line.cbegin(), line.cend(), m_regex);
 			if (ContainsTokens()) {
 				ReadLine();
 			}
@@ -101,14 +111,14 @@ namespace mage {
 			++m_line_number;
 		}
 
-		m_token_iterator = {};
+		m_iterator = {};
 	}
 
 	void LineReader::Postprocess() {}
 
 	void LineReader::ReadRemainingTokens() {
-		for (; ContainsTokens(); ++m_token_iterator) {
-			const auto token = m_token_iterator->str();
+		while (ContainsTokens()) {
+			const auto token = Read< std::string >();
 			Warning("%ls: line %u: unused token: %s.",
 					GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
 		}
@@ -116,15 +126,16 @@ namespace mage {
 
 	[[nodiscard]]
 	bool LineReader::ContainsTokens() const noexcept {
-		static const std::sregex_token_iterator token_end_iterator;
-		return token_end_iterator != m_token_iterator;
+		static const std::sregex_iterator end_iterator;
+		return end_iterator != m_iterator;
 	}
 
 	[[nodiscard]]
 	const std::string_view LineReader::GetCurrentToken() const noexcept {
-		if (m_token_iterator->matched) {
-			return { &*m_token_iterator->first, static_cast< size_t >(
-				m_token_iterator->second - m_token_iterator->first) };
+		const auto token = m_selection_function(*m_iterator);
+		if (token.matched) {
+			return { &*token.first, 
+				     static_cast< size_t >(token.second - token.first) };
 		}
 		else {
 			return {};

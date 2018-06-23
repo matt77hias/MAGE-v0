@@ -34,13 +34,29 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Types
+		//---------------------------------------------------------------------
+
+		/**
+		 The selection function type for extracting one @a std::ssub_match from 
+		 a given @a std::smatch.
+		 */
+		using SelectionFunction 
+			= std::function< const std::ssub_match(const std::smatch&) >;
+
+		//---------------------------------------------------------------------
 		// Class Member Variables
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 The default (line) regex for line readers.
 		 */
-		static const std::regex g_default_regex;
+		static const std::regex s_default_regex;
+
+		/**
+		 The default selection function for line readers.
+		 */
+		static const SelectionFunction s_default_selection_function;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -77,11 +93,15 @@ namespace mage {
 						The path.
 		 @param[in]		regex
 						The (line) regex.
+		 @param[in]		selection_function
+						The selection function.
 		 @throws		Exception
 						Failed to read from the file.
 		 */
 		void ReadFromFile(std::filesystem::path path, 
-						  std::regex regex = g_default_regex);
+						  std::regex regex = s_default_regex, 
+						  SelectionFunction selection_function 
+						  = s_default_selection_function);
 		
 		/**
 		 Reads from the given input string.
@@ -90,11 +110,15 @@ namespace mage {
 						A reference to the input string.
 		 @param[in]		regex
 						The (line) regex.
+		 @param[in]		selection_function
+						The selection function.
 		 @throws		Exception
 						Failed to read from the given input string.
 		 */
 		void ReadFromMemory(const std::string &input,
-							std::regex regex = g_default_regex);
+							std::regex regex = s_default_regex,
+							SelectionFunction selection_function
+							= s_default_selection_function);
 
 	protected:
 
@@ -140,27 +164,6 @@ namespace mage {
 		[[nodiscard]]
 		const std::filesystem::path& GetPath() const noexcept {
 			return m_path;
-		}
-
-		/**
-		 Returns the current (line) regex of this line reader.
-
-		 @return		A reference to the current (line) regex of this line 
-						reader.
-		 */
-		[[nodiscard]]
-		const std::regex& GetRegex() const noexcept {
-			return m_regex;
-		}
-
-		/**
-		 Sets the (line) regex of this line reader to the given (line) regex.
-
-		 @param[in]		regex
-						The (line) regex.
-		 */
-		void SetRegex(std::regex regex) {
-			m_regex = std::move(regex);
 		}
 
 		/**
@@ -291,6 +294,12 @@ namespace mage {
 		std::regex m_regex;
 
 		/**
+		 The function for selecting the target submatch from the match of the 
+		 regular expression represented by the regex of this strategy.
+		 */
+		SelectionFunction m_selection_function;
+
+		/**
 		 The current path of this line reader.
 		 */
 		std::filesystem::path m_path;
@@ -299,7 +308,7 @@ namespace mage {
 		 An iterator to the current token of the current line of this line 
 		 reader.
 		 */
-		std::sregex_token_iterator m_token_iterator;
+		std::sregex_iterator m_iterator;
 
 		/**
 		 The current line number of this line reader.

@@ -75,6 +75,8 @@ FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http:/
 
 ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
 
+ACTON M.: [*Understanding Strict Aliasing*](https://cellperformance.beyond3d.com/articles/2006/06/understanding-strict-aliasing.html), 2006.
+
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
 
 ALLAIN A.: [*C++11 range-based for loops*](https://www.cprogramming.com/c++11/c++11-ranged-for-loop.html), s.d.

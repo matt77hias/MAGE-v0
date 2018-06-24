@@ -73,6 +73,8 @@ FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http:/
 
 ### <a name="SSS-C-Cpp"></a>C/C++
 
+ACTON M.: [*Demystifying The Restrict Keyword*](http://web.archive.org/web/20080107035604/http://www.cellperformance.com:80/mike_acton/2006/05/demystifying_the_restrict_keyw.html), 2006.
+
 ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
 
 ACTON M.: [*Understanding Strict Aliasing*](https://cellperformance.beyond3d.com/articles/2006/06/understanding-strict-aliasing.html), 2006.

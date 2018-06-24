@@ -173,6 +173,8 @@ PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
 
+REGEHR J.: [*The Strict Aliasing Situation is Pretty Bad*](https://blog.regehr.org/archives/1307), 2016.
+
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
 UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2015/12/29/pimpl-and-rule-of-zero.html), 2015.

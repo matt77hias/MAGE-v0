@@ -163,6 +163,8 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers), 2012.
 
+METZ A.: [*Functions of Variants are Covariant*](https://arne-mertz.de/2018/06/functions-of-variants-are-covariant/), 2018.
+
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.

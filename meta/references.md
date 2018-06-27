@@ -460,6 +460,8 @@ TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surf
 
 TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
 
+VEACH E.: *Robust Monte Carlo Methods for Light Transport Simulation*, *PhD thesis*, Stanford University, 1998.
+
 WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction Through Rough Surfaces*, *Proceedings of the 18th Eurographics Conference on Rendering Techniques*, 2007.
 
 WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. Graph.* 26, 2, 1992.

@@ -36,7 +36,7 @@
 ## Development
 * **Platform**: Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)
-* **Shading Model**: Shader Model 5.0
+* **Shading Language**: HLSL (Shader Model 5.0)
 * **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)
 * **Dependencies**:
   * [d3d11.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx)

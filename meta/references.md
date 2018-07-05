@@ -626,6 +626,7 @@ Uses:
 * AthosVG
 * [Baldur Karlsson](https://github.com/baldurk)
 * [Brooke Hodgman](https://github.com/hodgman)
+* [Christian Helmich](https://github.com/KageKirin)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
 * [Finalspace](https://github.com/f1nalspace)

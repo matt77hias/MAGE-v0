@@ -145,6 +145,8 @@ IGNATCHENKO S.: [*5 Reasons NOT to Use std::ostream for Human-Readable Output*](
 
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
+KARPOV A.: [*The Ultimate Question of Programming, Refactoring, and Everything*](https://www.viva64.com/en/b/0391/), 2016.
+
 KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.
 
 KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflection2.html), 2017.
@@ -287,13 +289,19 @@ SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Pre
 
 ### <a name="SSS-General-Computer-Science"></a>General Computer Science
 
+BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.
+
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
+
+KARPOV A.: [*The Last Line Effect*](https://www.viva64.com/en/b/0260/), 2014.
 
 MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
+
+WIKIMEDIA INC.: [*Yoda conditions*](https://en.wikipedia.org/wiki/Yoda_conditions), 2018.
 
 ### <a name="SSS-General-Game-Engines"></a>General Game Engines
 

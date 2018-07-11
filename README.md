@@ -44,7 +44,7 @@
   * [dinput8.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ee416842(v=vs.85).aspx)
   * dxguid.lib
   * ([d3dcompiler.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/dd607340(v=vs.85).aspx))
-* **Compiler**: MSVC++ 15.7.4
+* **Compiler**: MSVC++ 15.7.5
 * **IDE**: Visual Studio 2017
 * **GPU Debuggers/Profilers**:
   * NVidia Nsight 5.5

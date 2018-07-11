@@ -179,6 +179,10 @@ MÜLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitf
 
 PHARR M.: [*CHECK_RARE and making sense of unusual occurrences*](http://pharr.org/matt/blog/2018/05/31/check-rare.html), 2018.
 
+PHARR M.: [*Swallowing the elephant (part 1)*](http://pharr.org/matt/blog/2018/07/08/moana-island-pbrt-1.html), 2018.
+
+PHARR M.: [*Swallowing the elephant (part 2)*](http://pharr.org/matt/blog/2018/07/09/moana-island-pbrt-2.html), 2018.
+
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.

@@ -56,6 +56,7 @@
 * [Textures](#SSS-Textures)
 * [Tone Mapping](#SSS-Tone-Mapping)
 * [Tool Kits](#SSS-Tool-Kits)
+* [Version Control](#SSS-Version-Control)
 
 ### <a name="SSS-Anti-aliasing"></a>Anti-aliasing
 
@@ -601,6 +602,10 @@ MICROSOFT CORP.: [*DirectXTK*](https://github.com/Microsoft/DirectXTK/wiki).
 THOMPSON A.: [*Archetype System*](http://www.ademolathompson.com/archetypesystem/), s.d.
 
 THOMPSON A.: [*Archetype System 2.0*](http://www.ademolathompson.com/archetypesystem-20/), s.d.
+
+### <a name="SSS-Version-Control"></a>Version Control
+
+ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/git/tutorials/merging-vs-rebasing), s.d.
 
 ## <a name="SS-Codebase"></a>Codebase
 

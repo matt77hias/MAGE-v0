@@ -87,6 +87,8 @@ namespace mage {
 			}
 
 			}
+		
+			break;
 		}
 
 		case WM_SYSKEYDOWN: {
@@ -102,6 +104,8 @@ namespace mage {
 			}
 
 			}
+		
+			break;
 		}
 
 		}

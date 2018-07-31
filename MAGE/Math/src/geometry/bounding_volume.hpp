@@ -1133,11 +1133,11 @@ namespace mage {
 		 transformation matrix, the planes of the bounding frustum are 
 		 represented by view space coordinates.
 
-		 If the given transform represents the world-to-view-to-projection 
+		 If the given transform represents the world-(to-view)-to-projection 
 		 transformation matrix, the planes of the bounding frustum are 
 		 represented by world space coordinates.
 
-		 If the given transform represents the object-to-world-to-view-projection 
+		 If the given transform represents the object-(to-world-to-view)-to-projection 
 		 transformation matrix, the planes of the bounding frustum are 
 		 represented by object space coordinates.
 

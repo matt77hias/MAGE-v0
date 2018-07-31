@@ -20,6 +20,8 @@
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="436"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="436"></p>
 
+Game and rendering engine featuring both forward and deferred PBR pipelines with optional indirect illumination using Voxel Cone Tracing.
+
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Index
@@ -36,15 +38,15 @@
 ## Development
 * **Platform**: Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)
-* **Shading Model**: Shader Model 5.0
 * **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)
+* **Shading Language**: HLSL (Shader Model 5.0)
 * **Dependencies**:
   * [d3d11.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx)
   * [dxgi.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/hh404534(v=vs.85).aspx)
   * [dinput8.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ee416842(v=vs.85).aspx)
   * dxguid.lib
   * ([d3dcompiler.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/dd607340(v=vs.85).aspx))
-* **Compiler**: MSVC++ 15.7.4
+* **Compiler**: MSVC++ 15.7.5
 * **IDE**: Visual Studio 2017
 * **GPU Debuggers/Profilers**:
   * NVidia Nsight 5.5

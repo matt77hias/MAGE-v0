@@ -56,6 +56,7 @@
 * [Textures](#SSS-Textures)
 * [Tone Mapping](#SSS-Tone-Mapping)
 * [Tool Kits](#SSS-Tool-Kits)
+* [Version Control](#SSS-Version-Control)
 
 ### <a name="SSS-Anti-aliasing"></a>Anti-aliasing
 
@@ -73,7 +74,11 @@ FERRARI A, BATSON A., LACK M., JONES A., EVANS D.: [*x86 Assembly Guide*](http:/
 
 ### <a name="SSS-C-Cpp"></a>C/C++
 
+ACTON M.: [*Demystifying The Restrict Keyword*](http://web.archive.org/web/20080107035604/http://www.cellperformance.com:80/mike_acton/2006/05/demystifying_the_restrict_keyw.html), 2006.
+
 ACTON M.: [*Typical C++ Bullshit*](https://macton.smugmug.com/Other/2008-07-15-by-Eye-Fi/n-xmKDH/i-BrHWXdJ), 2008.
+
+ACTON M.: [*Understanding Strict Aliasing*](https://cellperformance.beyond3d.com/articles/2006/06/understanding-strict-aliasing.html), 2006.
 
 ALBRECHT T.: [*Pitfalls of Object Oriented Programming*](http://gamedevs.org/uploads/pitfalls-of-object-oriented-programming.pdf), 2014.
 
@@ -113,6 +118,8 @@ FILIPEK B.: [*Everything You Need to Know About std::any from C++17*](https://ww
 
 FILIPEK B.: [*Everything You Need to Know About std::variant from C++17*](https://www.bfilipek.com/2018/06/variant.html), 2018.
 
+FILIPEK B.: [*Examples of Parallel Algorithms From C++17*](https://www.bfilipek.com/2018/06/parstl-tests.html), 2018.
+
 FILIPEK B.: [*IIFE for Complex Initialization*](https://www.bfilipek.com/2016/11/iife-for-complex-initialization.html), 2016.
 
 FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.
@@ -139,6 +146,8 @@ IGNATCHENKO S.: [*5 Reasons NOT to Use std::ostream for Human-Readable Output*](
 
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
+KARPOV A.: [*The Ultimate Question of Programming, Refactoring, and Everything*](https://www.viva64.com/en/b/0391/), 2016.
+
 KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.
 
 KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflection2.html), 2017.
@@ -157,6 +166,8 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers), 2012.
 
+METZ A.: [*Functions of Variants are Covariant*](https://arne-mertz.de/2018/06/functions-of-variants-are-covariant/), 2018.
+
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.
@@ -169,9 +180,15 @@ MÜLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitf
 
 PHARR M.: [*CHECK_RARE and making sense of unusual occurrences*](http://pharr.org/matt/blog/2018/05/31/check-rare.html), 2018.
 
+PHARR M.: [*Swallowing the elephant (part 1)*](http://pharr.org/matt/blog/2018/07/08/moana-island-pbrt-1.html), 2018.
+
+PHARR M.: [*Swallowing the elephant (part 2)*](http://pharr.org/matt/blog/2018/07/09/moana-island-pbrt-2.html), 2018.
+
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
+
+REGEHR J.: [*The Strict Aliasing Situation is Pretty Bad*](https://blog.regehr.org/archives/1307), 2016.
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
@@ -277,11 +294,19 @@ SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Pre
 
 ### <a name="SSS-General-Computer-Science"></a>General Computer Science
 
+BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.
+
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
+
+KARPOV A.: [*The Last Line Effect*](https://www.viva64.com/en/b/0260/), 2014.
+
+MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
+
+WIKIMEDIA INC.: [*Yoda conditions*](https://en.wikipedia.org/wiki/Yoda_conditions), 2018.
 
 ### <a name="SSS-General-Game-Engines"></a>General Game Engines
 
@@ -357,6 +382,8 @@ MITTRING M.: *A bit more deferred – CryEngine3*, *Triangle Game Conference*, 2
 MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](https://matt77hias.github.io/blog/culling/2017/08/24/creating-a-view-frustum.html), 2017.
 
 MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
+
+MUNROE L.: [*Perlin noise*](https://eev.ee/blog/2016/05/29/perlin-noise/), 2016.
 
 NARKOWICZ K.: [*Octahedron normal vector encoding*](https://knarkowicz.wordpress.com/2014/04/16/octahedron-normal-vector-encoding/), 2014.
 
@@ -445,6 +472,8 @@ STEVENS J.: [*Physically Based Rendering Algorithms: A Comprehensive Study In Un
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
 
 TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
+
+VEACH E.: *Robust Monte Carlo Methods for Light Transport Simulation*, *PhD thesis*, Stanford University, 1998.
 
 WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction Through Rough Surfaces*, *Proceedings of the 18th Eurographics Conference on Rendering Techniques*, 2007.
 
@@ -574,6 +603,10 @@ THOMPSON A.: [*Archetype System*](http://www.ademolathompson.com/archetypesystem
 
 THOMPSON A.: [*Archetype System 2.0*](http://www.ademolathompson.com/archetypesystem-20/), s.d.
 
+### <a name="SSS-Version-Control"></a>Version Control
+
+ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/git/tutorials/merging-vs-rebasing), s.d.
+
 ## <a name="SS-Codebase"></a>Codebase
 
 *Non-substantially* based on:
@@ -610,6 +643,7 @@ Uses:
 * AthosVG
 * [Baldur Karlsson](https://github.com/baldurk)
 * [Brooke Hodgman](https://github.com/hodgman)
+* [Christian Helmich](https://github.com/KageKirin)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
 * [Finalspace](https://github.com/f1nalspace)

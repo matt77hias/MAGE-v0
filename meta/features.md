@@ -114,7 +114,7 @@
   * Perspective
 * Light
   * Ambient
-  * Directional
+  * Directional (with or without shadow mapping)
   * Omni (with or without shadow cube mapping)
   * Spot (with or without shadow mapping)
 * Model

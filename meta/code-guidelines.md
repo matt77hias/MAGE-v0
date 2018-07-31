@@ -5,6 +5,8 @@ GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Re
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
+KARPOV A.: [*The Ultimate Question of Programming, Refactoring, and Everything*](https://www.viva64.com/en/b/0391/), 2016.
+
 MEYERS S.: *Effective C++, 3th Edition*, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.

@@ -203,14 +203,12 @@ namespace mage {
 												&ftime, 
 												&kernel_mode_ftime, 
 												&user_mode_ftime);
-		
-			if (TRUE == result) {
-				return { ConvertTimestamp(kernel_mode_ftime), 
-					     ConvertTimestamp(user_mode_ftime) };
-			}
-			else {
+			if (FALSE == result) {
 				return {};
 			}
+			
+			return { ConvertTimestamp(kernel_mode_ftime), 
+				     ConvertTimestamp(user_mode_ftime) };
 		}
 
 		/**

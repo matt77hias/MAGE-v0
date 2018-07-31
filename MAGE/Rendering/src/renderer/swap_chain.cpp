@@ -128,7 +128,7 @@ namespace mage::rendering {
 		bool IsFullScreen() const noexcept {
 			BOOL current = FALSE;
 			m_swap_chain->GetFullscreenState(&current, nullptr);
-			return current == TRUE;
+			return FALSE != current;
 		}
 		
 		/**
@@ -495,7 +495,7 @@ namespace mage::rendering {
 		ResetSwapChain();
 
 		m_swap_chain->GetFullscreenState(&current, nullptr);
-		const auto fullscreen = (current == TRUE);
+		const auto fullscreen = (FALSE != current);
 		SetTrackedFullScreen(fullscreen);
 	}
 

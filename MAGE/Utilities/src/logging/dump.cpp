@@ -85,11 +85,11 @@ namespace mage {
 								nullptr, 
 								nullptr);
 
-		if (TRUE == result) {
-			Info("Succeeded to create a mini dump file: MiniDump.dmp.");
+		if (FALSE == result) {
+			Error("Failed to create a mini dump file: %u.", GetLastError());
 		}
 		else {
-			Error("Failed to create a mini dump file: %u.", GetLastError());
+			Info("Succeeded to create a mini dump file: MiniDump.dmp.");
 		}
 	}
 }

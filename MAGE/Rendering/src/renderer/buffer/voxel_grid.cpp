@@ -59,7 +59,7 @@ namespace mage::rendering {
 			buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
 			
 			auto data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
-			memset(data.get(), 0, buffer_desc.ByteWidth);
+			memset(data.get(), 0, static_cast< size_t >(buffer_desc.ByteWidth));
 
 			D3D11_SUBRESOURCE_DATA init_data = {};
 			init_data.pSysMem = data.get();

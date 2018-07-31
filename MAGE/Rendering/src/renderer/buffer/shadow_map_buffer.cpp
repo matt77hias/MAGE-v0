@@ -115,7 +115,7 @@ namespace mage::rendering {
 		// Create the DSVs.
 		{
 			// Resize the DSV vector.
-			m_dsvs.resize(texture_desc.ArraySize);
+			m_dsvs.resize(static_cast< size_t >(texture_desc.ArraySize));
 
 			// Create the DSV descriptor.
 			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
@@ -252,7 +252,7 @@ namespace mage::rendering {
 		// Create the DSVs.
 		{
 			// Resize the DSV vector.
-			m_dsvs.resize(texture_desc.ArraySize);
+			m_dsvs.resize(static_cast< size_t >(texture_desc.ArraySize));
 
 			// Create the DSV descriptor.
 			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};

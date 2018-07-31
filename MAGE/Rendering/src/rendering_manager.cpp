@@ -6,6 +6,7 @@
 #include "rendering_manager.hpp"
 #include "renderer\renderer.hpp"
 #include "imgui_impl_dx11.hpp"
+#include "imgui_impl_win32.hpp"
 
 #pragma endregion
 
@@ -306,12 +307,14 @@ namespace mage::rendering {
 
 		// Setup ImGui.
 		ImGui::CreateContext();
-		ImGui_ImplDX11_Init(m_window, m_device.Get(), m_device_context.Get());
+		ImGui_ImplWin32_Init(m_window);
+		ImGui_ImplDX11_Init(m_device.Get(), m_device_context.Get());
 	}
 
 	void Manager::Impl::UninitializeSystems() noexcept {
 		// Uninitialize ImGui.
 		ImGui_ImplDX11_Shutdown();
+		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
 
 		// Uninitialize the swap chain.
@@ -368,6 +371,8 @@ namespace mage::rendering {
 
 	void Manager::Impl::Update() {
 		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
 	}
 
 	void Manager::Impl::Render(const GameTime& time) {

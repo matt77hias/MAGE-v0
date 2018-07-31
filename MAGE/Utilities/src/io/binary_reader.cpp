@@ -39,7 +39,7 @@ namespace mage {
 		
 		// Allocate buffer.
 		const auto nb_bytes = file_info.EndOfFile.LowPart;
-		size = nb_bytes;
+		size = static_cast< size_t >(nb_bytes);
 		data = MakeUnique< U8[] >(nb_bytes);
 		ThrowIfFailed((nullptr != data), 
 					  "%ls: file too big for allocation.", path.c_str());

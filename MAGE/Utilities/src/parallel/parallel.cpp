@@ -45,7 +45,7 @@ namespace mage {
 			const auto current_info = reinterpret_cast< 
 				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get() + offset);
 			
-			offset += current_info->Size;
+			offset += static_cast< size_t >(current_info->Size);
 			++nb_physical_cores;
 
 		} while (offset < length);

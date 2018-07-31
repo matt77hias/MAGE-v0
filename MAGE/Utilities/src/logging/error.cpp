@@ -93,7 +93,8 @@ namespace mage {
 			}
 
 			// Print formatted error message
-			const size_t width       = std::max(20, ConsoleWidth() - 2);
+			const auto width 
+				= static_cast< size_t >(std::max(20, ConsoleWidth() - 2));
 			std::string error_string = error_type + ": ";
 			auto error_pos           = error_string.size();
 

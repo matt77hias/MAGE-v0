@@ -25,7 +25,7 @@ namespace mage {
 		// Boundary points
 		// alpha == 0.0f -> jagged boundary.
 		// alpha == 2.0f -> smooth boundary.
-		const auto n_boundary = static_cast< U32 >(
+		const auto n_boundary = static_cast< size_t >(
 			                    alpha * std::sqrt(static_cast< F32 >(n))) + 1;
 		
 		size_t j = 0;

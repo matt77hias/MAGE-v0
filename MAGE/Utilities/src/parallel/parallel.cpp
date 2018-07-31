@@ -48,7 +48,7 @@ namespace mage {
 			offset += static_cast< size_t >(current_info->Size);
 			++nb_physical_cores;
 
-		} while (offset < length);
+		} while (offset < static_cast< size_t >(length));
 		
 		return nb_physical_cores;
 	}

@@ -408,6 +408,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		m_sprite_pass->Render(world);
 
+		// GUI
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 

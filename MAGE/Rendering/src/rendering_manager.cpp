@@ -309,6 +309,7 @@ namespace mage::rendering {
 		ImGui::CreateContext();
 		ImGui_ImplWin32_Init(m_window);
 		ImGui_ImplDX11_Init(m_device.Get(), m_device_context.Get());
+		ImGui::StyleColorsDark();
 	}
 
 	void Manager::Impl::UninitializeSystems() noexcept {

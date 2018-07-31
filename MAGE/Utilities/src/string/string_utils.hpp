@@ -154,6 +154,7 @@ namespace mage {
 					range succeeded.
 	 */
 	template< typename T >
+	[[nodiscard]]
 	const std::optional< T > StringTo(NotNull< const char* > first, 
 									  NotNull< const char* > last) noexcept;
 	
@@ -168,6 +169,7 @@ namespace mage {
 					succeeded.
 	 */
 	template< typename T >
+	[[nodiscard]]
 	const std::optional< T > StringTo(NotNull< const_zstring > str) noexcept;
 
 	/**
@@ -181,6 +183,7 @@ namespace mage {
 					given string succeeded.
 	 */
 	template< typename T >
+	[[nodiscard]]
 	const std::optional< T > StringPrefixTo(NotNull< const_zstring > str) noexcept;
 
 	#pragma endregion

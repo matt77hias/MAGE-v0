@@ -617,6 +617,10 @@ namespace mage::rendering {
 				      });
 			break;
 		}
+		
+		default: {
+			break;
+		}
 		}
 	}
 

@@ -295,7 +295,7 @@ namespace mage {
 
 		// Update elapsed time and estimated time to completion
 		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
-		if (1.0f == fraction) {
+		if (1.0f >= fraction) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", time);
 		}

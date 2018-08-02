@@ -11,7 +11,7 @@
 * [Scripting](#SS-Scripting)
 * [Transformations](#SS-Transformations)
 
-### <a name="SS-Display"></a>Display
+## <a name="SS-Display"></a>Display
 * Configurable display modes
   * Anti-aliasing
   * Refresh rate
@@ -21,11 +21,11 @@
 * Multi split-screen
 * Switching between windowed and full screen
 
-### <a name="SS-Input-Handling"></a>Input Handling
+## <a name="SS-Input-Handling"></a>Input Handling
 * Keyboard
 * Mouse (LMB, MMB and RMB are supported)
 
-### <a name="SS-File-Formats"></a>[File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+## <a name="SS-File-Formats"></a>[File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * Fonts
   * .FONT (Sprite Font) **[MAGE Dedicated Format]**
 * Models, Meshes and Materials
@@ -45,10 +45,10 @@
 * Properties
   * .VAR   (Variable Script) **[MAGE Dedicated Format]**
 
-### <a name="SS-GUI"></a>GUI
+## <a name="SS-GUI"></a>GUI
 * ImGui integration
 
-### <a name="SS-Rendering"></a>Rendering
+## <a name="SS-Rendering"></a>Rendering
 * AA (for HDR, normal and depth buffer)
   * No AA
   * FXAA (using Max3 tone mapping)
@@ -113,13 +113,13 @@
   * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending
 
-### <a name="SS-Resource-Management"></a>Resource Management
+## <a name="SS-Resource-Management"></a>Resource Management
 * Fonts
 * Models
 * Shaders: Vertex, Domain, Hull, Geometry, Pixel, Compute
 * Textures
 
-### <a name="SS-Scene"></a>Scene
+## <a name="SS-Scene"></a>Scene
 * Camera
   * Orthographic
   * Perspective
@@ -135,11 +135,11 @@
   * Image
   * Text
   
-### <a name="SS-Scripting"></a>Scripting
+## <a name="SS-Scripting"></a>Scripting
 * Custom scripts by overriding `mage::BehaviorScript`
 * [Standard scripts](standard-scripts.md)
 
-### <a name="SS-Transformations"></a>Transformations
+## <a name="SS-Transformations"></a>Transformations
 * Scene hierarchies
 * Normal transformations
 * Sprite transformations

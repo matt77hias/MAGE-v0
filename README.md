@@ -50,6 +50,6 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
 * **IDE**: Visual Studio 2017
 * **GPU Debuggers/Profilers**:
   * NVidia Nsight 5.5
-  * RenderDoc v1.0
+  * RenderDoc v1.1
 
 <p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>

@@ -165,7 +165,7 @@ We use the following coordinate frames:
 * Light (>0)
 * Projection
 * NDC (NDC z = non-linear depth)
-* Shading (generic space; e.g., World, Camera, Light, ...)
+* Shading (generic space; e.g., World, Object, Camera, Light, ...)
 * View (generic space; e.g., Object, Camera, Light, ...)
 
 ### Texture

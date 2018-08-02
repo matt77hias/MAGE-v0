@@ -1,7 +1,6 @@
 # File Formats
 
 ## Table of contents
-
 * [Fonts](#SS-Fonts)
 * [Materials](#SS-Materials)
 * [Meshes](#SS-Meshes)

@@ -17,6 +17,7 @@
 
 ## About
 
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 4.png"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="436"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="436"></p>
 

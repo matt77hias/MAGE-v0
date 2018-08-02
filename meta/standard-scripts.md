@@ -1,6 +1,11 @@
 # Standard Behavior Scripts
 
-## Logging scripts (2D)
+## Table of contents
+* [Logging](#SS-Logging)
+* [Movement and Orientation](#SS-Movement-and-Orientation)
+* [Scene](#SS-Scene)
+
+## <a name="SS-Logging"></a>Logging
 
 ### `StatsScript`
 A script displaying statistics like `FPS` (frames per second), `SPF` (seconds per frame), `CPU` (CPU usage), `RAM` (physical main memory usage) and `DCs` (number of draw calls).
@@ -8,7 +13,7 @@ A script displaying statistics like `FPS` (frames per second), `SPF` (seconds pe
 ### `TextConsoleScript`
 A script displaying a console/terminal with a fixed number of rows and colums.
 
-## Movement and Orientation
+## <a name="SS-Movement-and-Orientation"></a>Movement and Orientation
 
 ### `CharacterMotorScript`
 A script handling a `Node`'s translation based on the keyboard's input.
@@ -22,7 +27,7 @@ A script handling a `Node`'s rotation based on the mouse's input.
 ### `RotationScript`
 A script rotating a `Node`'s around one of its principal axes.
 
-## Scene
+## <a name="SS-Scene"></a>Scene
 
 ### `EditorScript`
 A script for enabling the in-game editor.

@@ -49,6 +49,9 @@
 * ImGui integration
 
 ## <a name="SS-Rendering"></a>Rendering
+
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Architecture/Pipeline.png"></p>
+
 * AA (for HDR, normal and depth buffer)
   * No AA
   * FXAA (using Max3 tone mapping)

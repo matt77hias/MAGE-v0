@@ -77,6 +77,13 @@ CBUFFER(World, SLOT_CBUFFER_WORLD) {
 
 	// The time.
 	float    g_time                        : packoffset(c4.x);
+
+	//-------------------------------------------------------------------------
+	// Member Variables: Gamma Correction
+	//-------------------------------------------------------------------------
+
+	// The inverse of the gamma exponent used for gamma correction.
+	float    g_inv_gamma                   : packoffset(c4.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
@@ -154,13 +161,6 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float    g_focal_length                : packoffset(c21.x);
 	// The maximum circle-of-confusion radius of this camera.
 	float    g_max_coc_radius              : packoffset(c21.y);
-
-	//-------------------------------------------------------------------------
-	// Member Variables: Gamma Correction
-	//-------------------------------------------------------------------------
-
-	// The inverse of the gamma exponent used for gamma correction.
-	float    g_inv_gamma                   : packoffset(c21.z);
 }
 
 //-----------------------------------------------------------------------------

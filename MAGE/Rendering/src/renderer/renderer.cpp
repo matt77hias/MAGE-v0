@@ -481,6 +481,11 @@ namespace mage::rendering {
 			buffer.m_time = static_cast< F32 >(time.GetWallClockTotalDeltaTime().count());
 		}
 
+		// Gamma
+		{
+			buffer.m_inv_gamma = 1.0f / m_display_configuration.get().GetGamma();
+		}
+
 		// Update the world buffer.
 		m_world_buffer.UpdateData(m_device_context, buffer);
 	}

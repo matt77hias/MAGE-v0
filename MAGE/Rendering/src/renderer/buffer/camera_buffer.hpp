@@ -53,8 +53,7 @@ namespace mage::rendering {
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
 			m_max_coc_radius(0.0f), 
-			m_inv_gamma(0.0f), 
-			m_padding(0u) {}
+			m_padding() {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -229,19 +228,10 @@ namespace mage::rendering {
 		 */
 		F32 m_max_coc_radius;
 
-		//---------------------------------------------------------------------
-		// Member Variables: Gamma Correction
-		//---------------------------------------------------------------------
-
-		/**
-		 The inverse gamma exponent of the camera of this camera buffer.
-		 */
-		F32 m_inv_gamma;
-
 		/**
 		 The padding of this camera buffer.
 		 */
-		U32 m_padding;
+		U32x2 m_padding;
 	};
 
 	static_assert(352 == sizeof(CameraBuffer), 

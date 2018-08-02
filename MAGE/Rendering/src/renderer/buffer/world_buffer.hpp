@@ -40,6 +40,7 @@ namespace mage::rendering {
 			m_voxel_size(0.0f), 
 			m_voxel_inv_size(0.0f), 
 			m_time(0.0f), 
+			m_inv_gamma(1.0f), 
 			m_padding() {}
 
 		/**
@@ -158,10 +159,19 @@ namespace mage::rendering {
 		 */
 		F32 m_time;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Gamma Correction
+		//---------------------------------------------------------------------
+
+		/**
+		 The inverse gamma exponent of this world buffer.
+		 */
+		F32 m_inv_gamma;
+
 		/**
 		 The passing of this world buffer.
 		 */
-		U32x3 m_padding;
+		U32x2 m_padding;
 	};
 
 	static_assert(80 == sizeof(WorldBuffer), "CPU/GPU struct mismatch");

@@ -698,7 +698,6 @@ namespace mage::rendering {
 			: m_render_mode(RenderMode::Forward), 
 			m_brdf(BRDF::Frostbite), 
 			m_tone_mapping(ToneMapping::ACESFilmic), 
-			m_gamma(2.2f), 
 			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
 			m_fog(), 
 			m_sky() {}
@@ -802,19 +801,6 @@ namespace mage::rendering {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Methods: Gamma Correction
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		F32 GetGamma() const noexcept {
-			return m_gamma;
-		}
-
-		void SetGamma(F32 gamma) noexcept {
-			m_gamma = gamma;
-		}
-
-		//---------------------------------------------------------------------
 		// Member Methods: Render Layers
 		//---------------------------------------------------------------------
 
@@ -910,15 +896,6 @@ namespace mage::rendering {
 		 The voxelization settings of this camera settings.
 		 */
 		VoxelizationSettings m_voxelization_settings;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Gamma Correction
-		//---------------------------------------------------------------------
-
-		/**
-		 The gamma exponent of this camera settings.
-		 */
-		F32 m_gamma;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Render Layers

@@ -256,9 +256,9 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Gamma Exponent
 			//-----------------------------------------------------------------
-			auto gamma = settings.GetGamma();
-			ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.01f, 10.0f, "%.2f");
-			settings.SetGamma(gamma);
+			//auto gamma = settings.GetGamma();
+			//ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.01f, 10.0f, "%.2f");
+			//settings.SetGamma(gamma);
 
 			//-----------------------------------------------------------------
 			// Render Layers

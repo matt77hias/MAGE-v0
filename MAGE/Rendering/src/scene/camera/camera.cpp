@@ -106,8 +106,6 @@ namespace mage::rendering {
 			buffer.m_max_coc_radius = m_lens.GetMaximumCoCRadius();
 		}
 		
-		buffer.m_inv_gamma = 1.0f / m_settings.GetGamma();
-
 		// Update the camera buffer.
 		m_buffer.UpdateData(device_context, buffer);
 	}

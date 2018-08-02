@@ -1,6 +1,17 @@
 # Features
 
-### Display
+## Table of contents
+* [Display](#SS-Display)
+* [Input Handling](#SS-Input-Handling)
+* [File Formats](#SS-File-Formats)
+* [GUI](#SS-GUI)
+* [Rendering](#SS-Rendering)
+* [Resource Management](#SS-Resource-Management)
+* [Scene](#SS-Scene)
+* [Scripting](#SS-Scripting)
+* [Transformations](#SS-Transformations)
+
+## <a name="SS-Display"></a>Display
 * Configurable display modes
   * Anti-aliasing
   * Refresh rate
@@ -10,11 +21,11 @@
 * Multi split-screen
 * Switching between windowed and full screen
 
-### Input Handling
+## <a name="SS-Input-Handling"></a>Input Handling
 * Keyboard
 * Mouse (LMB, MMB and RMB are supported)
 
-### [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+## <a name="SS-File-Formats"></a>[File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * Fonts
   * .FONT (Sprite Font) **[MAGE Dedicated Format]**
 * Models, Meshes and Materials
@@ -34,10 +45,13 @@
 * Properties
   * .VAR   (Variable Script) **[MAGE Dedicated Format]**
 
-### GUI
+## <a name="SS-GUI"></a>GUI
 * ImGui integration
 
-### Rendering
+## <a name="SS-Rendering"></a>Rendering
+
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Architecture/Pipeline.png"></p>
+
 * AA (for HDR, normal and depth buffer)
   * No AA
   * FXAA (using Max3 tone mapping)
@@ -102,13 +116,13 @@
   * ~~Alpha-to-Coverage~~ (*not integrated any more*)
   * Single layer Alpha Blending
 
-### Resource Management
+## <a name="SS-Resource-Management"></a>Resource Management
 * Fonts
 * Models
 * Shaders: Vertex, Domain, Hull, Geometry, Pixel, Compute
 * Textures
 
-### Scene
+## <a name="SS-Scene"></a>Scene
 * Camera
   * Orthographic
   * Perspective
@@ -124,12 +138,36 @@
   * Image
   * Text
   
-### Scripting
+## <a name="SS-Scripting"></a>Scripting
 * Custom scripts by overriding `mage::BehaviorScript`
 * [Standard scripts](standard-scripts.md)
 
-### Transformations
+## <a name="SS-Transformations"></a>Transformations
 * Scene hierarchies
 * Normal transformations
 * Sprite transformations
 * Texture transformations
+
+We use the following coordinate frames:
+
+### 2D
+* Display
+* Supersampled Display
+* Viewport (*camera dependent*)
+* Supersampled Viewport (*camera dependent*)
+
+### 3D
+* Box
+* Tangent
+* Object
+* World
+* Camera (>0)
+* Light (>0)
+* Projection
+* NDC (NDC z = non-linear depth)
+* Shading (generic space; e.g., World, Object, Camera, Light, ...)
+* View (generic space; e.g., Object, Camera, Light, ...)
+
+### Texture
+* UV
+* UVW

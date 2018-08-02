@@ -1,6 +1,12 @@
 # Code Guidelines
 
-## General
+## Table of contents
+* [General](#SS-General)
+* [Specific](#SS-Specific)
+* [Tools](#SS-Tools)
+
+## <a name="SS-General"></a>General
+
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
@@ -13,7 +19,7 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
-## Specific
+## <a name="SS-Specific"></a>Specific
 
 ### Built-in types
 Prefer the defined types (`utils\type\types.hpp`) and `size_t` over non-typedefed built-in types.
@@ -71,3 +77,16 @@ Always use `static_cast` for type conversion between built-in types.
 
 ### `ZeroMemory`
 Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be used).
+
+## <a name="SS-Tools"></a>Tools
+
+### CPU Debuggers/Profilers
+* Visual Studio
+
+### GPU Debuggers/Profilers
+* NVidia Nsight
+* RenderDoc
+
+### Static Code Analyzers
+* PVS-Studio
+* Visual Studio

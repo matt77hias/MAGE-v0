@@ -1,7 +1,6 @@
 # References
 
 ## Table of contents
-
 * [How to cite](#SS-How-to-cite)
 * [Assets](#SS-Assets)
 * [Bibliography](#SS-Bibliography)
@@ -10,7 +9,6 @@
 * [Thanks](#SS-Thanks)
 
 ## <a name="SS-How-to-cite"></a>How to cite
-
 * [BibTeX](#SSS-BibTeX)
 
 ### <a name="SSS-BibTeX"></a>BibTeX
@@ -26,11 +24,9 @@
 ```
 
 ## <a name="SS-Assets"></a>Assets
-
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
 ## <a name="SS-Bibliography"></a>Bibliography
-
 * [Anti-aliasing](#SSS-Anti-aliasing)
 * [Assembly](#SSS-Assembly)
 * [C/C++](#SSS-C-Cpp)

@@ -483,7 +483,7 @@ namespace mage::rendering {
 
 		// Gamma
 		{
-			buffer.m_inv_gamma = 1.0f / m_display_configuration.get().GetGamma();
+			buffer.m_inv_gamma = 1.0f / CameraSettings::GetGamma();
 		}
 
 		// Update the world buffer.

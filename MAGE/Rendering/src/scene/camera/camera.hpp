@@ -210,25 +210,25 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------	
 
 		[[nodiscard]]
-		static const Point3 GetVoxelGridCenter() noexcept {
+		static constexpr const Point3 GetVoxelGridCenter() noexcept {
 			return s_voxel_grid_center;
 		}
 
-		static void SetVoxelGridCenter(Point3 voxel_grid_center) noexcept {
+		static constexpr void SetVoxelGridCenter(Point3 voxel_grid_center) noexcept {
 			s_voxel_grid_center = std::move(voxel_grid_center);
 		}
 
 		[[nodiscard]]
-		static U32 GetVoxelGridResolution() noexcept {
+		static constexpr U32 GetVoxelGridResolution() noexcept {
 			return s_voxel_grid_resolution;
 		}
 
-		static void SetVoxelGridResolution(U32 exponent) noexcept {
+		static constexpr void SetVoxelGridResolution(U32 exponent) noexcept {
 			s_voxel_grid_resolution = 1u << exponent;
 		}
 
 		[[nodiscard]]
-		static F32 GetVoxelSize() noexcept {
+		static constexpr F32 GetVoxelSize() noexcept {
 			return s_voxel_size;
 		}
 
@@ -688,6 +688,32 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the gamma value used for gamma correction of camera settings.
+
+		 @return		The gamma value used for gamma correction of camera 
+						settings.
+		 */
+		[[nodiscard]]
+		static constexpr F32 GetGamma() noexcept {
+			return s_gamma;
+		}
+		
+		/**
+		 Sets the gamma value used for gamma correction of camera settings to 
+		 the given value.
+
+		 @param[in]		gamma
+						The gamma value.
+		 */
+		static constexpr void SetGamma(F32 gamma) noexcept {
+			s_gamma = gamma;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -860,6 +886,15 @@ namespace mage::rendering {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The gamma value used for gamma correction of camera settings.
+		 */
+		static F32 s_gamma;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Render Mode

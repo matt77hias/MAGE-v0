@@ -47,8 +47,7 @@ namespace mage::rendering {
 			m_display_mode(display_mode),
 			m_aa(AntiAliasing::None),
 			m_windowed(true),
-			m_vsync(false),
-			m_gamma(2.2f) {}
+			m_vsync(false) {}
 		
 		/**
 		 Constructs a display configuration from the given display 
@@ -426,33 +425,6 @@ namespace mage::rendering {
 			m_vsync = vsync;
 		}
 		
-		//---------------------------------------------------------------------
-		// Member Methods: Gamma
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the gamma value used for gamma correction of this display 
-		 configuration.
-
-		 @return		The gamma value used for gamma correction of this 
-						display configuration.
-		 */
-		[[nodiscard]]
-		F32 GetGamma() const noexcept {
-			return m_gamma;
-		}
-		
-		/**
-		 Sets the gamma value used for gamma correction of this display 
-		 configuration to the given value.
-
-		 @param[in]		gamma
-						The gamma value.
-		 */
-		void SetGamma(F32 gamma) noexcept {
-			m_gamma = gamma;
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -512,15 +484,5 @@ namespace mage::rendering {
 		 configuration.
 		 */
 		bool m_vsync;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Gamma
-		//---------------------------------------------------------------------
-
-		/**
-		 The gamma value used for gamma correction of this display 
-		 configuration.
-		 */
-		F32 m_gamma;
 	};
 }

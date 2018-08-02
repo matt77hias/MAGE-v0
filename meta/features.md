@@ -147,3 +147,18 @@
 * Normal transformations
 * Sprite transformations
 * Texture transformations
+
+We use the following coordinate frames:
+* Box
+* Tangent
+* Object
+* World
+* Camera (>0)
+* Light (>0)
+* Shading (e.g. World, Camera, Light, ...)
+* View (e.g. Object, Camera, Light, ...)
+* Display
+* Supersampled Display
+* Viewport (*camera dependent*)
+* Supersampled Viewport (*camera dependent*)
+* Texture

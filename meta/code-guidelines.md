@@ -71,3 +71,16 @@ Always use `static_cast` for type conversion between built-in types.
 
 ### `ZeroMemory`
 Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be used).
+
+## Tools
+
+### CPU Debuggers/Profilers
+* Visual Studio
+
+### GPU Debuggers/Profilers
+* NVidia Nsight
+* RenderDoc
+
+### Static Code Analyzers
+* PVS-Studio
+* Visual Studio

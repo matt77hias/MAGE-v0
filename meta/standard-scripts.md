@@ -25,7 +25,7 @@ A script handling a `Node`'s translation based on the keyboard's input.
 A script handling a `Node`'s rotation based on the mouse's input.
 
 ### `RotationScript`
-A script rotating a `Node`'s around one of its principal axes.
+A script rotating a `Node` around one of its principal axes.
 
 ## <a name="SS-Scene"></a>Scene
 

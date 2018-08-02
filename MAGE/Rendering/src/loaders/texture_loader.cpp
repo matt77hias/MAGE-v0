@@ -45,51 +45,55 @@ namespace mage::rendering::loader {
 		}
 	}
 
-	/**
-	 Returns the WIC container format associated with the given image file 
-	 extension.
+	namespace {
 
-	 @param[in]		extension
-					A reference to the (lower case) file extension.
-	 @return		@c GUID_NULL if no WIC container format is associated with 
-					the given file extension.
-	 @return		The WIC container format associated with the given image
-					file extension.
-	 */
-	[[nodiscard]]
-	static inline const GUID 
-		GetGUIDContainerFormat(const std::wstring& extension) noexcept {
+		/**
+		 Returns the WIC container format associated with the given image file 
+		 extension.
 
-		if (L".png" == extension) {
-			return GUID_ContainerFormatPng;
+		 @param[in]		extension
+						A reference to the (lower case) file extension.
+		 @return		@c GUID_NULL if no WIC container format is associated 
+						with the given file extension.
+		 @return		The WIC container format associated with the given 
+						image file extension.
+		 */
+		[[nodiscard]]
+		inline const GUID 
+			GetGUIDContainerFormat(const std::wstring& extension) noexcept {
+
+			if (        L".png"  == extension) {
+				return GUID_ContainerFormatPng;
+			}
+			else if (   L".jpe"  == extension
+					 || L".jpeg" == extension
+					 || L".jpg"  == extension) {
+				return GUID_ContainerFormatJpeg;
+			}
+			else if (   L".tif"  == extension
+					 || L".tiff" == extension) {
+				return GUID_ContainerFormatTiff;
+			}
+			else if (   L".gif"  == extension) {
+				return GUID_ContainerFormatGif;
+			}
+			else if (   L".bmp"  == extension
+					 || L".dib"  == extension) {
+				return GUID_ContainerFormatBmp;
+			}
+			else if (   L".ico"  == extension) {
+				return GUID_ContainerFormatIco;
+			}
+			else if (   L".hdp"  == extension
+					 || L".wdp"  == extension
+					 || L".jxr"  == extension) {
+				return GUID_ContainerFormatWmp;
+			}
+			else {
+				return GUID_NULL;
+			}
 		}
-		else if (L".jpe"  == extension
-			  || L".jpeg" == extension
-			  || L".jpg"  == extension) {
-			return GUID_ContainerFormatJpeg;
-		}
-		else if (L".tif"  == extension
-			  || L".tiff" == extension) {
-			return GUID_ContainerFormatTiff;
-		}
-		else if (L".gif"  == extension) {
-			return GUID_ContainerFormatGif;
-		}
-		else if (L".bmp"  == extension
-			  || L".dib"  == extension) {
-			return GUID_ContainerFormatBmp;
-		}
-		else if (L".ico"  == extension) {
-			return GUID_ContainerFormatIco;
-		}
-		else if (L".hdp"  == extension
-			  || L".wdp"  == extension
-			  || L".jxr"  == extension) {
-			return GUID_ContainerFormatWmp;
-		}
-		else {
-			return GUID_NULL;
-		}
+
 	}
 
 	void ExportTextureToFile(const std::filesystem::path& path, 

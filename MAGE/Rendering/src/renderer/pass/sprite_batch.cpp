@@ -351,7 +351,7 @@ namespace mage::rendering {
 		 The initial capacity of the vector containing the sprites waiting to 
 		 be drawn by a sprite batch.
 		 */
-		static const size_t s_initial_capacity = 64u;
+		static constexpr size_t s_initial_capacity = 64u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Rendering

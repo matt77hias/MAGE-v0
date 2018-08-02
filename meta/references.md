@@ -288,6 +288,8 @@ SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace 
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
+WHITTED T.: [*Ray Tracing and Global Illumination*](https://blogs.nvidia.com/blog/2018/08/01/ray-tracing-global-illumination-turner-whitted/), 2018.
+
 ### <a name="SSS-General-Computer-Science"></a>General Computer Science
 
 BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.

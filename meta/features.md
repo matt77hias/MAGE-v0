@@ -149,16 +149,25 @@
 * Texture transformations
 
 We use the following coordinate frames:
+
+### 2D
+* Display
+* Supersampled Display
+* Viewport (*camera dependent*)
+* Supersampled Viewport (*camera dependent*)
+
+### 3D
 * Box
 * Tangent
 * Object
 * World
 * Camera (>0)
 * Light (>0)
-* Shading (e.g. World, Camera, Light, ...)
-* View (e.g. Object, Camera, Light, ...)
-* Display
-* Supersampled Display
-* Viewport (*camera dependent*)
-* Supersampled Viewport (*camera dependent*)
-* Texture
+* Projection
+* NDC (NDC z = non-linear depth)
+* Shading (generic space; e.g., World, Camera, Light, ...)
+* View (generic space; e.g., Object, Camera, Light, ...)
+
+### Texture
+* UV
+* UVW

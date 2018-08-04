@@ -11,8 +11,8 @@ float UniformUintToFloat(uint u) {
 }
 
 uint UniformUint_LCG(uint state) {
-	static const float multiplier = 1664525u;
-	static const float increment  = 1013904223u;
+	static const uint multiplier = 1664525u;
+	static const uint increment  = 1013904223u;
 	return multiplier * state + increment;
 }
 

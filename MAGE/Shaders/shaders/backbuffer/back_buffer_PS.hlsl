@@ -38,13 +38,13 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 	#else  // DISABLE_DITHERING
 	
 	#ifdef DISABLE_TEMPORAL_DITHERING
-	const uint   seed      = FlattenIndex(p_display, g_display_resolution);
+	const uint   key       = FlattenIndex(p_display, g_display_resolution);
 	#else  // DISABLE_TEMPORAL_DITHERING
-	const uint   seed      = FlattenIndex(p_display, g_display_resolution)
+	const uint   key       = FlattenIndex(p_display, g_display_resolution)
 		                   ^ asuint(g_time);
 	#endif // DISABLE_TEMPORAL_DITHERING
 	
-	const float  noise     = UniformUintToFloat(Hash_Wang(seed));
+	const float  noise     = UniformUintToFloat(Hash_Wang(key));
 	const float4 output    = color + noise / 255.0f; // For 8 bit quantization.
 	#endif // DISABLE_DITHERING
 

@@ -9,7 +9,7 @@ uint Hash_Wang(uint key) {
 	key = (key ^ 61u) ^ (key >> 16u);
 	key = key + (key << 3u);
 	key = key ^ (key >> 4u);
-	key = key * 0x27D4EB2D;
+	key = key * 0x27D4EB2Du;
 	key = key ^ (key >> 15u);
 	return key;
 }

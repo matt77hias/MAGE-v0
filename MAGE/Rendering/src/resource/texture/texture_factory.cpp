@@ -76,31 +76,31 @@ namespace mage::rendering {
 	TexturePtr CreateBlackTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager, 
 								   MAGE_GUID_TEXTURE_BLACK, 
-								   0xFF000000);
+								   0xFF000000u);
 	}
 
 	TexturePtr CreateWhiteTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_WHITE,
-								   0xFFFFFFFF);
+								   0xFFFFFFFFu);
 	}
 
 	TexturePtr CreateRedTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_RED,
-								   0xFF000000);
+								   0xFF000000u);
 	}
 
 	TexturePtr CreateGreenTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_GREEN,
-								   0xFF00FF00);
+								   0xFF00FF00u);
 	}
 
 	TexturePtr CreateBlueTexture(ResourceManager& resource_manager) {
 		return CreateFlatTexture2D(resource_manager,
 								   MAGE_GUID_TEXTURE_BLUE,
-								   0xFF0000FF);
+								   0xFF0000FFu);
 	}
 
 	#pragma endregion

@@ -934,7 +934,7 @@ double4 SNormToUNorm(double4 v_snorm) {
  @return	The corresponding unpacked @c float2.
  */
 float2 UnpackR16G16(uint u) {
-	const float2 f = 0xFFFF & uint2(u >> 16u, u);
+	const float2 f = 0xFFFFu & uint2(u >> 16u, u);
 	return f * (1.0f / 65535.0f);
 }
 
@@ -959,7 +959,7 @@ uint PackR16G16(float2 f) {
  @return	The corresponding unpacked @c float4.
  */
 float4 UnpackR8G8B8A8(uint u) {
-	const float4 f = 0xFF & uint4(u >> 24u, u >> 16u, u >> 8u, u);
+	const float4 f = 0xFFu & uint4(u >> 24u, u >> 16u, u >> 8u, u);
 	return f * (1.0f / 255.0f);
 }
 

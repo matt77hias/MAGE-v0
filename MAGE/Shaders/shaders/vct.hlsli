@@ -41,9 +41,9 @@ float3 GetVCTRadiance(Cone cone, VCTConfig config) {
 
 		// Obtain the diameter (expressed in normalized texture coordinates).
 		//
-		//                diameter/2
-		// tan_aperture = ---------- <=> diameter = 2 . tan_aperture . distance
-		//                 distance
+		//                     diameter/2
+		// tan_half_aperture = ---------- <=> diameter = 2 . tan_half_aperture . distance
+		//                      distance
 		//
 		const float diameter = max(config.voxel_grid_inv_resolution,
 								   2.0f * cone.tan_half_aperture * distance);

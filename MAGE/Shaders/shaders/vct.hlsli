@@ -68,7 +68,9 @@ float3 GetVCTRadiance(Cone cone, VCTConfig config) {
 		const float inv_alpha = 1.0f - L.w;
 		L += inv_alpha * L_voxel;
 
-		distance += config.cone_step_multiplier * diameter;
+		distance += config.cone_step_multiplier;
+		//distance *= (1.0f + config.cone_step_multiplier);
+		//distance += config.cone_step_multiplier * diameter;
 	}
 
 	return L.xyz;

@@ -148,7 +148,7 @@ KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/1
 
 KAY J.: [*Fun with Reflection in C++*](http://jackieokay.com/2017/05/06/reflection2.html), 2017.
 
-KAYARI: [*C++*](http://kayari.org/cxx/antipatterns.html), s.d.
+KAYARI: [*C++ Antipatterns*](http://kayari.org/cxx/antipatterns.html), s.d.
 
 KNATTEN A. S.: [*lvalues, rvalues, glvalues, prvalues, xvalues, help!*](https://blog.knatten.org/2018/03/09/lvalues-rvalues-glvalues-prvalues-xvalues-help/), 2018.
 

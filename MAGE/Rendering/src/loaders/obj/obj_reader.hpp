@@ -307,9 +307,8 @@ namespace mage::rendering::loader {
 			 */
 			[[nodiscard]]
 			bool operator()(const U32x3& lhs, const U32x3& rhs) const noexcept {
-				return (lhs[0] == rhs[0]) ? ((lhs[1] == rhs[1]) ? (lhs[2] < rhs[2])
-					                                            : (lhs[1] < rhs[1]))
-					                      : (lhs[0] < rhs[0]);
+				return std::tie(lhs[0], lhs[1], lhs[2]) 
+					 < std::tie(rhs[0], rhs[1], rhs[2]);
 			}
 		};
 

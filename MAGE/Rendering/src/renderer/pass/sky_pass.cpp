@@ -61,6 +61,10 @@ namespace mage::rendering {
 	}
 
 	void SkyPass::Render(ID3D11ShaderResourceView* sky) const noexcept {
+		if (!sky) {
+			return;
+		}
+
 		// Bind the fixed state.
 		BindFixedState();
 

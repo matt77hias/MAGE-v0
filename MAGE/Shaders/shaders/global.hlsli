@@ -257,6 +257,7 @@ float3 VoxelIndexToWorld(uint3 voxel_index) {
  @return		The direction expressed in voxel UVW space.
  */
 float3 WorldToVoxelUVWDirection(float3 d_world) {
+	// [-1,1]^3 -> [-1,1]x[1,-1]x[-1,1]
 	return float3(d_world.x, -d_world.y, d_world.z);
 }
 
@@ -269,6 +270,7 @@ float3 WorldToVoxelUVWDirection(float3 d_world) {
  @return		The direction expressed in world space.
  */
 float3 VoxelUVWtoWorldDirection(float3 d_uvw) {
+	// [-1,1]^3 -> [-1,1]x[1,-1]x[-1,1]
 	return float3(d_uvw.x, -d_uvw.y, d_uvw.z);
 }
 

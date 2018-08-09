@@ -1018,8 +1018,7 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
  @return		The position expressed in UV space.
  */
 float2 NDCtoUV(float2 p_ndc_xy) {
-	// .x: [-1,1] -> [0,1]
-	// .y: [-1,1] -> [1,0]
+	// [-1,1]^2 -> [0,1]x[1,0]
 	return float2(0.5f, -0.5f) * p_ndc_xy + 0.5f;
 }
 
@@ -1032,8 +1031,7 @@ float2 NDCtoUV(float2 p_ndc_xy) {
  @return		The position expressed in NDC space (x and y coordinates).
  */
 float2 UVtoNDC(float2 p_uv) {
-	// .x: [0,1] -> [-1,1]
-	// .y: [0,1] -> [1,-1]
+	// [0,1]^2 -> [-1,1]x[1,-1]
 	return float2(2.0f, -2.0f) * p_uv + float2(-1.0f, 1.0f);
 }
 

@@ -92,14 +92,14 @@ static const float4 g_cones[] = {
 	{-0.823639f,  0.267617f, 0.5f, 0.15f },
 };
 
-float3 GetVCTRadiance(float3 uvw, float3x3 tangent_to_world, 
+float3 GetVCTRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
 					  Material material, VCTConfig config) {
 	float3 L = 0.0f;
 
 	Cone cone;
 	// Obtain the cone's apex expressed in (expressed in normalized texture 
 	// coordinates)
-	cone.apex = uvw;
+	cone.apex = p_uvw;
 	// tan(pi/6) = sqrt(3)/3
 	cone.tan_half_aperture = 0.577350269f;
 
@@ -108,7 +108,7 @@ float3 GetVCTRadiance(float3 uvw, float3x3 tangent_to_world,
 		const float3 d      = g_cones[i].xyz;
 		const float  weight = g_cones[i].w;
 
-		cone.d = normalize(mul(d, tangent_to_world));
+		cone.d = normalize(mul(d, tangent_to_uvw));
 
 		L += weight * GetVCTRadiance(cone, config);
 	}

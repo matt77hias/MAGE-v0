@@ -190,11 +190,11 @@ float3 GetCameraPosition() {
 
 /**
  Converts the given position expressed in world space to the corresponding 
- voxel UVW coordinates.
+ position expressed in voxel UVW space.
 
  @param[in]		p_world
 				The position expressed in world space.
- @return		The voxel UVW coordinates.
+ @return		The position expressed in voxel UVW space.
  */
 float3 WorldToVoxelUVW(float3 p_world) {
 	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size 
@@ -204,16 +204,16 @@ float3 WorldToVoxelUVW(float3 p_world) {
 }
 
 /**
- Converts the given voxel UVW coordinates to the corresponding position 
- expressed in world space.
+ Converts the given position expressed in voxel UVW space to the corresponding 
+ position expressed in world space.
 
- @param[in]		uvw
-				The voxel UVW coordinates.
+ @param[in]		p_uvw
+				The position expressed in voxel UVW space.
  @return		The position expressed in world space.
  */
-float3 VoxelUVWtoWorld(float3 uvw) {
+float3 VoxelUVWtoWorld(float3 p_uvw) {
 	// [0,1]x[1,0]x[0,1] -> [-1/2,1/2]^3
-	const float3 voxel = float3( 1.0f, -1.0f,  1.0f) * uvw
+	const float3 voxel = float3( 1.0f, -1.0f,  1.0f) * p_uvw
 		               + float3(-0.5f,  0.5f, -0.5f);
 	return g_voxel_grid_center + voxel * g_voxel_size * g_voxel_grid_resolution;
 }
@@ -246,6 +246,30 @@ float3 VoxelIndexToWorld(uint3 voxel_index) {
 	const float3 voxel = float3( 1.0f, -1.0f,  1.0f) * voxel_index
 		               + float3(-0.5f,  0.5f, -0.5f) * g_voxel_grid_resolution;
 	return g_voxel_grid_center + voxel * g_voxel_size;
+}
+
+/**
+ Converts the given direction expressed in world space to the corresponding 
+ direction expressed in voxel UVW space.
+
+ @param[in]		d_world
+				The direction expressed in world space.
+ @return		The direction expressed in voxel UVW space.
+ */
+float3 WorldToVoxelUVWDirection(float3 d_world) {
+	return float3(d_world.x, -d_world.y, d_world.z);
+}
+
+/**
+ Converts the given direction expressed in voxel UVW space to the corresponding 
+ direction expressed in world space.
+
+ @param[in]		d_uvw
+				The direction expressed in voxel UVW space.
+ @return		The direction expressed in world space.
+ */
+float3 VoxelUVWtoWorldDirection(float3 d_uvw) {
+	return float3(d_uvw.x, -d_uvw.y, d_uvw.z);
 }
 
 /**
@@ -396,56 +420,56 @@ float2 SSViewportToUV(uint2 p_ss_viewport) {
  Converts the given position expressed in UV space to the corresponding 
  position expressed in display space.
 
- @param[in]		uv
+ @param[in]		p_uv
 				The position expressed in UV space.
  @return		The position expressed in display space.
  */
-float2 UVtoDisplay(float2 uv) {
+float2 UVtoDisplay(float2 p_uv) {
 	// .x: [0,1] -> [0, g_display_resolution.x]
 	// .y: [0,1] -> [0, g_display_resolution.y]
-	return uv * g_display_resolution;
+	return p_uv * g_display_resolution;
 }
 
 /**
  Converts the given position expressed in UV space to the corresponding 
  position expressed in super-sampled display space.
 
- @param[in]		uv
+ @param[in]		p_uv
 				The position expressed in UV space.
  @return		The position expressed in super-sampled display space.
  */
-float2 UVtoSSDisplay(float2 uv) {
+float2 UVtoSSDisplay(float2 p_uv) {
 	// .x: [0,1] -> [0, g_ss_display_resolution.x]
 	// .y: [0,1] -> [0, g_ss_display_resolution.y]
-	return uv * g_ss_display_resolution;
+	return p_uv * g_ss_display_resolution;
 }
 
 /**
  Converts the given position expressed in UV space to the corresponding 
  position expressed in viewport space.
 
- @param[in]		uv
+ @param[in]		p_uv
 				The position expressed in UV space.
  @return		The position expressed in viewport space.
  */
-float2 UVtoViewport(float2 uv) {
+float2 UVtoViewport(float2 p_uv) {
 	// .x: [0,1] -> [0, g_viewport_resolution.x]
 	// .y: [0,1] -> [0, g_viewport_resolution.y]
-	return uv * g_viewport_resolution;
+	return p_uv * g_viewport_resolution;
 }
 
 /**
  Converts the given position expressed in UV space to the corresponding 
  position expressed in super-sampled viewport space.
 
- @param[in]		uv
+ @param[in]		p_uv
 				The position expressed in UV space.
  @return		The position expressed in super-sampled viewport space.
  */
-float2 UVtoSSViewport(float2 uv) {
+float2 UVtoSSViewport(float2 p_uv) {
 	// .x: [0,1] -> [0, g_ss_viewport_resolution.x]
 	// .y: [0,1] -> [0, g_ss_viewport_resolution.y]
-	return uv * g_ss_viewport_resolution;
+	return p_uv * g_ss_viewport_resolution;
 }
 
 /**

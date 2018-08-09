@@ -235,7 +235,8 @@ float3 GetDirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	return L;
 }
 
-float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
+float3 GetIndirectRadiance(float3 v_world, float3 p_world, float3 n_world, 
+						   Material material) {
 	float3 L = 0.0f;
 
 	#ifndef DISABLE_LIGHT_AMBIENT
@@ -244,8 +245,9 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 	#endif // DISABLE_LIGHT_AMBIENT
 
 	#ifndef DISABLE_VCT
-	const float3   uvw              = WorldToVoxelUVW(p);
-	const float3x3 tangent_to_world = OrthonormalBasis(n);
+	const float3   p_uvw          = WorldToVoxelUVW(p_world);
+	const float3   n_uvw          = WorldToVoxelUVWDirection(n_world);
+	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
 	const VCTConfig config = {
 		g_voxel_texture_max_mip_level,
@@ -257,7 +259,7 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 		g_voxel_texture
 	};
 
-	L += GetVCTRadiance(uvw, tangent_to_world, material, config);
+	L += GetVCTRadiance(p_uvw, tangent_to_uvw, material, config);
 	#endif // DISABLE_VCT
 
 	return L;
@@ -265,24 +267,24 @@ float3 GetIndirectRadiance(float3 v, float3 p, float3 n, Material material) {
 
 #endif // BRDF_FUNCTION
 
-float3 GetRadiance(float3 p, float3 n, Material material) {
+float3 GetRadiance(float3 p_world, float3 n_world, Material material) {
 	float3 L = 0.0f;
 
-	const float3 v_direction    = GetCameraPosition() - p;
+	const float3 v_direction    = GetCameraPosition() - p_world;
 	const float  v_distance     = length(v_direction);
 
 	#ifdef BRDF_FUNCTION
 	const float  inv_v_distance = 1.0f / v_distance;
-	const float3 v              = v_direction * inv_v_distance;
+	const float3 v_world        = v_direction * inv_v_distance;
 
 	#ifndef DISABLE_ILLUMINATION_DIRECT
 	// Obtain the direct radiance.
-	L += GetDirectRadiance(v, p, n, material);
+	L += GetDirectRadiance(v_world, p_world, n_world, material);
 	#endif // DISABLE_ILLUMINATION_DIRECT
 	
 	#ifndef DISABLE_ILLUMINATION_INDIRECT
 	// Obtain the indirect radiance.
-	L += GetIndirectRadiance(v, p, n, material);
+	L += GetIndirectRadiance(v_world, p_world, n_world, material);
 	#endif // DISABLE_ILLUMINATION_INDIRECT
 
 	#else  // BRDF_FUNCTION

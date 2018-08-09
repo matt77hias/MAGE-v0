@@ -981,16 +981,17 @@ uint PackR8G8B8A8(float4 f) {
 //-----------------------------------------------------------------------------
 
 /**
- Apply the homogeneous divide on the given position.
+ Apply the homogeneous divide on the given position expressed in projection 
+ space.
 
- @param[in]		p
-				The position.
- @return		The position after the homogeneous divide (i.e. the implicit w 
-				coordinate is equal to one).
+ @param[in]		p_proj
+				The position expressed in projection space.
+ @return		The position expressed in projection space after the homogeneous 
+				divide (i.e. the implicit w coordinate is equal to one).
  */
-float3 HomogeneousDivide(float4 p) {
-	const float inv_w = 1.0f / p.w;
-	return p.xyz * inv_w;
+float3 HomogeneousDivide(float4 p_proj) {
+	const float inv_w = 1.0f / p_proj.w;
+	return p_proj.xyz * inv_w;
 }
 
 /**
@@ -1009,11 +1010,12 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 }
 
 /**
- Converts the given NDC coordinates to UV coordinates.
+ Converts the given position expressed in NDC space to the corresponding 
+ position expressed in UV space.
 
  @param[in]		p_ndc_xy
-				The NDC x and y coordinate.
- @return		The UV u and v coordinates.
+				The position expressed in NDC space (x and y coordinates).
+ @return		The position expressed in UV space.
  */
 float2 NDCtoUV(float2 p_ndc_xy) {
 	// .x: [-1,1] -> [0,1]
@@ -1022,16 +1024,17 @@ float2 NDCtoUV(float2 p_ndc_xy) {
 }
 
 /**
- Converts the given UV coordinates to NDC coordinates.
+ Converts the given position expressed in UV space to the corresponding 
+ position expressed in NDC space.
 
- @param[in]		uv
-				The UV u and v coordinates.
- @return		The NDC x and y coordinate.
+ @param[in]		p_uv
+				The position expressed in UV space.
+ @return		The position expressed in NDC space (x and y coordinates).
  */
-float2 UVtoNDC(float2 uv) {
+float2 UVtoNDC(float2 p_uv) {
 	// .x: [0,1] -> [-1,1]
 	// .y: [0,1] -> [1,-1]
-	return float2(2.0f, -2.0f) * uv + float2(-1.0f, 1.0f);
+	return float2(2.0f, -2.0f) * p_uv + float2(-1.0f, 1.0f);
 }
 
 //-----------------------------------------------------------------------------

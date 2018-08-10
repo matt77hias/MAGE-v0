@@ -659,20 +659,21 @@ namespace mage::rendering {
 		const auto vct = camera.GetSettings().GetVoxelizationSettings().UsesVCT();
 
 		//---------------------------------------------------------------------
-		// LBuffer
-		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection);
-
-		//---------------------------------------------------------------------
-		// Voxelization
+		// LBuffer + Voxelization
 		//---------------------------------------------------------------------
 		if (vct) {
 			const auto world_to_voxel
 				= VoxelizationSettings::GetWorldToVoxelMatrix();
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
+
+			m_lbuffer_pass->Render(world, world_to_projection);
+
 			m_voxelization_pass->Render(world, world_to_voxel,
 										voxel_grid_resolution);
+		}
+		else {
+			m_lbuffer_pass->Render(world, world_to_projection);
 		}
 
 		const Viewport viewport(camera.GetViewport(),
@@ -715,20 +716,21 @@ namespace mage::rendering {
 		const auto vct = camera.GetSettings().GetVoxelizationSettings().UsesVCT();
 
 		//---------------------------------------------------------------------
-		// LBuffer
-		//---------------------------------------------------------------------
-		m_lbuffer_pass->Render(world, world_to_projection);
-
-		//---------------------------------------------------------------------
-		// Voxelization
+		// LBuffer + Voxelization
 		//---------------------------------------------------------------------
 		if (vct) {
 			const auto world_to_voxel
 				= VoxelizationSettings::GetWorldToVoxelMatrix();
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
+			
+			m_lbuffer_pass->Render(world, world_to_projection);
+			
 			m_voxelization_pass->Render(world, world_to_voxel,
 										voxel_grid_resolution);
+		}
+		else {
+			m_lbuffer_pass->Render(world, world_to_projection);
 		}
 
 		const Viewport viewport(camera.GetViewport(),

@@ -243,8 +243,10 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		static const XMMATRIX XM_CALLCONV GetWorldToVoxelMatrix() noexcept {
-			const auto r = s_voxel_grid_resolution * 0.5f * s_voxel_size;
-			return XMMatrixOrthographicOffCenterLH(-r, r, -r, r, -r, r);
+			const auto translation = XMMatrixInverseTranslation(XMLoad(GetVoxelGridCenter()));
+			const auto r           = s_voxel_grid_resolution * 0.5f * s_voxel_size;
+			const auto projection  = XMMatrixOrthographicOffCenterLH(-r, r, -r, r, -r, r);
+			return translation * projection;
 		}
 
 		//---------------------------------------------------------------------

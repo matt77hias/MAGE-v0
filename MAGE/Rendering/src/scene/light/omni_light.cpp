@@ -41,9 +41,10 @@ namespace mage::rendering {
 		Assert(HasOwner());
 
 		const auto& transform = GetOwner()->GetTransform();
-		return XMStore< F32 >(XMVector3Length(
-			transform.TransformObjectToWorldPoint({ 0.0f, 0.0f, GetRange(), 1.0f })));
-
+		const auto p1 = transform.GetWorldOrigin();
+		const auto p2 = transform.TransformObjectToWorldPoint(
+			                      { 0.0f, 0.0f, GetRange(), 1.0f });
+		return XMStore< F32 >(XMVector3Length(p1 - p2));
 	}
 
 	void OmniLight::UpdateBoundingVolumes() noexcept {

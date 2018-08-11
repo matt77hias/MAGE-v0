@@ -9,9 +9,9 @@ struct Material {
 	// The (linear) base color of this material.
 	float3 base_color;
 	// The (linear) roughness of this material.
-	float roughness;
+	float  roughness;
 	// The (linear) metalness of this material.
-	float metalness;
+	float  metalness;
 };
 
 #endif // MAGE_HEADER_MATERIAL

@@ -1035,6 +1035,32 @@ float2 UVtoNDC(float2 p_uv) {
 	return float2(2.0f, -2.0f) * p_uv + float2(-1.0f, 1.0f);
 }
 
+/**
+ Converts the given direction expressed in world space to the corresponding 
+ direction expressed in voxel UVW space.
+
+ @param[in]		d_world
+				The direction expressed in world space.
+ @return		The direction expressed in voxel UVW space.
+ */
+float3 WorldToVoxelUVWDirection(float3 d_world) {
+	// [-1,1]^3 -> [-1,1]x[1,-1]x[-1,1]
+	return float3(d_world.x, -d_world.y, d_world.z);
+}
+
+/**
+ Converts the given direction expressed in voxel UVW space to the corresponding 
+ direction expressed in world space.
+
+ @param[in]		d_uvw
+				The direction expressed in voxel UVW space.
+ @return		The direction expressed in world space.
+ */
+float3 VoxelUVWtoWorldDirection(float3 d_uvw) {
+	// [-1,1]^3 -> [-1,1]x[1,-1]x[-1,1]
+	return float3(d_uvw.x, -d_uvw.y, d_uvw.z);
+}
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Indexing
 //-----------------------------------------------------------------------------

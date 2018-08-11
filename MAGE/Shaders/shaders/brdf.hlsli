@@ -79,37 +79,37 @@ float sat_dot(float3 x, float3 y) {
 }
 
 /**
- Calculates the reflected direction of the given light direction about the 
- given surface normal.
+ Calculates the reflected direction of the given direction about the given 
+ surface normal.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
   @param[in]	n
 				The surface normal expressed in shading space.
  @param[in]		l
-				The light (hit-to-light) direction expressed in shading space.
- @return		The normalized reflected vector of the given light direction 
-				about the given surface normal expressed in shading space.
+				The direction expressed in shading space.
+ @return		The normalized reflected vector of the given direction about 
+				the given surface normal expressed in shading space.
  */
 float3 ReflectedDirection(float3 n, float3 l) {
 	return reflect(-l, n);
 }
 
 /**
- Calculates the half direction between the given light and view direction.
+ Calculates the half direction between the given directions.
 
- @pre			@a l is normalized.
- @pre			@a v is normalized.
- @param[in]		l
-				The light (hit-to-light) direction expressed in shading space.
- @param[in]		v
-				The view (hit-to-eye) direction expressed in shading space.
- @return		The normalized half direction between the given light and view 
-				direction expressed in shading space.
+ @pre			@a d1 is normalized.
+ @pre			@a d2 is normalized.
+ @param[in]		d1
+				The first direction expressed in shading space.
+ @param[in]		d2
+				The second direction expressed in shading space.
+ @return		The normalized half direction between the given directions 
+				expressed in shading space.
  */
-float3 HalfDirection(float3 l, float3 v) {
-	// l+v / ||l+v||
-	return normalize(l + v);
+float3 HalfDirection(float3 d1, float3 d2) {
+	// h := d1+d2 / ||d1+d2||
+	return normalize(d1 + d2);
 }
 
 //-----------------------------------------------------------------------------

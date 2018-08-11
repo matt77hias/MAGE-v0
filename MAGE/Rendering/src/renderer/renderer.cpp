@@ -664,10 +664,12 @@ namespace mage::rendering {
 		if (vct) {
 			const auto world_to_voxel
 				= VoxelizationSettings::GetWorldToVoxelMatrix();
+
+			// TODO: world_to_projection + world_to_voxel for culling
+			m_lbuffer_pass->Render(world, world_to_projection);
+
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
-
-			m_lbuffer_pass->Render(world, world_to_projection);
 
 			m_voxelization_pass->Render(world, world_to_voxel,
 										voxel_grid_resolution);
@@ -721,10 +723,12 @@ namespace mage::rendering {
 		if (vct) {
 			const auto world_to_voxel
 				= VoxelizationSettings::GetWorldToVoxelMatrix();
+
+			// TODO: world_to_projection + world_to_voxel for culling
+			m_lbuffer_pass->Render(world, world_to_projection);
+
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
-			
-			m_lbuffer_pass->Render(world, world_to_projection);
 			
 			m_voxelization_pass->Render(world, world_to_voxel,
 										voxel_grid_resolution);

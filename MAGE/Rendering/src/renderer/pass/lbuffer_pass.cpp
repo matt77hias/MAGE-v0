@@ -205,6 +205,7 @@ namespace mage::rendering {
 	void XM_CALLCONV LBufferPass
 		::ProcessOmniLights(const World& world, 
 							FXMMATRIX world_to_projection) {
+		
 		AlignedVector< OmniLightBuffer > lights;
 		lights.reserve(m_omni_lights.size());
 
@@ -287,6 +288,7 @@ namespace mage::rendering {
 	void XM_CALLCONV LBufferPass
 		::ProcessSpotLights(const World& world, 
 							FXMMATRIX world_to_projection) {
+		
 		AlignedVector< SpotLightBuffer > lights;
 		lights.reserve(m_spot_lights.size());
 

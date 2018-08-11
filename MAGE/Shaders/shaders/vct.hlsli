@@ -2,9 +2,18 @@
 #define MAGE_HEADER_VCT
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                        | Default
+//-----------------------------------------------------------------------------
+// DISABLE_BRDF_DIFFUSE                     | not defined
+// DISABLE_BRDF_SPECULAR                    | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "material.hlsli"
+#include "basis.hlsli"
+#include "brdf.hlsli"
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
@@ -92,13 +101,11 @@ static const float4 g_cones[] = {
 	{-0.823639f,  0.267617f, 0.5f, 0.15f },
 };
 
-float3 GetVCTRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
-					  Material material, VCTConfig config) {
+float3 GetVCTDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw, 
+							 Material material, VCTConfig config) {
 	float3 L = 0.0f;
 
 	Cone cone;
-	// Obtain the cone's apex expressed in (expressed in normalized texture 
-	// coordinates)
 	cone.apex = p_uvw;
 	// tan(pi/6) = sqrt(3)/3
 	cone.tan_half_aperture = 0.577350269f;
@@ -113,7 +120,40 @@ float3 GetVCTRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
 		L += weight * GetVCTRadiance(cone, config);
 	}
 
+	// Lambertian BRDF
 	return material.base_color * L;
+}
+
+float3 GetVCTSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
+							  Material material, VCTConfig config) {
+	
+	const float3 d_world   = ReflectedDirection(n_world, v_world);
+	
+	Cone cone;
+	cone.apex              = p_uvw;
+	cone.d                 = WorldToVoxelUVWDirection(d_world);
+	cone.tan_half_aperture = tan(0.1f * material.roughness * g_pi);
+
+	return GetVCTRadiance(cone, config);
+}
+
+float3 GetVCTRadiance(float3 p_uvw, float3 n_world, float3 v_world,
+					  Material material, VCTConfig config) {
+
+	float3 L = 0.0f;
+
+	#ifndef DISABLE_BRDF_DIFFUSE
+	const float3   n_uvw          = WorldToVoxelUVWDirection(n_world);
+	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
+
+	L += GetVCTDiffuseRadiance(p_uvw, tangent_to_uvw, material, config);
+	#endif // DISABLE_BRDF_DIFFUSE
+
+	#ifndef DISABLE_BRDF_SPECULAR
+	L += GetVCTSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	#endif // DISABLE_BRDF_SPECULAR
+
+	return L;
 }
 
 #endif // MAGE_HEADER_VCT

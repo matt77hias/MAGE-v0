@@ -12,8 +12,6 @@
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 // DISABLE_FOG                              | not defined
-// DISABLE_ILLUMINATION_DIRECT              | not defined
-// DISABLE_ILLUMINATION_INDIRECT            | not defined
 // DISABLE_LIGHTS_AMBIENT                   | not defined
 // DISABLE_LIGHTS_DIRECTIONAL               | not defined
 // DISABLE_LIGHTS_OMNI                      | not defined

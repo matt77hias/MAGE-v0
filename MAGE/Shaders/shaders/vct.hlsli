@@ -6,6 +6,12 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
+// BRDF_DOT_EPSILON                         | 0.00001f
+// BRDF_D_FUNCTION                          | D_GGX
+// BRDF_FUNCTION                            | not defined
+// BRDF_F_FUNCTION                          | F_Schlick
+// BRDF_G_FUNCTION                          | G_GXX
+// BRDF_MINIMUM_ALPHA                       | 0.1f
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 
@@ -128,31 +134,32 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
 float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
 						   Material material, VCTConfig config) {
 	
-	const float3 d_world   = ReflectedDirection(n_world, v_world);
+	// Compute the light (hit-to-light) direction.
+	const float3 l_world = ReflectedDirection(n_world, v_world);
+	const float3 l_uvw = WorldToVoxelUVWDirection(l_world);
 	
 	Cone cone;
 	cone.apex              = p_uvw;
-	cone.d                 = WorldToVoxelUVWDirection(d_world);
+	cone.d                 = l_uvw;
 	cone.tan_half_aperture = tan(0.1f * material.roughness * g_pi);
 
-	return GetIrradiance(cone, config);
+	// Compute the light irradiance.
+	const float3 E = GetIrradiance(cone, config);
+	// Compute the BRDF.
+	const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+	
+	return brdf.specular * E;
 }
 
 float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
 				   Material material, VCTConfig config) {
 
-	float3 L = 0.0f;
-
-	#ifndef DISABLE_BRDF_DIFFUSE
 	const float3   n_uvw          = WorldToVoxelUVWDirection(n_world);
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
-	L += GetDiffuseRadiance(p_uvw, tangent_to_uvw, material, config);
-	#endif // DISABLE_BRDF_DIFFUSE
-
-	#ifndef DISABLE_BRDF_SPECULAR
+	float3 L = 0.0f;
+	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw,   material, config);
 	L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
-	#endif // DISABLE_BRDF_SPECULAR
 
 	return L;
 }

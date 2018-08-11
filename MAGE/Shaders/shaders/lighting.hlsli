@@ -152,11 +152,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	for (uint i0 = 0u; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
 		
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
 
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_DIRECTIONAL
 
@@ -165,11 +169,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
 		
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
 
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_OMNI
 
@@ -178,11 +186,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
 		
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
 
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_SPOT
 
@@ -194,11 +206,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const ShadowMappedDirectionalLight light = g_sm_directional_lights[i3];
 		const ShadowMap shadow_map = { g_pcf_sampler, g_directional_sms, i3 };
 
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, shadow_map, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
 
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL
 
@@ -208,11 +224,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
 		const ShadowCubeMap shadow_cube_map = { g_pcf_sampler, g_omni_sms, i4 };
 
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, shadow_cube_map, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
-		
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI
 
@@ -222,11 +242,15 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
 		const ShadowMap shadow_map = { g_pcf_sampler, g_spot_sms, i5 };
 		
+		// Compute the light (hit-to-light) direction and irradiance.
 		float3 l_world, E;
 		Contribution(light, shadow_map, p_world, l_world, E);
+		// Compute the BRDF.
+		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+		// Compute the cosine factor.
 		const float n_dot_l = sat_dot(n_world, l_world);
 
-		L += BRDF_FUNCTION(n_world, l_world, v_world, material) * E * n_dot_l;
+		L += (brdf.diffuse + brdf.specular) * E * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT
 

@@ -141,7 +141,11 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	Cone cone;
 	cone.apex              = p_uvw;
 	cone.d                 = l_uvw;
-	cone.tan_half_aperture = tan(0.1f * material.roughness * g_pi);
+
+	// TODO
+	const float g          = 3.5f + (16.0f - 3.5f) * material.roughness;
+	const float aperture   = 0.0043697f * sqr(g) - 0.136492f * g + 1.50625f;
+	cone.tan_half_aperture = tan(0.5f * aperture);
 
 	// Compute the light irradiance.
 	const float3 E = GetIrradiance(cone, config);
@@ -159,7 +163,7 @@ float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 
 	float3 L = 0.0f;
 	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw,   material, config);
-	L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	//L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
 
 	return L;
 }

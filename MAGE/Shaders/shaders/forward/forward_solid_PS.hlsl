@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
+// DISABLE_LIGHTS_AMBIENT                   | not defined
 // DISABLE_LIGHTS_DIRECTIONAL               | not defined
 // DISABLE_LIGHTS_OMNI                      | not defined
 // DISABLE_LIGHTS_SPOT                      | not defined
@@ -10,7 +11,6 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
-// DISABLE_LIGHT_AMBIENT                    | not defined
 // LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
 // LIGHT_DISTANCE_ATTENUATION_FUNCTION      | DistanceAttenuation
 // MSAA_AS_SSAA                             | not defined

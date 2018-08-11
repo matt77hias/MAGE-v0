@@ -17,6 +17,7 @@
 // DISABLE_FOG                              | not defined
 // DISABLE_ILLUMINATION_DIRECT              | not defined
 // DISABLE_ILLUMINATION_INDIRECT            | not defined
+// DISABLE_LIGHTS_AMBIENT                   | not defined
 // DISABLE_LIGHTS_DIRECTIONAL               | not defined
 // DISABLE_LIGHTS_OMNI                      | not defined
 // DISABLE_LIGHTS_SPOT                      | not defined
@@ -24,7 +25,6 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
-// DISABLE_LIGHT_AMBIENT                    | not defined
 // DISABLE_VCT                              | not defined
 // FOG_FACTOR_FUNCTION                      | FogFactor_Exponential
 // LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
@@ -239,10 +239,10 @@ float3 GetIndirectRadiance(float3 p_world, float3 n_world, float3 v_world,
 						   Material material) {
 	float3 L = 0.0f;
 
-	#ifndef DISABLE_LIGHT_AMBIENT
+	#ifndef DISABLE_LIGHTS_AMBIENT
 	// Ambient light contribution
 	L += g_La;
-	#endif // DISABLE_LIGHT_AMBIENT
+	#endif // DISABLE_LIGHTS_AMBIENT
 
 	#ifndef DISABLE_VCT
 	const float3 p_uvw     = WorldToVoxelUVW(p_world);

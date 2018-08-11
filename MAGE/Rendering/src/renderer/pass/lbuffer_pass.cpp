@@ -119,8 +119,18 @@ namespace mage::rendering {
 	}
 
 	void LBufferPass::ProcessLightsData(const World& world) {
-		LightBuffer buffer;
+		// Accumulate all ambient light spectra.
+		XMVECTOR La = {};
+		world.ForEach< AmbientLight >([&La](const AmbientLight& light) {
+			if (State::Active != light.GetState()) {
+				return;
+			}
 
+			La += XMLoad(light.GetRadianceSpectrum());
+		});
+		
+		LightBuffer buffer;
+		buffer.m_La                       = RGB(XMStore< F32x3 >(La));
 		buffer.m_nb_directional_lights    = static_cast< U32 >(m_directional_lights.size());
 		buffer.m_nb_omni_lights           = static_cast< U32 >(m_omni_lights.size());
 		buffer.m_nb_spot_lights           = static_cast< U32 >(m_spot_lights.size());
@@ -128,14 +138,6 @@ namespace mage::rendering {
 		buffer.m_nb_sm_omni_lights        = static_cast< U32 >(m_sm_omni_lights.size());
 		buffer.m_nb_sm_spot_lights        = static_cast< U32 >(m_sm_spot_lights.size());
 
-		world.ForEach< AmbientLight >([&buffer](const AmbientLight& light) {
-			if (State::Active != light.GetState()) {
-				return;
-			}
-
-			buffer.m_La = light.GetRadianceSpectrum();
-		});
-		
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}

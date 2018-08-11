@@ -256,7 +256,8 @@ float3 GetIndirectRadiance(float3 p_world, float3 n_world, float3 v_world,
 		g_voxel_texture
 	};
 
-	L += GetVCTRadiance(p_uvw, n_world, v_world, material, config);
+	// This also includes direct radiance from emissive surfaces.
+	L += GetRadiance(p_uvw, n_world, v_world, material, config);
 	#endif // DISABLE_VCT
 
 	return L;

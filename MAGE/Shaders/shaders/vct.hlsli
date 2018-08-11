@@ -38,15 +38,15 @@ struct VCTConfig {
 	Texture3D< float4 > voxel_texture;
 };
 
-float3 GetVCTRadiance(Cone cone, VCTConfig config) {
-	float4 L = 0.0f;
+float3 GetIrradiance(Cone cone, VCTConfig config) {
+	float4 E = 0.0f;
 
 	// Set the initial distance to the voxel diagonal (expressed in normalized 
 	// texture coordinates) (= sqrt(2)/g_voxel_grid_resolution) to avoid 
 	// sampling the voxel containing the given position.
 	float distance = 1.414213562f * config.voxel_grid_inv_resolution;
 
-	while (config.max_cone_distance > distance && 1.0f > L.w) {
+	while (config.max_cone_distance > distance && 1.0f > E.w) {
 
 		// Obtain the diameter (expressed in normalized texture coordinates).
 		//
@@ -69,20 +69,21 @@ float3 GetVCTRadiance(Cone cone, VCTConfig config) {
 			break;
 		}
 
-		// Obtain the radiance.
-		const float4 L_voxel 
+		// Obtain the irradiance.
+		const float4 E_voxel
 			= config.voxel_texture.SampleLevel(config.voxel_sampler, uvw, mip_level);
 
 		// Perform blending.
-		const float inv_alpha = 1.0f - L.w;
-		L += inv_alpha * L_voxel;
+		const float inv_alpha = 1.0f - E.w;
+		E += inv_alpha * E_voxel;
 
+		// TODO
 		distance += config.cone_step_multiplier;
 		//distance *= (1.0f + config.cone_step_multiplier);
 		//distance += config.cone_step_multiplier * diameter;
 	}
 
-	return L.xyz;
+	return E.xyz;
 }
 
 /**
@@ -101,8 +102,8 @@ static const float4 g_cones[] = {
 	{-0.823639f,  0.267617f, 0.5f, 0.15f },
 };
 
-float3 GetVCTDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw, 
-							 Material material, VCTConfig config) {
+float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw, 
+						  Material material, VCTConfig config) {
 	float3 L = 0.0f;
 
 	Cone cone;
@@ -117,15 +118,15 @@ float3 GetVCTDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
 
 		cone.d = normalize(mul(d, tangent_to_uvw));
 
-		L += weight * GetVCTRadiance(cone, config);
+		L += weight * GetIrradiance(cone, config);
 	}
 
 	// Lambertian BRDF
 	return material.base_color * L;
 }
 
-float3 GetVCTSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
-							  Material material, VCTConfig config) {
+float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
+						   Material material, VCTConfig config) {
 	
 	const float3 d_world   = ReflectedDirection(n_world, v_world);
 	
@@ -134,11 +135,11 @@ float3 GetVCTSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	cone.d                 = WorldToVoxelUVWDirection(d_world);
 	cone.tan_half_aperture = tan(0.1f * material.roughness * g_pi);
 
-	return GetVCTRadiance(cone, config);
+	return GetIrradiance(cone, config);
 }
 
-float3 GetVCTRadiance(float3 p_uvw, float3 n_world, float3 v_world,
-					  Material material, VCTConfig config) {
+float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
+				   Material material, VCTConfig config) {
 
 	float3 L = 0.0f;
 
@@ -146,11 +147,11 @@ float3 GetVCTRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	const float3   n_uvw          = WorldToVoxelUVWDirection(n_world);
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
-	L += GetVCTDiffuseRadiance(p_uvw, tangent_to_uvw, material, config);
+	L += GetDiffuseRadiance(p_uvw, tangent_to_uvw, material, config);
 	#endif // DISABLE_BRDF_DIFFUSE
 
 	#ifndef DISABLE_BRDF_SPECULAR
-	L += GetVCTSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
 	#endif // DISABLE_BRDF_SPECULAR
 
 	return L;

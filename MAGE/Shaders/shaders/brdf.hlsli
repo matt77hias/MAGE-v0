@@ -1394,9 +1394,9 @@ float F_CookTorrance(float v_dot_h, float F0) {
 	//
 	// g   := sqrt(eta^2 + c^2 - 1)
     //
-	//        1 [g - c]^2 [    [(g + c) (c - 1)]^2]
-	// F   := - [-----]   [1 + [---------------]  ]
-	//        2 [g + c]   [    [(g - c) (c + 1)]  ]
+	//        1 [g - c]^2 [    [(g + c) c - 1]^2]
+	// F   := - [-----]   [1 + [-------------]  ]
+	//        2 [g + c]   [    [(g - c) c + 1]  ]
 
 	const float sqrt_F0  = sqrt(F0);
 	const float eta      = (1.0f + sqrt_F0) / (1.0f - sqrt_F0);
@@ -1406,7 +1406,7 @@ float F_CookTorrance(float v_dot_h, float F0) {
 	const float g1       = g + v_dot_h;
 	const float g2       = g - v_dot_h;
 
-	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) / (g2 * (v_dot_h + 1.0f))));
+	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * v_dot_h - 1.0f) / (g2 * v_dot_h + 1.0f)));
 }
 
 /**

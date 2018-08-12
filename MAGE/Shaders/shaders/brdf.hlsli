@@ -1305,7 +1305,7 @@ float3 F_None(float v_dot_h, float3 F0) {
 float F_Schlick(float v_dot_h, float F0, float F90) {
 	// F := F0 + (F90 - F0) (1 - v_dot_h)^5
 
-	const float m = (1.0f - v_dot_h);
+	const float m  = (1.0f - v_dot_h);
 	const float m2 = sqr(m);
 	const float m5 = sqr(m2) * m;
 	

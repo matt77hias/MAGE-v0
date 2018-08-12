@@ -141,18 +141,16 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	Cone cone;
 	cone.apex              = p_uvw;
 	cone.d                 = l_uvw;
-
-	// TODO
-	const float g          = 3.5f + (16.0f - 3.5f) * material.roughness;
-	const float aperture   = 0.0043697f * sqr(g) - 0.136492f * g + 1.50625f;
-	cone.tan_half_aperture = tan(0.5f * aperture);
+	cone.tan_half_aperture = abs(tan(material.roughness * g_pi_inv_2));
 
 	// Compute the light irradiance.
 	const float3 E = GetIrradiance(cone, config);
 	// Compute the BRDF.
 	const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
+	// Compute the cosine factor.
+	const float n_dot_l = sat_dot(n_world, l_world);
 	
-	return brdf.specular * E;
+	return E; // brdf.specular * E * n_dot_l; // TODO
 }
 
 float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
@@ -162,8 +160,14 @@ float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
 	float3 L = 0.0f;
+	
+	#ifndef DISABLE_BRDF_DIFFUSE
 	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw,   material, config);
-	//L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	#endif // DISABLE_BRDF_DIFFUSE
+
+	#ifndef DISABLE_BRDF_SPECULAR
+	L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	#endif // DISABLE_BRDF_SPECULAR
 
 	return L;
 }

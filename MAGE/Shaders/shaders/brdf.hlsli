@@ -1544,8 +1544,8 @@ BRDF FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D         = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V         = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F_spec0   = lerp(g_dielectric_F0, material.base_color, material.metalness);
-	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F_spec0);
+	const float3 F0_spec   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F0_spec);
 	const float  F_diff    = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, material.roughness)
 		                   * (1.0f - material.metalness);
 
@@ -1580,8 +1580,8 @@ BRDF CookTorranceBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D         = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V         = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F_spec0   = lerp(g_dielectric_F0, material.base_color, material.metalness);
-	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F_spec0);
+	const float3 F0_spec   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F_spec    = BRDF_F_FUNCTION(v_dot_h, F0_spec);
 	const float3 F_diff    = (1.0f - F_spec) * (1.0f - material.metalness);
 
 	const float3 brdf_diffuse  = F_diff * material.base_color * g_inv_pi;

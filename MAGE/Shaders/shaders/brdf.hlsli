@@ -212,7 +212,7 @@ float D_TrowbridgeReitz(float n_dot_h, float alpha) {
 	const float n_dot_h2 = sqr(n_dot_h);
 	const float temp1    = n_dot_h2 * (alpha2 - 1.0f) + 1.0f;
 
-	return g_inv_pi * alpha2 / (temp1 * temp1);
+	return g_inv_pi * alpha2 / sqr(temp1);
 }
 
 /**

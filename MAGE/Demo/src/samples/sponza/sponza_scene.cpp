@@ -50,6 +50,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		
+		const auto plane_model_desc
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/plane/plane.obj", mesh_desc);
 		const auto sponza_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/sponza/sponza.mdl",    mesh_desc);
@@ -75,6 +78,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
+		const auto plane_node = Import(engine, *plane_model_desc);
+		plane_node->GetTransform().SetScale(30.0f);
+		
 		const auto sponza_node = Import(engine, *sponza_model_desc);
 		sponza_node->GetTransform().SetScale(10.0f);
 		sponza_node->GetTransform().SetTranslationY(2.1f);

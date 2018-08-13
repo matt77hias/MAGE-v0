@@ -36,7 +36,7 @@ namespace mage::rendering {
 		explicit Material(std::string name = "material")
 			: m_base_color(RGBA(1.0f)),
 			m_base_color_texture(),
-			m_roughness(0.5f),
+			m_roughness(1.0f),
 			m_metalness(0.0f),
 			m_material_texture(),
 			m_normal_texture(),

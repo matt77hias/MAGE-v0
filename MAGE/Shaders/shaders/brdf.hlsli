@@ -40,11 +40,11 @@
 #endif // BRDF_V_FUNCTION
 
 #ifndef BRDF_MINIMUM_ALPHA
-	#define BRDF_MINIMUM_ALPHA 0.1f
+	#define BRDF_MINIMUM_ALPHA 1e-1f
 #endif // BRDF_MINIMUM_ALPHA
 
 #ifndef BRDF_DOT_EPSILON
-	#define BRDF_DOT_EPSILON 0.00001f
+	#define BRDF_DOT_EPSILON 1e-5f
 #endif // BRDF_DOT_EPSILON
 
 //-----------------------------------------------------------------------------
@@ -1496,7 +1496,8 @@ BRDF ConstructBRDF(float3 brdf_diffuse, float3 brdf_specular) {
  @return		The Lambertian BRDF.
  */
 BRDF LambertianBRDF(float3 n, float3 l, float3 v, Material material) {
-	const float3 brdf_diffuse  = material.base_color * g_inv_pi;
+	const float3 brdf_diffuse  = (1.0f - material.metalness) 
+		                         * material.base_color * g_inv_pi;
 	const float3 brdf_specular = 0.0f;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
 }
@@ -1506,7 +1507,7 @@ float RoughnessToAlpha(float roughness) {
 }
 
 float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
-	                       float v_dot_h, float roughness) {
+						   float v_dot_h, float roughness) {
 
 	const float F0  = 1.0f;
 	const float F90 = (0.5f + 2.0f * sqr(v_dot_h)) * roughness;

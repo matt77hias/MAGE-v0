@@ -79,10 +79,10 @@ namespace mage::script {
 				ImGui::Checkbox("VCT", &vct);
 				settings.SetVCT(vct);
 
-				auto cone_step_multiplier = settings.GetConeStepMultiplier();
-				ImGui::DragFloat("Cone Step Multiplier", &cone_step_multiplier,
+				auto cone_step = settings.GetConeStep();
+				ImGui::DragFloat("Cone Step", &cone_step,
 								 0.01f, 0.01f, 1.0f, "%.2f");
-				settings.SetConeStepMultiplier(cone_step_multiplier);
+				settings.SetConeStep(cone_step);
 
 				auto max_cone_distance = settings.GetMaxConeDistance();
 				ImGui::DragFloat("Max Cone Distance", &max_cone_distance,

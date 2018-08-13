@@ -103,9 +103,9 @@ namespace mage::rendering {
 
 		// Voxel Cone Tracing
 		{
-			const auto& vct               = m_settings.GetVoxelizationSettings();
-			buffer.m_cone_step_multiplier = vct.GetConeStepMultiplier();
-			buffer.m_max_cone_distance    = vct.GetMaxConeDistance();
+			const auto& vct            = m_settings.GetVoxelizationSettings();
+			buffer.m_cone_step         = vct.GetConeStep();
+			buffer.m_max_cone_distance = vct.GetMaxConeDistance();
 		}
 
 		// Post-processing

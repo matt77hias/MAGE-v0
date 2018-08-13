@@ -144,11 +144,11 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// Member Variables: Voxel Cone Tracing
 	//-------------------------------------------------------------------------
 
-	// The step multiplier of the cone while marching.
-	// A high step multiplier results in faster, but less-precise marching.
-	// A low  step multiplier results in slower, but more-precise marching.
-	float    g_cone_step_multiplier        : packoffset(c20.y);
-	// The maximal cone distance expressed in normalized texture coordinates.
+	// The cone step expressed in voxel UVW space.
+	// A high step results in faster, but less-precise marching.
+	// A low  step results in slower, but more-precise marching.
+	float    g_cone_step                   : packoffset(c20.y);
+	// The maximal cone distance expressed in voxel UVW space.
 	float    g_max_cone_distance           : packoffset(c20.z);
 
 	//-------------------------------------------------------------------------

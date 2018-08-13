@@ -258,7 +258,7 @@ namespace mage::rendering {
 		 */
 		constexpr VoxelizationSettings()
 			: m_vct(false), 
-			m_cone_step_multiplier(1.0f), 
+			m_cone_step(0.1f), 
 			m_max_cone_distance(1.0f) {}
 
 		/**
@@ -338,13 +338,12 @@ namespace mage::rendering {
 		}
 
 		[[nodiscard]]
-		constexpr F32 GetConeStepMultiplier() const noexcept {
-			return m_cone_step_multiplier;
+		constexpr F32 GetConeStep() const noexcept {
+			return m_cone_step;
 		}
 
-		void SetConeStepMultiplier(F32 cone_step_multiplier) noexcept {
-			m_cone_step_multiplier = std::max(0.01f, 
-											  std::abs(cone_step_multiplier));
+		void SetConeStep(F32 cone_step) noexcept {
+			m_cone_step = std::max(0.01f, std::abs(cone_step));
 		}
 
 		[[nodiscard]]
@@ -388,14 +387,14 @@ namespace mage::rendering {
 		bool m_vct;
 		
 		/**
-		 The step multiplier of the cone while marching of this voxelization 
+		 The cone step expressed in voxel UVW space of this voxelization 
 		 settings.
 		 */
-		F32 m_cone_step_multiplier;
+		F32 m_cone_step;
 		
 		/**
-		 The maximal cone distance expressed in normalized texture coordinates 
-		 of this voxelization settings.
+		 The maximal cone distance expressed in voxel UVW space of this 
+		 voxelization settings.
 		 */
 		F32 m_max_cone_distance;
 	};

@@ -265,7 +265,7 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		g_voxel_texture_max_mip_level,
 		g_voxel_grid_resolution,
 		g_voxel_grid_inv_resolution,
-		g_cone_step_multiplier,
+		g_cone_step,
 		g_max_cone_distance,
 		g_linear_clamp_sampler,
 		g_voxel_texture

@@ -48,7 +48,7 @@ namespace mage::rendering {
 			m_fog_color(), 
 			m_fog_density(0.0f), 
 			m_sky_dome_scale_z(1.0f), 
-			m_cone_step_multiplier(1.0f), 
+			m_cone_step(0.1f), 
 			m_max_cone_distance(1.0f), 
 			m_lens_radius(0.0f), 
 			m_focal_length(0.0f), 
@@ -198,13 +198,13 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The step multiplier of the cone while marching of this camera buffer.
+		 The cone step expressed in voxel UVW space of this camera buffer.
 		 */
-		F32 m_cone_step_multiplier;
+		F32 m_cone_step;
 		
 		/**
-		 The maximal cone distance expressed in normalized texture coordinates 
-		 of this camera buffer.
+		 The maximal cone distance expressed in voxel UVW space of this camera 
+		 buffer.
 		 */
 		F32 m_max_cone_distance;
 

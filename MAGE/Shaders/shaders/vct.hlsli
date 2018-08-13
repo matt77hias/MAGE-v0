@@ -38,7 +38,7 @@ struct VCTConfig {
 	uint  voxel_texture_max_mip_level;
 	uint  voxel_grid_resolution;
 	float voxel_grid_inv_resolution;
-	float cone_step_multiplier;
+	float cone_step;
 	float max_cone_distance;
 	SamplerState voxel_sampler;
 	Texture3D< float4 > voxel_texture;
@@ -83,10 +83,7 @@ float3 GetRadiance(Cone cone, VCTConfig config) {
 		const float inv_alpha = 1.0f - L.w;
 		L += inv_alpha * L_voxel;
 
-		// TODO
-		distance += config.cone_step_multiplier;
-		//distance *= (1.0f + config.cone_step_multiplier);
-		//distance += config.cone_step_multiplier * diameter;
+		distance += config.cone_step;
 	}
 
 	return L.xyz;

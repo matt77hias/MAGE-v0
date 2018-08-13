@@ -23,7 +23,7 @@ namespace mage::rendering {
 	/**
 	 A struct of camera buffers.
 	 */
-	struct alignas(16) CameraBuffer final {
+	struct alignas(16) CameraBuffer {
 
 	public:
 
@@ -109,25 +109,25 @@ namespace mage::rendering {
 
 		/**
 		 The (column-major packed, row-major matrix) world-to-camera matrix of 
-		 this camera buffer.
+		 the camera of this camera buffer.
 		 */
 		XMMATRIX m_world_to_camera;
 
 		/**
 		 The (column-major packed, row-major matrix) camera-to-projection 
-		 matrix of this camera buffer.
+		 matrix of the camera of this camera buffer.
 		 */
 		XMMATRIX m_camera_to_projection;
 
 		/**
 		 The (column-major packed, row-major matrix) projection-to-camera 
-		 matrix of this camera buffer.
+		 matrix of the camera of this camera buffer.
 		 */
 		XMMATRIX m_projection_to_camera;
 
 		/**
 		 The (column-major packed, row-major matrix) camera-to-world matrix of 
-		 this camera buffer.
+		 the camera of this camera buffer.
 		 */
 		XMMATRIX m_camera_to_world;
 
@@ -136,36 +136,37 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The top left corner of the camera viewport of this camera buffer.
+		 The top left corner of the viewport of the camera of this camera 
+		 buffer.
 		 */
 		F32x2 m_viewport_top_left;
 
 		/**
-		 The resolution of the camera viewport of this camera buffer. 
+		 The resolution of the viewport of the camera of this camera buffer. 
 		 */
 		U32x2 m_viewport_resolution;
 
 		/**
-		 The top left corner of the super-sampled camera viewport of this 
-		 camera buffer.
+		 The top left corner of the super-sampled viewport of the camera of 
+		 this camera buffer.
 		 */
 		F32x2 m_ss_viewport_top_left;
 
 		/**
-		 The resolution of the super-sampled camera viewport of this camera 
-		 buffer.
+		 The resolution of the super-sampled viewport of the camera of this 
+		 camera buffer.
 		 */
 		U32x2 m_ss_viewport_resolution;
 
 		/**
-		 The inverse of the resolution of the camera viewport of this camera 
-		 buffer. 
+		 The inverse of the resolution of the viewport of the camera of this 
+		 camera buffer. 
 		 */
 		F32x2 m_viewport_inv_resolution;
 
 		/**
-		 The inverse of the resolution of the super-sampled camera viewport of 
-		 this camera buffer.
+		 The inverse of the resolution of the super-sampled viewport of the 
+		 camera of this camera buffer.
 		 */
 		F32x2 m_ss_viewport_inv_resolution;
 
@@ -247,7 +248,7 @@ namespace mage::rendering {
 	/**
 	 A struct of secondary camera buffers.
 	 */
-	struct alignas(16) SecondaryCameraBuffer final {
+	struct alignas(16) SecondaryCameraBuffer {
 
 	public:
 
@@ -324,13 +325,13 @@ namespace mage::rendering {
 
 		/**
 		 The (column-major packed, row-major matrix) world-to-camera matrix of 
-		 this secondary camera buffer.
+		 the camera of this secondary camera buffer.
 		 */
 		XMMATRIX m_world_to_camera;
 
 		/**
 		 The (column-major packed, row-major matrix) camera-to-projection 
-		 matrix of this secondary camera buffer.
+		 matrix of the camera of this secondary camera buffer.
 		 */
 		XMMATRIX m_camera_to_projection;
 	};

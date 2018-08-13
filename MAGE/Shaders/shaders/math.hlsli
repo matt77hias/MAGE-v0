@@ -977,6 +977,67 @@ uint PackR8G8B8A8(float4 f) {
 }
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Indexing
+//-----------------------------------------------------------------------------
+
+/**
+ Flattens the given index.
+
+ @param[in]		index
+				The 2D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The flattened 1D index corresponding to the given 2D index
+				using y->x ordering.
+ */
+uint FlattenIndex(uint2 index, uint2 count) {
+	return index.y * count.x + index.x;
+}
+
+/**
+ Flattens the given index.
+
+ @param[in]		index
+				The 3D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The flattened 1D index corresponding to the given 3D index
+				using z->y->x ordering.
+ */
+uint FlattenIndex(uint3 index, uint3 count) {
+	return FlattenIndex(index.xy, count.xy) * count.y + index.z;
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 2D index corresponding to the given flattened 1D index
+				using y->x ordering.
+ */
+uint2 UnflattenIndex(uint index, uint2 count) {
+	return uint2(index % count.x, index / count.x);
+}
+
+/**
+ Unflattens the given index.
+
+ @param[in]		index
+				The flattened 1D index.
+ @param[in]		count
+				The number of elements in each dimension.
+ @return		The 3D index corresponding to the given flattened 1D index
+				using z->y->x ordering.
+ */
+uint3 UnflattenIndex(uint index, uint3 count) {
+	const uint slice_z = count.x * count.y;
+	return uint3(UnflattenIndex(index % slice_z, count.xy), index / slice_z);
+}
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Transformations
 //-----------------------------------------------------------------------------
 
@@ -1062,67 +1123,6 @@ float3 VoxelUVWtoWorldDirection(float3 d_uvw) {
 }
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Indexing
-//-----------------------------------------------------------------------------
-
-/**
- Flattens the given index.
-
- @param[in]		index
-				The 2D index.
- @param[in]		count
-				The number of elements in each dimension.
- @return		The flattened 1D index corresponding to the given 2D index
-				using y->x ordering.
- */
-uint FlattenIndex(uint2 index, uint2 count) {
-	return index.y * count.x + index.x;
-}
-
-/**
- Flattens the given index.
-
- @param[in]		index
-				The 3D index.
- @param[in]		count
-				The number of elements in each dimension.
- @return		The flattened 1D index corresponding to the given 3D index
-				using z->y->x ordering.
- */
-uint FlattenIndex(uint3 index, uint3 count) {
-	return FlattenIndex(index.xy, count.xy) * count.y + index.z;
-}
-
-/**
- Unflattens the given index.
-
- @param[in]		index
-				The flattened 1D index.
- @param[in]		count
-				The number of elements in each dimension.
- @return		The 2D index corresponding to the given flattened 1D index
-				using y->x ordering.
- */
-uint2 UnflattenIndex(uint index, uint2 count) {
-	return uint2(index % count.x, index / count.x);
-}
-
-/**
- Unflattens the given index.
-
- @param[in]		index
-				The flattened 1D index.
- @param[in]		count
-				The number of elements in each dimension.
- @return		The 3D index corresponding to the given flattened 1D index
-				using z->y->x ordering.
- */
-uint3 UnflattenIndex(uint index, uint3 count) {
-	const uint slice_z = count.x * count.y;
-	return uint3(UnflattenIndex(index % slice_z, count.xy), index / slice_z);
-}
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Trigonometry
 //-----------------------------------------------------------------------------
 
@@ -1168,6 +1168,61 @@ float SqrCosToSqrTan(float sqr_c) {
  */
 float SqrSinToSqrTan(float sqr_s) {
 	return sqr_s / (1.0f - sqr_s);
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Geometry
+//-----------------------------------------------------------------------------
+
+/**
+ Calculates the dot product of the two given directions and clamps negative 
+ values to 0.
+
+ @pre			@a d1 is normalized.
+ @pre			@a d2 is normalized.
+ @param[in]		d1
+				The first direction.
+ @param[in]		d2
+				The second direction.
+ @return		The dot product of the two given directions clamped between 0 
+				and 1 (i.e. clamped cosine).
+ */
+float sat_dot(float3 d1, float3 d2) {
+	return saturate(dot(d1, d2));
+}
+
+/**
+ Calculates the reflected direction of the given direction about the given 
+ normal.
+
+ @pre			@a n is normalized.
+ @pre			@a l is normalized.
+ @param[in]		n
+				The normal.
+ @param[in]		l
+				The direction.
+ @return		The normalized reflected vector of the given direction about 
+				the given normal.
+ */
+float3 ReflectedDirection(float3 n, float3 l) {
+	// r := 2 * n_dot_l * n - l
+	return reflect(-l, n);
+}
+
+/**
+ Calculates the half direction between the two given directions.
+
+ @pre			@a d1 is normalized.
+ @pre			@a d2 is normalized.
+ @param[in]		d1
+				The first direction.
+ @param[in]		d2
+				The second direction.
+ @return		The normalized half direction between the two given directions.
+ */
+float3 HalfDirection(float3 d1, float3 d2) {
+	// h := d1+d2 / ||d1+d2||
+	return normalize(d1 + d2);
 }
 
 #endif // MAGE_HEADER_MATH

@@ -161,6 +161,99 @@ namespace mage::rendering {
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
+	// PointLightBuffer
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	/**
+	 A struct of point light buffers used by shaders.
+	 */
+	struct alignas(16) PointLightBuffer {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a point light buffer.
+		 */
+		PointLightBuffer() noexcept
+			: m_p_world(),
+			m_inv_sqr_range(0.0f) {}
+		
+		/**
+		 Constructs an point light buffer from the given point light buffer.
+
+		 @param[in]		buffer
+						A reference to the point light buffer to copy.
+		 */
+		PointLightBuffer(const PointLightBuffer& buffer) noexcept = default;
+
+		/**
+		 Constructs an point light buffer by moving the given point light 
+		 buffer.
+
+		 @param[in]		buffer
+						A reference to the point light buffer to move.
+		 */
+		PointLightBuffer(PointLightBuffer&& buffer) noexcept = default;
+		
+		/**
+		 Destructs this point light buffer.
+		 */
+		~PointLightBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given point light buffer to this point light buffer.
+
+		 @param[in]		buffer
+						A reference to the point light buffer to copy.
+		 @return		A reference to the copy of the given point light buffer
+						(i.e. this point light buffer).
+		 */
+		PointLightBuffer& operator=(
+			const PointLightBuffer& buffer) noexcept = default;
+
+		/**
+		 Moves the given point light buffer to this point light buffer.
+
+		 @param[in]		buffer
+						A reference to the point light buffer to move.
+		 @return		A reference to the moved point light buffer (i.e. this 
+						point light buffer).
+		 */
+		PointLightBuffer& operator=(
+			PointLightBuffer&& buffer) noexcept = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The position of the point light of this point light buffer expressed 
+		 in world space.
+		 */
+		Point3 m_p_world;
+
+		/**
+		 The inverse of the squared range of the point light of this point 
+		 light buffer expressed in inversed squared world space.
+		 */
+		F32 m_inv_sqr_range;
+	};
+
+	static_assert(16 == sizeof(PointLightBuffer), 
+				  "CPU/GPU struct mismatch");
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// DirectionalLightBuffer
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -168,7 +261,7 @@ namespace mage::rendering {
 	/**
 	 A struct of directional light buffers used by shaders.
 	 */
-	struct alignas(16) DirectionalLightBuffer final {
+	struct alignas(16) DirectionalLightBuffer {
 
 	public:
 
@@ -180,9 +273,9 @@ namespace mage::rendering {
 		 Constructs an directional light buffer.
 		 */
 		DirectionalLightBuffer() noexcept
-			: m_E(), 
+			: m_E_ortho(),
 			m_padding0(0u),
-			m_neg_d(), 
+			m_neg_d_world(),
 			m_padding1(0u) {}
 		
 		/**
@@ -243,10 +336,10 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The irradiance in watts per square meter of the directional light of 
-		 this directional light buffer.
+		 The (orthogonal) irradiance of the directional light of this 
+		 directional light buffer.
 		 */
-		RGB m_E;
+		RGB m_E_ortho;
 
 		/**
 		 The padding of this directional light buffer.
@@ -254,10 +347,10 @@ namespace mage::rendering {
 		U32 m_padding0;
 
 		/**
-		 The (normalized) negated direction of the directional light in world 
-		 space of this directional light buffer.
+		 The (normalized) negated direction of the directional light expressed 
+		 in world space of this directional light buffer.
 		 */
-		Direction3 m_neg_d;
+		Direction3 m_neg_d_world;
 
 		/**
 		 The padding of this directional light buffer.
@@ -291,7 +384,7 @@ namespace mage::rendering {
 	/**
 	 A struct of omni light buffers used by shaders.
 	 */
-	struct alignas(16) OmniLightBuffer final {
+	struct alignas(16) OmniLightBuffer : public PointLightBuffer {
 
 	public:
 
@@ -303,8 +396,7 @@ namespace mage::rendering {
 		 Constructs an omni light buffer.
 		 */
 		OmniLightBuffer() noexcept
-			: m_p(), 
-			m_inv_sqr_range(0.0f),
+			: PointLightBuffer(),
 			m_I(), 
 			m_padding0(0u) {}
 		
@@ -360,17 +452,6 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in world space of this omni light 
-		 buffer.
-		 */
-		Point3 m_p;
-
-		/**
-		 The inverse squared range of the omni light of this omni light buffer.
-		 */
-		F32 m_inv_sqr_range;
-
-		/**
 		 The radiant intensity in watts per steradians of the omni light of 
 		 this omni light buffer.
 		 */
@@ -395,7 +476,7 @@ namespace mage::rendering {
 	/**
 	 A struct of spotlight buffers used by shaders.
 	 */
-	struct alignas(16) SpotLightBuffer final {
+	struct alignas(16) SpotLightBuffer : public PointLightBuffer {
 
 	public:
 
@@ -407,11 +488,10 @@ namespace mage::rendering {
 		 Constructs a spotlight buffer.
 		 */
 		SpotLightBuffer() noexcept
-			: m_p(), 
-			m_inv_sqr_range(0.0f),
+			: PointLightBuffer(),
 			m_I(), 
 			m_cos_umbra(0.0f),
-			m_neg_d(), 
+			m_neg_d_world(),
 			m_cos_inv_range(0.0f) {}
 		
 		/**
@@ -466,16 +546,6 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the spotlight in world space of this spotlight buffer.
-		 */
-		Point3 m_p;
-
-		/**
-		 The inverse squared range of the spotlight of this spotlight buffer.
-		 */
-		F32 m_inv_sqr_range;
-
-		/**
 		 The radiant intensity in watts per steradians of the spotlight of this 
 		 spotlight buffer.
 		 */
@@ -488,13 +558,14 @@ namespace mage::rendering {
 		F32 m_cos_umbra;
 
 		/**
-		 The (normalized) negated direction of the spotlight in world space of 
-		 this spotlight buffer.
+		 The (normalized) negated direction of the directional light expressed 
+		 in world space of this directional light buffer.
 		 */
-		Direction3 m_neg_d;
+		Direction3 m_neg_d_world;
 
 		/**
-		 The cosine inverse range of the spotlight of this spotlight buffer.
+		 The inverse of the cosine range of the spotlight of this spotlight 
+		 buffer.
 		 */
 		F32 m_cos_inv_range;
 	};
@@ -512,7 +583,7 @@ namespace mage::rendering {
 	/**
 	 A struct of shadow mapped omni light buffers used by shaders.
 	 */
-	struct alignas(16) ShadowMappedOmniLightBuffer final {
+	struct alignas(16) ShadowMappedOmniLightBuffer : public OmniLightBuffer {
 
 	public:
 
@@ -524,7 +595,7 @@ namespace mage::rendering {
 		 Constructs a shadow mapped omni light buffer.
 		 */
 		ShadowMappedOmniLightBuffer() noexcept
-			: m_light(), 
+			: OmniLightBuffer(),
 			m_world_to_light{}, 
 			m_projection_values(), 
 			m_padding0() {}
@@ -588,15 +659,6 @@ namespace mage::rendering {
 			ShadowMappedOmniLightBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Light
-		//---------------------------------------------------------------------
-
-		/**
-		 The omni light buffer of this shadow mapped omni light buffer.
-		 */
-		OmniLightBuffer m_light;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Transform
 		//---------------------------------------------------------------------
 
@@ -605,13 +667,13 @@ namespace mage::rendering {
 
 		/**
 		 The (column-major packed, row-major matrix) world-to-light matrix of 
-		 this shadow mapped omni light buffer.
+		 the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
 		XMMATRIX m_world_to_light;
 
 		/**
 		 The projection values of the light-to-projection transformation matrix
-		 of this shadow mapped omni light buffer.
+		 of the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
 		F32x2 m_projection_values;
 		
@@ -634,7 +696,7 @@ namespace mage::rendering {
 	/**
 	 A struct of shadow mapped spotlight buffers used by shaders.
 	 */
-	struct alignas(16) ShadowMappedSpotLightBuffer final {
+	struct alignas(16) ShadowMappedSpotLightBuffer : public SpotLightBuffer {
 
 	public:
 
@@ -646,7 +708,7 @@ namespace mage::rendering {
 		 Constructs a shadow mapped spotlight buffer.
 		 */
 		ShadowMappedSpotLightBuffer() noexcept
-			: m_light(), 
+			: SpotLightBuffer(),
 			m_world_to_projection{} {}
 		
 		/**
@@ -708,15 +770,6 @@ namespace mage::rendering {
 			ShadowMappedSpotLightBuffer&& buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Light
-		//---------------------------------------------------------------------
-
-		/**
-		 The spotlight buffer of this shadow mapped spotlight buffer.
-		 */
-		SpotLightBuffer m_light;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Transform
 		//---------------------------------------------------------------------
 
@@ -725,7 +778,8 @@ namespace mage::rendering {
 
 		/**
 		 The (column-major packed, row-major matrix) world-to-projection 
-		 matrix of this shadow mapped spotlight buffer.
+		 matrix of the shadow mapped spotlight of this shadow mapped spotlight 
+		 buffer.
 		 */
 		XMMATRIX m_world_to_projection;
 	};

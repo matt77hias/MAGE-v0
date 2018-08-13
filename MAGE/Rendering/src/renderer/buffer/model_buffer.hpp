@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A struct of model buffers.
 	 */
-	struct alignas(16) ModelBuffer final {
+	struct alignas(16) ModelBuffer {
 
 	public:
 

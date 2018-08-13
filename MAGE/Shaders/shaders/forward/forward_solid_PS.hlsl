@@ -11,8 +11,6 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
-// LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
-// LIGHT_DISTANCE_ATTENUATION_FUNCTION      | DistanceAttenuation
 // MSAA_AS_SSAA                             | not defined
 
 //-----------------------------------------------------------------------------
@@ -25,6 +23,7 @@
 #include "forward\forward_input.hlsli"
 
 #define BRDF_FUNCTION LambertianBRDF
+#define DISABLE_BRDF_SPECULAR
 #define DISABLE_FOG
 #define DISABLE_VCT
 #include "lighting.hlsli"
@@ -47,10 +46,11 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	const float3 n_world = GetNormal(input.p_world, input.n_world, 
 									 input.tex_geometry);
 
-	Material material;
-	material.base_color = base_color.xyz;
-	material.roughness  = material_params.x;
-	material.metalness  = material_params.y;
+	const Material material = {
+		base_color,
+		material_params.x,
+		material_params.y
+	};
 
 	// Calculate the pixel radiance.
 	const float3 L = GetRadiance(input.p_world, n_world, material);

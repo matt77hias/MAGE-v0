@@ -3,12 +3,11 @@
 //-----------------------------------------------------------------------------
 // Defines			                         | Default
 //-----------------------------------------------------------------------------
-// BRDF_DOT_EPSILON                         | 0.00001f
+// BRDF_DOT_EPSILON                         | 1e-5f
 // BRDF_D_FUNCTION                          | D_GGX
-// BRDF_FUNCTION                            | not defined
 // BRDF_F_FUNCTION                          | F_Schlick
 // BRDF_G_FUNCTION                          | G_GXX
-// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_MINIMUM_ALPHA                       | 1e-1f
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 // DISABLE_FOG                              | not defined
@@ -21,9 +20,6 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
 // DISABLE_VCT                              | not defined
-// FOG_FACTOR_FUNCTION                      | FogFactor_Exponential
-// LIGHT_ANGULAR_ATTENUATION_FUNCTION       | AngularAttenuation
-// LIGHT_DISTANCE_ATTENUATION_FUNCTION      | DistanceAttenuation
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -61,10 +57,11 @@ void PS(PSInputPositionNormalTexture input) {
 	const float3 n_world = GetNormal(input.p_world, input.n_world, 
 									 input.tex_geometry);
 
-	Material material;
-	material.base_color = base_color.xyz;
-	material.roughness  = material_params.x;
-	material.metalness  = material_params.y;
+	const Material material = {
+		base_color.xyz,
+		material_params.x,
+		material_params.y
+	};
 
 	// Calculate the pixel radiance.
 	const float3 L = GetRadiance(input.p_world, n_world, material);

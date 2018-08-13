@@ -177,8 +177,8 @@ namespace mage::rendering {
 
 			// Create a directional light buffer.
 			DirectionalLightBuffer buffer;
-			buffer.m_neg_d = Direction3(XMStore< F32x3 >(neg_d));
-			buffer.m_E     = light.GetIrradianceSpectrum();
+			buffer.m_neg_d_world = Direction3(XMStore< F32x3 >(neg_d));
+			buffer.m_E_ortho     = light.GetIrradianceSpectrum();
 			buffer.m_world_to_projection = XMMatrixTranspose(world_to_lprojection);
 
 			if (light.UseShadows()) {
@@ -260,12 +260,12 @@ namespace mage::rendering {
 
 				// Create an omni light buffer.
 				ShadowMappedOmniLightBuffer buffer;
-				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
-				buffer.m_light.m_inv_sqr_range = 1.0f / (range * range);
-				buffer.m_light.m_I             = light.GetIntensitySpectrum();
-				buffer.m_world_to_light        = XMMatrixTranspose(world_to_light);
-				buffer.m_projection_values     = XMStore< F32x2 >(GetNDCZConstructionValues(
-					                                              light_to_lprojection));
+				buffer.m_p_world           = Point3(XMStore< F32x3 >(p));
+				buffer.m_inv_sqr_range     = 1.0f / (range * range);
+				buffer.m_I                 = light.GetIntensitySpectrum();
+				buffer.m_world_to_light    = XMMatrixTranspose(world_to_light);
+				buffer.m_projection_values = XMStore< F32x2 >(GetNDCZConstructionValues(
+					                                          light_to_lprojection));
 
 				// Add omni light buffer to omni light buffers.
 				sm_lights.push_back(std::move(buffer));
@@ -273,7 +273,7 @@ namespace mage::rendering {
 			else {
 				// Create an omni light buffer.
 				OmniLightBuffer buffer;
-				buffer.m_p             = Point3(XMStore< F32x3 >(p));
+				buffer.m_p_world       = Point3(XMStore< F32x3 >(p));
 				buffer.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_I             = light.GetIntensitySpectrum();
 
@@ -334,13 +334,13 @@ namespace mage::rendering {
 
 				// Create a spotlight buffer.
 				ShadowMappedSpotLightBuffer buffer;
-				buffer.m_light.m_p             = Point3(XMStore< F32x3 >(p));
-				buffer.m_light.m_neg_d         = Direction3(XMStore< F32x3 >(neg_d));
-				buffer.m_light.m_inv_sqr_range = 1.0f / (range * range);
-				buffer.m_light.m_I             = light.GetIntensitySpectrum();
-				buffer.m_light.m_cos_umbra     = light.GetEndAngularCutoff();
-				buffer.m_light.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
-				buffer.m_world_to_projection   = XMMatrixTranspose(world_to_lprojection);
+				buffer.m_p_world       = Point3(XMStore< F32x3 >(p));
+				buffer.m_neg_d_world   = Direction3(XMStore< F32x3 >(neg_d));
+				buffer.m_inv_sqr_range = 1.0f / (range * range);
+				buffer.m_I             = light.GetIntensitySpectrum();
+				buffer.m_cos_umbra     = light.GetEndAngularCutoff();
+				buffer.m_cos_inv_range = 1.0f / light.GetRangeAngularCutoff();
+				buffer.m_world_to_projection = XMMatrixTranspose(world_to_lprojection);
 
 				// Add spotlight buffer to spotlight buffers.
 				sm_lights.push_back(std::move(buffer));
@@ -348,8 +348,8 @@ namespace mage::rendering {
 			else {
 				// Create an omni light buffer.
 				SpotLightBuffer buffer;
-				buffer.m_p             = Point3(XMStore< F32x3 >(p));
-				buffer.m_neg_d         = Direction3(XMStore< F32x3 >(neg_d));
+				buffer.m_p_world       = Point3(XMStore< F32x3 >(p));
+				buffer.m_neg_d_world   = Direction3(XMStore< F32x3 >(neg_d));
 				buffer.m_inv_sqr_range = 1.0f / (range * range);
 				buffer.m_I             = light.GetIntensitySpectrum();
 				buffer.m_cos_umbra     = light.GetEndAngularCutoff();

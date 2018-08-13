@@ -6,12 +6,11 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// BRDF_DOT_EPSILON                         | 0.00001f
+// BRDF_DOT_EPSILON                         | 1e-5f
 // BRDF_D_FUNCTION                          | D_GGX
-// BRDF_FUNCTION                            | not defined
 // BRDF_F_FUNCTION                          | F_Schlick
 // BRDF_G_FUNCTION                          | G_GXX
-// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_MINIMUM_ALPHA                       | 1e-1f
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 
@@ -25,69 +24,127 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
+/**
+ A struct of cones.
+ */
 struct Cone {
-	// The apex of the cone (expressed in normalized texture coordinates).
-	float3 apex;
-	// The direction of the cone.
-	float3 d;
-	// The tangent of the half aperture angle of the cone.
-	float  tan_half_aperture;
+
+	//-------------------------------------------------------------------------
+	// Member Variables
+	//-------------------------------------------------------------------------
+
+	/**
+	 The apex of the cone.
+	 */
+	float3 m_apex;
+
+	/**
+	 The (normalized) direction of the cone.
+	 */
+	float3 m_d;
+
+	/**
+	 The tangent of the half aperture angle of the cone.
+	 */
+	float m_tan_half_aperture;
 };
 
+/**
+ A struct of VCT configurations.
+ */
 struct VCTConfig {
-	uint  voxel_texture_max_mip_level;
-	uint  voxel_grid_resolution;
-	float voxel_grid_inv_resolution;
-	float cone_step;
-	float max_cone_distance;
-	SamplerState voxel_sampler;
-	Texture3D< float4 > voxel_texture;
-};
 
-float3 GetRadiance(Cone cone, VCTConfig config) {
-	float4 L = 0.0f;
+	//-------------------------------------------------------------------------
+	// Member Variables
+	//-------------------------------------------------------------------------
 
-	// Set the initial distance to the voxel diagonal (expressed in normalized 
-	// texture coordinates) (= sqrt(2)/g_voxel_grid_resolution) to avoid 
-	// sampling the voxel containing the given position.
-	float distance = 1.414213562f * config.voxel_grid_inv_resolution;
+	/**
+	 The maximum mip level of the voxel texture of this VCT configuration.
+	 */
+	uint m_texture_max_mip_level;
 
-	while (config.max_cone_distance > distance && 1.0f > L.w) {
+	/**
+	 The resolution of the voxel grid for all dimensions of this VCT 
+	 configuration.
+	 */
+	uint m_grid_resolution;
 
-		// Obtain the diameter (expressed in normalized texture coordinates).
-		//
-		//                     diameter/2
-		// tan_half_aperture = ---------- <=> diameter = 2 tan_half_aperture distance
-		//                      distance
-		//
-		const float diameter = max(config.voxel_grid_inv_resolution,
-								   2.0f * cone.tan_half_aperture * distance);
+	/**
+	 The inverse resolution of the voxel grid for all dimensions of this VCT 
+	 configuration.
+	 */
+	float m_grid_inv_resolution;
+
+	/**
+	 The cone step expressed of this VCT configuration in voxel UVW space.
+	 */
+	float m_cone_step;
+
+	/**
+	 The maximal cone distance of this VCT configuration expressed in voxel 
+	 UVW space.
+	 */
+	float m_max_cone_distance;
+
+	/**
+	 The voxel texture sampler of this VCT configuration.
+	 */
+	SamplerState m_sampler;
+
+	/**
+	 The texture of this VCT configuration.
+	 */
+	Texture3D< float4 > m_texture;
+
+	//-------------------------------------------------------------------------
+	// Member Methods
+	//-------------------------------------------------------------------------
+
+	float3 GetRadiance(Cone cone) {
+		float4 L = 0.0f;
+
+		// Set the initial distance to the voxel diagonal (expressed in voxel  
+		// UVW space) (= sqrt(2)/m_grid_resolution) to avoid sampling the voxel 
+		// containing the apex of the given cone.
+		float distance = 1.414213562f * m_grid_inv_resolution;
+
+		while (m_max_cone_distance > distance && 1.0f > L.w) {
+
+			// Obtain the diameter (expressed in voxel UVW space).
+			//
+			//                     diameter/2
+			// tan_half_aperture = ---------- <=> diameter = 2 tan_half_aperture distance
+			//                      distance
+			//
+			const float diameter = max(m_grid_inv_resolution,
+									   2.0f * cone.m_tan_half_aperture * distance);
 		
-		// Obtain the MIP level.
-		const float mip_level = log2(diameter * config.voxel_grid_resolution);
+			// Obtain the MIP level.
+			const float mip_level = log2(diameter * m_grid_resolution);
 		
-		// Obtain the position (expressed in normalized texture coordinates).
-		const float3 uvw = cone.apex + distance * cone.d;
+			// Obtain the position (expressed in voxel UVW space).
+			const float3 p_uvw = cone.m_apex + distance * cone.m_d;
 		
-		[branch]
-		if ((float)config.voxel_texture_max_mip_level <= mip_level
-			|| any(uvw - saturate(uvw))) {
-			break;
+			[branch]
+			if ((float)m_texture_max_mip_level <= mip_level 
+				|| any(p_uvw - saturate(p_uvw))) {
+				break;
+			}
+
+			// Obtain the radiance.
+			const float4 Li = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
+
+			// Update the accumulated radiance.
+			const float inv_alpha = 1.0f - L.w;
+			L += inv_alpha * Li;
+
+			// Update the marching distance.
+			distance += m_cone_step;
 		}
 
-		// Obtain the radiance.
-		const float4 L_voxel
-			= config.voxel_texture.SampleLevel(config.voxel_sampler, uvw, mip_level);
-
-		// Perform blending.
-		const float inv_alpha = 1.0f - L.w;
-		L += inv_alpha * L_voxel;
-
-		distance += config.cone_step;
+		return L.xyz;
 	}
-
-	return L.xyz;
-}
+};
 
 /**
  The cones to trace for computing the diffuse indirect illumination using voxel 
@@ -111,25 +168,25 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
 
 	// Construct a cone.
 	Cone cone;
-	cone.apex = p_uvw;
+	cone.m_apex = p_uvw;
 	// tan(pi/6) = sqrt(3)/3
-	cone.tan_half_aperture = 0.577350269f;
+	cone.m_tan_half_aperture = 0.577350269f;
 
 	[unroll]
 	for (uint i = 0u; i < 6u; ++i) {
 		// Update the cone.
 		const float3 d      = g_cones[i].xyz;
 		const float  weight = g_cones[i].w;
-		cone.d = normalize(mul(d, tangent_to_uvw));
+		cone.m_d = normalize(mul(d, tangent_to_uvw));
 
 		// Compute the radiance.
-		const float3 Li = GetRadiance(cone, config);
+		const float3 Li = config.GetRadiance(cone);
 
 		E += weight * Li;
 	}
 
 	// Apply a Lambertian BRDF (multiplied by pi).
-	return (1.0f - material.metalness) * material.base_color * E;
+	return (1.0f - material.m_metalness) * material.m_base_color * E;
 }
 
 float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
@@ -140,17 +197,18 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	const float3 l_uvw = WorldToVoxelUVWDirection(l_world);
 	
 	// Construct a cone.
-	Cone cone;
-	cone.apex              = p_uvw;
-	cone.d                 = l_uvw;
-	cone.tan_half_aperture = abs(tan(material.roughness * g_pi_inv_2));
+	const Cone cone = {
+		p_uvw,
+		l_uvw,
+		abs(tan(material.m_roughness * g_pi_inv_2))
+	};
 
 	// Compute the radiance.
-	const float3 L = GetRadiance(cone, config);
+	const float3 L = config.GetRadiance(cone);
 
 	const float3 h       = HalfDirection(l_world, v_world);
 	const float  v_dot_h = sat_dot(v_world, h) + BRDF_DOT_EPSILON;
-	const float3 F0      = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F0      = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F       = BRDF_F_FUNCTION(v_dot_h, F0);
 	
 	return F * L;

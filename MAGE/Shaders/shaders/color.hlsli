@@ -174,10 +174,9 @@ float4 SRGBtoRGB_Accurate(float4 srgb) {
  @return		The spectrum in LogLuv space.
  */
 float4 RGBtoLogLuv(float3 rgb) {
-	static const float3x3 s_rgb_to_x1yd1 
-		= float3x3(0.22088889f, 0.339f, 0.41843111f, 
-				   0.11377778f, 0.678f, 0.73187556f, 
-				   0.01022222f, 0.113f, 0.29691111f);
+	static const float3x3 s_rgb_to_x1yd1 = { 0.22088889f, 0.339f, 0.41843111f,
+											 0.11377778f, 0.678f, 0.73187556f,
+											 0.01022222f, 0.113f, 0.29691111f };
 
 	const float3 x1yd1  = max(mul(rgb, s_rgb_to_x1yd1), 1e-6f);
 	const float2 uv     = x1yd1.xy / x1yd1.z;
@@ -196,10 +195,9 @@ float4 RGBtoLogLuv(float3 rgb) {
  @return		The spectrum in (linear) RGB space.
  */
 float3 LogLuvToRGB(float4 logluv) {
-	static const float3x3 s_x1yd1_to_rgb 
-		= float3x3( 6.00157563f, -2.70063025f, -1.80094538f, 
-				   -1.33085447f,  3.10225329f, -5.77139883f, 
-				    0.29987802f, -1.08769314f,  5.62652480f);
+	static const float3x3 s_x1yd1_to_rgb = { 6.00157563f, -2.70063025f, -1.80094538f,
+				                            -1.33085447f,  3.10225329f, -5.77139883f,
+					                         0.29987802f, -1.08769314f,  5.62652480f };
 
 	const float  L = 255.0f * logluv.x + logluv.y;
 	float3 x1yd1;

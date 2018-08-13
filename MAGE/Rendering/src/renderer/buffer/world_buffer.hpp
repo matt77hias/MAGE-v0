@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A struct of world buffers.
 	 */
-	struct alignas(16) WorldBuffer final {
+	struct alignas(16) WorldBuffer {
 
 	public:
 

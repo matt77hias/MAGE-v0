@@ -6,11 +6,11 @@
 //-----------------------------------------------------------------------------
 // Defines			                        | Default
 //-----------------------------------------------------------------------------
-// BRDF_DOT_EPSILON                         | 0.00001f
+// BRDF_DOT_EPSILON                         | 1e-5f
 // BRDF_D_FUNCTION                          | D_GGX
 // BRDF_F_FUNCTION                          | F_Schlick
 // BRDF_G_FUNCTION                          | G_GXX
-// BRDF_MINIMUM_ALPHA                       | 0.1f
+// BRDF_MINIMUM_ALPHA                       | 1e-1f
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 
@@ -55,61 +55,6 @@
  The reflectance at normal incidence for dielectric (i.e. non-metal) materials.
  */
 static const float g_dielectric_F0 = 0.04f;
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Utilities
-//-----------------------------------------------------------------------------
-
-/**
- Calculates the dot product of two given unit vectors and clamps negative 
- values to 0.
-
- @pre			@a x is normalized.
- @pre			@a y is normalized.
- @param[in]		x
-				The first unit vector.
- @param[in]		y
-				The second unit vector.
- @return		The dot product of the given unit vectors clamped between 0 
-				and 1 (i.e. clamped cosine).
- */
-float sat_dot(float3 x, float3 y) {
-	return saturate(dot(x, y));
-}
-
-/**
- Calculates the reflected direction of the given direction about the given 
- surface normal.
-
- @pre			@a n is normalized.
- @pre			@a l is normalized.
-  @param[in]	n
-				The surface normal expressed in shading space.
- @param[in]		l
-				The direction expressed in shading space.
- @return		The normalized reflected vector of the given direction about 
-				the given surface normal expressed in shading space.
- */
-float3 ReflectedDirection(float3 n, float3 l) {
-	return reflect(-l, n);
-}
-
-/**
- Calculates the half direction between the given directions.
-
- @pre			@a d1 is normalized.
- @pre			@a d2 is normalized.
- @param[in]		d1
-				The first direction expressed in shading space.
- @param[in]		d2
-				The second direction expressed in shading space.
- @return		The normalized half direction between the given directions 
-				expressed in shading space.
- */
-float3 HalfDirection(float3 d1, float3 d2) {
-	// h := d1+d2 / ||d1+d2||
-	return normalize(d1 + d2);
-}
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Normal Distribution Function
@@ -1455,27 +1400,32 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
  A struct of BRDFs.
  */
 struct BRDF {
-	// The diffuse component of the BRDF.
-	float3 diffuse;
-	// The specular component of the BRDF.
-	float3 specular;
+
+	//-------------------------------------------------------------------------
+	// Member Variables
+	//-------------------------------------------------------------------------
+
+	/**
+	 The diffuse component of the BRDF.
+	 */
+	float3 m_diffuse;
+
+	/**
+	 The specular component of the BRDF.
+	 */
+	float3 m_specular;
 };
 
 BRDF ConstructBRDF(float3 brdf_diffuse, float3 brdf_specular) {
-	BRDF brdf;
-	
 	#ifdef DISABLE_BRDF_DIFFUSE
-	brdf.diffuse  = 0.0f;
-	#else  // DISABLE_BRDF_DIFFUSE
-	brdf.diffuse  = brdf_diffuse;
+	brdf_diffuse = 0.0f;
 	#endif // DISABLE_BRDF_DIFFUSE
 
 	#ifdef DISABLE_BRDF_SPECULAR
-	brdf.diffuse = 0.0f;
-	#else  // DISABLE_BRDF_SPECULAR
-	brdf.specular = brdf_specular;
+	brdf_specular = 0.0f;
 	#endif // DISABLE_BRDF_SPECULAR
 
+	const BRDF brdf = { brdf_diffuse, brdf_specular };
 	return brdf;
 }
 
@@ -1496,8 +1446,8 @@ BRDF ConstructBRDF(float3 brdf_diffuse, float3 brdf_specular) {
  @return		The Lambertian BRDF.
  */
 BRDF LambertianBRDF(float3 n, float3 l, float3 v, Material material) {
-	const float3 brdf_diffuse  = (1.0f - material.metalness) 
-		                         * material.base_color * g_inv_pi;
+	const float3 brdf_diffuse  = (1.0f - material.m_metalness) 
+		                         * material.m_base_color * g_inv_pi;
 	const float3 brdf_specular = 0.0f;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
 }
@@ -1536,7 +1486,7 @@ float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
  @return		The Cook-Torrance BRDF.
  */
 BRDF FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
-	const float  alpha         = RoughnessToAlpha(material.roughness);
+	const float  alpha         = RoughnessToAlpha(material.m_roughness);
 	const float  n_dot_l       = sat_dot(n, l) + BRDF_DOT_EPSILON;
 	const float  n_dot_v       = sat_dot(n, v) + BRDF_DOT_EPSILON;
 	const float3 h             = HalfDirection(l, v);
@@ -1545,12 +1495,12 @@ BRDF FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D             = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V             = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F0_specular   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F0_specular   = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_specular);
-	const float  F_diffuse     = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, material.roughness)
-		                         * (1.0f - material.metalness);
+	const float  F_diffuse     = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, material.m_roughness)
+		                         * (1.0f - material.m_metalness);
 
-	const float3 brdf_diffuse  = F_diffuse * material.base_color * g_inv_pi;
+	const float3 brdf_diffuse  = F_diffuse * material.m_base_color * g_inv_pi;
 	const float3 brdf_specular = F_specular * 0.25f * D * V;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
 }
@@ -1572,7 +1522,7 @@ BRDF FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
  @return		The Cook-Torrance BRDF.
  */
 BRDF CookTorranceBRDF(float3 n, float3 l, float3 v, Material material) {
-	const float  alpha         = RoughnessToAlpha(material.roughness);
+	const float  alpha         = RoughnessToAlpha(material.m_roughness);
 	const float  n_dot_l       = sat_dot(n, l) + BRDF_DOT_EPSILON;
 	const float  n_dot_v       = sat_dot(n, v) + BRDF_DOT_EPSILON;
 	const float3 h             = HalfDirection(l, v);
@@ -1581,11 +1531,11 @@ BRDF CookTorranceBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D             = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V             = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F0_specular   = lerp(g_dielectric_F0, material.base_color, material.metalness);
+	const float3 F0_specular   = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_specular);
-	const float3 F_diffuse     = (1.0f - F_specular) * (1.0f - material.metalness);
+	const float3 F_diffuse     = (1.0f - F_specular) * (1.0f - material.m_metalness);
 
-	const float3 brdf_diffuse  = F_diffuse * material.base_color * g_inv_pi;
+	const float3 brdf_diffuse  = F_diffuse * material.m_base_color * g_inv_pi;
 	const float3 brdf_specular = F_specular * 0.25f * D * V;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
 }

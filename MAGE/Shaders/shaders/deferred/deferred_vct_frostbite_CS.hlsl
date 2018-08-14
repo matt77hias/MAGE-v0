@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDF_FUNCTION FrostbiteBRDF
+#define BRDF_FROSTBITE
 #include "deferred\deferred.hlsli"

@@ -22,8 +22,7 @@
 #define DISABLE_TSNM
 #include "forward\forward_input.hlsli"
 
-#define BRDF_FUNCTION LambertianBRDF
-#define DISABLE_BRDF_SPECULAR
+#define BRDF_LAMBERTIAN
 #define DISABLE_FOG
 #define DISABLE_VCT
 #include "lighting.hlsli"

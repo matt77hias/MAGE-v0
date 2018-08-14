@@ -20,6 +20,9 @@
 // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI        | not defined
 // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT        | not defined
+// DISABLE_TEXTURE_BASE_COLOR               | not defined
+// DISABLE_TEXTURE_MATERIAL                 | not defined
+// DISABLE_TSNM                             | not defined
 // DISABLE_VCT                              | not defined
 // ENABLE_TRANSPARENCY                      | not defined
 // MSAA_AS_SSAA                             | not defined

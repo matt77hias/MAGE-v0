@@ -12,8 +12,8 @@
 //-----------------------------------------------------------------------------
 
 struct Voxel {
-	uint encoded_L;
-	uint encoded_n;
+	uint m_encoded_L;
+	uint m_encoded_n;
 };
 
 uint EncodeRadiance(float3 L) {

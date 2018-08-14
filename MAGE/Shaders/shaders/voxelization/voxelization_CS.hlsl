@@ -34,9 +34,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	}
 
 	const uint flat_index = FlattenIndex(thread_id, g_voxel_grid_resolution);
-	const uint encoded_L  = voxel_grid[flat_index].encoded_L;
-	voxel_grid[flat_index].encoded_L = 0u;
-	voxel_grid[flat_index].encoded_n = 0u;
+	const uint encoded_L  = voxel_grid[flat_index].m_encoded_L;
+	voxel_grid[flat_index].m_encoded_L = 0u;
+	voxel_grid[flat_index].m_encoded_n = 0u;
 
 	// If encoded_L is equal to the special value 0, representing an empty 
 	// voxel, DecodeRadiance may not be called due to potential divisions by 0.

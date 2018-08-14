@@ -9,6 +9,7 @@
 // BRDF_DOT_EPSILON                         | 1e-5f
 // BRDF_D_FUNCTION                          | D_GGX
 // BRDF_F_FUNCTION                          | F_Schlick
+// BRDF_FUNCTION                            | not defined
 // BRDF_MINIMUM_ALPHA                       | 1e-1f
 // BRDF_V_FUNCTION                          | G_GXX
 // DISABLE_BRDF_DIFFUSE                     | not defined

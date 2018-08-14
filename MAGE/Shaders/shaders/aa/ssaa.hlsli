@@ -20,15 +20,15 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 struct InputTexturesSSAA {
-	Texture2D< float4 > image;
-	Texture2D< float2 > normal;
-	Texture2D< float  > depth;
+	Texture2D< float4 > m_image;
+	Texture2D< float2 > m_normal;
+	Texture2D< float  > m_depth;
 };
 
 struct OutputTexturesSSAA {
-	RWTexture2D< float4 > image;
-	RWTexture2D< float2 > normal;
-	RWTexture2D< float  > depth;
+	RWTexture2D< float4 > m_image;
+	RWTexture2D< float2 > m_normal;
+	RWTexture2D< float  > m_depth;
 };
 
 void ResolveSSAA(uint2 p_display, 
@@ -53,16 +53,16 @@ void ResolveSSAA(uint2 p_display,
 
 			const uint2 p_ss_display_ij = p_ss_display + uint2(i,j);
 			
-			const float4 hdr = input_textures.image[p_ss_display_ij];
+			const float4 hdr = input_textures.m_image[p_ss_display_ij];
 			ldr += AA_TONE_MAP_FUNCTION(hdr, weight);
 			
-			const float2 encoded_n = input_textures.normal[p_ss_display_ij];
+			const float2 encoded_n = input_textures.m_normal[p_ss_display_ij];
 			normal_sum += NORMAL_DECODE_FUNCTION(encoded_n);
 			
 			#ifdef DISABLE_INVERTED_Z_BUFFER
-			depth = min(depth, input_textures.depth[p_ss_display_ij]);
+			depth = min(depth, input_textures.m_depth[p_ss_display_ij]);
 			#else  // DISABLE_INVERTED_Z_BUFFER
-			depth = max(depth, input_textures.depth[p_ss_display_ij]);
+			depth = max(depth, input_textures.m_depth[p_ss_display_ij]);
 			#endif // DISABLE_INVERTED_Z_BUFFER
 		}
 	}
@@ -72,11 +72,11 @@ void ResolveSSAA(uint2 p_display,
 	const float2 encoded_n = NORMAL_ENCODE_FUNCTION(n);
 
 	// Store the resolved radiance.
-	output_textures.image[p_display]  = hdr;
+	output_textures.m_image[p_display]  = hdr;
 	// Store the resolved normal.
-	output_textures.normal[p_display] = encoded_n;
+	output_textures.m_normal[p_display] = encoded_n;
 	// Store the resolved depth.
-	output_textures.depth[p_display]  = depth;
+	output_textures.m_depth[p_display]  = depth;
 }
 
 #endif // MAGE_HEADER_SSAA

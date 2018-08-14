@@ -28,15 +28,15 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "light.hlsli"
 #include "material.hlsli"
 
 #ifdef BRDF_FUNCTION
+	#include "light.hlsli"
 
-	#ifndef DISABLE_VCT
-		#include "vct.hlsli"
-	#else  // DISABLE_VCT
+	#ifdef DISABLE_VCT
 		#include "brdf.hlsli"
+	#else  // DISABLE_VCT
+		#include "vct.hlsli"
 	#endif // DISABLE_VCT
 
 #endif // BRDF_FUNCTION
@@ -44,37 +44,59 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
+#ifdef BRDF_FUNCTION
+
 CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 	
 	//-------------------------------------------------------------------------
 	// Member Variables: Lights without Shadow Mapping
 	//-------------------------------------------------------------------------
 
-	// The number of directional lights in the scene.
+	/**
+	 The number of directional lights in the scene.
+	 */
 	uint g_nb_directional_lights    : packoffset(c0.x);
-	// The number of omni lights in the scene.
+	
+	/**
+	 The number of omni lights in the scene.
+	 */
 	uint g_nb_omni_lights           : packoffset(c0.y);
-	// The number of spotlights in the scene.
+
+	/**
+	 The number of spotlights in the scene.
+	 */
 	uint g_nb_spot_lights           : packoffset(c0.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Lights with Shadow Mapping
 	//-------------------------------------------------------------------------
 
-	// The number of shaodw mapped directional lights in the scene.
+	/**
+	 The number of shaodw mapped directional lights in the scene.
+	 */
 	uint g_nb_sm_directional_lights : packoffset(c1.x);
-	// The number of shaodw mapped omni lights in the scene.
+	
+	/**
+	 The number of shaodw mapped omni lights in the scene.
+	 */
 	uint g_nb_sm_omni_lights        : packoffset(c1.y);
-	// The number of shaodw mapped spotlights in the scene.
+	
+	/**
+	 The number of shaodw mapped spotlights in the scene.
+	 */
 	uint g_nb_sm_spot_lights        : packoffset(c1.z);
 
 	//-------------------------------------------------------------------------
 	// Member Variables: Ambient Light
 	//-------------------------------------------------------------------------
 
-	// The radiance of the ambient light in the scene. 
+	/**
+	 The radiance of the ambient light in the scene.
+	 */ 
 	float3 g_La                     : packoffset(c2);
 }
+
+#endif // BRDF_FUNCTION
 
 //-----------------------------------------------------------------------------
 // SRVs
@@ -130,6 +152,19 @@ TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
+
+/**
+ Computes the exponential fog factor.
+
+ @param[in]		distance
+				The distance between the lit point and the eye.
+ @param[in]		density
+				The density of the fog.
+ @return		The exponential fog factor.
+ */
+float FogFactor_Exponential(float distance, float density) {
+	return exp(-distance * density);
+}
 
 #ifdef BRDF_FUNCTION
 

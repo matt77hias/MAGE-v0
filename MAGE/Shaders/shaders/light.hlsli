@@ -508,21 +508,4 @@ struct ShadowMappedSpotLight : SpotLight {
 	}
 };
 
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Fog
-//-----------------------------------------------------------------------------
-
-/**
- Computes the exponential fog factor.
-
- @param[in]		distance
-				The distance between the lit point and the eye.
- @param[in]		density
-				The density of the fog.
- @return		The exponential fog factor.
- */
-float FogFactor_Exponential(float distance, float density) {
-	return exp(-distance * density);
-}
-
 #endif // MAGE_HEADER_LIGHT

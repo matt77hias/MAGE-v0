@@ -9,7 +9,10 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(Model, SLOT_CBUFFER_MODEL) {
-	// The cube-to-world transformation matrix.
+
+	/**
+	 The cube-to-world transformation matrix.
+	 */
 	float4x4 g_cube_to_world : packoffset(c0);
 }
 

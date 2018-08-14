@@ -12,8 +12,14 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(SecondaryCamera, SLOT_CBUFFER_SECONDARY_CAMERA) {
-	// The world-to-camera transformation matrix.
+	
+	/**
+	 The world-to-camera transformation matrix.
+	 */
 	float4x4 g_world_to_camera2       : packoffset(c0);
-	// The camera-to-projection transformation matrix.
+
+	/**
+	 The camera-to-projection transformation matrix.
+	 */
 	float4x4 g_camera2_to_projection2 : packoffset(c4);
 }

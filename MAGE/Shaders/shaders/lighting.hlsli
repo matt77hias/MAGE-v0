@@ -29,14 +29,13 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
+#include "brdf.hlsli"
 #include "material.hlsli"
 
 #ifdef BRDF_FUNCTION
 	#include "light.hlsli"
 
-	#ifdef DISABLE_VCT
-		#include "brdf.hlsli"
-	#else  // DISABLE_VCT
+	#ifndef DISABLE_VCT
 		#include "vct.hlsli"
 	#endif // DISABLE_VCT
 

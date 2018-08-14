@@ -61,8 +61,8 @@ Enumerate all member variables in the initializer list of constructors in order.
 
 ### Prefixes
 * Use the prefix `g_` for global variables (C++ and HLSL).
-* Use the prefix `m_` for member variables (C++ only).
-* Use the prefix `s_` for class member variables.
+* Use the prefix `m_` for member variables (C++ and HLSL).
+* Use the prefix `s_` for class and method member variables (C++ and HLSL).
 
 ### `new`, `new[]`, `delete`, `delete[]`
 * Do not use `new`, `new[]`, `delete`, `delete[]`.

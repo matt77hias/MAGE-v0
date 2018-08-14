@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDF_FUNCTION LambertianBRDF
+#define BRDF_LAMBERTIAN
 #include "deferred\deferred.hlsli"

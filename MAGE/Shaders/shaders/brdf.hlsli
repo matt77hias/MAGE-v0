@@ -9,8 +9,8 @@
 // BRDF_DOT_EPSILON                         | 1e-5f
 // BRDF_D_FUNCTION                          | D_GGX
 // BRDF_F_FUNCTION                          | F_Schlick
-// BRDF_G_FUNCTION                          | G_GXX
 // BRDF_MINIMUM_ALPHA                       | 1e-1f
+// BRDF_V_FUNCTION                          | G_GXX
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
 
@@ -27,13 +27,46 @@
 // Engine Defines
 //-----------------------------------------------------------------------------
 
-#ifndef BRDF_F_FUNCTION
+#ifdef BRDF_BLINN_PHONG
+	#define BRDF_FUNCTION   CookTorranceBRDF
+	#define BRDF_D_FUNCTION D_BlinnPhong
+	#define BRDF_F_FUNCTION F_None
+	#define BRDF_V_FUNCTION V_Implicit
+#endif // BRDF_BLINN_PHONG
+
+#ifdef BRDF_COOK_TORRANCE
+	#define BRDF_FUNCTION   CookTorranceBRDF
+	#define BRDF_D_FUNCTION D_GGX
 	#define BRDF_F_FUNCTION F_Schlick
-#endif // BRDF_F_FUNCTION
+	#define BRDF_V_FUNCTION V_GGX
+#endif // BRDF_COOK_TORRANCE
+
+#ifdef BRDF_FROSTBITE
+	#define BRDF_FUNCTION   FrostbiteBRDF
+	#define BRDF_D_FUNCTION D_GGX
+	#define BRDF_F_FUNCTION F_Schlick
+	#define BRDF_V_FUNCTION V_GGX
+#endif // BRDF_FROSTBITE
+
+#ifdef BRDF_LAMBERTIAN
+	#define BRDF_FUNCTION	LambertianBRDF
+	#define DISABLE_BRDF_SPECULAR
+#endif // BRDF_LAMBERTIAN
+
+#ifdef BRDF_WARD_DUER
+	#define BRDF_FUNCTION   CookTorranceBRDF
+	#define BRDF_D_FUNCTION D_WardDuer
+	#define BRDF_F_FUNCTION F_None
+	#define BRDF_V_FUNCTION V_Ward
+#endif // BRDF_WARD_DUER
 
 #ifndef BRDF_D_FUNCTION
 	#define BRDF_D_FUNCTION D_GGX
 #endif // BRDF_D_FUNCTION
+
+#ifndef BRDF_F_FUNCTION
+	#define BRDF_F_FUNCTION F_Schlick
+#endif // BRDF_F_FUNCTION
 
 #ifndef BRDF_V_FUNCTION
 	#define BRDF_V_FUNCTION V_GGX
@@ -1395,6 +1428,10 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: BRDFs
 //-----------------------------------------------------------------------------
+
+#ifdef BRDF
+	#error Illegal symbol definition.
+#endif
 
 /**
  A struct of BRDFs.

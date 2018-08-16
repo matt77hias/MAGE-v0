@@ -16,7 +16,7 @@
     <ClCompile>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <FloatingPointModel>Fast</FloatingPointModel>

@@ -92,16 +92,57 @@ namespace mage::rendering {
 
 	namespace {
 
+		/**
+		 Returns the permutation mask for the given shader configuration 
+		 parameters.
+
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false 
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c 
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be 
+						enabled. @c false otherwise.
+		 @return		The permutation mask for the given shader configuration 
+						parameters.
+		 */
+		inline U32 GetPermutationMask(bool transparency, 
+									  bool vct, 
+									  bool tsnm) noexcept {
+
+			return static_cast< U32 >(transparency) << 2u 
+				 | static_cast< U32 >(vct)          << 1u 
+				 | static_cast< U32 >(tsnm);
+		}
+
+		/**
+		 Creates a forward pixel shader with a Blinn-Phong BRDF.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false 
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c 
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be 
+						enabled. @c false otherwise.
+		 @return		A pointer to the forward pixel shader with a Blinn-Phong 
+						BRDF.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
 		PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
 												 bool transparency,
 												 bool vct, 
 												 bool tsnm) {
 
-			const auto config = static_cast< U32 >(transparency) << 2u
-							  | static_cast< U32 >(vct)          << 1u
-							  | static_cast< U32 >(tsnm);
-		
-			switch(config) {
+			const auto mask = GetPermutationMask(transparency, vct, tsnm);
+			switch(mask) {
 			
 			case 0b000:
 				return CreatePS(resource_manager, 
@@ -132,16 +173,32 @@ namespace mage::rendering {
 			}
 		}
 
+		/**
+		 Creates a forward pixel shader with a Cook-Torrance BRDF.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be
+						enabled. @c false otherwise.
+		 @return		A pointer to the forward pixel shader with a Cook-Torrance 
+						BRDF.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
 		PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
 												   bool transparency,
 												   bool vct, 
 												   bool tsnm) {
 		
-			const auto config = static_cast< U32 >(transparency) << 2u
-							  | static_cast< U32 >(vct)          << 1u
-							  | static_cast< U32 >(tsnm);
-		
-			switch(config) {
+			const auto mask = GetPermutationMask(transparency, vct, tsnm);
+			switch (mask) {
 			
 			case 0b000:
 				return CreatePS(resource_manager, 
@@ -172,17 +229,32 @@ namespace mage::rendering {
 			}
 		}
 
-	
+		/**
+		 Creates a forward pixel shader with a Frostbite BRDF.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false 
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c 
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be 
+						enabled. @c false otherwise.
+		 @return		A pointer to the forward pixel shader with a Frostbite 
+						BRDF.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
 		PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
 												bool transparency,
 												bool vct, 
 												bool tsnm) {
 		
-			const auto config = static_cast< U32 >(transparency) << 2u
-							  | static_cast< U32 >(vct)          << 1u
-							  | static_cast< U32 >(tsnm);
-		
-			switch(config) {
+			const auto mask = GetPermutationMask(transparency, vct, tsnm);
+			switch (mask) {
 			
 			case 0b000:
 				return CreatePS(resource_manager, 
@@ -213,16 +285,32 @@ namespace mage::rendering {
 			}
 		}
 
+		/**
+		 Creates a forward pixel shader with a Lambertian BRDF.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be
+						enabled. @c false otherwise.
+		 @return		A pointer to the forward pixel shader with a Lambertian 
+						BRDF.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
 		PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
 												 bool transparency,
 												 bool vct, 
 												 bool tsnm) {
 		
-			const auto config = static_cast< U32 >(transparency) << 2u
-							  | static_cast< U32 >(vct)          << 1u
-							  | static_cast< U32 >(tsnm);
-		
-			switch(config) {
+			const auto mask = GetPermutationMask(transparency, vct, tsnm);
+			switch (mask) {
 			
 			case 0b000:
 				return CreatePS(resource_manager, 
@@ -253,16 +341,32 @@ namespace mage::rendering {
 			}
 		}
 
+		/**
+		 Creates a forward pixel shader with a Ward-Duer BRDF.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false
+						otherwise.
+		 @param[in]		vct
+						@c true if voxel cone tracing should be enabled. @c
+						false otherwise.
+		 @param[in]		tsnm
+						@c true if tangent space normal mapping should be
+						enabled. @c false otherwise.
+		 @return		A pointer to the forward pixel shader with a Ward-Duer 
+						BRDF.
+		 @throws		Exception
+						Failed to create the pixel shader.
+		 */
 		PixelShaderPtr CreateForwardWardDuerPS(ResourceManager& resource_manager, 
 											   bool transparency,
 											   bool vct, 
 											   bool tsnm) {
 		
-			const auto config = static_cast< U32 >(transparency) << 2u
-							  | static_cast< U32 >(vct)          << 1u
-							  | static_cast< U32 >(tsnm);
-		
-			switch(config) {
+			const auto mask = GetPermutationMask(transparency, vct, tsnm);
+			switch (mask) {
 			
 			case 0b000:
 				return CreatePS(resource_manager, 

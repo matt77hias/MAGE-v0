@@ -133,6 +133,7 @@
     <None Include="Rendering\src\resource\model\model_output.tpp" />
     <None Include="Rendering\src\resource\rendering_resource_manager.tpp" />
     <None Include="Rendering\src\resource\shader\shader.tpp" />
+    <None Include="Rendering\src\resource\shader\shader_factory.tpp" />
     <None Include="Rendering\src\scene\sprite\sprite_text.tpp" />
     <None Include="Rendering\src\scene\rendering_world.tpp" />
   </ItemGroup>
@@ -180,6 +181,14 @@
     <ClCompile Include="Rendering\src\resource\shader\compiled_shader.cpp" />
     <ClCompile Include="Rendering\src\resource\shader\shader.cpp" />
     <ClCompile Include="Rendering\src\resource\shader\shader_factory.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_aa.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_deferred.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_depth.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_falsecolor.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_forward.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_postprocessing.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_primitive.cpp" />
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_voxelization.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture.cpp" />
     <ClCompile Include="Rendering\src\resource\texture\texture_factory.cpp" />
     <ClCompile Include="Rendering\src\scene\camera\camera.cpp" />

@@ -16,6 +16,127 @@
 namespace mage::rendering {
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: General
+	//-------------------------------------------------------------------------
+	#pragma region
+	
+	/**
+	 Creates a vertex shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the vertex shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the vertex 
+					shader.
+	 @return		A pointer to the vertex shader.
+	 @throws		Exception
+					Failed to create the vertex shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	VertexShaderPtr CreateVS(ResourceManager& resource_manager, 
+							 ConstructorArgsT&&... args);
+
+	/**
+	 Creates a hull shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the hull shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the hull 
+					shader.
+	 @return		A pointer to the hull shader.
+	 @throws		Exception
+					Failed to create the hull shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	HullShaderPtr CreateHS(ResourceManager& resource_manager, 
+						   ConstructorArgsT&&... args);
+
+	/**
+	 Creates a domain shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the domain shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the domain 
+					shader.
+	 @return		A pointer to the domain shader.
+	 @throws		Exception
+					Failed to create the domain shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	DomainShaderPtr CreateDS(ResourceManager& resource_manager, 
+							 ConstructorArgsT&&... args);
+
+	/**
+	 Creates a geometry shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the geometry shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the geometry 
+					shader.
+	 @return		A pointer to the geometry shader.
+	 @throws		Exception
+					Failed to create the geometry shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	GeometryShaderPtr CreateGS(ResourceManager& resource_manager, 
+							   ConstructorArgsT&&... args);
+
+	/**
+	 Creates a pixel shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the pixel shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the pixel 
+					shader.
+	 @return		A pointer to the pixel shader.
+	 @throws		Exception
+					Failed to create the pixel shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	PixelShaderPtr CreatePS(ResourceManager& resource_manager, 
+							ConstructorArgsT&&... args);
+
+	/**
+	 Creates a compute shader.
+ 
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the compute shader.
+	 @param[in]		resource_manager
+					A reference to the resource manager.
+	 @param[in]		args
+					A reference to the constructor arguments for the compute 
+					shader.
+	 @return		A pointer to the compute shader.
+	 @throws		Exception
+					Failed to create the compute shader.
+	 */
+	template< typename... ConstructorArgsT >
+	[[nodiscard]]
+	ComputeShaderPtr CreateCS(ResourceManager& resource_manager, 
+							  ConstructorArgsT&&... args);
+
+	#pragma endregion
+	
+	//-------------------------------------------------------------------------
 	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -550,3 +671,12 @@ namespace mage::rendering {
 
 	#pragma endregion
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "resource\shader\shader_factory.tpp"
+
+#pragma endregion

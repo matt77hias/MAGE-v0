@@ -484,6 +484,9 @@
     <None Include="Rendering\src\scene\rendering_world.tpp">
       <Filter>Header Files\scene</Filter>
     </None>
+    <None Include="Rendering\src\resource\shader\shader_factory.tpp">
+      <Filter>Header Files\resource\shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\src\resource\shader\shader.cpp">
@@ -653,6 +656,30 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\renderer\pass\postprocess_pass.cpp">
       <Filter>Source Files\renderer\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_aa.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_deferred.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_depth.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_falsecolor.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_forward.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_postprocessing.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_primitive.cpp">
+      <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\resource\shader\shader_factory_voxelization.cpp">
+      <Filter>Source Files\resource\shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

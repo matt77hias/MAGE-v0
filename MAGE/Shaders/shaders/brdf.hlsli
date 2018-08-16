@@ -351,7 +351,7 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
 	const float c         = n_dot_vl2 / (alpha * sqrt(1.0f - n_dot_vl2));
 	const float c2        = sqr(c);
 
-	return (c < 1.6f) ? (3.535f * c + 2.8181f * c2) / (1.0f + 2.276f * c + 2.577f * c2) : 1.0f;
+	return (1.6f > c) ? (3.535f * c + 2.8181f * c2) / (1.0f + 2.276f * c + 2.577f * c2) : 1.0f;
 }
 
 /**

@@ -27,6 +27,9 @@ A script handling a `Node`'s rotation based on the mouse's input.
 ### `RotationScript`
 A script rotating a `Node` around one of its principal axes.
 
+### `VoxelGridAnchorScript`
+A script for aligning a `Node`'s world position with the voxel grid center.
+
 ## <a name="SS-Scene"></a>Scene
 
 ### `EditorScript`

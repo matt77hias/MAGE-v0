@@ -21,6 +21,7 @@
 #include "editor_script.hpp"
 #include "stats_script.hpp"
 #include "switch_scene_script.hpp"
+#include "voxel_grid_anchor_script.hpp"
 
 #pragma endregion
 
@@ -144,6 +145,7 @@ namespace mage {
 		camera_node->Add(Create< script::StatsScript >());
 		camera_node->Add(Create< script::MouseLookScript >());
 		camera_node->Add(Create< script::CharacterMotorScript >());
+		//camera_node->Add(Create< script::VoxelGridAnchorScript >());
 		tree_node->Add(Create< script::RotationScript >());
 	}
 }

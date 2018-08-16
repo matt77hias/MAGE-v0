@@ -27,6 +27,7 @@
     <ClInclude Include="Scripts\src\stats_script.hpp" />
     <ClInclude Include="Scripts\src\switch_scene_script.hpp" />
     <ClInclude Include="Scripts\src\text_console_script.hpp" />
+    <ClInclude Include="Scripts\src\voxel_grid_anchor_script.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\src\switch_scene_script.tpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="Scripts\src\rotation_script.cpp" />
     <ClCompile Include="Scripts\src\stats_script.cpp" />
     <ClCompile Include="Scripts\src\text_console_script.cpp" />
+    <ClCompile Include="Scripts\src\voxel_grid_anchor_script.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

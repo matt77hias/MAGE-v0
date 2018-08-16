@@ -248,8 +248,8 @@ float D_Berry(float n_dot_h, float alpha) {
 	const float n_dot_h2 = sqr(n_dot_h);
 	const float temp1    = n_dot_h2 * (alpha2 - 1.0f) + 1.0f;
 
-	return (alpha >= 1.0f) 
-		? g_inv_pi : g_inv_pi * (alpha2 - 1.0f) / (log(alpha2) * temp1);
+	return (1.0f <= alpha) ? g_inv_pi 
+	                       : g_inv_pi * (alpha2 - 1.0f) / (log(alpha2) * temp1);
 }
 
 /**

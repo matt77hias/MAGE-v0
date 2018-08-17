@@ -16,8 +16,8 @@
 
  @pre			@a u is unit vectorized.
  @param[in]		u
-				The unit vector in the [0,1] range to convert.
- @return		The encoded unit vector in the [-1,1] range.
+				The unit vector in the [-1,1] range to convert.
+ @return		The encoded unit vector in the [0,1] range.
  */
 float3 EncodeUnitVector_XYZ(float3 u) {
 	return SNormToUNorm(u);
@@ -41,8 +41,8 @@ float3 DecodeUnitVector_XYZ(float3 e_unorm) {
 
  @pre			@a u is unit vectorized.
  @param[in]		u
-				The unit vector in the [0,1] range to convert.
- @return		The encoded unit vector in the [-1,1] range.
+				The unit vector in the [-1,1] range to convert.
+ @return		The encoded unit vector in the [0,1] range.
  */
 float2 EncodeUnitVector_XY(float3 u) {
 	return EncodeUnitVector_XYZ(u).xy;
@@ -71,8 +71,8 @@ float3 DecodeUnitVector_XY(float2 e_unorm) {
 
  @pre			@a u is unit vectorized.
  @param[in]		u
-				The unit vector in the [0,1] range to convert.
- @return		The encoded unit vector in the [-1,1] range.
+				The unit vector in the [-1,1] range to convert.
+ @return		The encoded unit vector in the [0,1] range.
  */
 float2 EncodeUnitVector_Spherical(float3 u) {
 	const float  phi       = all(0.0f == u.xy) ? 0.0f : atan2(u.y, u.x);
@@ -111,8 +111,8 @@ float3 DecodeUnitVector_Spherical(float2 e_unorm) {
 
  @pre			@a u is unit vectorized.
  @param[in]		u
-				The unit vector in the [0,1] range to convert.
- @return		The encoded unit vector in the [-1,1] range.
+				The unit vector in the [-1,1] range to convert.
+ @return		The encoded unit vector in the [0,1] range.
  */
 float2 EncodeUnitVector_SphereMap(float3 u) {
 	const float2 e_snorm = normalize(u.xy) * sqrt(SNormToUNorm(-u.z));
@@ -144,8 +144,8 @@ float2 OctahedronWrap(float2 v) {
 
  @pre			@a u is unit vectorized.
  @param[in]		u
-				The unit vector in the [0,1] range to convert.
- @return		The encoded unit vector in the [-1,1] range.
+				The unit vector in the [-1,1] range to convert.
+ @return		The encoded unit vector in the [0,1] range.
  */
 float2 EncodeUnitVector_Octahedron(float3 u) {
 	const float3 abs_u   = abs(u);

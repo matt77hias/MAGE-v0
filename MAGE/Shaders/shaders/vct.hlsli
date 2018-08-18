@@ -206,9 +206,9 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);
-
-	const float3 h       = HalfDirection(l_world, v_world);
-	const float  v_dot_h = sat_dot(v_world, h) + BRDF_DOT_EPSILON;
+    
+	// n_world = h_world
+	const float  v_dot_h = sat_dot(v_world, n_world) + BRDF_DOT_EPSILON;
 	const float3 F0      = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F       = BRDF_F_FUNCTION(v_dot_h, F0);
 	

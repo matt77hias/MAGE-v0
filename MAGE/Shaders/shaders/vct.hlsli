@@ -133,11 +133,11 @@ struct VCTConfig {
 			}
 
 			// Obtain the radiance.
-			const float4 Li = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
+			const float4 L_step = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
 
 			// Update the accumulated radiance.
 			const float inv_alpha = 1.0f - L.w;
-			L += inv_alpha * Li;
+			L += inv_alpha * L_step;
 
 			// Update the marching distance.
 			distance += m_cone_step;

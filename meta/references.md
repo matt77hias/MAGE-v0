@@ -126,6 +126,8 @@ FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/20
 
 FILIPEK B.: [*Simplify code with 'if constexpr' in C++17*](https://www.bfilipek.com/2018/03/ifconstexpr.html), 2018.
 
+FILIPEK B.: [*Speeding up Pattern Searches with Boyer-Moore Algorithm from C++17*](https://www.bfilipek.com/2018/08/searchers.html), 2018.
+
 FILIPEK B.: [*The Pimpl Pattern - what you should know*](https://www.bfilipek.com/2018/01/pimpl.html), 2018.
 
 FILIPEK B.: [*Using C++17 std::optional*](https://www.bfilipek.com/2018/05/using-optional.html), 2018.

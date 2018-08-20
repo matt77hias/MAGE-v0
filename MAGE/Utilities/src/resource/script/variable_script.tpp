@@ -36,7 +36,7 @@ namespace mage {
 
 	template< typename T >
 	inline void VariableScript::Add(std::string name, T value) {
-		m_variables.insert_or_assign(std::move(name), Value(std::move(value)));
+		m_variables.insert_or_assign(std::move(name), std::move(value));
 	}
 
 	template< typename T >

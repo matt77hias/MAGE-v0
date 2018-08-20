@@ -118,6 +118,10 @@ FILIPEK B.: [*Examples of Parallel Algorithms From C++17*](https://www.bfilipek.
 
 FILIPEK B.: [*IIFE for Complex Initialization*](https://www.bfilipek.com/2016/11/iife-for-complex-initialization.html), 2016.
 
+FILIPEK B.: [*In-Place Construction for std::any, std::variant and std::optional*](https://www.bfilipek.com/2018/07/in-place-cpp17.html), 2018.
+
+FILIPEK B.: [*Performance of std::string_view vs std::string from C++17*](https://www.bfilipek.com/2018/07/string-view-perf.html), 2018.
+
 FILIPEK B.: [*Refactoring with C++17 std::optional*](https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html), 2018.
 
 FILIPEK B.: [*Simplify code with 'if constexpr' in C++17*](https://www.bfilipek.com/2018/03/ifconstexpr.html), 2018.

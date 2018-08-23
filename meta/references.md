@@ -172,6 +172,8 @@ MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/uni
 
 METZ A.: [*Functions of Variants are Covariant*](https://arne-mertz.de/2018/06/functions-of-variants-are-covariant/), 2018.
 
+METZ A.: [*“Modern C++” != “New(est) Standard”*](https://arne-mertz.de/2018/08/modern-c-newest-standard/), 2018.
+
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.
@@ -193,6 +195,8 @@ PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.
 
 REGEHR J.: [*The Strict Aliasing Situation is Pretty Bad*](https://blog.regehr.org/archives/1307), 2016.
+
+ROPERT M.: [*Modern C++ 03*](https://mropert.github.io/2018/02/25/modern_cpp_03/), 2018.
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
@@ -305,6 +309,8 @@ BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
 
 KARPOV A.: [*The Last Line Effect*](https://www.viva64.com/en/b/0260/), 2014.
+
+MINES J.: [*Data-Oriented vs Object-Oriented Design*](https://medium.com/@jonathanmines/data-oriented-vs-object-oriented-design-50ef35a99056), 2018.
 
 MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
 

@@ -190,6 +190,8 @@ PHARR M.: [*Swallowing the elephant (part 1)*](http://pharr.org/matt/blog/2018/0
 
 PHARR M.: [*Swallowing the elephant (part 2)*](http://pharr.org/matt/blog/2018/07/09/moana-island-pbrt-2.html), 2018.
 
+PHARR M.: [*Swallowing the elephant (postscript: reader emails)*](https://pharr.org/matt/blog/2018/08/03/moana-reader-mail.html), 2018.
+
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 2*](http://preshing.com/20180124/a-flexible-reflection-system-in-cpp-part-2/), 2018.

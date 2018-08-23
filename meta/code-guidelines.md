@@ -28,7 +28,7 @@ Prefer the defined types (`utils\type\types.hpp`) and `size_t` over non-typedefe
 
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
-Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
+Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects). C++17's *Guaranteed Copy Elision* will avoid invoking the copy constructor or copy assignment operator.
 
 ### Constructor and destructor definitions
 Put all constructors and destructors of non-template base and child classes in the `.cpp` file.

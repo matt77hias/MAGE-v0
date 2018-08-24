@@ -1469,6 +1469,20 @@ BRDF ConstructBRDF(float3 brdf_diffuse, float3 brdf_specular) {
 
 /**
  Calculates the Lambertian BRDF.
+ 
+ @param[in]		material
+				The material.
+ @return		The Lambertian BRDF.
+ */
+BRDF LambertianBRDF(Material material) {
+	const float3 brdf_diffuse  = (1.0f - material.m_metalness) 
+		                         * material.m_base_color * g_inv_pi;
+	const float3 brdf_specular = 0.0f;
+	return ConstructBRDF(brdf_diffuse, brdf_specular);
+}
+
+/**
+ Calculates the Lambertian BRDF.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.

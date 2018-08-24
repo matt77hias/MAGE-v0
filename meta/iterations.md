@@ -7,7 +7,9 @@
 * Displacement Maps, Parallax Occlusion Maps
 * TAA
 * Cascaded and Variance Shadow Mapping
-* SSAO, HBAO
+* AO
+  * SSAO: GBuffer -> low resolution SSAO map -> edge preserving blur (k times) -> Deferred Shading
+  * HBAO
 * SSR
 * Tiled and Clustered Shading
 * Billboarding (Ry camera-dependent)

@@ -175,7 +175,10 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 
 	#ifndef DISABLE_LIGHTS_AMBIENT
 	// Indirect illumination: ambient lights
-	L += g_La;
+	{
+		const BRDF brdf = LambertianBRDF(material);
+		L += brdf.m_diffuse * g_La;
+	}
 	#endif // DISABLE_LIGHTS_AMBIENT
 
 	#ifndef DISABLE_LIGHTS_DIRECTIONAL

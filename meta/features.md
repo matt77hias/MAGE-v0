@@ -57,6 +57,8 @@
   * FXAA (using Max3 tone mapping)
   * MSAA (using Max3 tone mapping)
   * SSAA (using Max3 tone mapping)
+* AO
+  * voxel cone tracing (*not integrated*)
 * BRDFs (single BRDF/camera)
   * Lambertian
   * Cook-Torrance, Frostbite:

@@ -99,12 +99,8 @@ float3 GetGBufferNormal(float2 p_ss_display, uint index) {
 float3 GetGBufferPosition(float2 p_ss_display, uint index) {
 	// Load the depth from the GBuffer depth texture.
 	const float  depth         = g_depth_texture.sample[index][p_ss_display];
-	// Obtain the NDC space coordinates.
-	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
-	const float3 p_ndc         = { p_ndc_xy, depth };
 	// Obtain the world space coodinates.
-	return NDCToWorld(p_ndc);
+	return SSDisplayToWorld(p_ss_display, depth);
 }
 
 #else  // MSAA
@@ -164,12 +160,8 @@ float3 GetGBufferNormal(float2 p_ss_display) {
 float3 GetGBufferPosition(float2 p_ss_display) {
 	// Load the depth from the GBuffer depth texture.
 	const float  depth         = g_depth_texture[p_ss_display];
-	// Obtain the NDC space coordinates.
-	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	const float2 p_ndc_xy      = UVtoNDC(SSViewportToUV(p_ss_viewport));
-	const float3 p_ndc         = { p_ndc_xy, depth };
 	// Obtain the world space coodinates.
-	return NDCToWorld(p_ndc);
+	return SSDisplayToWorld(p_ss_display, depth);
 }
 
 #endif // MSAA

@@ -607,7 +607,7 @@ float3 DisplayToCamera(float2 p_display, float depth) {
  */
 float3 SSDisplayToCamera(float2 p_ss_display, float depth) {
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	return NDCToCamera(p_ss_viewport);
+	return SSViewportToCamera(p_ss_viewport);
 }
 
 /**
@@ -654,7 +654,7 @@ float3 SSViewportToWorld(float2 p_ss_viewport, float depth) {
  */
 float3 DisplayToWorld(float2 p_display, float depth) {
 	const float2 p_viewport = DisplayToViewport(p_display);
-	return NDCToWorld(p_viewport);
+	return ViewportToWorld(p_viewport);
 }
 
 /**
@@ -669,7 +669,7 @@ float3 DisplayToWorld(float2 p_display, float depth) {
  */
 float3 SSDisplayToWorld(float2 p_ss_display, float depth) {
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	return NDCToWorld(p_ss_viewport);
+	return SSViewportToWorld(p_ss_viewport);
 }
 
 /**

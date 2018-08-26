@@ -153,14 +153,12 @@
 We use the following coordinate frames:
 
 ### 2D
-* Display
-* Supersampled Display
-* Viewport (*camera dependent*)
-* Supersampled Viewport (*camera dependent*)
+* (Supersampled) Display
+* (Supersampled) Viewport (*camera dependent*)
 
 ### 3D
 * Box
-* Tangent
+* Tangent (generic tangent space)
 * Object
 * World
 * Camera (>0)

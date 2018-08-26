@@ -1,6 +1,10 @@
 #ifndef MAGE_HEADER_BRDF
 #define MAGE_HEADER_BRDF
 
+// Shading can be performed in an arbitrary shading space. The input arguments 
+// (n, l, v) for evaluating BRDFs and BRDF components must be expressed in the 
+// same coordinate system which can be chosen arbitrarily.
+
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
@@ -14,9 +18,6 @@
 // BRDF_V_FUNCTION                          | G_GXX
 // DISABLE_BRDF_DIFFUSE                     | not defined
 // DISABLE_BRDF_SPECULAR                    | not defined
-
-// The input arguments (n, l, v) for evaluating BRDFs and BRDF components must 
-// be expressed in the same coordinate system which can be chosen arbitrarily.
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -351,7 +352,9 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
 	const float c         = n_dot_vl2 / (alpha * sqrt(1.0f - n_dot_vl2));
 	const float c2        = sqr(c);
 
-	return (1.6f > c) ? (3.535f * c + 2.8181f * c2) / (1.0f + 2.276f * c + 2.577f * c2) : 1.0f;
+	return (1.6f > c) ? (3.535f * c + 2.8181f * c2) 
+		              / (1.0f + 2.276f * c + 2.577f * c2) 
+		              : 1.0f;
 }
 
 /**

@@ -1,6 +1,8 @@
 #ifndef MAGE_HEADER_VCT
 #define MAGE_HEADER_VCT
 
+// Shading is performed in voxel UVW space.
+
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
@@ -320,14 +322,14 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
  Computes the (outgoing) specular radiance at the given surface position using 
  voxel cone tracing.
 
- @pre			@a n_world is normalized.
- @pre			@a v_world is normalized.
+ @pre			@a n_uvw is normalized.
+ @pre			@a v_uvw is normalized.
  @param[in]		p_uvw
 				The surface position expressed in voxel UVW space.
- @param[in]		n_world
-				The surface normal expressed in world space.
- @param[in]		v_world
-				The view (hit-to-eye) direction expressed in world space.
+ @param[in]		n_uvw
+				The surface normal expressed in voxel UVW space.
+ @param[in]		v_uvw
+				The view (hit-to-eye) direction expressed in voxel UVW space.
  @param[in]		material
 				The material.
  @param[in]		config
@@ -335,12 +337,11 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw,
  @return		The (outgoing) specular radiance at the given surface position 
 				using voxel cone tracing.
  */
-float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
+float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw, 
 						   Material material, VCTConfig config) {
 	
 	// Compute the light (hit-to-light) direction.
-	const float3 l_world = ReflectedDirection(n_world, v_world);
-	const float3 l_uvw   = WorldToVoxelUVWDirection(l_world);
+	const float3 l_uvw = ReflectedDirection(n_uvw, v_uvw);
 	
 	// Construct a cone.
 	const Cone cone = {
@@ -352,8 +353,8 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);
     
-	// n_world = h_world
-	const float  v_dot_h = sat_dot(v_world, n_world) + BRDF_DOT_EPSILON;
+	// n_uvw = h_uvw
+	const float  v_dot_h = sat_dot(v_uvw, n_uvw) + BRDF_DOT_EPSILON;
 	const float3 F0      = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F       = BRDF_F_FUNCTION(v_dot_h, F0);
 	
@@ -364,14 +365,14 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
  Computes the (outgoing) radiance at the given surface position using voxel 
  cone tracing.
 
- @pre			@a n_world is normalized.
- @pre			@a v_world is normalized.
+ @pre			@a n_uvw is normalized.
+ @pre			@a v_uvw is normalized.
  @param[in]		p_uvw
 				The surface position expressed in voxel UVW space.
- @param[in]		n_world
-				The surface normal expressed in world space.
- @param[in]		v_world
-				The view (hit-to-eye) direction expressed in world space.
+ @param[in]		n_uvw
+				The surface normal expressed in voxel UVW space.
+ @param[in]		v_uvw
+				The view (hit-to-eye) direction expressed in voxel UVW space.
  @param[in]		material
 				The material.
  @param[in]		config
@@ -379,20 +380,19 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_world, float3 v_world,
  @return		The (outgoing) specular radiance at the given surface position
 				using voxel cone tracing.
  */
-float3 GetRadiance(float3 p_uvw, float3 n_world, float3 v_world, 
+float3 GetRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw, 
 				   Material material, VCTConfig config) {
 
-	const float3   n_uvw          = WorldToVoxelUVWDirection(n_world);
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
 	float3 L = 0.0f;
 	
 	#ifndef DISABLE_BRDF_DIFFUSE
-	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw,   material, config);
+	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw, material, config);
 	#endif // DISABLE_BRDF_DIFFUSE
 
 	#ifndef DISABLE_BRDF_SPECULAR
-	L += GetSpecularRadiance(p_uvw, n_world, v_world, material, config);
+	L += GetSpecularRadiance(p_uvw, n_uvw, v_uvw,   material, config);
 	#endif // DISABLE_BRDF_SPECULAR
 
 	return L;
@@ -442,11 +442,11 @@ float GetAO(float3 p_uvw, float3x3 tangent_to_uvw,
  Computes the ambient occlusion at the given surface position using voxel cone
  tracing.
 
- @pre			@a n_world is normalized.
+ @pre			@a n_uvw is normalized.
  @param[in]		p_uvw
 				The surface position expressed in voxel UVW space.
- @param[in]		n_world
-				The surface normal expressed in world space.
+ @param[in]		n_uvw
+				The surface normal expressed in voxel UVW space.
  @param[in]		max_cone_distance
 				The maximum cone distance expressed in voxel UVW space.
  @param[in]		config
@@ -454,10 +454,9 @@ float GetAO(float3 p_uvw, float3x3 tangent_to_uvw,
  @return		The ambient occlusion at the given surface position using voxel
 				cone tracing.
  */
-float GetAO(float3 p_uvw, float3 n_world, 
+float GetAO(float3 p_uvw, float3 n_uvw, 
 			float max_cone_distance, VCTConfig config) {
 
-	const float3   n_uvw = WorldToVoxelUVWDirection(n_world);
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
 	return GetAO(p_uvw, tangent_to_uvw, max_cone_distance, config);

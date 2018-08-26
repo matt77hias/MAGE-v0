@@ -1,6 +1,8 @@
 #ifndef MAGE_HEADER_LIGHTING
 #define MAGE_HEADER_LIGHTING
 
+// Shading is performed in world space.
+
 //-----------------------------------------------------------------------------
 // Engine Configuration
 //-----------------------------------------------------------------------------
@@ -301,6 +303,8 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	// Indirect illumination: { directional, omni, spot } lights (with shadow mapping)
 
 	const float3 p_uvw     = WorldToVoxelUVW(p_world);
+	const float3 n_uvw     = WorldToVoxelUVWDirection(n_world);
+	const float3 v_uvw     = WorldToVoxelUVWDirection(v_world);
 	const VCTConfig config = {
 		g_voxel_texture_max_mip_level,
 		g_voxel_grid_resolution,
@@ -311,7 +315,7 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		g_voxel_texture
 	};
 
-	L += GetRadiance(p_uvw, n_world, v_world, material, config);
+	L += GetRadiance(p_uvw, n_uvw, v_uvw, material, config);
 	#endif // DISABLE_VCT
 
 	return L;

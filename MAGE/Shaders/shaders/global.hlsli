@@ -248,8 +248,9 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 // world                  <-> voxel UVW                
 // world                  <-> voxel index
 // 
-// NDC                     -> world
+// NDC                     -> camera
 // depth (= NDC z)         -> camera z
+// NDC                     -> world
 // 
 // display                <-> viewport
 // super-sampled display  <-> super-sampled viewport
@@ -328,17 +329,17 @@ float3 VoxelIndexToWorld(uint3 voxel_index) {
 }
 
 /**
- Converts the given position expressed in NDC space to the corresponding 
- position expressed in world space.
+ Converts the given position expressed in NDC space to the corresponding
+ position expressed in camera space.
 
  @param[in]		p_ndc
 				The position expressed in NDC space.
- @return		The position expressed in world space.
+ @return		The position expressed in camera space.
  */
-float3 NDCToWorld(float3 p_ndc) {
-	const float4 p_hcamera = mul(float4(p_ndc, 1.0f), g_projection_to_camera);
-	const float3 p_camera  = HomogeneousDivide(p_hcamera);
-	return mul(float4(p_camera, 1.0f), g_camera_to_world).xyz;
+float3 NDCToCamera(float3 p_ndc) {
+	const float4 p_proj   = { p_ndc, 1.0f };
+	const float4 p_camera = mul(p_proj, g_projection_to_camera);
+	return HomogeneousDivide(p_camera);
 }
 
 /**
@@ -350,9 +351,22 @@ float3 NDCToWorld(float3 p_ndc) {
  @return		The (linear) depth expressed in camera space.
  */
 float DepthToCameraZ(float depth) {
-	const float2 p_camera_zw = mul(float4(0.0f, 0.0f, depth, 1.0f), 
-								   g_projection_to_camera).zw;
-	return p_camera_zw.x / p_camera_zw.y;
+	const float3 p_ndc    = { 0.0f, 0.0f, depth };
+	const float3 p_camera = NDCToCamera(p_ndc);
+	return p_camera.z;
+}
+
+/**
+ Converts the given position expressed in NDC space to the corresponding
+ position expressed in world space.
+
+ @param[in]		p_ndc
+				The position expressed in NDC space.
+ @return		The position expressed in world space.
+ */
+float3 NDCToWorld(float3 p_ndc) {
+	const float4 p_camera = { NDCToCamera(p_ndc), 1.0f };
+	return mul(p_camera, g_camera_to_world).xyz;
 }
 
 /**

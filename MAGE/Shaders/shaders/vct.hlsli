@@ -164,15 +164,21 @@ struct VCTConfig {
 
 	 @param[in]		cone
 					The cone.
-	 @param[in]		max_cone_distance
-					The maximum cone distance along the direction of the given 
-					cone expressed in voxel UVW space.
+	 @param[in]		max_cone_distances
+					The maximum cone distances along the direction of the given 
+					cone expressed in voxel UVW space for the (incoming) 
+					radiance and ambient occlusion.
 	 @return		The (incoming) radiance and ambient occlusion of the given 
 					cone for this VCT configuration.
 	 */
-	float4 GetRadianceAndAO(Cone cone, float max_cone_distance) {
+	float4 GetRadianceAndAO(Cone cone, float4 max_cone_distances) {
 		float4 L = 0.0f;
+		
+		// Compute the initial distance to avoid sampling the voxel containing 
+		// the cone's apex.
 		float distance = GetOffsetDistance();
+		// Compute the maximum cone distance.
+		float max_cone_distance = Max(max_cone_distances);
 
 		while (max_cone_distance > distance && 1.0f > L.w) {
 			// Compute the MIP level.
@@ -188,16 +194,40 @@ struct VCTConfig {
 
 			// Sample the radiance and alpha.
 			const float4 L_step = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
+			// Compute the radiance and alpha mask.
+			const float4 mask = (max_cone_distances <= distance);
 
 			// Update the accumulated radiance.
-			const float inv_alpha = 1.0f - L.w;
-			L += inv_alpha * L_step;
+			L += (1.0f - L.w) * mask * L_step;
 
 			// Update the marching distance.
 			distance += m_cone_step;
 		}
 
 		return L;
+	}
+
+	/**
+	 Computes the (incoming) radiance and ambient occlusion of the given cone
+	 for this VCT configuration.
+
+	 @param[in]		cone
+					The cone.
+	 @param[in]		max_cone_distances
+					The maximum cone distance along the direction of the given
+					cone expressed in voxel UVW space for the ambient occlusion.
+	 @return		The (incoming) radiance and ambient occlusion of the given
+					cone for this VCT configuration.
+	 */
+	float4 GetRadianceAndAO(Cone cone, float max_cone_distance) {
+		const float4 max_cone_distances = { 
+			m_max_cone_distance, 
+			m_max_cone_distance, 
+			m_max_cone_distance, 
+			max_cone_distance
+		};
+
+		return GetRadianceAndAO(cone, max_cone_distances);
 	}
 
 	/**

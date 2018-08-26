@@ -197,7 +197,7 @@ struct VCTConfig {
 			// Sample the radiance and alpha.
 			const float4 L_step = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
 			// Compute the radiance and alpha mask.
-			const float4 mask = (max_cone_distances <= distance);
+			const float4 mask = (max_cone_distances >= distance);
 
 			// Update the accumulated radiance.
 			L += (1.0f - L.w) * mask * L_step;
@@ -223,10 +223,10 @@ struct VCTConfig {
 	 */
 	float4 GetRadianceAndAO(Cone cone, float max_cone_distance) {
 		const float4 max_cone_distances = { 
-			m_max_cone_distance, 
-			m_max_cone_distance, 
-			m_max_cone_distance, 
-			max_cone_distance
+			m_max_cone_distance, // L
+			m_max_cone_distance, // L
+			m_max_cone_distance, // L
+			max_cone_distance    // AO
 		};
 
 		return GetRadianceAndAO(cone, max_cone_distances);
@@ -282,10 +282,11 @@ static const float4 g_cones[] = {
  Computes the (outgoing) diffuse radiance at the given surface position using 
  voxel cone tracing.
 
+ @pre			@a n_uvw is normalized.
  @param[in]		p_uvw
 				The surface position expressed in voxel UVW space.
- @param[in]		tangent_to_uvw
-				The tangent UVW-to-voxel UVW space transformation matrix.
+ @param[in]		n_uvw
+				The surface normal expressed in voxel UVW space.
  @param[in]		material
 				The material.
  @param[in]		config
@@ -293,8 +294,11 @@ static const float4 g_cones[] = {
  @return		The (outgoing) diffuse radiance at the given surface position 
 				using voxel cone tracing.
  */
-float3 GetDiffuseRadiance(float3 p_uvw, float3x3 tangent_to_uvw, 
+float3 GetDiffuseRadiance(float3 p_uvw, float3 n_uvw, 
 						  Material material, VCTConfig config) {
+	
+	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
+	
 	// Construct a cone.
 	Cone cone;
 	cone.m_apex = p_uvw;
@@ -383,59 +387,17 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 float3 GetRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw, 
 				   Material material, VCTConfig config) {
 
-	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
-
 	float3 L = 0.0f;
 	
 	#ifndef DISABLE_BRDF_DIFFUSE
-	L += GetDiffuseRadiance( p_uvw, tangent_to_uvw, material, config);
+	L += GetDiffuseRadiance( p_uvw, n_uvw,        material, config);
 	#endif // DISABLE_BRDF_DIFFUSE
 
 	#ifndef DISABLE_BRDF_SPECULAR
-	L += GetSpecularRadiance(p_uvw, n_uvw, v_uvw,   material, config);
+	L += GetSpecularRadiance(p_uvw, n_uvw, v_uvw, material, config);
 	#endif // DISABLE_BRDF_SPECULAR
 
 	return L;
-}
-
-/**
- Computes the ambient occlusion at the given surface position using voxel cone 
- tracing.
-
- @param[in]		p_uvw
-				The surface position expressed in voxel UVW space.
- @param[in]		tangent_to_uvw
-				The tangent UVW-to-voxel UVW space transformation matrix.
- @param[in]		max_cone_distance
-				The maximum cone distance expressed in voxel UVW space.
- @param[in]		config
-				The VCT configuration.
- @return		The ambient occlusion at the given surface position using voxel 
-				cone tracing.
- */
-float GetAO(float3 p_uvw, float3x3 tangent_to_uvw,
-			float max_cone_distance, VCTConfig config) {
-
-	// Construct a cone.
-	Cone cone;
-	cone.m_apex = p_uvw;
-	// tan(pi/6) = sqrt(3)/3
-	cone.m_tan_half_aperture = 0.577350269f;
-
-	float ao = 0.0f;
-
-	[unroll]
-	for (uint i = 0u; i < 6u; ++i) {
-		// Update the cone.
-		const float3 d      = g_cones[i].xyz;
-		const float  weight = g_cones[i].w;
-		cone.m_d = normalize(mul(d, tangent_to_uvw));
-
-		// Update the accumulated ambient occlusion.
-		ao += weight * config.GetAO(cone, max_cone_distance);
-	}
-
-	return ao;
 }
 
 /**
@@ -459,7 +421,26 @@ float GetAO(float3 p_uvw, float3 n_uvw,
 
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
 
-	return GetAO(p_uvw, tangent_to_uvw, max_cone_distance, config);
+	// Construct a cone.
+	Cone cone;
+	cone.m_apex = p_uvw;
+	// tan(pi/6) = sqrt(3)/3
+	cone.m_tan_half_aperture = 0.577350269f;
+
+	float ao = 0.0f;
+
+	[unroll]
+	for (uint i = 0u; i < 6u; ++i) {
+		// Update the cone.
+		const float3 d      = g_cones[i].xyz;
+		const float  weight = g_cones[i].w;
+		cone.m_d = normalize(mul(d, tangent_to_uvw));
+
+		// Update the accumulated ambient occlusion.
+		ao += weight * config.GetAO(cone, max_cone_distance);
+	}
+
+	return ao;
 }
 
 #endif // MAGE_HEADER_VCT

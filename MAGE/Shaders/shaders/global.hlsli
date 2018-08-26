@@ -612,7 +612,7 @@ float3 SSViewportToCamera(float2 p_ss_viewport, float depth) {
 float3 DisplayToCamera(float2 p_display, float depth) {
 	// Display -> Viewport -> UV -> NDC -> Camera
 	const float2 p_viewport = DisplayToViewport(p_display);
-	return ViewportToCamera(p_viewport);
+	return ViewportToCamera(p_viewport, depth);
 }
 
 /**
@@ -628,7 +628,7 @@ float3 DisplayToCamera(float2 p_display, float depth) {
 float3 SSDisplayToCamera(float2 p_ss_display, float depth) {
 	// SS Display -> SS Viewport -> UV -> NDC -> Camera
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	return SSViewportToCamera(p_ss_viewport);
+	return SSViewportToCamera(p_ss_viewport, depth);
 }
 
 /**
@@ -678,7 +678,7 @@ float3 SSViewportToWorld(float2 p_ss_viewport, float depth) {
 float3 DisplayToWorld(float2 p_display, float depth) {
 	// Display -> Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_viewport = DisplayToViewport(p_display);
-	return ViewportToWorld(p_viewport);
+	return ViewportToWorld(p_viewport, depth);
 }
 
 /**
@@ -694,7 +694,7 @@ float3 DisplayToWorld(float2 p_display, float depth) {
 float3 SSDisplayToWorld(float2 p_ss_display, float depth) {
 	// SS Display -> SS Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
-	return SSViewportToWorld(p_ss_viewport);
+	return SSViewportToWorld(p_ss_viewport, depth);
 }
 
 /**

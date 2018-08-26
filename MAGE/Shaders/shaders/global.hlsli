@@ -332,6 +332,7 @@ float3 VoxelIndexToWorld(uint3 voxel_index) {
  @return		The position expressed in camera space.
  */
 float3 NDCToCamera(float3 p_ndc) {
+	// NDC -> Camera
 	const float4 p_proj   = { p_ndc, 1.0f };
 	const float4 p_camera = mul(p_proj, g_projection_to_camera);
 	return HomogeneousDivide(p_camera);
@@ -346,6 +347,7 @@ float3 NDCToCamera(float3 p_ndc) {
  @return		The (linear) depth expressed in camera space.
  */
 float DepthToCameraZ(float depth) {
+	// NDC -> Camera
 	const float3 p_ndc    = { 0.0f, 0.0f, depth };
 	const float3 p_camera = NDCToCamera(p_ndc);
 	return p_camera.z;
@@ -360,6 +362,7 @@ float DepthToCameraZ(float depth) {
  @return		The position expressed in world space.
  */
 float3 NDCToWorld(float3 p_ndc) {
+	// NDC -> Camera -> World
 	const float4 p_camera = { NDCToCamera(p_ndc), 1.0f };
 	return mul(p_camera, g_camera_to_world).xyz;
 }
@@ -373,6 +376,7 @@ float3 NDCToWorld(float3 p_ndc) {
  @return		The position expressed in viewport space.
  */
 float2 DisplayToViewport(float2 p_display) {
+	// Display -> Viewport
 	return p_display - g_viewport_top_left;
 }
 
@@ -385,6 +389,7 @@ float2 DisplayToViewport(float2 p_display) {
  @return		The position expressed in super-sampled viewport space.
  */
 float2 SSDisplayToSSViewport(float2 p_ss_display) {
+	// SS Display -> SS Viewport
 	return p_ss_display - g_ss_viewport_top_left;
 }
 
@@ -397,6 +402,7 @@ float2 SSDisplayToSSViewport(float2 p_ss_display) {
  @return		The position expressed in display space.
  */
 float2 ViewportToDisplay(float2 p_viewport) {
+	// Viewport -> Display
 	return g_viewport_top_left + p_viewport;
 }
 
@@ -409,6 +415,7 @@ float2 ViewportToDisplay(float2 p_viewport) {
  @return		The position expressed in super-sampled display space.
  */
 float2 SSViewportToSSDisplay(float2 p_ss_viewport) {
+	// SS Viewport -> SS Display
 	return g_ss_viewport_top_left + p_ss_viewport;
 }
 
@@ -421,6 +428,7 @@ float2 SSViewportToSSDisplay(float2 p_ss_viewport) {
  @return		The position expressed in UV space.
  */
 float2 DisplayToUV(float2 p_display) {
+	// Display -> UV
 	// .x: [0,g_display_resolution.x] -> [0,1]
 	// .y: [0,g_display_resolution.y] -> [0,1]
 	return p_display * g_display_inv_resolution;
@@ -435,6 +443,7 @@ float2 DisplayToUV(float2 p_display) {
  @return		The position expressed in UV space.
  */
 float2 SSDisplayToUV(float2 p_ss_display) {
+	// SS Display -> UV
 	// .x: [0,g_ss_display_resolution.x] -> [0,1]
 	// .y: [0,g_ss_display_resolution.y] -> [0,1]
 	return p_ss_display * g_ss_display_inv_resolution;
@@ -449,6 +458,7 @@ float2 SSDisplayToUV(float2 p_ss_display) {
  @return		The position expressed in UV space.
  */
 float2 ViewportToUV(float2 p_viewport) {
+	// Viewport -> UV
 	// .x: [0,g_viewport_resolution.x] -> [0,1]
 	// .y: [0,g_viewport_resolution.y] -> [0,1]
 	return p_viewport * g_viewport_inv_resolution;
@@ -463,6 +473,7 @@ float2 ViewportToUV(float2 p_viewport) {
  @return		The position expressed in UV space.
  */
 float2 ViewportToUV(uint2 p_viewport) {
+	// Viewport -> UV
 	return ViewportToUV((float2)p_viewport + 0.5f);
 }
 
@@ -475,6 +486,7 @@ float2 ViewportToUV(uint2 p_viewport) {
  @return		The position expressed in UV space.
  */
 float2 SSViewportToUV(float2 p_ss_viewport) {
+	// SS Viewport -> UV
 	// .x: [0,g_ss_viewport_resolution.x] -> [0,1]
 	// .y: [0,g_ss_viewport_resolution.y] -> [0,1]
 	return p_ss_viewport * g_ss_viewport_inv_resolution;
@@ -489,6 +501,7 @@ float2 SSViewportToUV(float2 p_ss_viewport) {
  @return		The position expressed in UV space.
  */
 float2 SSViewportToUV(uint2 p_ss_viewport) {
+	// SS Viewport -> UV
 	return SSViewportToUV((float2)p_ss_viewport + 0.5f);
 }
 
@@ -501,6 +514,7 @@ float2 SSViewportToUV(uint2 p_ss_viewport) {
  @return		The position expressed in display space.
  */
 float2 UVtoDisplay(float2 p_uv) {
+	// UV -> Display
 	// .x: [0,1] -> [0,g_display_resolution.x]
 	// .y: [0,1] -> [0,g_display_resolution.y]
 	return p_uv * g_display_resolution;
@@ -515,6 +529,7 @@ float2 UVtoDisplay(float2 p_uv) {
  @return		The position expressed in super-sampled display space.
  */
 float2 UVtoSSDisplay(float2 p_uv) {
+	// UV -> SS Display
 	// .x: [0,1] -> [0,g_ss_display_resolution.x]
 	// .y: [0,1] -> [0,g_ss_display_resolution.y]
 	return p_uv * g_ss_display_resolution;
@@ -529,6 +544,7 @@ float2 UVtoSSDisplay(float2 p_uv) {
  @return		The position expressed in viewport space.
  */
 float2 UVtoViewport(float2 p_uv) {
+	// UV -> Viewport
 	// .x: [0,1] -> [0,g_viewport_resolution.x]
 	// .y: [0,1] -> [0,g_viewport_resolution.y]
 	return p_uv * g_viewport_resolution;
@@ -543,6 +559,7 @@ float2 UVtoViewport(float2 p_uv) {
  @return		The position expressed in super-sampled viewport space.
  */
 float2 UVtoSSViewport(float2 p_uv) {
+	// UV -> SS Viewport
 	// .x: [0,1] -> [0,g_ss_viewport_resolution.x]
 	// .y: [0,1] -> [0,g_ss_viewport_resolution.y]
 	return p_uv * g_ss_viewport_resolution;
@@ -559,6 +576,7 @@ float2 UVtoSSViewport(float2 p_uv) {
  @return		The position expressed in camera space.
  */
 float3 ViewportToCamera(float2 p_viewport, float depth) {
+	// Viewport -> UV -> NDC -> Camera
 	const float2 p_ndc_xy = UVtoNDC(ViewportToUV(p_viewport));
 	const float3 p_ndc    = { p_ndc_xy, depth };
 	return NDCToCamera(p_ndc);
@@ -575,6 +593,7 @@ float3 ViewportToCamera(float2 p_viewport, float depth) {
  @return		The position expressed in camera space.
  */
 float3 SSViewportToCamera(float2 p_ss_viewport, float depth) {
+	// SS Viewport -> UV -> NDC -> Camera
 	const float2 p_ndc_xy = UVtoNDC(SSViewportToUV(p_ss_viewport));
 	const float3 p_ndc    = { p_ndc_xy, depth };
 	return NDCToCamera(p_ndc);
@@ -591,6 +610,7 @@ float3 SSViewportToCamera(float2 p_ss_viewport, float depth) {
  @return		The position expressed in camera space.
  */
 float3 DisplayToCamera(float2 p_display, float depth) {
+	// Display -> Viewport -> UV -> NDC -> Camera
 	const float2 p_viewport = DisplayToViewport(p_display);
 	return ViewportToCamera(p_viewport);
 }
@@ -606,6 +626,7 @@ float3 DisplayToCamera(float2 p_display, float depth) {
  @return		The position expressed in camera space.
  */
 float3 SSDisplayToCamera(float2 p_ss_display, float depth) {
+	// SS Display -> SS Viewport -> UV -> NDC -> Camera
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	return SSViewportToCamera(p_ss_viewport);
 }
@@ -621,6 +642,7 @@ float3 SSDisplayToCamera(float2 p_ss_display, float depth) {
  @return		The position expressed in world space.
  */
 float3 ViewportToWorld(float2 p_viewport, float depth) {
+	// Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_ndc_xy = UVtoNDC(ViewportToUV(p_viewport));
 	const float3 p_ndc    = { p_ndc_xy, depth };
 	return NDCToWorld(p_ndc);
@@ -637,6 +659,7 @@ float3 ViewportToWorld(float2 p_viewport, float depth) {
  @return		The position expressed in world space.
  */
 float3 SSViewportToWorld(float2 p_ss_viewport, float depth) {
+	// SS Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_ndc_xy = UVtoNDC(SSViewportToUV(p_ss_viewport));
 	const float3 p_ndc    = { p_ndc_xy, depth };
 	return NDCToWorld(p_ndc);
@@ -653,6 +676,7 @@ float3 SSViewportToWorld(float2 p_ss_viewport, float depth) {
  @return		The position expressed in world space.
  */
 float3 DisplayToWorld(float2 p_display, float depth) {
+	// Display -> Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_viewport = DisplayToViewport(p_display);
 	return ViewportToWorld(p_viewport);
 }
@@ -668,6 +692,7 @@ float3 DisplayToWorld(float2 p_display, float depth) {
  @return		The position expressed in world space.
  */
 float3 SSDisplayToWorld(float2 p_ss_display, float depth) {
+	// SS Display -> SS Viewport -> UV -> NDC -> Camera -> World
 	const float2 p_ss_viewport = SSDisplayToSSViewport(p_ss_display);
 	return SSViewportToWorld(p_ss_viewport);
 }

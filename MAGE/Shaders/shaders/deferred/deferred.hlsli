@@ -69,6 +69,7 @@ float4 PS(float4 input : SV_POSITION,
 //-----------------------------------------------------------------------------
 
 float4 PS(float4 input : SV_POSITION) : SV_Target {
+	
 	const float2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
@@ -106,15 +107,11 @@ float4 PS(float4 input : SV_POSITION) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	// Texture2D::operator[] requires a uint2 index.
-	// For the computation of p_ndc/p_world, a float2 is required.
-	const float2 p_ss_viewport = (float2)thread_id.xy + 0.5f;
-	const float2 p_ss_display  = SSViewportToSSDisplay(p_ss_viewport);
+	const uint2 p_ss_viewport = thread_id.xy;
+	uint2 p_ss_display;
 		
 	[branch]
-	if (any(0.0f > p_ss_display
-			|| g_ss_display_resolution  <= (uint2)p_ss_display
-			|| g_ss_viewport_resolution <= (uint2)p_ss_viewport)) {
+	if (IsSSViewportOutOfBounds(p_ss_viewport, p_ss_display)) {
 		return;
 	}
 

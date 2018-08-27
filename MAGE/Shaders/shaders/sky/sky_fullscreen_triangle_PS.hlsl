@@ -25,7 +25,8 @@ float4 PS(float4 input : SV_Position) : SV_Target {
 #endif // MSAA_AS_SSAA
 
 	// Obtain the world space coodinates.
-	const float3 p_world = SSDisplayToWorld(input.xy, input.z);
+	const float3 p_camera = SSDisplayToCamera(input.xy, input.z);
+	const float3 p_world  = CameraToWorld(p_camera);
 
 	// Sample the cube map.
 	return float4(g_sky.Sample(g_linear_wrap_sampler, p_world), 1.0f);

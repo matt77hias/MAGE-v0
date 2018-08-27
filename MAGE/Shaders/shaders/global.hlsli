@@ -227,19 +227,21 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	//-------------------------------------------------------------------------
 
 	/**
-	 The lens radius of this camera.
+	 The radius of the lens aperture of this camera.
 	 */
-	float    g_lens_radius                 : packoffset(c20.w);
+	float    g_aperture_radius             : packoffset(c20.w);
 
 	/**
-	 The focal length of this camera.
+	 The focal length (i.e. distance between the lens aperture and the focal 
+	 point/focus expressed in camera space) of this camera.
 	 */
 	float    g_focal_length                : packoffset(c21.x);
 
 	/**
-	 The maximum circle-of-confusion radius of this camera.
+	 The focus distance (i.e. distance between the lens aperture and the 
+	 objects in perfect focus expressed in camera space) of this camera.
 	 */
-	float    g_max_coc_radius              : packoffset(c21.y);
+	float    g_focus_distance              : packoffset(c21.y);
 }
 
 //-----------------------------------------------------------------------------

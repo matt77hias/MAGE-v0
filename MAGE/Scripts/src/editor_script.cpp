@@ -23,27 +23,27 @@ namespace mage::script {
 						const F32x2& clipping_planes) {
 
 			//-----------------------------------------------------------------
-			// Lens Radius
+			// Aperture Radius
 			//-----------------------------------------------------------------
-			auto radius = lens.GetLensRadius();
-			ImGui::InputFloat("Radius", &radius);
-			lens.SetLensRadius(radius);
+			auto aperture_radius = lens.GetApertureRadius();
+			ImGui::SliderFloat("Aperture Radius", &aperture_radius, 0.0f, 0.10f);
+			lens.SetApertureRadius(aperture_radius);
 
 			//-----------------------------------------------------------------
 			// Focal Length
 			//-----------------------------------------------------------------
 			auto focal_length = lens.GetFocalLength();
-			ImGui::SliderFloat("Focal Length", &focal_length, 
-							   clipping_planes[0], 
-							   clipping_planes[1]);
+			ImGui::SliderFloat("Focal Length", &focal_length, 0.01f, 0.10f);
 			lens.SetFocalLength(focal_length);
 
 			//-----------------------------------------------------------------
 			// Maximum Radius of the Circle-of-Confusion
 			//-----------------------------------------------------------------
-			auto coc = lens.GetMaximumCoCRadius();
-			ImGui::SliderFloat("CoC", &coc, 0.0f, 10.0f);
-			lens.SetMaximumCoCRadius(coc);
+			auto focus_distance = lens.GetFocusDistance();
+			ImGui::SliderFloat("Focus Distance", &focus_distance,
+							   clipping_planes[0],
+							   clipping_planes[1]);
+			lens.SetFocusDistance(focus_distance);
 		}
 
 		void DrawWidget(rendering::VoxelizationSettings& settings) {

@@ -42,9 +42,9 @@ namespace mage::rendering {
 		 Constructs a camera settings.
 		 */
 		constexpr CameraLens() noexcept
-			: m_radius(0.0f),
-			m_focal_length(100.0f),
-			m_max_coc_radius(10.0f) {}
+			: m_aperture_radius(0.0f),
+			m_focal_length(0.035f),
+			m_focus_distance(1.0f) {}
 
 		/**
 		 Constructs a camera lens from the given camera lens.
@@ -96,34 +96,35 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this camera lens has a finite aperture.
+		 Checks whether this camera lens has a finite lens aperture.
 
-		 @return		@c true if this camera lens has a finite aperture.
+		 @return		@c true if this camera lens has a finite lens aperture.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
 		constexpr bool HasFiniteAperture() const noexcept {
-			return 0.0f != m_radius;
+			return 0.0f != m_aperture_radius;
 		}
 
 		/**
-		 Returns the radius of this camera lens.
+		 Returns the radius of the lens aperture of this camera lens.
 
-		 @return		The radius of this camera lens.
+		 @return		The radius of the lens aperture of this camera lens.
 		 */
 		[[nodiscard]]
-		constexpr F32 GetLensRadius() const noexcept {
-			return m_radius;
+		constexpr F32 GetApertureRadius() const noexcept {
+			return m_aperture_radius;
 		}
-		
-		/**
-		 Sets the radius of this camera lens to the given value.
 
-		 @param[in]		radius
-						The radius of the camera lens.
+		/**
+		 Sets the radius of the lens aperture of this camera lens to the given 
+		 value.
+
+		 @param[in]		aperture_diameter
+						The radius of the lens aperture.
 		 */
-		constexpr void SetLensRadius(F32 radius) noexcept {
-			m_radius = radius;
+		constexpr void SetApertureRadius(F32 aperture_radius) noexcept {
+			m_aperture_radius = std::max(0.0f, aperture_radius);
 		}
 
 		/**
@@ -143,30 +144,27 @@ namespace mage::rendering {
 						The focal length.
 		 */
 		constexpr void SetFocalLength(F32 focal_length) noexcept {
-			m_focal_length = focal_length;
+			m_focal_length = std::max(0.0f, focal_length);
 		}
 
 		/**
-		 Returns the maximum radius of the circle of confusion of this camera 
-		 lens.
+		 Returns the focus distance of this camera lens.
 
-		 @return		The maximum radius of the circle of confusion of this 
-						camera lens.
+		 @return		The focus distance of this camera lens.
 		 */
 		[[nodiscard]]
-		constexpr F32 GetMaximumCoCRadius() const noexcept {
-			return m_max_coc_radius;
+		constexpr F32 GetFocusDistance() const noexcept {
+			return m_focus_distance;
 		}
-		
-		/**
-		 Sets the maximum radius of the circle of confusion of this camera lens 
-		 to the given value.
 
-		 @param[in]		max_coc_radius
-						The maximum radius of the circle of confusion.
+		/**
+		 Sets the focus distance of this camera lens to the given value.
+
+		 @param[in]		focus_distance
+						The focus distance.
 		 */
-		constexpr void SetMaximumCoCRadius(F32 max_coc_radius) noexcept {
-			m_max_coc_radius = max_coc_radius;
+		constexpr void SetFocusDistance(F32 focus_distance) noexcept {
+			m_focus_distance = std::max(0.0f, focus_distance);
 		}
 
 	private:
@@ -176,19 +174,33 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radius of this camera lens.
+		 The radius of the lens aperture of this camera lens.
 		 */
-		F32 m_radius;
+		F32 m_aperture_radius;
+
+		// Lens equation:
+		// 1/focal_length = 1/focus_distance + 1/aperture_distance
+		//
+		// focal_length      := distance between the lens aperture and the 
+		//                      focal point/focus expressed in camera space
+		// focus_distance    := distance between the lens aperture and the 
+		//                      objects in perfect focus expressed in camera 
+		//                      space
+		// aperture_distance := distance between the lens aperture and the 
+		//                      image plane expressed in camera space
 
 		/**
-		 The focal length of this camera lens.
+		 The focal length (i.e. distance between the lens aperture and the 
+		 focal point/focus expressed in camera space) of this camera lens.
 		 */
 		F32 m_focal_length;
 
 		/**
-		 The maximum radius of the circle-of-confusion of this camera lens.
+		 The focus distance (i.e. distance between the lens aperture and the 
+		 objects in perfect focus expressed in camera space) of this camera 
+		 lens.
 		 */
-		F32 m_max_coc_radius;
+		F32 m_focus_distance;
 	};
 
 	#pragma endregion

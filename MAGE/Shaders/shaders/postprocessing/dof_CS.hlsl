@@ -47,9 +47,18 @@ static const float2 g_disk_offsets[12] = {
 	{ -0.791559f, -0.597710f }
 };
 
-float GetBlurFactor(float p_camera_z) {
-	return smoothstep(0.0f, g_lens_radius, abs(p_camera_z - g_focal_length));
+float GetCircleOfConfusionRadius(float p_camera_z) {
+	const float magnification = g_focal_length / (g_focus_distance - g_focal_length);
+	// Compute the CoC radius in camera space.
+	const float CoC_radius = g_aperture_radius * abs(p_camera_z - g_focus_distance) 
+		                   / p_camera_z;
+	// Compute the CoC radius in display|viewport space.
+	return CoC_radius * magnification;
 }
+
+//float GetBlurFactor(float p_camera_z) {
+//	return smoothstep(0.0f, g_lens_radius, abs(p_camera_z - g_focal_length));
+//}
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
@@ -62,25 +71,21 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	}
 
 	const float p_camera_z  = DepthToCameraZ(g_depth_texture[p_display]);
-	const float blur_factor = GetBlurFactor(p_camera_z);
+	const float CoC_radius  = GetCircleOfConfusionRadius(p_camera_z);
 	float4 hdr_sum          = g_input_image_texture[p_display];
 	float  contribution_sum = 1.0f;
 	
-	//if (p_view_z > g_focal_length) {
-	if (0.0f < blur_factor) {
-		const float coc_radius = blur_factor * g_max_coc_radius;
+	[unroll]
+	for (uint i = 0u; i < 12u; ++i) {
+		const float2 p_display_i    = p_display + g_disk_offsets[i] * 20.0f * CoC_radius;
+		const float  p_camera_z_i   = DepthToCameraZ(g_depth_texture[p_display_i]);
+		const float  CoC_radius_i   = GetCircleOfConfusionRadius(p_camera_z_i);
 
-		[unroll]
-		for (uint i = 0u; i < 12u; ++i) {
-			const float2 p_display_i    = p_display + g_disk_offsets[i] * coc_radius;
-			const float  p_camera_z_i   = DepthToCameraZ(g_depth_texture[p_display_i]);
-			const float  blur_factor_i  = GetBlurFactor(p_camera_z_i);
-			const float  contribution_i = (p_camera_z_i > p_camera_z) 
-				                        ? 1.0f : blur_factor_i;
+		const float  a = 1.0f; // abs(p_camera_z_i - p_camera_z) < CoC_radius_i; // In Bokeh circle?
+		const float  b = 1.0f; // (p_camera_z_i >= p_camera_z);                  // Is behind?              
 
-			hdr_sum          += contribution_i * g_input_image_texture[p_display_i];
-			contribution_sum += contribution_i;
-		}
+		hdr_sum          += (a * b) * g_input_image_texture[p_display_i];
+		contribution_sum += (a * b);
 	}
 
 	const float inv_contribution_sum = 1.0f / contribution_sum;

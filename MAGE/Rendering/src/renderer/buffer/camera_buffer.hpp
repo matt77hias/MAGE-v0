@@ -50,9 +50,9 @@ namespace mage::rendering {
 			m_sky_dome_scale_z(1.0f), 
 			m_cone_step(0.1f), 
 			m_max_cone_distance(1.0f), 
-			m_lens_radius(0.0f), 
-			m_focal_length(0.0f), 
-			m_max_coc_radius(0.0f), 
+			m_aperture_radius(0.0f),
+			m_focal_length(0.0f),
+			m_focus_distance(0.0f),
 			m_padding() {}
 
 		/**
@@ -214,20 +214,24 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The lens radius of the camera of this camera buffer. 
+		 The radius of the lens aperture of the camera lens of this camera 
+		 buffer.
 		 */
-		F32 m_lens_radius;
+		F32 m_aperture_radius;
 
 		/**
-		 The focal length of the camera of this camera buffer.
+		 The focal length (i.e. distance between the lens aperture and the 
+		 focal point/focus expressed in camera space) of the camera lens of 
+		 this camera buffer.
 		 */
 		F32 m_focal_length;
 
 		/**
-		 The maximum radius of the circle-of-confusion of the camera of this 
-		 camera buffer.
+		 The focus distance (i.e. distance between the lens aperture and the
+		 objects in perfect focus expressed in camera space) of the camera lens 
+		 of this camera buffer.
 		 */
-		F32 m_max_coc_radius;
+		F32 m_focus_distance;
 
 		/**
 		 The padding of this camera buffer.

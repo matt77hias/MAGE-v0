@@ -110,9 +110,9 @@ namespace mage::rendering {
 
 		// Post-processing
 		{
-			buffer.m_lens_radius    = m_lens.GetLensRadius();
-			buffer.m_focal_length   = m_lens.GetFocalLength();
-			buffer.m_max_coc_radius = m_lens.GetMaximumCoCRadius();
+			buffer.m_aperture_radius = m_lens.GetApertureRadius();
+			buffer.m_focal_length    = m_lens.GetFocalLength();
+			buffer.m_focus_distance  = m_lens.GetFocusDistance();
 		}
 		
 		// Update the camera buffer.

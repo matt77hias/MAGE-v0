@@ -221,8 +221,8 @@ namespace mage::rendering {
 	 Creates an opaque blend state (i.e. no blending).
 
 	 The blend formula (i.e. no blending) is defined as:
-	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-	 (source.a   × 1) + (destination.a   × 0) = source.a.
+	 (source.rgb Ã— 1) + (destination.rgb Ã— 0) = source.rgb
+	 (source.a   Ã— 1) + (destination.a   Ã— 0) = source.a.
 
 	 @param[in]		device
 					A reference to the device.
@@ -238,8 +238,8 @@ namespace mage::rendering {
 	 Creates an alpha blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  source.alpha    ) + (destination.rgb × (1-source.alpha))
-	 (source.a   × (1-destination.a)) + (destination.a   ×  1              ).
+	 (source.rgb Ã—  source.a        ) + (destination.rgb Ã— (1-source.a))
+	 (source.a   Ã— (1-destination.a)) + (destination.a   Ã—  1          ).
 
 	 @param[in]		device
 					A reference to the device.
@@ -255,8 +255,8 @@ namespace mage::rendering {
 	 Creates an additive blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  1               ) + (destination.rgb × 1)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgb Ã—  1               ) + (destination.rgb Ã— 1)
+	 (source.a   Ã— (1-destination.a)) + (destination.a   Ã— 1).
 
 	 @param[in]		device
 					A reference to the device.
@@ -272,8 +272,8 @@ namespace mage::rendering {
 	 Creates a multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  0               ) + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+	 (source.rgb Ã—  0               ) + (destination.rgb Ã— source.rgb)
+	 (source.a   Ã— (1-destination.a)) + (destination.a   Ã— 1         ).
 
 	 @param[in]		device
 					A reference to the device.
@@ -289,8 +289,8 @@ namespace mage::rendering {
 	 Creates a bi-multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+	 (source.rgb Ã—  destination.rgb ) + (destination.rgb Ã— source.rgb)
+	 (source.a   Ã— (1-destination.a)) + (destination.a   Ã— 1         ).
 
 	 @param[in]		device
 					A reference to the device.
@@ -306,11 +306,11 @@ namespace mage::rendering {
 	 Creates an transparency blend state.
 
 	 The blend formula for the first RTV is defined as:
-	 (source.rgb ×  1               ) + (destination.rgb × 1)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgb Ã—  1               ) + (destination.rgb Ã— 1)
+	 (source.a   Ã— (1-destination.a)) + (destination.a   Ã— 1).
 	 The blend formula (i.e. no blending) for the remaining RTVs is defined as:
-	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-	 (source.a   × 1) + (destination.a   × 0) = source.a.
+	 (source.rgb Ã— 1) + (destination.rgb Ã— 0) = source.rgb
+	 (source.a   Ã— 1) + (destination.a   Ã— 0) = source.a.
 
 	 @param[in]		device
 					A reference to the device.

@@ -131,9 +131,9 @@ namespace mage::rendering {
 						Failed to map the vertex buffer of this primitive batch 
 						mesh.
 		 */
-		BufferLock Lock(ID3D11DeviceContext& device_context,
-			            D3D11_MAP map_type,
-			            D3D11_MAPPED_SUBRESOURCE& mapped_buffer) {
+		const BufferLock Lock(ID3D11DeviceContext& device_context, 
+							  D3D11_MAP map_type, 
+							  D3D11_MAPPED_SUBRESOURCE& mapped_buffer) {
 
 			return BufferLock(device_context, *m_vertex_buffer.Get(), 
 				              map_type, mapped_buffer);

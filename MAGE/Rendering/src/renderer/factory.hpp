@@ -221,8 +221,7 @@ namespace mage::rendering {
 	 Creates an opaque blend state (i.e. no blending).
 
 	 The blend formula (i.e. no blending) is defined as:
-	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-	 (source.a   × 1) + (destination.a   × 0) = source.a.
+	 (source.rgba × 1) + (destination.rgba × 0) = source.rgba.
 
 	 @param[in]		device
 					A reference to the device.
@@ -238,8 +237,7 @@ namespace mage::rendering {
 	 Creates an alpha blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  source.a        ) + (destination.rgb × (1-source.a))
-	 (source.a   × (1-destination.a)) + (destination.a   ×  1          ).
+	 (source.rgba × source.a) + (destination.rgba × (1-source.a)).
 
 	 @param[in]		device
 					A reference to the device.
@@ -255,8 +253,7 @@ namespace mage::rendering {
 	 Creates an additive blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  1               ) + (destination.rgb × 1)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgba × 1) + (destination.rgba × 1).
 
 	 @param[in]		device
 					A reference to the device.
@@ -272,8 +269,7 @@ namespace mage::rendering {
 	 Creates a multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  0               ) + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+	 (source.rgba × 0) + (destination.rgba × source.rgba).
 
 	 @param[in]		device
 					A reference to the device.
@@ -289,8 +285,7 @@ namespace mage::rendering {
 	 Creates a bi-multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+	 (source.rgba × destination.rgba ) + (destination.rgba × source.rgba).
 
 	 @param[in]		device
 					A reference to the device.
@@ -306,11 +301,9 @@ namespace mage::rendering {
 	 Creates an transparency blend state.
 
 	 The blend formula for the first RTV is defined as:
-	 (source.rgb ×  1               ) + (destination.rgb × 1)
-	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 (source.rgba × source.a) + (destination.rgba × (1-source.a)).
 	 The blend formula (i.e. no blending) for the remaining RTVs is defined as:
-	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-	 (source.a   × 1) + (destination.a   × 0) = source.a.
+	 (source.rgba × 1       ) + (destination.rgba × 0           ) = source.rgba.
 
 	 @param[in]		device
 					A reference to the device.

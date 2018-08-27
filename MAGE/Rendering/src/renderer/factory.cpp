@@ -22,8 +22,7 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula (i.e.no blending) is defined as:
-		// (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-		// (source.a   × 1) + (destination.a   × 0) = source.a.
+		// (source.rgba × 1) + (destination.rgba × 0) = source.rgba.
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = FALSE;
@@ -37,16 +36,15 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula is defined as:
-		// (source.rgb ×  source.a        ) + (destination.rgb × (1-source.a))
-		// (source.a   × (1-destination.a)) + (destination.a   ×  1          ).
+		// (source.rgba × source.a) + (destination.rgba × (1-source.a)).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_SRC_ALPHA;
 		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
-		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_SRC_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
@@ -58,15 +56,14 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula is defined as:
-		// (source.rgb ×  1               ) + (destination.rgb × 1)
-		// (source.a   × (1-destination.a)) + (destination.a   × 1).
+		// (source.rgba × 1) + (destination.rgba × 1).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
@@ -79,16 +76,15 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula is defined as:
-		// (source.rgb ×  0               ) + (destination.rgb × source.rgb)
-		// (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+		// (source.rgba × 0) + (destination.rgba × source.rgba).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ZERO;
 		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_SRC_COLOR;
 		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
-		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_SRC_COLOR;
 		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
@@ -100,16 +96,15 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula is defined as:
-		// (source.rgb ×  destination.rgb ) + (destination.rgb × source.rgb)
-		// (source.a   × (1-destination.a)) + (destination.a   × 1         ).
+		// (source.rgba × destination.rgba ) + (destination.rgba × source.rgba).
 
 		D3D11_BLEND_DESC desc = {};
 		desc.RenderTarget[0].BlendEnable           = TRUE;
 		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_DEST_COLOR;
 		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_SRC_COLOR;
 		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
-		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_DEST_COLOR;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_SRC_COLOR;
 		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
@@ -121,11 +116,9 @@ namespace mage::rendering {
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept {
 
 		// The blend formula for the first RTV is defined as:
-		// (source.rgb ×  1               ) + (destination.rgb × 1)
-		// (source.a   × (1-destination.a)) + (destination.a   × 1).
+		// (source.rgba × source.a) + (destination.rgba × (1-source.a)).
 		// The blend formula (i.e. no blending) for the remaining RTVs is defined as:
-		// (source.rgb × 1) + (destination.rgb × 0) = source.rgb
-		// (source.a   × 1) + (destination.a   × 0) = source.a.
+		// (source.rgba × 1       ) + (destination.rgba × 0           ) = source.rgba.
 
 		D3D11_BLEND_DESC desc = {};
 		desc.IndependentBlendEnable                    = TRUE;
@@ -134,8 +127,8 @@ namespace mage::rendering {
 		desc.RenderTarget[0].SrcBlend                  = D3D11_BLEND_SRC_ALPHA;
 		desc.RenderTarget[0].DestBlend                 = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOp                   = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha             = D3D11_BLEND_INV_DEST_ALPHA;
-		desc.RenderTarget[0].DestBlendAlpha            = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].SrcBlendAlpha             = D3D11_BLEND_SRC_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha            = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOpAlpha              = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask     = D3D11_COLOR_WRITE_ENABLE_ALL;
 		// Blending of the normal and the remaining.

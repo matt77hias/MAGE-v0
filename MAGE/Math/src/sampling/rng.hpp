@@ -23,6 +23,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	#ifdef RNG
+		#error Illegal symbol definition.
+	#endif
+	
 	class RNG final {
 
 	public:

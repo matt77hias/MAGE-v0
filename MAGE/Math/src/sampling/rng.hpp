@@ -64,7 +64,7 @@ namespace mage {
 			return m_distribution(m_generator);
 		}
 
-		F32 UniformFloat(F32 start, F32 end) noexcept {
+		F32 UniformF32(F32 start, F32 end) noexcept {
 			return start + UniformF32() * (end - start);
 		}
 

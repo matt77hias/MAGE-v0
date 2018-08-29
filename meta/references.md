@@ -296,9 +296,11 @@ AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A
 
 ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
 
+GOOGLE LLC: [*Filament*](https://google.github.io/filament/Filament.md.html), 2018.
+
 MCGUIRE M.: [*The Graphics Codex*](http://www.graphicscodex.com), 2016.
 
-SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
+SCRATCHAPIXEL: [*Learn Computer Graphics From Scratch!*](https://www.scratchapixel.com), 2009.
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
@@ -327,6 +329,8 @@ WIKIMEDIA INC.: [*Yoda conditions*](https://en.wikipedia.org/wiki/Yoda_condition
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
 PERSSON E.: *Creating Vast Game Worlds*, *ACM SIGGRAPH 2012 Talks*, 2012.
+
+SANGLARD F.: *Game Engine Black Book: Wolfenstein 3D*, 1st Edition, CreateSpace Independent Publishing Platform, 2017.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 
@@ -442,6 +446,10 @@ DUTRÉ P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~phi
 DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
 ERKENBRACH L.: [*Voxel Cone Traced Global Illumination*](http://leifnode.com/2015/05/voxel-cone-traced-global-illumination/)
+
+GOOGLE LLC: [*Materials*](https://google.github.io/filament//Materials.md.html), 2018.
+
+GOOGLE LLC: [*Material Properties*](https://google.github.io/filament/Material%20Properties.pdf), 2018.
 
 HAMMON E. J.: [*PBR Diffuse Lighting for GGX+Smith Microsurfaces*](https://twvideo01.ubm-us.net/o1/vault/gdc2017/Presentations/Hammon_Earl_PBR_Diffuse_Lighting.pdf), GDC 2017.
 

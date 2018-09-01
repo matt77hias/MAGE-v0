@@ -238,7 +238,7 @@ namespace mage::input {
 			return false;
 		}
 
-		const auto prev_press_stamp = m_press_stamp - 1;
+		const auto prev_press_stamp = m_press_stamp - 1u;
 		const auto pressed = (!ignore_press_stamp
 			                   && 
 			                 (prev_press_stamp == m_key_press_stamp[key]))

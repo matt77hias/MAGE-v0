@@ -174,7 +174,7 @@ namespace mage::input {
 		: m_window(window), 
 		m_di(di), 
 		m_keyboard(),
-		m_press_stamp(0ull), 
+		m_press_stamp(1ull), 
 		m_key_state{}, 
 		m_key_press_stamp{} {
 
@@ -238,15 +238,11 @@ namespace mage::input {
 			return false;
 		}
 
-		const auto prev_press_stamp = m_press_stamp - 1u;
-		const auto pressed = (!ignore_press_stamp
-			                   && 
-			                 (prev_press_stamp == m_key_press_stamp[key]))
-			                 ? false : true;
+		const auto prev_press_stamp = m_press_stamp - 1ull;
+		const auto key_press_stamp  = m_key_press_stamp[key];
+		m_key_press_stamp[key]      = m_press_stamp;
 
-		m_key_press_stamp[key] = m_press_stamp;
-
-		return pressed;
+		return ignore_press_stamp || (prev_press_stamp != key_press_stamp);
 	}
 
 	void Keyboard::Impl::Update() noexcept {

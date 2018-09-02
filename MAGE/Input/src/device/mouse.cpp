@@ -279,7 +279,7 @@ namespace mage::input {
 		: m_window(window), 
 		m_di(di), 
 		m_mouse(),
-		m_press_stamp(0ull), 
+		m_press_stamp(1ull), 
 		m_button_state{}, 
 		m_button_press_stamp(), 
 		m_position{} {
@@ -344,15 +344,11 @@ namespace mage::input {
 			return false;
 		}
 
-		const auto prev_press_stamp = m_press_stamp - 1u;
-		const auto pressed = (!ignore_press_stamp
-			                  && 
-			                 (prev_press_stamp == m_button_press_stamp[button]))
-			                 ? false : true;
+		const auto prev_press_stamp   = m_press_stamp - 1ull;
+		const auto button_press_stamp = m_button_press_stamp[button];
+		m_button_press_stamp[button]  = m_press_stamp;
 
-		m_button_press_stamp[button] = m_press_stamp;
-
-		return pressed;
+		return ignore_press_stamp || (prev_press_stamp != button_press_stamp);
 	}
 
 	void Mouse::Impl::Update() noexcept {

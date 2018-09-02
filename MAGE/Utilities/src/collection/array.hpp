@@ -76,30 +76,6 @@ namespace mage {
 		return TransformArray(f, a);
 	}
 
-	template< typename ToT, typename FromT, size_t N >
-	constexpr const auto DynamicCastArray(const std::array< FromT, N >& a) {
-		constexpr auto f = [](const FromT& v) {
-			return dynamic_cast< ToT >(v); 
-		};
-		return TransformArray(f, a);
-	}
-
-	template< typename ToT, typename FromT, size_t N >
-	constexpr const auto ConstCastArray(const std::array< FromT, N >& a) {
-		constexpr auto f = [](const FromT& v) {
-			return const_cast< ToT >(v); 
-		};
-		return TransformArray(f, a);
-	}
-
-	template< typename ToT, typename FromT, size_t N >
-	constexpr const auto ReinterpretCastArray(const std::array< FromT, N >& a) {
-		constexpr auto f = [](const FromT& v) {
-			return reinterpret_cast< ToT >(v); 
-		};
-		return TransformArray(f, a);
-	}
-
 	template< typename T, size_t N >
 	constexpr const auto FillArray(const T& value) {
 		return details::FillArray(value, std::make_index_sequence< N >());

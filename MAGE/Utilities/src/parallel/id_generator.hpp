@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		generator
 						A reference to the id generator to copy.
 		 */
-		constexpr IdGenerator(const IdGenerator& generator) = delete;
+		IdGenerator(const IdGenerator& generator) = delete;
 
 		/**
 		 Constructs an id generator by moving the given id generator.
@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		generator
 						A reference to the id generator to move.
 		 */
-		constexpr IdGenerator(IdGenerator&& generator) = delete;
+		IdGenerator(IdGenerator&& generator) = delete;
 
 		/**
 		 Destructs this id generator.

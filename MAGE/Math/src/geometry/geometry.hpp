@@ -98,7 +98,7 @@ namespace mage {
 		 @return		A reference to the copy of the given set of UV texture 
 						coordinates (i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV& operator=(const UV& uv) noexcept = default;
+		UV& operator=(const UV& uv) noexcept = default;
 		
 		/**
 		 Moves the given set of UV texture coordinates to this set of texture 
@@ -110,7 +110,7 @@ namespace mage {
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		constexpr UV& operator=(UV&& uv) noexcept = default;
+		UV& operator=(UV&& uv) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -240,7 +240,7 @@ namespace mage {
 		 @return		A reference to the copy of the given point (i.e. this 
 						point).
 		 */
-		constexpr Point3& operator=(const Point3& point) noexcept = default;
+		Point3& operator=(const Point3& point) noexcept = default;
 		
 		/**
 		 Moves the given point to this point.
@@ -249,7 +249,7 @@ namespace mage {
 						A reference to the point to move.
 		 @return		A reference to the moved point (i.e. this point).
 		 */
-		constexpr Point3& operator=(Point3&& point) noexcept = default;
+		Point3& operator=(Point3&& point) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -396,8 +396,7 @@ namespace mage {
 		 @return		A reference to the copy of the given direction (i.e. 
 						this direction).
 		 */
-		constexpr Direction3& operator=(
-			const Direction3& direction) noexcept = default;
+		Direction3& operator=(const Direction3& direction) noexcept = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -406,8 +405,7 @@ namespace mage {
 						A reference to the direction to move.
 		 @return		A reference to the moved direction (i.e. this direction).
 		 */
-		constexpr Direction3& operator=(
-			Direction3&& direction) noexcept = default;
+		Direction3& operator=(Direction3&& direction) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

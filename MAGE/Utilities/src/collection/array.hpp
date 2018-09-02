@@ -159,9 +159,9 @@ namespace mage {
 
 		~Array() = default;
 		
-		constexpr Array& operator=(const Array& a) noexcept = default;
+		Array& operator=(const Array& a) noexcept = default;
 
-		constexpr Array& operator=(Array&& a) noexcept = default;
+		Array& operator=(Array&& a) noexcept = default;
 	};
 
 	#pragma warning( pop )

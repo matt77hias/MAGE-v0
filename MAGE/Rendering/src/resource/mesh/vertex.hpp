@@ -118,8 +118,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex  (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPosition& operator=(
-			const VertexPosition& vertex) noexcept = default;
+		VertexPosition& operator=(const VertexPosition& vertex) noexcept = default;
 
 		/**
 		 Moves the given vertex to this vertex.
@@ -128,8 +127,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPosition& operator=(
-			VertexPosition&& vertex) noexcept = default;
+		VertexPosition& operator=(VertexPosition&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -258,7 +256,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionNormal& operator=(
+		VertexPositionNormal& operator=(
 			const VertexPositionNormal& vertex) noexcept = default;
 
 		/**
@@ -268,7 +266,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionNormal& operator=(
+		VertexPositionNormal& operator=(
 			VertexPositionNormal&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -403,7 +401,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionColor& operator=(
+		VertexPositionColor& operator=(
 			const VertexPositionColor& vertex) noexcept = default;
 
 		/**
@@ -413,7 +411,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionColor& operator=(
+		VertexPositionColor& operator=(
 			VertexPositionColor&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -548,7 +546,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionTexture& operator=(
+		VertexPositionTexture& operator=(
 			const VertexPositionTexture& vertex) noexcept = default;
 
 		/**
@@ -558,7 +556,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionTexture& operator=(
+		VertexPositionTexture& operator=(
 			VertexPositionTexture&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -698,7 +696,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionNormalColor& operator=(
+		VertexPositionNormalColor& operator=(
 			const VertexPositionNormalColor& vertex) noexcept = default;
 
 		/**
@@ -708,7 +706,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionNormalColor& operator=(
+		VertexPositionNormalColor& operator=(
 			VertexPositionNormalColor&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -852,7 +850,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionNormalTexture& operator=(
+		VertexPositionNormalTexture& operator=(
 			const VertexPositionNormalTexture& vertex) noexcept = default;
 
 		/**
@@ -862,7 +860,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionNormalTexture& operator=(
+		VertexPositionNormalTexture& operator=(
 			VertexPositionNormalTexture&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -1007,7 +1005,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionColorTexture& operator=(
+		VertexPositionColorTexture& operator=(
 			const VertexPositionColorTexture& vertex) noexcept = default;
 
 		/**
@@ -1017,7 +1015,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionColorTexture& operator=(
+		VertexPositionColorTexture& operator=(
 			VertexPositionColorTexture&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -1166,7 +1164,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given vertex (i.e. this 
 						vertex).
 		 */
-		constexpr VertexPositionNormalColorTexture& operator=(
+		VertexPositionNormalColorTexture& operator=(
 			const VertexPositionNormalColorTexture& vertex) noexcept = default;
 
 		/**
@@ -1176,7 +1174,7 @@ namespace mage::rendering {
 						A reference to the vertex to move.
 		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		constexpr VertexPositionNormalColorTexture& operator=(
+		VertexPositionNormalColorTexture& operator=(
 			VertexPositionNormalColorTexture&& vertex) noexcept = default;
 
 		//---------------------------------------------------------------------

@@ -64,7 +64,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given sprite font 
 						descriptor (i.e. this sprite font descriptor).
 		 */
-		constexpr SpriteFontDescriptor& operator=(
+		SpriteFontDescriptor& operator=(
 			const SpriteFontDescriptor& desc) noexcept = default;
 
 		/**
@@ -75,7 +75,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved sprite font descriptor (i.e. 
 						this sprite font descriptor).
 		 */
-		constexpr SpriteFontDescriptor& operator=(
+		SpriteFontDescriptor& operator=(
 			SpriteFontDescriptor&& desc) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -90,7 +90,7 @@ namespace mage::rendering {
 						@c false if not.
 		 */
 		[[nodiscard]]
-		bool ForceSRGB() const noexcept {
+		constexpr bool ForceSRGB() const noexcept {
 			return m_force_srgb;
 		}
 

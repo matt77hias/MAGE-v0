@@ -79,7 +79,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given camera lens (i.e. 
 						this camera lens).
 		 */
-		constexpr CameraLens& operator=(const CameraLens& lens) noexcept = default;
+		CameraLens& operator=(const CameraLens& lens) noexcept = default;
 
 		/**
 		 Moves the given camera lens to this camera lens.
@@ -89,7 +89,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved camera lens (i.e. this camera 
 						lens).
 		 */
-		constexpr CameraLens& operator=(CameraLens&& lens) noexcept = default;
+		CameraLens& operator=(CameraLens&& lens) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -310,7 +310,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given voxelization 
 						settings (i.e. this voxelization settings).
 		 */
-		constexpr VoxelizationSettings& operator=(
+		VoxelizationSettings& operator=(
 			const VoxelizationSettings& settings) noexcept = default;
 
 		/**
@@ -321,7 +321,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved voxelization settings (i.e. 
 						this voxelization settings).
 		 */
-		constexpr VoxelizationSettings& operator=(
+		VoxelizationSettings& operator=(
 			VoxelizationSettings&& settings) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -469,7 +469,7 @@ namespace mage::rendering {
 						A reference to the fog to copy.
 		 @return		A reference to the copy of the given fog (i.e. this fog).
 		 */
-		constexpr Fog& operator=(const Fog& fog) noexcept = default;
+		Fog& operator=(const Fog& fog) noexcept = default;
 
 		/**
 		 Moves the given fog to this fog.
@@ -478,7 +478,7 @@ namespace mage::rendering {
 						A reference to the fog to move.
 		 @return		A reference to the moved fog (i.e. this fog).
 		 */
-		constexpr Fog& operator=(Fog&& fog) noexcept = default;
+		Fog& operator=(Fog&& fog) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

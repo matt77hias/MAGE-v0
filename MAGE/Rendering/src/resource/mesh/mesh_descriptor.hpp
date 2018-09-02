@@ -81,8 +81,7 @@ namespace mage::rendering {
 		 @return		A reference to the copy of the given mesh descriptor 
 						(i.e. this mesh descriptor).
 		 */
-		constexpr MeshDescriptor& operator=(
-			const MeshDescriptor& desc) noexcept = default;
+		MeshDescriptor& operator=(const MeshDescriptor& desc) noexcept = default;
 
 		/**
 		 Moves the given mesh descriptor to this mesh descriptor.
@@ -92,8 +91,7 @@ namespace mage::rendering {
 		 @return		A reference to the moved mesh descriptor (i.e. this 
 						mesh descriptor).
 		 */
-		constexpr MeshDescriptor& operator=(
-			MeshDescriptor&& desc) noexcept = default;
+		MeshDescriptor& operator=(MeshDescriptor&& desc) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

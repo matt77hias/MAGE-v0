@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A reference to the copy of the given game time (i.e. 
 						this game time).
 		 */
-		constexpr GameTime& operator=(const GameTime& time) noexcept = default;
+		GameTime& operator=(const GameTime& time) noexcept = default;
 
 		/**
 		 Moves the given game time to this game time.
@@ -104,7 +104,7 @@ namespace mage {
 		 @return		A reference to the moved game time (i.e. this game 
 						time).
 		 */
-		constexpr GameTime& operator=(GameTime&& time) noexcept = default;
+		GameTime& operator=(GameTime&& time) noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

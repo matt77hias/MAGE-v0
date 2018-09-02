@@ -93,7 +93,7 @@ namespace mage {
 		 @return		A reference to the copy of the given logging 
 						configuration (i.e. this logging configuration).
 		 */
-		constexpr LoggingConfiguration& operator=(
+		LoggingConfiguration& operator=(
 			const LoggingConfiguration& configuration) noexcept = default;
 
 		/**
@@ -104,7 +104,7 @@ namespace mage {
 		 @return		A reference to the moved logging configuration (i.e. 
 						this logging configuration).
 		 */
-		constexpr LoggingConfiguration& operator=(
+		LoggingConfiguration& operator=(
 			LoggingConfiguration&& configuration) noexcept = default;
 
 		//---------------------------------------------------------------------

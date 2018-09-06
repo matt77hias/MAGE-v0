@@ -300,6 +300,6 @@ namespace mage::input {
 
 		 The second flag indicates whether the button state is active.
 		 */
-		std::bitset< 8 > m_button_states;
+		std::bitset< 16 > m_button_states;
 	};
 }

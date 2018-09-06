@@ -82,7 +82,7 @@ namespace mage::input {
 		
 		// Set the data format for the DirectInput device.
 		{
-			const HRESULT result = m_mouse->SetDataFormat(&c_dfDIMouse);
+			const HRESULT result = m_mouse->SetDataFormat(&c_dfDIMouse2);
 			ThrowIfFailed(result,
 						  "Failed to set data format for mouse device: %08X.",
 						  result);
@@ -107,7 +107,7 @@ namespace mage::input {
 	}
 
 	void Mouse::Update() noexcept {
-		DIMOUSESTATE mouse_state = {};
+		DIMOUSESTATE2 mouse_state = {};
 		
 		// Poll the mouse until it succeeds or returns an unknown error.
 		while (true) {
@@ -116,7 +116,7 @@ namespace mage::input {
 			m_mouse->Poll();
 
 			// Retrieves immediate data from the device. 
-			const HRESULT result = m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), 
+			const HRESULT result = m_mouse->GetDeviceState(sizeof(mouse_state),
 				                                           &mouse_state);
 			if (SUCCEEDED(result)) {
 				break;

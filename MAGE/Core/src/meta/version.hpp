@@ -17,7 +17,7 @@
 // The version numbers (major/minor/patch) are macros to support the use of 
 // these numbers in conditional macro statements (e.g. if).
 #define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 159
+#define MAGE_VERSION_MINOR 160
 #define MAGE_VERSION_PATCH 0
 
 #define MAGE_QUOTE(S) #S
@@ -40,7 +40,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	constexpr U32 GetVersionMajor() noexcept {
-		return MAGE_VERSION_MAJOR;
+		return static_cast< U32 >(MAGE_VERSION_MAJOR);
 	}
 
 	/**
@@ -50,7 +50,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	constexpr U32 GetVersionMinor() noexcept {
-		return MAGE_VERSION_MINOR;
+		return static_cast< U32 >(MAGE_VERSION_MINOR);
 	}
 
 	/**
@@ -60,7 +60,7 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	constexpr U32 GetVersionPatch() noexcept {
-		return MAGE_VERSION_PATCH;
+		return static_cast< U32 >(MAGE_VERSION_PATCH);
 	}
 
 	/**

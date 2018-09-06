@@ -341,7 +341,7 @@ namespace mage {
 			// Retrieves messages for any window that belongs to the current 
 			// thread without performing range filtering. Furthermore messages 
 			// are removed after processing.
-			if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+			if (PeekMessage(&msg, nullptr, 0u, 0u, PM_REMOVE)) {
 				// Translates virtual-key messages into character messages.
 				TranslateMessage(&msg);
 				// Dispatches a message to a window procedure.

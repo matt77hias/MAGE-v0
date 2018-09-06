@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "parallel\atomic.hpp"
+#include "type\atomic_types.hpp"
 
 #pragma endregion
 

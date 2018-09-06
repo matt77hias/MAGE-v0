@@ -40,7 +40,6 @@
     <ClInclude Include="Utilities\src\memory\memory.hpp" />
     <ClInclude Include="Utilities\src\memory\memory_arena.hpp" />
     <ClInclude Include="Utilities\src\memory\memory_stack.hpp" />
-    <ClInclude Include="Utilities\src\parallel\atomic.hpp" />
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp" />
     <ClInclude Include="Utilities\src\parallel\parallel.hpp" />
     <ClInclude Include="Utilities\src\platform\windows.hpp" />
@@ -56,6 +55,7 @@
     <ClInclude Include="Utilities\src\system\system_time.hpp" />
     <ClInclude Include="Utilities\src\system\system_usage.hpp" />
     <ClInclude Include="Utilities\src\system\timer.hpp" />
+    <ClInclude Include="Utilities\src\type\atomic_types.hpp" />
     <ClInclude Include="Utilities\src\type\scalar_types.hpp" />
     <ClInclude Include="Utilities\src\type\types.hpp" />
     <ClInclude Include="Utilities\src\type\vector_types.hpp" />

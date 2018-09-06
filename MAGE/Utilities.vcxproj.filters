@@ -137,9 +137,6 @@
     <ClInclude Include="Utilities\src\memory\memory_stack.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\parallel\atomic.hpp">
-      <Filter>Header Files\parallel</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
@@ -217,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\resource\script\variable_value.hpp">
       <Filter>Header Files\resource\script</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\type\atomic_types.hpp">
+      <Filter>Header Files\type</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

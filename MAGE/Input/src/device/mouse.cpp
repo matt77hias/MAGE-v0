@@ -143,8 +143,8 @@ namespace mage::input {
 		// Update the button states.
 		for (size_t i = 0; i < std::size(mouse_state.rgbButtons); ++i) {
 			const bool active = mouse_state.rgbButtons[i] & 0x80u;
-			m_button_states[2 * i] = (active != m_button_states[2 * i + 1]);
-			m_button_states[2 * i + 1] = active;
+			m_button_states[2*i]   = (active != m_button_states[2*i+1]);
+			m_button_states[2*i+1] = active;
 		}
 	}
 

@@ -9,183 +9,24 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::input {
 
-	//-------------------------------------------------------------------------
-	// Keyboard::Impl
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	/**
-	 A class of keyboards.
-	 */
-	class Keyboard::Impl final {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a keyboard.
-
-		 @param[in]		window
-						The handle of the parent window.
-		 @param[in]		di
-						A reference to a direct input object.
-		 @throws		Exception
-						Failed to initialize the keyboard.
-		 */
-		explicit Impl(NotNull< HWND > window, IDirectInput8& di);
-
-		/**
-		 Constructs a keyboard from the given keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to copy.
-		 */
-		Impl(const Impl& keyboard) = delete;
-
-		/**
-		 Constructs a keyboard by moving the given keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to move.
-		 */
-		Impl(Impl&& keyboard) noexcept;
-
-		/**
-		 Destructs this keyboard.
-		 */
-		~Impl();
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------	
-
-		/**
-		 Copies the given keyboard to this keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to copy.
-		 @return		A reference to the copy of the given keyboard (i.e. 
-						this keyboard).
-		 */
-		Impl& operator=(const Impl& keyboard) = delete;
-
-		/**
-		 Moves the given keyboard to this keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to move.
-		 @return		A reference to the moved keyboard (i.e. this keyboard).
-		 */
-		Impl& operator=(Impl&& keyboard) = delete;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the window handle of this keyboard.
-
-		 @return		The window handle of this keyboard.
-		 */
-		[[nodiscard]]
-		NotNull< HWND > GetWindow() noexcept {
-			return m_window;
-		}
-
-		/**
-		 Updates the state of this keyboard.
-		 */
-		void Update() noexcept;
-
-		/**
-		 Checks whether the given key of this keyboard is pressed.
-
-		 @param[in]		key
-						The key.
-		 @param[in]		ignore_press_stamp
-						Flag indicating whether press stamps should be 
-						ignored. Consistent presses will return false when 
-						using the press stamp.
-		 @return		@c true if the given key of this keyboard is pressed.
-						@c false otherwise.
-		 */
-		bool GetKeyPress(unsigned char key, 
-			             bool ignore_press_stamp = false) const noexcept;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Initializes the keyboard device of this keyboard.
-
-		 @throws		Exception
-						Failed to initialize the keyboard.
-		 */
-		void InitializeKeyboard();
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The handle of the parent window of this keyboard.
-		 */
-		NotNull< HWND > m_window;
-
-		/**
-		 A reference to the DirectInput object of this keyboard.
-		 */
-		IDirectInput8& m_di;
-
-		/**
-		 A pointer to the DirectInput keyboard device of this keyboard.
-		 */
-		ComPtr< IDirectInputDevice8 > m_keyboard;
-
-		/**
-		 The current press stamp (incremented every frame) of this keyboard.
-		 */
-		U64 m_press_stamp;
-
-		/**
-		 The state of the key buttons of this keyboard.
-		 */
-		unsigned char m_key_state[256];
-
-		/**
-		 The key button press stamp of this keyboard.
-		 
-		 Stamps the keys pressed in the last frame of this keyboard.
-		 */
-		mutable U64 m_key_press_stamp[256];
-	};
-
-	Keyboard::Impl::Impl(NotNull< HWND > window, IDirectInput8& di)
+	Keyboard::Keyboard(NotNull< HWND > window, IDirectInput8& di)
 		: m_window(window), 
 		m_di(di), 
-		m_keyboard(),
-		m_press_stamp(1ull), 
-		m_key_state{}, 
-		m_key_press_stamp{} {
+		m_keyboard(), 
+		m_key_states{} {
 
 		InitializeKeyboard();
 	}
 
-	Keyboard::Impl::Impl(Impl&& keyboard) noexcept = default;
+	Keyboard::Keyboard(Keyboard&& keyboard) noexcept = default;
 
-	Keyboard::Impl::~Impl() = default;
+	Keyboard::~Keyboard() = default;
 
-	void Keyboard::Impl::InitializeKeyboard() {
+	void Keyboard::InitializeKeyboard() {
 		// Create and initialize an instance of a device based on a given 
 		// globally unique identifier (GUID), and obtain an IDirectInputDevice8 
 		// Interface interface. 
@@ -231,21 +72,9 @@ namespace mage::input {
 		m_keyboard->Acquire();
 	}
 
-	bool Keyboard::Impl::GetKeyPress(unsigned char key, 
-									 bool ignore_press_stamp) const noexcept {
-		
-		if (false == (m_key_state[key] & 0x80)) {
-			return false;
-		}
+	void Keyboard::Update() noexcept {
+		unsigned char key_states[256];
 
-		const auto prev_press_stamp = m_press_stamp - 1ull;
-		const auto key_press_stamp  = m_key_press_stamp[key];
-		m_key_press_stamp[key]      = m_press_stamp;
-
-		return ignore_press_stamp || (prev_press_stamp != key_press_stamp);
-	}
-
-	void Keyboard::Impl::Update() noexcept {
 		// Poll the keyboard until it succeeds or returns an unknown error.
 		while (true) {
 			
@@ -254,8 +83,8 @@ namespace mage::input {
 
 			// Retrieves immediate data from the device. 
 			const HRESULT result 
-				= m_keyboard->GetDeviceState(static_cast< DWORD >(std::size(m_key_state)), 
-				                             (LPVOID)&m_key_state);
+				= m_keyboard->GetDeviceState(static_cast< DWORD >(std::size(key_states)),
+				                             (LPVOID)&key_states);
 
 			if (SUCCEEDED(result)) {
 				break;
@@ -271,38 +100,11 @@ namespace mage::input {
 			}
 		}
 
-		// Increment the press stamp.
-		++m_press_stamp;
+		// Update the key states.
+		for (size_t i = 0; i < std::size(key_states); ++i) {
+			const bool active = key_states[i] & 0x80u;
+			m_key_states[2*i]   = (active != m_key_states[2*i+1]);
+			m_key_states[2*i+1] = active;
+		}
 	}
-
-	#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Keyboard::Impl
-	//-------------------------------------------------------------------------
-	#pragma region
-
-	Keyboard::Keyboard(NotNull< HWND > window, IDirectInput8& di)
-		: m_impl(MakeUnique< Impl >(std::move(window), di)) {}
-
-	Keyboard::Keyboard(Keyboard&& keyboard) noexcept = default;
-
-	Keyboard::~Keyboard() = default;
-
-	[[nodiscard]]
-	NotNull< HWND > Keyboard::GetWindow() noexcept {
-		return m_impl->GetWindow();
-	}
-
-	void Keyboard::Update() noexcept {
-		return m_impl->Update();
-	}
-
-	bool Keyboard::GetKeyPress(unsigned char key,
-							   bool ignore_press_stamp) const noexcept {
-		
-		return m_impl->GetKeyPress(key, ignore_press_stamp);
-	}
-
-	#pragma endregion
 }

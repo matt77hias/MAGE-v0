@@ -47,7 +47,7 @@ namespace mage::script {
 		const auto& input_manager = engine.GetInputManager();
 		const auto& keyboard      = input_manager.GetKeyboard();
 
-		if (keyboard.GetKeyPress(DIK_F2)) {
+		if (keyboard.IsActivated(DIK_F2)) {
 			m_locked = !m_locked;
 		}
 		if (m_locked) {

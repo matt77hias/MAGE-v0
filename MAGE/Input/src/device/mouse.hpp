@@ -11,7 +11,16 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <bitset>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage::input {
 
@@ -92,7 +101,9 @@ namespace mage::input {
 		 @return		The window handle of this mouse.
 		 */
 		[[nodiscard]]
-		NotNull< HWND > GetWindow() noexcept;
+		NotNull< HWND > GetWindow() noexcept {
+			return m_window;
+		}
 
 		/**
 		 Updates the state of this mouse.
@@ -100,19 +111,67 @@ namespace mage::input {
 		void Update() noexcept;
 
 		/**
-		 Checks whether the given mouse button of this mouse is pressed.
+		 Checks whether the given button is active.
 
 		 @param[in]		button
-						The mouse button.
-		 @param[in]		ignore_press_stamp
-						Flag indicating whether press stamps should be 
-						ignored. Consistent presses will return false when 
-						using the press stamp.
-		 @return		@c true if the given mouse button is pressed. @c false 
+						The button.
+		 @return		@c true if the given button is active. @c false otherwise.
+		 */
+		bool IsActive(unsigned char button) const noexcept {
+			const size_t index = 2 * button + 1;
+			return m_button_states[index];
+		}
+
+		/**
+		 Checks whether the given button is passive.
+
+		 @param[in]		button
+						The button.
+		 @return		@c true if the given button is passive. @c false 
 						otherwise.
 		 */
-		bool GetMouseButtonPress(char button, 
-			                     bool ignore_press_stamp = false) const noexcept;
+		bool IsPassive(unsigned char button) const noexcept {
+			return !IsActive(button);
+		}
+
+		/**
+		 Checks whether the given button is switched from being passive to 
+		 active or vice versa (i.e. activated or deactivated).
+
+		 @param[in]		button
+						The button.
+		 @return		@c true if the given button is switched from being 
+						passive to active or vice versa (i.e. activated or 
+						deactivated). @c false otherwise.
+		 */
+		bool IsSwitched(unsigned char button) const noexcept {
+			const size_t index = 2 * button;
+			return m_button_states[index];
+		}
+
+		/**
+		 Checks whether the given button is activated.
+
+		 @param[in]		button
+						The button.
+		 @return		@c true if the given button is activated. @c false 
+						otherwise.
+		 */
+		bool IsActivated(unsigned char button) const noexcept {
+			return IsActive(button) && IsSwitched(button);
+		}
+
+		/**
+		 Checks whether the given button is deactivated.
+
+		 @param[in]		button
+						The button.
+		 @return		@c true if the given button is deactivated. @c false 
+						otherwise.
+		 */
+		bool IsDeactivated(unsigned char button) const noexcept {
+			return IsPassive(button) && IsSwitched(button);
+		}
 
 		/**
 		 Returns the horizontal position of this mouse.
@@ -120,7 +179,9 @@ namespace mage::input {
 		 @return		The horizontal position of this mouse.
 		 */
 		[[nodiscard]]
-		S32 GetPositionX() const noexcept;
+		S32 GetPositionX() const noexcept {
+			return m_position[0];
+		}
 
 		/**
 		 Returns the vertical position of this mouse.
@@ -128,7 +189,9 @@ namespace mage::input {
 		 @return		The vertical position of this mouse.
 		 */
 		[[nodiscard]]
-		S32 GetPositionY() const noexcept;
+		S32 GetPositionY() const noexcept {
+			return m_position[1];
+		}
 
 		/**
 		 Returns the position of this mouse.
@@ -136,7 +199,9 @@ namespace mage::input {
 		 @return		The position of this mouse.
 		 */
 		[[nodiscard]]
-		const S32x2 GetPosition() const noexcept;
+		const S32x2 GetPosition() const noexcept {
+			return m_position;
+		}
 
 		/**
 		 Returns the change in this mouse's horizontal coordinate.
@@ -144,7 +209,9 @@ namespace mage::input {
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
 		[[nodiscard]]
-		S32 GetDeltaX() const noexcept;
+		S32 GetDeltaX() const noexcept {
+			return m_delta[0];
+		}
 
 		/**
 		 Returns the change in this mouse's vertical coordinate.
@@ -152,7 +219,9 @@ namespace mage::input {
 		 @return		The change in this mouse's vertical coordinate.
 		 */
 		[[nodiscard]]
-		S32 GetDeltaY() const noexcept;
+		S32 GetDeltaY() const noexcept {
+			return m_delta[1];
+		}
 
 		/**
 		 Returns the change in this mouse's coordinates.
@@ -160,7 +229,9 @@ namespace mage::input {
 		 @return		The change in this mouse's coordinates.
 		 */
 		[[nodiscard]]
-		const S32x2 GetDelta() const noexcept;
+		const S32x2 GetDelta() const noexcept {
+			return m_delta;
+		}
 
 		/**
 		 Returns the change in this mouse's scroll wheel.
@@ -168,19 +239,67 @@ namespace mage::input {
 		 @return		The change in this mouse's scroll wheel.
 		 */
 		[[nodiscard]]
-		S32 GetDeltaWheel() const noexcept;
+		S32 GetDeltaWheel() const noexcept {
+			return m_delta_wheel;
+		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes the mouse device of this mouse.
+
+		 @throws		Exception
+						Failed to initialize the mouse.
+		 */
+		void InitializeMouse();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		class Impl;
+		/**
+		 The handle of the parent window of this mouse.
+		 */
+		NotNull< HWND > m_window;
 
 		/**
-		 A pointer to the implementation of this mouse.
+		 A reference to the DirectInput object of this mouse.
 		 */
-		UniquePtr< Impl > m_impl;
+		IDirectInput8& m_di;
+
+		/**
+		 A pointer to the DirectInput mouse device of this mouse.
+		 */
+		ComPtr< IDirectInputDevice8 > m_mouse;
+
+		/**
+		 The position of the mouse cursor on the screen of this mouse.
+		 */
+		S32x2 m_position;
+
+		/**
+		 The change in the horizontal and vertical coordinates of this mouse.
+		 */
+		S32x2 m_delta;
+
+		/**
+		 The change in the scroll wheel coordinates of this mouse.
+		 */
+		S32 m_delta_wheel;
+
+		/**
+		 The button states of this mouse. Each button state consists of two 
+		 flags.
+
+		 The first flag indicates whether the button state switched from being 
+		 passive to active or vice versa (i.e. activated or deactivated).
+
+		 The second flag indicates whether the button state is active.
+		 */
+		std::bitset< 8 > m_button_states;
 	};
 }

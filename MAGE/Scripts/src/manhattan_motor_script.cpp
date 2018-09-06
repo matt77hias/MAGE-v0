@@ -45,30 +45,30 @@ namespace mage::script {
 
 		const auto movement_magnitude = delta_time * m_velocity;
 
-		if (     keyboard.GetKeyPress(DIK_UP,     true) 
-			  || keyboard.GetKeyPress(DIK_W,      true)) {
+		if (     keyboard.IsActive(DIK_UP) 
+			  || keyboard.IsActive(DIK_W)) {
 			
 			transform.AddTranslationZ( movement_magnitude);
 		}
-		else if (keyboard.GetKeyPress(DIK_DOWN,   true) 
-			  || keyboard.GetKeyPress(DIK_S,      true)) {
+		else if (keyboard.IsActive(DIK_DOWN)
+			  || keyboard.IsActive(DIK_S)) {
 			
 			transform.AddTranslationZ(-movement_magnitude);
 		}
-		else if (keyboard.GetKeyPress(DIK_RIGHT,  true) 
-			  || keyboard.GetKeyPress(DIK_D,      true)) {
+		else if (keyboard.IsActive(DIK_RIGHT)
+			  || keyboard.IsActive(DIK_D)) {
 			
 			transform.AddTranslationX( movement_magnitude);
 		}
-		else if (keyboard.GetKeyPress(DIK_LEFT,   true) 
-			  || keyboard.GetKeyPress(DIK_A,      true)) {
+		else if (keyboard.IsActive(DIK_LEFT)
+			  || keyboard.IsActive(DIK_A)) {
 			
 			transform.AddTranslationX(-movement_magnitude);
 		}
-		else if (keyboard.GetKeyPress(DIK_LSHIFT, true)) {
+		else if (keyboard.IsActive(DIK_LSHIFT)) {
 			transform.AddTranslationY(-movement_magnitude);
 		}
-		else if (keyboard.GetKeyPress(DIK_RSHIFT, true)) {
+		else if (keyboard.IsActive(DIK_RSHIFT)) {
 			transform.AddTranslationY( movement_magnitude);
 		}
 	}

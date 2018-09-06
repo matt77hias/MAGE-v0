@@ -31,7 +31,7 @@ namespace mage::script {
 	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] Engine& engine) {
 		const auto& keyboard = engine.GetInputManager().GetKeyboard();
 		
-		if (keyboard.GetKeyPress(DIK_F3)) {
+		if (keyboard.IsActivated(DIK_F3)) {
 			engine.RequestScene(MakeUnique< SceneT >());
 		}
 	}

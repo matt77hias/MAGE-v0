@@ -9,7 +9,7 @@
 [s4]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
 
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE
-[do]: https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html
+[do]: https://matt77hias.github.io/MAGE-Doc/MAGE-Doc
 [li]: https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt
 [gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby
 

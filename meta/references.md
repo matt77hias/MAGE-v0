@@ -310,6 +310,8 @@ WHITTED T.: [*Ray Tracing and Global Illumination*](https://blogs.nvidia.com/blo
 
 BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.
 
+CARMACK J.: [*In-Depth: Static Code Analysis*](https://www.gamasutra.com/view/news/128836/InDepth_Static_Code_Analysis.php), 2011.
+
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.
 
 KARPOV A.: [*The Last Line Effect*](https://www.viva64.com/en/b/0260/), 2014.
@@ -325,6 +327,8 @@ REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
 
 VASILIEV S.: [*Static Analysis in Video Game Development: Top 10 Software Bugs*](https://www.viva64.com/en/b/0570/#ID0ERGBI), 2018.
+
+VASILIEV S.: [*Top 10 Bugs in the C++ Projects of 2017*](https://www.viva64.com/en/b/0565/), 2018.
 
 WIKIMEDIA INC.: [*Yoda conditions*](https://en.wikipedia.org/wiki/Yoda_conditions), 2018.
 

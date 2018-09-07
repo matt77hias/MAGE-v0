@@ -314,6 +314,8 @@ HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02
 
 KARPOV A.: [*The Last Line Effect*](https://www.viva64.com/en/b/0260/), 2014.
 
+LLOPIS N.: [*Data-Oriented Design (Or Why You Might Be Shooting Yourself in The Foot With OOP)*](http://gamesfromwithin.com/data-oriented-design), 2009.
+
 MINES J.: [*Data-Oriented vs Object-Oriented Design*](https://medium.com/@jonathanmines/data-oriented-vs-object-oriented-design-50ef35a99056), 2018.
 
 MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
@@ -321,6 +323,8 @@ MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relatio
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
+
+VASILIEV S.: [*Static Analysis in Video Game Development: Top 10 Software Bugs*](https://www.viva64.com/en/b/0570/#ID0ERGBI), 2018.
 
 WIKIMEDIA INC.: [*Yoda conditions*](https://en.wikipedia.org/wiki/Yoda_conditions), 2018.
 

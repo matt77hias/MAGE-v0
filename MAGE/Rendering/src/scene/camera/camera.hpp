@@ -120,7 +120,7 @@ namespace mage::rendering {
 		 Sets the radius of the lens aperture of this camera lens to the given 
 		 value.
 
-		 @param[in]		aperture_diameter
+		 @param[in]		aperture_radius
 						The radius of the lens aperture.
 		 */
 		constexpr void SetApertureRadius(F32 aperture_radius) noexcept {

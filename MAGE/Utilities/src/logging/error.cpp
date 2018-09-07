@@ -53,7 +53,7 @@ namespace mage {
 		/**
 		 Finds the end of the current word.
 
-		 @param[in]		buffer
+		 @param[in]		str
 						A pointer to the null-terminated string.
 		 @return		A pointer to the null-terminating character if the end of 
 						the given string is reached.

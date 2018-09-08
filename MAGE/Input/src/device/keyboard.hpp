@@ -117,7 +117,8 @@ namespace mage::input {
 						The key.
 		 @return		@c true if the given key is active. @c false otherwise.
 		 */
-		bool IsActive(unsigned char key) const noexcept {
+		[[nodiscard]]
+		bool IsActive(U8 key) const noexcept {
 			const size_t index = 2 * key + 1;
 			return m_key_states[index];
 		}
@@ -130,7 +131,8 @@ namespace mage::input {
 		 @return		@c true if the given key is passive. @c false
 						otherwise.
 		 */
-		bool IsPassive(unsigned char key) const noexcept {
+		[[nodiscard]]
+		bool IsPassive(U8 key) const noexcept {
 			return !IsActive(key);
 		}
 
@@ -144,7 +146,8 @@ namespace mage::input {
 						to active or vice versa (i.e. activated or deactivated).
 						@c false otherwise.
 		 */
-		bool IsSwitched(unsigned char key) const noexcept {
+		[[nodiscard]]
+		bool IsSwitched(U8 key) const noexcept {
 			const size_t index = 2 * key;
 			return m_key_states[index];
 		}
@@ -157,7 +160,8 @@ namespace mage::input {
 		 @return		@c true if the given key is activated. @c false
 						otherwise.
 		 */
-		bool IsActivated(unsigned char key) const noexcept {
+		[[nodiscard]]
+		bool IsActivated(U8 key) const noexcept {
 			return IsActive(key) && IsSwitched(key);
 		}
 
@@ -169,7 +173,8 @@ namespace mage::input {
 		 @return		@c true if the given key is deactivated. @c false
 						otherwise.
 		 */
-		bool IsDeactivated(unsigned char key) const noexcept {
+		[[nodiscard]]
+		bool IsDeactivated(U8 key) const noexcept {
 			return IsPassive(key) && IsSwitched(key);
 		}
 

@@ -117,7 +117,8 @@ namespace mage::input {
 						The button.
 		 @return		@c true if the given button is active. @c false otherwise.
 		 */
-		bool IsActive(unsigned char button) const noexcept {
+		[[nodiscard]]
+		bool IsActive(U8 button) const noexcept {
 			const size_t index = 2 * button + 1;
 			return m_button_states[index];
 		}
@@ -130,7 +131,8 @@ namespace mage::input {
 		 @return		@c true if the given button is passive. @c false 
 						otherwise.
 		 */
-		bool IsPassive(unsigned char button) const noexcept {
+		[[nodiscard]]
+		bool IsPassive(U8 button) const noexcept {
 			return !IsActive(button);
 		}
 
@@ -144,7 +146,8 @@ namespace mage::input {
 						passive to active or vice versa (i.e. activated or 
 						deactivated). @c false otherwise.
 		 */
-		bool IsSwitched(unsigned char button) const noexcept {
+		[[nodiscard]]
+		bool IsSwitched(U8 button) const noexcept {
 			const size_t index = 2 * button;
 			return m_button_states[index];
 		}
@@ -157,7 +160,8 @@ namespace mage::input {
 		 @return		@c true if the given button is activated. @c false 
 						otherwise.
 		 */
-		bool IsActivated(unsigned char button) const noexcept {
+		[[nodiscard]]
+		bool IsActivated(U8 button) const noexcept {
 			return IsActive(button) && IsSwitched(button);
 		}
 
@@ -169,7 +173,8 @@ namespace mage::input {
 		 @return		@c true if the given button is deactivated. @c false 
 						otherwise.
 		 */
-		bool IsDeactivated(unsigned char button) const noexcept {
+		[[nodiscard]]
+		bool IsDeactivated(U8 button) const noexcept {
 			return IsPassive(button) && IsSwitched(button);
 		}
 

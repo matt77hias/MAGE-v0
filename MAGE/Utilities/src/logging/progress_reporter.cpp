@@ -55,7 +55,7 @@ namespace mage {
 		explicit Impl(const std::string& title,
 					  U32 nb_work, 
 					  char progress_char = '+', 
-					  U16 bar_length = 0u);
+					  FU16 bar_length = 0u);
 
 		/**
 		 Constructs a progress reporter from the given progress reporter.
@@ -134,7 +134,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		void Initialize(const std::string& title, U16 bar_length = 0u);
+		void Initialize(const std::string& title, FU16 bar_length = 0u);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -154,13 +154,13 @@ namespace mage {
 		 The total number of progress characters that need to be outputted by 
 		 this progress reporter.
 		 */
-		U16 m_nb_progress_total;
+		FU16 m_nb_progress_total;
 
 		/**
 		 The total number of progress characters that are currently outputted 
 		 by this progress reporter.
 		 */
-		U16 m_nb_progress_printed;
+		FU16 m_nb_progress_printed;
 
 		/**
 		 The progress character of this progress reporter.
@@ -197,7 +197,7 @@ namespace mage {
 	ProgressReporter::Impl::Impl(const std::string& title,
 								 U32 nb_work, 
 								 char progress_char, 
-								 U16 bar_length)
+								 FU16 bar_length)
 		: m_nb_work_total(nb_work), 
 		m_nb_work_done(0u), 
 		m_nb_progress_total(),
@@ -231,17 +231,17 @@ namespace mage {
 	ProgressReporter::Impl::~Impl() = default;
 
 	void ProgressReporter::Impl::Initialize(const std::string& title,
-											U16 bar_length) {
+											FU16 bar_length) {
 		
 		const std::scoped_lock lock(m_mutex);
 		
 		if (0u == bar_length) {
-			bar_length = ConsoleWidth() - U16(28u);
+			bar_length = ConsoleWidth() - 28u;
 		}
 
 		m_nb_work_done        = 0u;
 		m_nb_progress_printed = 0u;
-		m_nb_progress_total   = std::max< U16 >(2, bar_length - static_cast< U16 >(title.size()));
+		m_nb_progress_total   = std::max< FU16 >(2u, bar_length - static_cast< FU16 >(title.size()));
 		
 		// Initialize the output buffer.
 		const size_t buffer_length = title.size() + m_nb_progress_total + 64;
@@ -250,7 +250,7 @@ namespace mage {
 		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
 		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
 		auto s = m_current_pos;
-		for (U16 i = 0; i < m_nb_progress_total; ++i) {
+		for (FU16 i = 0u; i < m_nb_progress_total; ++i) {
 			*s++ = ' ';
 		}
 		*s++ = ']';
@@ -280,7 +280,7 @@ namespace mage {
 		
 		m_nb_work_done += nb_work;
 		const auto fraction = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
-		const auto nb_progress_total = std::min(static_cast< U16 >(
+		const auto nb_progress_total = std::min(static_cast< FU16 >(
 			                                    round(fraction * m_nb_progress_total)),
 					                            m_nb_progress_total);
 		
@@ -343,7 +343,7 @@ namespace mage {
 	ProgressReporter::ProgressReporter(const std::string& title,
 									   U32 nb_work, 
 									   char progress_char, 
-									   U16 bar_length)
+									   FU16 bar_length)
 		: m_impl(MakeUnique< Impl >(title, 
 									nb_work, 
 									progress_char, 

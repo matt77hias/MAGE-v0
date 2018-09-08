@@ -41,7 +41,7 @@ namespace mage {
 		explicit ProgressReporter(const std::string& title,
 			                      U32 nb_work, 
 			                      char progress_char = '+', 
-			                      U16 bar_length = 0u);
+			                      FU16 bar_length = 0u);
 
 		/**
 		 Constructs a progress reporter from the given progress reporter.

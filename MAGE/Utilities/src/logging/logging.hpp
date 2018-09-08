@@ -171,14 +171,17 @@ namespace mage {
 
 	 @return		The fixed console width.
 	 @throws		Exception
-					Failed to retrieve a handle to the standard output device.
+					Failed to retrieve a valid handle to the standard output 
+					device.
+	 @throws		Exception
+					Failed to retrieve the screen buffer info of the console.
 	 */
 	[[nodiscard]]
-	U16 ConsoleWidth();
+	FU16 ConsoleWidth();
 
 	/**
-	 Allocates a console to this engine for basic io and redirects @c stdin, 
-	 @c stdout and @c stderr to the allocated console.
+	 Allocates a console for basic IO and redirects @c stdin, @c stdout and 
+	 @c stderr to this allocated console.
 
 	 @throws		Exception
 					Failed to initialize the console.

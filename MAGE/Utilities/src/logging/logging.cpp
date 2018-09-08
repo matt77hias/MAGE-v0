@@ -13,28 +13,40 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// LoggingConfiguration
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Console
+	//-------------------------------------------------------------------------
+	#pragma region
+
 	namespace {
 
 		/**
 		 Handler callback for handling the user closing the console (either by 
-		 clicking Close on the console window's window menu, or by clicking the 
-		 End Task button command from Task Manager).
+		 clicking the "Close" button on the console window's window menu, or by 
+		 clicking the "End Task" button command from the Task Manager).
 
-		 @param[in]		dwCtrlType
+		 @param[in]		control_type
 						The type of control signal received by the handler.
-		 @return		@c TRUE if the function handles the control signal. 
-						@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
+		 @return		@c TRUE if the function handles the control signal 
+						(i.e. @c CTRL_CLOSE_EVENT). @c FALSE otherwise.
 		 */
 		[[nodiscard]]
-		inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
-			return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
+		constexpr BOOL WINAPI ConsoleCloseHandler(DWORD control_type) noexcept {
+			return (CTRL_CLOSE_EVENT == control_type) ? TRUE : FALSE;
 		}
 	}
 
-	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
-
 	[[nodiscard]]
-	U16 ConsoleWidth() {
+	FU16 ConsoleWidth() {
 		// Retrieve a handle to the standard output device.
 		const auto handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		ThrowIfFailed((nullptr != handle), 
@@ -42,7 +54,7 @@ namespace mage {
 		ThrowIfFailed((INVALID_HANDLE_VALUE != handle), 
 					  "Obtained invalid handle to the standard output device.");
 		
-		// Structure containing information about a console screen buffer.
+		// Retrieve the screen buffer information of the console.
 		CONSOLE_SCREEN_BUFFER_INFO buffer_info = {};
 		{
 			const BOOL result = GetConsoleScreenBufferInfo(handle, 
@@ -50,10 +62,8 @@ namespace mage {
 			ThrowIfFailed(result, 
 						  "Retrieving console screen buffer info failed.");
 		}
-		
-		// dwSize:	a COORD structure that contains the size of the console
-		//			screen buffer in character columns and rows.
-		return static_cast< U16 >(buffer_info.dwSize.X);
+
+		return static_cast< FU16 >(buffer_info.dwSize.X);
 	}
 
 	void InitializeConsole() {
@@ -65,7 +75,7 @@ namespace mage {
 
 		// Set console handler for handling the user closing the console.
 		{
-			// This allows proper memory cleanup from the application itself
+			// This allows proper memory cleanup from the application itself 
 			// in case the console is closed by the user.
 			const BOOL result = SetConsoleCtrlHandler(ConsoleCloseHandler, 
 													  TRUE);
@@ -102,4 +112,6 @@ namespace mage {
 						  "stderr redirection failed: %d.", result);
 		}
 	}
+
+	#pragma endregion
 }

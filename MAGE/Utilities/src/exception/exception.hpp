@@ -160,7 +160,7 @@ namespace mage {
 	 @param[in]		result
 					The result value.
 	 @throws		Exception
-					The given results correspond to a failure.
+					@a result is @c false.
 	 */
 	void ThrowIfFailed(bool result);
 
@@ -172,7 +172,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 @throws		Exception
-					The given results correspond to a failure.
+					@a result is @c false.
 	 */
 	void ThrowIfFailed(bool result, const_zstring format, ...);
 
@@ -182,7 +182,7 @@ namespace mage {
 	 @param[in]		result
 					The result value.
 	 @throws		Exception
-					The given results correspond to a failure.
+					@a result is @c FALSE.
 	 */
 	void ThrowIfFailed(BOOL result);
 
@@ -194,7 +194,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 @throws		Exception
-					The given results correspond to a failure.
+					@a result is @c FALSE.
 	 */
 	void ThrowIfFailed(BOOL result, const_zstring format, ...);
 
@@ -204,7 +204,7 @@ namespace mage {
 	 @param[in]		result
 					The result value.
 	 @throws		Exception
-					The given results correspond to a failure.
+					The given result corresponds to a failure.
 	 */
 	void ThrowIfFailed(HRESULT result);
 
@@ -216,7 +216,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 @throws		Exception
-					The given results correspond to a failure.
+					The given result corresponds to a failure.
 	 */
 	void ThrowIfFailed(HRESULT result, const_zstring format, ...);
 

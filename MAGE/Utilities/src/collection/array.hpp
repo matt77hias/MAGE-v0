@@ -93,7 +93,7 @@ namespace mage {
 	}
 
 	template< typename T, size_t N >
-	constexpr const auto ArrayToTupple(const std::array< T, N >& a) noexcept {
+	constexpr const auto ArrayToTupple(const std::array< T, N >& a) {
 		return details::ArrayToTupple(a, std::make_index_sequence< N >());
 	}
 

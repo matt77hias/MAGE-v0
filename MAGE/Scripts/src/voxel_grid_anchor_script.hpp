@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class VoxelGridAnchorScript final : public BehaviorScript {
+	class VoxelGridAnchorScript : public BehaviorScript {
 
 	public:
 

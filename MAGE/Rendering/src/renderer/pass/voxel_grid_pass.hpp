@@ -18,7 +18,7 @@ namespace mage::rendering {
 	/**
 	 A class of voxel grid passes for rendering voxel grids to screen.
 	 */
-	class VoxelGridPass final {
+	class VoxelGridPass {
 
 	public:
 

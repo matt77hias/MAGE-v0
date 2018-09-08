@@ -30,7 +30,7 @@ namespace mage {
 	/**
 	 A struct of RGB color spectra.
 	 */
-	struct RGB final : public F32x3 {
+	struct RGB : public F32x3 {
 
 	public:
 
@@ -211,7 +211,7 @@ namespace mage {
 	/**
 	 A struct of sRGB color spectra.
 	 */
-	struct SRGB final : public F32x3 {
+	struct SRGB : public F32x3 {
 
 	public:
 
@@ -384,7 +384,7 @@ namespace mage {
 	/**
 	 A struct of XYZ color spectra.
 	 */
-	struct XYZ final : public F32x3 {
+	struct XYZ : public F32x3 {
 
 	public:
 
@@ -561,7 +561,7 @@ namespace mage {
 	/**
 	 A struct of RGBA color spectra.
 	 */
-	struct RGBA final : public F32x4 {
+	struct RGBA : public F32x4 {
 
 	public:
 
@@ -775,7 +775,7 @@ namespace mage {
 	/**
 	 A struct of sRGBA color spectra.
 	 */
-	struct SRGBA final : public F32x4 {
+	struct SRGBA : public F32x4 {
 
 	public:
 
@@ -981,7 +981,7 @@ namespace mage {
 	/**
 	 A struct of XYZA color spectra.
 	 */
-	struct XYZA final : public F32x4 {
+	struct XYZA : public F32x4 {
 
 	public:
 

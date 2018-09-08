@@ -26,7 +26,7 @@ namespace mage::rendering {
 	/**
 	 The (rendering and compute) pipeline.
 	 */
-	struct Pipeline final {
+	struct Pipeline {
 
 	public:
 
@@ -358,7 +358,7 @@ namespace mage::rendering {
 		/**
 		 The input assembler stage.
 		 */
-		struct IA final {
+		struct IA {
 
 		public:
 
@@ -427,7 +427,7 @@ namespace mage::rendering {
 		/**
 		 The vertex shader stage.
 		 */
-		struct VS final {
+		struct VS {
 
 		public:
 
@@ -633,7 +633,7 @@ namespace mage::rendering {
 		/**
 		 The hull shader stage.
 		 */
-		struct HS final {
+		struct HS {
 
 		public:
 
@@ -839,7 +839,7 @@ namespace mage::rendering {
 		/**
 		 The tesselator stage.
 		 */
-		struct TS final {};
+		struct TS {};
 
 		#pragma endregion
 
@@ -851,7 +851,7 @@ namespace mage::rendering {
 		/**
 		 The domain shader stage.
 		 */
-		struct DS final {
+		struct DS {
 
 		public:
 
@@ -1057,7 +1057,7 @@ namespace mage::rendering {
 		/**
 		 The geometry shader stage.
 		 */
-		struct GS final {
+		struct GS {
 
 		public:
 
@@ -1263,7 +1263,7 @@ namespace mage::rendering {
 		/**
 		 The stream output stage.
 		 */
-		struct SO final {};
+		struct SO {};
 
 		#pragma endregion
 
@@ -1275,7 +1275,7 @@ namespace mage::rendering {
 		/**
 		 The rasterizer stage.
 		 */
-		struct RS final {
+		struct RS {
 
 		public:
 
@@ -1333,7 +1333,7 @@ namespace mage::rendering {
 		/**
 		 The pixel shader stage.
 		 */
-		struct PS final {
+		struct PS {
 
 		public:
 
@@ -1539,7 +1539,7 @@ namespace mage::rendering {
 		/**
 		 The output merger stage.
 		 */
-		struct OM final {
+		struct OM {
 
 		public:
 
@@ -1722,7 +1722,7 @@ namespace mage::rendering {
 		/**
 		 The compute shader stage.
 		 */
-		struct CS final {
+		struct CS {
 
 		public:
 

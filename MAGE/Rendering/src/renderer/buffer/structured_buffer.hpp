@@ -22,7 +22,7 @@ namespace mage::rendering {
 					The data type.
 	 */
 	template< typename T >
-	class StructuredBuffer final {
+	class StructuredBuffer {
 
 	public:
 

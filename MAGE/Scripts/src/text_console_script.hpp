@@ -24,7 +24,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class TextConsoleScript final : public BehaviorScript {
+	class TextConsoleScript : public BehaviorScript {
 
 	public:
 

@@ -95,7 +95,7 @@ namespace mage::rendering {
 	/**
 	 A class of perspective cameras.
 	 */
-	class alignas(16) PerspectiveCamera final : public Camera {
+	class alignas(16) PerspectiveCamera : public Camera {
 
 	public:
 

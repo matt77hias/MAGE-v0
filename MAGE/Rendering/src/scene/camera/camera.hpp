@@ -30,7 +30,7 @@ namespace mage::rendering {
 	/**
 	 A class of camera lenses.
 	 */
-	class CameraLens final {
+	class CameraLens {
 
 	public:
 
@@ -213,7 +213,7 @@ namespace mage::rendering {
 	/**
 	 A class of voxelization settingss.
 	 */
-	class VoxelizationSettings final {
+	class VoxelizationSettings {
 
 	public:
 
@@ -422,7 +422,7 @@ namespace mage::rendering {
 	 A class of fog with respect to the camera position (eye) to avoid popping 
 	 artifacts while moving.
 	 */
-	class Fog final {
+	class Fog {
 
 	public:
 
@@ -551,7 +551,7 @@ namespace mage::rendering {
 	/**
 	 A class of sky domes.
 	 */
-	class Sky final {
+	class Sky {
 
 	public:
 
@@ -696,7 +696,7 @@ namespace mage::rendering {
 	/**
 	 A class of camera settingss.
 	 */
-	class CameraSettings final {
+	class CameraSettings {
 
 	public:
 

@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A struct of vertices containing position coordinates.
 	 */
-	struct VertexPosition final {
+	struct VertexPosition {
 
 	public:
 
@@ -151,7 +151,7 @@ namespace mage::rendering {
 	/**
 	 A struct of vertices containing position and normal coordinates.
 	 */
-	struct VertexPositionNormal final {
+	struct VertexPositionNormal {
 
 	public:
 
@@ -296,7 +296,7 @@ namespace mage::rendering {
 	/**
 	 A struct of vertices containing position coordinates and a color.
 	 */
-	struct VertexPositionColor final {
+	struct VertexPositionColor {
 
 	public:
 
@@ -441,7 +441,7 @@ namespace mage::rendering {
 	/**
 	 A struct of vertices containing position and texture coordinates.
 	 */
-	struct VertexPositionTexture final {
+	struct VertexPositionTexture {
 
 	public:
 
@@ -587,7 +587,7 @@ namespace mage::rendering {
 	 A struct of vertices containing position and normal coordinates and a 
 	 color.
 	 */
-	struct VertexPositionNormalColor final {
+	struct VertexPositionNormalColor {
 
 	public:
 
@@ -741,7 +741,7 @@ namespace mage::rendering {
 	/**
 	 A struct of vertices containing position, normal and texture coordinates.
 	 */
-	struct VertexPositionNormalTexture final {
+	struct VertexPositionNormalTexture {
 
 	public:
 
@@ -896,7 +896,7 @@ namespace mage::rendering {
 	 A struct of vertices containing position and texture coordinates and a 
 	 color.
 	 */
-	struct VertexPositionColorTexture final {
+	struct VertexPositionColorTexture {
 
 	public:
 
@@ -1051,7 +1051,7 @@ namespace mage::rendering {
 	 A struct of vertices containing position, normal and texture coordinates 
 	 and a color.
 	 */
-	struct VertexPositionNormalColorTexture final {
+	struct VertexPositionNormalColorTexture {
 
 	public:
 

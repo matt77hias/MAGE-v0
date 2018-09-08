@@ -20,7 +20,7 @@ namespace mage::rendering {
 	/**
 	 A class of rendering managers.
 	 */
-	class Manager final {
+	class Manager {
 
 	public:
 

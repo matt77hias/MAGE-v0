@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	class LBufferPass final {
+	class LBufferPass {
 
 	public:
 
@@ -102,7 +102,7 @@ namespace mage::rendering {
 		UniquePtr< ShadowCubeMapBuffer > m_omni_sms;
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
 
-		struct alignas(16) LightCameraInfo final {
+		struct alignas(16) LightCameraInfo {
 			XMMATRIX world_to_light;
 			XMMATRIX light_to_projection;
 		};

@@ -49,7 +49,7 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	class ShadowMapBuffer final {
+	class ShadowMapBuffer {
 
 	public:
 
@@ -143,7 +143,7 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	class ShadowCubeMapBuffer final {
+	class ShadowCubeMapBuffer {
 
 	public:
 

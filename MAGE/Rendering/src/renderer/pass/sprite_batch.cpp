@@ -28,7 +28,7 @@ namespace mage::rendering {
 		/**
 		 A struct of sprite info for a single sprite.
 		 */
-		struct alignas(16) SpriteInfo final {
+		struct alignas(16) SpriteInfo {
 
 		public:
 
@@ -163,7 +163,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite batches.
 	 */
-	class SpriteBatch::Impl final {
+	class SpriteBatch::Impl {
 
 	public:
 

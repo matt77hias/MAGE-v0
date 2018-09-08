@@ -23,7 +23,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite images.
 	 */
-	class alignas(16) SpriteImage final : public Component {
+	class alignas(16) SpriteImage : public Component {
 
 	public:
 

@@ -253,7 +253,7 @@ namespace mage {
 	/**
 	 A class of window descriptors.
 	 */
-	class WindowDescriptor final {
+	class WindowDescriptor {
 
 	public:
 
@@ -375,7 +375,7 @@ namespace mage {
 	/**
 	 A class of windows.
 	 */
-	class Window final {
+	class Window {
 
 	public:
 

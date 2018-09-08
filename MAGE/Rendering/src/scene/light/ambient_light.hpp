@@ -21,7 +21,7 @@ namespace mage::rendering {
 	/**
 	 A class of ambient lights.
 	 */
-	class alignas(16) AmbientLight final : public Component {
+	class alignas(16) AmbientLight : public Component {
 
 	public:
 

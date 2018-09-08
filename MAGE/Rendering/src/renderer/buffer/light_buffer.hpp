@@ -23,7 +23,7 @@ namespace mage::rendering {
 	/**
 	 A struct of light buffers used by shaders.
 	 */
-	struct alignas(16) LightBuffer final {
+	struct alignas(16) LightBuffer {
 
 	public:
 

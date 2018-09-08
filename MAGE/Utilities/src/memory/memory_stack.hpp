@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of single-ended memory stacks.
 	 */
-	class SingleEndedMemoryStack final {
+	class SingleEndedMemoryStack {
 
 	public:
 
@@ -213,7 +213,7 @@ namespace mage {
 						The data type.
 		 */
 		template< typename T >
-		class Allocator final {
+		class Allocator {
 		
 		public:
 
@@ -479,7 +479,7 @@ namespace mage {
 	/**
 	 A class of double-ended memory stacks.
 	 */
-	class DoubleEndedMemoryStack final {
+	class DoubleEndedMemoryStack {
 
 	public:
 
@@ -748,7 +748,7 @@ namespace mage {
 						The data type.
 		 */
 		template< typename T >
-		class LowAllocator final {
+		class LowAllocator {
 		
 		public:
 
@@ -974,7 +974,7 @@ namespace mage {
 						The data type.
 		 */
 		template< typename T >
-		class HighAllocator final {
+		class HighAllocator {
 		
 		public:
 

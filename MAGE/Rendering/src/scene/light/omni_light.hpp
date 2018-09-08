@@ -22,7 +22,7 @@ namespace mage::rendering {
 	/**
 	 A class of omni lights.
 	 */
-	class alignas(16) OmniLight final : public Component {
+	class alignas(16) OmniLight : public Component {
 
 	public:
 

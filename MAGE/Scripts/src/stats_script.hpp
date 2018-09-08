@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class StatsScript final : public BehaviorScript {
+	class StatsScript : public BehaviorScript {
 
 	public:
 

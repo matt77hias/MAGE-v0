@@ -33,7 +33,7 @@ namespace mage::rendering::loader {
 
 	 */
 	template< typename VertexT, typename IndexT >
-	class MSHWriter final : private BigEndianBinaryWriter {
+	class MSHWriter : private BigEndianBinaryWriter {
 
 	public:
 

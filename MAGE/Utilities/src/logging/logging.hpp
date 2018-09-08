@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of logging configurations of the engine processing.
 	 */
-	class LoggingConfiguration final {
+	class LoggingConfiguration {
 
 	public:
 

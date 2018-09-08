@@ -21,7 +21,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite texts.
 	 */
-	class alignas(16) SpriteText final : public Component {
+	class alignas(16) SpriteText : public Component {
 
 	public:
 

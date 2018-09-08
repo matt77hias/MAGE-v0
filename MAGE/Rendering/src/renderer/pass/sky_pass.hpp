@@ -18,7 +18,7 @@ namespace mage::rendering {
 	/**
 	 A class of sky passes for rendering sky domes to screen.
 	 */
-	class SkyPass final {
+	class SkyPass {
 
 	public:
 

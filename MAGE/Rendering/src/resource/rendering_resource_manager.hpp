@@ -20,7 +20,7 @@ namespace mage::rendering {
 	/**
 	 A class of resource managers.
 	 */
-	class ResourceManager final {
+	class ResourceManager {
 
 	public:
 
@@ -46,7 +46,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		struct ResourceRecord< ResourceT, 
-			typename std::enable_if_t< !is_shader_v< ResourceT > > > final {
+			typename std::enable_if_t< !is_shader_v< ResourceT > > > {
 
 		public:
 
@@ -69,7 +69,7 @@ namespace mage::rendering {
 		 */
 		template< typename ResourceT >
 		struct ResourceRecord< ResourceT,
-			typename std::enable_if_t< is_shader_v< ResourceT > > > final {
+			typename std::enable_if_t< is_shader_v< ResourceT > > > {
 
 		public:
 

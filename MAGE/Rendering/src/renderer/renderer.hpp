@@ -20,7 +20,7 @@ namespace mage::rendering {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer final {
+	class Renderer {
 
 	public:
 

@@ -29,7 +29,7 @@ namespace mage::rendering::loader {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	class MDLReader final : private LineReader {
+	class MDLReader : private LineReader {
 
 	public:
 

@@ -30,7 +30,7 @@ namespace mage::rendering {
 		/**
 		 A struct of glyph "less than" comparators.
 		 */
-		struct GlyphLessThan final {
+		struct GlyphLessThan {
 
 		public:
 

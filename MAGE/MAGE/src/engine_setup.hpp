@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of engine setups.
 	 */
-	class EngineSetup final {
+	class EngineSetup {
 
 	public:
 

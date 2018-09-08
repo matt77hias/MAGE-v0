@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of materials.
 	 */
-	class Material final {
+	class Material {
 
 	public:
 

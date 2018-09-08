@@ -23,7 +23,7 @@ namespace mage::rendering {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT = U32 >
-	class MeshDescriptor final {
+	class MeshDescriptor {
 
 	public:
 

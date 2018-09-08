@@ -43,7 +43,7 @@ namespace mage {
 					The clock type.
 	 */
 	template< typename ClockT >
-	class Timer final {
+	class Timer {
 
 	public:
 

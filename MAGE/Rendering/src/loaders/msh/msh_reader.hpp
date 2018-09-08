@@ -32,7 +32,7 @@ namespace mage::rendering::loader {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	class MSHReader final : private BigEndianBinaryReader {
+	class MSHReader : private BigEndianBinaryReader {
 
 	public:
 

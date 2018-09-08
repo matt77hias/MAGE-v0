@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A class of display configurators.
 	 */
-	class DisplayConfigurator final {
+	class DisplayConfigurator {
 
 	public:
 

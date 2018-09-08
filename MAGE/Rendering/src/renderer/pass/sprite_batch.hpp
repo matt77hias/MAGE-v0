@@ -73,7 +73,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite batches.
 	 */
-	class SpriteBatch final {
+	class SpriteBatch {
 
 	public:
 

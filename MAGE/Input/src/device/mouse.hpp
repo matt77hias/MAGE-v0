@@ -27,7 +27,7 @@ namespace mage::input {
 	/**
 	 A class of mouses.
 	 */
-	class Mouse final {
+	class Mouse {
 
 	public:
 

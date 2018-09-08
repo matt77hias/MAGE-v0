@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of texture transforms.
 	 */
-	class TextureTransform final {
+	class TextureTransform {
 
 	public:
 

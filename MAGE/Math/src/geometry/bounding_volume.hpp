@@ -34,7 +34,7 @@ namespace mage {
 	/**
 	 A class of Bounding Spheres.
 	 */
-	class alignas(16) BoundingSphere final {
+	class alignas(16) BoundingSphere {
 
 	public:
 
@@ -461,7 +461,7 @@ namespace mage {
 	/**
 	 A class of Axis-Aligned Bounding Boxes (AABBs).
 	 */
-	class alignas(16) AABB final {
+	class alignas(16) AABB {
 
 	public:
 
@@ -1094,7 +1094,7 @@ namespace mage {
 	/**
 	 A class of bounding frustums.
 	 */
-	class alignas(16) BoundingFrustum final {
+	class alignas(16) BoundingFrustum {
 
 	public:
 

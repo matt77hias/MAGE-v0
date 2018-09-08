@@ -25,7 +25,7 @@ namespace mage {
 	/**
 	 A class of engine message handlers.
 	 */
-	class EngineMessageHandler final : public WindowMessageHandler {
+	class EngineMessageHandler : public WindowMessageHandler {
 
 	public:
 
@@ -137,7 +137,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine final {
+	class Engine {
 
 	public:
 

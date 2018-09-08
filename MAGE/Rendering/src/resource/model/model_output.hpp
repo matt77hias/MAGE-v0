@@ -20,7 +20,7 @@ namespace mage::rendering {
 	/**
 	 A struct of model parts.
 	 */
-	struct alignas(16) ModelPart final {
+	struct alignas(16) ModelPart {
 
 	public:
 
@@ -215,7 +215,7 @@ namespace mage::rendering {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	struct ModelOutput final {
+	struct ModelOutput {
 
 	public:
 

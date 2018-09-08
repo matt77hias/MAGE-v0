@@ -27,7 +27,7 @@ namespace mage::loader {
 	/**
 	 A class of VAR file readers for reading variable scripts.
 	 */
-	class VARReader final : private LineReader {
+	class VARReader : private LineReader {
 
 	public:
 

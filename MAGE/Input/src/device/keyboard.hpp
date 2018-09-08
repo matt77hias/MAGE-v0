@@ -27,7 +27,7 @@ namespace mage::input {
 	/**
 	 A class of keyboards.
 	 */
-	class Keyboard final {
+	class Keyboard {
 
 	public:
 

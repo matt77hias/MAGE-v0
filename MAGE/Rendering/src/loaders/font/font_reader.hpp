@@ -19,7 +19,7 @@ namespace mage::rendering::loader {
 	/**
 	 A class of readers for reading FONT files.
 	 */
-	class SpriteFontReader final : private BigEndianBinaryReader {
+	class SpriteFontReader : private BigEndianBinaryReader {
 
 	public:
 

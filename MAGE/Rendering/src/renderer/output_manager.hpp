@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A class of output managers.
 	 */
-	class OutputManager final {
+	class OutputManager {
 
 	public:
 

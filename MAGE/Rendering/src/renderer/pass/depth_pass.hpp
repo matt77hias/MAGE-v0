@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of depth passes for rendering models to a depth buffer only.
 	 */
-	class DepthPass final {
+	class DepthPass {
 
 	public:
 

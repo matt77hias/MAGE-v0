@@ -28,7 +28,7 @@ namespace mage::rendering {
 	/**
 	 A class of world.
 	 */
-	class World final {
+	class World {
 
 	public:
 	

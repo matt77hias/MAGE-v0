@@ -16,7 +16,7 @@ namespace mage::loader {
 
 	namespace {
 
-		class VARVisitor final {
+		class VARVisitor {
 
 		public:
 

@@ -38,7 +38,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	class ResourcePool final {
+	class ResourcePool {
 
 	public:
 
@@ -254,7 +254,7 @@ namespace mage {
 						The derived resource type.
 		 */
 		template< typename DerivedResourceT >
-		class Resource final : public DerivedResourceT {
+		class Resource : public DerivedResourceT {
 
 		public:
 
@@ -364,7 +364,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	class PersistentResourcePool final {
+	class PersistentResourcePool {
 
 	public:
 

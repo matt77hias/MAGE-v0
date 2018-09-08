@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of display configurations.
 	 */
-	class DisplayConfiguration final {
+	class DisplayConfiguration {
 
 	public:
 

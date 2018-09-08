@@ -213,7 +213,7 @@ namespace mage {
 	/**
 	 A class of component clients.
 	 */
-	class ComponentClient final {
+	class ComponentClient {
 
 	private:
 

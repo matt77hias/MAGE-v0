@@ -39,7 +39,7 @@ namespace mage::rendering::loader {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	class OBJReader final : private LineReader {
+	class OBJReader : private LineReader {
 
 	public:
 
@@ -291,7 +291,7 @@ namespace mage::rendering::loader {
 		/**
 		 A struct of @c U32x3 comparators for OBJ vertex indices.
 		 */
-		struct OBJComparator final {
+		struct OBJComparator {
 
 		public:
 

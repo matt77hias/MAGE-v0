@@ -18,7 +18,7 @@ namespace mage::input {
 	/**
 	 A class of input managers.
 	 */
-	class Manager final {
+	class Manager {
 
 	public:
 

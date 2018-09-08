@@ -21,7 +21,7 @@ namespace mage::rendering {
 	 A class of voxelization passes for rendering models using a variable 
 	 (material dependent) shading.
 	 */
-	class VoxelizationPass final {
+	class VoxelizationPass {
 
 	public:
 

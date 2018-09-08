@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of local transforms.
 	 */
-	class LocalTransform final {
+	class LocalTransform {
 
 	public:
 

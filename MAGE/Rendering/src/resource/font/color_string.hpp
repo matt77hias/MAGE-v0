@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A class of color strings representing a string and its color.
 	 */
-	class ColorString final {
+	class ColorString {
 
 	public:
 

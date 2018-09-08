@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of CPU monitors for monitoring CPU usage.
 	 */
-	class CPUMonitor final {
+	class CPUMonitor {
 
 	public:
 

@@ -20,7 +20,7 @@ namespace mage::rendering {
 	 A class of bounding volume passes for rendering model and finite light 
 	 volumes.
 	 */
-	class BoundingVolumePass final {
+	class BoundingVolumePass {
 
 	public:
 

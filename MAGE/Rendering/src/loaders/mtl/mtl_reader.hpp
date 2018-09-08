@@ -18,7 +18,7 @@ namespace mage::rendering::loader {
 	/**
 	 A class of MTL file readers for reading materials.
 	 */
-	class MTLReader final : private LineReader {
+	class MTLReader : private LineReader {
 
 	public:
 

@@ -29,7 +29,7 @@ namespace mage::rendering::loader {
 					The index type.
 	 */
 	template< typename VertexT, typename IndexT >
-	class MDLWriter final : private Writer {
+	class MDLWriter : private Writer {
 
 	public:
 

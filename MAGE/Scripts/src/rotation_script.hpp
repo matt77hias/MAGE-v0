@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class RotationScript final : public BehaviorScript {
+	class RotationScript : public BehaviorScript {
 
 	public:
 

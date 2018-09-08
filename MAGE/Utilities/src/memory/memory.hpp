@@ -250,7 +250,7 @@ namespace mage {
 		/**
 		 A struct of handle destructors (i.e. for closing handles).
 		 */
-		struct HandleCloser final {
+		struct HandleCloser {
 
 			/**
 			 Destructs the given handle.
@@ -324,7 +324,7 @@ namespace mage {
 		/**
 		 A struct of file stream destructors (i.e. for closing file streams).
 		 */
-		struct FileStreamCloser final {
+		struct FileStreamCloser {
 
 			/**
 			 Destructs the file stream.
@@ -359,7 +359,7 @@ namespace mage {
 					The memory resource type.	
 	 */
 	template< typename T >
-	class ProxyPtr final {
+	class ProxyPtr {
 
 	public:
 

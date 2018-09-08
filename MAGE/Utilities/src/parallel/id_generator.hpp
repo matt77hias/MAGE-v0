@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of id generators.
 	 */
-	class IdGenerator final {
+	class IdGenerator {
 
 	public:
 

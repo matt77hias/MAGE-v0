@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class EditorScript final : public BehaviorScript {
+	class EditorScript : public BehaviorScript {
 
 	public:
 

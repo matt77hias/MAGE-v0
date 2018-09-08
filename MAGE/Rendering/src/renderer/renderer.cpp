@@ -38,7 +38,7 @@ namespace mage::rendering {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer::Impl final {
+	class Renderer::Impl {
 
 	public:
 

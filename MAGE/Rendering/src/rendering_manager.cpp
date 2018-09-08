@@ -25,7 +25,7 @@ namespace mage::rendering {
 	/**
 	 A class of rendering managers.
 	 */
-	class Manager::Impl final {
+	class Manager::Impl {
 
 	public:
 

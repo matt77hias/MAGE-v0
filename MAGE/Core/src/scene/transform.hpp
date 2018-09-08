@@ -25,7 +25,7 @@ namespace mage {
 	/**
 	 A class of transforms.
 	 */
-	class alignas(16) Transform final {
+	class alignas(16) Transform {
 
 	public:
 
@@ -1549,7 +1549,7 @@ namespace mage {
 	/**
 	 A class of transform clients.
 	 */
-	class TransformClient final {
+	class TransformClient {
 	
 	private:
 

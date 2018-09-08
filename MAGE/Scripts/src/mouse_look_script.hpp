@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class MouseLookScript final : public BehaviorScript {
+	class MouseLookScript : public BehaviorScript {
 
 	public:
 

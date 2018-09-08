@@ -20,7 +20,7 @@ namespace mage::rendering {
 	 A class of deferred passes for unpacking GBuffers and performing light 
 	 calculations using the rendering or compute pipeline.
 	 */
-	class DeferredPass final {
+	class DeferredPass {
 
 	public:
 

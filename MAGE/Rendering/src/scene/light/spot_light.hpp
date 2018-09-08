@@ -22,7 +22,7 @@ namespace mage::rendering {
 	/**
 	 A class of spotlights.
 	 */
-	class alignas(16) SpotLight final : public Component {
+	class alignas(16) SpotLight : public Component {
 
 	public:
 

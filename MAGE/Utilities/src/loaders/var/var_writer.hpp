@@ -27,7 +27,7 @@ namespace mage::loader {
 	/**
 	 A class of VAR file writers for writing variable scripts.
 	 */
-	class VARWriter final : private Writer {
+	class VARWriter : private Writer {
 
 	public:
 

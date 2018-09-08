@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of post-process passes for performing post-processing.
 	 */
-	class PostProcessPass final {
+	class PostProcessPass {
 
 	public:
 

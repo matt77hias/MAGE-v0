@@ -56,7 +56,7 @@ namespace mage::rendering {
 	/**
 	 A class of viewports.
 	 */
-	class Viewport final {
+	class Viewport {
 
 	public:
 

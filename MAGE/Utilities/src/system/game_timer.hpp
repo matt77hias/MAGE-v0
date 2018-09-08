@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of game times.
 	 */
-	class GameTime final {
+	class GameTime {
 
 	public:
 
@@ -187,7 +187,7 @@ namespace mage {
 	/**
 	 A class of game timers.
 	 */
-	class GameTimer final {
+	class GameTimer {
 
 	public:
 

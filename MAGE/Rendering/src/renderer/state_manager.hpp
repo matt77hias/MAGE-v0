@@ -125,7 +125,7 @@ namespace mage::rendering {
 	/**
 	 A class of state managers.
 	 */
-	class StateManager final {
+	class StateManager {
 
 	public:
 

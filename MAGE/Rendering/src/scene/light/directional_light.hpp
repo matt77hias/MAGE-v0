@@ -22,7 +22,7 @@ namespace mage::rendering {
 	/**
 	 A class of directional lights.
 	 */
-	class alignas(16) DirectionalLight final : public Component {
+	class alignas(16) DirectionalLight : public Component {
 
 	public:
 

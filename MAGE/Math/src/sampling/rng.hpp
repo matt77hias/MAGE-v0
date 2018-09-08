@@ -27,7 +27,7 @@ namespace mage {
 		#error Illegal symbol definition.
 	#endif
 	
-	class RNG final {
+	class RNG {
 
 	public:
 
@@ -64,12 +64,12 @@ namespace mage {
 			m_generator.seed(seed);
 		}
 
-		F32 UniformF32() noexcept {
+		F32 Uniform() noexcept {
 			return m_distribution(m_generator);
 		}
 
-		F32 UniformF32(F32 start, F32 end) noexcept {
-			return start + UniformF32() * (end - start);
+		F32 Uniform(F32 start, F32 end) noexcept {
+			return start + Uniform() * (end - start);
 		}
 
 	private:

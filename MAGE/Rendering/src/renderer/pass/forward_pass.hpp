@@ -20,7 +20,7 @@ namespace mage::rendering {
 	/**
 	 A class of forward passes for performing light calculations.
 	 */
-	class ForwardPass final {
+	class ForwardPass {
 
 	public:
 

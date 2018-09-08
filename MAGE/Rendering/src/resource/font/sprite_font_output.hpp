@@ -27,7 +27,7 @@ namespace mage::rendering {
 	/**
 	 A struct of sprite font outputs for storing the data of a sprite font.
 	 */
-	struct SpriteFontOutput final {
+	struct SpriteFontOutput {
 
 	public:
 

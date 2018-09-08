@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A class of memory arenas.
 	 */
-	class MemoryArena final {
+	class MemoryArena {
 
 	public:
 
@@ -189,7 +189,7 @@ namespace mage {
 						The data type.
 		 */
 		template< typename T >
-		class Allocator final {
+		class Allocator {
 		
 		public:
 

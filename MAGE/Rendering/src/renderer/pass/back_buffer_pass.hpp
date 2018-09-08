@@ -18,7 +18,7 @@ namespace mage::rendering {
 	/**
 	 A class of back buffer passes.
 	 */
-	class BackBufferPass final {
+	class BackBufferPass {
 
 	public:
 

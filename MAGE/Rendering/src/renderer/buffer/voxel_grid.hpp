@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	class VoxelGrid final {
+	class VoxelGrid {
 
 	public:
 

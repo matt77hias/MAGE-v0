@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of progress reporters.
 	 */
-	class ProgressReporter final {
+	class ProgressReporter {
 
 	public:
 

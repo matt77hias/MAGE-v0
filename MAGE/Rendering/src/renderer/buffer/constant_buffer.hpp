@@ -21,7 +21,7 @@ namespace mage::rendering {
 					The data type.
 	 */
 	template< typename T >
-	class ConstantBuffer final {
+	class ConstantBuffer {
 
 	public:
 

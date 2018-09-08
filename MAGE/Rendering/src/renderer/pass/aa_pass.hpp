@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of AA passes for performing AA.
 	 */
-	class AAPass final {
+	class AAPass {
 
 	public:
 

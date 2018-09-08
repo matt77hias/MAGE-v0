@@ -18,7 +18,7 @@ namespace mage::rendering {
 	/**
 	 A class of buffer locks.
 	 */
-	class BufferLock final {
+	class BufferLock {
 
 	public:
 

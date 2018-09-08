@@ -15,7 +15,7 @@
 namespace mage::script {
 
 	template< typename SceneT >
-	class SwitchSceneScript final : public BehaviorScript {
+	class SwitchSceneScript : public BehaviorScript {
 
 	public:
 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class ManhattanMotorScript final : public BehaviorScript {
+	class ManhattanMotorScript : public BehaviorScript {
 
 	public:
 

@@ -19,7 +19,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite passes for rendering sprites.
 	 */
-	class SpritePass final {
+	class SpritePass {
 
 	public:
 

@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of sprite transforms.
 	 */
-	class SpriteTransform final {
+	class SpriteTransform {
 
 	public:
 

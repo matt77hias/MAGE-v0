@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A class of swap chains.
 	 */
-	class SwapChain final {
+	class SwapChain {
 
 	public:
 

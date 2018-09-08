@@ -17,7 +17,7 @@ namespace mage::rendering {
 	/**
 	 A struct of glyphs.
 	 */
-	struct Glyph final {
+	struct Glyph {
 
 	public:
 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::script {
 
-	class CharacterMotorScript final : public BehaviorScript {
+	class CharacterMotorScript : public BehaviorScript {
 
 	public:
 

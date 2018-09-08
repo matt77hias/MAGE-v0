@@ -8,7 +8,7 @@ namespace mage::rendering {
 	/**
 	 A class of sprite font descriptors.
 	 */
-	class SpriteFontDescriptor final {
+	class SpriteFontDescriptor {
 
 	public:
 

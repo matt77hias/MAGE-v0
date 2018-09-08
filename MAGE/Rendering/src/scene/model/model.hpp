@@ -26,7 +26,7 @@ namespace mage::rendering {
 	/**
 	 A class of models.
 	 */
-	class alignas(16) Model final : public Component {
+	class alignas(16) Model : public Component {
 
 	public:
 

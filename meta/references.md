@@ -14,7 +14,7 @@
 ### <a name="SSS-BibTeX"></a>BibTeX
 
 ```bibtex
-@misc{mage17,
+@misc{mage16,
    author = {Matthias Moulin},
    title  = {MAGE - Matthias Advanced Game Engine},
    year   = {2016},

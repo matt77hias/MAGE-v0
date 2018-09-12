@@ -174,7 +174,8 @@ struct VCTConfig {
 					cone for this VCT configuration.
 	 */
 	float4 GetRadianceAndAO(Cone cone, float4 max_cone_distances) {
-		float4 L = 0.0f;
+		float  alpha = 0.0f;
+		float4 L     = 0.0f;
 		
 		// Compute the initial distance to avoid sampling the voxel containing 
 		// the cone's apex.
@@ -182,7 +183,7 @@ struct VCTConfig {
 		// Compute the maximum cone distance.
 		float max_cone_distance = Max(max_cone_distances);
 
-		while (max_cone_distance > distance && 1.0f > L.w) {
+		while (max_cone_distance > distance && 1.0f > alpha) {
 			// Compute the MIP level.
 			const float mip_level = GetMIPLevel(cone, distance);
 			// Compute the position (expressed in voxel UVW space).
@@ -194,14 +195,16 @@ struct VCTConfig {
 				break;
 			}
 
-			// Sample the radiance and alpha.
+			// Sample the radiance and ambient occlusion.
 			const float4 L_step = m_texture.SampleLevel(m_sampler, p_uvw, mip_level);
-			// Compute the radiance and alpha mask.
+			// Compute the radiance and ambient occlusion mask.
 			const float4 mask = (max_cone_distances >= distance);
 
-			// Update the accumulated radiance.
-			L += (1.0f - L.w) * mask * L_step;
-
+			// Update the accumulated radiance and ambient occlusion.
+			const float inv_alpha = 1.0f - alpha;
+			alpha += inv_alpha * L_step.w;
+			L     += inv_alpha * mask * L_step;
+			
 			// Update the marching distance.
 			distance += m_cone_step;
 		}
@@ -215,21 +218,27 @@ struct VCTConfig {
 
 	 @param[in]		cone
 					The cone.
-	 @param[in]		max_cone_distances
-					The maximum cone distance along the direction of the given
-					cone expressed in voxel UVW space for the ambient occlusion.
 	 @return		The (incoming) radiance and ambient occlusion of the given
 					cone for this VCT configuration.
 	 */
-	float4 GetRadianceAndAO(Cone cone, float max_cone_distance) {
-		const float4 max_cone_distances = { 
-			m_max_cone_distance, // L
-			m_max_cone_distance, // L
-			m_max_cone_distance, // L
-			max_cone_distance    // AO
-		};
+	float4 GetRadianceAndAO(Cone cone) {
+		return GetRadianceAndAO(cone, m_max_cone_distance);
+	}
 
-		return GetRadianceAndAO(cone, max_cone_distances);
+	/**
+	 Computes the (incoming) radiance of the given cone for this VCT
+	 configuration.
+
+	 @param[in]		cone
+					The cone.
+	 @param[in]		max_cone_distance
+					The maximum cone distance along the direction of the given
+					cone expressed in voxel UVW space.
+	 @return		The (incoming) radiance of the given cone for this VCT
+					configuration.
+	 */
+	float3 GetRadiance(Cone cone, float max_cone_distance) {
+		return GetRadianceAndAO(cone, max_cone_distance).xyz;
 	}
 
 	/**
@@ -242,11 +251,11 @@ struct VCTConfig {
 					configuration.
 	 */
 	float3 GetRadiance(Cone cone) {
-		return GetRadianceAndAO(cone, m_max_cone_distance).xyz;
+		return GetRadiance(cone, m_max_cone_distance);
 	}
 
 	/**
-	 Computes the ambient occlusion of the given cone for this VCT 
+	 Computes the (incoming) ambient occlusion of the given cone for this VCT 
 	 configuration.
 
 	 @param[in]		cone
@@ -254,11 +263,24 @@ struct VCTConfig {
 	 @param[in]		max_cone_distance
 					The maximum cone distance along the direction of the given
 					cone expressed in voxel UVW space.
-	 @return		The ambient occlusion of the given cone for this VCT 
-					configuration.
+	 @return		The (incoming) ambient occlusion of the given cone for this 
+					VCT configuration.
 	 */
 	float GetAO(Cone cone, float max_cone_distance) {
 		return GetRadianceAndAO(cone, max_cone_distance).w;
+	}
+
+	/**
+	 Computes the (incoming) ambient occlusion of the given cone for this VCT 
+	 configuration.
+
+	 @param[in]		cone
+					The cone.
+	 @return		The (incoming) ambient occlusion of the given cone for this 
+					VCT configuration.
+	 */
+	float GetAO(Cone cone) {
+		return GetAO(cone, m_max_cone_distance);
 	}
 };
 

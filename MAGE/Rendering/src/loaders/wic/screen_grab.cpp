@@ -21,7 +21,7 @@
 
 // For 2D array textures and cubemaps, it captures only the first image in the array
 
-#include "loaders\dds\screen_grab.hpp"
+#include "loaders\wic\screen_grab.hpp"
 
 #include <dxgiformat.h>
 #include <assert.h>

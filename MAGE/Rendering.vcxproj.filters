@@ -212,9 +212,6 @@
     <ClInclude Include="Rendering\src\loaders\material_loader.hpp">
       <Filter>Header Files\loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
-      <Filter>Header Files\loaders\wic</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\loaders\obj\obj_reader.hpp">
       <Filter>Header Files\loaders\obj</Filter>
     </ClInclude>
@@ -267,9 +264,6 @@
       <Filter>Header Files\loaders\font</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp">
-      <Filter>Header Files\loaders\dds</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\src\loaders\dds\screen_grab.hpp">
       <Filter>Header Files\loaders\dds</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\src\resource\font\color_string.hpp">
@@ -419,6 +413,12 @@
     <ClInclude Include="Rendering\src\renderer\buffer\world_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\wic\screen_grab.hpp">
+      <Filter>Header Files\loaders\wic</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
+      <Filter>Header Files\loaders\wic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Rendering\src\resource\shader\shader.tpp">
@@ -531,9 +531,6 @@
     <ClCompile Include="Rendering\src\loaders\texture_loader.cpp">
       <Filter>Source Files\loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp">
-      <Filter>Source Files\loaders\wic</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\src\loaders\mtl\mtl_loader.cpp">
       <Filter>Source Files\loaders\mtl</Filter>
     </ClCompile>
@@ -547,9 +544,6 @@
       <Filter>Source Files\loaders\font</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp">
-      <Filter>Source Files\loaders\dds</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\src\loaders\dds\screen_grab.cpp">
       <Filter>Source Files\loaders\dds</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp">
@@ -680,6 +674,12 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\shader\shader_factory_voxelization.cpp">
       <Filter>Source Files\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\wic\screen_grab.cpp">
+      <Filter>Source Files\loaders\wic</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp">
+      <Filter>Source Files\loaders\wic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

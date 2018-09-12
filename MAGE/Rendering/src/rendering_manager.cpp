@@ -5,8 +5,8 @@
 
 #include "rendering_manager.hpp"
 #include "renderer\renderer.hpp"
-#include "imgui_impl_dx11.hpp"
-#include "imgui_impl_win32.hpp"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 #pragma endregion
 

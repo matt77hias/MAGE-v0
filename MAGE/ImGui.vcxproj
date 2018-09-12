@@ -19,12 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImGui\src\imconfig.hpp" />
-    <ClInclude Include="ImGui\src\imgui.hpp" />
-    <ClInclude Include="ImGui\src\imgui_impl_dx11.hpp" />
-    <ClInclude Include="ImGui\src\imgui_impl_win32.hpp" />
-    <ClInclude Include="ImGui\src\imgui_internal.hpp" />
+    <ClInclude Include="ImGui\src\imconfig.h" />
+    <ClInclude Include="ImGui\src\imgui.h" />
+    <ClInclude Include="ImGui\src\imgui_impl_dx11.h" />
+    <ClInclude Include="ImGui\src\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\src\imgui_internal.h" />
     <ClInclude Include="ImGui\src\imgui_window_message_listener.hpp" />
+    <ClInclude Include="ImGui\src\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\src\imstb_textedit.h" />
+    <ClInclude Include="ImGui\src\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\src\imgui.cpp" />
@@ -32,6 +35,7 @@
     <ClCompile Include="ImGui\src\imgui_draw.cpp" />
     <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
     <ClCompile Include="ImGui\src\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGui\src\imgui_widgets.cpp" />
     <ClCompile Include="ImGui\src\imgui_window_message_listener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

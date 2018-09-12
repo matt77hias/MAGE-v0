@@ -5,7 +5,7 @@
 
 #include "editor_script.hpp"
 #include "scene\scene.hpp"
-#include "imgui.hpp"
+#include "imgui.h"
 
 #pragma endregion
 

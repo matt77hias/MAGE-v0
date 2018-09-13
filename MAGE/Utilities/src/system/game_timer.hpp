@@ -286,7 +286,7 @@ namespace mage {
 
 		 @return		The game time of this game timer.
 		 */
-		const GameTime GetTime() const noexcept {
+		const GameTime GetTime() noexcept {
 			const auto wall_clock_time = m_wall_clock_timer.GetTime();
 			const auto core_clock_time = m_core_clock_timer.GetTime();
 

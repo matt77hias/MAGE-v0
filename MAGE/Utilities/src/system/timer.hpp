@@ -133,14 +133,14 @@ namespace mage {
 
 		 @return		The delta time (in seconds) of this timer.
 		 */
-		TimeIntervalSeconds GetDeltaTime() const noexcept;
+		TimeIntervalSeconds GetDeltaTime() noexcept;
 
 		/**
 		 Returns the total delta time (in seconds) of this timer.
 
 		 @return		The total delta time (in seconds) of this timer.
 		 */
-		TimeIntervalSeconds GetTotalDeltaTime() const noexcept;
+		TimeIntervalSeconds GetTotalDeltaTime() noexcept;
 
 		/**
 		 Returns the delta and total delta time (in seconds) of this timer.
@@ -149,7 +149,7 @@ namespace mage {
 						(in seconds) of this timer.
 		 */
 		const std::pair< TimeIntervalSeconds, TimeIntervalSeconds >  
-			GetTime() const noexcept;
+			GetTime() noexcept;
 
 	private:
 
@@ -161,13 +161,13 @@ namespace mage {
 		 Resets the delta time, total delta time and last timestamp of this 
 		 timer.
 		 */
-		void ResetDeltaTime() const noexcept;
+		void ResetDeltaTime() noexcept;
 
 		/**
 		 Updates the delta time, total delta time and last timestamp of this 
 		 timer.
 		 */
-		void UpdateDeltaTime() const noexcept;
+		void UpdateDeltaTime() noexcept;
 
 		//---------------------------------------------------------------------
 		// Class Member Types
@@ -196,17 +196,17 @@ namespace mage {
 		/**
 		 The last timestamp of this timer.
 		 */
-		mutable TimeStamp m_last_timestamp;
+		TimeStamp m_last_timestamp;
 
 		/**
 		 The delta time of this timer.
 		 */
-		mutable TimeInterval m_delta_time;
+		TimeInterval m_delta_time;
 
 		/**
 		 The total delta time of this timer.
 		 */
-		mutable TimeInterval m_total_delta_time;
+		TimeInterval m_total_delta_time;
 
 		/**
 		 Flag indicating whether this timer is running.

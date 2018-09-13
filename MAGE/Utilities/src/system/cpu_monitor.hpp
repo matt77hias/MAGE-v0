@@ -116,7 +116,7 @@ namespace mage {
 
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
-		F64 GetCPUDeltaPercentage() const noexcept {
+		F64 GetCPUDeltaPercentage() noexcept {
 			const auto wall_time = m_wall_clock_timer.GetDeltaTime();
 			const auto core_time = m_core_clock_timer.GetDeltaTime();
 			return 100.0 * (core_time / wall_time);
@@ -128,7 +128,7 @@ namespace mage {
 		 @return		The total CPU delta percentage of this CPU monitor's 
 						process.
 		 */
-		F64 GetTotalCPUDeltaPercentage() const noexcept {
+		F64 GetTotalCPUDeltaPercentage() noexcept {
 			const auto wall_time = m_wall_clock_timer.GetTotalDeltaTime();
 			const auto core_time = m_core_clock_timer.GetTotalDeltaTime();
 			return 100.0 * (core_time / wall_time);

@@ -208,8 +208,10 @@ namespace mage {
 				return {};
 			}
 			
-			return { ConvertTimestamp(kernel_mode_ftime), 
-				     ConvertTimestamp(user_mode_ftime) };
+			return { 
+				ConvertTimestamp(kernel_mode_ftime),  
+				ConvertTimestamp(user_mode_ftime) 
+			};
 		}
 
 		/**

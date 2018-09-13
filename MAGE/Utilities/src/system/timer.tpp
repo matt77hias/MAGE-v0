@@ -79,8 +79,10 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return { std::chrono::duration_cast<TimeIntervalSeconds>(m_delta_time),
-				 std::chrono::duration_cast<TimeIntervalSeconds>(m_total_delta_time) };
+		return { 
+			std::chrono::duration_cast< TimeIntervalSeconds >(m_delta_time), 
+			std::chrono::duration_cast< TimeIntervalSeconds >(m_total_delta_time) 
+		};
 	}
 
 	template< typename ClockT >

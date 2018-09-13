@@ -30,8 +30,8 @@ namespace mage {
 	 */
 	using F64 = double;
 
-	static_assert(4 == sizeof(F32));
-	static_assert(8 == sizeof(F64));
+	static_assert(4u == sizeof(F32));
+	static_assert(8u == sizeof(F64));
 
 	#pragma endregion
 
@@ -60,10 +60,10 @@ namespace mage {
 	 */
 	using S64 = std::int64_t;
 
-	static_assert(1 == sizeof(S8));
-	static_assert(2 == sizeof(S16));
-	static_assert(4 == sizeof(S32));
-	static_assert(8 == sizeof(S64));
+	static_assert(1u == sizeof(S8));
+	static_assert(2u == sizeof(S16));
+	static_assert(4u == sizeof(S32));
+	static_assert(8u == sizeof(S64));
 
 	/**
 	 The fastest signed integer type with width of at least 8 bits.
@@ -85,10 +85,10 @@ namespace mage {
 	 */
 	using FS64 = std::int_fast64_t;
 
-	static_assert(1 <= sizeof(FS8));
-	static_assert(2 <= sizeof(FS16));
-	static_assert(4 <= sizeof(FS32));
-	static_assert(8 <= sizeof(FS64));
+	static_assert(1u <= sizeof(FS8));
+	static_assert(2u <= sizeof(FS16));
+	static_assert(4u <= sizeof(FS32));
+	static_assert(8u <= sizeof(FS64));
 
 	#pragma endregion
 
@@ -117,10 +117,10 @@ namespace mage {
 	 */
 	using U64 = std::uint64_t;
 
-	static_assert(1 == sizeof(U8));
-	static_assert(2 == sizeof(U16));
-	static_assert(4 == sizeof(U32));
-	static_assert(8 == sizeof(U64));
+	static_assert(1u == sizeof(U8));
+	static_assert(2u == sizeof(U16));
+	static_assert(4u == sizeof(U32));
+	static_assert(8u == sizeof(U64));
 
 	/**
 	 The fastest unsigned integer type with width of at least 8 bits.
@@ -142,10 +142,10 @@ namespace mage {
 	 */
 	using FU64 = std::uint_fast64_t;
 
-	static_assert(1 <= sizeof(FU8));
-	static_assert(2 <= sizeof(FU16));
-	static_assert(4 <= sizeof(FU32));
-	static_assert(8 <= sizeof(FU64));
+	static_assert(1u <= sizeof(FU8));
+	static_assert(2u <= sizeof(FU16));
+	static_assert(4u <= sizeof(FU32));
+	static_assert(8u <= sizeof(FU64));
 
 	#pragma endregion
 }

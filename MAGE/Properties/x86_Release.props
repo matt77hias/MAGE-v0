@@ -11,10 +11,6 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup>
-    <ClCompile>
       <SDLCheck>true</SDLCheck>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -28,32 +24,23 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
-    <Xdcmake>
-      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
-    </Xdcmake>
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
-    </FxCompile>
-    <FxCompile>
-      <EnableDebuggingInformation>true</EnableDebuggingInformation>
-    </FxCompile>
-    <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <VariableName>g_%(Filename)</VariableName>
       <ObjectFileOutput />
     </FxCompile>
-    <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
     <Link>
       <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-    <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <Xdcmake>
+      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
+    </Xdcmake>
   </ItemDefinitionGroup>
-  <ItemGroup />
 </Project>

@@ -130,9 +130,6 @@
     <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_lambertian_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_ward_duer_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_blinn_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -145,9 +142,6 @@
     <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_lambertian_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\deferred\deferred_msaa_vct_ward_duer_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\deferred\deferred_vct_blinn_phong_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -158,12 +152,6 @@
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\deferred\deferred_vct_lambertian_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\deferred\deferred_vct_ward_duer_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\deferred\deferred_ward_duer_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\depth\depth_transparent_PS.hlsl">
@@ -277,9 +265,6 @@
     <FxCompile Include="Shaders\shaders\forward\forward_transparent_tsnm_lambertian_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_transparent_tsnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_blinn_phong_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
@@ -304,15 +289,6 @@
     <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_lambertian_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_tsnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_transparent_vct_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_transparent_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_tsnm_blinn_phong_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
@@ -323,9 +299,6 @@
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_tsnm_lambertian_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_tsnm_ward_duer_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_vct_blinn_phong_PS.hlsl">
@@ -350,15 +323,6 @@
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_lambertian_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_vct_tsnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_vct_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="Shaders\shaders\forward\forward_ward_duer_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\shaders\gbuffer\gbuffer_PS.hlsl">
@@ -599,9 +563,6 @@
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_lambertian_PS.hpp">
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\deferred\deferred_msaa_ward_duer_PS.hpp">
-      <Filter>Header Files\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_blinn_phong_PS.hpp">
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
@@ -614,9 +575,6 @@
     <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_lambertian_PS.hpp">
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\deferred\deferred_msaa_vct_ward_duer_PS.hpp">
-      <Filter>Header Files\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\deferred\deferred_vct_blinn_phong_CS.hpp">
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
@@ -627,12 +585,6 @@
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\deferred\deferred_vct_lambertian_CS.hpp">
-      <Filter>Header Files\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\deferred\deferred_vct_ward_duer_CS.hpp">
-      <Filter>Header Files\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\deferred\deferred_ward_duer_CS.hpp">
       <Filter>Header Files\deferred</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\depth\depth_transparent_PS.hpp">
@@ -746,9 +698,6 @@
     <ClInclude Include="Shaders\src\forward\forward_transparent_tsnm_lambertian_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_transparent_tsnm_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\forward\forward_transparent_vct_blinn_phong_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
@@ -773,15 +722,6 @@
     <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_lambertian_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_tsnm_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_transparent_vct_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_transparent_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders\src\forward\forward_tsnm_blinn_phong_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
@@ -792,9 +732,6 @@
       <Filter>Header Files\forward</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\forward\forward_tsnm_lambertian_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_tsnm_ward_duer_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\forward\forward_vct_blinn_phong_PS.hpp">
@@ -819,15 +756,6 @@
       <Filter>Header Files\forward</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_lambertian_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_vct_tsnm_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_vct_ward_duer_PS.hpp">
-      <Filter>Header Files\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\src\forward\forward_ward_duer_PS.hpp">
       <Filter>Header Files\forward</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\src\gbuffer\gbuffer_PS.hpp">

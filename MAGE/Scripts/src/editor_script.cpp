@@ -201,15 +201,13 @@ namespace mage::script {
 				"Lambertian",
 				"Blinn-Phong",
 				"Cook-Torrance",
-				"Frostbite",
-				"Ward-Duer"
+				"Frostbite"
 			};
 			static constexpr BRDF brdfs[] = {
 				BRDF::Lambertian,
 				BRDF::BlinnPhong,
 				BRDF::CookTorrance,
-				BRDF::Frostbite,
-				BRDF::WardDuer
+				BRDF::Frostbite
 			};
 			static_assert(std::size(brdf_names) == std::size(brdfs));
 		

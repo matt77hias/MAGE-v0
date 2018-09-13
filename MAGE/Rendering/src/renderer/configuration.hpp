@@ -191,16 +191,14 @@ namespace mage::rendering {
 	 This contains:
 	 @c Lambertian,
 	 @c BlinnPhong,
-	 @c CookTorrance,
-	 @c Frostbite, and
-	 @c WardDuer.
+	 @c CookTorrance, and
+	 @c Frostbite.
 	 */
 	enum class BRDF : U8 {
 		Lambertian = 0,
 		BlinnPhong,
 		CookTorrance,
-		Frostbite,
-		WardDuer
+		Frostbite
 	};
 
 	#pragma endregion

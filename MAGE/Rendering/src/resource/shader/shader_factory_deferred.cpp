@@ -12,26 +12,22 @@
 #include "deferred\deferred_emissive_CS.hpp"
 #include "deferred\deferred_frostbite_CS.hpp"
 #include "deferred\deferred_lambertian_CS.hpp"
-#include "deferred\deferred_ward_duer_CS.hpp"
 // Deferred: Opaque + VCT
 #include "deferred\deferred_vct_blinn_phong_CS.hpp"
 #include "deferred\deferred_vct_cook_torrance_CS.hpp"
 #include "deferred\deferred_vct_frostbite_CS.hpp"
 #include "deferred\deferred_vct_lambertian_CS.hpp"
-#include "deferred\deferred_vct_ward_duer_CS.hpp"
 // Deferred MSAA: Opaque
 #include "deferred\deferred_msaa_blinn_phong_PS.hpp"
 #include "deferred\deferred_msaa_cook_torrance_PS.hpp"
 #include "deferred\deferred_msaa_emissive_PS.hpp"
 #include "deferred\deferred_msaa_frostbite_PS.hpp"
 #include "deferred\deferred_msaa_lambertian_PS.hpp"
-#include "deferred\deferred_msaa_ward_duer_PS.hpp"
 // Deferred MSAA: Opaque + VCT
 #include "deferred\deferred_msaa_vct_blinn_phong_PS.hpp"
 #include "deferred\deferred_msaa_vct_cook_torrance_PS.hpp"
 #include "deferred\deferred_msaa_vct_frostbite_PS.hpp"
 #include "deferred\deferred_msaa_vct_lambertian_PS.hpp"
-#include "deferred\deferred_msaa_vct_ward_duer_PS.hpp"
 
 #pragma endregion
 
@@ -98,15 +94,6 @@ namespace mage::rendering {
 					   : CreateCS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 		}
-
-		ComputeShaderPtr CreateDeferredWardDuerCS(ResourceManager& resource_manager, 
-												  bool vct) {
-		
-			return vct ? CreateCS(resource_manager, 
-								  MAGE_SHADER_ARGS(g_deferred_vct_ward_duer_CS))
-					   : CreateCS(resource_manager, 
-								  MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
-		}
 	}
 
 	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
@@ -121,8 +108,6 @@ namespace mage::rendering {
 			return CreateDeferredCookTorranceCS(resource_manager, vct);
 		case BRDF::Frostbite:
 			return CreateDeferredFrostbiteCS(resource_manager, vct);
-		case BRDF::WardDuer:
-			return CreateDeferredWardDuerCS(resource_manager, vct);
 		default:
 			return nullptr;
 		}
@@ -178,15 +163,6 @@ namespace mage::rendering {
 				       : CreatePS(resource_manager, 
 								  MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 		}
-
-		PixelShaderPtr CreateDeferredMSAAWardDuerPS(ResourceManager& resource_manager,
-													bool vct) {
-
-			return vct ? CreatePS(resource_manager, 
-								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_ward_duer_PS)) 
-				       : CreatePS(resource_manager, 
-								  MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
-		}
 	}
 
 	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
@@ -201,8 +177,6 @@ namespace mage::rendering {
 			return CreateDeferredMSAACookTorrancePS(resource_manager, vct);
 		case BRDF::Frostbite:
 			return CreateDeferredMSAAFrostbitePS(resource_manager, vct);
-		case BRDF::WardDuer:
-			return CreateDeferredMSAAWardDuerPS(resource_manager, vct);
 		default:
 			return nullptr;
 		}

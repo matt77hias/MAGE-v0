@@ -103,11 +103,6 @@
     <None Include="Utilities\src\string\string_utils.tpp" />
     <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="fmt.vcxproj">
-      <Project>{e7362325-a958-4157-b2b0-af59925a2690}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E7F1C114-0904-40ED-9E9D-97FD842334C6}</ProjectGuid>

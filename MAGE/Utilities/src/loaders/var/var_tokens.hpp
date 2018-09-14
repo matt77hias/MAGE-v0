@@ -5,19 +5,78 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	constexpr const char    g_var_token_comment = '#';
-	constexpr const_zstring g_var_token_bool    = "bool";
-	constexpr const_zstring g_var_token_F32     = "F32";
-	constexpr const_zstring g_var_token_F32x2   = "F32x2";
-	constexpr const_zstring g_var_token_F32x3   = "F32x3";
-	constexpr const_zstring g_var_token_F32x4   = "F32x4";
-	constexpr const_zstring g_var_token_S32     = "S32";
-	constexpr const_zstring g_var_token_S32x2   = "S32x2";
-	constexpr const_zstring g_var_token_S32x3   = "S32x3";
-	constexpr const_zstring g_var_token_S32x4   = "S32x4";
-	constexpr const_zstring g_var_token_U32     = "U32";
-	constexpr const_zstring g_var_token_U32x2   = "U32x2";
-	constexpr const_zstring g_var_token_U32x3   = "U32x3";
-	constexpr const_zstring g_var_token_U32x4   = "U32x4";
-	constexpr const_zstring g_var_token_string  = "string";
+	constexpr const char g_var_token_comment = '#';
+
+	template< typename T >
+	const_zstring GetVarToken() noexcept;
+
+	template<>
+	constexpr const_zstring GetVarToken< bool >() noexcept {
+		return "bool";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< F32 >() noexcept {
+		return "F32";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< F32x2 >() noexcept {
+		return "F32x2";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< F32x3 >() noexcept {
+		return "F32x3";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< F32x4 >() noexcept {
+		return "F32x4";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< S32 >() noexcept {
+		return "S32";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< S32x2 >() noexcept {
+		return "S32x2";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< S32x3 >() noexcept {
+		return "S32x3";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< S32x4 >() noexcept {
+		return "S32x4";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< U32 >() noexcept {
+		return "U32";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< U32x2 >() noexcept {
+		return "U32x2";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< U32x3 >() noexcept {
+		return "U32x3";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< U32x4 >() noexcept {
+		return "U32x4";
+	}
+
+	template<>
+	constexpr const_zstring GetVarToken< std::string >() noexcept {
+		return "string";
+	}
 }

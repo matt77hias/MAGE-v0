@@ -88,114 +88,99 @@ namespace mage::loader {
 
 		void VARVisitor::operator()(bool value) const {
 			if (value) {
-				sprintf_s(m_buffer, m_buffer_size,
-						  "%s %s true",
-						  g_var_token_bool, m_key.c_str());
+				sprintf_s(m_buffer, m_buffer_size, "%s %s true",
+						  GetVarToken< decltype(value) >(), m_key.c_str());
 			}
 			else {
-				sprintf_s(m_buffer, m_buffer_size,
-						  "%s %s false",
-						  g_var_token_bool, m_key.c_str());
+				sprintf_s(m_buffer, m_buffer_size, "%s %s false", 
+						  GetVarToken< decltype(value) >(), m_key.c_str());
 			}
 		}
 
 		void VARVisitor::operator()(F32 value) const {
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %f",
-					  g_var_token_F32, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %f", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  value);
 		}
 
 		void VARVisitor::operator()(F32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %f %f",
-					  g_var_token_F32x2, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y);
 		}
 
 		void VARVisitor::operator()(F32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %f %f %f",
-					  g_var_token_F32x3, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f %f", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z);
 		}
 
 		void VARVisitor::operator()(F32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %f %f %f %f",
-					  g_var_token_F32x4, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f %f %f", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z, w);
 		}
 
 		void VARVisitor::operator()(S32 value) const {
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %d",
-					  g_var_token_S32, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %d", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  value);
 		}
 
 		void VARVisitor::operator()(S32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %d %d",
-					  g_var_token_S32x2, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y);
 		}
 
 		void VARVisitor::operator()(S32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %d %d %d",
-					  g_var_token_S32x3, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d %d", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z);
 		}
 
 		void VARVisitor::operator()(S32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %d %d %d %d",
-					  g_var_token_S32x4, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d %d %d", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z, w);
 		}
 
 		void VARVisitor::operator()(U32 value) const {
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %u",
-					  g_var_token_U32, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %u", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  value);
 		}
 
 		void VARVisitor::operator()(U32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %u %u",
-					  g_var_token_U32x2, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u",
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y);
 		}
 
 		void VARVisitor::operator()(U32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %u %u %u",
-					  g_var_token_U32x3, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u %u", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z);
 		}
 
 		void VARVisitor::operator()(U32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s %u %u %u %u",
-					  g_var_token_U32x4, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u %u %u", 
+					  GetVarToken< decltype(value) >(), m_key.c_str(), 
 					  x, y, z, w);
 		}
 
 		void VARVisitor::operator()(const std::string& value) const {
-			sprintf_s(m_buffer, m_buffer_size,
-					  "%s %s \"%s\"",
-					  g_var_token_string, m_key.c_str(),
+			sprintf_s(m_buffer, m_buffer_size, "%s %s \"%s\"", 
+					  GetVarToken< std::string >(), m_key.c_str(), 
 					  value.c_str());
 		}
 	}

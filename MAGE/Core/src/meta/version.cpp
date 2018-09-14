@@ -13,6 +13,7 @@
 #pragma region
 
 #include <cstdio>
+#include <fmt\printf.h>
 
 #pragma endregion
 
@@ -22,10 +23,10 @@
 namespace mage {
 
 	void PrintConsoleHeader() noexcept {
-		std::printf("Engine version %u.%u.%u of %s at %s\n", 
+		fmt::print("Engine version {}.{}.{} of {} at {}\n",
 					GetVersionMajor(), GetVersionMinor(), GetVersionPatch(), 
-			   __DATE__, __TIME__);
-		std::printf("Copyright (c) 2016-2018 Matthias Moulin.\n");
+				   __DATE__, __TIME__);
+		fmt::print("Copyright (c) 2016-2018 Matthias Moulin.\n");
 		
 		std::fflush(stdout);
 	}

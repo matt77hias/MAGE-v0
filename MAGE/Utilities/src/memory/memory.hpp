@@ -15,7 +15,7 @@
 #pragma region
 
 #include <functional>
-#include <gsl/gsl>
+#include <gsl\gsl>
 #include <memory>
 #include <wrl.h>
 

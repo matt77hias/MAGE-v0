@@ -170,7 +170,7 @@ namespace mage {
 		/**
 		 A pointer to the output file stream of this progress reporter.
 		 */
-		FILE* m_fout;
+		std::FILE* m_fout;
 
 		/**
 		 A pointer to the output buffer of this progress reporter.

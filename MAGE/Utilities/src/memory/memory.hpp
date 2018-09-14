@@ -332,7 +332,7 @@ namespace mage {
 			 @param[in]		stream
 							A pointer to a file stream to destruct.
 			 */
-			void operator()(FILE* stream) const noexcept {
+			void operator()(std::FILE* stream) const noexcept {
 				if (stream) {
 					fclose(stream);
 				}
@@ -343,7 +343,7 @@ namespace mage {
 	/**
 	 A class of smart pointers for managing exclusive-ownership file streams.
 	 */
-	using UniqueFileStream = UniquePtr< FILE, details::FileStreamCloser >;
+	using UniqueFileStream = UniquePtr< std::FILE, details::FileStreamCloser >;
 
 	#pragma endregion
 

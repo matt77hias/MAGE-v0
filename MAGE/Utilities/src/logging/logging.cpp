@@ -84,7 +84,7 @@ namespace mage {
 
 		// Redirect stdin to the allocated console.
 		{
-			FILE* stream;
+			std::FILE* stream;
 			// Reuse stdin to open the file "CONIN$".
 			const errno_t result 
 				= freopen_s(&stream, "CONIN$", "r", stdin);
@@ -94,7 +94,7 @@ namespace mage {
 
 		// Redirect stdout to the allocated console.
 		{
-			FILE* stream;
+			std::FILE* stream;
 			// Reuse stdout to open the file "CONOUT$".
 			const errno_t result
 				= freopen_s(&stream, "CONOUT$", "w", stdout);
@@ -104,7 +104,7 @@ namespace mage {
 
 		// Redirect stderr to the allocated console.
 		{
-			FILE* stream;
+			std::FILE* stream;
 			// Reuse stderr to open the file "CONOUT$".
 			const errno_t result 
 				= freopen_s(&stream, "CONOUT$", "w", stderr);

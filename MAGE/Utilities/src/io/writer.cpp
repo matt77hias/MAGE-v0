@@ -26,7 +26,7 @@ namespace mage {
 	void Writer::WriteToFile(std::filesystem::path path) {
 		m_path = std::move(path);
 
-		FILE* file;
+		std::FILE* file;
 		{
 			const errno_t result = _wfopen_s(&file, m_path.c_str(), L"w");
 			ThrowIfFailed((0 == result), 

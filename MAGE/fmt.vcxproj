@@ -18,31 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ImGui\src\imconfig.h" />
-    <ClInclude Include="ImGui\src\imgui.h" />
-    <ClInclude Include="ImGui\src\imgui_impl_dx11.h" />
-    <ClInclude Include="ImGui\src\imgui_impl_win32.h" />
-    <ClInclude Include="ImGui\src\imgui_internal.h" />
-    <ClInclude Include="ImGui\src\imgui_window_message_listener.hpp" />
-    <ClInclude Include="ImGui\src\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\src\imstb_textedit.h" />
-    <ClInclude Include="ImGui\src\imstb_truetype.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ImGui\src\imgui.cpp" />
-    <ClCompile Include="ImGui\src\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\src\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
-    <ClCompile Include="ImGui\src\imgui_impl_win32.cpp" />
-    <ClCompile Include="ImGui\src\imgui_widgets.cpp" />
-    <ClCompile Include="ImGui\src\imgui_window_message_listener.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{0330E3AA-6BA7-44FF-8B91-2AD562C0770C}</ProjectGuid>
+    <ProjectGuid>{E7362325-A958-4157-B2B0-AF59925A2690}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ImGui</RootNamespace>
+    <RootNamespace>fmt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -93,23 +73,21 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
-  </PropertyGroup>
+  <ItemGroup>
+    <ClInclude Include="fmt\src\fmt\color.h" />
+    <ClInclude Include="fmt\src\fmt\core.h" />
+    <ClInclude Include="fmt\src\fmt\format-inl.h" />
+    <ClInclude Include="fmt\src\fmt\format.h" />
+    <ClInclude Include="fmt\src\fmt\ostream.h" />
+    <ClInclude Include="fmt\src\fmt\posix.h" />
+    <ClInclude Include="fmt\src\fmt\printf.h" />
+    <ClInclude Include="fmt\src\fmt\ranges.h" />
+    <ClInclude Include="fmt\src\fmt\time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fmt\src\fmt\format.cpp" />
+    <ClCompile Include="fmt\src\fmt\posix.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

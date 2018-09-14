@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
 	// Create the engine setup.
 	const auto not_null_instance = NotNull< HINSTANCE >(instance);
 	EngineSetup setup(not_null_instance);
-	
+
 	// Create the engine.
 	UniquePtr< Engine > engine = CreateEngine(setup);
 	if (engine) {

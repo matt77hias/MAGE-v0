@@ -13,7 +13,7 @@
 #pragma region
 
 #include <cstdio>
-#include <fmt\printf.h>
+#include <fmt\core.h>
 
 #pragma endregion
 

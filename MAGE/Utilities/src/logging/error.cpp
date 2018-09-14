@@ -9,6 +9,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <fmt\core.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -131,7 +140,7 @@ namespace mage {
 				++error_pos;
 			}
 
-			fprintf(stderr, "%s\n", error_string.c_str());
+			fmt::print(stderr, "{}\n", error_string.c_str());
 
 			if (ErrorDisposition::Abort == disposition) {
 				__debugbreak();

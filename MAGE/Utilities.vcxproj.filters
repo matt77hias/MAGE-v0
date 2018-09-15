@@ -221,6 +221,9 @@
     <ClInclude Include="Utilities\src\string\format.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\string\formats.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">

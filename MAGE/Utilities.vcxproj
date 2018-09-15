@@ -49,6 +49,7 @@
     <ClInclude Include="Utilities\src\resource\script\variable_script.hpp" />
     <ClInclude Include="Utilities\src\resource\script\variable_value.hpp" />
     <ClInclude Include="Utilities\src\string\format.hpp" />
+    <ClInclude Include="Utilities\src\string\formats.hpp" />
     <ClInclude Include="Utilities\src\string\string.hpp" />
     <ClInclude Include="Utilities\src\string\string_utils.hpp" />
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />

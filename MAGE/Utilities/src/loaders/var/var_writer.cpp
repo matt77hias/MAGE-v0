@@ -50,33 +50,8 @@ namespace mage::loader {
 			// Member Variables
 			//-----------------------------------------------------------------
 
-			void operator()(bool value) const;
-
-			void operator()(F32 value) const;
-
-			void operator()(F32x2 value) const;
-
-			void operator()(F32x3 value) const;
-
-			void operator()(F32x4 value) const;
-
-			void operator()(S32 value) const;
-
-			void operator()(S32x2 value) const;
-
-			void operator()(S32x3 value) const;
-
-			void operator()(S32x4 value) const;
-
-			void operator()(U32 value) const;
-
-			void operator()(U32x2 value) const;
-
-			void operator()(U32x3 value) const;
-
-			void operator()(U32x4 value) const;
-
-			void operator()(const std::string& value) const;
+			template< typename T >
+			void operator()(const T& value) const;
 
 		private:
 
@@ -87,86 +62,25 @@ namespace mage::loader {
 			size_t m_buffer_size;
 		};
 
-		void VARVisitor::operator()(bool value) const {
+		template< typename T >
+		void VARVisitor::operator()(const T& value) const {
+			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
+					GetVarToken< T >(), m_key, value);
+		}
+
+		template<>
+		void VARVisitor::operator()(const bool& value) const {
 			if (value) {
 				WriteTo(m_buffer, m_buffer_size, "{} {} true", 
-						GetVarToken< decltype(value) >(), m_key);
+						GetVarToken< bool >(), m_key);
 			}
 			else {
 				WriteTo(m_buffer, m_buffer_size, "{} {} false", 
-						GetVarToken< decltype(value) >(), m_key);
+						GetVarToken< bool >(), m_key);
 			}
 		}
 
-		void VARVisitor::operator()(F32 value) const {
-			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, value);
-		}
-
-		void VARVisitor::operator()(F32x2 value) const {
-			const auto [x, y] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y);
-		}
-
-		void VARVisitor::operator()(F32x3 value) const {
-			const auto [x, y, z] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y, z);
-		}
-
-		void VARVisitor::operator()(F32x4 value) const {
-			const auto [x, y, z, w] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}",
-					  GetVarToken< decltype(value) >(), m_key, x, y, z, w);
-		}
-
-		void VARVisitor::operator()(S32 value) const {
-			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, value);
-		}
-
-		void VARVisitor::operator()(S32x2 value) const {
-			const auto [x, y] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y);
-		}
-
-		void VARVisitor::operator()(S32x3 value) const {
-			const auto [x, y, z] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y, z);
-		}
-
-		void VARVisitor::operator()(S32x4 value) const {
-			const auto [x, y, z, w] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y, z, w);
-		}
-
-		void VARVisitor::operator()(U32 value) const {
-			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, value);
-		}
-
-		void VARVisitor::operator()(U32x2 value) const {
-			const auto [x, y] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y);
-		}
-
-		void VARVisitor::operator()(U32x3 value) const {
-			const auto [x, y, z] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y, z);
-		}
-
-		void VARVisitor::operator()(U32x4 value) const {
-			const auto [x, y, z, w] = value;
-			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}", 
-					GetVarToken< decltype(value) >(), m_key, x, y, z, w);
-		}
-
+		template<>
 		void VARVisitor::operator()(const std::string& value) const {
 			WriteTo(m_buffer, m_buffer_size, "{} {} \"{}\"", 
 					GetVarToken< std::string >(), m_key, value);

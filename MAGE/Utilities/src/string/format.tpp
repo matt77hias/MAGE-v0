@@ -57,17 +57,17 @@ namespace mage {
 	}
 
 	template< typename OutputIt, typename... ArgsT >
-	inline OutputIt AppendWrite(OutputIt it, size_t length, 
+	inline OutputIt AppendWrite(OutputIt it, size_t length,
 								std::string_view format_str, const ArgsT&... args) {
 
-		return fmt::format_to_n(it, length, format_str, args...);
+		return fmt::format_to_n(it, length, format_str, args...).out;
 	}
 
 	template< typename OutputIt, typename... ArgsT >
 	inline OutputIt AppendWrite(OutputIt it, size_t length, 
 								std::wstring_view format_str, const ArgsT&... args) {
 
-		return fmt::format_to_n(it, length, format_str, args...);
+		return fmt::format_to_n(it, length, format_str, args...).out;
 	}
 
 	template< typename... ArgsT >
@@ -88,16 +88,26 @@ namespace mage {
 	inline void WriteTo(NotNull< zstring > buffer, size_t length,
 						std::string_view format_str, const ArgsT&... args) {
 
-		auto it = FormatTo(buffer, length - 1u, format_str, args...);
-		*it = '\n';
+		if (0u == length) {
+			return;
+		}
+
+		char* const begin = buffer;
+		char* const end   = AppendWrite(begin, length - 1u, format_str, args...);
+		*end = '\n';
 	}
 
 	template< typename... ArgsT >
 	inline void WriteTo(NotNull< wzstring > buffer, size_t length,
 						std::wstring_view format_str, const ArgsT&... args) {
 
-		auto it = FormatTo(buffer, length - 1u, format_str, args...);
-		*it = L'\n';
+		if (0u == length) {
+			return;
+		}
+
+		wchar_t* const begin = buffer;
+		wchar_t* const end   = AppendWrite(begin, length - 1u, format_str, args...);
+		*end = L'\n';
 	}
 
 	template< size_t N, typename... ArgsT >

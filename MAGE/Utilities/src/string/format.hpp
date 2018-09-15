@@ -33,7 +33,7 @@ namespace mage {
 						 std::string_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >
-	OutputIt AppendWrite(OutputIt it, 
+	OutputIt AppendWrite(OutputIt it,
 						 std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >

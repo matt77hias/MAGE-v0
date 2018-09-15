@@ -6,6 +6,7 @@
 #include "loaders\var\var_writer.hpp"
 #include "loaders\var\var_tokens.hpp"
 #include "logging\error.hpp"
+#include "string\format.hpp"
 
 #pragma endregion
 
@@ -25,7 +26,7 @@ namespace mage::loader {
 			//-----------------------------------------------------------------
 
 			explicit VARVisitor(const std::string& key, 
-								char* buffer, 
+								NotNull< zstring > buffer,
 								size_t buffer_size) noexcept
 				: m_key(key), 
 				m_buffer(buffer), 
@@ -81,107 +82,94 @@ namespace mage::loader {
 
 			const std::string& m_key;
 
-			char* m_buffer;
+			NotNull< zstring > m_buffer;
 
 			size_t m_buffer_size;
 		};
 
 		void VARVisitor::operator()(bool value) const {
 			if (value) {
-				sprintf_s(m_buffer, m_buffer_size, "%s %s true",
-						  GetVarToken< decltype(value) >(), m_key.c_str());
+				WriteTo(m_buffer, m_buffer_size, "{} {} true", 
+						GetVarToken< decltype(value) >(), m_key);
 			}
 			else {
-				sprintf_s(m_buffer, m_buffer_size, "%s %s false", 
-						  GetVarToken< decltype(value) >(), m_key.c_str());
+				WriteTo(m_buffer, m_buffer_size, "{} {} false", 
+						GetVarToken< decltype(value) >(), m_key);
 			}
 		}
 
 		void VARVisitor::operator()(F32 value) const {
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %f", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  value);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, value);
 		}
 
 		void VARVisitor::operator()(F32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y);
 		}
 
 		void VARVisitor::operator()(F32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f %f", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y, z);
 		}
 
 		void VARVisitor::operator()(F32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %f %f %f %f", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z, w);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}",
+					  GetVarToken< decltype(value) >(), m_key, x, y, z, w);
 		}
 
 		void VARVisitor::operator()(S32 value) const {
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %d", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  value);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, value);
 		}
 
 		void VARVisitor::operator()(S32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y);
 		}
 
 		void VARVisitor::operator()(S32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d %d", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y, z);
 		}
 
 		void VARVisitor::operator()(S32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %d %d %d %d", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z, w);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y, z, w);
 		}
 
 		void VARVisitor::operator()(U32 value) const {
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %u", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  value);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, value);
 		}
 
 		void VARVisitor::operator()(U32x2 value) const {
 			const auto [x, y] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u",
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y);
 		}
 
 		void VARVisitor::operator()(U32x3 value) const {
 			const auto [x, y, z] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u %u", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y, z);
 		}
 
 		void VARVisitor::operator()(U32x4 value) const {
 			const auto [x, y, z, w] = value;
-			sprintf_s(m_buffer, m_buffer_size, "%s %s %u %u %u %u", 
-					  GetVarToken< decltype(value) >(), m_key.c_str(), 
-					  x, y, z, w);
+			WriteTo(m_buffer, m_buffer_size, "{} {} {} {} {} {}", 
+					GetVarToken< decltype(value) >(), m_key, x, y, z, w);
 		}
 
 		void VARVisitor::operator()(const std::string& value) const {
-			sprintf_s(m_buffer, m_buffer_size, "%s %s \"%s\"", 
-					  GetVarToken< std::string >(), m_key.c_str(), 
-					  value.c_str());
+			WriteTo(m_buffer, m_buffer_size, "{} {} \"{}\"", 
+					GetVarToken< std::string >(), m_key, value);
 		}
 	}
 
@@ -195,10 +183,10 @@ namespace mage::loader {
 
 	void VARWriter::Write() {
 		char buffer[MAX_PATH];
-		const auto not_null_buffer = NotNull< const_zstring >(buffer);
+		const auto not_null_buffer = NotNull< zstring >(buffer);
 
 		for (const auto& [key, value] : m_variable_buffer) {
-			const VARVisitor visitor(key, buffer, std::size(buffer));
+			const VARVisitor visitor(key, not_null_buffer, std::size(buffer));
 			std::visit(visitor, value);
 			WriteStringLine(not_null_buffer);
 		}

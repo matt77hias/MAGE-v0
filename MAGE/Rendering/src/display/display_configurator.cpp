@@ -5,10 +5,11 @@
 
 #include "display\display_configurator.hpp"
 #include "display\display_settings.hpp"
-#include "resource\script\variable_script.hpp"
-#include "platform\windows_utils.hpp"
-#include "ui\combo_box.hpp"
 #include "logging\error.hpp"
+#include "platform\windows_utils.hpp"
+#include "resource\script\variable_script.hpp"
+#include "string\format.hpp"
+#include "ui\combo_box.hpp"
 
 #pragma endregion
 
@@ -622,9 +623,7 @@ namespace mage::rendering {
 
 				// Fill in the resolutions combo box.
 				for (const auto& mode : m_display_modes) {
-					swprintf_s(buffer, std::size(buffer), 
-						       L"%u x %u", 
-						       mode.Width, mode.Height);
+					WriteTo(buffer, L"{} x {}", mode.Width, mode.Height);
 
 					if (!ComboBoxContains(not_null_dialog, IDC_RESOLUTION, not_null_buffer)) {
 						const auto resolution = ConvertResolution(mode);
@@ -651,9 +650,7 @@ namespace mage::rendering {
 					if (selected_resolution == resolution) {
 
 						const auto refresh_rate = ConvertRefreshRate(mode);
-						swprintf_s(buffer, std::size(buffer), 
-							       L"%u Hz",
-							       static_cast< U32 >(refresh_rate));
+						WriteTo(buffer, L"{} Hz", refresh_rate);
 
 						if (!ComboBoxContains(not_null_dialog, IDC_REFRESH_RATE, not_null_buffer)) {
 							ComboBoxAddValue(not_null_dialog, IDC_REFRESH_RATE, refresh_rate, not_null_buffer);
@@ -776,10 +773,7 @@ namespace mage::rendering {
 						if (selected_resolution == resolution) {
 							
 							const auto refresh_rate = ConvertRefreshRate(mode);
-							swprintf_s(buffer, 
-								       std::size(buffer), 
-								       L"%u Hz",
-								       static_cast< U32 >(refresh_rate));
+							WriteTo(buffer, L"{} Hz", refresh_rate);
 							
 							if (!ComboBoxContains(not_null_dialog, IDC_REFRESH_RATE, not_null_buffer)) {
 								ComboBoxAddValue(not_null_dialog, IDC_REFRESH_RATE, refresh_rate, not_null_buffer);

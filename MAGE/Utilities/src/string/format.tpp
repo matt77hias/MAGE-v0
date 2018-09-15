@@ -114,13 +114,13 @@ namespace mage {
 	inline void WriteTo(char (&buffer)[N],
 						std::string_view format_str, const ArgsT&... args) {
 
-		Print(NotNull< zstring >(buffer), N, format_str, args...);
+		WriteTo(NotNull< zstring >(buffer), N, format_str, args...);
 	}
 
 	template< size_t N, typename... ArgsT >
 	inline void WriteTo(wchar_t (&buffer)[N],
 						std::wstring_view format_str, const ArgsT&... args) {
 		
-		Print(NotNull< wzstring >(buffer), N, format_str, args...);
+		WriteTo(NotNull< wzstring >(buffer), N, format_str, args...);
 	}
 }

@@ -22,7 +22,7 @@ namespace mage {
 
 	namespace details {
 
-		template< typename ActionT, typename FromT, size_t...I >
+		template< typename ActionT, typename FromT, size_t... I >
 		[[nodiscard]]
 		constexpr const auto TransformArray(ActionT&& action, 
 											const std::array< FromT, sizeof...(I) >& a, 
@@ -32,7 +32,7 @@ namespace mage {
 			return std::array< ToT, sizeof...(I) >{ action(a[I])... };
 		}
 
-		template< typename T, size_t...I >
+		template< typename T, size_t... I >
 		[[nodiscard]]
 		constexpr const auto FillArray(const T& value, 
 									   std::index_sequence< I... >) {
@@ -40,7 +40,7 @@ namespace mage {
 			return std::array< T, sizeof...(I) >{ (static_cast< void >(I), value)... };
 		}
 	
-		template< size_t ToN, typename T, size_t...I >
+		template< size_t ToN, typename T, size_t... I >
 		[[nodiscard]]
 		constexpr const auto EnlargeArray(const std::array< T, sizeof...(I) >& a, 
 										  std::index_sequence< I... >) {
@@ -56,7 +56,7 @@ namespace mage {
 			return std::array< T, sizeof...(I) >{ std::get< I >(t)... };
 		}
 	
-		template< typename T, size_t...I >
+		template< typename T, size_t... I >
 		[[nodiscard]]
 		constexpr const auto ArrayToTupple(const std::array< T, sizeof...(I) >& a, 
 										   std::index_sequence< I... >) noexcept {

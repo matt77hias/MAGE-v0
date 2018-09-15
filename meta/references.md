@@ -655,6 +655,7 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 Uses:
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
+* [fmt](https://github.com/fmtlib/fmt) [[License](https://github.com/fmtlib/fmt/blob/master/LICENSE.rst)]
 * FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/Shaders/shaders/aa/fxaa3_11.hlsli)]
 * [GSL](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
 * [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]

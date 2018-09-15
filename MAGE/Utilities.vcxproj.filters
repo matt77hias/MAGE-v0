@@ -158,9 +158,6 @@
     <ClInclude Include="Utilities\src\string\string.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\string\string_utils.hpp">
-      <Filter>Header Files\string</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
@@ -217,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\type\atomic_types.hpp">
       <Filter>Header Files\type</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\string\string_utils.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\string\format.hpp">
+      <Filter>Header Files\string</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +334,9 @@
       <Filter>Header Files\loaders\var</Filter>
     </None>
     <None Include="Utilities\src\string\string_utils.tpp">
+      <Filter>Header Files\string</Filter>
+    </None>
+    <None Include="Utilities\src\string\format.tpp">
       <Filter>Header Files\string</Filter>
     </None>
   </ItemGroup>

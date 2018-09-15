@@ -48,6 +48,7 @@
     <ClInclude Include="Utilities\src\resource\resource_pool.hpp" />
     <ClInclude Include="Utilities\src\resource\script\variable_script.hpp" />
     <ClInclude Include="Utilities\src\resource\script\variable_value.hpp" />
+    <ClInclude Include="Utilities\src\string\format.hpp" />
     <ClInclude Include="Utilities\src\string\string.hpp" />
     <ClInclude Include="Utilities\src\string\string_utils.hpp" />
     <ClInclude Include="Utilities\src\system\cpu_monitor.hpp" />
@@ -100,6 +101,7 @@
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
     <None Include="Utilities\src\resource\script\variable_script.tpp" />
+    <None Include="Utilities\src\string\format.tpp" />
     <None Include="Utilities\src\string\string_utils.tpp" />
     <None Include="Utilities\src\system\timer.tpp" />
   </ItemGroup>

@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\progress_reporter.hpp"
 #include "logging\logging.hpp"
+#include "logging\progress_reporter.hpp"
+#include "string\format.hpp"
 #include "system\timer.hpp"
 
 #pragma endregion
@@ -170,7 +171,7 @@ namespace mage {
 		/**
 		 A pointer to the output file stream of this progress reporter.
 		 */
-		std::FILE* m_fout;
+		NotNull< std::FILE* > m_fout;
 
 		/**
 		 A pointer to the output buffer of this progress reporter.
@@ -213,7 +214,8 @@ namespace mage {
 	}
 
 	ProgressReporter::Impl::Impl(Impl&& reporter) noexcept 
-		: m_mutex() {
+		: m_fout(stdout), 
+		m_mutex() {
 		
 		const std::scoped_lock lock(reporter.m_mutex);
 
@@ -263,9 +265,9 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.get(), m_fout);
 
-		fflush(m_fout);
+		std::fflush(m_fout);
 
 		m_timer.Start();
 	}
@@ -291,21 +293,21 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time and estimated time to completion
 		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
 		if (1.0f >= fraction) {
 			// Writes the string format to the output file stream.
-			fprintf(m_fout, " (%.1fs)       ", time);
+			WriteTo(m_fout, " ({:.1f}s)       ", time);
 		}
 		else {
 			const auto remaining_time = std::max(0.0f, time / fraction - time);
 			// Writes the string format to the output file stream.
-			fprintf(m_fout, " (%.1fs|%.1fs)  ", time, remaining_time);
+			WriteTo(m_fout, " ({:.1f}s|{:.1f}s)  ", time, remaining_time);
 		}
 
-		fflush(m_fout);
+		std::fflush(m_fout);
 	}
 
 	void ProgressReporter::Impl::Done() {
@@ -323,14 +325,14 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.get(), m_fout);
 
 		// Update elapsed time
 		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
 		// Writes the string format to the output file stream.
-		fprintf(m_fout, " (%.1fs)       \n", time);
+		WriteTo(m_fout, " ({:.1f}s)       \n", time);
 	
-		fflush(m_fout);
+		std::fflush(m_fout);
 	}
 
 	#pragma endregion

@@ -22,50 +22,50 @@ namespace mage {
 	[[nodiscard]]
 	const std::wstring Format(std::wstring_view format_str, const ArgsT&... args);
 
-	template< typename OutputIt, typename... ArgsT >
-	OutputIt FormatTo(OutputIt it, 
-					  std::string_view format_str, const ArgsT&... args);
-
-	template< typename OutputIt, typename... ArgsT >
-	OutputIt FormatTo(OutputIt it, 
-					  std::wstring_view format_str, const ArgsT&... args);
-
-	template< typename OutputIt, typename... ArgsT >
-	OutputIt FormatTo(OutputIt it, size_t length, 
-					  std::string_view format_str, const ArgsT&... args);
-
-	template< typename OutputIt, typename... ArgsT >
-	OutputIt FormatTo(OutputIt it, size_t length, 
-					  std::wstring_view format_str, const ArgsT&... args);
-
 	template< typename... ArgsT >
 	void Print(std::string_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
 	void Print(std::wstring_view format_str, const ArgsT&... args);
 
+	template< typename OutputIt, typename... ArgsT >
+	OutputIt AppendWrite(OutputIt it, 
+						 std::string_view format_str, const ArgsT&... args);
+
+	template< typename OutputIt, typename... ArgsT >
+	OutputIt AppendWrite(OutputIt it, 
+						 std::wstring_view format_str, const ArgsT&... args);
+
+	template< typename OutputIt, typename... ArgsT >
+	OutputIt AppendWrite(OutputIt it, size_t length, 
+						 std::string_view format_str, const ArgsT&... args);
+
+	template< typename OutputIt, typename... ArgsT >
+	OutputIt AppendWrite(OutputIt it, size_t length, 
+						 std::wstring_view format_str, const ArgsT&... args);
+
 	template< typename... ArgsT >
-	void PrintTo(NotNull< std::FILE* > stream, 
+	void WriteTo(NotNull< std::FILE* > stream,
 				 std::string_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
-	void PrintTo(NotNull< std::FILE* > stream, 
+	void WriteTo(NotNull< std::FILE* > stream,
 				 std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
-	void PrintTo(NotNull< zstring > buffer, size_t length, 
+	void WriteTo(NotNull< zstring > buffer, size_t length,
 				 std::string_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
-	void PrintTo(NotNull< wzstring > buffer, size_t length, 
+	void WriteTo(NotNull< wzstring > buffer, size_t length,
 				 std::wstring_view format_str, const ArgsT&... args);
 
 	template< size_t N, typename... ArgsT >
-	void PrintTo(char (&buffer)[N], 
+	void WriteTo(char (&buffer)[N],
 				 std::string_view format_str, const ArgsT&... args);
 
 	template< size_t N, typename... ArgsT >
-	void PrintTo(wchar_t (&buffer)[N], 
+	void WriteTo(wchar_t (&buffer)[N], 
 				 std::wstring_view format_str, const ArgsT&... args);
 }
 

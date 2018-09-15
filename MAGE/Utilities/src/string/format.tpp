@@ -94,7 +94,7 @@ namespace mage {
 
 		char* const begin = buffer;
 		char* const end   = AppendWrite(begin, length - 1u, format_str, args...);
-		*end = '\n';
+		*end = '\0';
 	}
 
 	template< typename... ArgsT >
@@ -107,7 +107,7 @@ namespace mage {
 
 		wchar_t* const begin = buffer;
 		wchar_t* const end   = AppendWrite(begin, length - 1u, format_str, args...);
-		*end = L'\n';
+		*end = L'\0';
 	}
 
 	template< size_t N, typename... ArgsT >

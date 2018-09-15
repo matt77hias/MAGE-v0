@@ -62,7 +62,7 @@ namespace mage::rendering::loader {
 		const auto mtl_fname = WStringToString(std::wstring(mtl_path.filename()));
 
 		char buffer[MAX_PATH];
-		Write(buffer, "{} {}", g_mdl_token_material_library, mtl_fname);
+		WriteTo(buffer, "{} {}", g_mdl_token_material_library, mtl_fname);
 		
 		const auto not_null_buffer = NotNull< const_zstring >(buffer);
 		WriteStringLine(not_null_buffer);
@@ -75,22 +75,22 @@ namespace mage::rendering::loader {
 
 		for (const auto& model_part : m_model_output.m_model_parts) {
 
-			Write(buffer, "{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}", 
-				  g_mdl_token_submodel, 
-				  model_part.m_child, 
-				  model_part.m_parent, 
-				  model_part.m_transform.GetTranslationX(), 
-				  model_part.m_transform.GetTranslationY(), 
-				  model_part.m_transform.GetTranslationZ(), 
-				  model_part.m_transform.GetRotationX(), 
-				  model_part.m_transform.GetRotationY(), 
-				  model_part.m_transform.GetRotationZ(), 
-				  model_part.m_transform.GetScaleX(), 
-				  model_part.m_transform.GetScaleY(),
-				  model_part.m_transform.GetScaleZ(), 
-				  model_part.m_material, 
-				  model_part.m_start_index, 
-				  model_part.m_nb_indices);
+			WriteTo(buffer, "{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}", 
+					g_mdl_token_submodel, 
+					model_part.m_child, 
+					model_part.m_parent, 
+					model_part.m_transform.GetTranslationX(), 
+					model_part.m_transform.GetTranslationY(),
+					model_part.m_transform.GetTranslationZ(), 
+					model_part.m_transform.GetRotationX(), 
+					model_part.m_transform.GetRotationY(), 
+					model_part.m_transform.GetRotationZ(), 
+					model_part.m_transform.GetScaleX(), 
+					model_part.m_transform.GetScaleY(), 
+					model_part.m_transform.GetScaleZ(), 
+					model_part.m_material, 
+					model_part.m_start_index, 
+					model_part.m_nb_indices);
 			
 			WriteStringLine(not_null_buffer);
 		}

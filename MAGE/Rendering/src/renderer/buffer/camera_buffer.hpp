@@ -239,7 +239,7 @@ namespace mage::rendering {
 		U32x2 m_padding;
 	};
 
-	static_assert(352 == sizeof(CameraBuffer), 
+	static_assert(352u == sizeof(CameraBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -340,7 +340,7 @@ namespace mage::rendering {
 		XMMATRIX m_camera_to_projection;
 	};
 
-	static_assert(128 == sizeof(SecondaryCameraBuffer), 
+	static_assert(128u == sizeof(SecondaryCameraBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

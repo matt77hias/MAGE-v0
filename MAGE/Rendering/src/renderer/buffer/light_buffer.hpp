@@ -155,7 +155,7 @@ namespace mage::rendering {
 		F32 m_padding2;
 	};
 
-	static_assert(48 == sizeof(LightBuffer), 
+	static_assert(48u == sizeof(LightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -248,7 +248,7 @@ namespace mage::rendering {
 		F32 m_inv_sqr_range;
 	};
 
-	static_assert(16 == sizeof(PointLightBuffer), 
+	static_assert(16u == sizeof(PointLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -371,7 +371,7 @@ namespace mage::rendering {
 		XMMATRIX m_world_to_projection;
 	};
 
-	static_assert(96 == sizeof(DirectionalLightBuffer),
+	static_assert(96u == sizeof(DirectionalLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -463,7 +463,7 @@ namespace mage::rendering {
 		U32 m_padding0;
 	};
 
-	static_assert(32 == sizeof(OmniLightBuffer), 
+	static_assert(32u == sizeof(OmniLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -570,7 +570,7 @@ namespace mage::rendering {
 		F32 m_cos_inv_range;
 	};
 
-	static_assert(48 == sizeof(SpotLightBuffer), 
+	static_assert(48u == sizeof(SpotLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -683,7 +683,7 @@ namespace mage::rendering {
 		U32 m_padding0[2];
 	};
 
-	static_assert(112 == sizeof(ShadowMappedOmniLightBuffer), 
+	static_assert(112u == sizeof(ShadowMappedOmniLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -784,7 +784,7 @@ namespace mage::rendering {
 		XMMATRIX m_world_to_projection;
 	};
 
-	static_assert(112 == sizeof(ShadowMappedSpotLightBuffer), 
+	static_assert(112u == sizeof(ShadowMappedSpotLightBuffer), 
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion

@@ -174,5 +174,5 @@ namespace mage::rendering {
 		U32x2 m_padding;
 	};
 
-	static_assert(80 == sizeof(WorldBuffer), "CPU/GPU struct mismatch");
+	static_assert(80u == sizeof(WorldBuffer), "CPU/GPU struct mismatch");
 }

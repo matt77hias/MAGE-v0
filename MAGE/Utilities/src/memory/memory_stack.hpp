@@ -149,7 +149,7 @@ namespace mage {
 						memory stack.
 		 */
 		[[nodiscard]]
-		uintptr_t GetCurrentPtr() const noexcept {
+		std::uintptr_t GetCurrentPtr() const noexcept {
 			return m_current;
 		}
 
@@ -200,7 +200,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocData(size_t count = 1, bool initialization = false);
+		T* AllocData(size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -461,12 +461,12 @@ namespace mage {
 		/**
 		 A pointer to the begin of this single-ended memory stack.
 		 */
-		uintptr_t m_begin;
+		std::uintptr_t m_begin;
 
 		/**
 		 A pointer to the current position of this single-ended memory stack.
 		 */
-		uintptr_t m_current;
+		std::uintptr_t m_current;
 	};
 
 	#pragma endregion
@@ -628,7 +628,7 @@ namespace mage {
 						double-ended memory stack.
 		 */
 		[[nodiscard]]
-		uintptr_t GetCurrentLowPtr() const noexcept {
+		std::uintptr_t GetCurrentLowPtr() const noexcept {
 			return m_current_low;
 		}
 
@@ -640,7 +640,7 @@ namespace mage {
 						double-ended memory stack.
 		 */
 		[[nodiscard]]
-		uintptr_t GetCurrentHighPtr() const noexcept {
+		std::uintptr_t GetCurrentHighPtr() const noexcept {
 			return m_current_high;
 		}
 
@@ -664,7 +664,7 @@ namespace mage {
 						The pointer to the requested low position of this 
 						memory stack.
 		 */
-		void RollBackLow(uintptr_t ptr) noexcept;
+		void RollBackLow(std::uintptr_t ptr) noexcept;
 
 		/**
 		 Rolls this double-ended memory stack back to the given high position.
@@ -675,7 +675,7 @@ namespace mage {
 						The pointer to the requested high position of this 
 						memory stack.
 		 */
-		void RollBackHigh(uintptr_t ptr) noexcept;
+		void RollBackHigh(std::uintptr_t ptr) noexcept;
 
 		/**
 		 Allocates a block of memory of the given size on the low side of this 
@@ -716,7 +716,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocDataLow(size_t count = 1, bool initialization = false);
+		T* AllocDataLow(size_t count = 1u, bool initialization = false);
 
 		/**
 		 Allocates a block of memory on the high side of this memory stack.
@@ -735,7 +735,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocDataHigh(size_t count = 1, bool initialization = false);
+		T* AllocDataHigh(size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -1239,19 +1239,19 @@ namespace mage {
 		/**
 		 A pointer to the begin of this double-ended memory stack.
 		 */
-		uintptr_t m_begin;
+		std::uintptr_t m_begin;
 
 		/**
 		 A pointer to the current low position of this double-ended memory 
 		 stack.
 		 */
-		uintptr_t m_current_low;
+		std::uintptr_t m_current_low;
 
 		/**
 		 A pointer to the current high position of this double-ended memory 
 		 stack.
 		 */
-		uintptr_t m_current_high;
+		std::uintptr_t m_current_high;
 	};
 
 	#pragma endregion

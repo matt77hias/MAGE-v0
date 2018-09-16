@@ -176,7 +176,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocData(size_t count = 1, bool initialization = false);
+		T* AllocData(size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators

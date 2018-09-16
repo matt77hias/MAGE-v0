@@ -31,7 +31,7 @@ namespace mage {
 			throw std::bad_alloc();
 		}
 
-		m_begin = reinterpret_cast< uintptr_t >(ptr);
+		m_begin = reinterpret_cast< std::uintptr_t >(ptr);
 		Reset();
 	}
 
@@ -46,7 +46,7 @@ namespace mage {
 		m_current = m_begin;
 	}
 
-	void SingleEndedMemoryStack::RollBack(uintptr_t ptr) noexcept {
+	void SingleEndedMemoryStack::RollBack(std::uintptr_t ptr) noexcept {
 		Assert(m_begin <= ptr && ptr <= m_current);
 		
 		m_current = ptr;
@@ -83,7 +83,7 @@ namespace mage {
 			throw std::bad_alloc();
 		}
 
-		m_begin = reinterpret_cast< uintptr_t >(ptr);
+		m_begin = reinterpret_cast< std::uintptr_t >(ptr);
 		Reset();
 	}
 
@@ -96,16 +96,16 @@ namespace mage {
 
 	void DoubleEndedMemoryStack::Reset() noexcept {
 		m_current_low  = m_begin;
-		m_current_high = m_begin + m_size - 1;
+		m_current_high = m_begin + m_size - 1u;
 	}
 
-	void DoubleEndedMemoryStack::RollBackLow(uintptr_t ptr) noexcept {
+	void DoubleEndedMemoryStack::RollBackLow(std::uintptr_t ptr) noexcept {
 		Assert(m_begin <= ptr && ptr <= m_current_low);
 		
 		m_current_low = ptr;
 	}
 
-	void DoubleEndedMemoryStack::RollBackHigh(uintptr_t ptr) noexcept {
+	void DoubleEndedMemoryStack::RollBackHigh(std::uintptr_t ptr) noexcept {
 		Assert(m_current_high <= ptr && ptr < m_begin + m_size);
 		
 		m_current_high = ptr;

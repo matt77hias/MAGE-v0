@@ -17,7 +17,7 @@ namespace mage {
 
 		// Initialization
 		if (initialization) {
-			for (size_t i = 0; i < count; ++i) {
+			for (size_t i = 0u; i < count; ++i) {
 				new (&ptr[i]) T();
 			}
 		}

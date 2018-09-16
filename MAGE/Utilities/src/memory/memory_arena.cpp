@@ -16,8 +16,8 @@ namespace mage {
 	MemoryArena::MemoryArena(size_t maximum_block_size, size_t alignment)
 		: m_alignment(alignment), 
 		m_maximum_block_size(maximum_block_size),
-		m_current_block(MemoryBlock(0, nullptr)), 
-		m_current_block_pos(0),
+		m_current_block(MemoryBlock(0u, nullptr)), 
+		m_current_block_pos(0u),
 		m_used_blocks(), 
 		m_available_blocks() {}
 
@@ -53,8 +53,8 @@ namespace mage {
 	void MemoryArena::Reset() {
 		using std::begin;
 
-		m_current_block_pos = 0;
-		m_current_block     = MemoryBlock(0, nullptr);
+		m_current_block_pos = 0u;
+		m_current_block     = MemoryBlock(0u, nullptr);
 		m_available_blocks.splice(begin(m_available_blocks), m_used_blocks);
 	}
 
@@ -63,7 +63,7 @@ namespace mage {
 		using std::end;
 		
 		// Round up the given size to minimum machine alignment.
-		size = ((size + 15) & (~15));
+		size = ((size + 15u) & (~15u));
 
 		if (m_current_block_pos + size > GetCurrentBlockSize()) {
 			
@@ -96,7 +96,7 @@ namespace mage {
 				m_current_block = MemoryBlock(alloc_size, alloc_ptr);
 			}
 
-			m_current_block_pos = 0;
+			m_current_block_pos = 0u;
 		}
 
 		const auto ptr = static_cast< void* >(m_current_block.second + m_current_block_pos);

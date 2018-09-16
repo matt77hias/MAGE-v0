@@ -311,9 +311,6 @@
     <ClInclude Include="Rendering\src\scene\light\directional_light.hpp">
       <Filter>Header Files\scene\light</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\buffer\model_buffer.hpp">
-      <Filter>Header Files\renderer\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\renderer\buffer\shadow_map_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
@@ -323,13 +320,7 @@
     <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\buffer\camera_buffer.hpp">
-      <Filter>Header Files\renderer\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp">
-      <Filter>Header Files\renderer\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\src\scene\sprite\sprite_image.hpp">
@@ -410,14 +401,14 @@
     <ClInclude Include="Rendering\src\renderer\pass\postprocess_pass.hpp">
       <Filter>Header Files\renderer\pass</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\renderer\buffer\world_buffer.hpp">
-      <Filter>Header Files\renderer\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\loaders\wic\screen_grab.hpp">
       <Filter>Header Files\loaders\wic</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
       <Filter>Header Files\loaders\wic</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\src\renderer\buffer\scene_buffer.hpp">
+      <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

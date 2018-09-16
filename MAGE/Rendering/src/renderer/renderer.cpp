@@ -17,7 +17,7 @@
 #include "renderer\pass\sprite_pass.hpp"
 #include "renderer\pass\voxelization_pass.hpp"
 #include "renderer\pass\voxel_grid_pass.hpp"
-#include "renderer\buffer\world_buffer.hpp"
+#include "renderer\buffer\scene_buffer.hpp"
 #include "imgui_impl_dx11.h"
 
 // Include HLSL bindings.

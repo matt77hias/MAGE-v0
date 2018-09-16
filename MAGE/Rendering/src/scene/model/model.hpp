@@ -11,7 +11,7 @@
 #include "geometry\bounding_volume.hpp"
 #include "transform\texture_transform.hpp"
 #include "renderer\buffer\constant_buffer.hpp"
-#include "renderer\buffer\model_buffer.hpp"
+#include "renderer\buffer\scene_buffer.hpp"
 
 #pragma endregion
 

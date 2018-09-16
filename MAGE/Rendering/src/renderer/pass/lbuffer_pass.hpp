@@ -6,7 +6,7 @@
 #pragma region
 
 #include "renderer\buffer\structured_buffer.hpp"
-#include "renderer\buffer\light_buffer.hpp"
+#include "renderer\buffer\scene_buffer.hpp"
 #include "renderer\buffer\shadow_map_buffer.hpp"
 #include "renderer\pass\depth_pass.hpp"
 

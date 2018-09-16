@@ -48,11 +48,8 @@
     <ClInclude Include="Rendering\src\loaders\wic\screen_grab.hpp" />
     <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp" />
-    <ClInclude Include="Rendering\src\renderer\buffer\camera_buffer.hpp" />
+    <ClInclude Include="Rendering\src\renderer\buffer\scene_buffer.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp" />
-    <ClInclude Include="Rendering\src\renderer\buffer\world_buffer.hpp" />
-    <ClInclude Include="Rendering\src\renderer\buffer\light_buffer.hpp" />
-    <ClInclude Include="Rendering\src\renderer\buffer\model_buffer.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\shadow_map_buffer.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\structured_buffer.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\voxel_grid.hpp" />

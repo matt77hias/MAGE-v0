@@ -9,7 +9,7 @@
 #include "scene\camera\viewport.hpp"
 #include "renderer\configuration.hpp"
 #include "renderer\buffer\constant_buffer.hpp"
-#include "renderer\buffer\camera_buffer.hpp"
+#include "renderer\buffer\scene_buffer.hpp"
 #include "resource\texture\texture.hpp"
 #include "math_utils.hpp"
 #include "geometry\geometry.hpp"

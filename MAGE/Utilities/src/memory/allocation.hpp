@@ -45,7 +45,7 @@ namespace mage {
 	 Allocates memory on a given alignment boundary.
 
 	 @tparam		T
-					The type of objects to allocate in memory.
+					The data type.
 	 @param[in]		count
 					The number of objects of type @c T to allocate in memory.
 	 @param[in]		alignment
@@ -82,7 +82,7 @@ namespace mage {
 	 @tparam		T
 					The data type.
 	 @tparam		A
-					The alignment size in bytes.
+					The alignment in bytes.
 	 */
 	template< typename T, std::size_t A = alignof(T) >
 	class AlignedAllocator {
@@ -93,10 +93,11 @@ namespace mage {
 		// Class Member Types
 		//---------------------------------------------------------------------
 
-		/**
-		 The element type of aligned allocators.
-		 */
 		using value_type = T;
+
+		using size_type = std::size_t;
+		
+		using difference_type = std::ptrdiff_t;
 
 		using propagate_on_container_move_assignment = std::true_type;
 		
@@ -201,13 +202,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Attempts to allocate a block of storage with a size large enough to 
-		 contain @a count elements of type @c T, and returns a pointer to 
-		 the first element.
+		 Allocates a block of storage with a size large enough to contain @a 
+		 count elements of type @c T, and returns a pointer to the first 
+		 element.
 
 		 @param[in]		count
-						The number of element objects of type @c T to allocate 
-						in memory.
+						The number of objects of type @c T to allocate in 
+						memory.
 		 @return		A pointer to the memory block that was allocated. The 
 						pointer is a multiple of the alignment @c A.
 		 @throws		std::bad_alloc
@@ -224,49 +225,46 @@ namespace mage {
 		}
 
 		/**
-		 Attempts to allocate a block of storage with a size large enough to 
-		 contain @a count elements of type @c T, and returns a pointer to 
-		 the first element.
+		 Allocates a block of storage with a size large enough to contain @a 
+		 count elements of type @c T, and returns a pointer to the first 
+		 element.
 
 		 @param[in]		count
-						The number of element objects of type @c T to allocate 
-						in memory.
+						The number of objects of type @c T to allocate in 
+						memory.
 		 @param[in]		hint
 						Either @c nullptr or a value previously obtained by 
 						another call to 
 						{@link mage::AlignedAllocator<T,std::size_t>::allocate(std::size_t)}
-						or
-						{@link mage::AlignedAllocator<T,std::size_t>::allocate<U>(std::size_t, const U*)} 
 						and not yet freed with 
 						{@link mage::AlignedAllocator<T,std::size_t>::deallocate(T*, std::size_t)}. 
-						When not equal to @c nullptr, this value 
-						may be used as a hint to improve performance by 
-						allocating the new block near the one specified. 
-						The address of an adjacent element is often a good 
-						choice.
+						When not equal to @c nullptr, this value may be used as 
+						a hint to improve performance by allocating the new 
+						block near the one specified. The address of an adjacent 
+						element is often a good choice.
 		 @return		A pointer to the memory block that was allocated. The 
 						pointer is a multiple of the alignment @c A.
 		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
-		T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
+		T* allocate(std::size_t count, 
+					[[maybe_unused]] const void* hint) const {
+
 			return allocate(count);
 		}
 
 		/**
 		 Releases a block of storage previously allocated with 
-		 {@link mage::AlignedAllocator<T,std::size_t>::allocate(std::size_t)}
-		 or 
-		 {@link mage::AlignedAllocator<T,std::size_t>::allocate<U>(std::size_t, const U*)}
-		 and not yet released. 
+		 {@link mage::AlignedAllocator<T,std::size_t>::allocate(std::size_t)} 
+		 and not yet released.
 		 
 		 @param[in]		data
 						A pointer to the memory block that needs to be 
 						released.
 		 @param[in]		count
-						The number of element objects allocated on the call to 
-						allocate for this block of storage.
+						The number of objects of type @c T allocated on the call 
+						to allocate this block of storage.
 		 @note			The elements in the array are not destroyed.
 		 */
 		void deallocate(T* data, [[maybe_unused]] std::size_t count) const noexcept {
@@ -281,9 +279,9 @@ namespace mage {
 						The data type.
 		 @param[in]		rhs
 						A reference to the aligned allocator to compare with.
-		 @return		@c true if and only if storage allocated from this
-						aligned allocator can be deallocated from the given
-						aligned allocator, and vice versa. This is always the
+		 @return		@c true if and only if storage allocated from this 
+						aligned allocator can be deallocated from the given 
+						aligned allocator, and vice versa. This is always the 
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename U >
@@ -301,9 +299,9 @@ namespace mage {
 						The data type.
 		 @param[in]		rhs
 						A reference to the aligned allocator to compare with.
-		 @return		@c true if and only if storage allocated from this
-						aligned allocator cannot be deallocated from the given
-						aligned allocator, and vice versa. This is never the
+		 @return		@c true if and only if storage allocated from this 
+						aligned allocator cannot be deallocated from the given 
+						aligned allocator, and vice versa. This is never the 
 						case for stateless allocators. @c false otherwise.
 		 */
 		template< typename U >

@@ -119,7 +119,7 @@ namespace mage {
 	#pragma warning( disable : 4324 ) // Added padding.
 
 	template< typename T, std::size_t N, std::size_t A = alignof(T),
-		      typename = std::enable_if_t< (N > 1) > >
+		      typename = std::enable_if_t< (N > 1u) > >
 	struct alignas(A) Array : public std::array< T, N > {
 
 	public:

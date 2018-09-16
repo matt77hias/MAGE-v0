@@ -40,7 +40,8 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit SingleEndedMemoryStack(std::size_t size, size_t alignment);
+		explicit SingleEndedMemoryStack(std::size_t size, 
+										std::size_t alignment);
 
 		/**
 		 Constructs a single-ended memory stack from the given single-ended 
@@ -179,7 +180,8 @@ namespace mage {
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 */
 		void* Alloc(std::size_t size) noexcept;
 
@@ -187,7 +189,7 @@ namespace mage {
 		 Allocates a block of memory on this single-ended memory stack.
 
 		 @tparam		T
-						The type of objects to allocate in memory.
+						The data type.
 		 @param[in]		count
 						The number of objects of type @c T to allocate in 
 						memory.
@@ -195,7 +197,8 @@ namespace mage {
 						Flag indicating whether the objects need to be 
 						initialized (i.e. the constructor needs to be called).
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
@@ -221,13 +224,14 @@ namespace mage {
 			// Class Member Types
 			//-----------------------------------------------------------------
 
-			/**
-			 The element type of allocators.
-			 */
 			using value_type = T;
 
+			using size_type = std::size_t;
+
+			using difference_type = std::ptrdiff_t;
+
 			using propagate_on_container_move_assignment = std::true_type;
-			
+
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -296,18 +300,19 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
-			 @return		A pointer to the memory block that was allocated.
+							The number of objects of type @c T to allocate in
+							memory.
+			 @return		A pointer to the memory block that was allocated. 
+							The pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count) const {
+			T* allocate(std::size_t count) {
 				const auto ptr = m_memory_stack->AllocData< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -317,47 +322,45 @@ namespace mage {
 			}
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
+							The number of objects of type @c T to allocate in
+							memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
 							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(std::size_t)}
-							or
-							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(std::size_t, const U*)} 
-							and not yet freed with 
-							{@link mage::SingleEndedMemoryStack::Allocator<T>::deallocate(T*, std::size_t)}. 
-							When not equal to @c nullptr, this value 
-							may be used as a hint to improve performance by 
-							allocating the new block near the one specified. 
-							The address of an adjacent element is often a good 
-							choice.
-			 @return		A pointer to the memory block that was allocated.
+							and not yet freed with
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::deallocate(T*, std::size_t)}.
+							When not equal to @c nullptr, this value may be 
+							used as a hint to improve performance by allocating 
+							the new block near the one specified. The address 
+							of an adjacent element is often a good choice.
+			 @return		A pointer to the memory block that was allocated. The 
+							pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, 
+						[[maybe_unused]] const void* hint) {
+
 				return allocate(count);
 			}
 
 			/**
-			 Releases a block of storage previously allocated with 
+			 Releases a block of storage previously allocated with
 			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(std::size_t)}
-			 or 
-			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(std::size_t, const U*)}
-			 and not yet released. 
-		 
+			 and not yet released.
+
 			 @param[in]		data
 							A pointer to the memory block that needs to be 
 							released.
 			 @param[in]		count
-							The number of element objects allocated on the call 
-							to allocate for this block of storage.
+							The number of objects of type @c T allocated on the call 
+							to allocate this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
@@ -417,7 +420,7 @@ namespace mage {
 			 */
 			explicit Allocator(NotNull< SingleEndedMemoryStack* > 
 							   memory_stack) noexcept
-				: m_memory_stack(std::move(memory_stack)) {}
+				: m_memory_stack(memory_stack) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -438,7 +441,7 @@ namespace mage {
 		 */
 		template< typename T >
 		[[nodiscard]]
-		Allocator< T > GetAllocator() const noexcept{
+		Allocator< T > GetAllocator() noexcept{
 			return Allocator< T >(this);
 		}
 
@@ -497,7 +500,8 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit DoubleEndedMemoryStack(std::size_t size, size_t alignment);
+		explicit DoubleEndedMemoryStack(std::size_t size, 
+										std::size_t alignment);
 
 		/**
 		 Constructs a double-ended memory stack from the given double-ended 
@@ -584,7 +588,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		std::size_t GetUsedSize() const noexcept {
-			return m_size - m_current_high + m_current_low;
+			return GetUsedLowSize() + GetUsedHighSize();
 		}
 
 		/**
@@ -684,7 +688,8 @@ namespace mage {
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 */
 		void* AllocLow(std::size_t size) noexcept;
 
@@ -695,7 +700,8 @@ namespace mage {
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 */
 		void* AllocHigh(std::size_t size) noexcept;
 
@@ -703,7 +709,7 @@ namespace mage {
 		 Allocates a block of memory on the low side of this memory stack.
 
 		 @tparam		T
-						The type of objects to allocate in memory.
+						The data type.
 		 @param[in]		count
 						The number of objects of type @c T to allocate in 
 						memory.
@@ -711,7 +717,8 @@ namespace mage {
 						Flag indicating whether the objects need to be 
 						initialized (i.e. the constructor needs to be called).
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
@@ -722,7 +729,7 @@ namespace mage {
 		 Allocates a block of memory on the high side of this memory stack.
 
 		 @tparam		T
-						The type of objects to allocate in memory.
+						The data type.
 		 @param[in]		count
 						The number of objects of type @c T to allocate in 
 						memory.
@@ -730,7 +737,8 @@ namespace mage {
 						Flag indicating whether the objects need to be 
 						initialized (i.e. the constructor needs to be called).
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated.
+		 @return		A pointer to the memory block that was allocated. The 
+						pointer is a multiple of the alignment.
 		 @note			The objects will be constructed with their default 
 						empty constructor.
 		 */
@@ -756,13 +764,14 @@ namespace mage {
 			// Class Member Types
 			//-----------------------------------------------------------------
 
-			/**
-			 The element type of low allocators.
-			 */
 			using value_type = T;
 
+			using size_type = std::size_t;
+
+			using difference_type = std::ptrdiff_t;
+
 			using propagate_on_container_move_assignment = std::true_type;
-			
+
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -814,7 +823,8 @@ namespace mage {
 			 @return		A reference to the copy of the given low allocator 
 							(i.e. this low allocator).
 			 */
-			LowAllocator& operator=(const LowAllocator& low_allocator) = delete;
+			LowAllocator& operator=(
+				const LowAllocator& low_allocator) = delete;
 
 			/**
 			 Moves the given low allocator to this low allocator.
@@ -824,26 +834,27 @@ namespace mage {
 			 @return		A reference to the moved low allocator (i.e. this 
 							low allocator).
 			 */
-			LowAllocator& operator=(LowAllocator&& 
-									low_allocator) noexcept = default;
+			LowAllocator& operator=(
+				LowAllocator&& low_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
-			 @return		A pointer to the memory block that was allocated.
+							The number of objects of type @c T to allocate in 
+							memory.
+			 @return		A pointer to the memory block that was allocated. 
+							The pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count) const {
+			T* allocate(std::size_t count) {
 				const auto ptr = m_memory_stack->AllocDataLow< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -853,47 +864,45 @@ namespace mage {
 			}
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
+							The number of objects of type @c T to allocate in 
+							memory.
 			 @param[in]		hint
-							Either @c nullptr or a value previously obtained by 
+							Either @c nullptr or a value previously obtained by
 							another call to 
 							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(std::size_t)}
-							or
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(std::size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::deallocate(T*, std::size_t)}. 
-							When not equal to @c nullptr, this value 
-							may be used as a hint to improve performance by 
-							allocating the new block near the one specified. 
-							The address of an adjacent element is often a good 
-							choice.
-			 @return		A pointer to the memory block that was allocated.
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::deallocate(T*, std::size_t)}.
+							When not equal to @c nullptr, this value may be 
+							used as a hint to improve performance by allocating 
+							the new block near the one specified. The address 
+							of an adjacent element is often a good choice.
+			 @return		A pointer to the memory block that was allocated. The 
+							pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, 
+						[[maybe_unused]] const void* hint) const {
+
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(std::size_t)}
-			 or 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(std::size_t, const U*)}
-			 and not yet released. 
-		 
+			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(std::size_t)} 
+			 and not yet released.
+
 			 @param[in]		data
 							A pointer to the memory block that needs to be 
 							released.
 			 @param[in]		count
-							The number of element objects allocated on the call 
-							to allocate for this block of storage.
+							The number of objects of type @c T allocated on the call 
+							to allocate this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
@@ -953,9 +962,9 @@ namespace mage {
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit LowAllocator(NotNull< DoubleEndedMemoryStack* > 
-								  memory_stack) noexcept
-				: m_memory_stack(std::move(memory_stack)) {}
+			explicit LowAllocator(
+				NotNull< DoubleEndedMemoryStack* > memory_stack) noexcept
+				: m_memory_stack(memory_stack) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -982,13 +991,14 @@ namespace mage {
 			// Class Member Types
 			//-----------------------------------------------------------------
 
-			/**
-			 The element type of high allocators.
-			 */
 			using value_type = T;
 
+			using size_type = std::size_t;
+
+			using difference_type = std::ptrdiff_t;
+
 			using propagate_on_container_move_assignment = std::true_type;
-			
+
 			using is_always_equal = std::false_type;
 
 			//-----------------------------------------------------------------
@@ -1040,8 +1050,8 @@ namespace mage {
 			 @return		A reference to the copy of the given high allocator 
 							(i.e. this high allocator).
 			 */
-			HighAllocator& operator=(const HighAllocator& 
-									 high_allocator) = delete;
+			HighAllocator& operator=(
+				const HighAllocator& high_allocator) = delete;
 
 			/**
 			 Moves the given high allocator to this high allocator.
@@ -1051,26 +1061,27 @@ namespace mage {
 			 @return		A reference to the moved high allocator (i.e. this 
 							high allocator).
 			 */
-			HighAllocator& operator=(HighAllocator&& 
-									 high_allocator) noexcept = default;
+			HighAllocator& operator=(
+				HighAllocator&& high_allocator) noexcept = default;
 
 			//-----------------------------------------------------------------
 			// Member Methods
 			//-----------------------------------------------------------------
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
-			 @return		A pointer to the memory block that was allocated.
+							The number of objects of type @c T to allocate in 
+							memory.
+			 @return		A pointer to the memory block that was allocated. 
+							The pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count) const {
+			T* allocate(std::size_t count) {
 				const auto ptr = m_memory_stack->AllocDataHigh< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -1080,47 +1091,45 @@ namespace mage {
 			}
 
 			/**
-			 Attempts to allocate a block of storage with a size large enough 
-			 to contain @a count elements of type @c T, and returns a pointer 
-			 to the first element.
+			 Allocates a block of storage with a size large enough to contain 
+			 @a count elements of type @c T, and returns a pointer to the first 
+			 element.
 
 			 @param[in]		count
-							The number of element objects of type @c T to 
-							allocate in memory.
+							The number of objects of type @c T to allocate in 
+							memory.
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
 							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(std::size_t)}
-							or
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(std::size_t, const U*)} 
-							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::deallocate(T*,std::size_t)}. 
-							When not equal to @c nullptr, this value 
-							may be used as a hint to improve performance by 
-							allocating the new block near the one specified. 
-							The address of an adjacent element is often a good 
-							choice.
-			 @return		A pointer to the memory block that was allocated.
+							and not yet freed with
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::deallocate(T*, std::size_t)}.
+							When not equal to @c nullptr, this value may be 
+							used as a hint to improve performance by allocating 
+							the new block near the one specified. The address 
+							of an adjacent element is often a good choice.
+			 @return		A pointer to the memory block that was allocated. The 
+							pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, 
+						[[maybe_unused]] const void* hint) {
+
 				return allocate(count);
 			}
 
 			/**
-			 Releases a block of storage previously allocated with 
+			 Releases a block of storage previously allocated with
 			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(std::size_t)}
-			 or 
-			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(std::size_t, const U*)}
-			 and not yet released. 
-		 
+			 and not yet released.
+
 			 @param[in]		data
 							A pointer to the memory block that needs to be 
 							released.
 			 @param[in]		count
-							The number of element objects allocated on the call 
-							to allocate for this block of storage.
+							The number of objects of type @c T allocated on the call 
+							to allocate this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
@@ -1180,9 +1189,9 @@ namespace mage {
 			 @param[in]		memory_stack
 							A pointer to the memory stack.
 			 */
-			explicit HighAllocator(NotNull< DoubleEndedMemoryStack* > 
-								   memory_stack) noexcept
-				: m_memory_stack(std::move(memory_stack)) {}
+			explicit HighAllocator(
+				NotNull< DoubleEndedMemoryStack* > memory_stack) noexcept
+				: m_memory_stack(memory_stack) {}
 
 			//-----------------------------------------------------------------
 			// Member Variables
@@ -1203,7 +1212,7 @@ namespace mage {
 		 */
 		template< typename T >
 		[[nodiscard]]
-		LowAllocator< T > GetLowAllocator() const noexcept{
+		LowAllocator< T > GetLowAllocator() noexcept{
 			return LowAllocator< T >(this);
 		}
 
@@ -1216,7 +1225,7 @@ namespace mage {
 		 */
 		template< typename T >
 		[[nodiscard]]
-		HighAllocator< T > GetHighAllocator() const noexcept{
+		HighAllocator< T > GetHighAllocator() noexcept{
 			return HighAllocator< T >(this);
 		}
 

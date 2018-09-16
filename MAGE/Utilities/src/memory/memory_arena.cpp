@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory_arena.hpp"
 #include "memory\allocation.hpp"
+#include "memory\memory_arena.hpp"
 
 #pragma endregion
 
@@ -17,7 +17,7 @@ namespace mage {
 							 std::size_t alignment)
 		: m_alignment(alignment), 
 		m_maximum_block_size(maximum_block_size),
-		m_current_block(MemoryBlock(0u, nullptr)), 
+		m_current_block(0u, nullptr), 
 		m_current_block_pos(0u),
 		m_used_blocks(), 
 		m_available_blocks() {}
@@ -55,7 +55,7 @@ namespace mage {
 		using std::begin;
 
 		m_current_block_pos = 0u;
-		m_current_block     = MemoryBlock(0u, nullptr);
+		m_current_block     = { 0u, nullptr };
 		m_available_blocks.splice(begin(m_available_blocks), m_used_blocks);
 	}
 
@@ -73,7 +73,7 @@ namespace mage {
 				m_used_blocks.push_back(m_current_block);
 			}
 
-			// Fetch new block from available blocks.
+			// Fetch new block from available blocks (if possible).
 			for (auto it = begin(m_available_blocks); 
 				 it != end(m_available_blocks); ++it) {
 				
@@ -84,23 +84,25 @@ namespace mage {
 				}
 			}
 
+			// Allocate new block (if needed).
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
 				const auto alloc_size = std::max(size, GetMaximumBlockSize());
-				const auto alloc_ptr = AllocAlignedData< U8 >(alloc_size, m_alignment);
+				const auto alloc_ptr  = AllocAlignedData< U8 >(alloc_size, m_alignment);
 
 				if (!alloc_ptr) {
 					// The allocation failed.
 					return nullptr;
 				}
 
-				m_current_block = MemoryBlock(alloc_size, alloc_ptr);
+				m_current_block = { alloc_size, alloc_ptr };
 			}
 
 			m_current_block_pos = 0u;
 		}
 
-		const auto ptr = static_cast< void* >(m_current_block.second + m_current_block_pos);
+		const auto ptr = static_cast< void* >(
+			m_current_block.second + m_current_block_pos);
 		
 		m_current_block_pos += size;
 		

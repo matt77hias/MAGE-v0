@@ -17,7 +17,7 @@ namespace mage {
 
 	template< typename T, typename... ConstructorArgsT >
 	inline SharedPtr< T > MakeAllocatedShared(ConstructorArgsT&&... args) {
-		return SharedPtr< T >(new T(std::forward< ConstructorArgsT >(args)...));
+		return SharedPtr< T >(new T{ std::forward< ConstructorArgsT >(args)... });
 	}
 
 	#pragma endregion

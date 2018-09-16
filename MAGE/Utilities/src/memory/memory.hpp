@@ -148,6 +148,8 @@ namespace mage {
 
 	 @tparam		T
 					The memory resource type.
+	 @tparam		DeleterT
+					The deleter type.
 	 */
 	template< typename T, typename DeleterT = std::default_delete< T > >
 	using UniquePtr = std::unique_ptr< T, DeleterT >;
@@ -334,7 +336,7 @@ namespace mage {
 			 */
 			void operator()(std::FILE* stream) const noexcept {
 				if (stream) {
-					fclose(stream);
+					std::fclose(stream);
 				}
 			}
 		};

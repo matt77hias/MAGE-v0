@@ -18,7 +18,7 @@ namespace mage {
 		// Initialization
 		if (initialization) {
 			for (std::size_t i = 0u; i < count; ++i) {
-				new (&ptr[i]) T();
+				new (&ptr[i]) T{};
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace mage {
 		// Initialization
 		if (initialization) {
 			for (std::size_t i = 0u; i < count; ++i) {
-				new (&ptr[i]) T();
+				new (&ptr[i]) T{};
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace mage {
 		// Initialization
 		if (initialization) {
 			for (std::size_t i = 0u; i < count; ++i) {
-				new (&ptr[i]) T();
+				new (&ptr[i]) T{};
 			}
 		}
 

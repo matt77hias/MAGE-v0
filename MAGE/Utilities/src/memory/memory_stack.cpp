@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory_stack.hpp"
-#include "memory\allocation.hpp"
 #include "logging\logging.hpp"
+#include "memory\allocation.hpp"
+#include "memory\memory_stack.hpp"
 
 #pragma endregion
 
@@ -43,7 +43,7 @@ namespace mage {
 	}
 
 	void SingleEndedMemoryStack::Reset() noexcept {
-		m_current = m_begin;
+		RollBack(m_begin);
 	}
 
 	void SingleEndedMemoryStack::RollBack(std::uintptr_t ptr) noexcept {
@@ -95,8 +95,8 @@ namespace mage {
 	}
 
 	void DoubleEndedMemoryStack::Reset() noexcept {
-		m_current_low  = m_begin;
-		m_current_high = m_begin + m_size - 1u;
+		RollBackLow(m_begin);
+		RollBackHigh(m_begin + m_size - 1u);
 	}
 
 	void DoubleEndedMemoryStack::RollBackLow(std::uintptr_t ptr) noexcept {

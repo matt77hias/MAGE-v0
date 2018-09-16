@@ -28,92 +28,28 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a light buffer.
-		 */
-		LightBuffer() noexcept
-			: m_nb_directional_lights(0u), 
-			m_nb_omni_lights(0u), 
-			m_nb_spot_lights(0u), 
-			m_padding0(0u),
-			m_nb_sm_directional_lights(0u), 
-			m_nb_sm_omni_lights(0u), 
-			m_nb_sm_spot_lights(0u), 
-			m_padding1(0u), 
-			m_La(),
-			m_padding2(0.0f) {}
-		
-		/**
-		 Constructs a light buffer from the given light buffer.
-
-		 @param[in]		buffer
-						A reference to the light buffer to copy.
-		 */
-		LightBuffer(const LightBuffer& buffer) noexcept = default;
-		
-		/**
-		 Constructs a light buffer by moving the given light buffer.
-
-		 @param[in]		buffer
-						A reference to the light buffer to move.
-		 */
-		LightBuffer(LightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this light buffer.
-		 */
-		~LightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given light buffer to this light buffer.
-
-		 @param[in]		buffer
-						A reference to the light buffer to copy.
-		 @return		A reference to the copy of the given light buffer (i.e. 
-						this light buffer).
-		 */
-		LightBuffer& operator=(const LightBuffer& buffer) noexcept = default;
-		
-		/**
-		 Moves the given light buffer to this light buffer.
-
-		 @param[in]		buffer
-						A reference to the light buffer to move.
-		 @return		A reference to the moved light buffer (i.e. this light 
-						buffer).
-		 */
-		LightBuffer& operator=(LightBuffer&& buffer) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Lights without Shadow Mapping
 		//---------------------------------------------------------------------
 
 		/**
 		 The number of directional lights of this light buffer.
 		 */
-		U32 m_nb_directional_lights;
+		U32 m_nb_directional_lights = 0u;
 
 		/**
 		 The number of omni lights of this light buffer.
 		 */
-		U32 m_nb_omni_lights;
+		U32 m_nb_omni_lights = 0u;
 
 		/**
 		 The number of spotlights of this light buffer.
 		 */
-		U32 m_nb_spot_lights;
+		U32 m_nb_spot_lights = 0u;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		U32 m_padding0;
+		U32 m_padding0 = {};
 
 		//---------------------------------------------------------------------
 		// Member Variables: Lights with Shadow Mapping
@@ -122,22 +58,22 @@ namespace mage::rendering {
 		/**
 		 The number of shadow mapped directional lights of this light buffer.
 		 */
-		U32 m_nb_sm_directional_lights;
+		U32 m_nb_sm_directional_lights = 0u;
 
 		/**
 		 The number of shadow mapped omni lights of this light buffer.
 		 */
-		U32 m_nb_sm_omni_lights;
+		U32 m_nb_sm_omni_lights = 0u;
 
 		/**
 		 The number of shadow mapped spotlights of this light buffer.
 		 */
-		U32 m_nb_sm_spot_lights;
+		U32 m_nb_sm_spot_lights = 0u;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		U32 m_padding1;
+		U32 m_padding1 = {};
 
 		//---------------------------------------------------------------------
 		// Member Variables: Ambient Light
@@ -147,12 +83,12 @@ namespace mage::rendering {
 		 The ambient radiance in watts per square meter per steradians of this 
 		 light buffer.
 		 */
-		RGB m_La;
+		RGB m_La = {};
 
 		/**
 		 The padding of this light buffer.
 		 */
-		F32 m_padding2;
+		F32 m_padding2 = {};
 	};
 
 	static_assert(48u == sizeof(LightBuffer), 
@@ -173,65 +109,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a point light buffer.
-		 */
-		PointLightBuffer() noexcept
-			: m_p_world(),
-			m_inv_sqr_range(0.0f) {}
-		
-		/**
-		 Constructs an point light buffer from the given point light buffer.
-
-		 @param[in]		buffer
-						A reference to the point light buffer to copy.
-		 */
-		PointLightBuffer(const PointLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs an point light buffer by moving the given point light 
-		 buffer.
-
-		 @param[in]		buffer
-						A reference to the point light buffer to move.
-		 */
-		PointLightBuffer(PointLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this point light buffer.
-		 */
-		~PointLightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given point light buffer to this point light buffer.
-
-		 @param[in]		buffer
-						A reference to the point light buffer to copy.
-		 @return		A reference to the copy of the given point light buffer
-						(i.e. this point light buffer).
-		 */
-		PointLightBuffer& operator=(
-			const PointLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Moves the given point light buffer to this point light buffer.
-
-		 @param[in]		buffer
-						A reference to the point light buffer to move.
-		 @return		A reference to the moved point light buffer (i.e. this 
-						point light buffer).
-		 */
-		PointLightBuffer& operator=(
-			PointLightBuffer&& buffer) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -239,13 +116,13 @@ namespace mage::rendering {
 		 The position of the point light of this point light buffer expressed 
 		 in world space.
 		 */
-		Point3 m_p_world;
+		Point3 m_p_world = {};
 
 		/**
 		 The inverse of the squared range of the point light of this point 
 		 light buffer expressed in inversed squared world space.
 		 */
-		F32 m_inv_sqr_range;
+		F32 m_inv_sqr_range = 0.0f;
 	};
 
 	static_assert(16u == sizeof(PointLightBuffer), 
@@ -266,72 +143,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs an directional light buffer.
-		 */
-		DirectionalLightBuffer() noexcept
-			: m_E_ortho(),
-			m_padding0(0u),
-			m_neg_d_world(),
-			m_padding1(0u) {}
-		
-		/**
-		 Constructs an directional light buffer from the given directional 
-		 light buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light buffer to copy.
-		 */
-		DirectionalLightBuffer(
-			const DirectionalLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs an directional light buffer by moving the given directional 
-		 light buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light buffer to move.
-		 */
-		DirectionalLightBuffer(
-			DirectionalLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this directional light buffer.
-		 */
-		~DirectionalLightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given directional light buffer to this directional light 
-		 buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light buffer to copy.
-		 @return		A reference to the copy of the given directional light 
-						buffer (i.e. this directional light buffer).
-		 */
-		DirectionalLightBuffer& operator=(
-			const DirectionalLightBuffer& buffer) = default;
-
-		/**
-		 Moves the given directional light buffer to this directional light 
-		 buffer.
-
-		 @param[in]		buffer
-						A reference to the directional light buffer to move.
-		 @return		A reference to the moved directional light buffer (i.e. 
-						this directional light buffer).
-		 */
-		DirectionalLightBuffer& operator=(
-			DirectionalLightBuffer&& buffer) = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -339,23 +150,23 @@ namespace mage::rendering {
 		 The (orthogonal) irradiance of the directional light of this 
 		 directional light buffer.
 		 */
-		RGB m_E_ortho;
+		RGB m_E_ortho = {};
 
 		/**
 		 The padding of this directional light buffer.
 		 */
-		U32 m_padding0;
+		U32 m_padding0 = {};
 
 		/**
 		 The (normalized) negated direction of the directional light expressed 
 		 in world space of this directional light buffer.
 		 */
-		Direction3 m_neg_d_world;
+		Direction3 m_neg_d_world = {};
 
 		/**
 		 The padding of this directional light buffer.
 		 */
-		U32 m_padding1;
+		U32 m_padding1 = {};
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transform
@@ -368,7 +179,7 @@ namespace mage::rendering {
 		 The (column-major packed, row-major matrix) world-to-projection matrix 
 		 of this directional light buffer.
 		 */
-		XMMATRIX m_world_to_projection;
+		XMMATRIX m_world_to_projection = {};
 	};
 
 	static_assert(96u == sizeof(DirectionalLightBuffer),
@@ -389,65 +200,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs an omni light buffer.
-		 */
-		OmniLightBuffer() noexcept
-			: PointLightBuffer(),
-			m_I(), 
-			m_padding0(0u) {}
-		
-		/**
-		 Constructs an omni light buffer from the given omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the omni light buffer to copy.
-		 */
-		OmniLightBuffer(const OmniLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs an omni light buffer by moving the given omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the omni light buffer to move.
-		 */
-		OmniLightBuffer(OmniLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this omni light buffer.
-		 */
-		~OmniLightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given omni light buffer to this omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the omni light buffer to copy.
-		 @return		A reference to the copy of the given omni light buffer
-						(i.e. this omni light buffer).
-		 */
-		OmniLightBuffer& operator=(
-			const OmniLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Moves the given omni light buffer to this omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the omni light buffer to move.
-		 @return		A reference to the moved omni light buffer (i.e. this 
-						omni light buffer).
-		 */
-		OmniLightBuffer& operator=(
-			OmniLightBuffer&& buffer) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -455,12 +207,12 @@ namespace mage::rendering {
 		 The radiant intensity in watts per steradians of the omni light of 
 		 this omni light buffer.
 		 */
-		RGB m_I;
+		RGB m_I = {};
 
 		/**
 		 The padding of this omni light buffer.
 		 */
-		U32 m_padding0;
+		U32 m_padding0 = {};
 	};
 
 	static_assert(32u == sizeof(OmniLightBuffer), 
@@ -481,67 +233,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a spotlight buffer.
-		 */
-		SpotLightBuffer() noexcept
-			: PointLightBuffer(),
-			m_I(), 
-			m_cos_umbra(0.0f),
-			m_neg_d_world(),
-			m_cos_inv_range(0.0f) {}
-		
-		/**
-		 Constructs a spotlight buffer from the given spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the spotlight buffer to copy.
-		 */
-		SpotLightBuffer(const SpotLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs a spotlight buffer by moving the given spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the spotlight buffer to move.
-		 */
-		SpotLightBuffer(SpotLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this spotlight buffer.
-		 */
-		~SpotLightBuffer() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given spotlight buffer to this spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the spotlight buffer to copy.
-		 @return		A reference to the copy of the given spotlight buffer
-						(i.e. this spotlight buffer).
-		 */
-		SpotLightBuffer& operator=(
-			const SpotLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Moves the given spotlight buffer to this spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the spotlight buffer to move.
-		 @return		A reference to the moved spotlight buffer (i.e. this 
-						spotlight buffer).
-		 */
-		SpotLightBuffer& operator=(
-			SpotLightBuffer&& buffer) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -549,25 +240,25 @@ namespace mage::rendering {
 		 The radiant intensity in watts per steradians of the spotlight of this 
 		 spotlight buffer.
 		 */
-		RGB m_I;
+		RGB m_I = {};
 
 		/**
 		 The cosine of the umbra angle of the spotlight of this spotlight
 		 buffer.
 		 */
-		F32 m_cos_umbra;
+		F32 m_cos_umbra = 0.0f;
 
 		/**
 		 The (normalized) negated direction of the directional light expressed 
 		 in world space of this directional light buffer.
 		 */
-		Direction3 m_neg_d_world;
+		Direction3 m_neg_d_world = {};
 
 		/**
 		 The inverse of the cosine range of the spotlight of this spotlight 
 		 buffer.
 		 */
-		F32 m_cos_inv_range;
+		F32 m_cos_inv_range = 0.0f;
 	};
 
 	static_assert(48u == sizeof(SpotLightBuffer), 
@@ -588,77 +279,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a shadow mapped omni light buffer.
-		 */
-		ShadowMappedOmniLightBuffer() noexcept
-			: OmniLightBuffer(),
-			m_world_to_light{}, 
-			m_projection_values(), 
-			m_padding0() {}
-		
-		/**
-		 Constructs a shadow mapped omni light buffer from the given shadow 
-		 mapped omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped omni light buffer to 
-						copy.
-		 */
-		ShadowMappedOmniLightBuffer(
-			const ShadowMappedOmniLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs a shadow mapped omni light buffer by moving the given 
-		 shadow mapped omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped omni light buffer to 
-						move.
-		 */
-		ShadowMappedOmniLightBuffer(
-			ShadowMappedOmniLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this shadow mapped omni light buffer.
-		 */
-		~ShadowMappedOmniLightBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given shadow mapped omni light buffer to this shadow mapped 
-		 omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped omni light buffer to 
-						copy.
-		 @return		A reference to the copy of the given shadow mapped omni 
-						light buffer (i.e. this shadow mapped omni light 
-						buffer).
-		 */
-		ShadowMappedOmniLightBuffer& operator=(
-			const ShadowMappedOmniLightBuffer& buffer) = default;
-
-		/**
-		 Moves the given shadow mapped omni light buffer to this shadow mapped 
-		 omni light buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped omni light buffer to 
-						move.
-		 @return		A reference to the moved shadow mapped omni light 
-						buffer (i.e. this shadow mapped omni light buffer).
-		 */
-		ShadowMappedOmniLightBuffer& operator=(
-			ShadowMappedOmniLightBuffer&& buffer) = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Transform
 		//---------------------------------------------------------------------
 
@@ -669,18 +289,18 @@ namespace mage::rendering {
 		 The (column-major packed, row-major matrix) world-to-light matrix of 
 		 the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
-		XMMATRIX m_world_to_light;
+		XMMATRIX m_world_to_light = {};
 
 		/**
 		 The projection values of the light-to-projection transformation matrix
 		 of the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
-		F32x2 m_projection_values;
+		F32x2 m_projection_values = {};
 		
 		/**
 		 The padding of this shadow mapped omni light buffer. 
 		 */
-		U32 m_padding0[2];
+		U32x2 m_padding1 = {};
 	};
 
 	static_assert(112u == sizeof(ShadowMappedOmniLightBuffer), 
@@ -701,75 +321,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a shadow mapped spotlight buffer.
-		 */
-		ShadowMappedSpotLightBuffer() noexcept
-			: SpotLightBuffer(),
-			m_world_to_projection{} {}
-		
-		/**
-		 Constructs a shadow mapped spotlight buffer from the given shadow 
-		 mapped spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped spotlight buffer to 
-						copy.
-		 */
-		ShadowMappedSpotLightBuffer(
-			const ShadowMappedSpotLightBuffer& buffer) noexcept = default;
-
-		/**
-		 Constructs a shadow mapped spotlight buffer by moving the given shadow 
-		 mapped spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped spotlight buffer to 
-						move.
-		 */
-		ShadowMappedSpotLightBuffer(
-			ShadowMappedSpotLightBuffer&& buffer) noexcept = default;
-		
-		/**
-		 Destructs this shadow mapped spotlight buffer.
-		 */
-		~ShadowMappedSpotLightBuffer() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given shadow mapped spotlight buffer to this shadow mapped 
-		 spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped spotlight buffer to 
-						copy.
-		 @return		A reference to the copy of the given shadow mapped 
-						spotlight buffer (i.e. this shadow mapped spotlight 
-						buffer).
-		 */
-		ShadowMappedSpotLightBuffer& operator=(
-			const ShadowMappedSpotLightBuffer& buffer) = default;
-
-		/**
-		 Moves the given shadow mapped spotlight buffer to this shadow mapped 
-		 spotlight buffer.
-
-		 @param[in]		buffer
-						A reference to the shadow mapped spotlight buffer to 
-						move.
-		 @return		A reference to the moved shadow mapped spotlight buffer 
-						(i.e. this shadow mapped spotlight buffer).
-		 */
-		ShadowMappedSpotLightBuffer& operator=(
-			ShadowMappedSpotLightBuffer&& buffer) = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Transform
 		//---------------------------------------------------------------------
 
@@ -781,7 +332,7 @@ namespace mage::rendering {
 		 matrix of the shadow mapped spotlight of this shadow mapped spotlight 
 		 buffer.
 		 */
-		XMMATRIX m_world_to_projection;
+		XMMATRIX m_world_to_projection = {};
 	};
 
 	static_assert(112u == sizeof(ShadowMappedSpotLightBuffer), 

@@ -22,68 +22,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a model buffer.
-		 */
-		ModelBuffer() noexcept
-			: m_object_to_world{},
-			m_normal_to_world{},
-			m_texture_transform{},
-			m_base_color{}, 
-			m_roughness(0.0f),
-			m_metalness(0.0f),
-			m_padding{} {}
-
-		/**
-		 Constructs a model buffer from the given model buffer.
-
-		 @param[in]		buffer
-						A reference to the model buffer to copy.
-		 */
-		ModelBuffer(const ModelBuffer& buffer) noexcept = default;
-		
-		/**
-		 Constructs a model buffer by moving the given model 
-		 buffer.
-
-		 @param[in]		buffer
-						A reference to the model buffer to move.
-		 */
-		ModelBuffer(ModelBuffer&& buffer) noexcept = default;
-
-		/**
-		 Destructs this model buffer.
-		 */
-		~ModelBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-		
-		/**
-		 Copies the given model buffer to this model buffer.
-
-		 @param[in]		buffer
-						A reference to the model buffer to copy.
-		 @return		A reference to the copy of the given model buffer (i.e. 
-						this model buffer).
-		 */
-		ModelBuffer& operator=(const ModelBuffer& buffer) = default;
-
-		/**
-		 Moves the given model buffer to this model buffer.
-
-		 @param[in]		buffer
-						A reference to the model buffer to move.
-		 @return		A reference to the moved model buffer (i.e. this model 
-						buffer).
-		 */
-		ModelBuffer& operator=(ModelBuffer&& buffer) = default;
-
-		//---------------------------------------------------------------------
 		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
@@ -94,19 +32,19 @@ namespace mage::rendering {
 		 The (column-major packed, row-major matrix) object-to-world matrix of 
 		 this model buffer.
 		 */
-		XMMATRIX m_object_to_world;
+		XMMATRIX m_object_to_world = {};
 		
 		/**
 		 The (column-major packed, row-major matrix) object-to-world inverse 
 		 transpose matrix (normal-to-world matrix) of this model buffer.
 		 */
-		XMMATRIX m_normal_to_world;
+		XMMATRIX m_normal_to_world = {};
 
 		/**
 		 The (column-major packed, row-major matrix) texture transform matrix 
 		 of this model buffer.
 		 */
-		XMMATRIX m_texture_transform;
+		XMMATRIX m_texture_transform = {};
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material
@@ -115,22 +53,22 @@ namespace mage::rendering {
 		/**
 		 The (linear) base color of the material of this model buffer.
 		 */
-		RGBA m_base_color;
+		RGBA m_base_color = {};
 
 		/**
 		 The (linear) roughness of the material of this model buffer.
 		 */
-		F32 m_roughness;
+		F32 m_roughness = 0.0f;
 
 		/**
 		 The (linear) metalness of the material of this model buffer.
 		 */
-		F32 m_metalness;
+		F32 m_metalness = 0.0f;
 
 		/**
 		 The padding of this world buffer.
 		 */
-		U32 m_padding[2];
+		U32x2 m_padding = {};
 	};
 
 	static_assert(224u == sizeof(ModelBuffer), "CPU/GPU struct mismatch");

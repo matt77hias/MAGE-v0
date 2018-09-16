@@ -801,5 +801,5 @@ namespace mage {
 		F32x2 m_scale;
 	};
 
-	static_assert(32 == sizeof(SpriteTransform));
+	static_assert(32u == sizeof(SpriteTransform));
 }

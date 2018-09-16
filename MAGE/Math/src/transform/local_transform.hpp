@@ -1291,5 +1291,5 @@ namespace mage {
 		F32 m_padding2;
 	};
 
-	static_assert(48 == sizeof(LocalTransform));
+	static_assert(48u == sizeof(LocalTransform));
 }

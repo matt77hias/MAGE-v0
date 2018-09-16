@@ -756,5 +756,5 @@ namespace mage {
 		F32x2 m_scale;
 	};
 
-	static_assert(32 == sizeof(TextureTransform));
+	static_assert(32u == sizeof(TextureTransform));
 }

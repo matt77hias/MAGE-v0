@@ -55,8 +55,8 @@ namespace mage::script {
 		TimeIntervalSeconds m_prev_wall_clock_time;
 		TimeIntervalSeconds m_prev_core_clock_time;
 		U32 m_fps;
-		F32 m_spf;
-		F32 m_cpu;
-		U32 m_ram;
+		F64 m_spf;
+		F64 m_cpu;
+		U64 m_ram;
 	};
 }

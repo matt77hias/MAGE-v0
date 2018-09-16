@@ -4,7 +4,7 @@
 #pragma region
 
 #include "exception\exception.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 

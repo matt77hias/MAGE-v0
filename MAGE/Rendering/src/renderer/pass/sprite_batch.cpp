@@ -8,7 +8,7 @@
 #include "resource\mesh\sprite_batch_mesh.hpp"
 #include "resource\mesh\vertex.hpp"
 #include "resource\texture\texture.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 // Include HLSL bindings.
 #include "hlsl.hpp"

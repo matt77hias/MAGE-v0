@@ -17,7 +17,11 @@
 				loop.
  @return		The @c wParam parameter contained in the @c WM_QUIT message.
  */
-int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int nCmdShow) {
+int WINAPI WinMain(HINSTANCE instance, 
+				   [[maybe_unused]] HINSTANCE prev_instance, 
+				   [[maybe_unused]] LPSTR lpCmdLine, 
+				   int nCmdShow) {
+
 	using namespace mage;
 
 	// Create the engine setup.

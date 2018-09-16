@@ -116,9 +116,6 @@
     <ClInclude Include="Utilities\src\logging\dump.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\logging\error.hpp">
-      <Filter>Header Files\logging</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\logging\logging.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
@@ -224,6 +221,9 @@
     <ClInclude Include="Utilities\src\string\formats.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\logging\logging.tpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">
@@ -242,9 +242,6 @@
       <Filter>Source Files\io</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\logging\dump.cpp">
-      <Filter>Source Files\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\logging\error.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\logging\logging.cpp">

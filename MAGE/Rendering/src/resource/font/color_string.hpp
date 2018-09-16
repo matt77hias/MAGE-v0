@@ -29,6 +29,18 @@ namespace mage::rendering {
 		 Constructs a color string fromt the given string and color.
 
 		 @param[in]		str
+						A pointer to the string.
+		 @param[in]		color
+						A reference to the (linear) color.
+		 */
+		ColorString(const wchar_t* str, RGBA color = color::White) noexcept
+			: m_str(str),
+			m_color(std::move(color)) {}
+
+		/**
+		 Constructs a color string fromt the given string and color.
+
+		 @param[in]		str
 						The string.
 		 @param[in]		color
 						A reference to the (linear) color.

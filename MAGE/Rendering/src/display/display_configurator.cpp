@@ -5,7 +5,7 @@
 
 #include "display\display_configurator.hpp"
 #include "display\display_settings.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 #include "platform\windows_utils.hpp"
 #include "resource\script\variable_script.hpp"
 #include "string\format.hpp"

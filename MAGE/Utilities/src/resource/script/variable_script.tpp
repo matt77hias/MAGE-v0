@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 
@@ -63,8 +63,7 @@ namespace mage {
 			it->second = std::move(value);
 		}
 		else {
-			Warning("%ls: Variable %s not found.", 
-					GetGuid().c_str(), name.c_str());
+			Warning("{}: Variable {} not found.", GetGuid(), name);
 		}
 	}
 }

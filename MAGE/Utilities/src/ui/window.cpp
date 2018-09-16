@@ -6,7 +6,7 @@
 #include "ui\window.hpp"
 #include "platform\windows_utils.hpp"
 #include "exception\exception.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 

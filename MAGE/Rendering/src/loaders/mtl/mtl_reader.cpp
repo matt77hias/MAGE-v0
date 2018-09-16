@@ -61,9 +61,8 @@ namespace mage::rendering::loader {
 			m_material_buffer.back().SetOpaque();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.",
-					GetPath().c_str(), GetCurrentLineNumber(),
-					std::string(token).c_str());
+			Warning("{}: line {}: unsupported keyword token: {}.",
+					GetPath(), GetCurrentLineNumber(), token);
 			return;
 		}
 

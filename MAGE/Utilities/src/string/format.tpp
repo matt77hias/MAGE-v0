@@ -5,19 +5,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename... ArgsT >
+	template< typename StringT, typename... ArgsT >
 	[[nodiscard]]
-	inline const std::string Format(std::string_view format_str, 
-									const ArgsT&... args) {
-
-		return fmt::format(format_str, args...);
-	}
-
-	template< typename... ArgsT >
-	[[nodiscard]]
-	inline const std::wstring Format(std::wstring_view format_str, 
-									 const ArgsT&... args) {
-
+	inline const auto Format(const StringT& format_str, const ArgsT&... args) {
 		return fmt::format(format_str, args...);
 	}
 

@@ -91,9 +91,8 @@ namespace mage::rendering::loader {
 			ReadOBJSmoothingGroup();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.",
-					GetPath().c_str(), GetCurrentLineNumber(),
-					std::string(token).c_str());
+			Warning("{}: line {}: unsupported keyword token: {}.",
+					GetPath(), GetCurrentLineNumber(), token);
 			return;
 		}
 

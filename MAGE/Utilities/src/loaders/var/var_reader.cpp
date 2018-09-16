@@ -5,7 +5,7 @@
 
 #include "loaders\var\var_reader.hpp"
 #include "loaders\var\var_tokens.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 
@@ -71,9 +71,8 @@ namespace mage::loader {
 			ReadVARVariable< std::string >();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				    GetPath().c_str(), GetCurrentLineNumber(), 
-					std::string(token).c_str());
+			Warning("{}: line {}: unsupported keyword token: {}.",
+					GetPath(), GetCurrentLineNumber(), token);
 			return;
 		}
 

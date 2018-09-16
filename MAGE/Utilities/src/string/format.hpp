@@ -14,13 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename... ArgsT >
+	template< typename StringT, typename... ArgsT >
 	[[nodiscard]]
-	const std::string Format(std::string_view format_str, const ArgsT&... args);
-
-	template< typename... ArgsT >
-	[[nodiscard]]
-	const std::wstring Format(std::wstring_view format_str, const ArgsT&... args);
+	const auto Format(const StringT& format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
 	void Print(std::string_view format_str, const ArgsT&... args);

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "logging\dump.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 
@@ -60,7 +60,7 @@ namespace mage {
 											nullptr));
 
 		if (!file_handle) {
-			Error("Failed to create file: %u.", GetLastError());
+			Error("Failed to create file: {}.", GetLastError());
 			return;
 		}
 
@@ -86,7 +86,7 @@ namespace mage {
 								nullptr);
 
 		if (FALSE == result) {
-			Error("Failed to create a mini dump file: %u.", GetLastError());
+			Error("Failed to create a mini dump file: {}.", GetLastError());
 		}
 		else {
 			Info("Succeeded to create a mini dump file: MiniDump.dmp.");

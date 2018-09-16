@@ -4,7 +4,7 @@
 #pragma region
 
 #include "io\line_reader.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 
@@ -119,8 +119,8 @@ namespace mage {
 	void LineReader::ReadRemainingTokens() {
 		while (ContainsTokens()) {
 			const auto token = Read< std::string >();
-			Warning("%ls: line %u: unused token: %s.",
-					GetPath().c_str(), GetCurrentLineNumber(), token.c_str());
+			Warning("{}: line {}: unused token: {}.",
+					GetPath(), GetCurrentLineNumber(), token);
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 #include "memory\memory_stack.hpp"
 #include "memory\allocation.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 

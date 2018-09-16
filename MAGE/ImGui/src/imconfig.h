@@ -19,7 +19,7 @@
 #pragma region
 
 #include "type\vector_types.hpp"
-#include "logging\error.hpp"
+#include "logging\logging.hpp"
 
 #pragma endregion
 

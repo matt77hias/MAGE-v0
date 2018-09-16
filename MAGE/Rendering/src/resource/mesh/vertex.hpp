@@ -145,8 +145,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[1];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[1u];
 	};
+
+	static_assert(12u == sizeof(VertexPosition),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position and normal coordinates.
@@ -290,8 +293,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2u];
 	};
+
+	static_assert(24u == sizeof(VertexPositionNormal),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position coordinates and a color.
@@ -435,8 +441,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2u];
 	};
+
+	static_assert(28u == sizeof(VertexPositionColor),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position and texture coordinates.
@@ -580,8 +589,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[2u];
 	};
+
+	static_assert(20u == sizeof(VertexPositionTexture),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position and normal coordinates and a 
@@ -735,8 +747,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3u];
 	};
+
+	static_assert(40u == sizeof(VertexPositionNormalColor),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position, normal and texture coordinates.
@@ -889,8 +904,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3u];
 	};
+
+	static_assert(32u == sizeof(VertexPositionNormalTexture),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position and texture coordinates and a 
@@ -1044,8 +1062,11 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[3u];
 	};
+
+	static_assert(36u == sizeof(VertexPositionColorTexture),
+				  "Vertex struct/layout mismatch");
 
 	/**
 	 A struct of vertices containing position, normal and texture coordinates 
@@ -1208,6 +1229,9 @@ namespace mage::rendering {
 		/**
 		 The input element descriptors of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[4];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_descs[4u];
 	};
+
+	static_assert(48u == sizeof(VertexPositionNormalColorTexture),
+				  "Vertex struct/layout mismatch");
 }

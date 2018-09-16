@@ -695,8 +695,10 @@ Uses:
 * [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
+* [Omar Cornut](https://github.com/ocornut)
 * [Roald Frederickx](https://github.com/RoaldFre)
 * SoldierOfLight
 * Styves
+* [Victor Zverovich](https://github.com/vitaut)
 * [Vilem Otte](https://github.com/Zgragselus)
 * Zipster

@@ -100,7 +100,7 @@ namespace mage::script {
 		va_start(args, format);
 
 		const auto nb_characters 
-			= static_cast< size_t >(_vscwprintf(format, args) + 1);
+			= static_cast< std::size_t >(_vscwprintf(format, args) + 1);
 		if (m_temp_buffer.size() < nb_characters) {
 			m_temp_buffer.resize(nb_characters);
 		}
@@ -133,7 +133,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::SetCharacter(wchar_t character, U32 row, U32 column) {
-		const size_t index = row * m_nb_columns + column;
+		const std::size_t index = row * m_nb_columns + column;
 		m_buffer[index] = character;
 	}
 
@@ -146,7 +146,7 @@ namespace mage::script {
 		m_current_column = 0;
 
 		// Clear new current row.
-		const size_t index = m_current_row * m_nb_columns;
+		const std::size_t index = m_current_row * m_nb_columns;
 		memset(&m_buffer[index], 0, sizeof(wchar_t) * (m_nb_columns));
 	}
 }

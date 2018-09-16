@@ -19,8 +19,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	SingleEndedMemoryStack::SingleEndedMemoryStack(size_t size, 
-												   size_t alignment)
+	SingleEndedMemoryStack::SingleEndedMemoryStack(std::size_t size,
+												   std::size_t alignment)
 		: m_alignment(alignment), 
 		m_size(size), 
 		m_begin(), 
@@ -52,7 +52,7 @@ namespace mage {
 		m_current = ptr;
 	}
 
-	void* SingleEndedMemoryStack::Alloc(size_t size) noexcept {
+	void* SingleEndedMemoryStack::Alloc(std::size_t size) noexcept {
 		if (GetAvailableSize() < size) {
 			// The allocation failed.
 			return nullptr;
@@ -70,8 +70,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	DoubleEndedMemoryStack::DoubleEndedMemoryStack(size_t size, 
-												   size_t alignment)
+	DoubleEndedMemoryStack::DoubleEndedMemoryStack(std::size_t size,
+												   std::size_t alignment)
 		: m_alignment(alignment), 
 		m_size(size),
 		m_begin(),
@@ -111,7 +111,7 @@ namespace mage {
 		m_current_high = ptr;
 	}
 
-	void* DoubleEndedMemoryStack::AllocLow(size_t size) noexcept {
+	void* DoubleEndedMemoryStack::AllocLow(std::size_t size) noexcept {
 		if (GetAvailableSize() < size) {
 			// The allocation failed.
 			return nullptr;
@@ -122,7 +122,7 @@ namespace mage {
 		return ptr;
 	}
 
-	void* DoubleEndedMemoryStack::AllocHigh(size_t size) noexcept {
+	void* DoubleEndedMemoryStack::AllocHigh(std::size_t size) noexcept {
 		if (GetAvailableSize() < size) {
 			// The allocation failed.
 			return nullptr;

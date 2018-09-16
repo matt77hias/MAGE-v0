@@ -105,8 +105,8 @@ namespace mage::rendering {
 						The bounding sphere.
 		 */
 		void SetMesh(SharedPtr< const Mesh > mesh,
-					 size_t start_index,
-					 size_t nb_indices,
+					 std::size_t start_index,
+					 std::size_t nb_indices,
 					 AABB aabb,
 					 BoundingSphere bs);
 
@@ -136,7 +136,7 @@ namespace mage::rendering {
 		 @return		The start index of this model in the mesh of this model.
 		 */
 		[[nodiscard]]
-		size_t GetStartIndex() const noexcept {
+		std::size_t GetStartIndex() const noexcept {
 			return m_start_index;
 		}
 
@@ -147,7 +147,7 @@ namespace mage::rendering {
 						model.
 		 */
 		[[nodiscard]]
-		size_t GetNumberOfIndices() const noexcept {
+		std::size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -340,12 +340,12 @@ namespace mage::rendering {
 		/**
 		 The start index of this model in the mesh of this model.
 		 */
-		size_t m_start_index;
+		std::size_t m_start_index;
 
 		/**
 		 The number of indices of this model in the mesh of this model.
 		 */
-		size_t m_nb_indices;
+		std::size_t m_nb_indices;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Appearance

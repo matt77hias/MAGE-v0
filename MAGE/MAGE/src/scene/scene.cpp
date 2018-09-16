@@ -83,7 +83,7 @@ namespace mage {
 
 		std::map< std::string, NodePair > mapping;
 		NodePtr root;
-		size_t nb_root_childs = 0;
+		std::size_t nb_root_childs = 0u;
 
 		auto& rendering_manager = engine.GetRenderingManager();
 		auto& world             = rendering_manager.GetWorld();

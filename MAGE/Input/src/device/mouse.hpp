@@ -119,7 +119,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		bool IsActive(U8 button) const noexcept {
-			const size_t index = 2 * button + 1;
+			const std::size_t index = 2u * button + 1u;
 			return m_button_states[index];
 		}
 
@@ -148,7 +148,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		bool IsSwitched(U8 button) const noexcept {
-			const size_t index = 2 * button;
+			const std::size_t index = 2u * button;
 			return m_button_states[index];
 		}
 

@@ -103,7 +103,7 @@ namespace mage::rendering {
 
 		template< typename ComponentT >
 		[[nodiscard]]
-		size_t GetNumberOf() const noexcept;
+		std::size_t GetNumberOf() const noexcept;
 
 		template< typename ComponentT, typename ActionT >
 		void ForEach(ActionT&& action);

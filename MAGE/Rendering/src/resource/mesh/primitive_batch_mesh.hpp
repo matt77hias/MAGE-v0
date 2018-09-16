@@ -60,7 +60,7 @@ namespace mage::rendering {
 						mesh.
 		 */
 		explicit PrimitiveBatchMesh(ID3D11Device& device, 
-			                        size_t nb_vertices,
+									std::size_t nb_vertices,
 			                        const std::vector< IndexT >& indices,
 			                        D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
 			                        = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -156,7 +156,7 @@ namespace mage::rendering {
 						Failed to setup the vertex buffer of this primitive 
 						batch mesh.
 		 */
-		void SetupVertexBuffer(ID3D11Device& device, size_t nb_vertices);
+		void SetupVertexBuffer(ID3D11Device& device, std::size_t nb_vertices);
 
 		/**
 		 Sets up the index buffer of this primitive batch mesh.

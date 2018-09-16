@@ -86,7 +86,7 @@ namespace mage::rendering {
 		 @return		The number of vertices of this mesh.
 		 */
 		[[nodiscard]]
-		size_t GetNumberOfVertices() const noexcept {
+		std::size_t GetNumberOfVertices() const noexcept {
 			return m_nb_vertices;
 		}
 
@@ -96,7 +96,7 @@ namespace mage::rendering {
 		 @return		The number of indices of this mesh.
 		 */
 		[[nodiscard]]
-		size_t GetNumberOfIndices() const noexcept {
+		std::size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -106,7 +106,7 @@ namespace mage::rendering {
 		 @return		The vertex size (in bytes) of this mesh.
 		 */
 		[[nodiscard]]
-		size_t GetVertexSize() const noexcept {
+		std::size_t GetVertexSize() const noexcept {
 			return m_vertex_size;
 		}
 
@@ -190,8 +190,8 @@ namespace mage::rendering {
 						The number of indices.
 		 */
 		void Draw(ID3D11DeviceContext& device_context,
-			      size_t start_index, 
-			      size_t nb_indices) const noexcept {
+				  std::size_t start_index,
+				  std::size_t nb_indices) const noexcept {
 
 			Pipeline::DrawIndexed(device_context,
 				                  static_cast< U32 >(nb_indices), 
@@ -214,7 +214,7 @@ namespace mage::rendering {
 		 @param[in]		primitive_topology
 						The primitive topology.
 		 */
-		explicit Mesh(size_t vertex_size, 
+		explicit Mesh(std::size_t vertex_size,
 			          DXGI_FORMAT index_format, 
 			          D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
@@ -244,7 +244,7 @@ namespace mage::rendering {
 		 @param[in]		nb_vertices
 						The number of vertices of this mesh.
 		 */
-		void SetNumberOfVertices(size_t nb_vertices) noexcept {
+		void SetNumberOfVertices(std::size_t nb_vertices) noexcept {
 			m_nb_vertices = nb_vertices;
 		}
 
@@ -254,7 +254,7 @@ namespace mage::rendering {
 		 @param[in]		nb_indices
 						The number of indices of this mesh.
 		 */
-		void SetNumberOfIndices(size_t nb_indices) noexcept {
+		void SetNumberOfIndices(std::size_t nb_indices) noexcept {
 			m_nb_indices = nb_indices;
 		}
 
@@ -281,17 +281,17 @@ namespace mage::rendering {
 		/**
 		 The number of vertices of this mesh.
 		 */
-		size_t m_nb_vertices;
+		std::size_t m_nb_vertices;
 
 		/**
 		 The number of indices of this mesh.
 		 */
-		size_t m_nb_indices;
+		std::size_t m_nb_indices;
 
 		/**
 		 The vertex size of this mesh.
 		 */
-		size_t m_vertex_size;
+		std::size_t m_vertex_size;
 
 		/**
 		 The index format of this mesh.

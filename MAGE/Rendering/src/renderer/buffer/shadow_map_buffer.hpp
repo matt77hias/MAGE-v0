@@ -58,7 +58,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		explicit ShadowMapBuffer(ID3D11Device& device,
-			                     size_t nb_shadow_maps, 
+								 std::size_t nb_shadow_maps,
 								 const U32x2& resolution = { 512u, 512u }, 
 			                     DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer& buffer) = delete;
@@ -77,7 +77,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
-		size_t GetNumberOfShadowMaps() const noexcept {
+		std::size_t GetNumberOfShadowMaps() const noexcept {
 			using std::size;
 			return size(m_dsvs);
 		}
@@ -95,12 +95,12 @@ namespace mage::rendering {
 			}
 		}
 		void BindDSV(ID3D11DeviceContext& device_context, 
-			         size_t dsv_index) const noexcept {
+					 std::size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
 		[[nodiscard]]
-		ID3D11DepthStencilView& GetDSV(size_t dsv_index) const noexcept {
+		ID3D11DepthStencilView& GetDSV(std::size_t dsv_index) const noexcept {
 			return *m_dsvs[dsv_index].Get();
 		}
 		[[nodiscard]]
@@ -117,9 +117,9 @@ namespace mage::rendering {
 		void SetupRasterizerState(ID3D11Device& device);
 
 		void SetupShadowMapBuffer(ID3D11Device& device,
-			                      size_t nb_shadow_maps);
+								  std::size_t nb_shadow_maps);
 		void SetupShadowMapArray(ID3D11Device& device,
-			                     size_t nb_shadow_maps, 
+								 std::size_t nb_shadow_maps,
 			                     DXGI_FORMAT texture_format,
 			                     DXGI_FORMAT dsv_format, 
 			                     DXGI_FORMAT srv_format);
@@ -152,7 +152,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		explicit ShadowCubeMapBuffer(ID3D11Device& device,
-			                         size_t nb_shadow_cube_maps,
+									 std::size_t nb_shadow_cube_maps,
 									 const U32x2& resolution = { 512u, 512u },
 			                         DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer& buffer) = delete;
@@ -171,12 +171,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
-		size_t GetNumberOfShadowMaps() const noexcept {
+		std::size_t GetNumberOfShadowMaps() const noexcept {
 			using std::size;
 			return size(m_dsvs);
 		}
 		[[nodiscard]]
-		size_t GetNumberOfShadowCubeMaps() const noexcept {
+		std::size_t GetNumberOfShadowCubeMaps() const noexcept {
 			using std::size;
 			return size(m_dsvs) / 6u;
 		}
@@ -194,12 +194,12 @@ namespace mage::rendering {
 			}
 		}
 		void BindDSV(ID3D11DeviceContext& device_context, 
-			         size_t dsv_index) const noexcept {
+					 std::size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
 		[[nodiscard]]
-		ID3D11DepthStencilView& GetDSV(size_t dsv_index) const noexcept {
+		ID3D11DepthStencilView& GetDSV(std::size_t dsv_index) const noexcept {
 			return *m_dsvs[dsv_index].Get();
 		}
 		[[nodiscard]]
@@ -216,9 +216,9 @@ namespace mage::rendering {
 		void SetupRasterizerState(ID3D11Device& device);
 
 		void SetupShadowCubeMapBuffer(ID3D11Device& device,
-			                          size_t nb_shadow_cube_maps);
+									  std::size_t nb_shadow_cube_maps);
 		void SetupShadowCubeMapArray(ID3D11Device& device,
-			                         size_t nb_shadow_cube_maps, 
+									 std::size_t nb_shadow_cube_maps,
 			                         DXGI_FORMAT texture_format,
 			                         DXGI_FORMAT dsv_format, 
 			                         DXGI_FORMAT srv_format);

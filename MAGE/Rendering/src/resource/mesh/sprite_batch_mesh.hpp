@@ -31,24 +31,24 @@ namespace mage::rendering {
 		 The minimum number of sprites to draw per batch for sprite batch 
 		 meshes.
 		 */
-		static constexpr size_t s_min_sprites_per_batch = 128;
+		static constexpr std::size_t s_min_sprites_per_batch = 128;
 
 		/**
 		 The maximum number of sprites to draw per batch (i.e. the maximum 
 		 number of sprites that can be represented by a single sprite batch 
 		 mesh) for sprite batch meshes.
 		 */
-		static constexpr size_t s_max_sprites_per_batch = 2048;
+		static constexpr std::size_t s_max_sprites_per_batch = 2048;
 		
 		/**
 		 The number of vertices per sprite.
 		 */
-		static constexpr size_t s_vertices_per_sprite = 4; // quad = 2 triangles
+		static constexpr std::size_t s_vertices_per_sprite = 4; // quad = 2 triangles
 		
 		/**
 		 The number of indices per sprite.
 		 */
-		static constexpr size_t s_indices_per_sprite = 6; // quad = 2 triangles
+		static constexpr std::size_t s_indices_per_sprite = 6; // quad = 2 triangles
 
 		//---------------------------------------------------------------------
 		// Class Member Methods
@@ -62,7 +62,7 @@ namespace mage::rendering {
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
-		static constexpr size_t MinVerticesPerBatch() noexcept {
+		static constexpr std::size_t MinVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -74,7 +74,7 @@ namespace mage::rendering {
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
-		static constexpr size_t MaxVerticesPerBatch() noexcept {
+		static constexpr std::size_t MaxVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_max_sprites_per_batch;
 		}
 
@@ -86,7 +86,7 @@ namespace mage::rendering {
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
-		static constexpr size_t MinIndicesPerBatch() noexcept {
+		static constexpr std::size_t MinIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_min_sprites_per_batch;
 		}
 
@@ -98,7 +98,7 @@ namespace mage::rendering {
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
-		static constexpr size_t MaxIndicesPerBatch() noexcept {
+		static constexpr std::size_t MaxIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_max_sprites_per_batch;
 		}
 

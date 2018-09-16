@@ -172,7 +172,7 @@ namespace mage::rendering {
 		 @return		The number of characters in this sprite font.
 		 */
 		[[nodiscard]]
-		size_t size() const noexcept {
+		std::size_t size() const noexcept {
 			using std::size;
 			return size(m_glyphs);
 		}

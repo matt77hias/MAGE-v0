@@ -157,7 +157,7 @@ namespace mage {
 		 @return		The number of childs of this node.
 		 */
 		[[nodiscard]]
-		size_t GetNumberOfChilds() const noexcept {
+		std::size_t GetNumberOfChilds() const noexcept {
 			using std::size;
 			return size(m_childs);
 		}
@@ -270,7 +270,7 @@ namespace mage {
 		 @return		The number of components of this node.
 		 */
 		[[nodiscard]]
-		size_t GetNumberOfComponents() const noexcept {
+		std::size_t GetNumberOfComponents() const noexcept {
 			using std::size;
 			return size(m_components);
 		}
@@ -285,7 +285,7 @@ namespace mage {
 		 */
 		template< typename ComponentT >
 		[[nodiscard]]
-		size_t GetNumberOf() const noexcept;
+		std::size_t GetNumberOf() const noexcept;
 
 		/**
 		 Returns the first component of the given type of this node.

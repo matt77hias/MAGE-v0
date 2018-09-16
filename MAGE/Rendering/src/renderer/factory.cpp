@@ -132,7 +132,7 @@ namespace mage::rendering {
 		desc.RenderTarget[0].BlendOpAlpha              = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask     = D3D11_COLOR_WRITE_ENABLE_ALL;
 		// Blending of the normal and the remaining.
-		for (size_t i = 1u; i < std::size(desc.RenderTarget); ++i) {
+		for (std::size_t i = 1u; i < std::size(desc.RenderTarget); ++i) {
 			desc.RenderTarget[i].BlendEnable           = FALSE;
 			desc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		}

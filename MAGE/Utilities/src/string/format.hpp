@@ -33,11 +33,11 @@ namespace mage {
 						 std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >
-	OutputIt AppendWrite(OutputIt it, size_t length, 
+	OutputIt AppendWrite(OutputIt it, std::size_t length,
 						 std::string_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >
-	OutputIt AppendWrite(OutputIt it, size_t length, 
+	OutputIt AppendWrite(OutputIt it, std::size_t length,
 						 std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
@@ -49,18 +49,18 @@ namespace mage {
 				 std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
-	void WriteTo(NotNull< zstring > buffer, size_t length,
+	void WriteTo(NotNull< zstring > buffer, std::size_t length,
 				 std::string_view format_str, const ArgsT&... args);
 
 	template< typename... ArgsT >
-	void WriteTo(NotNull< wzstring > buffer, size_t length,
+	void WriteTo(NotNull< wzstring > buffer, std::size_t length,
 				 std::wstring_view format_str, const ArgsT&... args);
 
-	template< size_t N, typename... ArgsT >
+	template< std::size_t N, typename... ArgsT >
 	void WriteTo(char (&buffer)[N],
 				 std::string_view format_str, const ArgsT&... args);
 
-	template< size_t N, typename... ArgsT >
+	template< std::size_t N, typename... ArgsT >
 	void WriteTo(wchar_t (&buffer)[N], 
 				 std::wstring_view format_str, const ArgsT&... args);
 }

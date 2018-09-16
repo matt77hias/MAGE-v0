@@ -20,7 +20,7 @@ namespace mage::rendering {
 	#pragma region
 
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device& device,
-		                             size_t nb_shadow_maps, 
+									 std::size_t nb_shadow_maps,
 		                             const U32x2& resolution, 
 		                             DepthFormat format)
 		: m_format(format), 
@@ -55,7 +55,7 @@ namespace mage::rendering {
 	}
 
 	void ShadowMapBuffer::SetupShadowMapBuffer(ID3D11Device& device,
-		                                       size_t nb_shadow_maps) {
+											   std::size_t nb_shadow_maps) {
 
 		switch (m_format) {
 		
@@ -80,7 +80,7 @@ namespace mage::rendering {
 	}
 
 	void ShadowMapBuffer::SetupShadowMapArray(ID3D11Device& device,
-		                                      size_t nb_shadow_maps, 
+											  std::size_t nb_shadow_maps,
 		                                      DXGI_FORMAT texture_format,
 		                                      DXGI_FORMAT dsv_format, 
 		                                      DXGI_FORMAT srv_format) {
@@ -115,7 +115,7 @@ namespace mage::rendering {
 		// Create the DSVs.
 		{
 			// Resize the DSV vector.
-			m_dsvs.resize(static_cast< size_t >(texture_desc.ArraySize));
+			m_dsvs.resize(static_cast< std::size_t >(texture_desc.ArraySize));
 
 			// Create the DSV descriptor.
 			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
@@ -157,7 +157,7 @@ namespace mage::rendering {
 	#pragma region
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device& device,
-		                                     size_t nb_shadow_cube_maps, 
+											 std::size_t nb_shadow_cube_maps,
 											 const U32x2& resolution, 
 		                                     DepthFormat format)
 		: m_format(format),
@@ -192,7 +192,7 @@ namespace mage::rendering {
 	}
 
 	void ShadowCubeMapBuffer::SetupShadowCubeMapBuffer(ID3D11Device& device,
-		                                               size_t nb_shadow_cube_maps) {
+													   std::size_t nb_shadow_cube_maps) {
 		switch (m_format) {
 		
 		case DepthFormat::D16: {
@@ -216,7 +216,7 @@ namespace mage::rendering {
 	}
 
 	void ShadowCubeMapBuffer::SetupShadowCubeMapArray(ID3D11Device& device,
-		                                              size_t nb_shadow_cube_maps, 
+													  std::size_t nb_shadow_cube_maps,
 		                                              DXGI_FORMAT texture_format,
 		                                              DXGI_FORMAT dsv_format, 
 		                                              DXGI_FORMAT srv_format) {
@@ -252,7 +252,7 @@ namespace mage::rendering {
 		// Create the DSVs.
 		{
 			// Resize the DSV vector.
-			m_dsvs.resize(static_cast< size_t >(texture_desc.ArraySize));
+			m_dsvs.resize(static_cast< std::size_t >(texture_desc.ArraySize));
 
 			// Create the DSV descriptor.
 			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};

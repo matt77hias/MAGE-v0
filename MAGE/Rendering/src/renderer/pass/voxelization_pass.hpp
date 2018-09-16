@@ -111,7 +111,7 @@ namespace mage::rendering {
 		 */
 		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection,
-								size_t resolution);
+								std::size_t resolution);
 
 	private:
 
@@ -129,7 +129,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void SetupVoxelGrid(size_t resolution);
+		void SetupVoxelGrid(std::size_t resolution);
 
 		/**
 		 Binds the fixed state of this voxelization pass.

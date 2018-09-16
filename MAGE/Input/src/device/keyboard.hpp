@@ -119,7 +119,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		bool IsActive(U8 key) const noexcept {
-			const size_t index = 2 * key + 1;
+			const std::size_t index = 2u * key + 1u;
 			return m_key_states[index];
 		}
 
@@ -148,7 +148,7 @@ namespace mage::input {
 		 */
 		[[nodiscard]]
 		bool IsSwitched(U8 key) const noexcept {
-			const size_t index = 2 * key;
+			const std::size_t index = 2u * key;
 			return m_key_states[index];
 		}
 

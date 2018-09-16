@@ -17,7 +17,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	PrimitiveBatchMesh< VertexT, IndexT >
 		::PrimitiveBatchMesh(ID3D11Device& device,
-			                 size_t nb_vertices,
+							 std::size_t nb_vertices,
 			                 const std::vector< IndexT >& indices,
 			                 D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: Mesh(sizeof(VertexT), 
@@ -42,7 +42,7 @@ namespace mage::rendering {
 
 	template< typename VertexT, typename IndexT >
 	void PrimitiveBatchMesh< VertexT, IndexT >
-		::SetupVertexBuffer(ID3D11Device& device, size_t nb_vertices) {
+		::SetupVertexBuffer(ID3D11Device& device, std::size_t nb_vertices) {
 		
 		const HRESULT result
 			= CreateDynamicVertexBuffer< VertexT >(

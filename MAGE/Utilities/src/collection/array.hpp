@@ -22,7 +22,7 @@ namespace mage {
 
 	namespace details {
 
-		template< typename ActionT, typename FromT, size_t... I >
+		template< typename ActionT, typename FromT, std::size_t... I >
 		[[nodiscard]]
 		constexpr const auto TransformArray(ActionT&& action, 
 											const std::array< FromT, sizeof...(I) >& a, 
@@ -32,7 +32,7 @@ namespace mage {
 			return std::array< ToT, sizeof...(I) >{ action(a[I])... };
 		}
 
-		template< typename T, size_t... I >
+		template< typename T, std::size_t... I >
 		[[nodiscard]]
 		constexpr const auto FillArray(const T& value, 
 									   std::index_sequence< I... >) {
@@ -40,7 +40,7 @@ namespace mage {
 			return std::array< T, sizeof...(I) >{ (static_cast< void >(I), value)... };
 		}
 	
-		template< size_t ToN, typename T, size_t... I >
+		template< std::size_t ToN, typename T, std::size_t... I >
 		[[nodiscard]]
 		constexpr const auto EnlargeArray(const std::array< T, sizeof...(I) >& a, 
 										  std::index_sequence< I... >) {
@@ -56,7 +56,7 @@ namespace mage {
 			return std::array< T, sizeof...(I) >{ std::get< I >(t)... };
 		}
 	
-		template< typename T, size_t... I >
+		template< typename T, std::size_t... I >
 		[[nodiscard]]
 		constexpr const auto ArrayToTupple(const std::array< T, sizeof...(I) >& a, 
 										   std::index_sequence< I... >) noexcept {
@@ -65,7 +65,7 @@ namespace mage {
 		}
 	}
 
-	template< typename ActionT, typename FromT, size_t N >
+	template< typename ActionT, typename FromT, std::size_t N >
 	[[nodiscard]]
 	constexpr const auto TransformArray(ActionT&& action, 
 										const std::array< FromT, N >& a) {
@@ -74,7 +74,7 @@ namespace mage {
 									   std::make_index_sequence< N >());
 	}
 
-	template< typename ToT, typename FromT, size_t N >
+	template< typename ToT, typename FromT, std::size_t N >
 	[[nodiscard]]
 	constexpr const auto StaticCastArray(const std::array< FromT, N >& a) {
 		constexpr auto f = [](const FromT& v) {
@@ -83,13 +83,13 @@ namespace mage {
 		return TransformArray(f, a);
 	}
 
-	template< typename T, size_t N >
+	template< typename T, std::size_t N >
 	[[nodiscard]]
 	constexpr const auto FillArray(const T& value) {
 		return details::FillArray(value, std::make_index_sequence< N >());
 	}
 
-	template< size_t ToN, typename T, size_t FromN >
+	template< std::size_t ToN, typename T, std::size_t FromN >
 	[[nodiscard]]
 	constexpr const auto EnlargeArray(const std::array< T, FromN >& a) {
 		return details::EnlargeArray< ToN >(a, std::make_index_sequence< FromN >());
@@ -102,7 +102,7 @@ namespace mage {
 		return details::TuppleToArray< T >(t, std::make_index_sequence< N >());
 	}
 
-	template< typename T, size_t N >
+	template< typename T, std::size_t N >
 	[[nodiscard]]
 	constexpr const auto ArrayToTupple(const std::array< T, N >& a) {
 		return details::ArrayToTupple(a, std::make_index_sequence< N >());
@@ -118,13 +118,13 @@ namespace mage {
 	#pragma warning( push )
 	#pragma warning( disable : 4324 ) // Added padding.
 
-	template< typename T, size_t N, size_t A = alignof(T), 
+	template< typename T, std::size_t N, std::size_t A = alignof(T),
 		      typename = std::enable_if_t< (N > 1) > >
 	struct alignas(A) Array : public std::array< T, N > {
 
 	public:
 
-		static constexpr size_t s_size = N;
+		static constexpr std::size_t s_size = N;
 
 		constexpr Array() noexcept
 			: std::array< T, N >{} {}
@@ -137,23 +137,23 @@ namespace mage {
 		constexpr Array(ArgsT&&... args) noexcept
 			: std::array< T, N >{ std::forward< ArgsT >(args)... } {}
 
-		template< size_t FromN, 
+		template< std::size_t FromN,
 			      typename = std::enable_if_t< (FromN < N) > >
 		constexpr Array(const Array< T, FromN, A >& a) noexcept
 			: std::array< T, N >(EnlargeArray< N >(a)) {}
 
-		template< size_t FromN, size_t FromA,
+		template< std::size_t FromN, std::size_t FromA,
 			      typename = std::enable_if_t< (FromN < N && FromA != A) > >
 		constexpr explicit Array(const Array< T, FromN, FromA >& a) noexcept
 			: std::array< T, N >(EnlargeArray< N >(a)) {}
 
-		template< size_t FromN, typename... ArgsT, 
+		template< std::size_t FromN, typename... ArgsT,
 			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > >
 		constexpr Array(const Array< T, FromN, A >& a, ArgsT&&... args) noexcept
 			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
 							     std::make_tuple(std::forward< ArgsT >(args)...)))) {}
 		
-		template< size_t FromN, size_t FromA, typename... ArgsT, 
+		template< std::size_t FromN, std::size_t FromA, typename... ArgsT,
 			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N && FromA != A) > >
 		constexpr explicit Array(const Array< T, FromN, FromA >& a, ArgsT&&... args) noexcept
 			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
@@ -163,7 +163,7 @@ namespace mage {
 		
 		constexpr Array(Array&& a) noexcept = default;
 
-		template< typename FromT, size_t FromA, 
+		template< typename FromT, std::size_t FromA,
 			      typename = std::enable_if_t< std::is_convertible_v< FromT, T > > >
 		constexpr explicit Array(const Array< FromT, N, FromA >& a) noexcept
 			: std::array< T, N >(StaticCastArray< T >(a)) {}
@@ -182,11 +182,11 @@ namespace mage {
 
 namespace std {
 
-	template< typename T, size_t N, size_t A >
+	template< typename T, std::size_t N, std::size_t A >
 	struct tuple_size< mage::Array< T, N, A > >
-		: public integral_constant< size_t, N > {};
+		: public integral_constant< std::size_t, N > {};
 
-	template< size_t I, typename T, size_t N, size_t A >
+	template< std::size_t I, typename T, std::size_t N, std::size_t A >
 	struct tuple_element< I, mage::Array< T, N, A > > {
 
 	public:

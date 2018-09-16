@@ -134,7 +134,7 @@ namespace mage::loader {
 		 @throws		Exception
 						Failed to read an array variable definition.
 		 */
-		template< typename T, size_t N, size_t A = alignof(T) >
+		template< typename T, std::size_t N, size_t A = alignof(T) >
 		void ReadVARVariable();
 
 		//---------------------------------------------------------------------

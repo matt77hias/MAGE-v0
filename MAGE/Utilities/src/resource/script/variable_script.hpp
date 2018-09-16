@@ -158,7 +158,7 @@ namespace mage {
 		 @return		The number of variables in this variable script.
 		 */
 		[[nodiscard]]
-		size_t size() const noexcept {
+		std::size_t size() const noexcept {
 			using std::size;
 			return size(m_variables);
 		}

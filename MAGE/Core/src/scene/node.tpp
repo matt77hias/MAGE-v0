@@ -43,7 +43,7 @@ namespace mage {
 
 	template< typename ComponentT >
 	[[nodiscard]]
-	inline size_t Node::GetNumberOf() const noexcept {
+	inline std::size_t Node::GetNumberOf() const noexcept {
 		return m_components.count(typeid(ComponentT));
 	}
 

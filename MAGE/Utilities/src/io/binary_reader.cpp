@@ -14,7 +14,7 @@ namespace mage {
 
 	void ReadBinaryFile(const std::filesystem::path& path,
 						UniquePtr< U8[] >& data,
-						size_t& size) {
+						std::size_t& size) {
 
 		const auto file_handle 
 			= CreateUniqueHandle(CreateFile2(path.c_str(),
@@ -39,7 +39,7 @@ namespace mage {
 		
 		// Allocate buffer.
 		const auto nb_bytes = file_info.EndOfFile.LowPart;
-		size = static_cast< size_t >(nb_bytes);
+		size = static_cast< std::size_t >(nb_bytes);
 		data = MakeUnique< U8[] >(nb_bytes);
 		ThrowIfFailed((nullptr != data), 
 					  "%ls: file too big for allocation.", path.c_str());
@@ -81,7 +81,7 @@ namespace mage {
 		m_path       = std::move(path);
 		m_big_endian = big_endian;
 
-		size_t nb_bytes = 0u;
+		std::size_t nb_bytes = 0u;
 		ReadBinaryFile(m_path, m_data, nb_bytes);
 		
 		m_pos = m_data.get();
@@ -105,7 +105,7 @@ namespace mage {
 		ReadData();
 	}
 
-	NotNull< const_zstring > BinaryReader::ReadChars(size_t size) {
+	NotNull< const_zstring > BinaryReader::ReadChars(std::size_t size) {
 		const auto old_pos = m_pos;
 		const auto new_pos = m_pos + size;
 		ThrowIfFailed((m_pos <= new_pos), 
@@ -143,7 +143,7 @@ namespace mage {
 	void BigEndianBinaryReader::ReadFromFile(std::filesystem::path path) {
 		m_path = std::move(path);
 
-		size_t nb_bytes = 0u;
+		std::size_t nb_bytes = 0u;
 		ReadBinaryFile(m_path, m_data, nb_bytes);
 
 		m_pos  = m_data.get();

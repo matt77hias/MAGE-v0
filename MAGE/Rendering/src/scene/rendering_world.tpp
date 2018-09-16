@@ -99,8 +99,8 @@ namespace mage::rendering {
 
 	template< typename ElementT >
 	[[nodiscard]]
-	inline size_t World::GetNumberOf() const noexcept {
-		size_t count = 0;
+	inline std::size_t World::GetNumberOf() const noexcept {
+		std::size_t count = 0u;
 		ForEach< ElementT >([&count](
 			[[maybe_unused]] const ElementT& element) noexcept {
 				++count;

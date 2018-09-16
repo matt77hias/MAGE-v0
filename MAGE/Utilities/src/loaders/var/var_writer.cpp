@@ -27,7 +27,7 @@ namespace mage::loader {
 
 			explicit VARVisitor(const std::string& key, 
 								NotNull< zstring > buffer,
-								size_t buffer_size) noexcept
+								std::size_t buffer_size) noexcept
 				: m_key(key), 
 				m_buffer(buffer), 
 				m_buffer_size(buffer_size) {}
@@ -59,7 +59,7 @@ namespace mage::loader {
 
 			NotNull< zstring > m_buffer;
 
-			size_t m_buffer_size;
+			std::size_t m_buffer_size;
 		};
 
 		template< typename T >

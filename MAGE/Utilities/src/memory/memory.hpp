@@ -392,7 +392,7 @@ namespace mage {
 						The index into the container.
 		 */
 		template< typename ContainerT >
-		explicit ProxyPtr(ContainerT& container, size_t index) noexcept
+		explicit ProxyPtr(ContainerT& container, std::size_t index) noexcept
 			: ProxyPtr([&container, index]() noexcept {
 				return &container[index];
 			}) {}

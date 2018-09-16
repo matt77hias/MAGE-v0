@@ -62,7 +62,7 @@ namespace mage::rendering {
 								   BlendStateID::Opaque);
 	}
 
-	void VoxelGridPass::Render(size_t resolution) const noexcept {
+	void VoxelGridPass::Render(std::size_t resolution) const noexcept {
 		// Bind the fixed state.
 		BindFixedState();
 

@@ -36,7 +36,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device& device, size_t capacity);
+		explicit StructuredBuffer(ID3D11Device& device, std::size_t capacity);
 		
 		/**
 		 Constructs a structured buffer from the given structured buffer.
@@ -93,7 +93,7 @@ namespace mage::rendering {
 		 @return		The size of this structured buffer.
 		 */
 		[[nodiscard]]
-		size_t size() const noexcept {
+		std::size_t size() const noexcept {
 			return m_size;
 		}
 
@@ -103,7 +103,7 @@ namespace mage::rendering {
 		 @return		The capacity of this structured buffer.
 		 */
 		[[nodiscard]]
-		size_t capacity() const noexcept {
+		std::size_t capacity() const noexcept {
 			return m_capacity;
 		}
 
@@ -165,7 +165,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device& device, size_t capacity);
+		void SetupStructuredBuffer(ID3D11Device& device, std::size_t capacity);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -185,13 +185,13 @@ namespace mage::rendering {
 		 The number of available slots for storing data elements in the current 
 		 buffer resource of this structured buffer (i.e. the capacity).
 		 */
-		size_t m_capacity;
+		std::size_t m_capacity;
 
 		/**
 		 The number of used slots for storing data elements in the current buffer 
 		 resource of this structured buffer (i.e. the size).
 		 */
-		size_t m_size;
+		std::size_t m_size;
 	};
 }
 

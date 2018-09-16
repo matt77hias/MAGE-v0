@@ -16,7 +16,7 @@ namespace mage::rendering {
 
 	template< typename T >
 	StructuredBuffer< T >
-		::StructuredBuffer(ID3D11Device& device, size_t capacity)
+		::StructuredBuffer(ID3D11Device& device, std::size_t capacity)
 		: m_buffer(), 
 		m_buffer_srv(),
 		m_capacity(0), 
@@ -27,7 +27,7 @@ namespace mage::rendering {
 
 	template< typename T >
 	void StructuredBuffer< T >
-		::SetupStructuredBuffer(ID3D11Device& device, size_t capacity) {
+		::SetupStructuredBuffer(ID3D11Device& device, std::size_t capacity) {
 
 		// Create the buffer resource.
 		{

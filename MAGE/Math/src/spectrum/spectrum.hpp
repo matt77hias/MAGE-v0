@@ -1308,9 +1308,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::RGB >
-		: public integral_constant< size_t, mage::RGB::s_size > {};
+		: public integral_constant< std::size_t, mage::RGB::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::RGB > {
 
 	public:
@@ -1327,9 +1327,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::SRGB >
-		: public integral_constant< size_t, mage::SRGB::s_size > {};
+		: public integral_constant< std::size_t, mage::SRGB::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::SRGB > {
 
 	public:
@@ -1346,9 +1346,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::XYZ >
-		: public integral_constant< size_t, mage::XYZ::s_size > {};
+		: public integral_constant< std::size_t, mage::XYZ::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::XYZ > {
 
 	public:
@@ -1365,9 +1365,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::RGBA >
-		: public integral_constant< size_t, mage::RGBA::s_size > {};
+		: public integral_constant< std::size_t, mage::RGBA::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::RGBA > {
 
 	public:
@@ -1384,9 +1384,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::SRGBA >
-		: public integral_constant< size_t, mage::SRGBA::s_size > {};
+		: public integral_constant< std::size_t, mage::SRGBA::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::SRGBA > {
 
 	public:
@@ -1403,9 +1403,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::XYZA >
-		: public integral_constant< size_t, mage::XYZA::s_size > {};
+		: public integral_constant< std::size_t, mage::XYZA::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::XYZA > {
 
 	public:

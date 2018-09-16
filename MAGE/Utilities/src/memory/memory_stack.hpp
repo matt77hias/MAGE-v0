@@ -40,7 +40,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit SingleEndedMemoryStack(size_t size, size_t alignment);
+		explicit SingleEndedMemoryStack(std::size_t size, size_t alignment);
 
 		/**
 		 Constructs a single-ended memory stack from the given single-ended 
@@ -104,7 +104,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetAlignment() const noexcept {
+		std::size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -115,7 +115,7 @@ namespace mage {
 						single-ended memory stack.
 		 */
 		[[nodiscard]]
-		size_t GetSize() const noexcept {
+		std::size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -126,7 +126,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetUsedSize() const noexcept {
+		std::size_t GetUsedSize() const noexcept {
 			return m_current - m_begin;
 		}
 
@@ -137,7 +137,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetAvailableSize() const noexcept {
+		std::size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -181,7 +181,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void* Alloc(size_t size) noexcept;
+		void* Alloc(std::size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory on this single-ended memory stack.
@@ -200,7 +200,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocData(size_t count = 1u, bool initialization = false);
+		T* AllocData(std::size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -307,7 +307,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count) const {
+			T* allocate(std::size_t count) const {
 				const auto ptr = m_memory_stack->AllocData< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -327,11 +327,11 @@ namespace mage {
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(size_t)}
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(std::size_t)}
 							or
-							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(size_t, const U*)} 
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(std::size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::SingleEndedMemoryStack::Allocator<T>::deallocate(T*, size_t)}. 
+							{@link mage::SingleEndedMemoryStack::Allocator<T>::deallocate(T*, std::size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -341,15 +341,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(size_t)}
+			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate(std::size_t)}
 			 or 
-			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(size_t, const U*)}
+			 {@link mage::SingleEndedMemoryStack::Allocator<T>::allocate<U>(std::size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -361,7 +361,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
-				            [[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] std::size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
@@ -451,12 +451,12 @@ namespace mage {
 		/**
 		 The size in bytes of this single-ended memory stack.
 		 */
-		const size_t m_size;
+		const std::size_t m_size;
 
 		/**
 		 The alignment in bytes of this single-ended memory stack.
 		 */
-		const size_t m_alignment;
+		const std::size_t m_alignment;
 
 		/**
 		 A pointer to the begin of this single-ended memory stack.
@@ -497,7 +497,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit DoubleEndedMemoryStack(size_t size, size_t alignment);
+		explicit DoubleEndedMemoryStack(std::size_t size, size_t alignment);
 
 		/**
 		 Constructs a double-ended memory stack from the given double-ended 
@@ -561,7 +561,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetAlignment() const noexcept {
+		std::size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -572,7 +572,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetSize() const noexcept {
+		std::size_t GetSize() const noexcept {
 			return m_size;
 		}
 
@@ -583,7 +583,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetUsedSize() const noexcept {
+		std::size_t GetUsedSize() const noexcept {
 			return m_size - m_current_high + m_current_low;
 		}
 
@@ -594,7 +594,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetUsedLowSize() const noexcept {
+		std::size_t GetUsedLowSize() const noexcept {
 			return m_current_low - m_begin;
 		}
 
@@ -605,7 +605,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetUsedHighSize() const noexcept {
+		std::size_t GetUsedHighSize() const noexcept {
 			return m_begin + m_size - m_current_high;
 		}
 
@@ -616,7 +616,7 @@ namespace mage {
 						stack.
 		 */
 		[[nodiscard]]
-		size_t GetAvailableSize() const noexcept {
+		std::size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
@@ -686,7 +686,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void* AllocLow(size_t size) noexcept;
+		void* AllocLow(std::size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory of the given size on the high side of this 
@@ -697,7 +697,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void* AllocHigh(size_t size) noexcept;
+		void* AllocHigh(std::size_t size) noexcept;
 
 		/**
 		 Allocates a block of memory on the low side of this memory stack.
@@ -716,7 +716,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocDataLow(size_t count = 1u, bool initialization = false);
+		T* AllocDataLow(std::size_t count = 1u, bool initialization = false);
 
 		/**
 		 Allocates a block of memory on the high side of this memory stack.
@@ -735,7 +735,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocDataHigh(size_t count = 1u, bool initialization = false);
+		T* AllocDataHigh(std::size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -843,7 +843,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count) const {
+			T* allocate(std::size_t count) const {
 				const auto ptr = m_memory_stack->AllocDataLow< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -863,11 +863,11 @@ namespace mage {
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(size_t)}
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(std::size_t)}
 							or
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(size_t, const U*)} 
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(std::size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::deallocate(T*, size_t)}. 
+							{@link mage::DoubleEndedMemoryStack::LowAllocator<T>::deallocate(T*, std::size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -877,15 +877,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(size_t)}
+			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate(std::size_t)}
 			 or 
-			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(size_t, const U*)}
+			 {@link mage::DoubleEndedMemoryStack::LowAllocator<T>::allocate<U>(std::size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -897,7 +897,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
-				            [[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] std::size_t count) const noexcept {}
 		
 			/**
 			 Compares this low allocator to the given low allocator for 
@@ -1070,7 +1070,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count) const {
+			T* allocate(std::size_t count) const {
 				const auto ptr = m_memory_stack->AllocDataHigh< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -1090,11 +1090,11 @@ namespace mage {
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(size_t)}
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(std::size_t)}
 							or
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(size_t, const U*)} 
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(std::size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::deallocate(T*,size_t)}. 
+							{@link mage::DoubleEndedMemoryStack::HighAllocator<T>::deallocate(T*,std::size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -1104,15 +1104,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(size_t)}
+			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate(std::size_t)}
 			 or 
-			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(size_t, const U*)}
+			 {@link mage::DoubleEndedMemoryStack::HighAllocator<T>::allocate<U>(std::size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -1124,7 +1124,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
-				            [[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] std::size_t count) const noexcept {}
 		
 			/**
 			 Compares this high allocator to the given high allocator for 
@@ -1229,12 +1229,12 @@ namespace mage {
 		/**
 		 The size in bytes of this double-ended memory stack.
 		 */
-		const size_t m_size;
+		const std::size_t m_size;
 
 		/**
 		 The alignment in bytes of this double-ended memory stack.
 		 */
-		const size_t m_alignment;
+		const std::size_t m_alignment;
 
 		/**
 		 A pointer to the begin of this double-ended memory stack.

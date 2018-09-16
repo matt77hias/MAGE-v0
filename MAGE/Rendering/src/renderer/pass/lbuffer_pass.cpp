@@ -249,7 +249,7 @@ namespace mage::rendering {
 				const auto world_to_light       = transform.GetWorldToObjectMatrix();
 				const auto light_to_lprojection = light.GetLightToProjectionMatrix();
 
-				for (size_t i = 0; i < std::size(rotations); ++i) {
+				for (std::size_t i = 0u; i < std::size(rotations); ++i) {
 					LightCameraInfo camera;
 					camera.world_to_light      = world_to_light * rotations[i];
 					camera.light_to_projection = light_to_lprojection;
@@ -423,7 +423,7 @@ namespace mage::rendering {
 			// Bind the rasterizer state.
 			m_directional_sms->BindRasterizerState(m_device_context);
 
-			size_t i = 0;
+			std::size_t i = 0u;
 			for (const auto& camera : m_directional_light_cameras) {
 				// Bind the DSV.
 				m_directional_sms->BindDSV(m_device_context, i++);
@@ -442,7 +442,7 @@ namespace mage::rendering {
 			// Bind the rasterizer state.
 			m_omni_sms->BindRasterizerState(m_device_context);
 
-			size_t i = 0;
+			std::size_t i = 0u;
 			for (const auto& camera : m_omni_light_cameras) {
 				// Bind the DSV.
 				m_omni_sms->BindDSV(m_device_context, i++);
@@ -461,7 +461,7 @@ namespace mage::rendering {
 			// Bind the rasterizer state.
 			m_spot_sms->BindRasterizerState(m_device_context);
 
-			size_t i = 0;
+			std::size_t i = 0u;
 			for (const auto& camera : m_spot_light_cameras) {
 				// Bind the DSV.
 				m_spot_sms->BindDSV(m_device_context, i++);

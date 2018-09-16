@@ -582,9 +582,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::UV > 
-		: public integral_constant< size_t, mage::UV::s_size > {};
+		: public integral_constant< std::size_t, mage::UV::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::UV > {
 
 	public:
@@ -601,9 +601,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::Point3 >
-		: public integral_constant< size_t, mage::Point3::s_size > {};
+		: public integral_constant< std::size_t, mage::Point3::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::Point3 > {
 
 	public:
@@ -620,9 +620,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::Direction3 >
-		: public integral_constant< size_t, mage::Direction3::s_size > {};
+		: public integral_constant< std::size_t, mage::Direction3::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::Direction3 > {
 
 	public:
@@ -639,9 +639,9 @@ namespace std {
 
 	template<>
 	struct tuple_size< mage::Normal3 >
-		: public integral_constant< size_t, mage::Normal3::s_size > {};
+		: public integral_constant< std::size_t, mage::Normal3::s_size > {};
 
-	template< size_t I >
+	template< std::size_t I >
 	struct tuple_element< I, mage::Normal3 > {
 
 	public:

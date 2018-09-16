@@ -32,8 +32,8 @@ namespace mage::rendering {
 	Model& Model::operator=(Model&& model) noexcept = default;
 
 	void Model::SetMesh(SharedPtr< const Mesh > mesh, 
-						size_t start_index,
-						size_t nb_indices, 
+						std::size_t start_index,
+						std::size_t nb_indices,
 						AABB aabb, 
 						BoundingSphere bs) {
 

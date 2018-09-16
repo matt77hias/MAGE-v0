@@ -55,7 +55,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device& device, 
 									  NotNull< ID3D11Buffer** > buffer,
-									  size_t nb_vertices) noexcept {
+									  std::size_t nb_vertices) noexcept {
 		
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -143,7 +143,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
 										NotNull< ID3D11Buffer** > buffer,
-										size_t nb_data_elements) noexcept {
+										std::size_t nb_data_elements) noexcept {
 		
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};
@@ -212,7 +212,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
 										  NotNull< ID3D11Buffer** > buffer,
-										  size_t nb_data_elements) noexcept {
+										  std::size_t nb_data_elements) noexcept {
 
 		// Create the buffer descriptor.
 		D3D11_BUFFER_DESC buffer_desc = {};

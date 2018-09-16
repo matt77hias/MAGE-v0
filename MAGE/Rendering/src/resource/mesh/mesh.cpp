@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	Mesh::Mesh(size_t vertex_size, 
+	Mesh::Mesh(std::size_t vertex_size,
 		       DXGI_FORMAT index_format, 
 		       D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: m_vertex_buffer(), 

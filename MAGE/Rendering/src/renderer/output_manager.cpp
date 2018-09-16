@@ -96,12 +96,12 @@ namespace mage::rendering {
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR0));
 		}
 		else {
-			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_HDR0)]
-				= m_srvs[static_cast< size_t >(SRVIndex::HDR)];
-			m_rtvs[static_cast< size_t >(RTVIndex::PostProcessing_HDR0)]
-				= m_rtvs[static_cast< size_t >(RTVIndex::HDR)];
-			m_uavs[static_cast< size_t >(UAVIndex::PostProcessing_HDR0)]
-				= m_uavs[static_cast< size_t >(UAVIndex::HDR)];
+			m_srvs[static_cast< std::size_t >(SRVIndex::PostProcessing_HDR0)]
+				= m_srvs[static_cast< std::size_t >(SRVIndex::HDR)];
+			m_rtvs[static_cast< std::size_t >(RTVIndex::PostProcessing_HDR0)]
+				= m_rtvs[static_cast< std::size_t >(RTVIndex::HDR)];
+			m_uavs[static_cast< std::size_t >(UAVIndex::PostProcessing_HDR0)]
+				= m_uavs[static_cast< std::size_t >(UAVIndex::HDR)];
 		}
 
 		SetupBuffer(setup,
@@ -124,10 +124,10 @@ namespace mage::rendering {
 				        ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Normal));
 		}
 		else {
-			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Depth)]
-				= m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Depth)];
-			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Normal)]
-				= m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Normal)];
+			m_srvs[static_cast< std::size_t >(SRVIndex::PostProcessing_Depth)]
+				= m_srvs[static_cast< std::size_t >(SRVIndex::GBuffer_Depth)];
+			m_srvs[static_cast< std::size_t >(SRVIndex::PostProcessing_Normal)]
+				= m_srvs[static_cast< std::size_t >(SRVIndex::GBuffer_Normal)];
 		}
 	
 		SetupBuffer(setup,

@@ -282,7 +282,7 @@ namespace mage {
 		m_far_plane = C.r[3] - C.r[2];
 
 		// Normalize the view frustum planes.
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			m_planes[i] = XMPlaneNormalize(m_planes[i]);
 		}
 	}
@@ -293,7 +293,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool XM_CALLCONV BoundingFrustum::Encloses(FXMVECTOR point) const noexcept {
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) < 0.0f) {
 				return false;
@@ -305,7 +305,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool XM_CALLCONV BoundingFrustum::EnclosesStrict(FXMVECTOR point) const noexcept {
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], point);
 			if (XMVectorGetX(result) <= 0.0f) {
 				return false;
@@ -317,7 +317,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool BoundingFrustum::Encloses(const AABB& aabb) const noexcept {
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto p      = aabb.MinPointAlongNormal(m_planes[i]);
 			const auto result = XMPlaneDotCoord(m_planes[i], p);
 			if (XMVectorGetX(result) < 0.0f) {
@@ -330,7 +330,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool BoundingFrustum::EnclosesStrict(const AABB& aabb) const noexcept {
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto p      = aabb.MinPointAlongNormal(m_planes[i]);
 			const auto result = XMPlaneDotCoord(m_planes[i], p);
 			if (XMVectorGetX(result) <= 0.0f) {
@@ -346,7 +346,7 @@ namespace mage {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
 		
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
 			if (XMVectorGetX(result) < radius) {
 				return false;
@@ -361,7 +361,7 @@ namespace mage {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
 
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
 			if (XMVectorGetX(result) <= radius) {
 				return false;
@@ -378,7 +378,7 @@ namespace mage {
 	[[nodiscard]]
 	bool BoundingFrustum::Overlaps(const AABB& aabb) const noexcept {
 		// Test for no coverage.
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto p      = aabb.MaxPointAlongNormal(m_planes[i]);
 			const auto result = XMPlaneDotCoord(m_planes[i], p);
 			if (XMVectorGetX(result) < 0.0f) {
@@ -392,7 +392,7 @@ namespace mage {
 	[[nodiscard]]
 	bool BoundingFrustum::OverlapsStrict(const AABB& aabb) const noexcept {
 		// Test for no coverage.
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto p      = aabb.MaxPointAlongNormal(m_planes[i]);
 			const auto result = XMPlaneDotCoord(m_planes[i], p);
 			if (XMVectorGetX(result) <= 0.0f) {
@@ -409,7 +409,7 @@ namespace mage {
 		const auto radius   = sphere.Radius();
 		
 		// Test for no coverage.
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
 			if (XMVectorGetX(result) < -radius) {
 				return false;
@@ -425,7 +425,7 @@ namespace mage {
 		const auto radius   = sphere.Radius();
 		
 		// Test for no coverage.
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
 			if (XMVectorGetX(result) <= -radius) {
 				return false;
@@ -441,7 +441,7 @@ namespace mage {
 
 	[[nodiscard]]
 	bool BoundingFrustum::operator==(const BoundingFrustum& frustum) const noexcept {
-		for (size_t i = 0; i < std::size(m_planes); ++i) {
+		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			if (XMVector4NotEqual(m_planes[i], frustum.m_planes[i])) {
 				return false;
 			}

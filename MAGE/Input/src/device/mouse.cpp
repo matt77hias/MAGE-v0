@@ -136,15 +136,15 @@ namespace mage::input {
 		m_position = GetMousePosition(m_window);
 
 		// Update the mouse deltas.
-		m_delta[0]    = static_cast< S32 >(mouse_state.lX);
-		m_delta[1]    = static_cast< S32 >(mouse_state.lY);
+		m_delta[0u]   = static_cast< S32 >(mouse_state.lX);
+		m_delta[1u]   = static_cast< S32 >(mouse_state.lY);
 		m_delta_wheel = static_cast< S32 >(mouse_state.lZ);
 
 		// Update the button states.
-		for (size_t i = 0; i < std::size(mouse_state.rgbButtons); ++i) {
+		for (std::size_t i = 0u; i < std::size(mouse_state.rgbButtons); ++i) {
 			const bool active = mouse_state.rgbButtons[i] & 0x80u;
-			m_button_states[2*i]   = (active != m_button_states[2*i+1]);
-			m_button_states[2*i+1] = active;
+			m_button_states[2u*i]    = (active != m_button_states[2u*i+1u]);
+			m_button_states[2u*i+1u] = active;
 		}
 	}
 

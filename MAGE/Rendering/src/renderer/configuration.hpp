@@ -31,23 +31,23 @@ namespace mage::rendering {
 	};
 
 	[[nodiscard]]
-	constexpr AntiAliasing RetrieveAntiAliasing(size_t desc) noexcept {
+	constexpr AntiAliasing RetrieveAntiAliasing(std::size_t desc) noexcept {
 
 		switch (desc) {
 		
-		case static_cast< size_t >(AntiAliasing::FXAA):
+		case static_cast< std::size_t >(AntiAliasing::FXAA):
 			return AntiAliasing::FXAA;
-		case static_cast< size_t >(AntiAliasing::MSAA_2x):
+		case static_cast< std::size_t >(AntiAliasing::MSAA_2x):
 			return AntiAliasing::MSAA_2x;
-		case static_cast< size_t >(AntiAliasing::MSAA_4x):
+		case static_cast< std::size_t >(AntiAliasing::MSAA_4x):
 			return AntiAliasing::MSAA_4x;
-		case static_cast< size_t >(AntiAliasing::MSAA_8x):
+		case static_cast< std::size_t >(AntiAliasing::MSAA_8x):
 			return AntiAliasing::MSAA_8x;
-		case static_cast< size_t >(AntiAliasing::SSAA_2x):
+		case static_cast< std::size_t >(AntiAliasing::SSAA_2x):
 			return AntiAliasing::SSAA_2x;
-		case static_cast< size_t >(AntiAliasing::SSAA_3x):
+		case static_cast< std::size_t >(AntiAliasing::SSAA_3x):
 			return AntiAliasing::SSAA_3x;
-		case static_cast< size_t >(AntiAliasing::SSAA_4x):
+		case static_cast< std::size_t >(AntiAliasing::SSAA_4x):
 			return AntiAliasing::SSAA_4x;
 		default:
 			return AntiAliasing::None;

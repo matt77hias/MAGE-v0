@@ -56,7 +56,7 @@ namespace mage {
 		return std::string(Read< std::string_view >());
 	}
 
-	template< typename T, size_t N, size_t A >
+	template< typename T, std::size_t N, size_t A >
 	inline const Array< T, N, A > LineReader::Read() {
 		Array< T, N, A > result;
 		for (auto& element : result) {

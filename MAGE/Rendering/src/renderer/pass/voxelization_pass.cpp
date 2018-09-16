@@ -67,7 +67,7 @@ namespace mage::rendering {
 		}
 	}
 
-	void VoxelizationPass::SetupVoxelGrid(size_t resolution) {
+	void VoxelizationPass::SetupVoxelGrid(std::size_t resolution) {
 		if (m_voxel_grid->GetResolution() != resolution) {
 			ComPtr< ID3D11Device > device;
 			m_device_context.get().GetDevice(device.ReleaseAndGetAddressOf());
@@ -96,7 +96,7 @@ namespace mage::rendering {
 
 	void XM_CALLCONV VoxelizationPass::Render(const World& world,
 											  FXMMATRIX world_to_projection,
-											  size_t resolution) {
+											  std::size_t resolution) {
 		SetupVoxelGrid(resolution);
 
 		m_voxel_grid->BindBeginVoxelizationBuffer(m_device_context);

@@ -135,7 +135,7 @@ namespace mage {
 		const auto token = m_selection_function(*m_iterator);
 		if (token.matched) {
 			return { &*token.first, 
-				     static_cast< size_t >(token.second - token.first) };
+				     static_cast< std::size_t >(token.second - token.first) };
 		}
 		else {
 			return {};

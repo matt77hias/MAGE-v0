@@ -37,7 +37,7 @@ namespace mage {
 					pointer is a multiple of the given alignment.
 	 */
 	[[nodiscard]]
-	inline void* AllocAligned(size_t size, size_t alignment) noexcept {
+	inline void* AllocAligned(std::size_t size, std::size_t alignment) noexcept {
 		return _aligned_malloc(size, alignment);
 	}
 
@@ -56,14 +56,14 @@ namespace mage {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	inline T* AllocAlignedData(size_t count, size_t alignment) noexcept {
+	inline T* AllocAlignedData(std::size_t count, size_t alignment) noexcept {
 		return static_cast< T* >(AllocAligned(count * sizeof(T), alignment));
 	}
 
 	/**
 	 Frees a block of memory that was allocated with 
-	 {@link mage::AllocAligned(size_t, size_t)} or 
-	 {@link mage::AllocAlignedData<T>(size_t, size_t)}.
+	 {@link mage::AllocAligned(std::size_t, std::size_t)} or 
+	 {@link mage::AllocAlignedData<T>(std::size_t, std::size_t)}.
 	
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.
@@ -84,7 +84,7 @@ namespace mage {
 	 @tparam		A
 					The alignment size in bytes.
 	 */
-	template< typename T, size_t A = alignof(T) >
+	template< typename T, std::size_t A = alignof(T) >
 	class AlignedAllocator {
 		
 	public:
@@ -214,7 +214,7 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
-		T* allocate(size_t count) const {
+		T* allocate(std::size_t count) const {
 			const auto ptr = AllocAlignedData< T >(count, A);
 			if (!ptr) {
 				throw std::bad_alloc();
@@ -234,11 +234,11 @@ namespace mage {
 		 @param[in]		hint
 						Either @c nullptr or a value previously obtained by 
 						another call to 
-						{@link mage::AlignedAllocator<T,size_t>::allocate(size_t)}
+						{@link mage::AlignedAllocator<T,std::size_t>::allocate(std::size_t)}
 						or
-						{@link mage::AlignedAllocator<T,size_t>::allocate<U>(size_t, const U*)} 
+						{@link mage::AlignedAllocator<T,std::size_t>::allocate<U>(std::size_t, const U*)} 
 						and not yet freed with 
-						{@link mage::AlignedAllocator<T,size_t>::deallocate(T*, size_t)}. 
+						{@link mage::AlignedAllocator<T,std::size_t>::deallocate(T*, std::size_t)}. 
 						When not equal to @c nullptr, this value 
 						may be used as a hint to improve performance by 
 						allocating the new block near the one specified. 
@@ -250,15 +250,15 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		[[nodiscard]]
-		T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
+		T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
 			return allocate(count);
 		}
 
 		/**
 		 Releases a block of storage previously allocated with 
-		 {@link mage::AlignedAllocator<T,size_t>::allocate(size_t)}
+		 {@link mage::AlignedAllocator<T,std::size_t>::allocate(std::size_t)}
 		 or 
-		 {@link mage::AlignedAllocator<T,size_t>::allocate<U>(size_t, const U*)}
+		 {@link mage::AlignedAllocator<T,std::size_t>::allocate<U>(std::size_t, const U*)}
 		 and not yet released. 
 		 
 		 @param[in]		data
@@ -269,7 +269,7 @@ namespace mage {
 						allocate for this block of storage.
 		 @note			The elements in the array are not destroyed.
 		 */
-		void deallocate(T* data, [[maybe_unused]] size_t count) const noexcept {
+		void deallocate(T* data, [[maybe_unused]] std::size_t count) const noexcept {
 			FreeAligned(static_cast< void* >(data));
 		}
 		

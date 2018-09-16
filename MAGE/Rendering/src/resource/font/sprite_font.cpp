@@ -154,7 +154,7 @@ namespace mage::rendering {
 			{ 1.0f, 1.0f }  //SpriteEffect::MirrorXY
 		};
 		
-		const auto index = static_cast< size_t >(effects) & 3u;
+		const auto index = static_cast< std::size_t >(effects) & 3u;
 
 		const auto base_offset = (SpriteEffect::None == effects) 
 			                   ? transform.GetRotationOriginV() 

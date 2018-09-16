@@ -85,8 +85,8 @@ namespace mage::rendering {
 	void ModelOutput< VertexT, IndexT >
 		::SetupBoundingVolumes(ModelPart& model_part) noexcept {
 		
-		const size_t start = model_part.m_start_index;
-		const size_t end   = start + model_part.m_nb_indices;
+		const std::size_t start = model_part.m_start_index;
+		const std::size_t end   = start + model_part.m_nb_indices;
 		
 		for (auto i = start; i < end; ++i) {
 			const auto& v = m_vertex_buffer[m_index_buffer[i]];

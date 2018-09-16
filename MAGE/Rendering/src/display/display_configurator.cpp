@@ -71,30 +71,30 @@ namespace mage::rendering {
 
 		/**
 		 Converts the resolution of the given display format descriptor to a 
-		 @c size_t.
+		 @c std::size_t.
 
 		 @param[in]		desc
 						A reference to the display format descriptor.
-		 @return		A @c size_t value corresponding to the resolution of 
+		 @return		A @c std::size_t value corresponding to the resolution of 
 						the given display format descriptor.
 		 */
 		[[nodiscard]]
-		inline size_t ConvertResolution(const DXGI_MODE_DESC& desc) noexcept {
-			return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
+		inline std::size_t ConvertResolution(const DXGI_MODE_DESC& desc) noexcept {
+			return static_cast< std::size_t >(MAKELONG(desc.Width, desc.Height));
 		}
 
 		/**
 		 Converts the refresh rate of the given display format descriptor to a 
-		 @c size_t.
+		 @c std::size_t.
 
 		 @param[in]		desc
 						A reference to the display format descriptor.
-		 @return		A @c size_t value corresponding to the refresh rate of 
+		 @return		A @c std::size_t value corresponding to the refresh rate of 
 						the given display format descriptor.
 		 */
 		[[nodiscard]]
-		inline size_t ConvertRefreshRate(const DXGI_MODE_DESC& desc) noexcept {
-			return static_cast< size_t >(round(desc.RefreshRate.Numerator 
+		inline std::size_t ConvertRefreshRate(const DXGI_MODE_DESC& desc) noexcept {
+			return static_cast< std::size_t >(round(desc.RefreshRate.Numerator
 				 / static_cast< F32 >(desc.RefreshRate.Denominator)));
 		}
 	}
@@ -587,28 +587,28 @@ namespace mage::rendering {
 				
 				// Fill in the anti-aliasing combo box.
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::None), 
+								 static_cast< std::size_t >(AntiAliasing::None),
 								 NotNull< const_wzstring >(L"None"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::FXAA), 
+								 static_cast< std::size_t >(AntiAliasing::FXAA),
 								 NotNull< const_wzstring >(L"FXAA"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::MSAA_2x), 
+								 static_cast< std::size_t >(AntiAliasing::MSAA_2x),
 								 NotNull< const_wzstring >(L"MSAA 2x"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::MSAA_4x), 
+								 static_cast< std::size_t >(AntiAliasing::MSAA_4x),
 								 NotNull< const_wzstring >(L"MSAA 4x"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::MSAA_8x), 
+								 static_cast< std::size_t >(AntiAliasing::MSAA_8x),
 								 NotNull< const_wzstring >(L"MSAA 8x"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::SSAA_2x), 
+								 static_cast< std::size_t >(AntiAliasing::SSAA_2x),
 								 NotNull< const_wzstring >(L"SSAA 2x"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::SSAA_3x), 
+								 static_cast< std::size_t >(AntiAliasing::SSAA_3x),
 								 NotNull< const_wzstring >(L"SSAA 3x"));
 				ComboBoxAddValue(not_null_dialog, IDC_AA, 
-								 static_cast< size_t >(AntiAliasing::SSAA_4x), 
+								 static_cast< std::size_t >(AntiAliasing::SSAA_4x),
 								 NotNull< const_wzstring >(L"SSAA 4x"));
 				
 				const auto index 

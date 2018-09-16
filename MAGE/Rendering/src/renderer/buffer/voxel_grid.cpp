@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	VoxelGrid::VoxelGrid(ID3D11Device& device, size_t resolution)
+	VoxelGrid::VoxelGrid(ID3D11Device& device, std::size_t resolution)
 		: m_resolution(resolution), 
 		m_viewport(U32x2(static_cast< U32 >(resolution), 
 						 static_cast< U32 >(resolution))),
@@ -59,7 +59,7 @@ namespace mage::rendering {
 			buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
 			
 			auto data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
-			memset(data.get(), 0, static_cast< size_t >(buffer_desc.ByteWidth));
+			memset(data.get(), 0, static_cast< std::size_t >(buffer_desc.ByteWidth));
 
 			D3D11_SUBRESOURCE_DATA init_data = {};
 			init_data.pSysMem = data.get();

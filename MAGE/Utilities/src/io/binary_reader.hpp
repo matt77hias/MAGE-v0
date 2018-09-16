@@ -37,7 +37,7 @@ namespace mage {
 					Failed to read from the file.
 	 */
 	void ReadBinaryFile(const std::filesystem::path& path, 
-						UniquePtr< U8[] >& data, size_t& size);
+						UniquePtr< U8[] >& data, std::size_t& size);
 
 	//-------------------------------------------------------------------------
 	// BinaryReader
@@ -172,7 +172,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to read @c size bytes.
 		 */
-		NotNull< const_zstring > ReadChars(size_t size);
+		NotNull< const_zstring > ReadChars(std::size_t size);
 
 		/**
 		 Reads a @c T value.
@@ -382,7 +382,7 @@ namespace mage {
 						Failed to read @c count @c T values.
 		 */
 		template< typename T >
-		const T* ReadArray(size_t count);
+		const T* ReadArray(std::size_t count);
 		
 	private:
 

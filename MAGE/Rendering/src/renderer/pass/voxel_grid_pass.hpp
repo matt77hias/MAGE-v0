@@ -95,7 +95,7 @@ namespace mage::rendering {
 		 @param[in]		resolution
 						The resolution of the regular voxel grid.
 		 */
-		void Render(size_t resolution) const noexcept;
+		void Render(std::size_t resolution) const noexcept;
 		
 	private:
 

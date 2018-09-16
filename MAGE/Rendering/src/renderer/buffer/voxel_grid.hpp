@@ -18,7 +18,7 @@ namespace mage::rendering {
 
 	public:
 
-		explicit VoxelGrid(ID3D11Device& device, size_t resolution);
+		explicit VoxelGrid(ID3D11Device& device, std::size_t resolution);
 		VoxelGrid(const VoxelGrid& voxel_grid) = delete;
 		VoxelGrid(VoxelGrid&& voxel_grid) noexcept;
 		~VoxelGrid();
@@ -27,7 +27,7 @@ namespace mage::rendering {
 		VoxelGrid& operator=(VoxelGrid&& voxel_grid) noexcept;
 
 		[[nodiscard]]
-		size_t GetResolution() const noexcept {
+		std::size_t GetResolution() const noexcept {
 			return m_resolution;
 		}
 
@@ -47,7 +47,7 @@ namespace mage::rendering {
 		void SetupStructuredBuffer(ID3D11Device& device);
 		void SetupTexture(ID3D11Device& device);
 
-		size_t m_resolution;
+		std::size_t m_resolution;
 		Viewport m_viewport;
 
 		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;

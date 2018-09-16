@@ -52,7 +52,7 @@ namespace mage {
 	 */
 	inline void ComboBoxAddValue(NotNull< HWND > dialog, 
 								 int id, 
-								 size_t value, 
+								 std::size_t value,
 								 NotNull< const_wzstring > desc) noexcept {
 		
 		ComboBoxAdd(dialog, id, (const void*)value, desc);
@@ -127,7 +127,7 @@ namespace mage {
 	 */
 	inline void ComboBoxSelectValue(NotNull< HWND > dialog, 
 									int id, 
-									size_t value) noexcept {
+									std::size_t value) noexcept {
 
 		ComboBoxSelect(dialog, id, (const void*)value);
 	}
@@ -182,12 +182,12 @@ namespace mage {
 	 @param[in]		id
 					The identifier of the control to be retrieved.
 	 @return		The value associated with the selected item in a combo box.
-	 @note			This function converts the @c void * data to @c size_t data.
+	 @note			This function converts the @c void * data to @c std::size_t data.
 	 */
 	[[nodiscard]]
-	inline size_t ComboBoxSelectedValue(NotNull< HWND > dialog, int id) noexcept {
+	inline std::size_t ComboBoxSelectedValue(NotNull< HWND > dialog, int id) noexcept {
 
-		return static_cast< size_t >(PtrToUlong(ComboBoxSelected(dialog, id)));
+		return static_cast< std::size_t >(PtrToUlong(ComboBoxSelected(dialog, id)));
 	}
 
 	/**

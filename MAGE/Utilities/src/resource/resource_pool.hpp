@@ -129,7 +129,7 @@ namespace mage {
 		 Returns the number of resources contained in this resource pool.
 		 */
 		[[nodiscard]]
-		size_t size() const noexcept;
+		std::size_t size() const noexcept;
 
 		/**
 		 Checks whether this resource pool contains a resource corresponding 
@@ -462,7 +462,7 @@ namespace mage {
 		 pool.
 		 */
 		[[nodiscard]]
-		size_t size() const noexcept;
+		std::size_t size() const noexcept;
 
 		/**
 		 Checks whether this persistent resource pool contains a resource 

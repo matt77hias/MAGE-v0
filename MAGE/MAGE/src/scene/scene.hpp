@@ -100,7 +100,7 @@ namespace mage {
 
 		template< typename ElementT >
 		[[nodiscard]]
-		size_t GetNumberOf() const noexcept;
+		std::size_t GetNumberOf() const noexcept;
 
 		template< typename ElementT, typename ActionT >
 		void ForEach(ActionT&& action);

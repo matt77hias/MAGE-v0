@@ -130,7 +130,7 @@ namespace mage {
 		/**
 		 The buffer size of exceptions.
 		 */
-		static constexpr size_t s_buffer_size = 2048;
+		static constexpr std::size_t s_buffer_size = 2048;
 
 		//---------------------------------------------------------------------
 		// Member Variables

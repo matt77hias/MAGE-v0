@@ -6,7 +6,7 @@
 namespace mage {
 
 	template< typename T >
-	T* MemoryArena::AllocData(size_t count, bool initialization) {
+	T* MemoryArena::AllocData(std::size_t count, bool initialization) {
 		// Allocation
 		const auto ptr = static_cast< T* >(Alloc(count * sizeof(T)));
 
@@ -17,7 +17,7 @@ namespace mage {
 
 		// Initialization
 		if (initialization) {
-			for (size_t i = 0u; i < count; ++i) {
+			for (std::size_t i = 0u; i < count; ++i) {
 				new (&ptr[i]) T();
 			}
 		}

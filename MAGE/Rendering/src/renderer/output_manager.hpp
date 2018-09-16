@@ -151,40 +151,40 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		ID3D11ShaderResourceView* GetSRV(SRVIndex index) const noexcept {
-			return m_srvs[static_cast< size_t >(index)].Get();
+			return m_srvs[static_cast< std::size_t >(index)].Get();
 		}
 		
 		[[nodiscard]]
 		NotNull< ID3D11ShaderResourceView** > 
 			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
 
-			auto& srv = m_srvs[static_cast< size_t >(index)];
+			auto& srv = m_srvs[static_cast< std::size_t >(index)];
 			return NotNull< ID3D11ShaderResourceView** >(srv.ReleaseAndGetAddressOf());
 		}
 		
 		[[nodiscard]]
 		ID3D11RenderTargetView* GetRTV(RTVIndex index) const noexcept {
-			return m_rtvs[static_cast< size_t >(index)].Get();
+			return m_rtvs[static_cast< std::size_t >(index)].Get();
 		}
 		
 		[[nodiscard]]
 		NotNull< ID3D11RenderTargetView** > 
 			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
 
-			auto& rtv = m_rtvs[static_cast< size_t >(index)];
+			auto& rtv = m_rtvs[static_cast< std::size_t >(index)];
 			return NotNull< ID3D11RenderTargetView** >(rtv.ReleaseAndGetAddressOf());
 		}
 		
 		[[nodiscard]]
 		ID3D11UnorderedAccessView* GetUAV(UAVIndex index) const noexcept {
-			return m_uavs[static_cast< size_t >(index)].Get();
+			return m_uavs[static_cast< std::size_t >(index)].Get();
 		}
 		
 		[[nodiscard]]
 		NotNull< ID3D11UnorderedAccessView** > 
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
-			auto& uav = m_uavs[static_cast< size_t >(index)];
+			auto& uav = m_uavs[static_cast< std::size_t >(index)];
 			return NotNull< ID3D11UnorderedAccessView** >(uav.ReleaseAndGetAddressOf());
 		}
 
@@ -207,13 +207,13 @@ namespace mage::rendering {
 		std::reference_wrapper< SwapChain > m_swap_chain;
 
 		ComPtr< ID3D11ShaderResourceView > m_srvs[
-			static_cast< size_t >(SRVIndex::Count)];
+			static_cast< std::size_t >(SRVIndex::Count)];
 
 		ComPtr< ID3D11RenderTargetView > m_rtvs[
-			static_cast< size_t >(RTVIndex::Count)];
+			static_cast< std::size_t >(RTVIndex::Count)];
 
 		ComPtr< ID3D11UnorderedAccessView > m_uavs[
-			static_cast< size_t >(UAVIndex::Count)];
+			static_cast< std::size_t >(UAVIndex::Count)];
 
 		ComPtr< ID3D11DepthStencilView > m_dsv;
 

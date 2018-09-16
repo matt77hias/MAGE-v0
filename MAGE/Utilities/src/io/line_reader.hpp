@@ -207,7 +207,7 @@ namespace mage {
 						There are no @c N current tokens or the current 
 						@c N tokens do not represent a @c T value.
 		 */
-		template< typename T, size_t N, size_t A = alignof(T) >
+		template< typename T, std::size_t N, size_t A = alignof(T) >
 		const Array< T, N, A > Read();
 
 		/**

@@ -321,7 +321,7 @@ namespace mage::rendering {
 		 */
 		void Render(ID3D11ShaderResourceView* texture,
 					const SpriteInfo* const* sprites,
-					size_t nb_sprites);
+					std::size_t nb_sprites);
 		
 		/**
 		 Prepares a single sprite for rendering.
@@ -351,7 +351,7 @@ namespace mage::rendering {
 		 The initial capacity of the vector containing the sprites waiting to 
 		 be drawn by a sprite batch.
 		 */
-		static constexpr size_t s_initial_capacity = 64u;
+		static constexpr std::size_t s_initial_capacity = 64u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Rendering
@@ -372,7 +372,7 @@ namespace mage::rendering {
 		 The current position in the mesh of this sprite batch for adding sprite 
 		 vertices.
 		 */
-		size_t m_mesh_position;
+		std::size_t m_mesh_position;
 
 		/**
 		 A flag indicating whether this sprite batch is in a begin/end pair 
@@ -559,8 +559,8 @@ namespace mage::rendering {
 		// Iterate the sorted sprites of this sprite batch, looking for adjacent 
 		// sprites sharing a texture.
 		ID3D11ShaderResourceView* batch_texture = nullptr;
-		size_t batch_start = 0u;
-		for (size_t i = 0; i < m_sprites.size(); ++i) {
+		std::size_t batch_start = 0u;
+		for (std::size_t i = 0u; i < m_sprites.size(); ++i) {
 			auto sprite_texture = m_sorted_sprites[i]->m_texture;
 
 			if (sprite_texture != batch_texture) {
@@ -626,7 +626,7 @@ namespace mage::rendering {
 
 	void SpriteBatch::Impl::Render(ID3D11ShaderResourceView* texture,
 								   const SpriteInfo* const* sprites,
-								   size_t nb_sprites) {
+								   std::size_t nb_sprites) {
 
 		// Binds the texture.
 		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_SPRITE, texture);
@@ -668,7 +668,7 @@ namespace mage::rendering {
 				auto vertices = static_cast< VertexPositionColorTexture* >(mapped_buffer.pData)
 					+ m_mesh_position * SpriteBatchMesh::s_vertices_per_sprite;
 				
-				for (size_t i = 0; i < nb_sprites_to_render; ++i) {
+				for (std::size_t i = 0u; i < nb_sprites_to_render; ++i) {
 					PrepareSprite(*sprites[i], vertices, texture_size, inverse_texture_size);
 					vertices += SpriteBatchMesh::s_vertices_per_sprite;
 				}
@@ -786,7 +786,7 @@ namespace mage::rendering {
 
 
 		// Generate the four output vertices.
-		for (size_t i = 0; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {
+		for (std::size_t i = 0u; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {
 			// Compute the position coordinates.
 			const auto p0 = (corner_offsets[i] - origin) * destination_size;
 			const auto p1 = XMVectorMultiplyAdd(XMVectorSplatX(p0), rotation_x, destination);

@@ -13,7 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	MemoryArena::MemoryArena(size_t maximum_block_size, size_t alignment)
+	MemoryArena::MemoryArena(std::size_t maximum_block_size, 
+							 std::size_t alignment)
 		: m_alignment(alignment), 
 		m_maximum_block_size(maximum_block_size),
 		m_current_block(MemoryBlock(0u, nullptr)), 
@@ -36,7 +37,7 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	size_t MemoryArena::GetTotalBlockSize() const noexcept {
+	std::size_t MemoryArena::GetTotalBlockSize() const noexcept {
 		auto size = GetCurrentBlockSize();
 		
 		for (const auto& block : m_used_blocks) {
@@ -58,7 +59,7 @@ namespace mage {
 		m_available_blocks.splice(begin(m_available_blocks), m_used_blocks);
 	}
 
-	void* MemoryArena::Alloc(size_t size) {
+	void* MemoryArena::Alloc(std::size_t size) {
 		using std::begin;
 		using std::end;
 		

@@ -30,7 +30,7 @@ namespace mage {
 
 	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]
-	inline size_t ResourcePool< KeyT, ResourceT >::size() const noexcept {
+	inline std::size_t ResourcePool< KeyT, ResourceT >::size() const noexcept {
 		const std::scoped_lock lock(m_mutex);
 		
 		using std::size;
@@ -195,7 +195,7 @@ namespace mage {
 
 	template< typename KeyT, typename ResourceT >
 	[[nodiscard]]
-	inline size_t PersistentResourcePool< KeyT, ResourceT >
+	inline std::size_t PersistentResourcePool< KeyT, ResourceT >
 		::size() const noexcept {
 		
 		const std::scoped_lock lock(m_mutex);

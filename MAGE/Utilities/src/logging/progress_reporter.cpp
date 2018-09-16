@@ -246,7 +246,7 @@ namespace mage {
 		m_nb_progress_total   = std::max< FU16 >(2u, bar_length - static_cast< FU16 >(title.size()));
 		
 		// Initialize the output buffer.
-		const size_t buffer_length = title.size() + m_nb_progress_total + 64;
+		const std::size_t buffer_length = title.size() + m_nb_progress_total + 64u;
 		m_buffer = MakeUnique< char[] >(buffer_length);
 		
 		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());

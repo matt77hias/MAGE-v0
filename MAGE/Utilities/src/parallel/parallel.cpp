@@ -40,15 +40,15 @@ namespace mage {
 		}
 
 		U16 nb_physical_cores = 0;
-		size_t offset = 0u;
+		std::size_t offset = 0u;
 		do {
 			const auto info = reinterpret_cast< 
 				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get() + offset);
 			
-			offset += static_cast< size_t >(info->Size);
+			offset += static_cast< std::size_t >(info->Size);
 			++nb_physical_cores;
 
-		} while (offset < static_cast< size_t >(length));
+		} while (offset < static_cast< std::size_t >(length));
 		
 		return nb_physical_cores;
 	}

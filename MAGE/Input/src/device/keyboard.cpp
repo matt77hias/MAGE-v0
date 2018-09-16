@@ -73,7 +73,7 @@ namespace mage::input {
 	}
 
 	void Keyboard::Update() noexcept {
-		unsigned char key_states[256];
+		unsigned char key_states[256u];
 
 		// Poll the keyboard until it succeeds or returns an unknown error.
 		while (true) {
@@ -101,10 +101,10 @@ namespace mage::input {
 		}
 
 		// Update the key states.
-		for (size_t i = 0; i < std::size(key_states); ++i) {
+		for (std::size_t i = 0u; i < std::size(key_states); ++i) {
 			const bool active = key_states[i] & 0x80u;
-			m_key_states[2*i]   = (active != m_key_states[2*i+1]);
-			m_key_states[2*i+1] = active;
+			m_key_states[2u*i]    = (active != m_key_states[2u*i+1u]);
+			m_key_states[2u*i+1u] = active;
 		}
 	}
 }

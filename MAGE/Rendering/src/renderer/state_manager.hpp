@@ -329,7 +329,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		ID3D11BlendState* Get(BlendStateID id) const noexcept {
-			const auto& state = m_blend_states[static_cast< size_t >(id)];
+			const auto& state = m_blend_states[static_cast< std::size_t >(id)];
 			return state.Get();
 		}
 
@@ -346,7 +346,7 @@ namespace mage::rendering {
 		NotNull< ID3D11BlendState** > 
 			ReleaseAndGetAddressOf(BlendStateID id) noexcept {
 
-			auto& state = m_blend_states[static_cast< size_t >(id)];
+			auto& state = m_blend_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11BlendState** >(state.ReleaseAndGetAddressOf());
 		}
 		
@@ -361,7 +361,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		ID3D11DepthStencilState* Get(DepthStencilStateID id) const noexcept {
-			const auto& state = m_depth_stencil_states[static_cast< size_t >(id)];
+			const auto& state = m_depth_stencil_states[static_cast< std::size_t >(id)];
 			
 			return state.Get();
 		}
@@ -379,7 +379,7 @@ namespace mage::rendering {
 		NotNull< ID3D11DepthStencilState** > 
 			ReleaseAndGetAddressOf(DepthStencilStateID id) noexcept {
 			
-			auto& state = m_depth_stencil_states[static_cast< size_t >(id)];
+			auto& state = m_depth_stencil_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11DepthStencilState** >(state.ReleaseAndGetAddressOf());
 		}
 		
@@ -394,7 +394,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		ID3D11RasterizerState* Get(RasterizerStateID id) const noexcept {
-			const auto& state = m_rasterizer_states[static_cast< size_t >(id)];
+			const auto& state = m_rasterizer_states[static_cast< std::size_t >(id)];
 			return state.Get();
 		}
 		
@@ -411,7 +411,7 @@ namespace mage::rendering {
 		NotNull< ID3D11RasterizerState** > 
 			ReleaseAndGetAddressOf(RasterizerStateID id) noexcept {
 			
-			auto& state = m_rasterizer_states[static_cast< size_t >(id)];
+			auto& state = m_rasterizer_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11RasterizerState** >(state.ReleaseAndGetAddressOf());
 		}
 		
@@ -426,7 +426,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		ID3D11SamplerState* Get(SamplerStateID id) const noexcept {
-			const auto& state = m_sampler_states[static_cast< size_t >(id)];
+			const auto& state = m_sampler_states[static_cast< std::size_t >(id)];
 			return state.Get();
 		}
 		
@@ -443,7 +443,7 @@ namespace mage::rendering {
 		NotNull< ID3D11SamplerState** > 
 			ReleaseAndGetAddressOf(SamplerStateID id) noexcept {
 
-			auto& state = m_sampler_states[static_cast< size_t >(id)];
+			auto& state = m_sampler_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11SamplerState** >(state.ReleaseAndGetAddressOf());
 		}
 
@@ -461,28 +461,28 @@ namespace mage::rendering {
 		 manager.
 		 */
 		ComPtr< ID3D11BlendState > m_blend_states[
-			static_cast< size_t >(BlendStateID::Count)];
+			static_cast< std::size_t >(BlendStateID::Count)];
 
 		/**
 		 An array containing pointers to the depth stencil states of this state 
 		 manager.
 		 */
 		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
-			static_cast< size_t >(DepthStencilStateID::Count)];
+			static_cast< std::size_t >(DepthStencilStateID::Count)];
 
 		/**
 		 An array containing pointers to the rasterizer states of this state 
 		 manager.
 		 */
 		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
-			static_cast< size_t >(RasterizerStateID::Count)];
+			static_cast< std::size_t >(RasterizerStateID::Count)];
 		
 		/**
 		 An array containing pointers to the sampler states of this state 
 		 manager.
 		 */
 		ComPtr< ID3D11SamplerState > m_sampler_states[
-			static_cast< size_t >(SamplerStateID::Count)];
+			static_cast< std::size_t >(SamplerStateID::Count)];
 	};
 
 	#pragma endregion

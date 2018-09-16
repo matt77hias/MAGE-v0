@@ -42,7 +42,8 @@ namespace mage {
 		 @param[in]		alignment
 						The alignment in bytes.
 		 */
-		explicit MemoryArena(size_t maximum_block_size, size_t alignment);
+		explicit MemoryArena(std::size_t maximum_block_size, 
+							 std::size_t alignment);
 
 		/**
 		 Constructs a memory arena from the given memory arena.
@@ -99,7 +100,7 @@ namespace mage {
 		 @return		The alignment in bytes of this memory arena.
 		 */
 		[[nodiscard]]
-		size_t GetAlignment() const noexcept {
+		std::size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
@@ -109,7 +110,7 @@ namespace mage {
 		 @return		The maximum block size in bytes of this memory arena.
 		 */
 		[[nodiscard]]
-		size_t GetMaximumBlockSize() const noexcept {
+		std::size_t GetMaximumBlockSize() const noexcept {
 			return m_maximum_block_size;
 		}
 
@@ -121,7 +122,7 @@ namespace mage {
 						memory arena.
 		 */
 		[[nodiscard]]
-		size_t GetCurrentBlockSize() const noexcept {
+		std::size_t GetCurrentBlockSize() const noexcept {
 			return m_current_block.first;
 		}
 
@@ -132,7 +133,7 @@ namespace mage {
 						arena.
 		 */
 		[[nodiscard]]
-		size_t GetTotalBlockSize() const noexcept;
+		std::size_t GetTotalBlockSize() const noexcept;
 
 		/**
 		 Returns a pointer to the current block of this memory arena.
@@ -157,7 +158,7 @@ namespace mage {
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
-		void* Alloc(size_t size);
+		void* Alloc(std::size_t size);
 
 		/**
 		 Allocates a block of memory on this memory arena.
@@ -176,7 +177,7 @@ namespace mage {
 						empty constructor.
 		 */
 		template< typename T >
-		T* AllocData(size_t count = 1u, bool initialization = false);
+		T* AllocData(std::size_t count = 1u, bool initialization = false);
 
 		//---------------------------------------------------------------------
 		// Allocators
@@ -283,7 +284,7 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count) const {
+			T* allocate(std::size_t count) const {
 				const auto ptr = m_memory_arena->AllocData< T >(count);
 				if (!ptr) {
 					throw std::bad_alloc();
@@ -303,11 +304,11 @@ namespace mage {
 			 @param[in]		hint
 							Either @c nullptr or a value previously obtained by 
 							another call to 
-							{@link mage::MemoryArena::Allocator<T>::allocate(size_t)}
+							{@link mage::MemoryArena::Allocator<T>::allocate(std::size_t)}
 							or
-							{@link mage::MemoryArena::Allocator<T>::allocate<U>(size_t, const U*)} 
+							{@link mage::MemoryArena::Allocator<T>::allocate<U>(std::size_t, const U*)} 
 							and not yet freed with 
-							{@link mage::MemoryArena::Allocator<T>::deallocate(T*, size_t)}. 
+							{@link mage::MemoryArena::Allocator<T>::deallocate(T*, std::size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 
@@ -317,15 +318,15 @@ namespace mage {
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(size_t count, [[maybe_unused]] const void* hint) const {
+			T* allocate(std::size_t count, [[maybe_unused]] const void* hint) const {
 				return allocate(count);
 			}
 
 			/**
 			 Releases a block of storage previously allocated with 
-			 {@link mage::MemoryArena::Allocator<T>::allocate(size_t)}
+			 {@link mage::MemoryArena::Allocator<T>::allocate(std::size_t)}
 			 or 
-			 {@link mage::MemoryArena::Allocator<T>::allocate<U>(size_t, const U*)}
+			 {@link mage::MemoryArena::Allocator<T>::allocate<U>(std::size_t, const U*)}
 			 and not yet released. 
 		 
 			 @param[in]		data
@@ -337,7 +338,7 @@ namespace mage {
 			 @note			The elements in the array are not destroyed.
 			 */
 			void deallocate([[maybe_unused]] T* data, 
-				            [[maybe_unused]] size_t count) const noexcept {}
+				            [[maybe_unused]] std::size_t count) const noexcept {}
 		
 			/**
 			 Compares this allocator to the given allocator for equality.
@@ -426,7 +427,7 @@ namespace mage {
 		/**
 		 A type definition for a memory block.
 		 */
-		using MemoryBlock = std::pair< size_t, U8* >;
+		using MemoryBlock = std::pair< std::size_t, U8* >;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -435,12 +436,12 @@ namespace mage {
 		/**
 		 The alignment in bytes of this memory arena.
 		 */
-		const size_t m_alignment;
+		const std::size_t m_alignment;
 
 		/**
 		 The maximum block size in bytes of this memory arena.
 		 */
-		const size_t m_maximum_block_size;
+		const std::size_t m_maximum_block_size;
 
 		/**
 		 The current block of this memory arena.
@@ -450,7 +451,7 @@ namespace mage {
 		/**
 		 The current block position of this memory arena.
 		 */
-		size_t m_current_block_pos;
+		std::size_t m_current_block_pos;
 		
 		/**
 		 A collection containing the used blocks of this memory arena.

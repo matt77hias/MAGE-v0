@@ -36,7 +36,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	const T* BigEndianBinaryReader::ReadArray(size_t count) {
+	const T* BigEndianBinaryReader::ReadArray(std::size_t count) {
 		const auto old_pos = m_pos;
 		const auto new_pos = m_pos + sizeof(T) * count;
 		

@@ -23,7 +23,7 @@
 //-----------------------------------------------------------------------------
 namespace fmt {
 
-	template< typename T, size_t A >
+	template< typename T, std::size_t A >
 	struct formatter< mage::Array< T, 2u, A > > {
 
 		template< typename ParseContextT >
@@ -38,7 +38,7 @@ namespace fmt {
 		}
 	};
 
-	template< typename T, size_t A >
+	template< typename T, std::size_t A >
 	struct formatter< mage::Array< T, 3u, A > > {
 
 		template< typename ParseContextT >
@@ -53,7 +53,7 @@ namespace fmt {
 		}
 	};
 
-	template< typename T, size_t A >
+	template< typename T, std::size_t A >
 	struct formatter< mage::Array< T, 4u, A > > {
 
 		template< typename ParseContextT >

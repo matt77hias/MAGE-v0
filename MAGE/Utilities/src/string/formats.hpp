@@ -27,12 +27,12 @@ namespace fmt {
 	struct formatter< mage::Array< T, 2u, A > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT &ctx) {
+		constexpr auto parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
 		template< typename FormatContextT >
-		auto format(const mage::Array< T, 2u, A >& a, FormatContextT &ctx) {
+		auto format(const mage::Array< T, 2u, A >& a, FormatContextT& ctx) {
 			const auto [x, y] = a;
 			return format_to(ctx.begin(), "{} {}", x, y);
 		}
@@ -42,12 +42,12 @@ namespace fmt {
 	struct formatter< mage::Array< T, 3u, A > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT &ctx) {
+		constexpr auto parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
 		template< typename FormatContextT >
-		auto format(const mage::Array< T, 3u, A >& a, FormatContextT &ctx) {
+		auto format(const mage::Array< T, 3u, A >& a, FormatContextT& ctx) {
 			const auto [x, y, z] = a;
 			return format_to(ctx.begin(), "{} {} {}", x, y, z);
 		}
@@ -57,7 +57,7 @@ namespace fmt {
 	struct formatter< mage::Array< T, 4u, A > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT &ctx) {
+		constexpr auto parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 

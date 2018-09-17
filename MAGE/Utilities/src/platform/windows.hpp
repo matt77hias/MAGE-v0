@@ -46,8 +46,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <windows.h>
 #include <type_traits>
+#include <windows.h>
 
 #pragma endregion
 
@@ -69,4 +69,9 @@ namespace mage {
 	static_assert(std::is_same_v< U16, UINT16 >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< U32, UINT32 >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< U64, UINT64 >, "MAGE/Windows type mismatch");
+
+	static_assert(std::is_same_v< U8,  BYTE   >, "MAGE/Windows type mismatch");
+
+	static_assert(std::is_same_v< std::size_t, SIZE_T >, 
+				  "MAGE/Windows type mismatch");
 }

@@ -126,10 +126,10 @@ namespace mage::rendering {
 	#pragma region
 
 	BufferCompiledShader::BufferCompiledShader(
-		gsl::span< const BYTE > bytecode) noexcept
+		gsl::span< const U8 > bytecode) noexcept
 		: CompiledShader(), 
 		m_bytecode(bytecode.data()), 
-		m_bytecode_size(static_cast< SIZE_T >(bytecode.size())) {}
+		m_bytecode_size(static_cast< std::size_t >(bytecode.size())) {}
 
 	BufferCompiledShader::BufferCompiledShader(
 		const BufferCompiledShader& compiled_shader) noexcept = default;

@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "parallel\parallel.hpp"
 #include "exception\exception.hpp"
+#include "parallel\parallel.hpp"
 
 #pragma endregion
 

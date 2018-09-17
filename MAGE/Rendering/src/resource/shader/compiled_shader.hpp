@@ -105,7 +105,7 @@ namespace mage::rendering {
 						shader.
 		 */
 		[[nodiscard]]
-		virtual const BYTE* GetBytecode() const noexcept = 0;
+		virtual const U8* GetBytecode() const noexcept = 0;
 
 		/**
 		 Returns the size of the shader bytecode (in bytes) of this compiled 
@@ -115,7 +115,7 @@ namespace mage::rendering {
 						compiled shader.
 		 */
 		[[nodiscard]]
-		virtual SIZE_T GetBytecodeSize() const noexcept = 0;
+		virtual std::size_t GetBytecodeSize() const noexcept = 0;
 		
 	protected:
 	
@@ -169,7 +169,7 @@ namespace mage::rendering {
 		 @param[in]		bytecode
 						The shader bytecode.
 		 */
-		explicit BufferCompiledShader(gsl::span< const BYTE > bytecode) noexcept;
+		explicit BufferCompiledShader(gsl::span< const U8 > bytecode) noexcept;
 
 		/**
 		 Constructs a buffer compiled shader from the given buffer compiled 
@@ -232,7 +232,7 @@ namespace mage::rendering {
 						compiled shader.
 		 */
 		[[nodiscard]]
-		virtual const BYTE* GetBytecode() const noexcept override {
+		virtual const U8* GetBytecode() const noexcept override {
 			return m_bytecode;
 		}
 
@@ -244,7 +244,7 @@ namespace mage::rendering {
 						buffer compiled shader.
 		 */
 		[[nodiscard]]
-		virtual SIZE_T GetBytecodeSize() const noexcept override {
+		virtual std::size_t GetBytecodeSize() const noexcept override {
 			return m_bytecode_size;
 		}
 
@@ -257,12 +257,12 @@ namespace mage::rendering {
 		/**
 		 A pointer to the shader bytecode of this buffer compiled shader.
 		 */
-		const BYTE* m_bytecode;
+		const U8* m_bytecode;
 
 		/**
 		 The size of the shader bytecode of this buffer compiled shader.
 		 */
-		SIZE_T m_bytecode_size;
+		std::size_t m_bytecode_size;
 	};
 
 	#pragma endregion
@@ -352,8 +352,8 @@ namespace mage::rendering {
 						shader.
 		 */
 		[[nodiscard]]
-		virtual const BYTE* GetBytecode() const noexcept override {
-			return static_cast< BYTE* >(m_shader_blob->GetBufferPointer());
+		virtual const U8* GetBytecode() const noexcept override {
+			return static_cast< U8* >(m_shader_blob->GetBufferPointer());
 		}
 
 		/**
@@ -364,7 +364,7 @@ namespace mage::rendering {
 						compiled shader.
 		 */
 		[[nodiscard]]
-		virtual SIZE_T GetBytecodeSize() const noexcept override {
+		virtual std::size_t GetBytecodeSize() const noexcept override {
 			return m_shader_blob->GetBufferSize();
 		}
 

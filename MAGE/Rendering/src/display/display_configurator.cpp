@@ -402,7 +402,7 @@ namespace mage::rendering {
 		ComPtr< IDXGIAdapter > selected_adapter;
 		ComPtr< IDXGIOutput  > selected_output;
 		ComPtr< IDXGIAdapter > iterated_adapter;
-		SIZE_T max_vram = 0;
+		std::size_t max_vram = 0u;
 		for (U32 i = 0u; 
 			 factory->EnumAdapters(i, iterated_adapter.ReleaseAndGetAddressOf()) 
 			 != DXGI_ERROR_NOT_FOUND; ++i) {

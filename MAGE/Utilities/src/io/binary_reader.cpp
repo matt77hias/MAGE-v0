@@ -46,7 +46,7 @@ namespace mage {
 
 		// Populate buffer.
 		{
-			DWORD nb_bytes_read = 0;
+			DWORD nb_bytes_read = 0u;
 			const BOOL result = ReadFile(file_handle.get(), data.get(), 
 										 nb_bytes, &nb_bytes_read, nullptr);
 			ThrowIfFailed(result, 

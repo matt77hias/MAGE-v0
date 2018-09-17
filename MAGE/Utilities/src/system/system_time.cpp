@@ -173,7 +173,7 @@ namespace mage {
 		/**
 		 The number of system cores.
 		 */
-		const U16 g_nb_system_cores = NumberOfSystemCores();
+		const FU16 g_nb_system_cores = NumberOfSystemCores();
 
 		/**
 		 Returns the current core timestamps (in 100 ns).

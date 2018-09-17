@@ -72,6 +72,64 @@ namespace mage {
 
 	static_assert(std::is_same_v< U8,  BYTE   >, "MAGE/Windows type mismatch");
 
-	static_assert(std::is_same_v< std::size_t, SIZE_T >, 
+	static_assert(sizeof(U16) == sizeof(WORD), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< WORD >, 
+				  "MAGE/Windows type mismatch");
+
+	static_assert(sizeof(U32) == sizeof(DWORD), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< DWORD >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U64) == sizeof(DWORDLONG), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< DWORDLONG >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U32) == sizeof(DWORD32), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< DWORD32 >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U64) == sizeof(DWORD64), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< DWORD64 >,  
+				  "MAGE/Windows type mismatch");
+
+	static_assert(sizeof(S32) == sizeof(LONG), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_signed_v< LONG >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(S64) == sizeof(LONGLONG), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_signed_v< LONGLONG >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(S32) == sizeof(LONG32), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_signed_v< LONG32 >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(S64) == sizeof(LONG64), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_signed_v< LONG64 >, 
+				  "MAGE/Windows type mismatch");
+
+	static_assert(sizeof(U32) == sizeof(ULONG), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< ULONG >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U64) == sizeof(ULONGLONG), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< ULONGLONG >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U32) == sizeof(ULONG32), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< ULONG32 >, 
+				  "MAGE/Windows type mismatch");
+	static_assert(sizeof(U64) == sizeof(ULONG64), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< ULONG64 >, 
+				  "MAGE/Windows type mismatch");
+
+	static_assert(sizeof(std::size_t) == sizeof(SIZE_T), 
+				  "MAGE/Windows type mismatch");
+	static_assert(std::is_unsigned_v< SIZE_T >,
 				  "MAGE/Windows type mismatch");
 }

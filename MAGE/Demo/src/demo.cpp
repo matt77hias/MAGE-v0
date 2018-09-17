@@ -31,6 +31,19 @@ int WINAPI WinMain(HINSTANCE instance,
 	// Create the engine.
 	UniquePtr< Engine > engine = CreateEngine(setup);
 	if (engine) {
+
+		const char* const ca = "foo";
+		const wchar_t* const wca = L"bar";
+		const std::string sa = ca;
+		const std::wstring wsa = wca;
+		const std::string_view sva = ca;
+		const std::wstring_view wsva = wca;
+
+		Warning("{}", wsa);
+		Warning(L"{}", sa);
+		Warning("{}", wsva);
+		Warning(L"{}", sva);
+
 		// Run the engine.
 		return engine->Run(MakeUnique< SponzaScene >(), nCmdShow);
 	}

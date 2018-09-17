@@ -105,7 +105,7 @@ namespace mage {
 		}
 
 		Print("Warning: ");
-		//Log(MessageDisposition::Continue, format_str, args...);
+		Log(MessageDisposition::Continue, format_str, args...);
 	}
 
 	template< typename... ArgsT >

@@ -28,7 +28,7 @@ namespace mage {
 			                                     &memory_stats, 
 			                                     sizeof(memory_stats));
 		
-		return (FALSE == result) ? 0ull 
+		return (FALSE == result) ? 0u
 			                     : static_cast< U64 >(memory_stats.PagefileUsage);
 	}
 
@@ -39,7 +39,7 @@ namespace mage {
 			                                     &memory_stats, 
 			                                     sizeof(memory_stats));
 		
-		return (FALSE == result) ? 0ull 
+		return (FALSE == result) ? 0u
 			                     : static_cast< U64 >(memory_stats.WorkingSetSize);
 	}
 }

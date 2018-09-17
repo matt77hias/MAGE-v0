@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "system\system_time.hpp"
 #include "parallel\parallel.hpp"
+#include "system\system_time.hpp"
 
 #pragma endregion
 
@@ -53,7 +53,7 @@ namespace mage {
 
 			FILETIME local_ftime;
 			return (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) 
-				   ? 0ull : ConvertTimestamp(local_ftime);
+				   ? 0u : ConvertTimestamp(local_ftime);
 		}
 	}
 
@@ -64,12 +64,12 @@ namespace mage {
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return std::wstring();
+			return {};
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return std::wstring();
+			return {};
 		}
 
 		wchar_t str_date[255];
@@ -93,12 +93,12 @@ namespace mage {
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return std::wstring();
+			return {};
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return std::wstring();
+			return {};
 		}
 
 		wchar_t str_time[255];
@@ -122,12 +122,12 @@ namespace mage {
 
 		FILETIME local_ftime;
 		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
-			return std::wstring();
+			return {};
 		}
 
 		SYSTEMTIME local_stime;
 		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
-			return std::wstring();
+			return {};
 		}
 
 		wchar_t str_date[255];
@@ -140,7 +140,7 @@ namespace mage {
 			               str_date, 
 			               static_cast< int >(std::size(str_date)))) {
 
-			return std::wstring();
+			return {};
 		}
 		
 		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 
@@ -150,7 +150,7 @@ namespace mage {
 			               str_time, 
 			               static_cast< int >(std::size(str_time)))) {
 
-			return std::wstring();
+			return {};
 		}
 
 		return std::wstring(str_date) + L'-' + std::wstring(str_time);
@@ -189,16 +189,7 @@ namespace mage {
 			FILETIME ftime;
 			FILETIME kernel_mode_ftime;
 			FILETIME user_mode_ftime;
-			// Retrieves timing information for the specified process.
-			// 1. A handle to the process whose timing information is sought.
-			// 2. A pointer to a FILETIME structure that receives the creation  
-			//    time of the process.
-			// 3. A pointer to a FILETIME structure that receives the exit time 
-			//    of the process.
-			// 4. A pointer to a FILETIME structure that receives the amount of  
-			//    time that the process has executed in kernel mode.
-			// 5. A pointer to a FILETIME structure that receives the amount of  
-			//    time that the process has executed in user mode.
+			// Retrieve timing information for the process.
 			const BOOL result = GetProcessTimes(GetCurrentProcess(),
 												&ftime, 
 												&ftime, 

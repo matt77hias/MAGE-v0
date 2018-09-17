@@ -14,7 +14,7 @@
 namespace mage {
 
 	[[nodiscard]]
-	U16 NumberOfPhysicalCores() {
+	FU16 NumberOfPhysicalCores() {
 		DWORD length = 0u;
 		
 		// Obtain the buffer length.
@@ -22,9 +22,9 @@ namespace mage {
 			const BOOL result = GetLogicalProcessorInformationEx(
 				RelationProcessorCore, nullptr, &length);
 			ThrowIfFailed(result, 
-				"Retrieving processor information failed.");
-			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER != GetLastError()),
-				"Retrieving processor information failed.");
+						  "Retrieving processor information failed.");
+			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER != GetLastError()), 
+						  "Retrieving processor information failed.");
 		}
 
 		auto buffer = MakeUnique< U8[] >(length);
@@ -39,7 +39,7 @@ namespace mage {
 			ThrowIfFailed(result, "Retrieving processor information failed.");
 		}
 
-		U16 nb_physical_cores = 0;
+		FU16 nb_physical_cores = 0u;
 		std::size_t offset = 0u;
 		do {
 			const auto info = reinterpret_cast< 
@@ -54,13 +54,10 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	U16 NumberOfSystemCores() noexcept {
-		// Structure containing information about the current computer system. 
+	FU16 NumberOfSystemCores() noexcept {
 		SYSTEM_INFO system_info = {};
-		// Retrieve information about the current system.
 		GetSystemInfo(&system_info);
-		// dwNumberOfProcessors:	The number of logical processors in the 
-		//                          current group.
-		return static_cast< U16 >(system_info.dwNumberOfProcessors);
+		// Return the number of logical processors in the current group.
+		return static_cast< FU16 >(system_info.dwNumberOfProcessors);
 	}
 }

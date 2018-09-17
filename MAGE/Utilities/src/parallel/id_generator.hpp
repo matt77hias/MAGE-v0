@@ -44,7 +44,7 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		constexpr explicit IdGenerator(U64 first_id = 0ull) noexcept
+		constexpr explicit IdGenerator(U64 first_id = 0u) noexcept
 			: m_current_id(first_id) {}
 
 		/**

@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 #pragma endregion
 
@@ -32,6 +33,9 @@ namespace mage {
 
 	static_assert(4u == sizeof(F32));
 	static_assert(8u == sizeof(F64));
+
+	static_assert(std::is_floating_point_v< F32 >);
+	static_assert(std::is_floating_point_v< F64 >);
 
 	#pragma endregion
 
@@ -65,6 +69,16 @@ namespace mage {
 	static_assert(4u == sizeof(S32));
 	static_assert(8u == sizeof(S64));
 
+	static_assert(std::is_integral_v< S8  >);
+	static_assert(std::is_integral_v< S16 >);
+	static_assert(std::is_integral_v< S32 >);
+	static_assert(std::is_integral_v< S64 >);
+
+	static_assert(std::is_signed_v< S8  >);
+	static_assert(std::is_signed_v< S16 >);
+	static_assert(std::is_signed_v< S32 >);
+	static_assert(std::is_signed_v< S64 >);
+
 	/**
 	 The fastest signed integer type with width of at least 8 bits.
 	 */
@@ -89,6 +103,16 @@ namespace mage {
 	static_assert(2u <= sizeof(FS16));
 	static_assert(4u <= sizeof(FS32));
 	static_assert(8u <= sizeof(FS64));
+
+	static_assert(std::is_integral_v< FS8  >);
+	static_assert(std::is_integral_v< FS16 >);
+	static_assert(std::is_integral_v< FS32 >);
+	static_assert(std::is_integral_v< FS64 >);
+
+	static_assert(std::is_signed_v< FS8  >);
+	static_assert(std::is_signed_v< FS16 >);
+	static_assert(std::is_signed_v< FS32 >);
+	static_assert(std::is_signed_v< FS64 >);
 
 	#pragma endregion
 
@@ -122,6 +146,16 @@ namespace mage {
 	static_assert(4u == sizeof(U32));
 	static_assert(8u == sizeof(U64));
 
+	static_assert(std::is_integral_v< U8  >);
+	static_assert(std::is_integral_v< U16 >);
+	static_assert(std::is_integral_v< U32 >);
+	static_assert(std::is_integral_v< U64 >);
+
+	static_assert(std::is_unsigned_v< U8  >);
+	static_assert(std::is_unsigned_v< U16 >);
+	static_assert(std::is_unsigned_v< U32 >);
+	static_assert(std::is_unsigned_v< U64 >);
+
 	/**
 	 The fastest unsigned integer type with width of at least 8 bits.
 	 */
@@ -146,6 +180,16 @@ namespace mage {
 	static_assert(2u <= sizeof(FU16));
 	static_assert(4u <= sizeof(FU32));
 	static_assert(8u <= sizeof(FU64));
+
+	static_assert(std::is_integral_v< FU8  >);
+	static_assert(std::is_integral_v< FU16 >);
+	static_assert(std::is_integral_v< FU32 >);
+	static_assert(std::is_integral_v< FU64 >);
+
+	static_assert(std::is_unsigned_v< FU8  >);
+	static_assert(std::is_unsigned_v< FU16 >);
+	static_assert(std::is_unsigned_v< FU32 >);
+	static_assert(std::is_unsigned_v< FU64 >);
 
 	#pragma endregion
 }

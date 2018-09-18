@@ -5,7 +5,6 @@
 
 #include "loaders\sprite_font_loader.hpp"
 #include "loaders\font\font_loader.hpp"
-#include "string\string_utils.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion

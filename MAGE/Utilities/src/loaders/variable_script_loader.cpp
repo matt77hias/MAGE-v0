@@ -5,7 +5,6 @@
 
 #include "loaders\variable_script_loader.hpp"
 #include "loaders\var\var_loader.hpp"
-#include "string\string_utils.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion

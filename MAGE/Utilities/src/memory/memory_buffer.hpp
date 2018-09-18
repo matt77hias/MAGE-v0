@@ -451,7 +451,11 @@ namespace mage {
 			return m_data.size();
 		}
 
-		void reserve(size_type new_capacity) {
+		//---------------------------------------------------------------------
+		// Member Methods: Modifiers
+		//---------------------------------------------------------------------
+
+		void resize(size_type new_capacity) {
 			if (new_capacity <= capacity()) {
 				return;
 			}
@@ -463,10 +467,6 @@ namespace mage {
 
 			m_data = std::move(a);
 		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Modifiers
-		//---------------------------------------------------------------------
 
 		void push_back(const T& value) {
 			emplace_back(value);
@@ -723,22 +723,6 @@ namespace mage {
 				m_static_data.max_size() : m_dynamic_data.max_size();
 		}
 
-		void reserve(size_type new_capacity) {
-			if (new_capacity <= capacity()) {
-				return;
-			}
-			
-			const bool no_transfer = UsesDynamicMemoryBuffer();
-			m_dynamic_data.reserve(new_capacity);
-			if (no_transfer) {
-				return;
-			}
-
-			for (size_type i = 0u; i < m_static_data.size(); ++i) {
-				m_dynamic_data.push_back(std::move(m_static_data[i]));
-			}
-		}
-
 		[[nodiscard]]
 		size_type capacity() const noexcept {
 			return UsesStaticMemoryBuffer() ?
@@ -748,6 +732,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Modifiers
 		//---------------------------------------------------------------------
+
+		void resize(size_type new_capacity) {
+			if (new_capacity <= capacity()) {
+				return;
+			}
+			
+			const bool no_transfer = UsesDynamicMemoryBuffer();
+			m_dynamic_data.resize(new_capacity);
+			if (no_transfer) {
+				return;
+			}
+
+			for (size_type i = 0u; i < m_static_data.size(); ++i) {
+				m_dynamic_data.push_back(std::move(m_static_data[i]));
+			}
+		}
 
 		void push_back(const T& value) {
 			emplace_back(value);

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
+#include "string\string_utils.hpp"
 
 #pragma endregion
 
@@ -34,8 +34,8 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::wstring_view& wstr, FormatContextT& ctx) {
-			const internal::utf16_to_utf8 str(wstr);
-			return format_to(ctx.begin(), str.c_str());
+			const mage::UTF16toUTF8 str(wstr);
+			return format_to(ctx.begin(), std::string_view(str));
 		}
 	};
 
@@ -49,8 +49,8 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::wstring& wstr, FormatContextT& ctx) {
-			const internal::utf16_to_utf8 str(wstr);
-			return format_to(ctx.begin(), str.c_str());
+			const mage::UTF16toUTF8 str(wstr);
+			return format_to(ctx.begin(), std::string_view(str));
 		}
 	};
 
@@ -64,8 +64,8 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::filesystem::path& path, FormatContextT& ctx) {
-			const internal::utf16_to_utf8 str(path.c_str());
-			return format_to(ctx.begin(), str.c_str());
+			const mage::UTF16toUTF8 str(path.c_str());
+			return format_to(ctx.begin(), std::string_view(str));
 		}
 	};
 
@@ -79,8 +79,8 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::string_view& str, FormatContextT& ctx) {
-			const internal::utf8_to_utf16 wstr(str);
-			return format_to(ctx.begin(), wstr.c_str());
+			const mage::UTF8toUTF16 wstr(str);
+			return format_to(ctx.begin(), std::wstring_view(wstr));
 		}
 	};
 
@@ -94,8 +94,8 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::string& str, FormatContextT& ctx) {
-			const internal::utf8_to_utf16 wstr(str);
-			return format_to(ctx.begin(), wstr.c_str());
+			const mage::UTF8toUTF16 wstr(str);
+			return format_to(ctx.begin(), std::wstring_view(wstr));
 		}
 	};
 

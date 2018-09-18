@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "type\types.hpp"
-#include "string\string_utils.hpp"
+#include "exception\exception.hpp"
 
 #pragma endregion
 
@@ -15,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <filesystem>
 #include <istream>
 #include <regex>
 

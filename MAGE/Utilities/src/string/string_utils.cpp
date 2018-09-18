@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <AtlBase.h>
+#include <limits>
 
 #pragma endregion
 
@@ -21,13 +21,63 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	[[nodiscard]]
-	const std::wstring StringToWString(const std::string& str) {
-		return std::wstring(CA2WEX< 512 >(str.c_str()));
+	DWORD UTF8toUTF16::Convert(std::string_view s) {
+		if (std::numeric_limits< int >::max() < s.size()) {
+			return ERROR_INVALID_PARAMETER;
+		}
+		const auto s_size = static_cast< int >(s.size());
+
+		if (0 == s_size) {
+			m_buffer.resize(1u);
+			m_buffer[0u] = L'\0';
+			return 0u;
+		}
+
+		const int required_size = MultiByteToWideChar(
+			CP_UTF8, MB_ERR_INVALID_CHARS, s.data(), s_size, nullptr, 0);
+		if (0 == required_size) {
+			return GetLastError();
+		}
+		
+		m_buffer.resize(static_cast< std::size_t >(required_size) + 1u);
+		
+		const int written_size = MultiByteToWideChar(
+			CP_UTF8, MB_ERR_INVALID_CHARS, s.data(), s_size, m_buffer.data(), required_size);
+		if (0 == written_size) {
+			return GetLastError();
+		}
+		
+		m_buffer[static_cast< std::size_t >(written_size)] = L'\0';
+		return 0u;
 	}
 
-	[[nodiscard]]
-	const std::string WStringToString(const std::wstring& str) {
-		return std::string(CW2AEX< 512 >(str.c_str()));
+	DWORD UTF16toUTF8::Convert(std::wstring_view s) {
+		if (std::numeric_limits< int >::max() < s.size()) {
+			return ERROR_INVALID_PARAMETER;
+		}
+		const auto s_size = static_cast<int>(s.size());
+		
+		if (0 == s_size) {
+			m_buffer.resize(1u);
+			m_buffer[0u] = '\0';
+			return 0u;
+		}
+
+		const int required_size = WideCharToMultiByte(
+			CP_UTF8, 0u, s.data(), s_size, nullptr, 0, nullptr, nullptr);
+		if (0 == required_size) {
+			return GetLastError();
+		}
+		
+		m_buffer.resize(static_cast< std::size_t >(required_size) + 1u);
+		
+		const int written_size = WideCharToMultiByte(
+			CP_UTF8, 0u, s.data(), s_size, m_buffer.data(), required_size, nullptr, nullptr);
+		if (0 == written_size) {
+			return GetLastError();
+		}
+		
+		m_buffer[static_cast< std::size_t >(written_size)] = '\0';
+		return 0u;
 	}
 }

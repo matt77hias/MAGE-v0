@@ -7,7 +7,6 @@
 
 #include "loaders\mdl\mdl_tokens.hpp"
 #include "loaders\msh\msh_loader.hpp"
-#include "string\string_utils.hpp"
 
 #pragma endregion
 

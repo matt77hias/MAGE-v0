@@ -3,10 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "ui\window.hpp"
-#include "platform\windows_utils.hpp"
 #include "exception\exception.hpp"
-#include "logging\logging.hpp"
+#include "platform\windows_utils.hpp"
+#include "ui\window.hpp"
 
 #pragma endregion
 

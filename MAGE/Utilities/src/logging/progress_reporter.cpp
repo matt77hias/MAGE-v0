@@ -5,7 +5,6 @@
 
 #include "logging\logging.hpp"
 #include "logging\progress_reporter.hpp"
-#include "string\format.hpp"
 #include "system\timer.hpp"
 
 #pragma endregion

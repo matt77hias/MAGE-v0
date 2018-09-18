@@ -7,7 +7,6 @@
 #include "exception\exception.hpp"
 #include "imgui_window_message_listener.hpp"
 #include "logging\dump.hpp"
-#include "logging\logging.hpp"
 #include "meta\targetver.hpp"
 #include "meta\version.hpp"
 #include "scene\scene.hpp"

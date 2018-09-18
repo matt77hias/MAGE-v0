@@ -6,7 +6,6 @@
 #include "stats_script.hpp"
 #include "system\system_usage.hpp"
 #include "exception\exception.hpp"
-#include "string\format.hpp"
 
 #pragma endregion
 

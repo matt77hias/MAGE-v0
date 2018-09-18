@@ -66,7 +66,7 @@ namespace mage::rendering {
 
 			const HRESULT result = device.CreateBuffer(
 				&buffer_desc, &init_data, buffer.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
+			ThrowIfFailed(result, "Structured buffer creation failed: {:08X}.", result);
 		}
 
 		// Create the SRV.
@@ -80,7 +80,7 @@ namespace mage::rendering {
 			
 			const HRESULT result = device.CreateShaderResourceView(
 				buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 
 		// Create the UAV.
@@ -94,7 +94,7 @@ namespace mage::rendering {
 
 			const HRESULT result = device.CreateUnorderedAccessView(
 				buffer.Get(), &uav_desc, m_buffer_uav.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
+			ThrowIfFailed(result, "UAV creation failed: {:08X}.", result);
 		}
 	}
 
@@ -120,21 +120,21 @@ namespace mage::rendering {
 			
 			const HRESULT result = device.CreateTexture3D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 3D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 3D creation failed: {:08X}.", result);
 		}
 
 		// Create the SRV.
 		{
 			const HRESULT result = device.CreateShaderResourceView(
 				texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 
 		// Create the UAV.
 		{
 			const HRESULT result = device.CreateUnorderedAccessView(
 				texture.Get(), nullptr, m_texture_uav.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
+			ThrowIfFailed(result, "UAV creation failed: {:08X}.", result);
 		}
 	}
 

@@ -27,8 +27,7 @@ namespace mage::rendering::loader {
 			ImportFontFromFile(path, device, output, desc);
 		}
 		else {
-			throw Exception("Unknown sprite font file extension: %ls", 
-							path.c_str());
+			throw Exception("Unknown sprite font file extension: {}", path);
 		}
 	}
 }

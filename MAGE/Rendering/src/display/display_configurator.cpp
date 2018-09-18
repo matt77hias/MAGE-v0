@@ -396,7 +396,7 @@ namespace mage::rendering {
 		{
 			const HRESULT result = CreateDXGIFactory(
 				__uuidof(IDXGIFactory), (void**)factory.GetAddressOf());
-			ThrowIfFailed(result, "IDXGIFactory creation failed: %08X.", result);
+			ThrowIfFailed(result, "IDXGIFactory creation failed: {:08X}.", result);
 		}
 
 		ComPtr< IDXGIAdapter > selected_adapter;
@@ -426,7 +426,7 @@ namespace mage::rendering {
 			{
 				const HRESULT result = iterated_adapter->GetDesc(&desc);
 				ThrowIfFailed(result, 
-							  "DXGI_ADAPTER_DESC retrieval failed: %08X.", 
+							  "DXGI_ADAPTER_DESC retrieval failed: {:08X}.", 
 							  result);
 			}
 
@@ -443,13 +443,13 @@ namespace mage::rendering {
 		// Get the DXGIAdapter.
 		{
 			const HRESULT result = selected_adapter.As(&m_adapter);
-			ThrowIfFailed(result, "DXGIAdapter creation failed: %08X.", result);
+			ThrowIfFailed(result, "DXGIAdapter creation failed: {:08X}.", result);
 		}
 
 		// Get the DXGIOutput.
 		{
 			const HRESULT result = selected_output.As(&m_output);
-			ThrowIfFailed(result, "DXGIOutput creation failed: %08X.", result);
+			ThrowIfFailed(result, "DXGIOutput creation failed: {:08X}.", result);
 		}
 	}
 	
@@ -465,7 +465,7 @@ namespace mage::rendering {
 					                                            &nb_display_modes, 
 					                                            nullptr);
 			ThrowIfFailed(result, 
-						  "Failed to get the number of display modes: %08X.", 
+						  "Failed to get the number of display modes: {:08X}.", 
 						  result);
 		}
 		
@@ -478,7 +478,7 @@ namespace mage::rendering {
 				                                                &nb_display_modes, 
 				                                                dxgi_mode_descs.get());
 			ThrowIfFailed(result, 
-						  "Failed to get the display modes: %08X.", 
+						  "Failed to get the display modes: {:08X}.", 
 						  result);
 		}
 

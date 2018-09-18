@@ -36,12 +36,12 @@ namespace mage::rendering::loader {
 		if (L".dds" == extension) {
 			const HRESULT result = DirectX::CreateDDSTextureFromFile(
 				&device, path.c_str(), nullptr, texture_srv);
-			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
+			ThrowIfFailed(result, "Texture importing failed: {:08X}.", result);
 		}
 		else {
 			const HRESULT result = DirectX::CreateWICTextureFromFile(
 				&device, path.c_str(), nullptr, texture_srv);
-			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
+			ThrowIfFailed(result, "Texture importing failed: {:08X}.", result);
 		}
 	}
 
@@ -106,18 +106,17 @@ namespace mage::rendering::loader {
 		if (L".dds" == extension) {
 			const HRESULT result = DirectX::SaveDDSTextureToFile(
 				&device_context, &texture, path.c_str());
-			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
+			ThrowIfFailed(result, "Texture exporting failed: {:08X}.", result);
 		}
 		else {
 
 			const auto format = GetGUIDContainerFormat(extension);
 			ThrowIfFailed((GUID_NULL != format), 
-						  "Unknown image file extension: %ls", 
-						  path.c_str());
+						  "Unknown image file extension: {}", path);
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(
 				&device_context, &texture, format, path.c_str());
-			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
+			ThrowIfFailed(result, "Texture exporting failed: {:08X}.", result);
 		}
 	}
 }

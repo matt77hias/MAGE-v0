@@ -35,7 +35,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::wstring_view& wstr, FormatContextT& ctx) {
 			const internal::utf16_to_utf8 str(wstr);
-			return format_to(ctx.begin(), "{}", str.c_str());
+			return format_to(ctx.begin(), str.c_str());
 		}
 	};
 
@@ -50,7 +50,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::wstring& wstr, FormatContextT& ctx) {
 			const internal::utf16_to_utf8 str(wstr);
-			return format_to(ctx.begin(), "{}", str.c_str());
+			return format_to(ctx.begin(), str.c_str());
 		}
 	};
 
@@ -65,7 +65,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::filesystem::path& path, FormatContextT& ctx) {
 			const internal::utf16_to_utf8 str(path.c_str());
-			return format_to(ctx.begin(), "{}", str.c_str());
+			return format_to(ctx.begin(), str.c_str());
 		}
 	};
 
@@ -80,7 +80,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::string_view& str, FormatContextT& ctx) {
 			const internal::utf8_to_utf16 wstr(str);
-			return format_to(ctx.begin(), L"{}", wstr.c_str());
+			return format_to(ctx.begin(), wstr.c_str());
 		}
 	};
 
@@ -95,7 +95,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::string& str, FormatContextT& ctx) {
 			const internal::utf8_to_utf16 wstr(str);
-			return format_to(ctx.begin(), L"{}", wstr.c_str());
+			return format_to(ctx.begin(), wstr.c_str());
 		}
 	};
 
@@ -109,7 +109,7 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::filesystem::path& path, FormatContextT& ctx) {
-			return format_to(ctx.begin(), "{}", path.c_str());
+			return format_to(ctx.begin(), path.c_str());
 		}
 	};
 

@@ -42,7 +42,7 @@ namespace mage::input {
 									m_keyboard.ReleaseAndGetAddressOf(), 
 									nullptr);
 			ThrowIfFailed(result, 
-						  "Failed to create keyboard device: %08X.", 
+						  "Failed to create keyboard device: {:08X}.", 
 						  result);
 		}
 		
@@ -50,7 +50,7 @@ namespace mage::input {
 		{
 			const HRESULT result = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 			ThrowIfFailed(result, 
-						  "Failed to set data format for keyboard device: %08X.",
+						  "Failed to set data format for keyboard device: {:08X}.",
 				          result);
 		}
 
@@ -64,7 +64,7 @@ namespace mage::input {
 												  DISCL_FOREGROUND 
 												| DISCL_NONEXCLUSIVE);
 			ThrowIfFailed(result,
-				          "Failed to set cooperation level for keyboard device: %08X.",
+				          "Failed to set cooperation level for keyboard device: {:08X}.",
 				          result);
 		}
 

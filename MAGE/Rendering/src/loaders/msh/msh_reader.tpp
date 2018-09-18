@@ -34,17 +34,14 @@ namespace mage::rendering::loader {
 	void MSHReader< VertexT, IndexT >::ReadData() {
 		using std::empty;
 		ThrowIfFailed(empty(m_vertices), 
-					  "%ls: vertex buffer must be empty.",
-					  GetPath().c_str());
+					  "{}: vertex buffer must be empty.", GetPath());
 		ThrowIfFailed(empty(m_indices),
-					  "%ls: index buffer must be empty.",
-					  GetPath().c_str());
+					  "{}: index buffer must be empty.", GetPath());
 		
 		// Read the header.
 		{
 			const bool result = IsHeaderValid();
-			ThrowIfFailed(result, 
-						  "%ls: invalid mesh header.", GetPath().c_str());
+			ThrowIfFailed(result, "{}: invalid mesh header.", GetPath());
 		}
 
 		const auto nb_vertices = Read< U32 >();

@@ -50,7 +50,7 @@ namespace mage::rendering {
 		const HRESULT result = CreateStaticVertexBuffer(
 			device, NotNull< ID3D11Buffer** >(m_vertex_buffer.ReleaseAndGetAddressOf()),
 			gsl::make_span(static_cast< const std::vector< VertexT >& >(m_vertices)));
-		ThrowIfFailed(result, "Vertex buffer creation failed: %08X.", result);
+		ThrowIfFailed(result, "Vertex buffer creation failed: {:08X}.", result);
 
 		SetNumberOfVertices(m_vertices.size());
 	}
@@ -62,7 +62,7 @@ namespace mage::rendering {
 		const HRESULT result = CreateStaticIndexBuffer(
 			device, NotNull< ID3D11Buffer** >(m_index_buffer.ReleaseAndGetAddressOf()),
 			gsl::make_span(static_cast< const std::vector< IndexT >& >(m_indices)));
-		ThrowIfFailed(result, "Index buffer creation failed: %08X.", result);
+		ThrowIfFailed(result, "Index buffer creation failed: {:08X}.", result);
 
 		SetNumberOfIndices(m_indices.size());
 	}

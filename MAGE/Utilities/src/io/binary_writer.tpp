@@ -22,10 +22,9 @@ namespace mage {
 	template< typename T >
 	void BigEndianBinaryWriter::WriteArray(gsl::span< const T > data) {
 		const std::size_t count         = data.size();
-		const std::size_t count_written = fwrite(data.data(), sizeof(T), count,
-											m_file_stream.get());
+		const std::size_t count_written = std::fwrite(data.data(), sizeof(T), 
+													  count, m_file_stream.get());
 		ThrowIfFailed((count_written == count),
-					  "%ls: could not write all data to file.", 
-					  GetPath().c_str());
+					  "{}: could not write all data to file.", GetPath());
 	}
 }

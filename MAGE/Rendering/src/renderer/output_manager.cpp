@@ -166,7 +166,7 @@ namespace mage::rendering {
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result,
-				"Multi-sampled texture 2D creation failed: %08X.", result);
+				"Multi-sampled texture 2D creation failed: {:08X}.", result);
 			ThrowIfFailed((0u != texture_desc.SampleDesc.Quality),
 				"Multi-sampled texture 2D creation failed.");
 			--texture_desc.SampleDesc.Quality;
@@ -178,7 +178,7 @@ namespace mage::rendering {
 			// Create the texture.
 			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 2D creation failed: {:08X}.", result);
 		}
 
 		// SRV
@@ -186,7 +186,7 @@ namespace mage::rendering {
 			// Create the SRV.
 			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), nullptr, srv);
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 
 		// RTV
@@ -194,7 +194,7 @@ namespace mage::rendering {
 			// Create the RTV.
 			const HRESULT result = m_device.get().CreateRenderTargetView(
 				texture.Get(), nullptr, rtv);
-			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
+			ThrowIfFailed(result, "RTV creation failed: {:08X}.", result);
 		}
 
 		// UAV
@@ -202,7 +202,7 @@ namespace mage::rendering {
 			// Create the UAV.
 			const HRESULT result = m_device.get().CreateUnorderedAccessView(
 				texture.Get(), nullptr, uav);
-			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
+			ThrowIfFailed(result, "UAV creation failed: {:08X}.", result);
 		}
 	}
 
@@ -226,7 +226,7 @@ namespace mage::rendering {
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
 			ThrowIfFailed(result, 
-				"Multi-sampled texture 2D creation failed: %08X.", result);
+				"Multi-sampled texture 2D creation failed: {:08X}.", result);
 			ThrowIfFailed((0u != texture_desc.SampleDesc.Quality), 
 				"Multi-sampled texture 2D creation failed.");
 			--texture_desc.SampleDesc.Quality;
@@ -239,7 +239,7 @@ namespace mage::rendering {
 			const HRESULT result = m_device.get().CreateTexture2D(
 				&texture_desc, nullptr, 
 				texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 2D creation failed: {:08X}.", result);
 		}
 
 		// SRV
@@ -259,7 +259,7 @@ namespace mage::rendering {
 			const HRESULT result = m_device.get().CreateShaderResourceView(
 				texture.Get(), &srv_desc,
 				ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Depth));
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 
 		// DSV
@@ -275,7 +275,7 @@ namespace mage::rendering {
 			const HRESULT result = m_device.get().CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+			ThrowIfFailed(result, "DSV creation failed: {:08X}.", result);
 		}
 	}
 

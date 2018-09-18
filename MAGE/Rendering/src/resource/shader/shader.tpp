@@ -46,7 +46,7 @@ namespace mage::rendering {
 			                           compiled_shader.GetBytecodeSize(), 
 			                           nullptr, 
 			                           m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "Hull shader creation failed: %08X.", result);
+		ThrowIfFailed(result, "Hull shader creation failed: {:08X}.", result);
 	}
 
 	template<>
@@ -60,7 +60,7 @@ namespace mage::rendering {
 			                           compiled_shader.GetBytecodeSize(), 
 			                           nullptr, 
 			                           m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "Domain shader creation failed: %08X.", result);
+		ThrowIfFailed(result, "Domain shader creation failed: {:08X}.", result);
 	}
 
 	template<>
@@ -74,7 +74,7 @@ namespace mage::rendering {
 			                           compiled_shader.GetBytecodeSize(), 
 			                           nullptr, 
 			                           m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "Geometry shader creation failed: %08X.", result);
+		ThrowIfFailed(result, "Geometry shader creation failed: {:08X}.", result);
 	}
 
 	template<>
@@ -88,7 +88,7 @@ namespace mage::rendering {
 			                           compiled_shader.GetBytecodeSize(), 
 			                           nullptr, 
 			                           m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "Pixel shader creation failed: %08X.", result);
+		ThrowIfFailed(result, "Pixel shader creation failed: {:08X}.", result);
 	}
 
 	template<>
@@ -102,7 +102,7 @@ namespace mage::rendering {
 			                           compiled_shader.GetBytecodeSize(), 
 			                           nullptr, 
 			                           m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "Compute shader creation failed: %08X.", result);
+		ThrowIfFailed(result, "Compute shader creation failed: {:08X}.", result);
 	}
 
 	template< typename ShaderT, typename PipelineStageT >

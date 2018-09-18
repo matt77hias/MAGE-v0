@@ -48,7 +48,7 @@ namespace mage::rendering {
 			= CreateDynamicVertexBuffer< VertexT >(
 				device, NotNull< ID3D11Buffer** >(m_vertex_buffer.ReleaseAndGetAddressOf()),
 				nb_vertices);
-		ThrowIfFailed(result, "Vertex buffer creation failed: %08X.", result);
+		ThrowIfFailed(result, "Vertex buffer creation failed: {:08X}.", result);
 
 		SetNumberOfVertices(nb_vertices);
 	}
@@ -61,7 +61,7 @@ namespace mage::rendering {
 		const HRESULT result = CreateStaticIndexBuffer(
 			device, NotNull< ID3D11Buffer** >(m_index_buffer.ReleaseAndGetAddressOf()),
 			gsl::make_span(indices));
-		ThrowIfFailed(result, "Index buffer creation failed: %08X.", result);
+		ThrowIfFailed(result, "Index buffer creation failed: {:08X}.", result);
 
 		SetNumberOfIndices(indices.size());
 	}

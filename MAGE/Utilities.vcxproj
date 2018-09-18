@@ -89,6 +89,7 @@
     <ClCompile Include="Utilities\src\ui\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Utilities\src\exception\exception.tpp" />
     <None Include="Utilities\src\io\binary_reader.tpp" />
     <None Include="Utilities\src\io\binary_utils.tpp" />
     <None Include="Utilities\src\io\binary_writer.tpp" />

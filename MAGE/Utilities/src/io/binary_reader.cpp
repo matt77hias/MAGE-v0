@@ -30,11 +30,9 @@ namespace mage {
 															 &file_info, 
 															 sizeof(file_info));
 			ThrowIfFailed(result, 
-						  "%ls: could not retrieve file information.", 
-						  path.c_str());
+						  "{}: could not retrieve file information.", path);
 			ThrowIfFailed((0 == file_info.EndOfFile.HighPart), 
-						  "%ls: file too big for 32-bit allocation.", 
-						  path.c_str());
+						  "{}: file too big for 32-bit allocation.", path);
 		}
 		
 		// Allocate buffer.
@@ -42,17 +40,16 @@ namespace mage {
 		size = static_cast< std::size_t >(nb_bytes);
 		data = MakeUnique< U8[] >(nb_bytes);
 		ThrowIfFailed((nullptr != data), 
-					  "%ls: file too big for allocation.", path.c_str());
+					  "{}: file too big for allocation.", path);
 
 		// Populate buffer.
 		{
 			DWORD nb_bytes_read = 0u;
 			const BOOL result = ReadFile(file_handle.get(), data.get(), 
 										 nb_bytes, &nb_bytes_read, nullptr);
-			ThrowIfFailed(result, 
-						  "%ls: could not load file data.", path.c_str());
+			ThrowIfFailed(result, "{}: could not load file data.", path);
 			ThrowIfFailed((nb_bytes <= nb_bytes_read), 
-						  "%ls: could not load all file data.", path.c_str());
+						  "{}: could not load all file data.", path);
 		}
 	}
 
@@ -99,8 +96,7 @@ namespace mage {
 		m_pos = input.data();
 		m_end = input.data() + input.size();
 
-		ThrowIfFailed((m_pos <= m_end), 
-					  "%ls: overflow.", GetPath().c_str());
+		ThrowIfFailed((m_pos <= m_end), "{}: overflow.", GetPath());
 
 		ReadData();
 	}
@@ -109,11 +105,9 @@ namespace mage {
 		const auto old_pos = m_pos;
 		const auto new_pos = m_pos + size;
 		ThrowIfFailed((m_pos <= new_pos), 
-					  "%ls: overflow: no chars value found.", 
-					  GetPath().c_str());
+					  "{}: overflow: no chars value found.", GetPath());
 		ThrowIfFailed((new_pos <= m_end), 
-					  "%ls: end of file: no chars value found.", 
-					  GetPath().c_str());
+					  "{}: end of file: no chars value found.", GetPath());
 
 		m_pos = new_pos;
 		return NotNull< const_zstring >(reinterpret_cast< const char* >(old_pos));
@@ -158,8 +152,7 @@ namespace mage {
 		m_pos  = input.data();
 		m_end  = input.data() + input.size();
 
-		ThrowIfFailed((m_pos <= m_end), 
-					  "%ls: overflow.", GetPath().c_str());
+		ThrowIfFailed((m_pos <= m_end), "{}: overflow.", GetPath());
 
 		ReadData();
 	}

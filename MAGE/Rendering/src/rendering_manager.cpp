@@ -349,20 +349,20 @@ namespace mage::rendering {
 				                    device.GetAddressOf(),
 				                    &m_feature_level,
 				                    device_context.GetAddressOf());
-			ThrowIfFailed(result, "ID3D11Device creation failed: %08X.", result);
+			ThrowIfFailed(result, "ID3D11Device creation failed: {:08X}.", result);
 		}
 
 		{
 			// Get the D3D11Device.
 			const HRESULT result = device.As(&m_device);
 			ThrowIfFailed(result, 
-						  "D3D11Device creation failed: %08X.", result);
+						  "D3D11Device creation failed: {:08X}.", result);
 		}
 		{
 			// Get the D3D11DeviceContext.
 			const HRESULT result = device_context.As(&m_device_context);
 			ThrowIfFailed(result, 
-						  "D3D11DeviceContext creation failed: %08X.", result);
+						  "D3D11DeviceContext creation failed: {:08X}.", result);
 		}
 	}
 

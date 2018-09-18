@@ -211,7 +211,7 @@ namespace mage::input {
 			                                      IID_IDirectInput8, 
 			                                      (void**)m_di.ReleaseAndGetAddressOf(), 
 			                                      nullptr);
-		ThrowIfFailed(result, "DirectInput initialization failed: %ld", result);
+		ThrowIfFailed(result, "DirectInput initialization failed: {:08X}", result);
 	}
 
 	void Manager::Impl::InitializeInputSystems() {

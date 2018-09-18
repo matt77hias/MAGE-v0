@@ -136,8 +136,8 @@ namespace mage::rendering {
 		                      SpriteEffect effects,
 		                      const RGBA* color) const {
 
-		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
-			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
+		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1u &&
+			          static_cast< U8 >(SpriteEffect::MirrorY) == 2u,
 			          "The following tables must be updated to match");
 		// Lookup table indicates which way to move along each axes for each SpriteEffect.
 		static const XMVECTORF32 axis_direction_table[] = {

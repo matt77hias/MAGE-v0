@@ -27,8 +27,7 @@ namespace mage::rendering::loader {
 			return;
 		}
 		else {
-			throw Exception("Unknown material file extension: %ls", 
-							path.c_str());
+			throw Exception("Unknown material file extension: {}", path);
 		}
 	}
 }

@@ -369,7 +369,7 @@ namespace mage::rendering {
 			const HRESULT result 
 				= m_display_configuration.GetAdapter()->GetParent(
 					__uuidof(IDXGIFactory2), (void**)dxgi_factory.GetAddressOf());
-			ThrowIfFailed(result, "IDXGIFactory2 creation failed: %08X.", result);
+			ThrowIfFailed(result, "IDXGIFactory2 creation failed: {:08X}.", result);
 		}
 	
 		// DXGI_MWA_NO_WINDOW_CHANGES: 
@@ -417,12 +417,12 @@ namespace mage::rendering {
 													   &swap_chain_fullscreen_desc, 
 													   nullptr, 
 													   swap_chain1.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: %08X.", result);
+			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: {:08X}.", result);
 		}
 		{
 			// Get the DXGISwapChain.
 			const HRESULT result = swap_chain1.As(&m_swap_chain);
-			ThrowIfFailed(result, "DXGISwapChain creation failed: %08X.", result);
+			ThrowIfFailed(result, "DXGISwapChain creation failed: {:08X}.", result);
 		}
 
 		// MSDN recommends to create a windowed swap chain and allow the end 
@@ -439,7 +439,7 @@ namespace mage::rendering {
 														   __uuidof(ID3D11Texture2D), 
 														   (void**)back_buffer.GetAddressOf());
 			ThrowIfFailed(result, 
-						  "Back buffer texture creation failed: %08X.", result);
+						  "Back buffer texture creation failed: {:08X}.", result);
 		}
 
 		{
@@ -449,7 +449,7 @@ namespace mage::rendering {
 														nullptr,
 														m_rtv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
-						  "Back buffer RTV creation failed: %08X.", result);
+						  "Back buffer RTV creation failed: {:08X}.", result);
 		}
 	}
 
@@ -473,7 +473,7 @@ namespace mage::rendering {
 														   __uuidof(ID3D11Texture2D), 
 														   (void**)back_buffer.GetAddressOf());
 			ThrowIfFailed(result, 
-						  "Back buffer texture creation failed: %08X.", result);
+						  "Back buffer texture creation failed: {:08X}.", result);
 		}
 		
 		loader::ExportTextureToFile(fname,

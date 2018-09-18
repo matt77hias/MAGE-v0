@@ -76,7 +76,7 @@ namespace mage::input {
 									m_mouse.ReleaseAndGetAddressOf(), 
 									nullptr);
 			ThrowIfFailed(result,
-						  "Failed to create mouse device: %08X.",
+						  "Failed to create mouse device: {:08X}.",
 						  result);
 		}
 		
@@ -84,7 +84,7 @@ namespace mage::input {
 		{
 			const HRESULT result = m_mouse->SetDataFormat(&c_dfDIMouse2);
 			ThrowIfFailed(result,
-						  "Failed to set data format for mouse device: %08X.",
+						  "Failed to set data format for mouse device: {:08X}.",
 						  result);
 		}
 		
@@ -98,7 +98,7 @@ namespace mage::input {
 				                               DISCL_FOREGROUND 
 											 | DISCL_NONEXCLUSIVE);
 			ThrowIfFailed(result,
-						  "Failed to set cooperation level for mouse device: %08X.",
+						  "Failed to set cooperation level for mouse device: {:08X}.",
 						  result);
 		}
 		

@@ -106,8 +106,8 @@ namespace mage {
 
 		// Register the window class.
 		const ATOM result = RegisterClassEx(&wcex);
-		ThrowIfFailed(0 != result, "Failed to register window class: %s.", 
-					  m_window_class_name.c_str());
+		ThrowIfFailed(0 != result, "Failed to register window class: {}.", 
+					  m_window_class_name);
 	}
 
 	WindowDescriptor::WindowDescriptor(WindowDescriptor&& desc) noexcept = default;

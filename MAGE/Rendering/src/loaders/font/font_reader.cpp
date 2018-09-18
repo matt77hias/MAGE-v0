@@ -31,9 +31,7 @@ namespace mage::rendering::loader {
 		// Read the header.
 		{
 			const bool result = IsHeaderValid();
-			ThrowIfFailed(result, 
-						  "%ls: invalid sprite font header.", 
-						  GetPath().c_str());
+			ThrowIfFailed(result, "{}: invalid sprite font header.", GetPath());
 		}
 
 		// Read glyphs.
@@ -92,8 +90,8 @@ namespace mage::rendering::loader {
 		{
 			const HRESULT result = m_device.CreateTexture2D(
 				&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "%ls: Texture creation failed: %08X.", 
-						  GetPath().c_str(), result);
+			ThrowIfFailed(result, "{}: Texture creation failed: {:08X}.", 
+						  GetPath(), result);
 		}
 
 		// Create the SRV descriptor.
@@ -105,8 +103,8 @@ namespace mage::rendering::loader {
 			const HRESULT result = m_device.CreateShaderResourceView(
 				texture.Get(), &shader_resource_view_desc,
 				m_output.m_texture_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "%ls: SRV creation failed: %08X.", 
-						  GetPath().c_str(), result);
+			ThrowIfFailed(result, "{}: SRV creation failed: {:08X}.", 
+						  GetPath(), result);
 		}
 	}
 }

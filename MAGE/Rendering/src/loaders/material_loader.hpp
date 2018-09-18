@@ -14,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <filesystem>
 #include <vector>
 
 #pragma endregion

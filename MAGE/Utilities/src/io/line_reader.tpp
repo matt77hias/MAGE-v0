@@ -17,8 +17,8 @@ namespace mage {
 	template< typename T >
 	const T LineReader::Read() {
 		if (!ContainsTokens()) {
-			throw Exception("%ls: line %u: no value found.",
-							GetPath().c_str(), GetCurrentLineNumber());
+			throw Exception("{}: line {}: no value found.",
+							GetPath(), GetCurrentLineNumber());
 		}
 
 		const auto token = GetCurrentToken();
@@ -32,17 +32,16 @@ namespace mage {
 			return *result;
 		}
 		else {
-			throw Exception("%ls: line %u: invalid value found: %s.",
-							GetPath().c_str(), GetCurrentLineNumber(), 
-							m_iterator->str().c_str());
+			throw Exception("%{}: line {}: invalid value found: {}.",
+							GetPath(), GetCurrentLineNumber(), token);
 		}
 	}
 
 	template<>
 	inline const std::string_view LineReader::Read() {
 		if (!ContainsTokens()) {
-			throw Exception("%ls: line %u: no string value found.",
-							GetPath().c_str(), GetCurrentLineNumber());
+			throw Exception("{}: line {}: no string value found.",
+							GetPath(), GetCurrentLineNumber());
 		}
 
 		const auto result = GetCurrentToken();

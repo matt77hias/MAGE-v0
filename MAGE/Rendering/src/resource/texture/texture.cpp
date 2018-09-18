@@ -27,7 +27,7 @@ namespace mage::rendering {
 		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result = resource.As(&texture);
 		ThrowIfFailed(result, 
-					  "Conversion of ID3D11Resource to Texture2D failed: %08X.", 
+					  "Conversion of ID3D11Resource to Texture2D failed: {:08X}.", 
 					  result);
 
 		return GetTexture2DSize(*texture.Get());
@@ -69,14 +69,14 @@ namespace mage::rendering {
 		{
 			const HRESULT result = device.CreateTexture2D(
 				&desc, &initial_data, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 2D creation failed: {:08X}.", result);
 		}
 		
 		// Create the SRV.
 		{
 			const HRESULT result = device.CreateShaderResourceView(
 				texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture SRV creation failed: {:08X}.", result);
 		}
 	}
 

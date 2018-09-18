@@ -89,7 +89,7 @@ namespace mage {
 			const errno_t result 
 				= freopen_s(&stream, "CONIN$", "r", stdin);
 			ThrowIfFailed(0 == result, 
-						  "stdin redirection failed: %d.", result);
+						  "stdin redirection failed: {}.", result);
 		}
 
 		// Redirect stdout to the allocated console.
@@ -99,7 +99,7 @@ namespace mage {
 			const errno_t result
 				= freopen_s(&stream, "CONOUT$", "w", stdout);
 			ThrowIfFailed(0 == result, 
-						  "stdout redirection failed: %d.", result);
+						  "stdout redirection failed: {}.", result);
 		}
 
 		// Redirect stderr to the allocated console.
@@ -109,7 +109,7 @@ namespace mage {
 			const errno_t result 
 				= freopen_s(&stream, "CONOUT$", "w", stderr);
 			ThrowIfFailed(0 == result, 
-						  "stderr redirection failed: %d.", result);
+						  "stderr redirection failed: {}.", result);
 		}
 	}
 

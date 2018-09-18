@@ -34,7 +34,7 @@ namespace mage::rendering {
 			const HRESULT result = CreateDynamicStructuredBuffer< T >(
 				device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()), 
 				capacity);
-			ThrowIfFailed(result, "Structured buffer creation failed: %08X.", result);
+			ThrowIfFailed(result, "Structured buffer creation failed: {:08X}.", result);
 		}
 
 		m_capacity = capacity;
@@ -50,7 +50,7 @@ namespace mage::rendering {
 			
 			const HRESULT result = device.CreateShaderResourceView(
 				m_buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 	}
 

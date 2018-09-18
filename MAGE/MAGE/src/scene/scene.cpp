@@ -130,8 +130,8 @@ namespace mage {
 		});
 
 		// There must be at least one root node.
-		ThrowIfFailed((0 != nb_root_childs), 
-					  "%ls: no root node fount.", desc.GetGuid().c_str());
+		ThrowIfFailed((0u != nb_root_childs), 
+					  "{}: no root node fount.", desc.GetGuid());
 
 		// An additional root node needs to be created if multiple root nodes 
 		// are present.

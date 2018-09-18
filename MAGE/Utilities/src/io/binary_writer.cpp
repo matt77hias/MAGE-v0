@@ -30,8 +30,7 @@ namespace mage {
 		std::FILE* file;
 		{
 			const errno_t result = _wfopen_s(&file, m_path.c_str(), L"wb");
-			ThrowIfFailed((0 == result), 
-						  "%ls: could not open file.", m_path.c_str());
+			ThrowIfFailed((0 == result), "{}: could not open file.", m_path);
 		}
 
 		m_file_stream.reset(file);
@@ -40,14 +39,14 @@ namespace mage {
 	}
 
 	void BigEndianBinaryWriter::WriteCharacter(char c) {
-		const int result = fputc(c, m_file_stream.get());
+		const int result = std::fputc(c, m_file_stream.get());
 		ThrowIfFailed((EOF != result), 
-					  "%ls: could not write to file.", GetPath().c_str());
+					  "{}: could not write to file.", GetPath());
 	}
 
 	void BigEndianBinaryWriter::WriteString(NotNull< const_zstring > str) {
-		const int result = fputs(str, m_file_stream.get());
+		const int result = std::fputs(str, m_file_stream.get());
 		ThrowIfFailed((EOF != result), 
-					  "%ls: could not write to file.", GetPath().c_str());
+					  "{}: could not write to file.", GetPath());
 	}
 }

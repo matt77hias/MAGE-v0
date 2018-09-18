@@ -31,7 +31,7 @@ namespace mage::rendering::loader {
 			ImportOBJMeshFromFile(path, resource_manager, model_output, mesh_desc);
 		}
 		else {
-			throw Exception("Unknown model file extension: %ls", path.c_str());
+			throw Exception("Unknown model file extension: {}", path);
 		}
 	}
 
@@ -46,7 +46,7 @@ namespace mage::rendering::loader {
 			ExportMDLModelToFile(path, model_output);
 		}
 		else {
-			throw Exception("Unknown model file extension: %ls", path.c_str());
+			throw Exception("Unknown model file extension: {}", path);
 		}
 	}
 }

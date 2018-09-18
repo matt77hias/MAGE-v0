@@ -54,7 +54,7 @@ namespace mage::rendering {
 			// Get the ID3D11Device3.
 			const HRESULT result = device0.As(&device3);
 			ThrowIfFailed(result,
-						  "ID3D11Device3 creation failed: %08X.", result);
+						  "ID3D11Device3 creation failed: {:08X}.", result);
 		}
 
 		// Create the ID3D11RasterizerState2.
@@ -63,7 +63,7 @@ namespace mage::rendering {
 				= device3->CreateRasterizerState2(&desc, 
 												  m_rs.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result,
-						  "ID3D11RasterizerState2 creation failed: %08X.", result);
+						  "ID3D11RasterizerState2 creation failed: {:08X}.", result);
 		}
 	}
 

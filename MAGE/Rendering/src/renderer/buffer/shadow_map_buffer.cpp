@@ -51,7 +51,7 @@ namespace mage::rendering {
 			                       MAGE_DEFAULT_DEPTH_BIAS, 
 			                       MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
 			                       MAGE_DEFAULT_DEPTH_BIAS_CLAMP);
-		ThrowIfFailed(result, "Rasterizer state creation failed: %08X.", result);
+		ThrowIfFailed(result, "Rasterizer state creation failed: {:08X}.", result);
 	}
 
 	void ShadowMapBuffer::SetupShadowMapBuffer(ID3D11Device& device,
@@ -109,7 +109,7 @@ namespace mage::rendering {
 		{
 			const HRESULT result = device.CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 2D creation failed: {:08X}.", result);
 		}
 
 		// Create the DSVs.
@@ -129,7 +129,7 @@ namespace mage::rendering {
 
 				const HRESULT result = device.CreateDepthStencilView(
 					texture.Get(), &dsv_desc, m_dsvs[i].ReleaseAndGetAddressOf());
-				ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+				ThrowIfFailed(result, "DSV creation failed: {:08X}.", result);
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace mage::rendering {
 			// Create the SRV for all texture elements.
 			const HRESULT result = device.CreateShaderResourceView(
 				texture.Get(), &srv_desc, m_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 	}
 	
@@ -188,7 +188,7 @@ namespace mage::rendering {
 			                       MAGE_DEFAULT_DEPTH_BIAS,
 			                       MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
 			                       MAGE_DEFAULT_DEPTH_BIAS_CLAMP);
-		ThrowIfFailed(result, "Rasterizer state creation failed: %08X.", result);
+		ThrowIfFailed(result, "Rasterizer state creation failed: {:08X}.", result);
 	}
 
 	void ShadowCubeMapBuffer::SetupShadowCubeMapBuffer(ID3D11Device& device,
@@ -246,7 +246,7 @@ namespace mage::rendering {
 		{
 			const HRESULT result = device.CreateTexture2D(
 				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, "Texture 2D creation failed: {:08X}.", result);
 		}
 
 		// Create the DSVs.
@@ -266,7 +266,7 @@ namespace mage::rendering {
 
 				const HRESULT result = device.CreateDepthStencilView(
 					texture.Get(), &dsv_desc, m_dsvs[i].ReleaseAndGetAddressOf());
-				ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+				ThrowIfFailed(result, "DSV creation failed: {:08X}.", result);
 			}
 		}
 
@@ -282,7 +282,7 @@ namespace mage::rendering {
 			// Create the SRV for all texture elements.
 			const HRESULT result = device.CreateShaderResourceView(
 				texture.Get(), &srv_desc, m_srv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
 		}
 	}
 

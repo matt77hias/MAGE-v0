@@ -160,7 +160,7 @@ namespace mage::rendering {
 		const HRESULT result 
 			= D3DReadFileToBlob(fname.c_str(), 
 								m_shader_blob.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result, "D3DReadFileToBlob failed: %08X.", result);
+		ThrowIfFailed(result, "D3DReadFileToBlob failed: {:08X}.", result);
 	}
 
 	BlobCompiledShader::BlobCompiledShader(

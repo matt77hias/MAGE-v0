@@ -69,8 +69,7 @@ namespace mage {
 
 		// Processing
 		std::ifstream stream(m_path.c_str());
-		ThrowIfFailed(stream.is_open(),
-					  "%ls: could not open file.", m_path.c_str());
+		ThrowIfFailed(stream.is_open(), "{}: could not open file.", m_path);
 		Process(stream);
 
 		// Postprocessing
@@ -99,7 +98,7 @@ namespace mage {
 	void LineReader::Preprocess() {}
 
 	void LineReader::Process(std::istream& stream) {
-		m_line_number = 0;
+		m_line_number = 0u;
 		
 		std::string line;
 		while (std::getline(stream, line)) {

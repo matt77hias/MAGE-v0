@@ -26,8 +26,7 @@ namespace mage::loader {
 			ImportVARFromFile(path, variable_buffer);
 		}
 		else {
-			throw Exception("Unknown variable script file extension: %ls", 
-							path.c_str());
+			throw Exception("Unknown variable script file extension: {}", path);
 		}
 	}
 
@@ -42,8 +41,7 @@ namespace mage::loader {
 			ExportVARToFile(path, variable_buffer);
 		}
 		else {
-			throw Exception("Unknown variable script file extension: %ls", 
-							path.c_str());
+			throw Exception("Unknown variable script file extension: {}", path);
 		}
 	}
 }

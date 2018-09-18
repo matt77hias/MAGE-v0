@@ -44,7 +44,7 @@ namespace mage::rendering {
 				                           nullptr, 
 				                           m_vertex_shader.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
-						  "Vertex shader creation failed: %08X.", result);
+						  "Vertex shader creation failed: {:08X}.", result);
 		}
 
 		if (nullptr == input_element_descs.data()) {
@@ -63,7 +63,7 @@ namespace mage::rendering {
 				                           compiled_shader.GetBytecodeSize(), 
 				                           m_vertex_layout.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, 
-						  "Vertex input layout creation failed: %08X.", result);
+						  "Vertex input layout creation failed: {:08X}.", result);
 		}
 	}
 }

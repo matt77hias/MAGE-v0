@@ -65,25 +65,25 @@ namespace mage::loader {
 		template< typename T >
 		void VARVisitor::operator()(const T& value) const {
 			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
-					GetVarToken< T >(), m_key, value);
+					g_var_token< T >, m_key, value);
 		}
 
 		template<>
 		void VARVisitor::operator()(const bool& value) const {
 			if (value) {
 				WriteTo(m_buffer, m_buffer_size, "{} {} true", 
-						GetVarToken< bool >(), m_key);
+						g_var_token< bool >, m_key);
 			}
 			else {
 				WriteTo(m_buffer, m_buffer_size, "{} {} false", 
-						GetVarToken< bool >(), m_key);
+						g_var_token< bool >, m_key);
 			}
 		}
 
 		template<>
 		void VARVisitor::operator()(const std::string& value) const {
 			WriteTo(m_buffer, m_buffer_size, "{} {} \"{}\"", 
-					GetVarToken< std::string >(), m_key, value);
+					g_var_token< std::string >, m_key, value);
 		}
 	}
 

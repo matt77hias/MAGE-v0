@@ -25,7 +25,7 @@ namespace mage::rendering {
 	void ConstantBuffer< T >::SetupConstantBuffer(ID3D11Device& device) {
 		const HRESULT result = CreateDynamicConstantBuffer< T >(
 			device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()));
-		ThrowIfFailed(result, "Constant buffer creation failed: %08X.", result);
+		ThrowIfFailed(result, "Constant buffer creation failed: {:08X}.", result);
 	}
 
 	template< typename T >

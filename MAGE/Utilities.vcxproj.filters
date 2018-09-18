@@ -339,5 +339,8 @@
     <None Include="Utilities\src\string\format.tpp">
       <Filter>Header Files\string</Filter>
     </None>
+    <None Include="Utilities\src\exception\exception.tpp">
+      <Filter>Header Files\exception</Filter>
+    </None>
   </ItemGroup>
 </Project>

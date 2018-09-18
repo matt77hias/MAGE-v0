@@ -124,7 +124,7 @@ namespace mage::rendering {
 				                                 map_type, 
 				                                 0u, 
 				                                 mapped_buffer);
-			ThrowIfFailed(result, "Buffer mapping failed: %08X.", result);
+			ThrowIfFailed(result, "Buffer mapping failed: {:08X}.", result);
 		}
 
 		/**

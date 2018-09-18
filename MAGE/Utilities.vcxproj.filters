@@ -224,6 +224,12 @@
     <ClInclude Include="Utilities\src\logging\logging.tpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\memory\memory_buffer.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\collection\dynamic_array.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">

@@ -980,7 +980,7 @@ namespace mage::script {
 			// Name
 			//-----------------------------------------------------------------
 			char buffer[128];
-			WriteTo(buffer, node.GetName());
+			WriteTo(buffer, "{}", node.GetName());
 			if (ImGui::InputText("", buffer, std::size(buffer))) {
 				node.SetName(std::string(buffer));
 			}
@@ -1178,7 +1178,7 @@ namespace mage::script {
 			char id[20];
 			WriteTo(id, "{}", node.GetGuid());
 			char name[128];
-			WriteTo(name, node.GetName());
+			WriteTo(name, "{}", node.GetName());
 
 			if (node.ContainsChilds()) {
 				static constexpr ImGuiTreeNodeFlags node_flags

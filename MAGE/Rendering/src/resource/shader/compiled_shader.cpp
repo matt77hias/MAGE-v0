@@ -53,13 +53,13 @@ namespace mage::rendering {
 		#endif // NDEBUG
 
 		wchar_t buffer_fname[MAX_PATH];
-		WriteTo(buffer_fname, fname);
+		WriteTo(buffer_fname, L"{}", fname);
 
 		char buffer_entry_point[MAX_PATH];
-		WriteTo(buffer_entry_point, entry_point);
+		WriteTo(buffer_entry_point, "{}", entry_point);
 
 		char buffer_shader_target[MAX_PATH];
-		WriteTo(buffer_shader_target, shader_target);
+		WriteTo(buffer_shader_target, "{}", shader_target);
 
 		// Compiles Microsoft High Level Shader Language (HLSL) code into 
 		// bytecode for a given target.

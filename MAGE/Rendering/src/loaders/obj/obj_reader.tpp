@@ -266,9 +266,11 @@ namespace mage::rendering::loader {
 			flag2 
 		};
 		const std::string_view tokens[] = {
+			// If offset std::string::npos + 1u == 0u then count is don't-care;  
+			// all unsigned values avoid exception.
 			token.substr(0u,          slash1),
-			token.substr(slash1 + 1u, slash2),
-			token.substr(slash2 + 1u, token.size())
+			token.substr(slash1 + 1u, slash2       - slash1 - 1u),
+			token.substr(slash2 + 1u, token.size() - slash2 - 1u)
 		};
 		
 		U32x3 indices;

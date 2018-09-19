@@ -248,7 +248,7 @@ namespace mage {
 		const std::size_t buffer_length = title.size() + m_nb_progress_total + 64u;
 		m_buffer = MakeUnique< char[] >(buffer_length);
 		
-		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
+		WriteTo(NotNull< zstring >(m_buffer.get()), buffer_length, "\r{}: [", title);
 		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
 		auto s = m_current_pos;
 		for (FU16 i = 0u; i < m_nb_progress_total; ++i) {

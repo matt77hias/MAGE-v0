@@ -52,13 +52,13 @@ namespace mage::rendering {
 			                     | D3DCOMPILE_SKIP_OPTIMIZATION;
 		#endif // NDEBUG
 
+		// An explicit formatting string is provided to avoid clashes with 
+		// the string.
 		wchar_t buffer_fname[MAX_PATH];
 		WriteTo(buffer_fname, L"{}", fname);
-
 		char buffer_entry_point[MAX_PATH];
 		WriteTo(buffer_entry_point, "{}", entry_point);
-
-		char buffer_shader_target[MAX_PATH];
+		char buffer_shader_target[32u];
 		WriteTo(buffer_shader_target, "{}", shader_target);
 
 		// Compiles Microsoft High Level Shader Language (HLSL) code into 

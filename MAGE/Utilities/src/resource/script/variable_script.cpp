@@ -44,7 +44,7 @@ namespace mage {
 		loader::ExportVariableScriptToFile(path, m_variables);
 	}
 
-	void VariableScript::Remove(const std::string& name) {
+	void VariableScript::Remove(std::string_view name) {
 		if (const auto it = m_variables.find(name); 
 			it != m_variables.end()) {
 

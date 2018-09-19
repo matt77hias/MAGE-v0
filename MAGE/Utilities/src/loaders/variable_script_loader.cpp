@@ -15,8 +15,7 @@
 namespace mage::loader {
 
 	void ImportVariableScriptFromFile(const std::filesystem::path& path,  
-									  std::map< std::string, Value >&
-									  variable_buffer) {
+									  ValueMap& variable_buffer) {
 		
 		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
@@ -30,8 +29,7 @@ namespace mage::loader {
 	}
 
 	void ExportVariableScriptToFile(const std::filesystem::path& path, 
-									const std::map< std::string, Value >&
-									variable_buffer) {
+									const ValueMap& variable_buffer) {
 		
 		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);

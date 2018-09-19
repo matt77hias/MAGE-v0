@@ -170,13 +170,13 @@ namespace mage {
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
-						A reference to the name of the variable.
+						The name of the variable.
 		 @return		@c true if this variable script has a variable with the 
 						given name. @c false otherwise.
 		 */
 		template< typename T = void >
 		[[nodiscard]]
-		bool Contains(const std::string& name) const noexcept;
+		bool Contains(std::string_view name) const noexcept;
 
 		/**
 		 Adds the given variable to this variable script.
@@ -195,9 +195,9 @@ namespace mage {
 		 Removes the given variable from this variable script.
 
 		 @param[in]		name
-						A reference to the name of the variable.
+						The name of the variable.
 		 */
-		void Remove(const std::string& name);
+		void Remove(std::string_view name);
 
 		/**
 		 Removes all variables from this variable script.
@@ -212,7 +212,7 @@ namespace mage {
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
-						A reference to the name of the variable.
+						The name of the variable.
 		 @return		@c nullptr if this variable script does not contain a 
 						variable corresponding to the given name.
 		 @return		A pointer to the value of the variable.
@@ -222,7 +222,7 @@ namespace mage {
 		 */
 		template< typename T >
 		[[nodiscard]]
-		const T* GetValue(const std::string& name) const;
+		const T* GetValue(std::string_view name) const;
 
 		/**
 		 Sets the value of the given variable in this variable script.
@@ -230,14 +230,14 @@ namespace mage {
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
-						A reference to the name of the variable.
+						The name of the variable.
 		 @param[in]		value
 						The value of the variable.
 		 @note			Nothing happens if this variable script does not 
 						contain a variable corresponding to the given name.
 		 */
 		template< typename T >
-		void SetValue(const std::string& name, T value);
+		void SetValue(std::string_view name, T value);
 
 	private:
 
@@ -248,7 +248,7 @@ namespace mage {
 		/**
 		 A map containing the variables of this variable script.
 		 */
-		std::map< std::string, Value > m_variables;
+		ValueMap m_variables;
 	};
 }
 

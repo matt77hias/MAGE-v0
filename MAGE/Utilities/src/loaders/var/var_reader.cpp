@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::loader {
 
-	VARReader::VARReader(std::map< std::string, Value >& variable_buffer)
+	VARReader::VARReader(ValueMap& variable_buffer)
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 

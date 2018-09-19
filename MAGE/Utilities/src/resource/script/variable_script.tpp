@@ -8,14 +8,14 @@ namespace mage {
 	template<>
 	[[nodiscard]]
 	inline bool VariableScript
-		::Contains< void >(const std::string& name) const noexcept {
+		::Contains< void >(std::string_view name) const noexcept {
 
 		return m_variables.cend() != m_variables.find(name);
 	}
 
 	template< typename T >
 	[[nodiscard]]
-	bool VariableScript::Contains(const std::string& name) const noexcept {
+	bool VariableScript::Contains(std::string_view name) const noexcept {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
@@ -32,7 +32,7 @@ namespace mage {
 
 	template< typename T >
 	[[nodiscard]]
-	const T* VariableScript::GetValue(const std::string& name) const {
+	const T* VariableScript::GetValue(std::string_view name) const {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
@@ -47,7 +47,7 @@ namespace mage {
 	}
 
 	template< typename T >
-	void VariableScript::SetValue(const std::string& name, T value) {
+	void VariableScript::SetValue(std::string_view name, T value) {
 		if (const auto it = m_variables.find(name); 
 			it != m_variables.end()) {
 

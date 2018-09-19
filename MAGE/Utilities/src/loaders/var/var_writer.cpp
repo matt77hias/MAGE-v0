@@ -86,7 +86,7 @@ namespace mage::loader {
 		}
 	}
 
-	VARWriter::VARWriter(const std::map< std::string, Value >& variable_buffer)
+	VARWriter::VARWriter(const ValueMap& variable_buffer)
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 

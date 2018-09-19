@@ -249,9 +249,9 @@ namespace mage::rendering::loader {
 
 		const auto token  = Read< std::string_view >();
 
-		const auto slash1 = token.find('/');
+		const auto slash1 = token.find_first_of('/');
 		const bool flag1  = (std::string::npos != slash1);
-		const auto slash2 = token.find('/', slash1 + 1u);
+		const auto slash2 = token.find_first_of('/', slash1 + 1u);
 		const bool flag2  = (std::string::npos != slash2);
 		const bool flagd  = (slash1 + 1u == slash2);
 

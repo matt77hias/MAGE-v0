@@ -88,11 +88,10 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		A reference to the globally unique identifier of this
-						resource.
+		 @return		The globally unique identifier of this resource.
 		 */
 		[[nodiscard]]
-		const std::wstring& GetGuid() const noexcept {
+		const std::wstring_view GetGuid() const noexcept {
 			return m_guid;
 		}
 

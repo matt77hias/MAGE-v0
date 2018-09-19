@@ -100,10 +100,10 @@ namespace mage {
 		/**
 		 Returns the name of the application.
 
-		 @return		A reference to the name of the application.
+		 @return		The name of the application.
 		 */
 		[[nodiscard]]
-		const std::wstring& GetApplicationName() const noexcept {
+		const std::wstring_view GetApplicationName() const noexcept {
 			return m_name;
 		}
 

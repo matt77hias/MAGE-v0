@@ -51,16 +51,14 @@ namespace mage::rendering::loader {
 		 extension.
 
 		 @param[in]		extension
-						A reference to the (lower case) file extension.
+						The (lower case) file extension.
 		 @return		@c GUID_NULL if no WIC container format is associated 
 						with the given file extension.
 		 @return		The WIC container format associated with the given 
 						image file extension.
 		 */
 		[[nodiscard]]
-		inline const GUID 
-			GetGUIDContainerFormat(const std::wstring& extension) noexcept {
-
+		inline const GUID GetGUIDContainerFormat(std::wstring_view extension) noexcept {
 			if (        L".png"  == extension) {
 				return GUID_ContainerFormatPng;
 			}
@@ -92,7 +90,6 @@ namespace mage::rendering::loader {
 				return GUID_NULL;
 			}
 		}
-
 	}
 
 	void ExportTextureToFile(const std::filesystem::path& path, 

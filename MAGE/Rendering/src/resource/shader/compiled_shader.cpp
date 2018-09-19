@@ -161,13 +161,18 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	BlobCompiledShader::BlobCompiledShader(const std::wstring& fname) noexcept
+	BlobCompiledShader::BlobCompiledShader(std::wstring_view fname) noexcept
 		: CompiledShader(), 
 		m_shader_blob() {
 			
+		// An explicit formatting string is provided to avoid clashes with 
+		// the string.
+		wchar_t buffer_fname[MAX_PATH];
+		WriteTo(buffer_fname, L"{}", fname);
+
 		// Compile/Read the vertex shader.
 		const HRESULT result 
-			= D3DReadFileToBlob(fname.c_str(), 
+			= D3DReadFileToBlob(buffer_fname,
 								m_shader_blob.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result, "D3DReadFileToBlob failed: {:08X}.", result);
 	}

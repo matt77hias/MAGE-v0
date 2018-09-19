@@ -193,7 +193,7 @@ namespace mage {
 	}
 
 	Window::Window(WindowDescriptorPtr window_desc,
-				   const std::wstring& title_text,
+				   std::wstring_view title_text,
 				   const U32x2& resolution, 
 				   DWORD style) 
 		: m_window_desc(std::move(window_desc)), 
@@ -211,7 +211,7 @@ namespace mage {
 
 	Window::~Window() = default;
 	
-	void Window::InitializeWindow(const std::wstring& title_text,
+	void Window::InitializeWindow(std::wstring_view title_text,
 								  const U32x2& resolution, 
 								  DWORD style) {
 		
@@ -225,9 +225,16 @@ namespace mage {
 		return InitializeWindow(title_text, rectangle, style);
 	}
 
-	void Window::InitializeWindow(const std::wstring& title_text,
+	void Window::InitializeWindow(std::wstring_view title_text,
 								  const RECT& rectangle, 
 								  DWORD style) {
+
+		// An explicit formatting string is provided to avoid clashes with the 
+		// string.
+		wchar_t buffer_window_name[MAX_PATH];
+		WriteTo(buffer_window_name, L"{}", m_window_desc->GetWindowClassName());
+		wchar_t buffer_title_text[MAX_PATH];
+		WriteTo(buffer_title_text, L"{}", title_text);
 
 		// Calculate the required size of the window rectangle, based on the desired 
 		// client rectangle size. A client rectangle is the smallest rectangle that 
@@ -241,8 +248,8 @@ namespace mage {
 		AdjustWindowRect(&adjusted_rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_window = CreateWindow(m_window_desc->GetWindowClassName().c_str(), 
-			                    title_text.c_str(), 
+		m_window = CreateWindow(buffer_window_name,
+								buffer_title_text,
 			                    style, 
 			                    CW_USEDEFAULT, 
 			                    CW_USEDEFAULT, 

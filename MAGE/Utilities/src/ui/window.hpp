@@ -340,11 +340,10 @@ namespace mage {
 		/**
 		 Returns the window class name of this window descriptor.
 		 
-		 @return		A reference to the window class name of this window 
-						descriptor.
+		 @return		The window class name of this window descriptor.
 		 */
 		[[nodiscard]]
-		const std::wstring& GetWindowClassName() const noexcept {
+		const std::wstring_view GetWindowClassName() const noexcept {
 			return m_window_class_name;
 		}
 
@@ -438,7 +437,7 @@ namespace mage {
 		 @param[in]		window_desc
 						A pointer to the window descriptor.
 		 @param[in]		title_text
-						A reference to the title text.
+						The title text.
 		 @param[in]		resolution
 						The resolution of the window.
 		 @param[in]		style
@@ -447,7 +446,7 @@ namespace mage {
 						Failed to create the window.
 		 */
 		explicit Window(WindowDescriptorPtr window_desc,
-						const std::wstring& title_text,
+						std::wstring_view title_text,
 						const U32x2& resolution, 
 						DWORD style = s_default_window_style);
 
@@ -609,7 +608,7 @@ namespace mage {
 		 Initializes the window of this window.
 
 		 @param[in]		title_text
-						A reference to the title text.
+						The title text.
 		 @param[in]		resolution
 						The resolution of the client rectangle of the window.
 		 @param[in]		style
@@ -617,7 +616,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the window.
 		 */
-		void InitializeWindow(const std::wstring& title_text,
+		void InitializeWindow(std::wstring_view title_text,
 							  const U32x2& resolution, 
 							  DWORD style);
 
@@ -625,7 +624,7 @@ namespace mage {
 		 Initializes the window of this window.
 
 		 @param[in]		title_text
-						A reference to the title text.
+						The title text.
 		 @param[in]		rectangle
 						A reference to the client rectangle of the window.
 		 @param[in]		style
@@ -633,7 +632,7 @@ namespace mage {
 		 @throws		Exception
 						Failed to create the window.
 		 */
-		void InitializeWindow(const std::wstring& title_text,
+		void InitializeWindow(std::wstring_view title_text,
 							  const RECT& rectangle, 
 							  DWORD style);
 

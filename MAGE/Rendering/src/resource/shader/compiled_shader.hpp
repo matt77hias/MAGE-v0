@@ -283,11 +283,11 @@ namespace mage::rendering {
 		 Constructs a blob compiled shader.
 		 
 		 @param[in]		fname
-						A reference to the filename.
+						The filename.
 		 @throws		Exception
 						Failed to load the compiled shader from the given file.
 		 */
-		explicit BlobCompiledShader(const std::wstring& fname) noexcept;
+		explicit BlobCompiledShader(std::wstring_view fname) noexcept;
 		
 		/**
 		 Constructs a blob compiled shader from the given blob compiled shader.

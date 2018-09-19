@@ -219,6 +219,10 @@ namespace mage {
 		// Member Methods: Modifiers
 		//---------------------------------------------------------------------
 
+		void resize(size_type count) noexcept {
+			m_size = std::min(count, capacity());
+		}
+
 		void push_back(const T& value) {
 			emplace_back(value);
 		}
@@ -451,11 +455,7 @@ namespace mage {
 			return m_data.size();
 		}
 
-		//---------------------------------------------------------------------
-		// Member Methods: Modifiers
-		//---------------------------------------------------------------------
-
-		void resize(size_type new_capacity) {
+		void reserve(size_type new_capacity) {
 			if (new_capacity <= capacity()) {
 				return;
 			}
@@ -466,6 +466,15 @@ namespace mage {
 			}
 
 			m_data = std::move(a);
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Modifiers
+		//---------------------------------------------------------------------
+
+		void resize(size_type count) {
+			reserve(count);
+			m_size = std::min(count, capacity());
 		}
 
 		void push_back(const T& value) {
@@ -729,15 +738,11 @@ namespace mage {
 				m_static_data.capacity() : m_dynamic_data.capacity();
 		}
 
-		//---------------------------------------------------------------------
-		// Member Methods: Modifiers
-		//---------------------------------------------------------------------
-
-		void resize(size_type new_capacity) {
+		void reserve(size_type new_capacity) {
 			if (new_capacity <= capacity()) {
 				return;
 			}
-			
+
 			const bool no_transfer = UsesDynamicMemoryBuffer();
 			m_dynamic_data.resize(new_capacity);
 			if (no_transfer) {
@@ -746,6 +751,20 @@ namespace mage {
 
 			for (size_type i = 0u; i < m_static_data.size(); ++i) {
 				m_dynamic_data.push_back(std::move(m_static_data[i]));
+			}
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Modifiers
+		//---------------------------------------------------------------------
+
+		void resize(size_type count) {
+			reserve(count);
+			if (UsesStaticMemoryBuffer()) {
+				m_static_data.resize(count);
+			}
+			else {
+				m_dynamic_data.resize(count);
 			}
 		}
 

@@ -57,7 +57,7 @@ namespace mage::rendering::loader {
 			return;
 		}
 
-		const auto mtl_fname = WStringToString(std::wstring(mtl_path.filename()));
+		const std::wstring mtl_fname(mtl_path.filename());
 
 		char buffer[MAX_PATH];
 		WriteTo(buffer, "{} {}", g_mdl_token_material_library, mtl_fname);

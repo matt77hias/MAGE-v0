@@ -139,9 +139,9 @@ namespace mage::rendering::loader {
 	[[nodiscard]]
 	TexturePtr MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const auto texture_name = StringToWString(Read< std::string >());
-		auto texture_path       = GetPath();
-		texture_path.replace_filename(texture_name);
+		const UTF8toUTF16 texture_name(Read< std::string_view >());
+		auto texture_path = GetPath();
+		texture_path.replace_filename(std::wstring_view(texture_name));
 
 		return m_resource_manager.GetOrCreate< Texture >(texture_path);
 	}

@@ -99,9 +99,9 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialLibrary() {
-		const auto mtl_name = StringToWString(Read< std::string >());
-		auto mtl_path       = GetPath();
-		mtl_path.replace_filename(mtl_name);
+		const UTF8toUTF16 mtl_name(Read< std::string_view >());
+		auto mtl_path = GetPath();
+		mtl_path.replace_filename(std::wstring_view(mtl_name));
 		
 		ImportMaterialFromFile(mtl_path,
 							   m_resource_manager, 

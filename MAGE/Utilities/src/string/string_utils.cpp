@@ -29,7 +29,6 @@ namespace mage {
 
 		if (0 == s_size) {
 			m_buffer.resize(1u);
-			m_buffer[0u] = L'\0';
 			return 0u;
 		}
 
@@ -47,7 +46,6 @@ namespace mage {
 			return GetLastError();
 		}
 		
-		m_buffer[static_cast< std::size_t >(written_size)] = L'\0';
 		return 0u;
 	}
 
@@ -59,7 +57,6 @@ namespace mage {
 		
 		if (0 == s_size) {
 			m_buffer.resize(1u);
-			m_buffer[0u] = '\0';
 			return 0u;
 		}
 
@@ -77,7 +74,6 @@ namespace mage {
 			return GetLastError();
 		}
 		
-		m_buffer[static_cast< std::size_t >(written_size)] = '\0';
 		return 0u;
 	}
 }

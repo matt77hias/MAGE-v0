@@ -320,30 +320,6 @@ namespace mage {
 		MemoryBuffer< char, 512u > m_buffer;
 	};
 
-	/**
-	 Converts the given string to a wide string.
-
-	 @param[in]		str
-					A reference to the string to copy.
-	 @return		The wide string copy of the given string.
-	 */
-	[[nodiscard]]
-	inline const std::wstring StringToWString(const std::string& str) {
-		return UTF8toUTF16(str).str();
-	}
-
-	/**
-	 Converts the given wide string to a string.
-
-	 @param[in]		str
-					A reference to the wide string to copy.
-	 @return		The string copy of the given wide string.
-	 */
-	[[nodiscard]]
-	inline const std::string WStringToString(const std::wstring& str) {
-		return UTF16toUTF8(str).str();
-	}
-
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

@@ -51,7 +51,7 @@ namespace mage {
 
 		explicit DynamicArray(std::size_t size)
 			: m_size(size),
-			m_data((0u == size) ? nullptr : new value_type[size] {}) {}
+			m_data((0u == size) ? nullptr : MakeUnique< value_type[] >(size)) {}
 		
 		DynamicArray(const DynamicArray& a)
 			: DynamicArray(a.size()) {
@@ -73,7 +73,7 @@ namespace mage {
 		DynamicArray& operator=(const DynamicArray& a) {
 			if (size() != a.size()) {
 				m_size = a.size();
-				m_data.reset(new value_type[m_size] {});
+				m_data = MakeUnique< value_type[] >(m_size);
 			}
 
 			auto from = a.cbegin();

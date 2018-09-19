@@ -9,7 +9,6 @@
 #include "resource\font\sprite_font_factory.hpp"
 #include "resource\model\material_factory.hpp"
 #include "resource\texture\texture_factory.hpp"
-#include "logging\logging.hpp"
 
 #pragma endregion
 

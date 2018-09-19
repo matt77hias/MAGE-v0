@@ -83,9 +83,8 @@
   
 | Definitions       | Syntax                                                          |
 |-------------------|-----------------------------------------------------------------|
-| local transform   | `g <child-name>`                                                |
-| local transform   | `g <child-name> <translation> <rotation> <scale>`               |
-| local transform   | `g <child-name> <parent-name> <translation> <rotation> <scale>` |
+| child             | `g <child-name>`                                                |
+| child             | `o <child-name>`                                                |
 | `<child-name>`    | `<string>`                                                      |
 | `<parent-name>`   | `<string>`                                                      |
 | `<translation>`   | `<F32> <F32> <F32>`                                             |

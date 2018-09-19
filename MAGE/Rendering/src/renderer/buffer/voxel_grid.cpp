@@ -58,11 +58,11 @@ namespace mage::rendering {
 			// CPU: no read + no write
 			buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
 			
-			auto data = MakeUnique< U8[] >(buffer_desc.ByteWidth);
-			memset(data.get(), 0, static_cast< std::size_t >(buffer_desc.ByteWidth));
+			auto data = DynamicArray< U8 >(buffer_desc.ByteWidth);
+			memset(data.data(), 0, data.size());
 
 			D3D11_SUBRESOURCE_DATA init_data = {};
-			init_data.pSysMem = data.get();
+			init_data.pSysMem = data.data();
 
 			const HRESULT result = device.CreateBuffer(
 				&buffer_desc, &init_data, buffer.ReleaseAndGetAddressOf());

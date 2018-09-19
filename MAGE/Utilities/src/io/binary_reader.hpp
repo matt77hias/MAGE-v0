@@ -5,16 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "io\binary_utils.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <filesystem>
+#include "exception\exception.hpp"
 
 #pragma endregion
 

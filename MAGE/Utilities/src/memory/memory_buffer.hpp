@@ -282,7 +282,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit DynamicMemoryBuffer(std::size_t capacity = 0u)
+		explicit DynamicMemoryBuffer(size_type capacity = 0u)
 			: m_size(0u),
 			m_data(capacity) {}
 

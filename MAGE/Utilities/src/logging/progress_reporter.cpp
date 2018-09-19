@@ -175,7 +175,7 @@ namespace mage {
 		/**
 		 A pointer to the output buffer of this progress reporter.
 		 */
-		UniquePtr< char[] > m_buffer;
+		DynamicArray< char > m_buffer;
 
 		/**
 		 A pointer to the current character in the output buffer of this progress 
@@ -246,10 +246,10 @@ namespace mage {
 		
 		// Initialize the output buffer.
 		const std::size_t buffer_length = title.size() + m_nb_progress_total + 64u;
-		m_buffer = MakeUnique< char[] >(buffer_length);
+		m_buffer = DynamicArray< char >(buffer_length);
 		
-		WriteTo(NotNull< zstring >(m_buffer.get()), buffer_length, "\r{}: [", title);
-		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
+		WriteTo(NotNull< zstring >(m_buffer.data()), m_buffer.size(), "\r{}: [", title);
+		m_current_pos = m_buffer.data() + strlen(m_buffer.data());
 		auto s = m_current_pos;
 		for (FU16 i = 0u; i < m_nb_progress_total; ++i) {
 			*s++ = ' ';
@@ -264,7 +264,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		std::fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.data(), m_fout);
 
 		std::fflush(m_fout);
 
@@ -292,7 +292,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		std::fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.data(), m_fout);
 
 		// Update elapsed time and estimated time to completion
 		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());
@@ -324,7 +324,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		std::fputs(m_buffer.get(), m_fout);
+		std::fputs(m_buffer.data(), m_fout);
 
 		// Update elapsed time
 		const auto time = static_cast< F32 >(m_timer.GetTotalDeltaTime().count());

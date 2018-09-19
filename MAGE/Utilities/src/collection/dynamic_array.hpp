@@ -49,7 +49,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit DynamicArray(std::size_t size)
+		explicit DynamicArray(size_type size = 0u)
 			: m_size(size),
 			m_data((0u == size) ? nullptr : MakeUnique< value_type[] >(size)) {}
 		

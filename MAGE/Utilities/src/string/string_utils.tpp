@@ -27,34 +27,6 @@ namespace mage {
 
 	template<>
 	[[nodiscard]]
-	inline const std::optional< F32 > StringTo(NotNull< const char* > first,
-											   NotNull< const char* > last) noexcept {
-		char* inner_context = nullptr;
-		const F32 result = strtof(first, &inner_context);
-		if (last == inner_context) {
-			return result;
-		}
-		else {
-			return {};
-		}
-	}
-
-	template<>
-	[[nodiscard]]
-	inline const std::optional< F64 > StringTo(NotNull< const char* > first,
-											   NotNull< const char* > last) noexcept {
-		char* inner_context = nullptr;
-		const F64 result = strtod(first, &inner_context);
-		if (last == inner_context) {
-			return result;
-		}
-		else {
-			return {};
-		}
-	}
-
-	template<>
-	[[nodiscard]]
 	inline const std::optional< bool > StringTo(NotNull< const char* > first,
 												NotNull< const char* > last) noexcept {
 		const char* const cfirst = first;
@@ -105,32 +77,6 @@ namespace mage {
 		}
 		else {
 			return result;
-		}
-	}
-
-	template<>
-	[[nodiscard]]
-	inline const std::optional< F32 > StringPrefixTo(NotNull< const_zstring > str) noexcept {
-		char* inner_context = nullptr;
-		const F32 result = strtof(str, &inner_context);
-		if (str != inner_context) {
-			return result;
-		}
-		else {
-			return {};
-		}
-	}
-	
-	template<>
-	[[nodiscard]]
-	inline const std::optional< F64 > StringPrefixTo(NotNull< const_zstring > str) noexcept {
-		char* inner_context = nullptr;
-		const F64 result = strtod(str, &inner_context);
-		if (str != inner_context) {
-			return result;
-		}
-		else {
-			return {};
 		}
 	}
 }

@@ -120,16 +120,6 @@ namespace mage::rendering::loader {
 
 		ModelPart model_part;
 		model_part.m_child = Read< std::string >();
-		if (ContainsTokens()) {
-			if (!Contains< F32 >()) {
-				model_part.m_parent  = Read< std::string >();
-			}
-			
-			auto translation = InvertHandness(Point3(Read< F32, 3 >()));
-			model_part.m_transform.SetTranslation(std::move(translation));
-			model_part.m_transform.SetRotation(Read< F32, 3 >());
-			model_part.m_transform.SetScale(   Read< F32, 3 >());
-		}
 		
 		// Begin current group.
 		m_model_output.StartModelPart(std::move(model_part));
@@ -137,7 +127,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJObject() {
-		Read< std::string_view >();
+		ReadOBJGroup();
 	}
 
 	template< typename VertexT, typename IndexT >

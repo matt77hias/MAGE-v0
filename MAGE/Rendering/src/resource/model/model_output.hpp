@@ -54,8 +54,8 @@ namespace mage::rendering {
 			: m_aabb(),
 			m_sphere(),
 			m_transform(),
-			m_start_index(0), 
-			m_nb_indices(0),
+			m_start_index(0u), 
+			m_nb_indices(0u),
 			m_child(s_default_child),
 			m_parent(s_default_parent),
 			m_material(s_default_material) {}
@@ -282,12 +282,8 @@ namespace mage::rendering {
 
 		 @param[in]		model_part
 						The model part to add.
-		 @param[in]		create_bounding_volumes
-						A flag indicating whether bounding volumes must be 
-						created for the given model part.
 		 */
-		void XM_CALLCONV AddModelPart(ModelPart model_part, 
-			                          bool create_bounding_volumes = true);
+		void XM_CALLCONV AddModelPart(ModelPart model_part);
 
 		/**
 		 Checks whether this model output contains a model part with the given 
@@ -321,11 +317,8 @@ namespace mage::rendering {
 		 Ends the creation of the last model part.
 
 		 @pre			This model output contains at least one model part.
-		 @param[in]		create_bounding_volumes
-						A flag indicating whether bounding volumes must be 
-						created for the given model part.
 		 */
-		void EndModelPart(bool create_bounding_volumes = true) noexcept;
+		void EndModelPart() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -358,12 +351,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Sets up the bounding volumes of the given model part.
+		 Normalizes the given model part.
 
 		 @param[in]		model_part
 						A reference to the model part.
 		 */
-		void SetupBoundingVolumes(ModelPart& model_part) noexcept;
+		void NormalizeModelPart(ModelPart& model_part) noexcept;
 	};
 }
 

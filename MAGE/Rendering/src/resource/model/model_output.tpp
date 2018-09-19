@@ -7,13 +7,25 @@ namespace mage::rendering {
 
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
-		::AddModelPart(ModelPart model_part, bool create_bounding_volumes) {
+		::AddModelPart(ModelPart model_part) {
 		
-		m_model_parts.push_back(std::move(model_part));
-		
-		if (create_bounding_volumes) {
-			SetupBoundingVolumes(m_model_parts.back());
+		const std::size_t start = model_part.m_start_index;
+		const std::size_t end   = start + model_part.m_nb_indices;
+
+		// Set the AABB.
+		for (auto i = start; i < end; ++i) {
+			const auto& v = m_vertex_buffer[m_index_buffer[i]];
+			model_part.m_aabb = AABB::Union(model_part.m_aabb, v);
 		}
+
+		// Set the bounding sphere.
+		model_part.m_sphere = BoundingSphere(model_part.m_aabb.Centroid());
+		for (auto i = start; i < end; ++i) {
+			const auto& v = m_vertex_buffer[m_index_buffer[i]];
+			model_part.m_sphere = BoundingSphere::Union(model_part.m_sphere, v);
+		}
+
+		m_model_parts.push_back(std::move(model_part));
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -52,7 +64,7 @@ namespace mage::rendering {
 
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
-		::EndModelPart(bool create_bounding_volumes) noexcept {
+		::EndModelPart() noexcept {
 		
 		using std::empty;
 		Assert(!empty(m_model_parts));
@@ -63,29 +75,51 @@ namespace mage::rendering {
 		current.m_nb_indices = end - start;
 
 		if (current.HasDefaultChild() && (0u == current.m_nb_indices)) {
-			m_model_parts.clear();
+			m_model_parts.pop_back();
 			return;
 		}
 
-		if (create_bounding_volumes) {
-			SetupBoundingVolumes(current);
-		}
+		NormalizeModelPart(current);
 	}
 
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
-		::SetupBoundingVolumes(ModelPart& model_part) noexcept {
+		::NormalizeModelPart(ModelPart& model_part) noexcept {
 		
 		const std::size_t start = model_part.m_start_index;
 		const std::size_t end   = start + model_part.m_nb_indices;
 		
+		AABB aabb;
 		for (auto i = start; i < end; ++i) {
 			const auto& v = m_vertex_buffer[m_index_buffer[i]];
-			model_part.m_aabb = AABB::Union(model_part.m_aabb, v);
+			aabb = AABB::Union(aabb, v);
 		}
 
-		model_part.m_sphere = BoundingSphere(model_part.m_aabb.Centroid());
+		const auto centroid  = aabb.Centroid();
+		const auto diagonal  = aabb.Diagonal();
+		const auto control   = XMVectorEqual(diagonal, XMVectorZero());
+		const auto scale     = XMVectorSelect(diagonal, XMVectorReplicate(1.0f), control);
+		const auto inv_scale = XMVectorReciprocal(scale);
 
+		// Set the AABB.
+		const auto p_min  = XMVectorSelect(XMVectorReplicate(-0.5f), XMVectorZero(), control);
+		const auto p_max  = XMVectorSelect(XMVectorReplicate( 0.5f), XMVectorZero(), control);
+		model_part.m_aabb = { p_min, p_max };
+
+		// Set the transform.
+		model_part.m_transform.SetTranslation(centroid);
+		model_part.m_transform.SetScale(scale);
+
+		// Normalize the vertex positions.
+		for (auto i = start; i < end; ++i) {
+			auto& v = m_vertex_buffer[m_index_buffer[i]];
+			const auto p  = XMLoad(v.m_p);
+			const auto np = (p - centroid) * inv_scale;
+			v.m_p = Point3(XMStore< F32x3 >(np));
+		}
+
+		// Set the bounding sphere.
+		model_part.m_sphere = BoundingSphere(model_part.m_aabb.Centroid());
 		for (auto i = start; i < end; ++i) {
 			const auto& v = m_vertex_buffer[m_index_buffer[i]];
 			model_part.m_sphere = BoundingSphere::Union(model_part.m_sphere, v);

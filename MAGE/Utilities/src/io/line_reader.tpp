@@ -13,10 +13,8 @@ namespace mage {
 		}
 
 		const auto token = GetCurrentToken();
-		const auto first = NotNull< const char* >(token.data());
-		const auto last  = NotNull< const char* >(token.data() + token.size());
 
-		if (const auto result = StringTo< T >(first, last); 
+		if (const auto result = StringTo< T >(token);
 		    bool(result)) {
 
 			++m_iterator;
@@ -64,10 +62,7 @@ namespace mage {
 		}
 
 		const auto token = GetCurrentToken();
-		const auto first = NotNull< const char* >(token.data());
-		const auto last  = NotNull< const char* >(token.data() + token.size());
-
-		return static_cast< bool >(StringTo< T >(first, last));
+		return static_cast< bool >(StringTo< T >(token));
 	}
 
 	template<>

@@ -33,50 +33,32 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Converts the given string range to a @c T value.
-
-	 @tparam		T
-					The data type.
-	 @param[in]		first
-					A pointer to the begin (inclusive) of the string to 
-					convert.
-	 @param[in]		last
-					A pointer to the end (exclusive) of the string to convert.
-	 @return		A @c T value if the the conversion of the given string 
-					range succeeded.
-	 */
-	template< typename T >
-	[[nodiscard]]
-	const std::optional< T > StringTo(NotNull< const char* > first, 
-									  NotNull< const char* > last) noexcept;
-	
-	/**
 	 Converts the given string to a @c T value.
 
 	 @tparam		T
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated string to convert.
+					The string to convert.
 	 @return		A @c T value if the the conversion of the given string 
 					succeeded.
 	 */
 	template< typename T >
 	[[nodiscard]]
-	const std::optional< T > StringTo(NotNull< const_zstring > str) noexcept;
-
+	const std::optional< T > StringTo(std::string_view str) noexcept;
+	
 	/**
-	 Converts the prefix of the string to a @c T value.
+	 Converts the prefix of the given string to a @c T value.
 
 	 @tparam		T
 					The data type.
 	 @param[in]		str
-					A pointer to the null-terminated string to convert.
+					The string to convert.
 	 @return		A @c T value if the the conversion of the prefix of the 
 					given string succeeded.
 	 */
 	template< typename T >
 	[[nodiscard]]
-	const std::optional< T > StringPrefixTo(NotNull< const_zstring > str) noexcept;
+	const std::optional< T > StringPrefixTo(std::string_view str) noexcept;
 
 	#pragma endregion
 

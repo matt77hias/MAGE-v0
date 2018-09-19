@@ -247,120 +247,53 @@ namespace mage::rendering::loader {
 	const U32x3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexIndices() {
 
-		const auto token = Read< std::string_view >();
-		const auto first = token.data();
-		const auto last  = first + token.size();
+		const auto token  = Read< std::string_view >();
 
-		S32 v_index  = 0;
-		S32 vt_index = 0;
-		S32 vn_index = 0;
+		const auto slash1 = token.find('/');
+		const bool flag1  = (std::string::npos != slash1);
+		const auto slash2 = token.find('/', slash1 + 1u);
+		const bool flag2  = (std::string::npos != slash2);
+		const bool flagd  = (slash1 + 1u == slash2);
 
-		if (const auto slash = token.find("//");
-			std::string::npos != slash) {
+		static constexpr const_zstring s_token_names[] = {
+			"v",
+			"vt",
+			"vn"
+		};
+		const bool contains_token[] = { 
+			true, 
+			flag1 && !flagd, 
+			flag2 
+		};
+		const std::string_view tokens[] = {
+			token.substr(0u,          slash1),
+			token.substr(slash1 + 1u, slash2),
+			token.substr(slash2 + 1u, token.size())
+		};
+		
+		U32x3 indices;
+		const S32x3 sizes = {
+			static_cast< S32 >(m_vertex_coordinates.size()), 
+			static_cast< S32 >(m_vertex_texture_coordinates.size()),
+			static_cast< S32 >(m_vertex_normal_coordinates.size()) 
+		};
+
+		for (std::size_t i = 0u; i < std::size(s_token_names); ++i) {
+			if (!contains_token[i]) {
+				continue;
+			}
 			
-			// v//vn
-			
-			if (const auto result
-				= StringTo< S32 >(NotNull< const char* >(first),
-								  NotNull< const char* >(first + slash));
-				bool(result)) {
-
-				v_index = *result;
+			if (const auto result = StringTo< S32 >(tokens[i]); bool(result)) {
+				const auto index = *result;
+				indices[i] = static_cast< U32 >((0 <= index) ? index : sizes[i] + index);
 			}
 			else {
-				throw Exception("{}: line {}: invalid v index value found in {}.",
-								GetPath(), GetCurrentLineNumber(), token);
-			}
-
-			
-			if (const auto result
-				= StringTo< S32 >(NotNull< const char* >(first + slash + 2),
-								  NotNull< const char* >(last));
-				bool(result)) {
-
-				vn_index = *result;
-			}
-			else {
-				throw Exception("{}: line {}: invalid vn index value found in {}.",
-								GetPath(), GetCurrentLineNumber(), token);
+				throw Exception("{}: line {}: invalid {} index value found in {}.",
+								GetPath(), GetCurrentLineNumber(), s_token_names[i], token);
 			}
 		}
-		else if (const auto slash1 = token.find("/"); 
-		         std::string::npos != slash1) {
 
-			// v/vt or v/vt/vn
-
-			if (const auto result
-				= StringTo< S32 >(NotNull< const char* >(first),
-								  NotNull< const char* >(first + slash1));
-			    bool(result)) {
-
-				v_index = *result;
-			}
-			else {
-				throw Exception("{}: line {}: invalid v index value found in {}.",
-								GetPath(), GetCurrentLineNumber(), token);
-			}
-
-			if (const auto slash2 = token.find("/", slash1 + 1); 
-			    std::string::npos != slash2) {
-
-				if (const auto result
-					= StringTo< S32 >(NotNull< const char* >(first + slash1 + 1),
-									  NotNull< const char* >(first + slash2));
-				    bool(result)) {
-
-					vt_index = *result;
-				}
-				else {
-					throw Exception("{}: line {}: invalid vt index value found in {}.",
-									GetPath(), GetCurrentLineNumber(), token);
-				}
-
-				if (const auto result
-					= StringTo< S32 >(NotNull< const char* >(first + slash2 + 1),
-									  NotNull< const char* >(last));
-				    bool(result)) {
-
-					vn_index = *result;
-				}
-				else {
-					throw Exception("{}: line {}: invalid vn index value found in {}.",
-									GetPath(), GetCurrentLineNumber(), token);
-				}
-			}
-			else if (const auto result 
-					 = StringTo< S32 >(NotNull< const char* >(first + slash1 + 1),
-									   NotNull< const char* >(last));
-				     bool(result)) {
-
-					vt_index = *result;
-			}
-			else {
-					throw Exception("{}: line {}: invalid vt index value found in {}.",
-									GetPath(), GetCurrentLineNumber(), token);
-			}
-		} 
-		else if (const auto result
-				 = StringTo< S32 >(NotNull< const char* >(first), 
-								   NotNull< const char* >(last));
-		         bool(result)) {
-
-				 v_index = *result;
-		}
-		else {
-			throw Exception("{}: line {}: invalid v index value found in {}.",
-							GetPath(), GetCurrentLineNumber(), token);
-		}
-
-		const auto v  = static_cast< U32 >((0 <=  v_index) ?  v_index 
-		              : static_cast< S32 >(m_vertex_coordinates.size())         +  v_index);
-		const auto vt = static_cast< U32 >((0 <= vt_index) ? vt_index 
-		              : static_cast< S32 >(m_vertex_texture_coordinates.size()) + vt_index);
-		const auto vn = static_cast< U32 >((0 <= vn_index) ? vn_index 
-		              : static_cast< S32 >(m_vertex_normal_coordinates.size())  + vn_index);
-
-		return { v, vt, vn };
+		return indices;
 	}
 
 	template< typename VertexT, typename IndexT >

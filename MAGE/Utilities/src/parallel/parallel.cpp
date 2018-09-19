@@ -27,12 +27,12 @@ namespace mage {
 						  "Retrieving processor information failed.");
 		}
 
-		auto buffer = MakeUnique< U8[] >(length);
+		auto buffer = DynamicArray< U8 >(length);
 		
 		// Populate the buffer.
 		{
 			const auto info = reinterpret_cast< 
-				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get());
+				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.data());
 
 			const BOOL result = GetLogicalProcessorInformationEx(
 				RelationProcessorCore, info, &length);
@@ -40,15 +40,15 @@ namespace mage {
 		}
 
 		FU16 nb_physical_cores = 0u;
-		std::size_t offset = 0u;
+		DWORD offset = 0u;
 		do {
 			const auto info = reinterpret_cast< 
-				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get() + offset);
+				PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.data() + offset);
 			
-			offset += static_cast< std::size_t >(info->Size);
+			offset += info->Size;
 			++nb_physical_cores;
 
-		} while (offset < static_cast< std::size_t >(length));
+		} while (offset < length);
 		
 		return nb_physical_cores;
 	}

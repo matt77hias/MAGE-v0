@@ -39,9 +39,9 @@ namespace mage::rendering {
 	#pragma region
 
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const std::wstring& fname,
-								  const std::string& entry_point,
-								  const std::string& shader_target,
+	HRESULT CompileShaderFromFile(std::wstring_view fname,
+								  std::string_view entry_point,
+								  std::string_view shader_target,
 								  NotNull< ID3DBlob** > output_blob) {
 		
 		#ifdef NDEBUG
@@ -51,6 +51,15 @@ namespace mage::rendering {
 			                     | D3DCOMPILE_DEBUG 
 			                     | D3DCOMPILE_SKIP_OPTIMIZATION;
 		#endif // NDEBUG
+
+		wchar_t buffer_fname[MAX_PATH];
+		WriteTo(buffer_fname, fname);
+
+		char buffer_entry_point[MAX_PATH];
+		WriteTo(buffer_entry_point, entry_point);
+
+		char buffer_shader_target[MAX_PATH];
+		WriteTo(buffer_shader_target, shader_target);
 
 		// Compiles Microsoft High Level Shader Language (HLSL) code into 
 		// bytecode for a given target.
@@ -73,11 +82,11 @@ namespace mage::rendering {
 		//    ID3DBlob interface that you can use to access compiler error 
 		//    messages.
 		ComPtr< ID3DBlob > error_blob;
-		const HRESULT result = D3DCompileFromFile(fname.c_str(), 
+		const HRESULT result = D3DCompileFromFile(buffer_fname,
 												  nullptr, 
 												  nullptr, 
-												  entry_point.c_str(), 
-												  shader_target.c_str(), 
+												  buffer_entry_point,
+												  buffer_shader_target,
 												  shader_flags, 
 												  0u, 
 												  output_blob, 

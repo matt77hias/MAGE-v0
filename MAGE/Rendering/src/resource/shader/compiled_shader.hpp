@@ -25,26 +25,22 @@ namespace mage::rendering {
 	 for a given shader target.
 
 	 @param[in]		fname
-					A pointer to a constant null-terminated string that 
-					contains the name of the file that contains the shader 
-					code.
+					The name of the file that contains the shader code.
 	 @param[in]		entry_point
-					A pointer to a constant null-terminated string that 
-					contains the name of the shader entry point function where 
-					shader execution begins.
+					The name of the shader entry point function where shader 
+					execution begins.
 	 @param[in]		shader_target
-					A pointer to a constant null-terminated string that 
-					specifies the shader target or set of shader features to 
-					compile against.
+					The shader target or set of shader features to compile 
+					against.
 	 @param[out]	output_blob
 					A pointer to a variable that receives a pointer to the 
 					@c ID3DBlob interface that you can use to access the 
 					compiled code.
 	 */
 	[[nodiscard]]
-	HRESULT CompileShaderFromFile(const std::wstring& fname,
-								  const std::string& entry_point,
-								  const std::string& shader_target,
+	HRESULT CompileShaderFromFile(std::wstring_view fname,
+								  std::string_view entry_point,
+								  std::string_view shader_target,
 								  NotNull< ID3DBlob** > output_blob);
 
 	#pragma endregion

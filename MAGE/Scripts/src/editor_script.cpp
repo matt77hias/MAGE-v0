@@ -1008,10 +1008,10 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// OrthographicCameras
 			//-----------------------------------------------------------------
-			node.ForEach< OrthographicCamera >([&display_resolution]
-			(OrthographicCamera& camera) {
-				if (const auto id = std::to_string(camera.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Orthographic Camera")) {
+			node.ForEach< OrthographicCamera >([&display_resolution](OrthographicCamera& camera) {
+				char guid[20];
+				WriteTo(guid, "{}", camera.GetGuid());
+				if (ImGui::TreeNode(guid, "Orthographic Camera")) {
 				
 					if (auto active = (State::Active == camera.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1027,10 +1027,10 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// PerspectiveCameras
 			//-----------------------------------------------------------------
-			node.ForEach< PerspectiveCamera >([&display_resolution]
-			(PerspectiveCamera& camera) {
-				if (const auto id = std::to_string(camera.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Perspective Camera")) {
+			node.ForEach< PerspectiveCamera >([&display_resolution](PerspectiveCamera& camera) {
+				char guid[20];
+				WriteTo(guid, "{}", camera.GetGuid());
+				if (ImGui::TreeNode(guid, "Perspective Camera")) {
 
 					if (auto active = (State::Active == camera.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1047,8 +1047,9 @@ namespace mage::script {
 			// AmbientLights
 			//-----------------------------------------------------------------
 			node.ForEach< AmbientLight >([](AmbientLight& light) {
-				if (const auto id = std::to_string(light.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Ambient Light")) {
+				char guid[20];
+				WriteTo(guid, "{}", light.GetGuid());
+				if (ImGui::TreeNode(guid, "Ambient Light")) {
 
 					if (auto active = (State::Active == light.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1065,8 +1066,9 @@ namespace mage::script {
 			// DirectionalLights
 			//-----------------------------------------------------------------
 			node.ForEach< DirectionalLight >([](DirectionalLight& light) {
-				if (const auto id = std::to_string(light.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Directional Light")) {
+				char guid[20];
+				WriteTo(guid, "{}", light.GetGuid());
+				if (ImGui::TreeNode(guid, "Directional Light")) {
 
 					if (auto active = (State::Active == light.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1083,8 +1085,9 @@ namespace mage::script {
 			// OmniLights
 			//-----------------------------------------------------------------
 			node.ForEach< OmniLight >([](OmniLight& light) {
-				if (const auto id = std::to_string(light.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Omni Light")) {
+				char guid[20];
+				WriteTo(guid, "{}", light.GetGuid());
+				if (ImGui::TreeNode(guid, "Omni Light")) {
 
 					if (auto active = (State::Active == light.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1101,8 +1104,9 @@ namespace mage::script {
 			// SpotLights
 			//-----------------------------------------------------------------
 			node.ForEach< SpotLight >([](SpotLight& light) {
-				if (const auto id = std::to_string(light.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Spotlight")) {
+				char guid[20];
+				WriteTo(guid, "{}", light.GetGuid());
+				if (ImGui::TreeNode(guid, "Spotlight")) {
 
 					if (auto active = (State::Active == light.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1119,8 +1123,9 @@ namespace mage::script {
 			// Models
 			//-----------------------------------------------------------------
 			node.ForEach< Model >([](Model& model) {
-				if (const auto id = std::to_string(model.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Model")) {
+				char guid[20];
+				WriteTo(guid, "{}", model.GetGuid());
+				if (ImGui::TreeNode(guid, "Model")) {
 				
 					if (auto active = (State::Active == model.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1136,10 +1141,10 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// SpriteImages
 			//-----------------------------------------------------------------
-			node.ForEach< SpriteImage >([&display_resolution]
-			(SpriteImage& sprite) {
-				if (const auto id = std::to_string(sprite.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Sprite Image")) {
+			node.ForEach< SpriteImage >([&display_resolution](SpriteImage& sprite) {
+				char guid[20];
+				WriteTo(guid, "{}", sprite.GetGuid());
+				if (ImGui::TreeNode(guid, "Sprite Image")) {
 
 					if (auto active = (State::Active == sprite.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1155,10 +1160,10 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// SpriteTexts
 			//-----------------------------------------------------------------
-			node.ForEach< SpriteText >([&display_resolution]
-			(SpriteText& sprite) {
-				if (const auto id = std::to_string(sprite.GetGuid());
-					ImGui::TreeNode(id.c_str(), "Sprite Text")) {
+			node.ForEach< SpriteText >([&display_resolution](SpriteText& sprite) {
+				char guid[20];
+				WriteTo(guid, "{}", sprite.GetGuid());
+				if (ImGui::TreeNode(guid, "Sprite Text")) {
 
 					if (auto active = (State::Active == sprite.GetState());
 					ImGui::Checkbox("Active", &active)) {
@@ -1175,8 +1180,8 @@ namespace mage::script {
 		void DrawGraph(Node& node,
 					   ProxyPtr< Node >& selected) {
 			
-			char id[20];
-			WriteTo(id, "{}", node.GetGuid());
+			char guid[20];
+			WriteTo(guid, "{}", node.GetGuid());
 			char name[128];
 			WriteTo(name, "{}", node.GetName());
 
@@ -1188,7 +1193,7 @@ namespace mage::script {
 				const ImGuiTreeNodeFlags flags = (node.Get() == selected)
 					? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
-				const auto node_open = ImGui::TreeNodeEx(id, flags, name);
+				const auto node_open = ImGui::TreeNodeEx(guid, flags, name);
 
 				if (ImGui::IsItemClicked()) {
 					selected = node.Get();
@@ -1212,7 +1217,7 @@ namespace mage::script {
 				const ImGuiTreeNodeFlags flags = (node.Get() == selected)
 					? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
-				ImGui::TreeNodeEx(id, flags, name);
+				ImGui::TreeNodeEx(guid, flags, name);
 				if (ImGui::IsItemClicked()) {
 					selected = node.Get();
 				}

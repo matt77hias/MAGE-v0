@@ -980,7 +980,7 @@ namespace mage::script {
 			// Name
 			//-----------------------------------------------------------------
 			char buffer[128];
-			sprintf_s(buffer, std::size(buffer), "%s", node.GetName().c_str());
+			WriteTo(buffer, node.GetName());
 			if (ImGui::InputText("", buffer, std::size(buffer))) {
 				node.SetName(std::string(buffer));
 			}
@@ -1175,8 +1175,10 @@ namespace mage::script {
 		void DrawGraph(Node& node,
 					   ProxyPtr< Node >& selected) {
 			
-			const auto  id   = std::to_string(node.GetGuid());
-			const auto& name = node.GetName();
+			char id[20];
+			WriteTo(id, "{}", node.GetGuid());
+			char name[128];
+			WriteTo(name, node.GetName());
 
 			if (node.ContainsChilds()) {
 				static constexpr ImGuiTreeNodeFlags node_flags
@@ -1186,7 +1188,7 @@ namespace mage::script {
 				const ImGuiTreeNodeFlags flags = (node.Get() == selected)
 					? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
-				const auto node_open = ImGui::TreeNodeEx(id.c_str(), flags, name.c_str());
+				const auto node_open = ImGui::TreeNodeEx(id, flags, name);
 
 				if (ImGui::IsItemClicked()) {
 					selected = node.Get();
@@ -1210,7 +1212,7 @@ namespace mage::script {
 				const ImGuiTreeNodeFlags flags = (node.Get() == selected)
 					? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
-				ImGui::TreeNodeEx(id.c_str(), flags, name.c_str());
+				ImGui::TreeNodeEx(id, flags, name);
 				if (ImGui::IsItemClicked()) {
 					selected = node.Get();
 				}

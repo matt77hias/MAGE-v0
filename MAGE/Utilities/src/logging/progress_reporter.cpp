@@ -43,7 +43,7 @@ namespace mage {
 		 Constructs a progress reporter.
 
 		 @param[in]		title
-						A reference to the title.
+						The title.
 		 @param[in]		nb_work
 						The total number of work units.
 		 @param[in]		progress_char
@@ -52,7 +52,7 @@ namespace mage {
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		explicit Impl(const std::string& title,
+		explicit Impl(std::string_view title,
 					  U32 nb_work, 
 					  char progress_char = '+', 
 					  FU16 bar_length = 0u);
@@ -129,12 +129,12 @@ namespace mage {
 		 Initializes this progress reporter.
 
 		 @param[in]		title
-						A reference to the title.
+						The title.
 		 @param[in]		bar_length
 						The length of the progress bar. If @a bar_length is 
 						equal to 0 the default length will be chosen.
 		 */
-		void Initialize(const std::string& title, FU16 bar_length = 0u);
+		void Initialize(std::string_view title, FU16 bar_length = 0u);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -194,7 +194,7 @@ namespace mage {
 		std::mutex m_mutex;
 	};
 
-	ProgressReporter::Impl::Impl(const std::string& title,
+	ProgressReporter::Impl::Impl(std::string_view title,
 								 U32 nb_work, 
 								 char progress_char, 
 								 FU16 bar_length)
@@ -231,7 +231,7 @@ namespace mage {
 
 	ProgressReporter::Impl::~Impl() = default;
 
-	void ProgressReporter::Impl::Initialize(const std::string& title,
+	void ProgressReporter::Impl::Initialize(std::string_view title,
 											FU16 bar_length) {
 		
 		const std::scoped_lock lock(m_mutex);
@@ -341,7 +341,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	ProgressReporter::ProgressReporter(const std::string& title,
+	ProgressReporter::ProgressReporter(std::string_view title,
 									   U32 nb_work, 
 									   char progress_char, 
 									   FU16 bar_length)

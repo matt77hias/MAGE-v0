@@ -371,10 +371,10 @@ namespace mage::rendering {
 		/**
 		 Returns the name of this material.
 
-		 @return		A reference to the name of this material.
+		 @return		The name of this material.
 		 */
 		[[nodiscard]]
-		const std::string& GetName() const noexcept {
+		const std::string_view GetName() const noexcept {
 			return m_name;
 		}
 		

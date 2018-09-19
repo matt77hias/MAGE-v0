@@ -297,7 +297,7 @@ namespace mage::rendering {
 						The name of the model part.
 		 */
 		[[nodiscard]]
-		bool ContainsModelPart(const std::string& name) noexcept;
+		bool ContainsModelPart(std::string_view name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.

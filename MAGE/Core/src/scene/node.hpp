@@ -453,10 +453,10 @@ namespace mage {
 		/**
 		 Returns the name of this node.
 
-		 @return		A reference to the name of this node.
+		 @return		The name of this node.
 		 */
 		[[nodiscard]]
-		const std::string& GetName() const noexcept {
+		const std::string_view GetName() const noexcept {
 			return m_name;
 		}
 

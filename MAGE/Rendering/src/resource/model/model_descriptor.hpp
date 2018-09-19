@@ -122,14 +122,14 @@ namespace mage::rendering {
 		 Returns the material corresponding to the given name.
 
 		 @param[in]		name
-						A reference to the name of the material.
+						The name of the material.
 		 @return		@c nullptr if this model descriptor contains no 
 						material matching the given name @a name.
 		 @return		A pointer to the material of this model 
 						descriptor matching the given name @a name.
 		 */
 		[[nodiscard]]
-		const Material* GetMaterial(const std::string& name) const noexcept;
+		const Material* GetMaterial(std::string_view name) const noexcept;
 
 		/**
 		 Traverses all materials of this model descriptor.
@@ -146,14 +146,14 @@ namespace mage::rendering {
 		 Returns the model part corresponding to the given name.
 
 		 @param[in]		name
-						A reference to the name of the model part.
+						The name of the model part.
 		 @return		@c nullptr if this model descriptor contains no model 
 						part matching the given name @a name.
 		 @return		A pointer to the model part of this model descriptor 
 						matching the given name @a name.
 		 */
 		[[nodiscard]]
-		const ModelPart* GetModelPart(const std::string& name) const noexcept;
+		const ModelPart* GetModelPart(std::string_view name) const noexcept;
 		
 		/**
 		 Traverses all model parts of this model descriptor.

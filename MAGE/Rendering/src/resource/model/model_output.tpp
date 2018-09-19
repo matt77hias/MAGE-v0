@@ -19,7 +19,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	[[nodiscard]]
 	bool ModelOutput< VertexT, IndexT >
-		::ContainsModelPart(const std::string& name) noexcept {
+		::ContainsModelPart(std::string_view name) noexcept {
 		
 		for (const auto& model_part : m_model_parts) {
 			if (name == model_part.m_child) {

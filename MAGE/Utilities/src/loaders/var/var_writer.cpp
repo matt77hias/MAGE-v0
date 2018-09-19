@@ -24,7 +24,7 @@ namespace mage::loader {
 			// Constructors and Destructors
 			//-----------------------------------------------------------------
 
-			explicit VARVisitor(const std::string& key, 
+			explicit VARVisitor(std::string_view key, 
 								NotNull< zstring > buffer,
 								std::size_t buffer_size) noexcept
 				: m_key(key), 
@@ -54,7 +54,7 @@ namespace mage::loader {
 
 		private:
 
-			const std::string& m_key;
+			std::string_view m_key;
 
 			NotNull< zstring > m_buffer;
 

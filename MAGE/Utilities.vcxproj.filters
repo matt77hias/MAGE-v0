@@ -230,6 +230,9 @@
     <ClInclude Include="Utilities\src\collection\dynamic_array.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\src\collection\collection_utils.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">

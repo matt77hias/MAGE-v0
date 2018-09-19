@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "collection\collection_utils.hpp"
 #include "display\display_configurator.hpp"
 #include "display\display_settings.hpp"
 #include "platform\windows_utils.hpp"
@@ -467,31 +468,21 @@ namespace mage::rendering {
 						  result);
 		}
 		
+		m_display_modes = std::vector< DXGI_MODE_DESC >(nb_display_modes);
+
 		// Get the display modes that match the requested format and other 
 		// input options.
-		auto dxgi_mode_descs = MakeUnique< DXGI_MODE_DESC[] >(nb_display_modes);
 		{
 			const HRESULT result = m_output->GetDisplayModeList(m_pixel_format, 
 				                                                flags, 
 				                                                &nb_display_modes, 
-				                                                dxgi_mode_descs.get());
+																m_display_modes.data());
 			ThrowIfFailed(result, 
 						  "Failed to get the display modes: {:08X}.", 
 						  result);
 		}
 
-		// Enumerate the display modes.
-		m_display_modes = std::vector< DXGI_MODE_DESC >();
-		for (U32 mode = 0u; mode < nb_display_modes; ++mode) {
-			
-			// Reject small display modes.
-			if (RejectDisplayMode(dxgi_mode_descs[mode])) {
-				continue;
-			}
-
-			// Add the display mode to the list.
-			m_display_modes.push_back(dxgi_mode_descs[mode]);
-		}
+		EraseIf(m_display_modes, RejectDisplayMode);
 	}
 
 	[[nodiscard]]

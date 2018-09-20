@@ -317,6 +317,11 @@ namespace mage::rendering::loader {
 		//---------------------------------------------------------------------
 
 		/**
+		 The current model part of this OBJ reader.
+		 */
+		ModelPart m_model_part;
+
+		/**
 		 A vector containing the read vertex position coordinates of this OBJ
 		 reader.
 		 */

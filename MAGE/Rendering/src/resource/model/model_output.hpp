@@ -44,68 +44,6 @@ namespace mage::rendering {
 		static constexpr const_zstring s_default_material = "none";
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a model part.
-		 */
-		ModelPart()
-			: m_aabb(),
-			m_sphere(),
-			m_transform(),
-			m_start_index(0u),
-			m_nb_indices(0u),
-			m_child(s_default_child),
-			m_parent(s_default_parent),
-			m_material(s_default_material) {}
-
-		/**
-		 Constructs a model part from the given model part.
-
-		 @param[in]		model_part
-						A reference to the model part to copy.
-		 */
-		ModelPart(const ModelPart& model_part) = default;
-
-		/**
-		 Constructs a model part by moving the given model part.
-
-		 @param[in]		model_part
-						A reference to the model part to move.
-		 */
-		ModelPart(ModelPart&& model_part) noexcept = default;
-
-		/**
-		 Destructs this model part.
-		 */
-		~ModelPart() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given model part to this model part.
-
-		 @param[in]		model_part
-						A reference to the model part to copy.
-		 @return		A reference to the copy of the given model part (i.e.
-						this model part).
-		 */
-		ModelPart& operator=(const ModelPart& model_part) = default;
-
-		/**
-		 Moves the given model part to this model part.
-
-		 @param[in]		model_part
-						A reference to the model part to move.
-		 @return		A reference to the moved model part (i.e. this model
-						part).
-		 */
-		ModelPart& operator=(ModelPart&& model_part) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -143,6 +81,16 @@ namespace mage::rendering {
 			return s_default_material == m_material;
 		}
 
+		/**
+		 Returns the number of indices of this model part.
+
+		 @return		The number of indices of this model part.
+		 */
+		[[nodiscard]]
+		U32 GetNumberOfIndices() const noexcept {
+			return m_max_index - m_min_index + 1u;
+		}
+
 		//---------------------------------------------------------------------
 		// Member Variables: Bounding Volumes
 		//---------------------------------------------------------------------
@@ -171,16 +119,16 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The start index of this model part in the mesh of the corresponding
-		 model.
-		 */
-		U32 m_start_index;
-
-		/**
-		 The number of indices of this model part in the mesh of the
+		 The minimum index (inclusive) of this model part in the mesh of the
 		 corresponding model.
 		 */
-		U32 m_nb_indices;
+		U32 m_min_index = 0u;
+
+		/**
+		 The maximum index (inclusive) of this model part in the mesh of the
+		 corresponding model.
+		 */
+		U32 m_max_index = 0u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Scene Graph
@@ -189,12 +137,12 @@ namespace mage::rendering {
 		/**
 		 The name of this model part.
 		 */
-		std::string m_child;
+		std::string m_child = s_default_child;
 
 		/**
 		 The name of the parent model part of this model part.
 		 */
-		std::string m_parent;
+		std::string m_parent = s_default_parent;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Material
@@ -203,7 +151,7 @@ namespace mage::rendering {
 		/**
 		 The name of the material of this model part.
 		 */
-		std::string m_material;
+		std::string m_material = s_default_material;
 	};
 
 	/**
@@ -220,60 +168,6 @@ namespace mage::rendering {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a model output.
-		 */
-		ModelOutput() = default;
-
-		/**
-		 Constructs a model output from the given model output.
-
-		 @param[in]		output
-						A reference to the model output to copy.
-		 */
-		ModelOutput(const ModelOutput& output) = delete;
-
-		/**
-		 Constructs a model output by moving the given model output.
-
-		 @param[in]		output
-						A reference to the model output to move.
-		 */
-		ModelOutput(ModelOutput&& output) noexcept = default;
-
-		/**
-		 Destructs this model output.
-		 */
-		~ModelOutput() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given model output to this model output.
-
-		 @param[in]		output
-						A reference to the model output to copy.
-		 @return		A reference to the copy of the given model output (i.e.
-						this model output).
-		 */
-		ModelOutput& operator=(const ModelOutput& output) = delete;
-
-		/**
-		 Moves the given model output to this model output.
-
-		 @param[in]		output
-						A reference to the model output to move.
-		 @return		A reference to the moved model output
-						(i.e. this model output).
-		 */
-		ModelOutput& operator=(ModelOutput&& output) noexcept = default;
-
-		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -282,43 +176,12 @@ namespace mage::rendering {
 
 		 @param[in]		model_part
 						The model part to add.
+		 @param[in]		normalize
+						Flag indicating whether the given model part should be
+						normalized.
 		 */
-		void XM_CALLCONV AddModelPart(ModelPart model_part);
-
-		/**
-		 Checks whether this model output contains a model part with the given
-		 name.
-
-		 @param[in]		name
-						The name of the model part.
-		 */
-		[[nodiscard]]
-		bool ContainsModelPart(std::string_view name) noexcept;
-
-		/**
-		 Starts the creation of a new model part.
-
-		 @param[in]		model_part
-						The model part to add.
-		 */
-		void XM_CALLCONV StartModelPart(ModelPart model_part);
-
-		/**
-		 Sets the name of the material of the last model part to the given
-		 material name.
-
-		 @pre			This model output contains at least one model part.
-		 @param[in]		material
-						The name of the material.
-		 */
-		void SetMaterial(std::string material);
-
-		/**
-		 Ends the creation of the last model part.
-
-		 @pre			This model output contains at least one model part.
-		 */
-		void EndModelPart() noexcept;
+		void XM_CALLCONV AddModelPart(ModelPart model_part,
+									  bool normalize = true);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -343,20 +206,6 @@ namespace mage::rendering {
 		 A vector containing the model parts of this model output.
 		 */
 		AlignedVector< ModelPart > m_model_parts;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Normalizes the given model part.
-
-		 @param[in]		model_part
-						A reference to the model part.
-		 */
-		void NormalizeModelPart(ModelPart& model_part) noexcept;
 	};
 }
 

@@ -43,7 +43,7 @@ namespace mage::rendering::loader {
 	void MDLReader< VertexT, IndexT >::ReadLine() {
 		const auto token = Read< std::string_view >();
 
-		if (g_mdl_token_comment == token[0]) {
+		if (g_mdl_token_comment == token[0u]) {
 			return;
 		}
 		else if (g_mdl_token_submodel         == token) {
@@ -64,16 +64,17 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.m_child       = Read< std::string >();
-		model_part.m_parent      = Read< std::string >();
-		model_part.m_transform.SetTranslation(Read< F32, 3 >());
-		model_part.m_transform.SetRotation(   Read< F32, 3 >());
-		model_part.m_transform.SetScale(      Read< F32, 3 >());
-		model_part.m_material    = Read< std::string >();
-		model_part.m_start_index = Read< U32 >();
-		model_part.m_nb_indices  = Read< U32 >();
+		model_part.m_child       = Read< std::string_view >();
+		model_part.m_parent      = Read< std::string_view >();
+		model_part.m_transform.SetTranslation(Read< F32, 3u >());
+		model_part.m_transform.SetRotation(   Read< F32, 3u >());
+		model_part.m_transform.SetScale(      Read< F32, 3u >());
+		model_part.m_material    = Read< std::string_view >();
+		model_part.m_min_index   = Read< U32 >();
+		const auto length        = Read< U32 >();
+		model_part.m_max_index   = model_part.m_min_index + length - 1u;
 
-		m_model_output.AddModelPart(std::move(model_part));
+		m_model_output.AddModelPart(std::move(model_part), false);
 	}
 
 	template< typename VertexT, typename IndexT >

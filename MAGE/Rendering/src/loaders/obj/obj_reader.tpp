@@ -22,6 +22,7 @@ namespace mage::rendering::loader {
 					ModelOutput< VertexT, IndexT >& model_output,
 			        const MeshDescriptor< VertexT, IndexT >& mesh_desc)
 		: LineReader(),
+		m_model_part(),
 		m_vertex_coordinates(),
 		m_vertex_texture_coordinates(),
 		m_vertex_normal_coordinates(),
@@ -43,15 +44,11 @@ namespace mage::rendering::loader {
 					  "{}: vertex buffer must be empty.", GetPath());
 		ThrowIfFailed(empty(m_model_output.m_index_buffer),
 					  "{}: index buffer must be empty.", GetPath());
-
-		// Begin current group.
-		m_model_output.StartModelPart(ModelPart());
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Postprocess() {
-		// End current group.
-		m_model_output.EndModelPart();
+		m_model_output.AddModelPart(m_model_part);
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -110,19 +107,20 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
-		m_model_output.SetMaterial(Read< std::string >());
+		if (!m_model_part.HasDefaultMaterial()) {
+			m_model_output.AddModelPart(m_model_part);
+		}
+
+		m_model_part.m_material = Read< std::string_view >();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJGroup() {
-		// End current group.
-		m_model_output.EndModelPart();
+		if (!m_model_part.HasDefaultChild()) {
+			m_model_output.AddModelPart(m_model_part);
+		}
 
-		ModelPart model_part;
-		model_part.m_child = Read< std::string >();
-
-		// Begin current group.
-		m_model_output.StartModelPart(std::move(model_part));
+		m_model_part.m_child = Read< std::string_view >();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -132,7 +130,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJSmoothingGroup() {
-		// Silently ignore smoothing group declarations
+		// Silently ignore smoothing group declarations.
 		Read< std::string_view >();
 	}
 
@@ -165,38 +163,50 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
-
-		std::vector< IndexT > indices;
-		while (indices.size() < 3 || ContainsTokens()) {
+		MemoryBuffer< IndexT, 6u > indices;
+		while (indices.size() < 3u || ContainsTokens()) {
 			const auto vertex_indices = ReadOBJVertexIndices();
 
 			if (const auto it = m_mapping.find(vertex_indices);
 				it != m_mapping.cend()) {
 
+				// Add the index to the already existing vertex.
 				indices.push_back(it->second);
 			}
 			else {
+				// Create an index to a new vertex.
 				const auto index
 					= static_cast< IndexT >(m_model_output.m_vertex_buffer.size());
+				// Add the index to the new vertex.
 				indices.push_back(index);
-				m_model_output.m_vertex_buffer.push_back(
-					ConstructVertex(vertex_indices));
+				
+				// Create a new vertex.
+				auto vertex = ConstructVertex(vertex_indices);
+				// Add the new vertex.
+				m_model_output.m_vertex_buffer.push_back(std::move(vertex));
+				
+				// Add the new mapping.
 				m_mapping[vertex_indices] = index;
 			}
 		}
 
+		for (auto index : indices) {
+			m_model_part.m_min_index = std::min(m_model_part.m_min_index, index);
+			m_model_part.m_max_index = std::max(m_model_part.m_max_index, index);
+		}
+
 		if (m_mesh_desc.ClockwiseOrder()) {
-			for (size_t i = 1; i < indices.size() - 1; ++i) {
-				m_model_output.m_index_buffer.push_back(indices[0]);
-				m_model_output.m_index_buffer.push_back(indices[i + 1]);
+			for (size_t i = 1u; i < indices.size() - 1u; ++i) {
+				m_model_output.m_index_buffer.push_back(indices[0u]);
+				m_model_output.m_index_buffer.push_back(indices[i + 1u]);
 				m_model_output.m_index_buffer.push_back(indices[i]);
 			}
 		}
 		else {
-			for (size_t i = 1; i < indices.size() - 1; ++i) {
-				m_model_output.m_index_buffer.push_back(indices[0]);
+			for (size_t i = 1u; i < indices.size() - 1u; ++i) {
+				m_model_output.m_index_buffer.push_back(indices[0u]);
 				m_model_output.m_index_buffer.push_back(indices[i]);
-				m_model_output.m_index_buffer.push_back(indices[i + 1]);
+				m_model_output.m_index_buffer.push_back(indices[i + 1u]);
 			}
 		}
 	}
@@ -206,7 +216,7 @@ namespace mage::rendering::loader {
 	inline const Point3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexCoordinates() {
 
-		return Point3(Read< F32, 3 >());
+		return Point3(Read< F32, 3u >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -214,7 +224,7 @@ namespace mage::rendering::loader {
 	inline const Normal3 OBJReader< VertexT, IndexT >
 		::ReadOBJVertexNormalCoordinates() {
 
-		return Normal3(Read< F32, 3 >());
+		return Normal3(Read< F32, 3u >());
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -222,7 +232,7 @@ namespace mage::rendering::loader {
 	const UV OBJReader< VertexT, IndexT >
 		::ReadOBJVertexTextureCoordinates() {
 
-		const UV result(Read< F32, 2 >());
+		const UV result(Read< F32, 2u >());
 
 		if (Contains< F32 >()) {
 			// Silently ignore 3D vertex texture coordinates.
@@ -295,21 +305,21 @@ namespace mage::rendering::loader {
 
 		VertexT vertex;
 
-		if constexpr(VertexT::HasPosition()) {
-			if (vertex_indices[0]) {
-				vertex.m_p = m_vertex_coordinates[vertex_indices[0] - 1];
+		if constexpr (VertexT::HasPosition()) {
+			if (vertex_indices[0u]) {
+				vertex.m_p = m_vertex_coordinates[vertex_indices[0u] - 1u];
 			}
 		}
 
-		if constexpr(VertexT::HasTexture()) {
-			if (vertex_indices[1]) {
-				vertex.m_tex = m_vertex_texture_coordinates[vertex_indices[1] - 1];
+		if constexpr (VertexT::HasTexture()) {
+			if (vertex_indices[1u]) {
+				vertex.m_tex = m_vertex_texture_coordinates[vertex_indices[1u] - 1u];
 			}
 		}
 
-		if constexpr(VertexT::HasNormal()) {
-			if (vertex_indices[2]) {
-				vertex.m_n = m_vertex_normal_coordinates[vertex_indices[2] - 1];
+		if constexpr (VertexT::HasNormal()) {
+			if (vertex_indices[2u]) {
+				vertex.m_n = m_vertex_normal_coordinates[vertex_indices[2u] - 1u];
 			}
 		}
 

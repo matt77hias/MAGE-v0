@@ -50,13 +50,13 @@ namespace mage {
 	void CreateMiniDump(EXCEPTION_POINTERS* exception_record) noexcept {
 		Info("Start creating a mini dump file.");
 
-		const auto file_handle 
-			= CreateUniqueHandle(CreateFile(L"MiniDump.dmp", 
-											GENERIC_READ | GENERIC_WRITE, 
-											0, 
-											nullptr, 
-											CREATE_ALWAYS, 
-											FILE_ATTRIBUTE_NORMAL, 
+		const auto file_handle
+			= CreateUniqueHandle(CreateFile(L"MiniDump.dmp",
+											GENERIC_READ | GENERIC_WRITE,
+											0,
+											nullptr,
+											CREATE_ALWAYS,
+											FILE_ATTRIBUTE_NORMAL,
 											nullptr));
 
 		if (!file_handle) {
@@ -76,13 +76,13 @@ namespace mage {
 			                  MiniDumpWithThreadInfo |
 			                  MiniDumpWithUnloadedModules);
 
-		const BOOL result 
-			= MiniDumpWriteDump(GetCurrentProcess(), 
+		const BOOL result
+			= MiniDumpWriteDump(GetCurrentProcess(),
 								GetCurrentProcessId(),
-								file_handle.get(), 
-								type, 
-								(exception_record) ? &info : nullptr, 
-								nullptr, 
+								file_handle.get(),
+								type,
+								(exception_record) ? &info : nullptr,
+								nullptr,
 								nullptr);
 
 		if (FALSE == result) {

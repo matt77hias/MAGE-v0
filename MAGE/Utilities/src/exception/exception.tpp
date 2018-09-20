@@ -51,10 +51,10 @@ namespace mage {
 			throw exception;
 		}
 	}
-	
+
 	template< typename... ArgsT >
-	inline void ThrowIfFailed(BOOL result, 
-							  std::string_view format_str, 
+	inline void ThrowIfFailed(BOOL result,
+							  std::string_view format_str,
 							  const ArgsT&... args) {
 
 		if (FALSE == result) {
@@ -73,8 +73,8 @@ namespace mage {
 	}
 
 	template< typename... ArgsT >
-	inline void ThrowIfFailed(HRESULT result, 
-							  std::string_view format_str, 
+	inline void ThrowIfFailed(HRESULT result,
+							  std::string_view format_str,
 							  const ArgsT&... args) {
 
 		if (FAILED(result)) {

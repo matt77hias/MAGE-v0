@@ -17,9 +17,9 @@ namespace mage {
 	/**
 	 Returns the caller of @c CreateWindow or @c CreateWindowEx.
 
-	 @pre			The @c lpParam formal parameter of @c CreateWindow or 
-					@c CreateWindowEx should be initialized to @c this and 
-					@c this should point to an instance of type @a CallerT.	
+	 @pre			The @c lpParam formal parameter of @c CreateWindow or
+					@c CreateWindowEx should be initialized to @c this and
+					@c this should point to an instance of type @a CallerT.
 	 @tparam		CallerT
 					The caller type.
 	 @param[in]		window
@@ -30,21 +30,21 @@ namespace mage {
 					Additional message-specific information.
 	 @param[in]		lParam
 					Additional message-specific information.
-	 @return		A pointer to the caller of @c CreateWindow or 
+	 @return		A pointer to the caller of @c CreateWindow or
 					@c CreateWindowEx.
 	 */
 	template< typename CallerT >
 	[[nodiscard]]
-	CallerT* GetWindowCaller(NotNull< HWND > window, 
-							 UINT message, 
-							 [[maybe_unused]] WPARAM wParam, 
+	CallerT* GetWindowCaller(NotNull< HWND > window,
+							 UINT message,
+							 [[maybe_unused]] WPARAM wParam,
 							 LPARAM lParam) noexcept;
 
 	/**
 	 Returns the caller of @c DialogBoxParam.
 
-	 @pre			The @c lParam formal parameter of @c DialogBoxParam should 
-					be initialized to @c this and @c this should point to an 
+	 @pre			The @c lParam formal parameter of @c DialogBoxParam should
+					be initialized to @c this and @c this should point to an
 					instance of type @a CallerT.
 	 @tparam		CallerT
 					The caller type.
@@ -60,9 +60,9 @@ namespace mage {
 	 */
 	template< typename CallerT >
 	[[nodiscard]]
-	CallerT* GetDialogCaller(NotNull< HWND > dialog, 
-							 UINT message, 
-							 [[maybe_unused]] WPARAM wParam, 
+	CallerT* GetDialogCaller(NotNull< HWND > dialog,
+							 UINT message,
+							 [[maybe_unused]] WPARAM wParam,
 							 LPARAM lParam) noexcept;
 }
 

@@ -14,7 +14,7 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-	
+
 	/**
 	 A class of variable scripts.
 	 */
@@ -32,10 +32,10 @@ namespace mage {
 		 @param[in]		fname
 						The filename (the globally unique identifier).
 		 @param[in]		import
-						Flag indicating whether the variables of the variable 
+						Flag indicating whether the variables of the variable
 						script need to be imported.
 		 @throws		Exception
-						Failed to import the variable script from file (only 
+						Failed to import the variable script from file (only
 						possible if @a import is equal to @c true).
 		 */
 		explicit VariableScript(std::wstring fname, bool import = true);
@@ -80,7 +80,7 @@ namespace mage {
 
 		 @param[in]		variable_script
 						A reference to the variable script to move.
-		 @return		A reference to the moved variable script (i.e. this 
+		 @return		A reference to the moved variable script (i.e. this
 						variable script).
 		 */
 		VariableScript& operator=(VariableScript&& variable_script) noexcept;
@@ -100,7 +100,7 @@ namespace mage {
 		}
 
 		/**
-		 Imports this variable script from the file associated with the given 
+		 Imports this variable script from the file associated with the given
 		 path.
 
 		 @param[in]		path
@@ -121,7 +121,7 @@ namespace mage {
 		}
 
 		/**
-		 Exports this variable script to the file associated with the given 
+		 Exports this variable script to the file associated with the given
 		 path.
 
 		 @param[in]		path
@@ -134,7 +134,7 @@ namespace mage {
 		/**
 		 Checks whether this variable script is empty.
 
-		 @return		@c true if this variable script is empty. @c false 
+		 @return		@c true if this variable script is empty. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -155,14 +155,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this variable script contains a variable with the given 
+		 Checks whether this variable script contains a variable with the given
 		 name and type (if specified).
 
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
 						The name of the variable.
-		 @return		@c true if this variable script has a variable with the 
+		 @return		@c true if this variable script has a variable with the
 						given name. @c false otherwise.
 		 */
 		template< typename T = void >
@@ -204,11 +204,11 @@ namespace mage {
 						The type of the variable.
 		 @param[in]		name
 						The name of the variable.
-		 @return		@c nullptr if this variable script does not contain a 
+		 @return		@c nullptr if this variable script does not contain a
 						variable corresponding to the given name.
 		 @return		A pointer to the value of the variable.
 		 @throws		std::bad_variant_access
-						The variable corresponding to the given name has a 
+						The variable corresponding to the given name has a
 						different type.
 		 */
 		template< typename T >
@@ -224,7 +224,7 @@ namespace mage {
 						The name of the variable.
 		 @param[in]		value
 						The value of the variable.
-		 @note			Nothing happens if this variable script does not 
+		 @note			Nothing happens if this variable script does not
 						contain a variable corresponding to the given name.
 		 */
 		template< typename T >

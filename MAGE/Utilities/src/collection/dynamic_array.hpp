@@ -52,7 +52,7 @@ namespace mage {
 		explicit DynamicArray(size_type size = 0u)
 			: m_size(size),
 			m_data((0u == size) ? nullptr : MakeUnique< value_type[] >(size)) {}
-		
+
 		DynamicArray(const DynamicArray& a)
 			: DynamicArray(a.size()) {
 
@@ -61,9 +61,9 @@ namespace mage {
 				*to = *from;
 			}
 		}
-		
+
 		DynamicArray(DynamicArray&& a) noexcept = default;
-		
+
 		~DynamicArray() = default;
 
 		//---------------------------------------------------------------------
@@ -83,7 +83,7 @@ namespace mage {
 
 			return *this;
 		};
-		
+
 		DynamicArray& operator=(DynamicArray&& a) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -247,7 +247,7 @@ namespace mage {
 		}
 
 	private:
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

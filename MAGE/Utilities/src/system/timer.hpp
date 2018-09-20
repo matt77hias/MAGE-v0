@@ -58,7 +58,7 @@ namespace mage {
 
 		/**
 		 Constructs a timer from the given timer.
-		
+
 		 @param[in]		timer
 						A reference to the timer to copy.
 		 */
@@ -79,14 +79,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given timer to this timer.
-		
+
 		 @param[in]		timer
 						A reference to the timer to copy.
-		 @return		A reference to the copy of the given timer (i.e. this 
+		 @return		A reference to the copy of the given timer (i.e. this
 						timer).
 		 */
 		Timer& operator=(const Timer& timer) noexcept = default;
@@ -145,10 +145,10 @@ namespace mage {
 		/**
 		 Returns the delta and total delta time (in seconds) of this timer.
 
-		 @return		A pair containing the the delta and total delta time 
+		 @return		A pair containing the the delta and total delta time
 						(in seconds) of this timer.
 		 */
-		const std::pair< TimeIntervalSeconds, TimeIntervalSeconds >  
+		const std::pair< TimeIntervalSeconds, TimeIntervalSeconds >
 			GetTime() noexcept;
 
 	private:
@@ -158,13 +158,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Resets the delta time, total delta time and last timestamp of this 
+		 Resets the delta time, total delta time and last timestamp of this
 		 timer.
 		 */
 		void ResetDeltaTime() noexcept;
 
 		/**
-		 Updates the delta time, total delta time and last timestamp of this 
+		 Updates the delta time, total delta time and last timestamp of this
 		 timer.
 		 */
 		void UpdateDeltaTime() noexcept;
@@ -179,7 +179,7 @@ namespace mage {
 		using TimeStamp = typename ClockT::time_point;
 
 		/**
-		 The time interval type representing the interval between time points 
+		 The time interval type representing the interval between time points
 		 of timers.
 		 */
 		using TimeInterval = typename ClockT::duration;

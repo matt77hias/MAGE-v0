@@ -52,7 +52,7 @@ namespace mage {
 			GetSystemTimeAsFileTime(&ftime);
 
 			FILETIME local_ftime;
-			return (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) 
+			return (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime))
 				   ? 0u : ConvertTimestamp(local_ftime);
 		}
 	}
@@ -74,13 +74,13 @@ namespace mage {
 
 		wchar_t str_date[255];
 
-		const int result = GetDateFormat(LOCALE_USER_DEFAULT, 
+		const int result = GetDateFormat(LOCALE_USER_DEFAULT,
 			                             0,
-			                             &local_stime, 
-			                             L"yyyy-MM-dd", 
-			                             str_date, 
+			                             &local_stime,
+			                             L"yyyy-MM-dd",
+			                             str_date,
 			                             static_cast< int >(std::size(str_date)));
-		
+
 		return (result) ? std::wstring(str_date) : std::wstring();
 	}
 
@@ -103,13 +103,13 @@ namespace mage {
 
 		wchar_t str_time[255];
 
-		const int result = GetTimeFormat(LOCALE_USER_DEFAULT, 
-			                             0, 
-			                             &local_stime, 
-			                             L"HH-mm-ss", 
-			                             str_time, 
+		const int result = GetTimeFormat(LOCALE_USER_DEFAULT,
+			                             0,
+			                             &local_stime,
+			                             L"HH-mm-ss",
+			                             str_time,
 			                             static_cast< int >(std::size(str_time)));
-		
+
 		return (result) ? std::wstring(str_time) : std::wstring();
 	}
 
@@ -133,21 +133,21 @@ namespace mage {
 		wchar_t str_date[255];
 		wchar_t str_time[255];
 
-		if (!GetDateFormat(LOCALE_USER_DEFAULT, 
-			               0, 
-			               &local_stime, 
-			               L"yyyy-MM-dd", 
-			               str_date, 
+		if (!GetDateFormat(LOCALE_USER_DEFAULT,
+			               0,
+			               &local_stime,
+			               L"yyyy-MM-dd",
+			               str_date,
 			               static_cast< int >(std::size(str_date)))) {
 
 			return {};
 		}
-		
-		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 
-			               0, 
-			               &local_stime, 
-			               L"HH-mm-ss", 
-			               str_time, 
+
+		if (!GetTimeFormat(LOCALE_USER_DEFAULT,
+			               0,
+			               &local_stime,
+			               L"HH-mm-ss",
+			               str_time,
 			               static_cast< int >(std::size(str_time)))) {
 
 			return {};
@@ -178,10 +178,10 @@ namespace mage {
 		/**
 		 Returns the current core timestamps (in 100 ns).
 
-		 @return		A pair containing the current kernel and user mode 
+		 @return		A pair containing the current kernel and user mode
 						timestamp of the calling process.
-		 @note			If the retrieval fails, both the kernel and user mode 
-						timestamp are zero. To get extended error information, 
+		 @note			If the retrieval fails, both the kernel and user mode
+						timestamp are zero. To get extended error information,
 						call @c GetLastError.
 		 */
 		[[nodiscard]]
@@ -191,23 +191,23 @@ namespace mage {
 			FILETIME user_mode_ftime;
 			// Retrieve timing information for the process.
 			const BOOL result = GetProcessTimes(GetCurrentProcess(),
-												&ftime, 
-												&ftime, 
-												&kernel_mode_ftime, 
+												&ftime,
+												&ftime,
+												&kernel_mode_ftime,
 												&user_mode_ftime);
 			if (FALSE == result) {
 				return {};
 			}
-			
-			return { 
-				ConvertTimestamp(kernel_mode_ftime),  
-				ConvertTimestamp(user_mode_ftime) 
+
+			return {
+				ConvertTimestamp(kernel_mode_ftime),
+				ConvertTimestamp(user_mode_ftime)
 			};
 		}
 
 		/**
 		 Returns the current core timestamp (in 100 ns).
-	 
+
 		 @return		The current core timestamp of the calling process.
 		 */
 		[[nodiscard]]
@@ -218,8 +218,8 @@ namespace mage {
 
 		/**
 		 Returns the current kernel mode core timestamp (in 100 ns).
-	 
-		 @return		The current kernel mode core timestamp of the calling 
+
+		 @return		The current kernel mode core timestamp of the calling
 						process.
 		 */
 		[[nodiscard]]
@@ -230,8 +230,8 @@ namespace mage {
 
 		/**
 		 Returns the current user mode core timestamp (in 100 ns).
-	 
-		 @return		The current user mode core timestamp of the calling 
+
+		 @return		The current user mode core timestamp of the calling
 						process.
 		 */
 		[[nodiscard]]
@@ -242,8 +242,8 @@ namespace mage {
 
 		/**
 		 Returns the current core timestamp per system core (in 100 ns).
-	 
-		 @return		The current core timestamp of the calling process per 
+
+		 @return		The current core timestamp of the calling process per
 						system core.
 		 */
 		[[nodiscard]]
@@ -253,8 +253,8 @@ namespace mage {
 
 		/**
 		 Returns the current kernel mode core timestamp per system core (in 100 ns).
-	 
-		 @return		The current kernel mode core timestamp of the calling 
+
+		 @return		The current kernel mode core timestamp of the calling
 						process per system core.
 		 */
 		[[nodiscard]]
@@ -264,8 +264,8 @@ namespace mage {
 
 		/**
 		 Returns the current user mode core timestamp per system core (in 100 ns).
-	 
-		 @return		The current user mode core timestamp of the calling 
+
+		 @return		The current user mode core timestamp of the calling
 						process per system core.
 		 */
 		[[nodiscard]]

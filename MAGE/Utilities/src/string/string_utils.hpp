@@ -39,13 +39,13 @@ namespace mage {
 					The data type.
 	 @param[in]		str
 					The string to convert.
-	 @return		A @c T value if the the conversion of the given string 
+	 @return		A @c T value if the the conversion of the given string
 					succeeded.
 	 */
 	template< typename T >
 	[[nodiscard]]
 	const std::optional< T > StringTo(std::string_view str) noexcept;
-	
+
 	/**
 	 Converts the prefix of the given string to a @c T value.
 
@@ -53,7 +53,7 @@ namespace mage {
 					The data type.
 	 @param[in]		str
 					The string to convert.
-	 @return		A @c T value if the the conversion of the prefix of the 
+	 @return		A @c T value if the the conversion of the prefix of the
 					given string succeeded.
 	 */
 	template< typename T >
@@ -164,12 +164,12 @@ namespace mage {
 		}
 
 		[[nodiscard]]
-		const char* c_str() const noexcept { 
+		const char* c_str() const noexcept {
 			return m_buffer.data();
 		}
-		
+
 		[[nodiscard]]
-		const std::string str() const { 
+		const std::string str() const {
 			return { c_str(), size() };
 		}
 
@@ -227,7 +227,7 @@ namespace mage {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
-		
+
 		constexpr auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towlower(c));
 		};
@@ -244,7 +244,7 @@ namespace mage {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
-		
+
 		constexpr auto f = [](char c) noexcept {
 			return static_cast< char >(std::toupper(c));
 		};
@@ -261,7 +261,7 @@ namespace mage {
 		using std::begin;
 		using std::cbegin;
 		using std::cend;
-		
+
 		constexpr auto f = [](wchar_t c) noexcept {
 			return static_cast< wchar_t >(std::towupper(c));
 		};

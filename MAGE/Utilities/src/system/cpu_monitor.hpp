@@ -53,14 +53,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given CPU monitor to this CPU monitor.
 
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to copy.
-		 @return		A reference to the copy of the given CPU monitor (i.e. 
+		 @return		A reference to the copy of the given CPU monitor (i.e.
 						this CPU monitor).
 		 */
 		CPUMonitor& operator=(const CPUMonitor& cpu_monitor) noexcept = default;
@@ -70,7 +70,7 @@ namespace mage {
 
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to move.
-		 @return		A reference to the moved CPU monitor (i.e. this CPU 
+		 @return		A reference to the moved CPU monitor (i.e. this CPU
 						monitor).
 		 */
 		CPUMonitor& operator=(CPUMonitor&& cpu_monitor) noexcept = default;
@@ -125,7 +125,7 @@ namespace mage {
 		/**
 		 Returns the total CPU delta percentage of this CPU monitor's process.
 
-		 @return		The total CPU delta percentage of this CPU monitor's 
+		 @return		The total CPU delta percentage of this CPU monitor's
 						process.
 		 */
 		F64 GetTotalCPUDeltaPercentage() noexcept {

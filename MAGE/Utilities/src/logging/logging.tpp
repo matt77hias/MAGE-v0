@@ -6,7 +6,7 @@
 namespace mage {
 
 	template< typename... ArgsT >
-	inline void Log(MessageDisposition disposition, 
+	inline void Log(MessageDisposition disposition,
 					std::string_view format_str, const ArgsT&... args) {
 
 		if (MessageDisposition::Ignore == disposition) {
@@ -22,7 +22,7 @@ namespace mage {
 	}
 
 	template< typename... ArgsT >
-	inline void Log(MessageDisposition disposition, 
+	inline void Log(MessageDisposition disposition,
 					std::wstring_view format_str, const ArgsT&... args) {
 
 		if (MessageDisposition::Ignore == disposition) {
@@ -38,7 +38,7 @@ namespace mage {
 	}
 
 	template< typename... ArgsT >
-	inline void Debug([[maybe_unused]] std::string_view format_str, 
+	inline void Debug([[maybe_unused]] std::string_view format_str,
 					  [[maybe_unused]] const ArgsT&... args) {
 
 		#ifdef _DEBUG
@@ -55,7 +55,7 @@ namespace mage {
 	}
 
 	template< typename... ArgsT >
-	inline void Debug([[maybe_unused]] std::wstring_view format_str, 
+	inline void Debug([[maybe_unused]] std::wstring_view format_str,
 					  [[maybe_unused]] const ArgsT&... args) {
 
 		#ifdef _DEBUG

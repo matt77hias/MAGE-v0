@@ -66,7 +66,7 @@ namespace mage {
 	static_assert(std::is_same_v< S16, INT16  >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< S32, INT32  >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< S64, INT64  >, "MAGE/Windows type mismatch");
-	
+
 	static_assert(std::is_same_v< U32, UINT   >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< U8,  UINT8  >, "MAGE/Windows type mismatch");
 	static_assert(std::is_same_v< U16, UINT16 >, "MAGE/Windows type mismatch");
@@ -80,44 +80,44 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template< typename T, typename U >
-	struct is_equivalent_integral : public std::bool_constant< 
-		(sizeof(T) == sizeof(U)) 
-		&& std::is_integral_v< T > 
-		&& std::is_integral_v< U > 
-		&& (std::is_signed_v< T >   == std::is_signed_v< U >) 
+	struct is_equivalent_integral : public std::bool_constant<
+		(sizeof(T) == sizeof(U))
+		&& std::is_integral_v< T >
+		&& std::is_integral_v< U >
+		&& (std::is_signed_v< T >   == std::is_signed_v< U >)
 		&& (std::is_unsigned_v< T > == std::is_unsigned_v< U >) >{};
 
 	template< typename T, typename U >
 	constexpr bool is_equivalent_integral_v = is_equivalent_integral< T, U >::value;
 
-	static_assert(is_equivalent_integral_v< U16, WORD >, 
-				  "MAGE/Windows type mismatch");
-	
-	static_assert(is_equivalent_integral_v< U32, DWORD >, 
-				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U64, DWORDLONG >, 
-				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U32, DWORD32 >, 
-				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U64, DWORD64 >, 
+	static_assert(is_equivalent_integral_v< U16, WORD >,
 				  "MAGE/Windows type mismatch");
 
-	static_assert(is_equivalent_integral_v< S32, LONG >, 
+	static_assert(is_equivalent_integral_v< U32, DWORD >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< S64, LONGLONG >, 
+	static_assert(is_equivalent_integral_v< U64, DWORDLONG >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< S32, LONG32 >, 
+	static_assert(is_equivalent_integral_v< U32, DWORD32 >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< S64, LONG64 >, 
+	static_assert(is_equivalent_integral_v< U64, DWORD64 >,
 				  "MAGE/Windows type mismatch");
 
-	static_assert(is_equivalent_integral_v< U32, ULONG >, 
+	static_assert(is_equivalent_integral_v< S32, LONG >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U64, ULONGLONG >, 
+	static_assert(is_equivalent_integral_v< S64, LONGLONG >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U32, ULONG32 >, 
+	static_assert(is_equivalent_integral_v< S32, LONG32 >,
 				  "MAGE/Windows type mismatch");
-	static_assert(is_equivalent_integral_v< U64, ULONG64 >, 
+	static_assert(is_equivalent_integral_v< S64, LONG64 >,
+				  "MAGE/Windows type mismatch");
+
+	static_assert(is_equivalent_integral_v< U32, ULONG >,
+				  "MAGE/Windows type mismatch");
+	static_assert(is_equivalent_integral_v< U64, ULONGLONG >,
+				  "MAGE/Windows type mismatch");
+	static_assert(is_equivalent_integral_v< U32, ULONG32 >,
+				  "MAGE/Windows type mismatch");
+	static_assert(is_equivalent_integral_v< U64, ULONG64 >,
 				  "MAGE/Windows type mismatch");
 
 	static_assert(is_equivalent_integral_v< std::size_t, SIZE_T >,

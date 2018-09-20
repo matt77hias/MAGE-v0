@@ -51,10 +51,10 @@ namespace mage {
 		 @param[in]		core_clock_total_delta_time
 						The core clock total delta time (in seconds).
 		 */
-		constexpr explicit 
-			GameTime(TimeIntervalSeconds wall_clock_delta_time, 
-					 TimeIntervalSeconds wall_clock_total_delta_time, 
-					 TimeIntervalSeconds core_clock_delta_time, 
+		constexpr explicit
+			GameTime(TimeIntervalSeconds wall_clock_delta_time,
+					 TimeIntervalSeconds wall_clock_total_delta_time,
+					 TimeIntervalSeconds core_clock_delta_time,
 					 TimeIntervalSeconds core_clock_total_delta_time) noexcept
 			: m_wall_clock_delta_time(wall_clock_delta_time),
 			m_wall_clock_total_delta_time(wall_clock_total_delta_time),
@@ -84,14 +84,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given game time to this game time.
 
 		 @param[in]		time
 						A reference to the game time to copy.
-		 @return		A reference to the copy of the given game time (i.e. 
+		 @return		A reference to the copy of the given game time (i.e.
 						this game time).
 		 */
 		GameTime& operator=(const GameTime& time) noexcept = default;
@@ -101,7 +101,7 @@ namespace mage {
 
 		 @param[in]		time
 						A reference to the game time to move.
-		 @return		A reference to the moved game time (i.e. this game 
+		 @return		A reference to the moved game time (i.e. this game
 						time).
 		 */
 		GameTime& operator=(GameTime&& time) noexcept = default;
@@ -113,7 +113,7 @@ namespace mage {
 		/**
 		 Returns the wall clock delta time (in seconds) of this game time.
 
-		 @return		The wall clock delta time (in seconds) of this game 
+		 @return		The wall clock delta time (in seconds) of this game
 						time.
 		 */
 		constexpr TimeIntervalSeconds GetWallClockDeltaTime() const noexcept {
@@ -123,7 +123,7 @@ namespace mage {
 		/**
 		 Returns the wall clock total delta time (in seconds) of this game time.
 
-		 @return		The wall clock total delta time (in seconds) of this 
+		 @return		The wall clock total delta time (in seconds) of this
 						game time.
 		 */
 		constexpr TimeIntervalSeconds GetWallClockTotalDeltaTime() const noexcept {
@@ -133,7 +133,7 @@ namespace mage {
 		/**
 		 Returns the core clock delta time (in seconds) of this game time.
 
-		 @return		The core clock delta time (in seconds) of this game 
+		 @return		The core clock delta time (in seconds) of this game
 						time.
 		 */
 		constexpr TimeIntervalSeconds GetCoreClockDeltaTime() const noexcept {
@@ -143,7 +143,7 @@ namespace mage {
 		/**
 		 Returns the core clock total delta time (in seconds) of this game time.
 
-		 @return		The core clock total delta time (in seconds) of this 
+		 @return		The core clock total delta time (in seconds) of this
 						game time.
 		 */
 		constexpr TimeIntervalSeconds GetCoreClockTotalDeltaTime() const noexcept {
@@ -160,7 +160,7 @@ namespace mage {
 		 The wall clock delta time (in seconds) of this game time.
 		 */
 		TimeIntervalSeconds m_wall_clock_delta_time;
-		
+
 		/**
 		 The wall clock total delta time (in seconds) of this game time.
 		 */
@@ -170,7 +170,7 @@ namespace mage {
 		 The core clock delta time (in seconds) of this game time.
 		 */
 		TimeIntervalSeconds m_core_clock_delta_time;
-		
+
 		/**
 		 The core clock total delta time (in seconds) of this game time.
 		 */
@@ -223,14 +223,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given game timer to this game timer.
 
 		 @param[in]		timer
 						A reference to the game timer to copy.
-		 @return		A reference to the copy of the given game timer (i.e. 
+		 @return		A reference to the copy of the given game timer (i.e.
 						this game timer).
 		 */
 		GameTimer& operator=(const GameTimer& timer) noexcept = default;
@@ -240,7 +240,7 @@ namespace mage {
 
 		 @param[in]		timer
 						A reference to the game timer to move.
-		 @return		A reference to the moved game timer (i.e. this game 
+		 @return		A reference to the moved game timer (i.e. this game
 						timer).
 		 */
 		GameTimer& operator=(GameTimer&& timer) noexcept = default;

@@ -30,11 +30,11 @@ namespace mage::loader {
 		 Constructs a VAR reader.
 
 		 @param[in]		variable_buffer
-						A reference to a map for storing the read variables 
+						A reference to a map for storing the read variables
 						from file.
 		 */
 		explicit VARReader(ValueMap& variable_buffer);
-		
+
 		/**
 		 Constructs a VAR reader from the given VAR reader.
 
@@ -42,7 +42,7 @@ namespace mage::loader {
 						A reference to the VAR reader to copy.
 		 */
 		VARReader(const VARReader& reader) = delete;
-		
+
 		/**
 		 Constructs a VAR reader by moving the given VAR reader.
 
@@ -58,14 +58,14 @@ namespace mage::loader {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given VAR reader to this VAR reader.
 
 		 @param[in]		reader
 						A reference to a VAR reader to copy.
-		 @return		A reference to the copy of the given VAR reader (i.e. 
+		 @return		A reference to the copy of the given VAR reader (i.e.
 						this VAR reader).
 		 */
 		VARReader& operator=(const VARReader& reader) = delete;
@@ -75,7 +75,7 @@ namespace mage::loader {
 
 		 @param[in]		reader
 						A reference to a VAR reader to move.
-		 @return		A reference to the moved VAR reader (i.e. this VAR 
+		 @return		A reference to the moved VAR reader (i.e. this VAR
 						reader).
 		 */
 		VARReader& operator=(VARReader&& reader) = delete;

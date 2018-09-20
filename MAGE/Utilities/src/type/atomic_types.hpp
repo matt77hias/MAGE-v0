@@ -46,7 +46,7 @@ namespace mage {
 	 An atomic floating point type with width of exactly 32 bits.
 	 */
 	using AtomicF32 = std::atomic< F32 >;
-	
+
 	/**
 	 An atomic floating point type with width of exactly 64 bits.
 	 */
@@ -71,12 +71,12 @@ namespace mage {
 	 An atomic signed integer type with width of exactly 16 bits.
 	 */
 	using AtomicS16 = std::atomic< S16 >;
-	
+
 	/**
 	 An atomic signed integer type with width of exactly 32 bits.
 	 */
 	using AtomicS32 = std::atomic< S32 >;
-	
+
 	/**
 	 An atomic signed integer type with width of exactly 64 bits.
 	 */
@@ -96,12 +96,12 @@ namespace mage {
 	 The fastest atomic signed integer type with width of at least 16 bits.
 	 */
 	using AtomicFS16 = std::atomic< FS16 >;
-	
+
 	/**
 	 The fastest atomic signed integer type with width of at least 32 bits.
 	 */
 	using AtomicFS32 = std::atomic< FS32 >;
-	
+
 	/**
 	 The fastest atomic signed integer type with width of at least 64 bits.
 	 */
@@ -128,12 +128,12 @@ namespace mage {
 	 An atomic unsigned integer type with width of exactly 16 bits.
 	 */
 	using AtomicU16 = std::atomic< U16 >;
-	
+
 	/**
 	 An atomic unsigned integer type with width of exactly 32 bits.
 	 */
 	using AtomicU32 = std::atomic< U32 >;
-	
+
 	/**
 	 An atomic unsigned integer type with width of exactly 64 bits.
 	 */
@@ -153,12 +153,12 @@ namespace mage {
 	 The fastest atomic unsigned integer type with width of at least 16 bits.
 	 */
 	using AtomicFU16 = std::atomic< FU16 >;
-	
+
 	/**
 	 The fastest atomic unsigned integer type with width of at least 32 bits.
 	 */
 	using AtomicFU32 = std::atomic< FU32 >;
-	
+
 	/**
 	 The fastest atomic unsigned integer type with width of at least 64 bits.
 	 */

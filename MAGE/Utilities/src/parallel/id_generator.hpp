@@ -70,14 +70,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given id generator to this id generator.
 
 		 @param[in]		generator
 						The id generator to copy.
-		 @return		A reference to the copy of the given id generator (i.e. 
+		 @return		A reference to the copy of the given id generator (i.e.
 						this id generator).
 		 */
 		IdGenerator& operator=(const IdGenerator& generator) = delete;
@@ -87,7 +87,7 @@ namespace mage {
 
 		 @param[in]		generator
 						The id generator to move.
-		 @return		A reference to the moved id generator (i.e. this id 
+		 @return		A reference to the moved id generator (i.e. this id
 						generator).
 		 */
 		IdGenerator& operator=(IdGenerator&& generator) = delete;

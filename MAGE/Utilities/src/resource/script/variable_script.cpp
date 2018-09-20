@@ -22,7 +22,7 @@ namespace mage {
 		}
 	}
 
-	VariableScript::VariableScript(VariableScript&& variable_script) noexcept 
+	VariableScript::VariableScript(VariableScript&& variable_script) noexcept
 		: Resource< VariableScript >(std::move(variable_script)),
 		m_variables(std::move(variable_script.m_variables)) {}
 
@@ -45,7 +45,7 @@ namespace mage {
 	}
 
 	void VariableScript::Remove(std::string_view name) {
-		if (const auto it = m_variables.find(name); 
+		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
 			m_variables.erase(it);

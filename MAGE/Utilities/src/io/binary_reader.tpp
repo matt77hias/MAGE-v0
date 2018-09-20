@@ -9,10 +9,10 @@ namespace mage {
 	const T BinaryReader::Read() {
 		const auto old_pos = m_pos;
 		const auto new_pos = m_pos + sizeof(T);
-		
-		ThrowIfFailed((m_pos <= new_pos), 
+
+		ThrowIfFailed((m_pos <= new_pos),
 					  "{}: overflow: no value found.", GetPath());
-		ThrowIfFailed((new_pos <= m_end), 
+		ThrowIfFailed((new_pos <= m_end),
 					  "{}: end of file: no value found.", GetPath());
 
 		m_pos = new_pos;
@@ -28,10 +28,10 @@ namespace mage {
 	const T* BigEndianBinaryReader::ReadArray(std::size_t count) {
 		const auto old_pos = m_pos;
 		const auto new_pos = m_pos + sizeof(T) * count;
-		
-		ThrowIfFailed((m_pos <= new_pos), 
+
+		ThrowIfFailed((m_pos <= new_pos),
 					  "{}: overflow: no {} values found.", GetPath(), count);
-		ThrowIfFailed((new_pos <= m_end), 
+		ThrowIfFailed((new_pos <= m_end),
 					  "{}: end of file: no {} values found.", GetPath(), count);
 
 		m_pos = new_pos;

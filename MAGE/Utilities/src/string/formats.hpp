@@ -35,7 +35,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::wstring_view& wstr, FormatContextT& ctx) {
 			const mage::UTF16toUTF8 str(wstr);
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), "{}", std::string_view(str));
 		}
@@ -52,7 +52,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::wstring& wstr, FormatContextT& ctx) {
 			const mage::UTF16toUTF8 str(wstr);
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), "{}", std::string_view(str));
 		}
@@ -69,7 +69,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::filesystem::path& path, FormatContextT& ctx) {
 			const mage::UTF16toUTF8 str(path.c_str());
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), "{}", std::string_view(str));
 		}
@@ -86,7 +86,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::string_view& str, FormatContextT& ctx) {
 			const mage::UTF8toUTF16 wstr(str);
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), L"{}", std::wstring_view(wstr));
 		}
@@ -103,7 +103,7 @@ namespace fmt {
 		template< typename FormatContextT >
 		auto format(const std::string& str, FormatContextT& ctx) {
 			const mage::UTF8toUTF16 wstr(str);
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), L"{}", std::wstring_view(wstr));
 		}
@@ -119,7 +119,7 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::filesystem::path& path, FormatContextT& ctx) {
-			// An explicit formatting string is provided to avoid clashes with 
+			// An explicit formatting string is provided to avoid clashes with
 			// the string.
 			return format_to(ctx.begin(), L"{}", path.c_str());
 		}

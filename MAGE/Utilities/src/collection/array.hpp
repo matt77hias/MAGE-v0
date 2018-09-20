@@ -24,8 +24,8 @@ namespace mage {
 
 		template< typename ActionT, typename FromT, std::size_t... I >
 		[[nodiscard]]
-		constexpr const auto TransformArray(ActionT&& action, 
-											const std::array< FromT, sizeof...(I) >& a, 
+		constexpr const auto TransformArray(ActionT&& action,
+											const std::array< FromT, sizeof...(I) >& a,
 											std::index_sequence< I... >) {
 
 			using ToT = decltype(std::declval< ActionT >()(std::declval< FromT >()));
@@ -34,42 +34,42 @@ namespace mage {
 
 		template< typename T, std::size_t... I >
 		[[nodiscard]]
-		constexpr const auto FillArray(const T& value, 
+		constexpr const auto FillArray(const T& value,
 									   std::index_sequence< I... >) {
 
 			return std::array< T, sizeof...(I) >{ (static_cast< void >(I), value)... };
 		}
-	
+
 		template< std::size_t ToN, typename T, std::size_t... I >
 		[[nodiscard]]
-		constexpr const auto EnlargeArray(const std::array< T, sizeof...(I) >& a, 
+		constexpr const auto EnlargeArray(const std::array< T, sizeof...(I) >& a,
 										  std::index_sequence< I... >) {
 
 			return std::array< T, ToN >{ a[I]... };
 		}
-	
+
 		template< typename T, typename TupleT, std::size_t... I >
 		[[nodiscard]]
-		constexpr const auto TuppleToArray(const TupleT& t, 
+		constexpr const auto TuppleToArray(const TupleT& t,
 										   std::index_sequence< I... >) {
 
 			return std::array< T, sizeof...(I) >{ std::get< I >(t)... };
 		}
-	
+
 		template< typename T, std::size_t... I >
 		[[nodiscard]]
-		constexpr const auto ArrayToTupple(const std::array< T, sizeof...(I) >& a, 
+		constexpr const auto ArrayToTupple(const std::array< T, sizeof...(I) >& a,
 										   std::index_sequence< I... >) noexcept {
-			
+
 			return std::make_tuple(a[I]...);
 		}
 	}
 
 	template< typename ActionT, typename FromT, std::size_t N >
 	[[nodiscard]]
-	constexpr const auto TransformArray(ActionT&& action, 
+	constexpr const auto TransformArray(ActionT&& action,
 										const std::array< FromT, N >& a) {
-		
+
 		return details::TransformArray(std::forward< ActionT >(action), a,
 									   std::make_index_sequence< N >());
 	}
@@ -78,7 +78,7 @@ namespace mage {
 	[[nodiscard]]
 	constexpr const auto StaticCastArray(const std::array< FromT, N >& a) {
 		constexpr auto f = [](const FromT& v) {
-			return static_cast< ToT >(v); 
+			return static_cast< ToT >(v);
 		};
 		return TransformArray(f, a);
 	}
@@ -132,7 +132,7 @@ namespace mage {
 		constexpr explicit Array(const T& value) noexcept
 			: std::array< T, N >(FillArray< T, N >(value)) {}
 
-		template< typename... ArgsT, 
+		template< typename... ArgsT,
 			      typename = std::enable_if_t< (N == sizeof...(ArgsT)) > >
 		constexpr Array(ArgsT&&... args) noexcept
 			: std::array< T, N >{ std::forward< ArgsT >(args)... } {}
@@ -150,17 +150,17 @@ namespace mage {
 		template< std::size_t FromN, typename... ArgsT,
 			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N) > >
 		constexpr Array(const Array< T, FromN, A >& a, ArgsT&&... args) noexcept
-			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
+			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a),
 							     std::make_tuple(std::forward< ArgsT >(args)...)))) {}
-		
+
 		template< std::size_t FromN, std::size_t FromA, typename... ArgsT,
 			      typename = std::enable_if_t< (FromN < N && (FromN + sizeof...(ArgsT)) == N && FromA != A) > >
 		constexpr explicit Array(const Array< T, FromN, FromA >& a, ArgsT&&... args) noexcept
-			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a), 
+			: std::array< T, N >(TuppleToArray(std::tuple_cat(ArrayToTupple(a),
 							     std::make_tuple(std::forward< ArgsT >(args)...)))) {}
 
 		constexpr Array(const Array& a) noexcept = default;
-		
+
 		constexpr Array(Array&& a) noexcept = default;
 
 		template< typename FromT, std::size_t FromA,
@@ -169,7 +169,7 @@ namespace mage {
 			: std::array< T, N >(StaticCastArray< T >(a)) {}
 
 		~Array() = default;
-		
+
 		Array& operator=(const Array& a) noexcept = default;
 
 		Array& operator=(Array&& a) noexcept = default;

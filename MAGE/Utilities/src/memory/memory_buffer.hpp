@@ -246,7 +246,7 @@ namespace mage {
 		}
 
 	private:
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -500,7 +500,7 @@ namespace mage {
 		}
 
 	private:
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -537,9 +537,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		MemoryBuffer()
-			: m_static_data(), 
+			: m_static_data(),
 			m_dynamic_data() {}
-		
+
 		MemoryBuffer(const MemoryBuffer& buffer) = delete;
 
 		MemoryBuffer(MemoryBuffer&& buffer) noexcept = default;
@@ -707,7 +707,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Capacity
 		//---------------------------------------------------------------------
-		
+
 		[[nodiscard]]
 		bool empty() const noexcept {
 			return UsesStaticMemoryBuffer() ?
@@ -792,7 +792,7 @@ namespace mage {
 		}
 
 	private:
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

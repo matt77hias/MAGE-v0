@@ -68,16 +68,16 @@ namespace mage {
 	}
 
 	template< typename ClockT >
-	inline const std::pair< TimeIntervalSeconds, TimeIntervalSeconds > 
+	inline const std::pair< TimeIntervalSeconds, TimeIntervalSeconds >
 		Timer< ClockT >::GetTime() noexcept {
 
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return { 
-			std::chrono::duration_cast< TimeIntervalSeconds >(m_delta_time), 
-			std::chrono::duration_cast< TimeIntervalSeconds >(m_total_delta_time) 
+		return {
+			std::chrono::duration_cast< TimeIntervalSeconds >(m_delta_time),
+			std::chrono::duration_cast< TimeIntervalSeconds >(m_total_delta_time)
 		};
 	}
 

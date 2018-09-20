@@ -24,25 +24,25 @@ namespace mage::loader {
 			// Constructors and Destructors
 			//-----------------------------------------------------------------
 
-			explicit VARVisitor(std::string_view key, 
+			explicit VARVisitor(std::string_view key,
 								NotNull< zstring > buffer,
 								std::size_t buffer_size) noexcept
-				: m_key(key), 
-				m_buffer(buffer), 
+				: m_key(key),
+				m_buffer(buffer),
 				m_buffer_size(buffer_size) {}
-			
+
 			VARVisitor(const VARVisitor& visitor) noexcept = default;
-			
+
 			VARVisitor(VARVisitor&& visitor) noexcept = default;
-			
+
 			~VARVisitor() = default;
 
 			//-----------------------------------------------------------------
 			// Assignment Operators
 			//-----------------------------------------------------------------
-			
+
 			VARVisitor& operator=(const VARVisitor& visitor) = delete;
-			
+
 			VARVisitor& operator=(VARVisitor&& visitor) = delete;
 
 			//-----------------------------------------------------------------
@@ -63,31 +63,31 @@ namespace mage::loader {
 
 		template< typename T >
 		void VARVisitor::operator()(const T& value) const {
-			WriteTo(m_buffer, m_buffer_size, "{} {} {}", 
+			WriteTo(m_buffer, m_buffer_size, "{} {} {}",
 					g_var_token< T >, m_key, value);
 		}
 
 		template<>
 		void VARVisitor::operator()(const bool& value) const {
 			if (value) {
-				WriteTo(m_buffer, m_buffer_size, "{} {} true", 
+				WriteTo(m_buffer, m_buffer_size, "{} {} true",
 						g_var_token< bool >, m_key);
 			}
 			else {
-				WriteTo(m_buffer, m_buffer_size, "{} {} false", 
+				WriteTo(m_buffer, m_buffer_size, "{} {} false",
 						g_var_token< bool >, m_key);
 			}
 		}
 
 		template<>
 		void VARVisitor::operator()(const std::string& value) const {
-			WriteTo(m_buffer, m_buffer_size, "{} {} \"{}\"", 
+			WriteTo(m_buffer, m_buffer_size, "{} {} \"{}\"",
 					g_var_token< std::string >, m_key, value);
 		}
 	}
 
 	VARWriter::VARWriter(const ValueMap& variable_buffer)
-		: Writer(), 
+		: Writer(),
 		m_variable_buffer(variable_buffer) {}
 
 	VARWriter::VARWriter(VARWriter&& writer) noexcept = default;

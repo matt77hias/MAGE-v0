@@ -40,19 +40,19 @@ namespace mage {
 	static_assert(4u * sizeof(F32) == sizeof(F32x4));
 
 	/**
-	 A 2x1 vector type for floating points with width of exactly 32 bits with 
+	 A 2x1 vector type for floating points with width of exactly 32 bits with
 	 a 16-byte alignment.
 	 */
 	using F32x2A = Array< F32, 2u, 16u >;
 
 	/**
-	 A 3x1 vector type for floating points with width of exactly 32 bits with 
+	 A 3x1 vector type for floating points with width of exactly 32 bits with
 	 a 16-byte alignment.
 	 */
 	using F32x3A = Array< F32, 3u, 16u >;
 
 	/**
-	 A 4x1 vector type for floating points with width of exactly 32 bits with 
+	 A 4x1 vector type for floating points with width of exactly 32 bits with
 	 a 16-byte alignment.
 	 */
 	using F32x4A = Array< F32, 4u, 16u >;
@@ -164,19 +164,19 @@ namespace mage {
 	static_assert(4u * sizeof(S64) == sizeof(S64x4));
 
 	/**
-	 A 2x1 vector type for the fastest signed integers with width of at least 
+	 A 2x1 vector type for the fastest signed integers with width of at least
 	 8 bits.
 	 */
 	using FS8x2 = Array< FS8, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest signed integers with width of at least 
+	 A 3x1 vector type for the fastest signed integers with width of at least
 	 8 bits.
 	 */
 	using FS8x3 = Array< FS8, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest signed integers with width of at least 
+	 A 4x1 vector type for the fastest signed integers with width of at least
 	 8 bits.
 	 */
 	using FS8x4 = Array< FS8, 4u >;
@@ -186,19 +186,19 @@ namespace mage {
 	static_assert(4u * sizeof(FS8) == sizeof(FS8x4));
 
 	/**
-	 A 2x1 vector type for the fastest signed integers with width of at least 
+	 A 2x1 vector type for the fastest signed integers with width of at least
 	 16 bits.
 	 */
 	using FS16x2 = Array< FS16, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest signed integers with width of at least 
+	 A 3x1 vector type for the fastest signed integers with width of at least
 	 16 bits.
 	 */
 	using FS16x3 = Array< FS16, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest signed integers with width of at least 
+	 A 4x1 vector type for the fastest signed integers with width of at least
 	 16 bits.
 	 */
 	using FS16x4 = Array< FS16, 4u >;
@@ -208,19 +208,19 @@ namespace mage {
 	static_assert(4u * sizeof(FS16) == sizeof(FS16x4));
 
 	/**
-	 A 2x1 vector type for the fastest signed integers with width of at least 
+	 A 2x1 vector type for the fastest signed integers with width of at least
 	 32 bits.
 	 */
 	using FS32x2 = Array< FS32, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest signed integers with width of at least 
+	 A 3x1 vector type for the fastest signed integers with width of at least
 	 32 bits.
 	 */
 	using FS32x3 = Array< FS32, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest signed integers with width of at least 
+	 A 4x1 vector type for the fastest signed integers with width of at least
 	 32 bits.
 	 */
 	using FS32x4 = Array< FS32, 4u >;
@@ -230,19 +230,19 @@ namespace mage {
 	static_assert(4u * sizeof(FS32) == sizeof(FS32x4));
 
 	/**
-	 A 2x1 vector type for the fastest signed integers with width of at least 
+	 A 2x1 vector type for the fastest signed integers with width of at least
 	 64 bits.
 	 */
 	using FS64x2 = Array< FS64, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest signed integers with width of at least 
+	 A 3x1 vector type for the fastest signed integers with width of at least
 	 64 bits.
 	 */
 	using FS64x3 = Array< FS64, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest signed integers with width of at least 
+	 A 4x1 vector type for the fastest signed integers with width of at least
 	 64 bits.
 	 */
 	using FS64x4 = Array< FS64, 4u >;
@@ -335,19 +335,19 @@ namespace mage {
 	static_assert(4u * sizeof(U64) == sizeof(U64x4));
 
 	/**
-	 A 2x1 vector type for the fastest unsigned integers with width of at least 
+	 A 2x1 vector type for the fastest unsigned integers with width of at least
 	 8 bits.
 	 */
 	using FU8x2 = Array< FU8, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest unsigned integers with width of at least 
+	 A 3x1 vector type for the fastest unsigned integers with width of at least
 	 8 bits.
 	 */
 	using FU8x3 = Array< FU8, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest unsigned integers with width of at least 
+	 A 4x1 vector type for the fastest unsigned integers with width of at least
 	 8 bits.
 	 */
 	using FU8x4 = Array< FU8, 4u >;
@@ -357,19 +357,19 @@ namespace mage {
 	static_assert(4u * sizeof(FU8) == sizeof(FU8x4));
 
 	/**
-	 A 2x1 vector type for the fastest unsigned integers with width of at least 
+	 A 2x1 vector type for the fastest unsigned integers with width of at least
 	 16 bits.
 	 */
 	using FU16x2 = Array< FU16, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest unsigned integers with width of at least 
+	 A 3x1 vector type for the fastest unsigned integers with width of at least
 	 16 bits.
 	 */
 	using FU16x3 = Array< FU16, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest unsigned integers with width of at least 
+	 A 4x1 vector type for the fastest unsigned integers with width of at least
 	 16 bits.
 	 */
 	using FU16x4 = Array< FU16, 4u >;
@@ -379,19 +379,19 @@ namespace mage {
 	static_assert(4u * sizeof(FU16) == sizeof(FU16x4));
 
 	/**
-	 A 2x1 vector type for the fastest unsigned integers with width of at least 
+	 A 2x1 vector type for the fastest unsigned integers with width of at least
 	 32 bits.
 	 */
 	using FU32x2 = Array< FU32, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest unsigned integers with width of at least 
+	 A 3x1 vector type for the fastest unsigned integers with width of at least
 	 32 bits.
 	 */
 	using FU32x3 = Array< FU32, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest unsigned integers with width of at least 
+	 A 4x1 vector type for the fastest unsigned integers with width of at least
 	 32 bits.
 	 */
 	using FU32x4 = Array< FU32, 4u >;
@@ -401,19 +401,19 @@ namespace mage {
 	static_assert(4u * sizeof(FU32) == sizeof(FU32x4));
 
 	/**
-	 A 2x1 vector type for the fastest unsigned integers with width of at least 
+	 A 2x1 vector type for the fastest unsigned integers with width of at least
 	 64 bits.
 	 */
 	using FU64x2 = Array< FU64, 2u >;
 
 	/**
-	 A 3x1 vector type for the fastest unsigned integers with width of at least 
+	 A 3x1 vector type for the fastest unsigned integers with width of at least
 	 64 bits.
 	 */
 	using FU64x3 = Array< FU64, 3u >;
 
 	/**
-	 A 4x1 vector type for the fastest unsigned integers with width of at least 
+	 A 4x1 vector type for the fastest unsigned integers with width of at least
 	 64 bits.
 	 */
 	using FU64x4 = Array< FU64, 4u >;

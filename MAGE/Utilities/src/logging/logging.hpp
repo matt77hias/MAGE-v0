@@ -78,14 +78,14 @@ namespace mage {
 		 @param[in]		verbose
 						Flag indicating whether verbose logging is preferred.
 		 */
-		constexpr explicit LoggingConfiguration(bool quiet   = false, 
+		constexpr explicit LoggingConfiguration(bool quiet   = false,
 			                                    bool verbose = true) noexcept
 			: m_quiet(quiet), m_verbose(verbose) {}
 
 		/**
-		 Constructs a logging configuration from the given logging 
+		 Constructs a logging configuration from the given logging
 		 configuration.
-		 
+
 		 @param[in]		configuration
 						A reference to the logging configuration to copy.
 		 */
@@ -93,7 +93,7 @@ namespace mage {
 			const LoggingConfiguration& configuration) noexcept = default;
 
 		/**
-		 Constructs a logging configuration by moving the given logging 
+		 Constructs a logging configuration by moving the given logging
 		 configuration.
 
 		 @param[in]		configuration
@@ -109,14 +109,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given logging configuration to this logging configuration.
 
 		 @param[in]		configuration
 						A reference to the logging configuration to copy.
-		 @return		A reference to the copy of the given logging 
+		 @return		A reference to the copy of the given logging
 						configuration (i.e. this logging configuration).
 		 */
 		LoggingConfiguration& operator=(
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @param[in]		configuration
 						A reference to the logging configuration to move.
-		 @return		A reference to the moved logging configuration (i.e. 
+		 @return		A reference to the moved logging configuration (i.e.
 						this logging configuration).
 		 */
 		LoggingConfiguration& operator=(
@@ -140,7 +140,7 @@ namespace mage {
 		/**
 		 Checks whether the logging of the engine processing is quiet.
 
-		 @return		@c true if the logging of the engine processing is 
+		 @return		@c true if the logging of the engine processing is
 						quiet. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -151,7 +151,7 @@ namespace mage {
 		/**
 		 Checks wheter the logging of the engine processing is verbose.
 
-		 @return		@c true if the logging of the engine processing is 
+		 @return		@c true if the logging of the engine processing is
 						verbose. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -194,10 +194,10 @@ namespace mage {
 
 	/**
 	 An enumeration of message dispositions.
-	
-	 This contains: 
-	 @c Ignore, 
-	 @c Continue and 
+
+	 This contains:
+	 @c Ignore,
+	 @c Continue and
 	 @c Abort.
 	 */
 	enum class [[nodiscard]] MessageDisposition : U8 {
@@ -219,7 +219,7 @@ namespace mage {
 					A reference to the format arguments.
 	 */
 	template< typename... ArgsT >
-	void Log(MessageDisposition disposition, 
+	void Log(MessageDisposition disposition,
 			 std::string_view format_str, const ArgsT&... args);
 
 	/**
@@ -301,11 +301,11 @@ namespace mage {
 	 */
 	template< typename... ArgsT >
 	void Info(std::wstring_view format_str, const ArgsT&... args);
-	
+
 	/**
 	 Logs a warning message.
 
-	 A warning message is associated with anything that can potentially cause 
+	 A warning message is associated with anything that can potentially cause
 	 application oddities.
 
 	 @tparam		ArgsT
@@ -333,11 +333,11 @@ namespace mage {
 	 */
 	template< typename... ArgsT >
 	void Warning(std::wstring_view format_str, const ArgsT&... args);
-	
+
 	/**
 	 Logs an error message.
 
-	 An error message is associated with any error which is fatal to the 
+	 An error message is associated with any error which is fatal to the
 	 operation, but not the service or application.
 
 	 @tparam		ArgsT
@@ -365,11 +365,11 @@ namespace mage {
 	 */
 	template< typename... ArgsT >
 	void Error(std::wstring_view format_str, const ArgsT&... args);
-	
+
 	/**
 	 Logs a fatal message.
 
-	 A fatal message is associated with any error that is forcing a shutdown of 
+	 A fatal message is associated with any error that is forcing a shutdown of
 	 the service or application to prevent data loss (or further data loss).
 
 	 @tparam		ArgsT
@@ -410,7 +410,7 @@ namespace mage {
 
 	 @return		The fixed console width.
 	 @throws		Exception
-					Failed to retrieve a valid handle to the standard output 
+					Failed to retrieve a valid handle to the standard output
 					device.
 	 @throws		Exception
 					Failed to retrieve the screen buffer info of the console.
@@ -419,7 +419,7 @@ namespace mage {
 	FU16 ConsoleWidth();
 
 	/**
-	 Allocates a console for basic IO and redirects @c stdin, @c stdout and 
+	 Allocates a console for basic IO and redirects @c stdin, @c stdout and
 	 @c stderr to this allocated console.
 
 	 @throws		Exception

@@ -22,14 +22,14 @@ namespace mage {
 	}
 
 	template< typename OutputIt, typename... ArgsT >
-	inline OutputIt AppendWrite(OutputIt it, 
+	inline OutputIt AppendWrite(OutputIt it,
 								std::string_view format_str, const ArgsT&... args) {
 
 		return fmt::format_to(it, format_str, args...);
 	}
 
 	template< typename OutputIt, typename... ArgsT >
-	inline OutputIt AppendWrite(OutputIt it, 
+	inline OutputIt AppendWrite(OutputIt it,
 								std::wstring_view format_str, const ArgsT&... args) {
 
 		return fmt::format_to(it, format_str, args...);
@@ -52,7 +52,7 @@ namespace mage {
 	template< typename... ArgsT >
 	inline void WriteTo(NotNull< std::FILE* > stream,
 						std::string_view format_str, const ArgsT&... args) {
-		
+
 		fmt::print(stream, format_str, args...);
 	}
 
@@ -99,7 +99,7 @@ namespace mage {
 	template< std::size_t N, typename... ArgsT >
 	inline void WriteTo(wchar_t (&buffer)[N],
 						std::wstring_view format_str, const ArgsT&... args) {
-		
+
 		WriteTo(NotNull< wzstring >(buffer), N, format_str, args...);
 	}
 }

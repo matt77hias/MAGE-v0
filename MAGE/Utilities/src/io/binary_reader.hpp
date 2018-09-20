@@ -20,14 +20,14 @@ namespace mage {
 	 @param[in]		path
 					A reference to the path.
 	 @param[out]	data
-					A reference to a pointer to a buffer for storing the read 
+					A reference to a pointer to a buffer for storing the read
 					bytes.
 	 @param[out]	size
 					A reference to the size of the read bytes.
 	 @throws		Exception
 					Failed to read from the file.
 	 */
-	void ReadBinaryFile(const std::filesystem::path& path, 
+	void ReadBinaryFile(const std::filesystem::path& path,
 						UniquePtr< U8[] >& data, std::size_t& size);
 
 	//-------------------------------------------------------------------------
@@ -44,14 +44,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given binary reader to this binary reader.
 
 		 @param[in]		reader
 						A reference to a binary reader to copy.
-		 @return		A reference to the copy of the given binary reader (i.e. 
+		 @return		A reference to the copy of the given binary reader (i.e.
 						this binary reader).
 		 */
 		BinaryReader& operator=(const BinaryReader& reader) = delete;
@@ -61,7 +61,7 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a binary reader to move.
-		 @return		A reference to the moved binary reader (i.e. this 
+		 @return		A reference to the moved binary reader (i.e. this
 						binary reader).
 		 */
 		BinaryReader& operator=(BinaryReader&& reader) noexcept;
@@ -76,20 +76,20 @@ namespace mage {
 		 @param[in]		path
 						The path.
 		 @param[in]		big_endian
-						Flag indicating whether the given byte array should be 
+						Flag indicating whether the given byte array should be
 						interpreted as big endian or not (i.e. little endian).
 		 @throws		Exception
 						Failed to read from the file.
 		 */
 		void ReadFromFile(std::filesystem::path path, bool big_endian);
-		
+
 		/**
 		 Reads the input string.
 
 		 @param[in]		input
 						The input byte string.
 		 @param[in]		big_endian
-						Flag indicating whether the given byte array should be 
+						Flag indicating whether the given byte array should be
 						interpreted as big endian or not (i.e. little endian).
 		 @throws		Exception
 						Failed to read from the given input string.
@@ -106,7 +106,7 @@ namespace mage {
 		 Constructs a binary reader.
 		 */
 		BinaryReader();
-		
+
 		/**
 		 Constructs a binary reader from the given binary reader.
 
@@ -135,7 +135,7 @@ namespace mage {
 		/**
 		 Returns the current path of this binary reader.
 
-		 @return		A reference to the current path of this binary 
+		 @return		A reference to the current path of this binary
 						reader.
 		 */
 		[[nodiscard]]
@@ -146,7 +146,7 @@ namespace mage {
 		/**
 		 Checks if there are characters left to read by this binary reader.
 
-		 @return		@c true if there are characters left to read by this 
+		 @return		@c true if there are characters left to read by this
 						binary reader. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -238,22 +238,22 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given big endian binary reader to this big endian binary 
+		 Copies the given big endian binary reader to this big endian binary
 		 reader.
 
 		 @param[in]		reader
 						A reference to a big endian binary reader to copy.
-		 @return		A reference to the copy of the given big endian binary 
+		 @return		A reference to the copy of the given big endian binary
 						reader (i.e. this big endian binary reader).
 		 */
 		BigEndianBinaryReader& operator=(
 			const BigEndianBinaryReader& reader) = delete;
-		
+
 		/**
-		 Moves the given big endian binary reader to this big endian binary 
+		 Moves the given big endian binary reader to this big endian binary
 		 reader.
 
 		 @param[in]		reader
@@ -298,9 +298,9 @@ namespace mage {
 		 Constructs a big endian binary reader.
 		 */
 		BigEndianBinaryReader();
-		
+
 		/**
-		 Constructs a big endian binary reader from the given big endian binary 
+		 Constructs a big endian binary reader from the given big endian binary
 		 reader.
 
 		 @param[in]		reader
@@ -309,7 +309,7 @@ namespace mage {
 		BigEndianBinaryReader(const BigEndianBinaryReader& reader) = delete;
 
 		/**
-		 Constructs a big endian binary reader by moving the given big endian 
+		 Constructs a big endian binary reader by moving the given big endian
 		 binary reader.
 
 		 @param[in]		reader
@@ -329,7 +329,7 @@ namespace mage {
 		/**
 		 Returns the current path of this big endian binary reader.
 
-		 @return		A reference to the current path of this big endian 
+		 @return		A reference to the current path of this big endian
 						binary reader.
 		 */
 		[[nodiscard]]
@@ -338,10 +338,10 @@ namespace mage {
 		}
 
 		/**
-		 Checks if there are characters left to read by this big endian binary 
+		 Checks if there are characters left to read by this big endian binary
 		 reader.
 
-		 @return		@c true if there are characters left to read by this 
+		 @return		@c true if there are characters left to read by this
 						binary reader. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -360,7 +360,7 @@ namespace mage {
 		 */
 		template< typename T >
 		const T Read();
-		
+
 		/**
 		 Reads an array of @c T values.
 
@@ -374,7 +374,7 @@ namespace mage {
 		 */
 		template< typename T >
 		const T* ReadArray(std::size_t count);
-		
+
 	private:
 
 		//---------------------------------------------------------------------

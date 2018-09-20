@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 Erases all the elements of the given container that satisfy the given
 	 predicate.
-	 
+
 	 @tparam		ContainerT
 					The container type.
 	 @tparam		PredicateT
@@ -29,12 +29,12 @@ namespace mage {
 	 @return		The iterator following the last removed element.
 	 */
 	template< typename ContainerT, typename PredicateT >
-	inline decltype(auto) EraseIf(ContainerT& container, 
+	inline decltype(auto) EraseIf(ContainerT& container,
 								  PredicateT&& predicate) {
 
 		// Erase-Remove Idiom
-		return container.erase(std::remove_if(container.begin(), container.end(), 
-											  std::forward< PredicateT >(predicate)), 
+		return container.erase(std::remove_if(container.begin(), container.end(),
+											  std::forward< PredicateT >(predicate)),
 							   container.end());
 	}
 }

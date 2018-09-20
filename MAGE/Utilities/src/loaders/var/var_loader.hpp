@@ -33,11 +33,11 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the variable script from file.
 	 */
-	void ImportVARFromFile(const std::filesystem::path& path, 
+	void ImportVARFromFile(const std::filesystem::path& path,
 						   ValueMap& variable_buffer);
 
 	/**
-	 Exports the given variables to the VAR file associated with the given 
+	 Exports the given variables to the VAR file associated with the given
 	 path.
 
 	 @param[in]		path
@@ -47,6 +47,6 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to export the variable script to file.
 	 */
-	void ExportVARToFile(const std::filesystem::path& path, 
+	void ExportVARToFile(const std::filesystem::path& path,
 		                 const ValueMap& variable_buffer);
 }

@@ -25,7 +25,7 @@ namespace mage {
 	 A floating point type with width of exactly 32 bits.
 	 */
 	using F32 = float;
-	
+
 	/**
 	 A floating point type with width of exactly 64 bits.
 	 */
@@ -53,12 +53,12 @@ namespace mage {
 	 A signed integer type with width of exactly 16 bits.
 	 */
 	using S16 = std::int16_t;
-	
+
 	/**
 	 A signed integer type with width of exactly 32 bits.
 	 */
 	using S32 = std::int32_t;
-	
+
 	/**
 	 A signed integer type with width of exactly 64 bits.
 	 */
@@ -88,12 +88,12 @@ namespace mage {
 	 The fastest signed integer type with width of at least 16 bits.
 	 */
 	using FS16 = std::int_fast16_t;
-	
+
 	/**
 	 The fastest signed integer type with width of at least 32 bits.
 	 */
 	using FS32 = std::int_fast32_t;
-	
+
 	/**
 	 The fastest signed integer type with width of at least 64 bits.
 	 */
@@ -130,12 +130,12 @@ namespace mage {
 	 An unsigned integer type with width of exactly 16 bits.
 	 */
 	using U16 = std::uint16_t;
-	
+
 	/**
 	 An unsigned integer type with width of exactly 32 bits.
 	 */
 	using U32 = std::uint32_t;
-	
+
 	/**
 	 An unsigned integer type with width of exactly 64 bits.
 	 */
@@ -165,12 +165,12 @@ namespace mage {
 	 The fastest unsigned integer type with width of at least 16 bits.
 	 */
 	using FU16 = std::uint_fast16_t;
-	
+
 	/**
 	 The fastest unsigned integer type with width of at least 32 bits.
 	 */
 	using FU32 = std::uint_fast32_t;
-	
+
 	/**
 	 The fastest unsigned integer type with width of at least 64 bits.
 	 */

@@ -21,9 +21,9 @@ namespace mage {
 
 	SingleEndedMemoryStack::SingleEndedMemoryStack(std::size_t size,
 												   std::size_t alignment)
-		: m_alignment(alignment), 
-		m_size(size), 
-		m_begin(), 
+		: m_alignment(alignment),
+		m_size(size),
+		m_begin(),
 		m_current() {
 
 		const auto ptr = AllocAligned(m_size, m_alignment);
@@ -48,7 +48,7 @@ namespace mage {
 
 	void SingleEndedMemoryStack::RollBack(std::uintptr_t ptr) noexcept {
 		Assert(m_begin <= ptr && ptr <= m_current);
-		
+
 		m_current = ptr;
 	}
 
@@ -57,7 +57,7 @@ namespace mage {
 			// The allocation failed.
 			return nullptr;
 		}
-		
+
 		const auto ptr = (void*)m_current;
 		m_current += size;
 		return ptr;
@@ -72,10 +72,10 @@ namespace mage {
 
 	DoubleEndedMemoryStack::DoubleEndedMemoryStack(std::size_t size,
 												   std::size_t alignment)
-		: m_alignment(alignment), 
+		: m_alignment(alignment),
 		m_size(size),
 		m_begin(),
-		m_current_low(), 
+		m_current_low(),
 		m_current_high() {
 
 		const auto ptr = AllocAligned(m_size, m_alignment);
@@ -101,13 +101,13 @@ namespace mage {
 
 	void DoubleEndedMemoryStack::RollBackLow(std::uintptr_t ptr) noexcept {
 		Assert(m_begin <= ptr && ptr <= m_current_low);
-		
+
 		m_current_low = ptr;
 	}
 
 	void DoubleEndedMemoryStack::RollBackHigh(std::uintptr_t ptr) noexcept {
 		Assert(m_current_high <= ptr && ptr < m_begin + m_size);
-		
+
 		m_current_high = ptr;
 	}
 

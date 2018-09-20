@@ -13,7 +13,7 @@
 namespace mage {
 
 	BigEndianBinaryWriter::BigEndianBinaryWriter()
-		: m_file_stream(nullptr), 
+		: m_file_stream(nullptr),
 		m_path() {}
 
 	BigEndianBinaryWriter::BigEndianBinaryWriter(
@@ -40,13 +40,13 @@ namespace mage {
 
 	void BigEndianBinaryWriter::WriteCharacter(char c) {
 		const int result = std::fputc(c, m_file_stream.get());
-		ThrowIfFailed((EOF != result), 
+		ThrowIfFailed((EOF != result),
 					  "{}: could not write to file.", GetPath());
 	}
 
 	void BigEndianBinaryWriter::WriteString(NotNull< const_zstring > str) {
 		const int result = std::fputs(str, m_file_stream.get());
-		ThrowIfFailed((EOF != result), 
+		ThrowIfFailed((EOF != result),
 					  "{}: could not write to file.", GetPath());
 	}
 }

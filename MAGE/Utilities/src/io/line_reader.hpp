@@ -36,10 +36,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The selection function type for extracting one @a std::ssub_match from 
+		 The selection function type for extracting one @a std::ssub_match from
 		 a given @a std::smatch.
 		 */
-		using SelectionFunction 
+		using SelectionFunction
 			= std::function< const std::ssub_match(const std::smatch&) >;
 
 		//---------------------------------------------------------------------
@@ -58,14 +58,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given line reader to this line reader.
 
 		 @param[in]		reader
 						A reference to a line reader to copy.
-		 @return		A reference to the copy of the given line reader (i.e. 
+		 @return		A reference to the copy of the given line reader (i.e.
 						this line reader).
 		 */
 		LineReader& operator=(const LineReader& reader) = delete;
@@ -75,7 +75,7 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a line reader to move.
-		 @return		A reference to the moved line reader (i.e. this line 
+		 @return		A reference to the moved line reader (i.e. this line
 						reader).
 		 */
 		LineReader& operator=(LineReader&& reader) noexcept;
@@ -96,11 +96,11 @@ namespace mage {
 		 @throws		Exception
 						Failed to read from the file.
 		 */
-		void ReadFromFile(std::filesystem::path path, 
-						  std::regex regex = s_default_regex, 
-						  SelectionFunction selection_function 
+		void ReadFromFile(std::filesystem::path path,
+						  std::regex regex = s_default_regex,
+						  SelectionFunction selection_function
 						  = s_default_selection_function);
-		
+
 		/**
 		 Reads from the given input string.
 
@@ -173,24 +173,24 @@ namespace mage {
 		U32 GetCurrentLineNumber() const noexcept {
 			return m_line_number;
 		}
-		
+
 		/**
-		 Reads and converts the current token of this line reader to 
+		 Reads and converts the current token of this line reader to
 		 @c T value.
 
 		 @tparam		T
 						The data type.
-		 @return		The @c T represented by the current token of this line 
+		 @return		The @c T represented by the current token of this line
 						reader.
 		 @throws		Exception
-						There is no current token or the current token does not 
+						There is no current token or the current token does not
 						represent a @c T value.
 		 */
 		template< typename T >
 		const T Read();
 
 		/**
-		 Reads and converts the current @c N tokens of this line reader to an 
+		 Reads and converts the current @c N tokens of this line reader to an
 		 @c Array.
 
 		 @@tparam		T
@@ -199,10 +199,10 @@ namespace mage {
 						The number of values in the array.
 		 @tparam		A
 						The alignment of the array.
-		 @return		The @c Array represented by the current @c N tokens of 
+		 @return		The @c Array represented by the current @c N tokens of
 						this line reader.
 		 @throws		Exception
-						There are no @c N current tokens or the current 
+						There are no @c N current tokens or the current
 						@c N tokens do not represent a @c T value.
 		 */
 		template< typename T, std::size_t N, size_t A = alignof(T) >
@@ -218,7 +218,7 @@ namespace mage {
 
 		 @tparam		T
 						The data type.
-		 @return		@c true if the current token of this line reader is a 
+		 @return		@c true if the current token of this line reader is a
 						@c T value. @c false otherwise.
 		 */
 		template< typename T >
@@ -228,7 +228,7 @@ namespace mage {
 		/**
 		 Checks whether this line reader has a current token.
 
-		 @return		@c true if this line reader has a current token. 
+		 @return		@c true if this line reader has a current token.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
@@ -292,7 +292,7 @@ namespace mage {
 		std::regex m_regex;
 
 		/**
-		 The function for selecting the target submatch from the match of the 
+		 The function for selecting the target submatch from the match of the
 		 regular expression represented by the regex of this strategy.
 		 */
 		SelectionFunction m_selection_function;
@@ -303,7 +303,7 @@ namespace mage {
 		std::filesystem::path m_path;
 
 		/**
-		 An iterator to the current token of the current line of this line 
+		 An iterator to the current token of the current line of this line
 		 reader.
 		 */
 		std::sregex_iterator m_iterator;

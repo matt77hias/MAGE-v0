@@ -26,12 +26,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given big endian binary writer to this big endian binary 
+		 Copies the given big endian binary writer to this big endian binary
 		 writer.
 
 		 @param[in]		writer
 						A reference to a big endian binary writer to copy.
-		 @return		A reference to the copy of the given big endian binary 
+		 @return		A reference to the copy of the given big endian binary
 						writer (i.e. this big endian binary writer).
 		 */
 		BigEndianBinaryWriter& operator=(
@@ -42,7 +42,7 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a big endian binary writer to move.
-		 @return		A reference to the moved big endian binary writer (i.e. 
+		 @return		A reference to the moved big endian binary writer (i.e.
 						this big endian binary writer).
 		 */
 		BigEndianBinaryWriter& operator=(
@@ -72,18 +72,18 @@ namespace mage {
 		 Constructs a big endian binary writer.
 		 */
 		BigEndianBinaryWriter();
-		
+
 		/**
-		 Constructs a big endian binary writer from the given big endian binary 
+		 Constructs a big endian binary writer from the given big endian binary
 		 writer.
 
 		 @param[in]		writer
 						A reference to the big endian binary writer to copy.
 		 */
 		BigEndianBinaryWriter(const BigEndianBinaryWriter& writer) = delete;
-		
+
 		/**
-		 Constructs a big endian binary writer by moving the given big endian 
+		 Constructs a big endian binary writer by moving the given big endian
 		 binary writer.
 
 		 @param[in]		writer
@@ -103,7 +103,7 @@ namespace mage {
 		/**
 		 Returns the current path of this big endian binary writer.
 
-		 @return		A reference to the current path of this big endian 
+		 @return		A reference to the current path of this big endian
 						binary writer.
 		 */
 		[[nodiscard]]
@@ -123,7 +123,7 @@ namespace mage {
 		 */
 		template< typename T >
 		void Write(const T& data);
-		
+
 		/**
 		 Writes the given data array.
 
@@ -146,12 +146,12 @@ namespace mage {
 						Failed to write the given character.
 		 */
 		void WriteCharacter(char c);
-		
+
 		/**
 		 Writes the given string.
 
 		 @param[in]		str
-						A pointer to the first null-terminated byte string to 
+						A pointer to the first null-terminated byte string to
 						write.
 		 @throws		Exception
 						Failed to write the given string.

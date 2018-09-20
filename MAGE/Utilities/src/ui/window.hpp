@@ -32,9 +32,9 @@ namespace mage {
 	/**
 	 An enumeration of the different hot keys registered by windows.
 
-	 This contains: 
-	 @c Unused, 
-	 @c PrintScreen, and 
+	 This contains:
+	 @c Unused,
+	 @c PrintScreen, and
 	 @c AltPrintScreen.
 	 */
 	enum class HotKey : U8 {
@@ -67,7 +67,7 @@ namespace mage {
 		WindowMessageListener() noexcept;
 
 		/**
-		 Constructs a window message listener from the given window message 
+		 Constructs a window message listener from the given window message
 		 listener.
 
 		 @param[in]		listener
@@ -76,7 +76,7 @@ namespace mage {
 		WindowMessageListener(const WindowMessageListener& listener) noexcept;
 
 		/**
-		 Constructs a window message listener by moving the given window message 
+		 Constructs a window message listener by moving the given window message
 		 listener.
 
 		 @param[in]		listener
@@ -94,24 +94,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given window message listener to this window message 
+		 Copies the given window message listener to this window message
 		 listener.
 
 		 @param[in]		listener
 						A reference to the window message listener to copy.
-		 @return		A reference to the copy of the given window message 
+		 @return		A reference to the copy of the given window message
 						listener (i.e. this window message listener).
 		 */
 		WindowMessageListener& operator=(
 			const WindowMessageListener& listener) noexcept;
 
 		/**
-		 Moves the given window message listener to this window message 
+		 Moves the given window message listener to this window message
 		 listener.
 
 		 @param[in]		listener
 						A reference to the window message listener to move.
-		 @return		A reference to the moved window message listener (i.e. 
+		 @return		A reference to the moved window message listener (i.e.
 						this window message listener).
 		 */
 		WindowMessageListener& operator=(
@@ -129,16 +129,16 @@ namespace mage {
 		 @param[in]		message
 						The message.
 		 @param[in]		wParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 @param[in]		lParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 */
-		virtual void 
-			ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window, 
-								 UINT message, 
-								 [[maybe_unused]] WPARAM wParam, 
+		virtual void
+			ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window,
+								 UINT message,
+								 [[maybe_unused]] WPARAM wParam,
 								 [[maybe_unused]] LPARAM lParam) = 0;
 	};
 
@@ -166,7 +166,7 @@ namespace mage {
 		WindowMessageHandler() noexcept;
 
 		/**
-		 Constructs a window message handler from the given window message 
+		 Constructs a window message handler from the given window message
 		 handler.
 
 		 @param[in]		handler
@@ -175,7 +175,7 @@ namespace mage {
 		WindowMessageHandler(const WindowMessageHandler& handler) noexcept;
 
 		/**
-		 Constructs a window message handler by moving the given window message 
+		 Constructs a window message handler by moving the given window message
 		 handler.
 
 		 @param[in]		handler
@@ -193,12 +193,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given window message handler to this window message 
+		 Copies the given window message handler to this window message
 		 handler.
 
 		 @param[in]		handler
 						A reference to the window message handler to copy.
-		 @return		A reference to the copy of the given window message 
+		 @return		A reference to the copy of the given window message
 						handler (i.e. this window message handler).
 		 */
 		WindowMessageHandler& operator=(
@@ -209,7 +209,7 @@ namespace mage {
 
 		 @param[in]		handler
 						A reference to the window message handler to move.
-		 @return		A reference to the moved window message handler (i.e. 
+		 @return		A reference to the moved window message handler (i.e.
 						this window message handler).
 		 */
 		WindowMessageHandler& operator=(
@@ -227,19 +227,19 @@ namespace mage {
 		 @param[in]		message
 						The message.
 		 @param[in]		wParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 @param[in]		lParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
-		 @return		The result of the message processing, if the given 
+		 @return		The result of the message processing, if the given
 						message is handled by this window message handler.
 		 */
 		[[nodiscard]]
-		virtual const std::optional< LRESULT > 
+		virtual const std::optional< LRESULT >
 			HandleWindowMessage([[maybe_unused]] NotNull< HWND > window,
-								UINT message, 
-								[[maybe_unused]] WPARAM wParam, 
+								UINT message,
+								[[maybe_unused]] WPARAM wParam,
 								[[maybe_unused]] LPARAM lParam) = 0;
 	};
 
@@ -307,7 +307,7 @@ namespace mage {
 
 		 @param[in]		desc
 						A reference to the window descriptor to copy.
-		 @return		A reference to the copy of the given window descriptor 
+		 @return		A reference to the copy of the given window descriptor
 						(i.e. this window descriptor).
 		 */
 		WindowDescriptor& operator=(const WindowDescriptor& desc) = delete;
@@ -317,7 +317,7 @@ namespace mage {
 
 		 @param[in]		desc
 						A reference to the window descriptor to move.
-		 @return		A reference to the moved window descriptor (i.e. this 
+		 @return		A reference to the moved window descriptor (i.e. this
 						window descriptor).
 		 */
 		WindowDescriptor& operator=(WindowDescriptor&& desc) = delete;
@@ -328,8 +328,8 @@ namespace mage {
 
 		/**
 		 Returns the application instance handle of this window descriptor.
-		 
-		 @return		The application instance handle of this window 
+
+		 @return		The application instance handle of this window
 						descriptor.
 		 */
 		[[nodiscard]]
@@ -339,7 +339,7 @@ namespace mage {
 
 		/**
 		 Returns the window class name of this window descriptor.
-		 
+
 		 @return		The window class name of this window descriptor.
 		 */
 		[[nodiscard]]
@@ -410,8 +410,8 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		static LRESULT CALLBACK HandleWindowMessage(HWND window,
-													UINT message, 
-													WPARAM wParam, 
+													UINT message,
+													WPARAM wParam,
 													LPARAM lParam);
 
 		//---------------------------------------------------------------------
@@ -421,9 +421,9 @@ namespace mage {
 		/**
 		 The default window style of windows.
 		 */
-		static constexpr DWORD s_default_window_style = WS_OVERLAPPED 
-			                                          | WS_CAPTION 
-			                                          | WS_SYSMENU 
+		static constexpr DWORD s_default_window_style = WS_OVERLAPPED
+			                                          | WS_CAPTION
+			                                          | WS_SYSMENU
 			                                          | WS_MINIMIZEBOX;
 
 		//---------------------------------------------------------------------
@@ -447,7 +447,7 @@ namespace mage {
 		 */
 		explicit Window(WindowDescriptorPtr window_desc,
 						std::wstring_view title_text,
-						const U32x2& resolution, 
+						const U32x2& resolution,
 						DWORD style = s_default_window_style);
 
 		/**
@@ -473,14 +473,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given window to this window.
 
 		 @param[in]		window
 						A reference to the window to copy.
-		 @return		A reference to the copy of the given window (i.e. this 
+		 @return		A reference to the copy of the given window (i.e. this
 						window).
 		 */
 		Window& operator=(const Window& window) = delete;
@@ -510,7 +510,7 @@ namespace mage {
 
 		/**
 		 Returns the window descriptor of this window.
-		 
+
 		 @return		A pointer to the window descriptor of this window.
 		 */
 		[[nodiscard]]
@@ -520,7 +520,7 @@ namespace mage {
 
 		/**
 		 Returns the application instance handle of this window.
-		 
+
 		 @return		The application instance handle of this window.
 		 */
 		[[nodiscard]]
@@ -617,7 +617,7 @@ namespace mage {
 						Failed to create the window.
 		 */
 		void InitializeWindow(std::wstring_view title_text,
-							  const U32x2& resolution, 
+							  const U32x2& resolution,
 							  DWORD style);
 
 		/**
@@ -633,7 +633,7 @@ namespace mage {
 						Failed to create the window.
 		 */
 		void InitializeWindow(std::wstring_view title_text,
-							  const RECT& rectangle, 
+							  const RECT& rectangle,
 							  DWORD style);
 
 		/**
@@ -644,17 +644,17 @@ namespace mage {
 		 @param[in]		message
 						The message.
 		 @param[in]		wParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 @param[in]		lParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
-		 @return		The result of the message processing, if the given 
+		 @return		The result of the message processing, if the given
 						message is handled by this window.
 		 */
 		[[nodiscard]]
-		const std::optional< LRESULT > 
-			HandleWindowMessage(NotNull< HWND > window, UINT message, 
+		const std::optional< LRESULT >
+			HandleWindowMessage(NotNull< HWND > window, UINT message,
 								WPARAM wParam, LPARAM lParam) const;
 
 		//---------------------------------------------------------------------

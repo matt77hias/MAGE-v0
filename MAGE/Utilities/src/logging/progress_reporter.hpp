@@ -35,12 +35,12 @@ namespace mage {
 		 @param[in]		progress_char
 						The character representing the progress.
 		 @param[in]		bar_length
-						The length of the progress bar. If @a bar_length is 
+						The length of the progress bar. If @a bar_length is
 						equal to 0 the default length will be chosen.
 		 */
 		explicit ProgressReporter(std::string_view title,
-			                      U32 nb_work, 
-			                      char progress_char = '+', 
+			                      U32 nb_work,
+			                      char progress_char = '+',
 			                      FU16 bar_length = 0u);
 
 		/**
@@ -83,7 +83,7 @@ namespace mage {
 
 		 @param[in]		reporter
 						A reference to the progress reporter to move.
-		 @return		A reference to moved progress reporter (i.e. this 
+		 @return		A reference to moved progress reporter (i.e. this
 						progress reporter).
 		 */
 		ProgressReporter& operator=(ProgressReporter&& reporter) = delete;
@@ -99,7 +99,7 @@ namespace mage {
 						The number of work units that are done.
 		 */
 		void Update(U32 nb_work = 1u);
-		
+
 		/**
 		 Finishes this progress reporter.
 		 */

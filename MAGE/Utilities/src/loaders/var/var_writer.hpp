@@ -30,11 +30,11 @@ namespace mage::loader {
 		 Constructs a writer.
 
 		 @param[in]		variable_buffer
-						A reference to a map containing the variables to write 
+						A reference to a map containing the variables to write
 						to file.
 		 */
 		explicit VARWriter(const ValueMap& variable_buffer);
-		
+
 		/**
 		 Constructs a VAR writer from the given VAR writer.
 
@@ -58,14 +58,14 @@ namespace mage::loader {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given VAR writer to this VAR writer.
 
 		 @param[in]		writer
 						A reference to a VAR writer to copy.
-		 @return		A reference to the copy of the given VAR writer (i.e. 
+		 @return		A reference to the copy of the given VAR writer (i.e.
 						this VAR writer).
 		 */
 		VARWriter& operator=(const VARWriter& writer) = delete;
@@ -75,7 +75,7 @@ namespace mage::loader {
 
 		 @param[in]		writer
 						A reference to a VAR writer to move.
-		 @return		A reference to the moved VAR writer (i.e. this VAR 
+		 @return		A reference to the moved VAR writer (i.e. this VAR
 						writer).
 		 */
 		VARWriter& operator=(VARWriter&& writer) = delete;
@@ -107,7 +107,7 @@ namespace mage::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a map containing the variables to write by this VAR 
+		 A reference to a map containing the variables to write by this VAR
 		 writer.
 		 */
 		const ValueMap& m_variable_buffer;

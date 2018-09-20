@@ -25,7 +25,7 @@ namespace mage {
 	void Print(std::wstring_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >
-	OutputIt AppendWrite(OutputIt it, 
+	OutputIt AppendWrite(OutputIt it,
 						 std::string_view format_str, const ArgsT&... args);
 
 	template< typename OutputIt, typename... ArgsT >
@@ -61,7 +61,7 @@ namespace mage {
 				 std::string_view format_str, const ArgsT&... args);
 
 	template< std::size_t N, typename... ArgsT >
-	void WriteTo(wchar_t (&buffer)[N], 
+	void WriteTo(wchar_t (&buffer)[N],
 				 std::wstring_view format_str, const ArgsT&... args);
 }
 

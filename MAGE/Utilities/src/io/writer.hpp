@@ -39,7 +39,7 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a writer to copy.
-		 @return		A reference to the copy of the given writer (i.e. this 
+		 @return		A reference to the copy of the given writer (i.e. this
 						writer).
 		 */
 		Writer& operator=(const Writer& writer) = delete;
@@ -132,7 +132,7 @@ namespace mage {
 						Failed to write the given string.
 		 */
 		void WriteString(NotNull< const_zstring > str);
-		
+
 		/**
 		 Writes the given string and ends the current line.
 
@@ -142,7 +142,7 @@ namespace mage {
 						Failed to write the given string.
 		 */
 		void WriteStringLine(NotNull< const_zstring > str);
-		
+
 	private:
 
 		//---------------------------------------------------------------------

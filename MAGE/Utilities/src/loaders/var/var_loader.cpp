@@ -13,7 +13,7 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::loader {
-	
+
 	void ImportVARFromFile(const std::filesystem::path& path,
 						   ValueMap& variable_buffer) {
 

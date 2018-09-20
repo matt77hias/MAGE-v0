@@ -87,7 +87,7 @@ namespace mage {
 	using SharedPtr = std::shared_ptr< T >;
 
 	/**
-	 Constructs an object of type T. 
+	 Constructs an object of type T.
 
 	 No custom allocator is used for constructing the object of type T.
 
@@ -126,7 +126,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A class of smart pointers for referencing but not managing 
+	 A class of smart pointers for referencing but not managing
 	 shared-ownership memory resources.
 
 	 @tparam		T
@@ -143,7 +143,7 @@ namespace mage {
 	#pragma region
 
 	/**
-	 A class of smart pointers for managing exclusive-ownership memory 
+	 A class of smart pointers for managing exclusive-ownership memory
 	 resources.
 
 	 @tparam		T
@@ -167,9 +167,9 @@ namespace mage {
 	 */
 	template< typename T, typename... ConstructorArgsT >
 	UniquePtr< T > MakeUnique(ConstructorArgsT&&... args);
-	
+
 	/**
-	 Creates a unique pointer whose stored pointer is obtained by statically 
+	 Creates a unique pointer whose stored pointer is obtained by statically
 	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		ToT
@@ -184,7 +184,7 @@ namespace mage {
 	UniquePtr< ToT > static_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained by dynamically 
+	 Creates a unique pointer whose stored pointer is obtained by dynamically
 	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		ToT
@@ -199,7 +199,7 @@ namespace mage {
 	UniquePtr< ToT > dynamic_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained by const 
+	 Creates a unique pointer whose stored pointer is obtained by const
 	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		ToT
@@ -214,7 +214,7 @@ namespace mage {
 	UniquePtr< ToT > const_pointer_cast(UniquePtr< FromT >&& ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained by reinterpret 
+	 Creates a unique pointer whose stored pointer is obtained by reinterpret
 	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		ToT
@@ -267,7 +267,7 @@ namespace mage {
 	}
 
 	/**
-	 A class of smart pointers for managing exclusive-ownership handle 
+	 A class of smart pointers for managing exclusive-ownership handle
 	 resources.
 	 */
 	using UniqueHandle = UniquePtr< void, details::HandleCloser >;
@@ -358,7 +358,7 @@ namespace mage {
 	 A class of proxy pointers.
 
 	 @tparam		T
-					The memory resource type.	
+					The memory resource type.
 	 */
 	template< typename T >
 	class ProxyPtr {
@@ -398,7 +398,7 @@ namespace mage {
 			: ProxyPtr([&container, index]() noexcept {
 				return &container[index];
 			}) {}
-			
+
 		/**
 		 Constructs a proxy pointer with the given getter function.
 
@@ -416,7 +416,7 @@ namespace mage {
 		 */
 		ProxyPtr(const ProxyPtr& ptr) noexcept
 			: m_getter(ptr.m_getter) {}
-		
+
 		/**
 		 Constructs a proxy pointer by moving the given proxy pointer.
 
@@ -434,7 +434,7 @@ namespace mage {
 		 @param[in]		ptr
 						A reference to the proxy pointer.
 		 */
-		template< typename FromT, 
+		template< typename FromT,
 			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
 		ProxyPtr(const ProxyPtr< FromT >& ptr) noexcept
 			: ProxyPtr(ptr.m_getter) {}
@@ -451,7 +451,7 @@ namespace mage {
 			      typename = std::enable_if_t< std::is_convertible_v< FromT*, T* > > >
 		ProxyPtr(ProxyPtr< FromT >&& ptr) noexcept
 			: ProxyPtr(std::move(ptr.m_getter)) {}
-	
+
 		/**
 		 Destructs this proxy pointer.
 		 */
@@ -466,20 +466,20 @@ namespace mage {
 
 		 @param[in]		ptr
 						A reference to the proxy pointer to copy.
-		 @return		A reference to the copy of the given proxy pointer 
+		 @return		A reference to the copy of the given proxy pointer
 						(i.e. this proxy pointer).
 		 */
 		ProxyPtr& operator=(const ProxyPtr& ptr) noexcept {
 			m_getter = ptr.m_getter;
 			return *this;
 		}
-		
+
 		/**
 		 Moves the given proxy pointer to this proxy pointer.
 
 		 @param[in]		ptr
 						A reference to the proxy pointer to move.
-		 @return		A reference to the moved proxy pointer (i.e. this proxy 
+		 @return		A reference to the moved proxy pointer (i.e. this proxy
 						pointer).
 		 */
 		ProxyPtr& operator=(ProxyPtr&& ptr) noexcept {
@@ -492,7 +492,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Converts this proxy pointer to a @c bool.		
+		 Converts this proxy pointer to a @c bool.
 		 */
 		explicit operator bool() const noexcept {
 			return nullptr != Get();
@@ -501,7 +501,7 @@ namespace mage {
 		/**
 		 Returns the memory resource pointed to by this proxy pointer.
 
-		 @return		A reference to the memory resource pointed to by this 
+		 @return		A reference to the memory resource pointed to by this
 						proxy pointer.
 		 */
 		T& operator*() const noexcept {
@@ -511,7 +511,7 @@ namespace mage {
 		/**
 		 Returns the memory resource pointed to by this proxy pointer.
 
-		 @return		A pointer to the memory resource pointed to by this 
+		 @return		A pointer to the memory resource pointed to by this
 						proxy pointer.
 		 */
 		T* operator->() const noexcept {
@@ -521,7 +521,7 @@ namespace mage {
 		/**
 		 Returns the memory resource pointed to by this proxy pointer.
 
-		 @return		A pointer to the memory resource pointed to by this 
+		 @return		A pointer to the memory resource pointed to by this
 						proxy pointer.
 		 */
 		[[nodiscard]]
@@ -536,24 +536,24 @@ namespace mage {
 						The memory resource type.
 		 @param[in]		rhs
 						A reference to the proxy pointer.
-		 @return		@c true if the given proxy pointer is equal to this 
+		 @return		@c true if the given proxy pointer is equal to this
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
 		[[nodiscard]]
 		bool operator==(const ProxyPtr< U >& rhs) const noexcept {
-			return Get() == rhs.Get(); 
+			return Get() == rhs.Get();
 		}
-		
+
 		/**
-		 Checks whether the given proxy pointer is not equal to this proxy 
+		 Checks whether the given proxy pointer is not equal to this proxy
 		 pointer.
 
 		 @tparam		U
 						The memory resource type.
 		 @param[in]		rhs
 						A reference to the proxy pointer.
-		 @return		@c true if the given proxy pointer is not equal to this 
+		 @return		@c true if the given proxy pointer is not equal to this
 						proxy pointer. @c false otherwise.
 		 */
 		template< typename U >
@@ -567,7 +567,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The getter of this proxy pointer. 
+		 The getter of this proxy pointer.
 		 */
 		std::function< T*() > m_getter;
 	};
@@ -637,7 +637,7 @@ namespace mage {
 	}
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by statically 
+	 Creates a proxy pointer whose stored getter is obtained by statically
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -652,7 +652,7 @@ namespace mage {
 	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by statically 
+	 Creates a proxy pointer whose stored getter is obtained by statically
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -667,7 +667,7 @@ namespace mage {
 	ProxyPtr< ToT > static_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by dynamically 
+	 Creates a proxy pointer whose stored getter is obtained by dynamically
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -682,7 +682,7 @@ namespace mage {
 	ProxyPtr< ToT > dynamic_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by dynamically 
+	 Creates a proxy pointer whose stored getter is obtained by dynamically
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -697,7 +697,7 @@ namespace mage {
 	ProxyPtr< ToT > dynamic_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by const 
+	 Creates a proxy pointer whose stored getter is obtained by const
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -712,7 +712,7 @@ namespace mage {
 	ProxyPtr< ToT > const_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by const 
+	 Creates a proxy pointer whose stored getter is obtained by const
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -727,7 +727,7 @@ namespace mage {
 	ProxyPtr< ToT > const_pointer_cast(ProxyPtr< FromT >&& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by reinterpret 
+	 Creates a proxy pointer whose stored getter is obtained by reinterpret
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT
@@ -742,7 +742,7 @@ namespace mage {
 	ProxyPtr< ToT > reinterpret_pointer_cast(const ProxyPtr< FromT >& ptr) noexcept;
 
 	/**
-	 Creates a proxy pointer whose stored getter is obtained by reinterpret 
+	 Creates a proxy pointer whose stored getter is obtained by reinterpret
 	 casting the stored getter of the given proxy pointer.
 
 	 @tparam		ToT

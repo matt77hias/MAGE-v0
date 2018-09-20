@@ -27,21 +27,21 @@ namespace mage {
 		= std::regex(R"((\"([^\"]*)\")|(\S+))");
 
 	const LineReader::SelectionFunction LineReader::s_default_selection_function
-		= [](const std::smatch& match) { 
-		return match[2].length() ? match[2] : match[3]; 
+		= [](const std::smatch& match) {
+		return match[2].length() ? match[2] : match[3];
 	};
 
 	LineReader::LineReader()
-		: m_regex(), 
-		m_selection_function(), 
-		m_path(), 
-		m_iterator(), 
+		: m_regex(),
+		m_selection_function(),
+		m_path(),
+		m_iterator(),
 		m_line_number(0) {}
 
-	LineReader::LineReader(LineReader&& reader) noexcept 
-		: m_regex(std::move(reader.m_regex)), 
+	LineReader::LineReader(LineReader&& reader) noexcept
+		: m_regex(std::move(reader.m_regex)),
 		m_selection_function(std::move(reader.m_selection_function)),
-		m_path(std::move(reader.m_path)), 
+		m_path(std::move(reader.m_path)),
 		m_iterator(reader.m_iterator),
 		m_line_number(reader.m_line_number) {}
 
@@ -56,8 +56,8 @@ namespace mage {
 		return *this;
 	}
 
-	void LineReader::ReadFromFile(std::filesystem::path path, 
-								  std::regex regex, 
+	void LineReader::ReadFromFile(std::filesystem::path path,
+								  std::regex regex,
 								  SelectionFunction selection_function) {
 
 		m_path               = std::move(path);
@@ -77,13 +77,13 @@ namespace mage {
 	}
 
 	void LineReader::ReadFromMemory(const std::string &input,
-									std::regex regex, 
+									std::regex regex,
 									SelectionFunction selection_function) {
 
 		m_path               = L"input string";
 		m_regex              = std::move(regex);
 		m_selection_function = std::move(selection_function);
-		
+
 		// Preprocessing
 		Preprocess();
 
@@ -99,14 +99,14 @@ namespace mage {
 
 	void LineReader::Process(std::istream& stream) {
 		m_line_number = 0u;
-		
+
 		std::string line;
 		while (std::getline(stream, line)) {
 			m_iterator = std::sregex_iterator(line.cbegin(), line.cend(), m_regex);
 			if (ContainsTokens()) {
 				ReadLine();
 			}
-			
+
 			++m_line_number;
 		}
 
@@ -133,7 +133,7 @@ namespace mage {
 	const std::string_view LineReader::GetCurrentToken() const noexcept {
 		const auto token = m_selection_function(*m_iterator);
 		if (token.matched) {
-			return { &*token.first, 
+			return { &*token.first,
 				     static_cast< std::size_t >(token.second - token.first) };
 		}
 		else {

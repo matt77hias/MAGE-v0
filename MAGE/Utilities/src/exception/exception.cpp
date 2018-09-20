@@ -13,7 +13,7 @@
 namespace mage {
 
 	Exception::Exception()
-		: std::exception(), 
+		: std::exception(),
 		m_text{} {}
 
 	Exception::Exception(const Exception& exception) = default;

@@ -33,7 +33,7 @@ namespace mage::loader {
 	 @throws		Exception
 					Failed to import the variable script from file.
 	 */
-	void ImportVariableScriptFromFile(const std::filesystem::path& path, 
+	void ImportVariableScriptFromFile(const std::filesystem::path& path,
 									  ValueMap& variable_buffer);
 
 	/**

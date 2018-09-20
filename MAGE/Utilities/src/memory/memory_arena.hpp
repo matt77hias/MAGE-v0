@@ -42,7 +42,7 @@ namespace mage {
 		 @param[in]		alignment
 						The alignment in bytes.
 		 */
-		explicit MemoryArena(std::size_t maximum_block_size, 
+		explicit MemoryArena(std::size_t maximum_block_size,
 							 std::size_t alignment);
 
 		/**
@@ -60,7 +60,7 @@ namespace mage {
 						A reference to the memory arena to move.
 		 */
 		MemoryArena(MemoryArena&& arena);
-		
+
 		/**
 		 Destructs this memory arena.
 		 */
@@ -68,14 +68,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given memory arena to this memory arena.
 
 		 @param[in]		arena
 						A reference to the memory arena to copy.
-		 @return		A reference to the copy of the given memory arena (i.e. 
+		 @return		A reference to the copy of the given memory arena (i.e.
 						this memory arena).
 		 */
 		MemoryArena& operator=(const MemoryArena& arena) = delete;
@@ -85,7 +85,7 @@ namespace mage {
 
 		 @param[in]		arena
 						A reference to the memory arena to move.
-		 @return		A reference to the moved memory arena (i.e. this memory 
+		 @return		A reference to the moved memory arena (i.e. this memory
 						arena).
 		 */
 		MemoryArena& operator=(MemoryArena&& arena) = delete;
@@ -115,10 +115,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the block size (in bytes) of the current block of this memory 
+		 Returns the block size (in bytes) of the current block of this memory
 		 arena.
 
-		 @return		The block size (in bytes) of the current block of this 
+		 @return		The block size (in bytes) of the current block of this
 						memory arena.
 		 */
 		[[nodiscard]]
@@ -156,7 +156,7 @@ namespace mage {
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated. The 
+		 @return		A pointer to the memory block that was allocated. The
 						pointer is a multiple of the alignment.
 		 */
 		void* Alloc(std::size_t size);
@@ -167,15 +167,15 @@ namespace mage {
 		 @tparam		T
 						The data type.
 		 @param[in]		count
-						The number of objects of type @c T to allocate in 
+						The number of objects of type @c T to allocate in
 						memory.
 		 @param[in]		initialization
-						Flag indicating whether the objects need to be 
+						Flag indicating whether the objects need to be
 						initialized (i.e. the constructor needs to be called).
 		 @return		@c nullptr if the allocation failed.
-		 @return		A pointer to the memory block that was allocated. The 
+		 @return		A pointer to the memory block that was allocated. The
 						pointer is a multiple of the alignment.
-		 @note			The objects will be constructed with their default 
+		 @note			The objects will be constructed with their default
 						empty constructor.
 		 */
 		template< typename T >
@@ -193,7 +193,7 @@ namespace mage {
 		 */
 		template< typename T >
 		class Allocator {
-		
+
 		public:
 
 			//-----------------------------------------------------------------
@@ -221,7 +221,7 @@ namespace mage {
 							A reference to the allocator to copy.
 			 */
 			Allocator(const Allocator& allocator) noexcept = default;
-		
+
 			/**
 			 Constructs an allocator by moving the given allocator.
 
@@ -229,7 +229,7 @@ namespace mage {
 							A reference to the allocator to move.
 			 */
 			Allocator(Allocator&& allocator) noexcept = default;
-		
+
 			/**
 			 Constructs an allocator from the given allocator.
 
@@ -241,7 +241,7 @@ namespace mage {
 			template< typename U >
 			Allocator(const Allocator< U >& allocator) noexcept
 				: m_memory_arena(allocator.m_memory_arena) {}
-		
+
 			/**
 			 Destructs this allocator.
 			 */
@@ -256,7 +256,7 @@ namespace mage {
 
 			 @param[in]		allocator
 							A reference to the allocator to copy.
-			 @return		A reference to the copy of the given allocator 
+			 @return		A reference to the copy of the given allocator
 							(i.e. this allocator).
 			 */
 			Allocator& operator=(const Allocator& allocator) = delete;
@@ -266,7 +266,7 @@ namespace mage {
 
 			 @param[in]		allocator
 							A reference to the allocator to move.
-			 @return		A reference to the moved allocator (i.e. this 
+			 @return		A reference to the moved allocator (i.e. this
 							allocator).
 			 */
 			Allocator& operator=(Allocator&& allocator) noexcept = default;
@@ -276,14 +276,14 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			/**
-			 Allocates a block of storage with a size large enough to contain 
-			 @a count elements of type @c T, and returns a pointer to the first 
+			 Allocates a block of storage with a size large enough to contain
+			 @a count elements of type @c T, and returns a pointer to the first
 			 element.
 
 			 @param[in]		count
-							The number of objects of type @c T to allocate in 
+							The number of objects of type @c T to allocate in
 							memory.
-			 @return		A pointer to the memory block that was allocated. 
+			 @return		A pointer to the memory block that was allocated.
 							The pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
@@ -298,50 +298,50 @@ namespace mage {
 			}
 
 			/**
-			 Allocates a block of storage with a size large enough to contain 
-			 @a count elements of type @c T, and returns a pointer to the first 
+			 Allocates a block of storage with a size large enough to contain
+			 @a count elements of type @c T, and returns a pointer to the first
 			 element.
 
 			 @param[in]		count
 							The number of objects of type @c T to allocate in
 							memory.
 			 @param[in]		hint
-							Either @c nullptr or a value previously obtained by 
+							Either @c nullptr or a value previously obtained by
 							another call to
 							{@link mage::MemoryArena::Allocator<T>::allocate(std::size_t)}
 							and not yet freed with
 							{@link mage::MemoryArena::Allocator<T>::deallocate(T*, std::size_t)}.
-							When not equal to @c nullptr, this value may be 
-							used as a hint to improve performance by allocating 
-							the new block near the one specified. The address 
+							When not equal to @c nullptr, this value may be
+							used as a hint to improve performance by allocating
+							the new block near the one specified. The address
 							of an adjacent element is often a good choice.
 			 @return		A pointer to the memory block that was allocated. The
 							pointer is a multiple of the alignment.
 			 @throws		std::bad_alloc
 							Failed to allocate the memory block.
 			 */
-			T* allocate(std::size_t count, 
+			T* allocate(std::size_t count,
 						[[maybe_unused]] const void* hint) {
 
 				return allocate(count);
 			}
 
 			/**
-			 Releases a block of storage previously allocated with 
-			 {@link mage::MemoryArena::Allocator<T>::allocate(std::size_t)} 
+			 Releases a block of storage previously allocated with
+			 {@link mage::MemoryArena::Allocator<T>::allocate(std::size_t)}
 			 and not yet released.
-		 
+
 			 @param[in]		data
-							A pointer to the memory block that needs to be 
+							A pointer to the memory block that needs to be
 							released.
 			 @param[in]		count
-							The number of objects of type @c T allocated on the call 
+							The number of objects of type @c T allocated on the call
 							to allocate this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate([[maybe_unused]] T* data, 
+			void deallocate([[maybe_unused]] T* data,
 				            [[maybe_unused]] std::size_t count) const noexcept {}
-		
+
 			/**
 			 Compares this allocator to the given allocator for equality.
 
@@ -349,8 +349,8 @@ namespace mage {
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
-			 @return		@c true if and only if storage allocated from this 
-							allocator can be deallocated from the given 
+			 @return		@c true if and only if storage allocated from this
+							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename U >
@@ -366,8 +366,8 @@ namespace mage {
 							The data type.
 			 @param[in]		rhs
 							A reference to the allocator to compare with.
-			 @return		@c true if and only if storage allocated from this 
-							allocator cannot be deallocated from the given 
+			 @return		@c true if and only if storage allocated from this
+							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
 			template< typename U >
@@ -454,7 +454,7 @@ namespace mage {
 		 The current block position of this memory arena.
 		 */
 		std::size_t m_current_block_pos;
-		
+
 		/**
 		 A collection containing the used blocks of this memory arena.
 		 */

@@ -32,11 +32,11 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	void ComboBoxAdd(NotNull< HWND > dialog, 
-					 int id, 
-					 const void* data, 
+	void ComboBoxAdd(NotNull< HWND > dialog,
+					 int id,
+					 const void* data,
 		             NotNull< const_wzstring > desc) noexcept;
-	
+
 	/**
 	 Adds an item associated with the given value and described with the given
 	 descriptor to a combo box.
@@ -50,16 +50,16 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	inline void ComboBoxAddValue(NotNull< HWND > dialog, 
-								 int id, 
+	inline void ComboBoxAddValue(NotNull< HWND > dialog,
+								 int id,
 								 std::size_t value,
 								 NotNull< const_wzstring > desc) noexcept {
-		
+
 		ComboBoxAdd(dialog, id, (const void*)value, desc);
 	}
-	
+
 	/**
-	 Adds an item associated with the given pointer and described with the 
+	 Adds an item associated with the given pointer and described with the
 	 given descriptor to a combo box.
 
 	 @tparam		T
@@ -74,9 +74,9 @@ namespace mage {
 					The description of the item to add.
 	 */
 	template< typename T >
-	inline void ComboBoxAddPtr(NotNull< HWND > dialog, 
-							   int id, 
-							   const T* ptr, 
+	inline void ComboBoxAddPtr(NotNull< HWND > dialog,
+							   int id,
+							   const T* ptr,
 							   NotNull< const_wzstring > desc) noexcept {
 
 		ComboBoxAdd(dialog, id, (const void*)ptr, desc);
@@ -111,10 +111,10 @@ namespace mage {
 	 @param[in]		data
 					A pointer to the data of the item.
 	 */
-	void ComboBoxSelect(NotNull< HWND > dialog, 
-						int id, 
+	void ComboBoxSelect(NotNull< HWND > dialog,
+						int id,
 						const void* data) noexcept;
-	
+
 	/**
 	 Selects the item associated with the given value in a combo box.
 
@@ -125,13 +125,13 @@ namespace mage {
 	 @param[in]		value
 					The value of the item to add.
 	 */
-	inline void ComboBoxSelectValue(NotNull< HWND > dialog, 
-									int id, 
+	inline void ComboBoxSelectValue(NotNull< HWND > dialog,
+									int id,
 									std::size_t value) noexcept {
 
 		ComboBoxSelect(dialog, id, (const void*)value);
 	}
-	
+
 	/**
 	 Selects the item associated with the given pointer in a combo box.
 
@@ -145,8 +145,8 @@ namespace mage {
 					The pointer of the item to add.
 	 */
 	template< typename T >
-	inline void ComboBoxSelectPtr(NotNull< HWND > dialog, 
-								  int id, 
+	inline void ComboBoxSelectPtr(NotNull< HWND > dialog,
+								  int id,
 								  const T* ptr) noexcept {
 
 		ComboBoxSelect(dialog, id, (const void*)ptr);
@@ -167,7 +167,7 @@ namespace mage {
 	 @param[in]		id
 					The identifier of the control to be retrieved.
 	 @return		@c nullptr if the combo box has no items.
-	 @return		A pointer to the data associated with the selected item in 
+	 @return		A pointer to the data associated with the selected item in
 					the combo box.
 	 */
 	[[nodiscard]]
@@ -206,7 +206,7 @@ namespace mage {
 	template< typename T >
 	[[nodiscard]]
 	inline const T* ComboBoxSelectedPtr(NotNull< HWND > dialog, int id) noexcept {
-		
+
 		return static_cast< const T* >(ComboBoxSelected(dialog, id));
 	}
 
@@ -244,7 +244,7 @@ namespace mage {
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
 					The identifier of the control to be retrieved.
-	 @return		The number of items of a combo box.	
+	 @return		The number of items of a combo box.
 	 */
 	[[nodiscard]]
 	int ComboBoxCount(NotNull< HWND > dialog, int id) noexcept;
@@ -265,12 +265,12 @@ namespace mage {
 					The identifier of the control to be retrieved.
 	 @param[in]		desc
 					The string description to check.
-	 @return		@c true if the given description is contained in the combo 
+	 @return		@c true if the given description is contained in the combo
 					box. @c false otherwise.
 	 */
 	[[nodiscard]]
-	bool ComboBoxContains(NotNull< HWND > dialog, 
-						  int id, 
+	bool ComboBoxContains(NotNull< HWND > dialog,
+						  int id,
 						  NotNull< const_wzstring > desc) noexcept;
 
 	#pragma endregion

@@ -66,14 +66,14 @@ namespace mage {
 		Exception(const Exception& exception);
 
 		/**
-		 Constructs a formatted exception by moving the given formatted 
+		 Constructs a formatted exception by moving the given formatted
 		 exception.
 
 		 @param[in]		exception
 						A reference to a formatted exception to move.
 		 */
 		Exception(Exception&& exception);
-		
+
 		/**
 		 Destructs this formatted exception.
 		 */
@@ -82,23 +82,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 Copies the given formatted exception to this formatted exception.
 
 		 @param[in]		exception
 						A reference to a formatted exception to copy.
-		 @return		A reference to the copy of the given formatted 
+		 @return		A reference to the copy of the given formatted
 						exception (i.e. this formatted exception).
 		 */
 		Exception& operator=(const Exception& exception);
-		
+
 		/**
 		 Moves the given formatted exception to this formatted exception.
 
 		 @param[in]		exception
 						A reference to a formatted exception to move.
-		 @return		A reference to the moved formatted exception (i.e. 
+		 @return		A reference to the moved formatted exception (i.e.
 						this formatted exception).
 		 */
 		Exception& operator=(Exception&& exception);
@@ -108,10 +108,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns a null-terminated byte string that may be used to identify the 
+		 Returns a null-terminated byte string that may be used to identify the
 		 exception.
 
-		 @return		A null-terminated byte string that may be used to 
+		 @return		A null-terminated byte string that may be used to
 						identify the exception.
 		 */
 		virtual const char* what() const noexcept override;
@@ -144,9 +144,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	static_assert(!std::is_same< bool, BOOL >::value, 
+	static_assert(!std::is_same< bool, BOOL >::value,
 				  "MAGE/Windows primitive type mismatch");
-	static_assert(!std::is_same< BOOL, HRESULT >::value, 
+	static_assert(!std::is_same< BOOL, HRESULT >::value,
 				  "MAGE/Windows primitive type mismatch");
 
 	/**
@@ -174,7 +174,7 @@ namespace mage {
 					@a result is @c false.
 	 */
 	template< typename... ArgsT >
-	void ThrowIfFailed(bool result, 
+	void ThrowIfFailed(bool result,
 					   std::string_view format_str, const ArgsT&... args);
 
 	/**
@@ -202,7 +202,7 @@ namespace mage {
 					@a result is @c FALSE.
 	 */
 	template< typename... ArgsT >
-	void ThrowIfFailed(BOOL result, 
+	void ThrowIfFailed(BOOL result,
 					   std::string_view format_str, const ArgsT&... args);
 
 	/**
@@ -230,7 +230,7 @@ namespace mage {
 					The given result corresponds to a failure.
 	 */
 	template< typename... ArgsT >
-	void ThrowIfFailed(HRESULT result, 
+	void ThrowIfFailed(HRESULT result,
 					   std::string_view format_str, const ArgsT&... args);
 
 	#pragma endregion

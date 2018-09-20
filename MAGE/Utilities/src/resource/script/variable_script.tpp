@@ -4,7 +4,7 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-	
+
 	template<>
 	[[nodiscard]]
 	inline bool VariableScript
@@ -36,19 +36,19 @@ namespace mage {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
-			// Throws std::bad_variant_access if the variable corresponding to 
+			// Throws std::bad_variant_access if the variable corresponding to
 			// the given name has a different type.
 			return &std::get< T >(it->second);
 		}
 
-		// Return nullptr if this variable script does not contain a 
+		// Return nullptr if this variable script does not contain a
 		// variable corresponding to the given name.
 		return nullptr;
 	}
 
 	template< typename T >
 	void VariableScript::SetValue(std::string_view name, T value) {
-		if (const auto it = m_variables.find(name); 
+		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
 			it->second = std::move(value);

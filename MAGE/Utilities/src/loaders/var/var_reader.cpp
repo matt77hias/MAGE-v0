@@ -15,7 +15,7 @@
 namespace mage::loader {
 
 	VARReader::VARReader(ValueMap& variable_buffer)
-		: LineReader(), 
+		: LineReader(),
 		m_variable_buffer(variable_buffer) {}
 
 	VARReader::VARReader(VARReader&& reader) noexcept = default;
@@ -27,7 +27,7 @@ namespace mage::loader {
 
 		if (g_var_token_comment == token[0]) {
 			return;
-		} 
+		}
 		else if (g_var_token< bool >  == token) {
 			ReadVARVariable< bool >();
 		}

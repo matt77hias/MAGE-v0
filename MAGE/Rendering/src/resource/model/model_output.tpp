@@ -21,7 +21,7 @@ namespace mage::rendering {
 			model_part.m_aabb = AABB::Union(model_part.m_aabb, v);
 		}
 
-		if (false && normalize) {
+		if (normalize) {
 			const auto c = model_part.m_aabb.Centroid();
 			const auto d = model_part.m_aabb.Diagonal();
 			const auto s = std::max(XMVectorGetX(d),
@@ -36,7 +36,7 @@ namespace mage::rendering {
 			// Set AABB.
 			const auto pmin = (model_part.m_aabb.MinPoint() - c) * inv_s;
 			const auto pmax = (model_part.m_aabb.MaxPoint() - c) * inv_s;
-			model_part.m_aabb = { pmin, pmax };
+			model_part.m_aabb = AABB(pmin, pmax);
 
 			// Normalize vertices and set bounding sphere.
 			for (auto i = start; i < end; ++i) {

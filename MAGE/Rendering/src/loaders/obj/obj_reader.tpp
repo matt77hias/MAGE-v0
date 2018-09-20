@@ -118,6 +118,10 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
+		if (!m_model_part.HasDefaultMaterial()) {
+			FinalizeModelPart();
+		}
+
 		m_model_part.m_material = Read< std::string_view >();
 	}
 

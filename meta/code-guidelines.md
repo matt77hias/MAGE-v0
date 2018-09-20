@@ -50,6 +50,14 @@ Do not use implicitly defined (i.e. compiler generated) member methods. Always d
 
 Note that Move Constructors make sense in nearly all situations. So prefer `= default` over `= delete`.
 
+Give deleted member methods the access modifier you would (*hypothetically*) give them if they would not be deleted:
+* Copy and move assignment operators will be `public` in concrete and abstract classes *for most cases*.
+* Copy and move constructors will be `public` in concrete classes *for most cases*.
+* Copy and move constructors will be `protected` in abstract classes *for most cases*.
+* Copy and move constructors will be `private` in concrete `final` classes that can only be instantiated by `friends` *for most cases*.
+
+In all cases, an announcement is made to the appropriate users of a class instead of all users of a class.
+
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
 

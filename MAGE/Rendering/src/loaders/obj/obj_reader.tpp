@@ -60,6 +60,8 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Postprocess() {
 		FinalizeModelPart();
+
+		m_model_output.NormalizeModelParts();
 	}
 
 	template< typename VertexT, typename IndexT >

@@ -125,6 +125,14 @@ namespace mage::rendering::loader {
 		virtual void ReadLine() override;
 
 		/**
+		 Post-processes after reading the current file of this MDL reader.
+
+		 @throws		Exception
+						Failed to finish post-processing successfully.
+		 */
+		virtual void Postprocess() override;
+
+		/**
 		 Reads a Submodel definition.
 
 		 @throws		Exception

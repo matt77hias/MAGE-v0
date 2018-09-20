@@ -40,6 +40,11 @@ namespace mage::rendering::loader {
 	}
 
 	template< typename VertexT, typename IndexT >
+	void MDLReader< VertexT, IndexT >::Postprocess() {
+		m_model_output.ComputeBoundingVolumes();
+	}
+
+	template< typename VertexT, typename IndexT >
 	void MDLReader< VertexT, IndexT >::ReadLine() {
 		const auto token = Read< std::string_view >();
 
@@ -73,7 +78,7 @@ namespace mage::rendering::loader {
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();
 
-		m_model_output.AddModelPart(std::move(model_part), false);
+		m_model_output.AddModelPart(std::move(model_part));
 	}
 
 	template< typename VertexT, typename IndexT >

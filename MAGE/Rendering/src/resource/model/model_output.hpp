@@ -162,16 +162,22 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Adds a model part.
+		 Adds a model part to this model output.
 
 		 @param[in]		model_part
 						The model part to add.
-		 @param[in]		normalize
-						Flag indicating whether the given model part should be
-						normalized.
 		 */
-		void XM_CALLCONV AddModelPart(ModelPart model_part,
-									  bool normalize = true);
+		void XM_CALLCONV AddModelPart(ModelPart model_part);
+
+		/**
+		 Computes the bounding volumes of the model parts of this model output.
+		 */
+		void ComputeBoundingVolumes() noexcept;
+
+		/**
+		 Normalizes the model parts of this model output.
+		 */
+		void NormalizeModelParts() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -196,6 +202,22 @@ namespace mage::rendering {
 		 A vector containing the model parts of this model output.
 		 */
 		AlignedVector< ModelPart > m_model_parts;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Normalizes the vertices in world space of this model output.
+		 */
+		void NormalizeInWorldSpace() noexcept;
+
+		/**
+		 Normalizes the vertices in object space of this model output.
+		 */
+		void NormalizeInObjectSpace() noexcept;
 	};
 }
 

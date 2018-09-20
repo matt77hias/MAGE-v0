@@ -117,7 +117,7 @@ namespace mage {
 
 	void LineReader::ReadRemainingTokens() {
 		while (ContainsTokens()) {
-			const auto token = Read< std::string >();
+			const auto token = Read< std::string_view >();
 			Warning("{}: line {}: unused token: {}.",
 					GetPath(), GetCurrentLineNumber(), token);
 		}

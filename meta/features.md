@@ -32,7 +32,7 @@
   * .MDL  (Model) **[MAGE Dedicated Format]**
   * .MSH  (Mesh)  **[MAGE Dedicated Format]**
   * .MTL  (Material) **[MAGE Customized Format]**
-  * .OBJ  (Wavefront OBJ) **[MAGE Customized Format]**
+  * .OBJ  (Wavefront OBJ)
 * Texture
   * .BMP, .DIB  (Windows Bitmap Format)
   * .DDS  (DirectDraw Surface) **[preferred]**

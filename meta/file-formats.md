@@ -78,7 +78,6 @@
   * `\r`(CR: carriage return character)
 * Syntax: see [OBJ format](http://paulbourke.net/dataformats/obj/)
   * only a subset is supported
-  * `g` has different usage
   * UVW vertex texture coordinates will be converted to UV vertex texture coordinates
   
 | Definitions       | Syntax                                                          |

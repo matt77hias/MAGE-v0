@@ -488,7 +488,7 @@ namespace mage {
 		template< typename... Args >
 		void emplace_back(Args&&... args) {
 			if (full()) {
-				return;
+				reserve(2u * capacity());
 			}
 
 			m_data[m_size++] = T { std::forward< Args >(args)... };
@@ -744,7 +744,7 @@ namespace mage {
 			}
 
 			const bool no_transfer = UsesDynamicMemoryBuffer();
-			m_dynamic_data.resize(new_capacity);
+			m_dynamic_data.reserve(new_capacity);
 			if (no_transfer) {
 				return;
 			}
@@ -778,6 +778,10 @@ namespace mage {
 
 		template< typename... Args >
 		void emplace_back(Args&&... args) {
+			if (full()) {
+				reserve(2u * capacity());
+			}
+			
 			if (UsesStaticMemoryBuffer()) {
 				m_static_data.emplace_back(std::forward< Args >(args)...);
 			}

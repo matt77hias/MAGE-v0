@@ -125,8 +125,8 @@ namespace fmt {
 		}
 	};
 
-	template< typename T, std::size_t A >
-	struct formatter< mage::Array< T, 2u, A > > {
+	template< typename T, std::size_t N >
+	struct formatter< std::array< T, N > > {
 
 		template< typename ParseContextT >
 		constexpr auto parse(ParseContextT& ctx) {
@@ -134,14 +134,21 @@ namespace fmt {
 		}
 
 		template< typename FormatContextT >
-		auto format(const mage::Array< T, 2u, A >& a, FormatContextT& ctx) {
-			const auto [x, y] = a;
-			return format_to(ctx.begin(), "{} {}", x, y);
+		auto format(const std::array< T, N >& a, FormatContextT& ctx) {
+			if (a.empty()) {
+				return ctx;
+			}
+
+			auto it = format_to(ctx.begin(), "{}", a[0]);
+			for (std::size_t i = 1u; i < N; ++i) {
+				it = format_to(it, " {}", a[i]);
+			}
+			return it;
 		}
 	};
 
-	template< typename T, std::size_t A >
-	struct formatter< mage::Array< T, 3u, A > > {
+	template< typename T, std::size_t N, std::size_t A >
+	struct formatter< mage::Array< T, N, A > > {
 
 		template< typename ParseContextT >
 		constexpr auto parse(ParseContextT& ctx) {
@@ -149,14 +156,17 @@ namespace fmt {
 		}
 
 		template< typename FormatContextT >
-		auto format(const mage::Array< T, 3u, A >& a, FormatContextT& ctx) {
-			const auto [x, y, z] = a;
-			return format_to(ctx.begin(), "{} {} {}", x, y, z);
+		auto format(const mage::Array< T, N, A >& a, FormatContextT& ctx) {
+			auto it = format_to(ctx.begin(), "{}", a[0]);
+			for (std::size_t i = 1u; i < N; ++i) {
+				it = format_to(it, " {}", a[i]);
+			}
+			return it;
 		}
 	};
 
-	template< typename T, std::size_t A >
-	struct formatter< mage::Array< T, 4u, A > > {
+	template< typename T1, typename T2 >
+	struct formatter< std::pair< T1, T2 > > {
 
 		template< typename ParseContextT >
 		constexpr auto parse(ParseContextT& ctx) {
@@ -164,9 +174,30 @@ namespace fmt {
 		}
 
 		template< typename FormatContextT >
-		auto format(const mage::Array< T, 4u, A >& a, FormatContextT &ctx) {
-			const auto [x, y, z, w] = a;
-			return format_to(ctx.begin(), "{} {} {} {}", x, y, z, w);
+		auto format(const std::pair< T1, T2 >& a, FormatContextT& ctx) {
+			return format_to(it, "{} {}", a.first, a.second);
+		}
+	};
+
+	template< typename T, typename Allocator >
+	struct formatter< std::vector< T, Allocator > > {
+
+		template< typename ParseContextT >
+		constexpr auto parse(ParseContextT& ctx) {
+			return ctx.begin();
+		}
+
+		template< typename FormatContextT >
+		auto format(const std::vector< T, Allocator >& a, FormatContextT& ctx) {
+			if (a.empty()) {
+				return ctx;
+			}
+
+			auto it = format_to(ctx.begin(), "{}", a[0]);
+			for (std::size_t i = 1u; i < N; ++i) {
+				it = format_to(it, " {}", a[i]);
+			}
+			return it;
 		}
 	};
 }

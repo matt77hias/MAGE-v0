@@ -21,7 +21,7 @@ namespace mage::rendering {
 			model_part.m_aabb = AABB::Union(model_part.m_aabb, v);
 		}
 
-		if (normalize) {
+		if (false && normalize) {
 			const auto c = model_part.m_aabb.Centroid();
 			const auto d = model_part.m_aabb.Diagonal();
 			const auto s = std::max(XMVectorGetX(d),

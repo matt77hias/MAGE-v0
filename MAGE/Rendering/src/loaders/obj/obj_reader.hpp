@@ -312,6 +312,12 @@ namespace mage::rendering::loader {
 			}
 		};
 
+		/**
+		 Finalizes the current model part of this OBJ reader and prepare a new
+		 current model part.
+		 */
+		void FinalizeModelPart();
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

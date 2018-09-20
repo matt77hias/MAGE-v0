@@ -38,6 +38,19 @@ namespace mage::rendering::loader {
 	OBJReader< VertexT, IndexT >::~OBJReader() = default;
 
 	template< typename VertexT, typename IndexT >
+	void OBJReader< VertexT, IndexT >::FinalizeModelPart() {
+		const auto nb_indices 
+			= static_cast< U32 >(m_model_output.m_index_buffer.size()) 
+			- m_model_part.m_start_index;
+		
+		m_model_part.m_nb_indices = nb_indices;
+		m_model_output.AddModelPart(std::move(m_model_part));
+		
+		m_model_part = ModelPart();
+		m_model_part.m_start_index = nb_indices;
+	}
+
+	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Preprocess() {
 		using std::empty;
 		ThrowIfFailed(empty(m_model_output.m_vertex_buffer),
@@ -48,8 +61,7 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Postprocess() {
-		m_model_output.AddModelPart(std::move(m_model_part));
-		m_model_part = ModelPart();
+		FinalizeModelPart();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -114,10 +126,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJGroup() {
 		if (!m_model_part.HasDefaultChild()) {
-			m_model_output.AddModelPart(std::move(m_model_part));
-			m_model_part = ModelPart();
-			m_model_part.m_start_index 
-				= static_cast< IndexT >(m_model_output.m_index_buffer.size());
+			FinalizeModelPart();
 		}
 
 		m_model_part.m_child = Read< std::string_view >();
@@ -204,9 +213,6 @@ namespace mage::rendering::loader {
 				m_model_output.m_index_buffer.push_back(indices[i + 1u]);
 			}
 		}
-	
-		const auto nb_indices = (indices.size() - 2u) * 3u;
-		m_model_part.m_nb_indices = static_cast< IndexT >(nb_indices);
 	}
 
 	template< typename VertexT, typename IndexT >

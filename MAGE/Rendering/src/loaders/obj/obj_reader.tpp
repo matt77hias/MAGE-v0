@@ -39,15 +39,13 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::FinalizeModelPart() {
-		const auto nb_indices 
-			= static_cast< U32 >(m_model_output.m_index_buffer.size()) 
-			- m_model_part.m_start_index;
-		
-		m_model_part.m_nb_indices = nb_indices;
+		const auto size = static_cast< U32 >(m_model_output.m_index_buffer.size());
+
+		m_model_part.m_nb_indices = size - m_model_part.m_start_index;
 		m_model_output.AddModelPart(std::move(m_model_part));
 		
 		m_model_part = ModelPart();
-		m_model_part.m_start_index = nb_indices;
+		m_model_part.m_start_index = size;
 	}
 
 	template< typename VertexT, typename IndexT >

@@ -38,36 +38,36 @@ namespace mage::rendering {
 	#pragma region
 
 	ComputeShaderPtr CreateAAPreprocessCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_aa_preprocess_CS));
 	}
 
 	ComputeShaderPtr CreateFXAACS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_fxaa_CS));
 	}
-	
+
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: MSAA
 	//-------------------------------------------------------------------------
 	#pragma region
-	
+
 	ComputeShaderPtr CreateMSAAResolveCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_msaa_resolve_CS));
 	}
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SSAA
 	//-------------------------------------------------------------------------
 	#pragma region
-	
+
 	ComputeShaderPtr CreateSSAAResolveCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
 	}
 

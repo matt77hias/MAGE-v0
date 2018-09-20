@@ -43,9 +43,9 @@ namespace mage::rendering {
 		 @param[in]		display_configuration
 						A reference to the display configuration.
 		 */
-		explicit Impl(ID3D11Device& device, 
-					  ID3D11DeviceContext& device_context, 
-					  NotNull< HWND > window, 
+		explicit Impl(ID3D11Device& device,
+					  ID3D11DeviceContext& device_context,
+					  NotNull< HWND > window,
 					  DisplayConfiguration& display_configuration);
 
 		/**
@@ -78,7 +78,7 @@ namespace mage::rendering {
 
 		 @param[in]		swap_chain
 						A reference to a swap chain to copy.
-		 @return		A reference to the copy of the given swap chain (i.e. 
+		 @return		A reference to the copy of the given swap chain (i.e.
 						this swap chain).
 		 */
 		Impl& operator=(const Impl& swap_chain) = delete;
@@ -88,7 +88,7 @@ namespace mage::rendering {
 
 		 @param[in]		swap_chain
 						A reference to a swap chain to move.
-		 @return		A reference to the moved swap chain (i.e. this swap 
+		 @return		A reference to the moved swap chain (i.e. this swap
 						chain).
 		 */
 		Impl& operator=(Impl&& swap_chain) = delete;
@@ -110,18 +110,18 @@ namespace mage::rendering {
 		/**
 		 Checks whether this swap chain displays in windowed mode.
 
-		 @return		@c true if this swap chain displays in windowed mode. 
+		 @return		@c true if this swap chain displays in windowed mode.
 						@c false otherwise.
 		*/
 		[[nodiscard]]
 		bool IsWindowed() const noexcept {
 			return !IsFullScreen();
 		}
-		
+
 		/**
 		 Checks whether this swap chain displays in full screen mode.
 
-		 @return		@c true if this swap chain displays in full screen mode. 
+		 @return		@c true if this swap chain displays in full screen mode.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
@@ -130,12 +130,12 @@ namespace mage::rendering {
 			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return FALSE != current;
 		}
-		
+
 		/**
-		 Checks whether this swap chain lost its mode, i.e. the tracked mode of 
+		 Checks whether this swap chain lost its mode, i.e. the tracked mode of
 		 this swap chain differs from its actual mode (e.g. ALT + TAB).
 
-		 @return		@c true if this swap chain lost its mode. @c false 
+		 @return		@c true if this swap chain lost its mode. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -145,7 +145,7 @@ namespace mage::rendering {
 
 		/**
 		 Sets the initial mode of this swap chain.
-		 
+
 		 Call this method before starting the game loop.
 
 		 @throws		Exception
@@ -156,16 +156,16 @@ namespace mage::rendering {
 				SwitchMode(true);
 			}
 		}
-		
+
 		/**
-		 Recreates the swap chain buffers and switches the mode of this swap 
+		 Recreates the swap chain buffers and switches the mode of this swap
 		 chain. Windowed mode is switched to full screen mode and vice versa.
 
 		 @param[in]		toggle
-						If @c true, then only the swap chain buffers will be 
-						recreated to match the current mode of this swap chain 
-						and no mode switch will occurs. If @c false, then the 
-						swap chain buffers will be recreated and a mode switch 
+						If @c true, then only the swap chain buffers will be
+						recreated to match the current mode of this swap chain
+						and no mode switch will occurs. If @c false, then the
+						swap chain buffers will be recreated and a mode switch
 						will occur.
 		 @throws		Exception
 						Failed to reset up the swap chain.
@@ -179,7 +179,7 @@ namespace mage::rendering {
 		/**
 		 Returns the render target view of the back buffer of this swap chain.
 
-		 @return		A reference to the render target view of the back 
+		 @return		A reference to the render target view of the back
 						buffer of this swap chain.
 		 */
 		[[nodiscard]]
@@ -203,8 +203,8 @@ namespace mage::rendering {
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		Exception
-						Failed to take a screenshot of the current back buffer 
-						of this swap chain. 
+						Failed to take a screenshot of the current back buffer
+						of this swap chain.
 		 */
 		void TakeScreenShot(const std::wstring& fname) const;
 
@@ -218,7 +218,7 @@ namespace mage::rendering {
 		 Checks whether the tracked mode of this swap chain corresponds to
 		 fullscreen mode.
 
-		 @return		@c true if the tracked mode of this swap chain 
+		 @return		@c true if the tracked mode of this swap chain
 						corresponds to fullscreen mode.
 						@c false otherwise.
 		 */
@@ -231,7 +231,7 @@ namespace mage::rendering {
 		 Sets the tracked mode of this swap chain.
 
 		 @param[in]		fullscreen
-						@c true if the tracked mode corresponds to fullscreen 
+						@c true if the tracked mode corresponds to fullscreen
 						mode. @c false otherwise.
 		 */
 		void SetTrackedFullScreen(bool fullscreen) noexcept {
@@ -241,7 +241,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Methods: Swap Chain
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 Sets up the swap chain.
 
@@ -249,7 +249,7 @@ namespace mage::rendering {
 						Failed to set up the swap chain.
 		 */
 		void SetupSwapChain();
-		
+
 		/**
 		 Resets the swap chain.
 
@@ -265,15 +265,15 @@ namespace mage::rendering {
 						Failed to create the swap chain.
 		 */
 		void CreateSwapChain();
-		
+
 		/**
 		 Creates the render target view of the back buffer of this swap chain.
 
 		 @throws		Exception
-						Failed to obtain the back buffer resource of this swap 
+						Failed to obtain the back buffer resource of this swap
 						chain.
 		 @throws		Exception
-						Failed to create the render target view of the back 
+						Failed to create the render target view of the back
 						buffer of this swap chain.
 		 */
 		void CreateRTV();
@@ -310,9 +310,9 @@ namespace mage::rendering {
 		 A pointer to the swap chain.
 		 */
 		ComPtr< DXGISwapChain > m_swap_chain;
-		
+
 		/**
-		 A pointer to the render target view of the back buffer of this swap 
+		 A pointer to the render target view of the back buffer of this swap
 		 chain.
 		 */
 		ComPtr< ID3D11RenderTargetView > m_rtv;
@@ -322,11 +322,11 @@ namespace mage::rendering {
 						  ID3D11DeviceContext& device_context,
 						  NotNull< HWND > window,
 						  DisplayConfiguration& display_configuration)
-		: m_window(window), 
+		: m_window(window),
 		m_display_configuration(display_configuration),
-		m_device(device), 
-		m_device_context(device_context), 
-		m_swap_chain(), 
+		m_device(device),
+		m_device_context(device_context),
+		m_swap_chain(),
 		m_rtv() {
 
 		// Setup the swap chain.
@@ -336,8 +336,8 @@ namespace mage::rendering {
 	SwapChain::Impl::Impl(Impl&& swap_chain) noexcept = default;
 
 	SwapChain::Impl::~Impl() {
-		// Switch to windowed mode since Direct3D is incapable to clear its 
-		// state properly when in fullscreen mode due to certain threading 
+		// Switch to windowed mode since Direct3D is incapable to clear its
+		// state properly when in fullscreen mode due to certain threading
 		// issues that occur behind the scenes.
 		if (m_swap_chain) {
 			m_swap_chain->SetFullscreenState(FALSE, nullptr);
@@ -366,24 +366,24 @@ namespace mage::rendering {
 	void SwapChain::Impl::CreateSwapChain() {
 		ComPtr< IDXGIFactory2 > dxgi_factory;
 		{
-			const HRESULT result 
+			const HRESULT result
 				= m_display_configuration.GetAdapter()->GetParent(
 					__uuidof(IDXGIFactory2), (void**)dxgi_factory.GetAddressOf());
 			ThrowIfFailed(result, "IDXGIFactory2 creation failed: {:08X}.", result);
 		}
-	
-		// DXGI_MWA_NO_WINDOW_CHANGES: 
-		// Prevent DXGI from monitoring an applications message queue; this 
+
+		// DXGI_MWA_NO_WINDOW_CHANGES:
+		// Prevent DXGI from monitoring an applications message queue; this
 		// makes DXGI unable to respond to mode changes.
 		//
-		// DXGI_MWA_NO_ALT_ENTER: 
+		// DXGI_MWA_NO_ALT_ENTER:
 		// Prevent DXGI from responding to an alt-enter sequence.
 		//
-		// DXGI_MWA_NO_PRINT_SCREEN: 
+		// DXGI_MWA_NO_PRINT_SCREEN:
 		// Prevent DXGI from responding to a print-screen key.
-		dxgi_factory->MakeWindowAssociation(m_window, 
-			                                DXGI_MWA_NO_WINDOW_CHANGES 
-			                              | DXGI_MWA_NO_ALT_ENTER 
+		dxgi_factory->MakeWindowAssociation(m_window,
+			                                DXGI_MWA_NO_WINDOW_CHANGES
+			                              | DXGI_MWA_NO_ALT_ENTER
 			                              | DXGI_MWA_NO_PRINT_SCREEN);
 
 		// Create a swap chain descriptor.
@@ -403,19 +403,19 @@ namespace mage::rendering {
 
 		// Create a fullscreen swap chain descriptor.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
-		swap_chain_fullscreen_desc.RefreshRate 
+		swap_chain_fullscreen_desc.RefreshRate
 			= m_display_configuration.GetDisplayRefreshRate();
 		swap_chain_fullscreen_desc.Windowed = TRUE;
 
 		ComPtr< IDXGISwapChain1 > swap_chain1;
 		{
 			// Get the IDXGISwapChain1.
-			const HRESULT result 
-				= dxgi_factory->CreateSwapChainForHwnd(&m_device, 
-													   m_window, 
-													   &swap_chain_desc, 
-													   &swap_chain_fullscreen_desc, 
-													   nullptr, 
+			const HRESULT result
+				= dxgi_factory->CreateSwapChainForHwnd(&m_device,
+													   m_window,
+													   &swap_chain_desc,
+													   &swap_chain_fullscreen_desc,
+													   nullptr,
 													   swap_chain1.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "IDXGISwapChain1 creation failed: {:08X}.", result);
 		}
@@ -425,8 +425,8 @@ namespace mage::rendering {
 			ThrowIfFailed(result, "DXGISwapChain creation failed: {:08X}.", result);
 		}
 
-		// MSDN recommends to create a windowed swap chain and allow the end 
-		// user to change the swap chain to full screen through 
+		// MSDN recommends to create a windowed swap chain and allow the end
+		// user to change the swap chain to full screen through
 		// SetFullscreenState
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 	}
@@ -435,20 +435,20 @@ namespace mage::rendering {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result = m_swap_chain->GetBuffer(0u, 
-														   __uuidof(ID3D11Texture2D), 
+			const HRESULT result = m_swap_chain->GetBuffer(0u,
+														   __uuidof(ID3D11Texture2D),
 														   (void**)back_buffer.GetAddressOf());
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "Back buffer texture creation failed: {:08X}.", result);
 		}
 
 		{
 			// Create the RTV.
-			const HRESULT result 
-				= m_device.CreateRenderTargetView(back_buffer.Get(), 
+			const HRESULT result
+				= m_device.CreateRenderTargetView(back_buffer.Get(),
 														nullptr,
 														m_rtv.ReleaseAndGetAddressOf());
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "Back buffer RTV creation failed: {:08X}.", result);
 		}
 	}
@@ -460,7 +460,7 @@ namespace mage::rendering {
 
 	void SwapChain::Impl::Present() const noexcept {
 		// Present the back buffer to the front buffer.
-		const U32 sync_interval = (m_display_configuration.IsVSynced()) 
+		const U32 sync_interval = (m_display_configuration.IsVSynced())
 			                      ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 	}
@@ -469,13 +469,13 @@ namespace mage::rendering {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		{
 			// Access the only back buffer of the swap-chain.
-			const HRESULT result = m_swap_chain->GetBuffer(0u, 
-														   __uuidof(ID3D11Texture2D), 
+			const HRESULT result = m_swap_chain->GetBuffer(0u,
+														   __uuidof(ID3D11Texture2D),
 														   (void**)back_buffer.GetAddressOf());
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "Back buffer texture creation failed: {:08X}.", result);
 		}
-		
+
 		loader::ExportTextureToFile(fname,
 			                        m_device_context,
 			                        *back_buffer.Get());
@@ -510,7 +510,7 @@ namespace mage::rendering {
 						 ID3D11DeviceContext& device_context,
 						 NotNull< HWND > window,
 						 DisplayConfiguration& display_configuration)
-		: m_impl(MakeUnique< Impl >(device, device_context, 
+		: m_impl(MakeUnique< Impl >(device, device_context,
 									window, display_configuration)) {}
 
 	SwapChain::SwapChain(SwapChain&& swap_chain) noexcept = default;

@@ -14,11 +14,11 @@
 namespace mage {
 
 	void PrintConsoleHeader() noexcept {
-		Print("Engine version {}.{}.{} of {} at {}\n", 
-			  GetVersionMajor(), GetVersionMinor(), GetVersionPatch(), 
+		Print("Engine version {}.{}.{} of {} at {}\n",
+			  GetVersionMajor(), GetVersionMinor(), GetVersionPatch(),
 			  __DATE__, __TIME__);
 		Print("Copyright (c) 2016-2018 Matthias Moulin.\n");
-		
+
 		std::fflush(stdout);
 	}
 }

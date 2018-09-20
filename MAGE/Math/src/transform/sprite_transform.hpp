@@ -765,7 +765,7 @@ namespace mage {
 			auto transformation = XMMatrixOffsetAffineTransformation2D(
 				GetRotationOriginV(), GetScaleV(), GetRotation(), GetTranslationV());
 			transformation.r[3] = XMVectorSetZ(transformation.r[3], GetDepth());
-			
+
 			return transformation;
 		}
 

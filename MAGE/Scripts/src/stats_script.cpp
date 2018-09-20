@@ -16,19 +16,19 @@ namespace mage::script {
 
 	StatsScript::StatsScript()
 		: BehaviorScript(),
-		m_text(), 
-		m_accumulated_nb_frames(0u), 
-		m_prev_wall_clock_time(0.0), 
-		m_prev_core_clock_time(0.0), 
-		m_fps(0u), 
-		m_spf(0.0f), 
-		m_cpu(0.0f), 
+		m_text(),
+		m_accumulated_nb_frames(0u),
+		m_prev_wall_clock_time(0.0),
+		m_prev_core_clock_time(0.0),
+		m_fps(0u),
+		m_spf(0.0f),
+		m_cpu(0.0f),
 		m_ram(0u) {}
 
 	StatsScript::StatsScript(const StatsScript& script) noexcept = default;
 
 	StatsScript::StatsScript(StatsScript&& script) noexcept = default;
-	
+
 	StatsScript::~StatsScript() = default;
 
 	StatsScript& StatsScript
@@ -38,17 +38,17 @@ namespace mage::script {
 		::operator=(StatsScript&& script) noexcept = default;
 
 	void StatsScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
-		
+
 		m_text = GetOwner()->Get< rendering::SpriteText >();
-		ThrowIfFailed((nullptr != m_text), 
+		ThrowIfFailed((nullptr != m_text),
 					  "This script needs a sprite text component.");
 	}
 
 	void StatsScript::Update([[maybe_unused]] Engine& engine) {
 		static constexpr auto s_resource_fetch_period = 1.0;
-		
+
 		++m_accumulated_nb_frames;
 		const auto wall_clock_time  = engine.GetTime().GetWallClockTotalDeltaTime();
 		const auto wall_clock_delta = wall_clock_time - m_prev_wall_clock_time;

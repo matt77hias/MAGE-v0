@@ -26,7 +26,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a texture transform from the given translation, depth, 
+		 Constructs a texture transform from the given translation, depth,
 		 rotation, rotation origin and scale component.
 
 		 @param[in]		translation
@@ -38,14 +38,14 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit TextureTransform(F32x2 translation     = { 0.0f, 0.0f }, 
-			                      F32   rotation        =   0.0f, 
-			                      F32x2 rotation_origin = { 0.0f, 0.0f }, 
+		explicit TextureTransform(F32x2 translation     = { 0.0f, 0.0f },
+			                      F32   rotation        =   0.0f,
+			                      F32x2 rotation_origin = { 0.0f, 0.0f },
 			                      F32x2 scale           = { 1.0f, 1.0f }) noexcept
-			: m_translation(std::move(translation)), 
+			: m_translation(std::move(translation)),
 			m_padding(0.0f),
-			m_rotation(rotation), 
-			m_rotation_origin(std::move(rotation_origin)), 
+			m_rotation(rotation),
+			m_rotation_origin(std::move(rotation_origin)),
 			m_scale(std::move(scale)) {}
 
 		/**
@@ -61,16 +61,16 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit TextureTransform(FXMVECTOR translation, 
-			                      F32       rotation, 
-			                      FXMVECTOR rotation_origin, 
+		explicit TextureTransform(FXMVECTOR translation,
+			                      F32       rotation,
+			                      FXMVECTOR rotation_origin,
 			                      FXMVECTOR scale) noexcept
-			: m_translation(), 
+			: m_translation(),
 			m_padding(0.0f),
-			m_rotation(rotation), 
-			m_rotation_origin(), 
+			m_rotation(rotation),
+			m_rotation_origin(),
 			m_scale() {
-			
+
 			SetTranslation(translation);
 			SetRotationOrigin(rotation_origin);
 			SetScale(scale);
@@ -116,7 +116,7 @@ namespace mage {
 
 		 @param[in]		transform
 						The texture transform to copy.
-		 @return		A reference to the moved texture transform (i.e. this 
+		 @return		A reference to the moved texture transform (i.e. this
 						texture transform).
 		 */
 		TextureTransform& operator=(TextureTransform&& transform) = default;
@@ -127,7 +127,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the translation component of this texture 
+		 Sets the x-value of the translation component of this texture
 		 transform to the given value.
 
 		 @param[in]		x
@@ -138,7 +138,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the y-value of the translation component of this texture 
+		 Sets the y-value of the translation component of this texture
 		 transform to the given value.
 
 		 @param[in]		y
@@ -149,7 +149,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the translation component of this texture transform to the given 
+		 Sets the translation component of this texture transform to the given
 		 translation component.
 
 		 @param[in]		x
@@ -163,7 +163,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the translation component of this texture transform to the given 
+		 Sets the translation component of this texture transform to the given
 		 translation component.
 
 		 @param[in]		translation
@@ -174,7 +174,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the translation component of this texture transform to the given 
+		 Sets the translation component of this texture transform to the given
 		 translation component.
 
 		 @param[in]		translation
@@ -185,7 +185,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the translation component of this texture 
+		 Adds the given x-value to the translation component of this texture
 		 transform.
 
 		 @param[in]		x
@@ -196,7 +196,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given y-value to the translation component of this texture 
+		 Adds the given y-value to the translation component of this texture
 		 transform.
 
 		 @param[in]		y
@@ -207,7 +207,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this texture transform.
 
 		 @param[in]		x
@@ -221,7 +221,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this texture transform.
 
 		 @param[in]		translation
@@ -232,22 +232,22 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this texture transform.
 
 		 @param[in]		translation
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslation(XMVectorGetX(translation), 
+			AddTranslation(XMVectorGetX(translation),
 				           XMVectorGetY(translation));
 		}
 
 		/**
-		 Returns the x-value of the translation component of this texture 
+		 Returns the x-value of the translation component of this texture
 		 transform.
 
-		 @return		The x-value of the translation component of this 
+		 @return		The x-value of the translation component of this
 						texture transform.
 		 */
 		[[nodiscard]]
@@ -256,10 +256,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the y-value of the translation component of this texture 
+		 Returns the y-value of the translation component of this texture
 		 transform.
 
-		 @return		The y-value of the translation component of this 
+		 @return		The y-value of the translation component of this
 						texture transform.
 		 */
 		[[nodiscard]]
@@ -295,7 +295,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the rotation component of this texture transform to the given 
+		 Sets the rotation component of this texture transform to the given
 		 rotation component.
 
 		 @param[in]		rotation
@@ -306,7 +306,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of this 
+		 Adds the given rotation component to the rotation component of this
 		 texture transform.
 
 		 @param[in]		rotation
@@ -317,8 +317,8 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of this 
-		 texture transform and clamps the resulting rotation component of this 
+		 Adds the given rotation component to the rotation component of this
+		 texture transform and clamps the resulting rotation component of this
 		 texture transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -331,12 +331,12 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(F32 rotation, 
-			                     F32 min_angle, 
+		void AddAndClampRotation(F32 rotation,
+			                     F32 min_angle,
 			                     F32 max_angle) noexcept {
-			
-			m_rotation = ClampAngleRadians(m_rotation + rotation, 
-				                           min_angle, 
+
+			m_rotation = ClampAngleRadians(m_rotation + rotation,
+				                           min_angle,
 				                           max_angle);
 		}
 
@@ -358,7 +358,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the rotation origin of this texture transform to 
+		 Sets the x-value of the rotation origin of this texture transform to
 		 the given value.
 
 		 @param[in]		x
@@ -369,7 +369,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the y-value of the rotation origin of this texture transform to 
+		 Sets the y-value of the rotation origin of this texture transform to
 		 the given value.
 
 		 @param[in]		y
@@ -380,7 +380,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation origin of this texture transform to the given 
+		 Sets the rotation origin of this texture transform to the given
 		 rotation origin.
 
 		 @param[in]		x
@@ -394,7 +394,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation origin of this texture transform to the given 
+		 Sets the rotation origin of this texture transform to the given
 		 rotation origin.
 
 		 @param[in]		rotation_origin
@@ -405,7 +405,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation origin of this texture transform to the given 
+		 Sets the rotation origin of this texture transform to the given
 		 rotation origin.
 
 		 @param[in]		rotation_origin
@@ -416,7 +416,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the rotation origin of this texture 
+		 Adds the given x-value to the rotation origin of this texture
 		 transform.
 
 		 @param[in]		x
@@ -427,7 +427,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given y-value to the rotation origin of this texture 
+		 Adds the given y-value to the rotation origin of this texture
 		 transform.
 
 		 @param[in]		y
@@ -438,7 +438,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation origin to the rotation origin of this texture 
+		 Adds the given rotation origin to the rotation origin of this texture
 		 transform.
 
 		 @param[in]		x
@@ -452,7 +452,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation origin to the rotation origin of this texture 
+		 Adds the given rotation origin to the rotation origin of this texture
 		 transform.
 
 		 @param[in]		rotation_origin
@@ -463,21 +463,21 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation origin to the rotation origin of this texture 
+		 Adds the given rotation origin to the rotation origin of this texture
 		 transform.
 
 		 @param[in]		rotation_origin
 						The rotation origin to add.
 		 */
 		void XM_CALLCONV AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
-			AddRotationOrigin(XMVectorGetX(rotation_origin), 
+			AddRotationOrigin(XMVectorGetX(rotation_origin),
 				              XMVectorGetY(rotation_origin));
 		}
 
 		/**
 		 Returns the x-value of the rotation origin of this texture transform.
 
-		 @return		The x-value of the rotation origin of this texture 
+		 @return		The x-value of the rotation origin of this texture
 						transform.
 		 */
 		[[nodiscard]]
@@ -488,7 +488,7 @@ namespace mage {
 		/**
 		 Returns the y-value of the rotation origin of this texture transform.
 
-		 @return		The y-value of the rotation origin of this texture 
+		 @return		The y-value of the rotation origin of this texture
 						transform.
 		 */
 		[[nodiscard]]
@@ -524,7 +524,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the scale component of this texture transform to 
+		 Sets the x-value of the scale component of this texture transform to
 		 the given value.
 
 		 @param[in]		x
@@ -535,7 +535,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the y-value of the scale component of this texture transform to 
+		 Sets the y-value of the scale component of this texture transform to
 		 the given value.
 
 		 @param[in]		y
@@ -546,7 +546,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this texture transform to the given scale 
+		 Sets the scale component of this texture transform to the given scale
 		 component.
 
 		 @param[in]		s
@@ -557,7 +557,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this texture transform to the given scale 
+		 Sets the scale component of this texture transform to the given scale
 		 component.
 
 		 @param[in]		x
@@ -571,7 +571,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this texture transform to the given scale 
+		 Sets the scale component of this texture transform to the given scale
 		 component.
 
 		 @param[in]		scale
@@ -582,7 +582,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this texture transform to the given scale 
+		 Sets the scale component of this texture transform to the given scale
 		 component.
 
 		 @param[in]		scale
@@ -593,7 +593,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the scale component of this texture 
+		 Adds the given x-value to the scale component of this texture
 		 transform.
 
 		 @param[in]		x
@@ -604,7 +604,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given y-value to the scale component of this texture 
+		 Adds the given y-value to the scale component of this texture
 		 transform.
 
 		 @param[in]		y
@@ -615,7 +615,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this texture 
+		 Adds the given scale component to the scale component of this texture
 		 transform.
 
 		 @param[in]		s
@@ -626,7 +626,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this texture 
+		 Adds the given scale component to the scale component of this texture
 		 transform.
 
 		 @param[in]		x
@@ -640,7 +640,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this texture 
+		 Adds the given scale component to the scale component of this texture
 		 transform.
 
 		 @param[in]		scale
@@ -651,21 +651,21 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this texture 
+		 Adds the given scale component to the scale component of this texture
 		 transform.
 
 		 @param[in]		scale
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			AddScale(XMVectorGetX(scale), 
+			AddScale(XMVectorGetX(scale),
 				     XMVectorGetY(scale));
 		}
 
 		/**
 		 Returns the x-value of the scale component of this texture transform.
 
-		 @return		The x-value of the scale component of this texture 
+		 @return		The x-value of the scale component of this texture
 						transform.
 		 */
 		[[nodiscard]]
@@ -676,7 +676,7 @@ namespace mage {
 		/**
 		 Returns the y-value of the scale component of this texture transform.
 
-		 @return		The y-value of the scale component of this texture 
+		 @return		The y-value of the scale component of this texture
 						transform.
 		 */
 		[[nodiscard]]
@@ -719,7 +719,7 @@ namespace mage {
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
 			return DirectX::XMMatrixAffineTransformation2D(GetScaleV(),
 				                                           GetRotationOriginV(),
-				                                           GetRotation(), 
+				                                           GetRotation(),
 				                                           GetTranslationV());
 		}
 
@@ -730,7 +730,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The translation component (in UV coordinates) of this texture 
+		 The translation component (in UV coordinates) of this texture
 		 transform.
 		 */
 		F32x2 m_translation;

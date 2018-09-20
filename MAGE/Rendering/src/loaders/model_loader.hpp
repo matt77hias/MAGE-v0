@@ -39,10 +39,10 @@ namespace mage::rendering::loader {
 					Failed to import the model from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportModelFromFile(const std::filesystem::path& path, 
-							 ResourceManager& resource_manager,  
-							 ModelOutput< VertexT, IndexT >& model_output, 
-							 const MeshDescriptor< VertexT, IndexT >& 
+	void ImportModelFromFile(const std::filesystem::path& path,
+							 ResourceManager& resource_manager,
+							 ModelOutput< VertexT, IndexT >& model_output,
+							 const MeshDescriptor< VertexT, IndexT >&
 							 mesh_desc = MeshDescriptor< VertexT, IndexT >());
 
 	/**
@@ -60,7 +60,7 @@ namespace mage::rendering::loader {
 					Failed to export the model to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportModelToFile(const std::filesystem::path& path, 
+	void ExportModelToFile(const std::filesystem::path& path,
 						   const ModelOutput< VertexT, IndexT >& model_output);
 }
 

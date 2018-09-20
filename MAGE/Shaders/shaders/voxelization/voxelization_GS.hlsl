@@ -11,22 +11,22 @@ void GS(triangle GSInputPositionNormalTexture input[3],
 	    inout TriangleStream< PSInputPositionNormalTexture > output_stream) {
 
 	// Calculate the dominant direction of the surface normal.
-	// 
+	//
 	// Face normal based on the triangle edges:
-	// normalize(cross(input[1].p_world - input[0].p_world, 
+	// normalize(cross(input[1].p_world - input[0].p_world,
 	//                 input[2].p_world - input[0].p_world))
-	// 
+	//
 	// Normalization is not needed (i.e. uniform scaling):
-	// cross(input[1].p_world - input[0].p_world, 
+	// cross(input[1].p_world - input[0].p_world,
 	//       input[2].p_world - input[0].p_world))
-	// 
+	//
 	// ~ abs(sum of shading normals)
-	const float3 abs_n = abs(input[0].n_world 
-						   + input[1].n_world 
+	const float3 abs_n = abs(input[0].n_world
+						   + input[1].n_world
 						   + input[2].n_world);
 	const uint axis_xy = (abs_n.x > abs_n.y)        ? 0u : 1u;
 	const uint axis    = (abs_n.z > abs_n[axis_xy]) ? 2u : axis_xy;
-	
+
 	PSInputPositionNormalTexture output[3];
 
 	// Project the triangle in the dominant direction for rasterization (p),
@@ -63,7 +63,7 @@ void GS(triangle GSInputPositionNormalTexture input[3],
 		// Output a vertex.
 		output_stream.Append(output[i]);
 	}
-	
+
 	// End the current triangle strip.
 	output_stream.RestartStrip();
 }

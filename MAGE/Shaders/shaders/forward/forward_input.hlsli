@@ -26,13 +26,13 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 	 The object-to-world transformation matrix.
 	 */
 	float4x4 g_object_to_world         : packoffset(c0);
-	
+
 	/**
-	 The object-to-world inverse transpose transformation matrix 
+	 The object-to-world inverse transpose transformation matrix
 	 = the normal-to-world transformation matrix.
 	 */
 	float4x4 g_normal_to_world         : packoffset(c4);
-	
+
 	/**
 	 The texture transformation matrix.
 	 */
@@ -51,7 +51,7 @@ CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 	 The (linear) roughness of the material.
 	 */
 	float    g_roughness               : packoffset(c13.x);
-	
+
 	/**
 	 The (linear) metalness of the material.
 	 */
@@ -107,7 +107,7 @@ float2 GetMaterialParameters(float2 tex) {
 	#ifdef DISABLE_TEXTURE_MATERIAL
 	return float2(g_roughness, g_metalness);
 	#else  // DISABLE_TEXTURE_MATERIAL
-	const float2 material = g_material_texture.Sample(g_linear_wrap_sampler, 
+	const float2 material = g_material_texture.Sample(g_linear_wrap_sampler,
 													  tex).xy;
 	return float2(g_roughness, g_metalness) * material;
 	#endif // DISABLE_TEXTURE_MATERIAL

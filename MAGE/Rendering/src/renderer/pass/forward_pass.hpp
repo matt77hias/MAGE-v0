@@ -40,13 +40,13 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit ForwardPass(ID3D11Device& device, 
-							 ID3D11DeviceContext& device_context, 
-							 StateManager& state_manager, 
+		explicit ForwardPass(ID3D11Device& device,
+							 ID3D11DeviceContext& device_context,
+							 StateManager& state_manager,
 							 ResourceManager& resource_manager);
 
 		/**
-		 Constructs a forward pass from the given variable shading 
+		 Constructs a forward pass from the given variable shading
 		 pass.
 
 		 @param[in]		pass
@@ -55,7 +55,7 @@ namespace mage::rendering {
 		ForwardPass(const ForwardPass& pass) = delete;
 
 		/**
-		 Constructs a forward pass by moving the given variable 
+		 Constructs a forward pass by moving the given variable
 		 pass.
 
 		 @param[in]		pass
@@ -77,7 +77,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the forward pass to copy.
-		 @return		A reference to the copy of the given variable shading 
+		 @return		A reference to the copy of the given variable shading
 						pass (i.e. this forward pass).
 		 */
 		ForwardPass& operator=(const ForwardPass& pass) = delete;
@@ -87,7 +87,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the forward pass to move.
-		 @return		A reference to the moved forward pass (i.e. this 
+		 @return		A reference to the moved forward pass (i.e. this
 						forward pass).
 		 */
 		ForwardPass& operator=(ForwardPass&& pass) noexcept;
@@ -106,7 +106,7 @@ namespace mage::rendering {
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
+						@c true if voxel cone tracing should be enabled. @c false
 						otherwise.
 		 @throws		Exception
 						Failed to render the world.
@@ -125,7 +125,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderSolid(const World& world, 
+		void XM_CALLCONV RenderSolid(const World& world,
 									 FXMMATRIX world_to_projection) const;
 
 		/**
@@ -138,7 +138,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderGBuffer(const World& world, 
+		void XM_CALLCONV RenderGBuffer(const World& world,
 									   FXMMATRIX world_to_projection) const;
 
 		/**
@@ -164,7 +164,7 @@ namespace mage::rendering {
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
+						@c true if voxel cone tracing should be enabled. @c false
 						otherwise.
 		 @throws		Exception
 						Failed to render the world.
@@ -172,7 +172,7 @@ namespace mage::rendering {
 		void XM_CALLCONV RenderTransparent(const World& world,
 										   FXMMATRIX world_to_projection,
 										   BRDF brdf, bool vct) const;
-		
+
 		/**
 		 Renders the given world as a false color.
 
@@ -199,7 +199,7 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to render the world.
 		 */
-		void XM_CALLCONV RenderWireframe(const World& world, 
+		void XM_CALLCONV RenderWireframe(const World& world,
 										 FXMMATRIX world_to_projection);
 
 	private:
@@ -269,7 +269,7 @@ namespace mage::rendering {
 		VertexShaderPtr m_vs;
 
 		/**
-		 A pointer to the UV reference texture of this forward pass. 
+		 A pointer to the UV reference texture of this forward pass.
 		 */
 		TexturePtr m_uv;
 

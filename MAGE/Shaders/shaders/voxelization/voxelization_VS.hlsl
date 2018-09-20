@@ -8,8 +8,8 @@
 // Vertex Shader
 //-----------------------------------------------------------------------------
 GSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
-	return Transform(input, 
-					 g_object_to_world, 
+	return Transform(input,
+					 g_object_to_world,
 					 (float3x3)g_normal_to_world,
 					 g_texture_transform);
 }

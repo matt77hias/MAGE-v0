@@ -38,7 +38,7 @@ namespace mage {
 		if (State::Terminated == state) {
 			return;
 		}
-		
+
 		if (HasOwner() && State::Terminated == m_owner->GetState()) {
 			m_state = State::Terminated;
 		}

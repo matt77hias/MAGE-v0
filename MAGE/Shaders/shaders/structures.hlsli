@@ -29,7 +29,7 @@ struct VSInputPositionColor {
 };
 
 /**
- A vertex shader input struct of vertices having a position and a pair of 
+ A vertex shader input struct of vertices having a position and a pair of
  texture coordinates.
  */
 struct VSInputPositionTexture {
@@ -38,7 +38,7 @@ struct VSInputPositionTexture {
 };
 
 /**
- A vertex shader input struct of vertices having a position, a normal and a 
+ A vertex shader input struct of vertices having a position, a normal and a
  color.
  */
 struct VSInputPositionNormalColor {
@@ -48,7 +48,7 @@ struct VSInputPositionNormalColor {
 };
 
 /**
- A vertex shader input struct of vertices having a position, a normal and a 
+ A vertex shader input struct of vertices having a position, a normal and a
  pair of texture coordinates.
  */
 struct VSInputPositionNormalTexture {
@@ -58,7 +58,7 @@ struct VSInputPositionNormalTexture {
 };
 
 /**
- A vertex shader input struct of vertices having a position, a color and a 
+ A vertex shader input struct of vertices having a position, a color and a
  pair of texture coordinates.
  */
 struct VSInputPositionColorTexture {
@@ -68,7 +68,7 @@ struct VSInputPositionColorTexture {
 };
 
 /**
- A vertex shader input struct of vertices having a position, a normal, a color 
+ A vertex shader input struct of vertices having a position, a normal, a color
  and a pair of texture coordinates.
  */
 struct VSInputPositionNormalColorTexture {
@@ -83,7 +83,7 @@ struct VSInputPositionNormalColorTexture {
 //-----------------------------------------------------------------------------
 
 /**
- A geometry shader input struct of vertices having a position expressed in 
+ A geometry shader input struct of vertices having a position expressed in
  world space and color.
  */
 struct GSInputPositionColor {
@@ -92,8 +92,8 @@ struct GSInputPositionColor {
 };
 
 /**
- A geometry shader input struct of vertices having a position and a normal 
- expressed in world space, and a pair of material and a pair of geometry 
+ A geometry shader input struct of vertices having a position and a normal
+ expressed in world space, and a pair of material and a pair of geometry
  texture coordinates.
  */
 struct GSInputPositionNormalTexture {
@@ -107,11 +107,11 @@ struct GSInputPositionNormalTexture {
 // PS Input Structures
 //-----------------------------------------------------------------------------
 
-// The semantic SV_POSITION is always included and is, therefore, not reflected 
+// The semantic SV_POSITION is always included and is, therefore, not reflected
 // in the naming of the struct identifier.
 
 /**
- A pixel shader input struct of fragments having a position expressed in 
+ A pixel shader input struct of fragments having a position expressed in
  viewport and world space.
  */
 struct PSInputWorldPosition {
@@ -120,7 +120,7 @@ struct PSInputWorldPosition {
 };
 
 /**
- A pixel shader input struct of fragments having a position expressed in 
+ A pixel shader input struct of fragments having a position expressed in
  viewport space and a (linear) color.
  */
 struct PSInputColor {
@@ -129,7 +129,7 @@ struct PSInputColor {
 };
 
 /**
- A pixel shader input struct of fragments having a position expressed in 
+ A pixel shader input struct of fragments having a position expressed in
  viewport space and a pair of texture coordinates.
  */
 struct PSInputTexture {
@@ -148,8 +148,8 @@ struct PSInputColorTexture {
 };
 
 /**
- A pixel shader input struct of fragments having a position expressed in 
- viewport and world space, a normal expressed in world space, and a pair of 
+ A pixel shader input struct of fragments having a position expressed in
+ viewport and world space, a normal expressed in world space, and a pair of
  material and a pair of geometry texture coordinates.
  */
 struct PSInputPositionNormalTexture {
@@ -165,7 +165,7 @@ struct PSInputPositionNormalTexture {
 //-----------------------------------------------------------------------------
 
 /**
- An ouput merger input struct of fragments having a (linear) base color, a 
+ An ouput merger input struct of fragments having a (linear) base color, a
  material and a normal for deferred rendering.
  */
 struct OMInputDeferred {
@@ -175,7 +175,7 @@ struct OMInputDeferred {
 };
 
 /**
- An ouput merger input struct of fragments having a (linear) color and normal 
+ An ouput merger input struct of fragments having a (linear) color and normal
  for forward rendering.
  */
 struct OMInputForward {

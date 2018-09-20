@@ -27,65 +27,65 @@ namespace mage {
 namespace mage {
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixTranslation(FXMVECTOR translation) noexcept {
 
 		return XMMatrixTranslationFromVector(translation);
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixInverseTranslation(FXMVECTOR translation) noexcept {
-		
+
 		return XMMatrixTranslation(-translation);
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV 
+	inline const XMVECTOR XM_CALLCONV
 		XMQuaternionRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMQuaternionRotationRollPitchYawFromVector(rotation);
 	}
 
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV 
+	inline const XMVECTOR XM_CALLCONV
 		XMQuaternionInverseRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMQuaternionInverse(XMQuaternionRotationRollPitchYaw(rotation));
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMMatrixRotationRollPitchYawFromVector(rotation);
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixInverseRotationRollPitchYaw(FXMVECTOR rotation) noexcept {
 
 		return XMMatrixTranspose(XMMatrixRotationRollPitchYaw(rotation));
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixScaling(FXMVECTOR scale) noexcept {
 
 		return XMMatrixScalingFromVector(scale);
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixInverseScaling(FXMVECTOR scale) noexcept {
 
 		return XMMatrixScaling(XMVectorReciprocal(scale));
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
-		XMMatrixAffineTransformation(FXMVECTOR scale, 
-			                         FXMVECTOR rotation, 
+	inline const XMMATRIX XM_CALLCONV
+		XMMatrixAffineTransformation(FXMVECTOR scale,
+			                         FXMVECTOR rotation,
 			                         FXMVECTOR translation) noexcept {
 
 		// Scale . Rotation . Translation
@@ -98,9 +98,9 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
-		XMMatrixInverseAffineTransformation(FXMVECTOR scale, 
-			                                FXMVECTOR rotation, 
+	inline const XMMATRIX XM_CALLCONV
+		XMMatrixInverseAffineTransformation(FXMVECTOR scale,
+			                                FXMVECTOR rotation,
 			                                FXMVECTOR translation) noexcept {
 
 		// Translation . Rotation . Scale
@@ -115,9 +115,9 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
-		XMMatrixAffineTransformation2D(FXMVECTOR scale, 
-			                           F32       rotation, 
+	inline const XMMATRIX XM_CALLCONV
+		XMMatrixAffineTransformation2D(FXMVECTOR scale,
+			                           F32       rotation,
 			                           FXMVECTOR translation) noexcept {
 
 		// Scale . Rotation . Translation
@@ -129,15 +129,15 @@ namespace mage {
 	}
 
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		XMMatrixOffsetAffineTransformation2D(FXMVECTOR offset,
-			                                 FXMVECTOR scale, 
+			                                 FXMVECTOR scale,
 			                                 F32       rotation,
 			                                 FXMVECTOR translation) noexcept {
 
 		// Inverse Offset Translation . Scale . Rotation . Translation
 		auto transformation = XMMatrixAffineTransformation2D(scale,
-			                                                 rotation, 
+			                                                 rotation,
 			                                                 translation);
 		transformation.r[3] = XMVector3TransformCoord(-offset, transformation);
 		return transformation;

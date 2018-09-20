@@ -33,7 +33,7 @@ RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 //-----------------------------------------------------------------------------
 
 static const float2 g_disk_offsets[12] = {
-	{ -0.326212f, -0.405810f }, 
+	{ -0.326212f, -0.405810f },
 	{ -0.840144f, -0.073580f },
 	{ -0.840144f,  0.457137f },
 	{ -0.203345f,  0.620716f },
@@ -50,7 +50,7 @@ static const float2 g_disk_offsets[12] = {
 float GetCircleOfConfusionRadius(float p_camera_z) {
 	const float magnification = g_focal_length / (g_focus_distance - g_focal_length);
 	// Compute the CoC radius in camera space.
-	const float CoC_radius = g_aperture_radius * abs(p_camera_z - g_focus_distance) 
+	const float CoC_radius = g_aperture_radius * abs(p_camera_z - g_focus_distance)
 		                   / p_camera_z;
 	// Compute the CoC radius in display|viewport space.
 	return CoC_radius * magnification;
@@ -74,7 +74,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const float CoC_radius  = GetCircleOfConfusionRadius(p_camera_z);
 	float4 hdr_sum          = g_input_image_texture[p_display];
 	float  contribution_sum = 1.0f;
-	
+
 	[unroll]
 	for (uint i = 0u; i < 12u; ++i) {
 		const float2 p_display_i    = p_display + g_disk_offsets[i] * 20.0f * CoC_radius;
@@ -82,7 +82,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		const float  CoC_radius_i   = GetCircleOfConfusionRadius(p_camera_z_i);
 
 		const float  a = 1.0f; // abs(p_camera_z_i - p_camera_z) < CoC_radius_i; // In Bokeh circle?
-		const float  b = 1.0f; // (p_camera_z_i >= p_camera_z);                  // Is behind?              
+		const float  b = 1.0f; // (p_camera_z_i >= p_camera_z);                  // Is behind?
 
 		hdr_sum          += (a * b) * g_input_image_texture[p_display_i];
 		contribution_sum += (a * b);

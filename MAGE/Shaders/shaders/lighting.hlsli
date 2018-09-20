@@ -49,7 +49,7 @@
 #ifdef BRDF_FUNCTION
 
 CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
-	
+
 	//-------------------------------------------------------------------------
 	// Member Variables: Lights without Shadow Mapping
 	//-------------------------------------------------------------------------
@@ -58,7 +58,7 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 	 The number of directional lights in the scene.
 	 */
 	uint g_nb_directional_lights    : packoffset(c0.x);
-	
+
 	/**
 	 The number of omni lights in the scene.
 	 */
@@ -77,12 +77,12 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 	 The number of shaodw mapped directional lights in the scene.
 	 */
 	uint g_nb_sm_directional_lights : packoffset(c1.x);
-	
+
 	/**
 	 The number of shaodw mapped omni lights in the scene.
 	 */
 	uint g_nb_sm_omni_lights        : packoffset(c1.y);
-	
+
 	/**
 	 The number of shaodw mapped spotlights in the scene.
 	 */
@@ -94,7 +94,7 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 
 	/**
 	 The radiance of the ambient light in the scene.
-	 */ 
+	 */
 	float3 g_La                     : packoffset(c2);
 }
 
@@ -106,17 +106,17 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 #ifdef BRDF_FUNCTION
 
 #ifndef DISABLE_LIGHTS_DIRECTIONAL
-STRUCTURED_BUFFER(g_directional_lights, DirectionalLight, 
+STRUCTURED_BUFFER(g_directional_lights, DirectionalLight,
 				  SLOT_SRV_DIRECTIONAL_LIGHTS);
 #endif // DISABLE_LIGHTS_DIRECTIONAL
 
 #ifndef DISABLE_LIGHTS_OMNI
-STRUCTURED_BUFFER(g_omni_lights, OmniLight, 
+STRUCTURED_BUFFER(g_omni_lights, OmniLight,
 				  SLOT_SRV_OMNI_LIGHTS);
 #endif // DISABLE_LIGHTS_OMNI
 
 #ifndef DISABLE_LIGHTS_SPOT
-STRUCTURED_BUFFER(g_spot_lights, SpotLight, 
+STRUCTURED_BUFFER(g_spot_lights, SpotLight,
 				  SLOT_SRV_SPOT_LIGHTS);
 #endif // DISABLE_LIGHTS_SPOT
 
@@ -125,21 +125,21 @@ STRUCTURED_BUFFER(g_spot_lights, SpotLight,
 #ifndef DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL
 STRUCTURED_BUFFER(g_sm_directional_lights, ShadowMappedDirectionalLight,
 				  SLOT_SRV_SHADOW_MAPPED_DIRECTIONAL_LIGHTS);
-TEXTURE_2D_ARRAY(g_directional_sms, float, 
+TEXTURE_2D_ARRAY(g_directional_sms, float,
 				 SLOT_SRV_DIRECTIONAL_SHADOW_MAPS);
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED_DIRECTIONAL
 
 #ifndef DISABLE_LIGHTS_SHADOW_MAPPED_OMNI
-STRUCTURED_BUFFER(g_sm_omni_lights, ShadowMappedOmniLight, 
+STRUCTURED_BUFFER(g_sm_omni_lights, ShadowMappedOmniLight,
 				  SLOT_SRV_SHADOW_MAPPED_OMNI_LIGHTS);
-TEXTURE_CUBE_ARRAY(g_omni_sms, float, 
+TEXTURE_CUBE_ARRAY(g_omni_sms, float,
 				   SLOT_SRV_OMNI_SHADOW_MAPS);
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED_OMNI
 
 #ifndef DISABLE_LIGHTS_SHADOW_MAPPED_SPOT
-STRUCTURED_BUFFER(g_sm_spot_lights, ShadowMappedSpotLight, 
+STRUCTURED_BUFFER(g_sm_spot_lights, ShadowMappedSpotLight,
 				  SLOT_SRV_SHADOW_MAPPED_SPOT_LIGHTS);
-TEXTURE_2D_ARRAY(g_spot_sms, float, 
+TEXTURE_2D_ARRAY(g_spot_sms, float,
 				 SLOT_SRV_SPOT_SHADOW_MAPS);
 #endif // DISABLE_LIGHTS_SHADOW_MAPPED_SPOT
 
@@ -170,7 +170,7 @@ float FogFactor_Exponential(float distance, float density) {
 
 #ifdef BRDF_FUNCTION
 
-float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world, 
+float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 				   Material material) {
 
 	float3 L = 0.0f;
@@ -187,8 +187,8 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	// Direct illumination: directional lights
 	for (uint i0 = 0u; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
-		
-		// Compute the light (hit-to-light) direction and 
+
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(p_world, l_world, E_ortho);
@@ -196,7 +196,7 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const float n_dot_l = sat_dot(n_world, l_world);
 		// Compute the BRDF.
 		const BRDF brdf = BRDF_FUNCTION(n_world, l_world, v_world, material);
-		
+
 		L += (brdf.m_diffuse + brdf.m_specular) * E_ortho * n_dot_l;
 	}
 	#endif // DISABLE_LIGHTS_DIRECTIONAL
@@ -205,8 +205,8 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	// Direct illumination: omni lights
 	for (uint i1 = 0u; i1 < g_nb_omni_lights; ++i1) {
 		const OmniLight light = g_omni_lights[i1];
-		
-		// Compute the light (hit-to-light) direction and 
+
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(p_world, l_world, E_ortho);
@@ -223,8 +223,8 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	// Direct illumination: spotlights
 	for (uint i2 = 0u; i2 < g_nb_spot_lights; ++i2) {
 		const SpotLight light = g_spot_lights[i2];
-		
-		// Compute the light (hit-to-light) direction and 
+
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(p_world, l_world, E_ortho);
@@ -245,7 +245,7 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const ShadowMappedDirectionalLight light = g_sm_directional_lights[i3];
 		const ShadowMap map = { g_pcf_sampler, g_directional_sms, i3 };
 
-		// Compute the light (hit-to-light) direction and 
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(map, p_world, l_world, E_ortho);
@@ -264,7 +264,7 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 		const ShadowMappedOmniLight light = g_sm_omni_lights[i4];
 		const ShadowCubeMap map = { g_pcf_sampler, g_omni_sms, i4 };
 
-		// Compute the light (hit-to-light) direction and 
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(map, p_world, l_world, E_ortho);
@@ -282,8 +282,8 @@ float3 GetRadiance(float3 p_world, float3 n_world, float3 v_world,
 	for (uint i5 = 0u; i5 < g_nb_sm_spot_lights; ++i5) {
 		const ShadowMappedSpotLight light = g_sm_spot_lights[i5];
 		const ShadowMap map = { g_pcf_sampler, g_spot_sms, i5 };
-		
-		// Compute the light (hit-to-light) direction and 
+
+		// Compute the light (hit-to-light) direction and
 		// orthogonal irradiance contribution of the light.
 		float3 l_world, E_ortho;
 		light.Contribution(map, p_world, l_world, E_ortho);

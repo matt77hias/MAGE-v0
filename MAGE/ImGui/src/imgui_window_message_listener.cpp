@@ -35,8 +35,8 @@ namespace mage {
 
 	void ImGuiWindowMessageListener
 		::ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window,
-							   UINT message, 
-							   [[maybe_unused]] WPARAM wParam, 
+							   UINT message,
+							   [[maybe_unused]] WPARAM wParam,
 							   [[maybe_unused]] LPARAM lParam) {
 
 		ImGui_ImplWin32_WndProcHandler(window, message, wParam, lParam);

@@ -21,7 +21,7 @@ namespace mage::rendering {
 						 StateManager& state_manager,
 						 ResourceManager& resource_manager)
 		: m_device_context(device_context),
-		m_state_manager(state_manager), 
+		m_state_manager(state_manager),
 		m_opaque_vs(CreateDepthVS(resource_manager)),
 		m_transparent_vs(CreateDepthTransparentVS(resource_manager)),
 		m_transparent_ps(CreateDepthTransparentPS(resource_manager)),
@@ -55,14 +55,14 @@ namespace mage::rendering {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   RasterizerStateID::CounterClockwiseCulling);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::LessDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::GreaterDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 	}
@@ -80,8 +80,8 @@ namespace mage::rendering {
 											 SLOT_CBUFFER_SECONDARY_CAMERA);
 	}
 
-	void XM_CALLCONV DepthPass::Render(const World& world, 
-									   FXMMATRIX world_to_camera, 
+	void XM_CALLCONV DepthPass::Render(const World& world,
+									   FXMMATRIX world_to_camera,
 									   CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
 		BindCamera(world_to_camera, camera_to_projection);
@@ -101,7 +101,7 @@ namespace mage::rendering {
 				|| model.GetMaterial().IsTransparant()) {
 				return;
 			}
-			
+
 			RenderOpaque(model, world_to_projection);
 		});
 
@@ -114,21 +114,21 @@ namespace mage::rendering {
 
 		// Process the transparent models.
 		world.ForEach< Model >([this, world_to_projection](const Model& model) {
-			
+
 			const auto& material = model.GetMaterial();
-			
+
 			if (State::Active != model.GetState()
 				|| !material.IsTransparant()
 				|| material.GetBaseColor()[3] < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
-			
+
 			RenderTransparent(model, world_to_projection);
 		});
 	}
 
-	void XM_CALLCONV DepthPass::RenderOccluders(const World& world, 
-												FXMMATRIX world_to_camera, 
+	void XM_CALLCONV DepthPass::RenderOccluders(const World& world,
+												FXMMATRIX world_to_camera,
 												CXMMATRIX camera_to_projection) {
 		// Bind the projection data.
 		BindCamera(world_to_camera, camera_to_projection);
@@ -149,7 +149,7 @@ namespace mage::rendering {
 				|| model.GetMaterial().IsTransparant()) {
 				return;
 			}
-			
+
 			RenderOpaque(model, world_to_projection);
 		});
 
@@ -162,16 +162,16 @@ namespace mage::rendering {
 
 		// Process the transparent models.
 		world.ForEach< Model >([this, world_to_projection](const Model& model) {
-			
+
 			const auto& material = model.GetMaterial();
-			
+
 			if (State::Active != model.GetState()
 				|| !model.OccludesLight()
 				|| !material.IsTransparant()
 				|| material.GetBaseColor()[3] < TRANSPARENCY_SHADOW_THRESHOLD) {
 				return;
 			}
-			
+
 			RenderTransparent(model, world_to_projection);
 		});
 	}
@@ -184,7 +184,7 @@ namespace mage::rendering {
 		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
-		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
+		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 			return;
 		}
 
@@ -204,7 +204,7 @@ namespace mage::rendering {
 		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
-		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
+		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 			return;
 		}
 
@@ -212,7 +212,7 @@ namespace mage::rendering {
 		model.BindBuffer< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
 		model.BindBuffer< Pipeline::PS >(m_device_context, SLOT_CBUFFER_MODEL);
 		// Bind the SRV of the model.
-		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR, 
+		Pipeline::PS::BindSRV(m_device_context, SLOT_SRV_BASE_COLOR,
 							  model.GetMaterial().GetBaseColorSRV());
 		// Bind the mesh of the model.
 		model.BindMesh(m_device_context);

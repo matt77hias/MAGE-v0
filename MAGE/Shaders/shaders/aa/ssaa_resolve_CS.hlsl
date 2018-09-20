@@ -48,7 +48,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const uint2  nb_samples   = g_ss_viewport_resolution * g_viewport_inv_resolution;
 	const float2 weights      = g_viewport_resolution * g_ss_viewport_inv_resolution;
 	const float  weight       = weights.x * weights.y;
-	
+
 	const InputTexturesSSAA  input_textures  = {
 		g_input_image_texture,
 		g_input_normal_texture,

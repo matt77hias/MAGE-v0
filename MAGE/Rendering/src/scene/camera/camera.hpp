@@ -76,7 +76,7 @@ namespace mage::rendering {
 
 		 @param[in]		lens
 						A reference to the camera lens to copy.
-		 @return		A reference to the copy of the given camera lens (i.e. 
+		 @return		A reference to the copy of the given camera lens (i.e.
 						this camera lens).
 		 */
 		CameraLens& operator=(const CameraLens& lens) noexcept = default;
@@ -86,7 +86,7 @@ namespace mage::rendering {
 
 		 @param[in]		lens
 						A reference to the camera lens to move.
-		 @return		A reference to the moved camera lens (i.e. this camera 
+		 @return		A reference to the moved camera lens (i.e. this camera
 						lens).
 		 */
 		CameraLens& operator=(CameraLens&& lens) noexcept = default;
@@ -117,7 +117,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the radius of the lens aperture of this camera lens to the given 
+		 Sets the radius of the lens aperture of this camera lens to the given
 		 value.
 
 		 @param[in]		aperture_radius
@@ -136,7 +136,7 @@ namespace mage::rendering {
 		constexpr F32 GetFocalLength() const noexcept {
 			return m_focal_length;
 		}
-		
+
 		/**
 		 Sets the focal length of this camera lens to the given value.
 
@@ -181,23 +181,23 @@ namespace mage::rendering {
 		// Lens equation:
 		// 1/focal_length = 1/focus_distance + 1/aperture_distance
 		//
-		// focal_length      := distance between the lens aperture and the 
+		// focal_length      := distance between the lens aperture and the
 		//                      focal point/focus expressed in camera space
-		// focus_distance    := distance between the lens aperture and the 
-		//                      objects in perfect focus expressed in camera 
+		// focus_distance    := distance between the lens aperture and the
+		//                      objects in perfect focus expressed in camera
 		//                      space
-		// aperture_distance := distance between the lens aperture and the 
+		// aperture_distance := distance between the lens aperture and the
 		//                      image plane expressed in camera space
 
 		/**
-		 The focal length (i.e. distance between the lens aperture and the 
+		 The focal length (i.e. distance between the lens aperture and the
 		 focal point/focus expressed in camera space) of this camera lens.
 		 */
 		F32 m_focal_length;
 
 		/**
-		 The focus distance (i.e. distance between the lens aperture and the 
-		 objects in perfect focus expressed in camera space) of this camera 
+		 The focus distance (i.e. distance between the lens aperture and the
+		 objects in perfect focus expressed in camera space) of this camera
 		 lens.
 		 */
 		F32 m_focus_distance;
@@ -219,7 +219,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Class Member Methods
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		[[nodiscard]]
 		static constexpr const Point3 GetVoxelGridCenter() noexcept {
@@ -263,18 +263,18 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a voxelization settings.
 		 */
 		constexpr VoxelizationSettings()
-			: m_vct(false), 
-			m_cone_step(0.1f), 
+			: m_vct(false),
+			m_cone_step(0.1f),
 			m_max_cone_distance(1.0f) {}
 
 		/**
-		 Constructs a voxelization settings from the given voxelization 
+		 Constructs a voxelization settings from the given voxelization
 		 settings.
 
 		 @param[in]		settings
@@ -284,7 +284,7 @@ namespace mage::rendering {
 			const VoxelizationSettings& settings) = default;
 
 		/**
-		 Constructs a voxelization settings by moving the given voxelization 
+		 Constructs a voxelization settings by moving the given voxelization
 		 settings.
 
 		 @param[in]		settings
@@ -300,14 +300,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given voxelization settings to this voxelization settings.
 
 		 @param[in]		settings
 						A reference to the voxelization settings to copy.
-		 @return		A reference to the copy of the given voxelization 
+		 @return		A reference to the copy of the given voxelization
 						settings (i.e. this voxelization settings).
 		 */
 		VoxelizationSettings& operator=(
@@ -318,7 +318,7 @@ namespace mage::rendering {
 
 		 @param[in]		settings
 						A reference to the voxelization settings to move.
-		 @return		A reference to the moved voxelization settings (i.e. 
+		 @return		A reference to the moved voxelization settings (i.e.
 						this voxelization settings).
 		 */
 		VoxelizationSettings& operator=(
@@ -391,21 +391,21 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
-		 A flag indicating whether voxel cone tracing should be used for this 
+		 A flag indicating whether voxel cone tracing should be used for this
 		 voxelization settings.
 		 */
 		bool m_vct;
-		
+
 		/**
-		 The cone step expressed in voxel UVW space of this voxelization 
+		 The cone step expressed in voxel UVW space of this voxelization
 		 settings.
 		 */
 		F32 m_cone_step;
-		
+
 		/**
-		 The maximal cone distance expressed in voxel UVW space of this 
+		 The maximal cone distance expressed in voxel UVW space of this
 		 voxelization settings.
 		 */
 		F32 m_max_cone_distance;
@@ -419,7 +419,7 @@ namespace mage::rendering {
 	#pragma region
 
 	/**
-	 A class of fog with respect to the camera position (eye) to avoid popping 
+	 A class of fog with respect to the camera position (eye) to avoid popping
 	 artifacts while moving.
 	 */
 	class Fog {
@@ -434,7 +434,7 @@ namespace mage::rendering {
 		 Constructs a fog.
 		 */
 		constexpr Fog() noexcept
-			: m_base_color(color::Silver), 
+			: m_base_color(color::Silver),
 			m_density(0.0) {}
 
 		/**
@@ -460,7 +460,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given fog to this fog.
@@ -506,7 +506,7 @@ namespace mage::rendering {
 
 		/**
 		 Returns the density of this fog.
-		
+
 		 @return		The density of this fog.
 		 */
 		[[nodiscard]]
@@ -557,13 +557,13 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a sky.
 		 */
-		Sky() 
-			: m_texture(), 
+		Sky()
+			: m_texture(),
 			m_scale_z(1.5f) {}
 
 		/**
@@ -589,14 +589,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given sky to this sky.
 
 		 @param[in]		sky
 						A reference to the sky to copy.
-		 @return		A reference to the copy of the given sky (i.e. this 
+		 @return		A reference to the copy of the given sky (i.e. this
 						sky).
 		 */
 		Sky& operator=(const Sky& sky) noexcept = default;
@@ -623,19 +623,19 @@ namespace mage::rendering {
 		TexturePtr GetTexture() const noexcept {
 			return m_texture;
 		}
-		
+
 		/**
 		 Returns the shader resource view of the texture of this sky.
 
 		 @return		@c nullptr, if this sky has no texture.
-		 @return		A pointer to the shader resource view of the texture of 
+		 @return		A pointer to the shader resource view of the texture of
 						this sky.
 		 */
 		[[nodiscard]]
 		ID3D11ShaderResourceView* GetSRV() const noexcept {
 			return m_texture ? m_texture->Get() : nullptr;
 		}
-		
+
 		/**
 		 Sets the texture of this sky to the given texture.
 
@@ -647,10 +647,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the scaling factor of the z component of the sky domes of this 
+		 Returns the scaling factor of the z component of the sky domes of this
 		 sky.
-		
-		 @return		The scaling factor of the z component of the sky domes 
+
+		 @return		The scaling factor of the z component of the sky domes
 						of this sky.
 		 */
 		[[nodiscard]]
@@ -659,7 +659,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets scaling factor of the z component of the sky domes of this sky to 
+		 Sets scaling factor of the z component of the sky domes of this sky to
 		 the given value.
 
 		 @param[in]		scale_z
@@ -707,16 +707,16 @@ namespace mage::rendering {
 		/**
 		 Returns the gamma value used for gamma correction of camera settings.
 
-		 @return		The gamma value used for gamma correction of camera 
+		 @return		The gamma value used for gamma correction of camera
 						settings.
 		 */
 		[[nodiscard]]
 		static constexpr F32 GetGamma() noexcept {
 			return s_gamma;
 		}
-		
+
 		/**
-		 Sets the gamma value used for gamma correction of camera settings to 
+		 Sets the gamma value used for gamma correction of camera settings to
 		 the given value.
 
 		 @param[in]		gamma
@@ -734,13 +734,13 @@ namespace mage::rendering {
 		 Constructs a camera settings.
 		 */
 		CameraSettings() noexcept
-			: m_render_mode(RenderMode::Forward), 
-			m_brdf(BRDF::Frostbite), 
-			m_tone_mapping(ToneMapping::ACESFilmic), 
-			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)), 
-			m_fog(), 
+			: m_render_mode(RenderMode::Forward),
+			m_brdf(BRDF::Frostbite),
+			m_tone_mapping(ToneMapping::ACESFilmic),
+			m_render_layer_mask(static_cast< U32 >(RenderLayer::None)),
+			m_fog(),
 			m_sky() {}
-		
+
 		/**
 		 Constructs a camera settings from the given camera settings.
 
@@ -771,7 +771,7 @@ namespace mage::rendering {
 
 		 @param[in]		settings
 						A reference to the camera settings to copy.
-		 @return		A reference to the copy of the given camera settings 
+		 @return		A reference to the copy of the given camera settings
 						(i.e. this camera settings).
 		 */
 		CameraSettings& operator=(const CameraSettings& settings) noexcept = default;
@@ -781,7 +781,7 @@ namespace mage::rendering {
 
 		 @param[in]		settings
 						A reference to the camera settings to move.
-		 @return		A reference to the moved camera settings (i.e. this 
+		 @return		A reference to the moved camera settings (i.e. this
 						camera settings).
 		 */
 		CameraSettings& operator=(CameraSettings&& settings) noexcept = default;
@@ -959,7 +959,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The fog of this camera settings. 
+		 The fog of this camera settings.
 		 */
 		Fog m_fog;
 
@@ -968,7 +968,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The sky of this camera settings. 
+		 The sky of this camera settings.
 		 */
 		Sky m_sky;
 	};
@@ -989,7 +989,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Destructors
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Destructs this camera.
@@ -1005,7 +1005,7 @@ namespace mage::rendering {
 
 		 @param[in]		camera
 						A reference to the camera to copy.
-		 @return		A reference to the copy of the given camera (i.e. this 
+		 @return		A reference to the copy of the given camera (i.e. this
 						camera).
 		 */
 		Camera& operator=(const Camera& camera) = delete;
@@ -1026,16 +1026,16 @@ namespace mage::rendering {
 		/**
 		 Returns the clipping planes of this camera expressed in camera space.
 
-		 @return		The clipping planes of this camera expressed in camera 
+		 @return		The clipping planes of this camera expressed in camera
 						space.
 		 */
 		[[nodiscard]]
 		const F32x2 GetClippingPlanes() const noexcept {
 			return m_clipping_planes;
 		}
-		
+
 		/**
-		 Sets the clipping planes of this camera expressed in camera space to 
+		 Sets the clipping planes of this camera expressed in camera space to
 		 the given clipping planes.
 
 		 @param[in]		clipping_planes
@@ -1044,14 +1044,14 @@ namespace mage::rendering {
 		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
 			m_clipping_planes = std::move(clipping_planes);
 		}
-		
+
 		/**
 		 Returns the camera-to-projection matrix of this camera.
 
 		 @return		The camera-to-projection matrix of this camera.
 		 */
 		[[nodiscard]]
-		virtual const XMMATRIX XM_CALLCONV 
+		virtual const XMMATRIX XM_CALLCONV
 			GetCameraToProjectionMatrix() const noexcept = 0;
 
 		/**
@@ -1060,7 +1060,7 @@ namespace mage::rendering {
 		 @return		The projection-to-camera matrix of this camera.
 		 */
 		[[nodiscard]]
-		virtual const XMMATRIX XM_CALLCONV 
+		virtual const XMMATRIX XM_CALLCONV
 			GetProjectionToCameraMatrix() const noexcept = 0;
 
 		//---------------------------------------------------------------------
@@ -1070,17 +1070,17 @@ namespace mage::rendering {
 		/**
 		 Returns the lens of this camera.
 
-		 @return		A reference to the lens of this camera.	
+		 @return		A reference to the lens of this camera.
 		 */
 		[[nodiscard]]
 		CameraLens& GetLens() noexcept {
 			return m_lens;
 		}
-		
+
 		/**
 		 Returns the lens of this camera.
 
-		 @return		A reference to the lens of this camera.	
+		 @return		A reference to the lens of this camera.
 		 */
 		[[nodiscard]]
 		const CameraLens& GetLens() const noexcept {
@@ -1118,13 +1118,13 @@ namespace mage::rendering {
 		/**
 		 Returns the settings of this camera.
 
-		 @return		A reference to the settings of this camera.	
+		 @return		A reference to the settings of this camera.
 		 */
 		[[nodiscard]]
 		CameraSettings& GetSettings() noexcept {
 			return m_settings;
 		}
-		
+
 		/**
 		 Returns the settings of this camera.
 
@@ -1158,8 +1158,8 @@ namespace mage::rendering {
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set 
-						the constant buffer to (ranges from 0 to 
+						The index into the device's zero-based array to set
+						the constant buffer to (ranges from 0 to
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >

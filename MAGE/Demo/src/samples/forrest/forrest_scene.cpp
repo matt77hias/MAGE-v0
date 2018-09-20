@@ -50,34 +50,34 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		const auto plane_model_desc 
+		const auto plane_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/plane/plane.obj", mesh_desc);
-		const auto tree1_model_desc 
+		const auto tree1_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
-		const auto tree2_model_desc 
+		const auto tree2_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree1b_lod0.mdl", mesh_desc);
-		const auto tree3_model_desc 
+		const auto tree3_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree2a_lod0.mdl", mesh_desc);
-		const auto tree4_model_desc 
+		const auto tree4_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree2b_lod0.mdl", mesh_desc);
-		const auto tree5_model_desc 
+		const auto tree5_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree3a_lod0.mdl", mesh_desc);
-		const auto tree6_model_desc 
+		const auto tree6_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree3b_lod0.mdl", mesh_desc);
-		const auto tree7_model_desc 
+		const auto tree7_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree4a_lod0.mdl", mesh_desc);
-		const auto tree8_model_desc 
+		const auto tree8_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree4b_lod0.mdl", mesh_desc);
-		const auto windmill_model_desc 
+		const auto windmill_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/windmill/windmill.mdl", mesh_desc);
 		const auto sky_texture
@@ -101,7 +101,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		const auto plane_node = Import(engine, *plane_model_desc);
 		plane_node->GetTransform().SetScale(30.0f);
-		
+
 		const auto tree1_node = Import(engine, *tree1_model_desc);
 		tree1_node->GetTransform().SetScale(5.0f);
 		tree1_node->GetTransform().SetTranslation(-5.0f, 2.5f, -10.0f);
@@ -126,9 +126,9 @@ namespace mage {
 		const auto tree8_node = Import(engine, *tree8_model_desc);
 		tree8_node->GetTransform().SetScale(5.0f);
 		tree8_node->GetTransform().SetTranslation(-10.0f, 2.5f, 10.0f);
-		
+
 		std::vector< ProxyPtr< Node > >windmill_nodes;
-		const auto windmill_node = Import(engine, *windmill_model_desc, 
+		const auto windmill_node = Import(engine, *windmill_model_desc,
 										  windmill_nodes);
 		windmill_node->GetTransform().SetScale(10.0f);
 		windmill_node->GetTransform().SetTranslationY(4.25f);
@@ -155,12 +155,12 @@ namespace mage {
 
 		const auto directional_light = rendering_world.Create< DirectionalLight >();
 		directional_light->SetIrradiance(4.0f);
-		
+
 		const auto directional_light_node = Create< Node >("Directional Light");
 		directional_light_node->Add(directional_light);
 		directional_light_node->GetTransform().SetTranslation(20.0f, 20.0f, 0.0f);
 		directional_light_node->GetTransform().SetRotationZ(XM_PIDIV4);
-		
+
 		//---------------------------------------------------------------------
 		// Sprites
 		//---------------------------------------------------------------------
@@ -190,7 +190,7 @@ namespace mage {
 
 		auto script = Create< script::RotationScript >();
 		script->SetRotationAxis(script::RotationScript::RotationAxis::X);
-		
+
 		windmill_nodes[0]->Add(script);
 	}
 }

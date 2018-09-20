@@ -15,11 +15,11 @@ namespace mage::rendering {
 
 	OmniLight::OmniLight() noexcept
 		: Component(),
-		m_shadows(false), 
+		m_shadows(false),
 		m_clipping_planes(0.1f, 1.0f),
-		m_aabb(), 
-		m_sphere(), 
-		m_base_color(RGB(1.0f)), 
+		m_aabb(),
+		m_sphere(),
+		m_base_color(RGB(1.0f)),
 		m_intensity(1.0f) {
 
 		// Update the bounding volumes.
@@ -27,15 +27,15 @@ namespace mage::rendering {
 	}
 
 	OmniLight::OmniLight(const OmniLight& light) noexcept = default;
-	
+
 	OmniLight::OmniLight(OmniLight&& light) noexcept = default;
-	
+
 	OmniLight::~OmniLight() = default;
 
 	OmniLight& OmniLight::operator=(const OmniLight& light) noexcept = default;
 
 	OmniLight& OmniLight::operator=(OmniLight&& light) noexcept = default;
-	
+
 	[[nodiscard]]
 	F32 OmniLight::GetWorldRange() const noexcept {
 		Assert(HasOwner());

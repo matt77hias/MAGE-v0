@@ -39,15 +39,15 @@ namespace mage::rendering {
 			//---------------------------------------------------------------------
 
 			/**
-			 Checks whether the first given glyph's character is smaller than the 
+			 Checks whether the first given glyph's character is smaller than the
 			 second given glyph's character.
 
 			 @param[in]		lhs
 							A reference to the first glyph.
 			 @param[in]		rhs
 							A reference to the second glyph.
-			 @return		@c true if the first given glyph's character is smaller 
-							than the second given glyph's character. @c false 
+			 @return		@c true if the first given glyph's character is smaller
+							than the second given glyph's character. @c false
 							otherwise.
 			 */
 			[[nodiscard]]
@@ -56,14 +56,14 @@ namespace mage::rendering {
 			}
 
 			/**
-			 Checks whether the given glyph's character is smaller than the given 
+			 Checks whether the given glyph's character is smaller than the given
 			 character.
 
 			 @param[in]		lhs
 							A reference to the glyph.
 			 @param[in]		rhs
 							The character.
-			 @return		@c true if the given glyph's character is smaller than 
+			 @return		@c true if the given glyph's character is smaller than
 							the given character. @c false otherwise.
 			 */
 			[[nodiscard]]
@@ -72,14 +72,14 @@ namespace mage::rendering {
 			}
 
 			/**
-			 Checks whether the given character is smaller than the given glyph's 
+			 Checks whether the given character is smaller than the given glyph's
 			 character.
 
 			 @param[in]		lhs
 							The character.
 			 @param[in]		rhs
 							A reference to the glyph.
-			 @return		@c true if the given character is smaller than the 
+			 @return		@c true if the given character is smaller than the
 							given glyph's character. @c false otherwise.
 			 */
 			[[nodiscard]]
@@ -97,10 +97,10 @@ namespace mage::rendering {
 	SpriteFont::SpriteFont(ID3D11Device& device,
 						   std::wstring fname,
 		                   const SpriteFontDescriptor& desc)
-		: Resource< SpriteFont >(std::move(fname)), 
-		m_texture_srv(), 
-		m_glyphs(), 
-		m_default_glyph(nullptr), 
+		: Resource< SpriteFont >(std::move(fname)),
+		m_texture_srv(),
+		m_glyphs(),
+		m_default_glyph(nullptr),
 		m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
@@ -120,18 +120,18 @@ namespace mage::rendering {
 		using std::cend;
 
 		m_glyphs = std::move(output.m_glyphs);
-		const auto sorted = std::is_sorted(cbegin(m_glyphs), cend(m_glyphs), 
+		const auto sorted = std::is_sorted(cbegin(m_glyphs), cend(m_glyphs),
 			                               GlyphLessThan());
 		ThrowIfFailed(sorted, "Sprite font glyphs are not sorted.");
 
 		SetLineSpacing(output.m_line_spacing);
 		SetDefaultCharacter(output.m_default_character);
-		
+
 		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
 	void SpriteFont::DrawText(SpriteBatch& sprite_batch,
-							  gsl::span< const ColorString > strings, 
+							  gsl::span< const ColorString > strings,
 		                      const SpriteTransform& transform,
 		                      SpriteEffect effects,
 		                      const RGBA* color) const {
@@ -153,13 +153,13 @@ namespace mage::rendering {
 			{ 0.0f, 1.0f }, //SpriteEffect::MirrorY
 			{ 1.0f, 1.0f }  //SpriteEffect::MirrorXY
 		};
-		
+
 		const auto index = static_cast< std::size_t >(effects) & 3u;
 
-		const auto base_offset = (SpriteEffect::None == effects) 
-			                   ? transform.GetRotationOriginV() 
+		const auto base_offset = (SpriteEffect::None == effects)
+			                   ? transform.GetRotationOriginV()
 			                   : transform.GetRotationOriginV()
-			                     - MeasureText(strings) 
+			                     - MeasureText(strings)
 			                     * axis_is_mirrored_table[index];
 
 		auto x = 0.0f;
@@ -201,14 +201,14 @@ namespace mage::rendering {
 						}
 
 						sprite_transform.SetRotationOrigin(offset);
-						
-						const auto srgba = (color) ? XMLoad(*color) 
+
+						const auto srgba = (color) ? XMLoad(*color)
 							                       : XMLoad(str.GetColor());
-						
-						sprite_batch.Draw(m_texture_srv.Get(), 
-							              srgba, 
+
+						sprite_batch.Draw(m_texture_srv.Get(),
+							              srgba,
 							              effects,
-							              sprite_transform, 
+							              sprite_transform,
 							              &glyph->m_sub_rectangle);
 					}
 
@@ -250,9 +250,9 @@ namespace mage::rendering {
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
-						result = XMVectorMax(result, { x + width, 
-											           y + std::max(m_line_spacing, height + glyph->m_offset[1]), 
-											           0.0f, 
+						result = XMVectorMax(result, { x + width,
+											           y + std::max(m_line_spacing, height + glyph->m_offset[1]),
+											           0.0f,
 											           0.0f });
 					}
 
@@ -269,14 +269,14 @@ namespace mage::rendering {
 
 	[[nodiscard]]
 	const RECT SpriteFont
-		::MeasureDrawBounds(gsl::span< const ColorString > strings, 
+		::MeasureDrawBounds(gsl::span< const ColorString > strings,
 							const F32x2& top_left) const {
 
-		RECT result = { 
-			std::numeric_limits< LONG >::max(), 
-			std::numeric_limits< LONG >::max(), 
-			0, 
-			0 
+		RECT result = {
+			std::numeric_limits< LONG >::max(),
+			std::numeric_limits< LONG >::max(),
+			0,
+			0
 		};
 		auto x = 0.0f;
 		auto y = 0.0f;
@@ -298,7 +298,7 @@ namespace mage::rendering {
 				default: {
 					const auto glyph = GetGlyph(character);
 					x = std::max(0.0f, x + glyph->m_offset[0]);
-					
+
 					const auto width  = static_cast< F32 >(glyph->GetWidth());
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
@@ -334,23 +334,23 @@ namespace mage::rendering {
 		using std::cbegin;
 		using std::cend;
 
-		return std::binary_search(cbegin(m_glyphs), cend(m_glyphs), 
+		return std::binary_search(cbegin(m_glyphs), cend(m_glyphs),
 			                      character, GlyphLessThan());
 	}
-	
+
 	[[nodiscard]]
 	const Glyph* SpriteFont::GetGlyph(wchar_t character) const {
 		using std::cbegin;
 		using std::cend;
 
-		if (const auto it = std::lower_bound(cbegin(m_glyphs), cend(m_glyphs), 
-			                                 character, GlyphLessThan()); 
+		if (const auto it = std::lower_bound(cbegin(m_glyphs), cend(m_glyphs),
+			                                 character, GlyphLessThan());
 			it != cend(m_glyphs) && it->m_character == character) {
 
 			return &(*it);
 		}
 
-		ThrowIfFailed((nullptr != m_default_glyph), 
+		ThrowIfFailed((nullptr != m_default_glyph),
 			          "Character not found in sprite font.");
 
 		return m_default_glyph;

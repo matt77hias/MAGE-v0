@@ -14,9 +14,9 @@
 namespace mage::input {
 
 	Keyboard::Keyboard(NotNull< HWND > window, IDirectInput8& di)
-		: m_window(window), 
-		m_di(di), 
-		m_keyboard(), 
+		: m_window(window),
+		m_di(di),
+		m_keyboard(),
 		m_key_states{} {
 
 		InitializeKeyboard();
@@ -27,48 +27,48 @@ namespace mage::input {
 	Keyboard::~Keyboard() = default;
 
 	void Keyboard::InitializeKeyboard() {
-		// Create and initialize an instance of a device based on a given 
-		// globally unique identifier (GUID), and obtain an IDirectInputDevice8 
-		// Interface interface. 
+		// Create and initialize an instance of a device based on a given
+		// globally unique identifier (GUID), and obtain an IDirectInputDevice8
+		// Interface interface.
 		// 1. Reference to the GUID for the desired input device.
-		// 2. Address of a variable to receive the IDirectInputDevice8 
+		// 2. Address of a variable to receive the IDirectInputDevice8
 		//    Interface interface pointer if successful.
-		// 3. Pointer to the address of the controlling object's IUnknown 
-		//    interface for COM aggregation, or nullptr if the interface is not 
+		// 3. Pointer to the address of the controlling object's IUnknown
+		//    interface for COM aggregation, or nullptr if the interface is not
 		//    aggregated.
 		{
-			const HRESULT result 
-				= m_di.CreateDevice(GUID_SysKeyboard, 
-									m_keyboard.ReleaseAndGetAddressOf(), 
+			const HRESULT result
+				= m_di.CreateDevice(GUID_SysKeyboard,
+									m_keyboard.ReleaseAndGetAddressOf(),
 									nullptr);
-			ThrowIfFailed(result, 
-						  "Failed to create keyboard device: {:08X}.", 
+			ThrowIfFailed(result,
+						  "Failed to create keyboard device: {:08X}.",
 						  result);
 		}
-		
+
 		// Set the data format for the DirectInput device.
 		{
 			const HRESULT result = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "Failed to set data format for keyboard device: {:08X}.",
 				          result);
 		}
 
-		// Establish the cooperative level for this instance of the device. 
-		// The cooperative level determines how this instance of the device 
-		// interacts with other instances of the device and the rest of the 
+		// Establish the cooperative level for this instance of the device.
+		// The cooperative level determines how this instance of the device
+		// interacts with other instances of the device and the rest of the
 		// system.
 		{
-			const HRESULT result 
-				= m_keyboard->SetCooperativeLevel(m_window, 
-												  DISCL_FOREGROUND 
+			const HRESULT result
+				= m_keyboard->SetCooperativeLevel(m_window,
+												  DISCL_FOREGROUND
 												| DISCL_NONEXCLUSIVE);
 			ThrowIfFailed(result,
 				          "Failed to set cooperation level for keyboard device: {:08X}.",
 				          result);
 		}
 
-		// Obtain access to the input device. 
+		// Obtain access to the input device.
 		m_keyboard->Acquire();
 	}
 
@@ -77,12 +77,12 @@ namespace mage::input {
 
 		// Poll the keyboard until it succeeds or returns an unknown error.
 		while (true) {
-			
+
 			// Retrieves data from polled objects on a DirectInput device.
 			m_keyboard->Poll();
 
-			// Retrieves immediate data from the device. 
-			const HRESULT result 
+			// Retrieves immediate data from the device.
+			const HRESULT result
 				= m_keyboard->GetDeviceState(static_cast< DWORD >(std::size(key_states)),
 				                             (LPVOID)&key_states);
 
@@ -93,7 +93,7 @@ namespace mage::input {
 				&& DIERR_INPUTLOST != result) {
 				return;
 			}
-			
+
 			// Reacquire the device if the focus was lost.
 			if (FAILED(m_keyboard->Acquire())) {
 				return;

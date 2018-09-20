@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device& device) 
+	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device& device)
 		: PrimitiveBatchMesh(device,
 		                     MaxVerticesPerBatch(),
 		                     GenerateIndices()) {}
@@ -35,7 +35,7 @@ namespace mage::rendering {
 
 	[[nodiscard]]
 	const std::vector< U16 > SpriteBatchMesh::GenerateIndices() {
-		static_assert(MaxVerticesPerBatch() < std::numeric_limits< U16 >::max(), 
+		static_assert(MaxVerticesPerBatch() < std::numeric_limits< U16 >::max(),
 					  "s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.

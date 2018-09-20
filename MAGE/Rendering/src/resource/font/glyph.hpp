@@ -60,7 +60,7 @@ namespace mage::rendering {
 
 		 @param[in]		glyph
 						A reference to the glyph to copy.
-		 @return		A reference to copy of the given glyph (i.e. this 
+		 @return		A reference to copy of the given glyph (i.e. this
 						glyph).
 		 */
 		Glyph& operator=(const Glyph& glyph) noexcept = default;
@@ -99,12 +99,12 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Checks whether this glyph's character is smaller than the given 
+		 Checks whether this glyph's character is smaller than the given
 		 glyph's character.
 
 		 @param[in]		rhs
 						A reference to the glyph to compare against.
-		 @return		@c true if the this glyph's character is smaller than 
+		 @return		@c true if the this glyph's character is smaller than
 						the given glyph's character. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -113,12 +113,12 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Checks whether this glyph's character is smaller than the given 
+		 Checks whether this glyph's character is smaller than the given
 		 character.
 
 		 @param[in]		rhs
 						The character to compare against.
-		 @return		@c true if the this glyph's character is smaller than 
+		 @return		@c true if the this glyph's character is smaller than
 						the given character. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -139,7 +139,7 @@ namespace mage::rendering {
 		 The subrectangle of this glyph.
 		 */
 		RECT m_sub_rectangle;
-		
+
 		/**
 		 The offset of this glyph [from the left, from the top].
 		 */

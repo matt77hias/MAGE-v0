@@ -44,7 +44,7 @@ namespace mage::rendering {
 						Failed to create the texture.
 		 */
 		[[nodiscard]]
-		inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager, 
+		inline TexturePtr CreateFlatTexture2D(ResourceManager& resource_manager,
 											  const std::wstring& guid,
 											  U32 color) {
 
@@ -62,8 +62,8 @@ namespace mage::rendering {
 			texture_data.pSysMem     = &color;
 			texture_data.SysMemPitch = sizeof(color);
 
-			return resource_manager.GetOrCreate< Texture >(guid, 
-														   texture_desc, 
+			return resource_manager.GetOrCreate< Texture >(guid,
+														   texture_desc,
 														   texture_data);
 		}
 	}
@@ -74,8 +74,8 @@ namespace mage::rendering {
 	#pragma region
 
 	TexturePtr CreateBlackTexture(ResourceManager& resource_manager) {
-		return CreateFlatTexture2D(resource_manager, 
-								   MAGE_GUID_TEXTURE_BLACK, 
+		return CreateFlatTexture2D(resource_manager,
+								   MAGE_GUID_TEXTURE_BLACK,
 								   0xFF000000u);
 	}
 

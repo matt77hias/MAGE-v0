@@ -64,14 +64,14 @@ namespace mage::input {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given input manager to this input manager.
 
 		 @param[in]		manager
 						A reference to the input manager to copy.
-		 @return		A reference to the copy of the given input manager 
+		 @return		A reference to the copy of the given input manager
 						(i.e. this input manager).
 		 */
 		Impl& operator=(const Impl& manager) = delete;
@@ -81,7 +81,7 @@ namespace mage::input {
 
 		 @param[in]		manager
 						A reference to the input manager to move.
-		 @return		A reference to the moved input manager (i.e. this 
+		 @return		A reference to the moved input manager (i.e. this
 						input manager).
 		 */
 		Impl& operator=(Impl&& manager) = delete;
@@ -162,7 +162,7 @@ namespace mage::input {
 		/**
 		 A pointer to the DirectInput object of this input manager.
 
-		 The methods of the IDirectInput8 interface are used to enumerate, 
+		 The methods of the IDirectInput8 interface are used to enumerate,
 		 create, and retrieve the status of Microsoft DirectInput device.
 		 */
 		ComPtr< IDirectInput8 > m_di;
@@ -179,9 +179,9 @@ namespace mage::input {
 	};
 
 	Manager::Impl::Impl(NotNull< HWND > window)
-		: m_window(window), 
-		m_di(), 
-		m_keyboard(), 
+		: m_window(window),
+		m_di(),
+		m_keyboard(),
 		m_mouse() {
 
 		InitializeDI();
@@ -194,22 +194,22 @@ namespace mage::input {
 
 	void Manager::Impl::InitializeDI() {
 		// Create a DirectInput interface.
-		// 1. Instance handle to the application that is creating the 
+		// 1. Instance handle to the application that is creating the
 		//    DirectInput object.
-		// 2. Version number of DirectInput for which the application is 
+		// 2. Version number of DirectInput for which the application is
 		//    designed.
-		// 3. Unique identifier of the desired interface. Passing 
-		//    IID_IDirectInput8 selects the ANSI or Unicode version of the 
+		// 3. Unique identifier of the desired interface. Passing
+		//    IID_IDirectInput8 selects the ANSI or Unicode version of the
 		//    interface.
-		// 4. Address of a pointer to a variable to receive the IDirectInput8 
+		// 4. Address of a pointer to a variable to receive the IDirectInput8
 		//    interface pointer if successful.
-		// 5. Pointer to the address of the controlling object's IUnknown 
-		//    interface for COM aggregation, or nullptr if the interface is 
+		// 5. Pointer to the address of the controlling object's IUnknown
+		//    interface for COM aggregation, or nullptr if the interface is
 		//    not aggregated.
-		const HRESULT result = DirectInput8Create(GetModuleHandle(nullptr), 
-			                                      DIRECTINPUT_VERSION, 
-			                                      IID_IDirectInput8, 
-			                                      (void**)m_di.ReleaseAndGetAddressOf(), 
+		const HRESULT result = DirectInput8Create(GetModuleHandle(nullptr),
+			                                      DIRECTINPUT_VERSION,
+			                                      IID_IDirectInput8,
+			                                      (void**)m_di.ReleaseAndGetAddressOf(),
 			                                      nullptr);
 		ThrowIfFailed(result, "DirectInput initialization failed: {:08X}", result);
 	}
@@ -226,7 +226,7 @@ namespace mage::input {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	Manager::Manager(NotNull< HWND > window) 
+	Manager::Manager(NotNull< HWND > window)
 		: m_impl(MakeUnique< Impl >(std::move(window))) {}
 
 	Manager::Manager(Manager&& manager) noexcept = default;

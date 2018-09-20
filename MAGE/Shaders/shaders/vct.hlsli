@@ -56,12 +56,12 @@ struct Cone {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Computes the position at the given distance along the direction of this 
+	 Computes the position at the given distance along the direction of this
 	 cone.
 
 	 @param[in]		distance
 					The distance along the direction of this cone.
-	 @return		The position at the given distance along the direction of 
+	 @return		The position at the given distance along the direction of
 					this cone.
 	 */
 	float3 GetPosition(float distance) {
@@ -84,13 +84,13 @@ struct VCTConfig {
 	uint m_texture_max_mip_level;
 
 	/**
-	 The resolution of the voxel grid for all dimensions of this VCT 
+	 The resolution of the voxel grid for all dimensions of this VCT
 	 configuration.
 	 */
 	uint m_grid_resolution;
 
 	/**
-	 The inverse resolution of the voxel grid for all dimensions of this VCT 
+	 The inverse resolution of the voxel grid for all dimensions of this VCT
 	 configuration.
 	 */
 	float m_grid_inv_resolution;
@@ -101,7 +101,7 @@ struct VCTConfig {
 	float m_cone_step;
 
 	/**
-	 The maximal cone distance of this VCT configuration expressed in voxel 
+	 The maximal cone distance of this VCT configuration expressed in voxel
 	 UVW space.
 	 */
 	float m_max_cone_distance;
@@ -121,29 +121,29 @@ struct VCTConfig {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Computes the offset distance of this VCT configuration expressed in voxel 
+	 Computes the offset distance of this VCT configuration expressed in voxel
 	 UVW space.
 
-	 @return		The offset distance of this VCT configuration expressed in 
+	 @return		The offset distance of this VCT configuration expressed in
 					voxel UVW space.
 	 */
 	float GetOffsetDistance() {
-		// The initial distance is equal to the voxel diagonal expressed in 
-		// voxel UVW space (= sqrt(2)/m_grid_resolution) to avoid sampling the 
+		// The initial distance is equal to the voxel diagonal expressed in
+		// voxel UVW space (= sqrt(2)/m_grid_resolution) to avoid sampling the
 		// voxel containing a cone's apex or ray's origin.
 		return 1.414213562f * m_grid_inv_resolution;
 	}
 
 	/**
-	 Computes the MIP level of this VCT configuration associated with the given 
+	 Computes the MIP level of this VCT configuration associated with the given
 	 cone and distance along the direction of the cone.
 
 	 @param[in]		cone
 					The cone.
 	 @param[in]		distance
-					The distance along the direction of this cone expressed in 
+					The distance along the direction of this cone expressed in
 					voxel UVW space.
-	 @return		The MIP level of this VCT configuration associated with the 
+	 @return		The MIP level of this VCT configuration associated with the
 					given cone and distance along the direction of the cone.
 	 */
 	float GetMIPLevel(Cone cone, float distance) {
@@ -153,31 +153,31 @@ struct VCTConfig {
 		// tan_half_aperture = ---------- <=> diameter = 2 tan_half_aperture distance
 		//                      distance
 		//
-		const float diameter = max(m_grid_inv_resolution, 
+		const float diameter = max(m_grid_inv_resolution,
 								   2.0f * cone.m_tan_half_aperture * distance);
-		
+
 		// Obtain the MIP level.
 		return log2(diameter * m_grid_resolution);
 	}
 
 	/**
-	 Computes the (incoming) radiance and ambient occlusion of the given cone 
+	 Computes the (incoming) radiance and ambient occlusion of the given cone
 	 for this VCT configuration.
 
 	 @param[in]		cone
 					The cone.
 	 @param[in]		max_cone_distances
-					The maximum cone distances along the direction of the given 
-					cone expressed in voxel UVW space for the (incoming) 
+					The maximum cone distances along the direction of the given
+					cone expressed in voxel UVW space for the (incoming)
 					radiance and ambient occlusion.
-	 @return		The (incoming) radiance and ambient occlusion of the given 
+	 @return		The (incoming) radiance and ambient occlusion of the given
 					cone for this VCT configuration.
 	 */
 	float4 GetRadianceAndAO(Cone cone, float4 max_cone_distances) {
 		float  alpha = 0.0f;
 		float4 L     = 0.0f;
-		
-		// Compute the initial distance to avoid sampling the voxel containing 
+
+		// Compute the initial distance to avoid sampling the voxel containing
 		// the cone's apex.
 		float distance = GetOffsetDistance();
 		// Compute the maximum cone distance.
@@ -204,7 +204,7 @@ struct VCTConfig {
 			const float inv_alpha = 1.0f - alpha;
 			alpha += inv_alpha * L_step.w;
 			L     += inv_alpha * mask * L_step;
-			
+
 			// Update the marching distance.
 			distance += m_cone_step;
 		}
@@ -242,12 +242,12 @@ struct VCTConfig {
 	}
 
 	/**
-	 Computes the (incoming) radiance of the given cone for this VCT 
+	 Computes the (incoming) radiance of the given cone for this VCT
 	 configuration.
 
 	 @param[in]		cone
 					The cone.
-	 @return		The (incoming) radiance of the given cone for this VCT 
+	 @return		The (incoming) radiance of the given cone for this VCT
 					configuration.
 	 */
 	float3 GetRadiance(Cone cone) {
@@ -255,7 +255,7 @@ struct VCTConfig {
 	}
 
 	/**
-	 Computes the (incoming) ambient occlusion of the given cone for this VCT 
+	 Computes the (incoming) ambient occlusion of the given cone for this VCT
 	 configuration.
 
 	 @param[in]		cone
@@ -263,7 +263,7 @@ struct VCTConfig {
 	 @param[in]		max_cone_distance
 					The maximum cone distance along the direction of the given
 					cone expressed in voxel UVW space.
-	 @return		The (incoming) ambient occlusion of the given cone for this 
+	 @return		The (incoming) ambient occlusion of the given cone for this
 					VCT configuration.
 	 */
 	float GetAO(Cone cone, float max_cone_distance) {
@@ -271,12 +271,12 @@ struct VCTConfig {
 	}
 
 	/**
-	 Computes the (incoming) ambient occlusion of the given cone for this VCT 
+	 Computes the (incoming) ambient occlusion of the given cone for this VCT
 	 configuration.
 
 	 @param[in]		cone
 					The cone.
-	 @return		The (incoming) ambient occlusion of the given cone for this 
+	 @return		The (incoming) ambient occlusion of the given cone for this
 					VCT configuration.
 	 */
 	float GetAO(Cone cone) {
@@ -285,10 +285,10 @@ struct VCTConfig {
 };
 
 /**
- The cones to trace for computing the (outgoing) diffuse radiance using voxel 
- cone tracing. The first three components represent the direction of the cone 
- over a hemisphere about the z-axis (expressed in tangent space). The last 
- component represents the weight of the cone (e.g cosine-weighted solid angle) 
+ The cones to trace for computing the (outgoing) diffuse radiance using voxel
+ cone tracing. The first three components represent the direction of the cone
+ over a hemisphere about the z-axis (expressed in tangent space). The last
+ component represents the weight of the cone (e.g cosine-weighted solid angle)
  divided by pi. The aperture angle of each cone is equal to pi/3.
  */
 static const float4 g_cones[] = {
@@ -301,7 +301,7 @@ static const float4 g_cones[] = {
 };
 
 /**
- Computes the (outgoing) diffuse radiance at the given surface position using 
+ Computes the (outgoing) diffuse radiance at the given surface position using
  voxel cone tracing.
 
  @pre			@a n_uvw is normalized.
@@ -313,14 +313,14 @@ static const float4 g_cones[] = {
 				The material.
  @param[in]		config
 				The VCT configuration.
- @return		The (outgoing) diffuse radiance at the given surface position 
+ @return		The (outgoing) diffuse radiance at the given surface position
 				using voxel cone tracing.
  */
-float3 GetDiffuseRadiance(float3 p_uvw, float3 n_uvw, 
+float3 GetDiffuseRadiance(float3 p_uvw, float3 n_uvw,
 						  Material material, VCTConfig config) {
-	
+
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);
-	
+
 	// Construct a cone.
 	Cone cone;
 	cone.m_apex = p_uvw;
@@ -345,7 +345,7 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3 n_uvw,
 }
 
 /**
- Computes the (outgoing) specular radiance at the given surface position using 
+ Computes the (outgoing) specular radiance at the given surface position using
  voxel cone tracing.
 
  @pre			@a n_uvw is normalized.
@@ -360,15 +360,15 @@ float3 GetDiffuseRadiance(float3 p_uvw, float3 n_uvw,
 				The material.
  @param[in]		config
 				The VCT configuration.
- @return		The (outgoing) specular radiance at the given surface position 
+ @return		The (outgoing) specular radiance at the given surface position
 				using voxel cone tracing.
  */
-float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw, 
+float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 						   Material material, VCTConfig config) {
-	
+
 	// Compute the light (hit-to-light) direction.
 	const float3 l_uvw = ReflectedDirection(n_uvw, v_uvw);
-	
+
 	// Construct a cone.
 	const Cone cone = {
 		p_uvw,
@@ -378,17 +378,17 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);
-    
+
 	// n_uvw = h_uvw
 	const float  v_dot_h = sat_dot(v_uvw, n_uvw) + BRDF_DOT_EPSILON;
 	const float3 F0      = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 	const float3 F       = BRDF_F_FUNCTION(v_dot_h, F0);
-	
+
 	return F * L;
 }
 
 /**
- Computes the (outgoing) radiance at the given surface position using voxel 
+ Computes the (outgoing) radiance at the given surface position using voxel
  cone tracing.
 
  @pre			@a n_uvw is normalized.
@@ -406,11 +406,11 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
  @return		The (outgoing) specular radiance at the given surface position
 				using voxel cone tracing.
  */
-float3 GetRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw, 
+float3 GetRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 				   Material material, VCTConfig config) {
 
 	float3 L = 0.0f;
-	
+
 	#ifndef DISABLE_BRDF_DIFFUSE
 	L += GetDiffuseRadiance( p_uvw, n_uvw,        material, config);
 	#endif // DISABLE_BRDF_DIFFUSE
@@ -438,7 +438,7 @@ float3 GetRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
  @return		The ambient occlusion at the given surface position using voxel
 				cone tracing.
  */
-float GetAO(float3 p_uvw, float3 n_uvw, 
+float GetAO(float3 p_uvw, float3 n_uvw,
 			float max_cone_distance, VCTConfig config) {
 
 	const float3x3 tangent_to_uvw = OrthonormalBasis(n_uvw);

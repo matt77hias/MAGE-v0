@@ -35,53 +35,53 @@ namespace mage::rendering {
 		if (!m_font) {
 			return;
 		}
-		
+
 		SpriteTransform effect_transform(m_sprite_transform);
-		
+
 		switch (m_text_effect) {
-		
+
 		case TextEffect::Outline: {
 			// -1, -1
 			effect_transform.AddTranslation(-1.0f, -1.0f);
-			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings), 
-				             effect_transform, 
-							 m_sprite_effects, 
+			m_font->DrawText(sprite_batch,
+							 gsl::make_span(m_strings),
+				             effect_transform,
+							 m_sprite_effects,
 							 &m_text_effect_color);
 			// +1, -1
 			effect_transform.AddTranslationX(2.0f);
-			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings), 
-				             effect_transform, 
-							 m_sprite_effects, 
+			m_font->DrawText(sprite_batch,
+							 gsl::make_span(m_strings),
+				             effect_transform,
+							 m_sprite_effects,
 							 &m_text_effect_color);
-			
+
 			[[fallthrough]];
 		}
 
 		case TextEffect::DropShadow: {
 			// +1, +1
 			effect_transform.AddTranslationY(2.0f);
-			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings), 
-				             effect_transform, 
-							 m_sprite_effects, 
+			m_font->DrawText(sprite_batch,
+							 gsl::make_span(m_strings),
+				             effect_transform,
+							 m_sprite_effects,
 							 &m_text_effect_color);
 			// -1, +1
 			effect_transform.AddTranslationX(-2.0f);
-			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings), 
-				             effect_transform, 
-							 m_sprite_effects, 
+			m_font->DrawText(sprite_batch,
+							 gsl::make_span(m_strings),
+				             effect_transform,
+							 m_sprite_effects,
 							 &m_text_effect_color);
 
 			[[fallthrough]];
 		}
 
 		default: {
-			m_font->DrawText(sprite_batch, 
-							 gsl::make_span(m_strings), 
-				             m_sprite_transform, 
+			m_font->DrawText(sprite_batch,
+							 gsl::make_span(m_strings),
+				             m_sprite_transform,
 							 m_sprite_effects);
 		}
 

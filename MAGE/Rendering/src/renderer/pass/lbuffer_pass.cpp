@@ -32,27 +32,27 @@ namespace mage::rendering {
 		m_spot_sms(MakeUnique< ShadowMapBuffer >(device, 1u)),
 		m_directional_light_cameras(),
 		m_omni_light_cameras(),
-		m_spot_light_cameras(), 
-		m_depth_pass(MakeUnique< DepthPass >(device, 
+		m_spot_light_cameras(),
+		m_depth_pass(MakeUnique< DepthPass >(device,
 											 device_context,
-											 state_manager, 
+											 state_manager,
 											 resource_manager)) {}
 
 	LBufferPass::LBufferPass(LBufferPass&& buffer) noexcept = default;
-	
+
 	LBufferPass::~LBufferPass() = default;
 
 	LBufferPass& LBufferPass::operator=(LBufferPass&& pass) noexcept = default;
 
 	void XM_CALLCONV LBufferPass
-		::Render(const World& world, 
+		::Render(const World& world,
 				 FXMMATRIX world_to_projection) {
 
 		// Process the lights.
 		ProcessDirectionalLights(world, world_to_projection);
 		ProcessOmniLights(world, world_to_projection);
 		ProcessSpotLights(world, world_to_projection);
-		
+
 		// Unbind the shadow map SRVs.
 		UnbindShadowMaps();
 		// Setup the shadow maps.
@@ -70,13 +70,13 @@ namespace mage::rendering {
 	void LBufferPass::UnbindShadowMaps() const noexcept {
 		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 1);
 		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS == SLOT_SRV_DIRECTIONAL_SHADOW_MAPS + 2);
-		
+
 		ID3D11ShaderResourceView* const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS, 
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 							   static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS, 
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_SHADOW_MAPS,
 							   static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
@@ -89,7 +89,7 @@ namespace mage::rendering {
 		static_assert(SLOT_SRV_DIRECTIONAL_SHADOW_MAPS          == SLOT_SRV_DIRECTIONAL_LIGHTS + 6);
 		static_assert(SLOT_SRV_OMNI_SHADOW_MAPS                 == SLOT_SRV_DIRECTIONAL_LIGHTS + 7);
 		static_assert(SLOT_SRV_SPOT_SHADOW_MAPS                 == SLOT_SRV_DIRECTIONAL_LIGHTS + 8);
-		
+
 		ID3D11ShaderResourceView* const srvs[] = {
 			&m_directional_lights.Get(),
 			&m_omni_lights.Get(),
@@ -106,15 +106,15 @@ namespace mage::rendering {
 		Pipeline::OM::BindRTVAndDSV(m_device_context, nullptr, nullptr);
 
 		// Bind constant buffer.
-		Pipeline::PS::BindConstantBuffer(m_device_context, 
+		Pipeline::PS::BindConstantBuffer(m_device_context,
 										 SLOT_CBUFFER_LIGHTING, &m_light_buffer.Get());
-		Pipeline::CS::BindConstantBuffer(m_device_context, 
+		Pipeline::CS::BindConstantBuffer(m_device_context,
 										 SLOT_CBUFFER_LIGHTING, &m_light_buffer.Get());
-		
+
 		// Bind the SRVs.
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS, 
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 							   static_cast< U32 >(std::size(srvs)), srvs);
-		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS, 
+		Pipeline::CS::BindSRVs(m_device_context, SLOT_SRV_DIRECTIONAL_LIGHTS,
 							   static_cast< U32 >(std::size(srvs)), srvs);
 	}
 
@@ -128,7 +128,7 @@ namespace mage::rendering {
 
 			La += XMLoad(light.GetRadianceSpectrum());
 		});
-		
+
 		LightBuffer buffer;
 		buffer.m_La                       = RGB(XMStore< F32x3 >(La));
 		buffer.m_nb_directional_lights    = static_cast< U32 >(m_directional_lights.size());
@@ -143,7 +143,7 @@ namespace mage::rendering {
 	}
 
 	void XM_CALLCONV LBufferPass
-		::ProcessDirectionalLights(const World& world, 
+		::ProcessDirectionalLights(const World& world,
 								   FXMMATRIX world_to_projection) {
 
 		AlignedVector< DirectionalLightBuffer > lights;
@@ -205,9 +205,9 @@ namespace mage::rendering {
 	}
 
 	void XM_CALLCONV LBufferPass
-		::ProcessOmniLights(const World& world, 
+		::ProcessOmniLights(const World& world,
 							FXMMATRIX world_to_projection) {
-		
+
 		AlignedVector< OmniLightBuffer > lights;
 		lights.reserve(m_omni_lights.size());
 
@@ -218,7 +218,7 @@ namespace mage::rendering {
 		// Process the omni lights.
 		world.ForEach< OmniLight >([this, &lights, &sm_lights, world_to_projection]
 		(const OmniLight& light) {
-			
+
 			static const XMMATRIX rotations[6] = {
 				XMMatrixRotationY(-XM_PIDIV2), // Look: +x
 				XMMatrixRotationY(XM_PIDIV2),  // Look: -x
@@ -288,9 +288,9 @@ namespace mage::rendering {
 	}
 
 	void XM_CALLCONV LBufferPass
-		::ProcessSpotLights(const World& world, 
+		::ProcessSpotLights(const World& world,
 							FXMMATRIX world_to_projection) {
-		
+
 		AlignedVector< SpotLightBuffer > lights;
 		lights.reserve(m_spot_lights.size());
 
@@ -301,7 +301,7 @@ namespace mage::rendering {
 		// Process the spotlights.
 		world.ForEach< SpotLight >([this, &lights, &sm_lights, world_to_projection]
 		(const SpotLight& light) {
-			
+
 			if (State::Active != light.GetState()) {
 				return;
 			}
@@ -374,7 +374,7 @@ namespace mage::rendering {
 			if (nb_available < nb_requested) {
 				ComPtr< ID3D11Device > device;
 				m_device_context.get().GetDevice(device.ReleaseAndGetAddressOf());
-				m_directional_sms = MakeUnique< ShadowMapBuffer >(*device.Get(), 
+				m_directional_sms = MakeUnique< ShadowMapBuffer >(*device.Get(),
 																  nb_requested);
 			}
 
@@ -389,7 +389,7 @@ namespace mage::rendering {
 			if (nb_available < nb_requested) {
 				ComPtr< ID3D11Device > device;
 				m_device_context.get().GetDevice(device.ReleaseAndGetAddressOf());
-				m_omni_sms = MakeUnique< ShadowCubeMapBuffer >(*device.Get(), 
+				m_omni_sms = MakeUnique< ShadowCubeMapBuffer >(*device.Get(),
 															   nb_requested);
 			}
 
@@ -404,7 +404,7 @@ namespace mage::rendering {
 			if (nb_available < nb_requested) {
 				ComPtr< ID3D11Device > device;
 				m_device_context.get().GetDevice(device.ReleaseAndGetAddressOf());
-				m_spot_sms = MakeUnique< ShadowMapBuffer >(*device.Get(), 
+				m_spot_sms = MakeUnique< ShadowMapBuffer >(*device.Get(),
 														   nb_requested);
 			}
 
@@ -429,8 +429,8 @@ namespace mage::rendering {
 				m_directional_sms->BindDSV(m_device_context, i++);
 
 				// Perform the depth pass.
-				m_depth_pass->RenderOccluders(world, 
-											  camera.world_to_light, 
+				m_depth_pass->RenderOccluders(world,
+											  camera.world_to_light,
 											  camera.light_to_projection);
 			}
 		}

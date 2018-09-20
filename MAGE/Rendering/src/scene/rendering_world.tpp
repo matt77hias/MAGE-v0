@@ -26,9 +26,9 @@ namespace mage::rendering {
 	inline ProxyPtr< PerspectiveCamera > World::Create() {
 		const auto ptr = AddElement(m_perspective_cameras, m_device);
 
-		const auto resolution 
+		const auto resolution
 			= m_display_configuration.get().GetDisplayResolution();
-		ptr->SetAspectRatio(static_cast< F32 >(resolution[0]), 
+		ptr->SetAspectRatio(static_cast< F32 >(resolution[0]),
 							static_cast< F32 >(resolution[1]));
 		ptr->GetViewport() = Viewport(resolution);
 
@@ -76,16 +76,16 @@ namespace mage::rendering {
 		const auto ptr = AddElement(m_sprite_images);
 
 		ptr->SetBaseColorTexture(CreateWhiteTexture(m_resource_manager));
-		
+
 		return ptr;
 	}
 
 	template<>
 	inline ProxyPtr< SpriteText > World::Create() {
 		const auto ptr = AddElement(m_sprite_texts);
-		
+
 		ptr->SetFont(CreateConsolasFont(m_resource_manager));
-		
+
 		return ptr;
 	}
 
@@ -105,10 +105,10 @@ namespace mage::rendering {
 				++count;
 			}
 		);
-		
+
 		return count;
 	}
-	
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

@@ -27,7 +27,7 @@ namespace mage::rendering {
 					A reference to the (texture) shader resource view.
 	 @return		The size [width, height] of the given 2D texture.
 	 @throws		Exception
-					The resource of the given shader resource view must be 
+					The resource of the given shader resource view must be
 					convertible to a @c ID3D11Texture2D.
 	 */
 	[[nodiscard]]
@@ -115,14 +115,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given texture to this texture.
 
 		 @param[in]		texture
 						A reference to the texture to copy.
-		 @return		A reference to the copy of the given texture (i.e. this 
+		 @return		A reference to the copy of the given texture (i.e. this
 						texture).
 		 */
 		Texture& operator=(const Texture& texture) = delete;
@@ -149,7 +149,7 @@ namespace mage::rendering {
 		ID3D11ShaderResourceView* Get() const noexcept {
 			return m_texture_srv.Get();
 		}
-		
+
 		/**
 		 Binds this texture.
 
@@ -159,8 +159,8 @@ namespace mage::rendering {
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set 
-						the shader resource view to (ranges from 0 to 
+						The index into the device's zero-based array to set
+						the shader resource view to (ranges from 0 to
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >

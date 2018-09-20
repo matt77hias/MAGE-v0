@@ -97,7 +97,7 @@ namespace mage {
 
 		return true;
 	}
-	
+
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
 	//-------------------------------------------------------------------------
@@ -106,7 +106,7 @@ namespace mage {
 		const auto centroid = aabb.Centroid();
 		const auto radius   = aabb.Radius();
 		const auto r        = std::max(XMVectorGetX(radius),
-			                  std::max(XMVectorGetY(radius), 
+			                  std::max(XMVectorGetY(radius),
 						               XMVectorGetZ(radius)));
 		m_pr = XMVectorSetW(centroid, r);
 	}
@@ -119,7 +119,7 @@ namespace mage {
 	bool BoundingSphere::Encloses(const AABB& aabb) const noexcept {
 		const auto pmin = aabb.MinPoint();
 		const auto pmax = aabb.MaxPoint();
-		
+
 		if (!Encloses(XMVectorPermute(pmin, pmax, 0, 1, 2, 3))) {
 			return false;
 		}
@@ -204,7 +204,7 @@ namespace mage {
 		if (!Encloses(p + XMVectorSet(0.0f, 0.0f, radius, 0.0f))) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -252,25 +252,25 @@ namespace mage {
 		// <=> 0 <= p . c3 + p . c0
 		// <=> 0 <= p . (c3 + c0)
 		m_left_plane = C.r[3] + C.r[0];
-		
+
 		//    x' <= w'
 		// <=> 0 <= w' - x'
 		// <=> 0 <= p . c3 - p . c0
 		// <=> 0 <= p . (c3 - c0)
 		m_right_plane = C.r[3] - C.r[0];
-		
+
 		//   -w' <= y'
 		// <=> 0 <= w' + y'
 		// <=> 0 <= p . c3 + p . c1
 		// <=> 0 <= p . (c3 + c1)
 		m_bottom_plane = C.r[3] + C.r[1];
-		
+
 		//    y' <= w'
 		// <=> 0 <= w' - y'
 		// <=> 0 <= p . c3 - p . c1
 		// <=> 0 <= p . (c3 - c1)
 		m_top_plane = C.r[3] - C.r[1];
-		
+
 		//     0 <= z'
 		// <=> 0 <= p . c2
 		m_near_plane = C.r[2];
@@ -345,7 +345,7 @@ namespace mage {
 	bool BoundingFrustum::Encloses(const BoundingSphere& sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
-		
+
 		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
 			if (XMVectorGetX(result) < radius) {
@@ -407,7 +407,7 @@ namespace mage {
 	bool BoundingFrustum::Overlaps(const BoundingSphere& sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
-		
+
 		// Test for no coverage.
 		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
@@ -423,7 +423,7 @@ namespace mage {
 	bool BoundingFrustum::OverlapsStrict(const BoundingSphere& sphere) const noexcept {
 		const auto centroid = sphere.Centroid();
 		const auto radius   = sphere.Radius();
-		
+
 		// Test for no coverage.
 		for (std::size_t i = 0u; i < std::size(m_planes); ++i) {
 			const auto result = XMPlaneDotCoord(m_planes[i], centroid);
@@ -446,7 +446,7 @@ namespace mage {
 				return false;
 			}
 		}
-		
+
 		return false;
 	}
 }

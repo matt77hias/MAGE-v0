@@ -57,14 +57,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given ambient light to this ambient light.
 
 		 @param[in]		light
 						A reference to the ambient light to copy.
-		 @return		A reference to the copy of the given ambient light 
+		 @return		A reference to the copy of the given ambient light
 						(i.e. this ambient light).
 		 */
 		AmbientLight& operator=(const AmbientLight& light) noexcept;
@@ -74,7 +74,7 @@ namespace mage::rendering {
 
 		 @param[in]		light
 						A reference to the ambient light to move.
-		 @return		A reference to the moved ambient light (i.e. this 
+		 @return		A reference to the moved ambient light (i.e. this
 						ambient light).
 		 */
 		AmbientLight& operator=(AmbientLight&& light) noexcept;
@@ -86,7 +86,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this ambient light.
 
-		 @return		A reference to the sRGB base color of this ambient 
+		 @return		A reference to the sRGB base color of this ambient
 						light.
 		 */
 		[[nodiscard]]
@@ -97,7 +97,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this ambient light.
 
-		 @return		A reference to the sRGB base color of this ambient 
+		 @return		A reference to the sRGB base color of this ambient
 						light.
 		 */
 		[[nodiscard]]
@@ -108,7 +108,7 @@ namespace mage::rendering {
 		/**
 		 Returns the radiance of this ambient light.
 
-		 @return		The radiance in watts per square meter per steradians 
+		 @return		The radiance in watts per square meter per steradians
 						of this ambient light.
 		 */
 		[[nodiscard]]
@@ -118,7 +118,7 @@ namespace mage::rendering {
 
 		/**
 		 Sets the radiance of this ambient light to the given radiance.
-		 
+
 		 @param[in]		radiance
 						The radiance in watts per square meter per steradians.
 		 */
@@ -149,7 +149,7 @@ namespace mage::rendering {
 		RGB m_base_color;
 
 		/**
-		 The radiance in watts per square meter per steradians of this ambient 
+		 The radiance in watts per square meter per steradians of this ambient
 		 light.
 		 */
 		F32 m_radiance;

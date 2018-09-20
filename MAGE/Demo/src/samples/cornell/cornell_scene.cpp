@@ -49,10 +49,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		const auto cube_model_desc 
+		const auto cube_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/cube/cube.obj", mesh_desc);
-		const auto plane_model_desc 
+		const auto plane_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/plane/plane.obj", mesh_desc);
 		const auto logo_texture = CreateMAGETexture(rendering_factory);
@@ -71,7 +71,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		const auto cornell_node        = Create< Node >("Cornell Box");
 		cornell_node->GetTransform().SetScale(10.0f);
-		
+
 		{
 			const auto node = Import(engine, *plane_model_desc);
 			cornell_node->AddChild(node);
@@ -80,7 +80,7 @@ namespace mage {
 			node->GetTransform().SetRotation(-XM_PIDIV2, -XM_PIDIV2, 0.0f);
 			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.63f, 0.065f, 0.05f };
 		}
-		
+
 		{
 			const auto node = Import(engine, *plane_model_desc);
 			cornell_node->AddChild(node);
@@ -89,7 +89,7 @@ namespace mage {
 			node->GetTransform().SetRotation(-XM_PIDIV2, XM_PIDIV2, 0.0f);
 			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.14f, 0.45f, 0.091f };
 		}
-		
+
 		{
 			const auto node = Import(engine, *plane_model_desc);
 			cornell_node->AddChild(node);
@@ -145,7 +145,7 @@ namespace mage {
 			node->GetTransform().SetScale(0.25f, 0.6f, 0.25f);
 			node->Get< Model >()->GetMaterial().GetBaseColor() = { 0.725f, 0.71f, 0.68f };
 		}
-		
+
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
@@ -158,7 +158,7 @@ namespace mage {
 		omni_light_node->Add(omni_light);
 		cornell_node->AddChild(omni_light_node);
 		omni_light_node->GetTransform().SetTranslationY(0.3f);
-		
+
 		//---------------------------------------------------------------------
 		// Sprites
 		//---------------------------------------------------------------------

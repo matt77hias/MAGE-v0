@@ -27,7 +27,7 @@ namespace mage::script {
 
 	MouseLookScript::MouseLookScript(
 		MouseLookScript&& script) noexcept = default;
-	
+
 	MouseLookScript::~MouseLookScript() = default;
 
 	MouseLookScript& MouseLookScript::operator=(
@@ -37,7 +37,7 @@ namespace mage::script {
 		MouseLookScript&& script) noexcept = default;
 
 	void MouseLookScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
 	}
 
@@ -53,7 +53,7 @@ namespace mage::script {
 		if (m_locked) {
 			return;
 		}
-		
+
 		const auto& mouse         = input_manager.GetMouse();
 		auto& transform           = GetOwner()->GetTransform();
 
@@ -62,25 +62,25 @@ namespace mage::script {
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
-			transform.AddAndClampRotationX(XMVectorGetX(rotation), 
-				                           m_minimum_rotation[0], 
+			transform.AddAndClampRotationX(XMVectorGetX(rotation),
+				                           m_minimum_rotation[0],
 				                           m_maximum_rotation[0]);
-			transform.AddAndClampRotationY(XMVectorGetY(rotation), 
-				                           m_minimum_rotation[1], 
+			transform.AddAndClampRotationY(XMVectorGetY(rotation),
+				                           m_minimum_rotation[1],
 				                           m_maximum_rotation[1]);
 			break;
 		}
-		
+
 		case RotationAxes::MouseX: {
-			transform.AddAndClampRotationY(XMVectorGetY(rotation), 
-				                           m_minimum_rotation[1], 
+			transform.AddAndClampRotationY(XMVectorGetY(rotation),
+				                           m_minimum_rotation[1],
 				                           m_maximum_rotation[1]);
 			break;
 		}
-		
+
 		case RotationAxes::MouseY: {
-			transform.AddAndClampRotationX(XMVectorGetX(rotation), 
-				                           m_minimum_rotation[0], 
+			transform.AddAndClampRotationX(XMVectorGetX(rotation),
+				                           m_minimum_rotation[0],
 				                           m_maximum_rotation[0]);
 			break;
 		}

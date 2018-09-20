@@ -48,7 +48,7 @@ namespace mage::rendering {
 		 */
 		explicit SpriteFont(ID3D11Device& device,
 							std::wstring fname,
-			                const SpriteFontDescriptor& desc 
+			                const SpriteFontDescriptor& desc
 			                    = SpriteFontDescriptor());
 
 		/**
@@ -81,7 +81,7 @@ namespace mage::rendering {
 
 		 @param[in]		font
 						A reference to the sprite font to copy.
-		 @return		A reference to the copy of the given sprite font (i.e. 
+		 @return		A reference to the copy of the given sprite font (i.e.
 						this sprite font).
 		 */
 		SpriteFont& operator=(const SpriteFont& font) = delete;
@@ -91,7 +91,7 @@ namespace mage::rendering {
 
 		 @param[in]		font
 						A reference to the sprite font to move.
-		 @return		A reference to the moved sprite font (i.e. this sprite 
+		 @return		A reference to the moved sprite font (i.e. this sprite
 						font).
 		 */
 		SpriteFont& operator=(SpriteFont&& font) noexcept;
@@ -101,7 +101,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Draws the given text with this sprite font using the given sprite 
+		 Draws the given text with this sprite font using the given sprite
 		 batch.
 
 		 @param[in]		sprite_batch
@@ -114,17 +114,17 @@ namespace mage::rendering {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		color
-						A pointer to the (linear) color. If this pointer is 
-						equal to @c nullptr, each string will be drawn in its 
-						own color. Otherwise, each string is drawn in this 
+						A pointer to the (linear) color. If this pointer is
+						equal to @c nullptr, each string will be drawn in its
+						own color. Otherwise, each string is drawn in this
 						color.
 		 */
-		void DrawText(SpriteBatch& sprite_batch, 
-			          gsl::span< const ColorString > strings, 
+		void DrawText(SpriteBatch& sprite_batch,
+			          gsl::span< const ColorString > strings,
 			          const SpriteTransform& transform,
 			          SpriteEffect effects = SpriteEffect::None,
 		              const RGBA* color = nullptr) const;
-		
+
 		/**
 		 Returns the size of the given text with this sprite font (in pixels).
 
@@ -133,13 +133,13 @@ namespace mage::rendering {
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
 		 @note			The text size is computed from the origin to the
-						rightmost pixel rendered by any character glyph. This 
+						rightmost pixel rendered by any character glyph. This
 						has the effect of ignoring 'trailing spaces'.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			MeasureText(gsl::span< const ColorString > strings) const;
-		
+
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
 
@@ -147,17 +147,17 @@ namespace mage::rendering {
 						The strings of the text.
 		 @param[in]		top_left
 						The top-left position of the text.
-		 @return		A @c RECT bounding the given text with this sprite 
+		 @return		A @c RECT bounding the given text with this sprite
 						font.
 		 */
 		[[nodiscard]]
-		const RECT MeasureDrawBounds(gsl::span< const ColorString > strings, 
+		const RECT MeasureDrawBounds(gsl::span< const ColorString > strings,
 									 const F32x2& top_left) const;
-		
+
 		/**
 		 Checks whether this sprite font is empty.
 
-		 @return		@c true if this sprite font is empty. @c false 
+		 @return		@c true if this sprite font is empty. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -196,7 +196,7 @@ namespace mage::rendering {
 		void SetLineSpacing(F32 spacing) noexcept {
 			m_line_spacing = spacing;
 		}
-		
+
 		/**
 		 Returns the default character of this sprite font.
 
@@ -206,65 +206,65 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		wchar_t GetDefaultCharacter() const noexcept {
-			return m_default_glyph ? 
+			return m_default_glyph ?
 				static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
 		}
-		
+
 		/**
 		 Sets the default character of this sprite font to the given character.
 
-		 If @a character is equal to @c 0, the default glyph of this sprite 
+		 If @a character is equal to @c 0, the default glyph of this sprite
 		 font is set to @c nullptr.
 
 		 @param[in]		character
 						The character.
 		 @throws		Exception
-						If the given character does not match any glyphs of 
-						this sprite font and if this sprite font has not a 
+						If the given character does not match any glyphs of
+						this sprite font and if this sprite font has not a
 						default character.
 		 */
 		void SetDefaultCharacter(wchar_t character) {
 			m_default_glyph = (character) ? GetGlyph(character) : nullptr;
 		}
-		
+
 		/**
-		 Checks whether this sprite font contains a glyp matching the given 
+		 Checks whether this sprite font contains a glyp matching the given
 		 character.
 
 		 @param[in]		character
 						The character.
-		 @return		@c true if this sprite font contains a glyph 
-						corresponding to the given character. @c false 
+		 @return		@c true if this sprite font contains a glyph
+						corresponding to the given character. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
 		bool ContainsCharacter(wchar_t character) const;
-		
+
 		/**
-		 Returns the glyph of this sprite font corresponding to the given 
+		 Returns the glyph of this sprite font corresponding to the given
 		 character.
 
 		 @param[in]		character
 						The character.
-		 @return		A pointer to the default glyph of this sprite font if 
-						the given character does not match any glyphs of this 
+		 @return		A pointer to the default glyph of this sprite font if
+						the given character does not match any glyphs of this
 						sprite font and if this sprite font has a default
 						character.
-		 @return		A pointer to the glyph of this sprite font corresponding 
+		 @return		A pointer to the glyph of this sprite font corresponding
 						to the given character.
 		 @throws		Exception
-						If the given character does not match any glyphs of 
-						this sprite font and if this sprite font has not a 
+						If the given character does not match any glyphs of
+						this sprite font and if this sprite font has not a
 						default character.
 		 */
 		[[nodiscard]]
 		const Glyph* GetGlyph(wchar_t character) const;
-		
+
 		/**
-		 Returns a pointer to the shader resource view of the texture of this 
+		 Returns a pointer to the shader resource view of the texture of this
 		 sprite font.
 
-		 @return		A pointer to the shader resource view of the texture 
+		 @return		A pointer to the shader resource view of the texture
 						of this sprite font.
 		 */
 		[[nodiscard]]
@@ -284,7 +284,7 @@ namespace mage::rendering {
 		 @param[in]		output
 						A reference to the sprite font output.
 		 @throws		Exception
-						The sprite font glyphs of the given sprite font output 
+						The sprite font glyphs of the given sprite font output
 						are not sorted.
 		 */
 		void InitializeSpriteFont(const SpriteFontOutput& output);
@@ -302,7 +302,7 @@ namespace mage::rendering {
 		 A vector containing the glyphs of this sprite font.
 		 */
 		std::vector< Glyph > m_glyphs;
-		
+
 		/**
 		 A pointer to the default glyph of this sprite font.
 		 */

@@ -14,11 +14,11 @@ namespace mage {
 	inline typename std::enable_if_t< std::is_same_v< Node, ElementT >,
 		ProxyPtr< ElementT > > Scene::Create(ConstructorArgsT&&... args) {
 
-		const auto ptr = AddElement(m_nodes, 
+		const auto ptr = AddElement(m_nodes,
 									std::forward< ConstructorArgsT >(args)...);
-		
+
 		ptr->Set(ptr);
-		
+
 		return ptr;
 	}
 
@@ -46,10 +46,10 @@ namespace mage {
 				++count;
 			}
 		);
-		
+
 		return count;
 	}
-	
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------

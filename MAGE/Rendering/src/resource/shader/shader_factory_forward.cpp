@@ -67,45 +67,45 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager,
 										   bool transparency) {
 
-		return transparency ? CreatePS(resource_manager, 
+		return transparency ? CreatePS(resource_manager,
 									   MAGE_SHADER_ARGS(g_forward_transparent_emissive_PS))
-		                    : CreatePS(resource_manager, 
+		                    : CreatePS(resource_manager,
 									   MAGE_SHADER_ARGS(g_forward_emissive_PS));
 	}
 
 	namespace {
 
 		/**
-		 Returns the permutation mask for the given shader configuration 
+		 Returns the permutation mask for the given shader configuration
 		 parameters.
 
 		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
+						@c true if transparency should be enabled. @c false
 						otherwise.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c 
+						@c true if voxel cone tracing should be enabled. @c
 						false otherwise.
 		 @param[in]		tsnm
-						@c true if tangent space normal mapping should be 
+						@c true if tangent space normal mapping should be
 						enabled. @c false otherwise.
-		 @return		The permutation mask for the given shader configuration 
+		 @return		The permutation mask for the given shader configuration
 						parameters.
 		 */
-		inline U32 GetPermutationMask(bool transparency, 
-									  bool vct, 
+		inline U32 GetPermutationMask(bool transparency,
+									  bool vct,
 									  bool tsnm) noexcept {
 
-			return static_cast< U32 >(transparency) << 2u 
-				 | static_cast< U32 >(vct)          << 1u 
+			return static_cast< U32 >(transparency) << 2u
+				 | static_cast< U32 >(vct)          << 1u
 				 | static_cast< U32 >(tsnm);
 		}
 
@@ -115,50 +115,50 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
+						@c true if transparency should be enabled. @c false
 						otherwise.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c 
+						@c true if voxel cone tracing should be enabled. @c
 						false otherwise.
 		 @param[in]		tsnm
-						@c true if tangent space normal mapping should be 
+						@c true if tangent space normal mapping should be
 						enabled. @c false otherwise.
-		 @return		A pointer to the forward pixel shader with a Blinn-Phong 
+		 @return		A pointer to the forward pixel shader with a Blinn-Phong
 						BRDF.
 		 @throws		Exception
 						Failed to create the pixel shader.
 		 */
-		PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager, 
+		PixelShaderPtr CreateForwardBlinnPhongPS(ResourceManager& resource_manager,
 												 bool transparency,
-												 bool vct, 
+												 bool vct,
 												 bool tsnm) {
 
 			const auto mask = GetPermutationMask(transparency, vct, tsnm);
 			switch(mask) {
-			
+
 			case 0b000:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_blinn_phong_PS));
 			case 0b001:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_tsnm_blinn_phong_PS));
 			case 0b010:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_blinn_phong_PS));
 			case 0b011:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_tsnm_blinn_phong_PS));
 			case 0b100:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_blinn_phong_PS));
 			case 0b101:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_blinn_phong_PS));
 			case 0b110:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_blinn_phong_PS));
 			case 0b111:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_blinn_phong_PS));
 			default:
 				return nullptr;
@@ -179,42 +179,42 @@ namespace mage::rendering {
 		 @param[in]		tsnm
 						@c true if tangent space normal mapping should be
 						enabled. @c false otherwise.
-		 @return		A pointer to the forward pixel shader with a Cook-Torrance 
+		 @return		A pointer to the forward pixel shader with a Cook-Torrance
 						BRDF.
 		 @throws		Exception
 						Failed to create the pixel shader.
 		 */
-		PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager, 
+		PixelShaderPtr CreateForwardCookTorrancePS(ResourceManager& resource_manager,
 												   bool transparency,
-												   bool vct, 
+												   bool vct,
 												   bool tsnm) {
-		
+
 			const auto mask = GetPermutationMask(transparency, vct, tsnm);
 			switch (mask) {
-			
+
 			case 0b000:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_cook_torrance_PS));
 			case 0b001:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_tsnm_cook_torrance_PS));
 			case 0b010:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_cook_torrance_PS));
 			case 0b011:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_tsnm_cook_torrance_PS));
 			case 0b100:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_cook_torrance_PS));
 			case 0b101:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_cook_torrance_PS));
 			case 0b110:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_cook_torrance_PS));
 			case 0b111:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_cook_torrance_PS));
 			default:
 				return nullptr;
@@ -227,50 +227,50 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
-						@c true if transparency should be enabled. @c false 
+						@c true if transparency should be enabled. @c false
 						otherwise.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c 
+						@c true if voxel cone tracing should be enabled. @c
 						false otherwise.
 		 @param[in]		tsnm
-						@c true if tangent space normal mapping should be 
+						@c true if tangent space normal mapping should be
 						enabled. @c false otherwise.
-		 @return		A pointer to the forward pixel shader with a Frostbite 
+		 @return		A pointer to the forward pixel shader with a Frostbite
 						BRDF.
 		 @throws		Exception
 						Failed to create the pixel shader.
 		 */
-		PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager, 
+		PixelShaderPtr CreateForwardFrostbitePS(ResourceManager& resource_manager,
 												bool transparency,
-												bool vct, 
+												bool vct,
 												bool tsnm) {
-		
+
 			const auto mask = GetPermutationMask(transparency, vct, tsnm);
 			switch (mask) {
-			
+
 			case 0b000:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_frostbite_PS));
 			case 0b001:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_tsnm_frostbite_PS));
 			case 0b010:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_frostbite_PS));
 			case 0b011:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_tsnm_frostbite_PS));
 			case 0b100:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_frostbite_PS));
 			case 0b101:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_frostbite_PS));
 			case 0b110:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_frostbite_PS));
 			case 0b111:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_frostbite_PS));
 			default:
 				return nullptr;
@@ -291,42 +291,42 @@ namespace mage::rendering {
 		 @param[in]		tsnm
 						@c true if tangent space normal mapping should be
 						enabled. @c false otherwise.
-		 @return		A pointer to the forward pixel shader with a Lambertian 
+		 @return		A pointer to the forward pixel shader with a Lambertian
 						BRDF.
 		 @throws		Exception
 						Failed to create the pixel shader.
 		 */
-		PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager, 
+		PixelShaderPtr CreateForwardLambertianPS(ResourceManager& resource_manager,
 												 bool transparency,
-												 bool vct, 
+												 bool vct,
 												 bool tsnm) {
-		
+
 			const auto mask = GetPermutationMask(transparency, vct, tsnm);
 			switch (mask) {
-			
+
 			case 0b000:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_lambertian_PS));
 			case 0b001:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_tsnm_lambertian_PS));
 			case 0b010:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_lambertian_PS));
 			case 0b011:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_vct_tsnm_lambertian_PS));
 			case 0b100:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_lambertian_PS));
 			case 0b101:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_tsnm_lambertian_PS));
 			case 0b110:
 				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_lambertian_PS));
 			case 0b111:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_forward_transparent_vct_tsnm_lambertian_PS));
 			default:
 				return nullptr;
@@ -334,12 +334,12 @@ namespace mage::rendering {
 		}
 	}
 
-	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager,
 								   BRDF brdf,
-								   bool transparency, 
-								   bool vct, 
+								   bool transparency,
+								   bool vct,
 								   bool tsnm) {
-		
+
 		switch (brdf) {
 
 		case BRDF::Lambertian:
@@ -356,7 +356,7 @@ namespace mage::rendering {
 	}
 
 	PixelShaderPtr CreateForwardSolidPS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_forward_solid_PS));
 	}
 

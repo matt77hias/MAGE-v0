@@ -41,7 +41,7 @@ namespace mage::rendering::loader {
 		 Constructs a MDL writer.
 
 		 @param[in]		model_output
-						A reference to the model output containing the model 
+						A reference to the model output containing the model
 						data.
 		 */
 		explicit MDLWriter(const ModelOutput< VertexT, IndexT >& model_output);
@@ -69,14 +69,14 @@ namespace mage::rendering::loader {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given MDL writer to this MDL writer.
 
 		 @param[in]		writer
 						A reference to a MDL writer to copy.
-		 @return		A reference to the copy of the given MDL writer (i.e. 
+		 @return		A reference to the copy of the given MDL writer (i.e.
 						this MDL writer).
 		 */
 		MDLWriter& operator=(const MDLWriter& writer) = delete;
@@ -86,7 +86,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		writer
 						A reference to a MDL writer to move.
-		 @return		A reference to the moved MDL writer (i.e. this MDL 
+		 @return		A reference to the moved MDL writer (i.e. this MDL
 						writer).
 		 */
 		MDLWriter& operator=(MDLWriter&& writer) = delete;
@@ -117,7 +117,7 @@ namespace mage::rendering::loader {
 		 @throws		Exception
 						Failed to write.
 		 @throws		Exception
-						Failed to export the mesh corresponding 
+						Failed to export the mesh corresponding
 						to the model to file.
 		 */
 		void ExportMesh();
@@ -143,7 +143,7 @@ namespace mage::rendering::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to the model output containing the model data of this MDL 
+		 A reference to the model output containing the model data of this MDL
 		 writer.
 		 */
 		const ModelOutput< VertexT, IndexT >& m_model_output;

@@ -38,7 +38,7 @@ namespace mage {
 
 	void SibenikScene::Load([[maybe_unused]] Engine& engine) {
 		using namespace rendering;
-		
+
 		const auto& rendering_manager = engine.GetRenderingManager();
 		const auto& display_config    = rendering_manager.GetDisplayConfiguration();
 		auto& rendering_world         = rendering_manager.GetWorld();
@@ -82,7 +82,7 @@ namespace mage {
 		const auto tree_node = Import(engine, *tree_model_desc_tree);
 		tree_node->GetTransform().SetScale(5.0f);
 		tree_node->GetTransform().AddTranslationY(2.5f);
-		
+
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------

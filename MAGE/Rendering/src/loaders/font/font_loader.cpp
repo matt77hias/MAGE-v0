@@ -13,11 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportFontFromFile(const std::filesystem::path& path, 
-		                    ID3D11Device& device, 
-		                    SpriteFontOutput& output, 
+	void ImportFontFromFile(const std::filesystem::path& path,
+		                    ID3D11Device& device,
+		                    SpriteFontOutput& output,
 		                    const SpriteFontDescriptor& desc) {
-		
+
 		SpriteFontReader reader(device, output, desc);
 		reader.ReadFromFile(path);
 	}

@@ -34,7 +34,7 @@ namespace mage::rendering {
 		 @param[in]		buffer
 						A reference to the buffer.
 		 @param[in]		map_type
-						The map type specifying the CPU's read and write 
+						The map type specifying the CPU's read and write
 						permissions for the buffer of this buffer lock.
 		 @param[out]	mapped_buffer
 						A reference to map the buffer of this buffer lock to.
@@ -83,7 +83,7 @@ namespace mage::rendering {
 
 		 @param[in]		buffer_lock
 						A reference to the buffer lock to copy.
-		 @return		A reference to the copy of the given buffer lock (i.e. 
+		 @return		A reference to the copy of the given buffer lock (i.e.
 						this buffer lock)
 		 */
 		BufferLock& operator=(const BufferLock& buffer_lock) = delete;
@@ -93,7 +93,7 @@ namespace mage::rendering {
 
 		 @param[in]		buffer_lock
 						A reference to the buffer lock to move.
-		 @return		A reference to the moved buffer lock (i.e. this buffer 
+		 @return		A reference to the moved buffer lock (i.e. this buffer
 						lock)
 		 */
 		BufferLock& operator=(BufferLock&& buffer_lock) noexcept = default;
@@ -108,21 +108,21 @@ namespace mage::rendering {
 		 Maps the buffer of this buffer lock.
 
 		 @param[in]		map_type
-						The map type specifying the CPU's read and write 
+						The map type specifying the CPU's read and write
 						permissions for the buffer of this buffer lock.
 		 @param[out]	mapped_buffer
 						A reference to map the buffer of this buffer lock to.
 		 @throws		Exception
 						Failed to map the buffer.
 		 */
-		void MapBuffer(D3D11_MAP map_type, 
+		void MapBuffer(D3D11_MAP map_type,
 			           D3D11_MAPPED_SUBRESOURCE& mapped_buffer) {
 
-			const HRESULT result = Pipeline::Map(m_device_context, 
+			const HRESULT result = Pipeline::Map(m_device_context,
 				                                 m_buffer,
-				                                 0u, 
-				                                 map_type, 
-				                                 0u, 
+				                                 0u,
+				                                 map_type,
+				                                 0u,
 				                                 mapped_buffer);
 			ThrowIfFailed(result, "Buffer mapping failed: {:08X}.", result);
 		}
@@ -131,7 +131,7 @@ namespace mage::rendering {
 		 Unmaps the buffer of this buffer lock.
 
 		 @pre			The buffer of this buffer lock must be mapped with
-						{@link mage::rendering::BufferLock::MapBuffer(D3D11_MAP, D3D11_MAPPED_SUBRESOURCE&)} 
+						{@link mage::rendering::BufferLock::MapBuffer(D3D11_MAP, D3D11_MAPPED_SUBRESOURCE&)}
 						before it can be unmapped.
 		 */
 		void UnmapBuffer() const noexcept {

@@ -15,10 +15,10 @@
 namespace mage::rendering::loader {
 
 	void ImportSpriteFontFromFile(const std::filesystem::path& path,
-		                          ID3D11Device& device, 
-		                          SpriteFontOutput& output, 
+		                          ID3D11Device& device,
+		                          SpriteFontOutput& output,
 		                          const SpriteFontDescriptor& desc) {
-		
+
 		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 

@@ -208,7 +208,7 @@ void ImGui::ShowDemoWindow(bool* p_open)
     static bool no_close = false;
     static bool no_nav = false;
     static bool no_bring_to_front = false;
-    
+
     ImGuiWindowFlags window_flags = 0;
     if (no_titlebar)        window_flags |= ImGuiWindowFlags_NoTitleBar;
     if (no_scrollbar)       window_flags |= ImGuiWindowFlags_NoScrollbar;
@@ -1111,15 +1111,15 @@ void ImGui::ShowDemoWindow(bool* p_open)
         if (ImGui::TreeNode("Data Types"))
         {
             // The DragScalar/InputScalar/SliderScalar functions allow various data types: signed/unsigned int/long long and float/double
-            // To avoid polluting the public API with all possible combinations, we use the ImGuiDataType enum to pass the type, 
-            // and passing all arguments by address. 
+            // To avoid polluting the public API with all possible combinations, we use the ImGuiDataType enum to pass the type,
+            // and passing all arguments by address.
             // This is the reason the test code below creates local variables to hold "zero" "one" etc. for each types.
-            // In practice, if you frequently use a given type that is not covered by the normal API entry points, you can wrap it 
-            // yourself inside a 1 line function which can take typed argument as value instead of void*, and then pass their address 
+            // In practice, if you frequently use a given type that is not covered by the normal API entry points, you can wrap it
+            // yourself inside a 1 line function which can take typed argument as value instead of void*, and then pass their address
             // to the generic function. For example:
-            //   bool MySliderU64(const char *label, u64* value, u64 min = 0, u64 max = 0, const char* format = "%lld") 
-            //   { 
-            //      return SliderScalar(label, ImGuiDataType_U64, value, &min, &max, format); 
+            //   bool MySliderU64(const char *label, u64* value, u64 min = 0, u64 max = 0, const char* format = "%lld")
+            //   {
+            //      return SliderScalar(label, ImGuiDataType_U64, value, &min, &max, format);
             //   }
 
             // Limits (as helper variables that we can take the address of)
@@ -1314,7 +1314,7 @@ void ImGui::ShowDemoWindow(bool* p_open)
                 static int mode = 0;
                 if (ImGui::RadioButton("Copy", mode == Mode_Copy)) { mode = Mode_Copy; } ImGui::SameLine();
                 if (ImGui::RadioButton("Move", mode == Mode_Move)) { mode = Mode_Move; } ImGui::SameLine();
-                if (ImGui::RadioButton("Swap", mode == Mode_Swap)) { mode = Mode_Swap; } 
+                if (ImGui::RadioButton("Swap", mode == Mode_Swap)) { mode = Mode_Swap; }
                 static const char* names[9] = { "Bobby", "Beatrice", "Betty", "Brianna", "Barry", "Bernard", "Bibi", "Blaine", "Bryn" };
                 for (int n = 0; n < IM_ARRAYSIZE(names); n++)
                 {
@@ -1459,7 +1459,7 @@ void ImGui::ShowDemoWindow(bool* p_open)
             if (embed_all_inside_a_child_window)
                 EndChild();
 
-            // Calling IsItemHovered() after begin returns the hovered status of the title bar. 
+            // Calling IsItemHovered() after begin returns the hovered status of the title bar.
             // This is useful in particular if you want to create a context menu (with BeginPopupContextItem) associated to the title bar of a window.
             static bool test_window = false;
             ImGui::Checkbox("Hovered/Active tests after Begin() for title bar testing", &test_window);

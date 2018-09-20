@@ -17,9 +17,9 @@ namespace mage::rendering {
 	template< typename T >
 	StructuredBuffer< T >
 		::StructuredBuffer(ID3D11Device& device, std::size_t capacity)
-		: m_buffer(), 
+		: m_buffer(),
 		m_buffer_srv(),
-		m_capacity(0), 
+		m_capacity(0),
 		m_size(0) {
 
 		SetupStructuredBuffer(device, capacity);
@@ -32,7 +32,7 @@ namespace mage::rendering {
 		// Create the buffer resource.
 		{
 			const HRESULT result = CreateDynamicStructuredBuffer< T >(
-				device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()), 
+				device, NotNull< ID3D11Buffer** >(m_buffer.ReleaseAndGetAddressOf()),
 				capacity);
 			ThrowIfFailed(result, "Structured buffer creation failed: {:08X}.", result);
 		}
@@ -47,7 +47,7 @@ namespace mage::rendering {
 			srv_desc.ViewDimension       = D3D11_SRV_DIMENSION_BUFFER;
 			srv_desc.Buffer.FirstElement = 0u;
 			srv_desc.Buffer.NumElements  = static_cast< U32 >(m_capacity);
-			
+
 			const HRESULT result = device.CreateShaderResourceView(
 				m_buffer.Get(), &srv_desc, m_buffer_srv.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result, "SRV creation failed: {:08X}.", result);
@@ -56,7 +56,7 @@ namespace mage::rendering {
 
 	template< typename T >
 	void StructuredBuffer< T >
-		::UpdateData(ID3D11DeviceContext& device_context, 
+		::UpdateData(ID3D11DeviceContext& device_context,
 			         const AlignedVector< T >& data) {
 
 		m_size = data.size();
@@ -72,9 +72,9 @@ namespace mage::rendering {
 
 		// Map the buffer.
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-		BufferLock lock(device_context, *m_buffer.Get(), 
+		BufferLock lock(device_context, *m_buffer.Get(),
 						D3D11_MAP_WRITE_DISCARD, mapped_buffer);
-			
+
 		memcpy(mapped_buffer.pData, data.data(), m_size * sizeof(T));
 	}
 

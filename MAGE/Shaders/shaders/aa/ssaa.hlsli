@@ -31,14 +31,14 @@ struct OutputTexturesSSAA {
 	RWTexture2D< float  > m_depth;
 };
 
-void ResolveSSAA(uint2 p_display, 
-				 uint2 nb_samples, 
+void ResolveSSAA(uint2 p_display,
+				 uint2 nb_samples,
 				 float weight,
 				 InputTexturesSSAA input_textures,
 				 OutputTexturesSSAA output_textures) {
 
 	const uint2 p_ss_display = p_display * nb_samples;
-	
+
 	float4 ldr        = 0.0f;
 	float3 normal_sum = 0.0f;
 	#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -52,13 +52,13 @@ void ResolveSSAA(uint2 p_display,
 		for (uint j = 0u; j < nb_samples.y; ++j) {
 
 			const uint2 p_ss_display_ij = p_ss_display + uint2(i,j);
-			
+
 			const float4 hdr = input_textures.m_image[p_ss_display_ij];
 			ldr += AA_TONE_MAP_FUNCTION(hdr, weight);
-			
+
 			const float2 encoded_n = input_textures.m_normal[p_ss_display_ij];
 			normal_sum += NORMAL_DECODE_FUNCTION(encoded_n);
-			
+
 			#ifdef DISABLE_INVERTED_Z_BUFFER
 			depth = min(depth, input_textures.m_depth[p_ss_display_ij]);
 			#else  // DISABLE_INVERTED_Z_BUFFER

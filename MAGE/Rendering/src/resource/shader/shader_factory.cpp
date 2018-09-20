@@ -42,48 +42,48 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Back Buffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_back_buffer_PS));
 	}
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBuffer
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager,
 								   bool tsnm) {
 
-		return tsnm ? CreatePS(resource_manager, 
+		return tsnm ? CreatePS(resource_manager,
 							   MAGE_SHADER_ARGS(g_gbuffer_tsnm_PS))
-			        : CreatePS(resource_manager, 
+			        : CreatePS(resource_manager,
 							   MAGE_SHADER_ARGS(g_gbuffer_PS));
 	}
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Sky
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	VertexShaderPtr CreateSkyVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_sky_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_sky_VS),
 						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	PixelShaderPtr CreateSkyPS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_sky_PS));
 	}
 
@@ -95,13 +95,13 @@ namespace mage::rendering {
 	#pragma region
 
 	VertexShaderPtr CreateSpriteVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_sprite_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_sprite_VS),
 						VertexPositionColorTexture::s_input_element_descs);
 	}
 
 	PixelShaderPtr CreateSpritePS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_sprite_PS));
 	}
 
@@ -114,8 +114,8 @@ namespace mage::rendering {
 
 	VertexShaderPtr CreateTransformVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_transform_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_transform_VS),
 						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 

@@ -22,17 +22,17 @@ namespace mage::script {
 
 	VoxelGridAnchorScript::VoxelGridAnchorScript(
 		VoxelGridAnchorScript&& script) noexcept = default;
-	
+
 	VoxelGridAnchorScript::~VoxelGridAnchorScript() = default;
 
 	VoxelGridAnchorScript& VoxelGridAnchorScript::operator=(
 		const VoxelGridAnchorScript& script) noexcept = default;
-	
+
 	VoxelGridAnchorScript& VoxelGridAnchorScript::operator=(
 		VoxelGridAnchorScript&& script) noexcept = default;
 
 	void VoxelGridAnchorScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
 	}
 

@@ -25,13 +25,13 @@ struct ShadowMap {
 	SamplerComparisonState m_pcf_sampler;
 
 	/**
-	 The array of shadow map textures containing the shadow map texture of this 
+	 The array of shadow map textures containing the shadow map texture of this
 	 shadow map.
 	 */
 	Texture2DArray< float > m_maps;
 
 	/**
-	 The index into the array of shadow map textures corresponding to the 
+	 The index into the array of shadow map textures corresponding to the
 	 shadow map texture of this shadow map.
 	 */
 	uint m_index;
@@ -45,7 +45,7 @@ struct ShadowMap {
 
 	 @param[in]		p_ndc
 					The hit position expressed in light NDC space.
-	 @return		The shadow factor of this shadow map corresponding to the 
+	 @return		The shadow factor of this shadow map corresponding to the
 					given hit position expressed in light NDC space.
 	 */
 	float ShadowFactor(float3 p_ndc) {
@@ -70,13 +70,13 @@ struct ShadowCubeMap {
 	SamplerComparisonState m_pcf_sampler;
 
 	/**
-	 The array of shadow cube map textures containing the shadow cube map 
+	 The array of shadow cube map textures containing the shadow cube map
 	 texture of this shadow cube map.
 	 */
 	TextureCubeArray< float > m_maps;
 
 	/**
-	 The index into the array of shadow cube map textures corresponding to the 
+	 The index into the array of shadow cube map textures corresponding to the
 	 shadow cube map texture of this shadow cube map.
 	 */
 	uint m_index;
@@ -93,7 +93,7 @@ struct ShadowCubeMap {
 	 @param[in]		projection_values
 					The projection values of the light-to-projection matrix
 					[light_to_projection22, light_to_projection32].
-	 @return		The shadow factor of this shadow cube map corresponding to 
+	 @return		The shadow factor of this shadow cube map corresponding to
 					the given hit position expressed in light space.
 	 */
 	float ShadowFactor(float3 p_light, float2 projection_values) {
@@ -124,7 +124,7 @@ struct PointLight {
 	float3 m_p_world;
 
 	/**
-	 The inverse of the squared range of this point light expressed in inversed 
+	 The inverse of the squared range of this point light expressed in inversed
 	 squared world space.
 	 */
 	float m_inv_sqr_range;
@@ -134,13 +134,13 @@ struct PointLight {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Computes the distance attenuation smoothing factor of the intensity of 
+	 Computes the distance attenuation smoothing factor of the intensity of
 	 this point light.
 
 	 @param[in]		sqr_distance
-					The squared distance between the lit point and the center 
+					The squared distance between the lit point and the center
 					of this point light expressed in squared world space.
-	 @return		The distance attenuation smoothing factor of the intensity 
+	 @return		The distance attenuation smoothing factor of the intensity
 					of this point light for the given squared distance.
 	 */
 	float DistanceAttenuationSmoothingFactor(float sqr_distance) {
@@ -157,9 +157,9 @@ struct PointLight {
 	 Computes the distance attenuation of the intensity of this point light.
 
 	 @param[in]		distance
-					The distance between the lit point and the center of this 
+					The distance between the lit point and the center of this
 					point light expressed in world space.
-	 @return		The distance attenuation of the intensity of this point 
+	 @return		The distance attenuation of the intensity of this point
 					light for the given distance.
 	 */
 	float DistanceAttenuation(float distance) {
@@ -170,7 +170,7 @@ struct PointLight {
 		const float sqr_distance = sqr(distance);
 		const float attenuation  = 1.0f / max(sqr_distance, 1e-4f);
 		const float smoothing    = DistanceAttenuationSmoothingFactor(sqr_distance);
-	
+
 		return attenuation * smoothing;
 	}
 };
@@ -189,9 +189,9 @@ struct DirectionalLight {
 	 */
 	float3 m_E_ortho;
 	uint   m_padding0;
-	
+
 	/**
-	 The (normalized) negated direction of this directional light expressed 
+	 The (normalized) negated direction of this directional light expressed
 	 in world space.
 	 */
 	float3 m_neg_d_world;
@@ -207,44 +207,44 @@ struct DirectionalLight {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Computes the (orthogonal) irradiance contribution of this directional 
+	 Computes the (orthogonal) irradiance contribution of this directional
 	 light.
 
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
-					The (orthogonal) irradiance contribution of this 
+					The (orthogonal) irradiance contribution of this
 					directional light.
 	 @param[in]		p_ndc
 					The hit position expressed in light NDC space.
 	 */
-	void Contribution(float3 p_world, 
+	void Contribution(float3 p_world,
 					  out float3 l_world, out float3 E_ortho, out float3 p_ndc) {
-		
+
 		const float4 p_proj = mul(float4(p_world, 1.0f), m_world_to_projection);
 		p_ndc   = HomogeneousDivide(p_proj);
-	
+
 		l_world = m_neg_d_world;
 		E_ortho = (any(1.0f < abs(p_ndc)) || 0.0f > p_ndc.z) ? 0.0f : m_E_ortho;
 	}
 
 	/**
-	 Computes the (orthogonal) irradiance contribution of this directional 
+	 Computes the (orthogonal) irradiance contribution of this directional
 	 light.
 
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
-					The (orthogonal) irradiance contribution of this 
+					The (orthogonal) irradiance contribution of this
 					directional light.
 	 */
-	void Contribution(float3 p_world, 
+	void Contribution(float3 p_world,
 					  out float3 l_world, out float3 E_ortho) {
 
 		float3 l_world0, E_ortho0, p_ndc;
@@ -255,7 +255,7 @@ struct DirectionalLight {
 	}
 
 	/**
-	 Computes the (orthogonal) irradiance contribution of this directional 
+	 Computes the (orthogonal) irradiance contribution of this directional
 	 light.
 
 	 @param[in]		map
@@ -263,10 +263,10 @@ struct DirectionalLight {
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
-					The (orthogonal) irradiance contribution of this 
+					The (orthogonal) irradiance contribution of this
 					directional light.
 	 */
 	void Contribution(ShadowMap map, float3 p_world,
@@ -307,13 +307,13 @@ struct OmniLight : PointLight {
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
-					The (orthogonal) irradiance contribution of this omni 
+					The (orthogonal) irradiance contribution of this omni
 					light.
 	 */
-	void Contribution(float3 p_world, 
+	void Contribution(float3 p_world,
 					  out float3 l_world, out float3 E_ortho) {
 
 		const float3 l_direction    = m_p_world - p_world;
@@ -344,9 +344,9 @@ struct SpotLight : PointLight {
 	 The cosine of the umbra angle of this spotlight.
 	 */
 	float m_cos_umbra;
-	
+
 	/**
-	 The (normalized) negated direction of this spotlight expressed in world 
+	 The (normalized) negated direction of this spotlight expressed in world
 	 space.
 	 */
 	float3 m_neg_d_world;
@@ -365,8 +365,8 @@ struct SpotLight : PointLight {
 	 Computes the angular intensity attenuation of this spotlight.
 
 	 @param[in]		cos_theta
-					The cosine of the angle between the direction from the 
-					center of this spotlight to the lit point, and the 
+					The cosine of the angle between the direction from the
+					center of this spotlight to the lit point, and the
 					direction of this spotlight.
 	 @return		The angular intensity attenuation.
 	 */
@@ -381,19 +381,19 @@ struct SpotLight : PointLight {
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
 					The (orthogonal) irradiance contribution of this spotlight.
 	 */
-	void Contribution(float3 p_world, 
+	void Contribution(float3 p_world,
 					  out float3 l_world, out float3 E_ortho) {
 
 		const float3 l_direction    = m_p_world - p_world;
 		const float  l_distance     = length(l_direction);
 		const float  inv_l_distance = 1.0f / l_distance;
 		l_world = l_direction * inv_l_distance;
-	
+
 		const float da        = DistanceAttenuation(l_distance);
 		const float cos_theta = dot(m_neg_d_world, l_world);
 		const float aa        = AngularAttenuation(cos_theta);
@@ -410,7 +410,7 @@ typedef DirectionalLight ShadowMappedDirectionalLight;
  A struct of shadow mapped omni lights.
  */
 struct ShadowMappedOmniLight : OmniLight {
-	
+
 	//-------------------------------------------------------------------------
 	// Member Variables
 	//-------------------------------------------------------------------------
@@ -421,7 +421,7 @@ struct ShadowMappedOmniLight : OmniLight {
 	float4x4 m_world_to_light;
 
 	/**
-	 The projection values of the light-to-projection transformation matrix of 
+	 The projection values of the light-to-projection transformation matrix of
 	 this shadow mapped omni light.
 	 projection_values.x = light_to_projection22
 	 projection_values.y = light_to_projection32
@@ -441,10 +441,10 @@ struct ShadowMappedOmniLight : OmniLight {
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
-					The (orthogonal) irradiance contribution of this omni 
+					The (orthogonal) irradiance contribution of this omni
 					light.
 	 */
 	void Contribution(ShadowCubeMap map, float3 p_world,
@@ -454,7 +454,7 @@ struct ShadowMappedOmniLight : OmniLight {
 		OmniLight::Contribution(p_world, l_world0, E_ortho0);
 
 		l_world = l_world0;
-		
+
 		const float3 p_light = mul(float4(p_world, 1.0f), m_world_to_light).xyz;
 		const float shadow_factor = map.ShadowFactor(p_light, m_projection_values);
 		E_ortho = shadow_factor * E_ortho0;
@@ -471,7 +471,7 @@ struct ShadowMappedSpotLight : SpotLight {
 	//-------------------------------------------------------------------------
 
 	/**
-	 The world-to-projection transformation matrix of this shadow mapped 
+	 The world-to-projection transformation matrix of this shadow mapped
 	 spotlight.
 	 */
 	float4x4 m_world_to_projection;
@@ -488,7 +488,7 @@ struct ShadowMappedSpotLight : SpotLight {
 	 @param[in]		p_world
 					The hit position expressed in world space.
 	 @param[out]	l_world
-					The (normalized) light (hit-to-light) direction expressed 
+					The (normalized) light (hit-to-light) direction expressed
 					in world space.
 	 @param[out]	E_ortho
 					The (orthogonal) irradiance contribution of this spotlight.

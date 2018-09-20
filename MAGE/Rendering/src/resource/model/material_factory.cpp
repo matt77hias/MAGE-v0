@@ -15,11 +15,11 @@ namespace mage::rendering {
 
 	const Material CreateDefaultMaterial(ResourceManager& resource_manager) {
 		const auto white = CreateWhiteTexture(resource_manager);
-		
+
 		Material material;
 		material.SetBaseColorTexture(white);
 		material.SetMaterialTexture(white);
-		
+
 		return material;
 	}
 }

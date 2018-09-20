@@ -35,25 +35,25 @@ namespace mage::rendering {
 			//---------------------------------------------------------------------
 			// Class Member Variables
 			//---------------------------------------------------------------------
-		
+
 			// Combine values from SpriteEffect with these internal-only flags.
 
 			/**
-			 Mask indicating whether the source region (top left, width and height) 
+			 Mask indicating whether the source region (top left, width and height)
 			 of sprite info structures is expressed in texels.
 			 */
 			static constexpr U32 s_source_in_texels = 4u;
 
 			/**
-			 Mask indicating whether the destination size (width and height) of 
+			 Mask indicating whether the destination size (width and height) of
 			 sprite info structures is expressed in pixels.
 			 */
 			static constexpr U32 s_destination_size_in_pixels = 8u;
 
 			static_assert(((s_source_in_texels | s_destination_size_in_pixels)
-						  & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0, 
+						  & static_cast< U32 >(SpriteEffect::MirrorXY)) == 0,
 						  "Flag bits must not overlap");
-		
+
 			//---------------------------------------------------------------------
 			// Constructors and Destructors
 			//---------------------------------------------------------------------
@@ -62,11 +62,11 @@ namespace mage::rendering {
 			 Constructs a sprite info.
 			 */
 			SpriteInfo() noexcept
-				: m_source{}, 
-				m_destination{}, 
-				m_color{}, 
-				m_origin_rotation_depth{}, 
-				m_texture(nullptr), 
+				: m_source{},
+				m_destination{},
+				m_color{},
+				m_origin_rotation_depth{},
+				m_texture(nullptr),
 				m_flags(0u) {}
 
 			/**
@@ -99,7 +99,7 @@ namespace mage::rendering {
 
 			 @param[in]		sprite_info
 							A reference to the sprite info to copy.
-			 @return		A reference to the copy of the given sprite info (i.e. 
+			 @return		A reference to the copy of the given sprite info (i.e.
 							this sprite info).
 			 */
 			SpriteInfo& operator=(const SpriteInfo& sprite_info) noexcept = default;
@@ -109,7 +109,7 @@ namespace mage::rendering {
 
 			 @param[in]		sprite_info
 							A reference to the sprite info to move.
-			 @return		A reference to the moved sprite info (i.e. this sprite 
+			 @return		A reference to the moved sprite info (i.e. this sprite
 							info).
 			 */
 			SpriteInfo& operator=(SpriteInfo&& sprite_info) noexcept = default;
@@ -119,31 +119,31 @@ namespace mage::rendering {
 			//---------------------------------------------------------------------
 
 			/**
-			 The texture source region (Left Top Width Height) of the sprite 
+			 The texture source region (Left Top Width Height) of the sprite
 			 associated with this sprite info.
 			 */
 			F32x4A m_source;
 
 			/**
-			 The translation and scale (Tx Ty Sx Sy) of the sprite associated with 
+			 The translation and scale (Tx Ty Sx Sy) of the sprite associated with
 			 this sprite info.
 			 */
 			F32x4A m_destination;
 
 			/**
-			 The (linear) RGBA color of the sprite associated with this sprite 
+			 The (linear) RGBA color of the sprite associated with this sprite
 			 info.
 			 */
 			F32x4A m_color;
 
 			/**
-			 The origin, rotation and depth (Ox Oy R D) of the sprite associated 
+			 The origin, rotation and depth (Ox Oy R D) of the sprite associated
 			 with this sprite info.
 			 */
 			F32x4A m_origin_rotation_depth;
 
 			/**
-			 A pointer to the shader resource view of the texture associated 
+			 A pointer to the shader resource view of the texture associated
 			 with this sprite info.
 			 */
 			ID3D11ShaderResourceView* m_texture;
@@ -196,7 +196,7 @@ namespace mage::rendering {
 						A reference to the sprite batch to move.
 		 */
 		Impl(Impl&& sprite_batch) noexcept;
-		
+
 		/**
 		 Destructs this sprite batch.
 		 */
@@ -211,7 +211,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite_batch
 						A reference to the sprite batch to copy.
-		 @return		A reference to the copy of the given sprite batch (i.e. 
+		 @return		A reference to the copy of the given sprite batch (i.e.
 						this sprite batch).
 		 */
 		Impl& operator=(const Impl& sprite_batch) = delete;
@@ -221,7 +221,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite_batch
 						A reference to the sprite batch to move.
-		 @return		A reference to the moved sprite batch (i.e. this sprite 
+		 @return		A reference to the moved sprite batch (i.e. this sprite
 						batch).
 		 */
 		Impl& operator=(Impl&& sprite_batch) noexcept;
@@ -235,17 +235,17 @@ namespace mage::rendering {
 
 		 @pre			This sprite batch is not inside a begin/end pair.
 		 @param[in]		sort_mode
-						A reference to the sprite sorting mode for the whole 
+						A reference to the sprite sorting mode for the whole
 						batch of sprites.
 		 */
 		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred);
-		
+
 		/**
 		 Draws a sprite.
 
 		 @pre			This sprite batch is inside a begin/end pair.
 		 @param[in]		texture
-						A pointer to the shader resource view of the texture to 
+						A pointer to the shader resource view of the texture to
 						draw.
 		 @param[in]		color
 						The (linear) RGBA color.
@@ -256,12 +256,12 @@ namespace mage::rendering {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void XM_CALLCONV Draw(ID3D11ShaderResourceView* texture, 
-			                  FXMVECTOR color, 
-			                  SpriteEffect effects, 
-			                  const SpriteTransform& transform, 
+		void XM_CALLCONV Draw(ID3D11ShaderResourceView* texture,
+			                  FXMVECTOR color,
+			                  SpriteEffect effects,
+			                  const SpriteTransform& transform,
 			                  const RECT* source = nullptr);
-		
+
 		/**
 		 Ends the processing of a batch of sprites.
 
@@ -279,36 +279,36 @@ namespace mage::rendering {
 		 Binds the fixed state of this sprite batch.
 		 */
 		void BindFixedState();
-		
+
 		/**
-		 Flushes a batch of sprites for rendering if non-immediate rendering is 
-		 required for the current batch of sprites. Otherwise, the sprites in 
+		 Flushes a batch of sprites for rendering if non-immediate rendering is
+		 required for the current batch of sprites. Otherwise, the sprites in
 		 the current batch are rendered immediately.
 
-		 Sprites are sorted based on the sprite sorting mode and adjacent 
+		 Sprites are sorted based on the sprite sorting mode and adjacent
 		 sprites are grouped for rendering if sharing the same texture.
 
-		 @note		This functionality is only used in case of non-immediate 
+		 @note		This functionality is only used in case of non-immediate
 					rendering.
 		 */
 		void FlushBatch();
 
 		/**
-		 Sorts the sprites of the current batch according to the sprite sorting 
+		 Sorts the sprites of the current batch according to the sprite sorting
 		 mode of this sprite batch.
 
-		 @note		This functionality is only used in case of non-immediate 
+		 @note		This functionality is only used in case of non-immediate
 					rendering.
 		 */
 		void SortSprites();
-		
+
 		/**
 		 Draws a subbatch of sprites of the current batch of sprites
 		 of this sprite batch.
 
 		 @pre			@a sprites is not equal to @c nullptr.
-		 @pre			@a sprites points to an array containing at least 
-						@a nb_sprites sprite info data pointers which are not 
+		 @pre			@a sprites points to an array containing at least
+						@a nb_sprites sprite info data pointers which are not
 						equal to @c nullptr.
 		 @param[in]		texture
 						A pointer to the shader resource view of the texture
@@ -322,12 +322,12 @@ namespace mage::rendering {
 		void Render(ID3D11ShaderResourceView* texture,
 					const SpriteInfo* const* sprites,
 					std::size_t nb_sprites);
-		
+
 		/**
 		 Prepares a single sprite for rendering.
 
 		 @pre			@a vertices is not equal to @c nullptr.
-		 @pre			@a vertices points to an array containing at least 
+		 @pre			@a vertices points to an array containing at least
 						{@link mage::rendering::SpriteBatchMesh::s_vertices_per_sprite}.
 		 @param[in]		sprite
 						A reference to the sprite info data.
@@ -338,9 +338,9 @@ namespace mage::rendering {
 		 @param[in]		inverse_texture_size
 						The inverse of @a texture_size.
 		 */
-		void XM_CALLCONV PrepareSprite(const SpriteInfo& sprite, 
+		void XM_CALLCONV PrepareSprite(const SpriteInfo& sprite,
 			                           VertexPositionColorTexture* vertices,
-			                           FXMVECTOR texture_size, 
+			                           FXMVECTOR texture_size,
 			                           FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
@@ -348,7 +348,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The initial capacity of the vector containing the sprites waiting to 
+		 The initial capacity of the vector containing the sprites waiting to
 		 be drawn by a sprite batch.
 		 */
 		static constexpr std::size_t s_initial_capacity = 64u;
@@ -363,19 +363,19 @@ namespace mage::rendering {
 		std::reference_wrapper< ID3D11DeviceContext > m_device_context;
 
 		/**
-		 A pointer to the sprite batch mesh used by this sprite batch for 
+		 A pointer to the sprite batch mesh used by this sprite batch for
 		 drawing the sprites onto.
 		 */
 		UniquePtr< SpriteBatchMesh > m_mesh;
 
 		/**
-		 The current position in the mesh of this sprite batch for adding sprite 
+		 The current position in the mesh of this sprite batch for adding sprite
 		 vertices.
 		 */
 		std::size_t m_mesh_position;
 
 		/**
-		 A flag indicating whether this sprite batch is in a begin/end pair 
+		 A flag indicating whether this sprite batch is in a begin/end pair
 		 for processing sprites.
 		 */
 		bool m_in_begin_end_pair;
@@ -396,19 +396,19 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A vector containing the sprites waiting to be drawn by this sprite 
+		 A vector containing the sprites waiting to be drawn by this sprite
 		 batch.
 		 */
 		AlignedVector< SpriteInfo > m_sprites;
-		
+
 		/**
-		 A vector containing the pointers to the sorted sprites of this sprite 
+		 A vector containing the pointers to the sorted sprites of this sprite
 		 batch.
 		 */
 		std::vector< const SpriteInfo* > m_sorted_sprites;
 	};
 
-	SpriteBatch::Impl::Impl(ID3D11Device& device, 
+	SpriteBatch::Impl::Impl(ID3D11Device& device,
 							ID3D11DeviceContext& device_context)
 		: m_device_context(device_context),
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)),
@@ -429,7 +429,7 @@ namespace mage::rendering {
 		::operator=(Impl&& sprite_batch) noexcept = default;
 
 	void SpriteBatch::Impl::Begin(SpriteSortMode sort_mode) {
-		
+
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
@@ -445,45 +445,45 @@ namespace mage::rendering {
 		// Toggle the begin/end pair.
 		m_in_begin_end_pair = true;
 	}
-	
-	void XM_CALLCONV SpriteBatch::Impl::Draw(ID3D11ShaderResourceView* texture, 
-											 FXMVECTOR color, 
-											 SpriteEffect effects, 
-											 const SpriteTransform& transform, 
+
+	void XM_CALLCONV SpriteBatch::Impl::Draw(ID3D11ShaderResourceView* texture,
+											 FXMVECTOR color,
+											 SpriteEffect effects,
+											 const SpriteTransform& transform,
 											 const RECT* source) {
-		
+
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
 		// destination: [Tx Ty Sx Sy]
 		const XMVECTOR destination = { transform.GetTranslation()[0],
 			                           transform.GetTranslation()[1],
-			                           transform.GetScale()[0], 
+			                           transform.GetScale()[0],
 			                           transform.GetScale()[1] };
 		// origin_rotation_depth: [ROx ROy R D]
 		const XMVECTOR origin_rotation_depth = { transform.GetRotationOrigin()[0],
 												 transform.GetRotationOrigin()[1],
-												 transform.GetRotation(), 
+												 transform.GetRotation(),
 			                                     transform.GetDepth() };
 		auto flags = static_cast< U32 >(effects);
 		auto dst   = destination;
-		
+
 		SpriteInfo sprite;
 
 		if (source) {
-			// If a source is given, the source region is represented in 
+			// If a source is given, the source region is represented in
 			// (absolute) texel coordinates.
 			const auto src = XMVectorLeftTopWidthHeight(*source);
 			sprite.m_source = XMStore< F32x4A >(src);
 
 			// If the destination size is relative to the texture region
-			// (i.e. multiplier), the destination size is represented in 
+			// (i.e. multiplier), the destination size is represented in
 			// (absolute) pixel coordinates.
 			if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
 				dst = XMVectorPermute< 0, 1, 6, 7 >(dst, dst * src);
 			}
 
-			flags |= SpriteInfo::s_source_in_texels 
+			flags |= SpriteInfo::s_source_in_texels
 				  |  SpriteInfo::s_destination_size_in_pixels;
 
 			//-----------------------------------------------------------------
@@ -493,7 +493,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 		}
 		else {
-			// If no source is given, the source region is represented in 
+			// If no source is given, the source region is represented in
 			// (relative) texel (UV) coordinates.
 			static const XMVECTORF32 src = { 0.0f, 0.0f, 1.0f, 1.0f };
 			sprite.m_source = XMStore< F32x4A >(src);
@@ -516,7 +516,7 @@ namespace mage::rendering {
 			Render(texture, &sprites, 1u);
 		}
 		else {
-			
+
 			if (m_sprites.size() == m_sprites.capacity()) {
 				m_sprites.reserve(2 * m_sprites.capacity());
 			}
@@ -556,7 +556,7 @@ namespace mage::rendering {
 		// Sort the sprites of this sprite batch.
 		SortSprites();
 
-		// Iterate the sorted sprites of this sprite batch, looking for adjacent 
+		// Iterate the sorted sprites of this sprite batch, looking for adjacent
 		// sprites sharing a texture.
 		ID3D11ShaderResourceView* batch_texture = nullptr;
 		std::size_t batch_start = 0u;
@@ -564,18 +564,18 @@ namespace mage::rendering {
 			auto sprite_texture = m_sorted_sprites[i]->m_texture;
 
 			if (sprite_texture != batch_texture) {
-				
+
 				if (i > batch_start) {
 					// Flush the current subbatch.
 					const auto nb_sprites_batch = i - batch_start;
 					Render(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
 				}
-				
+
 				batch_texture = sprite_texture;
 				batch_start   = i;
 			}
 		}
-		
+
 		// Flush the final subbatch.
 		const auto nb_sprites_batch = m_sprites.size() - batch_start;
 		Render(batch_texture, &m_sorted_sprites[batch_start], nb_sprites_batch);
@@ -584,40 +584,40 @@ namespace mage::rendering {
 	void SpriteBatch::Impl::SortSprites() {
 		using std::begin;
 		using std::end;
-		
+
 		m_sorted_sprites.reserve(m_sprites.capacity());
 		for (const auto& sprite : m_sprites) {
 			m_sorted_sprites.push_back(&sprite);
 		}
-		
+
 		switch (m_sort_mode) {
 
 		case SpriteSortMode::Texture: {
-			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites), 
+			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
 				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
 					     return lhs->m_texture < rhs->m_texture;
 				      });
 			break;
 		}
-		
+
 		case SpriteSortMode::BackToFront: {
 			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
 				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
-					     return lhs->m_origin_rotation_depth[3] 
+					     return lhs->m_origin_rotation_depth[3]
 							  > rhs->m_origin_rotation_depth[3];
 				      });
 			break;
 		}
-		
+
 		case SpriteSortMode::FrontToBack: {
 			std::sort(begin(m_sorted_sprites), end(m_sorted_sprites),
 				      [](const SpriteInfo* lhs, const SpriteInfo* rhs) noexcept {
-					     return lhs->m_origin_rotation_depth[3] 
+					     return lhs->m_origin_rotation_depth[3]
 							  < rhs->m_origin_rotation_depth[3];
 				      });
 			break;
 		}
-		
+
 		default: {
 			break;
 		}
@@ -640,11 +640,11 @@ namespace mage::rendering {
 			// Number of sprites that can fit in the vertex buffer.
 			const auto nb_sprites_available = SpriteBatchMesh::s_max_sprites_per_batch
 				                            - m_mesh_position;
-			
+
 			if (nb_sprites_to_render > nb_sprites_available) {
 				// Not all sprites fit in the vertex buffer.
 				if (nb_sprites_available < SpriteBatchMesh::s_min_sprites_per_batch) {
-					// Wrap back to the start of the vertex buffer in case of a 
+					// Wrap back to the start of the vertex buffer in case of a
 					// excessively small batch.
 					m_mesh_position = 0;
 					nb_sprites_to_render = std::min(nb_sprites,
@@ -659,7 +659,7 @@ namespace mage::rendering {
 			{
 				// Map the vertex buffer.
 				const D3D11_MAP map_type = (0 == m_mesh_position)
-					                       ? D3D11_MAP_WRITE_DISCARD 
+					                       ? D3D11_MAP_WRITE_DISCARD
 					                       : D3D11_MAP_WRITE_NO_OVERWRITE;
 				D3D11_MAPPED_SUBRESOURCE mapped_buffer;
 				const auto lock = m_mesh->Lock(m_device_context, map_type, mapped_buffer);
@@ -667,7 +667,7 @@ namespace mage::rendering {
 				// Update the data.
 				auto vertices = static_cast< VertexPositionColorTexture* >(mapped_buffer.pData)
 					+ m_mesh_position * SpriteBatchMesh::s_vertices_per_sprite;
-				
+
 				for (std::size_t i = 0u; i < nb_sprites_to_render; ++i) {
 					PrepareSprite(*sprites[i], vertices, texture_size, inverse_texture_size);
 					vertices += SpriteBatchMesh::s_vertices_per_sprite;
@@ -689,11 +689,11 @@ namespace mage::rendering {
 	}
 
 	void XM_CALLCONV SpriteBatch::Impl
-		::PrepareSprite(const SpriteInfo& sprite, 
+		::PrepareSprite(const SpriteInfo& sprite,
 		                VertexPositionColorTexture* vertices,
-		                FXMVECTOR texture_size, 
+		                FXMVECTOR texture_size,
 			            FXMVECTOR inverse_texture_size) noexcept {
-		
+
 		auto source                      = XMLoad(sprite.m_source);
 		const auto destination           = XMLoad(sprite.m_destination);
 		const auto color                 = XMLoad(sprite.m_color);
@@ -703,7 +703,7 @@ namespace mage::rendering {
 		const auto flags                 = sprite.m_flags;
 		auto source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		auto destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
-		
+
 		const auto is_0_mask         = XMVectorEqual(source_size, XMVectorZero());
 		const auto non_0_source_size = XMVectorSelect(source_size, g_XMEpsilon, is_0_mask);
 		auto origin                  = XMVectorDivide(origin_rotation_depth, non_0_source_size);
@@ -715,7 +715,7 @@ namespace mage::rendering {
 		else {
 			origin      *= inverse_texture_size;
 		}
-		
+
 		if (false == (flags & SpriteInfo::s_destination_size_in_pixels)) {
 			// The maximum source region is always required in this case.
 			destination_size *= texture_size;
@@ -729,16 +729,16 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 
-		// The four normalized corner offsets needed to compute the position 
+		// The four normalized corner offsets needed to compute the position
 		// coordinates and UV coordinates of each vertex.
 		// [x y _ _]
 		static const XMVECTOR corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
-			{ 0.0f, 0.0f, 0.0f, 1.0f }, 
+			{ 0.0f, 0.0f, 0.0f, 1.0f },
 			{ 1.0f, 0.0f, 0.0f, 1.0f },
 			{ 0.0f, 1.0f, 0.0f, 1.0f },
 			{ 1.0f, 1.0f, 0.0f, 1.0f }
 		};
-		
+
 
 		// UV coordinates to vertex mapping:
 		//
@@ -752,7 +752,7 @@ namespace mage::rendering {
 		// SpriteEffect::MirrorX   01    01 00 11 10
 		// SpriteEffect::MirrorY   10    10 11 00 01
 		// SpriteEffect::MirrorXY  11    11 10 01 00
-		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 && 
+		static_assert(static_cast< U8 >(SpriteEffect::MirrorX) == 1 &&
 			          static_cast< U8 >(SpriteEffect::MirrorY) == 2,
 			          "The mirroring implementation must be updated to match");
 		// Isolate the mirror bits.
@@ -760,7 +760,7 @@ namespace mage::rendering {
 
 
 		// Rotation:
-		// 
+		//
 		// [x, y] [ cos -sin ] = [x cos + y sin, x (-sin) + y cos]
 		//		  [ sin  cos ]
 		XMVECTOR rotation_x;
@@ -799,9 +799,9 @@ namespace mage::rendering {
 			vertices[i].m_c = RGBA(XMStore< F32x4 >(color));
 
 			// Compute the texture coordinates.
-			const auto uv = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_mask], 
+			const auto uv = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_mask],
 												source_size, source);
-			
+
 			// Write the texture coordinates.
 			vertices[i].m_tex = UV(XMStore< F32x2 >(uv));
 		}
@@ -834,7 +834,7 @@ namespace mage::rendering {
 									   SpriteEffect effects,
 									   const SpriteTransform& transform,
 									   const RECT* source) {
-		
+
 		m_impl->Draw(texture, color, effects, transform, source);
 	}
 

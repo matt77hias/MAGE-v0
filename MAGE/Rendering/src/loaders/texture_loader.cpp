@@ -25,10 +25,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportTextureFromFile(const std::filesystem::path& path, 
-		                       ID3D11Device& device, 
+	void ImportTextureFromFile(const std::filesystem::path& path,
+		                       ID3D11Device& device,
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv) {
-		
+
 		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 
@@ -47,14 +47,14 @@ namespace mage::rendering::loader {
 	namespace {
 
 		/**
-		 Returns the WIC container format associated with the given image file 
+		 Returns the WIC container format associated with the given image file
 		 extension.
 
 		 @param[in]		extension
 						The (lower case) file extension.
-		 @return		@c GUID_NULL if no WIC container format is associated 
+		 @return		@c GUID_NULL if no WIC container format is associated
 						with the given file extension.
-		 @return		The WIC container format associated with the given 
+		 @return		The WIC container format associated with the given
 						image file extension.
 		 */
 		[[nodiscard]]
@@ -92,8 +92,8 @@ namespace mage::rendering::loader {
 		}
 	}
 
-	void ExportTextureToFile(const std::filesystem::path& path, 
-		                     ID3D11DeviceContext& device_context, 
+	void ExportTextureToFile(const std::filesystem::path& path,
+		                     ID3D11DeviceContext& device_context,
 		                     ID3D11Resource& texture) {
 
 		std::wstring extension(path.extension());
@@ -107,7 +107,7 @@ namespace mage::rendering::loader {
 		else {
 
 			const auto format = GetGUIDContainerFormat(extension);
-			ThrowIfFailed((GUID_NULL != format), 
+			ThrowIfFailed((GUID_NULL != format),
 						  "Unknown image file extension: {}", path);
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(

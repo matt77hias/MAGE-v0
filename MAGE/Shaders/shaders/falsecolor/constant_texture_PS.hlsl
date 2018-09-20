@@ -19,7 +19,7 @@ TEXTURE_2D(g_texture, float4, SLOT_SRV_TEXTURE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-float4 PS(PSInputPositionNormalTexture input, 
+float4 PS(PSInputPositionNormalTexture input,
 		  uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {

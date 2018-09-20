@@ -40,10 +40,10 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	Camera::Camera(ID3D11Device& device) 
-		: Component(), 
+	Camera::Camera(ID3D11Device& device)
+		: Component(),
 		m_buffer(device),
-		m_clipping_planes(0.01f, 100.0f), 
+		m_clipping_planes(0.01f, 100.0f),
 		m_lens(),
 		m_viewport(),
 		m_settings() {}
@@ -54,7 +54,7 @@ namespace mage::rendering {
 
 	Camera& Camera::operator=(Camera&& camera) noexcept = default;
 
-	void Camera::UpdateBuffer(ID3D11DeviceContext& device_context, 
+	void Camera::UpdateBuffer(ID3D11DeviceContext& device_context,
 							  AntiAliasing aa) const {
 		Assert(HasOwner());
 
@@ -67,7 +67,7 @@ namespace mage::rendering {
 			const auto  camera_to_world      = transform.GetObjectToWorldMatrix();
 			const auto  camera_to_projection = GetCameraToProjectionMatrix();
 			const auto  projection_to_camera = GetProjectionToCameraMatrix();
-			
+
 			buffer.m_world_to_camera         = XMMatrixTranspose(world_to_camera);
 			buffer.m_camera_to_projection    = XMMatrixTranspose(camera_to_projection);
 			buffer.m_projection_to_camera    = XMMatrixTranspose(projection_to_camera);
@@ -81,7 +81,7 @@ namespace mage::rendering {
 			buffer.m_viewport_inv_resolution = XMStore< F32x2 >(
 				XMVectorReciprocal(XMLoad(buffer.m_viewport_resolution)));
 		}
-		
+
 		// SS Viewport
 		{
 			const auto ss_viewport              = Viewport(m_viewport, aa);
@@ -90,7 +90,7 @@ namespace mage::rendering {
 			buffer.m_ss_viewport_inv_resolution = XMStore< F32x2 >(
 				XMVectorReciprocal(XMLoad(buffer.m_ss_viewport_resolution)));
 		}
-		
+
 		// Fog and Sky
 		{
 			const auto& fog           = m_settings.GetFog();
@@ -114,7 +114,7 @@ namespace mage::rendering {
 			buffer.m_focal_length    = m_lens.GetFocalLength();
 			buffer.m_focus_distance  = m_lens.GetFocusDistance();
 		}
-		
+
 		// Update the camera buffer.
 		m_buffer.UpdateData(device_context, buffer);
 	}

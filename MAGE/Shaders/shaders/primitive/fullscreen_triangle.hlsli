@@ -13,13 +13,13 @@
 //-----------------------------------------------------------------------------
 
 /**
- Returns the position in NDC space of the vertex corresponding to the given id 
+ Returns the position in NDC space of the vertex corresponding to the given id
  of a fullscreen triangle at the near plane.
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
 				The vertex id.
- @return		The position in NDC space of the vertex corresponding to the 
+ @return		The position in NDC space of the vertex corresponding to the
 				given id of a fullscreen triangle.
  */
 float4 NearFullScreenTriangleNDC(uint vertex_id) {
@@ -36,13 +36,13 @@ float4 NearFullScreenTriangleNDC(uint vertex_id) {
 }
 
 /**
- Returns the position in NDC space of the vertex corresponding to the given id 
+ Returns the position in NDC space of the vertex corresponding to the given id
  of a fullscreen triangle at the far plane.
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
 				The vertex id.
- @return		The position in NDC space of the vertex corresponding to the 
+ @return		The position in NDC space of the vertex corresponding to the
 				given id of a fullscreen triangle.
  */
 float4 FarFullScreenTriangleNDC(uint vertex_id) {
@@ -59,13 +59,13 @@ float4 FarFullScreenTriangleNDC(uint vertex_id) {
 }
 
 /**
- Returns the pair of texture coordinates of the vertex corresponding to the 
+ Returns the pair of texture coordinates of the vertex corresponding to the
  given id of a fullscreen triangle.
 
  @pre			0 <= @a vertex_id < 3
  @param[in]		vertex_id
 				The vertex id.
- @return		The pair of texture coordinates of the vertex corresponding to 
+ @return		The pair of texture coordinates of the vertex corresponding to
 				the given id of a fullscreen triangle.
  */
 float2 FullScreenTriangleUV(uint vertex_id) {

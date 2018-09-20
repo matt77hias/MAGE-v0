@@ -12,7 +12,7 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(SecondaryCamera, SLOT_CBUFFER_SECONDARY_CAMERA) {
-	
+
 	/**
 	 The world-to-camera transformation matrix.
 	 */

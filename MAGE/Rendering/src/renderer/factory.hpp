@@ -35,10 +35,10 @@ namespace mage::rendering {
 	 */
 	template< typename VertexT >
 	[[nodiscard]]
-	HRESULT CreateStaticVertexBuffer(ID3D11Device& device, 
+	HRESULT CreateStaticVertexBuffer(ID3D11Device& device,
 									 NotNull< ID3D11Buffer** > buffer,
 									 gsl::span< const VertexT > vertices) noexcept;
-	
+
 	/**
 	 Creates a dynamic vertex buffer.
 
@@ -76,7 +76,7 @@ namespace mage::rendering {
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device& device,
 									  NotNull< ID3D11Buffer** > buffer,
 									  std::size_t nb_vertices) noexcept;
-	
+
 	/**
 	 Creates a static index buffer.
 
@@ -92,10 +92,10 @@ namespace mage::rendering {
 	 */
 	template< typename IndexT >
 	[[nodiscard]]
-	HRESULT CreateStaticIndexBuffer(ID3D11Device& device, 
+	HRESULT CreateStaticIndexBuffer(ID3D11Device& device,
 									NotNull< ID3D11Buffer** > buffer,
 									gsl::span< const IndexT > indices) noexcept;
-	
+
 	/**
 	 Creates a static constant buffer.
 
@@ -111,10 +111,10 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateStaticConstantBuffer(ID3D11Device& device, 
+	HRESULT CreateStaticConstantBuffer(ID3D11Device& device,
 									   NotNull< ID3D11Buffer** > buffer,
 									   gsl::span< const T > data) noexcept;
-	
+
 	/**
 	 Creates a dynamic constant buffer.
 
@@ -130,7 +130,7 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
 										NotNull< ID3D11Buffer** > buffer,
 										gsl::span< const T > data) noexcept;
 
@@ -149,10 +149,10 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device, 
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device& device,
 										NotNull< ID3D11Buffer** > buffer,
 										std::size_t nb_data_elements = 1u) noexcept;
-	
+
 	/**
 	 Creates a static structured buffer.
 
@@ -168,10 +168,10 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateStaticStructuredBuffer(ID3D11Device& device, 
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device& device,
 										 NotNull< ID3D11Buffer** > buffer,
 										 gsl::span< const T > data) noexcept;
-	
+
 	/**
 	 Creates a dynamic structured buffer.
 
@@ -187,7 +187,7 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device,
 										  NotNull< ID3D11Buffer** > buffer,
 										  gsl::span< const T > data) noexcept;
 
@@ -206,7 +206,7 @@ namespace mage::rendering {
 	 */
 	template< typename T >
 	[[nodiscard]]
-	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device, 
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device& device,
 										  NotNull< ID3D11Buffer** > buffer,
 										  std::size_t nb_data_elements) noexcept;
 
@@ -232,7 +232,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateOpaqueBlendState(
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept;
-	
+
 	/**
 	 Creates an alpha blend state.
 
@@ -248,7 +248,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateAlphaBlendState(
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept;
-	
+
 	/**
 	 Creates an additive blend state.
 
@@ -264,7 +264,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateAdditiveBlendState(
 		ID3D11Device& device, NotNull< ID3D11BlendState** > state) noexcept;
-	
+
 	/**
 	 Creates a multiplicative blend state.
 
@@ -347,7 +347,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateDepthNoneDepthStencilState(
 		ID3D11Device& device, NotNull< ID3D11DepthStencilState** > state) noexcept;
-	
+
 	/**
 	 Creates a read-write depth stencil state.
 
@@ -363,7 +363,7 @@ namespace mage::rendering {
 	HRESULT CreateDepthReadWriteDepthStencilState(
 		ID3D11Device& device, NotNull< ID3D11DepthStencilState** > state,
 		D3D11_COMPARISON_FUNC func) noexcept;
-	
+
 	/**
 	 Creates a read-only depth stencil state.
 
@@ -377,7 +377,7 @@ namespace mage::rendering {
 	 */
 	[[nodiscard]]
 	HRESULT CreateDepthReadDepthStencilState(
-		ID3D11Device& device, NotNull< ID3D11DepthStencilState** > state, 
+		ID3D11Device& device, NotNull< ID3D11DepthStencilState** > state,
 		D3D11_COMPARISON_FUNC func) noexcept;
 
 	#pragma endregion
@@ -407,14 +407,14 @@ namespace mage::rendering {
 	 @return		A success/error value.
 	 */
 	[[nodiscard]]
-	HRESULT CreateRasterizerState(ID3D11Device& device, 
+	HRESULT CreateRasterizerState(ID3D11Device& device,
 								  NotNull< ID3D11RasterizerState** > state,
-								  D3D11_CULL_MODE cull_mode, 
-								  D3D11_FILL_MODE fill_mode, 
+								  D3D11_CULL_MODE cull_mode,
+								  D3D11_FILL_MODE fill_mode,
 								  S32 depth_bias = 0,
-								  F32 slope_scaled_depth_bias = 0.0f, 
+								  F32 slope_scaled_depth_bias = 0.0f,
 								  F32 depth_bias_clamp = 0.0f) noexcept;
-	
+
 	/**
 	 Creates a no-culling (solid) rasterizer state.
 
@@ -437,7 +437,7 @@ namespace mage::rendering {
 		S32 depth_bias = 0,
 		F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
-	
+
 	/**
 	 Creates a clockwise-culling (solid) rasterizer state.
 
@@ -460,7 +460,7 @@ namespace mage::rendering {
 		S32 depth_bias = 0,
 		F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
-	
+
 	/**
 	 Creates a counter-clockwise-culling (solid) rasterizer state.
 
@@ -478,12 +478,12 @@ namespace mage::rendering {
 	 */
 	[[nodiscard]]
 	HRESULT CreateCullCounterClockwiseRasterizerState(
-		ID3D11Device& device, 
-		NotNull< ID3D11RasterizerState** > state, 
-		S32 depth_bias = 0, 
-		F32 slope_scaled_depth_bias = 0.0f, 
+		ID3D11Device& device,
+		NotNull< ID3D11RasterizerState** > state,
+		S32 depth_bias = 0,
+		F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
-	
+
 	/**
 	 Creates a wireframe rasterizer state.
 
@@ -524,16 +524,16 @@ namespace mage::rendering {
 	 @param[in]		filter
 					The filtering options during texture sampling.
 	 @param[in]		address_mode
-					The resolving of texture coordinates that are outside of 
+					The resolving of texture coordinates that are outside of
 					the boundaries of a texture.
 	 @return		A success/error value.
 	 */
 	[[nodiscard]]
-	HRESULT CreateSamplerState(ID3D11Device& device, 
+	HRESULT CreateSamplerState(ID3D11Device& device,
 							   NotNull< ID3D11SamplerState** > state,
-							   D3D11_FILTER filter, 
+							   D3D11_FILTER filter,
 							   D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
-	
+
 	/**
 	 Creates a point sampling state with wrapping.
 
@@ -546,7 +546,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreatePointWrapSamplerState(
 		ID3D11Device& device, NotNull< ID3D11SamplerState** > state) noexcept;
-	
+
 	/**
 	Creates a point sampling state with clamping.
 
@@ -572,7 +572,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreatePointMirrorSamplerState(
 		ID3D11Device& device, NotNull< ID3D11SamplerState** > state) noexcept;
-	
+
 	/**
 	 Creates a linear sampling state with wrapping.
 
@@ -585,7 +585,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateLinearWrapSamplerState(
 		ID3D11Device& device, NotNull< ID3D11SamplerState** > state) noexcept;
-	
+
 	/**
 	 Creates a linear sampling state with clamping.
 
@@ -611,7 +611,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	HRESULT CreateLinearMirrorSamplerState(
 		ID3D11Device& device, NotNull< ID3D11SamplerState** > state) noexcept;
-	
+
 	/**
 	 Creates an anisotropic sampling state with wrapping.
 

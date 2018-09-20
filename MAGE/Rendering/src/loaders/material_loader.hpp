@@ -40,7 +40,7 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to import the materials from file.
 	 */
-	void ImportMaterialFromFile(const std::filesystem::path& path, 
-								ResourceManager &resource_manaer, 
+	void ImportMaterialFromFile(const std::filesystem::path& path,
+								ResourceManager &resource_manaer,
 		                        std::vector< Material >& materials);
 }

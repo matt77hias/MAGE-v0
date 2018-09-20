@@ -37,7 +37,7 @@ namespace mage::rendering {
 
 	void BoundingVolumePass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
-		Pipeline::IA::BindPrimitiveTopology(m_device_context, 
+		Pipeline::IA::BindPrimitiveTopology(m_device_context,
 											D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
@@ -48,20 +48,20 @@ namespace mage::rendering {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   RasterizerStateID::Wireframe);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
 		#ifdef DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::LessEqualDepthReadWrite);
 		#else  // DISABLE_INVERTED_Z_BUFFER
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::GreaterEqualDepthReadWrite);
 		#endif // DISABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   BlendStateID::Opaque);
 	}
 
@@ -95,20 +95,20 @@ namespace mage::rendering {
 		m_transform_buffer.Bind< Pipeline::VS >(m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
-	void XM_CALLCONV BoundingVolumePass::Render(const World& world, 
+	void XM_CALLCONV BoundingVolumePass::Render(const World& world,
 												FXMMATRIX world_to_projection) {
 		// Bind the fixed state.
 		BindFixedState();
-		
+
 		// Bind the light color.
 		BindLightColor();
-		
+
 		// Process the directional lights.
 		world.ForEach< DirectionalLight >([this, world_to_projection](const DirectionalLight& light) {
 			if (State::Active != light.GetState()) {
 				return;
 			}
-			
+
 			const auto& transform            = light.GetOwner()->GetTransform();
 			const auto  object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto  object_to_projection = object_to_world * world_to_projection;
@@ -127,7 +127,7 @@ namespace mage::rendering {
 			if (State::Active != light.GetState()) {
 				return;
 			}
-			
+
 			const auto& transform            = light.GetOwner()->GetTransform();
 			const auto  object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto  object_to_projection = object_to_world * world_to_projection;
@@ -145,7 +145,7 @@ namespace mage::rendering {
 			if (State::Active != light.GetState()) {
 				return;
 			}
-			
+
 			const auto& transform            = light.GetOwner()->GetTransform();
 			const auto  object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto  object_to_projection = object_to_world * world_to_projection;
@@ -167,7 +167,7 @@ namespace mage::rendering {
 			if (State::Active != model.GetState()) {
 				return;
 			}
-			
+
 			const auto& transform            = model.GetOwner()->GetTransform();
 			const auto  object_to_world      = transform.GetObjectToWorldMatrix();
 			const auto  object_to_projection = object_to_world * world_to_projection;
@@ -182,7 +182,7 @@ namespace mage::rendering {
 		});
 	}
 
-	void XM_CALLCONV BoundingVolumePass::Render(const AABB& aabb, 
+	void XM_CALLCONV BoundingVolumePass::Render(const AABB& aabb,
 												FXMMATRIX object_to_world) {
 
 		const LocalTransform aabb_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());

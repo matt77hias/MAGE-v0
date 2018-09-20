@@ -42,15 +42,15 @@ namespace mage::rendering {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   RasterizerStateID::CounterClockwiseCulling);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   BlendStateID::Alpha);
 	}
 

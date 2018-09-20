@@ -29,9 +29,9 @@ namespace mage {
 
 			Assert(HasOwner());
 			const auto parent = m_owner->GetParent();
-			
+
 			if (nullptr != parent) {
-				m_object_to_world = GetObjectToParentMatrix() 
+				m_object_to_world = GetObjectToParentMatrix()
 					              * parent->GetTransform().GetObjectToWorldMatrix();
 			}
 			else {
@@ -46,9 +46,9 @@ namespace mage {
 
 			Assert(HasOwner());
 			const auto parent = m_owner->GetParent();
-			
+
 			if (nullptr != parent) {
-				m_world_to_object = parent->GetTransform().GetWorldToObjectMatrix() 
+				m_world_to_object = parent->GetTransform().GetWorldToObjectMatrix()
 					              * GetParentToObjectMatrix();
 			}
 			else {

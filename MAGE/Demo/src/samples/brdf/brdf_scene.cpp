@@ -28,14 +28,14 @@ namespace mage {
 
 	BRDFScene::BRDFScene()
 		: Scene("brdf_scene") {}
-	
+
 	BRDFScene::BRDFScene(BRDFScene&& scene) = default;
-	
+
 	BRDFScene::~BRDFScene() = default;
 
 	void BRDFScene::Load([[maybe_unused]] Engine& engine) {
 		using namespace rendering;
-		
+
 		const auto& rendering_manager = engine.GetRenderingManager();
 		const auto& display_config    = rendering_manager.GetDisplayConfiguration();
 		auto& rendering_world         = rendering_manager.GetWorld();
@@ -47,31 +47,31 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
-		const auto teapot_model_desc 
+		const auto teapot_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/teapot/teapot.mdl", mesh_desc);
-		const auto skull_model_desc 
+		const auto skull_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/skull/skull.mdl", mesh_desc);
-		const auto cone_model_desc 
+		const auto cone_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/cone/cone.mdl", mesh_desc);
-		const auto cube_model_desc 
+		const auto cube_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/cube/cube.mdl", mesh_desc);
-		const auto cylinder_model_desc 
+		const auto cylinder_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/cylinder/cylinder.mdl", mesh_desc);
-		const auto plane_model_desc 
+		const auto plane_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/plane/plane.mdl", mesh_desc);
-		const auto sphere_model_desc 
+		const auto sphere_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/sphere/sphere.mdl", mesh_desc);
-		const auto trous_model_desc 
+		const auto trous_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/torus/torus.mdl", mesh_desc);
-		const auto sky_texture 
+		const auto sky_texture
 			= rendering_factory.GetOrCreate< Texture >(L"assets/textures/sky/sky.dds");
 		const auto logo_texture = CreateMAGETexture(rendering_factory);
 
@@ -132,7 +132,7 @@ namespace mage {
 		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
 		omni_light_node->GetTransform().SetTranslation(0.0f, 20.0f, -15.0f);
-		
+
 		//---------------------------------------------------------------------
 		// Sprites
 		//---------------------------------------------------------------------

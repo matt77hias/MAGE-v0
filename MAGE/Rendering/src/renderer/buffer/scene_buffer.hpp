@@ -35,25 +35,25 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) world-to-camera matrix of 
+		 The (column-major packed, row-major matrix) world-to-camera matrix of
 		 the camera of this camera buffer.
 		 */
 		XMMATRIX m_world_to_camera = {};
 
 		/**
-		 The (column-major packed, row-major matrix) camera-to-projection 
+		 The (column-major packed, row-major matrix) camera-to-projection
 		 matrix of the camera of this camera buffer.
 		 */
 		XMMATRIX m_camera_to_projection = {};
 
 		/**
-		 The (column-major packed, row-major matrix) projection-to-camera 
+		 The (column-major packed, row-major matrix) projection-to-camera
 		 matrix of the camera of this camera buffer.
 		 */
 		XMMATRIX m_projection_to_camera = {};
 
 		/**
-		 The (column-major packed, row-major matrix) camera-to-world matrix of 
+		 The (column-major packed, row-major matrix) camera-to-world matrix of
 		 the camera of this camera buffer.
 		 */
 		XMMATRIX m_camera_to_world = {};
@@ -63,36 +63,36 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The top left corner of the viewport of the camera of this camera 
+		 The top left corner of the viewport of the camera of this camera
 		 buffer.
 		 */
 		F32x2 m_viewport_top_left;
 
 		/**
-		 The resolution of the viewport of the camera of this camera buffer. 
+		 The resolution of the viewport of the camera of this camera buffer.
 		 */
 		U32x2 m_viewport_resolution;
 
 		/**
-		 The top left corner of the super-sampled viewport of the camera of 
+		 The top left corner of the super-sampled viewport of the camera of
 		 this camera buffer.
 		 */
 		F32x2 m_ss_viewport_top_left;
 
 		/**
-		 The resolution of the super-sampled viewport of the camera of this 
+		 The resolution of the super-sampled viewport of the camera of this
 		 camera buffer.
 		 */
 		U32x2 m_ss_viewport_resolution;
 
 		/**
-		 The inverse of the resolution of the viewport of the camera of this 
-		 camera buffer. 
+		 The inverse of the resolution of the viewport of the camera of this
+		 camera buffer.
 		 */
 		F32x2 m_viewport_inv_resolution;
 
 		/**
-		 The inverse of the resolution of the super-sampled viewport of the 
+		 The inverse of the resolution of the super-sampled viewport of the
 		 camera of this camera buffer.
 		 */
 		F32x2 m_ss_viewport_inv_resolution;
@@ -100,12 +100,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Variables: Fog
 		//---------------------------------------------------------------------
-	
+
 		/**
 		 The (linear) color of the fog of this camera buffer.
 		 */
 		RGB m_fog_color;
-		
+
 		/**
 		 The density of the fog of this camera buffer.
 		 */
@@ -116,8 +116,8 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The scaling factor of the z component of sky domes of this camera 
-		 buffer. 
+		 The scaling factor of the z component of sky domes of this camera
+		 buffer.
 		 */
 		F32 m_sky_dome_scale_z = 1.0f;
 
@@ -129,9 +129,9 @@ namespace mage::rendering {
 		 The cone step expressed in voxel UVW space of this camera buffer.
 		 */
 		F32 m_cone_step = 0.1f;
-		
+
 		/**
-		 The maximal cone distance expressed in voxel UVW space of this camera 
+		 The maximal cone distance expressed in voxel UVW space of this camera
 		 buffer.
 		 */
 		F32 m_max_cone_distance = 1.0f;
@@ -141,21 +141,21 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radius of the lens aperture of the camera lens of this camera 
+		 The radius of the lens aperture of the camera lens of this camera
 		 buffer.
 		 */
 		F32 m_aperture_radius = {};
 
 		/**
-		 The focal length (i.e. distance between the lens aperture and the 
-		 focal point/focus expressed in camera space) of the camera lens of 
+		 The focal length (i.e. distance between the lens aperture and the
+		 focal point/focus expressed in camera space) of the camera lens of
 		 this camera buffer.
 		 */
 		F32 m_focal_length = {};
 
 		/**
 		 The focus distance (i.e. distance between the lens aperture and the
-		 objects in perfect focus expressed in camera space) of the camera lens 
+		 objects in perfect focus expressed in camera space) of the camera lens
 		 of this camera buffer.
 		 */
 		F32 m_focus_distance = {};
@@ -166,7 +166,7 @@ namespace mage::rendering {
 		U32x2 m_padding;
 	};
 
-	static_assert(352u == sizeof(CameraBuffer), 
+	static_assert(352u == sizeof(CameraBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -181,19 +181,19 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) world-to-camera matrix of 
+		 The (column-major packed, row-major matrix) world-to-camera matrix of
 		 the camera of this secondary camera buffer.
 		 */
 		XMMATRIX m_world_to_camera = {};
 
 		/**
-		 The (column-major packed, row-major matrix) camera-to-projection 
+		 The (column-major packed, row-major matrix) camera-to-projection
 		 matrix of the camera of this secondary camera buffer.
 		 */
 		XMMATRIX m_camera_to_projection = {};
 	};
 
-	static_assert(128u == sizeof(SecondaryCameraBuffer), 
+	static_assert(128u == sizeof(SecondaryCameraBuffer),
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -230,7 +230,7 @@ namespace mage::rendering {
 		U32 m_nb_spot_lights = {};
 
 		/**
-		 The padding of this light buffer. 
+		 The padding of this light buffer.
 		 */
 		U32 m_padding0 = {};
 
@@ -254,7 +254,7 @@ namespace mage::rendering {
 		U32 m_nb_sm_spot_lights = {};
 
 		/**
-		 The padding of this light buffer. 
+		 The padding of this light buffer.
 		 */
 		U32 m_padding1 = {};
 
@@ -263,7 +263,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The ambient radiance in watts per square meter per steradians of this 
+		 The ambient radiance in watts per square meter per steradians of this
 		 light buffer.
 		 */
 		RGB m_La;
@@ -274,7 +274,7 @@ namespace mage::rendering {
 		F32 m_padding2 = {};
 	};
 
-	static_assert(48u == sizeof(LightBuffer), 
+	static_assert(48u == sizeof(LightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -289,19 +289,19 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the point light of this point light buffer expressed 
+		 The position of the point light of this point light buffer expressed
 		 in world space.
 		 */
 		Point3 m_p_world;
 
 		/**
-		 The inverse of the squared range of the point light of this point 
+		 The inverse of the squared range of the point light of this point
 		 light buffer expressed in inversed squared world space.
 		 */
 		F32 m_inv_sqr_range = {};
 	};
 
-	static_assert(16u == sizeof(PointLightBuffer), 
+	static_assert(16u == sizeof(PointLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -316,7 +316,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (orthogonal) irradiance of the directional light of this 
+		 The (orthogonal) irradiance of the directional light of this
 		 directional light buffer.
 		 */
 		RGB m_E_ortho;
@@ -327,7 +327,7 @@ namespace mage::rendering {
 		U32 m_padding0 = {};
 
 		/**
-		 The (normalized) negated direction of the directional light expressed 
+		 The (normalized) negated direction of the directional light expressed
 		 in world space of this directional light buffer.
 		 */
 		Direction3 m_neg_d_world;
@@ -342,7 +342,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) world-to-projection matrix 
+		 The (column-major packed, row-major matrix) world-to-projection matrix
 		 of this directional light buffer.
 		 */
 		XMMATRIX m_world_to_projection = {};
@@ -363,7 +363,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiant intensity in watts per steradians of the omni light of 
+		 The radiant intensity in watts per steradians of the omni light of
 		 this omni light buffer.
 		 */
 		RGB m_I;
@@ -374,7 +374,7 @@ namespace mage::rendering {
 		U32 m_padding0 = {};
 	};
 
-	static_assert(32u == sizeof(OmniLightBuffer), 
+	static_assert(32u == sizeof(OmniLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -389,7 +389,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiant intensity in watts per steradians of the spotlight of this 
+		 The radiant intensity in watts per steradians of the spotlight of this
 		 spotlight buffer.
 		 */
 		RGB m_I;
@@ -401,19 +401,19 @@ namespace mage::rendering {
 		F32 m_cos_umbra = {};
 
 		/**
-		 The (normalized) negated direction of the directional light expressed 
+		 The (normalized) negated direction of the directional light expressed
 		 in world space of this directional light buffer.
 		 */
 		Direction3 m_neg_d_world;
 
 		/**
-		 The inverse of the cosine range of the spotlight of this spotlight 
+		 The inverse of the cosine range of the spotlight of this spotlight
 		 buffer.
 		 */
 		F32 m_cos_inv_range = {};
 	};
 
-	static_assert(48u == sizeof(SpotLightBuffer), 
+	static_assert(48u == sizeof(SpotLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -428,7 +428,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) world-to-light matrix of 
+		 The (column-major packed, row-major matrix) world-to-light matrix of
 		 the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
 		XMMATRIX m_world_to_light = {};
@@ -438,14 +438,14 @@ namespace mage::rendering {
 		 of the shadow mapped omni light of this shadow mapped omni light buffer.
 		 */
 		F32x2 m_projection_values;
-		
+
 		/**
-		 The padding of this shadow mapped omni light buffer. 
+		 The padding of this shadow mapped omni light buffer.
 		 */
 		U32x2 m_padding1;
 	};
 
-	static_assert(112u == sizeof(ShadowMappedOmniLightBuffer), 
+	static_assert(112u == sizeof(ShadowMappedOmniLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	/**
@@ -460,14 +460,14 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) world-to-projection 
-		 matrix of the shadow mapped spotlight of this shadow mapped spotlight 
+		 The (column-major packed, row-major matrix) world-to-projection
+		 matrix of the shadow mapped spotlight of this shadow mapped spotlight
 		 buffer.
 		 */
 		XMMATRIX m_world_to_projection = {};
 	};
 
-	static_assert(112u == sizeof(ShadowMappedSpotLightBuffer), 
+	static_assert(112u == sizeof(ShadowMappedSpotLightBuffer),
 				  "CPU/GPU struct mismatch");
 
 	#pragma endregion
@@ -489,19 +489,19 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (column-major packed, row-major matrix) object-to-world matrix of 
+		 The (column-major packed, row-major matrix) object-to-world matrix of
 		 this model buffer.
 		 */
 		XMMATRIX m_object_to_world = {};
-		
+
 		/**
-		 The (column-major packed, row-major matrix) object-to-world inverse 
+		 The (column-major packed, row-major matrix) object-to-world inverse
 		 transpose matrix (normal-to-world matrix) of this model buffer.
 		 */
 		XMMATRIX m_normal_to_world = {};
 
 		/**
-		 The (column-major packed, row-major matrix) texture transform matrix 
+		 The (column-major packed, row-major matrix) texture transform matrix
 		 of this model buffer.
 		 */
 		XMMATRIX m_texture_transform = {};
@@ -567,7 +567,7 @@ namespace mage::rendering {
 		U32x2 m_ss_display_resolution;
 
 		/**
-		 The inverse of the resolution of the super-sampled display of this 
+		 The inverse of the resolution of the super-sampled display of this
 		 world buffer.
 		 */
 		F32x2 m_ss_display_inv_resolution;
@@ -577,7 +577,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The center of the voxel grid expressed in world space of this game 
+		 The center of the voxel grid expressed in world space of this game
 		 buffer.
 		 */
 		Point3 m_voxel_grid_center;
@@ -588,13 +588,13 @@ namespace mage::rendering {
 		U32 m_voxel_texture_max_mip_level = {};
 
 		/**
-		 The resolution of the voxel grid for all dimensions of this game 
+		 The resolution of the voxel grid for all dimensions of this game
 		 buffer.
 		 */
 		U32 m_voxel_grid_resolution = {};
 
 		/**
-		 The inverse resolution of the voxel grid for all dimensions of this 
+		 The inverse resolution of the voxel grid for all dimensions of this
 		 world buffer.
 		 */
 		F32 m_voxel_grid_inv_resolution = {};
@@ -614,7 +614,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The time of this world buffer. 
+		 The time of this world buffer.
 		 */
 		F32 m_time = {};
 

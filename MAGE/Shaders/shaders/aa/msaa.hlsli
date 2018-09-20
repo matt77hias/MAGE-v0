@@ -31,10 +31,10 @@ struct OutputTexturesMSAA {
 	RWTexture2D< float  > m_depth;
 };
 
-void ResolveMSAA(uint2 p_display, 
-				 uint  nb_samples, 
+void ResolveMSAA(uint2 p_display,
+				 uint  nb_samples,
 				 float weight,
-				 InputTexturesMSAA input_textures, 
+				 InputTexturesMSAA input_textures,
 				 OutputTexturesMSAA output_textures) {
 
 	float4 ldr        = 0.0f;
@@ -47,7 +47,7 @@ void ResolveMSAA(uint2 p_display,
 
 	// Resolve the (multi-sampled) radiance, normal and depth.
 	for (uint i = 0u; i < nb_samples; ++i) {
-		
+
 		const float4 hdr = input_textures.m_image.sample[i][p_display];
 		ldr += AA_TONE_MAP_FUNCTION(hdr, weight);
 

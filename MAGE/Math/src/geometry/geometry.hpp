@@ -38,38 +38,38 @@ namespace mage {
 		 Constructs a set of UV texture coordinates.
 		 */
 		constexpr UV() noexcept = default;
-		
+
 		/**
 		 Constructs a set of UV texture coordinates.
 
 		 @param[in]		u
 						The U component.
 		 @param[in]		v
-						The V component.			
+						The V component.
 		 */
 		constexpr UV(F32 u, F32 v) noexcept
 			: F32x2(u, v) {}
-		
+
 		/**
-		 Constructs a set of UV texture coordinates from the given set of UV 
+		 Constructs a set of UV texture coordinates from the given set of UV
 		 texture coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to 
+						A reference to the set of UV texture coordinates to
 						copy.
 		 */
 		constexpr UV(const UV& uv) noexcept = default;
-		
+
 		/**
-		 Constructs a set of UV texture coordinates by moving the given set of 
+		 Constructs a set of UV texture coordinates by moving the given set of
 		 UV texture coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to 
+						A reference to the set of UV texture coordinates to
 						move.
 		 */
 		constexpr UV(UV&& uv) noexcept = default;
-		
+
 		/**
 		 Constructs a set of UV texture coordinates from the given vector.
 
@@ -89,23 +89,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given set of UV texture coordinates to this set of texture 
+		 Copies the given set of UV texture coordinates to this set of texture
 		 coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to 
+						A reference to the set of UV texture coordinates to
 						copy.
-		 @return		A reference to the copy of the given set of UV texture 
+		 @return		A reference to the copy of the given set of UV texture
 						coordinates (i.e. this set of UV texture coordinates).
 		 */
 		UV& operator=(const UV& uv) noexcept = default;
-		
+
 		/**
-		 Moves the given set of UV texture coordinates to this set of texture 
+		 Moves the given set of UV texture coordinates to this set of texture
 		 coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to 
+						A reference to the set of UV texture coordinates to
 						move.
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
@@ -127,7 +127,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the U component of this set of UV texture coordinates to the 
+		 Sets the U component of this set of UV texture coordinates to the
 		 given value.
 
 		 @param[in]		u
@@ -140,7 +140,7 @@ namespace mage {
 		/**
 		 Returns the V component of this set of UV texture coordinates.
 
-		 @return		The V component of this set of UV texture 
+		 @return		The V component of this set of UV texture
 						coordinates.
 		 */
 		[[nodiscard]]
@@ -149,7 +149,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the V component of this set of UV texture coordinates to the 
+		 Sets the V component of this set of UV texture coordinates to the
 		 given value.
 
 		 @param[in]		v
@@ -184,7 +184,7 @@ namespace mage {
 		 Constructs a point.
 		 */
 		constexpr Point3() noexcept = default;
-		
+
 		/**
 		 Constructs a point from the given coordinates.
 
@@ -197,7 +197,7 @@ namespace mage {
 		 */
 		constexpr Point3(F32 x, F32 y, F32 z) noexcept
 			: F32x3(x, y, z) {}
-		
+
 		/**
 		 Constructs a point from the given point.
 
@@ -205,7 +205,7 @@ namespace mage {
 						A reference to the point to copy.
 		 */
 		constexpr Point3(const Point3& point) noexcept = default;
-		
+
 		/**
 		 Constructs a point by moving the given point.
 
@@ -213,7 +213,7 @@ namespace mage {
 						A reference to the point to move.
 		 */
 		constexpr Point3(Point3&& point) noexcept = default;
-		
+
 		/**
 		 Constructs a point from the given vector.
 
@@ -237,11 +237,11 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point to copy.
-		 @return		A reference to the copy of the given point (i.e. this 
+		 @return		A reference to the copy of the given point (i.e. this
 						point).
 		 */
 		Point3& operator=(const Point3& point) noexcept = default;
-		
+
 		/**
 		 Moves the given point to this point.
 
@@ -253,7 +253,7 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Member Methods
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the X component of this point.
@@ -304,7 +304,7 @@ namespace mage {
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
 		}
-	
+
 		/**
 		 Sets the Z component of this point to the given value.
 
@@ -340,7 +340,7 @@ namespace mage {
 		 Constructs a direction.
 		 */
 		constexpr Direction3() noexcept = default;
-		
+
 		/**
 		 Constructs a direction from the given coordinates.
 
@@ -353,7 +353,7 @@ namespace mage {
 		 */
 		constexpr Direction3(F32 x, F32 y, F32 z) noexcept
 			: F32x3(x, y, z) {}
-		
+
 		/**
 		 Constructs a direction from the given direction.
 
@@ -361,7 +361,7 @@ namespace mage {
 						A reference to the direction to copy.
 		 */
 		constexpr Direction3(const Direction3& direction) noexcept = default;
-		
+
 		/**
 		 Constructs a direction by moving the given direction.
 
@@ -369,7 +369,7 @@ namespace mage {
 						A reference to the direction to move.
 		 */
 		constexpr Direction3(Direction3&& direction) noexcept = default;
-		
+
 		/**
 		 Constructs a direction from the given vector.
 
@@ -393,11 +393,11 @@ namespace mage {
 
 		 @param[in]		direction
 						A reference to the direction to copy.
-		 @return		A reference to the copy of the given direction (i.e. 
+		 @return		A reference to the copy of the given direction (i.e.
 						this direction).
 		 */
 		Direction3& operator=(const Direction3& direction) noexcept = default;
-		
+
 		/**
 		 Moves the given direction to this direction.
 
@@ -409,7 +409,7 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Member Methods
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the X component of this direction.
@@ -460,7 +460,7 @@ namespace mage {
 		constexpr F32 GetZ() const noexcept {
 			return operator[](2);
 		}
-	
+
 		/**
 		 Sets the Z component of this direction to the given value.
 
@@ -484,8 +484,8 @@ namespace mage {
 	/**
 	 A struct of normals in 3D space.
 
-	 @note			@c Normal3 does not guarantee or force normalized 
-					directions. This should be guaranteed and enforced by the 
+	 @note			@c Normal3 does not guarantee or force normalized
+					directions. This should be guaranteed and enforced by the
 					user.
 	 */
 	struct Normal3 : public Direction3 {
@@ -500,7 +500,7 @@ namespace mage {
 		 Constructs a normal.
 		 */
 		constexpr Normal3() noexcept = default;
-		
+
 		/**
 		 Constructs a normal from the given coordinates.
 
@@ -513,7 +513,7 @@ namespace mage {
 		 */
 		constexpr Normal3(F32 x, F32 y, F32 z) noexcept
 			: Direction3(x, y, z) {}
-		
+
 		/**
 		 Constructs a normal from the given normal.
 
@@ -521,7 +521,7 @@ namespace mage {
 						A reference to the normal to copy.
 		 */
 		constexpr Normal3(const Normal3& normal) noexcept = default;
-		
+
 		/**
 		 Constructs a normal by moving the given normal.
 
@@ -529,7 +529,7 @@ namespace mage {
 						A reference to the normal to move.
 		 */
 		constexpr Normal3(Normal3&& normal) noexcept = default;
-		
+
 		/**
 		 Constructs a normal from the given vector.
 
@@ -553,11 +553,11 @@ namespace mage {
 
 		 @param[in]		normal
 						A reference to the normal to copy.
-		 @return		A reference to the copy of the given normal (i.e. this 
+		 @return		A reference to the copy of the given normal (i.e. this
 						normal).
 		 */
 		constexpr Normal3& operator=(const Normal3& normal) noexcept = default;
-		
+
 		/**
 		 Moves the given normal to this normal.
 
@@ -581,7 +581,7 @@ namespace std {
 	#pragma region
 
 	template<>
-	struct tuple_size< mage::UV > 
+	struct tuple_size< mage::UV >
 		: public integral_constant< std::size_t, mage::UV::s_size > {};
 
 	template< std::size_t I >
@@ -671,7 +671,7 @@ namespace mage {
 		const auto [u, v] = uv;
 		return { u, 1.0f - v };
 	}
-	
+
 	/**
 	 Inverts the handness of the given point.
 
@@ -684,7 +684,7 @@ namespace mage {
 		const auto [x, y, z] = point;
 		return { x, y, -z };
 	}
-	
+
 	/**
 	 Inverts the handness of the given normal.
 

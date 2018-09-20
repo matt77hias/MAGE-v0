@@ -15,7 +15,7 @@ SamplerState name : register(REG_S(slot))
 SamplerComparisonState name : register(REG_S(slot))
 
 //-----------------------------------------------------------------------------
-// Engine Defines: Constant Buffer Types 
+// Engine Defines: Constant Buffer Types
 //-----------------------------------------------------------------------------
 
 #define CONCAT_REG_B(x) b##x

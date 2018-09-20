@@ -60,9 +60,9 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A pointer to the resource manager.
 		 */
-		explicit Impl(ID3D11Device& device, 
-					  ID3D11DeviceContext& device_context, 
-					  DisplayConfiguration& display_configuration, 
+		explicit Impl(ID3D11Device& device,
+					  ID3D11DeviceContext& device_context,
+					  DisplayConfiguration& display_configuration,
 					  SwapChain& swap_chain,
 					  ResourceManager& resource_manager);
 
@@ -96,7 +96,7 @@ namespace mage::rendering {
 
 		 @param[in]		renderer
 						A reference to the renderer to copy.
-		 @return		A reference to the copy of the given renderer (i.e. 
+		 @return		A reference to the copy of the given renderer (i.e.
 						this renderer).
 		 */
 		Impl& operator=(const Impl& renderer) = delete;
@@ -145,34 +145,34 @@ namespace mage::rendering {
 		void UpdateBuffers(const World& world, const GameTime& time);
 
 		void UpdateWorldBuffer(const GameTime& time);
-		
+
 		void Render(const World& world, const Camera& camera);
-		
-		void XM_CALLCONV RenderForward(const World& world, 
-									   const Camera& camera, 
+
+		void XM_CALLCONV RenderForward(const World& world,
+									   const Camera& camera,
 									   FXMMATRIX world_to_projection);
-		
-		void XM_CALLCONV RenderDeferred(const World& world, 
-										const Camera& camera, 
+
+		void XM_CALLCONV RenderDeferred(const World& world,
+										const Camera& camera,
 										FXMMATRIX world_to_projection);
-		
-		void XM_CALLCONV RenderSolid(const World& world, 
-									 const Camera& camera, 
+
+		void XM_CALLCONV RenderSolid(const World& world,
+									 const Camera& camera,
 									 FXMMATRIX world_to_projection);
 
-		void XM_CALLCONV RenderFalseColor(const World& world, 
+		void XM_CALLCONV RenderFalseColor(const World& world,
 										  const Camera& camera,
-										  FXMMATRIX world_to_projection, 
+										  FXMMATRIX world_to_projection,
 										  FalseColor false_color);
-		
-		void XM_CALLCONV RenderVoxelGrid(const World& world, 
-										 const Camera& camera, 
+
+		void XM_CALLCONV RenderVoxelGrid(const World& world,
+										 const Camera& camera,
 										 FXMMATRIX world_to_projection);
-		
+
 		void RenderAA(const Camera& camera);
-		
+
 		void RenderPostProcessing(const Camera& camera);
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -281,38 +281,38 @@ namespace mage::rendering {
 		UniquePtr< VoxelizationPass > m_voxelization_pass;
 	};
 
-	Renderer::Impl::Impl(ID3D11Device& device, 
-						 ID3D11DeviceContext& device_context, 
-						 DisplayConfiguration& display_configuration, 
-						 SwapChain& swap_chain, 
+	Renderer::Impl::Impl(ID3D11Device& device,
+						 ID3D11DeviceContext& device_context,
+						 DisplayConfiguration& display_configuration,
+						 SwapChain& swap_chain,
 						 ResourceManager& resource_manager)
-		: m_display_configuration(display_configuration), 
-		m_device(device), 
-		m_device_context(device_context), 
-		m_resource_manager(resource_manager), 
-		m_output_manager(MakeUnique< OutputManager >(device, 
-													 display_configuration, 
-													 swap_chain)), 
-		m_state_manager(MakeUnique< StateManager >(device)), 
+		: m_display_configuration(display_configuration),
+		m_device(device),
+		m_device_context(device_context),
+		m_resource_manager(resource_manager),
+		m_output_manager(MakeUnique< OutputManager >(device,
+													 display_configuration,
+													 swap_chain)),
+		m_state_manager(MakeUnique< StateManager >(device)),
 		m_world_buffer(device),
-		m_aa_pass(), 
-		m_back_buffer_pass(), 
-		m_bounding_volume_pass(), 
-		m_deferred_pass(), 
-		m_depth_pass(), 
+		m_aa_pass(),
+		m_back_buffer_pass(),
+		m_bounding_volume_pass(),
+		m_deferred_pass(),
+		m_depth_pass(),
 		m_forward_pass(),
-		m_lbuffer_pass(), 
-		m_postprocess_pass(), 
-		m_sky_pass(), 
-		m_sprite_pass(), 
-		m_voxel_grid_pass(), 
+		m_lbuffer_pass(),
+		m_postprocess_pass(),
+		m_sky_pass(),
+		m_sprite_pass(),
+		m_voxel_grid_pass(),
 		m_voxelization_pass() {
 
 		InitializePasses();
 	}
-	
+
 	Renderer::Impl::Impl(Impl&& world_renderer) noexcept = default;
-	
+
 	Renderer::Impl::~Impl() = default;
 
 	Renderer::Impl& Renderer::Impl
@@ -420,15 +420,15 @@ namespace mage::rendering {
 		m_back_buffer_pass->Render();
 	}
 
-	void Renderer::Impl::UpdateBuffers(const World& world, 
+	void Renderer::Impl::UpdateBuffers(const World& world,
 									   const GameTime& time) {
 		// Update the world buffer.
 		UpdateWorldBuffer(time);
-		
+
 		// Update the buffer of each camera.
 		world.ForEach< Camera >([this](const Camera& camera) {
 			if (State::Active == camera.GetState()) {
-				camera.UpdateBuffer(m_device_context, 
+				camera.UpdateBuffer(m_device_context,
 									m_display_configuration.get().GetAA());
 			}
 		});
@@ -495,7 +495,7 @@ namespace mage::rendering {
 		camera.BindBuffer< Pipeline >(m_device_context,
 									  SLOT_CBUFFER_PRIMARY_CAMERA);
 
-		// Obtain the world-to-projection transformation matrix of the 
+		// Obtain the world-to-projection transformation matrix of the
 		// camera for view frustum culling.
 		const auto& transform            = camera.GetOwner()->GetTransform();
 		const auto  world_to_camera      = transform.GetWorldToObjectMatrix();
@@ -515,24 +515,24 @@ namespace mage::rendering {
 			RenderForward(world, camera, world_to_projection);
 			break;
 		}
-		
+
 		case RenderMode::Deferred: {
 			RenderDeferred(world, camera, world_to_projection);
 			break;
 		}
-		
+
 		case RenderMode::Solid: {
 			RenderSolid(world, camera, world_to_projection);
 			break;
 		}
-		
+
 		case RenderMode::VoxelGrid: {
 			RenderVoxelGrid(world, camera, world_to_projection);
 			break;
 		}
 
 		case RenderMode::FalseColor_BaseColor: {
-			RenderFalseColor(world, camera, world_to_projection, 
+			RenderFalseColor(world, camera, world_to_projection,
 							 FalseColor::BaseColor);
 			break;
 		}
@@ -618,7 +618,7 @@ namespace mage::rendering {
 		}
 
 		default: {
-			const Viewport viewport(camera.GetViewport(), 
+			const Viewport viewport(camera.GetViewport(),
 									m_display_configuration.get().GetAA());
 			viewport.Bind(m_device_context);
 			m_output_manager->BindBeginForward(m_device_context);
@@ -711,8 +711,8 @@ namespace mage::rendering {
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderDeferred(const World& world, 
-													const Camera& camera, 
+	void XM_CALLCONV Renderer::Impl::RenderDeferred(const World& world,
+													const Camera& camera,
 													FXMMATRIX world_to_projection) {
 
 		const auto vct = camera.GetSettings().GetVoxelizationSettings().UsesVCT();
@@ -729,7 +729,7 @@ namespace mage::rendering {
 
 			const auto voxel_grid_resolution
 				= VoxelizationSettings::GetVoxelGridResolution();
-			
+
 			m_voxelization_pass->Render(world, world_to_voxel,
 										voxel_grid_resolution);
 		}
@@ -757,7 +757,7 @@ namespace mage::rendering {
 			m_deferred_pass->Render(camera.GetSettings().GetBRDF(), vct);
 		}
 		else {
-			m_deferred_pass->Dispatch(viewport.GetSize(), 
+			m_deferred_pass->Dispatch(viewport.GetSize(),
 									  camera.GetSettings().GetBRDF(), vct);
 		}
 
@@ -777,12 +777,12 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Forward: transparent fragments
 		//---------------------------------------------------------------------
-		m_forward_pass->RenderTransparent(world, world_to_projection, 
+		m_forward_pass->RenderTransparent(world, world_to_projection,
 										  camera.GetSettings().GetBRDF(), vct);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderSolid(const World& world, 
-												 const Camera& camera, 
+	void XM_CALLCONV Renderer::Impl::RenderSolid(const World& world,
+												 const Camera& camera,
 												 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
@@ -801,11 +801,11 @@ namespace mage::rendering {
 		m_forward_pass->RenderSolid(world, world_to_projection);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const World& world, 
-													  const Camera& camera, 
-													  FXMMATRIX world_to_projection, 
+	void XM_CALLCONV Renderer::Impl::RenderFalseColor(const World& world,
+													  const Camera& camera,
+													  FXMMATRIX world_to_projection,
 													  FalseColor false_color) {
-		
+
 		const Viewport viewport(camera.GetViewport(),
 								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
@@ -817,8 +817,8 @@ namespace mage::rendering {
 		m_forward_pass->RenderFalseColor(world, world_to_projection, false_color);
 	}
 
-	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const World& world, 
-													 const Camera& camera, 
+	void XM_CALLCONV Renderer::Impl::RenderVoxelGrid(const World& world,
+													 const Camera& camera,
 													 FXMMATRIX world_to_projection) {
 
 		//---------------------------------------------------------------------
@@ -836,12 +836,12 @@ namespace mage::rendering {
 		m_voxelization_pass->Render(world, world_to_voxel,
 									voxel_grid_resolution);
 
-	
+
 		const Viewport viewport(camera.GetViewport(),
 								m_display_configuration.get().GetAA());
 		viewport.Bind(m_device_context);
 		m_output_manager->BindBeginForward(m_device_context);
-		
+
 		//---------------------------------------------------------------------
 		// Voxel Grid
 		//---------------------------------------------------------------------
@@ -869,7 +869,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Low Dynamic Range
 		//---------------------------------------------------------------------
-		m_postprocess_pass->DispatchLDR(viewport.GetSize(), 
+		m_postprocess_pass->DispatchLDR(viewport.GetSize(),
 										camera.GetSettings().GetToneMapping());
 	}
 
@@ -884,7 +884,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// AA pre-processing
 			//-----------------------------------------------------------------
-			m_aa_pass->DispatchPreprocess(camera.GetViewport().GetSize(), 
+			m_aa_pass->DispatchPreprocess(camera.GetViewport().GetSize(),
 										  AntiAliasing::FXAA);
 
 			m_output_manager->BindEndResolve(m_device_context);
@@ -893,7 +893,7 @@ namespace mage::rendering {
 			//-----------------------------------------------------------------
 			// FXAA
 			//-----------------------------------------------------------------
-			m_aa_pass->Dispatch(camera.GetViewport().GetSize(), 
+			m_aa_pass->Dispatch(camera.GetViewport().GetSize(),
 								AntiAliasing::FXAA);
 
 			break;

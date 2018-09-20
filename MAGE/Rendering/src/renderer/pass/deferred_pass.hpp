@@ -17,7 +17,7 @@
 namespace mage::rendering {
 
 	/**
-	 A class of deferred passes for unpacking GBuffers and performing light 
+	 A class of deferred passes for unpacking GBuffers and performing light
 	 calculations using the rendering or compute pipeline.
 	 */
 	class DeferredPass {
@@ -38,8 +38,8 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit DeferredPass(ID3D11DeviceContext& device_context, 
-							  StateManager& state_manager, 
+		explicit DeferredPass(ID3D11DeviceContext& device_context,
+							  StateManager& state_manager,
 							  ResourceManager& resource_manager);
 
 		/**
@@ -72,7 +72,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the deferred pass to copy.
-		 @return		A reference to the copy of the given deferred shading 
+		 @return		A reference to the copy of the given deferred shading
 						pass (i.e. this deferred pass).
 		 */
 		DeferredPass& operator=(const DeferredPass& pass) = delete;
@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the deferred pass to move.
-		 @return		A reference to the moved deferred pass (i.e. this 
+		 @return		A reference to the moved deferred pass (i.e. this
 						deferred pass).
 		 */
 		DeferredPass& operator=(DeferredPass&& pass) noexcept;
@@ -97,7 +97,7 @@ namespace mage::rendering {
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
+						@c true if voxel cone tracing should be enabled. @c false
 						otherwise.
 		 @throws		Exception
 						Failed to render the world.
@@ -112,13 +112,13 @@ namespace mage::rendering {
 		 @param[in]		brdf
 						The BRDF.
 		 @param[in]		vct
-						@c true if voxel cone tracing should be enabled. @c false 
+						@c true if voxel cone tracing should be enabled. @c false
 						otherwise.
 		 @throws		Exception
 						Failed to dispatch.
 		 */
 		void Dispatch(const U32x2& viewport_size, BRDF brdf, bool vct);
-		
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -129,7 +129,7 @@ namespace mage::rendering {
 		 Binds the fixed state of this deferred pass.
 		 */
 		void BindFixedState() const noexcept;
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

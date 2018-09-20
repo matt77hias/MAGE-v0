@@ -36,7 +36,7 @@ namespace mage::rendering {
 		 @param[in]		configuration
 						The display configuration.
 		 */
-		explicit Manager(NotNull< HWND > window, 
+		explicit Manager(NotNull< HWND > window,
 						 DisplayConfiguration configuration);
 
 		/**
@@ -69,7 +69,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to a rendering manager to copy.
-		 @return		A reference to the copy of the given rendering manager 
+		 @return		A reference to the copy of the given rendering manager
 						(i.e. this rendering manager).
 		 */
 		Manager& operator=(const Manager& manager) = delete;
@@ -79,7 +79,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to a rendering manager to move.
-		 @return		A reference to the moved rendering manager (i.e. this 
+		 @return		A reference to the moved rendering manager (i.e. this
 						rendering manager).
 		 */
 		Manager& operator=(Manager&& manager) = delete;
@@ -91,7 +91,7 @@ namespace mage::rendering {
 		/**
 		 Returns the display configuration of this rendering manager.
 
-		 @return		A reference to the display configuration of this 
+		 @return		A reference to the display configuration of this
 						rendering manager.
 		 */
 		[[nodiscard]]
@@ -116,7 +116,7 @@ namespace mage::rendering {
 		/**
 		 Returns the resource manager of this rendering manager.
 
-		 @return		A reference to the state manager of this 
+		 @return		A reference to the state manager of this
 						rendering manager.
 		 */
 		[[nodiscard]]
@@ -134,10 +134,10 @@ namespace mage::rendering {
 		 Binds the persistent state of this rendering manager.
 
 		 @throws		Exception
-						Failed to bind the persistent state of this rendering 
+						Failed to bind the persistent state of this rendering
 						manager.
 		 @throws		Exception
-						Failed to bind the persistent state of this rendering 
+						Failed to bind the persistent state of this rendering
 						manager.
 		 */
 		void BindPersistentState();

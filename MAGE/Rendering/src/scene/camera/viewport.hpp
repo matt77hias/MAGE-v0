@@ -29,7 +29,7 @@ namespace mage::rendering {
 	 @return		The viewport transform for the given viewport.
 	 */
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		GetViewportTransform(const U32x2& resolution) noexcept {
 
 		const auto width  = (0u < resolution[0]) ? 2.0f / resolution[0] : 0.0f;
@@ -37,7 +37,7 @@ namespace mage::rendering {
 
 		// x =  Sx . [0,W] - 1 =  2/W . [0,W] - 1 = [0, 2] - 1 = [-1,  1]
 		// y = -Sy . [0,H] + 1 = -2/H . [0,H] + 1 = [0,-2] + 1 = [ 1, -1]
-		
+
 		return {
 			width,    0.0f, 0.0f, 0.0f,
 			 0.0f, -height, 0.0f, 0.0f,
@@ -69,15 +69,15 @@ namespace mage::rendering {
 
 		explicit Viewport(const U32x2& size) noexcept
 			: Viewport(GetMaxViewport(size)) {}
-		
+
 		explicit Viewport(const U32x2& size, AntiAliasing aa) noexcept
 			: Viewport(GetMaxViewport(size, aa)) {}
 
 		explicit Viewport(D3D11_VIEWPORT viewport) noexcept
 			: m_viewport(std::move(viewport)) {}
-		
+
 		Viewport(const Viewport& viewport) noexcept = default;
-		
+
 		Viewport(Viewport&& viewport) noexcept = default;
 
 		explicit Viewport(Viewport viewport, AntiAliasing aa) noexcept
@@ -97,7 +97,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		Viewport& operator=(const Viewport& viewport) noexcept = default;
-		
+
 		Viewport& operator=(Viewport&& viewport) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -130,7 +130,7 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		const S32x2 GetTopLeft() const noexcept {
-			return { static_cast< S32 >(m_viewport.TopLeftX), 
+			return { static_cast< S32 >(m_viewport.TopLeftX),
 				     static_cast< S32 >(m_viewport.TopLeftY) };
 		}
 
@@ -195,7 +195,7 @@ namespace mage::rendering {
 		[[nodiscard]]
 		static const D3D11_VIEWPORT GetMaxViewport(const U32x2& size,
 												   AntiAliasing aa) noexcept {
-			
+
 			const auto multiplier = GetResolutionMultiplier(aa);
 
 			D3D11_VIEWPORT viewport = GetMaxViewport(size);
@@ -208,7 +208,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 The viewport of this viewport.
 		 */

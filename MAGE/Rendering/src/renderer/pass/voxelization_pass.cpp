@@ -59,8 +59,8 @@ namespace mage::rendering {
 
 		// Create the ID3D11RasterizerState2.
 		{
-			const HRESULT result 
-				= device3->CreateRasterizerState2(&desc, 
+			const HRESULT result
+				= device3->CreateRasterizerState2(&desc,
 												  m_rs.ReleaseAndGetAddressOf());
 			ThrowIfFailed(result,
 						  "ID3D11RasterizerState2 creation failed: {:08X}.", result);
@@ -87,10 +87,10 @@ namespace mage::rendering {
 		// RS: Bind the rasterization state.
 		Pipeline::RS::BindState(m_device_context, m_rs.Get());
 		// OM: Bind the depth-stencil state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   DepthStencilStateID::DepthNone);
 		// OM: Bind the blend state.
-		m_state_manager.get().Bind(m_device_context, 
+		m_state_manager.get().Bind(m_device_context,
 								   BlendStateID::Opaque);
 	}
 
@@ -114,7 +114,7 @@ namespace mage::rendering {
 		BindFixedState();
 
 		constexpr bool transparency = false;
-		
+
 		//---------------------------------------------------------------------
 		// All emissive models.
 		//---------------------------------------------------------------------
@@ -143,7 +143,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = false;
-			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
+			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager,
 														   tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
@@ -169,7 +169,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		{
 			constexpr bool tsnm = true;
-			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager, 
+			const PixelShaderPtr ps = CreateVoxelizationPS(m_resource_manager,
 														   tsnm);
 			// PS: Bind the pixel shader.
 			ps->BindShader(m_device_context);
@@ -191,7 +191,7 @@ namespace mage::rendering {
 		});
 	}
 
-	void XM_CALLCONV VoxelizationPass::Render(const Model& model, 
+	void XM_CALLCONV VoxelizationPass::Render(const Model& model,
 											  FXMMATRIX world_to_projection) const noexcept {
 
 		const auto& transform            = model.GetOwner()->GetTransform();
@@ -199,7 +199,7 @@ namespace mage::rendering {
 		const auto  object_to_projection = object_to_world * world_to_projection;
 
 		// Apply view frustum culling.
-		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) { 
+		if (BoundingFrustum::Cull(object_to_projection, model.GetAABB())) {
 			return;
 		}
 
@@ -216,7 +216,7 @@ namespace mage::rendering {
 			material.GetMaterialSRV(),
 			material.GetNormalSRV()
 		};
-		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_BASE_COLOR, 
+		Pipeline::PS::BindSRVs(m_device_context, SLOT_SRV_BASE_COLOR,
 							   static_cast< U32 >(std::size(srvs)), srvs);
 		// Bind the mesh of the model.
 		model.BindMesh(m_device_context);
@@ -230,7 +230,7 @@ namespace mage::rendering {
 
 		// Dispatch.
 		const auto nb_groups = GetNumberOfGroups(
-			static_cast< U32 >(m_voxel_grid->GetResolution()), 
+			static_cast< U32 >(m_voxel_grid->GetResolution()),
 			GROUP_SIZE_3D_DEFAULT);
 		Pipeline::Dispatch(m_device_context, nb_groups, nb_groups, nb_groups);
 	}

@@ -36,8 +36,8 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit VoxelGridPass(ID3D11DeviceContext& device_context, 
-							   StateManager& state_manager, 
+		explicit VoxelGridPass(ID3D11DeviceContext& device_context,
+							   StateManager& state_manager,
 							   ResourceManager& resource_manager);
 
 		/**
@@ -70,7 +70,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the voxel grid pass to copy.
-		 @return		A reference to the copy of the given voxel grid pass 
+		 @return		A reference to the copy of the given voxel grid pass
 						(i.e. this voxel grid pass).
 		 */
 		VoxelGridPass& operator=(const VoxelGridPass& pass) = delete;
@@ -80,7 +80,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the voxel grid pass to move.
-		 @return		A reference to the moved voxel grid pass (i.e. this 
+		 @return		A reference to the moved voxel grid pass (i.e. this
 						voxel grid pass).
 		 */
 		VoxelGridPass& operator=(VoxelGridPass&& pass) noexcept;
@@ -96,7 +96,7 @@ namespace mage::rendering {
 						The resolution of the regular voxel grid.
 		 */
 		void Render(std::size_t resolution) const noexcept;
-		
+
 	private:
 
 		//---------------------------------------------------------------------

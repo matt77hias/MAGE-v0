@@ -6,14 +6,14 @@
 namespace mage::rendering {
 
 	template< typename VertexT, typename IndexT >
-	ModelDescriptor::ModelDescriptor(ID3D11Device& device, 
+	ModelDescriptor::ModelDescriptor(ID3D11Device& device,
 									 ResourceManager& resource_manager,
 									 std::wstring fname,
-									 const MeshDescriptor< VertexT, IndexT >& desc, 
+									 const MeshDescriptor< VertexT, IndexT >& desc,
 									 bool export_as_MDL)
-		: Resource< ModelDescriptor >(std::move(fname)), 
+		: Resource< ModelDescriptor >(std::move(fname)),
 		m_mesh(),
-		m_materials(), 
+		m_materials(),
 		m_model_parts() {
 
 		ModelOutput< VertexT, IndexT > buffer;
@@ -27,8 +27,8 @@ namespace mage::rendering {
 		}
 
 		m_mesh = MakeShared< StaticMesh< VertexT, IndexT > >(
-			               device, 
-			               std::move(buffer.m_vertex_buffer), 
+			               device,
+			               std::move(buffer.m_vertex_buffer),
 			               std::move(buffer.m_index_buffer));
 		m_materials   = std::move(buffer.m_material_buffer);
 		m_model_parts = std::move(buffer.m_model_parts);

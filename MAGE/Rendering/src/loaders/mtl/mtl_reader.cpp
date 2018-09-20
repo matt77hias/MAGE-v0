@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	MTLReader::MTLReader(ResourceManager& resource_manager, 
+	MTLReader::MTLReader(ResourceManager& resource_manager,
 						 std::vector< Material >& material_buffer)
-		: LineReader(), 
-		m_resource_manager(resource_manager), 
+		: LineReader(),
+		m_resource_manager(resource_manager),
 		m_material_buffer(material_buffer) {}
 
 	MTLReader::MTLReader(MTLReader&& reader) noexcept = default;
@@ -26,10 +26,10 @@ namespace mage::rendering::loader {
 
 	void MTLReader::ReadLine() {
 		const auto token = Read< std::string_view >();
-		
+
 		if (g_mtl_token_comment == token[0]) {
 			return;
-		} 
+		}
 		else if (g_mtl_token_material_declaration == token) {
 			ReadMTLMaterialName();
 		}
@@ -132,7 +132,7 @@ namespace mage::rendering::loader {
 		}
 
 		const auto alpha = Contains< F32 >() ? Read< F32 >() : 1.0f;
-		
+
 		return { red, green, blue, alpha };
 	}
 

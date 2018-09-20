@@ -62,7 +62,7 @@ namespace mage::rendering {
 
 		 @param[in]		mesh
 						A reference to the mesh to copy.
-		 @return		A reference to the copy of the given mesh (i.e. this 
+		 @return		A reference to the copy of the given mesh (i.e. this
 						mesh).
 		 */
 		Mesh& operator=(const Mesh& mesh) = delete;
@@ -123,17 +123,17 @@ namespace mage::rendering {
 		/**
 		 Returns the primitive topology of this mesh.
 
-		 @return		The primitive topology of this mesh.	
+		 @return		The primitive topology of this mesh.
 		 */
 		[[nodiscard]]
 		D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
 			return m_primitive_topology;
 		}
-		
+
 		/**
 		 Binds this mesh.
 
-		 The vertex buffer, index buffer and primitive topology of this mesh 
+		 The vertex buffer, index buffer and primitive topology of this mesh
 		 will be bound to the input-assembler stage.
 
 		 @param[in]		device_context
@@ -142,11 +142,11 @@ namespace mage::rendering {
 		void BindMesh(ID3D11DeviceContext& device_context) const noexcept {
 			BindMesh(device_context, m_primitive_topology);
 		}
-		
+
 		/**
 		 Binds this mesh with given primitive topology.
 
-		 The vertex buffer, index buffer and given primitive topology of this 
+		 The vertex buffer, index buffer and given primitive topology of this
 		 mesh will be bound to the input-assembler stage.
 
 		 @param[in]		device_context
@@ -154,19 +154,19 @@ namespace mage::rendering {
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(ID3D11DeviceContext& device_context, 
+		void BindMesh(ID3D11DeviceContext& device_context,
 			          D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
-			Pipeline::IA::BindVertexBuffer(device_context, 
-				                           0u, 
-				                           *m_vertex_buffer.Get(), 
+			Pipeline::IA::BindVertexBuffer(device_context,
+				                           0u,
+				                           *m_vertex_buffer.Get(),
 				                           static_cast< U32 >(m_vertex_size));
-			Pipeline::IA::BindIndexBuffer(device_context, 
-				                          *m_index_buffer.Get(), 
+			Pipeline::IA::BindIndexBuffer(device_context,
+				                          *m_index_buffer.Get(),
 				                          m_index_format);
 			Pipeline::IA::BindPrimitiveTopology(device_context, topology);
 		}
-		
+
 		/**
 		 Draws this complete mesh.
 
@@ -175,10 +175,10 @@ namespace mage::rendering {
 		 */
 		void Draw(ID3D11DeviceContext& device_context) const noexcept {
 			Pipeline::DrawIndexed(device_context,
-				                  static_cast< U32 >(m_nb_indices), 
+				                  static_cast< U32 >(m_nb_indices),
 				                  0u);
 		}
-		
+
 		/**
 		 Draws a submesh of this mesh.
 
@@ -194,7 +194,7 @@ namespace mage::rendering {
 				  std::size_t nb_indices) const noexcept {
 
 			Pipeline::DrawIndexed(device_context,
-				                  static_cast< U32 >(nb_indices), 
+				                  static_cast< U32 >(nb_indices),
 				                  static_cast< U32 >(start_index));
 		}
 
@@ -215,7 +215,7 @@ namespace mage::rendering {
 						The primitive topology.
 		 */
 		explicit Mesh(std::size_t vertex_size,
-			          DXGI_FORMAT index_format, 
+			          DXGI_FORMAT index_format,
 			          D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
 		/**

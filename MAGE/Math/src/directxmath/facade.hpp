@@ -31,40 +31,40 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	static_assert(sizeof(F32x2) == sizeof(XMFLOAT2), 
+	static_assert(sizeof(F32x2) == sizeof(XMFLOAT2),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(F32x3) == sizeof(XMFLOAT3), 
+	static_assert(sizeof(F32x3) == sizeof(XMFLOAT3),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(F32x4) == sizeof(XMFLOAT4), 
+	static_assert(sizeof(F32x4) == sizeof(XMFLOAT4),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(F32x2A) == sizeof(XMFLOAT2A), 
+	static_assert(sizeof(F32x2A) == sizeof(XMFLOAT2A),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(F32x3A) == sizeof(XMFLOAT3A), 
+	static_assert(sizeof(F32x3A) == sizeof(XMFLOAT3A),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(F32x4A) == sizeof(XMFLOAT4A), 
+	static_assert(sizeof(F32x4A) == sizeof(XMFLOAT4A),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(S32x2) == sizeof(XMINT2), 
+	static_assert(sizeof(S32x2) == sizeof(XMINT2),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(S32x3) == sizeof(XMINT3), 
+	static_assert(sizeof(S32x3) == sizeof(XMINT3),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(S32x4) == sizeof(XMINT4), 
+	static_assert(sizeof(S32x4) == sizeof(XMINT4),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(U32x2) == sizeof(XMUINT2), 
+	static_assert(sizeof(U32x2) == sizeof(XMUINT2),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(U32x3) == sizeof(XMUINT3), 
+	static_assert(sizeof(U32x3) == sizeof(XMUINT3),
 				  "MAGE/DirectXMath type mismatch");
 
-	static_assert(sizeof(U32x4) == sizeof(XMUINT4), 
+	static_assert(sizeof(U32x4) == sizeof(XMUINT4),
 				  "MAGE/DirectXMath type mismatch");
 
 	#pragma endregion

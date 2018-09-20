@@ -36,8 +36,8 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit SkyPass(ID3D11DeviceContext& device_context, 
-						 StateManager& state_manager, 
+		explicit SkyPass(ID3D11DeviceContext& device_context,
+						 StateManager& state_manager,
 						 ResourceManager& resource_manager);
 
 		/**
@@ -70,7 +70,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the sky pass to copy.
-		 @return		A reference to the copy of the given sky pass (i.e. 
+		 @return		A reference to the copy of the given sky pass (i.e.
 						this sky pass).
 		 */
 		SkyPass& operator=(const SkyPass& pass) = delete;
@@ -95,7 +95,7 @@ namespace mage::rendering {
 						A pointer to the SRV of the sky.
 		 */
 		void Render(ID3D11ShaderResourceView* sky) const noexcept;
-		
+
 	private:
 
 		//---------------------------------------------------------------------

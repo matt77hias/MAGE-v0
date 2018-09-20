@@ -53,15 +53,15 @@ namespace mage::rendering::loader {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 @param[in]		model_output
-						A reference to a model output for storing the read data 
+						A reference to a model output for storing the read data
 						from file.
 		 @param[in]		mesh_desc
 						A reference to a mesh descriptor.
 		 */
-		explicit OBJReader(ResourceManager& resource_manager, 
-						   ModelOutput< VertexT, IndexT >& model_output, 
+		explicit OBJReader(ResourceManager& resource_manager,
+						   ModelOutput< VertexT, IndexT >& model_output,
 						   const MeshDescriptor< VertexT, IndexT >& mesh_desc);
-		
+
 		/**
 		 Constructs an OBJ reader from the given OBJ reader.
 
@@ -92,7 +92,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		reader
 						A reference to a OBJ reader to copy.
-		 @return		A reference to the copy of the given OBJ reader (i.e. 
+		 @return		A reference to the copy of the given OBJ reader (i.e.
 						this OBJ reader).
 		 */
 		OBJReader& operator=(const OBJReader& reader) = delete;
@@ -102,7 +102,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		reader
 						A reference to a OBJ reader to move.
-		 @return		A reference to the moved OBJ reader (i.e. this OBJ 
+		 @return		A reference to the moved OBJ reader (i.e. this OBJ
 						reader).
 		 */
 		OBJReader& operator=(OBJReader&& reader) = delete;
@@ -154,7 +154,7 @@ namespace mage::rendering::loader {
 		void ReadOBJMaterialLibrary();
 
 		/**
-		 Reads a Material Usage definition and imports the materials 
+		 Reads a Material Usage definition and imports the materials
 		 corresponding to the mesh.
 
 		 @throws		Exception
@@ -183,7 +183,7 @@ namespace mage::rendering::loader {
 		/**
 		 Reads a Smoothing Group definition.
 
-		 @note			A smoothing group is, if present, 
+		 @note			A smoothing group is, if present,
 						silently ignored.
 		 @throws		Exception
 						Failed to read a Smoothing Group definition.
@@ -194,7 +194,7 @@ namespace mage::rendering::loader {
 		 Reads a Vertex Position Coordinates definition.
 
 		 @throws		Exception
-						Failed to read a Vertex Position Coordinates 
+						Failed to read a Vertex Position Coordinates
 						definition.
 		 */
 		void ReadOBJVertex();
@@ -230,8 +230,8 @@ namespace mage::rendering::loader {
 		/**
 		 Reads a set of vertex position coordinates.
 
-		 @return		The @c Point3 represented by the next token of this OBJ 
-						reader (modified according to the mesh descriptor of 
+		 @return		The @c Point3 represented by the next token of this OBJ
+						reader (modified according to the mesh descriptor of
 						this OBj reader).
 		 @throws		Exception
 						Failed to read a @c Point3.
@@ -243,8 +243,8 @@ namespace mage::rendering::loader {
 		 Reads a set of vertex normal coordinates.
 
 		 @pre			All the vertex normals in the OBJ file are normalized.
-		 @return		The @c Normal3 represented by the next token of this 
-						OBJ reader (modified according to the mesh descriptor 
+		 @return		The @c Normal3 represented by the next token of this
+						OBJ reader (modified according to the mesh descriptor
 						of this OBj reader).
 		 @throws		Exception
 						Failed to read a @c Normal3.
@@ -255,8 +255,8 @@ namespace mage::rendering::loader {
 		/**
 		 Reads a set of vertex texture coordinates.
 
-		 @return		The @c UV represented by the next token of this OBJ 
-						reader (modified according to the mesh descriptor of 
+		 @return		The @c UV represented by the next token of this OBJ
+						reader (modified according to the mesh descriptor of
 						this OBj reader).
 		 @throws		Exception
 						Failed to read a @c UV.
@@ -267,22 +267,22 @@ namespace mage::rendering::loader {
 		/**
 		 Reads a set of vertex indices.
 
-		 @return		The vertex indices represented by the next token of 
-						this OBJ reader. A zero indicates the absence of a 
+		 @return		The vertex indices represented by the next token of
+						this OBJ reader. A zero indicates the absence of a
 						component.
 		 @throws		Exception
 						Failed to read the vertex indices.
 		 */
 		[[nodiscard]]
 		const U32x3 ReadOBJVertexIndices();
-		
+
 		/**
-		 Constructs or retrieves (if already existing) the vertex matching the 
+		 Constructs or retrieves (if already existing) the vertex matching the
 		 given vertex indices.
 
 		 @param[in]		vertex_indices
 						A reference to the vertex indices.
-		 @return		The vertex matching the given vertex indices 
+		 @return		The vertex matching the given vertex indices
 						@a vertex_indices.
 		 */
 		[[nodiscard]]
@@ -302,12 +302,12 @@ namespace mage::rendering::loader {
 							A reference to the first vector.
 			 @param[in]		rhs
 							A reference to the second vector.
-			 @return		@c true if the @a lhs is smaller than @a rhs. 
+			 @return		@c true if the @a lhs is smaller than @a rhs.
 							@c false otherwise.
 			 */
 			[[nodiscard]]
 			bool operator()(const U32x3& lhs, const U32x3& rhs) const noexcept {
-				return std::tie(lhs[0], lhs[1], lhs[2]) 
+				return std::tie(lhs[0], lhs[1], lhs[2])
 					 < std::tie(rhs[0], rhs[1], rhs[2]);
 			}
 		};
@@ -317,37 +317,37 @@ namespace mage::rendering::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A vector containing the read vertex position coordinates of this OBJ 
+		 A vector containing the read vertex position coordinates of this OBJ
 		 reader.
 		 */
 		std::vector< Point3 >  m_vertex_coordinates;
 
 		/**
-		 A vector containing the read vertex texture coordinates of this OBJ 
+		 A vector containing the read vertex texture coordinates of this OBJ
 		 reader.
 		 */
 		std::vector< UV > m_vertex_texture_coordinates;
 
 		/**
-		 A vector containing the read normal texture coordinates of this OBJ 
+		 A vector containing the read normal texture coordinates of this OBJ
 		 reader.
 		 */
 		std::vector< Normal3 > m_vertex_normal_coordinates;
 
 		/**
 		 A mapping between vertex position/texture/normal coordinates' indices
-		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
+		 and the index of a vertex in the vertex buffer (@c m_model_output) of
 		 this OBJ reader.
 		 */
 		std::map< U32x3, IndexT, OBJComparator > m_mapping;
-		
+
 		/**
 		 A reference to the resource manager of this OBJ reader.
 		 */
 		ResourceManager& m_resource_manager;
 
 		/**
-		 A reference to a model output containing the read data of this OBJ 
+		 A reference to a model output containing the read data of this OBJ
 		 reader.
 		 */
 		ModelOutput< VertexT, IndexT >& m_model_output;

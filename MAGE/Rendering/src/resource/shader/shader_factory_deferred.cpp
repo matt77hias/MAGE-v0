@@ -46,57 +46,57 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	ComputeShaderPtr CreateDeferredEmissiveCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
 	namespace {
 
-		ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager, 
+		ComputeShaderPtr CreateDeferredBlinnPhongCS(ResourceManager& resource_manager,
 													bool vct) {
-		
-			return vct ? CreateCS(resource_manager, 
+
+			return vct ? CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_vct_blinn_phong_CS))
-					   : CreateCS(resource_manager, 
+					   : CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
 		}
 
-		ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager, 
+		ComputeShaderPtr CreateDeferredCookTorranceCS(ResourceManager& resource_manager,
 													  bool vct) {
-		
-			return vct ? CreateCS(resource_manager, 
+
+			return vct ? CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_vct_cook_torrance_CS))
-					   : CreateCS(resource_manager, 
+					   : CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
 		}
 
-		ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager, 
+		ComputeShaderPtr CreateDeferredFrostbiteCS(ResourceManager& resource_manager,
 												   bool vct) {
-		
-			return vct ? CreateCS(resource_manager, 
+
+			return vct ? CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_vct_frostbite_CS))
-					   : CreateCS(resource_manager, 
+					   : CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
 		}
 
-		ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager, 
+		ComputeShaderPtr CreateDeferredLambertianCS(ResourceManager& resource_manager,
 													bool vct) {
-		
-			return vct ? CreateCS(resource_manager, 
+
+			return vct ? CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_vct_lambertian_CS))
-					   : CreateCS(resource_manager, 
+					   : CreateCS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 		}
 	}
 
-	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
+	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager,
 									  BRDF brdf, bool vct) {
 		switch (brdf) {
 
@@ -114,12 +114,12 @@ namespace mage::rendering {
 	}
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred MSAA
 	//-------------------------------------------------------------------------
 	#pragma region
-	
+
 	PixelShaderPtr CreateDeferredMSAAEmissivePS(ResourceManager& resource_manager) {
 		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
@@ -130,18 +130,18 @@ namespace mage::rendering {
 		PixelShaderPtr CreateDeferredMSAABlinnPhongPS(ResourceManager& resource_manager,
 													  bool vct) {
 
-			return vct ? CreatePS(resource_manager, 
+			return vct ? CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_blinn_phong_PS))
-				       : CreatePS(resource_manager, 
+				       : CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 		}
 
 		PixelShaderPtr CreateDeferredMSAACookTorrancePS(ResourceManager& resource_manager,
 														bool vct) {
 
-			return vct ? CreatePS(resource_manager, 
+			return vct ? CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_cook_torrance_PS))
-				       : CreatePS(resource_manager, 
+				       : CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 		}
 
@@ -149,23 +149,23 @@ namespace mage::rendering {
 		PixelShaderPtr CreateDeferredMSAAFrostbitePS(ResourceManager& resource_manager,
 													 bool vct) {
 
-			return vct ? CreatePS(resource_manager, 
+			return vct ? CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_frostbite_PS))
-				       : CreatePS(resource_manager, 
+				       : CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 		}
 
 		PixelShaderPtr CreateDeferredMSAALambertianPS(ResourceManager& resource_manager,
 													  bool vct) {
 
-			return vct ? CreatePS(resource_manager, 
+			return vct ? CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_vct_lambertian_PS))
-				       : CreatePS(resource_manager, 
+				       : CreatePS(resource_manager,
 								  MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 		}
 	}
 
-	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager,
 										BRDF brdf, bool vct) {
 		switch (brdf) {
 

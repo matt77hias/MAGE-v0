@@ -18,7 +18,7 @@
 namespace mage::rendering {
 
 	/**
-	 A class of voxelization passes for rendering models using a variable 
+	 A class of voxelization passes for rendering models using a variable
 	 (material dependent) shading.
 	 */
 	class VoxelizationPass {
@@ -41,13 +41,13 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit VoxelizationPass(ID3D11Device& device, 
-								  ID3D11DeviceContext& device_context, 
-								  StateManager& state_manager, 
+		explicit VoxelizationPass(ID3D11Device& device,
+								  ID3D11DeviceContext& device_context,
+								  StateManager& state_manager,
 								  ResourceManager& resource_manager);
 
 		/**
-		 Constructs a voxelization pass from the given voxelization 
+		 Constructs a voxelization pass from the given voxelization
 		 pass.
 
 		 @param[in]		pass
@@ -56,7 +56,7 @@ namespace mage::rendering {
 		VoxelizationPass(const VoxelizationPass& pass) = delete;
 
 		/**
-		 Constructs a voxelization pass by moving the given variable 
+		 Constructs a voxelization pass by moving the given variable
 		 shading pass.
 
 		 @param[in]		pass
@@ -78,7 +78,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the voxelization pass to copy.
-		 @return		A reference to the copy of the given voxelization 
+		 @return		A reference to the copy of the given voxelization
 						pass (i.e. this voxelization pass).
 		 */
 		VoxelizationPass& operator=(const VoxelizationPass& pass) = delete;
@@ -88,7 +88,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the voxelization pass to move.
-		 @return		A reference to the moved voxelization pass (i.e. 
+		 @return		A reference to the moved voxelization pass (i.e.
 						this voxelization pass).
 		 */
 		VoxelizationPass& operator=(VoxelizationPass&& pass) noexcept;
@@ -164,7 +164,7 @@ namespace mage::rendering {
 		 Dispatches this voxelization pass.
 		 */
 		void Dispatch() const noexcept;
-			
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -205,7 +205,7 @@ namespace mage::rendering {
 		ComputeShaderPtr m_cs;
 
 		/**
-		 The voxel grid of this voxelization pass. 
+		 The voxel grid of this voxelization pass.
 		 */
 		UniquePtr< VoxelGrid > m_voxel_grid;
 	};

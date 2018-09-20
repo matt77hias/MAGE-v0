@@ -49,7 +49,7 @@ namespace mage {
 	inline const F32x2 Halton2D(std::size_t index) noexcept {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
-		
+
 		return { x, y };
 	}
 
@@ -58,7 +58,7 @@ namespace mage {
 		const auto x = RadicalInverse(index, 2.0f);
 		const auto y = RadicalInverse(index, 3.0f);
 		const auto z = RadicalInverse(index, 5.0f);
-		
+
 		return { x, y, z };
 	}
 
@@ -68,7 +68,7 @@ namespace mage {
 		const auto y = RadicalInverse(index, 3.0f);
 		const auto z = RadicalInverse(index, 5.0f);
 		const auto w = RadicalInverse(index, 7.0f);
-		
+
 		return { x, y, z, w };
 	}
 
@@ -76,15 +76,15 @@ namespace mage {
 						   std::size_t nb_samples) noexcept {
 		using std::begin;
 		using std::end;
-		
+
 		Assert(index < nb_samples);
-		
+
 		using std::size;
 		const auto nb_dims = static_cast< std::size_t >(size(sample));
 		Assert(0 < nb_dims && nb_dims - 1 <= size(g_primes));
-		
+
 		*begin(sample) = index / static_cast< F32 >(nb_samples);
-		
+
 		std::size_t i = 0u;
 		for (auto it = begin(sample) + 1; it != end(sample); ++it) {
 			*it = RadicalInverse(index, static_cast< F32 >(g_primes[i++]));
@@ -97,7 +97,7 @@ namespace mage {
 
 		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
-		
+
 		return { x, y };
 	}
 
@@ -108,7 +108,7 @@ namespace mage {
 		const auto x = index / static_cast< F32 >(nb_samples);
 		const auto y = RadicalInverse(index, 2.0f);
 		const auto z = RadicalInverse(index, 3.0f);
-		
+
 		return { x, y, z };
 	}
 
@@ -120,7 +120,7 @@ namespace mage {
 		const auto y = RadicalInverse(index, 2.0f);
 		const auto z = RadicalInverse(index, 3.0f);
 		const auto w = RadicalInverse(index, 5.0f);
-		
+
 		return { x, y, z, w };
 	}
 

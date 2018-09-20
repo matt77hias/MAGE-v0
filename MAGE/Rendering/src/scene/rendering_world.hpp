@@ -31,7 +31,7 @@ namespace mage::rendering {
 	class World {
 
 	public:
-	
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit World(ID3D11Device& device, 
+		explicit World(ID3D11Device& device,
 					   DisplayConfiguration& display_configuration,
 					   ResourceManager& resource_manager);
 
@@ -73,14 +73,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given world to this world.
 
 		 @param[in]		world
 						A reference to the world to copy.
-		 @return		A reference to the copy of the given world (i.e. this 
+		 @return		A reference to the copy of the given world (i.e. this
 						world).
 		 */
 		World& operator=(const World& world) = delete;
@@ -110,23 +110,23 @@ namespace mage::rendering {
 
 		template< typename ComponentT, typename ActionT >
 		void ForEach(ActionT&& action) const;
-		
+
 		/**
 		 Clears this world.
 		 */
 		void Clear() noexcept;
-		
+
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 A reference to the device of this world.
 		 */
 		std::reference_wrapper< ID3D11Device > m_device;
-		
+
 		/**
 		 A reference to the display configuration manager of this world.
 		 */
@@ -136,11 +136,11 @@ namespace mage::rendering {
 		 A reference to the resource manager of this world.
 		 */
 		std::reference_wrapper< ResourceManager > m_resource_manager;
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 A vector containing the perspective cameras of this world.
 		 */

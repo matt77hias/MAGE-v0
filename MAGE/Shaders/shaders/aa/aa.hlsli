@@ -21,7 +21,7 @@
 void PreprocessAA(uint2 p_display,
 				  Texture2D< float4 > input_image,
 				  RWTexture2D< float4 > output_image) {
-	
+
 	#ifdef PRESERVE_ALPHA
 
 	const float4 hdr = input_image[p_display];

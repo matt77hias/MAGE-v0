@@ -16,7 +16,7 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-float4 PS(PSInputPositionNormalTexture input, 
+float4 PS(PSInputPositionNormalTexture input,
 		  uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
@@ -24,6 +24,6 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 
 	// Obtain the base color of the material.
 	const float4 base_color = GetMaterialBaseColor(input.tex_material);
-	
+
 	return base_color;
 }

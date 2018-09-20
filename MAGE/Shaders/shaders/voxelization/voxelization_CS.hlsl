@@ -38,9 +38,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	voxel_grid[flat_index].m_encoded_L = 0u;
 	voxel_grid[flat_index].m_encoded_n = 0u;
 
-	// If encoded_L is equal to the special value 0, representing an empty 
+	// If encoded_L is equal to the special value 0, representing an empty
 	// voxel, DecodeRadiance may not be called due to potential divisions by 0.
-	const float4 L = (0u != encoded_L) 
+	const float4 L = (0u != encoded_L)
 		? float4(DecodeRadiance(encoded_L), 1.0f) : 0.0f;
 
 	voxel_texture[thread_id] = L;

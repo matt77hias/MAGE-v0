@@ -37,7 +37,7 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Voxelization
 	//-------------------------------------------------------------------------
@@ -45,13 +45,13 @@ namespace mage::rendering {
 
 	VertexShaderPtr CreateVoxelizationVS(ResourceManager& resource_manager) {
 		using vertex_t = VertexPositionNormalTexture;
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_voxelization_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_voxelization_VS),
 						gsl::make_span(vertex_t::s_input_element_descs));
 	}
 
 	GeometryShaderPtr CreateVoxelizationGS(ResourceManager& resource_manager) {
-		return CreateGS(resource_manager, 
+		return CreateGS(resource_manager,
 						MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
@@ -60,40 +60,40 @@ namespace mage::rendering {
 						MAGE_SHADER_ARGS(g_voxelization_emissive_PS));
 	}
 
-	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager,
 										bool tsnm) {
 
-		return tsnm ? CreatePS(resource_manager, 
+		return tsnm ? CreatePS(resource_manager,
 							   MAGE_SHADER_ARGS(g_voxelization_tsnm_lambertian_PS))
-			        : CreatePS(resource_manager, 
+			        : CreatePS(resource_manager,
 							   MAGE_SHADER_ARGS(g_voxelization_lambertian_PS));
 	}
 
 	ComputeShaderPtr CreateVoxelizationCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_voxelization_CS));
 	}
-	
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Voxel Grid
 	//-------------------------------------------------------------------------
 	#pragma region
-	
+
 	VertexShaderPtr CreateVoxelGridVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_voxel_grid_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_voxel_grid_VS),
 						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	GeometryShaderPtr CreateVoxelGridGS(ResourceManager& resource_manager) {
-		return CreateGS(resource_manager, 
+		return CreateGS(resource_manager,
 						MAGE_SHADER_ARGS(g_voxel_grid_GS));
 	}
 
 	PixelShaderPtr CreateVoxelGridPS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_voxel_grid_PS));
 	}
 

@@ -12,10 +12,10 @@ namespace mage::rendering {
 
 	template< typename ResourceT >
 	[[nodiscard]]
-	inline ResourceManager::pool_type< ResourceT >& 
+	inline ResourceManager::pool_type< ResourceT >&
 		ResourceManager::GetPool() noexcept {
 
-		// This member method is non-const 
+		// This member method is non-const
 		// => this object instance is non-const
 		// => const_cast is safe.
 
@@ -25,7 +25,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< ModelDescriptor >& 
+	inline const ResourceManager::pool_type< ModelDescriptor >&
 		ResourceManager::GetPool< ModelDescriptor >() const noexcept {
 
 		return m_model_descriptor_pool;
@@ -33,7 +33,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< VertexShader >& 
+	inline const ResourceManager::pool_type< VertexShader >&
 		ResourceManager::GetPool< VertexShader >() const noexcept {
 
 		return m_vs_pool;
@@ -41,7 +41,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< HullShader >& 
+	inline const ResourceManager::pool_type< HullShader >&
 		ResourceManager::GetPool< HullShader >() const noexcept {
 
 		return m_hs_pool;
@@ -49,7 +49,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< DomainShader >& 
+	inline const ResourceManager::pool_type< DomainShader >&
 		ResourceManager::GetPool< DomainShader >() const noexcept {
 
 		return m_ds_pool;
@@ -57,7 +57,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< GeometryShader >& 
+	inline const ResourceManager::pool_type< GeometryShader >&
 		ResourceManager::GetPool< GeometryShader >() const noexcept {
 
 		return m_gs_pool;
@@ -65,7 +65,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< PixelShader >& 
+	inline const ResourceManager::pool_type< PixelShader >&
 		ResourceManager::GetPool< PixelShader >() const noexcept {
 
 		return m_ps_pool;
@@ -73,7 +73,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< ComputeShader >& 
+	inline const ResourceManager::pool_type< ComputeShader >&
 		ResourceManager::GetPool< ComputeShader >() const noexcept {
 
 		return m_cs_pool;
@@ -81,7 +81,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< SpriteFont >& 
+	inline const ResourceManager::pool_type< SpriteFont >&
 		ResourceManager::GetPool< SpriteFont >() const noexcept {
 
 		return m_sprite_font_pool;
@@ -89,7 +89,7 @@ namespace mage::rendering {
 
 	template<>
 	[[nodiscard]]
-	inline const ResourceManager::pool_type< Texture >& 
+	inline const ResourceManager::pool_type< Texture >&
 		ResourceManager::GetPool< Texture >() const noexcept {
 
 		return m_texture_pool;
@@ -104,7 +104,7 @@ namespace mage::rendering {
 
 	template< typename ResourceT >
 	[[nodiscard]]
-	inline bool 
+	inline bool
 		ResourceManager::Contains(const key_type< ResourceT >& guid) noexcept {
 
 		return GetPool< ResourceT >().Contains(guid);
@@ -126,8 +126,8 @@ namespace mage::rendering {
 									 const MeshDescriptor< VertexT, IndexT >& desc,
 									 bool export_as_MDL) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, *this, 
-												  key_type< ResourceT >(fname), 
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device, *this,
+												  key_type< ResourceT >(fname),
 												  desc, export_as_MDL);
 	}
 
@@ -141,7 +141,7 @@ namespace mage::rendering {
 
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
 												  key_type< ResourceT >(guid),
-												  compiled_shader, 
+												  compiled_shader,
 												  input_element_descs);
 	}
 
@@ -150,7 +150,7 @@ namespace mage::rendering {
 		HullShaderPtr >
 		ResourceManager::GetOrCreate(const std::wstring& guid,
 									 const CompiledShader& compiled_shader) {
-		
+
 		return GetPool< ResourceT >().GetOrCreate(guid, m_device,
 												  key_type< ResourceT >(guid),
 												  compiled_shader);
@@ -206,8 +206,8 @@ namespace mage::rendering {
 		ResourceManager::GetOrCreate(const std::wstring& fname,
 									 const SpriteFontDescriptor& desc) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
-												  key_type< ResourceT >(fname), 
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
+												  key_type< ResourceT >(fname),
 												  desc);
 	}
 
@@ -216,7 +216,7 @@ namespace mage::rendering {
 		TexturePtr >
 		ResourceManager::GetOrCreate(const std::wstring& fname) {
 
-		return GetPool< ResourceT >().GetOrCreate(fname, m_device, 
+		return GetPool< ResourceT >().GetOrCreate(fname, m_device,
 												  key_type< ResourceT >(fname));
 	}
 

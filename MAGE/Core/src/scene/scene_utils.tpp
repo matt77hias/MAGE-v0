@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename ElementT, typename... ConstructorArgsT >
-	ProxyPtr< ElementT > AddElement(AlignedVector< ElementT >& elements, 
+	ProxyPtr< ElementT > AddElement(AlignedVector< ElementT >& elements,
 									ConstructorArgsT&&... args) {
 		std::size_t index = 0u;
 		for (auto& element : elements) {
@@ -32,7 +32,7 @@ namespace mage {
 	}
 
 	template< typename ElementT, typename BaseT, typename... ConstructorArgsT >
-	ProxyPtr< ElementT > AddElementPtr(AlignedVector< UniquePtr< BaseT > >& elements, 
+	ProxyPtr< ElementT > AddElementPtr(AlignedVector< UniquePtr< BaseT > >& elements,
 									   ConstructorArgsT&&... args) {
 		std::size_t index = 0u;
 		for (auto& element : elements) {

@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector with the method 
+	 Calculates an orthonormal basis from a given unit vector with the method
 	 of Hughes and Möller.
 
 	 @pre			@a n is normalized.
@@ -24,21 +24,21 @@ namespace mage {
 	 @return		An orthonormal basis (i.e. object-to-world transformation).
 	 */
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		OrthonormalBasis_HughesMoller(FXMVECTOR n) noexcept {
 
 		const auto abs_n   = XMVectorAbs(n);
 		const auto n_ortho = (XMVectorGetX(abs_n) > XMVectorGetZ(abs_n))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
 			: XMVectorSet(0.0f, -XMVectorGetZ(n), XMVectorGetY(n), 0.0f);
-		
+
 		const auto t = XMVector3Normalize(XMVector3Cross(n_ortho, n));
 		const auto b = XMVector3Cross(n, t);
 		return { t, b, n, g_XMIdentityR3 };
 	}
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector with the method 
+	 Calculates an orthonormal basis from a given unit vector with the method
 	 of Frisvad.
 
 	 @pre			@a n is normalized.
@@ -47,7 +47,7 @@ namespace mage {
 	 @return		An orthonormal basis (i.e. object-to-world transformation).
 	 */
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		OrthonormalBasis_Frisvad(FXMVECTOR n) noexcept {
 
 		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
@@ -65,7 +65,7 @@ namespace mage {
 	}
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector with the method 
+	 Calculates an orthonormal basis from a given unit vector with the method
 	 of Duff, Burgess, Christensen, Hery, Kensler, Liani and Villemin.
 
 	 @pre			@a n is normalized.
@@ -74,7 +74,7 @@ namespace mage {
 	 @return		An orthonormal basis (i.e. object-to-world transformation).
 	 */
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		OrthonormalBasis_Duff(FXMVECTOR n) noexcept {
 
 		const auto [nx, ny, nz] = XMStore< F32x3 >(n);
@@ -97,7 +97,7 @@ namespace mage {
 	 @return		An orthonormal basis (i.e. object-to-world transformation).
 	 */
 	[[nodiscard]]
-	inline const XMMATRIX XM_CALLCONV 
+	inline const XMMATRIX XM_CALLCONV
 		OrthonormalBasis(FXMVECTOR n) noexcept {
 
 		return OrthonormalBasis_Duff(n);

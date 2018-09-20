@@ -15,11 +15,11 @@ namespace mage::rendering {
 
 	DirectionalLight::DirectionalLight() noexcept
 		: Component(),
-		m_shadows(false), 
-		m_clipping_planes(0.1f, 1.0f), 
-		m_size(1.0f, 1.0f), 
-		m_aabb(), 
-		m_base_color(RGB(1.0f)), 
+		m_shadows(false),
+		m_clipping_planes(0.1f, 1.0f),
+		m_size(1.0f, 1.0f),
+		m_aabb(),
+		m_base_color(RGB(1.0f)),
 		m_irradiance(1.0f) {
 
 		// Update the bounding volumes.
@@ -28,10 +28,10 @@ namespace mage::rendering {
 
 	DirectionalLight::DirectionalLight(
 		const DirectionalLight& light) noexcept = default;
-	
+
 	DirectionalLight::DirectionalLight(
 		DirectionalLight&& light) noexcept = default;
-	
+
 	DirectionalLight::~DirectionalLight() = default;
 
 	DirectionalLight& DirectionalLight
@@ -55,7 +55,7 @@ namespace mage::rendering {
 		const auto range  = GetRange();
 		const auto [x, y] = m_size;
 
-		m_aabb   = AABB(Point3(-0.5f * x, -0.5f * y, 0.0f), 
+		m_aabb   = AABB(Point3(-0.5f * x, -0.5f * y, 0.0f),
 						Point3( 0.5f * x,  0.5f * y, range));
 	}
 }

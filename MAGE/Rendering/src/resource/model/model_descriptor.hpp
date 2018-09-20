@@ -50,19 +50,19 @@ namespace mage::rendering {
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @param[in]		export_as_MDL
-						@c true if the model descriptor needs to be exported as 
+						@c true if the model descriptor needs to be exported as
 						MDL file. @c false otherwise.
 		 @throws		Exception
 						Failed to initialize the model descriptor.
 		 */
 		template< typename VertexT, typename IndexT >
-		explicit ModelDescriptor(ID3D11Device& device, 
-								 ResourceManager& resource_manager, 
+		explicit ModelDescriptor(ID3D11Device& device,
+								 ResourceManager& resource_manager,
 								 std::wstring fname,
-								 const  MeshDescriptor< VertexT, IndexT >& 
-								 desc = MeshDescriptor< VertexT, IndexT >(), 
+								 const  MeshDescriptor< VertexT, IndexT >&
+								 desc = MeshDescriptor< VertexT, IndexT >(),
 								 bool export_as_MDL = false);
-		
+
 		/**
 		 Constructs a model descriptor from the given model descriptor.
 
@@ -123,9 +123,9 @@ namespace mage::rendering {
 
 		 @param[in]		name
 						The name of the material.
-		 @return		@c nullptr if this model descriptor contains no 
+		 @return		@c nullptr if this model descriptor contains no
 						material matching the given name @a name.
-		 @return		A pointer to the material of this model 
+		 @return		A pointer to the material of this model
 						descriptor matching the given name @a name.
 		 */
 		[[nodiscard]]
@@ -135,32 +135,32 @@ namespace mage::rendering {
 		 Traverses all materials of this model descriptor.
 
 		 @tparam		ActionT
-						An action to perform on all materials of this model 
-						descriptor. The action must accept @c const 
+						An action to perform on all materials of this model
+						descriptor. The action must accept @c const
 						@c Material& values.
 		*/
 		template< typename ActionT >
 		void ForEachMaterial(ActionT&& action) const;
-		
+
 		/**
 		 Returns the model part corresponding to the given name.
 
 		 @param[in]		name
 						The name of the model part.
-		 @return		@c nullptr if this model descriptor contains no model 
+		 @return		@c nullptr if this model descriptor contains no model
 						part matching the given name @a name.
-		 @return		A pointer to the model part of this model descriptor 
+		 @return		A pointer to the model part of this model descriptor
 						matching the given name @a name.
 		 */
 		[[nodiscard]]
 		const ModelPart* GetModelPart(std::string_view name) const noexcept;
-		
+
 		/**
 		 Traverses all model parts of this model descriptor.
 
 		 @tparam		ActionT
 						An action to perform on all model parts of this model
-						descriptor. The action must accept @c const 
+						descriptor. The action must accept @c const
 						@c ModelPart& values.
 		 */
 		template< typename ActionT >
@@ -178,13 +178,13 @@ namespace mage::rendering {
 		SharedPtr< const Mesh > m_mesh;
 
 		/**
-		 A vector containing all the materials of the model of this model 
+		 A vector containing all the materials of the model of this model
 		 descriptor.
 		 */
 		std::vector< Material > m_materials;
 
 		/**
-		 A vector containing all the model parts of the model of this model 
+		 A vector containing all the model parts of the model of this model
 		 descriptor.
 		 */
 		AlignedVector< ModelPart > m_model_parts;

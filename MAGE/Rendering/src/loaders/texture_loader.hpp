@@ -36,8 +36,8 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to import the texture from file.
 	 */
-	void ImportTextureFromFile(const std::filesystem::path& path, 
-		                       ID3D11Device& device, 
+	void ImportTextureFromFile(const std::filesystem::path& path,
+		                       ID3D11Device& device,
 		                       NotNull< ID3D11ShaderResourceView** > texture_srv);
 
 	/**
@@ -52,7 +52,7 @@ namespace mage::rendering::loader {
 	 @throws		Exception
 					Failed to export the texture to file.
 	 */
-	void ExportTextureToFile(const std::filesystem::path& path, 
-		                     ID3D11DeviceContext& device_context, 
+	void ExportTextureToFile(const std::filesystem::path& path,
+		                     ID3D11DeviceContext& device_context,
 		                     ID3D11Resource& texture);
 }

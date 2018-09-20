@@ -34,7 +34,7 @@ namespace mage::rendering::loader {
 	 @param[in]		path
 					A reference to the path.
 	 @param[out]	vertices
-					A reference to a vector containing the vertices of the 
+					A reference to a vector containing the vertices of the
 					mesh.
 	 @param[out]	indices
 					A reference to a vector containing the indices of the mesh.
@@ -42,8 +42,8 @@ namespace mage::rendering::loader {
 					Failed to import the mesh from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportMSHMeshFromFile(const std::filesystem::path& path, 
-		                       std::vector< VertexT >& vertices, 
+	void ImportMSHMeshFromFile(const std::filesystem::path& path,
+		                       std::vector< VertexT >& vertices,
 		                       std::vector< IndexT >& indices);
 
 	/**
@@ -56,7 +56,7 @@ namespace mage::rendering::loader {
 	 @param[in]		path
 					A reference to the path.
 	 @param[in]		vertices
-					A reference to a vector containing the vertices of the 
+					A reference to a vector containing the vertices of the
 					mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
@@ -64,8 +64,8 @@ namespace mage::rendering::loader {
 					Failed to export the mesh to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportMSHMeshToFile(const std::filesystem::path& path, 
-		                     const std::vector< VertexT >& vertices, 
+	void ExportMSHMeshToFile(const std::filesystem::path& path,
+		                     const std::vector< VertexT >& vertices,
 		                     const std::vector< IndexT >& indices);
 }
 

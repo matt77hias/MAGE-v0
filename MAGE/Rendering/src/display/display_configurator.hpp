@@ -31,7 +31,7 @@ namespace mage::rendering {
 		 @param[in]		pixel_format
 						The pixel format.
 		 */
-		explicit DisplayConfigurator(DXGI_FORMAT pixel_format 
+		explicit DisplayConfigurator(DXGI_FORMAT pixel_format
 			                         = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
@@ -46,7 +46,7 @@ namespace mage::rendering {
 		 */
 		explicit DisplayConfigurator(ComPtr< DXGIAdapter > adapter,
 			                         ComPtr< DXGIOutput > output,
-			                         DXGI_FORMAT pixel_format 
+			                         DXGI_FORMAT pixel_format
 			                         = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
@@ -79,7 +79,7 @@ namespace mage::rendering {
 
 		 @param[in]		configurator
 						A reference to a display configurator to copy.
-		 @return		A reference to the copy of the given display 
+		 @return		A reference to the copy of the given display
 						configurator (i.e. this display configurator).
 		 */
 		DisplayConfigurator& operator=(
@@ -90,7 +90,7 @@ namespace mage::rendering {
 
 		 @param[in]		configurator
 						A reference to a display configurator to move.
-		 @return		A reference to the moved display configurator (i.e. 
+		 @return		A reference to the moved display configurator (i.e.
 						this display configurator).
 		 */
 		DisplayConfigurator& operator=(
@@ -101,8 +101,8 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Configurs the display by enumerating the available display modes and 
-		 options associated with the adapter output of the physical adapter 
+		 Configurs the display by enumerating the available display modes and
+		 options associated with the adapter output of the physical adapter
 		 with the most dedicated video memory.
 
 		 @return		A success/error value.

@@ -607,7 +607,7 @@ uint Min(uint4 v) {
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -620,7 +620,7 @@ half UNormToSNorm(half v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -633,7 +633,7 @@ half2 UNormToSNorm(half2 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -646,7 +646,7 @@ half3 UNormToSNorm(half3 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -659,7 +659,7 @@ half4 UNormToSNorm(half4 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -672,7 +672,7 @@ float UNormToSNorm(float v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -685,7 +685,7 @@ float2 UNormToSNorm(float2 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -698,7 +698,7 @@ float3 UNormToSNorm(float3 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -711,7 +711,7 @@ float4 UNormToSNorm(float4 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -724,7 +724,7 @@ double UNormToSNorm(double v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -737,7 +737,7 @@ double2 UNormToSNorm(double2 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -750,7 +750,7 @@ double3 UNormToSNorm(double3 v_unorm) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) to a signed 
+ Converts the given unsigned normalized value ([0,1] range) to a signed
  normalized value ([-1,1] range).
 
  @pre			The given value is an unsigned normalized value ([0,1] range).
@@ -767,7 +767,7 @@ double4 UNormToSNorm(double4 v_unorm) {
 //-----------------------------------------------------------------------------
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -780,7 +780,7 @@ half SNormToUNorm(half v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -793,7 +793,7 @@ half2 SNormToUNorm(half2 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -806,7 +806,7 @@ half3 SNormToUNorm(half3 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -819,7 +819,7 @@ half4 SNormToUNorm(half4 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -832,7 +832,7 @@ float SNormToUNorm(float v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -845,7 +845,7 @@ float2 SNormToUNorm(float2 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -858,7 +858,7 @@ float3 SNormToUNorm(float3 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -871,7 +871,7 @@ float4 SNormToUNorm(float4 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -884,7 +884,7 @@ double SNormToUNorm(double v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -897,7 +897,7 @@ double2 SNormToUNorm(double2 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -910,7 +910,7 @@ double3 SNormToUNorm(double3 v_snorm) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ Converts the given signed normalized value ([-1,1] range) to an unsigned
  normalized value ([0,1] range).
 
  @pre			The given value is a signed normalized value ([-1,1] range).
@@ -1042,12 +1042,12 @@ uint3 UnflattenIndex(uint index, uint3 count) {
 //-----------------------------------------------------------------------------
 
 /**
- Apply the homogeneous divide on the given position expressed in projection 
+ Apply the homogeneous divide on the given position expressed in projection
  space.
 
  @param[in]		p_proj
 				The position expressed in projection space.
- @return		The position expressed in projection space after the homogeneous 
+ @return		The position expressed in projection space after the homogeneous
 				divide (i.e. the implicit w coordinate is equal to one).
  */
 float3 HomogeneousDivide(float4 p_proj) {
@@ -1056,7 +1056,7 @@ float3 HomogeneousDivide(float4 p_proj) {
 }
 
 /**
- Converts the given (linear) z coordinate expressed in view space to the 
+ Converts the given (linear) z coordinate expressed in view space to the
  corresponding (non-linear) z coordinate expressed in NDC space.
 
  @param[in]		p_view_z
@@ -1071,7 +1071,7 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 }
 
 /**
- Converts the given position expressed in NDC space to the corresponding 
+ Converts the given position expressed in NDC space to the corresponding
  position expressed in UV space.
 
  @param[in]		p_ndc_xy
@@ -1084,7 +1084,7 @@ float2 NDCtoUV(float2 p_ndc_xy) {
 }
 
 /**
- Converts the given position expressed in UV space to the corresponding 
+ Converts the given position expressed in UV space to the corresponding
  position expressed in NDC space.
 
  @param[in]		p_uv
@@ -1097,7 +1097,7 @@ float2 UVtoNDC(float2 p_uv) {
 }
 
 /**
- Converts the given direction expressed in world space to the corresponding 
+ Converts the given direction expressed in world space to the corresponding
  direction expressed in voxel UVW space.
 
  @param[in]		d_world
@@ -1110,7 +1110,7 @@ float3 WorldToVoxelUVWDirection(float3 d_world) {
 }
 
 /**
- Converts the given direction expressed in voxel UVW space to the corresponding 
+ Converts the given direction expressed in voxel UVW space to the corresponding
  direction expressed in world space.
 
  @param[in]		d_uvw
@@ -1175,7 +1175,7 @@ float SqrSinToSqrTan(float sqr_s) {
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the dot product of the two given directions and clamps negative 
+ Calculates the dot product of the two given directions and clamps negative
  values to 0.
 
  @pre			@a d1 is normalized.
@@ -1184,7 +1184,7 @@ float SqrSinToSqrTan(float sqr_s) {
 				The first direction.
  @param[in]		d2
 				The second direction.
- @return		The dot product of the two given directions clamped between 0 
+ @return		The dot product of the two given directions clamped between 0
 				and 1 (i.e. clamped cosine).
  */
 float sat_dot(float3 d1, float3 d2) {
@@ -1192,7 +1192,7 @@ float sat_dot(float3 d1, float3 d2) {
 }
 
 /**
- Calculates the reflected direction of the given direction about the given 
+ Calculates the reflected direction of the given direction about the given
  normal.
 
  @pre			@a n is normalized.
@@ -1201,7 +1201,7 @@ float sat_dot(float3 d1, float3 d2) {
 				The normal.
  @param[in]		l
 				The direction.
- @return		The normalized reflected vector of the given direction about 
+ @return		The normalized reflected vector of the given direction about
 				the given normal.
  */
 float3 ReflectedDirection(float3 n, float3 l) {

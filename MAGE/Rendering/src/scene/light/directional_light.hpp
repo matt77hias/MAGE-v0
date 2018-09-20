@@ -34,7 +34,7 @@ namespace mage::rendering {
 		 Constructs a directional light.
 		 */
 		DirectionalLight() noexcept;
-		
+
 		/**
 		 Constructs a directional light from the given directional light.
 
@@ -58,7 +58,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given directional light to this directional light.
@@ -75,7 +75,7 @@ namespace mage::rendering {
 
 		 @param[in]		light
 						A reference to the directional light to move.
-		 @return		A reference to the moved directional light (i.e. this 
+		 @return		A reference to the moved directional light (i.e. this
 						directional light).
 		 */
 		DirectionalLight& operator=(DirectionalLight&& light) noexcept;
@@ -87,7 +87,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this directional light.
 
-		 @return		A reference to the sRGB base color of this directional 
+		 @return		A reference to the sRGB base color of this directional
 						light.
 		 */
 		[[nodiscard]]
@@ -98,7 +98,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this directional light.
 
-		 @return		A reference to the sRGB base color of this directional 
+		 @return		A reference to the sRGB base color of this directional
 						light.
 		 */
 		[[nodiscard]]
@@ -109,7 +109,7 @@ namespace mage::rendering {
 		/**
 		 Returns the irradiance of this directional light.
 
-		 @return		The irradiance in watts per square meter of this 
+		 @return		The irradiance in watts per square meter of this
 						directional light.
 		 */
 		[[nodiscard]]
@@ -119,7 +119,7 @@ namespace mage::rendering {
 
 		/**
 		 Sets the irradiance of this directional light to the given irradiance.
-		 
+
 		 @param[in]		irradiance
 						The irradiance in watts per square meter.
 		 */
@@ -155,7 +155,7 @@ namespace mage::rendering {
 		/**
 		 Returns the range of this directional light expressed in light space.
 
-		 @return		The range of this directional light expressed in light 
+		 @return		The range of this directional light expressed in light
 						space.
 		 */
 		[[nodiscard]]
@@ -166,16 +166,16 @@ namespace mage::rendering {
 		/**
 		 Returns the range of this directional light expressed in world space.
 
-		 @return		The range of this directional light expressed in world 
+		 @return		The range of this directional light expressed in world
 						space.
-		 @note			Non-uniform scaling is not supported for directional 
+		 @note			Non-uniform scaling is not supported for directional
 						lights.
 		 */
 		[[nodiscard]]
 		F32 GetWorldRange() const noexcept;
 
 		/**
-		 Sets the range of this directional light to the given value expressed 
+		 Sets the range of this directional light to the given value expressed
 		 in light space.
 
 		 @param[in]		range
@@ -228,7 +228,7 @@ namespace mage::rendering {
 		 Sets shadows for this directional light to the given value.
 
 		 @param[in]		shadows
-						@c true if shadows should be used for this directional 
+						@c true if shadows should be used for this directional
 						light. @c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
@@ -236,19 +236,19 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the clipping planes of this directional light expressed in 
+		 Returns the clipping planes of this directional light expressed in
 		 light space.
 
-		 @return		The clipping planes of this directional light expressed 
+		 @return		The clipping planes of this directional light expressed
 						in light space.
 		 */
 		[[nodiscard]]
 		const F32x2 GetClippingPlanes() const noexcept {
 			return m_clipping_planes;
 		}
-		
+
 		/**
-		 Sets the clipping planes of this directional light expressed in light 
+		 Sets the clipping planes of this directional light expressed in light
 		 space to the given clipping planes.
 
 		 @param[in]		clipping_planes
@@ -262,10 +262,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the size of the projection plane of this directional light 
+		 Returns the size of the projection plane of this directional light
 		 expressed in directional light.
 
-		 @return		The size of the projection plane of this directional 
+		 @return		The size of the projection plane of this directional
 						light expressed in light space.
 		 */
 		[[nodiscard]]
@@ -274,7 +274,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the size of the projection plane of this directional light 
+		 Sets the size of the projection plane of this directional light
 		 expressed in light space to the given size.
 
 		 @param[in]		size
@@ -285,14 +285,14 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the light-to-projection matrix of the light camera of this 
+		 Returns the light-to-projection matrix of the light camera of this
 		 directional light.
 
-		 @return		The light-to-projection matrix of the light camera of 
+		 @return		The light-to-projection matrix of the light camera of
 						this directional light.
 		 */
 		[[nodiscard]]
-		const XMMATRIX XM_CALLCONV 
+		const XMMATRIX XM_CALLCONV
 			GetLightToProjectionMatrix() const noexcept {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -321,19 +321,19 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A flag indicating whether shadows should be calculated or not not for 
+		 A flag indicating whether shadows should be calculated or not not for
 		 this directional light.
 		 */
 		bool m_shadows;
 
 		/**
-		 The clipping planes of this directional light expressed in light 
+		 The clipping planes of this directional light expressed in light
 		 space.
 		 */
 		F32x2 m_clipping_planes;
 
 		/**
-		 The size of the projection plane of this directional light expressed 
+		 The size of the projection plane of this directional light expressed
 		 in light space.
 		 */
 		F32x2 m_size;
@@ -349,7 +349,7 @@ namespace mage::rendering {
 		RGB m_base_color;
 
 		/**
-		 The irradiance (which is equal to the exitant radiance/radiosity) in 
+		 The irradiance (which is equal to the exitant radiance/radiosity) in
 		 watts per square meter of this directional light.
 		 */
 		F32 m_irradiance;

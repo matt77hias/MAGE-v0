@@ -58,7 +58,7 @@ float3 ToneMap_ACESFilmic(float3 hdr) {
 	static const float d = 0.59f;
 	static const float e = 0.14f;
 
-	return (hdr * (a * hdr + b)) 
+	return (hdr * (a * hdr + b))
 		 / (hdr * (c * hdr + d) + e);
 }
 

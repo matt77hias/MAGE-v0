@@ -6,8 +6,8 @@
 //-----------------------------------------------------------------------------
 
 /**
- Calculates an orthonormal basis from a given unit vector with the method of 
- Hughes and Möller.
+ Calculates an orthonormal basis from a given unit vector with the method of
+ Hughes and MÃ¶ller.
 
  @pre			@a n is normalized.
  @param[in]		n
@@ -25,7 +25,7 @@ float3x3 OrthonormalBasis_HughesMoller(float3 n) {
 }
 
 /**
- Calculates an orthonormal basis from a given unit vector with the method of 
+ Calculates an orthonormal basis from a given unit vector with the method of
  Duff, Burgess, Christensen, Hery, Kensler, Liani and Villemin.
 
  @pre			@a n is normalized.

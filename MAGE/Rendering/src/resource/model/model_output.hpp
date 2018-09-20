@@ -54,12 +54,12 @@ namespace mage::rendering {
 			: m_aabb(),
 			m_sphere(),
 			m_transform(),
-			m_start_index(0u), 
+			m_start_index(0u),
 			m_nb_indices(0u),
 			m_child(s_default_child),
 			m_parent(s_default_parent),
 			m_material(s_default_material) {}
-		
+
 		/**
 		 Constructs a model part from the given model part.
 
@@ -69,7 +69,7 @@ namespace mage::rendering {
 		ModelPart(const ModelPart& model_part) = default;
 
 		/**
-		 Constructs a model part by moving the given model part. 
+		 Constructs a model part by moving the given model part.
 
 		 @param[in]		model_part
 						A reference to the model part to move.
@@ -90,7 +90,7 @@ namespace mage::rendering {
 
 		 @param[in]		model_part
 						A reference to the model part to copy.
-		 @return		A reference to the copy of the given model part (i.e. 
+		 @return		A reference to the copy of the given model part (i.e.
 						this model part).
 		 */
 		ModelPart& operator=(const ModelPart& model_part) = default;
@@ -100,7 +100,7 @@ namespace mage::rendering {
 
 		 @param[in]		model_part
 						A reference to the model part to move.
-		 @return		A reference to the moved model part (i.e. this model 
+		 @return		A reference to the moved model part (i.e. this model
 						part).
 		 */
 		ModelPart& operator=(ModelPart&& model_part) noexcept = default;
@@ -112,7 +112,7 @@ namespace mage::rendering {
 		/**
 		 Checks whether this model part has the default child as its child.
 
-		 @return		@c true if this model part has the default child as its 
+		 @return		@c true if this model part has the default child as its
 						child. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -123,7 +123,7 @@ namespace mage::rendering {
 		/**
 		 Checks whether this model part has the default parent as its parent.
 
-		 @return		@c true if this model part has the default parent as 
+		 @return		@c true if this model part has the default parent as
 						its parent. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -132,10 +132,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Checks whether this model part has the default material as its 
+		 Checks whether this model part has the default material as its
 		 material.
 
-		 @return		@c true if this model part has the default material as 
+		 @return		@c true if this model part has the default material as
 						its material. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -171,13 +171,13 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The start index of this model part in the mesh of the corresponding 
+		 The start index of this model part in the mesh of the corresponding
 		 model.
 		 */
 		U32 m_start_index;
 
 		/**
-		 The number of indices of this model part in the mesh of the 
+		 The number of indices of this model part in the mesh of the
 		 corresponding model.
 		 */
 		U32 m_nb_indices;
@@ -286,7 +286,7 @@ namespace mage::rendering {
 		void XM_CALLCONV AddModelPart(ModelPart model_part);
 
 		/**
-		 Checks whether this model output contains a model part with the given 
+		 Checks whether this model output contains a model part with the given
 		 name.
 
 		 @param[in]		name
@@ -294,7 +294,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		bool ContainsModelPart(std::string_view name) noexcept;
-		
+
 		/**
 		 Starts the creation of a new model part.
 
@@ -302,9 +302,9 @@ namespace mage::rendering {
 						The model part to add.
 		 */
 		void XM_CALLCONV StartModelPart(ModelPart model_part);
-		
+
 		/**
-		 Sets the name of the material of the last model part to the given 
+		 Sets the name of the material of the last model part to the given
 		 material name.
 
 		 @pre			This model output contains at least one model part.
@@ -312,7 +312,7 @@ namespace mage::rendering {
 						The name of the material.
 		 */
 		void SetMaterial(std::string material);
-		
+
 		/**
 		 Ends the creation of the last model part.
 

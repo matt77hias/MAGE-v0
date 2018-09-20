@@ -36,8 +36,8 @@ namespace mage::rendering::loader {
 					Failed to import the model from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportMDLModelFromFile(const std::filesystem::path& path, 
-								const ResourceManager& resource_manager, 
+	void ImportMDLModelFromFile(const std::filesystem::path& path,
+								const ResourceManager& resource_manager,
 								ModelOutput< VertexT, IndexT >& model_output);
 
 	/**
@@ -55,7 +55,7 @@ namespace mage::rendering::loader {
 					Failed to export the model to file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ExportMDLModelToFile(const std::filesystem::path& path, 
+	void ExportMDLModelToFile(const std::filesystem::path& path,
 							  const ModelOutput< VertexT, IndexT >& model_output);
 }
 

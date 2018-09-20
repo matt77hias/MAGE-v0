@@ -18,7 +18,7 @@ namespace mage::rendering {
 	/**
 	 A class of indexed sprite batch meshes.
 	 */
-	class SpriteBatchMesh : 
+	class SpriteBatchMesh :
 		public PrimitiveBatchMesh< VertexPositionColorTexture, U16 > {
 
 	public:
@@ -28,23 +28,23 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The minimum number of sprites to draw per batch for sprite batch 
+		 The minimum number of sprites to draw per batch for sprite batch
 		 meshes.
 		 */
 		static constexpr std::size_t s_min_sprites_per_batch = 128;
 
 		/**
-		 The maximum number of sprites to draw per batch (i.e. the maximum 
-		 number of sprites that can be represented by a single sprite batch 
+		 The maximum number of sprites to draw per batch (i.e. the maximum
+		 number of sprites that can be represented by a single sprite batch
 		 mesh) for sprite batch meshes.
 		 */
 		static constexpr std::size_t s_max_sprites_per_batch = 2048;
-		
+
 		/**
 		 The number of vertices per sprite.
 		 */
 		static constexpr std::size_t s_vertices_per_sprite = 4; // quad = 2 triangles
-		
+
 		/**
 		 The number of indices per sprite.
 		 */
@@ -55,10 +55,10 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the minimum number of vertices to draw per batch for sprite 
+		 Returns the minimum number of vertices to draw per batch for sprite
 		 batch meshes.
 
-		 @return		The minimum number of vertices to draw per batch for 
+		 @return		The minimum number of vertices to draw per batch for
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
@@ -67,10 +67,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the maximum number of vertices to draw per batch for sprite 
+		 Returns the maximum number of vertices to draw per batch for sprite
 		 batch meshes.
 
-		 @return		The maximum number of vertices to draw per batch for 
+		 @return		The maximum number of vertices to draw per batch for
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
@@ -79,10 +79,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the minimum number of indices to draw per batch for sprite 
+		 Returns the minimum number of indices to draw per batch for sprite
 		 batch meshes.
 
-		 @return		The minimum number of indices to draw per batch for 
+		 @return		The minimum number of indices to draw per batch for
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
@@ -91,10 +91,10 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the maximum number of indices to draw per batch for sprite 
+		 Returns the maximum number of indices to draw per batch for sprite
 		 batch meshes.
 
-		 @return		The maximum number of indices to draw per batch for 
+		 @return		The maximum number of indices to draw per batch for
 						sprite batch meshes.
 		 */
 		[[nodiscard]]
@@ -112,10 +112,10 @@ namespace mage::rendering {
 		 @param[in]		device
 						A reference to the device.
 		 @throws		Exception
-						Failed to setup the vertex buffer of the sprite batch 
+						Failed to setup the vertex buffer of the sprite batch
 						mesh.
 		 @throws		Exception
-						Failed to setup the index buffer of the sprite batch 
+						Failed to setup the index buffer of the sprite batch
 						mesh.
 		 */
 		explicit SpriteBatchMesh(ID3D11Device& device);
@@ -150,7 +150,7 @@ namespace mage::rendering {
 
 		 @param[in]		mesh
 						A reference to the sprite batch mesh to copy.
-		 @return		A reference to the copy of the given sprite batch mesh 
+		 @return		A reference to the copy of the given sprite batch mesh
 						(i.e. this sprite batch mesh).
 		 */
 		SpriteBatchMesh& operator=(const SpriteBatchMesh& mesh) = delete;
@@ -160,7 +160,7 @@ namespace mage::rendering {
 
 		 @param[in]		mesh
 						A reference to the sprite batch mesh to move.
-		 @return		A reference to the moved sprite batch mesh (i.e. this 
+		 @return		A reference to the moved sprite batch mesh (i.e. this
 						sprite batch mesh).
 		 */
 		SpriteBatchMesh& operator=(SpriteBatchMesh&& mesh) noexcept;

@@ -39,9 +39,9 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit SpritePass(ID3D11Device& device, 
-							ID3D11DeviceContext& device_context, 
-							StateManager& state_manager, 
+		explicit SpritePass(ID3D11Device& device,
+							ID3D11DeviceContext& device_context,
+							StateManager& state_manager,
 							ResourceManager& resource_manager);
 
 		/**
@@ -74,7 +74,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the sprite pass to copy.
-		 @return		A reference to the copy of the given sprite pass (i.e. 
+		 @return		A reference to the copy of the given sprite pass (i.e.
 						this sprite pass).
 		 */
 		SpritePass& operator=(const SpritePass& pass) = delete;
@@ -84,7 +84,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the sprite pass to move.
-		 @return		A reference to the moved sprite pass (i.e. this sprite 
+		 @return		A reference to the moved sprite pass (i.e. this sprite
 						pass).
 		 */
 		SpritePass& operator=(SpritePass&& pass) noexcept;
@@ -117,7 +117,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 A reference to the device context of this sprite pass.
 		 */

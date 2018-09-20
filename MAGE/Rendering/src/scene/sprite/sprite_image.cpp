@@ -19,9 +19,9 @@ namespace mage::rendering {
 		m_base_color(RGBA(1.0f)),
 		m_base_color_texture_region{},
 		m_base_color_texture() {}
-	
+
 	SpriteImage::SpriteImage(const SpriteImage& sprite) noexcept = default;
-		
+
 	SpriteImage::SpriteImage(SpriteImage&& sprite) noexcept = default;
 
 	SpriteImage::~SpriteImage() = default;
@@ -34,16 +34,16 @@ namespace mage::rendering {
 
 	void SpriteImage::Draw(SpriteBatch& sprite_batch) const {
 		if (HasMaximumBaseColorTextureRegion()) {
-			sprite_batch.Draw(GetBaseColorSRV(), 
+			sprite_batch.Draw(GetBaseColorSRV(),
 				              XMLoad(m_base_color),
-				              m_sprite_effects, 
+				              m_sprite_effects,
 				              m_sprite_transform,
 				              nullptr);
 		}
 		else {
-			sprite_batch.Draw(GetBaseColorSRV(), 
+			sprite_batch.Draw(GetBaseColorSRV(),
 				              XMLoad(m_base_color),
-				              m_sprite_effects, 
+				              m_sprite_effects,
 				              m_sprite_transform,
 				              &m_base_color_texture_region);
 		}

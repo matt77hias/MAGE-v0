@@ -37,14 +37,14 @@ RW_TEXTURE_2D(g_output,             float4, SLOT_UAV_IMAGE);
 #ifdef MSAA
 
 /**
- Returns the base color of the material from the GBuffer corresponding to the 
+ Returns the base color of the material from the GBuffer corresponding to the
  given super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @return		The base color of the material from the GBuffer corresponding 
+ @return		The base color of the material from the GBuffer corresponding
 				to the given super-sampled display position.
  */
 float3 GetGBufferMaterialBaseColor(uint2 p_ss_display, uint index) {
@@ -53,15 +53,15 @@ float3 GetGBufferMaterialBaseColor(uint2 p_ss_display, uint index) {
 }
 
 /**
- Returns the parameters of the material from the GBuffer corresponding to the 
+ Returns the parameters of the material from the GBuffer corresponding to the
  given super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @return		The parameters of the material [roughness, metalness] from the 
-				GBuffer corresponding to the given super-sampled display 
+ @return		The parameters of the material [roughness, metalness] from the
+				GBuffer corresponding to the given super-sampled display
 				position.
  */
 float2 GetGBufferMaterialParameters(uint2 p_ss_display, uint index) {
@@ -70,14 +70,14 @@ float2 GetGBufferMaterialParameters(uint2 p_ss_display, uint index) {
 }
 
 /**
- Returns the surface normal from the GBuffer corresponding to the given 
+ Returns the surface normal from the GBuffer corresponding to the given
  super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @return		The surface normal from the GBuffer expressed in world space 
+ @return		The surface normal from the GBuffer expressed in world space
 				corresponding to the given super-sampled display position.
  */
 float3 GetGBufferNormal(uint2 p_ss_display, uint index) {
@@ -86,14 +86,14 @@ float3 GetGBufferNormal(uint2 p_ss_display, uint index) {
 }
 
 /**
- Returns the surface position from the GBuffer corresponding to the given 
+ Returns the surface position from the GBuffer corresponding to the given
  super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
  @param[in]		index
 				The sample index.
- @return		The surface position from the GBuffer expressed in world space 
+ @return		The surface position from the GBuffer expressed in world space
 				corresponding to the given super-sampled display position.
  */
 float3 GetGBufferPosition(uint2 p_ss_display, uint index) {
@@ -107,12 +107,12 @@ float3 GetGBufferPosition(uint2 p_ss_display, uint index) {
 #else  // MSAA
 
 /**
- Returns the base color of the material from the GBuffer corresponding to the 
+ Returns the base color of the material from the GBuffer corresponding to the
  given super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
- @return		The base color of the material from the GBuffer corresponding 
+ @return		The base color of the material from the GBuffer corresponding
 				to the given super-sampled display position.
  */
 float3 GetGBufferMaterialBaseColor(uint2 p_ss_display) {
@@ -121,13 +121,13 @@ float3 GetGBufferMaterialBaseColor(uint2 p_ss_display) {
 }
 
 /**
- Returns the parameters of the material from the GBuffer corresponding to the 
+ Returns the parameters of the material from the GBuffer corresponding to the
  given super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
- @return		The parameters of the material [roughness, metalness] from the 
-				GBuffer corresponding to the given super-sampled display 
+ @return		The parameters of the material [roughness, metalness] from the
+				GBuffer corresponding to the given super-sampled display
 				position.
  */
 float2 GetGBufferMaterialParameters(uint2 p_ss_display) {
@@ -136,12 +136,12 @@ float2 GetGBufferMaterialParameters(uint2 p_ss_display) {
 }
 
 /**
- Returns the surface normal from the GBuffer corresponding to the given 
+ Returns the surface normal from the GBuffer corresponding to the given
  super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
- @return		The surface normal from the GBuffer expressed in world space 
+ @return		The surface normal from the GBuffer expressed in world space
 				corresponding to the given super-sampled display position.
  */
 float3 GetGBufferNormal(uint2 p_ss_display) {
@@ -150,12 +150,12 @@ float3 GetGBufferNormal(uint2 p_ss_display) {
 }
 
 /**
- Returns the surface position from the GBuffer corresponding to the given 
+ Returns the surface position from the GBuffer corresponding to the given
  super-sampled display position.
 
  @param[in]		p_display
 				The super-sampled display coordinates.
- @return		The surface position from the GBuffer expressed in world space 
+ @return		The surface position from the GBuffer expressed in world space
 				corresponding to the given super-sampled display position.
  */
 float3 GetGBufferPosition(uint2 p_ss_display) {

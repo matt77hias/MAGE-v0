@@ -78,7 +78,7 @@ namespace mage::rendering {
 
 		 @param[in]		renderer
 						A reference to the renderer to copy.
-		 @return		A reference to the copy of the given renderer (i.e. 
+		 @return		A reference to the copy of the given renderer (i.e.
 						this renderer).
 		 */
 		Renderer& operator=(const Renderer& renderer) = delete;

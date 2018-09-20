@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 
 /**
- Encodes the given unit vector from the [-1,1] range to the [0,1] range using a 
+ Encodes the given unit vector from the [-1,1] range to the [0,1] range using a
  XYZ encoding.
 
  @pre			@a u is unit vectorized.
@@ -24,7 +24,7 @@ float3 EncodeUnitVector_XYZ(float3 u) {
 }
 
 /**
- Decodes the given unit vector from the [0,1] range to the [-1,1] range using a 
+ Decodes the given unit vector from the [0,1] range to the [-1,1] range using a
  XYZ decoding.
 
  @param[in]		e_unorm
@@ -36,7 +36,7 @@ float3 DecodeUnitVector_XYZ(float3 e_unorm) {
 }
 
 /**
- Encodes the given unit vector from the [-1,1] range to the [0,1] range using a 
+ Encodes the given unit vector from the [-1,1] range to the [0,1] range using a
  XY encoding.
 
  @pre			@a u is unit vectorized.
@@ -49,7 +49,7 @@ float2 EncodeUnitVector_XY(float3 u) {
 }
 
 /**
- Decodes the given unit vector from the [0,1] range to the [-1,1] range using a 
+ Decodes the given unit vector from the [0,1] range to the [-1,1] range using a
  XY decoding.
 
  The z component will be positive and will be calculated from the x and y
@@ -66,7 +66,7 @@ float3 DecodeUnitVector_XY(float2 e_unorm) {
 }
 
 /**
- Encodes the given unit vector from the [-1,1] range to the [0,1] range using a 
+ Encodes the given unit vector from the [-1,1] range to the [0,1] range using a
  spherical encoding.
 
  @pre			@a u is unit vectorized.
@@ -82,7 +82,7 @@ float2 EncodeUnitVector_Spherical(float3 u) {
 }
 
 /**
- Decodes the given unit vector from the [0,1] range to the [-1,1] range using a 
+ Decodes the given unit vector from the [0,1] range to the [-1,1] range using a
  spherical decoding.
 
  @param[in]		e_unorm
@@ -100,13 +100,13 @@ float3 DecodeUnitVector_Spherical(float2 e_unorm) {
 	const float cos_theta = e_snorm.y;
 	const float sin_theta = CosToSin(cos_theta);
 
-	return float3(cos_phi * sin_theta, 
-				  sin_phi * sin_theta, 
+	return float3(cos_phi * sin_theta,
+				  sin_phi * sin_theta,
 				  cos_theta);
 }
 
 /**
- Encodes the given unit vector from the [-1,1] range to the [0,1] range using a 
+ Encodes the given unit vector from the [-1,1] range to the [0,1] range using a
  spheremap encoding.
 
  @pre			@a u is unit vectorized.
@@ -120,7 +120,7 @@ float2 EncodeUnitVector_SphereMap(float3 u) {
 }
 
 /**
- Decodes the given unit vector from the [0,1] range to the [-1,1] range using a 
+ Decodes the given unit vector from the [0,1] range to the [-1,1] range using a
  spheremap decoding.
 
  @param[in]		e_unorm
@@ -139,7 +139,7 @@ float2 OctahedronWrap(float2 v) {
 }
 
 /**
- Encodes the given unit vector from the [-1,1] range to the [0,1] range using a 
+ Encodes the given unit vector from the [-1,1] range to the [0,1] range using a
  octahedron encoding.
 
  @pre			@a u is unit vectorized.
@@ -155,7 +155,7 @@ float2 EncodeUnitVector_Octahedron(float3 u) {
 }
 
 /**
- Decodes the given unit vector from the [0,1] range to the [-1,1] range using a 
+ Decodes the given unit vector from the [0,1] range to the [-1,1] range using a
  octahedron decoding.
 
  @param[in]		e_unorm
@@ -164,7 +164,7 @@ float2 EncodeUnitVector_Octahedron(float3 u) {
  */
 float3 DecodeUnitVector_Octahedron(float2 e_unorm) {
 	const float2 e_snorm = UNormToSNorm(e_unorm);
-	const float3 e0      = { e_snorm.x, e_snorm.y, 
+	const float3 e0      = { e_snorm.x, e_snorm.y,
 		                     1.0f - abs(e_snorm.x) - abs(e_snorm.y) };
 	const float  s       = saturate(-e0.z);
 	const float2 u_xy    = e0.xy + (0.0f <= e0.xy ? -s : s);

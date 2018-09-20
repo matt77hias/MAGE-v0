@@ -12,10 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	ResourceManager::ResourceManager(ID3D11Device& device) 
-		: m_device(device), 
-		m_model_descriptor_pool(), 
-		m_vs_pool(), 
+	ResourceManager::ResourceManager(ID3D11Device& device)
+		: m_device(device),
+		m_model_descriptor_pool(),
+		m_vs_pool(),
 		m_hs_pool(),
 		m_ds_pool(),
 		m_gs_pool(),

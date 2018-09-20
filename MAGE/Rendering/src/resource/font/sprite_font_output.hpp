@@ -80,23 +80,23 @@ namespace mage::rendering {
 
 		 @param[in]		output
 						A reference to the sprite font output to move.
-		 @return		A reference to the moved sprite font output (i.e. this 
+		 @return		A reference to the moved sprite font output (i.e. this
 						sprite font output).
 		 */
 		SpriteFontOutput& operator=(SpriteFontOutput&& output) noexcept = default;
-	
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the texture of the sprite font of this sprite font 
+		 A pointer to the texture of the sprite font of this sprite font
 		 output.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 
 		/**
-		 A vector containing the glyphs of the sprite font of this sprite font 
+		 A vector containing the glyphs of the sprite font of this sprite font
 		 output.
 		 */
 		std::vector< Glyph > m_glyphs;
@@ -107,7 +107,7 @@ namespace mage::rendering {
 		wchar_t m_default_character;
 
 		/**
-		 The (extra) line spacing of the sprite font of this sprite font 
+		 The (extra) line spacing of the sprite font of this sprite font
 		 output.
 		 */
 		F32 m_line_spacing;

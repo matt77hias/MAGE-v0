@@ -70,14 +70,14 @@ namespace mage::input {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
 						A reference to the mouse to copy.
-		 @return		A reference to the copy of the given mouse (i.e. this 
+		 @return		A reference to the copy of the given mouse (i.e. this
 						mouse).
 		 */
 		Mouse& operator=(const Mouse& mouse) = delete;
@@ -128,7 +128,7 @@ namespace mage::input {
 
 		 @param[in]		button
 						The button.
-		 @return		@c true if the given button is passive. @c false 
+		 @return		@c true if the given button is passive. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -137,13 +137,13 @@ namespace mage::input {
 		}
 
 		/**
-		 Checks whether the given button is switched from being passive to 
+		 Checks whether the given button is switched from being passive to
 		 active or vice versa (i.e. activated or deactivated).
 
 		 @param[in]		button
 						The button.
-		 @return		@c true if the given button is switched from being 
-						passive to active or vice versa (i.e. activated or 
+		 @return		@c true if the given button is switched from being
+						passive to active or vice versa (i.e. activated or
 						deactivated). @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -157,7 +157,7 @@ namespace mage::input {
 
 		 @param[in]		button
 						The button.
-		 @return		@c true if the given button is activated. @c false 
+		 @return		@c true if the given button is activated. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -170,7 +170,7 @@ namespace mage::input {
 
 		 @param[in]		button
 						The button.
-		 @return		@c true if the given button is deactivated. @c false 
+		 @return		@c true if the given button is deactivated. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -297,10 +297,10 @@ namespace mage::input {
 		S32 m_delta_wheel;
 
 		/**
-		 The button states of this mouse. Each button state consists of two 
+		 The button states of this mouse. Each button state consists of two
 		 flags.
 
-		 The first flag indicates whether the button state switched from being 
+		 The first flag indicates whether the button state switched from being
 		 passive to active or vice versa (i.e. activated or deactivated).
 
 		 The second flag indicates whether the button state is active.

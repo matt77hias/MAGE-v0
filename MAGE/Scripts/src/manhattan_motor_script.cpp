@@ -14,7 +14,7 @@
 namespace mage::script {
 
 	ManhattanMotorScript::ManhattanMotorScript()
-		: BehaviorScript(), 
+		: BehaviorScript(),
 		m_velocity(2.0f) {}
 
 	ManhattanMotorScript::ManhattanMotorScript(
@@ -22,17 +22,17 @@ namespace mage::script {
 
 	ManhattanMotorScript::ManhattanMotorScript(
 		ManhattanMotorScript&& script) noexcept = default;
-	
+
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
 	ManhattanMotorScript& ManhattanMotorScript::operator=(
 		const ManhattanMotorScript& script) noexcept = default;
-	
+
 	ManhattanMotorScript& ManhattanMotorScript::operator=(
 		ManhattanMotorScript&& script) noexcept = default;
 
 	void ManhattanMotorScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
 	}
 
@@ -45,24 +45,24 @@ namespace mage::script {
 
 		const auto movement_magnitude = delta_time * m_velocity;
 
-		if (     keyboard.IsActive(DIK_UP) 
+		if (     keyboard.IsActive(DIK_UP)
 			  || keyboard.IsActive(DIK_W)) {
-			
+
 			transform.AddTranslationZ( movement_magnitude);
 		}
 		else if (keyboard.IsActive(DIK_DOWN)
 			  || keyboard.IsActive(DIK_S)) {
-			
+
 			transform.AddTranslationZ(-movement_magnitude);
 		}
 		else if (keyboard.IsActive(DIK_RIGHT)
 			  || keyboard.IsActive(DIK_D)) {
-			
+
 			transform.AddTranslationX( movement_magnitude);
 		}
 		else if (keyboard.IsActive(DIK_LEFT)
 			  || keyboard.IsActive(DIK_A)) {
-			
+
 			transform.AddTranslationX(-movement_magnitude);
 		}
 		else if (keyboard.IsActive(DIK_LSHIFT)) {

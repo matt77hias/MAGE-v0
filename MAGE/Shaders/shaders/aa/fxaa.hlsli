@@ -23,9 +23,9 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 void ApplyFXAA(uint2 p_display,
-			   float2 display_inv_resolution, 
-			   SamplerState input_sampler, 
-			   Texture2D< float4 > input_image, 
+			   float2 display_inv_resolution,
+			   SamplerState input_sampler,
+			   Texture2D< float4 > input_image,
 			   RWTexture2D< float4 > output_image) {
 
 	const float2 uv = ((float2)p_display + 0.5f) * display_inv_resolution;
@@ -46,10 +46,10 @@ void ApplyFXAA(uint2 p_display,
 		0.0833f,                // FxaaFloat  fxaaQualityEdgeThresholdMin
 		8.0f,                   // FxaaFloat  fxaaConsoleEdgeSharpness
 		0.125f,                 // FxaaFloat  fxaaConsoleEdgeThreshold
-		0.05f,                  // FxaaFloat  fxaaConsoleEdgeThresholdMin                         
+		0.05f,                  // FxaaFloat  fxaaConsoleEdgeThresholdMin
 		0.0f                    // FxaaFloat4 fxaaConsole360ConstDir
 	);
-	
+
 	const float4 hdr = AA_INVERSE_TONE_MAP_FUNCTION(ldr);
 
 	// Store the resolved radiance.

@@ -38,7 +38,7 @@ namespace mage::rendering {
 						Failed to setup this constant buffer.
 		 */
 		explicit ConstantBuffer(ID3D11Device& device);
-		
+
 		/**
 		 Constructs a constant buffer from the given constant buffer.
 
@@ -54,7 +54,7 @@ namespace mage::rendering {
 						A reference to the constant buffer to move.
 		 */
 		ConstantBuffer(ConstantBuffer&& buffer) noexcept = default;
-		
+
 		/**
 		 Destructs this constant buffer.
 		 */
@@ -62,7 +62,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given constant buffer to this constant buffer.
@@ -79,7 +79,7 @@ namespace mage::rendering {
 
 		 @param[in]		buffer
 						A reference to the constant buffer to move.
-		 @return		A reference to the moved constant buffer (i.e. this 
+		 @return		A reference to the moved constant buffer (i.e. this
 						constant buffer).
 		 */
 		ConstantBuffer& operator=(ConstantBuffer&& buffer) noexcept = default;
@@ -99,31 +99,31 @@ namespace mage::rendering {
 						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext& device_context, const T& data);
-		
+
 		/**
 		 Returns the buffer resource of this constant buffer.
 
-		 @return		A reference to the buffer resource of this constant 
+		 @return		A reference to the buffer resource of this constant
 						buffer.
 		 */
 		[[nodiscard]]
 		ID3D11Buffer& Get() const noexcept {
 			return *m_buffer.Get();
 		}
-		
+
 		/**
 		 Binds this constant buffer.
 
-		 @pre			@a slot < 
+		 @pre			@a slot <
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set the 
-						constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT 
+						The index into the device's zero-based array to set the
+						constant buffer to (ranges from 0 to
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
 						- 1).
 		 */
 		template< typename PipelineStageT >
@@ -134,7 +134,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 Sets up the resource buffer of this constant buffer.
 

@@ -19,7 +19,7 @@ void GS(point GSInputPositionColor input[1],
 		for (uint i = 0u; i < 14u; ++i) {
 			const float3 offset  = OffsettedUnitCube(i) * g_voxel_size;
 			const float3 p_world = input[0].p_world + offset;
-			
+
 			PSInputColor output;
 			output.p = Transform(p_world,
 								 g_world_to_camera,

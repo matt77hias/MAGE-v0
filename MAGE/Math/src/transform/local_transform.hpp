@@ -26,7 +26,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a local transform from the given translation, rotation and 
+		 Constructs a local transform from the given translation, rotation and
 		 scale component.
 
 		 @param[in]		translation
@@ -36,8 +36,8 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit LocalTransform(F32x3 translation = { 0.0f, 0.0f, 0.0f }, 
-			                    F32x3 rotation    = { 0.0f, 0.0f, 0.0f }, 
+		explicit LocalTransform(F32x3 translation = { 0.0f, 0.0f, 0.0f },
+			                    F32x3 rotation    = { 0.0f, 0.0f, 0.0f },
 			                    F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_padding0(0),
@@ -45,9 +45,9 @@ namespace mage {
 			m_padding1(0),
 			m_scale(std::move(scale)),
 			m_padding2(0) {}
-		
+
 		/**
-		 Constructs a local transform from the given translation, rotation and 
+		 Constructs a local transform from the given translation, rotation and
 		 scale component.
 
 		 @param[in]		translation
@@ -66,7 +66,7 @@ namespace mage {
 			m_padding1(0),
 			m_scale(),
 			m_padding2(0) {
-			
+
 			SetTranslation(translation);
 			SetRotation(rotation);
 			SetScale(scale);
@@ -92,7 +92,7 @@ namespace mage {
 		 Destructs this local transform.
 		 */
 		~LocalTransform() = default;
-		
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
@@ -102,7 +102,7 @@ namespace mage {
 
 		 @param[in]		transform
 						A reference to the local transform to copy.
-		 @return		A reference to the copy of the given local transform 
+		 @return		A reference to the copy of the given local transform
 						(i.e. this local transform).
 		 */
 		LocalTransform& operator=(const LocalTransform& transform) = default;
@@ -112,7 +112,7 @@ namespace mage {
 
 		 @param[in]		transform
 						A reference to the local transform to move.
-		 @return		A reference to the moved local transform (i.e. this 
+		 @return		A reference to the moved local transform (i.e. this
 						local transform).
 		 */
 		LocalTransform& operator=(LocalTransform&& transform) = default;
@@ -123,7 +123,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the translation component of this local transform 
+		 Sets the x-value of the translation component of this local transform
 		 to the given value.
 
 		 @param[in]		x
@@ -132,9 +132,9 @@ namespace mage {
 		void SetTranslationX(F32 x) noexcept {
 			m_translation[0] = x;
 		}
-		
+
 		/**
-		 Sets the y-value of the translation component of this local transform 
+		 Sets the y-value of the translation component of this local transform
 		 to the given value.
 
 		 @param[in]		y
@@ -143,9 +143,9 @@ namespace mage {
 		void SetTranslationY(F32 y) noexcept {
 			m_translation[1] = y;
 		}
-		
+
 		/**
-		 Sets the z-value of the translation component of this local transform 
+		 Sets the z-value of the translation component of this local transform
 		 to the given value.
 
 		 @param[in]		z
@@ -154,9 +154,9 @@ namespace mage {
 		void SetTranslationZ(F32 z) noexcept {
 			m_translation[2] = z;
 		}
-		
+
 		/**
-		 Sets the translation component of this local transform to the given 
+		 Sets the translation component of this local transform to the given
 		 translation component.
 
 		 @param[in]		x
@@ -171,9 +171,9 @@ namespace mage {
 			SetTranslationY(y);
 			SetTranslationZ(z);
 		}
-		
+
 		/**
-		 Sets the translation component of this local transform to the given 
+		 Sets the translation component of this local transform to the given
 		 translation component.
 
 		 @param[in]		translation
@@ -182,9 +182,9 @@ namespace mage {
 		void SetTranslation(F32x3 translation) noexcept {
 			m_translation = std::move(translation);
 		}
-		
+
 		/**
-		 Sets the translation component of this local transform to the given 
+		 Sets the translation component of this local transform to the given
 		 translation component.
 
 		 @param[in]		translation
@@ -195,7 +195,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the translation component of this local 
+		 Adds the given x-value to the translation component of this local
 		 transform.
 
 		 @param[in]		x
@@ -204,7 +204,7 @@ namespace mage {
 		void AddTranslationX(F32 x) noexcept {
 			m_translation[0] += x;
 		}
-		
+
 		/**
 		 Adds the given y-value to the translation component of this local transform.
 
@@ -214,7 +214,7 @@ namespace mage {
 		void AddTranslationY(F32 y) noexcept {
 			m_translation[1] += y;
 		}
-		
+
 		/**
 		 Adds the given z-value to the translation component of this local transform.
 
@@ -224,9 +224,9 @@ namespace mage {
 		void AddTranslationZ(F32 z) noexcept {
 			m_translation[2] += z;
 		}
-		
+
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this local transform.
 
 		 @param[in]		x
@@ -241,9 +241,9 @@ namespace mage {
 			AddTranslationY(y);
 			AddTranslationZ(z);
 		}
-		
+
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this local transform.
 
 		 @param[in]		translation
@@ -252,56 +252,56 @@ namespace mage {
 		void AddTranslation(const F32x3& translation) noexcept {
 			AddTranslation(translation[0], translation[1], translation[2]);
 		}
-		
+
 		/**
-		 Adds the given translation component to the translation component of 
+		 Adds the given translation component to the translation component of
 		 this local transform.
 
 		 @param[in]		translation
 						The translation component to add.
 		 */
 		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
-			AddTranslation(XMVectorGetX(translation), 
-				           XMVectorGetY(translation), 
+			AddTranslation(XMVectorGetX(translation),
+				           XMVectorGetY(translation),
 				           XMVectorGetZ(translation));
 		}
 
 		/**
-		 Returns the x-value of the translation component of this local 
+		 Returns the x-value of the translation component of this local
 		 transform.
 
-		 @return		The x-value of the translation component of this 
+		 @return		The x-value of the translation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetTranslationX() const noexcept {
 			return m_translation[0];
 		}
-		
+
 		/**
-		 Returns the y-value of the translation component of this local 
+		 Returns the y-value of the translation component of this local
 		 transform.
 
-		 @return		The y-value of the translation component of this 
+		 @return		The y-value of the translation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetTranslationY() const noexcept {
 			return m_translation[1];
 		}
-		
+
 		/**
-		 Returns the z-value of the translation component of this local 
+		 Returns the z-value of the translation component of this local
 		 transform.
 
-		 @return		The z-value of the translation component of this 
+		 @return		The z-value of the translation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetTranslationZ() const noexcept {
 			return m_translation[2];
 		}
-		
+
 		/**
 		 Returns the translation component of this local transform.
 
@@ -311,7 +311,7 @@ namespace mage {
 		const F32x3 GetTranslation() const noexcept {
 			return m_translation;
 		}
-		
+
 		/**
 		 Returns the translation component of this local transform.
 
@@ -323,10 +323,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the object-to-parent translation matrix of this local 
+		 Returns the object-to-parent translation matrix of this local
 		 transform.
 
-		 @return		The object-to-parent translation matrix of this 
+		 @return		The object-to-parent translation matrix of this
 						local transform.
 		 */
 		[[nodiscard]]
@@ -335,10 +335,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the parent-to-object translation matrix of this local 
+		 Returns the parent-to-object translation matrix of this local
 		 transform.
 
-		 @return		The parent-to-object translation matrix of this 
+		 @return		The parent-to-object translation matrix of this
 						local transform.
 		 */
 		[[nodiscard]]
@@ -354,7 +354,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the rotation component of this local transform to 
+		 Sets the x-value of the rotation component of this local transform to
 		 the given value.
 
 		 @param[in]		x
@@ -363,9 +363,9 @@ namespace mage {
 		void SetRotationX(F32 x) noexcept {
 			m_rotation[0] = x;
 		}
-		
+
 		/**
-		 Sets the y-value of the rotation component of this local transform to 
+		 Sets the y-value of the rotation component of this local transform to
 		 the given value.
 
 		 @param[in]		y
@@ -374,9 +374,9 @@ namespace mage {
 		void SetRotationY(F32 y) noexcept {
 			m_rotation[1] = y;
 		}
-		
+
 		/**
-		 Sets the z-value of the rotation component of this local transform to 
+		 Sets the z-value of the rotation component of this local transform to
 		 the given value.
 
 		 @param[in]		z
@@ -385,9 +385,9 @@ namespace mage {
 		void SetRotationZ(F32 z) noexcept {
 			m_rotation[2] = z;
 		}
-		
+
 		/**
-		 Sets the rotation component of this local transform to the given 
+		 Sets the rotation component of this local transform to the given
 		 rotation component.
 
 		 @param[in]		x
@@ -402,9 +402,9 @@ namespace mage {
 			SetRotationY(y);
 			SetRotationZ(z);
 		}
-		
+
 		/**
-		 Sets the rotation component of this local transform to the given 
+		 Sets the rotation component of this local transform to the given
 		 rotation component.
 
 		 @param[in]		rotation
@@ -415,7 +415,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation component of this local transform to the given 
+		 Sets the rotation component of this local transform to the given
 		 rotation component.
 
 		 @param[in]		rotation
@@ -424,9 +424,9 @@ namespace mage {
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
 			m_rotation = XMStore< F32x3 >(rotation);
 		}
-		
+
 		/**
-		 Sets the rotation component of this local transform to a rotation of 
+		 Sets the rotation component of this local transform to a rotation of
 		 the given angle around the given normal.
 
 		 @param[in]		normal
@@ -434,11 +434,11 @@ namespace mage {
 		 @param[in]		angle
 						The angle.
 		 */
-		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, 
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal,
 			                                        F32 angle) noexcept {
 
 			const XMMATRIX rotation = XMMatrixRotationNormal(normal, angle);
-			
+
 			// cos instead of sin in case the angles are not in [-1,1]
 			m_rotation[1] = -std::asin(XMVectorGetY(rotation.r[2]));
 			const F32 cp  = std::cos(m_rotation[1]);
@@ -447,9 +447,9 @@ namespace mage {
 			const F32 cy  = XMVectorGetZ(rotation.r[2]) / cp;
 			m_rotation[0] = std::acos(cy);
 		}
-		
+
 		/**
-		 Adds the given x-value to the rotation component of this local 
+		 Adds the given x-value to the rotation component of this local
 		 transform.
 
 		 @param[in]		x
@@ -458,9 +458,9 @@ namespace mage {
 		void AddRotationX(F32 x) noexcept {
 			m_rotation[0] += x;
 		}
-		
+
 		/**
-		 Adds the given y-value to the rotation component of this local 
+		 Adds the given y-value to the rotation component of this local
 		 transform.
 
 		 @param[in]		y
@@ -469,9 +469,9 @@ namespace mage {
 		void AddRotationY(F32 y) noexcept {
 			m_rotation[1] += y;
 		}
-		
+
 		/**
-		 Adds the given z-value to the rotation component of this local 
+		 Adds the given z-value to the rotation component of this local
 		 transform.
 
 		 @param[in]		z
@@ -480,9 +480,9 @@ namespace mage {
 		void AddRotationZ(F32 z) noexcept {
 			m_rotation[2] += z;
 		}
-		
+
 		/**
-		 Adds the given rotation component to the rotation component of this 
+		 Adds the given rotation component to the rotation component of this
 		 local transform.
 
 		 @param[in]		x
@@ -497,9 +497,9 @@ namespace mage {
 			AddRotationY(y);
 			AddRotationZ(z);
 		}
-		
+
 		/**
-		 Adds the given rotation component to the rotation component of this 
+		 Adds the given rotation component to the rotation component of this
 		 local transform.
 
 		 @param[in]		rotation
@@ -508,23 +508,23 @@ namespace mage {
 		void AddRotation(const F32x3& rotation) noexcept {
 			AddRotation(rotation[0], rotation[1], rotation[2]);
 		}
-		
+
 		/**
-		 Adds the given rotation component to the rotation component of this 
+		 Adds the given rotation component to the rotation component of this
 		 local transform.
 
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
 		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
-			AddRotation(XMVectorGetX(rotation), 
-				        XMVectorGetY(rotation), 
+			AddRotation(XMVectorGetX(rotation),
+				        XMVectorGetY(rotation),
 				        XMVectorGetZ(rotation));
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this local 
-		 transform and clamps the resulting rotation component of this local 
+		 Adds the given x-value to the rotation component of this local
+		 transform and clamps the resulting rotation component of this local
 		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -538,14 +538,14 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation[0] = ClampAngleRadians(m_rotation[0] + x, 
-				                               min_angle, 
+			m_rotation[0] = ClampAngleRadians(m_rotation[0] + x,
+				                               min_angle,
 				                               max_angle);
 		}
 
 		/**
-		 Adds the given y-value to the rotation component of this local 
-		 transform and clamps the resulting rotation component of this local 
+		 Adds the given y-value to the rotation component of this local
+		 transform and clamps the resulting rotation component of this local
 		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -559,14 +559,14 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation[1] = ClampAngleRadians(m_rotation[1] + y, 
-				                               min_angle, 
+			m_rotation[1] = ClampAngleRadians(m_rotation[1] + y,
+				                               min_angle,
 				                               max_angle);
 		}
 
 		/**
-		 Adds the given z-value to the rotation component of this local 
-		 transform and clamps the resulting rotation component of this local 
+		 Adds the given z-value to the rotation component of this local
+		 transform and clamps the resulting rotation component of this local
 		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -580,14 +580,14 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
-			m_rotation[2] = ClampAngleRadians(m_rotation[2] + z, 
-				                               min_angle, 
+			m_rotation[2] = ClampAngleRadians(m_rotation[2] + z,
+				                               min_angle,
 				                               max_angle);
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of this 
-		 local transform and clamps the resulting rotation component of this 
+		 Adds the given rotation component to the rotation component of this
+		 local transform and clamps the resulting rotation component of this
 		 local transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -604,8 +604,8 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(F32 x, F32 y, F32 z, 
-			                     F32 min_angle, 
+		void AddAndClampRotation(F32 x, F32 y, F32 z,
+			                     F32 min_angle,
 			                     F32 max_angle) noexcept {
 
 			AddAndClampRotationX(x, min_angle, max_angle);
@@ -614,8 +614,8 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of this 
-		 local transform and clamps the resulting rotation component of this 
+		 Adds the given rotation component to the rotation component of this
+		 local transform and clamps the resulting rotation component of this
 		 local transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -628,20 +628,20 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(const F32x3& rotation, 
-			                     F32 min_angle, 
+		void AddAndClampRotation(const F32x3& rotation,
+			                     F32 min_angle,
 			                     F32 max_angle) noexcept {
 
-			AddAndClampRotation(rotation[0], 
-				                rotation[1], 
-				                rotation[2], 
-				                min_angle, 
+			AddAndClampRotation(rotation[0],
+				                rotation[1],
+				                rotation[2],
+				                min_angle,
 				                max_angle);
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of this 
-		 local transform and clamps the resulting rotation component of this 
+		 Adds the given rotation component to the rotation component of this
+		 local transform and clamps the resulting rotation component of this
 		 local transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
@@ -654,50 +654,50 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
-			                                 F32 min_angle, 
+		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation,
+			                                 F32 min_angle,
 			                                 F32 max_angle) noexcept {
 
-			AddAndClampRotation(XMVectorGetX(rotation), 
-				                XMVectorGetY(rotation), 
-				                XMVectorGetZ(rotation), 
-				                min_angle, 
+			AddAndClampRotation(XMVectorGetX(rotation),
+				                XMVectorGetY(rotation),
+				                XMVectorGetZ(rotation),
+				                min_angle,
 				                max_angle);
 		}
 
 		/**
 		 Returns the x-value of the rotation component of this local transform.
 
-		 @return		The x-value of the rotation component of this 
+		 @return		The x-value of the rotation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetRotationX() const noexcept {
 			return m_rotation[0];
 		}
-		
+
 		/**
 		 Returns the y-value of the rotation component of this local transform.
 
-		 @return		The y-value of the rotation component of this 
+		 @return		The y-value of the rotation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetRotationY() const noexcept {
 			return m_rotation[1];
 		}
-		
+
 		/**
 		 Returns the z-value of the rotation component of this local transform.
 
-		 @return		The z-value of the rotation component of this 
+		 @return		The z-value of the rotation component of this
 						local transform.
 		 */
 		[[nodiscard]]
 		F32 GetRotationZ() const noexcept {
 			return m_rotation[2];
 		}
-		
+
 		/**
 		 Returns the rotation component of this local transform.
 
@@ -707,7 +707,7 @@ namespace mage {
 		const F32x3 GetRotation() const noexcept {
 			return m_rotation;
 		}
-		
+
 		/**
 		 Returns the rotation component of this local transform.
 
@@ -719,10 +719,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the object-to-parent rotation quaternion of this local 
+		 Returns the object-to-parent rotation quaternion of this local
 		 transform.
 
-		 @return		The object-to-parent rotation quaternion of this local 
+		 @return		The object-to-parent rotation quaternion of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -732,10 +732,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the parent-to-object rotation quaternion of this local 
+		 Returns the parent-to-object rotation quaternion of this local
 		 transform.
 
-		 @return		The parent-to-object rotation quaternion of this local 
+		 @return		The parent-to-object rotation quaternion of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -746,7 +746,7 @@ namespace mage {
 		/**
 		 Returns the object-to-parent rotation matrix of this local transform.
 
-		 @return		The object-to-parent rotation matrix of this local 
+		 @return		The object-to-parent rotation matrix of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -758,7 +758,7 @@ namespace mage {
 		/**
 		 Returns the parent-to-object rotation matrix of this local transform.
 
-		 @return		The parent-to-object rotation matrix of this local 
+		 @return		The parent-to-object rotation matrix of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -774,7 +774,7 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Sets the x-value of the scale component of this local transform to the 
+		 Sets the x-value of the scale component of this local transform to the
 		 given value.
 
 		 @param[in]		x
@@ -783,9 +783,9 @@ namespace mage {
 		void SetScaleX(F32 x) noexcept {
 			m_scale[0] = x;
 		}
-		
+
 		/**
-		 Sets the y-value of the scale component of this local transform to the 
+		 Sets the y-value of the scale component of this local transform to the
 		 given value.
 
 		 @param[in]		y
@@ -794,9 +794,9 @@ namespace mage {
 		void SetScaleY(F32 y) noexcept {
 			m_scale[1] = y;
 		}
-		
+
 		/**
-		 Sets the z-value of the scale component of this local transform to the 
+		 Sets the z-value of the scale component of this local transform to the
 		 given value.
 
 		 @param[in]		z
@@ -807,7 +807,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this local transform to the given scale 
+		 Sets the scale component of this local transform to the given scale
 		 component.
 
 		 @param[in]		s
@@ -816,9 +816,9 @@ namespace mage {
 		void SetScale(F32 s) noexcept {
 			SetScale(s, s, s);
 		}
-		
+
 		/**
-		 Sets the scale component of this local transform to the given scale 
+		 Sets the scale component of this local transform to the given scale
 		 component.
 
 		 @param[in]		x
@@ -833,9 +833,9 @@ namespace mage {
 			SetScaleY(y);
 			SetScaleZ(z);
 		}
-		
+
 		/**
-		 Sets the scale component of this local transform to the given scale 
+		 Sets the scale component of this local transform to the given scale
 		 component.
 
 		 @param[in]		scale
@@ -846,7 +846,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this local transform to the given scale 
+		 Sets the scale component of this local transform to the given scale
 		 component.
 
 		 @param[in]		scale
@@ -865,7 +865,7 @@ namespace mage {
 		void AddScaleX(F32 x) noexcept {
 			m_scale[0] += x;
 		}
-		
+
 		/**
 		 Adds the given y-value to the scale component of this local transform.
 
@@ -875,7 +875,7 @@ namespace mage {
 		void AddScaleY(F32 y) noexcept {
 			m_scale[1] += y;
 		}
-		
+
 		/**
 		 Adds the given z-value to the scale component of this local transform.
 
@@ -887,7 +887,7 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this 
+		 Adds the given scale component to the scale component of this
 		 local transform.
 
 		 @param[in]		s
@@ -896,9 +896,9 @@ namespace mage {
 		void AddScale(F32 s) noexcept {
 			AddScale(s, s, s);
 		}
-		
+
 		/**
-		 Adds the given scale component to the scale component of this 
+		 Adds the given scale component to the scale component of this
 		 local transform.
 
 		 @param[in]		x
@@ -913,9 +913,9 @@ namespace mage {
 			AddScaleY(y);
 			AddScaleZ(z);
 		}
-		
+
 		/**
-		 Adds the given scale component to the scale component of this 
+		 Adds the given scale component to the scale component of this
 		 local transform.
 
 		 @param[in]		scale
@@ -926,51 +926,51 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this 
+		 Adds the given scale component to the scale component of this
 		 local transform.
 
 		 @param[in]		scale
 						The scale component to add.
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
-			AddScale(XMVectorGetX(scale), 
-				     XMVectorGetY(scale), 
+			AddScale(XMVectorGetX(scale),
+				     XMVectorGetY(scale),
 				     XMVectorGetZ(scale));
 		}
-		
+
 		/**
 		 Returns the x-value of the scale component of this local transform.
 
-		 @return		The x-value of the scale component of this local 
+		 @return		The x-value of the scale component of this local
 						transform.
 		 */
 		[[nodiscard]]
 		F32 GetScaleX() const noexcept {
 			return m_scale[0];
 		}
-		
+
 		/**
 		 Returns the y-value of the scale component of this local transform.
 
-		 @return		The y-value of the scale component of this local 
+		 @return		The y-value of the scale component of this local
 						transform.
 		 */
 		[[nodiscard]]
 		F32 GetScaleY() const noexcept {
 			return m_scale[1];
 		}
-		
+
 		/**
 		 Returns the z-value of the scale component of this local transform.
 
-		 @return		The z-value of the scale component of this local 
+		 @return		The z-value of the scale component of this local
 						transform.
 		 */
 		[[nodiscard]]
 		F32 GetScaleZ() const noexcept {
 			return m_scale[2];
 		}
-		
+
 		/**
 		 Returns the scale component of this local transform.
 
@@ -980,7 +980,7 @@ namespace mage {
 		const F32x3 GetScale() const noexcept {
 			return m_scale;
 		}
-		
+
 		/**
 		 Returns the scale component of this local transform.
 
@@ -994,7 +994,7 @@ namespace mage {
 		/**
 		 Returns the object-to-parent scale matrix of this local transform.
 
-		 @return		The scale object-to-parent matrix of this local 
+		 @return		The scale object-to-parent matrix of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -1005,7 +1005,7 @@ namespace mage {
 		/**
 		 Returns the parent-to-object scale matrix of this local transform.
 
-		 @return		The parent-to-object scale matrix of this local 
+		 @return		The parent-to-object scale matrix of this local
 						transform.
 		 */
 		[[nodiscard]]
@@ -1021,10 +1021,10 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Returns the position of the local origin of this local transform 
+		 Returns the position of the local origin of this local transform
 		 expressed in object space coordinates.
 
-		 @return		The position of the local origin of this local 
+		 @return		The position of the local origin of this local
 						transform expressed in object space coordinates.
 		 */
 		[[nodiscard]]
@@ -1033,41 +1033,41 @@ namespace mage {
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this local transform 
+		 Returns the direction of the local x-axis of this local transform
 		 expressed in object space coordinates.
 
-		 @return		The direction of the local x-axis of this local 
+		 @return		The direction of the local x-axis of this local
 						transform expressed in object space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisX() const noexcept {
 			return { 1.0f, 0.0f, 0.0f, 0.0f };
 		}
-		
+
 		/**
-		 Returns the direction of the local y-axis of this local transform 
+		 Returns the direction of the local y-axis of this local transform
 		 expressed in object space coordinates.
 
-		 @return		The direction of the local y-axis of this local 
+		 @return		The direction of the local y-axis of this local
 						transform expressed in object space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisY() const noexcept {
 			return { 0.0f, 1.0f, 0.0f, 0.0f };
 		}
-		
+
 		/**
-		 Returns the direction of the local z-axis of this local transform 
+		 Returns the direction of the local z-axis of this local transform
 		 expressed in object space coordinates.
 
-		 @return		The direction of the local z-axis of this local 
+		 @return		The direction of the local z-axis of this local
 						transform expressed in object space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectAxisZ() const noexcept {
 			return { 0.0f, 0.0f, 1.0f, 0.0f };
 		}
-		
+
 		#pragma endregion
 
 		//---------------------------------------------------------------------
@@ -1076,10 +1076,10 @@ namespace mage {
 		#pragma region
 
 		/**
-		 Returns the position of the local origin of this local transform 
+		 Returns the position of the local origin of this local transform
 		 expressed in parent space coordinates.
 
-		 @return		The position of the local origin of this local 
+		 @return		The position of the local origin of this local
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]]
@@ -1088,41 +1088,41 @@ namespace mage {
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this local transform 
+		 Returns the direction of the local x-axis of this local transform
 		 expressed in parent space coordinates.
 
-		 @return		The direction of the local x-axis of this local 
+		 @return		The direction of the local x-axis of this local
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
 			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
 		}
-		
+
 		/**
-		 Returns the direction of the local y-axis of this transform local 
+		 Returns the direction of the local y-axis of this transform local
 		 expressed in parent space coordinates.
 
-		 @return		The direction of the local y-axis of this local 
+		 @return		The direction of the local y-axis of this local
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
 			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
 		}
-		
+
 		/**
-		 Returns the direction of the local z-axis of this transform local 
+		 Returns the direction of the local z-axis of this transform local
 		 expressed in parent space coordinates.
 
-		 @return		The direction of the local z-axis of this local 
+		 @return		The direction of the local z-axis of this local
 						transform expressed in parent space coordinates.
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
 			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
 		}
-		
+
 		#pragma endregion
 
 		//---------------------------------------------------------------------
@@ -1138,8 +1138,8 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScaleV(), 
-				                                GetRotationV(), 
+			return XMMatrixAffineTransformation(GetScaleV(),
+				                                GetRotationV(),
 				                                GetTranslationV());
 		}
 
@@ -1157,98 +1157,98 @@ namespace mage {
 		}
 
 		/**
-		 Transforms the given vector expressed in object space coordinates to 
+		 Transforms the given vector expressed in object space coordinates to
 		 parent space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in object space coordinates.
-		 @return		The transformed vector expressed in parent space 
+		 @return		The transformed vector expressed in parent space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformObjectToParent(FXMVECTOR vector) const noexcept {
-			
+
 			return XMVector4Transform(vector, GetObjectToParentMatrix());
 		}
 
 		/**
-		 Transforms the given point expressed in object space coordinates to 
+		 Transforms the given point expressed in object space coordinates to
 		 parent space coordinates.
 
 		 @param[in]		point
 						The point expressed in object space coordinates.
-		 @return		The transformed point expressed in parent space 
+		 @return		The transformed point expressed in parent space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformObjectToParentPoint(FXMVECTOR point) const noexcept {
-			
+
 			return XMVector3TransformCoord(point, GetObjectToParentMatrix());
 		}
 
 		/**
-		 Transforms the given direction expressed in object space coordinates to 
+		 Transforms the given direction expressed in object space coordinates to
 		 parent space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in object space coordinates.
-		 @return		The transformed direction expressed in parent space 
+		 @return		The transformed direction expressed in parent space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
-			
+
 			return XMVector3TransformNormal(direction, GetObjectToParentMatrix());
 		}
 
 		/**
-		 Transforms the given vector expressed in parent space coordinates to 
+		 Transforms the given vector expressed in parent space coordinates to
 		 object space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in parent space coordinates.
-		 @return		The transformed vector expressed in object space 
+		 @return		The transformed vector expressed in object space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformParentToObject(FXMVECTOR vector) const noexcept {
-			
+
 			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
 		/**
-		 Transforms the given point expressed in parent space coordinates to 
+		 Transforms the given point expressed in parent space coordinates to
 		 object space coordinates.
 
 		 @param[in]		point
 						The point expressed in parent space coordinates.
-		 @return		The transformed point expressed in object space 
+		 @return		The transformed point expressed in object space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformParentToObjectPoint(FXMVECTOR point) const noexcept {
-			
+
 			return XMVector3TransformCoord(point, GetParentToObjectMatrix());
 		}
 
 		/**
-		 Transforms the given direction expressed in parent space coordinates to 
+		 Transforms the given direction expressed in parent space coordinates to
 		 object space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in parent space coordinates.
-		 @return		The transformed direction expressed in object space 
+		 @return		The transformed direction expressed in object space
 						coordinates.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV 
+		const XMVECTOR XM_CALLCONV
 			TransformParentToObjectDirection(FXMVECTOR direction) const noexcept {
-			
+
 			return XMVector3TransformNormal(direction, GetParentToObjectMatrix());
 		}
 

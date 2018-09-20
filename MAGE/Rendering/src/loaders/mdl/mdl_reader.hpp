@@ -43,12 +43,12 @@ namespace mage::rendering::loader {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 @param[in]		model_output
-						A reference to the model output for storing the model 
+						A reference to the model output for storing the model
 						data from file.
 		 */
-		explicit MDLReader(ResourceManager& resource_manager, 
+		explicit MDLReader(ResourceManager& resource_manager,
 						   ModelOutput< VertexT, IndexT >& model_output);
-		
+
 		/**
 		 Constructs a MDL reader from the given MDL reader.
 
@@ -79,7 +79,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		reader
 						A reference to a MDL reader to copy.
-		 @return		A reference to the copy of the given MDL reader (i.e. 
+		 @return		A reference to the copy of the given MDL reader (i.e.
 						this MDL reader).
 		 */
 		MDLReader& operator=(const MDLReader& reader) = delete;
@@ -89,7 +89,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		reader
 						A reference to a MDL reader to move.
-		 @return		A reference to the moved MDL reader (i.e. this MDL 
+		 @return		A reference to the moved MDL reader (i.e. this MDL
 						reader).
 		 */
 		MDLReader& operator=(MDLReader&& reader) = delete;
@@ -133,7 +133,7 @@ namespace mage::rendering::loader {
 		void ReadMDLSubModel();
 
 		/**
-		 Reads a Material Library definition and imports the materials 
+		 Reads a Material Library definition and imports the materials
 		 corresponding to the model.
 
 		 @throws		Exception
@@ -153,7 +153,7 @@ namespace mage::rendering::loader {
 		ResourceManager& m_resource_manager;
 
 		/**
-		 A reference to the model output containing the model data of this MDL 
+		 A reference to the model output containing the model data of this MDL
 		 reader.
 		 */
 		ModelOutput< VertexT, IndexT >& m_model_output;

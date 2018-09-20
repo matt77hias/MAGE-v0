@@ -30,7 +30,7 @@ SAMPLER_STATE(g_anisotropic_mirror_sampler, SLOT_SAMPLER_ANISOTROPIC_MIRROR);
 SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
 
 //-----------------------------------------------------------------------------
-// Constant Buffers 
+// Constant Buffers
 //-----------------------------------------------------------------------------
 
 CBUFFER(World, SLOT_CBUFFER_WORLD) {
@@ -73,27 +73,27 @@ CBUFFER(World, SLOT_CBUFFER_WORLD) {
 	 The center of the voxel grid expressed in world space.
 	 */
 	float3   g_voxel_grid_center           : packoffset(c2.x);
-	
+
 	/**
 	 The maximum mip level of the voxel texture.
 	 */
 	uint     g_voxel_texture_max_mip_level : packoffset(c2.w);
-	
+
 	/**
 	 The resolution of the voxel grid for all dimensions.
 	 */
 	uint     g_voxel_grid_resolution       : packoffset(c3.x);
-	
+
 	/**
 	 The inverse resolution of the voxel grid for all dimensions.
 	 */
 	float    g_voxel_grid_inv_resolution   : packoffset(c3.y);
-	
+
 	/**
 	 The size of a voxel for all dimensions expressed in world space.
 	 */
 	float    g_voxel_size                  : packoffset(c3.z);
-	
+
 	/**
 	 The inverse size of a voxel for all dimensions.
 	 */
@@ -119,11 +119,11 @@ CBUFFER(World, SLOT_CBUFFER_WORLD) {
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
-	
+
 	//-------------------------------------------------------------------------
 	// Member Variables: Transformations
 	//-------------------------------------------------------------------------
-	
+
 	/**
 	 The world-to-camera transformation matrix.
 	 */
@@ -133,7 +133,7 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	 The camera-to-projection transformation matrix.
 	 */
 	float4x4 g_camera_to_projection        : packoffset(c4);
-	
+
 	/**
 	 The projection-to-camera transformation matrix.
 	 */
@@ -159,19 +159,19 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	 .y = the viewport height
 	 */
 	uint2    g_viewport_resolution         : packoffset(c16.z);
-	
+
 	/**
 	 The top left corner of the super-sampled camera viewport.
 	 */
 	float2   g_ss_viewport_top_left        : packoffset(c17);
-	
+
 	/**
 	 The resolution of the super-sampled camera viewport.
 	 .x = the super-sampled viewport width
 	 .y = the super-sampled viewport height
 	 */
 	uint2    g_ss_viewport_resolution      : packoffset(c17.z);
-	
+
 	/**
 	 The inverse of the resolution of the camera viewport.
 	 g_viewport_inv_resolution = 1 / g_viewport_resolution
@@ -183,7 +183,7 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	 g_ss_viewport_inv_resolution = 1 / g_ss_viewport_resolution
 	 */
 	float2   g_ss_viewport_inv_resolution  : packoffset(c18.z);
-	
+
 	//-------------------------------------------------------------------------
 	// Member Variables: Fog
 	//-------------------------------------------------------------------------
@@ -212,7 +212,7 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	//-------------------------------------------------------------------------
 
 	/**
-	 The cone step expressed in voxel UVW space. A high (low) step results in 
+	 The cone step expressed in voxel UVW space. A high (low) step results in
 	 faster (slower), but less-precise (more-precise) marching.
 	 */
 	float    g_cone_step                   : packoffset(c20.y);
@@ -232,13 +232,13 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	float    g_aperture_radius             : packoffset(c20.w);
 
 	/**
-	 The focal length (i.e. distance between the lens aperture and the focal 
+	 The focal length (i.e. distance between the lens aperture and the focal
 	 point/focus expressed in camera space) of this camera.
 	 */
 	float    g_focal_length                : packoffset(c21.x);
 
 	/**
-	 The focus distance (i.e. distance between the lens aperture and the 
+	 The focus distance (i.e. distance between the lens aperture and the
 	 objects in perfect focus expressed in camera space) of this camera.
 	 */
 	float    g_focus_distance              : packoffset(c21.y);
@@ -248,11 +248,11 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 // Engine Declarations and Definitions: Transformations
 //-----------------------------------------------------------------------------
 // world                            <-> voxel UVW | voxel index
-// 
+//
 // NDC                               -> camera
 // depth (= NDC z)                   -> camera z
 // camera                            -> world
-// 
+//
 // (super-sampled) display          <-> (super-sampled) viewport
 // (super-sampled) display|viewport <-> UV
 // (super-sampled) display|viewport  -> camera
@@ -267,7 +267,7 @@ float3 GetCameraPosition() {
 }
 
 /**
- Converts the given position expressed in world space to the corresponding 
+ Converts the given position expressed in world space to the corresponding
  position expressed in voxel UVW space.
 
  @param[in]		p_world
@@ -275,14 +275,14 @@ float3 GetCameraPosition() {
  @return		The position expressed in voxel UVW space.
  */
 float3 WorldToVoxelUVW(float3 p_world) {
-	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size 
+	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size
 		               * g_voxel_grid_inv_resolution;
 	// [-1/2,1/2]^3 -> [0,1]x[1,0]x[0,1]
 	return float3(1.0f, -1.0f, 1.0f) * voxel + 0.5f;
 }
 
 /**
- Converts the given position expressed in voxel UVW space to the corresponding 
+ Converts the given position expressed in voxel UVW space to the corresponding
  position expressed in world space.
 
  @param[in]		p_uvw
@@ -297,7 +297,7 @@ float3 VoxelUVWtoWorld(float3 p_uvw) {
 }
 
 /**
- Converts the given position expressed in world space to the corresponding 
+ Converts the given position expressed in world space to the corresponding
  voxel index.
 
  @param[in]		p_world
@@ -305,14 +305,14 @@ float3 VoxelUVWtoWorld(float3 p_uvw) {
  @return		The voxel index.
  */
 int3 WorldToVoxelIndex(float3 p_world) {
-	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size 
+	const float3 voxel = (p_world - g_voxel_grid_center) * g_voxel_inv_size
 		               + 0.5f * g_voxel_grid_resolution;
 	// [0,R)^3 -> [0,R)x(R,0]x[0,R)
 	return int3(0, g_voxel_grid_resolution, 0) + int3(1, -1, 1) * floor(voxel);
 }
 
 /**
- Converts the given voxel index to the corresponding position expressed in 
+ Converts the given voxel index to the corresponding position expressed in
  world space (i.e. left, lower, near corner of the voxel).
 
  @param[in]		p_world
@@ -327,7 +327,7 @@ float3 VoxelIndexToWorld(uint3 voxel_index) {
 }
 
 /**
- Converts the given position expressed in NDC space to the corresponding 
+ Converts the given position expressed in NDC space to the corresponding
  position expressed in camera space.
 
  @param[in]		p_ndc
@@ -342,7 +342,7 @@ float3 NDCToCamera(float3 p_ndc) {
 }
 
 /**
- Converts the given (non-linear) depth expressed in NDC space to the 
+ Converts the given (non-linear) depth expressed in NDC space to the
  corresponding (linear) depth expressed in camera space.
 
  @param[in]		depth
@@ -370,7 +370,7 @@ float3 CameraToWorld(float3 p_camera) {
 }
 
 /**
- Converts the given position expressed in display space to the corresponding 
+ Converts the given position expressed in display space to the corresponding
  position expressed in viewport space.
 
  @param[in]		p_display
@@ -383,7 +383,7 @@ float2 DisplayToViewport(float2 p_display) {
 }
 
 /**
- Converts the given position expressed in super-sampled display space to the 
+ Converts the given position expressed in super-sampled display space to the
  corresponding position expressed in super-sampled viewport space.
 
  @param[in]		p_ss_display
@@ -396,7 +396,7 @@ float2 SSDisplayToSSViewport(float2 p_ss_display) {
 }
 
 /**
- Converts the given position expressed in viewport space to the corresponding 
+ Converts the given position expressed in viewport space to the corresponding
  position expressed in display space.
 
  @param[in]		p_viewport
@@ -409,7 +409,7 @@ float2 ViewportToDisplay(float2 p_viewport) {
 }
 
 /**
- Converts the given position expressed in super-sampled viewport space to the 
+ Converts the given position expressed in super-sampled viewport space to the
  corresponding position expressed in super-sampled display space.
 
  @param[in]		p_ss_viewport
@@ -422,7 +422,7 @@ float2 SSViewportToSSDisplay(float2 p_ss_viewport) {
 }
 
 /**
- Converts the given position expressed in display space to the corresponding 
+ Converts the given position expressed in display space to the corresponding
  position expressed in UV space.
 
  @param[in]		p_display
@@ -450,7 +450,7 @@ float2 DisplayToUV(uint2 p_display) {
 }
 
 /**
- Converts the given position expressed in super-sampled display space to the 
+ Converts the given position expressed in super-sampled display space to the
  corresponding position expressed in UV space.
 
  @param[in]		p_ss_display
@@ -478,7 +478,7 @@ float2 SSDisplayToUV(uint2 p_ss_display) {
 }
 
 /**
- Converts the given position expressed in viewport space to the corresponding 
+ Converts the given position expressed in viewport space to the corresponding
  position expressed in UV space.
 
  @param[in]		p_viewport
@@ -506,7 +506,7 @@ float2 ViewportToUV(uint2 p_viewport) {
 }
 
 /**
- Converts the given position expressed in super-sampled viewport space to the 
+ Converts the given position expressed in super-sampled viewport space to the
  corresponding position expressed in UV space.
 
  @param[in]		p_ss_viewport
@@ -521,7 +521,7 @@ float2 SSViewportToUV(float2 p_ss_viewport) {
 }
 
 /**
- Converts the given position expressed in super-sampled viewport space to the 
+ Converts the given position expressed in super-sampled viewport space to the
  corresponding position expressed in UV space.
 
  @param[in]		p_ss_viewport
@@ -564,7 +564,7 @@ float2 UVtoSSDisplay(float2 p_uv) {
 }
 
 /**
- Converts the given position expressed in UV space to the corresponding 
+ Converts the given position expressed in UV space to the corresponding
  position expressed in viewport space.
 
  @param[in]		p_uv
@@ -579,7 +579,7 @@ float2 UVtoViewport(float2 p_uv) {
 }
 
 /**
- Converts the given position expressed in UV space to the corresponding 
+ Converts the given position expressed in UV space to the corresponding
  position expressed in super-sampled viewport space.
 
  @param[in]		p_uv
@@ -594,7 +594,7 @@ float2 UVtoSSViewport(float2 p_uv) {
 }
 
 /**
- Converts the given position expressed in viewport space to the corresponding 
+ Converts the given position expressed in viewport space to the corresponding
  position expressed in camera space.
 
  @param[in]		p_viewport
@@ -626,7 +626,7 @@ float3 ViewportToCamera(uint2 p_viewport, float depth) {
 }
 
 /**
- Converts the given position expressed in super-sampled viewport space to the 
+ Converts the given position expressed in super-sampled viewport space to the
  corresponding position expressed in camera space.
 
  @param[in]		p_ss_viewport
@@ -658,7 +658,7 @@ float3 SSViewportToCamera(uint2 p_ss_viewport, float depth) {
 }
 
 /**
- Converts the given position expressed in display space to the corresponding 
+ Converts the given position expressed in display space to the corresponding
  position expressed in camera space.
 
  @param[in]		p_display
@@ -689,7 +689,7 @@ float3 DisplayToCamera(uint2 p_display, float depth) {
 }
 
 /**
- Converts the given position expressed in super-sampled display space to the 
+ Converts the given position expressed in super-sampled display space to the
  corresponding position expressed in camera space.
 
  @param[in]		p_ss_display
@@ -720,50 +720,50 @@ float3 SSDisplayToCamera(uint2 p_ss_display, float depth) {
 }
 
 /**
- Checks whether the given position expressed in viewport space is out of 
+ Checks whether the given position expressed in viewport space is out of
  bounds.
 
  @param[in]		p_viewport
 				The position expressed in viewport space.
- @return		@c true if the given position expressed in viewport space 
+ @return		@c true if the given position expressed in viewport space
 				is out of bounds.
  */
 bool IsViewportOutOfBounds(uint2 p_viewport) {
 	const  int2 p_display_s = ViewportToDisplay(p_viewport);
 	const uint2 p_display   = uint2(p_display_s);
 
-	return any(0 > p_display_s 
-			   || g_display_resolution  <= p_display 
+	return any(0 > p_display_s
+			   || g_display_resolution  <= p_display
 			   || g_viewport_resolution <= p_viewport);
 }
 
 /**
- Checks whether the given position expressed in viewport space is out of 
+ Checks whether the given position expressed in viewport space is out of
  bounds.
 
  @param[in]		p_viewport
 				The position expressed in viewport space.
  @param[out]	p_display
 				The position expressed in display space.
- @return		@c true if the given position expressed in viewport space 
+ @return		@c true if the given position expressed in viewport space
 				is out of bounds.
  */
 bool IsViewportOutOfBounds(uint2 p_viewport, out uint2 p_display) {
 	const int2 p_display_s = ViewportToDisplay(p_viewport);
 	p_display = uint2(p_display_s);
 
-	return any(0 > p_display_s 
-			   || g_display_resolution  <= p_display 
+	return any(0 > p_display_s
+			   || g_display_resolution  <= p_display
 			   || g_viewport_resolution <= p_viewport);
 }
 
 /**
- Checks whether the given position expressed in super-sampled viewport space 
+ Checks whether the given position expressed in super-sampled viewport space
  is out of bounds.
 
  @param[in]		p_viewport
 				The position expressed in super-sampled viewport space.
- @return		@c true if the given position expressed in super-sampled 
+ @return		@c true if the given position expressed in super-sampled
 				viewport space is out of bounds.
  */
 bool IsSSViewportOutOfBounds(uint2 p_ss_viewport) {
@@ -776,14 +776,14 @@ bool IsSSViewportOutOfBounds(uint2 p_ss_viewport) {
 }
 
 /**
- Checks whether the given position expressed in super-sampled viewport space 
+ Checks whether the given position expressed in super-sampled viewport space
  is out of bounds.
 
  @param[in]		p_viewport
 				The position expressed in super-sampled viewport space.
  @param[out]	p_display
 				The position expressed in super-sampled display space.
- @return		@c true if the given position expressed in super-sampled 
+ @return		@c true if the given position expressed in super-sampled
 				viewport space is out of bounds.
  */
 bool IsSSViewportOutOfBounds(uint2 p_ss_viewport, out uint2 p_ss_display) {

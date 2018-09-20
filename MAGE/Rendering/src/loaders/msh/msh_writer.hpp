@@ -49,9 +49,9 @@ namespace mage::rendering::loader {
 		 @param[in]		indices
 						A reference to a vector containing the indices.
 		 */
-		explicit MSHWriter(const std::vector< VertexT >& vertices, 
+		explicit MSHWriter(const std::vector< VertexT >& vertices,
 			               const std::vector< IndexT >& indices);
-		
+
 		/**
 		 Constructs a MSH writer from the given MSH writer.
 
@@ -75,14 +75,14 @@ namespace mage::rendering::loader {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given MSH writer to this MSH writer.
 
 		 @param[in]		writer
 						A reference to a MSH writer to copy.
-		 @return		A reference to the copy of the given MSH writer (i.e. 
+		 @return		A reference to the copy of the given MSH writer (i.e.
 						this MSH writer).
 		 */
 		MSHWriter& operator=(const MSHWriter& writer) = delete;
@@ -92,7 +92,7 @@ namespace mage::rendering::loader {
 
 		 @param[in]		writer
 						A reference to a MSH writer to move.
-		 @return		A reference to the moved MSH writer (i.e. this MSH 
+		 @return		A reference to the moved MSH writer (i.e. this MSH
 						writer).
 		 */
 		MSHWriter& operator=(MSHWriter&& writer) = delete;
@@ -122,13 +122,13 @@ namespace mage::rendering::loader {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the vertices to write by this VS 
+		 A reference to a vector containing the vertices to write by this VS
 		 writer.
 		 */
 		const std::vector< VertexT >& m_vertices;
-		
+
 		/**
-		 A reference to a vector containing the indices to write by this VS 
+		 A reference to a vector containing the indices to write by this VS
 		 writer.
 		 */
 		const std::vector< IndexT >& m_indices;

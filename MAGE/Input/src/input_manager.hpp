@@ -61,14 +61,14 @@ namespace mage::input {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given input manager to this input manager.
 
 		 @param[in]		manager
 						A reference to the input manager to copy.
-		 @return		A reference to the copy of the given input manager 
+		 @return		A reference to the copy of the given input manager
 						(i.e. this input manager).
 		 */
 		Manager& operator=(const Manager& manager) = delete;
@@ -78,7 +78,7 @@ namespace mage::input {
 
 		 @param[in]		manager
 						A reference to the input manager to move.
-		 @return		A reference to the moved input manager (i.e. this 
+		 @return		A reference to the moved input manager (i.e. this
 						input manager).
 		 */
 		Manager& operator=(Manager&& manager) = delete;
@@ -124,7 +124,7 @@ namespace mage::input {
 
 		class Impl;
 
-		/** 
+		/**
 		 A pointer to the implementation of this input manager.
 		 */
 		UniquePtr< Impl > m_impl;

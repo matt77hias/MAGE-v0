@@ -17,7 +17,7 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-float4 PS(PSInputPositionNormalTexture input, 
+float4 PS(PSInputPositionNormalTexture input,
 		  uint index : SV_SampleIndex) : SV_Target {
 #else  // MSAA_AS_SSAA
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
@@ -26,6 +26,6 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Obtain the surface normal expressed in world space.
 	const float3 n_world = GetNormal(input.p_world, input.n_world,
 									 input.tex_geometry);
-	
+
 	return float4(EncodeUnitVector_XYZ(n_world), 1.0f);
 }

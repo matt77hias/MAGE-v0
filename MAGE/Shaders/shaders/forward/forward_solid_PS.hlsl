@@ -31,7 +31,7 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 #ifdef MSAA_AS_SSAA
-OMInputForward PS(PSInputPositionNormalTexture input, 
+OMInputForward PS(PSInputPositionNormalTexture input,
 				  uint index : SV_SampleIndex) {
 #else  // MSAA_AS_SSAA
 OMInputForward PS(PSInputPositionNormalTexture input) {
@@ -42,7 +42,7 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material_params = GetMaterialParameters(input.tex_material);
 	// Obtain the surface normal expressed in world space.
-	const float3 n_world = GetNormal(input.p_world, input.n_world, 
+	const float3 n_world = GetNormal(input.p_world, input.n_world,
 									 input.tex_geometry);
 
 	const Material material = {
@@ -62,6 +62,6 @@ OMInputForward PS(PSInputPositionNormalTexture input) {
 	#pragma warning( disable : 3578 ) // Partial initialization.
 	output.n.xy  = NORMAL_ENCODE_FUNCTION(n_world);
 	#pragma warning( pop )
-								
+
 	return output;
 }

@@ -32,7 +32,7 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Destructors
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Destructs this component.
@@ -41,14 +41,14 @@ namespace mage {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given component to this component.
 
 		 @param[in]		component
 						A reference to the component to copy.
-		 @return		A reference to the copy of the given component (i.e. 
+		 @return		A reference to the copy of the given component (i.e.
 						this component).
 		 */
 		Component& operator=(const Component& component) noexcept;
@@ -58,7 +58,7 @@ namespace mage {
 
 		 @param[in]		component
 						A reference to the component to move.
-		 @return		A reference to the moved component (i.e. this 
+		 @return		A reference to the moved component (i.e. this
 						component).
 		 */
 		Component& operator=(Component&& component) noexcept;
@@ -79,7 +79,7 @@ namespace mage {
 
 		/**
 		 Sets the state of this component to the given state.
-		
+
 		 @param[in]		state
 						The state.
 		 */
@@ -102,7 +102,7 @@ namespace mage {
 		/**
 		 Checks whether this component has an owner.
 
-		 @return		@c true if this component has an owner. @c false 
+		 @return		@c true if this component has an owner. @c false
 						otherwise.
 		 */
 		[[nodiscard]]
@@ -235,7 +235,7 @@ namespace mage {
 		 @param[in]		owner
 						A pointer to the owner.
 		 */
-		static void SetOwner(Component& component, 
+		static void SetOwner(Component& component,
 							 ProxyPtr< Node > owner) noexcept {
 
 			component.SetOwner(std::move(owner));

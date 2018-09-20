@@ -69,7 +69,7 @@ namespace mage {
 					The minimum angle (in degrees).
 	 @param[in]		max_angle
 					The maximum angle (in degrees).
-	 @return		The clamped angle between the given minimum and maximum 
+	 @return		The clamped angle between the given minimum and maximum
 					angle (in degrees).
 	 */
 	[[nodiscard]]
@@ -94,7 +94,7 @@ namespace mage {
 					The minimum angle (in radians).
 	 @param[in]		max_angle
 					The maximum angle (in radians).
-	 @return		The clamped angle between the given minimum and maximum 
+	 @return		The clamped angle between the given minimum and maximum
 					angle (in radians).
 	 */
 	[[nodiscard]]
@@ -102,10 +102,10 @@ namespace mage {
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
-		
+
 		return std::clamp(ClampAngleRadians(angle), min_angle, max_angle);
 	}
-	
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -158,32 +158,32 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR 
+	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR
 	 (left, top, right, bottom).
 
 	 @param[in]		rect
 					A reference to the rectangle.
-	 @return		A @c XMVECTOR  (left, top, right, bottom) representing the 
+	 @return		A @c XMVECTOR  (left, top, right, bottom) representing the
 					given @c RECT (left, top, right, bottom).
 	 */
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV 
+	inline const XMVECTOR XM_CALLCONV
 		XMVectorLeftTopRightBottom(const RECT& rect) noexcept {
-		
+
 		return XMLoad(rect);
 	}
 
 	/**
-	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR 
+	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR
 	 (left, top, width, height).
 
 	 @param[in]		rect
 					A reference to the rectangle.
-	 @return		A @c XMVECTOR  (left, top, width, height) representing the 
+	 @return		A @c XMVECTOR  (left, top, width, height) representing the
 					given @c RECT (left, top, right, bottom).
 	 */
 	[[nodiscard]]
-	inline const XMVECTOR XM_CALLCONV 
+	inline const XMVECTOR XM_CALLCONV
 		XMVectorLeftTopWidthHeight(const RECT& rect) noexcept {
 
 		const auto v = XMVectorLeftTopRightBottom(rect);
@@ -192,12 +192,12 @@ namespace mage {
 	}
 
 	/**
-	 Returns the projection values from the given projection matrix to construct 
+	 Returns the projection values from the given projection matrix to construct
 	 the NDC z-coordinate from the view z-coordinate.
 
 	 @param[in]		projection_matrix
 					The projection matrix.
-	 @return		The projection values from the given projection matrix to 
+	 @return		The projection values from the given projection matrix to
 					construct the NDC z-coordinate from the view z-coordinate.
 	 */
 	[[nodiscard]]
@@ -216,7 +216,7 @@ namespace mage {
 
 		const auto x = XMVectorGetZ(projection_matrix.r[2]);
 		const auto y = XMVectorGetZ(projection_matrix.r[3]);
-		
+
 		return { x, y, 0.0f, 0.0f };
 	}
 

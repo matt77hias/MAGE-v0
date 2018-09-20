@@ -14,9 +14,9 @@ TEXTURE_3D(g_voxel_texture, float4, SLOT_SRV_VOXEL_TEXTURE);
 //-----------------------------------------------------------------------------
 GSInputPositionColor VS(uint flat_index : SV_VERTEXID) {
 
-	const uint3 index = UnflattenIndex(flat_index, 
-									   uint3(g_voxel_grid_resolution, 
-											 g_voxel_grid_resolution, 
+	const uint3 index = UnflattenIndex(flat_index,
+									   uint3(g_voxel_grid_resolution,
+											 g_voxel_grid_resolution,
 											 g_voxel_grid_resolution));
 
 	GSInputPositionColor output;

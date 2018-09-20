@@ -21,7 +21,7 @@ namespace mage::script {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-		
+
 		CharacterMotorScript();
 		CharacterMotorScript(const CharacterMotorScript& script) noexcept;
 		CharacterMotorScript(CharacterMotorScript&& script) noexcept;

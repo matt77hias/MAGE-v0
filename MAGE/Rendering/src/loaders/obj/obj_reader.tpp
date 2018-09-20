@@ -18,16 +18,16 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	OBJReader< VertexT, IndexT >
-		::OBJReader(ResourceManager& resource_manager, 
+		::OBJReader(ResourceManager& resource_manager,
 					ModelOutput< VertexT, IndexT >& model_output,
 			        const MeshDescriptor< VertexT, IndexT >& mesh_desc)
 		: LineReader(),
-		m_vertex_coordinates(), 
+		m_vertex_coordinates(),
 		m_vertex_texture_coordinates(),
-		m_vertex_normal_coordinates(), 
-		m_mapping(), 
+		m_vertex_normal_coordinates(),
+		m_mapping(),
 		m_resource_manager(resource_manager),
-		m_model_output(model_output), 
+		m_model_output(model_output),
 		m_mesh_desc(mesh_desc) {}
 
 	template< typename VertexT, typename IndexT >
@@ -39,7 +39,7 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Preprocess() {
 		using std::empty;
-		ThrowIfFailed(empty(m_model_output.m_vertex_buffer), 
+		ThrowIfFailed(empty(m_model_output.m_vertex_buffer),
 					  "{}: vertex buffer must be empty.", GetPath());
 		ThrowIfFailed(empty(m_model_output.m_index_buffer),
 					  "{}: index buffer must be empty.", GetPath());
@@ -102,9 +102,9 @@ namespace mage::rendering::loader {
 		const UTF8toUTF16 mtl_name(Read< std::string_view >());
 		auto mtl_path = GetPath();
 		mtl_path.replace_filename(std::wstring_view(mtl_name));
-		
+
 		ImportMaterialFromFile(mtl_path,
-							   m_resource_manager, 
+							   m_resource_manager,
 							   m_model_output.m_material_buffer);
 	}
 
@@ -120,7 +120,7 @@ namespace mage::rendering::loader {
 
 		ModelPart model_part;
 		model_part.m_child = Read< std::string >();
-		
+
 		// Begin current group.
 		m_model_output.StartModelPart(std::move(model_part));
 	}
@@ -165,12 +165,12 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
-		
+
 		std::vector< IndexT > indices;
 		while (indices.size() < 3 || ContainsTokens()) {
 			const auto vertex_indices = ReadOBJVertexIndices();
 
-			if (const auto it = m_mapping.find(vertex_indices); 
+			if (const auto it = m_mapping.find(vertex_indices);
 				it != m_mapping.cend()) {
 
 				indices.push_back(it->second);
@@ -223,7 +223,7 @@ namespace mage::rendering::loader {
 		::ReadOBJVertexTextureCoordinates() {
 
 		const UV result(Read< F32, 2 >());
-		
+
 		if (Contains< F32 >()) {
 			// Silently ignore 3D vertex texture coordinates.
 			Read< F32 >();
@@ -250,31 +250,31 @@ namespace mage::rendering::loader {
 			"vt",
 			"vn"
 		};
-		const bool contains_token[] = { 
-			true, 
-			flag1 && !flagd, 
-			flag2 
+		const bool contains_token[] = {
+			true,
+			flag1 && !flagd,
+			flag2
 		};
 		const std::string_view tokens[] = {
-			// If offset std::string::npos + 1u == 0u then count is don't-care;  
+			// If offset std::string::npos + 1u == 0u then count is don't-care;
 			// all unsigned values avoid exception.
 			token.substr(0u,          slash1),
 			token.substr(slash1 + 1u, slash2       - slash1 - 1u),
 			token.substr(slash2 + 1u, token.size() - slash2 - 1u)
 		};
-		
+
 		U32x3 indices;
 		const S32x3 sizes = {
-			static_cast< S32 >(m_vertex_coordinates.size()), 
+			static_cast< S32 >(m_vertex_coordinates.size()),
 			static_cast< S32 >(m_vertex_texture_coordinates.size()),
-			static_cast< S32 >(m_vertex_normal_coordinates.size()) 
+			static_cast< S32 >(m_vertex_normal_coordinates.size())
 		};
 
 		for (std::size_t i = 0u; i < std::size(s_token_names); ++i) {
 			if (!contains_token[i]) {
 				continue;
 			}
-			
+
 			if (const auto result = StringTo< S32 >(tokens[i]); bool(result)) {
 				const auto index = *result;
 				indices[i] = static_cast< U32 >((0 <= index) ? index : sizes[i] + index);
@@ -292,7 +292,7 @@ namespace mage::rendering::loader {
 	[[nodiscard]]
 	const VertexT OBJReader< VertexT, IndexT >
 		::ConstructVertex(const U32x3& vertex_indices) {
-		
+
 		VertexT vertex;
 
 		if constexpr(VertexT::HasPosition()) {

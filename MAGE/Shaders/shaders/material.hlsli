@@ -13,7 +13,7 @@ struct Material {
 	//-------------------------------------------------------------------------
 	// Member Variables
 	//-------------------------------------------------------------------------
-	
+
 	/**
 	 The (linear) base color of this material.
 	 */
@@ -23,7 +23,7 @@ struct Material {
 	 The (linear) roughness of this material.
 	 */
 	float m_roughness;
-	
+
 	/**
 	 The (linear) metalness of this material.
 	 */

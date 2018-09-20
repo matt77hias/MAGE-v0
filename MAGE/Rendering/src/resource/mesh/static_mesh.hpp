@@ -59,7 +59,7 @@ namespace mage::rendering {
 		explicit StaticMesh(ID3D11Device& device,
 			                std::vector< VertexT > vertices,
 			                std::vector< IndexT >  indices,
-			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			                D3D11_PRIMITIVE_TOPOLOGY primitive_topology
 			                = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
@@ -92,7 +92,7 @@ namespace mage::rendering {
 
 		 @param[in]		mesh
 						A reference to the static mesh to copy.
-		 @return		A reference to the copy of the given static mesh (i.e. 
+		 @return		A reference to the copy of the given static mesh (i.e.
 						this static mesh).
 		 */
 		StaticMesh& operator=(const StaticMesh& mesh) = delete;
@@ -102,7 +102,7 @@ namespace mage::rendering {
 
 		 @param[in]		mesh
 						A reference to the static mesh to move.
-		 @return		A reference to the moved static mesh (i.e. this static 
+		 @return		A reference to the moved static mesh (i.e. this static
 						mesh).
 		 */
 		StaticMesh& operator=(StaticMesh&& mesh) noexcept;
@@ -136,7 +136,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 The vector containing the vertices of this static mesh.
 		 */

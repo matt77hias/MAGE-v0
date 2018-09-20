@@ -8,7 +8,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
 		::AddModelPart(ModelPart model_part) {
-		
+
 		const std::size_t start = model_part.m_start_index;
 		const std::size_t end   = start + model_part.m_nb_indices;
 
@@ -32,7 +32,7 @@ namespace mage::rendering {
 	[[nodiscard]]
 	bool ModelOutput< VertexT, IndexT >
 		::ContainsModelPart(std::string_view name) noexcept {
-		
+
 		for (const auto& model_part : m_model_parts) {
 			if (name == model_part.m_child) {
 				return true;
@@ -45,16 +45,16 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
 		::StartModelPart(ModelPart model_part) {
-		
+
 		model_part.m_start_index = static_cast< U32 >(m_index_buffer.size());
-		
+
 		m_model_parts.push_back(std::move(model_part));
 	}
 
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
 		::SetMaterial(std::string material) {
-		
+
 		using std::empty;
 		Assert(!empty(m_model_parts));
 
@@ -65,7 +65,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
 		::EndModelPart() noexcept {
-		
+
 		using std::empty;
 		Assert(!empty(m_model_parts));
 
@@ -85,10 +85,10 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >
 		::NormalizeModelPart(ModelPart& model_part) noexcept {
-		
+
 		const std::size_t start = model_part.m_start_index;
 		const std::size_t end   = start + model_part.m_nb_indices;
-		
+
 		AABB aabb;
 		for (auto i = start; i < end; ++i) {
 			const auto& v = m_vertex_buffer[m_index_buffer[i]];

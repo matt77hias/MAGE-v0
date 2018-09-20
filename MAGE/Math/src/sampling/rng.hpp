@@ -26,7 +26,7 @@ namespace mage {
 	#ifdef RNG
 		#error Illegal symbol definition.
 	#endif
-	
+
 	/**
 	 A class of (uniform) random number generators (RNGs).
 	 */
@@ -110,7 +110,7 @@ namespace mage {
 
 		/**
 		 Generates a uniform random number in [0,1).
-	
+
 		 @return		A uniform random number in [0,1).
 		 */
 		F32 Uniform() noexcept {
@@ -137,8 +137,8 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 The random number generator, Newer "Minimum standard", of this RNG. This 
-		 LCG has a much smaller footprint compared to the default Mersenne Twister 
+		 The random number generator, Newer "Minimum standard", of this RNG. This
+		 LCG has a much smaller footprint compared to the default Mersenne Twister
 		 used in the std.
 		 */
 		std::minstd_rand m_generator;

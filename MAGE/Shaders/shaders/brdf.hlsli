@@ -1,8 +1,8 @@
 #ifndef MAGE_HEADER_BRDF
 #define MAGE_HEADER_BRDF
 
-// Shading can be performed in an arbitrary shading space. The input arguments 
-// (n, l, v) for evaluating BRDFs and BRDF components must be expressed in the 
+// Shading can be performed in an arbitrary shading space. The input arguments
+// (n, l, v) for evaluating BRDFs and BRDF components must be expressed in the
 // same coordinate system which can be chosen arbitrarily.
 
 //-----------------------------------------------------------------------------
@@ -99,8 +99,8 @@ static const float g_dielectric_F0 = 0.04f;
  Calculates the Beckmann Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -125,8 +125,8 @@ float D_Beckmann(float n_dot_h, float alpha) {
  Calculates the Ward-Duer Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -138,7 +138,7 @@ float D_WardDuer(float n_dot_h, float alpha) {
 	//         1        [  n_dot_h^2 - 1  ]        1        [tan(theta_h)]^2
 	// D:= ---------- e^[-----------------] = ---------- e^-[------------]
 	//     pi alpha^2   [n_dot_h^2 alpha^2]   pi alpha^2    [   alpha    ]
-	
+
 	const float inv_alpha2   = 1.0f / sqr(alpha);
 	const float n_dot_h2     = sqr(n_dot_h);
 	const float t2           = SqrCosToSqrTan(n_dot_h2);
@@ -150,8 +150,8 @@ float D_WardDuer(float n_dot_h, float alpha) {
  Calculates the Blinn-Phong Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -174,8 +174,8 @@ float D_BlinnPhong(float n_dot_h, float alpha) {
  Calculates the Trowbridge-Reitz Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -199,8 +199,8 @@ float D_TrowbridgeReitz(float n_dot_h, float alpha) {
  Calculates the GGX Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -215,8 +215,8 @@ float D_GGX(float n_dot_h, float alpha) {
  Calculates the GTR2 Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -231,8 +231,8 @@ float D_GTR2(float n_dot_h, float alpha) {
  Calculates the Berry Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -249,7 +249,7 @@ float D_Berry(float n_dot_h, float alpha) {
 	const float n_dot_h2 = sqr(n_dot_h);
 	const float temp1    = n_dot_h2 * (alpha2 - 1.0f) + 1.0f;
 
-	return (1.0f <= alpha) ? g_inv_pi 
+	return (1.0f <= alpha) ? g_inv_pi
 	                       : g_inv_pi * (alpha2 - 1.0f) / (log(alpha2) * temp1);
 }
 
@@ -257,8 +257,8 @@ float D_Berry(float n_dot_h, float alpha) {
  Calculates the GTR1 Normal Distribution Function component.
 
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -277,10 +277,10 @@ float D_GTR1(float n_dot_h, float alpha) {
  Calculates the GGX partial Geometric Schadowing component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -303,10 +303,10 @@ float G1_GGX(float n_dot_vl, float alpha) {
  Calculates the Schlick partial Geometric Schadowing component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -328,10 +328,10 @@ float G1_SchlickGGX(float n_dot_vl, float alpha) {
  Calculates the Beckmann partial Geometric Schadowing component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -352,8 +352,8 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
 	const float c         = n_dot_vl2 / (alpha * sqrt(1.0f - n_dot_vl2));
 	const float c2        = sqr(c);
 
-	return (1.6f > c) ? (3.535f * c + 2.8181f * c2) 
-		              / (1.0f + 2.276f * c + 2.577f * c2) 
+	return (1.6f > c) ? (3.535f * c + 2.8181f * c2)
+		              / (1.0f + 2.276f * c + 2.577f * c2)
 		              : 1.0f;
 }
 
@@ -361,10 +361,10 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
  Calculates the Schlick-Beckmann partial Geometric Schadowing component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -376,7 +376,7 @@ float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
 	//             n_dot_vl                               n_dot_vl
 	// G1 := --------------------- = --------------------------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha sqrt(2/pi)) + alpha sqrt(2/pi)
-	
+
 	const float k = alpha * g_sqrt_2_inv_pi;
 
 	return n_dot_vl / (n_dot_vl * (1.0f - k) + k);
@@ -390,21 +390,21 @@ float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
  Calculates the Implicit Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -415,7 +415,7 @@ float G_Implicit(float n_dot_v, float n_dot_l,
 	             float n_dot_h, float v_dot_h, float alpha) {
 
 	// G := n_dot_v n_dot_l
-	
+
 	return n_dot_v * n_dot_l;
 }
 
@@ -423,21 +423,21 @@ float G_Implicit(float n_dot_v, float n_dot_l,
  Calculates the Ward Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -456,21 +456,21 @@ float G_Ward(float n_dot_v, float n_dot_l,
  Calculates the Neumann Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -491,21 +491,21 @@ float G_Neumann(float n_dot_v, float n_dot_l,
  Calculates the Ashikhmin-Premoze Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -526,21 +526,21 @@ float G_AshikhminPremoze(float n_dot_v, float n_dot_l,
  Calculates the Kelemann Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -561,21 +561,21 @@ float G_Kelemann(float n_dot_v, float n_dot_l,
  Calculates the Cook-Torrance Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -596,21 +596,21 @@ float G_CookTorrance(float n_dot_v, float n_dot_l,
  Calculates the (correlated) GGX Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -643,21 +643,21 @@ float G_GGX(float n_dot_v, float n_dot_l,
  Calculates the Smith GGX Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -674,21 +674,21 @@ float G_Smith_GGX(float n_dot_v, float n_dot_l,
  Calculates the Smith Schlick-GGX Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -705,21 +705,21 @@ float G_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
  Calculates the Smith Beckmann Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -736,21 +736,21 @@ float G_Smith_Beckmann(float n_dot_v, float n_dot_l,
  Calculates the Smith Schlick-Beckmann Geometric Schadowing component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -775,10 +775,10 @@ float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
  Calculates the GGX partial Visibility component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -787,7 +787,7 @@ float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
  */
 float V1_GGX(float n_dot_vl, float alpha) {
 
-	//                               2                       
+	//                               2
 	// V1 := ---------------------------------------------------
 	//       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)
 
@@ -801,10 +801,10 @@ float V1_GGX(float n_dot_vl, float alpha) {
  Calculates the Schlick partial Visibility component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -826,10 +826,10 @@ float V1_SchlickGGX(float n_dot_vl, float alpha) {
  Calculates the Schlick-Beckmann partial Visibility component.
 
  @param[in]		n_dot_vl
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
-				direction. Or the clamped cosine of the light angle. The light 
-				angle is the angle between the surface normal and the light 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
+				direction. Or the clamped cosine of the light angle. The light
+				angle is the angle between the surface normal and the light
 				(hit-to-light) direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -841,7 +841,7 @@ float V1_SchlickBeckmann(float n_dot_vl, float alpha) {
 	//                1                                     1
 	// V1 := --------------------- = --------------------------------------------------
 	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha sqrt(2/pi)) + alpha sqrt(2/pi)
-	
+
 	const float k = alpha * g_sqrt_2_inv_pi;
 
 	return 1.0f / (n_dot_vl * (1.0f - k) + k);
@@ -859,21 +859,21 @@ float V1_SchlickBeckmann(float n_dot_vl, float alpha) {
  Calculates the Implicit Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -884,7 +884,7 @@ float V_Implicit(float n_dot_v, float n_dot_l,
 	             float n_dot_h, float v_dot_h, float alpha) {
 
 	// V := 1
-	
+
 	return 1.0f;
 }
 
@@ -892,21 +892,21 @@ float V_Implicit(float n_dot_v, float n_dot_l,
  Calculates the Ward Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -927,21 +927,21 @@ float V_Ward(float n_dot_v, float n_dot_l,
  Calculates the Neumann Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -962,21 +962,21 @@ float V_Neumann(float n_dot_v, float n_dot_l,
  Calculates the Ashikhmin-Premoze Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -997,21 +997,21 @@ float V_AshikhminPremoze(float n_dot_v, float n_dot_l,
  Calculates the Kelemann Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1032,21 +1032,21 @@ float V_Kelemann(float n_dot_v, float n_dot_l,
  Calculates the Cook-Torrance Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1070,21 +1070,21 @@ float V_CookTorrance(float n_dot_v, float n_dot_l,
  Calculates the (correlated) GGX Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1109,21 +1109,21 @@ float V_GGX(float n_dot_v, float n_dot_l,
  Calculates the Smith GGX Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1140,21 +1140,21 @@ float V_Smith_GGX(float n_dot_v, float n_dot_l,
  Calculates the Smith Schlick-GGX Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1171,21 +1171,21 @@ float V_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
  Calculates the Smith Beckmann Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1195,7 +1195,7 @@ float V_Smith_SchlickGGX(float n_dot_v, float n_dot_l,
 float V_Smith_Beckmann(float n_dot_v, float n_dot_l,
 	                   float n_dot_h, float v_dot_h, float alpha) {
 
-	return G_Smith_Beckmann(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha) 
+	return G_Smith_Beckmann(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha)
 			/ (n_dot_v * n_dot_l);
 }
 
@@ -1203,21 +1203,21 @@ float V_Smith_Beckmann(float n_dot_v, float n_dot_l,
  Calculates the Smith Schlick-Beckmann Visibility component.
 
  @param[in]		n_dot_v
-				The clamped cosine of the view angle. The view angle is the 
-				angle between the surface normal and the view (hit-to-eye) 
+				The clamped cosine of the view angle. The view angle is the
+				angle between the surface normal and the view (hit-to-eye)
 				direction.
  @param[in]		n_dot_l
-				The clamped cosine of the light angle. The light angle is the 
-				angle between the surface normal and the light (hit-to-light) 
+				The clamped cosine of the light angle. The light angle is the
+				angle between the surface normal and the light (hit-to-light)
 				direction.
  @param[in]		n_dot_h
-				The clamped cosine of the half angle. The half angle is the 
-				angle between the surface normal and the half direction between 
+				The clamped cosine of the half angle. The half angle is the
+				angle between the surface normal and the half direction between
 				the view (hit-to-eye) and light (hit-to-light) direction.
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		alpha
 				The alpha value which is equal to the square of the surface
@@ -1238,9 +1238,9 @@ float V_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
  Calculates the None Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1256,9 +1256,9 @@ float F_None(float v_dot_h, float F0) {
  Calculates the None Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1274,9 +1274,9 @@ float3 F_None(float v_dot_h, float3 F0) {
  Calculates the Schlick Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1290,7 +1290,7 @@ float F_Schlick(float v_dot_h, float F0, float F90) {
 	const float m  = (1.0f - v_dot_h);
 	const float m2 = sqr(m);
 	const float m5 = sqr(m2) * m;
-	
+
 	return lerp(F0, F90, m5);
 }
 
@@ -1298,9 +1298,9 @@ float F_Schlick(float v_dot_h, float F0, float F90) {
  Calculates the Schlick Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1314,7 +1314,7 @@ float3 F_Schlick(float v_dot_h, float3 F0, float F90) {
 	const float m = (1.0f - v_dot_h);
 	const float m2 = sqr(m);
 	const float m5 = sqr(m2) * m;
-	
+
 	return lerp(F0, F90, m5);
 }
 
@@ -1322,9 +1322,9 @@ float3 F_Schlick(float v_dot_h, float3 F0, float F90) {
  Calculates the Schlick Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1340,9 +1340,9 @@ float F_Schlick(float v_dot_h, float F0) {
  Calculates the Schlick Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1358,9 +1358,9 @@ float3 F_Schlick(float v_dot_h, float3 F0) {
  Calculates the Cook-Torrance Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1395,9 +1395,9 @@ float F_CookTorrance(float v_dot_h, float F0) {
  Calculates the Cook-Torrance Fresnel component.
 
  @param[in]		v_dot_h
-				The clamped cosine of the difference angle. The difference 
-				angle is the angle between the view (hit-to-eye) direction and 
-				half direction and is the angle between the light 
+				The clamped cosine of the difference angle. The difference
+				angle is the angle between the view (hit-to-eye) direction and
+				half direction and is the angle between the light
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
@@ -1425,7 +1425,7 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 	const float3 g1       = g + v_dot_h;
 	const float3 g2       = g - v_dot_h;
 
-	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) 
+	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f))
 										   / (g2 * (v_dot_h + 1.0f))));
 }
 
@@ -1472,13 +1472,13 @@ BRDF ConstructBRDF(float3 brdf_diffuse, float3 brdf_specular) {
 
 /**
  Calculates the Lambertian BRDF.
- 
+
  @param[in]		material
 				The material.
  @return		The Lambertian BRDF.
  */
 BRDF LambertianBRDF(Material material) {
-	const float3 brdf_diffuse  = (1.0f - material.m_metalness) 
+	const float3 brdf_diffuse  = (1.0f - material.m_metalness)
 		                         * material.m_base_color * g_inv_pi;
 	const float3 brdf_specular = 0.0f;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
@@ -1501,7 +1501,7 @@ BRDF LambertianBRDF(Material material) {
  @return		The Lambertian BRDF.
  */
 BRDF LambertianBRDF(float3 n, float3 l, float3 v, Material material) {
-	const float3 brdf_diffuse  = (1.0f - material.m_metalness) 
+	const float3 brdf_diffuse  = (1.0f - material.m_metalness)
 		                         * material.m_base_color * g_inv_pi;
 	const float3 brdf_specular = 0.0f;
 	return ConstructBRDF(brdf_diffuse, brdf_specular);

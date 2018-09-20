@@ -37,7 +37,7 @@ namespace mage::rendering {
 						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(ID3D11Device& device, std::size_t capacity);
-		
+
 		/**
 		 Constructs a structured buffer from the given structured buffer.
 
@@ -61,7 +61,7 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given structured buffer to this structured buffer.
@@ -78,7 +78,7 @@ namespace mage::rendering {
 
 		 @param[in]		buffer
 						A reference to the structured buffer to move.
-		 @return		A reference to the moved structured buffer (i.e. this 
+		 @return		A reference to the moved structured buffer (i.e. this
 						structured buffer).
 		 */
 		StructuredBuffer& operator=(StructuredBuffer&& buffer) noexcept = default;
@@ -117,13 +117,13 @@ namespace mage::rendering {
 	     @throws		Exception
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext& device_context, 
+		void UpdateData(ID3D11DeviceContext& device_context,
 						const AlignedVector< T >& data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.
 
-		 @return		A reference to the shader resource view of this 
+		 @return		A reference to the shader resource view of this
 						structured buffer.
 		 */
 		[[nodiscard]]
@@ -134,15 +134,15 @@ namespace mage::rendering {
 		/**
 		 Binds this structured buffer.
 
-		 @pre			@a slot < 
+		 @pre			@a slot <
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set 
-						the shader resource view to (ranges from 0 to 
+						The index into the device's zero-based array to set
+						the shader resource view to (ranges from 0 to
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
@@ -153,9 +153,9 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-		
+
 		/**
-		 Sets up the resource buffer and shader resource view of this 
+		 Sets up the resource buffer and shader resource view of this
 		 structured buffer.
 
 		 @param[in]		device
@@ -182,13 +182,13 @@ namespace mage::rendering {
 		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 
 		/**
-		 The number of available slots for storing data elements in the current 
+		 The number of available slots for storing data elements in the current
 		 buffer resource of this structured buffer (i.e. the capacity).
 		 */
 		std::size_t m_capacity;
 
 		/**
-		 The number of used slots for storing data elements in the current buffer 
+		 The number of used slots for storing data elements in the current buffer
 		 resource of this structured buffer (i.e. the size).
 		 */
 		std::size_t m_size;

@@ -44,73 +44,73 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: False Color
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager,
 									  FalseColor false_color) {
 		switch (false_color) {
-			
+
 			case FalseColor::ConstantColor:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_constant_color_PS));
 			case FalseColor::UV:
 			case FalseColor::ConstantColorTexture:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_constant_texture_PS));
 			case FalseColor::BaseColor:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_base_color_PS));
 			case FalseColor::BaseColorCoefficient:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_base_color_coefficient_PS));
 			case FalseColor::BaseColorTexture:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_base_color_texture_PS));
 			case FalseColor::Material:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_material_PS));
 			case FalseColor::MaterialCoefficient:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_material_coefficient_PS));
 			case FalseColor::MaterialTexture:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_material_texture_PS));
 			case FalseColor::Roughness:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_roughness_PS));
 			case FalseColor::RoughnessCoefficient:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_roughness_coefficient_PS));
 			case FalseColor::RoughnessTexture:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_roughness_texture_PS));
 			case FalseColor::Metalness:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_metalness_PS));
 			case FalseColor::MetalnessCoefficient:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_metalness_coefficient_PS));
 			case FalseColor::MetalnessTexture:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_metalness_texture_PS));
 			case FalseColor::ShadingNormal:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_shading_normal_PS));
 			case FalseColor::TSNMShadingNormal:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_tsnm_shading_normal_PS));
 			case FalseColor::Depth:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_depth_PS));
 			case FalseColor::Distance:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_distance_PS));
 			default:
-				return CreatePS(resource_manager, 
+				return CreatePS(resource_manager,
 								MAGE_SHADER_ARGS(g_base_color_PS));
 		}
 	}

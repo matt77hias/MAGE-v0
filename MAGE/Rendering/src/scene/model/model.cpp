@@ -13,13 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
 
-	Model::Model(ID3D11Device& device) 
+	Model::Model(ID3D11Device& device)
 		: Component(),
 		m_buffer(device),
 		m_aabb(),
 		m_sphere(),
-		m_mesh(), 
-		m_start_index(0u), 
+		m_mesh(),
+		m_start_index(0u),
 		m_nb_indices(0u),
 		m_texture_transform(),
 		m_material(),
@@ -31,10 +31,10 @@ namespace mage::rendering {
 
 	Model& Model::operator=(Model&& model) noexcept = default;
 
-	void Model::SetMesh(SharedPtr< const Mesh > mesh, 
+	void Model::SetMesh(SharedPtr< const Mesh > mesh,
 						std::size_t start_index,
 						std::size_t nb_indices,
-						AABB aabb, 
+						AABB aabb,
 						BoundingSphere bs) {
 
 		m_aabb        = std::move(aabb);
@@ -46,7 +46,7 @@ namespace mage::rendering {
 
 	void Model::UpdateBuffer(ID3D11DeviceContext& device_context) const {
 		Assert(HasOwner());
-		
+
 		const auto& transform         = GetOwner()->GetTransform();
 		const auto  object_to_world   = transform.GetObjectToWorldMatrix();
 		const auto  world_to_object   = transform.GetWorldToObjectMatrix();
@@ -58,7 +58,7 @@ namespace mage::rendering {
 		buffer.m_normal_to_world      = world_to_object;
 		buffer.m_texture_transform    = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_base_color           = m_material.IsEmissive() 
+		buffer.m_base_color           = m_material.IsEmissive()
 			                          ? m_material.GetRadianceSpectrum()
 			                          : m_material.GetBaseColor();
 		buffer.m_roughness            = m_material.GetRoughness();

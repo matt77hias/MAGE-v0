@@ -27,7 +27,7 @@ namespace mage::rendering {
 	class VertexShader : public Resource< VertexShader > {
 
 	public:
-	
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -46,12 +46,12 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to initialize this vertex shader.
 		 */
-		explicit VertexShader(ID3D11Device& device, 
+		explicit VertexShader(ID3D11Device& device,
 							  std::wstring guid,
-			                  const CompiledShader& compiled_shader, 
-			                  gsl::span< const D3D11_INPUT_ELEMENT_DESC > 
+			                  const CompiledShader& compiled_shader,
+			                  gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 							  input_element_descs);
-		
+
 		/**
 		 Constructs a vertex shader from the given vertex shader.
 
@@ -59,7 +59,7 @@ namespace mage::rendering {
 						A reference to the vertex shader to copy.
 		 */
 		VertexShader(const VertexShader& vertex_shader) = delete;
-		
+
 		/**
 		 Constructs a vertex shader by moving the given vertex shader.
 
@@ -67,7 +67,7 @@ namespace mage::rendering {
 						A reference to the vertex shader to move.
 		 */
 		VertexShader(VertexShader&& vertex_shader) noexcept;
-		
+
 		/**
 		 Destructs this vertex shader.
 		 */
@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.
-		 @return		A reference to the copy of the given vertex shader 
+		 @return		A reference to the copy of the given vertex shader
 						(i.e. this vertex shader).
 		 */
 		VertexShader& operator=(const VertexShader& vertex_shader) = delete;
@@ -92,7 +92,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.
-		 @return		A reference to the moved vertex shader (i.e. this 
+		 @return		A reference to the moved vertex shader (i.e. this
 						vertex shader).
 		 */
 		VertexShader& operator=(VertexShader&& vertex_shader) noexcept;
@@ -134,7 +134,7 @@ namespace mage::rendering {
 			             const CompiledShader& compiled_shader,
 						 gsl::span< const D3D11_INPUT_ELEMENT_DESC >
 						 input_element_descs);
-			
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -149,7 +149,7 @@ namespace mage::rendering {
 		 */
 		ComPtr< ID3D11InputLayout >  m_vertex_layout;
 	};
-	
+
 	#pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -169,7 +169,7 @@ namespace mage::rendering {
 	class Shader : public Resource< Shader< ShaderT, PipelineStageT > > {
 
 	public:
-	
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -186,10 +186,10 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to initialize this shader.
 		 */
-		explicit Shader(ID3D11Device& device, 
+		explicit Shader(ID3D11Device& device,
 						std::wstring guid,
 			            const CompiledShader& compiled_shader);
-		
+
 		/**
 		 Constructs a shader from the given shader.
 
@@ -220,7 +220,7 @@ namespace mage::rendering {
 
 		 @param[in]		shader
 						A reference to the shader to copy.
-		 @return		A reference to the copy of the given shader (i.e. this 
+		 @return		A reference to the copy of the given shader (i.e. this
 						shader).
 		 */
 		Shader& operator=(const Shader& shader) = delete;
@@ -262,9 +262,9 @@ namespace mage::rendering {
 		 @throws		Exception
 						Failed to setup this shader.
 		 */
-		void SetupShader(ID3D11Device& device, 
+		void SetupShader(ID3D11Device& device,
 			             const CompiledShader& compiled_shader);
-		
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

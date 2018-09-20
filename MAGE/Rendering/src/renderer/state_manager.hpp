@@ -41,7 +41,7 @@ namespace mage::rendering {
 		AlphaToCoverage,
 		Count
 	};
-		
+
 	/**
 	 An enumeration of the different depth stencil state identifiers.
 
@@ -49,8 +49,8 @@ namespace mage::rendering {
 	 @c DepthNone,
 	 @c GreaterEqualDepthReadWrite,
 	 @c GreaterEqualDepthRead,
-	 @c GreaterDepthReadWrite, 
-	 @c GreaterDepthRead, 
+	 @c GreaterDepthReadWrite,
+	 @c GreaterDepthRead,
 	 @c LessEqualDepthReadWrite,
 	 @c LessEqualDepthRead,
 	 @c LessDepthReadWrite and
@@ -68,7 +68,7 @@ namespace mage::rendering {
 		LessDepthRead,
 		Count
 	};
-		
+
 	/**
 	 An enumeration of the different rasterizer state identifiers.
 
@@ -85,14 +85,14 @@ namespace mage::rendering {
 		Wireframe,
 		Count
 	};
-		
+
 	/**
 	 An enumeration of the different sampler state identifiers.
 
 	 This contains:
-	 @c PointWrap, 
-	 @c PointClamp, 
-	 @c PointMirror, 
+	 @c PointWrap,
+	 @c PointClamp,
+	 @c PointMirror,
 	 @c LinearWrap,
 	 @c LinearClamp,
 	 @c LinearMirror,
@@ -139,7 +139,7 @@ namespace mage::rendering {
 		 @param[in]		device
 						A reference to the device.
 		 @throws		Exception
-						Failed to setup the rendering states of this state 
+						Failed to setup the rendering states of this state
 						manager.
 		 */
 		explicit StateManager(ID3D11Device& device);
@@ -167,14 +167,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given state manager to this state manager.
 
 		 @param[in]		manager
 						A reference to the state manager to copy.
-		 @return		A reference to the copy of the given state manager 
+		 @return		A reference to the copy of the given state manager
 						(i.e. this state manager).
 		 */
 		StateManager& operator=(const StateManager& manager) = delete;
@@ -184,7 +184,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to the state manager to move.
-		 @return		A reference to the moved state manager (i.e. this state 
+		 @return		A reference to the moved state manager (i.e. this state
 						manager).
 		 */
 		StateManager& operator=(StateManager&& manager) noexcept;
@@ -209,7 +209,7 @@ namespace mage::rendering {
 		 @param[in]		id
 						The blend state identifier.
 		 */
-		void Bind(ID3D11DeviceContext& device_context, 
+		void Bind(ID3D11DeviceContext& device_context,
 				  BlendStateID id) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context, Get(id));
@@ -223,13 +223,13 @@ namespace mage::rendering {
 		 @param[in]		id
 						The depth-stencil state identifier.
 		 */
-		void Bind(ID3D11DeviceContext& device_context, 
+		void Bind(ID3D11DeviceContext& device_context,
 				  DepthStencilStateID id) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context, Get(id));
 		}
 
-		
+
 		/**
 		 Binds the given rasterizer state of this state manager.
 
@@ -238,7 +238,7 @@ namespace mage::rendering {
 		 @param[in]		id
 						The rasterizer state identifier.
 		 */
-		void Bind(ID3D11DeviceContext& device_context, 
+		void Bind(ID3D11DeviceContext& device_context,
 				  RasterizerStateID id) const noexcept {
 
 			Pipeline::RS::BindState(device_context, Get(id));
@@ -254,19 +254,19 @@ namespace mage::rendering {
 		 @param[in]		device_context
 						A reference to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set the 
-						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						The index into the device's zero-based array to set the
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START
 						to @c SLOT_SAMPLER_VARIABLE_END).
 		 @param[in]		id
 						The sampler state identifier.
 		 */
 		template< typename PipelineStageT >
-		void BindPointWrapSamplerStateID(ID3D11DeviceContext& device_context, 
+		void BindPointWrapSamplerStateID(ID3D11DeviceContext& device_context,
 										 U32 slot, SamplerStateID id) const noexcept {
 
 			PipelineStageT::BindSampler(device_context, slot, Get(id));
 		}
-		
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -278,7 +278,7 @@ namespace mage::rendering {
 		 of this state manager.
 
 		 @throws		Exception
-						Failed to setup the rendering states of this state 
+						Failed to setup the rendering states of this state
 						manager.
 		 */
 		void SetupRenderingStates();
@@ -290,41 +290,41 @@ namespace mage::rendering {
 						Failed to setup the blend states of this state manager.
 		 */
 		void SetupBlendStates();
-		
+
 		/**
 		 Setup the depth stencil states of this state manager.
 
 		 @throws		Exception
-						Failed to setup the depth stencil states of state 
+						Failed to setup the depth stencil states of state
 						manager.
 		 */
 		void SetupDepthStencilStates();
-		
+
 		/**
 		 Setup the rasterizer states of this state manager.
 
 		 @throws		Exception
-						Failed to setup the rasterizer states of this state 
+						Failed to setup the rasterizer states of this state
 						manager.
 		 */
 		void SetupRasterizerStates();
-		
+
 		/**
 		 Setup the samplers states of this state manager.
 
 		 @throws		Exception
-						Failed to setup the samplers states of this state 
+						Failed to setup the samplers states of this state
 						manager.
 		 */
 		void SetupSamplerStates();
-		
+
 		/**
-		 Returns the blend state of this state manager associated to the given 
+		 Returns the blend state of this state manager associated to the given
 		 identifier.
 
 		 @param[in]		id
 						The blend state identifier.
-		 @return		A pointer to the blend state of this state manager 
+		 @return		A pointer to the blend state of this state manager
 						associated to the given identifier.
 		 */
 		[[nodiscard]]
@@ -334,62 +334,62 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns and releases the address of the blend state of this state 
+		 Returns and releases the address of the blend state of this state
 		 manager associated to the given identifier.
 
 		 @param[in]		id
 						The blend state identifier.
-		 @return		A pointer to a pointer to the blend state of this state 
+		 @return		A pointer to a pointer to the blend state of this state
 						manager associated to the given identifier.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11BlendState** > 
+		NotNull< ID3D11BlendState** >
 			ReleaseAndGetAddressOf(BlendStateID id) noexcept {
 
 			auto& state = m_blend_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11BlendState** >(state.ReleaseAndGetAddressOf());
 		}
-		
+
 		/**
-		 Returns the depth stencil state of this state manager associated to 
+		 Returns the depth stencil state of this state manager associated to
 		 the given identifier.
 
 		 @param[in]		id
 						The depth stencil identifier.
-		 @return		A pointer to the depth stencil state of this state 
+		 @return		A pointer to the depth stencil state of this state
 						manager associated to the given identifier.
 		 */
 		[[nodiscard]]
 		ID3D11DepthStencilState* Get(DepthStencilStateID id) const noexcept {
 			const auto& state = m_depth_stencil_states[static_cast< std::size_t >(id)];
-			
+
 			return state.Get();
 		}
-		
+
 		/**
-		 Returns and releases the address of the depth stencil state of this 
+		 Returns and releases the address of the depth stencil state of this
 		 state manager associated to the given identifier.
 
 		 @param[in]		id
 						The depth stencil identifier.
-		 @return		A pointer to a pointer to the depth stencil state of 
+		 @return		A pointer to a pointer to the depth stencil state of
 						this state manager associated to the given identifier.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11DepthStencilState** > 
+		NotNull< ID3D11DepthStencilState** >
 			ReleaseAndGetAddressOf(DepthStencilStateID id) noexcept {
-			
+
 			auto& state = m_depth_stencil_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11DepthStencilState** >(state.ReleaseAndGetAddressOf());
 		}
-		
+
 		/**
-		 Returns the rasterizer state of this state manager associated to the 
+		 Returns the rasterizer state of this state manager associated to the
 		 given identifier.
 
 		 @param[in]		id
 						The rasterizer identifier.
-		 @return		A pointer to the rasterizer state of this state manager 
+		 @return		A pointer to the rasterizer state of this state manager
 						associated to the given identifier.
 		 */
 		[[nodiscard]]
@@ -397,31 +397,31 @@ namespace mage::rendering {
 			const auto& state = m_rasterizer_states[static_cast< std::size_t >(id)];
 			return state.Get();
 		}
-		
+
 		/**
-		 Returns and releases the address of the rasterizer state of this state 
+		 Returns and releases the address of the rasterizer state of this state
 		 manager associated to the given identifier.
 
 		 @param[in]		id
 						The rasterizer state identifier.
-		 @return		A pointer to a pointer to the rasterizer state of this 
+		 @return		A pointer to a pointer to the rasterizer state of this
 						state manager associated to the given identifier.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11RasterizerState** > 
+		NotNull< ID3D11RasterizerState** >
 			ReleaseAndGetAddressOf(RasterizerStateID id) noexcept {
-			
+
 			auto& state = m_rasterizer_states[static_cast< std::size_t >(id)];
 			return NotNull< ID3D11RasterizerState** >(state.ReleaseAndGetAddressOf());
 		}
-		
+
 		/**
-		 Returns the sampler state of this state manager associated to the 
+		 Returns the sampler state of this state manager associated to the
 		 given identifier.
 
 		 @param[in]		id
 						The sampler state identifier.
-		 @return		A pointer to the sampler state of this state manager 
+		 @return		A pointer to the sampler state of this state manager
 						associated to the given identifier.
 		 */
 		[[nodiscard]]
@@ -429,18 +429,18 @@ namespace mage::rendering {
 			const auto& state = m_sampler_states[static_cast< std::size_t >(id)];
 			return state.Get();
 		}
-		
+
 		/**
-		 Returns and releases the address of the sampler state of this state 
+		 Returns and releases the address of the sampler state of this state
 		 manager associated to the given identifier.
 
 		 @param[in]		id
 						The sampler state identifier.
-		 @return		A pointer to a pointer to the sampler state of this 
+		 @return		A pointer to a pointer to the sampler state of this
 						state manager associated to the given identifier.
 		 */
 		[[nodiscard]]
-		NotNull< ID3D11SamplerState** > 
+		NotNull< ID3D11SamplerState** >
 			ReleaseAndGetAddressOf(SamplerStateID id) noexcept {
 
 			auto& state = m_sampler_states[static_cast< std::size_t >(id)];
@@ -457,28 +457,28 @@ namespace mage::rendering {
 		std::reference_wrapper< ID3D11Device > m_device;
 
 		/**
-		 An array containing pointers to the blend states of this state 
+		 An array containing pointers to the blend states of this state
 		 manager.
 		 */
 		ComPtr< ID3D11BlendState > m_blend_states[
 			static_cast< std::size_t >(BlendStateID::Count)];
 
 		/**
-		 An array containing pointers to the depth stencil states of this state 
+		 An array containing pointers to the depth stencil states of this state
 		 manager.
 		 */
 		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
 			static_cast< std::size_t >(DepthStencilStateID::Count)];
 
 		/**
-		 An array containing pointers to the rasterizer states of this state 
+		 An array containing pointers to the rasterizer states of this state
 		 manager.
 		 */
 		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
 			static_cast< std::size_t >(RasterizerStateID::Count)];
-		
+
 		/**
-		 An array containing pointers to the sampler states of this state 
+		 An array containing pointers to the sampler states of this state
 		 manager.
 		 */
 		ComPtr< ID3D11SamplerState > m_sampler_states[

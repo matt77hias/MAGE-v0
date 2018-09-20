@@ -115,7 +115,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex  (i.e. this 
+		 @return		A reference to the copy of the given vertex  (i.e. this
 						vertex).
 		 */
 		VertexPosition& operator=(const VertexPosition& vertex) noexcept = default;
@@ -219,9 +219,9 @@ namespace mage::rendering {
 		 @param[in]		n
 						The normal of the vertex.
 		 */
-		constexpr explicit VertexPositionNormal(Point3 p, 
+		constexpr explicit VertexPositionNormal(Point3 p,
 			                                    Normal3 n) noexcept
-			: m_p(std::move(p)), 
+			: m_p(std::move(p)),
 			m_n(std::move(n)) {}
 
 		/**
@@ -256,7 +256,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionNormal& operator=(
@@ -367,9 +367,9 @@ namespace mage::rendering {
 		 @param[in]		c
 						The (linear) color of the vertex.
 		 */
-		constexpr explicit VertexPositionColor(Point3 p, 
+		constexpr explicit VertexPositionColor(Point3 p,
 			                                   RGBA c) noexcept
-			: m_p(std::move(p)), 
+			: m_p(std::move(p)),
 			m_c(std::move(c)) {}
 
 		/**
@@ -404,7 +404,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionColor& operator=(
@@ -515,9 +515,9 @@ namespace mage::rendering {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionTexture(Point3 p, 
+		constexpr explicit VertexPositionTexture(Point3 p,
 			                                     UV tex) noexcept
-			: m_p(std::move(p)), 
+			: m_p(std::move(p)),
 			m_tex(std::move(tex)) {}
 
 		/**
@@ -552,7 +552,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionTexture& operator=(
@@ -596,7 +596,7 @@ namespace mage::rendering {
 				  "Vertex struct/layout mismatch");
 
 	/**
-	 A struct of vertices containing position and normal coordinates and a 
+	 A struct of vertices containing position and normal coordinates and a
 	 color.
 	 */
 	struct VertexPositionNormalColor {
@@ -666,11 +666,11 @@ namespace mage::rendering {
 		 @param[in]		c
 						The (linear) color of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalColor(Point3 p, 
-			                                         Normal3 n, 
+		constexpr explicit VertexPositionNormalColor(Point3 p,
+			                                         Normal3 n,
 			                                         RGBA c) noexcept
-			: m_p(std::move(p)), 
-			m_n(std::move(n)), 
+			: m_p(std::move(p)),
+			m_n(std::move(n)),
 			m_c(std::move(c)) {}
 
 		/**
@@ -705,7 +705,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionNormalColor& operator=(
@@ -823,11 +823,11 @@ namespace mage::rendering {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalTexture(Point3 p, 
-			                                           Normal3 n, 
+		constexpr explicit VertexPositionNormalTexture(Point3 p,
+			                                           Normal3 n,
 			                                           UV tex) noexcept
-			: m_p(std::move(p)), 
-			m_n(std::move(n)), 
+			: m_p(std::move(p)),
+			m_n(std::move(n)),
 			m_tex(std::move(tex)) {}
 
 		/**
@@ -862,7 +862,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionNormalTexture& operator=(
@@ -911,7 +911,7 @@ namespace mage::rendering {
 				  "Vertex struct/layout mismatch");
 
 	/**
-	 A struct of vertices containing position and texture coordinates and a 
+	 A struct of vertices containing position and texture coordinates and a
 	 color.
 	 */
 	struct VertexPositionColorTexture {
@@ -981,11 +981,11 @@ namespace mage::rendering {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionColorTexture(Point3 p, 
-			                                          RGBA c, 
+		constexpr explicit VertexPositionColorTexture(Point3 p,
+			                                          RGBA c,
 			                                          UV tex) noexcept
-			: m_p(std::move(p)), 
-			m_c(std::move(c)), 
+			: m_p(std::move(p)),
+			m_c(std::move(c)),
 			m_tex(std::move(tex)) {}
 
 		/**
@@ -1020,7 +1020,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionColorTexture& operator=(
@@ -1069,7 +1069,7 @@ namespace mage::rendering {
 				  "Vertex struct/layout mismatch");
 
 	/**
-	 A struct of vertices containing position, normal and texture coordinates 
+	 A struct of vertices containing position, normal and texture coordinates
 	 and a color.
 	 */
 	struct VertexPositionNormalColorTexture {
@@ -1141,13 +1141,13 @@ namespace mage::rendering {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		constexpr explicit VertexPositionNormalColorTexture(Point3 p, 
-			                                                Normal3 n, 
-			                                                RGBA c, 
+		constexpr explicit VertexPositionNormalColorTexture(Point3 p,
+			                                                Normal3 n,
+			                                                RGBA c,
 			                                                UV tex) noexcept
-			: m_p(std::move(p)), 
-			m_n(std::move(n)), 
-			m_c(std::move(c)), 
+			: m_p(std::move(p)),
+			m_n(std::move(n)),
+			m_c(std::move(c)),
 			m_tex(std::move(tex)) {}
 
 		/**
@@ -1182,7 +1182,7 @@ namespace mage::rendering {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex (i.e. this 
+		 @return		A reference to the copy of the given vertex (i.e. this
 						vertex).
 		 */
 		VertexPositionNormalColorTexture& operator=(

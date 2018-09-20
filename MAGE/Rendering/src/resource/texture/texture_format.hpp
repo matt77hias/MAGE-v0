@@ -173,7 +173,7 @@ namespace mage {
 
 	 @param[in]		format
 					The DXGI format.
-	 @return		The matching sRGB converted DXGI format of the given DXGI 
+	 @return		The matching sRGB converted DXGI format of the given DXGI
 					format.
 	 */
 	[[nodiscard]]

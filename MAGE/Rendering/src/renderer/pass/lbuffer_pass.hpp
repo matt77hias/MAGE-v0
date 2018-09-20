@@ -37,9 +37,9 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit LBufferPass(ID3D11Device& device, 
-							 ID3D11DeviceContext& device_context, 
-							 StateManager& state_manager, 
+		explicit LBufferPass(ID3D11Device& device,
+							 ID3D11DeviceContext& device_context,
+							 StateManager& state_manager,
 							 ResourceManager& resource_manager);
 		LBufferPass(const LBufferPass& buffer) = delete;
 		LBufferPass(LBufferPass&& buffer) noexcept;
@@ -58,7 +58,7 @@ namespace mage::rendering {
 
 		void XM_CALLCONV Render(const World& world,
 			                    FXMMATRIX world_to_projection);
-		
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -70,11 +70,11 @@ namespace mage::rendering {
 
 		void ProcessLightsData(const World& world);
 
-		void XM_CALLCONV ProcessDirectionalLights(const World& world, 
+		void XM_CALLCONV ProcessDirectionalLights(const World& world,
 												  FXMMATRIX world_to_projection);
-		void XM_CALLCONV ProcessOmniLights(const World& world, 
+		void XM_CALLCONV ProcessOmniLights(const World& world,
 										   FXMMATRIX world_to_projection);
-		void XM_CALLCONV ProcessSpotLights(const World& world, 
+		void XM_CALLCONV ProcessSpotLights(const World& world,
 										   FXMMATRIX world_to_projection);
 
 		void SetupShadowMaps();

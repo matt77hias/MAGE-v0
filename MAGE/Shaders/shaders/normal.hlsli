@@ -40,7 +40,7 @@
 // Engine Declarations and Definitions: Normal Mapping
 //-----------------------------------------------------------------------------
 
-// The input arguments (p and n) for applying tangent space normal mapping must 
+// The input arguments (p and n) for applying tangent space normal mapping must
 // be expressed in the same coordinate system which can be chosen arbitrarily.
 
 /**

@@ -32,25 +32,25 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Depth-of-Field
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	ComputeShaderPtr CreateDepthOfFieldCS(ResourceManager& resource_manager) {
-		return CreateCS(resource_manager, 
+		return CreateCS(resource_manager,
 						MAGE_SHADER_ARGS(g_dof_CS));
 	}
-	
+
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Low Dynamic Range
 	//-------------------------------------------------------------------------
 	#pragma region
-	
-	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager, 
+
+	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager,
 											 ToneMapping tone_mapping) {
 		switch (tone_mapping) {
 

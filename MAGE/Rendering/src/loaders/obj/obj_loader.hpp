@@ -39,10 +39,10 @@ namespace mage::rendering::loader {
 					Failed to import the mesh from file.
 	 */
 	template< typename VertexT, typename IndexT >
-	void ImportOBJMeshFromFile(const std::filesystem::path& path, 
-							   ResourceManager& resource_manager, 
-							   ModelOutput< VertexT, IndexT >& model_output, 
-							   const MeshDescriptor< VertexT, IndexT >& 
+	void ImportOBJMeshFromFile(const std::filesystem::path& path,
+							   ResourceManager& resource_manager,
+							   ModelOutput< VertexT, IndexT >& model_output,
+							   const MeshDescriptor< VertexT, IndexT >&
 							   mesh_desc = MeshDescriptor< VertexT, IndexT >());
 }
 

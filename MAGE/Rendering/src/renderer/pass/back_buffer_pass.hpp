@@ -36,8 +36,8 @@ namespace mage::rendering {
 		 @param[in]		resource_manager
 						A reference to the resource manager.
 		 */
-		explicit BackBufferPass(ID3D11DeviceContext& device_context, 
-								StateManager& state_manager, 
+		explicit BackBufferPass(ID3D11DeviceContext& device_context,
+								StateManager& state_manager,
 								ResourceManager& resource_manager);
 
 		/**
@@ -70,7 +70,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the back buffer pass to copy.
-		 @return		A reference to the copy of the given back buffer pass 
+		 @return		A reference to the copy of the given back buffer pass
 						(i.e. this back buffer pass).
 		 */
 		BackBufferPass& operator=(const BackBufferPass& pass) = delete;
@@ -80,7 +80,7 @@ namespace mage::rendering {
 
 		 @param[in]		pass
 						A reference to the back buffer pass to move.
-		 @return		A reference to the moved back buffer pass (i.e. this 
+		 @return		A reference to the moved back buffer pass (i.e. this
 						back buffer pass).
 		 */
 		BackBufferPass& operator=(BackBufferPass&& pass) noexcept;
@@ -93,7 +93,7 @@ namespace mage::rendering {
 		 Renders.
 		 */
 		void Render();
-		
+
 	private:
 
 		//---------------------------------------------------------------------

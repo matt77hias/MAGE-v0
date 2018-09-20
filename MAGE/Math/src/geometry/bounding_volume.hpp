@@ -43,7 +43,7 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Returns the union bounding sphere of the given bounding sphere and the 
+		 Returns the union bounding sphere of the given bounding sphere and the
 		 given point.
 
 		 @param[in]		sphere
@@ -53,13 +53,13 @@ namespace mage {
 		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere,
 													  const Point3& point) noexcept {
 			return Union(sphere, XMLoad(point));
 		}
 
 		/**
-		 Returns the union bounding sphere of the given bounding sphere and the 
+		 Returns the union bounding sphere of the given bounding sphere and the
 		 given vertex.
 
 		 @tparam		VertexT
@@ -72,13 +72,13 @@ namespace mage {
 		 */
 		template< typename VertexT >
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere,
 													  const VertexT& vertex) noexcept {
 			return Union(sphere, vertex.m_p);
 		}
 
 		/**
-		 Returns the union bounding sphere of the given bounding sphere and the 
+		 Returns the union bounding sphere of the given bounding sphere and the
 		 given point.
 
 		 @param[in]		sphere
@@ -88,7 +88,7 @@ namespace mage {
 		 @return		The union bounding sphere of @a sphere and @a point.
 		 */
 		[[nodiscard]]
-		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere, 
+		static const BoundingSphere XM_CALLCONV Union(const BoundingSphere& sphere,
 													  FXMVECTOR point) noexcept {
 
 			const auto length = XMVector3Length(point - sphere.m_pr);
@@ -104,7 +104,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		static const BoundingSphere XM_CALLCONV Maximum() noexcept {
-			return BoundingSphere(g_XMZero, 
+			return BoundingSphere(g_XMZero,
 				                  std::numeric_limits< float >::infinity());
 		}
 
@@ -124,7 +124,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the point.
 		 */
-		explicit BoundingSphere(const Point3& p) noexcept 
+		explicit BoundingSphere(const Point3& p) noexcept
 			: BoundingSphere(p, 0.0f) {}
 
 		/**
@@ -196,7 +196,7 @@ namespace mage {
 
 		 @param[in]		sphere
 						A reference to the bounding sphere to copy.
-		 @return		A reference to the copy of the given bounding sphere 
+		 @return		A reference to the copy of the given bounding sphere
 						(i.e. this bounding sphere).
 		 */
 		BoundingSphere& operator=(const BoundingSphere& sphere) noexcept = default;
@@ -206,7 +206,7 @@ namespace mage {
 
 		 @param[in]		sphere
 						A reference to the bounding sphere to move.
-		 @return		A reference to the moved bounding sphere (i.e. this 
+		 @return		A reference to the moved bounding sphere (i.e. this
 						bounding sphere).
 		 */
 		BoundingSphere& operator=(BoundingSphere&& sphere) noexcept = default;
@@ -240,14 +240,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this bounding sphere completely encloses the given 
+		 Checks whether this bounding sphere completely encloses the given
 		 point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this bounding sphere completely encloses 
+		 @return		@c true if this bounding sphere completely encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
@@ -256,14 +256,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding sphere completely, strictly encloses the 
+		 Checks whether this bounding sphere completely, strictly encloses the
 		 given point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this bounding sphere completely, strictly 
+		 @return		@c true if this bounding sphere completely, strictly
 						encloses @a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
@@ -272,14 +272,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding sphere completely encloses the given 
+		 Checks whether this bounding sphere completely encloses the given
 		 point.
 
 		 @param[in]		point
 						The point.
 		 @return		@c true if this bounding sphere completely encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
@@ -290,14 +290,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding sphere completely, strictly encloses the 
+		 Checks whether this bounding sphere completely, strictly encloses the
 		 given point.
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this bounding sphere completely, strictly 
+		 @return		@c true if this bounding sphere completely, strictly
 						encloses @a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
@@ -308,56 +308,56 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding sphere completely encloses the given 
+		 Checks whether this bounding sphere completely encloses the given
 		 AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this bounding sphere completely encloses 
+		 @return		@c true if this bounding sphere completely encloses
 						@a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
 		bool Encloses(const AABB& aabb) const noexcept;
 
 		/**
-		 Checks whether this bounding sphere completely, strictly encloses the 
+		 Checks whether this bounding sphere completely, strictly encloses the
 		 given AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this bounding sphere completely, strictly 
+		 @return		@c true if this bounding sphere completely, strictly
 						encloses @a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						a bounding sphere.
 		 */
 		[[nodiscard]]
 		bool EnclosesStrict(const AABB& aabb) const noexcept;
 
 		/**
-		 Checks whether this bounding sphere completely encloses the given 
+		 Checks whether this bounding sphere completely encloses the given
 		 bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding sphere completely encloses 
+		 @return		@c true if this bounding sphere completely encloses
 						@a sphere. @c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to a bounding sphere.
 		 */
 		[[nodiscard]]
 		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
-		 Checks whether this bounding sphere completely, strictly encloses the 
+		 Checks whether this bounding sphere completely, strictly encloses the
 		 given bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding sphere completely, strictly 
+		 @return		@c true if this bounding sphere completely, strictly
 						encloses @a sphere. @c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to a bounding sphere.
 		 */
 		[[nodiscard]]
@@ -368,14 +368,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this bounding sphere overlaps the given bounding 
+		 Checks whether this bounding sphere overlaps the given bounding
 		 sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
 		 @return		@c true if this bounding sphere overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to an bounding sphere.
 		 */
 		[[nodiscard]]
@@ -387,14 +387,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding sphere strictly overlaps the given 
+		 Checks whether this bounding sphere strictly overlaps the given
 		 bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding sphere strictly overlaps 
+		 @return		@c true if this bounding sphere strictly overlaps
 						@a sphere. @c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to an bounding sphere.
 		 */
 		[[nodiscard]]
@@ -410,12 +410,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether the given bounding sphere is equal to this bounding 
+		 Checks whether the given bounding sphere is equal to this bounding
 		 sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if the given bounding sphere is equal to this 
+		 @return		@c true if the given bounding sphere is equal to this
 						bounding sphere. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -424,12 +424,12 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether the given bounding sphere is not equal to this bounding 
+		 Checks whether the given bounding sphere is not equal to this bounding
 		 sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if the given bounding sphere is equal to this 
+		 @return		@c true if the given bounding sphere is equal to this
 						bounding sphere. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -479,7 +479,7 @@ namespace mage {
 		 @return		The union AABB of @a aabb and @a point.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB& aabb, 
+		static const AABB XM_CALLCONV Union(const AABB& aabb,
 											const Point3& point) noexcept {
 
 			return Union(aabb, XMLoad(point));
@@ -498,7 +498,7 @@ namespace mage {
 		*/
 		template< typename VertexT >
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB& aabb, 
+		static const AABB XM_CALLCONV Union(const AABB& aabb,
 											const VertexT& vertex) noexcept {
 			return Union(aabb, vertex.m_p);
 		}
@@ -513,7 +513,7 @@ namespace mage {
 		 @return		The union AABB of @a aabb and @a point.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB& aabb, 
+		static const AABB XM_CALLCONV Union(const AABB& aabb,
 											FXMVECTOR point) noexcept {
 
 			return Union(aabb, AABB(point));
@@ -529,14 +529,14 @@ namespace mage {
 		 @return		The union AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Union(const AABB& aabb1, 
+		static const AABB XM_CALLCONV Union(const AABB& aabb1,
 											const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMin(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMax(aabb1.m_max, aabb2.m_max);
 			return AABB(p_min, p_max);
 		}
-	
+
 		/**
 		 Returns the overlap AABB of the two given AABBs.
 
@@ -548,14 +548,14 @@ namespace mage {
 		 @return		The overlap AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV Overlap(const AABB& aabb1, 
+		static const AABB XM_CALLCONV Overlap(const AABB& aabb1,
 											  const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.Overlaps(aabb2) ? AABB(p_min, p_max) : AABB();
 		}
-	
+
 		/**
 		 Returns the strict overlap AABB of the two given AABBs.
 
@@ -567,16 +567,16 @@ namespace mage {
 		 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 		 */
 		[[nodiscard]]
-		static const AABB XM_CALLCONV OverlapStrict(const AABB& aabb1, 
+		static const AABB XM_CALLCONV OverlapStrict(const AABB& aabb1,
 													const AABB& aabb2) noexcept {
 
 			const auto p_min = XMVectorMax(aabb1.m_min, aabb2.m_min);
 			const auto p_max = XMVectorMin(aabb1.m_max, aabb2.m_max);
 			return aabb1.OverlapsStrict(aabb2) ? AABB(p_min, p_max) : AABB();
 		}
-	
+
 		/**
-		 Returns the minimum AABB (i.e. the AABB that is variant for union 
+		 Returns the minimum AABB (i.e. the AABB that is variant for union
 		 operations).
 
 		 @return		The minimum AABB.
@@ -587,7 +587,7 @@ namespace mage {
 		}
 
 		/**
-		 Returns the maximum AABB (i.e. the AABB that is invariant for union 
+		 Returns the maximum AABB (i.e. the AABB that is invariant for union
 		 operations).
 
 		 @return		The maximum AABB.
@@ -604,7 +604,7 @@ namespace mage {
 		/**
 		 Constructs an AABB.
 		 */
-		AABB() noexcept 
+		AABB() noexcept
 			: AABB(g_XMInfinity, -g_XMInfinity) {}
 
 		/**
@@ -645,7 +645,7 @@ namespace mage {
 						The maximum extents.
 		 */
 		AABB(FXMVECTOR p_min, FXMVECTOR p_max) noexcept
-			: m_min(XMVectorSetW(p_min, 1.0f)), 
+			: m_min(XMVectorSetW(p_min, 1.0f)),
 			  m_max(XMVectorSetW(p_max, 1.0f)) {}
 
 		/**
@@ -686,7 +686,7 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB to copy.
-		 @return		A reference to the copy of the given AABB (i.e. this 
+		 @return		A reference to the copy of the given AABB (i.e. this
 						AABB).
 		 */
 		AABB& operator=(const AABB& aabb) noexcept = default;
@@ -706,7 +706,7 @@ namespace mage {
 
 		/**
 		 Returns the minimum point of this AABB.
- 
+
 		 @return		The minimum point of this AABB.
 		 */
 		[[nodiscard]]
@@ -716,7 +716,7 @@ namespace mage {
 
 		/**
 		 Returns the maximum point of this AABB.
- 
+
 		 @return		The maximum point of this AABB.
 		 */
 		[[nodiscard]]
@@ -725,17 +725,17 @@ namespace mage {
 		}
 
 		/**
-		 Returns the minimum and maximum point of this AABB along a given 
+		 Returns the minimum and maximum point of this AABB along a given
 		 normal.
 
 		 @param[in]		n
 						The normal.
-		 @return		A pair containing the minimum and maximum point of this 
+		 @return		A pair containing the minimum and maximum point of this
 						AABB along @a n.
 		 */
-		const std::pair< XMVECTOR, XMVECTOR > XM_CALLCONV 
+		const std::pair< XMVECTOR, XMVECTOR > XM_CALLCONV
 			MinAndMaxPointAlongNormal(FXMVECTOR n) const noexcept {
-			
+
 			const auto control = XMVectorGreaterOrEqual(n, XMVectorZero());
 			const auto p_min   = XMVectorSelect(m_max, m_min, control);
 			const auto p_max   = XMVectorSelect(m_min, m_max, control);
@@ -772,7 +772,7 @@ namespace mage {
 
 		/**
 		 Returns the centroid of this AABB.
- 
+
 		 @return		The centroid of this AABB.
 		 */
 		[[nodiscard]]
@@ -811,7 +811,7 @@ namespace mage {
 						A reference to the point.
 		 @return		@c true if this AABB completely encloses @a point.
 						@c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -824,9 +824,9 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses 
+		 @return		@c true if this AABB completely, strictly encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -841,7 +841,7 @@ namespace mage {
 						A reference to the point.
 		 @return		@c true if this AABB completely encloses @a point.
 						@c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -861,9 +861,9 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses 
+		 @return		@c true if this AABB completely, strictly encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -885,7 +885,7 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this AABB completely encloses @a aabb.
 						@c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -905,9 +905,9 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this AABB completely, strictly encloses 
+		 @return		@c true if this AABB completely, strictly encloses
 						@a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						an AABB.
 		 */
 		[[nodiscard]]
@@ -923,28 +923,28 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this AABB completely encloses the given bounding 
+		 Checks whether this AABB completely encloses the given bounding
 		 sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
 		 @return		@c true if this AABB completely encloses @a sphere.
 						@c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to an AABB.
 		 */
 		[[nodiscard]]
 		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
-		 Checks whether this AABB completely, strictly encloses the given 
+		 Checks whether this AABB completely, strictly encloses the given
 		 bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this AABB completely, strictly encloses 
+		 @return		@c true if this AABB completely, strictly encloses
 						@a sphere. @c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to an AABB.
 		 */
 		[[nodiscard]]
@@ -961,7 +961,7 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this AABB overlaps @a aabb.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of an AABB 
+		 @note			This is a (partial or full) coverage test of an AABB
 						with regard to an AABB.
 		 */
 		[[nodiscard]]
@@ -973,7 +973,7 @@ namespace mage {
 			if (XMVector3Less(aabb.m_max, m_min)) {
 				return false;
 			}
-			
+
 			return true;
 		}
 
@@ -984,7 +984,7 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this AABB strictly overlaps @a aabb.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of an AABB 
+		 @note			This is a (partial or full) coverage test of an AABB
 						with regard to an AABB.
 		 */
 		[[nodiscard]]
@@ -1007,7 +1007,7 @@ namespace mage {
 						A reference to the bounding sphere.
 		 @return		@c true if this AABB overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to an AABB.
 		 */
 		[[nodiscard]]
@@ -1020,7 +1020,7 @@ namespace mage {
 						A reference to the bounding sphere.
 		 @return		@c true if this AABB strictly overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to an AABB.
 		 */
 		[[nodiscard]]
@@ -1099,7 +1099,7 @@ namespace mage {
 	public:
 
 		/**
-		 Checks if the given bounding volume is culled by the bounding frustum 
+		 Checks if the given bounding volume is culled by the bounding frustum
 		 constructed from the given object-to-projection transformation matrix.
 
 		 @tparam		BoundingVolumeT
@@ -1108,14 +1108,14 @@ namespace mage {
 						The object-to-projection transformation matrix.
 		 @param[in]		volume
 						A reference to the bounding volume.
-		 @return		@c true if the given bounding volume is culled by the 
-						bounding frustum constructed from the given 
-						object-to-projection transformation matrix. @c false 
+		 @return		@c true if the given bounding volume is culled by the
+						bounding frustum constructed from the given
+						object-to-projection transformation matrix. @c false
 						otherwise.
 		 */
 		template< typename BoundingVolumeT >
 		[[nodiscard]]
-		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection, 
+		static bool XM_CALLCONV Cull(FXMMATRIX object_to_projection,
 									 const BoundingVolumeT& volume) noexcept {
 
 			const BoundingFrustum frustum(object_to_projection);
@@ -1125,20 +1125,20 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 Constructs a bounding frustum from the given transform.
-		 
-		 If the given transform represents the view-to-projection 
-		 transformation matrix, the planes of the bounding frustum are 
+
+		 If the given transform represents the view-to-projection
+		 transformation matrix, the planes of the bounding frustum are
 		 represented by view space coordinates.
 
-		 If the given transform represents the world-(to-view)-to-projection 
-		 transformation matrix, the planes of the bounding frustum are 
+		 If the given transform represents the world-(to-view)-to-projection
+		 transformation matrix, the planes of the bounding frustum are
 		 represented by world space coordinates.
 
-		 If the given transform represents the object-(to-world-to-view)-to-projection 
-		 transformation matrix, the planes of the bounding frustum are 
+		 If the given transform represents the object-(to-world-to-view)-to-projection
+		 transformation matrix, the planes of the bounding frustum are
 		 represented by object space coordinates.
 
 		 @param[in]		transform
@@ -1176,10 +1176,10 @@ namespace mage {
 
 		 @param[in]		frustum
 						A reference to the bounding frustum to copy.
-		 @return		A reference to the copy of the given bounding frustum 
+		 @return		A reference to the copy of the given bounding frustum
 						(i.e. this bounding frustum).
 		 */
-		BoundingFrustum& operator=(const BoundingFrustum& 
+		BoundingFrustum& operator=(const BoundingFrustum&
 								   frustum) noexcept = default;
 
 		/**
@@ -1187,25 +1187,25 @@ namespace mage {
 
 		 @param[in]		frustum
 						A reference to the bounding frustum to move.
-		 @return		A reference to the moved bounding frustum (i.e. this 
+		 @return		A reference to the moved bounding frustum (i.e. this
 						bounding frustum).
 		 */
-		BoundingFrustum& operator=(BoundingFrustum&& 
+		BoundingFrustum& operator=(BoundingFrustum&&
 								   frustum) noexcept = default;
-		
+
 		//---------------------------------------------------------------------
 		// Member Methods: Enclosing = Full Coverage
 		//---------------------------------------------------------------------
-		
+
 		/**
-		 Checks whether this bounding frustum completely encloses the given 
+		 Checks whether this bounding frustum completely encloses the given
 		 point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this bounding frustum completely encloses 
+		 @return		@c true if this bounding frustum completely encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
@@ -1214,14 +1214,14 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding frustum completely, strictly encloses the 
+		 Checks whether this bounding frustum completely, strictly encloses the
 		 given point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this bounding frustum completely, strictly 
+		 @return		@c true if this bounding frustum completely, strictly
 						encloses @a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
@@ -1230,28 +1230,28 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this bounding frustum completely encloses the given 
+		 Checks whether this bounding frustum completely encloses the given
 		 point.
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this bounding frustum completely encloses 
+		 @return		@c true if this bounding frustum completely encloses
 						@a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool XM_CALLCONV Encloses(FXMVECTOR point) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum completely, strictly encloses the 
+		 Checks whether this bounding frustum completely, strictly encloses the
 		 given point.
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this bounding frustum completely, strictly 
+		 @return		@c true if this bounding frustum completely, strictly
 						encloses @a point. @c false otherwise.
-		 @note			This is a full coverage test of a point with regard to 
+		 @note			This is a full coverage test of a point with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
@@ -1262,61 +1262,61 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this bounding frustum completely encloses 
+		 @return		@c true if this bounding frustum completely encloses
 						@a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool Encloses(const AABB& aabb) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum completely, strictly encloses the 
+		 Checks whether this bounding frustum completely, strictly encloses the
 		 given AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this bounding frustum completely, strictly 
+		 @return		@c true if this bounding frustum completely, strictly
 						encloses @a aabb. @c false otherwise.
-		 @note			This is a full coverage test of an AABB with regard to 
+		 @note			This is a full coverage test of an AABB with regard to
 						a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool EnclosesStrict(const AABB& aabb) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum completely encloses the given 
+		 Checks whether this bounding frustum completely encloses the given
 		 bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding frustum completely encloses 
+		 @return		@c true if this bounding frustum completely encloses
 						@a sphere.
 						@c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool Encloses(const BoundingSphere& sphere) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum completely, strictly encloses the 
+		 Checks whether this bounding frustum completely, strictly encloses the
 		 given bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding frustum completely, strictly 
+		 @return		@c true if this bounding frustum completely, strictly
 						encloses @a sphere. @c false otherwise.
-		 @note			This is a full coverage test of a bounding sphere with 
+		 @note			This is a full coverage test of a bounding sphere with
 						regard to a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool EnclosesStrict(const BoundingSphere& sphere) const noexcept;
-		
+
 		//---------------------------------------------------------------------
 		// Member Methods: Overlapping = Partial | Full Coverage
 		//---------------------------------------------------------------------
-		
+
 		/**
 		 Checks whether this bounding frustum overlaps the given AABB.
 
@@ -1324,7 +1324,7 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this bounding frustum overlaps @a aabb.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of an AABB 
+		 @note			This is a (partial or full) coverage test of an AABB
 						with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
@@ -1335,39 +1335,39 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this bounding frustum strictly overlaps 
+		 @return		@c true if this bounding frustum strictly overlaps
 						@a aabb.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of an AABB 
+		 @note			This is a (partial or full) coverage test of an AABB
 						with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool OverlapsStrict(const AABB& aabb) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum overlaps the given bounding 
+		 Checks whether this bounding frustum overlaps the given bounding
 		 sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
 		 @return		@c true if this bounding frustum overlaps @a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
 		bool Overlaps(const BoundingSphere& sphere) const noexcept;
 
 		/**
-		 Checks whether this bounding frustum strictly overlaps the given 
+		 Checks whether this bounding frustum strictly overlaps the given
 		 bounding sphere.
 
 		 @param[in]		sphere
 						A reference to the bounding sphere.
-		 @return		@c true if this bounding frustum strictly overlaps 
+		 @return		@c true if this bounding frustum strictly overlaps
 						@a sphere.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a bounding 
+		 @note			This is a (partial or full) coverage test of a bounding
 						sphere with regard to a bounding frustum.
 		 */
 		[[nodiscard]]
@@ -1378,24 +1378,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether the given bounding frustum is equal to this bounding 
+		 Checks whether the given bounding frustum is equal to this bounding
 		 frustum.
 
 		 @param[in]		frustum
 						A reference to the bounding frustum.
-		 @return		@c true if the given bounding frustum is equal to this 
+		 @return		@c true if the given bounding frustum is equal to this
 						bounding frustum. @c false otherwise.
 		 */
 		[[nodiscard]]
 		bool operator==(const BoundingFrustum& frustum) const noexcept;
 
 		/**
-		 Checks whether the given bounding frustum is not equal to this 
+		 Checks whether the given bounding frustum is not equal to this
 		 bounding frustum.
 
 		 @param[in]		frustum
 						A reference to the bounding frustum.
-		 @return		@c true if the given bounding frustum is equal to this 
+		 @return		@c true if the given bounding frustum is equal to this
 						bounding frustum. @c false otherwise.
 		 */
 		[[nodiscard]]
@@ -1410,7 +1410,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		union {
-			
+
 			struct {
 
 				/**
@@ -1443,9 +1443,9 @@ namespace mage {
 				 */
 				XMVECTOR m_far_plane;
 			};
-			
+
 			/**
-			 The six planes of this bounding frustum. 
+			 The six planes of this bounding frustum.
 			 */
 			XMVECTOR m_planes[6];
 		};
@@ -1494,8 +1494,8 @@ namespace mage {
 	inline Coverage Classify(const BoundingVolumeT& volume1,
 		                     const BoundingVolumeU& volume2) noexcept {
 
-		return volume1.Encloses(volume2) ? Coverage::FullCoverage 
-			: (volume1.Overlaps(volume2) ? Coverage::PartialCoverage 
+		return volume1.Encloses(volume2) ? Coverage::FullCoverage
+			: (volume1.Overlaps(volume2) ? Coverage::PartialCoverage
 				                         : Coverage::NoCoverage);
 	}
 

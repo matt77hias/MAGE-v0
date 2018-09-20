@@ -50,7 +50,7 @@ namespace mage::script {
 
 		virtual void Load([[maybe_unused]] Engine& engine) override;
 		virtual void Update([[maybe_unused]] Engine& engine) override;
-		
+
 		void Clear();
 		void Write(NotNull< const_wzstring > str);
 		void WriteLine(NotNull< const_wzstring > str);
@@ -80,7 +80,7 @@ namespace mage::script {
 
 		UniquePtr< wchar_t[] > m_buffer;
 		std::vector< wchar_t > m_temp_buffer;
-		
+
 		std::mutex m_mutex;
 	};
 }

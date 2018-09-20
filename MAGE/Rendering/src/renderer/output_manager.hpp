@@ -35,10 +35,10 @@ namespace mage::rendering {
 		  @param[in]	swap_chain
 						A reference to the swap chain.
 		 @throws		Exception
-						Failed to setup the rendering outputs of this output 
+						Failed to setup the rendering outputs of this output
 						manager.
 		 */
-		explicit OutputManager(ID3D11Device& device, 
+		explicit OutputManager(ID3D11Device& device,
 							   DisplayConfiguration& display_configuration,
 							   SwapChain& swap_chain);
 
@@ -65,14 +65,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given output manager to this output manager.
 
 		 @param[in]		manager
 						A reference to the output manager to copy.
-		 @return		A reference to the copy of the given output manager 
+		 @return		A reference to the copy of the given output manager
 						(i.e. this output manager).
 		 */
 		OutputManager& operator=(const OutputManager& manager) = delete;
@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to the output manager to move.
-		 @return		A reference to the moved output manager (i.e. this 
+		 @return		A reference to the moved output manager (i.e. this
 						output manager).
 		 */
 		OutputManager& operator=(OutputManager&& manager) noexcept;
@@ -153,35 +153,35 @@ namespace mage::rendering {
 		ID3D11ShaderResourceView* GetSRV(SRVIndex index) const noexcept {
 			return m_srvs[static_cast< std::size_t >(index)].Get();
 		}
-		
+
 		[[nodiscard]]
-		NotNull< ID3D11ShaderResourceView** > 
+		NotNull< ID3D11ShaderResourceView** >
 			ReleaseAndGetAddressOfSRV(SRVIndex index) noexcept {
 
 			auto& srv = m_srvs[static_cast< std::size_t >(index)];
 			return NotNull< ID3D11ShaderResourceView** >(srv.ReleaseAndGetAddressOf());
 		}
-		
+
 		[[nodiscard]]
 		ID3D11RenderTargetView* GetRTV(RTVIndex index) const noexcept {
 			return m_rtvs[static_cast< std::size_t >(index)].Get();
 		}
-		
+
 		[[nodiscard]]
-		NotNull< ID3D11RenderTargetView** > 
+		NotNull< ID3D11RenderTargetView** >
 			ReleaseAndGetAddressOfRTV(RTVIndex index) noexcept {
 
 			auto& rtv = m_rtvs[static_cast< std::size_t >(index)];
 			return NotNull< ID3D11RenderTargetView** >(rtv.ReleaseAndGetAddressOf());
 		}
-		
+
 		[[nodiscard]]
 		ID3D11UnorderedAccessView* GetUAV(UAVIndex index) const noexcept {
 			return m_uavs[static_cast< std::size_t >(index)].Get();
 		}
-		
+
 		[[nodiscard]]
-		NotNull< ID3D11UnorderedAccessView** > 
+		NotNull< ID3D11UnorderedAccessView** >
 			ReleaseAndGetAddressOfUAV(UAVIndex index) noexcept {
 
 			auto& uav = m_uavs[static_cast< std::size_t >(index)];
@@ -190,10 +190,10 @@ namespace mage::rendering {
 
 		void SetupBuffers();
 
-		void SetupBuffer(const U32x3& resolution, 
+		void SetupBuffer(const U32x3& resolution,
 			             DXGI_FORMAT format,
-			             ID3D11ShaderResourceView** srv, 
-			             ID3D11RenderTargetView** rtv, 
+			             ID3D11ShaderResourceView** srv,
+			             ID3D11RenderTargetView** rtv,
 			             ID3D11UnorderedAccessView** uav);
 
 		void SetupDepthBuffer(const U32x3& resolution);

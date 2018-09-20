@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite
 						A reference to the sprite text to copy.
-		 @return		A reference to the copy of the given sprite text (i.e. 
+		 @return		A reference to the copy of the given sprite text (i.e.
 						this sprite text).
 		 */
 		SpriteText& operator=(const SpriteText& sprite);
@@ -92,7 +92,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite
 						A reference to the sprite text to move.
-		 @return		A reference to the moved sprite text (i.e. this sprite 
+		 @return		A reference to the moved sprite text (i.e. this sprite
 						text).
 		 */
 		SpriteText& operator=(SpriteText&& sprite) noexcept;
@@ -105,7 +105,7 @@ namespace mage::rendering {
 		 Draws this sprite text.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering this 
+						A reference to the sprite batch used for rendering this
 						sprite text.
 		 */
 		void Draw(SpriteBatch& sprite_batch) const;
@@ -117,7 +117,7 @@ namespace mage::rendering {
 		/**
 		 Returns the sprite transform of this sprite text.
 
-		 @return		A reference to the sprite transform of this sprite 
+		 @return		A reference to the sprite transform of this sprite
 						text.
 		 */
 		[[nodiscard]]
@@ -128,14 +128,14 @@ namespace mage::rendering {
 		/**
 		 Returns the sprite transform of this sprite text.
 
-		 @return		A reference to the sprite transform of this sprite 
+		 @return		A reference to the sprite transform of this sprite
 						text.
 		 */
 		[[nodiscard]]
 		const SpriteTransform& GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
-		
+
 		//---------------------------------------------------------------------
 		// Member Methods: Sprite Transform
 		//---------------------------------------------------------------------
@@ -149,9 +149,9 @@ namespace mage::rendering {
 		SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
-		
+
 		/**
-		 Sets the sprite effects of this sprite text to the given sprite 
+		 Sets the sprite effects of this sprite text to the given sprite
 		 effects.
 
 		 @param[in]		sprite_effects
@@ -175,7 +175,7 @@ namespace mage::rendering {
 		/**
 		 Returns the text of this sprite text.
 
-		 @return		A reference to a vector containing the color strings 
+		 @return		A reference to a vector containing the color strings
 						of this sprite text.
 		 */
 		[[nodiscard]]
@@ -193,7 +193,7 @@ namespace mage::rendering {
 			ClearText();
 			m_strings.push_back(std::move(text));
 		}
-		
+
 		/**
 		 Appends the given text to the end of the text of this sprite text.
 
@@ -208,8 +208,8 @@ namespace mage::rendering {
 		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on all color strings of this 
-						sprite text. The action must accept @c ColorString& 
+						An action to perform on all color strings of this
+						sprite text. The action must accept @c ColorString&
 						values.
 		 @param[in]		action
 						The action.
@@ -221,8 +221,8 @@ namespace mage::rendering {
 		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on all color strings of this 
-						sprite text. The action must accept @c const 
+						An action to perform on all color strings of this
+						sprite text. The action must accept @c const
 						@c ColorString& values.
 		 @param[in]		action
 						The action.
@@ -237,7 +237,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) text effect color of this sprite text.
 
-		 @return		A reference to the (linear) text effect color of this 
+		 @return		A reference to the (linear) text effect color of this
 						sprite text.
 		 */
 		[[nodiscard]]
@@ -248,7 +248,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) text effect color of this sprite text.
 
-		 @return		A reference to the (linear) text effect color of this 
+		 @return		A reference to the (linear) text effect color of this
 						sprite text.
 		 */
 		[[nodiscard]]
@@ -289,11 +289,11 @@ namespace mage::rendering {
 		SpriteFontPtr GetFont() const noexcept {
 			return m_font;
 		}
-		
+
 		/**
 		 Returns the shader resource view of the font of this sprite text.
 
-		 @return		A pointer to the shader resource view of the font of 
+		 @return		A pointer to the shader resource view of the font of
 						this sprite text.
 		 */
 		[[nodiscard]]
@@ -303,7 +303,7 @@ namespace mage::rendering {
 
 		/**
 		 Sets the font of this sprite text to the given font.
-	
+
 		 @param[in]		font
 						A pointer to the font of this sprite text.
 		 */

@@ -14,25 +14,25 @@
 namespace mage::script {
 
 	CharacterMotorScript::CharacterMotorScript()
-		: BehaviorScript(), 
+		: BehaviorScript(),
 		m_velocity(2.0f) {}
-	
+
 	CharacterMotorScript::CharacterMotorScript(
 		const CharacterMotorScript& script) noexcept = default;
 
 	CharacterMotorScript::CharacterMotorScript(
 		CharacterMotorScript&& script) noexcept = default;
-	
+
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
 	CharacterMotorScript& CharacterMotorScript::operator=(
 		const CharacterMotorScript& script) noexcept = default;
-	
+
 	CharacterMotorScript& CharacterMotorScript::operator=(
 		CharacterMotorScript&& script) noexcept = default;
 
 	void CharacterMotorScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
 	}
 
@@ -48,29 +48,29 @@ namespace mage::script {
 			                          * movement_magnitude;
 		const auto movement_sin       = std::sin(transform.GetRotationY())
 			                          * movement_magnitude;
-		
-		if (     keyboard.IsActive(DIK_UP) 
+
+		if (     keyboard.IsActive(DIK_UP)
 			  || keyboard.IsActive(DIK_W)) {
-			
+
 			transform.AddTranslationX( movement_sin);
 			transform.AddTranslationZ( movement_cos);
 		}
 		else if (keyboard.IsActive(DIK_DOWN)
 			  || keyboard.IsActive(DIK_S)) {
-			
+
 			transform.AddTranslationX(-movement_sin);
 			transform.AddTranslationZ(-movement_cos);
 		}
 
 		if (     keyboard.IsActive(DIK_RIGHT)
 			  || keyboard.IsActive(DIK_D)) {
-			
+
 			transform.AddTranslationX( movement_cos);
 			transform.AddTranslationZ(-movement_sin);
 		}
 		else if (keyboard.IsActive(DIK_LEFT)
 			  || keyboard.IsActive(DIK_A)) {
-			
+
 			transform.AddTranslationX(-movement_cos);
 			transform.AddTranslationZ( movement_sin);
 		}

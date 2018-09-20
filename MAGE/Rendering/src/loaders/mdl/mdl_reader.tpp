@@ -18,9 +18,9 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	MDLReader< VertexT, IndexT >
-		::MDLReader(ResourceManager& resource_manager, 
+		::MDLReader(ResourceManager& resource_manager,
 					ModelOutput< VertexT, IndexT >& model_output)
-		: LineReader(), 
+		: LineReader(),
 		m_resource_manager(resource_manager),
 		m_model_output(model_output) {}
 
@@ -72,7 +72,7 @@ namespace mage::rendering::loader {
 		model_part.m_material    = Read< std::string >();
 		model_part.m_start_index = Read< U32 >();
 		model_part.m_nb_indices  = Read< U32 >();
-		
+
 		m_model_output.AddModelPart(std::move(model_part));
 	}
 
@@ -81,9 +81,9 @@ namespace mage::rendering::loader {
 		const UTF8toUTF16 mtl_name(Read< std::string_view >());
 		auto mtl_path = GetPath();
 		mtl_path.replace_filename(std::wstring_view(mtl_name));
-		
+
 		ImportMaterialFromFile(mtl_path,
-							   m_resource_manager, 
+							   m_resource_manager,
 							   m_model_output.m_material_buffer);
 	}
 }

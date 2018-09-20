@@ -16,18 +16,18 @@ namespace mage::script {
 	TextConsoleScript::TextConsoleScript(U32 nb_rows, U32 nb_columns)
 		: BehaviorScript(),
 		m_text(),
-		m_nb_rows(nb_rows), 
+		m_nb_rows(nb_rows),
 		m_nb_columns(nb_columns + 1),
-		m_current_column(0), 
+		m_current_column(0),
 		m_current_row(0),
-		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)), 
-		m_temp_buffer(), 
+		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)),
+		m_temp_buffer(),
 		m_mutex() {
-		
+
 		Clear();
 	}
 
-	TextConsoleScript::TextConsoleScript(const TextConsoleScript& script) 
+	TextConsoleScript::TextConsoleScript(const TextConsoleScript& script)
 		: BehaviorScript(script),
 		m_text(),
 		m_nb_rows(script.m_nb_rows),
@@ -43,7 +43,7 @@ namespace mage::script {
 
 	}
 
-	TextConsoleScript::TextConsoleScript(TextConsoleScript&& script) noexcept 
+	TextConsoleScript::TextConsoleScript(TextConsoleScript&& script) noexcept
 		: BehaviorScript(std::move(script)),
 		m_text(std::move(script.m_text)),
 		m_nb_rows(script.m_nb_rows),
@@ -57,11 +57,11 @@ namespace mage::script {
 	TextConsoleScript::~TextConsoleScript() = default;
 
 	void TextConsoleScript::Load([[maybe_unused]] Engine& engine) {
-		ThrowIfFailed(HasOwner(), 
+		ThrowIfFailed(HasOwner(),
 					  "This script needs to be attached to a node.");
 
 		m_text = GetOwner()->Get< rendering::SpriteText >();
-		ThrowIfFailed((nullptr != m_text), 
+		ThrowIfFailed((nullptr != m_text),
 					  "This script needs a sprite text component.");
 	}
 
@@ -73,7 +73,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Clear() {
-		memset(m_buffer.get(), 0, 
+		memset(m_buffer.get(), 0,
 			   sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
 		m_current_row    = 0;
 		m_current_column = 0;
@@ -81,13 +81,13 @@ namespace mage::script {
 
 	void TextConsoleScript::Write(NotNull< const_wzstring > str) {
 		const std::scoped_lock lock(m_mutex);
-		
+
 		ProcessString(str);
 	}
 
 	void TextConsoleScript::WriteLine(NotNull< const_wzstring > str) {
 		const std::scoped_lock lock(m_mutex);
-		
+
 		ProcessString(str);
 		IncrementRow();
 	}
@@ -99,7 +99,7 @@ namespace mage::script {
 		// Retrieve the additional arguments after format
 		va_start(args, format);
 
-		const auto nb_characters 
+		const auto nb_characters
 			= static_cast< std::size_t >(_vscwprintf(format, args) + 1);
 		if (m_temp_buffer.size() < nb_characters) {
 			m_temp_buffer.resize(nb_characters);
@@ -118,7 +118,7 @@ namespace mage::script {
 		const wchar_t* const c_str = str;
 		for (auto character = c_str;
 			*character != L'\0'; ++character, ++m_current_column) {
-			
+
 			if (L'\n' == *character) {
 				IncrementRow();
 				continue;

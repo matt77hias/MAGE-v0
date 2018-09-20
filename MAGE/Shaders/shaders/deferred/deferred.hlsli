@@ -36,7 +36,7 @@
 // Pixel Shader
 //-----------------------------------------------------------------------------
 
-float4 PS(float4 input : SV_POSITION, 
+float4 PS(float4 input : SV_POSITION,
 		  uint index : SV_SampleIndex) : SV_Target {
 
 	const float2 p_ss_display = input.xy;
@@ -53,12 +53,12 @@ float4 PS(float4 input : SV_POSITION,
 	const Material material = {
 		base_color,
 		material_params.x,
-		material_params.y 
+		material_params.y
 	};
 
 	// Calculate the pixel radiance.
 	const float3 L = GetRadiance(p_world, n_world, material);
-	
+
 	return float4(L, 1.0f);
 }
 
@@ -69,7 +69,7 @@ float4 PS(float4 input : SV_POSITION,
 //-----------------------------------------------------------------------------
 
 float4 PS(float4 input : SV_POSITION) : SV_Target {
-	
+
 	const float2 p_ss_display = input.xy;
 
 	// Obtain the base color of the material.
@@ -97,7 +97,7 @@ float4 PS(float4 input : SV_POSITION) : SV_Target {
 // Compute Shader
 //-----------------------------------------------------------------------------
 
-// MSAA_AS_SSAA is not possible for deferred shading in the compute shader 
+// MSAA_AS_SSAA is not possible for deferred shading in the compute shader
 // without knowing the positioning of the subpixels inside the pixel.
 
 #ifndef GROUP_SIZE
@@ -109,7 +109,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const uint2 p_ss_viewport = thread_id.xy;
 	uint2 p_ss_display;
-		
+
 	[branch]
 	if (IsSSViewportOutOfBounds(p_ss_viewport, p_ss_display)) {
 		return;

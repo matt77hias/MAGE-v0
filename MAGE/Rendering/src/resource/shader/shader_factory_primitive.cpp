@@ -29,32 +29,32 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage::rendering {
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Primitive
 	//-------------------------------------------------------------------------
 	#pragma region
 
 	VertexShaderPtr CreateLineCubeVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_line_cube_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_line_cube_VS),
 						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	PixelShaderPtr CreateLineCubePS(ResourceManager& resource_manager) {
-		return CreatePS(resource_manager, 
+		return CreatePS(resource_manager,
 						MAGE_SHADER_ARGS(g_line_cube_PS));
 	}
 
 	VertexShaderPtr CreateFarFullscreenTriangleVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS),
 						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 
 	VertexShaderPtr CreateNearFullscreenTriangleVS(ResourceManager& resource_manager) {
-		return CreateVS(resource_manager, 
-						MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS), 
+		return CreateVS(resource_manager,
+						MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS),
 						gsl::span< const D3D11_INPUT_ELEMENT_DESC >());
 	}
 

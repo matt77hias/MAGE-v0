@@ -37,7 +37,7 @@ namespace mage::rendering {
 		OrthographicCamera(ID3D11Device& device);
 
 		/**
-		 Constructs an orthographic camera from the given orthographic 
+		 Constructs an orthographic camera from the given orthographic
 		 camera.
 
 		 @param[in]		camera
@@ -46,7 +46,7 @@ namespace mage::rendering {
 		OrthographicCamera(const OrthographicCamera& camera) = delete;
 
 		/**
-		 Constructs an orthographic camera by moving the given orthographic 
+		 Constructs an orthographic camera by moving the given orthographic
 		 camera.
 
 		 @param[in]		camera
@@ -61,24 +61,24 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
 
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
-		 @return		A reference to the copy of the given orthographic 
+		 @return		A reference to the copy of the given orthographic
 						camera (i.e. this orthographic camera).
 		 */
 		OrthographicCamera& operator=(const OrthographicCamera& camera) = delete;
-		
+
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
 
 		 @param[in]		camera
 						A reference to the orthographic camera to move.
-		 @return		A reference to the moved orthographic camera (i.e. this 
+		 @return		A reference to the moved orthographic camera (i.e. this
 						orthographic camera).
 		 */
 		OrthographicCamera& operator=(OrthographicCamera&& camera) noexcept;
@@ -88,10 +88,10 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the size of the projection plane of this orthographic camera 
+		 Returns the size of the projection plane of this orthographic camera
 		 expressed in camera space.
 
-		 @return		The size of the projection plane of this orthographic 
+		 @return		The size of the projection plane of this orthographic
 						camera expressed in camera space.
 		 */
 		[[nodiscard]]
@@ -100,7 +100,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the size of the projection plane of this orthographic camera 
+		 Sets the size of the projection plane of this orthographic camera
 		 expressed in camera space to the given size.
 
 		 @param[in]		size
@@ -113,11 +113,11 @@ namespace mage::rendering {
 		/**
 		 Returns the camera-to-projection matrix of this orthographic camera.
 
-		 @return		The camera-to-projection matrix of this orthographic 
+		 @return		The camera-to-projection matrix of this orthographic
 						camera.
 		 */
 		[[nodiscard]]
-		virtual const XMMATRIX XM_CALLCONV 
+		virtual const XMMATRIX XM_CALLCONV
 			GetCameraToProjectionMatrix() const noexcept override {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -126,18 +126,18 @@ namespace mage::rendering {
 			const auto [far_plane, near_plane] = GetClippingPlanes();
 			#endif // DISABLE_INVERTED_Z_BUFFER
 
-			return XMMatrixOrthographicLH(m_size[0], m_size[1], 
+			return XMMatrixOrthographicLH(m_size[0], m_size[1],
 										  near_plane, far_plane);
 		}
 
 		/**
 		 Returns the projection-to-camera matrix of this orthographic camera.
 
-		 @return		The projection-to-camera matrix of this orthographic 
+		 @return		The projection-to-camera matrix of this orthographic
 						camera.
 		 */
 		[[nodiscard]]
-		virtual const XMMATRIX XM_CALLCONV 
+		virtual const XMMATRIX XM_CALLCONV
 			GetProjectionToCameraMatrix() const noexcept override {
 
 			const auto camera_to_projection = GetCameraToProjectionMatrix();
@@ -146,7 +146,7 @@ namespace mage::rendering {
 			const auto m11 = 1.0f / XMVectorGetY(camera_to_projection.r[1]);
 			const auto m22 = 1.0f / XMVectorGetZ(camera_to_projection.r[2]);
 			const auto m32 = -XMVectorGetZ(camera_to_projection.r[3]) * m22;
-			
+
 			return {
 				 m00, 0.0f, 0.0f, 0.0f,
 				0.0f,  m11, 0.0f, 0.0f,
@@ -162,7 +162,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The size of the projection plane of this orthographic camera expressed 
+		 The size of the projection plane of this orthographic camera expressed
 		 in camera space.
 		 */
 		F32x2 m_size;

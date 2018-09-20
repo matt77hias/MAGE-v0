@@ -19,16 +19,16 @@ namespace mage::rendering {
 	// Factory Methods: General
 	//-------------------------------------------------------------------------
 	#pragma region
-	
+
 	/**
 	 Creates a vertex shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the vertex shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the vertex 
+					A reference to the constructor arguments for the vertex
 					shader.
 	 @return		A pointer to the vertex shader.
 	 @throws		Exception
@@ -36,18 +36,18 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	VertexShaderPtr CreateVS(ResourceManager& resource_manager, 
+	VertexShaderPtr CreateVS(ResourceManager& resource_manager,
 							 ConstructorArgsT&&... args);
 
 	/**
 	 Creates a hull shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the hull shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the hull 
+					A reference to the constructor arguments for the hull
 					shader.
 	 @return		A pointer to the hull shader.
 	 @throws		Exception
@@ -55,18 +55,18 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	HullShaderPtr CreateHS(ResourceManager& resource_manager, 
+	HullShaderPtr CreateHS(ResourceManager& resource_manager,
 						   ConstructorArgsT&&... args);
 
 	/**
 	 Creates a domain shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the domain shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the domain 
+					A reference to the constructor arguments for the domain
 					shader.
 	 @return		A pointer to the domain shader.
 	 @throws		Exception
@@ -74,18 +74,18 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	DomainShaderPtr CreateDS(ResourceManager& resource_manager, 
+	DomainShaderPtr CreateDS(ResourceManager& resource_manager,
 							 ConstructorArgsT&&... args);
 
 	/**
 	 Creates a geometry shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the geometry shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the geometry 
+					A reference to the constructor arguments for the geometry
 					shader.
 	 @return		A pointer to the geometry shader.
 	 @throws		Exception
@@ -93,18 +93,18 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	GeometryShaderPtr CreateGS(ResourceManager& resource_manager, 
+	GeometryShaderPtr CreateGS(ResourceManager& resource_manager,
 							   ConstructorArgsT&&... args);
 
 	/**
 	 Creates a pixel shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the pixel shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the pixel 
+					A reference to the constructor arguments for the pixel
 					shader.
 	 @return		A pointer to the pixel shader.
 	 @throws		Exception
@@ -112,18 +112,18 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	PixelShaderPtr CreatePS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreatePS(ResourceManager& resource_manager,
 							ConstructorArgsT&&... args);
 
 	/**
 	 Creates a compute shader.
- 
+
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the compute shader.
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the compute 
+					A reference to the constructor arguments for the compute
 					shader.
 	 @return		A pointer to the compute shader.
 	 @throws		Exception
@@ -131,11 +131,11 @@ namespace mage::rendering {
 	 */
 	template< typename... ConstructorArgsT >
 	[[nodiscard]]
-	ComputeShaderPtr CreateCS(ResourceManager& resource_manager, 
+	ComputeShaderPtr CreateCS(ResourceManager& resource_manager,
 							  ConstructorArgsT&&... args);
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Anti-aliasing
 	//-------------------------------------------------------------------------
@@ -204,7 +204,7 @@ namespace mage::rendering {
 	PixelShaderPtr CreateBackBufferPS(ResourceManager& resource_manager);
 
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
@@ -229,14 +229,14 @@ namespace mage::rendering {
 	 @param[in]		brdf
 					The BRDF function.
 	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
+					@c true if voxel cone tracing should be enabled. @c false
 					otherwise.
-	 @return		A pointer to the deferred compute shader matching the given 
+	 @return		A pointer to the deferred compute shader matching the given
 					BRDF.
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager, 
+	ComputeShaderPtr CreateDeferredCS(ResourceManager& resource_manager,
 									  BRDF brdf, bool vct);
 
 	/**
@@ -258,14 +258,14 @@ namespace mage::rendering {
 	 @param[in]		brdf
 					The BRDF function.
 	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
+					@c true if voxel cone tracing should be enabled. @c false
 					otherwise.
-	 @return		A pointer to the deferred MSAA pixel shader matching the 
+	 @return		A pointer to the deferred MSAA pixel shader matching the
 					given BRDF.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateDeferredMSAAPS(ResourceManager& resource_manager,
 										BRDF brdf, bool vct);
 
 	#pragma endregion
@@ -326,11 +326,11 @@ namespace mage::rendering {
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateFalseColorPS(ResourceManager& resource_manager,
 									  FalseColor false_color);
-	
+
 	#pragma endregion
-	
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
@@ -342,13 +342,13 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
+					@c true if transparency should be enabled. @c false
 					otherwise.
 	 @return		A pointer to the forward emissive pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateForwardEmissivePS(ResourceManager& resource_manager,
 										   bool transparency);
 
 	/**
@@ -359,23 +359,23 @@ namespace mage::rendering {
 	 @param[in]		brdf
 					The BRDF function.
 	 @param[in]		transparency
-					@c true if transparency should be enabled. @c false 
+					@c true if transparency should be enabled. @c false
 					otherwise.
 	 @param[in]		vct
-					@c true if voxel cone tracing should be enabled. @c false 
+					@c true if voxel cone tracing should be enabled. @c false
 					otherwise.
 	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
+					@c true if tangent space normal mapping should be enabled.
 					@c false otherwise.
-	 @return		A pointer to the forward pixel shader matching the given 
+	 @return		A pointer to the forward pixel shader matching the given
 					BRDF.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateForwardPS(ResourceManager& resource_manager,
 								   BRDF brdf,
-								   bool transparency, 
-								   bool vct, 
+								   bool transparency,
+								   bool vct,
 								   bool tsnm);
 
 	/**
@@ -402,13 +402,13 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
+					@c true if tangent space normal mapping should be enabled.
 					@c false otherwise.
 	 @return		A pointer to the GBuffer pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateGBufferPS(ResourceManager& resource_manager,
 								   bool tsnm);
 
 	#pragma endregion
@@ -440,7 +440,7 @@ namespace mage::rendering {
 	 @throws		Exception
 					Failed to create the compute shader.
 	 */
-	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager, 
+	ComputeShaderPtr CreateLowDynamicRangeCS(ResourceManager& resource_manager,
 											 ToneMapping tone_mapping);
 
 	#pragma endregion
@@ -616,13 +616,13 @@ namespace mage::rendering {
 	 @param[in]		resource_manager
 					A reference to the resource manager.
 	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be enabled. 
+					@c true if tangent space normal mapping should be enabled.
 					@c false otherwise.
 	 @return		A pointer to the voxelization pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
 	 */
-	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager, 
+	PixelShaderPtr CreateVoxelizationPS(ResourceManager& resource_manager,
 										bool tsnm);
 
 	/**

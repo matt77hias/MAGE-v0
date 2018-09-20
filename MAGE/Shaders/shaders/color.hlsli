@@ -183,7 +183,7 @@ float4 RGBtoLogLuv(float3 rgb) {
 	const float  L      = 2.0f * log2(x1yd1.y) + 127.0f;
 	const float  L_low  = frac(L);
 	const float  L_high = (L - floor(L_low * 255.0f) / 255.0f) / 255.0f;
-	
+
 	return float4(L_high, L_low, uv);
 }
 
@@ -204,7 +204,7 @@ float3 LogLuvToRGB(float4 logluv) {
 	x1yd1.y = exp2((L - 127.0f) * 0.5f);
 	x1yd1.z = x1yd1.y / logluv.w;
 	x1yd1.x = logluv.z * x1yd1.z;
-	
+
 	return max(mul(x1yd1, s_x1yd1_to_rgb), 0.0f);
 }
 

@@ -51,7 +51,7 @@ namespace mage {
 	[[nodiscard]]
 	inline ProxyPtr< ComponentT > Node::Get() noexcept {
 		const auto it = m_components.find(typeid(ComponentT));
-		return (it != m_components.end()) ? 
+		return (it != m_components.end()) ?
 			static_pointer_cast< ComponentT >(it->second) : nullptr;
 	}
 
@@ -59,7 +59,7 @@ namespace mage {
 	[[nodiscard]]
 	inline ProxyPtr< const ComponentT > Node::Get() const noexcept {
 		const auto it = m_components.find(typeid(ComponentT));
-		return (it != m_components.cend()) ? 
+		return (it != m_components.cend()) ?
 			static_pointer_cast< const ComponentT >(it->second) : nullptr;
 	}
 
@@ -67,14 +67,14 @@ namespace mage {
 	[[nodiscard]]
 	const std::vector< ProxyPtr< ComponentT > > Node::GetAll() {
 		std::vector< ProxyPtr< ComponentT > > components;
-		
+
 		const auto range = m_components.equal_range(typeid(ComponentT));
-		for_each(range.first, range.second, 
+		for_each(range.first, range.second,
 			[&components](decltype(m_components)::value_type& x) {
 				components.push_back(static_pointer_cast< ComponentT >(x.second));
 			}
 		);
-		
+
 		return components;
 	}
 
@@ -82,14 +82,14 @@ namespace mage {
 	[[nodiscard]]
 	const std::vector< ProxyPtr< const ComponentT > > Node::GetAll() const {
 		std::vector< ProxyPtr< const ComponentT > > components;
-		
+
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
 			[&components](decltype(m_components)::value_type& x) {
 				components.push_back(static_pointer_cast< const ComponentT >(x.second));
 			}
 		);
-		
+
 		return components;
 	}
 

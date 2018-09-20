@@ -37,17 +37,17 @@ namespace mage {
 		ImGuiWindowMessageListener() noexcept;
 
 		/**
-		 Constructs an ImGui window message listener from the given window 
+		 Constructs an ImGui window message listener from the given window
 		 message listener.
 
 		 @param[in]		listener
-						A reference to the ImGui window message listener to 
+						A reference to the ImGui window message listener to
 						copy.
 		 */
 		ImGuiWindowMessageListener(const ImGuiWindowMessageListener& listener) noexcept;
 
 		/**
-		 Constructs an ImGui  window message listener by moving the given window 
+		 Constructs an ImGui  window message listener by moving the given window
 		 message listener.
 
 		 @param[in]		listener
@@ -65,27 +65,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given ImGui window message listener to this ImGui window 
+		 Copies the given ImGui window message listener to this ImGui window
 		 message listener.
 
 		 @param[in]		listener
-						A reference to the ImGui window message listener to 
+						A reference to the ImGui window message listener to
 						copy.
-		 @return		A reference to the copy of the given ImGui window 
-						message listener (i.e. this ImGui window message 
+		 @return		A reference to the copy of the given ImGui window
+						message listener (i.e. this ImGui window message
 						listener).
 		 */
 		ImGuiWindowMessageListener& operator=(
 			const ImGuiWindowMessageListener& listener) noexcept;
 
 		/**
-		 Moves the given ImGui window message listener to this ImGui window 
+		 Moves the given ImGui window message listener to this ImGui window
 		 message listener.
 
 		 @param[in]		listener
-						A reference to the ImGui window message listener to 
+						A reference to the ImGui window message listener to
 						move.
-		 @return		A reference to the moved ImGui window message listener 
+		 @return		A reference to the moved ImGui window message listener
 						(i.e. this ImGui window message listener).
 		 */
 		ImGuiWindowMessageListener& operator=(
@@ -103,14 +103,14 @@ namespace mage {
 		 @param[in]		message
 						The message.
 		 @param[in]		wParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 @param[in]		lParam
-						Additional message information. The contents of this 
+						Additional message information. The contents of this
 						parameter depend on the value of @a msg.
 		 */
 		virtual void ProcessWindowMessage([[maybe_unused]] NotNull< HWND > window,
-										  UINT message, 
+										  UINT message,
 										  [[maybe_unused]] WPARAM wParam,
 										  [[maybe_unused]] LPARAM lParam) override;
 	};

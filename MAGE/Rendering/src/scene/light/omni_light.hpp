@@ -34,7 +34,7 @@ namespace mage::rendering {
 		 Constructs an omni light.
 		 */
 		OmniLight() noexcept;
-		
+
 		/**
 		 Constructs an omni light from the given omni light.
 
@@ -58,14 +58,14 @@ namespace mage::rendering {
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given omni light to this omni light.
 
 		 @param[in]		light
 						A reference to the omni light to copy.
-		 @return		A reference to the copy of the given omni light (i.e. 
+		 @return		A reference to the copy of the given omni light (i.e.
 						this omni light).
 		 */
 		OmniLight& operator=(const OmniLight& light) noexcept;
@@ -75,7 +75,7 @@ namespace mage::rendering {
 
 		 @param[in]		light
 						A reference to the omni light to move.
-		 @return		A reference to the moved omni light (i.e. this omni 
+		 @return		A reference to the moved omni light (i.e. this omni
 						light).
 		 */
 		OmniLight& operator=(OmniLight&& light) noexcept;
@@ -87,7 +87,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) RGB base color of this spotlight.
 
-		 @return		A reference to the (linear) base color of this 
+		 @return		A reference to the (linear) base color of this
 						spotlight.
 		 */
 		[[nodiscard]]
@@ -98,7 +98,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this spotlight.
 
-		 @return		A reference to the (linear) base color of this 
+		 @return		A reference to the (linear) base color of this
 						spotlight.
 		 */
 		[[nodiscard]]
@@ -118,7 +118,7 @@ namespace mage::rendering {
 
 		/**
 		 Sets the power of this omni light to the given radiance.
-		 
+
 		 @param[in]		power
 						The power in watts.
 		 */
@@ -140,7 +140,7 @@ namespace mage::rendering {
 		/**
 		 Returns the radiant intensity of this omni light.
 
-		 @return		The radiant intensity in watts per steradians of this 
+		 @return		The radiant intensity in watts per steradians of this
 						omni light.
 		 */
 		[[nodiscard]]
@@ -149,9 +149,9 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the radiant intensity of this omni light to the given radial 
+		 Sets the radiant intensity of this omni light to the given radial
 		 intensity.
-		 
+
 		 @param[in]		intensity
 						The radiant intensity in watts per steradians.
 		 */
@@ -214,7 +214,7 @@ namespace mage::rendering {
 		F32 GetWorldRange() const noexcept;
 
 		/**
-		 Sets the range of this omni light to the given value expressed in 
+		 Sets the range of this omni light to the given value expressed in
 		 light space.
 
 		 @param[in]		range
@@ -234,7 +234,7 @@ namespace mage::rendering {
 		/**
 		 Checks whether shadows should be used for this omni light.
 
-		 @return		@c true if shadows should be used for this omni light. 
+		 @return		@c true if shadows should be used for this omni light.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
@@ -262,12 +262,12 @@ namespace mage::rendering {
 		void ToggleShadows() noexcept {
 			SetShadows(!m_shadows);
 		}
-		
+
 		/**
 		 Sets shadows for this omni light to the given value.
 
-		 @param[in]		shadows	
-						@c true if shadows should be used for this omni light. 
+		 @param[in]		shadows
+						@c true if shadows should be used for this omni light.
 						@c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
@@ -275,19 +275,19 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the clipping planes of this omni light expressed in light 
+		 Returns the clipping planes of this omni light expressed in light
 		 space.
 
-		 @return		The clipping planes of this omni light expressed in 
+		 @return		The clipping planes of this omni light expressed in
 						light space.
 		 */
 		[[nodiscard]]
 		const F32x2 GetClippingPlanes() const noexcept {
 			return m_clipping_planes;
 		}
-		
+
 		/**
-		 Sets the clipping planes of this omni light expressed in light space 
+		 Sets the clipping planes of this omni light expressed in light space
 		 to the given clipping planes.
 
 		 @param[in]		clipping_planes
@@ -301,14 +301,14 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Returns the light-to-projection matrix of the (forward) light camera 
+		 Returns the light-to-projection matrix of the (forward) light camera
 		 of this omni light.
 
-		 @return		The light-to-projection matrix of the (forward) light 
+		 @return		The light-to-projection matrix of the (forward) light
 						camera of this omni light.
 		 */
 		[[nodiscard]]
-		const XMMATRIX XM_CALLCONV 
+		const XMMATRIX XM_CALLCONV
 			GetLightToProjectionMatrix() const noexcept {
 
 			#ifdef DISABLE_INVERTED_Z_BUFFER
@@ -319,7 +319,7 @@ namespace mage::rendering {
 
 			const auto m22 = far_plane / (far_plane - near_plane);
 			const auto m32 = -near_plane * m22;
-			
+
 			return {
 				1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
@@ -344,7 +344,7 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 A flag indicating whether shadows should be calculated or not for 
+		 A flag indicating whether shadows should be calculated or not for
 		 this omni light.
 		 */
 		bool m_shadows;

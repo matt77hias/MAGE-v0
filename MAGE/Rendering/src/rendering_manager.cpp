@@ -41,7 +41,7 @@ namespace mage::rendering {
 		 @param[in]		display_configuration
 						The display configuration.
 		 */
-		explicit Impl(NotNull< HWND > window, 
+		explicit Impl(NotNull< HWND > window,
 					  DisplayConfiguration display_configuration);
 
 		/**
@@ -74,7 +74,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to a rendering manager to copy.
-		 @return		A reference to the copy of the given rendering manager 
+		 @return		A reference to the copy of the given rendering manager
 						(i.e. this rendering manager).
 		 */
 		Impl& operator=(const Impl& manager) = delete;
@@ -84,7 +84,7 @@ namespace mage::rendering {
 
 		 @param[in]		manager
 						A reference to a rendering manager to move.
-		 @return		A reference to the moved rendering manager (i.e. this 
+		 @return		A reference to the moved rendering manager (i.e. this
 						rendering manager).
 		 */
 		Impl& operator=(Impl&& manager) = delete;
@@ -96,7 +96,7 @@ namespace mage::rendering {
 		/**
 		 Returns the display configuration of this rendering manager.
 
-		 @return		A reference to the display configuration of this 
+		 @return		A reference to the display configuration of this
 						rendering manager.
 		 */
 		[[nodiscard]]
@@ -107,7 +107,7 @@ namespace mage::rendering {
 		/**
 		 Returns the swap chain of this rendering manager.
 
-		 @return		A reference to the swap chain of this rendering 
+		 @return		A reference to the swap chain of this rendering
 						manager.
 		 */
 		[[nodiscard]]
@@ -118,7 +118,7 @@ namespace mage::rendering {
 		/**
 		 Returns the swap chain of this rendering manager.
 
-		 @return		A reference to the swap chain of this rendering 
+		 @return		A reference to the swap chain of this rendering
 						manager.
 		 */
 		[[nodiscard]]
@@ -129,7 +129,7 @@ namespace mage::rendering {
 		/**
 		 Returns the resource manager of this rendering manager.
 
-		 @return		A reference to the resource manager of this 
+		 @return		A reference to the resource manager of this
 						rendering manager.
 		 */
 		[[nodiscard]]
@@ -151,10 +151,10 @@ namespace mage::rendering {
 		 Binds the persistent state of this rendering manager.
 
 		 @throws		Exception
-						Failed to bind the persistent state of this rendering 
+						Failed to bind the persistent state of this rendering
 						manager.
 		 @throws		Exception
-						Failed to bind the persistent state of this rendering 
+						Failed to bind the persistent state of this rendering
 						manager.
 		 */
 		void BindPersistentState();
@@ -173,7 +173,7 @@ namespace mage::rendering {
 						Failed to render the world of this rendering manager.
 		 */
 		void Render(const GameTime& time);
-		
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -184,13 +184,13 @@ namespace mage::rendering {
 		 Initializes the different rendering systems of this rendering manager.
 
 		 @throws		Exception
-						Failed to initialize at least one of the different 
+						Failed to initialize at least one of the different
 						rendering systems of this rendering manager.
 		 */
 		void InitializeSystems();
 
 		/**
-		 Uninitializes the different rendering systems of this rendering 
+		 Uninitializes the different rendering systems of this rendering
 		 manager.
 		 */
 		void UninitializeSystems() noexcept;
@@ -199,7 +199,7 @@ namespace mage::rendering {
 		 Sets up the D3D11 device and context of this rendering manager.
 
 		 @throws		Exception
-						Failed to set up the device and device context of this 
+						Failed to set up the device and device context of this
 						rendering manager.
 		 */
 		void SetupDevice();
@@ -258,17 +258,17 @@ namespace mage::rendering {
 		UniquePtr< Renderer > m_renderer;
 	};
 
-	Manager::Impl::Impl(NotNull< HWND > window, 
+	Manager::Impl::Impl(NotNull< HWND > window,
 						DisplayConfiguration configuration)
 		: m_window(std::move(window)),
 		m_display_configuration(
 			MakeUnique< DisplayConfiguration >(std::move(configuration))),
 		m_feature_level(),
-		m_device(), 
-		m_device_context(), 
-		m_swap_chain(), 
-		m_resource_manager(), 
-		m_world(), 
+		m_device(),
+		m_device_context(),
+		m_swap_chain(),
+		m_resource_manager(),
+		m_world(),
 		m_renderer() {
 
 		InitializeSystems();
@@ -283,26 +283,26 @@ namespace mage::rendering {
 	void Manager::Impl::InitializeSystems() {
 		// Setup the device and device context.
 		SetupDevice();
-		
+
 		// Setup the swap chain.
-		m_swap_chain = MakeUnique< SwapChain >(*m_device.Get(), 
+		m_swap_chain = MakeUnique< SwapChain >(*m_device.Get(),
 											   *m_device_context.Get(),
-				                               m_window, 
+				                               m_window,
 			                                   *m_display_configuration);
 
 		// Setup the resource manager.
 		m_resource_manager = MakeUnique< ResourceManager >(*m_device.Get());
 
 		// Setup the world.
-		m_world = MakeUnique< World >(*m_device.Get(), 
+		m_world = MakeUnique< World >(*m_device.Get(),
 									  *m_display_configuration,
 									  *m_resource_manager);
-		
+
 		// Setup the renderer.
-		m_renderer = MakeUnique< Renderer >(*m_device.Get(), 
-											*m_device_context.Get(), 
-											*m_display_configuration, 
-											*m_swap_chain, 
+		m_renderer = MakeUnique< Renderer >(*m_device.Get(),
+											*m_device_context.Get(),
+											*m_display_configuration,
+											*m_swap_chain,
 											*m_resource_manager);
 
 		// Setup ImGui.
@@ -321,7 +321,7 @@ namespace mage::rendering {
 		// Uninitialize the swap chain.
 		m_swap_chain.reset();
 
-		// Reset any device context to the default settings. 
+		// Reset any device context to the default settings.
 		if (m_device_context) {
 			m_device_context->ClearState();
 		}
@@ -338,7 +338,7 @@ namespace mage::rendering {
 		ComPtr< ID3D11DeviceContext > device_context;
 		{
 			// Get the ID3D11Device and ID3D11DeviceContext.
-			const HRESULT result 
+			const HRESULT result
 				= D3D11CreateDevice(m_display_configuration->GetAdapter(),
 				                    D3D_DRIVER_TYPE_UNKNOWN,
 				                    nullptr,
@@ -355,13 +355,13 @@ namespace mage::rendering {
 		{
 			// Get the D3D11Device.
 			const HRESULT result = device.As(&m_device);
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "D3D11Device creation failed: {:08X}.", result);
 		}
 		{
 			// Get the D3D11DeviceContext.
 			const HRESULT result = device_context.As(&m_device_context);
-			ThrowIfFailed(result, 
+			ThrowIfFailed(result,
 						  "D3D11DeviceContext creation failed: {:08X}.", result);
 		}
 	}
@@ -380,7 +380,7 @@ namespace mage::rendering {
 		m_swap_chain->Clear();
 		Pipeline::s_nb_draws = 0u;
 		m_renderer->Render(GetWorld(), time);
-		
+
 		m_swap_chain->Present();
 	}
 
@@ -391,9 +391,9 @@ namespace mage::rendering {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	Manager::Manager(NotNull< HWND > window, 
-					 DisplayConfiguration configuration) 
-		: m_impl(MakeUnique< Impl >(std::move(window), 
+	Manager::Manager(NotNull< HWND > window,
+					 DisplayConfiguration configuration)
+		: m_impl(MakeUnique< Impl >(std::move(window),
 									std::move(configuration))) {}
 
 	Manager::Manager(Manager&& manager) noexcept = default;
@@ -401,12 +401,12 @@ namespace mage::rendering {
 	Manager::~Manager() = default;
 
 	[[nodiscard]]
-	const DisplayConfiguration& 
+	const DisplayConfiguration&
 		Manager::GetDisplayConfiguration() const noexcept {
 
 		return m_impl->GetDisplayConfiguration();
 	}
-	
+
 	[[nodiscard]]
 	SwapChain& Manager::GetSwapChain() noexcept {
 		return m_impl->GetSwapChain();
@@ -416,7 +416,7 @@ namespace mage::rendering {
 	const SwapChain& Manager::GetSwapChain() const noexcept {
 		return m_impl->GetSwapChain();
 	}
-	
+
 	[[nodiscard]]
 	ResourceManager& Manager::GetResourceManager() const noexcept {
 		return m_impl->GetResourceManager();

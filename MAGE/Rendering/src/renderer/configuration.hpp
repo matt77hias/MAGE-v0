@@ -34,7 +34,7 @@ namespace mage::rendering {
 	constexpr AntiAliasing RetrieveAntiAliasing(std::size_t desc) noexcept {
 
 		switch (desc) {
-		
+
 		case static_cast< std::size_t >(AntiAliasing::FXAA):
 			return AntiAliasing::FXAA;
 		case static_cast< std::size_t >(AntiAliasing::MSAA_2x):
@@ -102,7 +102,7 @@ namespace mage::rendering {
 	 @c None,
 	 @c Forward,
 	 @c Deferred,
-	 @c Solid,            
+	 @c Solid,
 	 @c VoxelGrid,
 	 @c FalseColor_BaseColor,
 	 @c FalseColor_BaseColorCoefficient,
@@ -127,8 +127,8 @@ namespace mage::rendering {
 		None = 0,
 		Forward,
 		Deferred,
-		Solid,            
-		
+		Solid,
+
 		// Voxelization visualization
 		VoxelGrid,
 
@@ -185,7 +185,7 @@ namespace mage::rendering {
 	#endif
 
 	/**
-	 An enumeration of the different Bidirectional Reflection Distribution 
+	 An enumeration of the different Bidirectional Reflection Distribution
 	 Functions (BRDFs).
 
 	 This contains:
@@ -210,9 +210,9 @@ namespace mage::rendering {
 
 	/**
 	 An enumeration of the different false colors.
-	 
+
 	 This contains:
-	 
+
 	 @c ConstantColor,
 	 @c ConstantColorTexture,
 	 @c BaseColor,

@@ -29,7 +29,7 @@ namespace mage::rendering {
 
 	AAPass& AAPass::operator=(AAPass&& pass) noexcept = default;
 
-	void AAPass::DispatchPreprocess(const U32x2& viewport_size, 
+	void AAPass::DispatchPreprocess(const U32x2& viewport_size,
 									AntiAliasing aa) {
 
 		// CS: Bind the compute shader.
@@ -54,9 +54,9 @@ namespace mage::rendering {
 		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 
-	void AAPass::Dispatch(const U32x2& viewport_size, 
+	void AAPass::Dispatch(const U32x2& viewport_size,
 						  AntiAliasing aa) {
-		
+
 		// CS: Bind the compute shader.
 		switch (aa) {
 

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-// The version numbers (major/minor/patch) are macros to support the use of 
+// The version numbers (major/minor/patch) are macros to support the use of
 // these numbers in conditional macro statements (e.g. if).
 #define MAGE_VERSION_MAJOR 0
 #define MAGE_VERSION_MINOR 167

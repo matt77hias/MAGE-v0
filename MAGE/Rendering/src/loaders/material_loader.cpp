@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage::rendering::loader {
 
-	void ImportMaterialFromFile(const std::filesystem::path& path, 
-								ResourceManager& resource_manaer, 
+	void ImportMaterialFromFile(const std::filesystem::path& path,
+								ResourceManager& resource_manaer,
 								std::vector< Material >& materials) {
-		
+
 		std::wstring extension(path.extension());
 		TransformToLowerCase(extension);
 

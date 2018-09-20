@@ -41,9 +41,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		return;
 	}
 
-	ApplyFXAA(p_display, 
+	ApplyFXAA(p_display,
 			  g_display_inv_resolution,
-			  g_linear_mirror_sampler, 
-			  g_input_image_texture, 
+			  g_linear_mirror_sampler,
+			  g_input_image_texture,
 			  g_output_image_texture);
 }

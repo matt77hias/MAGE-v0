@@ -15,9 +15,9 @@ namespace mage::rendering {
 	World::World(ID3D11Device& device,
 				 DisplayConfiguration& display_configuration,
 				 ResourceManager& resource_manager)
-		: m_device(device), 
-		m_display_configuration(display_configuration), 
-		m_resource_manager(resource_manager), 
+		: m_device(device),
+		m_display_configuration(display_configuration),
+		m_resource_manager(resource_manager),
 		m_perspective_cameras(),
 		m_orthographic_cameras(),
 		m_ambient_lights(),
@@ -33,7 +33,7 @@ namespace mage::rendering {
 	World::~World() = default;
 
 	World& World::operator=(World&& world) noexcept = default;
-	
+
 	void World::Clear() noexcept {
 		m_perspective_cameras.clear();
 		m_orthographic_cameras.clear();

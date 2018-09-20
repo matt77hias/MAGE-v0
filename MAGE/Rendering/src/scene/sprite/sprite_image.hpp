@@ -66,7 +66,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite
 						A reference to the sprite image to copy.
-		 @return		A reference to the copy of the given sprite image (i.e. 
+		 @return		A reference to the copy of the given sprite image (i.e.
 						this sprite image).
 		 */
 		SpriteImage& operator=(const SpriteImage& sprite) noexcept;
@@ -76,7 +76,7 @@ namespace mage::rendering {
 
 		 @param[in]		sprite
 						A reference to the sprite image to move.
-		 @return		A reference to the moved sprite image (i.e. this sprite 
+		 @return		A reference to the moved sprite image (i.e. this sprite
 						image).
 		 */
 		SpriteImage& operator=(SpriteImage&& sprite) noexcept;
@@ -89,7 +89,7 @@ namespace mage::rendering {
 		 Draws this sprite image.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering this 
+						A reference to the sprite batch used for rendering this
 						sprite image.
 		 */
 		void Draw(SpriteBatch& sprite_batch) const;
@@ -101,7 +101,7 @@ namespace mage::rendering {
 		/**
 		 Returns the sprite transform of this sprite image.
 
-		 @return		A reference to the sprite transform of this sprite 
+		 @return		A reference to the sprite transform of this sprite
 						image.
 		 */
 		[[nodiscard]]
@@ -112,14 +112,14 @@ namespace mage::rendering {
 		/**
 		 Returns the sprite transform of this sprite image.
 
-		 @return		A reference to the sprite transform of this sprite 
+		 @return		A reference to the sprite transform of this sprite
 						image.
 		 */
 		[[nodiscard]]
 		const SpriteTransform& GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
-		
+
 		//---------------------------------------------------------------------
 		// Member Methods: Sprite Transform
 		//---------------------------------------------------------------------
@@ -133,9 +133,9 @@ namespace mage::rendering {
 		SpriteEffect GetSpriteEffects() const noexcept {
 			return m_sprite_effects;
 		}
-		
+
 		/**
-		 Sets the sprite effects of this sprite image to the given sprite 
+		 Sets the sprite effects of this sprite image to the given sprite
 		 effects.
 
 		 @param[in]		sprite_effects
@@ -152,7 +152,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this sprite image.
 
-		 @return		A reference to the (linear) base color of this sprite 
+		 @return		A reference to the (linear) base color of this sprite
 						image.
 		 */
 		[[nodiscard]]
@@ -163,7 +163,7 @@ namespace mage::rendering {
 		/**
 		 Returns the (linear) base color of this sprite image.
 
-		 @return		A reference to the (linear) base color of this sprite 
+		 @return		A reference to the (linear) base color of this sprite
 						image.
 		 */
 		[[nodiscard]]
@@ -182,11 +182,11 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Checks whether the base color texture region of this sprite image 
+		 Checks whether the base color texture region of this sprite image
 		 corresponds to the maximum texture region.
 
-		 @return		@c true if the base color texture region of this sprite 
-						image corresponds to the maximum texture region. 
+		 @return		@c true if the base color texture region of this sprite
+						image corresponds to the maximum texture region.
 						@c false otherwise.
 		 */
 		[[nodiscard]]
@@ -198,7 +198,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the base color texture region of this sprite image to the maximum 
+		 Sets the base color texture region of this sprite image to the maximum
 		 texture region.
 		 */
 		void SetMaximumBaseColorTextureRegion() noexcept {
@@ -206,7 +206,7 @@ namespace mage::rendering {
 		}
 
 		/**
-		 Sets the base color texture region of this sprite image to the given 
+		 Sets the base color texture region of this sprite image to the given
 		 texture region.
 
 		 @param[in]		texture_region
@@ -219,30 +219,30 @@ namespace mage::rendering {
 		/**
 		 Returns the base color texture of this sprite image.
 
-		 @return		A pointer to the base color texture of this sprite 
+		 @return		A pointer to the base color texture of this sprite
 						image.
 		 */
 		[[nodiscard]]
 		TexturePtr GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
-		
+
 		/**
-		 Returns the shader resource view of the base color texture of this 
+		 Returns the shader resource view of the base color texture of this
 		 sprite image.
 
-		 @return		@c nullptr, if this sprite image has no base color 
+		 @return		@c nullptr, if this sprite image has no base color
 						texture.
-		 @return		A pointer to the shader resource view of the base 
+		 @return		A pointer to the shader resource view of the base
 						color texture of this sprite image.
 		 */
 		[[nodiscard]]
 		ID3D11ShaderResourceView* GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
-		
+
 		/**
-		 Sets the base color texture of this sprite image to the given base 
+		 Sets the base color texture of this sprite image to the given base
 		 color texture.
 
 		 @param[in]		base_color_texture
@@ -284,7 +284,7 @@ namespace mage::rendering {
 		/**
 		 A pointer to the base color texture region of this sprite image.
 
-		 If every member variable of the rectangle is zero, the full texture 
+		 If every member variable of the rectangle is zero, the full texture
 		 region is considered.
 		 */
 		RECT m_base_color_texture_region;

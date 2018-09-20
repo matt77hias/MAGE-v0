@@ -49,7 +49,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	uint nb_samples;
 	g_input_image_texture.GetDimensions(dim.x, dim.y, nb_samples);
 	const float weight = 1.0f / nb_samples;
-	
+
 	const InputTexturesMSAA  input_textures  = {
 		g_input_image_texture,
 		g_input_normal_texture,

@@ -3,6 +3,7 @@
 ## Table of contents
 * [General](#SS-General)
 * [Specific](#SS-Specific)
+* [Style](#SS-Style)
 * [Tools](#SS-Tools)
 
 ## <a name="SS-General"></a>General
@@ -24,7 +25,7 @@ STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppC
 ## <a name="SS-Specific"></a>Specific
 
 ### Built-in types
-Prefer the defined types (`utils\type\types.hpp`) and `size_t` over non-typedefed built-in types.
+Prefer the defined types (`utils\type\types.hpp`) and `std::size_t` over non-typedefed built-in types.
 
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
@@ -37,13 +38,6 @@ Put all constructors and destructors of non-template base and child classes in t
 Prefer `explicit` (non-default, non-copy, non-move) constructors (independent of the number of arguments).
 
 Prefer inheritance with `explicit` child constructors over typedefs to force explicit type conversion between aliases.
-
-### File extensions
-* Use `.hpp` for C++ header files.
-* Use `.tpp` for C++ header files containing template definitions.
-* Use `.cpp` for C++ source files.
-* Use `.hlsl` for HLSL shader files.
-* Use `.hlsli` for HLSL non-shader files.
 
 ### Implicitly defined member methods
 Do not use implicitly defined (i.e. compiler generated) member methods. Always declare and define (with `= default`/`= delete` if possible) the following member methods:
@@ -58,11 +52,6 @@ Note that Move Constructors make sense in nearly all situations. So prefer `= de
 
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
-
-### Prefixes
-* Use the prefix `g_` for global variables (C++ and HLSL).
-* Use the prefix `m_` for member variables (C++ and HLSL).
-* Use the prefix `s_` for class and method member variables (C++ and HLSL).
 
 ### `new`, `new[]`, `delete`, `delete[]`
 * Do not use `new`, `new[]`, `delete`, `delete[]`.
@@ -79,6 +68,23 @@ Always use `static_cast` for type conversion between built-in types.
 
 ### `ZeroMemory`
 Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be used).
+
+## <a name="SS-Style"></a>Style
+
+### File extensions
+* Use `.hpp` for C++ header files.
+* Use `.tpp` for C++ header files containing template definitions.
+* Use `.cpp` for C++ source files.
+* Use `.hlsl` for HLSL shader files.
+* Use `.hlsli` for HLSL non-shader files.
+
+### Trailing spaces
+Remove trailing spaces (Visual Studio regex: `[^\S\r\n]+(?=\r?$)`)
+
+### Variable prefixes
+* Use the prefix `g_` for global variables (C++ and HLSL).
+* Use the prefix `m_` for member variables (C++ and HLSL).
+* Use the prefix `s_` for class and method member variables (C++ and HLSL).
 
 ## <a name="SS-Tools"></a>Tools
 

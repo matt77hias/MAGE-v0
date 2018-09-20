@@ -70,9 +70,8 @@ namespace mage::rendering::loader {
 		model_part.m_transform.SetRotation(   Read< F32, 3u >());
 		model_part.m_transform.SetScale(      Read< F32, 3u >());
 		model_part.m_material    = Read< std::string_view >();
-		model_part.m_min_index   = Read< U32 >();
-		const auto length        = Read< U32 >();
-		model_part.m_max_index   = model_part.m_min_index + length - 1u;
+		model_part.m_start_index = Read< U32 >();
+		model_part.m_nb_indices  = Read< U32 >();
 
 		m_model_output.AddModelPart(std::move(model_part), false);
 	}

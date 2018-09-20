@@ -81,8 +81,8 @@ namespace mage::rendering::loader {
 					model_part.m_transform.GetRotation(),
 					model_part.m_transform.GetScale(),
 					model_part.m_material,
-					model_part.m_min_index,
-					model_part.GetNumberOfIndices());
+					model_part.m_start_index,
+					model_part.m_nb_indices);
 
 			WriteStringLine(not_null_buffer);
 		}

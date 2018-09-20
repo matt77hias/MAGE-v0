@@ -100,8 +100,8 @@ namespace mage {
 
 			// Set the mesh of the model component.
 			model->SetMesh(desc.GetMesh(),
-						   model_part.m_min_index,
-						   model_part.GetNumberOfIndices(),
+						   model_part.m_start_index,
+						   model_part.m_nb_indices,
 						   model_part.m_aabb,
 						   model_part.m_sphere);
 

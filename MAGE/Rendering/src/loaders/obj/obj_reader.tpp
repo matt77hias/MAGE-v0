@@ -48,7 +48,8 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::Postprocess() {
-		m_model_output.AddModelPart(m_model_part);
+		m_model_output.AddModelPart(std::move(m_model_part));
+		m_model_part = ModelPart();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -107,17 +108,16 @@ namespace mage::rendering::loader {
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJMaterialUse() {
-		if (!m_model_part.HasDefaultMaterial()) {
-			m_model_output.AddModelPart(m_model_part);
-		}
-
 		m_model_part.m_material = Read< std::string_view >();
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJGroup() {
 		if (!m_model_part.HasDefaultChild()) {
-			m_model_output.AddModelPart(m_model_part);
+			m_model_output.AddModelPart(std::move(m_model_part));
+			m_model_part = ModelPart();
+			m_model_part.m_start_index 
+				= static_cast< IndexT >(m_model_output.m_index_buffer.size());
 		}
 
 		m_model_part.m_child = Read< std::string_view >();
@@ -165,9 +165,9 @@ namespace mage::rendering::loader {
 	void OBJReader< VertexT, IndexT >::ReadOBJFace() {
 		MemoryBuffer< IndexT, 6u > indices;
 		while (indices.size() < 3u || ContainsTokens()) {
-			const auto vertex_indices = ReadOBJVertexIndices();
+			const auto indices3 = ReadOBJVertexIndices();
 
-			if (const auto it = m_mapping.find(vertex_indices);
+			if (const auto it = m_mapping.find(indices3);
 				it != m_mapping.cend()) {
 
 				// Add the index to the already existing vertex.
@@ -181,18 +181,13 @@ namespace mage::rendering::loader {
 				indices.push_back(index);
 				
 				// Create a new vertex.
-				auto vertex = ConstructVertex(vertex_indices);
+				auto vertex = ConstructVertex(indices3);
 				// Add the new vertex.
 				m_model_output.m_vertex_buffer.push_back(std::move(vertex));
 				
 				// Add the new mapping.
-				m_mapping[vertex_indices] = index;
+				m_mapping[indices3] = index;
 			}
-		}
-
-		for (auto index : indices) {
-			m_model_part.m_min_index = std::min(m_model_part.m_min_index, index);
-			m_model_part.m_max_index = std::max(m_model_part.m_max_index, index);
 		}
 
 		if (m_mesh_desc.ClockwiseOrder()) {
@@ -209,6 +204,9 @@ namespace mage::rendering::loader {
 				m_model_output.m_index_buffer.push_back(indices[i + 1u]);
 			}
 		}
+	
+		const auto nb_indices = (indices.size() - 2u) * 3u;
+		m_model_part.m_nb_indices = static_cast< IndexT >(nb_indices);
 	}
 
 	template< typename VertexT, typename IndexT >

@@ -81,16 +81,6 @@ namespace mage::rendering {
 			return s_default_material == m_material;
 		}
 
-		/**
-		 Returns the number of indices of this model part.
-
-		 @return		The number of indices of this model part.
-		 */
-		[[nodiscard]]
-		U32 GetNumberOfIndices() const noexcept {
-			return m_max_index - m_min_index + 1u;
-		}
-
 		//---------------------------------------------------------------------
 		// Member Variables: Bounding Volumes
 		//---------------------------------------------------------------------
@@ -119,16 +109,16 @@ namespace mage::rendering {
 		//---------------------------------------------------------------------
 
 		/**
-		 The minimum index (inclusive) of this model part in the mesh of the
-		 corresponding model.
+		 The start index of this model part in the mesh of the corresponding
+		 model.
 		 */
-		U32 m_min_index = 0u;
+		U32 m_start_index = 0u;
 
 		/**
-		 The maximum index (inclusive) of this model part in the mesh of the
+		 The number of indices of this model part in the mesh of the
 		 corresponding model.
 		 */
-		U32 m_max_index = 0u;
+		U32 m_nb_indices = 0u;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Scene Graph

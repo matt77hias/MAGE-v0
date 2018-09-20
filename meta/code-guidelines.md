@@ -25,7 +25,7 @@ STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppC
 ## <a name="SS-Specific"></a>Specific
 
 ### Built-in types
-Prefer the defined types (`utils\type\types.hpp`) and `std::size_t` over non-typedefed built-in types.
+Prefer the type definitions/aliases (`utils\type\types.hpp`) and `std::size_t` over non-typedefed built-in types.
 
 ### Constness
 * Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
@@ -37,7 +37,7 @@ Put all constructors and destructors of non-template base and child classes in t
 ### Excplicit constructors
 Prefer `explicit` (non-default, non-copy, non-move) constructors (independent of the number of arguments).
 
-Prefer inheritance with `explicit` child constructors over typedefs to force explicit type conversion between aliases.
+Prefer inheritance with `explicit` child constructors over type definitions/aliases to force explicit type conversion between aliases.
 
 ### Implicitly defined member methods
 Do not use implicitly defined (i.e. compiler generated) member methods. Always declare and define (with `= default`/`= delete` if possible) the following member methods:

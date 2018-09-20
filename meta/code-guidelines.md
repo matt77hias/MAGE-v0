@@ -89,12 +89,13 @@ Remove trailing spaces (Visual Studio regex: `[^\S\r\n]+(?=\r?$)`)
 ## <a name="SS-Tools"></a>Tools
 
 ### CPU Debuggers/Profilers
-* Visual Studio
+* [Visual Studio 2017](https://visualstudio.microsoft.com/)
 
 ### GPU Debuggers/Profilers
-* NVidia Nsight
-* RenderDoc
+* [NVIDIA Nsight Graphics](https://developer.nvidia.com/nsight-graphics)
+* [NVIDIA Nsight Visual Studio Edition](https://developer.nvidia.com/nsight-visual-studio-edition)
+* [RenderDoc](https://renderdoc.org/)
 
 ### Static Code Analyzers
-* PVS-Studio
-* Visual Studio
+* [PVS-Studio Analyzer](https://www.viva64.com/en/pvs-studio/) (stand-alone or Visual Studio plugin)
+* [Visual Studio 2017](https://visualstudio.microsoft.com/)

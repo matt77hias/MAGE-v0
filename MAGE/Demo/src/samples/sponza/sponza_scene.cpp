@@ -56,7 +56,7 @@ namespace mage {
 				L"assets/models/plane/plane.obj", mesh_desc);
 		const auto sponza_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
-				L"assets/models/sponza/sponza.obj",    mesh_desc);
+				L"assets/models/sponza/sponza.mdl",    mesh_desc);
 		const auto tree_model_desc_tree
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);

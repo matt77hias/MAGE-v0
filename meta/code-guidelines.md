@@ -41,12 +41,10 @@ Prefer inheritance with `explicit` child constructors over typedefs to force exp
 
 ### Implicitly defined member methods
 Do not use implicitly defined (i.e. compiler generated) member methods. Always declare and define (with `= default`/`= delete` if possible) the following member methods:
-* Default Constructor (if and only if this is the only constructor in the `class`/`struct`)
+* Default constructor (if and only if this is the only constructor in the `class`/`struct`)
 * Destructor
-* Copy Constructor
-* Move Constructor
-* Copy Assignment Operator
-* Move Assignment Operator
+* Copy and move constructor
+* Copy and move assignment operator
 
 Note that Move Constructors make sense in nearly all situations. So prefer `= default` over `= delete`.
 
@@ -85,6 +83,9 @@ Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be 
 * Use `.cpp` for C++ source files.
 * Use `.hlsl` for HLSL shader files.
 * Use `.hlsli` for HLSL non-shader files.
+
+### Line width
+Lines have a maximum width of 80 characters.
 
 ### Name conventions
 * Use lowercase names for namespaces.

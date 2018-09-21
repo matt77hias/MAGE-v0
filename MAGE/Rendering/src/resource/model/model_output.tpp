@@ -86,8 +86,8 @@ namespace mage::rendering {
 			}
 
 			AABB aabb;
-			for (auto i = min_index; i <= max_index; ++i) {
-				const auto& vertex = m_vertex_buffer[i];
+			for (auto index = min_index; index <= max_index; ++index) {
+				const auto& vertex = m_vertex_buffer[index];
 				aabb = AABB::Union(aabb, vertex);
 			}
 
@@ -109,8 +109,8 @@ namespace mage::rendering {
 
 			// Normalize vertices and set bounding sphere.
 			model_part.m_sphere = BoundingSphere();
-			for (auto i = min_index; i <= max_index; ++i) {
-				auto& vertex = m_vertex_buffer[i];
+			for (auto index = min_index; index <= max_index; ++index) {
+				auto& vertex = m_vertex_buffer[index];
 				const auto p  = XMLoad(vertex.m_p);
 				const auto np = (p - c) * inv_s;
 				vertex.m_p = Point3(XMStore< F32x3 >(np));

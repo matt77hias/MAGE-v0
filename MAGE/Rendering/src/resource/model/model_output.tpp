@@ -46,8 +46,7 @@ namespace mage::rendering {
 	template< typename VertexT, typename IndexT >
 	void ModelOutput< VertexT, IndexT >::NormalizeModelParts() noexcept {
 		NormalizeInWorldSpace();
-		//NormalizeInObjectSpace();
-		ComputeBoundingVolumes();
+		NormalizeInObjectSpace();
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -65,7 +64,7 @@ namespace mage::rendering {
 		const auto inv_s = 1.0f / s;
 
 		for (auto& vertex : m_vertex_buffer) {
-			const auto p = XMLoad(vertex.m_p);
+			const auto p  = XMLoad(vertex.m_p);
 			const auto np = (p - c) * inv_s;
 			vertex.m_p = Point3(XMStore< F32x3 >(np));
 		}
@@ -76,15 +75,24 @@ namespace mage::rendering {
 		for (auto& model_part : m_model_parts) {
 			const std::size_t start = model_part.m_start_index;
 			const std::size_t end   = start + model_part.m_nb_indices;
+			std::size_t min_index   = m_vertex_buffer.size();
+			std::size_t max_index   = 0u;
 
-			model_part.m_aabb = AABB();
+			// Model parts are not allowed to share vertices.
 			for (auto i = start; i < end; ++i) {
-				const auto& vertex = m_vertex_buffer[m_index_buffer[i]];
-				model_part.m_aabb = AABB::Union(model_part.m_aabb, vertex);
+				const auto index = static_cast< std::size_t >(m_index_buffer[i]);
+				min_index = std::min(min_index, index);
+				max_index = std::max(max_index, index);
 			}
 
-			const auto c = model_part.m_aabb.Centroid();
-			const auto d = model_part.m_aabb.Diagonal();
+			AABB aabb;
+			for (auto i = min_index; i <= max_index; ++i) {
+				const auto& vertex = m_vertex_buffer[i];
+				aabb = AABB::Union(aabb, vertex);
+			}
+
+			const auto c = aabb.Centroid();
+			const auto d = aabb.Diagonal();
 			const auto s = std::max(XMVectorGetX(d),
 									std::max(XMVectorGetY(d),
 											 XMVectorGetZ(d)));
@@ -95,15 +103,15 @@ namespace mage::rendering {
 			model_part.m_transform.SetScale(s);
 
 			// Set AABB.
-			const auto pmin = (model_part.m_aabb.MinPoint() - c) * inv_s;
-			const auto pmax = (model_part.m_aabb.MaxPoint() - c) * inv_s;
+			const auto pmin = (aabb.MinPoint() - c) * inv_s;
+			const auto pmax = (aabb.MaxPoint() - c) * inv_s;
 			model_part.m_aabb = AABB(pmin, pmax);
 
 			// Normalize vertices and set bounding sphere.
 			model_part.m_sphere = BoundingSphere();
-			for (auto i = start; i < end; ++i) {
-				auto& vertex = m_vertex_buffer[m_index_buffer[i]];
-				const auto p = XMLoad(vertex.m_p);
+			for (auto i = min_index; i <= max_index; ++i) {
+				auto& vertex = m_vertex_buffer[i];
+				const auto p  = XMLoad(vertex.m_p);
 				const auto np = (p - c) * inv_s;
 				vertex.m_p = Point3(XMStore< F32x3 >(np));
 				model_part.m_sphere = BoundingSphere::Union(model_part.m_sphere, vertex);

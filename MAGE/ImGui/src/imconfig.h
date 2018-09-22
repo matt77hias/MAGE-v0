@@ -51,12 +51,12 @@
 //#define IMGUI_DISABLE_STB_RECT_PACK_IMPLEMENTATION
 
 #define IM_VEC2_CLASS_EXTRA \
-        ImVec2(const mage::F32x2& f) noexcept : x(f[0]), y(f[1]) {} \
-        operator mage::F32x2() const noexcept { return mage::F32x2(x, y); }
+        ImVec2(const mage::F32x2& f) noexcept : x(f[0u]), y(f[1u]) {} \
+        operator mage::F32x2() const noexcept { return { x, y }; }
 
 #define IM_VEC4_CLASS_EXTRA \
-        ImVec4(const mage::F32x4& f) noexcept : x(f[0]), y(f[1]), z(f[2]), w(f[3]) {} \
-        operator mage::F32x4() const noexcept { return mage::F32x4(x, y, z, w); }
+        ImVec4(const mage::F32x4& f) noexcept : x(f[0u]), y(f[1u]), z(f[2u]), w(f[3u]) {} \
+        operator mage::F32x4() const noexcept { return { x, y, z, w }; }
 
 //---- Use 32-bit vertex indices (default is 16-bit) to allow meshes with more than 64K vertices. Render function needs to support it.
 //#define ImDrawIdx unsigned int

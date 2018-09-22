@@ -87,6 +87,9 @@ class is_like_std_string {
     !std::is_void<decltype(check<T>(FMT_NULL))>::value;
 };
 
+template <typename Char>
+struct is_like_std_string<fmt::basic_string_view<Char>> : std::true_type {};
+
 template <typename... Ts>
 struct conditional_helper {};
 
@@ -156,7 +159,7 @@ void for_each(index_sequence<Is...>, Tuple &&tup, F &&f) FMT_NOEXCEPT {
 }
 
 template <class T>
-FMT_CONSTEXPR make_index_sequence<std::tuple_size<T>::value>
+FMT_CONSTEXPR make_index_sequence<std::tuple_size<T>::value> 
 get_indexes(T const &) { return {}; }
 
 template <class Tuple, class F>
@@ -166,14 +169,14 @@ void for_each(Tuple &&tup, F &&f) {
 }
 
 template<typename Arg>
-FMT_CONSTEXPR const char* format_str_quoted(bool add_space, const Arg&,
+FMT_CONSTEXPR const char* format_str_quoted(bool add_space, const Arg&, 
   typename std::enable_if<
     !is_like_std_string<typename std::decay<Arg>::type>::value>::type* = nullptr) {
   return add_space ? " {}" : "{}";
 }
 
 template<typename Arg>
-FMT_CONSTEXPR const char* format_str_quoted(bool add_space, const Arg&,
+FMT_CONSTEXPR const char* format_str_quoted(bool add_space, const Arg&, 
   typename std::enable_if<
     is_like_std_string<typename std::decay<Arg>::type>::value>::type* = nullptr) {
   return add_space ? " \"{}\"" : "\"{}\"";
@@ -202,7 +205,7 @@ struct is_tuple_like {
 };
 
 template <typename TupleT, typename Char>
-struct formatter<TupleT, Char,
+struct formatter<TupleT, Char, 
     typename std::enable_if<fmt::is_tuple_like<TupleT>::value>::type> {
 private:
   // C++11 generic lambda for format()

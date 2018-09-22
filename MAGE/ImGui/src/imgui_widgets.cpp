@@ -626,7 +626,7 @@ bool ImGui::ArrowButtonEx(const char* str_id, ImGuiDir dir, ImVec2 size, ImGuiBu
     const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
     RenderNavHighlight(bb, id);
     RenderFrame(bb.Min, bb.Max, col, true, g.Style.FrameRounding);
-    RenderArrow(bb.Min + ImVec2(ImMax(0.0f, size.x - g.FontSize - g.Style.FramePadding.x), ImMax(0.0f, size.y - g.FontSize - g.Style.FramePadding.y)), dir);
+    RenderArrow(bb.Min + ImVec2(ImMax(0.0f, (size.x - g.FontSize) * 0.5f), ImMax(0.0f, (size.y - g.FontSize) * 0.5f)), dir);
 
     return pressed;
 }
@@ -838,7 +838,7 @@ bool ImGui::ImageButton(ImTextureID user_texture_id, const ImVec2& size, const I
 
     // Default to using texture ID as ID. User can still push string/integer prefixes.
     // We could hash the size/uv to create a unique ID but that would prevent the user from animating UV.
-    PushID((void*)user_texture_id);
+    PushID((void*)(intptr_t)user_texture_id);
     const ImGuiID id = window->GetID("#image");
     PopID();
 
@@ -1440,7 +1440,7 @@ bool ImGui::Combo(const char* label, int* current_item, const char* const items[
     return value_changed;
 }
 
-// Combo box helper allowing to pass all items in a single string literal holding multiple zero-terminated items "item1\0item2\0"
+// Combo box helper allowing to pass all items in a single string literal holding multiple zero-terminated items "item1\0item2\0" 
 bool ImGui::Combo(const char* label, int* current_item, const char* items_separated_by_zeros, int height_in_items)
 {
     int items_count = 0;
@@ -3090,7 +3090,7 @@ static bool InputTextFilterCharacter(unsigned int* p_char, ImGuiInputTextFlags f
 
 // Edit a string of text
 // - buf_size account for the zero-terminator, so a buf_size of 6 can hold "Hello" but not "Hello!".
-//   This is so we can easily call InputText() on static arrays using ARRAYSIZE() and to match
+//   This is so we can easily call InputText() on static arrays using ARRAYSIZE() and to match 
 //   Note that in std::string world, capacity() would omit 1 byte used by the zero-terminator.
 // - When active, hold on a privately held copy of the text (and apply back to 'buf'). So changing 'buf' while the InputText is active has no effect.
 // - If you want to use ImGui::InputText() with std::string, see misc/stl/imgui_stl.h
@@ -3116,7 +3116,7 @@ bool ImGui::InputTextEx(const char* label, char* buf, int buf_size, const ImVec2
     if (is_resizable)
         IM_ASSERT(callback != NULL); // Must provide a callback if you set the ImGuiInputTextFlags_CallbackResize flag!
 
-    if (is_multiline) // Open group before calling GetID() because groups tracks id created within their scope,
+    if (is_multiline) // Open group before calling GetID() because groups tracks id created within their scope, 
         BeginGroup();
     const ImGuiID id = window->GetID(label);
     const ImVec2 label_size = CalcTextSize(label, NULL, true);
@@ -3922,7 +3922,7 @@ bool ImGui::ColorEdit4(const char* label, float col[4], ImGuiColorEditFlags flag
             if (label != label_display_end)
             {
                 TextUnformatted(label, label_display_end);
-                Separator();
+                Spacing();
             }
             ImGuiColorEditFlags picker_flags_to_forward = ImGuiColorEditFlags__DataTypeMask | ImGuiColorEditFlags__PickerMask | ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_AlphaBar;
             ImGuiColorEditFlags picker_flags = (flags_untouched & picker_flags_to_forward) | ImGuiColorEditFlags__InputsMask | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_AlphaPreviewHalf;
@@ -4569,7 +4569,7 @@ void ImGui::ColorPickerOptionsPopup(const float* ref_col, ImGuiColorEditFlags fl
 // - TreeNodeV()
 // - TreeNodeEx()
 // - TreeNodeExV()
-// - TreeNodeBehavior() [Internal]
+// - TreeNodeBehavior() [Internal]  
 // - TreePush()
 // - TreePop()
 // - TreeAdvanceToLabelPos()
@@ -5548,7 +5548,7 @@ bool ImGui::BeginMenu(const char* label, bool enabled)
         // Menu inside an horizontal menu bar
         // Selectable extend their highlight by half ItemSpacing in each direction.
         // For ChildMenu, the popup position will be overwritten by the call to FindBestWindowPosForPopup() in Begin()
-        popup_pos = ImVec2(pos.x - window->WindowPadding.x, pos.y - style.FramePadding.y + window->MenuBarHeight());
+        popup_pos = ImVec2(pos.x - 1.0f - (float)(int)(style.ItemSpacing.x * 0.5f), pos.y - style.FramePadding.y + window->MenuBarHeight());
         window->DC.CursorPos.x += (float)(int)(style.ItemSpacing.x * 0.5f);
         PushStyleVar(ImGuiStyleVar_ItemSpacing, style.ItemSpacing * 2.0f);
         float w = label_size.x;

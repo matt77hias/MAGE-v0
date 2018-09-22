@@ -781,7 +781,7 @@ namespace mage {
 			if (full()) {
 				reserve(2u * capacity());
 			}
-			
+
 			if (UsesStaticMemoryBuffer()) {
 				m_static_data.emplace_back(std::forward< Args >(args)...);
 			}

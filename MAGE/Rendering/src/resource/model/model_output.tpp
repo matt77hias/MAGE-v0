@@ -58,8 +58,8 @@ namespace mage::rendering {
 
 		const auto c = aabb.Centroid();
 		const auto d = aabb.Diagonal();
-		const auto s = std::max(XMVectorGetX(d), 
-								std::max(XMVectorGetY(d), 
+		const auto s = std::max(XMVectorGetX(d),
+								std::max(XMVectorGetY(d),
 										 XMVectorGetZ(d)));
 		const auto inv_s = 1.0f / s;
 

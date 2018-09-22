@@ -43,7 +43,7 @@ namespace mage::rendering::loader {
 
 		m_model_part.m_nb_indices = size - m_model_part.m_start_index;
 		m_model_output.AddModelPart(std::move(m_model_part));
-		
+
 		m_model_part = ModelPart();
 		m_model_part.m_start_index = size;
 	}
@@ -192,12 +192,12 @@ namespace mage::rendering::loader {
 					= static_cast< IndexT >(m_model_output.m_vertex_buffer.size());
 				// Add the index to the new vertex.
 				indices.push_back(index);
-				
+
 				// Create a new vertex.
 				auto vertex = ConstructVertex(indices3);
 				// Add the new vertex.
 				m_model_output.m_vertex_buffer.push_back(std::move(vertex));
-				
+
 				// Add the new mapping.
 				m_mapping[indices3] = index;
 			}

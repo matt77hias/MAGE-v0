@@ -21,7 +21,7 @@
 
 // For 2D array textures and cubemaps, it captures only the first image in the array
 
-#include "directxtex\screen_grab.hpp"
+#include "ScreenGrab.h"
 
 #include <dxgiformat.h>
 #include <assert.h>
@@ -75,7 +75,7 @@ namespace
     #define DDS_ALPHA       0x00000002  // DDPF_ALPHA
     #define DDS_BUMPDUDV    0x00080000  // DDPF_BUMPDUDV
 
-    #define DDS_HEADER_FLAGS_TEXTURE        0x00001007  // DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT
+    #define DDS_HEADER_FLAGS_TEXTURE        0x00001007  // DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT 
     #define DDS_HEADER_FLAGS_MIPMAP         0x00020000  // DDSD_MIPMAPCOUNT
     #define DDS_HEADER_FLAGS_PITCH          0x00000008  // DDSD_PITCH
     #define DDS_HEADER_FLAGS_LINEARSIZE     0x00080000  // DDSD_LINEARSIZE
@@ -177,13 +177,13 @@ namespace
     const DDS_PIXELFORMAT DDSPF_A8 =
         { sizeof(DDS_PIXELFORMAT), DDS_ALPHA, 0, 8, 0x00, 0x00, 0x00, 0xff };
 
-    const DDS_PIXELFORMAT DDSPF_V8U8 =
+    const DDS_PIXELFORMAT DDSPF_V8U8 = 
         { sizeof(DDS_PIXELFORMAT), DDS_BUMPDUDV, 0, 16, 0x00ff, 0xff00, 0x0000, 0x0000 };
 
-    const DDS_PIXELFORMAT DDSPF_Q8W8V8U8 =
+    const DDS_PIXELFORMAT DDSPF_Q8W8V8U8 = 
         { sizeof(DDS_PIXELFORMAT), DDS_BUMPDUDV, 0, 32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000 };
 
-    const DDS_PIXELFORMAT DDSPF_V16U16 =
+    const DDS_PIXELFORMAT DDSPF_V16U16 = 
         { sizeof(DDS_PIXELFORMAT), DDS_BUMPDUDV, 0, 32, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000 };
 
     // DXGI_FORMAT_R10G10B10A2_UNORM should be written using DX10 extension to avoid D3DX 10:10:10:2 reversal issue
@@ -984,12 +984,12 @@ HRESULT DirectX::SaveWICTextureToFile(
 
     case DXGI_FORMAT_B8G8R8X8_UNORM: // DXGI 1.1
         pfGuid = GUID_WICPixelFormat32bppBGR;
-        break;
+        break; 
 
     case DXGI_FORMAT_B8G8R8X8_UNORM_SRGB: // DXGI 1.1
         pfGuid = GUID_WICPixelFormat32bppBGR;
         sRGB = true;
-        break;
+        break; 
 
     default:
         return HRESULT_FROM_WIN32( ERROR_NOT_SUPPORTED );
@@ -1031,10 +1031,10 @@ HRESULT DirectX::SaveWICTextureToFile(
         PROPBAG2 option = {};
         option.pstrName = const_cast<wchar_t*>(L"EnableV5Header32bppBGRA");
 
-        VARIANT varValue;
+        VARIANT varValue;    
         varValue.vt = VT_BOOL;
-        varValue.boolVal = VARIANT_TRUE;
-        (void)props->Write( 1, &option, &varValue );
+        varValue.boolVal = VARIANT_TRUE;      
+        (void)props->Write( 1, &option, &varValue ); 
     }
 
     if ( setCustomProps )
@@ -1066,7 +1066,7 @@ HRESULT DirectX::SaveWICTextureToFile(
         switch ( desc.Format )
         {
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN8) || defined(_WIN7_PLATFORM_UPDATE)
-        case DXGI_FORMAT_R32G32B32A32_FLOAT:
+        case DXGI_FORMAT_R32G32B32A32_FLOAT:            
         case DXGI_FORMAT_R16G16B16A16_FLOAT:
             if ( g_WIC2 )
             {

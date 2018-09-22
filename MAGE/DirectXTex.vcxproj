@@ -74,14 +74,14 @@
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\DirectXTex\dds_loader.hpp" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\screen_grab.hpp" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\wic_loader.hpp" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.hpp" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.hpp" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXTex\src\DirectXTex\dds_loader.cpp" />
-	<ClCompile Include="DirectXTex\src\DirectXTex\screen_grab.cpp" />
-    <ClCompile Include="DirectXTex\src\DirectXTex\wic_loader.cpp" />
+    <ClCompile Include="DirectXTex\src\DirectXTex\DDSTextureLoader.cpp" />
+	<ClCompile Include="DirectXTex\src\DirectXTex\ScreenGrab.cpp" />
+    <ClCompile Include="DirectXTex\src\DirectXTex\WICTextureLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

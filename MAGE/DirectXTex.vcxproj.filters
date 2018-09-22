@@ -17,24 +17,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\directxtex\dds_loader.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\DDSTextureLoader.hpp">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\screen_grab.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\ScreenGrab.hpp">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\wic_loader.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\WICTextureLoader.hpp">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXTex\src\directxtex\dds_loader.cpp">
+    <ClCompile Include="DirectXTex\src\directxtex\DDSTextureLoader.cpp">
       <Filter>Source Files\directxtex</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXTex\src\directxtex\screen_grab.cpp">
+    <ClCompile Include="DirectXTex\src\directxtex\ScreenGrab.cpp">
       <Filter>Source Files\directxtex</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXTex\src\directxtex\wic_loader.cpp">
+    <ClCompile Include="DirectXTex\src\directxtex\WICTextureLoader.cpp">
       <Filter>Source Files\directxtex</Filter>
     </ClCompile>
   </ItemGroup>

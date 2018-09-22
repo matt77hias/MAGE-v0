@@ -4,9 +4,9 @@
 #pragma region
 
 #include "loaders\texture_loader.hpp"
-#include "loaders\dds\dds_loader.hpp"
-#include "loaders\wic\screen_grab.hpp"
-#include "loaders\wic\wic_loader.hpp"
+#include "directxtex\dds_loader.hpp"
+#include "directxtex\screen_grab.hpp"
+#include "directxtex\wic_loader.hpp"
 #include "exception\exception.hpp"
 
 #pragma endregion

@@ -23,7 +23,6 @@
     <ClInclude Include="Rendering\src\display\display_configuration.hpp" />
     <ClInclude Include="Rendering\src\display\display_configurator.hpp" />
     <ClInclude Include="Rendering\src\display\display_settings.hpp" />
-    <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp" />
     <ClInclude Include="Rendering\src\loaders\font\font_loader.hpp" />
     <ClInclude Include="Rendering\src\loaders\font\font_reader.hpp" />
     <ClInclude Include="Rendering\src\loaders\font\font_tokens.hpp" />
@@ -45,8 +44,6 @@
     <ClInclude Include="Rendering\src\loaders\obj\obj_tokens.hpp" />
     <ClInclude Include="Rendering\src\loaders\sprite_font_loader.hpp" />
     <ClInclude Include="Rendering\src\loaders\texture_loader.hpp" />
-    <ClInclude Include="Rendering\src\loaders\wic\screen_grab.hpp" />
-    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\buffer_lock.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\scene_buffer.hpp" />
     <ClInclude Include="Rendering\src\renderer\buffer\constant_buffer.hpp" />
@@ -136,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp" />
-    <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\font\font_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\font\font_reader.cpp" />
     <ClCompile Include="Rendering\src\loaders\material_loader.cpp" />
@@ -144,8 +140,6 @@
     <ClCompile Include="Rendering\src\loaders\mtl\mtl_reader.cpp" />
     <ClCompile Include="Rendering\src\loaders\sprite_font_loader.cpp" />
     <ClCompile Include="Rendering\src\loaders\texture_loader.cpp" />
-    <ClCompile Include="Rendering\src\loaders\wic\screen_grab.cpp" />
-    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp" />
     <ClCompile Include="Rendering\src\renderer\buffer\shadow_map_buffer.cpp" />
     <ClCompile Include="Rendering\src\renderer\buffer\voxel_grid.cpp" />
     <ClCompile Include="Rendering\src\renderer\factory.cpp" />
@@ -257,20 +251,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;DirectXTex\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;DirectXTex\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;DirectXTex\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;DirectXTex\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;DirectXTex\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;DirectXTex\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;DirectXTex\src\;Shaders\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <SourcePath>Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;DirectXTex\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

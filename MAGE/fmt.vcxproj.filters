@@ -17,7 +17,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fmt\src\fmt\format-inl.h">
+    <ClInclude Include="fmt\src\fmt\color.h">
+      <Filter>Header Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\src\fmt\core.h">
+      <Filter>Header Files\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="fmt\src\fmt\format.h">
+      <Filter>Header Files\fmt</Filter>
+    </ClInclude>
+	<ClInclude Include="fmt\src\fmt\format-inl.h">
       <Filter>Header Files\fmt</Filter>
     </ClInclude>
     <ClInclude Include="fmt\src\fmt\ostream.h">
@@ -33,15 +42,6 @@
       <Filter>Header Files\fmt</Filter>
     </ClInclude>
     <ClInclude Include="fmt\src\fmt\time.h">
-      <Filter>Header Files\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="fmt\src\fmt\color.h">
-      <Filter>Header Files\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="fmt\src\fmt\core.h">
-      <Filter>Header Files\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="fmt\src\fmt\format.h">
       <Filter>Header Files\fmt</Filter>
     </ClInclude>
   </ItemGroup>

@@ -105,9 +105,6 @@
     <Filter Include="Source Files\scene\sprite">
       <UniqueIdentifier>{86231918-9fe9-4b96-a1c8-1d0e6169c124}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\loaders\dds">
-      <UniqueIdentifier>{2054780c-6de7-4f10-81ec-942be5188a29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\loaders\font">
       <UniqueIdentifier>{33c3df01-8af4-4a0d-b7e0-20bf10e43b2a}</UniqueIdentifier>
     </Filter>
@@ -123,20 +120,11 @@
     <Filter Include="Header Files\loaders\obj">
       <UniqueIdentifier>{ad190163-e404-4df8-aa2b-d587e391390e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\loaders\wic">
-      <UniqueIdentifier>{8728aee0-29a9-4b5c-bf27-c528273e78cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\dds">
-      <UniqueIdentifier>{ac0c90d1-6973-4739-96dd-327c02ff5e15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\loaders\font">
       <UniqueIdentifier>{eba952a8-de59-4241-ac3b-0f8e471d247c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\loaders\mtl">
       <UniqueIdentifier>{af5eb275-d6cf-4287-a17a-6a4c98af5c70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\wic">
-      <UniqueIdentifier>{460e8227-22c0-45c4-94cd-fdf2292a8c59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -262,9 +250,6 @@
     </ClInclude>
     <ClInclude Include="Rendering\src\loaders\font\font_tokens.hpp">
       <Filter>Header Files\loaders\font</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\src\loaders\dds\dds_loader.hpp">
-      <Filter>Header Files\loaders\dds</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\src\resource\font\color_string.hpp">
       <Filter>Header Files\resource\font</Filter>
@@ -401,12 +386,6 @@
     <ClInclude Include="Rendering\src\renderer\pass\postprocess_pass.hpp">
       <Filter>Header Files\renderer\pass</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\src\loaders\wic\screen_grab.hpp">
-      <Filter>Header Files\loaders\wic</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\src\loaders\wic\wic_loader.hpp">
-      <Filter>Header Files\loaders\wic</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\src\renderer\buffer\scene_buffer.hpp">
       <Filter>Header Files\renderer\buffer</Filter>
     </ClInclude>
@@ -533,9 +512,6 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\loaders\font\font_reader.cpp">
       <Filter>Source Files\loaders\font</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\src\loaders\dds\dds_loader.cpp">
-      <Filter>Source Files\loaders\dds</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\src\display\display_configurator.cpp">
       <Filter>Source Files\display</Filter>
@@ -665,12 +641,6 @@
     </ClCompile>
     <ClCompile Include="Rendering\src\resource\shader\shader_factory_voxelization.cpp">
       <Filter>Source Files\resource\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\src\loaders\wic\screen_grab.cpp">
-      <Filter>Source Files\loaders\wic</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\src\loaders\wic\wic_loader.cpp">
-      <Filter>Source Files\loaders\wic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

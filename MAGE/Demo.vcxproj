@@ -44,6 +44,9 @@
     <ProjectReference Include="Core.vcxproj">
       <Project>{43eec29a-593d-4598-92f7-325ef4b75428}</Project>
     </ProjectReference>
+    <ProjectReference Include="DirectXTex.vcxproj">
+      <Project>{6f940992-8e9b-4c86-8cc3-f327e7eaaebb}</Project>
+    </ProjectReference>
     <ProjectReference Include="fmt.vcxproj">
       <Project>{e7362325-a958-4157-b2b0-af59925a2690}</Project>
     </ProjectReference>

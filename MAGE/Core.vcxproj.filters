@@ -23,32 +23,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\src\meta\targetver.hpp">
-      <Filter>Header Files\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\src\meta\version.hpp">
-      <Filter>Header Files\meta</Filter>
-    </ClInclude>
     <ClInclude Include="Core\src\scene\component.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\scene\node.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+	<ClInclude Include="Core\src\scene\scene_utils.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
     <ClInclude Include="Core\src\scene\state.hpp">
       <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\src\meta\targetver.hpp">
+      <Filter>Header Files\meta</Filter>
     </ClInclude>
     <ClInclude Include="Core\src\scene\transform.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="Core\src\scene\scene_utils.hpp">
-      <Filter>Header Files\scene</Filter>
+    <ClInclude Include="Core\src\meta\version.hpp">
+      <Filter>Header Files\meta</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\src\meta\version.cpp">
-      <Filter>Source Files\meta</Filter>
-    </ClCompile>
     <ClCompile Include="Core\src\scene\component.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="Core\src\scene\transform.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\src\meta\version.cpp">
+      <Filter>Source Files\meta</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

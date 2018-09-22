@@ -17,13 +17,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\directxtex\DDSTextureLoader.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\DDSTextureLoader.h">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\ScreenGrab.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\ScreenGrab.h">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\WICTextureLoader.hpp">
+    <ClInclude Include="DirectXTex\src\directxtex\WICTextureLoader.h">
       <Filter>Header Files\directxtex</Filter>
     </ClInclude>
   </ItemGroup>

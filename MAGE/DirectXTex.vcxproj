@@ -74,9 +74,9 @@
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.hpp" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.hpp" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.hpp" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.h" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.h" />
+    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXTex\src\DirectXTex\DDSTextureLoader.cpp" />

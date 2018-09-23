@@ -24,12 +24,6 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
-    <FxCompile>
-      <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
-      <ShaderModel>5.0</ShaderModel>
-      <VariableName>g_%(Filename)</VariableName>
-      <ObjectFileOutput />
-    </FxCompile>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>

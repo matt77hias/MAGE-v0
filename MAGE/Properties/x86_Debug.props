@@ -17,13 +17,6 @@
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
-    <FxCompile>
-      <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
-      <EnableDebuggingInformation>true</EnableDebuggingInformation>
-      <ShaderModel>5.0</ShaderModel>
-      <VariableName>g_%(Filename)</VariableName>
-      <ObjectFileOutput />
-    </FxCompile>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>

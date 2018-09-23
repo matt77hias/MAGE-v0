@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{6F940992-8E9B-4C86-8CC3-F327E7EAAEBB}</ProjectGuid>
+    <ProjectGuid>{15BE8A68-EFFE-4259-BFFA-182160984101}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DirectXTex</RootNamespace>
+    <RootNamespace>zlib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -79,14 +79,62 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <CompileAs>CompileAsC</CompileAs>
+      <PreprocessorDefinitions>NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>C4131</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <CompileAs>CompileAsC</CompileAs>
+      <PreprocessorDefinitions>NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>C4131</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <CompileAs>CompileAsC</CompileAs>
+      <PreprocessorDefinitions>NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>C4131</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <CompileAs>CompileAsC</CompileAs>
+      <PreprocessorDefinitions>NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>C4131</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.h" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.h" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.h" />
+    <ClInclude Include="zlib\src\zlib\crc32.h" />
+    <ClInclude Include="zlib\src\zlib\deflate.h" />
+    <ClInclude Include="zlib\src\zlib\gzguts.h" />
+    <ClInclude Include="zlib\src\zlib\inffast.h" />
+    <ClInclude Include="zlib\src\zlib\inffixed.h" />
+    <ClInclude Include="zlib\src\zlib\inflate.h" />
+    <ClInclude Include="zlib\src\zlib\inftrees.h" />
+    <ClInclude Include="zlib\src\zlib\trees.h" />
+    <ClInclude Include="zlib\src\zlib\zconf.h" />
+    <ClInclude Include="zlib\src\zlib\zlib.h" />
+    <ClInclude Include="zlib\src\zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXTex\src\DirectXTex\DDSTextureLoader.cpp" />
-    <ClCompile Include="DirectXTex\src\DirectXTex\ScreenGrab.cpp" />
-    <ClCompile Include="DirectXTex\src\DirectXTex\WICTextureLoader.cpp" />
+    <ClCompile Include="zlib\src\zlib\adler32.c" />
+    <ClCompile Include="zlib\src\zlib\compress.c" />
+    <ClCompile Include="zlib\src\zlib\crc32.c" />
+    <ClCompile Include="zlib\src\zlib\deflate.c" />
+    <ClCompile Include="zlib\src\zlib\gzclose.c" />
+    <ClCompile Include="zlib\src\zlib\gzlib.c" />
+    <ClCompile Include="zlib\src\zlib\gzread.c" />
+    <ClCompile Include="zlib\src\zlib\gzwrite.c" />
+    <ClCompile Include="zlib\src\zlib\infback.c" />
+    <ClCompile Include="zlib\src\zlib\inffast.c" />
+    <ClCompile Include="zlib\src\zlib\inflate.c" />
+    <ClCompile Include="zlib\src\zlib\inftrees.c" />
+    <ClCompile Include="zlib\src\zlib\trees.c" />
+    <ClCompile Include="zlib\src\zlib\uncompr.c" />
+    <ClCompile Include="zlib\src\zlib\zutil.c" />
   </ItemGroup>
 </Project>

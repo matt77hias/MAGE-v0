@@ -17,25 +17,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\directxtex\DDSTextureLoader.h">
-      <Filter>Header Files\directxtex</Filter>
+    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\ScreenGrab.h">
-      <Filter>Header Files\directxtex</Filter>
+    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXTex\src\directxtex\WICTextureLoader.h">
-      <Filter>Header Files\directxtex</Filter>
+    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXTex\src\directxtex\DDSTextureLoader.cpp">
-      <Filter>Source Files\directxtex</Filter>
+    <ClCompile Include="DirectXTex\src\DirectXTex\DDSTextureLoader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXTex\src\directxtex\ScreenGrab.cpp">
-      <Filter>Source Files\directxtex</Filter>
+    <ClCompile Include="DirectXTex\src\DirectXTex\ScreenGrab.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXTex\src\directxtex\WICTextureLoader.cpp">
-      <Filter>Source Files\directxtex</Filter>
+    <ClCompile Include="DirectXTex\src\DirectXTex\WICTextureLoader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

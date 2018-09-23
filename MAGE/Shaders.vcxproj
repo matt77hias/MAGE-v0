@@ -92,6 +92,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,6 +100,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,6 +108,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -113,6 +116,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

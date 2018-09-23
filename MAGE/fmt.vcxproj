@@ -75,19 +75,23 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
-	<ClInclude Include="fmt\src\fmt\color.h" />
-	<ClInclude Include="fmt\src\fmt\core.h" />
-	<ClInclude Include="fmt\src\fmt\format-inl.h" />
-	<ClInclude Include="fmt\src\fmt\format.h" />
-	<ClInclude Include="fmt\src\fmt\ostream.h" />
-	<ClInclude Include="fmt\src\fmt\posix.h" />
-	<ClInclude Include="fmt\src\fmt\printf.h" />
-	<ClInclude Include="fmt\src\fmt\ranges.h" />
-	<ClInclude Include="fmt\src\fmt\time.h" />
+    <ClInclude Include="fmt\src\fmt\color.h" />
+    <ClInclude Include="fmt\src\fmt\core.h" />
+    <ClInclude Include="fmt\src\fmt\format-inl.h" />
+    <ClInclude Include="fmt\src\fmt\format.h" />
+    <ClInclude Include="fmt\src\fmt\ostream.h" />
+    <ClInclude Include="fmt\src\fmt\posix.h" />
+    <ClInclude Include="fmt\src\fmt\printf.h" />
+    <ClInclude Include="fmt\src\fmt\ranges.h" />
+    <ClInclude Include="fmt\src\fmt\time.h" />
   </ItemGroup>
   <ItemGroup>
-	<ClCompile Include="fmt\src\fmt\format.cpp" />
-	<ClCompile Include="fmt\src\fmt\posix.cpp" />
+    <ClCompile Include="fmt\src\fmt\format.cpp" />
+    <ClCompile Include="fmt\src\fmt\posix.cpp" />
   </ItemGroup>
 </Project>

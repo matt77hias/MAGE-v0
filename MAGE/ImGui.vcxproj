@@ -18,26 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ImGui\src\imconfig.h" />
-    <ClInclude Include="ImGui\src\imgui.h" />
-    <ClInclude Include="ImGui\src\imgui_impl_dx11.h" />
-    <ClInclude Include="ImGui\src\imgui_impl_win32.h" />
-    <ClInclude Include="ImGui\src\imgui_internal.h" />
-    <ClInclude Include="ImGui\src\imgui_window_message_listener.hpp" />
-    <ClInclude Include="ImGui\src\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\src\imstb_textedit.h" />
-    <ClInclude Include="ImGui\src\imstb_truetype.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ImGui\src\imgui.cpp" />
-    <ClCompile Include="ImGui\src\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\src\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
-    <ClCompile Include="ImGui\src\imgui_impl_win32.cpp" />
-    <ClCompile Include="ImGui\src\imgui_widgets.cpp" />
-    <ClCompile Include="ImGui\src\imgui_window_message_listener.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{0330E3AA-6BA7-44FF-8B91-2AD562C0770C}</ProjectGuid>
@@ -72,7 +52,9 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -93,7 +75,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
@@ -110,7 +91,24 @@
     <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="ImGui\src\imconfig.h" />
+    <ClInclude Include="ImGui\src\imgui.h" />
+    <ClInclude Include="ImGui\src\imgui_impl_dx11.h" />
+    <ClInclude Include="ImGui\src\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\src\imgui_internal.h" />
+    <ClInclude Include="ImGui\src\imgui_window_message_listener.hpp" />
+    <ClInclude Include="ImGui\src\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\src\imstb_textedit.h" />
+    <ClInclude Include="ImGui\src\imstb_truetype.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImGui\src\imgui.cpp" />
+    <ClCompile Include="ImGui\src\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\src\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\src\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGui\src\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGui\src\imgui_widgets.cpp" />
+    <ClCompile Include="ImGui\src\imgui_window_message_listener.cpp" />
+  </ItemGroup>
 </Project>

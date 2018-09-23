@@ -18,29 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Math\src\geometry\bounding_volume.cpp" />
-    <ClCompile Include="Math\src\sampling\fibonacci.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Math\src\directxmath\extensions.hpp" />
-    <ClInclude Include="Math\src\directxmath\facade.hpp" />
-    <ClInclude Include="Math\src\geometry\bounding_volume.hpp" />
-    <ClInclude Include="Math\src\geometry\geometry.hpp" />
-    <ClInclude Include="Math\src\math.hpp" />
-    <ClInclude Include="Math\src\math_utils.hpp" />
-    <ClInclude Include="Math\src\sampling\fibonacci.hpp" />
-    <ClInclude Include="Math\src\sampling\primes.hpp" />
-    <ClInclude Include="Math\src\sampling\qmc.hpp" />
-    <ClInclude Include="Math\src\sampling\rng.hpp" />
-    <ClInclude Include="Math\src\sampling\sampling.hpp" />
-    <ClInclude Include="Math\src\spectrum\color.hpp" />
-    <ClInclude Include="Math\src\spectrum\spectrum.hpp" />
-    <ClInclude Include="Math\src\transform\basis.hpp" />
-    <ClInclude Include="Math\src\transform\local_transform.hpp" />
-    <ClInclude Include="Math\src\transform\sprite_transform.hpp" />
-    <ClInclude Include="Math\src\transform\texture_transform.hpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B6FAB106-B50E-4340-9458-146E624420DF}</ProjectGuid>
@@ -75,7 +52,9 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -96,7 +75,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
@@ -113,5 +91,27 @@
     <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemGroup>
+    <ClInclude Include="Math\src\directxmath\extensions.hpp" />
+    <ClInclude Include="Math\src\directxmath\facade.hpp" />
+    <ClInclude Include="Math\src\geometry\bounding_volume.hpp" />
+    <ClInclude Include="Math\src\geometry\geometry.hpp" />
+    <ClInclude Include="Math\src\math.hpp" />
+    <ClInclude Include="Math\src\math_utils.hpp" />
+    <ClInclude Include="Math\src\sampling\fibonacci.hpp" />
+    <ClInclude Include="Math\src\sampling\primes.hpp" />
+    <ClInclude Include="Math\src\sampling\qmc.hpp" />
+    <ClInclude Include="Math\src\sampling\rng.hpp" />
+    <ClInclude Include="Math\src\sampling\sampling.hpp" />
+    <ClInclude Include="Math\src\spectrum\color.hpp" />
+    <ClInclude Include="Math\src\spectrum\spectrum.hpp" />
+    <ClInclude Include="Math\src\transform\basis.hpp" />
+    <ClInclude Include="Math\src\transform\local_transform.hpp" />
+    <ClInclude Include="Math\src\transform\sprite_transform.hpp" />
+    <ClInclude Include="Math\src\transform\texture_transform.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Math\src\geometry\bounding_volume.cpp" />
+    <ClCompile Include="Math\src\sampling\fibonacci.cpp" />
+  </ItemGroup>
 </Project>

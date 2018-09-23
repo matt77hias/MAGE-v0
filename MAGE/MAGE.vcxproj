@@ -18,20 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MAGE\src\engine.hpp" />
-    <ClInclude Include="MAGE\src\engine_setup.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene.hpp" />
-    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="MAGE\src\engine.cpp" />
-    <ClCompile Include="MAGE\src\scene\scene.cpp" />
-    <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MAGE\src\scene\scene.tpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -66,7 +52,9 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -87,7 +75,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
@@ -104,7 +91,18 @@
     <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="MAGE\src\engine.hpp" />
+    <ClInclude Include="MAGE\src\engine_setup.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene.hpp" />
+    <ClInclude Include="MAGE\src\scene\script\behavior_script.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAGE\src\scene\scene.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MAGE\src\engine.cpp" />
+    <ClCompile Include="MAGE\src\scene\scene.cpp" />
+    <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
+  </ItemGroup>
 </Project>

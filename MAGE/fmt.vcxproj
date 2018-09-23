@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E7362325-A958-4157-B2B0-AF59925A2690}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>fmt</RootNamespace>
+    <RootNamespace>Math</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -52,7 +52,9 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -74,21 +76,18 @@
     <Import Project="Properties\x64_Release.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="fmt\src\fmt\color.h" />
-    <ClInclude Include="fmt\src\fmt\core.h" />
-    <ClInclude Include="fmt\src\fmt\format-inl.h" />
-    <ClInclude Include="fmt\src\fmt\format.h" />
-    <ClInclude Include="fmt\src\fmt\ostream.h" />
-    <ClInclude Include="fmt\src\fmt\posix.h" />
-    <ClInclude Include="fmt\src\fmt\printf.h" />
-    <ClInclude Include="fmt\src\fmt\ranges.h" />
-    <ClInclude Include="fmt\src\fmt\time.h" />
+	<ClInclude Include="fmt\src\fmt\color.h" />
+	<ClInclude Include="fmt\src\fmt\core.h" />
+	<ClInclude Include="fmt\src\fmt\format-inl.h" />
+	<ClInclude Include="fmt\src\fmt\format.h" />
+	<ClInclude Include="fmt\src\fmt\ostream.h" />
+	<ClInclude Include="fmt\src\fmt\posix.h" />
+	<ClInclude Include="fmt\src\fmt\printf.h" />
+	<ClInclude Include="fmt\src\fmt\ranges.h" />
+	<ClInclude Include="fmt\src\fmt\time.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fmt\src\fmt\format.cpp" />
-    <ClCompile Include="fmt\src\fmt\posix.cpp" />
+	<ClCompile Include="fmt\src\fmt\format.cpp" />
+	<ClCompile Include="fmt\src\fmt\posix.cpp" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>

@@ -54,7 +54,6 @@
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -119,6 +118,7 @@
       <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <FxCompile Include="Shaders\shaders\aa\aa_preprocess_CS.hlsl">
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\aa\%(Filename).hpp</HeaderFileOutput>

@@ -665,6 +665,7 @@ Uses:
 * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 * [std](https://en.cppreference.com/w/cpp/header)
 * [Windows Runtime C++ Template Library (WRL)](https://docs.microsoft.com/nl-be/cpp/windows/windows-runtime-cpp-template-library-wrl?view=vs-2017)
+* [zlib](https://github.com/madler/zlib)
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)

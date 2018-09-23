@@ -78,7 +78,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.h" />
     <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.h" />
@@ -89,4 +88,5 @@
     <ClCompile Include="DirectXTex\src\DirectXTex\ScreenGrab.cpp" />
     <ClCompile Include="DirectXTex\src\DirectXTex\WICTextureLoader.cpp" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

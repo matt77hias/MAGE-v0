@@ -90,7 +90,6 @@
     <IncludePath>$(ProjectName)\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <ClInclude Include="Math\src\directxmath\extensions.hpp" />
     <ClInclude Include="Math\src\directxmath\facade.hpp" />
@@ -114,4 +113,5 @@
     <ClCompile Include="Math\src\geometry\bounding_volume.cpp" />
     <ClCompile Include="Math\src\sampling\fibonacci.cpp" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

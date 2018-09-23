@@ -90,7 +90,6 @@
     <IncludePath>$(ProjectName)\src\;Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;ImGui\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Rendering\src\;Input\src\;Core\src\;Math\src\;Utilities\src\;ImGui\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <ClInclude Include="MAGE\src\engine.hpp" />
     <ClInclude Include="MAGE\src\engine_setup.hpp" />
@@ -105,4 +104,5 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

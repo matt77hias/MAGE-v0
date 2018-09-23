@@ -118,7 +118,6 @@
       <VariableName>g_%(Filename)</VariableName>
     </FxCompile>
   </ItemDefinitionGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <FxCompile Include="Shaders\shaders\aa\aa_preprocess_CS.hlsl">
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\aa\%(Filename).hpp</HeaderFileOutput>
@@ -2181,4 +2180,5 @@
     <ClInclude Include="Shaders\src\voxelization\voxel_grid_PS.hpp" />
     <ClInclude Include="Shaders\src\voxelization\voxel_grid_VS.hpp" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

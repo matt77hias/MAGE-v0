@@ -90,7 +90,6 @@
     <IncludePath>$(ProjectName)\src\;Core\src\;Math\src\;Utilities\src\;fmt\src\;GSL\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <SourcePath>Core\src\;Math\src\;Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <ClInclude Include="Input\src\device\keyboard.hpp" />
     <ClInclude Include="Input\src\device\mouse.hpp" />
@@ -102,4 +101,5 @@
     <ClCompile Include="Input\src\device\mouse.cpp" />
     <ClCompile Include="Input\src\input_manager.cpp" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

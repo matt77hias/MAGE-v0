@@ -49,3 +49,13 @@
 # Shader Files
 *.hlsl 		linguist-language=hlsl
 *.hlsli 	linguist-language=hlsl
+
+###############################################################################
+# Exclude the following 3th party directories
+###############################################################################
+
+MAGE/DirectXTex/* 	linguist-vendored
+MAGE/GSL/* 			linguist-vendored
+MAGE/ImGui/* 		linguist-vendored
+MAGE/fmt/* 			linguist-vendored
+MAGE/zlib/* 		linguist-vendored

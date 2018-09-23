@@ -32,3 +32,20 @@
 *.sln		text eol=crlf
 *.users		text eol=crlf
 *.vcxproj	text eol=crlf
+
+###############################################################################
+# Explicitly declare programming languages for the following files
+###############################################################################
+
+# Header Files
+*.hpp 		linguist-language=c++
+*.tpp 		linguist-language=c++
+
+# Source Files
+*.c 		linguist-language=c
+*.cc 		linguist-language=c++
+*.cpp 		linguist-language=c++
+
+# Shader Files
+*.hlsl 		linguist-language=hlsl
+*.hlsli 	linguist-language=hlsl

@@ -102,4 +102,6 @@
     <ClCompile Include="Input\src\input_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

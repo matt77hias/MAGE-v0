@@ -105,4 +105,6 @@
     <ClCompile Include="MAGE\src\scene\script\behavior_script.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

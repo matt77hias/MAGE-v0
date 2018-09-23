@@ -115,4 +115,6 @@
     <ClCompile Include="Scripts\src\voxel_grid_anchor_script.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

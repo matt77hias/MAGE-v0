@@ -94,4 +94,6 @@
     <ClCompile Include="fmt\src\fmt\posix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

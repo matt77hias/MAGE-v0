@@ -2181,4 +2181,6 @@
     <ClInclude Include="Shaders\src\voxelization\voxel_grid_VS.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

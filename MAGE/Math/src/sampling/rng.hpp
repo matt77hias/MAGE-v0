@@ -30,7 +30,7 @@ namespace mage {
 	/**
 	 A class of (uniform) random number generators (RNGs).
 	 */
-	class RNG final {
+	class RNG {
 
 	public:
 

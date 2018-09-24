@@ -653,7 +653,6 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
 
 Uses:
-* [Active Template Library (ATL)](https://docs.microsoft.com/nl-be/cpp/atl/atl-com-desktop-components?view=vs-2017)
 * [(Dear) ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
 * [Direct3D 11](https://docs.microsoft.com/nl-be/windows/desktop/direct3d11/atoc-dx-graphics-direct3d-11)
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]

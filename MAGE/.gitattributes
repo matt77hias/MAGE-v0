@@ -8,54 +8,50 @@
 ###############################################################################
 
 # Header Files
-*.h			text eol=crlf
-*.hpp		text eol=crlf
-*.inc		text eol=crlf
-*.inl		text eol=crlf
-*.tpp		text eol=crlf
+*.h					text eol=crlf
+*.hpp				text eol=crlf
+*.inc				text eol=crlf
+*.inl				text eol=crlf
+*.tpp				text eol=crlf
 
 # Source Files
-*.c			text eol=crlf
-*.cc		text eol=crlf
-*.cpp		text eol=crlf
+*.c					text eol=crlf
+*.cc				text eol=crlf
+*.cpp				text eol=crlf
 
 # Shader Files
-*.hlsl		text eol=crlf
-*.hlsli		text eol=crlf
+*.hlsl				text eol=crlf
+*.hlsli				text eol=crlf
 
 # Resource Files
-*.rc        text eol=crlf
+*.rc        		text eol=crlf
 
 # Visual Studio
-*.filters	text eol=crlf
-*.props		text eol=crlf
-*.sln		text eol=crlf
-*.users		text eol=crlf
-*.vcxproj	text eol=crlf
+*.filters			text eol=crlf
+*.props				text eol=crlf
+*.sln				text eol=crlf
+*.users				text eol=crlf
+*.vcxproj			text eol=crlf
 
 ###############################################################################
 # Explicitly declare programming languages for the following files
 ###############################################################################
 
 # Header Files
-*.hpp 		linguist-language=c++
-*.tpp 		linguist-language=c++
+*.hpp 				linguist-language=C++
+*.tpp 				linguist-language=C++
+
+MAGE/DirectXTex/*.h linguist-language=C++
+MAGE/fmt/*.h 		linguist-language=C++
+MAGE/GSL/*.h 		linguist-language=C++
+MAGE/ImGui/*.h 		linguist-language=C++
+MAGE/zlib/*.h 		linguist-language=C
 
 # Source Files
-*.c 		linguist-language=c
-*.cc 		linguist-language=c++
-*.cpp 		linguist-language=c++
+*.c 				linguist-language=C
+*.cc 				linguist-language=C++
+*.cpp 				linguist-language=C++
 
 # Shader Files
-*.hlsl 		linguist-language=hlsl
-*.hlsli 	linguist-language=hlsl
-
-###############################################################################
-# Exclude the following 3th party directories
-###############################################################################
-
-MAGE/DirectXTex/* 	linguist-vendored
-MAGE/GSL/* 			linguist-vendored
-MAGE/ImGui/* 		linguist-vendored
-MAGE/fmt/* 			linguist-vendored
-MAGE/zlib/* 		linguist-vendored
+*.hlsl 				linguist-language=HLSL
+*.hlsli 			linguist-language=HLSL

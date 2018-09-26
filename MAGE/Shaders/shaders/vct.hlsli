@@ -201,9 +201,9 @@ struct VCTConfig {
 			const float4 mask = (max_cone_distances >= distance);
 
 			// Update the accumulated radiance and ambient occlusion.
-			const float inv_alpha = 1.0f - alpha;
-			alpha += inv_alpha * L_step.w;
-			L     += inv_alpha * mask * L_step;
+			const float weight = (1.0f - alpha) * L_step.w;
+			alpha += weight;
+			L     += weight * mask * float4(L_step.xyz, 1.0f);
 
 			// Update the marching distance.
 			distance += m_cone_step;

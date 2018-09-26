@@ -174,8 +174,8 @@ struct VCTConfig {
 					cone for this VCT configuration.
 	 */
 	float4 GetRadianceAndAO(Cone cone, float4 max_cone_distances) {
-		float  alpha = 0.0f;
 		float4 L     = 0.0f;
+		float  alpha = 0.0f;
 
 		// Compute the initial distance to avoid sampling the voxel containing
 		// the cone's apex.
@@ -202,8 +202,8 @@ struct VCTConfig {
 
 			// Update the accumulated radiance and ambient occlusion.
 			const float weight = (1.0f - alpha) * L_step.w;
-			alpha += weight;
 			L     += weight * mask * float4(L_step.xyz, 1.0f);
+			alpha += weight;
 
 			// Update the marching distance.
 			distance += m_cone_step;

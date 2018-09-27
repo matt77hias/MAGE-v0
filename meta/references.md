@@ -475,6 +475,8 @@ KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conferen
 
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
 
+LAFORTUNE E., FOO S.-C., TORRANCE K., GREENBERG D.: *Non-linear approximation of reflectance functions*, *SIGGRAPH 1997 - Proceedings of the 24th Annual Conference on Computer Graphics and Interactive Techniques*, 1997.
+
 LAGARDE S.: [Adopting a physically based shading model](https://seblagarde.wordpress.com/2011/08/17/hello-world/), 2011.
 
 LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*, *SIGGRAPH 2014 Course: Physically Based Shading in Theory and Practice*, 2014.

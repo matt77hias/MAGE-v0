@@ -455,6 +455,8 @@ DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K 
 
 ERKENBRACH L.: [*Voxel Cone Traced Global Illumination*](http://leifnode.com/2015/05/voxel-cone-traced-global-illumination/)
 
+GIESEN F.: [(Blinn-)Phong Normalization Factor derivation](http://www.farbrausch.de/~fg/stuff/phong.pdf), 2009.
+
 GOOGLE LLC: [*Materials*](https://google.github.io/filament//Materials.md.html), 2018.
 
 GOOGLE LLC: [*Material Properties*](https://google.github.io/filament/Material%20Properties.pdf), 2018.
@@ -472,6 +474,8 @@ KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/sp
 KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conference on Computer Graphics and Interactive Techniques*, 1986.
 
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
+
+LAGARDE S.: [Adopting a physically based shading model](https://seblagarde.wordpress.com/2011/08/17/hello-world/), 2011.
 
 LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*, *SIGGRAPH 2014 Course: Physically Based Shading in Theory and Practice*, 2014.
 
@@ -494,6 +498,8 @@ REED N.: [*Radiometry Versus Photometry*](http://reedbeta.com/blog/radiometry-ve
 RUSSELL J.: [*Basic Theory of Physically Based Rendering*](https://www.marmoset.co/posts/basic-theory-of-physically-based-rendering/), 2015.
 
 SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Computer Graphics Forum* 13, 3, 1994.
+
+SCHÜLER C.: [*The Blinn-Phong Normalization Zoo*](http://www.thetenthplanet.de/archives/255), 2011.
 
 SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. and Propagation* 15, 5, 1967.
 

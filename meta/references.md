@@ -709,6 +709,7 @@ Uses:
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Omar Cornut](https://github.com/ocornut)
+* [Paul Chaignon](https://github.com/pchaigno)
 * [Roald Frederickx](https://github.com/RoaldFre)
 * SoldierOfLight
 * Styves

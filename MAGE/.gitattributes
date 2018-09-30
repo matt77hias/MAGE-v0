@@ -42,10 +42,10 @@
 *.tpp 				linguist-language=C++
 
 DirectXTex/**.h 	linguist-language=C++
-fmt/**.h 			linguist-language=C++
-GSL/**.h 			linguist-language=C++
-ImGui/**.h 			linguist-language=C++
-zlib/**.h 			linguist-language=C
+fmt/**/*.h 			linguist-language=C++
+GSL/**/*.h 			linguist-language=C++
+ImGui/**/*.h 		linguist-language=C++
+zlib/**/*.h 		linguist-language=C
 
 # Source Files
 *.c 				linguist-language=C

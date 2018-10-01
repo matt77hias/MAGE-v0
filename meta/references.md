@@ -294,6 +294,8 @@ WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gamel
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
+AKENINE-MÖLLER T., HAINES E., HOFFMAN N., PESCE A., IWANICKI M., HILLAIRE S.: *Real-Time Rendering*, 4th Edition, A K Peters/CRC Press, 2018.
+
 ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
 
 GOOGLE LLC: [*Filament*](https://google.github.io/filament/Filament.md.html), 2018.

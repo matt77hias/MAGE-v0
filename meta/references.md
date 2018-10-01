@@ -31,7 +31,7 @@
 * [Assembly](#SSS-Assembly)
 * [C/C++](#SSS-C-Cpp)
 * [Collision Detection](#SSS-Collision-Detection)
-* [Color Spaces](#SSS-Color-Spaces)
+* [Color](#SSS-Color)
 * [Data Structures](#SSS-Data-Structures)
 * [Depth Test](#SSS-Depth-Test)
 * [Design Patterns](#SSS-Design-Patterns)
@@ -218,7 +218,7 @@ KARRAS T.: [*Thinking Parallel, Part II: Tree Traversal on the GPU*](https://dev
 
 KARRAS T.: [*Thinking Parallel, Part III: Tree Construction on the GPU*](https://devblogs.nvidia.com/thinking-parallel-part-iii-tree-construction-gpu/), 2012.
 
-### <a name="SSS-Color-Spaces"></a>Color Spaces
+### <a name="SSS-Color"></a>Color
 
 ALDRIDGE G.: [*The difference between RGBM and RGBD*](http://iwasbeingirony.blogspot.be/2010/06/difference-between-rgbm-and-rgbd.html), 2010.
 

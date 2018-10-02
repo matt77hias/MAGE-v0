@@ -1190,7 +1190,6 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV RGBtoSRGB(FXMVECTOR rgb) noexcept {
-		// Frostbite's conversion
 		static constexpr auto exp = 1.0f / 2.4f;
 
 		const auto low  = rgb * 12.92f;
@@ -1211,7 +1210,6 @@ namespace mage {
 	 */
 	[[nodiscard]]
 	inline const XMVECTOR XM_CALLCONV SRGBtoRGB(FXMVECTOR srgb) noexcept {
-		// Frostbite's conversion
 		static constexpr auto mlow  = 1.0f / 12.92f;
 		static constexpr auto mhigh = 1.0f / 1.055f;
 

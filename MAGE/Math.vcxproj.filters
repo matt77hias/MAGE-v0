@@ -9,19 +9,19 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;tpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-	<Filter Include="Header Files\directxmath">
+    <Filter Include="Header Files\directxmath">
       <UniqueIdentifier>{772a050f-175c-4add-9a12-023affa5d368}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Header Files\geometry">
+    <Filter Include="Header Files\geometry">
       <UniqueIdentifier>{c8b7f65c-56e1-41a4-9093-067111063f38}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Header Files\sampling">
+    <Filter Include="Header Files\sampling">
       <UniqueIdentifier>{c069aae1-3e37-48f1-8fc9-1f22d0ea8418}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Header Files\spectrum">
+    <Filter Include="Header Files\spectrum">
       <UniqueIdentifier>{bb9414d7-cb39-4534-86d6-6a6d72952bee}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Header Files\transform">
+    <Filter Include="Header Files\transform">
       <UniqueIdentifier>{14918d2f-0d67-4400-a889-2654f2b74772}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\geometry">
@@ -29,6 +29,9 @@
     </Filter>
     <Filter Include="Source Files\sampling">
       <UniqueIdentifier>{00d6383b-4460-493f-9a1f-30c5486ff3a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algebra">
+      <UniqueIdentifier>{a02ab4cb-8d4b-4e25-ae88-d0167a6e2c11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +55,7 @@
     <ClInclude Include="Math\src\directxmath\facade.hpp">
       <Filter>Header Files\directxmath</Filter>
     </ClInclude>
-	<ClInclude Include="Math\src\geometry\bounding_volume.hpp">
+    <ClInclude Include="Math\src\geometry\bounding_volume.hpp">
       <Filter>Header Files\geometry</Filter>
     </ClInclude>
     <ClInclude Include="Math\src\geometry\geometry.hpp">
@@ -73,16 +76,16 @@
     <ClInclude Include="Math\src\sampling\sampling.hpp">
       <Filter>Header Files\sampling</Filter>
     </ClInclude>
-	<ClInclude Include="Math\src\spectrum\color.hpp">
+    <ClInclude Include="Math\src\spectrum\color.hpp">
       <Filter>Header Files\spectrum</Filter>
     </ClInclude>
     <ClInclude Include="Math\src\spectrum\spectrum.hpp">
       <Filter>Header Files\spectrum</Filter>
     </ClInclude>
-	<ClInclude Include="Math\src\transform\basis.hpp">
+    <ClInclude Include="Math\src\transform\basis.hpp">
       <Filter>Header Files\transform</Filter>
     </ClInclude>
-	<ClInclude Include="Math\src\transform\local_transform.hpp">
+    <ClInclude Include="Math\src\transform\local_transform.hpp">
       <Filter>Header Files\transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\src\transform\sprite_transform.hpp">
@@ -90,6 +93,15 @@
     </ClInclude>
     <ClInclude Include="Math\src\transform\texture_transform.hpp">
       <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\algebra\complex.hpp">
+      <Filter>Header Files\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\algebra\dual.hpp">
+      <Filter>Header Files\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\algebra\hyperbolic.hpp">
+      <Filter>Header Files\algebra</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

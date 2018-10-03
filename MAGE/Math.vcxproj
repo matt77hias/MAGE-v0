@@ -91,6 +91,9 @@
     <SourcePath>Utilities\src\;fmt\src\;$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="Math\src\algebra\complex.hpp" />
+    <ClInclude Include="Math\src\algebra\dual.hpp" />
+    <ClInclude Include="Math\src\algebra\hyperbolic.hpp" />
     <ClInclude Include="Math\src\directxmath\extensions.hpp" />
     <ClInclude Include="Math\src\directxmath\facade.hpp" />
     <ClInclude Include="Math\src\geometry\bounding_volume.hpp" />

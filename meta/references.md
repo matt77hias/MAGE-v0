@@ -100,6 +100,8 @@ CUMMING M.: [*C++: std::string_view not so useful when calling C functions*](htt
 
 DICANIO G.: [*How Many String types Does C++ Have?*](https://blogs.msmvps.com/gdicanio/2018/05/28/how-many-strings-does-c-have/), 2018.
 
+EDOUARD: [*When noexcept?*](http://blog.quasardb.net/when-noexcept-2/), 2016.
+
 ELVERT M.: [*C++ header-only libraries are bad*](https://schneide.wordpress.com/2018/04/30/c-header-only-libraries-are-bad/), 2018.
 
 FERNANDES R. M.: [*Rule of Zero*](https://blog.rmf.io/cxx11/rule-of-zero), s.d.

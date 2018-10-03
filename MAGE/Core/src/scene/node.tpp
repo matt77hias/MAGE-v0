@@ -70,7 +70,7 @@ namespace mage {
 
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
-			[&components](decltype(m_components)::value_type& x) {
+			[&components](auto& x) {
 				components.push_back(static_pointer_cast< ComponentT >(x.second));
 			}
 		);
@@ -85,7 +85,7 @@ namespace mage {
 
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
-			[&components](decltype(m_components)::value_type& x) {
+			[&components](auto& x) {
 				components.push_back(static_pointer_cast< const ComponentT >(x.second));
 			}
 		);
@@ -111,7 +111,7 @@ namespace mage {
 	void Node::ForEach(ActionT&& action) {
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
-			[&action](decltype(m_components)::value_type& x) {
+			[&action](auto& x) {
 				action(static_cast< ComponentT& >(*x.second));
 			}
 		);
@@ -121,7 +121,7 @@ namespace mage {
 	void Node::ForEach(ActionT&& action) const {
 		const auto range = m_components.equal_range(typeid(ComponentT));
 		for_each(range.first, range.second,
-			[&action](decltype(m_components)::value_type& x) {
+			[&action](auto& x) {
 				action(static_cast< const ComponentT& >(*x.second));
 			}
 		);

@@ -175,7 +175,7 @@ namespace fmt {
 
 		template< typename FormatContextT >
 		auto format(const std::pair< T1, T2 >& a, FormatContextT& ctx) {
-			return format_to(it, "{} {}", a.first, a.second);
+			return format_to(ctx.begin(), "{} {}", a.first, a.second);
 		}
 	};
 
@@ -194,7 +194,7 @@ namespace fmt {
 			}
 
 			auto it = format_to(ctx.begin(), "{}", a[0]);
-			for (std::size_t i = 1u; i < N; ++i) {
+			for (std::size_t i = 1u; i < a.size(); ++i) {
 				it = format_to(it, " {}", a[i]);
 			}
 			return it;

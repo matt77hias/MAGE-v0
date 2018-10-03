@@ -195,7 +195,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(RGB) == sizeof(F32x3), "RGB/F32x3 mismatch");
+	static_assert(sizeof(RGB) == sizeof(F32x3));
 
 	#pragma endregion
 
@@ -368,7 +368,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(SRGB) == sizeof(F32x3), "SRGB/F32x3 mismatch");
+	static_assert(sizeof(SRGB) == sizeof(F32x3));
 
 	#pragma endregion
 
@@ -541,7 +541,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(XYZ) == sizeof(F32x3), "XYZ/F32x3 mismatch");
+	static_assert(sizeof(XYZ) == sizeof(F32x3));
 
 	#pragma endregion
 
@@ -759,7 +759,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(RGBA) == sizeof(F32x4), "RGBA/F32x4 mismatch");
+	static_assert(sizeof(RGBA) == sizeof(F32x4));
 
 	#pragma endregion
 
@@ -965,7 +965,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(SRGBA) == sizeof(F32x4), "SRGBA/F32x4 mismatch");
+	static_assert(sizeof(SRGBA) == sizeof(F32x4));
 
 	#pragma endregion
 
@@ -1171,7 +1171,7 @@ namespace mage {
 		}
 	};
 
-	static_assert(sizeof(XYZA) == sizeof(F32x4), "XYZA/F32x4 mismatch");
+	static_assert(sizeof(XYZA) == sizeof(F32x4));
 
 	#pragma endregion
 

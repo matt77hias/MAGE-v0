@@ -6,6 +6,7 @@
 #pragma region
 
 #include "exception\exception.hpp"
+#include "io\binary_utils.hpp"
 
 #pragma endregion
 

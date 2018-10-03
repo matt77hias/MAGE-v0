@@ -46,7 +46,7 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
   * [dinput8.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ee416842(v=vs.85).aspx)
   * dxguid.lib
   * ([d3dcompiler.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/dd607340(v=vs.85).aspx))
-* **Compiler**: MSVC++ 15.8.5
+* **Compiler**: MSVC++ 15.8.6
 * **IDE**: Visual Studio 2017
 
 <p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>

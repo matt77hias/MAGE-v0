@@ -678,15 +678,16 @@ Uses:
   * [zlib](https://github.com/madler/zlib)
 * [(Dear) ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
   * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
-* [Direct3D 11](https://docs.microsoft.com/nl-be/windows/desktop/direct3d11/atoc-dx-graphics-direct3d-11)
-* [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
-* [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 * [{fmt}](https://github.com/fmtlib/fmt) [[License](https://github.com/fmtlib/fmt/blob/master/LICENSE.rst)]
 * Fast Approximate Anti-Aliasing (FXAA) 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/Shaders/shaders/aa/fxaa3_11.hlsli)]
-* [Guidelines Support Library (GSL)](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
-* [Microsoft DirectX Graphics Infrastructure (DXGI)](https://docs.microsoft.com/en-us/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)
+* Microsoft Corporation Libraries:
+  * [Direct3D 11](https://docs.microsoft.com/nl-be/windows/desktop/direct3d11/atoc-dx-graphics-direct3d-11)
+  * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
+  * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
+  * [Guidelines Support Library (GSL)](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
+  * [Microsoft DirectX Graphics Infrastructure (DXGI)](https://docs.microsoft.com/en-us/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)
+  * [Windows Runtime C++ Template Library (WRL)](https://docs.microsoft.com/nl-be/cpp/windows/windows-runtime-cpp-template-library-wrl?view=vs-2017)
 * [std](https://en.cppreference.com/w/cpp/header)
-* [Windows Runtime C++ Template Library (WRL)](https://docs.microsoft.com/nl-be/cpp/windows/windows-runtime-cpp-template-library-wrl?view=vs-2017)
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)

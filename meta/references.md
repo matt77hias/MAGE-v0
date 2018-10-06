@@ -682,6 +682,7 @@ Uses:
 * Fast Approximate Anti-Aliasing (FXAA) 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/Shaders/shaders/aa/fxaa3_11.hlsli)]
 * Microsoft Corporation Libraries:
   * [Direct3D 11](https://docs.microsoft.com/nl-be/windows/desktop/direct3d11/atoc-dx-graphics-direct3d-11)
+  * [DirectXShaderCompiler](https://github.com/Microsoft/DirectXShaderCompiler) [[License](https://github.com/Microsoft/DirectXShaderCompiler/blob/master/LICENSE.TXT)]
   * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
   * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
   * [Guidelines Support Library (GSL)](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]

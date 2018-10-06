@@ -50,7 +50,7 @@ Assimp/src/unzip/**/*.h             linguist-language=C
 Assimp/src/utf8cpp/**/*.h           linguist-language=C++
 Assimp/src/zip/**/*.h               linguist-language=C
 Assimp/src/zlib/**/*.h              linguist-language=C++
-DirectXTex/**.h                     linguist-language=C++
+DirectXTex/**/*.h                   linguist-language=C++
 fmt/**/*.h                          linguist-language=C++
 GSL/**/*.h                          linguist-language=C++
 ImGui/**/*.h                        linguist-language=C++
@@ -68,3 +68,13 @@ ImGui/**/*.h                        linguist-language=C++
 # Shader Files
 *.hlsl                              linguist-language=HLSL
 *.hlsli                             linguist-language=HLSL
+
+###############################################################################
+# Explicitly declare vendored for the following files
+###############################################################################
+
+Assimp/**/*                         linguist-vendored
+DirectXTex/**/*                     linguist-vendored
+fmt/**/*                            linguist-vendored
+GSL/**/*                            linguist-vendored
+ImGui/**/*                          linguist-vendored

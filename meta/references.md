@@ -666,7 +666,7 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 
 Uses:
 * [Assimp](https://github.com/assimp/assimp) [[License](https://github.com/assimp/assimp/blob/master/LICENSE)]
-  * [clipper](http://www.angusj.com/delphi/clipper.php) [[License](https://github.com/assimp/assimp/blob/master/contrib/clipper/License.txt)]
+  * [clipper](http://www.angusj.com/delphi/clipper.php) [[License](https://www.boost.org/LICENSE_1_0.txt)]
   * [irrXML](https://www.ambiera.com/irrxml/) [[License](https://www.ambiera.com/irrxml/license.html)]
   * [Open 3D Graphics Compression (Open3DGC)](https://github.com/amd/rest3d/tree/master/server/o3dgc) [[License](https://github.com/amd/rest3d/blob/master/LICENSE.md)]
   * [OpenDDL-Parser](https://github.com/kimkulling/openddl-parser) [[License](https://github.com/kimkulling/openddl-parser/blob/master/LICENSE)]
@@ -674,7 +674,7 @@ Uses:
   * [RapidJSON](https://github.com/Tencent/rapidjson) [[License](https://github.com/Tencent/rapidjson/blob/master/license.txt)]
   * [unzip] [[License](https://github.com/assimp/assimp/blob/master/contrib/zip/UNLICENSE)]
   * [UTF8-CPP](http://utfcpp.sourceforge.net/)
-  * [zip](https://github.com/kuba--/zip) [[License](https://github.com/assimp/assimp/blob/master/contrib/zip/UNLICENSE)]
+  * [zip](https://github.com/kuba--/zip) [[License](https://github.com/kuba--/zip/blob/master/UNLICENSE)]
   * [zlib](https://github.com/madler/zlib)
 * [(Dear) ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
   * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]

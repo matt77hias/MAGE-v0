@@ -674,7 +674,7 @@ Uses:
   * [RapidJSON](https://github.com/Tencent/rapidjson) [[License](https://github.com/Tencent/rapidjson/blob/master/license.txt)]
   * [unzip] [[License](https://github.com/assimp/assimp/blob/master/contrib/zip/UNLICENSE)]
   * [UTF8-CPP](http://utfcpp.sourceforge.net/)
-  * [zip]
+  * [zip](https://github.com/kuba--/zip) [[License](https://github.com/assimp/assimp/blob/master/contrib/zip/UNLICENSE)]
   * [zlib](https://github.com/madler/zlib)
 * [(Dear) ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
   * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]

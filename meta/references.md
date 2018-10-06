@@ -665,7 +665,19 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
 
 Uses:
+* [Assimp](https://github.com/assimp/assimp) [[License](https://github.com/assimp/assimp/blob/master/LICENSE)]
+  * [clipper](http://www.angusj.com/delphi/clipper.php) [[License](https://github.com/assimp/assimp/blob/master/contrib/clipper/License.txt)]
+  * [irrXML](https://www.ambiera.com/irrxml/) [[License](https://www.ambiera.com/irrxml/license.html)]
+  * [Open 3D Graphics Compression (Open3DGC)](https://github.com/amd/rest3d/tree/master/server/o3dgc) [[License](https://github.com/amd/rest3d/blob/master/LICENSE.md)]
+  * [OpenDDL-Parser](https://github.com/kimkulling/openddl-parser) [[License](https://github.com/kimkulling/openddl-parser/blob/master/LICENSE)]
+  * [Poly2Tri](http://code.google.com/p/poly2tri/) [[License](https://github.com/greenm01/poly2tri/blob/master/LICENSE)]
+  * [RapidJSON](https://github.com/Tencent/rapidjson) [[License](https://github.com/Tencent/rapidjson/blob/master/license.txt)]
+  * [unzip] [[License](https://github.com/assimp/assimp/blob/master/contrib/zip/UNLICENSE)]
+  * [UTF8-CPP](http://utfcpp.sourceforge.net/)
+  * [zip]
+  * [zlib](https://github.com/madler/zlib)
 * [(Dear) ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
+  * [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 * [Direct3D 11](https://docs.microsoft.com/nl-be/windows/desktop/direct3d11/atoc-dx-graphics-direct3d-11)
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
@@ -673,10 +685,8 @@ Uses:
 * Fast Approximate Anti-Aliasing (FXAA) 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/Shaders/shaders/aa/fxaa3_11.hlsli)]
 * [Guidelines Support Library (GSL)](https://github.com/Microsoft/GSL) [[License](https://github.com/Microsoft/GSL/blob/master/LICENSE)]
 * [Microsoft DirectX Graphics Infrastructure (DXGI)](https://docs.microsoft.com/en-us/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)
-* [stb](https://github.com/nothings/stb) [[License](https://creativecommons.org/share-your-work/public-domain/cc0/)]
 * [std](https://en.cppreference.com/w/cpp/header)
 * [Windows Runtime C++ Template Library (WRL)](https://docs.microsoft.com/nl-be/cpp/windows/windows-runtime-cpp-template-library-wrl?view=vs-2017)
-* [zlib](https://github.com/madler/zlib)
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)

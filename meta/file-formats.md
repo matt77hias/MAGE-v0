@@ -79,17 +79,7 @@
 * Syntax: see [OBJ format](http://paulbourke.net/dataformats/obj/)
   * only a subset is supported
   * UVW vertex texture coordinates will be converted to UV vertex texture coordinates
-  
-| Definitions       | Syntax                                                          |
-|-------------------|-----------------------------------------------------------------|
-| child             | `g <child-name>`                                                |
-| child             | `o <child-name>`                                                |
-| `<child-name>`    | `<string>`                                                      |
-| `<parent-name>`   | `<string>`                                                      |
-| `<translation>`   | `<F32> <F32> <F32>`                                             |
-| `<rotation>`      | `<F32> <F32> <F32>`                                             |
-| `<scale>`         | `<F32> <F32> <F32>`                                             |
-  
+
 ## <a name="SS-Models"></a>Models
   
 ### .mdl

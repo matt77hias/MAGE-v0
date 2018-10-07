@@ -5,7 +5,7 @@
 
 [s1]: https://ci.appveyor.com/api/projects/status/ike880pg85pupdj6?svg=true
 [s2]: https://img.shields.io/badge/docs-doxygen-blue.svg
-[s3]: https://img.shields.io/badge/licence-No%20Licence-blue.svg
+[s3]: https://img.shields.io/badge/license-GPL%203.0-blue.svg
 [s4]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
 
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE

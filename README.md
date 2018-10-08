@@ -1,6 +1,6 @@
 <img align="left" src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/MAGE.png" width="120px"/>
 
-[![Build status][s1]][av] [![Code Quality][s2]][co] [![Documentation][s3]][do] [![License][s4]][li] [![Join the chat][s5]][gi]
+[![Build status][s1]][av] [![Code quality][s2]][co] [![Documentation][s3]][do] [![License][s4]][li] [![Join the chat][s5]][gi]
 <a href="https://twitter.com/intent/follow?screen_name=matt77hias"><img src="https://img.shields.io/twitter/follow/matt77hias.svg?style=social" alt="follow on Twitter"></a>
 
 [s1]: https://ci.appveyor.com/api/projects/status/ike880pg85pupdj6?svg=true

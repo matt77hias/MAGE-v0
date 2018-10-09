@@ -352,6 +352,9 @@
     <ClInclude Include="Assimp\src\rapidjson\stream.h" />
     <ClInclude Include="Assimp\src\rapidjson\stringbuffer.h" />
     <ClInclude Include="Assimp\src\rapidjson\writer.h" />
+    <ClInclude Include="Assimp\src\unzip\crypt.h" />
+    <ClInclude Include="Assimp\src\unzip\ioapi.h" />
+    <ClInclude Include="Assimp\src\unzip\unzip.h" />
     <ClInclude Include="Assimp\src\utf8cpp\utf8.h" />
     <ClInclude Include="Assimp\src\utf8cpp\utf8\checked.h" />
     <ClInclude Include="Assimp\src\utf8cpp\utf8\core.h" />
@@ -369,9 +372,6 @@
     <ClInclude Include="Assimp\src\zlib\zconf.h" />
     <ClInclude Include="Assimp\src\zlib\zlib.h" />
     <ClInclude Include="Assimp\src\zlib\zutil.h" />
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\crypt.h" />
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\ioapi.h" />
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\unzip.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assimp\src\assimp\color4.inl" />

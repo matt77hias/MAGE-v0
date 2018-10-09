@@ -920,13 +920,13 @@
     <ClInclude Include="Assimp\src\utf8cpp\utf8\unchecked.h">
       <Filter>Header Files\utf8cpp\utf8</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\crypt.h">
+    <ClInclude Include="Assimp\src\unzip\crypt.h">
       <Filter>Header Files\unzip</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\ioapi.h">
+    <ClInclude Include="Assimp\src\unzip\ioapi.h">
       <Filter>Header Files\unzip</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Matthias\assimp\contrib\unzip\unzip.h">
+    <ClInclude Include="Assimp\src\unzip\unzip.h">
       <Filter>Header Files\unzip</Filter>
     </ClInclude>
     <ClInclude Include="Assimp\src\poly2tri\poly2tri.h">

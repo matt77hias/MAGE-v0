@@ -132,7 +132,7 @@ namespace mage::rendering {
 
 	void SpriteFont::DrawText(SpriteBatch& sprite_batch,
 							  gsl::span< const ColorString > strings,
-		                      const SpriteTransform& transform,
+		                      const SpriteTransform2D& transform,
 		                      SpriteEffect effects,
 		                      const RGBA* color) const {
 
@@ -157,14 +157,14 @@ namespace mage::rendering {
 		const auto index = static_cast< std::size_t >(effects) & 3u;
 
 		const auto base_offset = (SpriteEffect::None == effects)
-			                   ? transform.GetRotationOriginV()
-			                   : transform.GetRotationOriginV()
+			                   ? transform.GetRotationOrigin()
+			                   : transform.GetRotationOrigin()
 			                     - MeasureText(strings)
 			                     * axis_is_mirrored_table[index];
 
 		auto x = 0.0f;
 		auto y = 0.0f;
-		SpriteTransform sprite_transform(transform);
+		SpriteTransform2D sprite_transform(transform);
 
 		for (const auto& str : strings) {
 			for (auto character : str.GetString()) {
@@ -188,7 +188,7 @@ namespace mage::rendering {
 					const auto height = static_cast< F32 >(glyph->GetHeight());
 					if (!iswspace(character) || width > 1.0f || height > 1.0f) {
 						const XMVECTOR top_left = { x, y + glyph->m_offset[1], 0.0f, 0.0f };
-						const auto& flip    = axis_direction_table[index];
+						const auto& flip        = axis_direction_table[index];
 						auto offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 						if (SpriteEffect::None != effects) {

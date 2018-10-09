@@ -58,30 +58,30 @@ namespace mage::script {
 		auto& transform           = GetOwner()->GetTransform();
 
 		const auto rotation = XMLoad(m_sensitivity) * XMLoad(m_direction) * delta_time
-			                * XMVectorSwizzle< 1, 0, 1, 0 >(XMLoad(mouse.GetDelta()));
+			                * XMVectorSwizzle< 1u, 0u, 1u, 0u >(XMLoad(mouse.GetDelta()));
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
 			transform.AddAndClampRotationX(XMVectorGetX(rotation),
-				                           m_minimum_rotation[0],
-				                           m_maximum_rotation[0]);
+				                           m_minimum_rotation[0u],
+				                           m_maximum_rotation[0u]);
 			transform.AddAndClampRotationY(XMVectorGetY(rotation),
-				                           m_minimum_rotation[1],
-				                           m_maximum_rotation[1]);
+				                           m_minimum_rotation[1u],
+				                           m_maximum_rotation[1u]);
 			break;
 		}
 
 		case RotationAxes::MouseX: {
 			transform.AddAndClampRotationY(XMVectorGetY(rotation),
-				                           m_minimum_rotation[1],
-				                           m_maximum_rotation[1]);
+				                           m_minimum_rotation[1u],
+				                           m_maximum_rotation[1u]);
 			break;
 		}
 
 		case RotationAxes::MouseY: {
 			transform.AddAndClampRotationX(XMVectorGetX(rotation),
-				                           m_minimum_rotation[0],
-				                           m_maximum_rotation[0]);
+				                           m_minimum_rotation[0u],
+				                           m_maximum_rotation[0u]);
 			break;
 		}
 		}

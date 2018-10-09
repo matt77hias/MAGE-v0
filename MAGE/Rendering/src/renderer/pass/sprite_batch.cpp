@@ -259,7 +259,7 @@ namespace mage::rendering {
 		void XM_CALLCONV Draw(ID3D11ShaderResourceView* texture,
 			                  FXMVECTOR color,
 			                  SpriteEffect effects,
-			                  const SpriteTransform& transform,
+			                  const SpriteTransform2D& transform,
 			                  const RECT* source = nullptr);
 
 		/**
@@ -449,22 +449,26 @@ namespace mage::rendering {
 	void XM_CALLCONV SpriteBatch::Impl::Draw(ID3D11ShaderResourceView* texture,
 											 FXMVECTOR color,
 											 SpriteEffect effects,
-											 const SpriteTransform& transform,
+											 const SpriteTransform2D& transform,
 											 const RECT* source) {
 
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
 		// destination: [Tx Ty Sx Sy]
-		const XMVECTOR destination = { transform.GetTranslation()[0],
-			                           transform.GetTranslation()[1],
-			                           transform.GetScale()[0],
-			                           transform.GetScale()[1] };
+		const XMVECTOR destination = {
+			transform.GetTranslationX(),
+			transform.GetTranslationY(),
+			transform.GetScaleX(),
+			transform.GetScaleY()
+		};
 		// origin_rotation_depth: [ROx ROy R D]
-		const XMVECTOR origin_rotation_depth = { transform.GetRotationOrigin()[0],
-												 transform.GetRotationOrigin()[1],
-												 transform.GetRotation(),
-			                                     transform.GetDepth() };
+		const XMVECTOR origin_rotation_depth = {
+			transform.GetRotationOriginX(),
+			transform.GetRotationOriginY(),
+			transform.GetRotation(),
+			transform.GetDepth()
+		};
 		auto flags = static_cast< U32 >(effects);
 		auto dst   = destination;
 
@@ -832,7 +836,7 @@ namespace mage::rendering {
 	void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView* texture,
 									   FXMVECTOR color,
 									   SpriteEffect effects,
-									   const SpriteTransform& transform,
+									   const SpriteTransform2D& transform,
 									   const RECT* source) {
 
 		m_impl->Draw(texture, color, effects, transform, source);

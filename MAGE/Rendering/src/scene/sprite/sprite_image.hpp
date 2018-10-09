@@ -105,7 +105,7 @@ namespace mage::rendering {
 						image.
 		 */
 		[[nodiscard]]
-		SpriteTransform& GetSpriteTransform() noexcept {
+		SpriteTransform2D& GetSpriteTransform() noexcept {
 			return m_sprite_transform;
 		}
 
@@ -116,7 +116,7 @@ namespace mage::rendering {
 						image.
 		 */
 		[[nodiscard]]
-		const SpriteTransform& GetSpriteTransform() const noexcept {
+		const SpriteTransform2D& GetSpriteTransform() const noexcept {
 			return m_sprite_transform;
 		}
 
@@ -261,7 +261,7 @@ namespace mage::rendering {
 		/**
 		 The sprite transform of this sprite image.
 		 */
-		SpriteTransform m_sprite_transform;
+		SpriteTransform2D m_sprite_transform;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Sprite Effects

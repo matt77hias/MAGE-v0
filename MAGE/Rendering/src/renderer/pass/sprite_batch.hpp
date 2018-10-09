@@ -6,7 +6,7 @@
 #pragma region
 
 #include "direct3d11.hpp"
-#include "transform\sprite_transform.hpp"
+#include "transform\transform.hpp"
 
 #pragma endregion
 
@@ -169,7 +169,7 @@ namespace mage::rendering {
 		void XM_CALLCONV Draw(ID3D11ShaderResourceView* texture,
 			                  FXMVECTOR color,
 			                  SpriteEffect effects,
-			                  const SpriteTransform& transform,
+			                  const SpriteTransform2D& transform,
 			                  const RECT* source = nullptr);
 
 		/**

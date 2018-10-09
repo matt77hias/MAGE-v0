@@ -85,15 +85,6 @@
     <ClInclude Include="Math\src\transform\basis.hpp">
       <Filter>Header Files\transform</Filter>
     </ClInclude>
-    <ClInclude Include="Math\src\transform\local_transform.hpp">
-      <Filter>Header Files\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\src\transform\sprite_transform.hpp">
-      <Filter>Header Files\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\src\transform\texture_transform.hpp">
-      <Filter>Header Files\transform</Filter>
-    </ClInclude>
     <ClInclude Include="Math\src\algebra\complex.hpp">
       <Filter>Header Files\algebra</Filter>
     </ClInclude>
@@ -102,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="Math\src\algebra\hyperbolic.hpp">
       <Filter>Header Files\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\transform.hpp">
+      <Filter>Header Files\transform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

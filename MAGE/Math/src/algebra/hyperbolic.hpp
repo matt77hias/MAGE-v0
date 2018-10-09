@@ -18,7 +18,7 @@ namespace mage {
 	// Hyperbolic
 	//-------------------------------------------------------------------------
 
-	template< typename T, 
+	template< typename T,
 		      typename = std::enable_if_t< std::is_floating_point_v< T > > >
 	struct Hyperbolic : public Array< T, 2u > {
 
@@ -30,19 +30,19 @@ namespace mage {
 
 		constexpr explicit Hyperbolic(T xy = T(0)) noexcept
 			: Hyperbolic(xy, xy) {}
-		
+
 		constexpr Hyperbolic(T x, T y) noexcept
 			: Array(x, y) {}
-		
+
 		constexpr Hyperbolic(const Hyperbolic& v) noexcept = default;
-		
+
 		constexpr Hyperbolic(Hyperbolic&& v) noexcept = default;
-		
+
 		template< typename U >
 		constexpr explicit Hyperbolic(const Hyperbolic< U >& v) noexcept
 			: Hyperbolic(static_cast< T >(v.Re()),
 				         static_cast< T >(v.Im())) {}
-		
+
 		~Hyperbolic() = default;
 
 		//---------------------------------------------------------------------
@@ -50,7 +50,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Hyperbolic& operator=(const Hyperbolic& v) noexcept = default;
-		
+
 		Hyperbolic& operator=(Hyperbolic&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -61,17 +61,17 @@ namespace mage {
 		T& Re() noexcept {
 			return operator[](0u);
 		}
-		
+
 		[[nodiscard]]
 		constexpr const T Re() const noexcept {
 			return operator[](0u);
 		}
-		
+
 		[[nodiscard]]
 		T& Im() noexcept {
 			return operator[](1u);
 		}
-		
+
 		[[nodiscard]]
 		constexpr const T Im() const noexcept {
 			return operator[](1u);
@@ -82,7 +82,7 @@ namespace mage {
 			// +(Re, Im) = (Re, Im)
 			return *this;
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator-() const noexcept {
 			// -(Re, Im) = (-Re, -Im)
@@ -94,20 +94,20 @@ namespace mage {
 			// (Re, Im) + (v.Re, v.Im) = (Re + v.Re, Im + v.Im)
 			return { Re() + v.Re(), Im() + v.Im() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator-(const Hyperbolic& v) const noexcept {
 			// (Re, Im) - (v.Re, v.Im) = (Re - v.Re, Im - v.Im)
 			return { Re() - v.Re(), Im() - v.Im() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator*(const Hyperbolic& v) const noexcept {
-			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re + Im * v.Im, 
+			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re + Im * v.Im,
 			//                            Re * v.Im + Im * v.Re)
-			return { 
-				Re() * v.Re() + Im() * v.Im(), 
-				Re() * v.Im() + Im() * v.Re() 
+			return {
+				Re() * v.Re() + Im() * v.Im(),
+				Re() * v.Im() + Im() * v.Re()
 			};
 		}
 
@@ -116,19 +116,19 @@ namespace mage {
 			// (Re, Im) + (a, 0) = (Re + a, Im)
 			return { Re() + a, Im() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator-(T a) const noexcept {
 			// (Re, Im) - (a, 0) = (Re - a, Im)
 			return { Re() - a, Im() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator*(T a) const noexcept {
 			// (Re, Im) * (a, 0) = (Re * a, Im * a)
 			return { Re() * a, Im() * a };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Hyperbolic operator/(T a) const noexcept {
 			// (Re, Im) / (a, 0) = (Re / a, Im / a)
@@ -142,16 +142,16 @@ namespace mage {
 			Im() += v.Im();
 			return *this;
 		}
-		
+
 		Hyperbolic& operator-=(const Hyperbolic& v) noexcept {
 			// (Re, Im) - (v.Re, v.Im) = (Re - v.Re, Im - v.Im)
 			Re() -= v.Re();
 			Im() -= v.Im();
 			return *this;
 		}
-		
+
 		Hyperbolic& operator*=(const Hyperbolic& v) noexcept {
-			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re + Im * v.Im, 
+			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re + Im * v.Im,
 			//                            Re * v.Im + Im * v.Re)
 			Re() = Re() * v.Re() + Im() * v.Im();
 			Im() = Re() * v.Im() + Im() * v.Re();
@@ -163,20 +163,20 @@ namespace mage {
 			Re() += a;
 			return *this;
 		}
-		
+
 		Hyperbolic& operator-=(T a) noexcept {
 			// (Re, Im) - (a, 0) = (Re - a, Im)
 			Re() -= a;
 			return *this;
 		}
-		
+
 		Hyperbolic& operator*=(T a) noexcept {
 			// (Re, Im) * (a, 0) = (Re * a, Im * a)
 			Re() *= a;
 			Im() *= a;
 			return *this;
 		}
-		
+
 		Hyperbolic& operator/=(T a) noexcept {
 			// (Re, Im) / (a, 0) = (Re / a, Im / a)
 			const T inv_a = T(1) / a;
@@ -189,7 +189,7 @@ namespace mage {
 		constexpr bool operator==(const Hyperbolic& v) const {
 			return Re() == v.Re() && Im() == v.Im();
 		}
-		
+
 		[[nodiscard]]
 		constexpr bool operator!=(const Hyperbolic& v) const {
 			return !(*this == v);
@@ -212,7 +212,7 @@ namespace mage {
 		// (a, 0) + (v.Re, v.Im) = (a + v.Re, v.Im)
 		return v + a;
 	}
-	
+
 	template< typename T >
 	[[nodiscard]]
 	constexpr const Hyperbolic< T > operator-(T a, const Hyperbolic< T >& v) noexcept {

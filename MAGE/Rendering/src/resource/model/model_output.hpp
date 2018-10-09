@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "transform\local_transform.hpp"
+#include "transform\transform.hpp"
 #include "geometry\bounding_volume.hpp"
 #include "resource\model\material.hpp"
 #include "collection\vector.hpp"
@@ -102,7 +102,7 @@ namespace mage::rendering {
 		/**
 		 The local transform of this model part.
 		 */
-		LocalTransform m_transform;
+		SETTransform3D m_transform;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Mesh

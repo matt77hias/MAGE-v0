@@ -77,9 +77,9 @@ namespace mage::rendering::loader {
 					g_mdl_token_submodel,
 					model_part.m_child,
 					model_part.m_parent,
-					model_part.m_transform.GetTranslation(),
-					model_part.m_transform.GetRotation(),
-					model_part.m_transform.GetScale(),
+					model_part.m_transform.GetTranslationView(),
+					model_part.m_transform.GetRotationView(),
+					model_part.m_transform.GetScaleView(),
 					model_part.m_material,
 					model_part.m_start_index,
 					model_part.m_nb_indices);

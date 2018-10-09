@@ -36,7 +36,7 @@ namespace mage::rendering {
 			return;
 		}
 
-		SpriteTransform effect_transform(m_sprite_transform);
+		SpriteTransform2D effect_transform(m_sprite_transform);
 
 		switch (m_text_effect) {
 

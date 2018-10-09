@@ -9,7 +9,7 @@
 #include "resource\mesh\mesh.hpp"
 #include "resource\model\material.hpp"
 #include "geometry\bounding_volume.hpp"
-#include "transform\texture_transform.hpp"
+#include "transform\transform.hpp"
 #include "renderer\buffer\constant_buffer.hpp"
 #include "renderer\buffer\scene_buffer.hpp"
 
@@ -195,7 +195,7 @@ namespace mage::rendering {
 		 @return		A reference to the texture transform of this model.
 		 */
 		[[nodiscard]]
-		TextureTransform& GetTextureTransform() noexcept {
+		TextureTransform2D& GetTextureTransform() noexcept {
 			return m_texture_transform;
 		}
 
@@ -205,7 +205,7 @@ namespace mage::rendering {
 		 @return		A reference to the texture transform of this model.
 		 */
 		[[nodiscard]]
-		const TextureTransform& GetTextureTransform() const noexcept {
+		const TextureTransform2D& GetTextureTransform() const noexcept {
 			return m_texture_transform;
 		}
 
@@ -354,7 +354,7 @@ namespace mage::rendering {
 		/**
 		 The texture transform of this model.
 		 */
-		TextureTransform m_texture_transform;
+		TextureTransform2D m_texture_transform;
 
 		/**
 		 The material of this model.

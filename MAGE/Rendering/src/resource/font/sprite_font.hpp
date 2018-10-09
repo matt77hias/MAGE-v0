@@ -121,7 +121,7 @@ namespace mage::rendering {
 		 */
 		void DrawText(SpriteBatch& sprite_batch,
 			          gsl::span< const ColorString > strings,
-			          const SpriteTransform& transform,
+			          const SpriteTransform2D& transform,
 			          SpriteEffect effects = SpriteEffect::None,
 		              const RGBA* color = nullptr) const;
 

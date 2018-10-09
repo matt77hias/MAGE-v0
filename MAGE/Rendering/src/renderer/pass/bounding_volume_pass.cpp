@@ -185,7 +185,7 @@ namespace mage::rendering {
 	void XM_CALLCONV BoundingVolumePass::Render(const AABB& aabb,
 												FXMMATRIX object_to_world) {
 
-		const LocalTransform aabb_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());
+		const SETTransform3D aabb_transform(aabb.Centroid(), g_XMZero, aabb.Diagonal());
 		const auto cube_to_object = aabb_transform.GetObjectToParentMatrix();
 		const auto cube_to_world  = cube_to_object * object_to_world;
 

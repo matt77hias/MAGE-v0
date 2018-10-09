@@ -589,20 +589,20 @@ namespace mage::script {
 			}
 		}
 
-		void DrawWidget(TextureTransform& transform) {
+		void DrawWidget(TextureTransform2D& transform) {
 			ImGui::Text("Texture Transform:");
 
 			//-----------------------------------------------------------------
 			// Translation
 			//-----------------------------------------------------------------
-			auto translation = transform.GetTranslation();
+			auto translation = transform.GetTranslationView();
 			ImGui::InputFloat2("Translation", translation.data());
 			transform.SetTranslation(std::move(translation));
 
 			//-----------------------------------------------------------------
 			// Rotation Origin
 			//-----------------------------------------------------------------
-			auto rotation_origin = transform.GetRotationOrigin();
+			auto rotation_origin = transform.GetRotationOriginView();
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 			transform.SetRotationOrigin(std::move(rotation_origin));
 
@@ -616,7 +616,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Scale
 			//-----------------------------------------------------------------
-			auto scale = transform.GetScale();
+			auto scale = transform.GetScaleView();
 			ImGui::InputFloat2("Scale", scale.data());
 			transform.SetScale(std::move(scale));
 		}
@@ -725,7 +725,7 @@ namespace mage::script {
 			model.SetLightOcclusion(light_occlusion);
 		}
 
-		void DrawWidget(SpriteTransform& transform,
+		void DrawWidget(SpriteTransform2D& transform,
 						const F32x2& display_resolution,
 						const F32x2& texture_resolution) {
 
@@ -737,14 +737,14 @@ namespace mage::script {
 			// Translation
 			//-----------------------------------------------------------------
 			if (normalization) {
-				auto translation = AbsoluteToNormalized(transform.GetTranslation(),
+				auto translation = AbsoluteToNormalized(transform.GetTranslationView(),
 														display_resolution);
 				ImGui::InputFloat2("Translation", translation.data());
 				transform.SetTranslation(
 					NormalizedToAbsolute(translation, display_resolution));
 			}
 			else {
-				auto translation = transform.GetTranslation();
+				auto translation = transform.GetTranslationView();
 				ImGui::InputFloat2("Translation", translation.data());
 				transform.SetTranslation(std::move(translation));
 			}
@@ -761,13 +761,13 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			if (normalization) {
 				auto rotation_origin = AbsoluteToNormalized(
-					transform.GetRotationOrigin(), texture_resolution);
+					transform.GetRotationOriginView(), texture_resolution);
 				ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 				transform.SetRotationOrigin(
 					NormalizedToAbsolute(rotation_origin, texture_resolution));
 			}
 			else {
-				auto rotation_origin = transform.GetRotationOrigin();
+				auto rotation_origin = transform.GetRotationOriginView();
 				ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
 				transform.SetRotationOrigin(std::move(rotation_origin));
 			}
@@ -782,7 +782,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Scale
 			//-----------------------------------------------------------------
-			auto scale = transform.GetScale();
+			auto scale = transform.GetScaleView();
 			ImGui::InputFloat2("Scale", scale.data());
 			transform.SetScale(std::move(scale));
 
@@ -938,7 +938,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Translation
 			//-----------------------------------------------------------------
-			if (auto translation = transform.GetTranslation();
+			if (auto translation = transform.GetTranslationView();
 				ImGui::InputFloat3("Translation", translation.data())) {
 
 				transform.SetTranslation(std::move(translation));
@@ -947,7 +947,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Rotation
 			//-----------------------------------------------------------------
-			if (auto rotation = transform.GetRotation();
+			if (auto rotation = transform.GetRotationView();
 				ImGui::InputFloat3("Rotation", rotation.data())) {
 
 				transform.SetRotation(std::move(rotation));
@@ -956,7 +956,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			// Scale
 			//-----------------------------------------------------------------
-			if (auto scale = transform.GetScale();
+			if (auto scale = transform.GetScaleView();
 				ImGui::InputFloat3("Scale", scale.data())) {
 
 				transform.SetScale(std::move(scale));

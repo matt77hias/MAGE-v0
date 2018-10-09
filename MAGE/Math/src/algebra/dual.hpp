@@ -18,7 +18,7 @@ namespace mage {
 	// Dual
 	//-------------------------------------------------------------------------
 
-	template< typename T, 
+	template< typename T,
 		      typename = std::enable_if_t< std::is_floating_point_v< T > > >
 	struct Dual : public Array< T, 2u > {
 
@@ -30,19 +30,19 @@ namespace mage {
 
 		constexpr explicit Dual(T xy = T(0)) noexcept
 			: Dual(xy, xy) {}
-		
+
 		constexpr Dual(T x, T y) noexcept
 			: Array(x, y) {}
-		
+
 		constexpr Dual(const Dual& v) noexcept = default;
-		
+
 		constexpr Dual(Dual&& v) noexcept = default;
-		
+
 		template< typename U >
 		constexpr explicit Dual(const Dual< U >& v) noexcept
 			: Dual(static_cast< T >(v.Re()),
 				   static_cast< T >(v.Du())) {}
-		
+
 		~Dual() = default;
 
 		//---------------------------------------------------------------------
@@ -50,7 +50,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Dual& operator=(const Dual& v) noexcept = default;
-		
+
 		Dual& operator=(Dual&& v) noexcept = default;
 
 		//---------------------------------------------------------------------
@@ -61,17 +61,17 @@ namespace mage {
 		T& Re() noexcept {
 			return operator[](0u);
 		}
-		
+
 		[[nodiscard]]
 		constexpr const T Re() const noexcept {
 			return operator[](0u);
 		}
-		
+
 		[[nodiscard]]
 		T& Du() noexcept {
 			return operator[](1u);
 		}
-		
+
 		[[nodiscard]]
 		constexpr const T Du() const noexcept {
 			return operator[](1u);
@@ -82,60 +82,60 @@ namespace mage {
 			// +(Re, Du) = (Re, Du)
 			return *this;
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator-() const noexcept {
 			// -(Re, Du) = (-Re, -Du)
 			return { -Re(), -Du() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator+(const Dual& v) const noexcept {
 			// (Re, Du) + (v.Re, v.Du) = (Re + v.Re, Du + v.Du)
 			return { Re() + v.Re(), Du() + v.Du() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator-(const Dual& v) const noexcept {
 			// (Re, Du) - (v.Re, v.Du) = (Re - v.Re, Du - v.Du)
 			return { Re() - v.Re(), Du() - v.Du() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator*(const Dual& v) const noexcept {
 			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re, Re * v.Du + Du * v.Re)
 			return { Re() * v.Re(), Re() * v.Du() + Du() * v.Re() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator/(const Dual& v) const noexcept {
-			// (Re, Im) / (v.Re, v.Im) = (Re / v.Re, 
+			// (Re, Im) / (v.Re, v.Im) = (Re / v.Re,
 			//                            (Du * v.Re - Re * v.Du) / v.Re^2)
 			const T inv_Re = T(1) / v.Re();
-			return { 
-				inv_Re * Re(), 
-				inv_Re * inv_Re * (Du() * v.Re() - Re() * v.Du()) 
+			return {
+				inv_Re * Re(),
+				inv_Re * inv_Re * (Du() * v.Re() - Re() * v.Du())
 			};
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator+(T a) const noexcept {
 			// (Re, Du) + (a, 0) = (Re + a, Du)
 			return { Re() + a, Du() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator-(T a) const noexcept {
 			// (Re, Du) - (a, 0) = (Re - a, Du)
 			return { Re() - a, Du() };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator*(T a) const noexcept {
 			// (Re, Du) * (a, 0) = (Re * a, Du * a)
 			return { Re() * a, Du() * a };
 		}
-		
+
 		[[nodiscard]]
 		constexpr const Dual operator/(T a) const noexcept {
 			// (Re, Du) / (a, 0) = (Re / a, Du / a)
@@ -149,49 +149,49 @@ namespace mage {
 			Du() += v.Du();
 			return *this;
 		}
-		
+
 		Dual& operator-=(const Dual& v) noexcept {
 			// (Re, Du) - (v.Re, v.Du) = (Re - v.Re, Du - v.Du)
 			Re() -= v.Re();
 			Du() -= v.Du();
 			return *this;
 		}
-		
+
 		Dual& operator*=(const Dual& v) noexcept {
 			// (Re, Im) * (v.Re, v.Im) = (Re * v.Re, Re * v.Du + Du * v.Re)
 			Re() = Re() * v.Re();
 			Du() = Re() * v.Du() + Du() * v.Re();
 			return *this;
 		}
-		
+
 		Dual& operator/=(const Dual& v) noexcept {
-			// (Re, Im) / (v.Re, v.Im) = (Re / v.Re, 
+			// (Re, Im) / (v.Re, v.Im) = (Re / v.Re,
 			//                            (Du * v.Re - Re * v.Du) / v.Re^2)
 			const T inv_Re = T(1) / v.Re();
 			Re() *= inv_Re;
 			Du()  = inv_Re * inv_Re * (Du() * v.Re() - Re() * v.Du());
 			return *this;
 		}
-		
+
 		Dual& operator+=(T a) noexcept {
 			// (Re, Du) + (a, 0) = (Re + a, Du)
 			Re() += a;
 			return *this;
 		}
-		
+
 		Dual& operator-=(T a) noexcept {
 			// (Re, Du) - (a, 0) = (Re - a, Du)
 			Re() -= a;
 			return *this;
 		}
-		
+
 		Dual& operator*=(T a) noexcept {
 			// (Re, Du) * (a, 0) = (Re * a, Du * a)
 			Re() *= a;
 			Du() *= a;
 			return *this;
 		}
-		
+
 		Dual& operator/=(T a) noexcept {
 			// (Re, Du) / (a, 0) = (Re / a, Du / a)
 			const T inv_a = T(1) / a;
@@ -204,7 +204,7 @@ namespace mage {
 		constexpr bool operator==(const Dual& v) const {
 			return Re() == v.Re() && Du() == v.Du();
 		}
-		
+
 		[[nodiscard]]
 		constexpr bool operator!=(const Dual& v) const {
 			return !(*this == v);
@@ -217,21 +217,21 @@ namespace mage {
 		// (a, 0) + (v.Re, v.Du) = (a + v.Re, v.Du)
 		return v + a;
 	}
-	
+
 	template< typename T >
 	[[nodiscard]]
 	constexpr const Dual< T > operator-(T a, const Dual< T >& v) noexcept {
 		// (a, 0) - (v.Re, v.Du) = (a - v.Re, v.Du)
 		return v - a;
 	}
-	
+
 	template< typename T >
 	[[nodiscard]]
 	constexpr const Dual< T > operator*(T a, const Dual< T >& v) noexcept {
 		// (a, 0) * (v.Re, v.Du) = (a * v.Re, a * v.Du)
 		return v * a;
 	}
-	
+
 	template< typename T >
 	[[nodiscard]]
 	constexpr const Dual< T > operator/(T a, const Dual< T >& v) noexcept {

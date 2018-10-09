@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "transform\local_transform.hpp"
+#include "transform\transform.hpp"
 
 #pragma endregion
 
@@ -297,8 +297,8 @@ namespace mage {
 		 @return		The translation component of this transform.
 		 */
 		[[nodiscard]]
-		const F32x3 GetTranslation() const noexcept {
-			return m_transform.GetTranslation();
+		const F32x3 GetTranslationView() const noexcept {
+			return m_transform.GetTranslationView();
 		}
 
 		/**
@@ -307,8 +307,8 @@ namespace mage {
 		 @return		The translation component of this transform.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV GetTranslationV() const noexcept {
-			return m_transform.GetTranslationV();
+		const XMVECTOR XM_CALLCONV GetTranslation() const noexcept {
+			return m_transform.GetTranslation();
 		}
 
 		/**
@@ -678,8 +678,8 @@ namespace mage {
 		 @return		The rotation component of this transform.
 		 */
 		[[nodiscard]]
-		const F32x3 GetRotation() const noexcept {
-			return m_transform.GetRotation();
+		const F32x3 GetRotationView() const noexcept {
+			return m_transform.GetRotationView();
 		}
 
 		/**
@@ -688,8 +688,8 @@ namespace mage {
 		 @return		The rotation component of this transform.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV GetRotationV() const noexcept {
-			return m_transform.GetRotationV();
+		const XMVECTOR XM_CALLCONV GetRotation() const noexcept {
+			return m_transform.GetRotation();
 		}
 
 		/**
@@ -954,8 +954,8 @@ namespace mage {
 		 @return		The scale component of this transform.
 		 */
 		[[nodiscard]]
-		const F32x3 GetScale() const noexcept {
-			return m_transform.GetScale();
+		const F32x3 GetScaleView() const noexcept {
+			return m_transform.GetScaleView();
 		}
 
 		/**
@@ -964,8 +964,8 @@ namespace mage {
 		 @return		The scale component of this transform.
 		 */
 		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV GetScaleV() const noexcept {
-			return m_transform.GetScaleV();
+		const XMVECTOR XM_CALLCONV GetScale() const noexcept {
+			return m_transform.GetScale();
 		}
 
 		/**
@@ -1171,7 +1171,7 @@ namespace mage {
 		 @param[in]		transform
 						The local transform.
 		 */
-		void SetLocalTransform(LocalTransform transform) noexcept {
+		void SetLocalTransform(SETTransform3D transform) noexcept {
 			m_transform = std::move(transform);
 			SetDirty();
 		}
@@ -1509,7 +1509,7 @@ namespace mage {
 		/**
 		 The local transform of this transform.
 		 */
-		LocalTransform m_transform;
+		SETTransform3D m_transform;
 
 		/**
 		 The cached object-to-world matrix of this transform.

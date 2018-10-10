@@ -611,7 +611,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto rotation = transform.GetRotation();
 			ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
-			transform.SetRotation(ClampAngleRadians(rotation));
+			transform.SetRotation(rotation);
 
 			//-----------------------------------------------------------------
 			// Scale
@@ -777,7 +777,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto rotation = transform.GetRotation();
 			ImGui::DragFloat("Rotation", &rotation, 0.0001f, -XM_PI, XM_PI);
-			transform.SetRotation(ClampAngleRadians(rotation));
+			transform.SetRotation(rotation);
 
 			//-----------------------------------------------------------------
 			// Scale

@@ -33,27 +33,39 @@ namespace mage {
 	#pragma region
 
 	/**
-	 Clamps the given angle (in degrees) to [-180, 180].
+	 Wraps the given angle (in degrees) to [-180, 180].
 
 	 @param[in]		angle
 					The angle (in degrees).
-	 @return		The clamped angle (in degrees).
+	 @return		The wrapped angle (in degrees).
 	 */
 	[[nodiscard]]
-	inline F32 ClampAngleDegrees(F32 angle) noexcept {
+	inline F32 WrapAngleDegrees(F32 angle) noexcept {
 		return std::remainder(angle, 360.0f);
 	}
 
 	/**
-	 Clamps the given angle (in radians) to [-pi, pi].
+	 Wraps the given angle (in radians) to [-pi, pi].
 
 	 @param[in]		angle
 					The angle (in radians).
-	 @return		The clamped angle (in radians).
+	 @return		The wrapped angle (in radians).
 	 */
 	[[nodiscard]]
-	inline F32 ClampAngleRadians(F32 angle) noexcept {
+	inline F32 WrapAngleRadians(F32 angle) noexcept {
 		return std::remainder(angle, XM_2PI);
+	}
+
+	/**
+	 Wraps the given angles (in radians) to [-pi, pi).
+
+	 @param[in]		angles
+					The angles (in radians).
+	 @return		The wrapped angles (in radians).
+	 */
+	[[nodiscard]]
+	inline XMVECTOR XM_CALLCONV WrapAngleRadians(FXMVECTOR angles) noexcept {
+		return XMVectorModAngles(angles);
 	}
 
 	/**
@@ -75,10 +87,10 @@ namespace mage {
 	[[nodiscard]]
 	inline F32 ClampAngleDegrees(F32 angle, F32 min_angle, F32 max_angle) noexcept {
 		Assert(min_angle <= max_angle);
-		Assert(-180.0f <= max_angle && max_angle <= 180.0f);
+		Assert(-180.0f <= min_angle && min_angle <= 180.0f);
 		Assert(-180.0f <= max_angle && max_angle <= 180.0f);
 
-		return std::clamp(ClampAngleDegrees(angle), min_angle, max_angle);
+		return std::clamp(WrapAngleDegrees(angle), min_angle, max_angle);
 	}
 
 	/**
@@ -100,10 +112,35 @@ namespace mage {
 	[[nodiscard]]
 	inline F32 ClampAngleRadians(F32 angle, F32 min_angle, F32 max_angle) noexcept {
 		Assert(min_angle <= max_angle);
-		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
+		Assert(-XM_PI <= min_angle && min_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 
-		return std::clamp(ClampAngleRadians(angle), min_angle, max_angle);
+		return std::clamp(WrapAngleRadians(angle), min_angle, max_angle);
+	}
+
+
+	/**
+	 Clamps the given angles (in radians) between the given minimum and maximum
+	 angles (in radians).
+
+	 @pre			@a min_angles lies in [-pi, pi].
+	 @pre			@a max_angles lies in [-pi, pi].
+	 @pre			@a min_angles is not greater than @a max_angles.
+	 @param[in]		angles
+					The angles (in radians).
+	 @param[in]		min_angles
+					The minimum angles (in radians).
+	 @param[in]		max_angles
+					The maximum angles (in radians).
+	 @return		The clamped angles between the given minimum and maximum
+					angles (in radians).
+	 */
+	[[nodiscard]]
+	inline XMVECTOR XM_CALLCONV ClampAngleRadians(FXMVECTOR angles,
+												  FXMVECTOR min_angles,
+												  FXMVECTOR max_angles) noexcept {
+
+		return XMVectorClamp(WrapAngleRadians(angles), min_angles, max_angles);
 	}
 
 	#pragma endregion

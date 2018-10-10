@@ -47,8 +47,11 @@ namespace mage {
 			                     F32   scale       =   1.0f) noexcept
 			: m_translation(std::move(translation)),
 			m_padding{},
-			m_rotation(std::move(rotation)),
-			m_scale(scale) {}
+			m_rotation(),
+			m_scale(scale) {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a transform from the given translation, rotation and scale
@@ -347,7 +350,7 @@ namespace mage {
 						The x-value of the rotation component.
 		 */
 		void SetRotationX(F32 x) noexcept {
-			m_rotation[0u] = x;
+			m_rotation[0u] = WrapAngleRadians(x);
 		}
 
 		/**
@@ -358,7 +361,7 @@ namespace mage {
 						The y-value of the rotation component.
 		 */
 		void SetRotationY(F32 y) noexcept {
-			m_rotation[1u] = y;
+			m_rotation[1u] = WrapAngleRadians(y);
 		}
 
 		/**
@@ -369,7 +372,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotationZ(F32 z) noexcept {
-			m_rotation[2u] = z;
+			m_rotation[2u] = WrapAngleRadians(z);
 		}
 
 		/**
@@ -392,10 +395,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 */
-		void SetRotation(F32x3 rotation) noexcept {
-			m_rotation = std::move(rotation);
+		void SetRotation(const F32x3& rotation) noexcept {
+			SetRotation(XMLoad(rotation));
 		}
 
 		/**
@@ -406,7 +409,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			SetRotation(XMStore< F32x3 >(rotation));
+			m_rotation = XMStore< F32x3 >(WrapAngleRadians(rotation));
 		}
 
 		/**
@@ -424,12 +427,11 @@ namespace mage {
 			const auto R = XMMatrixRotationNormal(direction, angle);
 
 			// cos instead of sin in case the angles are not in [-1,1]
-			SetRotationY(-std::asin(XMVectorGetY(R.r[2u])));
-			const auto cp = std::cos(m_rotation[1u]);
-			const auto cr = XMVectorGetY(R.r[1u]) / cp;
-			SetRotationZ(std::acos(cr));
-			const auto cy = XMVectorGetZ(R.r[2u]) / cp;
-			SetRotationX(std::acos(cy));
+			const auto y = -std::asin(XMVectorGetY(R.r[2u]));
+			const auto a = 1.0f / std::cos(m_rotation[1u]);
+			const auto z = std::acos(a * XMVectorGetY(R.r[1u]));
+			const auto x = std::acos(a * XMVectorGetZ(R.r[2u]));
+			SetRotation(x, y, z);
 		}
 
 		/**
@@ -443,6 +445,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given x-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[0u] = ClampAngleRadians(GetRotationX() + x,
+											   min_angle, max_angle);
+		}
+
+		/**
 		 Adds the given y-value to the rotation component of this transform.
 
 		 @param[in]		y
@@ -453,6 +473,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given y-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[1u] = ClampAngleRadians(GetRotationY() + y,
+											   min_angle, max_angle);
+		}
+
+		/**
 		 Adds the given z-value to the rotation component of this transform.
 
 		 @param[in]		z
@@ -460,6 +498,24 @@ namespace mage {
 		 */
 		void AddRotationZ(F32 z) noexcept {
 			SetRotationZ(GetRotationZ() + z);
+		}
+
+		/**
+		 Adds the given z-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[2u] = ClampAngleRadians(GetRotationZ() + z,
+											   min_angle, max_angle);
 		}
 
 		/**
@@ -481,11 +537,53 @@ namespace mage {
 		 Adds the given rotation component to the rotation component of this
 		 transform.
 
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
+			AddRotation(F32x3(x, y, z), min_angle, max_angle);
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const F32x3& rotation) noexcept {
 			AddRotation(XMLoad(rotation));
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(const F32x3& rotation, F32 min_angle, F32 max_angle) noexcept {
+			AddRotation(XMLoad(rotation),
+						XMVectorReplicate(min_angle),
+						XMVectorReplicate(max_angle));
 		}
 
 		/**
@@ -500,136 +598,26 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationX(ClampAngleRadians(GetRotationX() + x,
-										   min_angle, max_angle));
-		}
-
-		/**
-		 Adds the given y-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationY(ClampAngleRadians(GetRotationY() + y,
-										   min_angle, max_angle));
-		}
-
-		/**
-		 Adds the given z-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationZ(ClampAngleRadians(GetRotationZ() + z,
-										   min_angle, max_angle));
-		}
-
-		/**
 		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
+		 transform.
 
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(F32 x, F32 y, F32 z,
-			                     F32 min_angle, F32 max_angle) noexcept {
-
-			AddAndClampRotationX(x, min_angle, max_angle);
-			AddAndClampRotationY(y, min_angle, max_angle);
-			AddAndClampRotationZ(z, min_angle, max_angle);
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		rotation
-						A reference to the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(const F32x3& rotation,
-			                     F32 min_angle,
-			                     F32 max_angle) noexcept {
-
-			AddAndClampRotation(rotation[0u], rotation[1u], rotation[2u],
-				                min_angle, max_angle);
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
+		 @pre			@a min_angles lie in [-pi, pi].
+		 @pre			@a max_angles lie in [-pi, pi].
+		 @pre			@a min_angles is not greater than @a max_angles.
 		 @param[in]		rotation
 						The rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
+		 @param[in]		min_angles
+						The minimum angles (in radians).
+		 @param[in]		max_angles
+						The maximum angles (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation,
-			                                 F32 min_angle,
-			                                 F32 max_angle) noexcept {
+		void XM_CALLCONV AddRotation(FXMVECTOR rotation,
+									 FXMVECTOR min_angles,
+									 FXMVECTOR max_angles) noexcept {
 
-			AddAndClampRotation(XMStore< F32x3 >(rotation),
-				                min_angle, max_angle);
+			m_rotation = XMStore< F32x3 >(
+				ClampAngleRadians(GetRotation() + rotation,
+								  min_angles, max_angles));
 		}
 
 		/**
@@ -1103,10 +1091,13 @@ namespace mage {
 			                    F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_padding0{},
-			m_rotation(std::move(rotation)),
+			m_rotation(),
 			m_padding1{},
 			m_scale(std::move(scale)),
-			m_padding2{} {}
+			m_padding2{} {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a transform from the given translation, rotation and scale
@@ -1405,7 +1396,7 @@ namespace mage {
 						The x-value of the rotation component.
 		 */
 		void SetRotationX(F32 x) noexcept {
-			m_rotation[0u] = x;
+			m_rotation[0u] = WrapAngleRadians(x);
 		}
 
 		/**
@@ -1416,7 +1407,7 @@ namespace mage {
 						The y-value of the rotation component.
 		 */
 		void SetRotationY(F32 y) noexcept {
-			m_rotation[1u] = y;
+			m_rotation[1u] = WrapAngleRadians(y);
 		}
 
 		/**
@@ -1427,7 +1418,7 @@ namespace mage {
 						The z-value of the rotation component.
 		 */
 		void SetRotationZ(F32 z) noexcept {
-			m_rotation[2u] = z;
+			m_rotation[2u] = WrapAngleRadians(z);
 		}
 
 		/**
@@ -1450,10 +1441,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 */
-		void SetRotation(F32x3 rotation) noexcept {
-			m_rotation = std::move(rotation);
+		void SetRotation(const F32x3& rotation) noexcept {
+			SetRotation(XMLoad(rotation));
 		}
 
 		/**
@@ -1464,7 +1455,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			SetRotation(XMStore< F32x3 >(rotation));
+			m_rotation = XMStore< F32x3 >(WrapAngleRadians(rotation));
 		}
 
 		/**
@@ -1482,12 +1473,11 @@ namespace mage {
 			const auto R = XMMatrixRotationNormal(direction, angle);
 
 			// cos instead of sin in case the angles are not in [-1,1]
-			SetRotationY(-std::asin(XMVectorGetY(R.r[2u])));
-			const auto cp = std::cos(m_rotation[1u]);
-			const auto cr = XMVectorGetY(R.r[1u]) / cp;
-			SetRotationZ(std::acos(cr));
-			const auto cy = XMVectorGetZ(R.r[2u]) / cp;
-			SetRotationX(std::acos(cy));
+			const auto y = -std::asin(XMVectorGetY(R.r[2u]));
+			const auto a = 1.0f / std::cos(m_rotation[1u]);
+			const auto z = std::acos(a * XMVectorGetY(R.r[1u]));
+			const auto x = std::acos(a * XMVectorGetZ(R.r[2u]));
+			SetRotation(x, y, z);
 		}
 
 		/**
@@ -1501,6 +1491,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given x-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[0u] = ClampAngleRadians(GetRotationX() + x,
+											   min_angle, max_angle);
+		}
+
+		/**
 		 Adds the given y-value to the rotation component of this transform.
 
 		 @param[in]		y
@@ -1511,6 +1519,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given y-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[1u] = ClampAngleRadians(GetRotationY() + y,
+											   min_angle, max_angle);
+		}
+
+		/**
 		 Adds the given z-value to the rotation component of this transform.
 
 		 @param[in]		z
@@ -1518,6 +1544,24 @@ namespace mage {
 		 */
 		void AddRotationZ(F32 z) noexcept {
 			SetRotationZ(GetRotationZ() + z);
+		}
+
+		/**
+		 Adds the given z-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation[2u] = ClampAngleRadians(GetRotationZ() + z,
+											   min_angle, max_angle);
 		}
 
 		/**
@@ -1539,11 +1583,53 @@ namespace mage {
 		 Adds the given rotation component to the rotation component of this
 		 transform.
 
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
+			AddRotation(F32x3(x, y, z), min_angle, max_angle);
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const F32x3& rotation) noexcept {
 			AddRotation(XMLoad(rotation));
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(const F32x3& rotation, F32 min_angle, F32 max_angle) noexcept {
+			AddRotation(XMLoad(rotation),
+						XMVectorReplicate(min_angle),
+						XMVectorReplicate(max_angle));
 		}
 
 		/**
@@ -1558,136 +1644,26 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationX(ClampAngleRadians(GetRotationX() + x,
-										   min_angle, max_angle));
-		}
-
-		/**
-		 Adds the given y-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationY(ClampAngleRadians(GetRotationY() + y,
-										   min_angle, max_angle));
-		}
-
-		/**
-		 Adds the given z-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
-			SetRotationZ(ClampAngleRadians(GetRotationZ() + z,
-										   min_angle, max_angle));
-		}
-
-		/**
 		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
+		 transform.
 
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(F32 x, F32 y, F32 z,
-			                     F32 min_angle, F32 max_angle) noexcept {
-
-			AddAndClampRotationX(x, min_angle, max_angle);
-			AddAndClampRotationY(y, min_angle, max_angle);
-			AddAndClampRotationZ(z, min_angle, max_angle);
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		rotation
-						A reference to the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(const F32x3& rotation,
-			                     F32 min_angle,
-			                     F32 max_angle) noexcept {
-
-			AddAndClampRotation(rotation[0u], rotation[1u], rotation[2u],
-				                min_angle, max_angle);
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
+		 @pre			@a min_angles lie in [-pi, pi].
+		 @pre			@a max_angles lie in [-pi, pi].
+		 @pre			@a min_angles is not greater than @a max_angles.
 		 @param[in]		rotation
 						The rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
+		 @param[in]		min_angles
+						The minimum angles (in radians).
+		 @param[in]		max_angles
+						The maximum angles (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation,
-			                                 F32 min_angle,
-			                                 F32 max_angle) noexcept {
+		void XM_CALLCONV AddRotation(FXMVECTOR rotation,
+									 FXMVECTOR min_angles,
+									 FXMVECTOR max_angles) noexcept {
 
-			AddAndClampRotation(XMStore< F32x3 >(rotation),
-				                min_angle, max_angle);
+			m_rotation = XMStore< F32x3 >(
+				ClampAngleRadians(GetRotation() + rotation,
+								  min_angles, max_angles));
 		}
 
 		/**
@@ -2339,7 +2315,10 @@ namespace mage {
 			                     F32   scale       =   1.0f) noexcept
 			: m_translation(std::move(translation)),
 			m_scale(scale),
-			m_rotation(std::move(rotation)) {}
+			m_rotation() {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a transform from the given translation, rotation and scale
@@ -2635,10 +2614,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 */
-		void SetRotation(F32x4 rotation) noexcept {
-			m_rotation = std::move(rotation);
+		void SetRotation(const F32x4& rotation) noexcept {
+			SetRotation(XMLoad(rotation));
 		}
 
 		/**
@@ -2649,7 +2628,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			SetRotation(XMStore< F32x4 >(rotation));
+			m_rotation = XMStore< F32x4 >(XMQuaternionNormalize(rotation));
 		}
 
 		/**
@@ -3076,9 +3055,12 @@ namespace mage {
 			                    F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_padding0{},
-			m_rotation(std::move(rotation)),
+			m_rotation(),
 			m_padding1{},
-			m_scale(std::move(scale)) {}
+			m_scale(std::move(scale)) {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a transform from the given translation, rotation and scale
@@ -3374,10 +3356,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 */
-		void SetRotation(F32x4 rotation) noexcept {
-			m_rotation = std::move(rotation);
+		void SetRotation(const F32x4& rotation) noexcept {
+			SetRotation(XMLoad(rotation));
 		}
 
 		/**
@@ -3388,7 +3370,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
-			SetRotation(XMStore< F32x4 >(rotation));
+			m_rotation = XMStore< F32x4 >(XMQuaternionNormalize(rotation));
 		}
 
 		/**
@@ -3999,9 +3981,12 @@ namespace mage {
 			                       F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_depth(depth),
-			m_rotation(rotation),
+			m_rotation(),
 			m_rotation_origin(std::move(rotation_origin)),
-			m_scale(std::move(scale)) {}
+			m_scale(std::move(scale)) {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a sprite transform from the given translation, depth,
@@ -4292,7 +4277,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void SetRotation(F32 rotation) noexcept {
-			m_rotation = rotation;
+			m_rotation = WrapAngleRadians(rotation);
 		}
 
 		/**
@@ -4321,11 +4306,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(F32 rotation,
-			                     F32 min_angle, F32 max_angle) noexcept {
-
-			SetRotation(ClampAngleRadians(GetRotation() + rotation,
-										  min_angle, max_angle));
+		void AddRotation(F32 rotation, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation = ClampAngleRadians(GetRotation() + rotation,
+										   min_angle, max_angle);
 		}
 
 		/**
@@ -4776,9 +4759,12 @@ namespace mage {
 			                        F32x2 scale           = { 1.0f, 1.0f }) noexcept
 			: m_translation(std::move(translation)),
 			m_padding{},
-			m_rotation(rotation),
+			m_rotation(),
 			m_rotation_origin(std::move(rotation_origin)),
-			m_scale(std::move(scale)) {}
+			m_scale(std::move(scale)) {
+
+			SetRotation(rotation);
+		}
 
 		/**
 		 Constructs a texture transform from the given translation, depth,
@@ -5027,7 +5013,7 @@ namespace mage {
 						The rotation component.
 		 */
 		void SetRotation(F32 rotation) noexcept {
-			m_rotation = rotation;
+			m_rotation = WrapAngleRadians(rotation);
 		}
 
 		/**
@@ -5056,11 +5042,9 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(F32 rotation,
-			                     F32 min_angle, F32 max_angle) noexcept {
-
-			SetRotation(ClampAngleRadians(GetRotation() + rotation,
-										  min_angle, max_angle));
+		void AddRotation(F32 rotation, F32 min_angle, F32 max_angle) noexcept {
+			m_rotation = ClampAngleRadians(GetRotation() + rotation,
+										   min_angle, max_angle);
 		}
 
 		/**

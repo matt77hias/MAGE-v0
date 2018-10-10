@@ -62,26 +62,26 @@ namespace mage::script {
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
-			transform.AddAndClampRotationX(XMVectorGetX(rotation),
-				                           m_minimum_rotation[0u],
-				                           m_maximum_rotation[0u]);
-			transform.AddAndClampRotationY(XMVectorGetY(rotation),
-				                           m_minimum_rotation[1u],
-				                           m_maximum_rotation[1u]);
+			transform.AddRotationX(XMVectorGetX(rotation),
+								   m_minimum_rotation[0u],
+								   m_maximum_rotation[0u]);
+			transform.AddRotationY(XMVectorGetY(rotation),
+								   m_minimum_rotation[1u],
+								   m_maximum_rotation[1u]);
 			break;
 		}
 
 		case RotationAxes::MouseX: {
-			transform.AddAndClampRotationY(XMVectorGetY(rotation),
-				                           m_minimum_rotation[1u],
-				                           m_maximum_rotation[1u]);
+			transform.AddRotationY(XMVectorGetY(rotation),
+								   m_minimum_rotation[1u],
+								   m_maximum_rotation[1u]);
 			break;
 		}
 
 		case RotationAxes::MouseY: {
-			transform.AddAndClampRotationX(XMVectorGetX(rotation),
-				                           m_minimum_rotation[0u],
-				                           m_maximum_rotation[0u]);
+			transform.AddRotationX(XMVectorGetX(rotation),
+								   m_minimum_rotation[0u],
+								   m_maximum_rotation[0u]);
 			break;
 		}
 		}

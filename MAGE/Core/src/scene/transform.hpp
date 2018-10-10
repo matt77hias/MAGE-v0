@@ -401,10 +401,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 */
-		void SetRotation(F32x3 rotation) noexcept {
-			m_transform.SetRotation(std::move(rotation));
+		void SetRotation(const F32x3& rotation) noexcept {
+			m_transform.SetRotation(rotation);
 			SetDirty();
 		}
 
@@ -422,17 +422,17 @@ namespace mage {
 
 		/**
 		 Sets the rotation component of this transform to a rotation of the
-		 given angle around the given normal.
+		 given angle around the given direction.
 
-		 @param[in]		normal
-						The normal.
+		 @param[in]		direction
+						The unit-length direction.
 		 @param[in]		angle
 						The angle.
 		 */
-		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal,
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR direction,
 			                                        F32 angle) noexcept {
 
-			m_transform.SetRotationAroundDirection(normal, angle);
+			m_transform.SetRotationAroundDirection(direction, angle);
 			SetDirty();
 		}
 
@@ -448,6 +448,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given x-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
+			m_transform.AddRotationX(x, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
 		 Adds the given y-value to the rotation component of this transform.
 
 		 @param[in]		y
@@ -459,6 +477,24 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given y-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
+			m_transform.AddRotationY(y, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
 		 Adds the given z-value to the rotation component of this transform.
 
 		 @param[in]		z
@@ -466,6 +502,24 @@ namespace mage {
 		 */
 		void AddRotationZ(F32 z) noexcept {
 			m_transform.AddRotationZ(z);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given z-value to the rotation component of this transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
+			m_transform.AddRotationZ(z, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -489,11 +543,53 @@ namespace mage {
 		 Adds the given rotation component to the rotation component of this
 		 transform.
 
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
+			m_transform.AddRotation(x, y, z, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const F32x3& rotation) noexcept {
 			m_transform.AddRotation(rotation);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this
+		 transform.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddRotation(const F32x3& rotation, F32 min_angle, F32 max_angle) noexcept {
+			m_transform.AddRotation(rotation, min_angle, max_angle);
 			SetDirty();
 		}
 
@@ -510,135 +606,24 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationX(F32 x, F32 min_angle, F32 max_angle) noexcept {
-			m_transform.AddAndClampRotationX(x, min_angle, max_angle);
-			SetDirty();
-		}
-
-		/**
-		 Adds the given y-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationY(F32 y, F32 min_angle, F32 max_angle) noexcept {
-			m_transform.AddAndClampRotationY(y, min_angle, max_angle);
-			SetDirty();
-		}
-
-		/**
-		 Adds the given z-value to the rotation component of this transform and
-		 clamps the resulting rotation component of this transform between the
-		 given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotationZ(F32 z, F32 min_angle, F32 max_angle) noexcept {
-			m_transform.AddAndClampRotationZ(z, min_angle, max_angle);
-			SetDirty();
-		}
-
-		/**
 		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
+		 transform.
 
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 @param[in]		z
-						The z-value of the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(F32 x, F32 y, F32 z,
-			                     F32 min_angle,
-			                     F32 max_angle) noexcept {
-
-			m_transform.AddAndClampRotation(x, y, z, min_angle, max_angle);
-			SetDirty();
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
-		 @param[in]		rotation
-						A reference to the rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
-		 */
-		void AddAndClampRotation(const F32x3& rotation,
-			                     F32 min_angle,
-			                     F32 max_angle) noexcept {
-
-			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
-			SetDirty();
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this
-		 transform and clamps the resulting rotation component of this
-		 transform between the given values.
-
-		 @pre			@a min_angle lies in [-pi, pi].
-		 @pre			@a max_angle lies in [-pi, pi].
-		 @pre			@a min_angle is not greater than @a max_angle.
+		 @pre			@a min_angles lie in [-pi, pi].
+		 @pre			@a max_angles lie in [-pi, pi].
+		 @pre			@a min_angles is not greater than @a max_angles.
 		 @param[in]		rotation
 						The rotation component to add.
-		 @param[in]		min_angle
-						The minimum angle (in radians).
-		 @param[in]		max_angle
-						The maximum angle (in radians).
+		 @param[in]		min_angles
+						The minimum angles (in radians).
+		 @param[in]		max_angles
+						The maximum angles (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation,
-			                                 F32 min_angle,
-			                                 F32 max_angle) noexcept {
+		void XM_CALLCONV AddRotation(FXMVECTOR rotation,
+									 FXMVECTOR min_angles,
+									 FXMVECTOR max_angles) noexcept {
 
-			m_transform.AddAndClampRotation(rotation, min_angle, max_angle);
+			m_transform.AddRotation(rotation, min_angles, max_angles);
 			SetDirty();
 		}
 

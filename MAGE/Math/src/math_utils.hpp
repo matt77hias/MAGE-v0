@@ -27,6 +27,18 @@ namespace mage {
 		return std::clamp(value, 0.0f, 1.0f);
 	}
 
+	/**
+	 Clamps the given value to [0,1]^4.
+
+	 @param[in]		value
+					The value.
+	 @return		The clamped value.
+	 */
+	[[nodiscard]]
+	inline const XMVECTOR XM_CALLCONV Saturate(FXMVECTOR value) noexcept {
+		return XMVectorSaturate(value);
+	}
+
 	//-------------------------------------------------------------------------
 	// Angles
 	//-------------------------------------------------------------------------

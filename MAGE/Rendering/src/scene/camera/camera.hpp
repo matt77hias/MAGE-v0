@@ -11,7 +11,7 @@
 #include "renderer\buffer\constant_buffer.hpp"
 #include "renderer\buffer\scene_buffer.hpp"
 #include "resource\texture\texture.hpp"
-#include "math_utils.hpp"
+#include "transform\transform.hpp"
 #include "geometry\geometry.hpp"
 #include "spectrum\color.hpp"
 
@@ -255,7 +255,7 @@ namespace mage::rendering {
 
 		[[nodiscard]]
 		static const XMMATRIX XM_CALLCONV GetWorldToVoxelMatrix() noexcept {
-			const auto translation = XMMatrixInverseTranslation(XMLoad(GetVoxelGridCenter()));
+			const auto translation = GetInverseTranslationMatrix(XMLoad(GetVoxelGridCenter()));
 			const auto r           = s_voxel_grid_resolution * 0.5f * s_voxel_size;
 			const auto projection  = XMMatrixOrthographicOffCenterLH(-r, r, -r, r, -r, r);
 			return translation * projection;

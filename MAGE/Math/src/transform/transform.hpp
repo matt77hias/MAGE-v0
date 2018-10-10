@@ -15,6 +15,201 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Elementary Matrices and Quaternions
+	//-------------------------------------------------------------------------
+	#pragma region
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetTranslationMatrix(FXMVECTOR translation) noexcept {
+
+		return XMMatrixTranslationFromVector(translation);
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseTranslationMatrix(FXMVECTOR translation) noexcept {
+
+		return GetTranslationMatrix(-translation);
+	}
+
+	[[nodiscard]]
+	inline const XMVECTOR XM_CALLCONV
+		GetRollPitchYawQuaternion(FXMVECTOR rotation) noexcept {
+
+		// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
+		return XMQuaternionRotationRollPitchYawFromVector(rotation);
+	}
+
+	[[nodiscard]]
+	inline const XMVECTOR XM_CALLCONV
+		GetInverseRollPitchYawQuaternion(FXMVECTOR rotation) noexcept {
+
+		// Ry (Yaw) . Rx (Pitch) . Rz (Roll)
+		return XMQuaternionInverse(GetRollPitchYawQuaternion(rotation));
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetRollPitchYawMatrix(FXMVECTOR rotation) noexcept {
+
+		return XMMatrixRotationRollPitchYawFromVector(rotation);
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseRollPitchYawMatrix(FXMVECTOR rotation) noexcept {
+
+		return XMMatrixTranspose(GetRollPitchYawMatrix(rotation));
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetScalingMatrix(FXMVECTOR scale) noexcept {
+
+		return XMMatrixScalingFromVector(scale);
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetScalingMatrix(F32 scale) noexcept {
+
+		return GetScalingMatrix(XMLoad(F32x3(scale)));
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseScalingMatrix(FXMVECTOR scale) noexcept {
+
+		return GetScalingMatrix(XMVectorReciprocal(scale));
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseScalingMatrix(F32 scale) noexcept {
+
+		return GetInverseScalingMatrix(XMLoad(F32x3(scale)));
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetAffineTransformationMatrix(FXMVECTOR scale,
+									  FXMVECTOR rotation,
+									  FXMVECTOR translation) noexcept {
+
+		// Scale . Rotation . Translation
+		//
+		//   [ Sx 0  0  0 ] [ R00 R01 R02 0 ] [ 1  0  0  0 ]
+		// = [ 0  Sy 0  0 ] [ R10 R11 R12 0 ] [ 0  1  0  0 ]
+		//   [ 0  0  Sz 0 ] [ R20 R21 R22 0 ] [ 0  0  1  0 ]
+		//   [ 0  0  0  1 ] [ 0   0   0   1 ] [ Tx Ty Tz 1 ]
+		//
+		//   [ Sx.R00 Sx.R01 Sx.R02 0 ]   [ Sx*R0, ]
+		// = [ Sy.R10 Sy.R11 Sy.R12 0 ] = [ Sy*R1, ]
+		//   [ Sz.R20 Sz.R21 Sz.R22 0 ]   [ Sz*R2, ]
+		//   [ Tx     Ty     Tz     1 ]   [ T    1 ]
+
+		auto transformation = GetRollPitchYawMatrix(rotation);
+		transformation.r[0u] *= XMVectorGetX(scale);
+		transformation.r[1u] *= XMVectorGetY(scale);
+		transformation.r[2u] *= XMVectorGetZ(scale);
+		transformation.r[3u] = XMVectorSetW(translation, 1.0f);
+		return transformation;
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetAffineTransformationMatrix(F32       scale,
+									  FXMVECTOR rotation,
+									  FXMVECTOR translation) noexcept {
+		
+		return GetAffineTransformationMatrix(XMLoad(F32x3(scale)),
+											 rotation,
+											 translation);
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseAffineTransformationMatrix(FXMVECTOR scale,
+											 FXMVECTOR rotation,
+											 FXMVECTOR translation) noexcept {
+
+		// Translation . Rotation . Scale
+		//
+		//   [ 1   0   0   0 ] [ R00' R01' R02' 0 ] [ Sx' 0   0   0 ]
+		// = [ 0   1   0   0 ] [ R10' R11' R12' 0 ] [ 0   Sy' 0   0 ]
+		//   [ 0   0   1   0 ] [ R20' R21' R22' 0 ] [ 0   0   Sz' 0 ]
+		//   [ Tx' Ty' Tz' 1 ] [ 0    0    0    1 ] [ 0   0   0   1 ]
+		//
+		//   [   R00'.Sx    R01'.Sy    R02'.Sz 0 ]   [ R0,'*S   ]
+		// = [   R10'.Sx    R11'.Sy    R12'.Sz 0 ] = [ R1,'*S   ]
+		//   [   R20'.Sx    R21'.Sy    R22'.Sz 0 ]   [ R2,'*S   ]
+		//   [ R,0'.T.Sx  R,1'.T.Sy  R,2'.T.Sz 1 ]   [ R [T*S 1]]
+
+		auto transformation = GetInverseRollPitchYawMatrix(rotation);
+		const auto t = XMVector3TransformCoord(-translation, transformation);
+		const auto s = XMVectorSetW(XMVectorReciprocal(scale), 1.0f);
+		transformation.r[0u] *= s;
+		transformation.r[1u] *= s;
+		transformation.r[2u] *= s;
+		transformation.r[3u] = s * t;
+		return transformation;
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetInverseAffineTransformationMatrix(F32       scale,
+											 FXMVECTOR rotation,
+											 FXMVECTOR translation) noexcept {
+
+		return GetInverseAffineTransformationMatrix(XMLoad(F32x3(scale)),
+													rotation,
+													translation);
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetAffineTransformationMatrix(FXMVECTOR scale,
+									  F32       rotation,
+									  FXMVECTOR translation) noexcept {
+
+		// Scale . Rotation . Translation
+		//
+		//   [ Sx 0  0  0 ] [ R00 R01 0 0 ] [ 1  0  0  0 ]
+		// = [ 0  Sy 0  0 ] [ R10 R11 0 0 ] [ 0  1  0  0 ]
+		//   [ 0  0  _  0 ] [ 0   0   1 0 ] [ 0  0  1  0 ]
+		//   [ 0  0  0  1 ] [ 0   0   0 1 ] [ Tx Ty _  1 ]
+		//
+		//   [ Sx.R00 Sx.R01 0 0 ]   [ Sx*R0,  ]
+		// = [ Sy.R10 Sy.R11 0 0 ] = [ Sy*R1,  ]
+		//   [ 0      0      _ 0 ]   [ 0 0 _ 0 ]
+		//   [ Tx     Ty     0 1 ]   [ T   _ 1 ]
+
+		auto transformation  = XMMatrixRotationZ(rotation);
+		transformation.r[0u] *= XMVectorGetX(scale);
+		transformation.r[1u] *= XMVectorGetY(scale);
+		transformation.r[3u]  = XMVectorSetW(translation, 1.0f);
+		return transformation;
+	}
+
+	[[nodiscard]]
+	inline const XMMATRIX XM_CALLCONV
+		GetAffineTransformationMatrix(FXMVECTOR offset,
+									  FXMVECTOR scale,
+									  F32       rotation,
+									  FXMVECTOR translation) noexcept {
+
+		// Inverse Offset Translation . Scale . Rotation . Translation
+		auto transformation  = GetAffineTransformationMatrix(scale,
+															 rotation,
+															 translation);
+		transformation.r[3u] = XMVector3TransformCoord(-offset, transformation);
+		return transformation;
+	}
+
+	#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// S1ETTransform3D
 	//-------------------------------------------------------------------------
 	#pragma region
@@ -321,7 +516,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslation(GetTranslation());
+			return GetTranslationMatrix(GetTranslation());
 		}
 
 		/**
@@ -332,7 +527,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixInverseTranslation(GetTranslation());
+			return GetInverseTranslationMatrix(GetTranslation());
 		}
 
 		#pragma endregion
@@ -682,7 +877,7 @@ namespace mage {
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectToParentRotationQuaternion() const noexcept {
 			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
-			return XMQuaternionRotationRollPitchYaw(GetRotation());
+			return GetRollPitchYawQuaternion(GetRotation());
 		}
 
 		/**
@@ -693,7 +888,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentToObjectRotationQuaternion() const noexcept {
-			return XMQuaternionInverseRotationRollPitchYaw(GetRotation());
+			return GetInverseRollPitchYawQuaternion(GetRotation());
 		}
 
 		/**
@@ -704,7 +899,7 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentRotationMatrix() const noexcept {
 			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
-			return XMMatrixRotationRollPitchYaw(GetRotation());
+			return GetRollPitchYawMatrix(GetRotation());
 		}
 
 		/**
@@ -714,7 +909,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectRotationMatrix() const noexcept {
-			return XMMatrixInverseRotationRollPitchYaw(GetRotation());
+			return GetInverseRollPitchYawMatrix(GetRotation());
 		}
 
 		#pragma endregion
@@ -743,7 +938,7 @@ namespace mage {
 						The scale component to add.
 		 */
 		void AddScale(F32 scale) noexcept {
-			SetScale(GetScaleView() + scale);
+			SetScale(GetScale() + scale);
 		}
 
 		/**
@@ -752,18 +947,8 @@ namespace mage {
 		 @return		The scale component of this transform.
 		 */
 		[[nodiscard]]
-		const F32 GetScaleView() const noexcept {
+		const F32 GetScale() const noexcept {
 			return m_scale;
-		}
-
-		/**
-		 Returns the scale component of this transform.
-
-		 @return		The scale component of this transform.
-		 */
-		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV GetScale() const noexcept {
-			return XMLoad(F32x3(m_scale));
 		}
 
 		/**
@@ -773,7 +958,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScaling(GetScale());
+			return GetScalingMatrix(GetScale());
 		}
 
 		/**
@@ -783,7 +968,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixInverseScaling(GetScale());
+			return GetInverseScalingMatrix(GetScale());
 		}
 
 		#pragma endregion
@@ -857,7 +1042,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return GetObjectToParentMatrix().r[3];
+			return GetObjectToParentMatrix().r[3u];
 		}
 
 		/**
@@ -869,7 +1054,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[0u]);
 		}
 
 		/**
@@ -881,7 +1066,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[1u]);
 		}
 
 		/**
@@ -893,7 +1078,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[2u]);
 		}
 
 		#pragma endregion
@@ -911,9 +1096,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScale(),
-				                                GetRotation(),
-				                                GetTranslation());
+			return GetAffineTransformationMatrix(GetScale(),
+												 GetRotation(),
+												 GetTranslation());
 		}
 
 		/**
@@ -924,9 +1109,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			return XMMatrixInverseAffineTransformation(GetScale(),
-				                                       GetRotation(),
-				                                       GetTranslation());
+			return GetInverseAffineTransformationMatrix(GetScale(),
+														GetRotation(),
+														GetTranslation());
 		}
 
 		/**
@@ -1116,6 +1301,17 @@ namespace mage {
 			: SETTransform3D(XMStore< F32x3 >(translation),
 							 XMStore< F32x3 >(rotation),
 							 XMStore< F32x3 >(scale)) {}
+
+		/**
+		 Constructs a transform from the given transform.
+
+		 @param[in]		transform
+						A reference to the transform.
+		 */
+		SETTransform3D(const S1ETTransform3D& transform) noexcept
+			: SETTransform3D(transform.GetTranslationView(),
+							 transform.GetRotationView(),
+							 F32x3(transform.GetScale())) {}
 
 		/**
 		 Constructs a transform from the given transform.
@@ -1367,7 +1563,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslation(GetTranslation());
+			return GetTranslationMatrix(GetTranslation());
 		}
 
 		/**
@@ -1378,7 +1574,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixInverseTranslation(GetTranslation());
+			return GetInverseTranslationMatrix(GetTranslation());
 		}
 
 		#pragma endregion
@@ -1728,7 +1924,7 @@ namespace mage {
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetObjectToParentRotationQuaternion() const noexcept {
 			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
-			return XMQuaternionRotationRollPitchYaw(GetRotation());
+			return GetRollPitchYawQuaternion(GetRotation());
 		}
 
 		/**
@@ -1739,7 +1935,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentToObjectRotationQuaternion() const noexcept {
-			return XMQuaternionInverseRotationRollPitchYaw(GetRotation());
+			return GetInverseRollPitchYawQuaternion(GetRotation());
 		}
 
 		/**
@@ -1750,7 +1946,7 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentRotationMatrix() const noexcept {
 			// Rz (Roll) . Rx (Pitch) . Ry (Yaw)
-			return XMMatrixRotationRollPitchYaw(GetRotation());
+			return GetRollPitchYawMatrix(GetRotation());
 		}
 
 		/**
@@ -1760,7 +1956,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectRotationMatrix() const noexcept {
-			return XMMatrixInverseRotationRollPitchYaw(GetRotation());
+			return GetInverseRollPitchYawMatrix(GetRotation());
 		}
 
 		#pragma endregion
@@ -1987,7 +2183,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScaling(GetScale());
+			return GetScalingMatrix(GetScale());
 		}
 
 		/**
@@ -1997,7 +2193,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixInverseScaling(GetScale());
+			return GetInverseScalingMatrix(GetScale());
 		}
 
 		#pragma endregion
@@ -2071,7 +2267,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return GetObjectToParentMatrix().r[3];
+			return GetObjectToParentMatrix().r[3u];
 		}
 
 		/**
@@ -2083,7 +2279,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[0u]);
 		}
 
 		/**
@@ -2095,7 +2291,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[1u]);
 		}
 
 		/**
@@ -2107,7 +2303,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[2u]);
 		}
 
 		#pragma endregion
@@ -2125,9 +2321,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScale(),
-				                                GetRotation(),
-				                                GetTranslation());
+			return GetAffineTransformationMatrix(GetScale(),
+				                                 GetRotation(),
+				                                 GetTranslation());
 		}
 
 		/**
@@ -2138,9 +2334,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			return XMMatrixInverseAffineTransformation(GetScale(),
-				                                       GetRotation(),
-				                                       GetTranslation());
+			return GetInverseAffineTransformationMatrix(GetScale(),
+				                                        GetRotation(),
+				                                        GetTranslation());
 		}
 
 		/**
@@ -2588,7 +2784,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslation(GetTranslation());
+			return GetTranslationMatrix(GetTranslation());
 		}
 
 		/**
@@ -2599,7 +2795,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixInverseTranslation(GetTranslation());
+			return GetInverseTranslationMatrix(GetTranslation());
 		}
 
 		#pragma endregion
@@ -2712,7 +2908,7 @@ namespace mage {
 						The scale component to add.
 		 */
 		void AddScale(F32 scale) noexcept {
-			SetScale(GetScaleView() + scale);
+			SetScale(GetScale() + scale);
 		}
 
 		/**
@@ -2721,18 +2917,8 @@ namespace mage {
 		 @return		The scale component of this transform.
 		 */
 		[[nodiscard]]
-		const F32 GetScaleView() const noexcept {
+		const F32 GetScale() const noexcept {
 			return m_scale;
-		}
-
-		/**
-		 Returns the scale component of this transform.
-
-		 @return		The scale component of this transform.
-		 */
-		[[nodiscard]]
-		const XMVECTOR XM_CALLCONV GetScale() const noexcept {
-			return XMLoad(F32x3(m_scale));
 		}
 
 		/**
@@ -2742,7 +2928,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScaling(GetScale());
+			return GetScalingMatrix(GetScale());
 		}
 
 		/**
@@ -2752,7 +2938,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixInverseScaling(GetScale());
+			return GetInverseScalingMatrix(GetScale());
 		}
 
 		#pragma endregion
@@ -2826,7 +3012,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return GetObjectToParentMatrix().r[3];
+			return GetObjectToParentMatrix().r[3u];
 		}
 
 		/**
@@ -2838,7 +3024,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[0u]);
 		}
 
 		/**
@@ -2850,7 +3036,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[1u]);
 		}
 
 		/**
@@ -2862,7 +3048,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[2u]);
 		}
 
 		#pragma endregion
@@ -2880,9 +3066,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScale(),
-				                                GetRotation(),
-				                                GetTranslation());
+			return GetAffineTransformationMatrix(GetScale(),
+				                                 GetRotation(),
+				                                 GetTranslation());
 		}
 
 		/**
@@ -2893,9 +3079,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			return XMMatrixInverseAffineTransformation(GetScale(),
-				                                       GetRotation(),
-				                                       GetTranslation());
+			return GetInverseAffineTransformationMatrix(GetScale(),
+				                                        GetRotation(),
+				                                        GetTranslation());
 		}
 
 		/**
@@ -3079,6 +3265,17 @@ namespace mage {
 			: SQTTransform3D(XMStore< F32x3 >(translation),
 							 XMStore< F32x4 >(rotation),
 							 XMStore< F32x3 >(scale)) {}
+
+		/**
+		 Constructs a transform from the given transform.
+
+		 @param[in]		transform
+						A reference to the transform.
+		 */
+		SQTTransform3D(const S1QTTransform3D& transform) noexcept
+			: SQTTransform3D(transform.GetTranslationView(),
+							 transform.GetRotationView(),
+							 F32x3(transform.GetScale())) {}
 
 		/**
 		 Constructs a transform from the given transform.
@@ -3330,7 +3527,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentTranslationMatrix() const noexcept {
-			return XMMatrixTranslation(GetTranslation());
+			return GetTranslationMatrix(GetTranslation());
 		}
 
 		/**
@@ -3341,7 +3538,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectTranslationMatrix() const noexcept {
-			return XMMatrixInverseTranslation(GetTranslation());
+			return GetInverseTranslationMatrix(GetTranslation());
 		}
 
 		#pragma endregion
@@ -3652,7 +3849,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentScaleMatrix() const noexcept {
-			return XMMatrixScaling(GetScale());
+			return GetScalingMatrix(GetScale());
 		}
 
 		/**
@@ -3662,7 +3859,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectScaleMatrix() const noexcept {
-			return XMMatrixInverseScaling(GetScale());
+			return GetInverseScalingMatrix(GetScale());
 		}
 
 		#pragma endregion
@@ -3736,7 +3933,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentOrigin() const noexcept {
-			return GetObjectToParentMatrix().r[3];
+			return GetObjectToParentMatrix().r[3u];
 		}
 
 		/**
@@ -3748,7 +3945,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisX() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[0]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[0u]);
 		}
 
 		/**
@@ -3760,7 +3957,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisY() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[1]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[1u]);
 		}
 
 		/**
@@ -3772,7 +3969,7 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMVECTOR XM_CALLCONV GetParentAxisZ() const noexcept {
-			return XMVector3Normalize(GetObjectToParentMatrix().r[2]);
+			return XMVector3Normalize(GetObjectToParentMatrix().r[2u]);
 		}
 
 		#pragma endregion
@@ -3790,9 +3987,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetObjectToParentMatrix() const noexcept {
 			// Scale . Rotation . Translation
-			return XMMatrixAffineTransformation(GetScale(),
-				                                GetRotation(),
-				                                GetTranslation());
+			return GetAffineTransformationMatrix(GetScale(),
+				                                 GetRotation(),
+				                                 GetTranslation());
 		}
 
 		/**
@@ -3803,9 +4000,9 @@ namespace mage {
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetParentToObjectMatrix() const noexcept {
 			// Translation . Rotation . Scale
-			return XMMatrixInverseAffineTransformation(GetScale(),
-				                                       GetRotation(),
-				                                       GetTranslation());
+			return GetInverseAffineTransformationMatrix(GetScale(),
+				                                        GetRotation(),
+				                                        GetTranslation());
 		}
 
 		/**
@@ -4672,6 +4869,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the transformation matrix of this sprite transform.
@@ -4680,12 +4878,16 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
-			auto transformation = XMMatrixOffsetAffineTransformation2D(
-				GetRotationOrigin(), GetScale(), GetRotation(), GetTranslation());
-			transformation.r[3] = XMVectorSetZ(transformation.r[3], GetDepth());
+			auto transformation = GetAffineTransformationMatrix(GetRotationOrigin(),
+																GetScale(),
+																GetRotation(),
+																GetTranslation());
+			transformation.r[3u] = XMVectorSetZ(transformation.r[3], GetDepth());
 
 			return transformation;
 		}
+
+		#pragma endregion
 
 	private:
 
@@ -5410,6 +5612,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------
+		#pragma region
 
 		/**
 		 Returns the transformation matrix of this texture transform.
@@ -5418,11 +5621,13 @@ namespace mage {
 		 */
 		[[nodiscard]]
 		const XMMATRIX XM_CALLCONV GetTransformMatrix() const noexcept {
-			return DirectX::XMMatrixAffineTransformation2D(GetScale(),
-				                                           GetRotationOrigin(),
-				                                           GetRotation(),
-				                                           GetTranslation());
+			return XMMatrixAffineTransformation2D(GetScale(),
+												  GetRotationOrigin(),
+												  GetRotation(),
+												  GetTranslation());
 		}
+
+		#pragma endregion
 
 	private:
 

@@ -6,6 +6,5 @@
 #pragma region
 
 #include "directxmath\facade.hpp"
-#include "directxmath\extensions.hpp"
 
 #pragma endregion

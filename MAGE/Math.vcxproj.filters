@@ -49,9 +49,6 @@
     <ClInclude Include="Math\src\math_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\src\directxmath\extensions.hpp">
-      <Filter>Header Files\directxmath</Filter>
-    </ClInclude>
     <ClInclude Include="Math\src\directxmath\facade.hpp">
       <Filter>Header Files\directxmath</Filter>
     </ClInclude>

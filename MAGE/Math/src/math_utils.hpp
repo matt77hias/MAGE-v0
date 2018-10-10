@@ -64,7 +64,7 @@ namespace mage {
 	 @return		The wrapped angles (in radians).
 	 */
 	[[nodiscard]]
-	inline XMVECTOR XM_CALLCONV WrapAngleRadians(FXMVECTOR angles) noexcept {
+	inline const XMVECTOR XM_CALLCONV WrapAngleRadians(FXMVECTOR angles) noexcept {
 		return XMVectorModAngles(angles);
 	}
 
@@ -136,9 +136,9 @@ namespace mage {
 					angles (in radians).
 	 */
 	[[nodiscard]]
-	inline XMVECTOR XM_CALLCONV ClampAngleRadians(FXMVECTOR angles,
-												  FXMVECTOR min_angles,
-												  FXMVECTOR max_angles) noexcept {
+	inline const XMVECTOR XM_CALLCONV ClampAngleRadians(FXMVECTOR angles,
+														FXMVECTOR min_angles,
+														FXMVECTOR max_angles) noexcept {
 
 		return XMVectorClamp(WrapAngleRadians(angles), min_angles, max_angles);
 	}

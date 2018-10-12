@@ -19,7 +19,7 @@ namespace mage {
 		m_childs(),
 		m_components(),
 		m_state(State::Active),
-		m_guid(IdGenerator::GetNextGuid()),
+		m_guid(GetNextGuid()),
 		m_this(),
 		m_name(std::move(name)) {}
 
@@ -29,7 +29,7 @@ namespace mage {
 		m_childs(),
 		m_components(),
 		m_state(node.m_state),
-		m_guid(IdGenerator::GetNextGuid()),
+		m_guid(GetNextGuid()),
 		m_this(),
 		m_name(node.m_name) {}
 

@@ -95,6 +95,7 @@
     <ClInclude Include="Utilities\src\collection\collection_utils.hpp" />
     <ClInclude Include="Utilities\src\collection\dynamic_array.hpp" />
     <ClInclude Include="Utilities\src\collection\vector.hpp" />
+    <ClInclude Include="Utilities\src\ecs\ecs.hpp" />
     <ClInclude Include="Utilities\src\exception\exception.hpp" />
     <ClInclude Include="Utilities\src\io\binary_reader.hpp" />
     <ClInclude Include="Utilities\src\io\binary_utils.hpp" />

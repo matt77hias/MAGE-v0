@@ -15,24 +15,19 @@
 namespace mage {
 
 	/**
+	 Returns the next guid.
+
+	 @return		The next guid.
+	 */
+	U64 GetNextGuid() noexcept;
+
+	/**
 	 A class of id generators.
 	 */
+	template< typename T, typename = std::enable_if_t< std::is_integral_v< T > > >
 	class IdGenerator {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the next guid.
-
-		 @return		The next guid.
-		 */
-		static U64 GetNextGuid() noexcept {
-			return s_guid_generator.GetNextId();
-		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -44,7 +39,7 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		constexpr explicit IdGenerator(U64 first_id = 0u) noexcept
+		constexpr explicit IdGenerator(T first_id = T(0)) noexcept
 			: m_current_id(first_id) {}
 
 		/**
@@ -101,20 +96,11 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		U64 GetNextId() noexcept {
+		T GetNextId() noexcept {
 			return m_current_id++;
 		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Class Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 The guid generator.
-		 */
-		static IdGenerator s_guid_generator;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -123,6 +109,6 @@ namespace mage {
 		/**
 		 The current id of this id generator.
 		 */
-		AtomicU64 m_current_id;
+		std::atomic< T >; m_current_id;
 	};
 }

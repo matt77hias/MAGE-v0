@@ -90,6 +90,9 @@
     <Filter Include="Source Files\loaders\var">
       <UniqueIdentifier>{e81c7ae9-a81e-41a2-9616-11e7ad720853}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ecs">
+      <UniqueIdentifier>{d0cb282b-9155-4367-962a-1c5bf1d7a1c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities\src\collection\vector.hpp">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Utilities\src\collection\collection_utils.hpp">
       <Filter>Header Files\collection</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\src\ecs\ecs.hpp">
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

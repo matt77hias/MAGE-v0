@@ -109,6 +109,6 @@ namespace mage {
 		/**
 		 The current id of this id generator.
 		 */
-		std::atomic< T >; m_current_id;
+		std::atomic< T > m_current_id;
 	};
 }

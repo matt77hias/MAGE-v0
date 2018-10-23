@@ -369,22 +369,39 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 	// Compute the light (hit-to-light) direction.
 	const float3 l_uvw = ReflectedDirection(n_uvw, v_uvw);
 
+	const float3x3 tangent_to_uvw = OrthonormalBasis(l_uvw);
+	const float3x3 uvw_to_tangent = transpose(tangent_to_uvw);
+
+	const float3 n_tangent = mul(n_uvw, uvw_to_tangent);
+	const float3 v_tangent = mul(v_uvw, uvw_to_tangent);
+
+	const float  n_dot_v = sat_dot(n_uvw, v_uvw) + BRDF_DOT_EPSILON;
+	
+	const float  nxy    = 0.5f * (n_tangent.x + n_tangent.y);
+	const float  nz     = n_tangent.z;
+	const float  vxy    = 0.5f * (v_tangent.x + v_tangent.y);
+	const float  vz     = v_tangent.z;
+	const float  a      = 1.0f + vz;
+	const float  a2     = sqr(a);
+	const float  b      = nz + n_dot_v;
+	const float  alpha  = RoughnessToAlpha(material.m_roughness);
+	const float  alpha2 = sqr(alpha);
+	const float  sigma2 = (alpha2 * a2 * b) 
+		                / ((1.0f - alpha2) * (2.0f*a*nxy*vxy + 2.0f*a2*nz - a*b*vz - 1.5f*b*sqr(vxy)));
+	const float  sin2_half_aperture = abs(clamp(sigma2, -1.0f, 1.0f));
+	
 	// Construct a cone.
 	const Cone cone = {
 		p_uvw,
 		l_uvw,
-		abs(tan(material.m_roughness * g_pi_inv_2))
+		sqrt(SqrSinToSqrTan(sin2_half_aperture))
 	};
 
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);
 
-	// n_uvw = h_uvw
-	const float  v_dot_h = sat_dot(v_uvw, n_uvw) + BRDF_DOT_EPSILON;
-	const float3 F0      = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
-	const float3 F       = BRDF_F_FUNCTION(v_dot_h, F0);
-
-	return F * L;
+	const float3 F0 = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
+	return F0 * L;
 }
 
 /**

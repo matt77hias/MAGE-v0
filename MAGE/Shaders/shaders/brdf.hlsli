@@ -75,7 +75,7 @@
 #endif // BRDF_V_FUNCTION
 
 #ifndef BRDF_MINIMUM_ALPHA
-	#define BRDF_MINIMUM_ALPHA 1e-1f
+	#define BRDF_MINIMUM_ALPHA 1e-3f
 #endif // BRDF_MINIMUM_ALPHA
 
 #ifndef BRDF_DOT_EPSILON

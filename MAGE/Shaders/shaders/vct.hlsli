@@ -135,7 +135,7 @@ struct VCTConfig {
 	}
 
 	/**
-	 Computes the MIP level of this VCT configuration associated with the given
+	 Computes the diameter of this VCT configuration associated with the given
 	 cone and distance along the direction of the cone.
 
 	 @param[in]		cone
@@ -143,10 +143,10 @@ struct VCTConfig {
 	 @param[in]		distance
 					The distance along the direction of this cone expressed in
 					voxel UVW space.
-	 @return		The MIP level of this VCT configuration associated with the
+	 @return		The diameter of this VCT configuration associated with the
 					given cone and distance along the direction of the cone.
 	 */
-	float GetMIPLevel(Cone cone, float distance) {
+	float GetDiameter(Cone cone, float distance) {
 		// Obtain the diameter (expressed in voxel UVW space).
 		//
 		//                     diameter/2
@@ -154,9 +154,19 @@ struct VCTConfig {
 		//                      distance
 		//
 		// which is in [m_grid_inv_resolution,inf]
-		const float diameter = max(m_grid_inv_resolution,
-								   2.0f * cone.m_tan_half_aperture * distance);
+		return max(m_grid_inv_resolution,
+				   2.0f * cone.m_tan_half_aperture * distance);
+	}
 
+	/**
+	 Computes the MIP level associated with the given cone diameter.
+
+	 @param[in]		diameter
+					The cone diameter expressed in voxel UVW space.
+	 @return		The MIP level of this VCT configuration associated with the
+					given cone diameter.
+	 */
+	float GetMIPLevel(float diameter) {
 		// Obtain the MIP level in [1,inf]
 		return log2(diameter * m_grid_resolution);
 	}
@@ -185,10 +195,12 @@ struct VCTConfig {
 		float max_cone_distance = Max(max_cone_distances);
 
 		while (max_cone_distance > distance && 1.0f > alpha) {
-			// Compute the MIP level.
-			const float mip_level = GetMIPLevel(cone, distance);
 			// Compute the position (expressed in voxel UVW space).
 			const float3 p_uvw = cone.GetPosition(distance);
+			// Compute the cone diameter.
+			const float diameter = GetDiameter(cone, distance);
+			// Compute the MIP level.
+			const float mip_level = GetMIPLevel(diameter);
 
 			[branch]
 			if ((float)m_texture_max_mip_level <= mip_level
@@ -202,12 +214,12 @@ struct VCTConfig {
 			const float4 mask = (max_cone_distances >= distance);
 
 			// Update the accumulated radiance and ambient occlusion.
-			const float weight = (1.0f - alpha) * L_step.w;
+			const float weight = (1.0f - alpha) * L_step.w * m_cone_step;
 			L     += weight * mask * float4(L_step.xyz, 1.0f);
 			alpha += weight;
 
 			// Update the marching distance.
-			distance += m_cone_step;
+			distance += m_cone_step * diameter;
 		}
 
 		return L;

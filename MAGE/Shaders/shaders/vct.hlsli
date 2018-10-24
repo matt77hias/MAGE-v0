@@ -153,10 +153,11 @@ struct VCTConfig {
 		// tan_half_aperture = ---------- <=> diameter = 2 tan_half_aperture distance
 		//                      distance
 		//
+		// which is in [m_grid_inv_resolution,inf]
 		const float diameter = max(m_grid_inv_resolution,
 								   2.0f * cone.m_tan_half_aperture * distance);
 
-		// Obtain the MIP level.
+		// Obtain the MIP level in [1,inf]
 		return log2(diameter * m_grid_resolution);
 	}
 
@@ -388,14 +389,17 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 	const float  alpha2 = sqr(alpha);
 	const float  sigma2 = (alpha2 * a2 * b) 
 		                / ((1.0f - alpha2) * (2.0f*a*nxy*vxy + 2.0f*a2*nz - a*b*vz - 1.5f*b*sqr(vxy)));
-	const float  sin2_half_aperture = abs(clamp(sigma2, -1.0f, 1.0f));
 	
+	//     alpha/2    is in [0,pi/2]
+	// sin(alpha/2)   is in [0,1]
+	// sin(alpha/2)^2 is in [0,1]
+	const float sin2_half_aperture = saturate(abs(sigma2));
+	// tan(alpha/2)^2 is in [0,inf]
+	// tan(alpha/2)   is in [0,inf]
+	const float tan2_half_aperture = SqrSinToSqrTan(sin2_half_aperture);
+
 	// Construct a cone.
-	const Cone cone = {
-		p_uvw,
-		l_uvw,
-		sqrt(SqrSinToSqrTan(sin2_half_aperture))
-	};
+	const Cone cone = { p_uvw, l_uvw, sqrt(tan2_half_aperture) };
 
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);

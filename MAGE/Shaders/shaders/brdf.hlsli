@@ -1430,6 +1430,18 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 }
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Material
+//-----------------------------------------------------------------------------
+
+float F0_Specular(Material material) {
+	return lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
+}
+
+float RoughnessToAlpha(float roughness) {
+	return max(BRDF_MINIMUM_ALPHA, sqr(roughness));
+} 
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: BRDFs
 //-----------------------------------------------------------------------------
 
@@ -1507,10 +1519,6 @@ BRDF LambertianBRDF(float3 n, float3 l, float3 v, Material material) {
 	return ConstructBRDF(brdf_diffuse, brdf_specular);
 }
 
-float RoughnessToAlpha(float roughness) {
-	return max(BRDF_MINIMUM_ALPHA, sqr(roughness));
-}
-
 float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
 						   float v_dot_h, float roughness) {
 
@@ -1550,8 +1558,7 @@ BRDF FrostbiteBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D             = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V             = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F0_specular   = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
-	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_specular);
+	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_Specular(material));
 	const float  F_diffuse     = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, material.m_roughness)
 		                         * (1.0f - material.m_metalness);
 
@@ -1586,8 +1593,7 @@ BRDF CookTorranceBRDF(float3 n, float3 l, float3 v, Material material) {
 
 	const float  D             = BRDF_D_FUNCTION(n_dot_h, alpha);
 	const float  V             = BRDF_V_FUNCTION(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-	const float3 F0_specular   = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
-	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_specular);
+	const float3 F_specular    = BRDF_F_FUNCTION(v_dot_h, F0_Specular(material));
 	const float3 F_diffuse     = (1.0f - F_specular) * (1.0f - material.m_metalness);
 
 	const float3 brdf_diffuse  = F_diffuse * material.m_base_color * g_inv_pi;

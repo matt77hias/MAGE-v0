@@ -1433,7 +1433,7 @@ float3 F_CookTorrance(float v_dot_h, float3 F0) {
 // Engine Declarations and Definitions: Material
 //-----------------------------------------------------------------------------
 
-float F0_Specular(Material material) {
+float3 F0_Specular(Material material) {
 	return lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
 }
 

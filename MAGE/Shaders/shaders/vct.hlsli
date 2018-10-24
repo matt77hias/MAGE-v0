@@ -404,8 +404,7 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 	// Compute the radiance.
 	const float3 L = config.GetRadiance(cone);
 
-	const float3 F0 = lerp(g_dielectric_F0, material.m_base_color, material.m_metalness);
-	return F0 * L;
+	return F0_Specular(material) * L;
 }
 
 /**

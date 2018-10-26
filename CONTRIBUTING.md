@@ -30,4 +30,4 @@ If you have been using MAGE for a while *or* have been using C++ for several yea
 * Make sure your code adheres the [Code Guidelines](meta/code-guidelines.md).
 * Make sure you create a branch for the pull request. In Git, one pull request is associated to one branch. If you keep pushing to the same branch after you submitted the pull request, your new commits will appear in the pull request (we can still cherry-pick individual commits).
 
-Thank you for reading! Thank you for contributing!
+Thank you for reading! Thank you for contributing! 🧙

@@ -28,6 +28,8 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
 
 ## Index
 * [Code Guidelines](meta/code-guidelines.md)
+* [Code of Conduct](CODE_OF_CONDUCT.md)
+* [Contributing Guidelines](CONTRIBUTING.md)
 * [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
 * [FAQ](meta/faq.md)
 * [Features](meta/features.md)

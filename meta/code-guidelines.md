@@ -115,5 +115,6 @@ Use [Yoda conditions](https://en.wikipedia.org/wiki/Yoda_conditions) to avoid ac
 * [RenderDoc](https://renderdoc.org/)
 
 ### Static Code Analyzers
+* [Codacy](https://app.codacy.com/project/matt77hias/MAGE/dashboard)
 * [PVS-Studio Analyzer](https://www.viva64.com/en/pvs-studio/) (stand-alone or Visual Studio plugin)
 * [Visual Studio 2017](https://visualstudio.microsoft.com/)

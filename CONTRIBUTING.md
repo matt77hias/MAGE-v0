@@ -1,7 +1,6 @@
 # Contributing to MAGE
 
-## Prerequisites
-* [Code of Conduct](CODE_OF_CONDUCT.md)
+Please read the [Code of Conduct](CODE_OF_CONDUCT.md), before contributing to MAGE.
 
 ## How to create an Issue
 You may use the Issue Tracker to submit bug reports, feature requests or suggestions. You may ask for help or advice as well. However, please read this wall of text before doing so. The amount of incomplete or ambiguous requests due to people not following those guidelines is often overwhelming. Please do your best to clarify your request.

@@ -694,6 +694,7 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [Matthias Moulin](https://github.com/matt77hias)
 * [Baldur Karlsson](https://github.com/baldurk)
 * [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
+* [Roald Frederickx](https://github.com/RoaldFre)
 
 ## <a name="SS-Thanks"></a>Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
@@ -701,7 +702,6 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * Ademola Thompson
 * All8Up
 * AthosVG
-* [Baldur Karlsson](https://github.com/baldurk)
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Christian Helmich](https://github.com/KageKirin)
 * [Chuck Walbourn](https://github.com/walbourn)
@@ -721,12 +721,10 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * Maxest
 * [Mike Lewis](https://github.com/apoch)
 * Mike2343
-* [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Omar Cornut](https://github.com/ocornut)
 * [Paul Chaignon](https://github.com/pchaigno)
-* [Roald Frederickx](https://github.com/RoaldFre)
 * SoldierOfLight
 * Styves
 * [Victor Zverovich](https://github.com/vitaut)

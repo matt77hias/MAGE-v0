@@ -11,7 +11,7 @@
 
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE
 [co]: https://www.codacy.com/app/matt77hias/MAGE?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=matt77hias/MAGE&amp;utm_campaign=Badge_Grade
-[do]: https://matt77hias.github.io/MAGE-Doc/MAGE-Doc
+[do]: https://matt77hias.github.io/MAGE-Doc
 [li]: https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt
 [gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby
 

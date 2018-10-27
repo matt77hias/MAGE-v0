@@ -42,7 +42,7 @@ namespace mage {
 		}
 		[[nodiscard]]
 		constexpr bool IsValid() const noexcept {
-			return m_id != 0u;
+			return 0u != m_id;
 		}
 
 		[[nodiscard]]

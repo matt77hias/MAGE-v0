@@ -712,6 +712,7 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
 * JoeJ
+* [John M Długosz](https://github.com/jdlugosz)
 * Krypt0n
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * L. Spiro
@@ -727,6 +728,7 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [Paul Chaignon](https://github.com/pchaigno)
 * SoldierOfLight
 * Styves
+* user673679
 * [Victor Zverovich](https://github.com/vitaut)
 * [Vilem Otte](https://github.com/Zgragselus)
 * Zipster

@@ -226,7 +226,7 @@ struct VCTConfig {
 	}
 
 	/**
-	 Computes the (incoming) radiance and ambient occlusion of the given cone
+	 Screenshot-2018-10-25-11-21-11Computes the (incoming) radiance and ambient occlusion of the given cone
 	 for this VCT configuration.
 
 	 @param[in]		cone

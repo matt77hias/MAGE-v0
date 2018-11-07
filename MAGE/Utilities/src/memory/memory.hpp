@@ -494,6 +494,7 @@ namespace mage {
 		/**
 		 Converts this proxy pointer to a @c bool.
 		 */
+		[[nodiscard]]
 		explicit operator bool() const noexcept {
 			return nullptr != Get();
 		}
@@ -504,6 +505,7 @@ namespace mage {
 		 @return		A reference to the memory resource pointed to by this
 						proxy pointer.
 		 */
+		[[nodiscard]]
 		T& operator*() const noexcept {
 			return *Get();
 		}

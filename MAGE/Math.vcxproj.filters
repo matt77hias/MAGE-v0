@@ -94,5 +94,20 @@
     <ClInclude Include="Math\src\transform\transform.hpp">
       <Filter>Header Files\transform</Filter>
     </ClInclude>
+    <ClInclude Include="Math\src\transform\transform_utils.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\set_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\sprite_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\sqt_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\src\transform\texture_transform.hpp">
+      <Filter>Header Files\transform</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

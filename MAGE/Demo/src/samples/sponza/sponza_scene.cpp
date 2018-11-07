@@ -51,6 +51,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 
+		const auto teapot_model_desc
+			= rendering_factory.GetOrCreate< ModelDescriptor >(
+				L"assets/models/teapot/teapot.mdl", mesh_desc);
 		const auto plane_model_desc
 			= rendering_factory.GetOrCreate< ModelDescriptor >(
 				L"assets/models/plane/plane.obj", mesh_desc);
@@ -79,6 +82,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
+		const auto teapot_node = Import(engine, *teapot_model_desc);
+		teapot_node->GetTransform().SetScale(30.0f);
+		
 		const auto plane_node = Import(engine, *plane_model_desc);
 		plane_node->GetTransform().SetScale(30.0f);
 

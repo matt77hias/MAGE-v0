@@ -107,7 +107,12 @@
     <ClInclude Include="Math\src\spectrum\color.hpp" />
     <ClInclude Include="Math\src\spectrum\spectrum.hpp" />
     <ClInclude Include="Math\src\transform\basis.hpp" />
+    <ClInclude Include="Math\src\transform\set_transform.hpp" />
+    <ClInclude Include="Math\src\transform\sprite_transform.hpp" />
+    <ClInclude Include="Math\src\transform\sqt_transform.hpp" />
+    <ClInclude Include="Math\src\transform\texture_transform.hpp" />
     <ClInclude Include="Math\src\transform\transform.hpp" />
+    <ClInclude Include="Math\src\transform\transform_utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\src\geometry\bounding_volume.cpp" />

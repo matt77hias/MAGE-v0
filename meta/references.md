@@ -326,6 +326,8 @@ MINES J.: [*Data-Oriented vs Object-Oriented Design*](https://medium.com/@jonath
 
 MÜLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
 
+REED N.: [*On Vector Math Libraries*](http://reedbeta.com/blog/on-vector-math-libraries/), 2013.
+
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.

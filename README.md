@@ -17,7 +17,7 @@
 
 # MAGE - Matthias Advanced Game Engine
 
-**AppVeyor Builds fail due to outdated Windows SDK version**
+**<p align="center">AppVeyor Builds fail due to outdated Windows SDK version</p>**
 
 ## About
 Game and rendering engine featuring both forward and deferred PBR pipelines with optional indirect illumination using Voxel Cone Tracing.

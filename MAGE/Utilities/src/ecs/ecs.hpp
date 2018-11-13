@@ -261,7 +261,7 @@ namespace mage {
 				m_component_manager->SwapComponents(index1, index2);
 			}
 
-			void swap(Record lhs, Record rhs) noexcept {
+			friend void swap(Record lhs, Record rhs) noexcept {
 				lhs.swap(rhs);
 			}
 
@@ -558,13 +558,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		[[nodiscard]]
-		RecordIterator RecordBegin(ComponentManager& manager) noexcept {
-			return RecordIterator(manager.begin(), &manager);
+		RecordIterator RecordBegin() noexcept {
+			return RecordIterator(begin(), this);
 		}
 
 		[[nodiscard]]
-		RecordIterator RecordEnd(ComponentManager& manager) noexcept {
-			return RecordIterator(manager.end(), &manager);
+		RecordIterator RecordEnd() noexcept {
+			return RecordIterator(end(), this);
 		}
 
 		[[nodiscard]]

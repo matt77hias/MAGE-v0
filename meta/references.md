@@ -138,6 +138,8 @@ FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs
 
 FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
 
+GALEA V.: [*Rapid Prototyping of Graphics Shaders in Modern C++*](https://www.youtube.com/watch?v=8FoAxasNssA&feature=youtu.be&a=), *CppCon 2018*, 2018.
+
 GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GOOGLE INC.: [*Google C++ Style Guide*](https://google.github.io/styleguide/cppguide.html), 2018.

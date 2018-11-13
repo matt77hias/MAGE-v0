@@ -316,6 +316,8 @@ WHITTED T.: [*Ray Tracing and Global Illumination*](https://blogs.nvidia.com/blo
 
 BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.
 
+BEAUFILS D.: [*To DRY or not to DRY?*](https://www.fluentcpp.com/2018/11/13/to-dry-or-not-to-dry/), 2018.
+
 CARMACK J.: [*In-Depth: Static Code Analysis*](https://www.gamasutra.com/view/news/128836/InDepth_Static_Code_Analysis.php), 2011.
 
 HEVERY M.: [*To Assert or Not To Assert*](https://testing.googleblog.com/2009/02/to-assert-or-not-to-assert.html), 2009.

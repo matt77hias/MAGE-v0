@@ -176,14 +176,281 @@ namespace mage {
 			= typename ComponentContainer::const_reverse_iterator;
 
 		//---------------------------------------------------------------------
-		// Friends
+		// Record
 		//---------------------------------------------------------------------
+		
+		class Record {
 
-        template< typename U >
-		friend class Record;
+		public:
 
-		template< typename U >
-		friend class RecordIterator;
+			//-----------------------------------------------------------------
+			// Class Member Types
+			//-----------------------------------------------------------------
+
+			using ComponentIterator = typename ComponentManager< T >::iterator;
+
+			//-----------------------------------------------------------------
+			// Constructors and Destructors
+			//-----------------------------------------------------------------
+
+			Record() noexcept
+				: m_component_it{},
+				m_component_manager(nullptr) {}
+		
+			explicit Record(ComponentIterator component_it,
+							ComponentManager* component_manager) noexcept
+				: m_component_it(std::move(component_it)),
+				m_component_manager(component_manager) {}
+		
+			Record(const Record& record) noexcept = default;
+		
+			Record(Record&& record) noexcept = default;
+		
+			~Record() = default;
+
+			//-----------------------------------------------------------------
+			// Assignment Operators
+			//-----------------------------------------------------------------
+
+			Record& operator=(const Record& record) = delete;
+		
+			Record& operator=(Record&& record) noexcept {
+				swap(record);
+				return *this;
+			}
+			
+			//-----------------------------------------------------------------
+			// Member Methods
+			//-----------------------------------------------------------------
+
+			[[nodiscard]]
+			T& GetComponent() noexcept {
+				ASSERT(nullptr != m_component_manager);
+				ASSERT(m_component_manager->end() != m_component_it);
+            
+				return *m_component_it;
+			}
+        
+			[[nodiscard]]
+			const T& GetComponent() const noexcept {
+				ASSERT(nullptr != m_component_manager);
+				ASSERT(m_component_manager->end() != m_component_it);
+            
+				return *m_component_it;
+			}
+        
+			[[nodiscard]]
+			const Entity& GetEntity() const noexcept {
+				ASSERT(nullptr != m_component_manager);
+				ASSERT(m_component_manager->end() != m_component_it);
+            
+				const auto begin = m_component_manager->begin();
+				const std::size_t index(m_component_it - begin);
+				return m_component_manager->m_entities[index];
+			}
+
+			void swap(Record& other) noexcept {
+				ASSERT(nullptr != m_component_manager);
+				ASSERT(m_component_manager == other.m_component_manager);
+				ASSERT(m_component_manager->end() != m_component_it);
+				ASSERT(m_component_manager->end() != other.m_component_it);
+
+				const auto begin = m_component_manager->begin();
+				const std::size_t index1(      m_component_it - begin);
+				const std::size_t index2(other.m_component_it - begin);
+				m_component_manager->SwapComponents(index1, index2);
+			}
+
+			void swap(Record lhs, Record rhs) noexcept {
+				lhs.swap(rhs);
+			}
+
+		private:
+
+			//-----------------------------------------------------------------
+			// Member Variables
+			//-----------------------------------------------------------------
+
+			ComponentIterator m_component_it;
+		
+			ComponentManager* m_component_manager;
+		};
+
+		//---------------------------------------------------------------------
+		// RecordIterator
+		//---------------------------------------------------------------------
+		
+		class RecordIterator {
+
+		public:
+
+			//-----------------------------------------------------------------
+			// Class Member Types
+			//-----------------------------------------------------------------
+
+			using ComponentIterator = typename ComponentManager< T >::iterator;
+        
+			using value_type        = Record;
+        
+			using reference         = Record;
+        
+			using const_reference   = Record;
+        
+			using pointer           = void;
+        
+			using const_pointer     = void;
+       
+			using difference_type   = std::ptrdiff_t;
+       
+			using iterator_category = std::random_access_iterator_tag;
+
+			//-----------------------------------------------------------------
+			// Constructors and Destructors
+			//-----------------------------------------------------------------
+
+			RecordIterator() noexcept
+				: m_component_it{},
+				m_component_manager(nullptr) {}
+		
+			explicit RecordIterator(ComponentIterator component_it,
+									ComponentManager* component_manager) noexcept
+				: m_component_it(std::move(component_it)), 
+				m_component_manager(component_manager) {}
+		
+			RecordIterator(const RecordIterator& it) noexcept = default;
+		
+			RecordIterator(RecordIterator&& it) noexcept = default;
+		
+			~RecordIterator() = default;
+
+			//-----------------------------------------------------------------
+			// Assignment Operators
+			//-----------------------------------------------------------------
+
+			RecordIterator& operator=(const RecordIterator& it) noexcept = default;
+		
+			RecordIterator& operator=(RecordIterator&& it) noexcept = default;
+
+			//-----------------------------------------------------------------
+			// Member Methods
+			//-----------------------------------------------------------------
+
+			[[nodiscard]]
+			reference operator*() noexcept {
+				return Record(m_component_it, m_component_manager);
+			}
+		
+			[[nodiscard]]
+			const_reference operator*() const noexcept {
+				return Record(m_component_it, m_component_manager);
+			}
+        
+			pointer operator->() = delete;
+        
+			const_pointer operator->() const = delete;
+        
+			[[nodiscard]]
+			reference operator[](difference_type n) noexcept {
+				return Record(m_component_it + n, m_component_manager);
+			}
+		
+			[[nodiscard]]
+			const_reference operator[](difference_type n) const noexcept {
+				return Record(m_component_it + n, m_component_manager);
+			}
+
+			[[nodiscard]]
+			difference_type operator-(const RecordIterator& it) const noexcept {
+				return m_component_it - it.m_component_it;
+			}
+
+			[[nodiscard]]
+			const RecordIterator operator+(difference_type n) const noexcept {
+				return RecordIterator(m_component_it + n, m_component_manager);
+			}
+		
+			[[nodiscard]]
+			const RecordIterator operator-(difference_type n) const noexcept {
+				return RecordIterator(m_component_it - n, m_component_manager);
+			}
+			
+			[[nodiscard]]
+			friend const RecordIterator operator+(difference_type n, const RecordIterator& it) noexcept {
+				return it + n;
+			}
+			
+			RecordIterator& operator++() noexcept {
+				++m_component_it;
+				return *this;
+			}
+		
+			RecordIterator& operator--() noexcept {
+				--m_component_it;
+				return *this;
+			}
+			
+			[[nodiscard]]
+			friend const RecordIterator operator++(const RecordIterator& it) noexcept {
+				return RecordIterator(it.m_component_it + 1u, it.m_component_manager);
+			}
+		
+			[[nodiscard]]
+			friend const RecordIterator operator--(const RecordIterator& it) noexcept {
+				return RecordIterator(it.m_component_it - 1u, it.m_component_manager);
+			}
+
+			RecordIterator& operator+=(difference_type n) noexcept {
+				m_component_it += n;
+				return *this;
+			}
+		
+			RecordIterator& operator-=(difference_type n) noexcept {
+				m_component_it -= n;
+				return *this;
+			}
+
+			[[nodiscard]]
+			constexpr bool operator==(const RecordIterator& rhs) const noexcept {
+				return m_component_it == rhs.m_component_it;
+			}
+		
+			[[nodiscard]]
+			constexpr bool operator!=(const RecordIterator& rhs) const noexcept {
+				return m_component_it != rhs.m_component_it;
+			}
+		
+			[[nodiscard]]
+			constexpr bool operator<=(const RecordIterator& rhs) const noexcept {
+				return m_component_it <= rhs.m_component_it;
+			}
+		
+			[[nodiscard]]
+			constexpr bool operator>=(const RecordIterator& rhs) const noexcept {
+				return m_component_it >= rhs.m_component_it;
+			}
+		
+			[[nodiscard]]
+			constexpr bool operator<(const RecordIterator& rhs) const noexcept {
+				return m_component_it < rhs.m_component_it;
+			}
+		
+			[[nodiscard]]
+			constexpr bool operator>(const RecordIterator& rhs) const noexcept {
+				return m_component_it > rhs.m_component_it;
+			}
+        
+			void swap(RecordIterator& other) noexcept {
+				using std::swap;
+				swap(m_component_it,      other.m_component_it);
+				swap(m_component_manager, other.m_component_manager);
+			}
+
+		private:
+        
+			ComponentIterator m_component_it;
+		
+			ComponentManager* m_component_manager;
+		};
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -289,6 +556,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Iterators
 		//---------------------------------------------------------------------
+
+		[[nodiscard]]
+		RecordIterator RecordBegin(ComponentManager& manager) noexcept {
+			return RecordIterator(manager.begin(), &manager);
+		}
+
+		[[nodiscard]]
+		RecordIterator RecordEnd(ComponentManager& manager) noexcept {
+			return RecordIterator(manager.end(), &manager);
+		}
 
 		[[nodiscard]]
 		iterator begin() noexcept {
@@ -474,300 +751,4 @@ namespace mage {
 
 		std::unordered_map< Entity, std::size_t > m_mapping;
 	};
-
-	//-------------------------------------------------------------------------
-	// Record
-	//-------------------------------------------------------------------------
-		
-	template< typename T >
-	class Record {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Types
-		//---------------------------------------------------------------------
-
-		using ComponentIterator = typename ComponentManager< T >::iterator;
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		Record() noexcept
-			: m_component_it{},
-			m_component_manager(nullptr) {}
-		
-		explicit Record(ComponentIterator component_it,
-						ComponentManager< T >* component_manager) noexcept
-			: m_component_it(std::move(component_it)),
-			m_component_manager(component_manager) {}
-		
-		Record(const Record& record) noexcept = default;
-		
-		Record(Record&& record) noexcept = default;
-		
-		~Record() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		Record& operator=(const Record& record) = delete;
-		
-		Record& operator=(Record&& record) noexcept {
-			swap(record);
-			return *this;
-		}
-			
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-        [[nodiscard]]
-        T& GetComponent() noexcept {
-            ASSERT(nullptr != m_component_manager);
-			ASSERT(m_component_manager->end() != m_component_it);
-            
-            return *m_component_it;
-        }
-        
-        [[nodiscard]]
-        const T& GetComponent() const noexcept {
-			ASSERT(nullptr != m_component_manager);
-			ASSERT(m_component_manager->end() != m_component_it);
-            
-            return *m_component_it;
-        }
-        
-        [[nodiscard]]
-        const Entity& GetEntity() const noexcept {
-			ASSERT(nullptr != m_component_manager);
-			ASSERT(m_component_manager->end() != m_component_it);
-            
-            const auto begin = m_component_manager->begin();
-			const std::size_t index(m_component_it - begin);
-            return m_component_manager->m_entities[index];
-        }
-
-        void swap(Record& other) noexcept {
-			ASSERT(nullptr != m_component_manager);
-			ASSERT(m_component_manager == other.m_component_manager);
-			ASSERT(m_component_manager->end() != m_component_it);
-			ASSERT(m_component_manager->end() != other.m_component_it);
-
-            const auto begin = m_component_manager->begin();
-			const std::size_t index1(      m_component_it - begin);
-			const std::size_t index2(other.m_component_it - begin);
-			m_component_manager->SwapComponents(index1, index2);
-		}
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		ComponentIterator m_component_it;
-		
-		ComponentManager< T >* m_component_manager;
-	};
-
-	//-------------------------------------------------------------------------
-	// RecordIterator
-	//-------------------------------------------------------------------------
-		
-	template< typename T >
-	class RecordIterator {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Types
-		//---------------------------------------------------------------------
-
-		using ComponentIterator = typename ComponentManager< T >::iterator;
-        
-        using value_type        = Record< T >;
-        
-		using reference         = Record< T >;
-        
-		using const_reference   = Record< T >;
-        
-		using pointer           = void;
-        
-		using const_pointer     = void;
-       
-		using difference_type   = std::ptrdiff_t;
-       
-		using iterator_category = std::random_access_iterator_tag;
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		RecordIterator() noexcept
-			: m_component_it{},
-			m_component_manager(nullptr) {}
-		
-		explicit RecordIterator(ComponentIterator component_it,
-						        ComponentManager< T >* component_manager) noexcept
-			: m_component_it(std::move(component_it)), 
-			m_component_manager(component_manager) {}
-		
-		RecordIterator(const RecordIterator& it) noexcept = default;
-		
-		RecordIterator(RecordIterator&& it) noexcept = default;
-		
-		~RecordIterator() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		RecordIterator& operator=(const RecordIterator& it) noexcept = default;
-		
-		RecordIterator& operator=(RecordIterator&& it) noexcept = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		[[nodiscard]]
-		reference operator*() noexcept {
-			return Record< T >(m_component_it, m_component_manager);
-		}
-		
-		[[nodiscard]]
-		const_reference operator*() const noexcept {
-			return Record< T >(m_component_it, m_component_manager);
-		}
-        
-        pointer operator->() = delete;
-        
-		const_pointer operator->() const = delete;
-        
-		[[nodiscard]]
-		reference operator[](difference_type n) noexcept {
-			return Record< T >(m_component_it + n, m_component_manager);
-		}
-		
-		[[nodiscard]]
-		const_reference operator[](difference_type n) const noexcept {
-			return Record< T >(m_component_it + n, m_component_manager);
-		}
-
-		[[nodiscard]]
-		difference_type operator-(const RecordIterator& it) const noexcept {
-			return m_component_it - it.m_component_it;
-		}
-
-		[[nodiscard]]
-		const RecordIterator operator+(difference_type n) const noexcept {
-			return RecordIterator(m_component_it + n, m_component_manager);
-		}
-		
-		[[nodiscard]]
-		const RecordIterator operator-(difference_type n) const noexcept {
-			return RecordIterator(m_component_it - n, m_component_manager);
-		}
-			
-		[[nodiscard]]
-		friend const RecordIterator operator+(difference_type n, const RecordIterator& it) noexcept {
-			return it + n;
-		}
-			
-		RecordIterator& operator++() noexcept {
-			++m_component_it;
-			return *this;
-		}
-		
-		RecordIterator& operator--() noexcept {
-			--m_component_it;
-			return *this;
-		}
-			
-		[[nodiscard]]
-		friend const RecordIterator operator++(const RecordIterator& it) noexcept {
-			return RecordIterator(it.m_component_it + 1u, it.m_component_manager);
-		}
-		
-		[[nodiscard]]
-		friend const RecordIterator operator--(const RecordIterator& it) noexcept {
-			return RecordIterator(it.m_component_it - 1u, it.m_component_manager);
-		}
-
-		RecordIterator& operator+=(difference_type n) noexcept {
-			m_component_it += n;
-			return *this;
-		}
-		
-		RecordIterator& operator-=(difference_type n) noexcept {
-			m_component_it -= n;
-			return *this;
-		}
-
-		[[nodiscard]]
-		constexpr bool operator==(const RecordIterator& rhs) const noexcept {
-			return m_component_it == rhs.m_component_it;
-		}
-		
-		[[nodiscard]]
-		constexpr bool operator!=(const RecordIterator& rhs) const noexcept {
-			return m_component_it != rhs.m_component_it;
-		}
-		
-		[[nodiscard]]
-		constexpr bool operator<=(const RecordIterator& rhs) const noexcept {
-			return m_component_it <= rhs.m_component_it;
-		}
-		
-		[[nodiscard]]
-		constexpr bool operator>=(const RecordIterator& rhs) const noexcept {
-			return m_component_it >= rhs.m_component_it;
-		}
-		
-		[[nodiscard]]
-		constexpr bool operator<(const RecordIterator& rhs) const noexcept {
-			return m_component_it < rhs.m_component_it;
-		}
-		
-		[[nodiscard]]
-		constexpr bool operator>(const RecordIterator& rhs) const noexcept {
-			return m_component_it > rhs.m_component_it;
-		}
-        
-        void swap(RecordIterator& other) noexcept {
-            using std::swap;
-            swap(m_component_it,      other.m_component_it);
-            swap(m_component_manager, other.m_component_manager);
-        }
-
-	private:
-        
-		ComponentIterator m_component_it;
-		
-		ComponentManager< T >* m_component_manager;
-	};
-
-	//-------------------------------------------------------------------------
-	// ComponentManager
-	//-------------------------------------------------------------------------
-
-	template< typename T >
-	[[nodiscard]]
-	inline RecordIterator< T > RecordBegin(ComponentManager< T >& manager) noexcept {
-		return RecordIterator< T >(manager.begin(), &manager);
-	}
-
-	template< typename T >
-	[[nodiscard]]
-	inline RecordIterator< T > RecordEnd(ComponentManager< T >& manager) noexcept {
-		return RecordIterator< T >(manager.end(), &manager);
-	}
-
-    template< typename T >
-	void swap(Record< T > lhs, Record< T > rhs) noexcept {
-		lhs.swap(rhs);
-	}
 }

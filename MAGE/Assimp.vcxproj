@@ -685,6 +685,7 @@
       <PreprocessorDefinitions>_WINDOWS;WIN32_LEAN_AND_MEAN;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;OPENDDLPARSER_BUILD;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -692,6 +693,7 @@
       <PreprocessorDefinitions>_WINDOWS;WIN32_LEAN_AND_MEAN;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;OPENDDLPARSER_BUILD;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -699,6 +701,7 @@
       <PreprocessorDefinitions>_WINDOWS;WIN32_LEAN_AND_MEAN;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;OPENDDLPARSER_BUILD;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -706,6 +709,7 @@
       <PreprocessorDefinitions>_WINDOWS;WIN32_LEAN_AND_MEAN;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;OPENDDLPARSER_BUILD;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

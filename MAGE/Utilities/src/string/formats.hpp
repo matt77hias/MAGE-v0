@@ -28,7 +28,7 @@ namespace fmt {
 	struct formatter< std::wstring_view, char > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -45,7 +45,7 @@ namespace fmt {
 	struct formatter< std::wstring, char > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -62,7 +62,7 @@ namespace fmt {
 	struct formatter< std::filesystem::path, char > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -79,7 +79,7 @@ namespace fmt {
 	struct formatter< std::string_view, wchar_t > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -96,7 +96,7 @@ namespace fmt {
 	struct formatter< std::string, wchar_t > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -113,7 +113,7 @@ namespace fmt {
 	struct formatter< std::filesystem::path, wchar_t > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -129,7 +129,7 @@ namespace fmt {
 	struct formatter< std::array< T, N > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -151,7 +151,7 @@ namespace fmt {
 	struct formatter< mage::Array< T, N, A > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -169,7 +169,7 @@ namespace fmt {
 	struct formatter< std::pair< T1, T2 > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 
@@ -183,7 +183,7 @@ namespace fmt {
 	struct formatter< std::vector< T, Allocator > > {
 
 		template< typename ParseContextT >
-		constexpr auto parse(ParseContextT& ctx) {
+		typename ParseContextT::iterator parse(ParseContextT& ctx) {
 			return ctx.begin();
 		}
 

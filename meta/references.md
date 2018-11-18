@@ -152,6 +152,8 @@ IGNATCHENKO S.: [*5 Reasons NOT to Use std::ostream for Human-Readable Output*](
 
 JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o), *CppCon 2017*, 2017.
 
+KALB J.: [*A Foolish Consistency*](http://slashslash.info/2018/02/a-foolish-consistency/), 2018.
+
 KARPOV A.: [*The Ultimate Question of Programming, Refactoring, and Everything*](https://www.viva64.com/en/b/0391/), 2016.
 
 KAY J.: [*An Introduction to Reflection in C++*](http://jackieokay.com/2017/04/13/reflection1.html), 2017.
@@ -180,6 +182,10 @@ METZ A.: [*“Modern C++” != “New(est) Standard”*](https://arne-mertz.de/2
 
 METZ A.: [*Modern C++ Features – decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
+METZ A.: [*Trailing Return Types, East Const, and Code Style Consistency*](https://arne-mertz.de/2018/05/trailing-return-types-east-const-and-code-style-consistency/), 2018.
+
+METZ A.: [*Trailing return types everywhere*](https://arne-mertz.de/2016/11/trailing-return-types-everywhere/#comment-23908), 2016.
+
 MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.
 
 MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
@@ -187,6 +193,8 @@ MÜLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/b
 MÜLLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
 MÜLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitfall?*](https://foonathan.net/blog/2017/03/22/string_view-temporary.html), 2017.
+
+NASH P.: [*East End Functions*](https://levelofindirection.com/blog/east-end-functions.html), 2018.
 
 PHARR M.: [*CHECK_RARE and making sense of unusual occurrences*](http://pharr.org/matt/blog/2018/05/31/check-rare.html), 2018.
 

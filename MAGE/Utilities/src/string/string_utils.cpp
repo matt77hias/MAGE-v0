@@ -22,7 +22,7 @@
 namespace mage {
 
 	DWORD UTF8toUTF16::Convert(std::string_view s) {
-		if (std::numeric_limits< int >::max() < s.size()) {
+		if (static_cast< std::size_t >(std::numeric_limits< int >::max()) < s.size()) {
 			return ERROR_INVALID_PARAMETER;
 		}
 		const auto s_size = static_cast< int >(s.size());
@@ -50,10 +50,10 @@ namespace mage {
 	}
 
 	DWORD UTF16toUTF8::Convert(std::wstring_view s) {
-		if (std::numeric_limits< int >::max() < s.size()) {
+		if (static_cast< std::size_t >(std::numeric_limits< int >::max()) < s.size()) {
 			return ERROR_INVALID_PARAMETER;
 		}
-		const auto s_size = static_cast<int>(s.size());
+		const auto s_size = static_cast< int >(s.size());
 
 		if (0 == s_size) {
 			m_buffer.resize(1u);

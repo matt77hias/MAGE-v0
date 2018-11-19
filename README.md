@@ -43,11 +43,10 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
 * **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)
 * **Shading Language**: HLSL (Shader Model 5.0)
 * **Dependencies**:
-  * [d3d11.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx)
-  * [dxgi.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/hh404534(v=vs.85).aspx)
-  * [dinput8.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/ee416842(v=vs.85).aspx)
+  * d3d11.lib
+  * dxgi.lib
   * dxguid.lib
-  * ([d3dcompiler.lib](https://msdn.microsoft.com/en-us/library/windows/desktop/dd607340(v=vs.85).aspx))
+  * (d3dcompiler.lib)
 * **Compiler**: MSVC++ 15.9.1
 * **IDE**: Visual Studio 2017
 

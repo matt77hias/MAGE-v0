@@ -36,17 +36,17 @@ namespace mage::rendering {
 	#pragma region
 
 	VertexShaderPtr CreateDepthVS(ResourceManager& resource_manager) {
-		using vertex_t = VertexPositionNormalTexture;
+		using Vertex = VertexPositionNormalTexture;
 		return CreateVS(resource_manager,
 						MAGE_SHADER_ARGS(g_depth_VS),
-						gsl::make_span(vertex_t::s_input_element_descs));
+						gsl::make_span(Vertex::s_input_element_descs));
 	}
 
 	VertexShaderPtr CreateDepthTransparentVS(ResourceManager& resource_manager) {
-		using vertex_t = VertexPositionNormalTexture;
+		using Vertex = VertexPositionNormalTexture;
 		return CreateVS(resource_manager,
 						MAGE_SHADER_ARGS(g_depth_transparent_VS),
-						gsl::make_span(vertex_t::s_input_element_descs));
+						gsl::make_span(Vertex::s_input_element_descs));
 	}
 
 	PixelShaderPtr CreateDepthTransparentPS(ResourceManager& resource_manager) {

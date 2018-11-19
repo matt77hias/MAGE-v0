@@ -79,14 +79,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemGroup>
-    <ClInclude Include="DirectXTex\src\DirectXTex\DDSTextureLoader.h" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\ScreenGrab.h" />
-    <ClInclude Include="DirectXTex\src\DirectXTex\WICTextureLoader.h" />
+    <ClInclude Include="DirectXTex\src\directxtex\DDSTextureLoader.h" />
+    <ClInclude Include="DirectXTex\src\directxtex\ScreenGrab.h" />
+    <ClInclude Include="DirectXTex\src\directxtex\WICTextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXTex\src\DirectXTex\DDSTextureLoader.cpp" />
-    <ClCompile Include="DirectXTex\src\DirectXTex\ScreenGrab.cpp" />
-    <ClCompile Include="DirectXTex\src\DirectXTex\WICTextureLoader.cpp" />
+    <ClCompile Include="DirectXTex\src\directxtex\DDSTextureLoader.cpp" />
+    <ClCompile Include="DirectXTex\src\directxtex\ScreenGrab.cpp" />
+    <ClCompile Include="DirectXTex\src\directxtex\WICTextureLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

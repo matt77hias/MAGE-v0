@@ -84,7 +84,11 @@ ANDERSON D.: [The Clockwise/Spiral Rule](http://c-faq.com/decl/spiral.anderson.h
 
 BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/decltype-and-declval/), 2011.
 
+BOCCARA J.: [*A Concrete Example of Naming Consistency*](https://www.fluentcpp.com/2018/05/29/a-concrete-example-of-naming-consistency/), 2018.
+
 BOCCARA J.: [*std::iterator is deprecated: Why, What It Was, and What to Use Instead*](https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/), 2018.
+
+BOCCARA J.: [*The Incredible Const Reference That Isn’t Const*](https://www.fluentcpp.com/2018/07/13/the-incredible-const-reference-that-isnt-const/), 2018.
 
 BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
 
@@ -325,6 +329,12 @@ WHITTED T.: [*Ray Tracing and Global Illumination*](https://blogs.nvidia.com/blo
 BELLER M., ZAIDMAN A., KARPOV A.: *The Last Line Effect*, In *23rd International Conference on Program Comprehension* (ICPC), ACM, 2015.
 
 BEAUFILS D.: [*To DRY or not to DRY?*](https://www.fluentcpp.com/2018/11/13/to-dry-or-not-to-dry/), 2018.
+
+BOCCARA J.: [*How to Design Function Parameters That Make Interfaces Easier to Use (1/3)*](https://www.fluentcpp.com/2018/11/23/function-parameters-making-interfaces-easy-to-use/), 2018.
+
+BOCCARA J.: [*How to Design Function Parameters That Make Interfaces Easier to Use (2/3)*](https://www.fluentcpp.com/2018/11/27/design-function-parameters-make-interfaces-easy-use-23/), 2018.
+
+BOCCARA J.: [*How to Design Function Parameters That Make Interfaces Easier to Use (3/3)*](https://www.fluentcpp.com/2018/11/30/function-parameters-3/), 2018.
 
 CARMACK J.: [*In-Depth: Static Code Analysis*](https://www.gamasutra.com/view/news/128836/InDepth_Static_Code_Analysis.php), 2011.
 

@@ -86,9 +86,13 @@ BECK J.: [*decltype and declval*](https://thenewcpp.wordpress.com/2011/10/25/dec
 
 BOCCARA J.: [*A Concrete Example of Naming Consistency*](https://www.fluentcpp.com/2018/05/29/a-concrete-example-of-naming-consistency/), 2018.
 
+BOCCARA J.: [*How to choose good names in your code*](https://www.fluentcpp.com/2017/01/30/how-to-choose-good-names/), 2017.
+
 BOCCARA J.: [*std::iterator is deprecated: Why, What It Was, and What to Use Instead*](https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/), 2018.
 
 BOCCARA J.: [*The Incredible Const Reference That Isn’t Const*](https://www.fluentcpp.com/2018/07/13/the-incredible-const-reference-that-isnt-const/), 2018.
+
+BOCCARA J.: [*The Interface Principle in C++*](https://www.fluentcpp.com/2017/06/20/interface-principle-cpp/), 2017.
 
 BOCCARA J.: [*The Most Vexing Parse: How to Spot It and Fix It Quickly*](https://www.fluentcpp.com/2018/01/30/most-vexing-parse/), 2018.
 

@@ -43,10 +43,10 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs a MSH reader.
 
-		 @param[in]		vertices
+		 @param[in,out]	vertices
 						A reference to a vector for storing the read vertices
 						from file.
-		 @param[in]		indices
+		 @param[in,out]	indices
 						A reference to a vector for storing the read indices
 						from file.
 		 */

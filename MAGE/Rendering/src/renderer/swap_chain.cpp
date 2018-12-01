@@ -34,13 +34,13 @@ namespace mage::rendering {
 		/**
 		 Constructs a swap chain.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		window
 						The main window handle.
-		 @param[in]		display_configuration
+		 @param[in,out]	display_configuration
 						A reference to the display configuration.
 		 */
 		explicit Impl(ID3D11Device& device,

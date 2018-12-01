@@ -29,7 +29,7 @@ namespace mage::rendering::loader {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	texture_srv
 					A pointer to a pointer to a shader resource view.
@@ -45,9 +45,9 @@ namespace mage::rendering::loader {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[in]		device_context
+	 @param[in,out]	device_context
 					A reference to the device context.
-	 @param[out]	texture
+	 @param[in,out]	texture
 					A reference to the texture.
 	 @throws		Exception
 					Failed to export the texture to file.

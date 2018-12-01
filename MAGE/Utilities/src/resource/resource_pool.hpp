@@ -270,7 +270,7 @@ namespace mage {
 			 @tparam		ConstructorArgsT
 							The argument types for creating a new resource of
 							type @c DerivedResourceT.
-			 @param[in]		resource_pool
+			 @param[in,out]	resource_pool
 							A reference to the resource pool.
 			 @param[in]		resource_key
 							A reference to the key of the resource in the

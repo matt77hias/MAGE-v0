@@ -104,7 +104,7 @@ namespace mage::rendering {
 		/**
 		 Draws this sprite text.
 
-		 @param[in]		sprite_batch
+		 @param[in,out]	sprite_batch
 						A reference to the sprite batch used for rendering this
 						sprite text.
 		 */

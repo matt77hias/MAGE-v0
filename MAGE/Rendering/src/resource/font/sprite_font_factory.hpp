@@ -22,7 +22,7 @@ namespace mage::rendering {
 	/**
 	 Creates a consolas sprite font.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the sprite font.
 	 @throws		Exception

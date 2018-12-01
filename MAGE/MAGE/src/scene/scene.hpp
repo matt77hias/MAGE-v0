@@ -63,7 +63,7 @@ namespace mage {
 		/**
 		 Initializes this scene.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to initialize this scene.
@@ -73,7 +73,7 @@ namespace mage {
 		/**
 		 Uninitializes this scene.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to unitialize this scene.
@@ -172,7 +172,7 @@ namespace mage {
 		 Loads this scene. Allows this scene to preform any pre-processing
 		 construction.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to load this scene.
@@ -183,7 +183,7 @@ namespace mage {
 		 Closes this scene. Allows this scene to preform any post-processing
 		 destruction.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to close this scene.

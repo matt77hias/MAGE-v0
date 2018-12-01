@@ -136,7 +136,7 @@ namespace mage::rendering {
 		 The vertex buffer, index buffer and primitive topology of this mesh
 		 will be bound to the input-assembler stage.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void BindMesh(ID3D11DeviceContext& device_context) const noexcept {
@@ -149,7 +149,7 @@ namespace mage::rendering {
 		 The vertex buffer, index buffer and given primitive topology of this
 		 mesh will be bound to the input-assembler stage.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		topology
 						The primitive topology.
@@ -170,7 +170,7 @@ namespace mage::rendering {
 		/**
 		 Draws this complete mesh.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void Draw(ID3D11DeviceContext& device_context) const noexcept {
@@ -182,7 +182,7 @@ namespace mage::rendering {
 		/**
 		 Draws a submesh of this mesh.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		start_index
 						The start index.

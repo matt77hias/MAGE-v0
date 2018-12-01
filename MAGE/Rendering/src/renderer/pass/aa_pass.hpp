@@ -30,11 +30,11 @@ namespace mage::rendering {
 		/**
 		 Constructs a AA pass.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
-		 @param[in]		state_manager
+		 @param[in,out]	state_manager
 						A reference to the state manager.
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 */
 		explicit AAPass(ID3D11DeviceContext& device_context,

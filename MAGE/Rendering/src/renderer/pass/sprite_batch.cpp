@@ -174,12 +174,12 @@ namespace mage::rendering {
 		/**
 		 Constructs a sprite batch.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
-		Impl(ID3D11Device& device, ID3D11DeviceContext& device_context);
+		explicit Impl(ID3D11Device& device, ID3D11DeviceContext& device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.

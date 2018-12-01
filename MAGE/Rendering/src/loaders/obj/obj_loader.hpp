@@ -29,7 +29,7 @@ namespace mage::rendering::loader {
 					The index type.
 	 @param[in]		path
 					A reference to the path.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in,out]	model_output
 					A reference to the model output.

@@ -29,7 +29,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a structured buffer.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		capacity
 						The initial capacity.
@@ -110,7 +110,7 @@ namespace mage::rendering {
 		/**
 		 Updates the data of this structured buffer with the given data.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		data
 						A reference to a vector containing the data elements.
@@ -138,7 +138,7 @@ namespace mage::rendering {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set
@@ -158,7 +158,7 @@ namespace mage::rendering {
 		 Sets up the resource buffer and shader resource view of this
 		 structured buffer.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		capacity
 						The capacity.

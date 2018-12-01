@@ -28,13 +28,13 @@ namespace mage::rendering {
 		/**
 		 Constructs a LBuffer pass.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
-		 @param[in]		state_manager
+		 @param[in,out]	state_manager
 						A reference to the state manager.
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 */
 		explicit LBufferPass(ID3D11Device& device,

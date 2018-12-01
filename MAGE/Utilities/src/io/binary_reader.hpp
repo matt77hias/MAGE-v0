@@ -20,10 +20,10 @@ namespace mage {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[out]	data
+	 @param[in,out]	data
 					A reference to a pointer to a buffer for storing the read
 					bytes.
-	 @param[out]	size
+	 @param[in,out]	size
 					A reference to the size of the read bytes.
 	 @throws		Exception
 					Failed to read from the file.

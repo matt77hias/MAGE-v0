@@ -40,7 +40,7 @@ namespace mage::input {
 
 		 @param[in]		window
 						The handle of the parent window.
-		 @param[in]		di
+		 @param[in,out]	di
 						A reference to a direct input object.
 		 @throws		Exception
 						Failed to initialize the mouse.

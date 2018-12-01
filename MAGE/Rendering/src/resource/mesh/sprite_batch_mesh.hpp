@@ -109,7 +109,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a sprite batch mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @throws		Exception
 						Failed to setup the vertex buffer of the sprite batch

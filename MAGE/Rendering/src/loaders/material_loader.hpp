@@ -33,9 +33,9 @@ namespace mage::rendering::loader {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[in]		resource_manaer
+	 @param[in,out]	resource_manaer
 					A reference to the resource manager.
-	 @param[out]	materials
+	 @param[in,out]	materials
 					A reference to a vector containing the materials.
 	 @throws		Exception
 					Failed to import the materials from file.

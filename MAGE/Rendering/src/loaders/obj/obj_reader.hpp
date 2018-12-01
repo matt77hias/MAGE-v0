@@ -50,9 +50,9 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs an OBJ reader.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
-		 @param[in]		model_output
+		 @param[in,out]	model_output
 						A reference to a model output for storing the read data
 						from file.
 		 @param[in]		mesh_desc

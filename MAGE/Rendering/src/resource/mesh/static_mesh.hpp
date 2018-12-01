@@ -43,7 +43,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a static mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		vertices
 						A vector containing the vertices.
@@ -116,7 +116,7 @@ namespace mage::rendering {
 		/**
 		 Sets up the vertex buffer of this static mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @throws		Exception
 						Failed to setup the vertex buffer of this static mesh.
@@ -126,7 +126,7 @@ namespace mage::rendering {
 		/**
 		 Sets up the index buffer of this static mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @throws		Exception
 						Failed to setup the index buffer of this static mesh.

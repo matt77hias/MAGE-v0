@@ -33,7 +33,7 @@ namespace mage::rendering {
 
 		 @param[in]		window
 						The main window handle.
-		 @param[in]		configuration
+		 @param[in,out]	configuration
 						The display configuration.
 		 */
 		explicit Manager(NotNull< HWND > window,

@@ -28,7 +28,7 @@ namespace mage::loader {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[out]	variable_buffer
+	 @param[in,out]	variable_buffer
 					A reference to a map containing the variables.
 	 @throws		Exception
 					Failed to import the variable script from file.

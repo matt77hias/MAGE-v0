@@ -39,11 +39,11 @@ namespace mage::rendering {
 		/**
 		 Constructs a world.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[in]		display_configuration
+		 @param[in,out]	display_configuration
 						A reference to the display configuration.
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 */
 		explicit World(ID3D11Device& device,

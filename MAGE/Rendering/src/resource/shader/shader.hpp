@@ -35,7 +35,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a vertex shader.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
@@ -104,7 +104,7 @@ namespace mage::rendering {
 		/**
 		 Binds this vertex shader.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void BindShader(ID3D11DeviceContext& device_context) const noexcept {
@@ -177,7 +177,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a shader.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
@@ -241,7 +241,7 @@ namespace mage::rendering {
 		/**
 		 Binds this shader.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void BindShader(ID3D11DeviceContext& device_context) const noexcept;
@@ -255,7 +255,7 @@ namespace mage::rendering {
 		/**
 		 Sets up this shader.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.

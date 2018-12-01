@@ -19,9 +19,9 @@ namespace mage::rendering::loader {
 
 	 @param[in]		path
 					A reference to the path.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
-	 @param[out]	materials
+	 @param[in,out]	materials
 					A reference to a vector containing the materials.
 	 @throws		Exception
 					Failed to import the mesh from file.

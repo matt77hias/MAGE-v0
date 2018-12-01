@@ -37,7 +37,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a model.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 */
 		explicit Model(ID3D11Device& device);
@@ -154,7 +154,7 @@ namespace mage::rendering {
 		/**
 		 Binds the mesh of this model.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void BindMesh(ID3D11DeviceContext& device_context) const noexcept {
@@ -164,7 +164,7 @@ namespace mage::rendering {
 		/**
 		 Binds the mesh of this model with given primitive topology.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		topology
 						The primitive topology.
@@ -178,7 +178,7 @@ namespace mage::rendering {
 		/**
 		 Draws this model.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void Draw(ID3D11DeviceContext& device_context) const noexcept {
@@ -283,7 +283,7 @@ namespace mage::rendering {
 		/**
 		 Updates the buffer of this model.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void UpdateBuffer(ID3D11DeviceContext& device_context) const;
@@ -293,7 +293,7 @@ namespace mage::rendering {
 
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set

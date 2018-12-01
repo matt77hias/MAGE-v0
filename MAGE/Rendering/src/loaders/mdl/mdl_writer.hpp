@@ -40,7 +40,7 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs a MDL writer.
 
-		 @param[in]		model_output
+		 @param[in,out]	model_output
 						A reference to the model output containing the model
 						data.
 		 */

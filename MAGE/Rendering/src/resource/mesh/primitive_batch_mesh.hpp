@@ -44,7 +44,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a primitive batch mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		nb_vertices
 						The number of vertices.
@@ -118,13 +118,13 @@ namespace mage::rendering {
 		/**
 		 Locks the vertex buffer of this primitive batch mesh.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write
 						permissions for the vertex buffer of this primitive
 						batch mesh.
-		 @param[out]	mapped_buffer
+		 @param[in,out]	mapped_buffer
 						A reference to map the vertex buffer of this primitive
 						batch mesh to.
 		 @throws		Exception
@@ -148,7 +148,7 @@ namespace mage::rendering {
 		/**
 		 Sets up the vertex buffer of this primitive batch mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		nb_vertices
 						The number of vertices.
@@ -161,7 +161,7 @@ namespace mage::rendering {
 		/**
 		 Sets up the index buffer of this primitive batch mesh.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		indices
 						A reference to the vector containing the indices.

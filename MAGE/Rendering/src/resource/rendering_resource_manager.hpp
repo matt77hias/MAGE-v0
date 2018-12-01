@@ -122,7 +122,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a resource manager.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 */
 		explicit ResourceManager(ID3D11Device& device);

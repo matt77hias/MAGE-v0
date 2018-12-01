@@ -37,7 +37,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a sprite font.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
@@ -104,7 +104,7 @@ namespace mage::rendering {
 		 Draws the given text with this sprite font using the given sprite
 		 batch.
 
-		 @param[in]		sprite_batch
+		 @param[in,out]	sprite_batch
 						A reference to the sprite batch used for rendering
 						the given text with this sprite font.
 		 @param[in]		strings

@@ -30,9 +30,9 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs a FONT reader.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[out]	output
+		 @param[in,out]	output
 						A reference to the sprite font output.
 		 @param[in]		desc
 						A reference to the sprite font descriptor.

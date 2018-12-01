@@ -33,10 +33,10 @@ namespace mage::rendering::loader {
 					The index type.
 	 @param[in]		path
 					A reference to the path.
-	 @param[out]	vertices
+	 @param[in,out]	vertices
 					A reference to a vector containing the vertices of the
 					mesh.
-	 @param[out]	indices
+	 @param[in,out]	indices
 					A reference to a vector containing the indices of the mesh.
 	 @throws		Exception
 					Failed to import the mesh from file.

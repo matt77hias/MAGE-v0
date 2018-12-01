@@ -22,7 +22,7 @@ namespace mage::rendering {
 	/**
 	 Creates a black texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -33,7 +33,7 @@ namespace mage::rendering {
 	/**
 	 Creates a white texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -44,7 +44,7 @@ namespace mage::rendering {
 	/**
 	 Creates a red texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -55,7 +55,7 @@ namespace mage::rendering {
 	/**
 	 Creates a green texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -66,7 +66,7 @@ namespace mage::rendering {
 	/**
 	 Creates a blue texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -84,7 +84,7 @@ namespace mage::rendering {
 	/**
 	 Creates a MAGE texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception
@@ -95,7 +95,7 @@ namespace mage::rendering {
 	/**
 	 Creates a reference texture.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the texture.
 	 @throws		Exception

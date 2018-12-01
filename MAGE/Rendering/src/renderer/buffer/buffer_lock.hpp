@@ -29,14 +29,14 @@ namespace mage::rendering {
 		/**
 		 Constructs a buffer lock.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
-		 @param[in]		buffer
+		 @param[in,out]	buffer
 						A reference to the buffer.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write
 						permissions for the buffer of this buffer lock.
-		 @param[out]	mapped_buffer
+		 @param[in,out]	mapped_buffer
 						A reference to map the buffer of this buffer lock to.
 		 @throws		Exception
 						Failed to map the buffer.

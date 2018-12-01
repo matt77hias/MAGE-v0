@@ -136,7 +136,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a state manager.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @throws		Exception
 						Failed to setup the rendering states of this state
@@ -196,7 +196,7 @@ namespace mage::rendering {
 		/**
 		 Binds the persistent state of this state manager.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 */
 		void BindPersistentState(ID3D11DeviceContext& device_context) const noexcept;
@@ -204,7 +204,7 @@ namespace mage::rendering {
 		/**
 		 Binds the given blend state of this state manager.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		id
 						The blend state identifier.
@@ -218,7 +218,7 @@ namespace mage::rendering {
 		/**
 		 Binds the given depth-stencil state of this state manager.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		id
 						The depth-stencil state identifier.
@@ -233,7 +233,7 @@ namespace mage::rendering {
 		/**
 		 Binds the given rasterizer state of this state manager.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		id
 						The rasterizer state identifier.
@@ -251,7 +251,7 @@ namespace mage::rendering {
 		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set the

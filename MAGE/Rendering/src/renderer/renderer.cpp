@@ -49,15 +49,15 @@ namespace mage::rendering {
 		/**
 		 Constructs a renderer.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
-		 @param[in]		display_configuration
+		 @param[in,out]	display_configuration
 						A reference to the display configuration.
-		 @param[in]		swap_chain
+		 @param[in,out]	swap_chain
 						A reference to the swap chain.
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A pointer to the resource manager.
 		 */
 		explicit Impl(ID3D11Device& device,

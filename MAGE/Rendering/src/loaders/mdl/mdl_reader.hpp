@@ -40,9 +40,9 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs a MDL reader.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
-		 @param[in]		model_output
+		 @param[in,out]	model_output
 						A reference to the model output for storing the model
 						data from file.
 		 */

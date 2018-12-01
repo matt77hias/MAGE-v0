@@ -30,7 +30,7 @@ namespace mage::rendering::loader {
 					A reference to the resource manager.
 	 @param[in]		path
 					A reference to the path.
-	 @param[out]	model_output
+	 @param[in,out]	model_output
 					A reference to the model output.
 	 @throws		Exception
 					Failed to import the model from file.

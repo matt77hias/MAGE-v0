@@ -64,7 +64,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a texture.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		fname
 						The filename (the globally unique identifier).
@@ -76,7 +76,7 @@ namespace mage::rendering {
 		/**
 		 Constructs a 2D texture.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 @param[in]		guid
 						The globally unique identifier.
@@ -156,7 +156,7 @@ namespace mage::rendering {
 		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set

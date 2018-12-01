@@ -31,10 +31,10 @@ namespace mage::rendering {
 		/**
 		 Constructs an orthographic camera.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 */
-		OrthographicCamera(ID3D11Device& device);
+		explicit OrthographicCamera(ID3D11Device& device);
 
 		/**
 		 Constructs an orthographic camera from the given orthographic

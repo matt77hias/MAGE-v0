@@ -29,9 +29,9 @@ namespace mage::rendering::loader {
 		/**
 		 Constructs a MTL reader.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
-		 @param[in]		material_buffer
+		 @param[in,out]	material_buffer
 						A reference to a vector for storing the read materials
 						from file.
 		 */

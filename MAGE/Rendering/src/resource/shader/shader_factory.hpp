@@ -25,7 +25,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the vertex shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the vertex
@@ -44,7 +44,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the hull shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the hull
@@ -63,7 +63,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the domain shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the domain
@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the geometry shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the geometry
@@ -101,7 +101,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the pixel shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the pixel
@@ -120,7 +120,7 @@ namespace mage::rendering {
 
 	 @tparam		ConstructorArgsT
 					The constructor argument types of the compute shader.
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
 					A reference to the constructor arguments for the compute
@@ -144,7 +144,7 @@ namespace mage::rendering {
 	/**
 	 Creates a AA preprocess compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the AA preprocess compute shader.
 	 @throws		Exception
@@ -155,7 +155,7 @@ namespace mage::rendering {
 	/**
 	 Creates a FXAA compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the FXAA compute shader.
 	 @throws		Exception
@@ -166,7 +166,7 @@ namespace mage::rendering {
 	/**
 	 Creates a MSAA resolve compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the MSAA resolve compute shader.
 	 @throws		Exception
@@ -177,7 +177,7 @@ namespace mage::rendering {
 	/**
 	 Creates a SSAA resolve compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the SSAA resolve compute shader.
 	 @throws		Exception
@@ -195,7 +195,7 @@ namespace mage::rendering {
 	/**
 	 Creates a back buffer pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		Exception
@@ -213,7 +213,7 @@ namespace mage::rendering {
 	/**
 	 Creates a deferred emissive compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the deferred emissive compute shader.
 	 @throws		Exception
@@ -224,7 +224,7 @@ namespace mage::rendering {
 	/**
 	 Creates a deferred compute shader matching the given BRDF.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF function.
@@ -242,7 +242,7 @@ namespace mage::rendering {
 	/**
 	 Creates a deferred MSAA emissive pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the deferred MSAA emissive pixel shader.
 	 @throws		Exception
@@ -253,7 +253,7 @@ namespace mage::rendering {
 	/**
 	 Creates a deferred MSAA pixel shader matching the given BRDF.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF function.
@@ -278,7 +278,7 @@ namespace mage::rendering {
 	/**
 	 Creates a depth vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the depth vertex shader.
 	 @throws		Exception
@@ -289,7 +289,7 @@ namespace mage::rendering {
 	/**
 	 Creates a depth transparent vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the depth transparent vertex shader.
 	 @throws		Exception
@@ -300,7 +300,7 @@ namespace mage::rendering {
 	/**
 	 Creates a depth transparent pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the depth transparent pixel shader.
 	 @throws		Exception
@@ -318,7 +318,7 @@ namespace mage::rendering {
 	/**
 	 Creates a false color pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		false_color
 					The false color.
@@ -339,7 +339,7 @@ namespace mage::rendering {
 	/**
 	 Creates an forward emissive pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		transparency
 					@c true if transparency should be enabled. @c false
@@ -354,7 +354,7 @@ namespace mage::rendering {
 	/**
 	 Creates a forward pixel shader matching the given BRDF.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		brdf
 					The BRDF function.
@@ -381,7 +381,7 @@ namespace mage::rendering {
 	/**
 	 Creates a forward solid pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the forward Lambertian pixel shader.
 	 @throws		Exception
@@ -399,7 +399,7 @@ namespace mage::rendering {
 	/**
 	 Creates a GBuffer pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled.
@@ -421,7 +421,7 @@ namespace mage::rendering {
 	/**
 	 Creates a depth-of-field compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the depth-of-field compute shader.
 	 @throws		Exception
@@ -432,7 +432,7 @@ namespace mage::rendering {
 	/**
 	 Creates a low-dynamic-range compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		tone_mapping
 					The tone mapping function.
@@ -453,7 +453,7 @@ namespace mage::rendering {
 	/**
 	 Creates a line cube vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the line cube vertex shader.
 	 @throws		Exception
@@ -464,7 +464,7 @@ namespace mage::rendering {
 	/**
 	 Creates a line cube pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the line cube pixel shader.
 	 @throws		Exception
@@ -475,7 +475,7 @@ namespace mage::rendering {
 	/**
 	 Creates a far fullscreen triangle vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the far fullscreen triangle vertex shader.
 	 @throws		Exception
@@ -486,7 +486,7 @@ namespace mage::rendering {
 	/**
 	 Creates a near fullscreen triangle vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the near fullscreen triangle vertex shader.
 	 @throws		Exception
@@ -504,7 +504,7 @@ namespace mage::rendering {
 	/**
 	 Creates a sky vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the sky vertex shader.
 	 @throws		Exception
@@ -515,7 +515,7 @@ namespace mage::rendering {
 	/**
 	 Creates a sky pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the sky pixel shader.
 	 @throws		Exception
@@ -533,7 +533,7 @@ namespace mage::rendering {
 	/**
 	 Creates a sprite vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the sprite vertex shader.
 	 @throws		Exception
@@ -544,7 +544,7 @@ namespace mage::rendering {
 	/**
 	 Creates a sprite pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the sprite pixel shader.
 	 @throws		Exception
@@ -562,7 +562,7 @@ namespace mage::rendering {
 	/**
 	 Creates a transform vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the transform vertex shader.
 	 @throws		Exception
@@ -580,7 +580,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxelization vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
@@ -591,7 +591,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxelization geometry shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
@@ -602,7 +602,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxelization emissive pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization emissive pixel shader.
 	 @throws		Exception
@@ -613,7 +613,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxelization pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		tsnm
 					@c true if tangent space normal mapping should be enabled.
@@ -628,7 +628,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxelization compute shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
@@ -639,7 +639,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxel grid vertex shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
@@ -650,7 +650,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxel grid geometry shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception
@@ -661,7 +661,7 @@ namespace mage::rendering {
 	/**
 	 Creates a voxel grid pixel shader.
 
-	 @param[in]		resource_manager
+	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @return		A pointer to the voxelization geometry shader.
 	 @throws		Exception

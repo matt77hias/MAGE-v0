@@ -174,7 +174,7 @@ namespace mage::rendering {
 		 Binds a constant buffer to all shader stages.
 
 		 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set
@@ -203,7 +203,7 @@ namespace mage::rendering {
 						- @a slot.
 		 @pre			@a buffers points to an array containing at least
 						@a nb_buffers pointers to a constant buffer.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to begin
@@ -233,7 +233,7 @@ namespace mage::rendering {
 		 Binds a shader resource view to all shader stages.
 
 		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set
@@ -262,7 +262,7 @@ namespace mage::rendering {
 						- @a slot.
 		 @pre			@a srvs points to an array containing at least
 						@a nb_srvs pointers to a shader resource view.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to begin
@@ -293,7 +293,7 @@ namespace mage::rendering {
 		 Binds a sampler to all shader stages.
 
 		 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set
@@ -322,7 +322,7 @@ namespace mage::rendering {
 						- @a slot.
 		 @pre			@a samplers points to an array containing at least
 						@a nb_samplers pointers to a sampler.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to begin
@@ -438,7 +438,7 @@ namespace mage::rendering {
 			/**
 			 Binds a vertex shader to the vertex shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the vertex shader.
@@ -452,7 +452,7 @@ namespace mage::rendering {
 			/**
 			 Binds a vertex shader to the vertex shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the vertex shader.
@@ -475,7 +475,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the vertex shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -500,7 +500,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -525,7 +525,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the vertex shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -550,7 +550,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -576,7 +576,7 @@ namespace mage::rendering {
 			 Binds a sampler to the vertex shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -601,7 +601,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -644,7 +644,7 @@ namespace mage::rendering {
 			/**
 			 Binds a hull shader to the hull shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the hull shader.
@@ -658,7 +658,7 @@ namespace mage::rendering {
 			/**
 			 Binds a hull shader to the hull shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the hull shader.
@@ -681,7 +681,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the hull shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -706,7 +706,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -731,7 +731,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the hull shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -756,7 +756,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -782,7 +782,7 @@ namespace mage::rendering {
 			 Binds a sampler to the hull shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -807,7 +807,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -862,7 +862,7 @@ namespace mage::rendering {
 			/**
 			 Binds a domain shader to the domain shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the domain shader.
@@ -876,7 +876,7 @@ namespace mage::rendering {
 			/**
 			 Binds a domain shader to the domain shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the domain shader.
@@ -899,7 +899,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the domain shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -924,7 +924,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -949,7 +949,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the domain shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -974,7 +974,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1000,7 +1000,7 @@ namespace mage::rendering {
 			 Binds a sampler to the domain shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1025,7 +1025,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1068,7 +1068,7 @@ namespace mage::rendering {
 			/**
 			 Binds a geometry shader to the geometry shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the geometry shader.
@@ -1082,7 +1082,7 @@ namespace mage::rendering {
 			/**
 			 Binds a geometry shader to the geometry shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the geometry shader.
@@ -1105,7 +1105,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the geometry shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1130,7 +1130,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1155,7 +1155,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the geometry shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1180,7 +1180,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1206,7 +1206,7 @@ namespace mage::rendering {
 			 Binds a sampler to the geometry shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1231,7 +1231,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1344,7 +1344,7 @@ namespace mage::rendering {
 			/**
 			 Binds a pixel shader to the pixel shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the pixel shader.
@@ -1358,7 +1358,7 @@ namespace mage::rendering {
 			/**
 			 Binds a pixel shader to the pixel shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the pixel shader.
@@ -1381,7 +1381,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the pixel shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1406,7 +1406,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1431,7 +1431,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the pixel shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1456,7 +1456,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1482,7 +1482,7 @@ namespace mage::rendering {
 			 Binds a sampler to the pixel shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1507,7 +1507,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1733,7 +1733,7 @@ namespace mage::rendering {
 			/**
 			 Binds a compute shader to the compute shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the compute shader.
@@ -1747,7 +1747,7 @@ namespace mage::rendering {
 			/**
 			 Binds a compute shader to the compute shader stage.
 
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		shader
 							A pointer to the compute shader.
@@ -1770,7 +1770,7 @@ namespace mage::rendering {
 			 Binds a constant buffer to the compute shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1795,7 +1795,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a buffers points to an array containing at least
 							@a nb_buffers pointers to a constant buffer.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1820,7 +1820,7 @@ namespace mage::rendering {
 			 Binds a shader resource view to the compute shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1845,7 +1845,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a srvs points to an array containing at least
 							@a nb_srvs pointers to a shader resource view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1871,7 +1871,7 @@ namespace mage::rendering {
 			 Binds an unordered access view to the compute shader stage.
 
 			 @pre			@a slot < @c D3D11_1_UAV_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1900,7 +1900,7 @@ namespace mage::rendering {
 			 @pre			@a nb_uavs < @c D3D11_1_UAV_SLOT_COUNT - @a slot.
 			 @pre			@a uavs points to an array containing at least
 							@a nb_uavs pointers to an unordered access view.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin
@@ -1934,7 +1934,7 @@ namespace mage::rendering {
 			 Binds a sampler to the compute shader stage.
 
 			 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to set
@@ -1959,7 +1959,7 @@ namespace mage::rendering {
 							- @a slot.
 			 @pre			@a samplers points to an array containing at least
 							@a nb_samplers pointers to a sampler.
-			 @param[in]		device_context
+			 @param[in,out]	device_context
 							A reference to the device context.
 			 @param[in]		slot
 							The index into the device's zero-based array to begin

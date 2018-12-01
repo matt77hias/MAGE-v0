@@ -230,7 +230,7 @@ namespace mage {
 		/**
 		 Sets the owner of the given component to the given owner.
 
-		 @param[in]		component
+		 @param[in,out]	component
 						A reference to the component.
 		 @param[in]		owner
 						A pointer to the owner.

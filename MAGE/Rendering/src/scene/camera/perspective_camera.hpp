@@ -106,10 +106,10 @@ namespace mage::rendering {
 		/**
 		 Constructs a perspective camera.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 */
-		PerspectiveCamera(ID3D11Device& device);
+		explicit PerspectiveCamera(ID3D11Device& device);
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.

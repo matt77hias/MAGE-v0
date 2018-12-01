@@ -112,7 +112,7 @@ namespace mage::rendering {
 		/**
 		 Creates a forward pixel shader with a Blinn-Phong BRDF.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false
@@ -168,7 +168,7 @@ namespace mage::rendering {
 		/**
 		 Creates a forward pixel shader with a Cook-Torrance BRDF.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false
@@ -224,7 +224,7 @@ namespace mage::rendering {
 		/**
 		 Creates a forward pixel shader with a Frostbite BRDF.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false
@@ -280,7 +280,7 @@ namespace mage::rendering {
 		/**
 		 Creates a forward pixel shader with a Lambertian BRDF.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 @param[in]		transparency
 						@c true if transparency should be enabled. @c false

@@ -1142,7 +1142,7 @@ namespace mage::rendering {
 		/**
 		 Updates the buffer of this camera.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		aa
 						The anti-aliasing mode.
@@ -1155,7 +1155,7 @@ namespace mage::rendering {
 
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set
@@ -1178,10 +1178,10 @@ namespace mage::rendering {
 		/**
 		 Constructs a camera.
 
-		 @param[in]		device
+		 @param[in,out]	device
 						A reference to the device.
 		 */
-		Camera(ID3D11Device& device);
+		explicit Camera(ID3D11Device& device);
 
 		/**
 		 Constructs a camera from the given camera.

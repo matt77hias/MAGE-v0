@@ -25,7 +25,7 @@ namespace mage::rendering {
 
 	 @tparam		VertexT
 					The vertex type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -44,7 +44,7 @@ namespace mage::rendering {
 
 	 @tparam		VertexT
 					The vertex type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -63,7 +63,7 @@ namespace mage::rendering {
 
 	 @tparam		VertexT
 					The vertex type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -82,7 +82,7 @@ namespace mage::rendering {
 
 	 @tparam		IndexT
 					The index type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -101,7 +101,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -120,7 +120,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -139,7 +139,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -158,7 +158,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -177,7 +177,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -196,7 +196,7 @@ namespace mage::rendering {
 
 	 @tparam		T
 					The data type.
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
@@ -223,7 +223,7 @@ namespace mage::rendering {
 	 The blend formula (i.e. no blending) is defined as:
 	 (source.rgba × 1) + (destination.rgba × 0) = source.rgba.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -239,7 +239,7 @@ namespace mage::rendering {
 	 The blend formula is defined as:
 	 (source.rgba × source.a) + (destination.rgba × (1-source.a)).
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -255,7 +255,7 @@ namespace mage::rendering {
 	 The blend formula is defined as:
 	 (source.rgba × 1) + (destination.rgba × 1).
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -271,7 +271,7 @@ namespace mage::rendering {
 	 The blend formula is defined as:
 	 (source.rgba × 0) + (destination.rgba × source.rgba).
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -287,7 +287,7 @@ namespace mage::rendering {
 	 The blend formula is defined as:
 	 (source.rgba × destination.rgba ) + (destination.rgba × source.rgba).
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -305,7 +305,7 @@ namespace mage::rendering {
 	 The blend formula (i.e. no blending) for the remaining RTVs is defined as:
 	 (source.rgba × 1       ) + (destination.rgba × 0           ) = source.rgba.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -318,7 +318,7 @@ namespace mage::rendering {
 	/**
 	 Creates a alpha-to-coverage blend state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the blend state.
@@ -338,7 +338,7 @@ namespace mage::rendering {
 	/**
 	 Creates a no-read-no-write depth stencil state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
@@ -351,7 +351,7 @@ namespace mage::rendering {
 	/**
 	 Creates a read-write depth stencil state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
@@ -367,7 +367,7 @@ namespace mage::rendering {
 	/**
 	 Creates a read-only depth stencil state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the depth stencil state.
@@ -390,7 +390,7 @@ namespace mage::rendering {
 	/**
 	 Creates a rasterizer state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
@@ -418,7 +418,7 @@ namespace mage::rendering {
 	/**
 	 Creates a no-culling (solid) rasterizer state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
@@ -441,7 +441,7 @@ namespace mage::rendering {
 	/**
 	 Creates a clockwise-culling (solid) rasterizer state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
@@ -464,7 +464,7 @@ namespace mage::rendering {
 	/**
 	 Creates a counter-clockwise-culling (solid) rasterizer state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
@@ -487,7 +487,7 @@ namespace mage::rendering {
 	/**
 	 Creates a wireframe rasterizer state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the rasterizer state.
@@ -517,7 +517,7 @@ namespace mage::rendering {
 	/**
 	 Creates a sampling state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -537,7 +537,7 @@ namespace mage::rendering {
 	/**
 	 Creates a point sampling state with wrapping.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -550,7 +550,7 @@ namespace mage::rendering {
 	/**
 	Creates a point sampling state with clamping.
 
-	@param[in]		device
+	@param[in,out]	device
 					A reference to the device.
 	@param[out]		state
 					A pointer to a pointer to the sampler state.
@@ -563,7 +563,7 @@ namespace mage::rendering {
 	/**
 	Creates a point sampling state with mirroring.
 
-	@param[in]		device
+	@param[in,out]	device
 					A reference to the device.
 	@param[out]		state
 					A pointer to a pointer to the sampler state.
@@ -576,7 +576,7 @@ namespace mage::rendering {
 	/**
 	 Creates a linear sampling state with wrapping.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -589,7 +589,7 @@ namespace mage::rendering {
 	/**
 	 Creates a linear sampling state with clamping.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -602,7 +602,7 @@ namespace mage::rendering {
 	/**
 	 Creates a linear sampling state with mirroring.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -615,7 +615,7 @@ namespace mage::rendering {
 	/**
 	 Creates an anisotropic sampling state with wrapping.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -628,7 +628,7 @@ namespace mage::rendering {
 	/**
 	 Creates an anisotropic sampling state with clamping.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -641,7 +641,7 @@ namespace mage::rendering {
 	/**
 	 Creates an anisotropic sampling state with mirroring.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.
@@ -654,7 +654,7 @@ namespace mage::rendering {
 	/**
 	 Creates a PCF sampling state.
 
-	 @param[in]		device
+	 @param[in,out]	device
 					A reference to the device.
 	 @param[out]	state
 					A pointer to a pointer to the sampler state.

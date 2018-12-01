@@ -33,7 +33,7 @@ namespace mage::rendering {
 		/**
 		 Creates a flat (single-texel) 2D texture.
 
-		 @param[in]		resource_manager
+		 @param[in,out]	resource_manager
 						A reference to the resource manager.
 		 @param[in]		guid
 						A reference to the globally unique identifier.

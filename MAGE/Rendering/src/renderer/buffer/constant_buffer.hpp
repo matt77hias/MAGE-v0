@@ -91,7 +91,7 @@ namespace mage::rendering {
 		/**
 		 Updates the data of this constant buffer with the given data.
 
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		data
 						A reference to the data.
@@ -118,7 +118,7 @@ namespace mage::rendering {
 						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
-		 @param[in]		device_context
+		 @param[in,out]	device_context
 						A reference to the device context.
 		 @param[in]		slot
 						The index into the device's zero-based array to set the

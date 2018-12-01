@@ -62,7 +62,7 @@ namespace mage {
 		 Loads this behavior script. Allows this behavior script to preform any
 		 pre-processing.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to load this behavior script.
@@ -75,7 +75,7 @@ namespace mage {
 		 This method can be called zero, one or multiple times per frame
 		 depending on the fixed delta time used by the engine.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to update this behavior script.
@@ -87,7 +87,7 @@ namespace mage {
 
 		 This method is called once per frame.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to update this behavior script.
@@ -98,7 +98,7 @@ namespace mage {
 		 Closes this behavior script. Allows this behavior script to preform any
 		 post-processing destruction.
 
-		 @param[in]		engine
+		 @param[in,out]	engine
 						A reference to the engine.
 		 @throws		Exception
 						Failed to close this behavior script.

@@ -222,6 +222,8 @@ ROPERT M.: [*Modern C++ 03*](https://mropert.github.io/2018/02/25/modern_cpp_03/
 
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
+TURANSZKIJ J.: [*Simple job system using standard C++*](https://turanszkij.wordpress.com/2018/11/24/simple-job-system-using-standard-c/), 2018.
+
 UPADYSHEV A.: [*PIMPL, Rule of Zero and Scott Meyers*](http://oliora.github.io/2015/12/29/pimpl-and-rule-of-zero.html), 2015.
 
 WELLER J.: [*How if constexpr simplifies your code in C++17*](http://meetingcpp.com/blog/items/How-if-constexpr-simplifies-your-code-in-Cpp17.html), 2018.

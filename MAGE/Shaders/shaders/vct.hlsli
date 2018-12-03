@@ -405,7 +405,7 @@ float3 GetSpecularRadiance(float3 p_uvw, float3 n_uvw, float3 v_uvw,
 	//     alpha/2    is in [0,pi/2]
 	// sin(alpha/2)   is in [0,1]
 	// sin(alpha/2)^2 is in [0,1]
-	const float sin2_half_aperture = saturate(abs(sigma2));
+	const float sin2_half_aperture = saturate(sigma2);
 	// tan(alpha/2)^2 is in [0,inf]
 	// tan(alpha/2)   is in [0,inf]
 	const float tan2_half_aperture = SqrSinToSqrTan(sin2_half_aperture);

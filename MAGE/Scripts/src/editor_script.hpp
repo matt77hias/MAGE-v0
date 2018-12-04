@@ -47,6 +47,7 @@ namespace mage::script {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		bool m_visible;
 		ProxyPtr< Node > m_selected;
 	};
 }

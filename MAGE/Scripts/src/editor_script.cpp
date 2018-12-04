@@ -1260,7 +1260,8 @@ namespace mage::script {
 	//-------------------------------------------------------------------------
 	#pragma region
 
-	EditorScript::EditorScript() noexcept = default;
+	EditorScript::EditorScript() noexcept
+		: m_visible(false), m_selected() {}
 
 	EditorScript::EditorScript(const EditorScript& script) noexcept = default;
 
@@ -1279,6 +1280,16 @@ namespace mage::script {
 	}
 
 	void EditorScript::Update([[maybe_unused]] Engine& engine) {
+		const auto& input_manager = engine.GetInputManager();
+		const auto& keyboard      = input_manager.GetKeyboard();
+
+		if (keyboard.IsActivated(DIK_F4)) {
+			m_visible = !m_visible;
+		}
+		if (m_visible) {
+			return;
+		}
+
 		const auto scene = engine.GetScene();
 		DrawGraph(*scene, m_selected);
 

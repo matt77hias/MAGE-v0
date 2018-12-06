@@ -201,7 +201,7 @@ namespace mage::rendering {
 		 */
 		[[nodiscard]]
 		F32 GetRange() const noexcept {
-			return m_clipping_planes[1];
+			return m_clipping_planes[1u];
 		}
 
 		/**
@@ -221,7 +221,7 @@ namespace mage::rendering {
 						The range expressed in light space.
 		 */
 		void SetRange(F32 range) noexcept {
-			m_clipping_planes[1] = range;
+			m_clipping_planes[1u] = range;
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();

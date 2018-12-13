@@ -47,7 +47,7 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
   * dxgi.lib
   * dxguid.lib
   * (d3dcompiler.lib)
-* **Compiler**: MSVC++ 15.9.3
+* **Compiler**: MSVC++ 15.9.4
 * **IDE**: Visual Studio 2017
 
 <p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>

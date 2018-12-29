@@ -214,7 +214,7 @@ PHARR M.: [*Swallowing the elephant (part 2)*](http://pharr.org/matt/blog/2018/0
 
 PHARR M.: [*Swallowing the elephant (postscript: reader emails)*](https://pharr.org/matt/blog/2018/08/03/moana-reader-mail.html), 2018.
 
-PRANCKEVICIUS A.: ["Modern" C++ Lamentations](http://aras-p.info/blog/2018/12/28/Modern-C-Lamentations/), 2018.
+PRANCKEVIČIUS A.: ["Modern" C++ Lamentations](http://aras-p.info/blog/2018/12/28/Modern-C-Lamentations/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 

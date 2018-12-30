@@ -50,4 +50,4 @@ Game and rendering engine featuring both forward and deferred PBR pipelines with
 * **Compiler**: MSVC++ 15.9.4
 * **IDE**: Visual Studio 2017
 
-<p align="center">Copyright © 2016-2018 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2019 Matthias Moulin. All Rights Reserved.</p>

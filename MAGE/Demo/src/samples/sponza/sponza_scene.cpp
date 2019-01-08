@@ -77,23 +77,23 @@ namespace mage {
 
 		const auto camera_node = Create< Node >("Player");
 		camera_node->Add(camera);
-		camera_node->GetTransform().SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
 		const auto teapot_node = Import(engine, *teapot_model_desc);
-		teapot_node->GetTransform().SetScale(30.0f);
+		teapot_node->GetTransform().AddRotationY(1.59f);
+		teapot_node->GetTransform().AddTranslationY(-1.5f);
 		
 		const auto plane_node = Import(engine, *plane_model_desc);
-		plane_node->GetTransform().SetScale(30.0f);
+		plane_node->GetTransform().SetScale(10.0f);
+		plane_node->GetTransform().AddTranslationY(-2.0f);
 
 		const auto sponza_node = Import(engine, *sponza_model_desc);
 		sponza_node->GetTransform().SetScale(10.0f);
-		sponza_node->GetTransform().SetTranslationY(2.1f);
 
 		const auto tree_node = Import(engine, *tree_model_desc_tree);
-		tree_node->GetTransform().AddTranslationY(1.0f);
+		tree_node->GetTransform().AddTranslationY(-1.0f);
 
 		//---------------------------------------------------------------------
 		// Lights
@@ -105,7 +105,6 @@ namespace mage {
 
 		const auto omni_light_node = Create< Node >("Omni Light");
 		omni_light_node->Add(omni_light);
-		omni_light_node->GetTransform().SetTranslationY(2.0f);
 
 		/*
 		const auto directional_light = rendering_world.Create< DirectionalLight >();
@@ -153,5 +152,6 @@ namespace mage {
 		camera_node->Add(Create< script::CharacterMotorScript >());
 		//camera_node->Add(Create< script::VoxelGridAnchorScript >());
 		tree_node->Add(Create< script::RotationScript >());
+		teapot_node->Add(Create< script::RotationScript >());
 	}
 }

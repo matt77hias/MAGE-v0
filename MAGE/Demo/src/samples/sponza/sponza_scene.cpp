@@ -152,6 +152,6 @@ namespace mage {
 		camera_node->Add(Create< script::CharacterMotorScript >());
 		//camera_node->Add(Create< script::VoxelGridAnchorScript >());
 		tree_node->Add(Create< script::RotationScript >());
-		teapot_node->Add(Create< script::RotationScript >());
+		//teapot_node->Add(Create< script::RotationScript >());
 	}
 }

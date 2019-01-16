@@ -362,6 +362,8 @@ REED N.: [*On Vector Math Libraries*](http://reedbeta.com/blog/on-vector-math-li
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
+REINALTER S.: [*Adventures in data-oriented design – Part 3a: Ownership*](https://blog.molecular-matters.com/2013/05/02/adventures-in-data-oriented-design-part-3a-ownership/), 2013.
+
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
 
 VASILIEV S.: [*Static Analysis in Video Game Development: Top 10 Software Bugs*](https://www.viva64.com/en/b/0570/#ID0ERGBI), 2018.

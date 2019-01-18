@@ -18,7 +18,7 @@
 # MAGE - Matthias Advanced Game Engine
 
 ## About
-Game and rendering engine featuring both forward and deferred PBR pipelines with optional indirect illumination using Voxel Cone Tracing.
+Game and rendering engine featuring both forward and deferred PBR (physically-based rendering) pipelines with optional indirect illumination using Voxel Cone Tracing.
 
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 4.png"></p>

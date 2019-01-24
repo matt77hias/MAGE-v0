@@ -34,3 +34,4 @@ Sample scene - buttons:
   * F1: terminate
   * F2: toggle freezing camera orientation
   * F3: switch scene
+  * F4: toggle editor

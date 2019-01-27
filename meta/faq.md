@@ -8,7 +8,7 @@ First and foremost, MAGE is a rendering and game engine (or at the very least is
 
 ### Is MAGE still under (active) development?
 
-MAGE is still under active development. (TBC)
+MAGE is still under active development.
 
 ### Does the MAGE logo refer to a *Black Mage* of Final Fantasy?
 

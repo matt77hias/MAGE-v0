@@ -175,7 +175,7 @@ namespace mage {
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
-						A reference to the name of the variable.
+						A forwarding reference to the name of the variable.
 		 @param[in]		value
 						The value of the variable.
 		 */
@@ -223,7 +223,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the variable.
 		 @param[in]		value
-						A reference value of the variable.
+						A forwarding reference value of the variable.
 		 @note			Nothing happens if this variable script does not
 						contain a variable corresponding to the given name.
 		 */

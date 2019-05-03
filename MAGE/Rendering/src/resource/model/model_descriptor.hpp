@@ -135,6 +135,8 @@ namespace mage::rendering {
 		 Traverses all materials of this model descriptor.
 
 		 @tparam		ActionT
+						The action type.
+		 @param[in]		action
 						A forwarding reference to an action to perform on all
 						materials of this model descriptor. The action must
 						accept @c const @c Material& values.
@@ -159,6 +161,8 @@ namespace mage::rendering {
 		 Traverses all model parts of this model descriptor.
 
 		 @tparam		ActionT
+						The action type.
+		 @param[in]		action
 						A forwarding reference to an action to perform on all
 						model parts of this model descriptor. The action must
 						accept @c const @c ModelPart& values.

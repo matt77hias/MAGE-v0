@@ -167,8 +167,8 @@ namespace mage {
 		 to this resource pool and returned.
 
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource of type
-						@c ResourceT.
+						The constructor argument types for creating a new
+						resource of type @c ResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
@@ -193,8 +193,8 @@ namespace mage {
 		 @tparam		DerivedResourceT
 						The derived resource type.
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource of type
-						@c DerivedResourceT.
+						The constructor argument types for creating a new
+						resource of type @c DerivedResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
@@ -268,7 +268,8 @@ namespace mage {
 			 Constructs a resource.
 
 			 @tparam		ConstructorArgsT
-							The argument types for creating a new resource.
+							The constructor argument types for creating a new
+							resource.
 			 @param[in,out]	resource_pool
 							A reference to the resource pool.
 			 @param[in]		resource_key
@@ -500,8 +501,8 @@ namespace mage {
 		 given arguments, added to this persistent resource pool and returned.
 
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource of type
-						@c ResourceT.
+						The constructor argument types for creating a new
+						resource of type @c ResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
@@ -526,8 +527,8 @@ namespace mage {
 		 @tparam		DerivedResourceT
 						The derived resource type.
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource of type
-						@c DerivedResourceT.
+						The constructor argument types for creating a new
+						resource of type @c DerivedResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args

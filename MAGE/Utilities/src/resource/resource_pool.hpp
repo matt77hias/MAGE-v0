@@ -172,8 +172,8 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource
-						of type @c ResourceT.
+						A forward reference to the arguments for creating a
+						new resource of type @c ResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this resource pool.
 		 */
@@ -198,8 +198,8 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource of type
-						@c DerivedResourceT.
+						A forward reference to the arguments for creating a
+						new resource of type @c DerivedResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this resource pool.
 		 */
@@ -268,16 +268,15 @@ namespace mage {
 			 Constructs a resource.
 
 			 @tparam		ConstructorArgsT
-							The argument types for creating a new resource of
-							type @c DerivedResourceT.
+							The argument types for creating a new resource.
 			 @param[in,out]	resource_pool
 							A reference to the resource pool.
 			 @param[in]		resource_key
 							A reference to the key of the resource in the
 							given resource pool.
 			 @param[in]		args
-							The arguments for creating a new resource of type
-							@c DerivedResourceT.
+							A forward reference to the arguments for creating a
+							new resource of type @c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
 			Resource(ResourcePool& resource_pool,
@@ -506,8 +505,8 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource of type
-						@c ResourceT.
+						A forward reference to the arguments for creating a
+						new resource of type @c ResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this persistent resource pool.
 		 */
@@ -532,8 +531,8 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource of type
-						@c DerivedResourceT.
+						A forward reference to the arguments for creating a
+						new resource of type @c DerivedResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this persistent resource pool.
 		 */

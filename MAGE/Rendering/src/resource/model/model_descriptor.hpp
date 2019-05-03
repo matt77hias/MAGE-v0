@@ -135,9 +135,9 @@ namespace mage::rendering {
 		 Traverses all materials of this model descriptor.
 
 		 @tparam		ActionT
-						An action to perform on all materials of this model
-						descriptor. The action must accept @c const
-						@c Material& values.
+						A forward reference to an action to perform on all
+						materials of this model descriptor. The action must
+						accept @c const @c Material& values.
 		*/
 		template< typename ActionT >
 		void ForEachMaterial(ActionT&& action) const;
@@ -159,9 +159,9 @@ namespace mage::rendering {
 		 Traverses all model parts of this model descriptor.
 
 		 @tparam		ActionT
-						An action to perform on all model parts of this model
-						descriptor. The action must accept @c const
-						@c ModelPart& values.
+						A forward reference to an action to perform on all
+						model parts of this model descriptor. The action must
+						accept @c const @c ModelPart& values.
 		 */
 		template< typename ActionT >
 		void ForEachModelPart(ActionT&& action) const;

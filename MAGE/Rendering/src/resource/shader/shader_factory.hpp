@@ -28,8 +28,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the vertex
-					shader.
+					A forward reference to the constructor arguments for the
+					vertex shader.
 	 @return		A pointer to the vertex shader.
 	 @throws		Exception
 					Failed to create the vertex shader.
@@ -47,8 +47,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the hull
-					shader.
+					A forward reference to the constructor arguments for the
+					hull shader.
 	 @return		A pointer to the hull shader.
 	 @throws		Exception
 					Failed to create the hull shader.
@@ -66,8 +66,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the domain
-					shader.
+					A forward reference to the constructor arguments for the
+					domain shader.
 	 @return		A pointer to the domain shader.
 	 @throws		Exception
 					Failed to create the domain shader.
@@ -85,8 +85,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the geometry
-					shader.
+					A forward reference to the constructor arguments for the
+					geometry shader.
 	 @return		A pointer to the geometry shader.
 	 @throws		Exception
 					Failed to create the geometry shader.
@@ -104,8 +104,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the pixel
-					shader.
+					A forward reference to the constructor arguments for the
+					pixel shader.
 	 @return		A pointer to the pixel shader.
 	 @throws		Exception
 					Failed to create the pixel shader.
@@ -123,8 +123,8 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A reference to the constructor arguments for the compute
-					shader.
+					A forward reference to the constructor arguments for the
+					compute shader.
 	 @return		A pointer to the compute shader.
 	 @throws		Exception
 					Failed to create the compute shader.

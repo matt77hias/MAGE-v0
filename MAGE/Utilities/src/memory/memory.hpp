@@ -96,7 +96,7 @@ namespace mage {
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
 	 @param[in]		args
-					A forward reference to the constructor arguments.
+					A forwarding reference to the constructor arguments.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -112,7 +112,7 @@ namespace mage {
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
 	 @param[in]		args
-					A forward reference to the constructor arguments.
+					A forwarding reference to the constructor arguments.
 	 @return		A shared pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >
@@ -162,7 +162,7 @@ namespace mage {
 	 @tparam		ConstructorArgsT
 					The constructor argument types.
 	 @param[in]		args
-					A forward reference to the constructor arguments.
+					A forwarding reference to the constructor arguments.
 	 @return		A unique pointer to the constructed object of type T.
 	 */
 	template< typename T, typename... ConstructorArgsT >

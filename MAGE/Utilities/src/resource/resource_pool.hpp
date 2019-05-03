@@ -172,7 +172,7 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						A forward reference to the arguments for creating a
+						A forwarding reference to the arguments for creating a
 						new resource of type @c ResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this resource pool.
@@ -198,7 +198,7 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						A forward reference to the arguments for creating a
+						A forwarding reference to the arguments for creating a
 						new resource of type @c DerivedResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this resource pool.
@@ -275,7 +275,7 @@ namespace mage {
 							A reference to the key of the resource in the
 							given resource pool.
 			 @param[in]		args
-							A forward reference to the arguments for creating a
+							A forwarding reference to the arguments for creating a
 							new resource of type @c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
@@ -505,7 +505,7 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						A forward reference to the arguments for creating a
+						A forwarding reference to the arguments for creating a
 						new resource of type @c ResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this persistent resource pool.
@@ -531,7 +531,7 @@ namespace mage {
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						A forward reference to the arguments for creating a
+						A forwarding reference to the arguments for creating a
 						new resource of type @c DerivedResourceT.
 		 @return		A pointer to the resource corresponding to the given
 						key from this persistent resource pool.

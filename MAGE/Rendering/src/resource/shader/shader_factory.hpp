@@ -28,7 +28,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					vertex shader.
 	 @return		A pointer to the vertex shader.
 	 @throws		Exception
@@ -47,7 +47,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					hull shader.
 	 @return		A pointer to the hull shader.
 	 @throws		Exception
@@ -66,7 +66,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					domain shader.
 	 @return		A pointer to the domain shader.
 	 @throws		Exception
@@ -85,7 +85,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					geometry shader.
 	 @return		A pointer to the geometry shader.
 	 @throws		Exception
@@ -104,7 +104,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					pixel shader.
 	 @return		A pointer to the pixel shader.
 	 @throws		Exception
@@ -123,7 +123,7 @@ namespace mage::rendering {
 	 @param[in,out]	resource_manager
 					A reference to the resource manager.
 	 @param[in]		args
-					A forward reference to the constructor arguments for the
+					A forwarding reference to the constructor arguments for the
 					compute shader.
 	 @return		A pointer to the compute shader.
 	 @throws		Exception

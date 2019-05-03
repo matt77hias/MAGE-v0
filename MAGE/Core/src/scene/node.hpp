@@ -216,8 +216,9 @@ namespace mage {
 		 Traverses all childs of this node.
 
 		 @tparam		ActionT
-						A forward reference to an action to perform on all childs
-						of this node. The action must accept @c Node& values.
+						A forwarding reference to an action to perform on all
+						childs of this node. The action must accept @c Node&
+						values.
 		 @param[in]		action
 						The action.
 		 */
@@ -228,7 +229,7 @@ namespace mage {
 		 Traverses all descendants (childs included) of this node.
 
 		 @tparam		ActionT
-						A forward reference to an action to perform on all
+						A forwarding reference to an action to perform on all
 						descendants of this node. The action must accept
 						@c Node& values.
 		 @param[in]		action
@@ -357,7 +358,7 @@ namespace mage {
 		 @tparam		ComponentT
 						The component type.
 		 @tparam		ActionT
-						A forward reference to an action to perform on all
+						A forwarding reference to an action to perform on all
 						components of the given type of this node. The action
 						must accept @c ComponentT& values.
 		 @param[in]		action
@@ -372,7 +373,7 @@ namespace mage {
 		 @tparam		ComponentT
 						The component type.
 		 @tparam		ActionT
-						A forward reference to an action to perform on all
+						A forwarding reference to an action to perform on all
 						components of the given type of this node. The action
 						must accept @c const @c ComponentT& values.
 		 @param[in]		action
@@ -385,7 +386,7 @@ namespace mage {
 		 Traverses all components of this node.
 
 		 @tparam		ActionT
-						A forward reference to an action to perform on all
+						A forwarding reference to an action to perform on all
 						components of this node. The action must accept
 						@c Component& values.
 		 @param[in]		action
@@ -398,7 +399,7 @@ namespace mage {
 		 Traverses all components of this node.
 
 		 @tparam		ActionT
-						A forward reference to an action to perform on all
+						A forwarding reference to an action to perform on all
 						components of this node. The action must accept
 						@c const @c Component& values.
 		 @param[in]		action

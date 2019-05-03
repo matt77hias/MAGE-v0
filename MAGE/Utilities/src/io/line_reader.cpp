@@ -76,7 +76,7 @@ namespace mage {
 		Postprocess();
 	}
 
-	void LineReader::ReadFromMemory(const std::string &input,
+	void LineReader::ReadFromMemory(const std::string& input,
 									std::regex regex,
 									SelectionFunction selection_function) {
 

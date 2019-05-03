@@ -227,7 +227,7 @@ namespace mage::input {
 	#pragma region
 
 	Manager::Manager(NotNull< HWND > window)
-		: m_impl(MakeUnique< Impl >(std::move(window))) {}
+		: m_impl(MakeUnique< Impl >(window)) {}
 
 	Manager::Manager(Manager&& manager) noexcept = default;
 

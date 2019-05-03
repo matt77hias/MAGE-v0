@@ -77,7 +77,7 @@ namespace mage {
 	WindowDescriptor::WindowDescriptor(NotNull< HINSTANCE > instance,
 									   std::wstring window_class_name,
 									   U32 window_class_style)
-		: m_instance(std::move(instance)),
+		: m_instance(instance),
 		m_window_class_name(std::move(window_class_name)) {
 
 		// Prepare and register the window class.

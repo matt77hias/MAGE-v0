@@ -175,12 +175,12 @@ namespace mage {
 		 @tparam		T
 						The type of the variable.
 		 @param[in]		name
-						The name of the variable.
+						A reference to the name of the variable.
 		 @param[in]		value
 						The value of the variable.
 		 */
 		template< typename T >
-		void Add(std::string name, T value);
+		void Add(std::string name, T&& value);
 
 		/**
 		 Removes the given variable from this variable script.
@@ -223,12 +223,12 @@ namespace mage {
 		 @param[in]		name
 						The name of the variable.
 		 @param[in]		value
-						The value of the variable.
+						A reference value of the variable.
 		 @note			Nothing happens if this variable script does not
 						contain a variable corresponding to the given name.
 		 */
 		template< typename T >
-		void SetValue(std::string_view name, T value);
+		void SetValue(std::string_view name, T&& value);
 
 	private:
 

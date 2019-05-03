@@ -26,8 +26,8 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline void VariableScript::Add(std::string name, T value) {
-		m_variables.insert_or_assign(std::move(name), std::move(value));
+	inline void VariableScript::Add(std::string name, T&& value) {
+		m_variables.insert_or_assign(std::move(name), std::forward< T >(value));
 	}
 
 	template< typename T >
@@ -47,11 +47,11 @@ namespace mage {
 	}
 
 	template< typename T >
-	void VariableScript::SetValue(std::string_view name, T value) {
+	void VariableScript::SetValue(std::string_view name, T&& value) {
 		if (const auto it = m_variables.find(name);
 			it != m_variables.end()) {
 
-			it->second = std::move(value);
+			it->second = std::forward< T >(value);
 		}
 		else {
 			Warning("{}: Variable {} not found.", GetGuid(), name);

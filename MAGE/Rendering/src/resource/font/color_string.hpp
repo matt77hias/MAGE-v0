@@ -122,9 +122,19 @@ namespace mage::rendering {
 		 Sets the string of this color string to the given string.
 
 		 @param[in]		str
-						The string.
+						A reference to the string.
 		 */
-		void SetString(std::wstring str) noexcept {
+		void SetString(const std::wstring& str) noexcept {
+			m_str = str;
+		}
+
+		/**
+		 Sets the string of this color string to the given string.
+
+		 @param[in]		str
+						A reference to the string.
+		 */
+		void SetString(std::wstring&& str) noexcept {
 			m_str = std::move(str);
 		}
 

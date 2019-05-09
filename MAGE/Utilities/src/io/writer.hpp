@@ -61,11 +61,11 @@ namespace mage {
 		 Writes to the file associated with the given path.
 
 		 @param[in]		path
-						The path.
+						A reference to the path.
 		 @throws		Exception
 						Failed to write to the file.
 		 */
-		void WriteToFile(std::filesystem::path path);
+		void WriteToFile(const std::filesystem::path& path);
 
 	protected:
 

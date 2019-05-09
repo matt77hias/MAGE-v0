@@ -88,17 +88,17 @@ namespace mage {
 		 Reads from the file associated with the given path.
 
 		 @param[in]		path
-						The path.
+						A reference to the path.
 		 @param[in]		regex
-						The (line) regex.
+						A reference to the (line) regex.
 		 @param[in]		selection_function
-						The selection function.
+						A reference to the selection function.
 		 @throws		Exception
 						Failed to read from the file.
 		 */
-		void ReadFromFile(std::filesystem::path path,
-						  std::regex regex = s_default_regex,
-						  SelectionFunction selection_function
+		void ReadFromFile(const std::filesystem::path& path,
+						  const std::regex& regex = s_default_regex,
+						  const SelectionFunction& selection_function
 						  = s_default_selection_function);
 
 		/**
@@ -107,15 +107,15 @@ namespace mage {
 		 @param[in]		input
 						A reference to the input string.
 		 @param[in]		regex
-						The (line) regex.
+						A reference to the (line) regex.
 		 @param[in]		selection_function
-						The selection function.
+						A reference to the selection function.
 		 @throws		Exception
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const std::string &input,
-							std::regex regex = s_default_regex,
-							SelectionFunction selection_function
+		void ReadFromMemory(const std::string& input,
+							const std::regex& regex = s_default_regex,
+							const SelectionFunction& selection_function
 							= s_default_selection_function);
 
 	protected:

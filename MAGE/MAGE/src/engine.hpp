@@ -151,12 +151,12 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 @param[in]		display_config
-						The display configuration.
+						A reference to the display configuration.
 		 @throws		Exception
 						Failed to initialize the engine.
 		 */
 		explicit Engine(const EngineSetup& setup,
-						rendering::DisplayConfiguration display_config);
+						const rendering::DisplayConfiguration& display_config);
 
 		/**
 		 Constructs an engine from the given engine.
@@ -280,13 +280,13 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 @param[in]		display_config
-						The display configuration.
+						A reference to the display configuration.
 		 @throws		Exception
 						Failed to initialize at least one of the different
 						systems of this engine.
 		 */
 		void InitializeSystems(const EngineSetup& setup,
-							   rendering::DisplayConfiguration display_config);
+							   const rendering::DisplayConfiguration& display_config);
 
 		/**
 		 Uninitializes the different systems of this engine.

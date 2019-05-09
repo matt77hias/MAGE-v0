@@ -1154,10 +1154,10 @@ namespace mage {
 		 transform.
 
 		 @param[in]		transform
-						The local transform.
+						A reference to the local transform.
 		 */
-		void SetLocalTransform(SETTransform3D transform) noexcept {
-			m_transform = std::move(transform);
+		void SetLocalTransform(const SETTransform3D& transform) noexcept {
+			m_transform = transform;
 			SetDirty();
 		}
 

@@ -39,10 +39,10 @@ namespace mage::rendering {
 		 @param[in]		window
 						The main window handle.
 		 @param[in]		display_configuration
-						The display configuration.
+						A reference to the display configuration.
 		 */
 		explicit Impl(NotNull< HWND > window,
-					  DisplayConfiguration display_configuration);
+					  const DisplayConfiguration& display_configuration);
 
 		/**
 		 Constructs a rendering manager from the given rendering manager.
@@ -259,10 +259,10 @@ namespace mage::rendering {
 	};
 
 	Manager::Impl::Impl(NotNull< HWND > window,
-						DisplayConfiguration configuration)
-		: m_window(std::move(window)),
+						const DisplayConfiguration& configuration)
+		: m_window(window),
 		m_display_configuration(
-			MakeUnique< DisplayConfiguration >(std::move(configuration))),
+			MakeUnique< DisplayConfiguration >(configuration)),
 		m_feature_level(),
 		m_device(),
 		m_device_context(),
@@ -392,9 +392,8 @@ namespace mage::rendering {
 	#pragma region
 
 	Manager::Manager(NotNull< HWND > window,
-					 DisplayConfiguration configuration)
-		: m_impl(MakeUnique< Impl >(std::move(window),
-									std::move(configuration))) {}
+					 const DisplayConfiguration& configuration)
+		: m_impl(MakeUnique< Impl >(window, configuration)) {}
 
 	Manager::Manager(Manager&& manager) noexcept = default;
 

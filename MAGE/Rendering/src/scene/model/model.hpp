@@ -100,15 +100,15 @@ namespace mage::rendering {
 		 @param[in]		nb_indices
 						The number of indices in the mesh.
 		 @param[in]		aabb
-						The AABB.
+						A reference to the AABB.
 		 @param[in]		bs
-						The bounding sphere.
+						A reference to the bounding sphere.
 		 */
 		void SetMesh(SharedPtr< const Mesh > mesh,
 					 std::size_t start_index,
 					 std::size_t nb_indices,
-					 AABB aabb,
-					 BoundingSphere bs);
+					 const AABB& aabb,
+					 const BoundingSphere& bs);
 
 		/**
 		 Returns the AABB of this model.

@@ -170,10 +170,10 @@ namespace mage {
 		 translation component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 */
-		void SetTranslation(F32x2 translation) noexcept {
-			m_translation = std::move(translation);
+		void SetTranslation(const F32x2& translation) noexcept {
+			m_translation = translation;
 		}
 
 		/**
@@ -433,10 +433,10 @@ namespace mage {
 		 origin.
 
 		 @param[in]		rotation_origin
-						The rotation origin.
+						A reference to the rotation origin.
 		 */
-		void SetRotationOrigin(F32x2 rotation_origin) noexcept {
-			m_rotation_origin = std::move(rotation_origin);
+		void SetRotationOrigin(const F32x2& rotation_origin) noexcept {
+			m_rotation_origin = rotation_origin;
 		}
 
 		/**
@@ -605,10 +605,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		scale
-						The scale component.
+						A reference to the scale component.
 		 */
-		void SetScale(F32x2 scale) noexcept {
-			m_scale = std::move(scale);
+		void SetScale(const F32x2& scale) noexcept {
+			m_scale = scale;
 		}
 
 		/**

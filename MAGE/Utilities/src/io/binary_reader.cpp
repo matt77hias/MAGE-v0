@@ -72,10 +72,10 @@ namespace mage {
 	BinaryReader& BinaryReader
 		::operator=(BinaryReader&& reader) noexcept = default;
 
-	void BinaryReader::ReadFromFile(std::filesystem::path path,
-									bool big_endian) {
+	void BinaryReader
+		::ReadFromFile(const std::filesystem::path& path, bool big_endian) {
 
-		m_path       = std::move(path);
+		m_path       = path;
 		m_big_endian = big_endian;
 
 		std::size_t nb_bytes = 0u;
@@ -87,8 +87,8 @@ namespace mage {
 		ReadData();
 	}
 
-	void BinaryReader::ReadFromMemory(gsl::span< const U8 > input,
-									  bool big_endian) {
+	void BinaryReader
+		::ReadFromMemory(gsl::span< const U8 > input, bool big_endian) {
 
 		m_path       = L"input string";
 		m_big_endian = big_endian;
@@ -134,8 +134,10 @@ namespace mage {
 	BigEndianBinaryReader& BigEndianBinaryReader
 		::operator=(BigEndianBinaryReader&& reader) noexcept = default;
 
-	void BigEndianBinaryReader::ReadFromFile(std::filesystem::path path) {
-		m_path = std::move(path);
+	void BigEndianBinaryReader
+		::ReadFromFile(const std::filesystem::path& path) {
+		
+		m_path = path;
 
 		std::size_t nb_bytes = 0u;
 		ReadBinaryFile(m_path, m_data, nb_bytes);

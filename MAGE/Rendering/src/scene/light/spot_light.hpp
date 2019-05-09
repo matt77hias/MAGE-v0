@@ -421,10 +421,10 @@ namespace mage::rendering {
 		 the given clipping planes.
 
 		 @param[in]		clipping_planes
-						The clipping planes.
+						A reference to the clipping planes.
 		 */
-		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
-			m_clipping_planes = std::move(clipping_planes);
+		void SetClippingPlanes(const F32x2& clipping_planes) noexcept {
+			m_clipping_planes = clipping_planes;
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();

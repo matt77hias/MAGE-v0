@@ -468,9 +468,19 @@ namespace mage {
 		 Sets the name of this node to the given string.
 
 		 @param[in]		name
-						The name.
+						A reference to the name.
 		 */
-		void SetName(std::string name) noexcept {
+		void SetName(const std::string& name) noexcept {
+			m_name = name;
+		}
+
+		/**
+		 Sets the name of this node to the given string.
+
+		 @param[in]		name
+						A reference to the name.
+		 */
+		void SetName(std::string&& name) noexcept {
 			m_name = std::move(name);
 		}
 

@@ -150,28 +150,28 @@ namespace mage::rendering::loader {
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertex() {
 		const auto read_vertex = ReadOBJVertexCoordinates();
-		auto vertex = m_mesh_desc.InvertHandness() ?
+		const auto vertex = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_vertex) : read_vertex;
 
-		m_vertex_coordinates.push_back(std::move(vertex));
+		m_vertex_coordinates.push_back(vertex);
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexTexture() {
 		const auto read_texture = ReadOBJVertexTextureCoordinates();
-		auto texture = m_mesh_desc.InvertHandness() ?
+		const auto texture = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_texture) : read_texture;
 
-		m_vertex_texture_coordinates.push_back(std::move(texture));
+		m_vertex_texture_coordinates.push_back(texture);
 	}
 
 	template< typename VertexT, typename IndexT >
 	void OBJReader< VertexT, IndexT >::ReadOBJVertexNormal() {
 		const auto read_normal = ReadOBJVertexNormalCoordinates();
-		auto normal = m_mesh_desc.InvertHandness() ?
+		const auto normal = m_mesh_desc.InvertHandness() ?
 			InvertHandness(read_normal) : read_normal;
 
-		m_vertex_normal_coordinates.push_back(std::move(normal));
+		m_vertex_normal_coordinates.push_back(normal);
 	}
 
 	template< typename VertexT, typename IndexT >
@@ -194,9 +194,9 @@ namespace mage::rendering::loader {
 				indices.push_back(index);
 
 				// Create a new vertex.
-				auto vertex = ConstructVertex(indices3);
+				const auto vertex = ConstructVertex(indices3);
 				// Add the new vertex.
-				m_model_output.m_vertex_buffer.push_back(std::move(vertex));
+				m_model_output.m_vertex_buffer.push_back(vertex);
 
 				// Add the new mapping.
 				m_mapping[indices3] = index;

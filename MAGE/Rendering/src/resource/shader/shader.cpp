@@ -21,7 +21,7 @@ namespace mage::rendering {
 		m_vertex_shader(),
 		m_vertex_layout() {
 
-		SetupShader(device, compiled_shader, std::move(input_element_descs));
+		SetupShader(device, compiled_shader, input_element_descs);
 	}
 
 	VertexShader::VertexShader(VertexShader&& vertex_shader) noexcept = default;

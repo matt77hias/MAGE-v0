@@ -75,14 +75,14 @@ namespace mage {
 		 Reads from the given file associated with the given path.
 
 		 @param[in]		path
-						The path.
+						A reference to the path.
 		 @param[in]		big_endian
 						Flag indicating whether the given byte array should be
 						interpreted as big endian or not (i.e. little endian).
 		 @throws		Exception
 						Failed to read from the file.
 		 */
-		void ReadFromFile(std::filesystem::path path, bool big_endian);
+		void ReadFromFile(const std::filesystem::path& path, bool big_endian);
 
 		/**
 		 Reads the input string.
@@ -273,11 +273,11 @@ namespace mage {
 		 Reads from the file associated with the given path.
 
 		 @param[in]		path
-						The path.
+						A reference to the path.
 		 @throws		Exception
 						Failed to read from the file.
 		 */
-		void ReadFromFile(std::filesystem::path path);
+		void ReadFromFile(const std::filesystem::path& path);
 
 		/**
 		 Reads the input string.

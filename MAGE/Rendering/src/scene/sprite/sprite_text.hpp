@@ -187,9 +187,20 @@ namespace mage::rendering {
 		 Sets the text of this sprite text to the given text.
 
 		 @param[in]		text
-						The text.
+						A reference to the text.
 		 */
-		void SetText(ColorString text) {
+		void SetText(const ColorString& text) {
+			ClearText();
+			m_strings.push_back(text);
+		}
+
+		/**
+		 Sets the text of this sprite text to the given text.
+
+		 @param[in]		text
+						A reference to the text.
+		 */
+		void SetText(ColorString&& text) {
 			ClearText();
 			m_strings.push_back(std::move(text));
 		}
@@ -198,9 +209,19 @@ namespace mage::rendering {
 		 Appends the given text to the end of the text of this sprite text.
 
 		 @param[in]		text
-						The text.
+						A reference to the text.
 		 */
-		void AppendText(ColorString text) {
+		void AppendText(const ColorString& text) {
+			m_strings.push_back(text);
+		}
+
+		/**
+		 Appends the given text to the end of the text of this sprite text.
+
+		 @param[in]		text
+						A reference to the text.
+		 */
+		void AppendText(ColorString&& text) {
 			m_strings.push_back(std::move(text));
 		}
 

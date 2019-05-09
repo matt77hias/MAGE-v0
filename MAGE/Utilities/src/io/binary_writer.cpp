@@ -24,8 +24,10 @@ namespace mage {
 	BigEndianBinaryWriter& BigEndianBinaryWriter
 		::operator=(BigEndianBinaryWriter&& writer) noexcept = default;
 
-	void BigEndianBinaryWriter::WriteToFile(std::filesystem::path path) {
-		m_path = std::move(path);
+	void BigEndianBinaryWriter
+		::WriteToFile(const std::filesystem::path& path) {
+		
+		m_path = path;
 
 		std::FILE* file;
 		{

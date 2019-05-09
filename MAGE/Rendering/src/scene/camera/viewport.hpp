@@ -122,10 +122,10 @@ namespace mage::rendering {
 		Sets the viewport of this viewport to the given viewport.
 
 		@param[in]		viewport
-						The viewport.
+						A reference to the viewport.
 		*/
-		void SetViewport(D3D11_VIEWPORT viewport) noexcept {
-			m_viewport = std::move(viewport);
+		void SetViewport(const D3D11_VIEWPORT& viewport) noexcept {
+			m_viewport = viewport;
 		}
 
 		[[nodiscard]]

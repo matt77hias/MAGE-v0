@@ -38,7 +38,7 @@ namespace mage::script {
 
 	void VoxelGridAnchorScript::Update([[maybe_unused]] Engine& engine) {
 		const auto& transform = GetOwner()->GetTransform();
-		auto position = Point3(XMStore< F32x3 >(transform.GetWorldOrigin()));
-		rendering::VoxelizationSettings::SetVoxelGridCenter(std::move(position));
+		const Point3 position(XMStore< F32x3 >(transform.GetWorldOrigin()));
+		rendering::VoxelizationSettings::SetVoxelGridCenter(position);
 	}
 }

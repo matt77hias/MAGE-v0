@@ -67,10 +67,10 @@ namespace mage::script {
 			m_prev_core_clock_time  = core_clock_time;
 		}
 
-		RGBA color = (120u <= m_fps) ? color::Green : color::Red;
+		const RGBA color = (120u <= m_fps) ? color::Green : color::Red;
 
 		m_text->SetText(L"FPS: ");
-		m_text->AppendText({ std::to_wstring(m_fps), std::move(color) });
+		m_text->AppendText({ std::to_wstring(m_fps), color });
 		m_text->AppendText(Format(L"\nSPF: {:.2f}ms\nCPU: {:.1f}%\nRAM: {}MB\nDCs: {}",
 								  m_spf, m_cpu, m_ram, rendering::Pipeline::s_nb_draws));
 	}

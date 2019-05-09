@@ -50,19 +50,19 @@ namespace mage {
 	LineReader& LineReader::operator=(LineReader&& reader) noexcept {
 		m_regex              = std::move(reader.m_regex);
 		m_selection_function = std::move(reader.m_selection_function);
-		m_path               = std::move(reader.m_path);
+		m_path               = reader.m_path;
 		m_iterator           = reader.m_iterator;
 		m_line_number        = reader.m_line_number;
 		return *this;
 	}
 
-	void LineReader::ReadFromFile(std::filesystem::path path,
-								  std::regex regex,
-								  SelectionFunction selection_function) {
+	void LineReader::ReadFromFile(const std::filesystem::path& path,
+								  const std::regex& regex,
+								  const SelectionFunction& selection_function) {
 
-		m_path               = std::move(path);
-		m_regex              = std::move(regex);
-		m_selection_function = std::move(selection_function);
+		m_path               = path;
+		m_regex              = regex;
+		m_selection_function = selection_function;
 
 		// Preprocessing
 		Preprocess();
@@ -77,12 +77,12 @@ namespace mage {
 	}
 
 	void LineReader::ReadFromMemory(const std::string& input,
-									std::regex regex,
-									SelectionFunction selection_function) {
+									const std::regex& regex,
+									const SelectionFunction& selection_function) {
 
 		m_path               = L"input string";
-		m_regex              = std::move(regex);
-		m_selection_function = std::move(selection_function);
+		m_regex              = regex;
+		m_selection_function = selection_function;
 
 		// Preprocessing
 		Preprocess();

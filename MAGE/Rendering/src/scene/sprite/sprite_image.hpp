@@ -210,10 +210,10 @@ namespace mage::rendering {
 		 texture region.
 
 		 @param[in]		texture_region
-						The texture region.
+						A reference to the texture region.
 		 */
-		void SetBaseColorTextureRegion(RECT texture_region) noexcept {
-			m_base_color_texture_region = std::move(texture_region);
+		void SetBaseColorTextureRegion(const RECT& texture_region) noexcept {
+			m_base_color_texture_region = texture_region;
 		}
 
 		/**

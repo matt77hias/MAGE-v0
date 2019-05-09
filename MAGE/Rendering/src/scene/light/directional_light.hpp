@@ -252,10 +252,10 @@ namespace mage::rendering {
 		 space to the given clipping planes.
 
 		 @param[in]		clipping_planes
-						The clipping planes.
+						A reference to the clipping planes.
 		 */
-		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
-			m_clipping_planes = std::move(clipping_planes);
+		void SetClippingPlanes(const F32x2& clipping_planes) noexcept {
+			m_clipping_planes = clipping_planes;
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
@@ -278,10 +278,10 @@ namespace mage::rendering {
 		 expressed in light space to the given size.
 
 		 @param[in]		size
-						The size.
+						A reference to the size.
 		 */
-		void SetSize(F32x2 size) noexcept {
-			m_size = std::move(size);
+		void SetSize(const F32x2& size) noexcept {
+			m_size = size;
 		}
 
 		/**

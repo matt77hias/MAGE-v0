@@ -337,7 +337,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto clipping_planes = camera.GetClippingPlanes();
 			ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
-			camera.SetClippingPlanes(std::move(clipping_planes));
+			camera.SetClippingPlanes(clipping_planes);
 
 			//-----------------------------------------------------------------
 			// Lens
@@ -389,7 +389,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto size = camera.GetSize();
 			ImGui::InputFloat2("Size", size.data());
-			camera.SetSize(std::move(size));
+			camera.SetSize(size);
 
 			//-----------------------------------------------------------------
 			// Camera
@@ -460,7 +460,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto size = light.GetSize();
 			ImGui::InputFloat2("Size", size.data());
-			light.SetSize(std::move(size));
+			light.SetSize(size);
 
 			//-----------------------------------------------------------------
 			// Range
@@ -482,7 +482,7 @@ namespace mage::script {
 			if (shadows) {
 				auto clipping_planes = light.GetClippingPlanes();
 				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
-				light.SetClippingPlanes(std::move(clipping_planes));
+				light.SetClippingPlanes(clipping_planes);
 			}
 		}
 
@@ -529,7 +529,7 @@ namespace mage::script {
 			if (shadows) {
 				auto clipping_planes = light.GetClippingPlanes();
 				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
-				light.SetClippingPlanes(std::move(clipping_planes));
+				light.SetClippingPlanes(clipping_planes);
 			}
 		}
 
@@ -585,7 +585,7 @@ namespace mage::script {
 			if (shadows) {
 				auto clipping_planes = light.GetClippingPlanes();
 				ImGui::InputFloat2("Clipping Planes", clipping_planes.data());
-				light.SetClippingPlanes(std::move(clipping_planes));
+				light.SetClippingPlanes(clipping_planes);
 			}
 		}
 
@@ -597,14 +597,14 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto translation = transform.GetTranslationView();
 			ImGui::InputFloat2("Translation", translation.data());
-			transform.SetTranslation(std::move(translation));
+			transform.SetTranslation(translation);
 
 			//-----------------------------------------------------------------
 			// Rotation Origin
 			//-----------------------------------------------------------------
 			auto rotation_origin = transform.GetRotationOriginView();
 			ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
-			transform.SetRotationOrigin(std::move(rotation_origin));
+			transform.SetRotationOrigin(rotation_origin);
 
 			//-----------------------------------------------------------------
 			// Rotation
@@ -618,7 +618,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScaleView();
 			ImGui::InputFloat2("Scale", scale.data());
-			transform.SetScale(std::move(scale));
+			transform.SetScale(scale);
 		}
 
 		void DrawWidget(rendering::Material& material) {
@@ -746,7 +746,7 @@ namespace mage::script {
 			else {
 				auto translation = transform.GetTranslationView();
 				ImGui::InputFloat2("Translation", translation.data());
-				transform.SetTranslation(std::move(translation));
+				transform.SetTranslation(translation);
 			}
 
 			//-----------------------------------------------------------------
@@ -769,7 +769,7 @@ namespace mage::script {
 			else {
 				auto rotation_origin = transform.GetRotationOriginView();
 				ImGui::InputFloat2("Rotation Origin", rotation_origin.data());
-				transform.SetRotationOrigin(std::move(rotation_origin));
+				transform.SetRotationOrigin(rotation_origin);
 			}
 
 			//-----------------------------------------------------------------
@@ -784,7 +784,7 @@ namespace mage::script {
 			//-----------------------------------------------------------------
 			auto scale = transform.GetScaleView();
 			ImGui::InputFloat2("Scale", scale.data());
-			transform.SetScale(std::move(scale));
+			transform.SetScale(scale);
 
 			ImGui::Checkbox("Normalization", &normalization);
 		}
@@ -941,7 +941,7 @@ namespace mage::script {
 			if (auto translation = transform.GetTranslationView();
 				ImGui::InputFloat3("Translation", translation.data())) {
 
-				transform.SetTranslation(std::move(translation));
+				transform.SetTranslation(translation);
 			}
 
 			//-----------------------------------------------------------------
@@ -950,7 +950,7 @@ namespace mage::script {
 			if (auto rotation = transform.GetRotationView();
 				ImGui::InputFloat3("Rotation", rotation.data())) {
 
-				transform.SetRotation(std::move(rotation));
+				transform.SetRotation(rotation);
 			}
 
 			//-----------------------------------------------------------------
@@ -959,7 +959,7 @@ namespace mage::script {
 			if (auto scale = transform.GetScaleView();
 				ImGui::InputFloat3("Scale", scale.data())) {
 
-				transform.SetScale(std::move(scale));
+				transform.SetScale(scale);
 			}
 		}
 

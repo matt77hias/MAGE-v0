@@ -84,8 +84,8 @@ namespace mage::script {
 			m_sensitivity[1] = y;
 		}
 
-		void SetSensitivity(F32x2 sensitivity) noexcept {
-			m_sensitivity = std::move(sensitivity);
+		void SetSensitivity(const F32x2& sensitivity) noexcept {
+			m_sensitivity = sensitivity;
 		}
 
 		void XM_CALLCONV SetSensitivity(FXMVECTOR sensitivity) noexcept {
@@ -120,8 +120,8 @@ namespace mage::script {
 			m_minimum_rotation[1] = y;
 		}
 
-		void SetMinimumRotation(F32x2 minimum_rotation) noexcept {
-			m_minimum_rotation = std::move(minimum_rotation);
+		void SetMinimumRotation(const F32x2& minimum_rotation) noexcept {
+			m_minimum_rotation = minimum_rotation;
 		}
 
 		void XM_CALLCONV SetMinimumRotation(FXMVECTOR minimum_rotation) noexcept {
@@ -156,8 +156,8 @@ namespace mage::script {
 			m_maximum_rotation[1] = y;
 		}
 
-		void SetMaximumRotation(F32x2 maximum_rotation) noexcept {
-			m_maximum_rotation = std::move(maximum_rotation);
+		void SetMaximumRotation(const F32x2& maximum_rotation) noexcept {
+			m_maximum_rotation = maximum_rotation;
 		}
 
 		void XM_CALLCONV SetMaximumRotation(FXMVECTOR maximum_rotation) noexcept {

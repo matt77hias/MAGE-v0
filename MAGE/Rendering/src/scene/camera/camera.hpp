@@ -226,8 +226,8 @@ namespace mage::rendering {
 			return s_voxel_grid_center;
 		}
 
-		static constexpr void SetVoxelGridCenter(Point3 voxel_grid_center) noexcept {
-			s_voxel_grid_center = std::move(voxel_grid_center);
+		static constexpr void SetVoxelGridCenter(const Point3& voxel_grid_center) noexcept {
+			s_voxel_grid_center = voxel_grid_center;
 		}
 
 		[[nodiscard]]
@@ -1039,10 +1039,10 @@ namespace mage::rendering {
 		 the given clipping planes.
 
 		 @param[in]		clipping_planes
-						The clipping planes.
+						A reference to the clipping planes.
 		 */
-		void SetClippingPlanes(F32x2 clipping_planes) noexcept {
-			m_clipping_planes = std::move(clipping_planes);
+		void SetClippingPlanes(const F32x2& clipping_planes) noexcept {
+			m_clipping_planes = clipping_planes;
 		}
 
 		/**

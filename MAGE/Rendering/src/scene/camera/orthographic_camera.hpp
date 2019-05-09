@@ -104,10 +104,10 @@ namespace mage::rendering {
 		 expressed in camera space to the given size.
 
 		 @param[in]		size
-						The size.
+						A reference to the size.
 		 */
-		void SetSize(F32x2 size) noexcept {
-			m_size = std::move(size);
+		void SetSize(const F32x2& size) noexcept {
+			m_size = size;
 		}
 
 		/**

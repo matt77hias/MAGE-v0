@@ -23,8 +23,8 @@ namespace mage {
 
 	Writer& Writer::operator=(Writer&& writer) noexcept = default;
 
-	void Writer::WriteToFile(std::filesystem::path path) {
-		m_path = std::move(path);
+	void Writer::WriteToFile(const std::filesystem::path& path) {
+		m_path = path;
 
 		std::FILE* file;
 		{

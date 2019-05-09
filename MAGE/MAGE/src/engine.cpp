@@ -119,7 +119,7 @@ namespace mage {
 	#pragma region
 
 	Engine::Engine(const EngineSetup& setup,
-				   rendering::DisplayConfiguration display_config)
+				   const rendering::DisplayConfiguration& display_config)
 		: m_window(),
 		m_message_handler(),
 		m_input_manager(),
@@ -135,7 +135,7 @@ namespace mage {
 		m_has_requested_scene(false) {
 
 		// Initialize the systems of this engine.
-		InitializeSystems(setup, std::move(display_config));
+		InitializeSystems(setup, display_config);
 	}
 
 	Engine::Engine(Engine&& engine) noexcept = default;
@@ -146,7 +146,7 @@ namespace mage {
 	}
 
 	void Engine::InitializeSystems(const EngineSetup& setup,
-								   rendering::DisplayConfiguration display_config) {
+								   const rendering::DisplayConfiguration& display_config) {
 
 		// Initialize the window.
 		{
@@ -191,8 +191,7 @@ namespace mage {
 		m_input_manager = MakeUnique< input::Manager >(window);
 
 		// Initialize the rendering system.
-		m_rendering_manager = MakeUnique< rendering::Manager >(window,
-															   std::move(display_config));
+		m_rendering_manager = MakeUnique< rendering::Manager >(window, display_config);
 		m_rendering_manager->BindPersistentState();
 
 		// Initializes the COM library for use by the calling thread and sets

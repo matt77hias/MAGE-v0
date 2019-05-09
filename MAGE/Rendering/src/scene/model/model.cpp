@@ -34,12 +34,12 @@ namespace mage::rendering {
 	void Model::SetMesh(SharedPtr< const Mesh > mesh,
 						std::size_t start_index,
 						std::size_t nb_indices,
-						AABB aabb,
-						BoundingSphere bs) {
+						const AABB& aabb,
+						const BoundingSphere& bs) {
 
 		m_aabb        = std::move(aabb);
-		m_sphere      = std::move(bs);
-		m_mesh        = std::move(mesh);
+		m_sphere      = bs;
+		m_mesh        = mesh;
 		m_start_index = start_index;
 		m_nb_indices  = nb_indices;
 	}

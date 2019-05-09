@@ -226,6 +226,8 @@ ROPERT M.: [*Modern C++ 03*](https://mropert.github.io/2018/02/25/modern_cpp_03/
 
 SUTTER H.: [*Back to the Basics! Essentials of Modern C++ Style*](https://www.youtube.com/watch?time_continue=1&v=xnqTKD8uD64), *CppCon 2014*, 2014.
 
+SUTTER H.: [*GotW #91 Solution: Smart Pointer Parameters*](https://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/), 2013.
+
 STROUSTRUP B., SUTTER H.: [*C++ Core Guidelines*](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), 2018.
 
 TURANSZKIJ J.: [*Simple job system using standard C++*](https://turanszkij.wordpress.com/2018/11/24/simple-job-system-using-standard-c/), 2018.

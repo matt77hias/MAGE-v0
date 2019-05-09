@@ -108,7 +108,7 @@ namespace mage::rendering {
 					 std::size_t start_index,
 					 std::size_t nb_indices,
 					 const AABB& aabb,
-					 const BoundingSphere& bs);
+					 const BoundingSphere& bs) noexcept;
 
 		/**
 		 Returns the AABB of this model.

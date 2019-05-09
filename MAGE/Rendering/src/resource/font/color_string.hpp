@@ -124,7 +124,7 @@ namespace mage::rendering {
 		 @param[in]		str
 						A reference to the string.
 		 */
-		void SetString(const std::wstring& str) noexcept {
+		void SetString(const std::wstring& str) {
 			m_str = str;
 		}
 

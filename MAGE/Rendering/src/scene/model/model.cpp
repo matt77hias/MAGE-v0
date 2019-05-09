@@ -35,9 +35,9 @@ namespace mage::rendering {
 						std::size_t start_index,
 						std::size_t nb_indices,
 						const AABB& aabb,
-						const BoundingSphere& bs) {
+						const BoundingSphere& bs) noexcept {
 
-		m_aabb        = std::move(aabb);
+		m_aabb        = aabb;
 		m_sphere      = bs;
 		m_mesh        = mesh;
 		m_start_index = start_index;

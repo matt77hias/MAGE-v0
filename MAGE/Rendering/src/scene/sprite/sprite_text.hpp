@@ -38,7 +38,7 @@ namespace mage::rendering {
 		 @c Outline.
 		 */
 		enum class TextEffect : U8 {
-			None = 0,
+			None = 0u,
 			DropShadow,
 			Outline
 		};
@@ -236,7 +236,7 @@ namespace mage::rendering {
 						The action.
 		 */
 		template< typename ActionT >
-		inline void ForEachColorString(ActionT&& action);
+		void ForEachColorString(ActionT&& action);
 
 		/**
 		 Traverses all color strings of this sprite text.
@@ -249,7 +249,7 @@ namespace mage::rendering {
 						The action.
 		 */
 		template< typename ActionT >
-		inline void ForEachColorString(ActionT&& action) const;
+		void ForEachColorString(ActionT&& action) const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Text Effect

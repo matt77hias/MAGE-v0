@@ -384,7 +384,7 @@ namespace mage::rendering {
 		 @param[in]		name
 						A reference to the name.
 		 */
-		void SetName(const std::string& name) noexcept {
+		void SetName(const std::string& name) {
 			m_name = name;
 		}
 

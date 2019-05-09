@@ -74,10 +74,10 @@ namespace mage {
 		 Constructs a set of UV texture coordinates from the given vector.
 
 		 @param[in]		v
-						The vector.
+						A reference to the vector.
 		 */
-		constexpr explicit UV(F32x2 v) noexcept
-			: F32x2(std::move(v)) {}
+		constexpr explicit UV(const F32x2& v) noexcept
+			: F32x2(v) {}
 
 		/**
 		 Destructs this set of UV texture coordinates.
@@ -218,10 +218,10 @@ namespace mage {
 		 Constructs a point from the given vector.
 
 		 @param[in]		v
-						The vector.
+						A reference to the vector.
 		 */
-		constexpr explicit Point3(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
+		constexpr explicit Point3(const F32x3& v) noexcept
+			: F32x3(v) {}
 
 		/**
 		 Constructs a point.
@@ -374,10 +374,10 @@ namespace mage {
 		 Constructs a direction from the given vector.
 
 		 @param[in]		v
-						The vector.
+						A reference to the vector.
 		 */
-		constexpr explicit Direction3(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
+		constexpr explicit Direction3(const F32x3& v) noexcept
+			: F32x3(v) {}
 
 		/**
 		 Constructs a direction.
@@ -534,10 +534,10 @@ namespace mage {
 		 Constructs a normal from the given vector.
 
 		 @param[in]		v
-						The vector.
+						A reference to the vector.
 		 */
-		constexpr explicit Normal3(F32x3 v) noexcept
-			: Direction3(std::move(v)) {}
+		constexpr explicit Normal3(const F32x3& v) noexcept
+			: Direction3(v) {}
 
 		/**
 		 Destructs this normal.

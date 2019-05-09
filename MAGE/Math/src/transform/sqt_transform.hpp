@@ -34,16 +34,16 @@ namespace mage {
 		 component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 @param[in]		scale
 						The scale component.
 		 */
-		explicit S1QTTransform3D(F32x3 translation = { 0.0f, 0.0f, 0.0f },
-			                     F32x4 rotation    = { 1.0f, 0.0f, 0.0f, 0.0f },
-			                     F32   scale       =   1.0f) noexcept
-			: m_translation(std::move(translation)),
+		explicit S1QTTransform3D(const F32x3& translation = { 0.0f, 0.0f, 0.0f },
+			                     const F32x4& rotation    = { 1.0f, 0.0f, 0.0f, 0.0f },
+			                     F32 scale = 1.0f) noexcept
+			: m_translation(translation),
 			m_scale(scale),
 			m_rotation() {
 
@@ -764,20 +764,20 @@ namespace mage {
 		 component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 @param[in]		scale
-						The scale component.
+						A reference to the scale component.
 		 */
-		explicit SQTTransform3D(F32x3 translation = { 0.0f, 0.0f, 0.0f },
-			                    F32x4 rotation    = { 1.0f, 0.0f, 0.0f, 0.0f },
-			                    F32x3 scale       = { 1.0f, 1.0f, 1.0f }) noexcept
-			: m_translation(std::move(translation)),
+		explicit SQTTransform3D(const F32x3& translation = { 0.0f, 0.0f, 0.0f },
+			                    const F32x4& rotation    = { 1.0f, 0.0f, 0.0f, 0.0f },
+			                    const F32x3& scale       = { 1.0f, 1.0f, 1.0f }) noexcept
+			: m_translation(translation),
 			m_padding0{},
 			m_rotation(),
 			m_padding1{},
-			m_scale(std::move(scale)) {
+			m_scale(scale) {
 
 			SetRotation(rotation);
 		}

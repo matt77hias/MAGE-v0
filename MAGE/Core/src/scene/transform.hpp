@@ -166,10 +166,10 @@ namespace mage {
 		 translation component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 */
-		void SetTranslation(F32x3 translation) noexcept {
-			m_transform.SetTranslation(std::move(translation));
+		void SetTranslation(const F32x3& translation) noexcept {
+			m_transform.SetTranslation(translation);
 			SetDirty();
 		}
 
@@ -803,10 +803,10 @@ namespace mage {
 		 component.
 
 		 @param[in]		scale
-						The scale component.
+						A reference to the scale component.
 		 */
-		void SetScale(F32x3 scale) noexcept {
-			m_transform.SetScale(std::move(scale));
+		void SetScale(const F32x3& scale) noexcept {
+			m_transform.SetScale(scale);
 			SetDirty();
 		}
 

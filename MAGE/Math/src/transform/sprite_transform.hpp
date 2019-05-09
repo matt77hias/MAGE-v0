@@ -29,26 +29,26 @@ namespace mage {
 		 rotation, rotation origin and scale component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 @param[in]		depth
 						The depth component.
 		 @param[in]		rotation
 						The rotation component.
 		 @param[in]		rotation_origin
-						The rotation component.
+						A reference to the rotation component.
 		 @param[in]		scale
-						The scale component.
+						A reference to the scale component.
 		 */
-		explicit SpriteTransform2D(F32x2 translation     = { 0.0f, 0.0f },
-			                       F32   depth           =   0.0f,
-			                       F32   rotation        =   0.0f,
-			                       F32x2 rotation_origin = { 0.0f, 0.0f },
-			                       F32x2 scale           = { 1.0f, 1.0f }) noexcept
-			: m_translation(std::move(translation)),
+		explicit SpriteTransform2D(const F32x2& translation = { 0.0f, 0.0f },
+			                       F32 depth = 0.0f,
+			                       F32 rotation = 0.0f,
+			                       const F32x2& rotation_origin = { 0.0f, 0.0f },
+			                       const F32x2& scale = { 1.0f, 1.0f }) noexcept
+			: m_translation(translation),
 			m_depth(depth),
 			m_rotation(),
-			m_rotation_origin(std::move(rotation_origin)),
-			m_scale(std::move(scale)) {
+			m_rotation_origin(rotation_origin),
+			m_scale(scale) {
 
 			SetRotation(rotation);
 		}

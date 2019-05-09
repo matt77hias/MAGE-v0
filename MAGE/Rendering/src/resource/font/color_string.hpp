@@ -33,9 +33,9 @@ namespace mage::rendering {
 		 @param[in]		color
 						A reference to the (linear) color.
 		 */
-		ColorString(const wchar_t* str, RGBA color = color::White) noexcept
+		ColorString(const wchar_t* str, const RGBA& color = color::White) noexcept
 			: m_str(str),
-			m_color(std::move(color)) {}
+			m_color(color) {}
 
 		/**
 		 Constructs a color string fromt the given string and color.
@@ -45,9 +45,9 @@ namespace mage::rendering {
 		 @param[in]		color
 						A reference to the (linear) color.
 		 */
-		ColorString(std::wstring str, RGBA color = color::White) noexcept
+		ColorString(std::wstring str, const RGBA& color = color::White) noexcept
 			: m_str(std::move(str)),
-			m_color(std::move(color)) {}
+			m_color(color) {}
 
 		/**
 		 Constructs a color string from the given color string.

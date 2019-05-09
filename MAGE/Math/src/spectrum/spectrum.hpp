@@ -96,10 +96,10 @@ namespace mage {
 		 Constructs a RGB spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit RGB(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
+		constexpr explicit RGB(const F32x3& v) noexcept
+			: F32x3(v) {}
 
 		/**
 		 Destructs this RGB spectrum.
@@ -270,10 +270,10 @@ namespace mage {
 		 Constructs a sRGB spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit SRGB(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
+		constexpr explicit SRGB(const F32x3& v) noexcept
+			: F32x3(v) {}
 
 		/**
 		 Destructs this sRGB spectrum.
@@ -445,10 +445,10 @@ namespace mage {
 		 Constructs a XYZ spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit XYZ(F32x3 v) noexcept
-			: F32x3(std::move(v)) {}
+		constexpr explicit XYZ(const F32x3& v) noexcept
+			: F32x3(v) {}
 
 		/**
 		 Destructs this XYZ spectrum.
@@ -643,10 +643,10 @@ namespace mage {
 		 Constructs a RGBA spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit RGBA(F32x4 v) noexcept
-			: F32x4(std::move(v)) {}
+		constexpr explicit RGBA(const F32x4& v) noexcept
+			: F32x4(v) {}
 
 		/**
 		 Destructs this RGBA spectrum.
@@ -853,10 +853,10 @@ namespace mage {
 		 Constructs a sRGBA spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit SRGBA(F32x4 v) noexcept
-			: F32x4(std::move(v)) {}
+		constexpr explicit SRGBA(const F32x4& v) noexcept
+			: F32x4(v) {}
 
 		/**
 		 Destructs this sRGBA spectrum.
@@ -1063,10 +1063,10 @@ namespace mage {
 		 Constructs a XYZA spectrum from the given components.
 
 		 @param[in]		v
-						The components.
+						A reference to the components.
 		 */
-		constexpr explicit XYZA(F32x4 v) noexcept
-			: F32x4(std::move(v)) {}
+		constexpr explicit XYZA(const F32x4& v) noexcept
+			: F32x4(v) {}
 
 		/**
 		 Destructs this XYZA spectrum.

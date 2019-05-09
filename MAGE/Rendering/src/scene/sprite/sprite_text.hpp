@@ -191,7 +191,7 @@ namespace mage::rendering {
 		 */
 		void SetText(const ColorString& text) {
 			ClearText();
-			m_strings.push_back(text);
+			AppendText(text);
 		}
 
 		/**
@@ -202,7 +202,7 @@ namespace mage::rendering {
 		 */
 		void SetText(ColorString&& text) {
 			ClearText();
-			m_strings.push_back(std::move(text));
+			AppendText(std::move(text));
 		}
 
 		/**

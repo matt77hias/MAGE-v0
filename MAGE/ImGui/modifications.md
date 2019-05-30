@@ -57,5 +57,5 @@ Added:
 
 Uncommented:
 ```cpp
-IMGUI_IMPL_API LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+IMGUI_IMPL_API long     ImGui_ImplWin32_WndProcHandler(void* hWnd, unsigned int msg, unsigned int wParam, long lParam);
 ```

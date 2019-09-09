@@ -6,7 +6,7 @@ Please read the [Code of Conduct](CODE_OF_CONDUCT.md), before contributing to MA
 You may use the Issue Tracker to submit bug reports, feature requests or suggestions. You may ask for help or advice as well. However, please read this wall of text before doing so. The amount of incomplete or ambiguous requests due to people not following those guidelines is often overwhelming. Please do your best to clarify your request.
 
 **Prerequisites:**
-* Please read the [FAQ](meta/faq.md).
+* Please read the [FAQ](Meta/faq.md).
 * Please use the Search function of GitHub to look for similar issues. You may also browse issues by tags.
 * Please use the Search function of your IDE to search in the code for comments related to your situation.
 * If you get an assert or exception, use a debugger to locate the condition triggering it and read the comments around it.
@@ -27,7 +27,7 @@ If you have been using MAGE for a while *or* have been using C++ for several yea
 * When adding a feature, please describe the usage context (how you intend to use it, why you need it, etc.).
 * When fixing a warning or compilation problem, please post the compiler log and specify the MAGE version you are using.
 * Try to attach screenshots to clarify the context and demonstrate the feature at a glance. You can drag pictures/files here (prefer Github attachments over 3rd party hosting).
-* Make sure your code adheres the [Code Guidelines](meta/code-guidelines.md).
+* Make sure your code adheres the [Code Guidelines](Meta/code-guidelines.md).
 * Make sure you create a branch for the pull request. In Git, one pull request is associated to one branch. If you keep pushing to the same branch after you submitted the pull request, your new commits will appear in the pull request (we can still cherry-pick individual commits).
 
 Thank you for reading! Thank you for contributing! 🧙

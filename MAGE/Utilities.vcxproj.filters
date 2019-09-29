@@ -54,9 +54,6 @@
     <Filter Include="Source Files\logging">
       <UniqueIdentifier>{e7475580-7535-4cf7-aa41-cf008a65be27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\memory">
-      <UniqueIdentifier>{e9dd3f38-7146-4b6f-8bcf-cb1554c4c1dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\parallel">
       <UniqueIdentifier>{9d9afb08-f6f4-4771-bd5c-a519577ebc6a}</UniqueIdentifier>
     </Filter>
@@ -89,9 +86,6 @@
     </Filter>
     <Filter Include="Source Files\loaders\var">
       <UniqueIdentifier>{e81c7ae9-a81e-41a2-9616-11e7ad720853}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ecs">
-      <UniqueIdentifier>{d0cb282b-9155-4367-962a-1c5bf1d7a1c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,12 +123,6 @@
       <Filter>Header Files\memory</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\memory\memory.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\memory\memory_arena.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\src\memory\memory_stack.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp">
@@ -236,9 +224,6 @@
     <ClInclude Include="Utilities\src\collection\collection_utils.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\ecs\ecs.hpp">
-      <Filter>Header Files\ecs</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utilities\src\exception\exception.cpp">
@@ -264,12 +249,6 @@
     </ClCompile>
     <ClCompile Include="Utilities\src\logging\progress_reporter.cpp">
       <Filter>Source Files\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\memory\memory_arena.cpp">
-      <Filter>Source Files\memory</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\memory\memory_stack.cpp">
-      <Filter>Source Files\memory</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp">
       <Filter>Source Files\parallel</Filter>
@@ -322,12 +301,6 @@
       <Filter>Header Files\io</Filter>
     </None>
     <None Include="Utilities\src\memory\memory.tpp">
-      <Filter>Header Files\memory</Filter>
-    </None>
-    <None Include="Utilities\src\memory\memory_arena.tpp">
-      <Filter>Header Files\memory</Filter>
-    </None>
-    <None Include="Utilities\src\memory\memory_stack.tpp">
       <Filter>Header Files\memory</Filter>
     </None>
     <None Include="Utilities\src\platform\windows_utils.tpp">

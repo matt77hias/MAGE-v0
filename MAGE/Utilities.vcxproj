@@ -95,7 +95,6 @@
     <ClInclude Include="Utilities\src\collection\collection_utils.hpp" />
     <ClInclude Include="Utilities\src\collection\dynamic_array.hpp" />
     <ClInclude Include="Utilities\src\collection\vector.hpp" />
-    <ClInclude Include="Utilities\src\ecs\ecs.hpp" />
     <ClInclude Include="Utilities\src\exception\exception.hpp" />
     <ClInclude Include="Utilities\src\io\binary_reader.hpp" />
     <ClInclude Include="Utilities\src\io\binary_utils.hpp" />
@@ -113,9 +112,7 @@
     <ClInclude Include="Utilities\src\logging\progress_reporter.hpp" />
     <ClInclude Include="Utilities\src\memory\allocation.hpp" />
     <ClInclude Include="Utilities\src\memory\memory.hpp" />
-    <ClInclude Include="Utilities\src\memory\memory_arena.hpp" />
     <ClInclude Include="Utilities\src\memory\memory_buffer.hpp" />
-    <ClInclude Include="Utilities\src\memory\memory_stack.hpp" />
     <ClInclude Include="Utilities\src\parallel\id_generator.hpp" />
     <ClInclude Include="Utilities\src\parallel\parallel.hpp" />
     <ClInclude Include="Utilities\src\platform\windows.hpp" />
@@ -148,8 +145,6 @@
     <None Include="Utilities\src\io\line_reader.tpp" />
     <None Include="Utilities\src\loaders\var\var_reader.tpp" />
     <None Include="Utilities\src\memory\memory.tpp" />
-    <None Include="Utilities\src\memory\memory_arena.tpp" />
-    <None Include="Utilities\src\memory\memory_stack.tpp" />
     <None Include="Utilities\src\platform\windows_utils.tpp" />
     <None Include="Utilities\src\resource\resource.tpp" />
     <None Include="Utilities\src\resource\resource_pool.tpp" />
@@ -171,8 +166,6 @@
     <ClCompile Include="Utilities\src\logging\dump.cpp" />
     <ClCompile Include="Utilities\src\logging\logging.cpp" />
     <ClCompile Include="Utilities\src\logging\progress_reporter.cpp" />
-    <ClCompile Include="Utilities\src\memory\memory_arena.cpp" />
-    <ClCompile Include="Utilities\src\memory\memory_stack.cpp" />
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp" />
     <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
     <ClCompile Include="Utilities\src\resource\script\variable_script.cpp" />

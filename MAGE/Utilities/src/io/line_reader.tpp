@@ -21,7 +21,7 @@ namespace mage {
 			return *result;
 		}
 		else {
-			throw Exception("%{}: line {}: invalid value found: {}.",
+			throw Exception("{}: line {}: invalid value found: {}.",
 							GetPath(), GetCurrentLineNumber(), token);
 		}
 	}

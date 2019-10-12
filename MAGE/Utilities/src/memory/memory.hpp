@@ -423,8 +423,7 @@ namespace mage {
 		 @param[in]		ptr
 						A reference to the proxy pointer to move.
 		 */
-		ProxyPtr(ProxyPtr&& ptr) noexcept
-			: m_getter(std::move(ptr.m_getter)) {}
+		ProxyPtr(ProxyPtr&& ptr) noexcept = default;
 
 		/**
 		 Constructs a proxy pointer from the given proxy pointer.

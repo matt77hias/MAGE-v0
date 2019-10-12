@@ -109,7 +109,6 @@
     <ClInclude Include="Utilities\src\logging\dump.hpp" />
     <ClInclude Include="Utilities\src\logging\logging.tpp" />
     <ClInclude Include="Utilities\src\logging\logging.hpp" />
-    <ClInclude Include="Utilities\src\logging\progress_reporter.hpp" />
     <ClInclude Include="Utilities\src\memory\allocation.hpp" />
     <ClInclude Include="Utilities\src\memory\memory.hpp" />
     <ClInclude Include="Utilities\src\memory\memory_buffer.hpp" />
@@ -165,7 +164,6 @@
     <ClCompile Include="Utilities\src\loaders\var\var_writer.cpp" />
     <ClCompile Include="Utilities\src\logging\dump.cpp" />
     <ClCompile Include="Utilities\src\logging\logging.cpp" />
-    <ClCompile Include="Utilities\src\logging\progress_reporter.cpp" />
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp" />
     <ClCompile Include="Utilities\src\parallel\parallel.cpp" />
     <ClCompile Include="Utilities\src\resource\script\variable_script.cpp" />

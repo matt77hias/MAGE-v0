@@ -116,9 +116,6 @@
     <ClInclude Include="Utilities\src\logging\logging.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\src\logging\progress_reporter.hpp">
-      <Filter>Header Files\logging</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\src\memory\allocation.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
@@ -245,9 +242,6 @@
       <Filter>Source Files\logging</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\logging\logging.cpp">
-      <Filter>Source Files\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\src\logging\progress_reporter.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\src\parallel\id_generator.cpp">

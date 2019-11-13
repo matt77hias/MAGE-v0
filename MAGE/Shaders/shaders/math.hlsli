@@ -1005,7 +1005,7 @@ uint FlattenIndex(uint2 index, uint2 count) {
 				using z->y->x ordering.
  */
 uint FlattenIndex(uint3 index, uint3 count) {
-	return FlattenIndex(index.xy, count.xy) * count.y + index.z;
+	return FlattenIndex(index.yz, count.yz) * count.x + index.x;
 }
 
 /**

@@ -927,11 +927,11 @@ double4 SNormToUNorm(double4 v_snorm) {
 //-----------------------------------------------------------------------------
 
 /**
- Unpacks the given @c uint (R16G16) to a @c float2.
+ Unpacks the given R16G16.
 
  @param		u
-			The @c uint (R16G16) to unpack.
- @return	The corresponding unpacked @c float2.
+			The R16G16 to unpack.
+ @return	The corresponding unpacked value.
  */
 float2 UnpackR16G16(uint u) {
 	const float2 f = 0xFFFFu & uint2(u >> 16u, u);
@@ -939,12 +939,12 @@ float2 UnpackR16G16(uint u) {
 }
 
 /**
- Unpacks the given @c float2 to a @c uint (R16G16).
+ Packs the given value as a R16G16.
 
- @pre		@a f lies in [0.0,1.0]^2
- @param		u
-			The @c float2 to pack.
- @return	The corresponding packed @c uint (R16G16).
+ @pre		@a f lies in [0,1]^2.
+ @param		f
+			The value to pack.
+ @return	The corresponding packed R16G16.
  */
 uint PackR16G16(float2 f) {
 	const uint2 u = 65535.0f * f;
@@ -952,11 +952,11 @@ uint PackR16G16(float2 f) {
 }
 
 /**
- Unpacks the given @c uint (R8G8B8A8) to a @c float4.
+ Unpacks the given R8G8B8A8.
 
  @param		u
-			The @c uint (R8G8B8A8) to unpack.
- @return	The corresponding unpacked @c float4.
+			The R8G8B8A8 to unpack.
+ @return	The corresponding unpacked value.
  */
 float4 UnpackR8G8B8A8(uint u) {
 	const float4 f = 0xFFu & uint4(u >> 24u, u >> 16u, u >> 8u, u);
@@ -964,12 +964,12 @@ float4 UnpackR8G8B8A8(uint u) {
 }
 
 /**
- Unpacks the given @c float4 to a @c uint (R8G8B8A8).
+ Packs the given value as a R8G8B8A8.
 
- @pre		@a f lies in [0.0,1.0]^4
- @param		u
-			The @c float4 to pack.
- @return	The corresponding packed @c uint (R8G8B8A8).
+ @pre		@a f lies in [0,1]^4.
+ @param		f
+			The value to pack.
+ @return	The corresponding packed R8G8B8A8.
  */
 uint PackR8G8B8A8(float4 f) {
 	const uint4 u = 255.0f * f;

@@ -50,4 +50,4 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 * **Compiler**: MSVC++ 16.0.1
 * **IDE**: Visual Studio 2019
 
-<p align="center">Copyright © 2016-2019 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2020 Matthias Moulin. All Rights Reserved.</p>

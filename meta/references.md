@@ -14,10 +14,10 @@
 ### <a name="SSS-BibTeX"></a>BibTeX
 
 ```bibtex
-@misc{mage19,
+@misc{mage20,
    author = {Matthias Moulin},
    title  = {MAGE - Matthias Advanced Game Engine},
-   year   = {2019},
+   year   = {2020},
    url    = {https://github.com/matt77hias/MAGE},
    note   = {\url{https://github.com/matt77hias/MAGE}}
 }

@@ -89,6 +89,7 @@
   * Exponential fog with custom density (avoids popping artifacts)
   * HDR
   * Direct and indirect illumination (voxel cone tracing)
+  * Reflections (voxel cone tracing)
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)

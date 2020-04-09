@@ -1,7 +1,6 @@
 # Iterations
 
 ## Current iteration' TODOs
-* Voxel Cone Tracing (WIP: Reflections)
 * Depth-of-Field (WIP: Bokeh)
 * Post-processing: God rays
 * Displacement Maps, Parallax Occlusion Maps

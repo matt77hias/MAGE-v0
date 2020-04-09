@@ -39,15 +39,13 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 
 ## Development
 * **Platform**: Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)
-* **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)
-* **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)
+* **Engine Programming Language**: C++17
+* **Scripting Language**: C++17
 * **Shading Language**: HLSL (Shader Model 5.0)
 * **Dependencies**:
   * d3d11.lib
   * dxgi.lib
   * dxguid.lib
   * (d3dcompiler.lib)
-* **Compiler**: MSVC++ 16.0.1
-* **IDE**: Visual Studio 2019
 
 <p align="center">Copyright © 2016-2020 Matthias Moulin. All Rights Reserved.</p>

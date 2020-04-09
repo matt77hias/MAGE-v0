@@ -726,38 +726,10 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [Roald Frederickx](https://github.com/RoaldFre)
 
 ## <a name="SS-Thanks"></a>Thanks
-* [Adam Miles](https://github.com/AdamJMiles)
-* Adam_42
-* Ademola Thompson
-* All8Up
-* AthosVG
 * [Brooke Hodgman](https://github.com/hodgman)
-* [Christian Helmich](https://github.com/KageKirin)
-* [Chuck Walbourn](https://github.com/walbourn)
-* [Eric Richards](https://github.com/ericrrichards)
-* [Finalspace](https://github.com/f1nalspace)
-* frob
-* Incomputable
-* Infinisearch
 * [János Turánszki](https://github.com/turanszkij)
-* JoeJ
-* [John M Długosz](https://github.com/jdlugosz)
-* Krypt0n
-* [Krzysztof Narkowicz](https://github.com/knarkowicz)
-* L. Spiro
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)
-* [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
-* Maxest
-* [Mike Lewis](https://github.com/apoch)
-* Mike2343
 * [Nathan Reed](https://github.com/Reedbeta)
-* [Nicolas Silvagni](https://github.com/galop1n)
 * [Omar Cornut](https://github.com/ocornut)
-* [Paul Chaignon](https://github.com/pchaigno)
-* SoldierOfLight
-* Styves
-* user673679
-* [Victor Zverovich](https://github.com/vitaut)
 * [Vilem Otte](https://github.com/Zgragselus)
-* Zipster

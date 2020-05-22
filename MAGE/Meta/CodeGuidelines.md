@@ -107,7 +107,7 @@ Use [Yoda conditions](https://en.wikipedia.org/wiki/Yoda_conditions) to avoid ac
 ## <a name="SS-Tools"></a>Tools
 
 ### CPU Debuggers/Profilers
-* [Visual Studio 2017](https://visualstudio.microsoft.com/)
+* [Visual Studio 2019](https://visualstudio.microsoft.com/)
 
 ### GPU Debuggers/Profilers
 * [NVIDIA Nsight Graphics](https://developer.nvidia.com/nsight-graphics)
@@ -117,4 +117,4 @@ Use [Yoda conditions](https://en.wikipedia.org/wiki/Yoda_conditions) to avoid ac
 ### Static Code Analyzers
 * [Codacy](https://app.codacy.com/project/matt77hias/MAGE/dashboard)
 * [PVS-Studio Analyzer](https://www.viva64.com/en/pvs-studio/) (stand-alone or Visual Studio plugin)
-* [Visual Studio 2017](https://visualstudio.microsoft.com/)
+* [Visual Studio 2019](https://visualstudio.microsoft.com/)

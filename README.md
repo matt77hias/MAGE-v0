@@ -40,10 +40,5 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 * **Engine Programming Language**: C++17
 * **Scripting Language**: C++17
 * **Shading Language**: HLSL (Shader Model 5.0)
-* **Dependencies**:
-  * d3d11.lib
-  * dxgi.lib
-  * dxguid.lib
-  * (d3dcompiler.lib)
 
 <p align="center">Copyright © 2016-2020 Matthias Moulin. All Rights Reserved.</p>

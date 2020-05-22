@@ -1,0 +1,50 @@
+name: "Contribution"
+
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+  push:
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+        - {
+            name:          "x64 Release",
+            configuration: Release,
+            os:            windows-latest,
+            platform:      x64
+          }
+        - {
+            name:          "x64 Debug",
+            configuration: Debug,
+            os:            windows-latest,
+            platform:      x64
+          }
+		- {
+            name:          "x86 Release",
+            configuration: Release,
+            os:            windows-latest,
+            platform:      x86
+          }
+        - {
+            name:          "x86 Debug",
+            configuration: Debug,
+            os:            windows-latest,
+            platform:      x86
+          }
+          
+    steps:
+    - uses: actions/checkout@master
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+
+    - name: Build
+      run: msbuild MAGE/MAGE.sln /p:Configuration=${{ matrix.config.configuration }} /p:Platform=${{ matrix.config.platform }}

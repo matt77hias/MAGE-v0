@@ -66,7 +66,7 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Update([[maybe_unused]] Engine& engine) {
-		const std::scoped_lock< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
 		m_text->SetText(std::wstring(m_buffer.get()));
@@ -80,20 +80,20 @@ namespace mage::script {
 	}
 
 	void TextConsoleScript::Write(NotNull< const_wzstring > str) {
-		const std::scoped_lock< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 
 		ProcessString(str);
 	}
 
 	void TextConsoleScript::WriteLine(NotNull< const_wzstring > str) {
-		const std::scoped_lock< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 
 		ProcessString(str);
 		IncrementRow();
 	}
 
 	void TextConsoleScript::Format(const_wzstring format, ...) {
-		const std::scoped_lock< std::mutex > lock(m_mutex);
+		const std::scoped_lock lock(m_mutex);
 
 		va_list args;
 		// Retrieve the additional arguments after format

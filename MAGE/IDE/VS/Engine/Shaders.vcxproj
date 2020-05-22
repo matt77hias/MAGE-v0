@@ -60,7 +60,7 @@
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
       <VariableName>g_%(Filename)</VariableName>
-      <HeaderFileOutput>%(RootDir)%(RelativeDir)%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput>%(RelativeDir)%(Filename).hpp</HeaderFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

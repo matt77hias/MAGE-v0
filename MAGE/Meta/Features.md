@@ -25,7 +25,7 @@
 * Keyboard
 * Mouse (LMB, MMB and RMB are supported)
 
-## <a name="SS-File-Formats"></a>[File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+## <a name="SS-File-Formats"></a>[File Formats](FileFormats.md)
 * Fonts
   * .FONT (Sprite Font) **[MAGE Dedicated Format]**
 * Models, Meshes and Materials

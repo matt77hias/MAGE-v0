@@ -25,15 +25,15 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="436"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="436"></p>
 
 ## Index
-* [Code Guidelines](meta/code-guidelines.md)
+* [Code Guidelines](MAGE/Meta/CodeGuidelines.md)
 * [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
-* [FAQ](meta/faq.md)
-* [Features](meta/features.md)
-* [File Formats](meta/file-formats.md)
-* [Iterations](meta/iterations.md)
+* [FAQ](MAGE/Meta/FrequentlyAskedQuestions.md)
+* [Features](MAGE/Meta/Features.md)
+* [File Formats](MAGE/Meta/FileFormats.md)
+* [Iterations](MAGE/Meta/Iterations.md)
 * [License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt)
-* [References](meta/references.md)
-* [Standard Scripts](meta/standard-scripts.md)
+* [References](MAGE/Meta/References.md)
+* [Standard Scripts](MAGE/Meta/StandardScripts.md)
 
 ## Development
 * **Platform**: Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)

@@ -143,7 +143,7 @@
   
 ## <a name="SS-Scripting"></a>Scripting
 * Custom scripts by overriding `mage::BehaviorScript`
-* [Standard scripts](standard-scripts.md)
+* [Standard scripts](StandardScripts.md)
 
 ## <a name="SS-Transformations"></a>Transformations
 * Scene hierarchies

@@ -27,7 +27,7 @@ jobs:
             os:            windows-latest,
             platform:      x64
           }
-		- {
+	- {
             name:          "x86 Release",
             configuration: Release,
             os:            windows-latest,

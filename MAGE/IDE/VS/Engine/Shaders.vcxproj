@@ -54,13 +54,16 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="..\Properties\Engine.props" />
+  <PropertyGroup>
+      <ShaderHeaderFileOutput>$(FullPath.Replace(".hlsl", ".hpp"))</ShaderHeaderFileOutput>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <FxCompile>
       <AdditionalIncludeDirectories>..\..\..\Code\Engine\Shaders\</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
       <VariableName>g_%(Filename)</VariableName>
-      <HeaderFileOutput>$(FullPath.Replace(".hlsl", ".hpp"))</HeaderFileOutput>
+      <HeaderFileOutput>$(ShaderHeaderFileOutput)</HeaderFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

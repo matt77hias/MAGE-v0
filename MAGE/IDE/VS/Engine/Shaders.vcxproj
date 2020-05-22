@@ -60,7 +60,7 @@
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
       <VariableName>g_%(Filename)</VariableName>
-      <HeaderFileOutput>"%(FullPath)".Replace(".hlsl", ".hpp")</HeaderFileOutput>
+      <HeaderFileOutput>$(FullPath.Replace(".hlsl", ".hpp"))</HeaderFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

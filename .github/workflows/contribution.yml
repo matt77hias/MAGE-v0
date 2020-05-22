@@ -47,4 +47,4 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
 
     - name: Build
-      run: msbuild MAGE/IDE/VS/MAGE.sln /p:Configuration=${{ matrix.config.configuration }} /p:Platform=${{ matrix.config.platform }}
+      run: msbuild MAGE/IDE/VS/MAGE.sln /m /p:Configuration=${{ matrix.config.configuration }} /p:Platform=${{ matrix.config.platform }}

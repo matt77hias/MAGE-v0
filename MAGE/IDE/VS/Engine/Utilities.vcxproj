@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{E7F1C114-0904-40ED-9E9D-97FD842334C6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Utilities</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Properties\Engine.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\collection\array.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\collection\collection_utils.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\collection\dynamic_array.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\collection\vector.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\exception\exception.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\io\binary_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\io\binary_utils.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\io\binary_writer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\io\line_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\io\writer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\loaders\variable_script_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\loaders\var\var_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\loaders\var\var_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\loaders\var\var_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\loaders\var\var_writer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\logging\dump.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\logging\logging.tpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\logging\logging.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\memory\allocation.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\memory\memory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\memory\memory_buffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\parallel\id_generator.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\parallel\parallel.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\platform\windows.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\platform\windows_utils.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\resource\resource.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\resource\resource_pool.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\resource\script\variable_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\resource\script\variable_value.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\string\format.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\string\formats.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\string\string.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\string\string_utils.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\system\cpu_monitor.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\system\game_timer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\system\system_time.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\system\system_usage.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\system\timer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\type\atomic_types.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\type\scalar_types.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\type\types.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\type\vector_types.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\ui\combo_box.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Utilities\ui\window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Engine\Utilities\exception\exception.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\io\binary_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\io\binary_utils.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\io\binary_writer.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\io\line_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\loaders\var\var_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\memory\memory.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\platform\windows_utils.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\resource\resource.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\resource\resource_pool.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\resource\script\variable_script.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\string\format.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\string\string_utils.tpp" />
+    <None Include="..\..\..\Code\Engine\Utilities\system\timer.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\exception\exception.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\io\binary_reader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\io\binary_writer.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\io\line_reader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\io\writer.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\loaders\variable_script_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\loaders\var\var_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\loaders\var\var_reader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\loaders\var\var_writer.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\logging\dump.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\logging\logging.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\parallel\id_generator.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\parallel\parallel.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\resource\script\variable_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\string\string_utils.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\system\system_time.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\system\system_usage.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\ui\combo_box.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Utilities\ui\window.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

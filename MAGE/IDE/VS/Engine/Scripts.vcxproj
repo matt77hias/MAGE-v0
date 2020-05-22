@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{1C23D59A-7350-48AB-AD25-A5ECCDAE0BAE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Scripts</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Properties\Engine.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\character_motor_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\editor_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\manhattan_motor_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\mouse_look_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\rotation_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\stats_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\switch_scene_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\text_console_script.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Scripts\voxel_grid_anchor_script.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Engine\Scripts\switch_scene_script.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\character_motor_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\editor_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\manhattan_motor_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\mouse_look_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\rotation_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\stats_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\text_console_script.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Scripts\voxel_grid_anchor_script.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

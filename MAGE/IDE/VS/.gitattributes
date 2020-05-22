@@ -1,0 +1,15 @@
+###############################################################################
+# Auto detect text files and perform LF normalization
+###############################################################################
+* text=auto
+
+###############################################################################
+# Explicitly declare CRLF normalization for the following files
+###############################################################################
+*.filters                                   text eol=crlf
+*.natvis                                    text eol=crlf
+*.props                                     text eol=crlf
+*.runsettings                               text eol=crlf
+*.sln                                       text eol=crlf
+*.user                                      text eol=crlf
+*.vcxproj                                   text eol=crlf

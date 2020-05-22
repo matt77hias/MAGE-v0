@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{06C6E5C6-63DF-4C50-9820-3A2FA8F6B88C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Rendering</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Properties\Engine.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\direct3d11.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\display\display_configuration.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\display\display_configurator.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\display\display_settings.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\font\font_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\font\font_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\font\font_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\material_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_writer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\model_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_writer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mtl\mtl_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mtl\mtl_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\mtl\mtl_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\obj\obj_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\obj\obj_reader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\obj\obj_tokens.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\sprite_font_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\loaders\texture_loader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\buffer_lock.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\scene_buffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\constant_buffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\shadow_map_buffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\structured_buffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\buffer\voxel_grid.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\configuration.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\factory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\output_manager.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\aa_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\back_buffer_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\bounding_volume_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\deferred_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\depth_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\postprocess_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\forward_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\lbuffer_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\sky_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\sprite_batch.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\sprite_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\voxelization_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pass\voxel_grid_pass.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\pipeline.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\renderer.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\state_manager.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\renderer\swap_chain.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\rendering_manager.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\color_string.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\glyph.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font_descriptor.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font_factory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font_output.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\mesh.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\mesh_descriptor.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\primitive_batch_mesh.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\sprite_batch_mesh.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\static_mesh.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\mesh\vertex.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\model\material.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\model\material_factory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\model\model_descriptor.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\model\model_output.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\rendering_resource_manager.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\shader\compiled_shader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\shader\shader.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\texture\texture.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\texture\texture_factory.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\resource\texture\texture_format.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\camera\camera.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\camera\orthographic_camera.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\camera\perspective_camera.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\camera\viewport.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\light\ambient_light.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\light\directional_light.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\light\omni_light.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\light\spot_light.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\model\model.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\sprite\sprite_image.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\sprite\sprite_text.hpp" />
+    <ClInclude Include="..\..\..\Code\Engine\Rendering\scene\rendering_world.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_loader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\mdl\mdl_writer.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\model_loader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_loader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\msh\msh_writer.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\obj\obj_loader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\loaders\obj\obj_reader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\renderer\buffer\constant_buffer.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\renderer\buffer\structured_buffer.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\renderer\factory.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\mesh\mesh.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\mesh\primitive_batch_mesh.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\mesh\static_mesh.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\model\model_descriptor.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\model\model_output.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\rendering_resource_manager.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\shader\shader.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\scene\sprite\sprite_text.tpp" />
+    <None Include="..\..\..\Code\Engine\Rendering\scene\rendering_world.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\display\display_configurator.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\font\font_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\font\font_reader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\material_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\mtl\mtl_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\mtl\mtl_reader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\sprite_font_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\loaders\texture_loader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\buffer\shadow_map_buffer.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\buffer\voxel_grid.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\factory.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\output_manager.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\aa_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\back_buffer_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\bounding_volume_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\deferred_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\depth_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\postprocess_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\forward_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\lbuffer_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\sky_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\sprite_batch.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\sprite_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\voxelization_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\pass\voxel_grid_pass.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\renderer.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\state_manager.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\renderer\swap_chain.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\rendering_manager.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\font\sprite_font_factory.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\mesh\mesh.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\mesh\sprite_batch_mesh.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\mesh\vertex.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\model\material_factory.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\model\model_descriptor.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\rendering_resource_manager.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\compiled_shader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_aa.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_deferred.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_depth.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_falsecolor.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_forward.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_postprocessing.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_primitive.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\shader\shader_factory_voxelization.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\texture\texture.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\resource\texture\texture_factory.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\camera\camera.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\camera\orthographic_camera.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\camera\perspective_camera.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\light\ambient_light.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\light\directional_light.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\light\omni_light.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\light\spot_light.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\model\model.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\sprite\sprite_image.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\sprite\sprite_text.cpp" />
+    <ClCompile Include="..\..\..\Code\Engine\Rendering\scene\rendering_world.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

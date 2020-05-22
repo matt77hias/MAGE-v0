@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="MAGE.props" />
+  <PropertyGroup>
+    <OutDir>$(BinDir)External\$(ProjectName)\</OutDir>
+    <IntDir>$(BuildDir)External\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(CodeDir)Engine\Demo\;$(CodeDir)Engine\Scripts\;$(CodeDir)Engine\MAGE\;$(CodeDir)Engine\Rendering\;$(CodeDir)Engine\Shaders\;$(CodeDir)Engine\Input\;$(CodeDir)Engine\Core\;$(CodeDir)Engine\Math\;$(CodeDir)Engine\Utilities\;$(CodeDir)Engine\Resource\;$(CodeDir)External\;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(BinDir)Engine\Demo\;$(BinDir)Engine\Scripts\;$(BinDir)Engine\MAGE\;$(BinDir)Engine\Rendering\;$(BinDir)Engine\Shaders\;$(BinDir)Engine\Input\;$(BinDir)Engine\Core\;$(BinDir)Engine\Math\;$(BinDir)Engine\Utilities\;$(BinDir)Engine\Resource\;$(BinDir)External\;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

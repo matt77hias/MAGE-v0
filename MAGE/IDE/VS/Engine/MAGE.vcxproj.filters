@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\scene">
+      <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene\script">
+      <UniqueIdentifier>{aa779a81-ea06-46f3-9cc8-8f28d8b95fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene\script">
+      <UniqueIdentifier>{6b8b2a38-358c-42e1-9a64-ea824cf5c2e3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Engine\MAGE\engine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Engine\MAGE\engine_setup.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="..\..\..\Code\Engine\MAGE\scene\scene.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Engine\MAGE\scene\script\behavior_script.hpp">
+      <Filter>Header Files\scene\script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Engine\MAGE\engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="..\..\..\Code\Engine\MAGE\scene\scene.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Engine\MAGE\scene\script\behavior_script.cpp">
+      <Filter>Source Files\scene\script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Engine\MAGE\scene\scene.tpp">
+      <Filter>Header Files\scene</Filter>
+    </None>
+  </ItemGroup>
+</Project>

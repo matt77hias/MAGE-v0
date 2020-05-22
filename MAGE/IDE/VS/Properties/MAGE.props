@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MageDir>..\..\..\</MageDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <BinDir>$(MageDir)Bin\x64\$(Configuration)\</BinDir>
+    <BuildDir>$(MageDir)Build\x64\$(Configuration)\</BuildDir>
+    <CodeDir>$(MageDir)Code\</CodeDir>
+    <ToolsDir>$(MageDir)Tools\</ToolsDir>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="x64_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="x64_Release.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="x86_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="x86_Release.props" />
+  </ImportGroup>
+</Project>

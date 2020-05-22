@@ -13,7 +13,7 @@
 [codacy]:            https://www.codacy.com/app/matt77hias/MAGE?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=matt77hias/MAGE&amp;utm_campaign=Badge_Grade
 [documentation]:     https://matt77hias.github.io/MAGE-Doc
 [license]:           LICENSE.txt
-[gitter]:            https://gitter.im/MatthiasAdvancedGameEngine/Lobby
+[gitter]:            https://gitter.im/mage_dev/community
 
 # MAGE - Matthias Advanced Game Engine
 

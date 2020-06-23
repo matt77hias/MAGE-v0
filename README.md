@@ -22,7 +22,7 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example.png"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 4.png"></p>
-<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="400"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="400"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 2.png" width="410"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Example 3.png" width="410"></p>
 
 ## Index
 * [Code Guidelines](MAGE/Meta/CodeGuidelines.md)

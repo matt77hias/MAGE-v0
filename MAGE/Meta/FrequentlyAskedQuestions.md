@@ -6,7 +6,7 @@
 
 *I return each time leaving fresh markers that I hope, in the full glare of my hopelessness, will have blossomed into fresh insight in the interim.*
 
-First and foremost, MAGE is a rendering and game engine (or at the very least is supposed to be in the long run). Furthermore, MAGE is a journey. A journey of exploring and mastering C++ standards; from C++98/C++03 to C++11/C++14 to C++17. A journey of best practices and proper designs aiming at consistency, clarity, efficiency and effectiveness. A journey of iterating between programming, refactoring and optimizing. A journey of falling and changing directions. A journey of continuous learning, reflecting and philosophizing.
+First and foremost, MAGE is a rendering and game engine (or at the very least is supposed to be in the long run). Furthermore, MAGE is a journey. A journey of exploring and mastering C++ standards. A journey of best practices and proper designs aiming at consistency, clarity, efficiency and effectiveness. A journey of falling and changing directions. A journey of continuous learning, reflecting and philosophizing.
 
 ### Is MAGE still under (active) development?
 

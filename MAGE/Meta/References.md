@@ -16,7 +16,7 @@
 ```bibtex
 @misc{mage:2020,
    author = { Matthias Moulin },
-   title  = { MAGE - Matthias Advanced Game Engine },
+   title  = { MAGE },
    year   = { 2020 },
    url    = { https://github.com/matt77hias/MAGE },
    note   = { \url{https://github.com/matt77hias/MAGE} }

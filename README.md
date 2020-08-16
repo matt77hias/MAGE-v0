@@ -15,7 +15,7 @@
 [license]:           LICENSE.txt
 [gitter]:            https://gitter.im/mage_dev/community
 
-# MAGE - Matthias Advanced Game Engine
+# MAGE
 
 ## About
 Game and rendering engine featuring both forward and deferred PBR (physically-based rendering) pipelines with optional indirect illumination using Voxel Cone Tracing.

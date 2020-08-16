@@ -7,7 +7,7 @@
 [codacy-svg]:        https://api.codacy.com/project/badge/Grade/9d2719c91eb445fd916fd07bdeff098d
 [documentation-svg]: https://img.shields.io/badge/docs-doxygen-blue.svg
 [license-svg]:       https://img.shields.io/badge/license-GPL%203.0-blue.svg
-[gitter-svg]:        https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+[gitter-svg]:        https://badges.gitter.im/mage_dev/community.svg
 
 [actions]:           https://github.com/matt77hias/MAGE/actions?query=workflow%3AContribution
 [codacy]:            https://www.codacy.com/app/matt77hias/MAGE?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=matt77hias/MAGE&amp;utm_campaign=Badge_Grade

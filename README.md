@@ -1,7 +1,6 @@
 <img align="left" src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/MAGE.png" width="120px"/>
 
 [![Build status][actions-svg]][actions] [![Code quality][codacy-svg]][codacy] [![Documentation][documentation-svg]][documentation] [![License][license-svg]][license] [![Join the chat][gitter-svg]][gitter]
-<a href="https://twitter.com/intent/follow?screen_name=matt77hias"><img src="https://img.shields.io/twitter/follow/matt77hias.svg?style=social" alt="follow on Twitter"></a>
 
 [actions-svg]:       https://github.com/matt77hias/MAGE/workflows/Contribution/badge.svg?branch=master
 [codacy-svg]:        https://api.codacy.com/project/badge/Grade/9d2719c91eb445fd916fd07bdeff098d

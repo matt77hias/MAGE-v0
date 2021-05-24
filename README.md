@@ -16,6 +16,8 @@
 
 # MAGE
 
+**This repository (v0) does not contain the WIP remake (v1) built from the ground up (C++20, D3D12).**
+
 ## About
 Game and rendering engine featuring both forward and deferred PBR (physically-based rendering) pipelines with optional indirect illumination using Voxel Cone Tracing.
 

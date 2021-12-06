@@ -44,7 +44,11 @@ jobs:
     - uses: actions/checkout@master
       
     - name: Add MSBuild to PATH
+<<<<<<< HEAD
       uses: microsoft/setup-msbuild@v1.1
+=======
+      uses: microsoft/setup-msbuild@v1.0.2
+>>>>>>> 0093f9a2a6500c0a899d9c5df58106aa4023745e
 
     - name: Build
       run: msbuild MAGE/IDE/VS/MAGE.sln /m /p:Configuration=${{ matrix.config.configuration }} /p:Platform=${{ matrix.config.platform }}

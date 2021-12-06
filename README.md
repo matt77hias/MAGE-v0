@@ -41,4 +41,4 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 * **Scripting Language**: C++17
 * **Shading Language**: HLSL (Shader Model 5.0)
 
-<p align="center">Copyright © 2016-2020 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

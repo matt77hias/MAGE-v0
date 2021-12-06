@@ -6,6 +6,7 @@
 #pragma region
 
 #include <array>
+#include <tuple>
 #include <utility>
 
 #pragma endregion

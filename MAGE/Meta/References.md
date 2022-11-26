@@ -6,7 +6,6 @@
 * [Bibliography](#SS-Bibliography)
 * [Codebase](#SS-Codebase)
 * [Contributors](#SS-Contributors)
-* [Thanks](#SS-Thanks)
 
 ## <a name="SS-How-to-cite"></a>How to cite
 * [BibTeX](#SSS-BibTeX)
@@ -708,12 +707,3 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
-
-## <a name="SS-Thanks"></a>Thanks
-* [Brooke Hodgman](https://github.com/hodgman)
-* [János Turánszki](https://github.com/turanszkij)
-* [Maarten Tegelaers](https://github.com/BeardedPlatypus)
-* [Matt Pettineo](https://github.com/TheRealMJP)
-* [Nathan Reed](https://github.com/Reedbeta)
-* [Omar Cornut](https://github.com/ocornut)
-* [Vilem Otte](https://github.com/Zgragselus)

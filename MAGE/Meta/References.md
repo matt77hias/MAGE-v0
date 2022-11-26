@@ -708,9 +708,6 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
-* [Baldur Karlsson](https://github.com/baldurk)
-* [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
-* [Roald Frederickx](https://github.com/RoaldFre)
 
 ## <a name="SS-Thanks"></a>Thanks
 * [Brooke Hodgman](https://github.com/hodgman)

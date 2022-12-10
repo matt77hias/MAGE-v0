@@ -15,7 +15,7 @@
 * File extension: `font` or `FONT`
 * Use: storing sprite fonts
 * Magic: `MAGEfont`
-* Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont)
+* Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-v0-SpriteFont)
 
 ## <a name="SS-Materials"></a>Materials
 

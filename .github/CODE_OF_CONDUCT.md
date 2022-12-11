@@ -1,4 +1,4 @@
-<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/MAGE.png" width="120px"/>
+<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/MAGE.png" width="120px"/>
 
 [contributor-covenant-svg]:  https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [contributor-covenant]:      https://www.contributor-covenant.org/version/2/1/code_of_conduct.html

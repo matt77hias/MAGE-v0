@@ -1,4 +1,4 @@
-<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/MAGE.png" width="120px"/>
+<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/MAGE.png" width="120px"/>
 
 # Contributing to MAGE
 

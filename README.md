@@ -1,4 +1,4 @@
-<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/MAGE.png" width="120px"/>
+<img align="left" src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/MAGE.png" width="120px"/>
 
 [![Build status][actions-svg]][actions] [![Code quality][codacy-svg]][codacy] [![Documentation][documentation-svg]][documentation] [![License][license-svg]][license] [![Join the chat][gitter-svg]][gitter]
 
@@ -21,9 +21,9 @@
 ## About
 Game and rendering engine featuring both forward and deferred PBR (physically-based rendering) pipelines with optional indirect illumination using Voxel Cone Tracing.
 
-<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/Example.png"></p>
-<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/Example 4.png"></p>
-<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/Example 2.png" width="410"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/master/res/Example 3.png" width="410"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/Example.png"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/Example 4.png"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/Example 2.png" width="410"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/Example 3.png" width="410"></p>
 
 ## Index
 * [Code Guidelines](MAGE/Meta/CodeGuidelines.md)

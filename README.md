@@ -3,13 +3,13 @@
 [![Build status][actions-svg]][actions] [![Code quality][codacy-svg]][codacy] [![Documentation][documentation-svg]][documentation] [![License][license-svg]][license] [![Join the chat][gitter-svg]][gitter]
 
 [actions-svg]:       https://github.com/matt77hias/MAGE-v0/workflows/Contribution/badge.svg?branch=master
-[codacy-svg]:        https://api.codacy.com/project/badge/Grade/9d2719c91eb445fd916fd07bdeff098d
+[codacy-svg]:        https://app.codacy.com/project/badge/Grade/9d2719c91eb445fd916fd07bdeff098d
 [documentation-svg]: https://img.shields.io/badge/docs-doxygen-blue.svg
 [license-svg]:       https://img.shields.io/badge/license-GPL%203.0-blue.svg
 [gitter-svg]:        https://badges.gitter.im/mage_dev/community.svg
 
 [actions]:           https://github.com/matt77hias/MAGE-v0/actions?query=workflow%3AContribution
-[codacy]:            https://www.codacy.com/app/matt77hias/MAGE-v0?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=matt77hias/MAGE-v0&amp;utm_campaign=Badge_Grade
+[codacy]:            https://app.codacy.com/gh/matt77hias/MAGE/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
 [documentation]:     https://matt77hias.github.io/MAGE-v0-Doc
 [license]:           LICENSE.txt
 [gitter]:            https://gitter.im/mage_dev/community

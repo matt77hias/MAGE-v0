@@ -17,7 +17,7 @@ namespace mage {
 		Print("Engine version {}.{}.{} of {} at {}\n",
 			  GetVersionMajor(), GetVersionMinor(), GetVersionPatch(),
 			  __DATE__, __TIME__);
-		Print("Copyright (c) 2016-2023 Matthias Moulin.\n");
+		Print("Copyright (c) 2016-2024 Matthias Moulin.\n");
 
 		std::fflush(stdout);
 	}

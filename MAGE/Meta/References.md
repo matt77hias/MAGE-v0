@@ -13,10 +13,10 @@
 ### <a name="SSS-BibTeX"></a>BibTeX
 
 ```bibtex
-@misc{mage-v0:2023,
+@misc{mage-v0:2024,
    author = { Matthias Moulin },
    title  = { MAGE v0 },
-   year   = { 2023 },
+   year   = { 2024 },
    url    = { https://github.com/matt77hias/MAGE-v0 },
    note   = { \url{https://github.com/matt77hias/MAGE-v0} }
 }

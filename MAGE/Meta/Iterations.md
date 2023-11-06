@@ -24,3 +24,5 @@
   * The vertices of the mesh contain at most 4 weights and 4 indices to a buffer containing all *bind-to-root* transformation matrices. The vertex position and normal are calculated as a weighted sum (vertex blending).
   * The *bind-to-parent* and *bone-to-parent* matrices contain only translation, rotation and uniform scaling components to avoid the need for handling normals differently while transforming.
 * Network
+
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

@@ -712,11 +712,4 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 * [Naiwen Xie（谢乃闻)](https://github.com/sienaiwun)
 * [Roald Frederickx](https://github.com/RoaldFre)
 
-## <a name="SS-Thanks"></a>Thanks
-* [Brooke Hodgman](https://github.com/hodgman)
-* [János Turánszki](https://github.com/turanszkij)
-* [Maarten Tegelaers](https://github.com/BeardedPlatypus)
-* [Matt Pettineo](https://github.com/TheRealMJP)
-* [Nathan Reed](https://github.com/Reedbeta)
-* [Omar Cornut](https://github.com/ocornut)
-* [Vilem Otte](https://github.com/Zgragselus)
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

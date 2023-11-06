@@ -172,3 +172,5 @@ We use the following coordinate frames:
 ### Texture
 * UV
 * UVW
+
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

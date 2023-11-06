@@ -37,3 +37,5 @@ Sample scene - buttons:
   * F2: toggle freezing camera orientation
   * F3: switch scene
   * F4: toggle editor
+
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

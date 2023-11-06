@@ -118,3 +118,5 @@ Use [Yoda conditions](https://en.wikipedia.org/wiki/Yoda_conditions) to avoid ac
 * [Codacy](https://app.codacy.com/project/matt77hias/MAGE/dashboard)
 * [PVS-Studio Analyzer](https://www.viva64.com/en/pvs-studio/) (stand-alone or Visual Studio plugin)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/)
+
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

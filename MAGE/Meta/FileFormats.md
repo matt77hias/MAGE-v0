@@ -152,3 +152,5 @@
 | property          | `string <property-name> <string>`                                  |
 | `<property-name>` | `<string>`                                                         |
 | `<string>`        | `<ANSI string without delimiters and EOFs>`                        |
+
+<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>

@@ -38,4 +38,4 @@ A script for enabling the in-game editor.
 ### `SwitchSceneScript`
 A script for switching the current scene.
 
-<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>

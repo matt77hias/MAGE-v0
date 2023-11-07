@@ -6,7 +6,6 @@
 * [Bibliography](#SS-Bibliography)
 * [Codebase](#SS-Codebase)
 * [Contributors](#SS-Contributors)
-* [Thanks](#SS-Thanks)
 
 ## <a name="SS-How-to-cite"></a>How to cite
 * [BibTeX](#SSS-BibTeX)
@@ -14,12 +13,12 @@
 ### <a name="SSS-BibTeX"></a>BibTeX
 
 ```bibtex
-@misc{mage:2022,
+@misc{mage-v0:2024,
    author = { Matthias Moulin },
    title  = { MAGE v0 },
-   year   = { 2022 },
-   url    = { https://github.com/matt77hias/MAGE },
-   note   = { \url{https://github.com/matt77hias/MAGE} }
+   year   = { 2024 },
+   url    = { https://github.com/matt77hias/MAGE-v0 },
+   note   = { \url{https://github.com/matt77hias/MAGE-v0} }
 }
 ```
 
@@ -60,9 +59,9 @@ LOTTES T.: [*FXAA*](https://developer.download.nvidia.com/assets/gamedev/files/s
 
 PETTINEO M.: [*Deferred MSAA*](https://mynameismjp.wordpress.com/2010/08/16/deferred-msaa/), 2010.
 
-PRANCKEVIƒåIUS A.: [*HDR with MSAA demo (2005)*](http://aras-p.info/projHDR.html), 2005.
+PRANCKEVICIUS A.: [*HDR with MSAA demo (2005)*](http://aras-p.info/projHDR.html), 2005.
 
-TUR√ÅNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpress.com/2016/11/13/how-to-resolve-an-msaa-depthbuffer/), 2016.
+TUR¡NSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpress.com/2016/11/13/how-to-resolve-an-msaa-depthbuffer/), 2016.
 
 ### <a name="SSS-Assembly"></a>Assembly
 
@@ -90,7 +89,7 @@ BOCCARA J.: [*How to choose good names in your code*](https://www.fluentcpp.com/
 
 BOCCARA J.: [*std::iterator is deprecated: Why, What It Was, and What to Use Instead*](https://www.fluentcpp.com/2018/05/08/std-iterator-deprecated/), 2018.
 
-BOCCARA J.: [*The Incredible Const Reference That Isn‚Äôt Const*](https://www.fluentcpp.com/2018/07/13/the-incredible-const-reference-that-isnt-const/), 2018.
+BOCCARA J.: [*The Incredible Const Reference That Isnít Const*](https://www.fluentcpp.com/2018/07/13/the-incredible-const-reference-that-isnt-const/), 2018.
 
 BOCCARA J.: [*The Interface Principle in C++*](https://www.fluentcpp.com/2017/06/20/interface-principle-cpp/), 2017.
 
@@ -144,7 +143,7 @@ FILIPEK B.: [*Using C++17 std::optional*](https://www.bfilipek.com/2018/05/using
 
 FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
-FREE SOFTWARE FOUNDACTION INC.: [*Where‚Äôs the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
+FREE SOFTWARE FOUNDACTION INC.: [*Whereís the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
 
 GALEA V.: [*Rapid Prototyping of Graphics Shaders in Modern C++*](https://www.youtube.com/watch?v=8FoAxasNssA&feature=youtu.be&a=), *CppCon 2018*, 2018.
 
@@ -172,9 +171,9 @@ KAYARI: [*C++ Antipatterns*](http://kayari.org/cxx/antipatterns.html), s.d.
 
 KNATTEN A. S.: [*lvalues, rvalues, glvalues, prvalues, xvalues, help!*](https://blog.knatten.org/2018/03/09/lvalues-rvalues-glvalues-prvalues-xvalues-help/), 2018.
 
-KRZEMIE≈ÉSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08/20/noexcept-destructors/), 2013.
+KRZEMIENSKI A.: [*noexcept destructors*](https://akrzemi1.wordpress.com/2013/08/20/noexcept-destructors/), 2013.
 
-KRZEMIE≈ÉSKI A.: [*Why make your classes final?*](https://akrzemi1.wordpress.com/2012/09/30/why-make-your-classes-final/), 2012.
+KRZEMIENSKI A.: [*Why make your classes final?*](https://akrzemi1.wordpress.com/2012/09/30/why-make-your-classes-final/), 2012.
 
 LEMIRE D.: [*Which is fastest: read, fread, ifstream or mmap?*](https://lemire.me/blog/2012/06/26/which-is-fastest-read-fread-ifstream-or-mmap/), 2012.
 
@@ -186,9 +185,9 @@ MEYERS S.: [*Universal References in C++11*](https://isocpp.org/blog/2012/11/uni
 
 METZ A.: [*Functions of Variants are Covariant*](https://arne-mertz.de/2018/06/functions-of-variants-are-covariant/), 2018.
 
-METZ A.: [*‚ÄúModern C++‚Äù != ‚ÄúNew(est) Standard‚Äù*](https://arne-mertz.de/2018/08/modern-c-newest-standard/), 2018.
+METZ A.: [*ìModern C++î != ìNew(est) Standardî*](https://arne-mertz.de/2018/08/modern-c-newest-standard/), 2018.
 
-METZ A.: [*Modern C++ Features ‚Äì decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
+METZ A.: [*Modern C++ Features ñ decltype and std::declval*](https://arne-mertz.de/2017/01/decltype-declval/), 2017.
 
 METZ A.: [*Trailing Return Types, East Const, and Code Style Consistency*](https://arne-mertz.de/2018/05/trailing-return-types-east-const-and-code-style-consistency/), 2018.
 
@@ -196,11 +195,11 @@ METZ A.: [*Trailing return types everywhere*](https://arne-mertz.de/2016/11/trai
 
 MIKLOJCIK J. F.: [*Do-while and if-else statements in macros*](https://stackoverflow.com/questions/154136/why-use-apparently-meaningless-do-while-and-if-else-statements-in-macros/154138#154138), 2008.
 
-M√úLLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
+M‹LLER J.: [*Guidelines For Rvalue References In APIs*](https://foonathan.net/blog/2018/03/26/rvalue-references-api-guidelines.html), 2018.
 
-M√úLLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
+M‹LLER J.: [*Lazy evaluation of function arguments in C++*](http://foonathan.net/blog/2017/06/27/lazy-evaluation.html), 2017.
 
-M√úLLER J.: [*std::string_view accepting temporaries: good idea or horrible pitfall?*](https://foonathan.net/blog/2017/03/22/string_view-temporary.html), 2017.
+M‹LLER J.: [*std::string_view accepting temporaries: good idea or horrible pitfall?*](https://foonathan.net/blog/2017/03/22/string_view-temporary.html), 2017.
 
 NASH P.: [*East End Functions*](https://levelofindirection.com/blog/east-end-functions.html), 2018.
 
@@ -214,7 +213,7 @@ PHARR M.: [*Swallowing the elephant (part 2)*](http://pharr.org/matt/blog/2018/0
 
 PHARR M.: [*Swallowing the elephant (postscript: reader emails)*](https://pharr.org/matt/blog/2018/08/03/moana-reader-mail.html), 2018.
 
-PRANCKEVIƒåIUS A.: ["Modern" C++ Lamentations](http://aras-p.info/blog/2018/12/28/Modern-C-Lamentations/), 2018.
+PRANCKEVICIUS A.: ["Modern" C++ Lamentations](http://aras-p.info/blog/2018/12/28/Modern-C-Lamentations/), 2018.
 
 PRESHING J.: [*A Flexible Reflection System in C++: Part 1*](http://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/), 2018.
 
@@ -272,7 +271,7 @@ WARD G.: *The LogLuv Encoding for Full Gamut, High Dynamic Range Images*, *J. Gr
 
 ### <a name="SSS-Data-Structures"></a>Data Structures
 
-ARNEB√ÑCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.
+ARNEBƒCK E.: *Comparing a Clipmap to a Sparse Voxel Octree for Global Illumination*, Master Thesis, 2011.
 
 CRASSIN C.: *GigaVoxels: A Voxel-Based Rendering Pipeline For Efficient Exploration Of Large And Detailed Scenes*, PhD Thesis, 2011.
 
@@ -322,9 +321,9 @@ WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gamel
 
 ### <a name="SSS-General-Computer-Graphics"></a>General Computer Graphics
 
-AKENINE-M√ñLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
+AKENINE-M÷LLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
-AKENINE-M√ñLLER T., HAINES E., HOFFMAN N., PESCE A., IWANICKI M., HILLAIRE S.: *Real-Time Rendering*, 4th Edition, A K Peters/CRC Press, 2018.
+AKENINE-M÷LLER T., HAINES E., HOFFMAN N., PESCE A., IWANICKI M., HILLAIRE S.: *Real-Time Rendering*, 4th Edition, A K Peters/CRC Press, 2018.
 
 ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
 
@@ -360,13 +359,13 @@ LLOPIS N.: [*Data-Oriented Design (Or Why You Might Be Shooting Yourself in The 
 
 MINES J.: [*Data-Oriented vs Object-Oriented Design*](https://medium.com/@jonathanmines/data-oriented-vs-object-oriented-design-50ef35a99056), 2018.
 
-M√úLLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
+M‹LLER J.: [*Mathematics behind Comparison #1: Equality and Equivalence Relations*](https://foonathan.net/blog/2018/06/20/equivalence-relations.html), 2018.
 
 REED N.: [*On Vector Math Libraries*](http://reedbeta.com/blog/on-vector-math-libraries/), 2013.
 
 REGEHR J.: [*Use of Assertions*](https://blog.regehr.org/archives/1091), 2014.
 
-REINALTER S.: [*Adventures in data-oriented design ‚Äì Part 3a: Ownership*](https://blog.molecular-matters.com/2013/05/02/adventures-in-data-oriented-design-part-3a-ownership/), 2013.
+REINALTER S.: [*Adventures in data-oriented design ñ Part 3a: Ownership*](https://blog.molecular-matters.com/2013/05/02/adventures-in-data-oriented-design-part-3a-ownership/), 2013.
 
 SEWARD J.: [*Dr Memory: a memory-checking tool for Windows*](https://blog.mozilla.org/jseward/2015/10/05/dr-memory-a-memory-checking-tool-for-windows/), 2015.
 
@@ -420,7 +419,7 @@ RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s
 
 TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/content/basics-gpu-voxelization), 2015.
 
-TUR√ÅNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
+TUR¡NSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
 
 YUSOV E.: [*Designing A Modern Cross-Platform Graphics Library*](https://www.gamedev.net/articles/programming/graphics/designing-a-modern-cross-platform-graphics-library-r4807/), 2017.
 
@@ -441,13 +440,13 @@ FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Nor
 
 HILLAIRE S.: [*Crytek's Best Fit Normals*](http://sebh-blog.blogspot.be/2010/08/cryteks-best-fit-normals.html), 2010.
 
-HUGHES, J. F., M√ñLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
+HUGHES, J. F., M÷LLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
 KAPLANYAN A.: *Cryengine 3: Reaching the speed of light*, *SIGGRAPH: Advances in Real-time Rendering*, 2010.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
-MITTRING M.: *A bit more deferred ‚Äì CryEngine3*, *Triangle Game Conference*, 2009.
+MITTRING M.: *A bit more deferred ñ CryEngine3*, *Triangle Game Conference*, 2009.
 
 MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](https://matt77hias.github.io/blog/culling/2017/08/24/creating-a-view-frustum.html), 2017.
 
@@ -463,7 +462,7 @@ PETTINEO M.: [*Scintillating Snippets: Storing Normals Using Spherical Coordinat
 
 PHARR M.: [*Rendering in Camera Space(ish)*](http://pharr.org/matt/blog/2018/03/02/rendering-in-camera-space.html), 2018.
 
-PRANCKEVIƒåIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
+PRANCKEVICIUS A.: [*Compact Normal Storage for small G-Buffers*](https://aras-p.info/texts/CompactNormalStorage.html), 2010.
 
 REED N.: [*Quick And Easy GPU Random Numbers In D3D11*](http://reedbeta.com/blog/quick-and-easy-gpu-random-numbers-in-d3d11/), 2013.
 
@@ -473,7 +472,7 @@ WANG T.: [*Integer Hash Function*](https://gist.github.com/badboy/6267743), 1997
 
 WILSON P.: [*G-Buffer Normals and Trig Lookup Textures*](http://www.garagegames.com/community/blogs/view/15340), 2008.
 
-WRONSKI B.: [*Small float formats ‚Äì R11G11B10F precision*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
+WRONSKI B.: [*Small float formats ñ R11G11B10F precision*](https://bartwronski.com/2017/04/02/small-float-formats-r11g11b10f-precision/), 2017.
 
 ### <a name="SSS-PBR-and-BRDFs"></a>PBR and BRDFs
 
@@ -485,17 +484,17 @@ BURLEY B.: *Physically Based Shading at Disney*, *SIGGRAPH 2012 Course: Practica
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
 
-COURR√àGES A.: [*GTA V - Graphics Study - Part 1: Dissecting a Frame*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study/), 2015.
+COURR»GES A.: [*GTA V - Graphics Study - Part 1: Dissecting a Frame*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study/), 2015.
 
-COURR√àGES A.: [*GTA V - Graphics Study - Part 2: Level of Detail*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-2/), 2015.
+COURR»GES A.: [*GTA V - Graphics Study - Part 2: Level of Detail*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-2/), 2015.
 
 CRASSIN C., NEYRET F., SAINZ M., GREEN S., EISEMANN E.: *Interactive Indirect Illumination Using Voxel Cone Tracing*, *Computer Graphics Forum (Proceedings of Pacific Graphics 2011)* 30, 7 (2011).
 
-D√úR A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
+D‹R A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
 
-DUTR√â P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf), 2003.
+DUTR… P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf), 2003.
 
-DUTR√â P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
+DUTR… P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
 ERKENBRACH L.: [*Voxel Cone Traced Global Illumination*](http://leifnode.com/2015/05/voxel-cone-traced-global-illumination/)
 
@@ -527,7 +526,7 @@ LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*
 
 LEWIS R. R.: *Making Shaders More Physically Plausible*, *4th Eurographics Workshop on Rendering*, 1993.
 
-MONTES R., URE√ëA C.: *An Overview of BRDF Models*, Technical Report, 2012.
+MONTES R., URE—A C.: *An Overview of BRDF Models*, Technical Report, 2012.
 
 NEUMANN L., NEUMANN A., SZIRMAY-KALOS L.: *Compact Metallic Reflectance Models*, *Computer Graphics Forum* 18, 3, 1999.
 
@@ -545,7 +544,7 @@ RUSSELL J.: [*Basic Theory of Physically Based Rendering*](https://www.marmoset.
 
 SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Computer Graphics Forum* 13, 3, 1994.
 
-SCH√úLER C.: [*The Blinn-Phong Normalization Zoo*](http://www.thetenthplanet.de/archives/255), 2011.
+SCH‹LER C.: [*The Blinn-Phong Normalization Zoo*](http://www.thetenthplanet.de/archives/255), 2011.
 
 SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. and Propagation* 15, 5, 1967.
 
@@ -553,7 +552,7 @@ STEVENS J.: [*Physically Based Rendering Algorithms: A Comprehensive Study In Un
 
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
 
-TUR√ÅNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
+TUR¡NSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
 
 VEACH E.: *Robust Monte Carlo Methods for Light Transport Simulation*, *PhD thesis*, Stanford University, 1998.
 
@@ -567,11 +566,11 @@ YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/
 
 ### <a name="SSS-Perception"></a>Perception
 
-MINEAULT P.: [*What‚Äôs the maximal frame rate humans can perceive?*](https://xcorr.net/2011/11/20/whats-the-maximal-frame-rate-humans-can-perceive/), 2011.
+MINEAULT P.: [*Whatís the maximal frame rate humans can perceive?*](https://xcorr.net/2011/11/20/whats-the-maximal-frame-rate-humans-can-perceive/), 2011.
 
 ### <a name="SSS-Post-processing"></a>Post-processing
 
-COURR√àGES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-3/), 2015.
+COURR»GES A.: [*GTA V - Graphics Study - Part 3: Post Processing Effects*](http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study-part-3/), 2015.
 
 GUSTAFSSON D.: [*Bokeh depth of field in a single pass*](http://tuxedolabs.blogspot.be/2018/05/bokeh-depth-of-field-in-single-pass.html), 2018.
 
@@ -587,7 +586,7 @@ REED N.: [Circle of Confusion From The Depth Buffer](http://www.reedbeta.com/blo
 
 ROCKWELL K.: [*Bokeh*](https://kenrockwell.com/tech/bokeh.htm), 2008.
 
-SHARMA S.: [*Bokeh Vs DOF ‚Äî The Difference Between The Two*](https://www.apnphotographyschool.com/concepts/bokeh-vs-dof-the-difference-between-the-two/), 2011.
+SHARMA S.: [*Bokeh Vs DOF ó The Difference Between The Two*](https://www.apnphotographyschool.com/concepts/bokeh-vs-dof-the-difference-between-the-two/), 2011.
 
 ### <a name="SSS-Scene-Graphs"></a>Scene Graphs
 
@@ -605,7 +604,7 @@ EISEMANN E., SCHWARZ M., ASSARSSON U., WIMMER M.: Real-Time Shadows, 1st Edition
 
 ### <a name="SSS-SIMD"></a>SIMD
 
-ASTHANA A.: [*Introducing ‚ÄòVector Calling Convention‚Äô*](https://blogs.msdn.microsoft.com/vcblog/2013/07/11/introducing-vector-calling-convention/), 2013.
+ASTHANA A.: [*Introducing ëVector Calling Conventioní*](https://blogs.msdn.microsoft.com/vcblog/2013/07/11/introducing-vector-calling-convention/), 2013.
 
 MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833(v=vs.85).aspx).
 
@@ -645,13 +644,13 @@ JERSILD J.: [*Understanding Half-Pixel and Half-Texel Offsets*](http://drilian.c
 
 MICROSOFT CORP.: [*Directly Mapping Texels to Pixels (Direct3D 9)*](https://msdn.microsoft.com/en-us/library/windows/desktop/bb219690%28v=vs.85%29.aspx).
 
-PRANCKEVIƒåIUS A.: [*Solving DX9 Half-Pixel Offset*](https://aras-p.info/blog/2016/04/08/solving-dx9-half-pixel-offset/), 2016.
+PRANCKEVICIUS A.: [*Solving DX9 Half-Pixel Offset*](https://aras-p.info/blog/2016/04/08/solving-dx9-half-pixel-offset/), 2016.
 
 REED N.: [*Understanding BCn Texture Compression Formats*](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/), 2012.
 
 SAWICKI A.: [*Half-Pixel Offset in DirectX 11*](http://www.asawicki.info/news_1516_half-pixel_offset_in_directx_11.html), 2012.
 
-SCH√úLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.
+SCH‹LER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.
 
 WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-conversion/), 2015.
 
@@ -708,8 +707,5 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
-* [Baldur Karlsson](https://github.com/baldurk)
-* [Naiwen XieÔºàË∞¢‰πÉÈóª)](https://github.com/sienaiwun)
-* [Roald Frederickx](https://github.com/RoaldFre)
 
-<p align="center">Copyright ¬© 2016-2022 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>

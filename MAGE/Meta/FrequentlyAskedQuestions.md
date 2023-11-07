@@ -24,7 +24,7 @@ So for me, the logo just represents a mysterious, unknown mage 🧙 and not some
 
 1. Open the Solution file `MAGE\IDE\VS\MAGE.sln` in Visual Studio 2019 (or higher).
 2. Build the Solution (Platform: `x64|x86`, Configuration: `Debug|Release`).
-3. Reposition the [assets directory](https://github.com/matt77hias/MAGE-Assets) and all of its contents to the `MAGE\Bin\<Platform>\<Configuration>\Demo\assets` directory. This is required for running the .exe from inside and outside Visual Studio.
+3. Reposition the [assets directory](https://github.com/matt77hias/MAGE-v0-Assets) and all of its contents to the `MAGE\Bin\<Platform>\<Configuration>\Demo\assets` directory. This is required for running the .exe from inside and outside Visual Studio.
 4. Run `MAGE\Bin\<Platform>\<Configuration>\Demo\Demo.exe` from inside or outside Visual Studio.
 5. Have fun! 🧙
 
@@ -38,4 +38,4 @@ Sample scene - buttons:
   * F3: switch scene
   * F4: toggle editor
 
-<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>

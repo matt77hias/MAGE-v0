@@ -50,7 +50,7 @@
 
 ## <a name="SS-Rendering"></a>Rendering
 
-<p align="center"><img src="https://github.com/matt77hias/MAGE-Meta/blob/master/res/Architecture/Pipeline.png"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE-v0-Meta/blob/gh-pages/res/Architecture/Pipeline.png"></p>
 
 * AA (for HDR, normal and depth buffer)
   * No AA
@@ -173,4 +173,4 @@ We use the following coordinate frames:
 * UV
 * UVW
 
-<p align="center">Copyright © 2016-2022 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>

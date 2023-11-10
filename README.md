@@ -27,7 +27,6 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 * [FAQ](MAGE/Meta/FrequentlyAskedQuestions.md)
 * [Features](MAGE/Meta/Features.md)
 * [File Formats](MAGE/Meta/FileFormats.md)
-* [Iterations](MAGE/Meta/Iterations.md)
 * [License](https://raw.githubusercontent.com/matt77hias/MAGE-v0/master/LICENSE.txt)
 * [References](MAGE/Meta/References.md)
 * [Standard Scripts](MAGE/Meta/StandardScripts.md)
@@ -37,6 +36,5 @@ Game and rendering engine featuring both forward and deferred PBR (physically-ba
 * **Engine Programming Language**: C++17
 * **Scripting Language**: C++17
 * **Shading Language**: HLSL (Shader Model 5.0)
-
 
 <p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>

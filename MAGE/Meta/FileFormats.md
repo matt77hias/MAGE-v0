@@ -153,4 +153,4 @@
 | `<property-name>` | `<string>`                                                         |
 | `<string>`        | `<ANSI string without delimiters and EOFs>`                        |
 
-<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2025 Matthias Moulin. All Rights Reserved.</p>

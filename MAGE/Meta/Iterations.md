@@ -25,4 +25,4 @@
   * The *bind-to-parent* and *bone-to-parent* matrices contain only translation, rotation and uniform scaling components to avoid the need for handling normals differently while transforming.
 * Network
 
-<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2025 Matthias Moulin. All Rights Reserved.</p>

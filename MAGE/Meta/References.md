@@ -708,4 +708,4 @@ ATLASSIAN CORPORATION PLC: [*Merging vs. Rebasing*](https://www.atlassian.com/gi
 ## <a name="SS-Contributors"></a>Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
 
-<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2025 Matthias Moulin. All Rights Reserved.</p>

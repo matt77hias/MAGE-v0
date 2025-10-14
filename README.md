@@ -2,12 +2,12 @@
 
 [![Build status][actions-svg]][actions] [![Code quality][codacy-svg]][codacy] [![Documentation][documentation-svg]][documentation] [![License][license-svg]][license]
 
-[actions-svg]:       https://github.com/matt77hias/MAGE-v0/workflows/Contribution/badge.svg?branch=master
+[actions-svg]:       https://github.com/matt77hias/MAGE-v0/actions/workflows/contribution.yml/badge.svg
 [codacy-svg]:        https://app.codacy.com/project/badge/Grade/9d2719c91eb445fd916fd07bdeff098d
 [documentation-svg]: https://img.shields.io/badge/docs-doxygen-blue.svg
 [license-svg]:       https://img.shields.io/badge/license-GPL%203.0-blue.svg
 
-[actions]:           https://github.com/matt77hias/MAGE-v0/actions?query=workflow%3AContribution
+[actions]:           https://github.com/matt77hias/MAGE-v0/actions/workflows/contribution.yml
 [codacy]:            https://app.codacy.com/gh/matt77hias/MAGE/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
 [documentation]:     https://matt77hias.github.io/MAGE-v0-Doc
 [license]:           LICENSE.txt

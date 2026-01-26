@@ -173,4 +173,4 @@ We use the following coordinate frames:
 * UV
 * UVW
 
-<p align="center">Copyright © 2016-2025 Matthias Moulin. All Rights Reserved.</p>
+<p align="center">Copyright © 2016-2026 Matthias Moulin. All Rights Reserved.</p>
